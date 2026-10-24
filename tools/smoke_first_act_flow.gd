@@ -80,8 +80,8 @@ func _run() -> void:
             failures.append("Chapter %d completion flag missing" % chapter)
     if game.progress.actors.size() != 3:
         failures.append("Fourth-chapter companion not recruited")
-    if game.progress.chapter != 6 or game.progress.scene_index != 4:
-        failures.append("First Act did not finish")
+    if game.progress.chapter != 7 or not bool(game.progress.flags.get("story.ch006.done", false)):
+        failures.append("First Act did not unlock Act II")
     if failures.is_empty():
         print("PASS: prologue + all six chapters, physical task markers, six side quests, dialogue, choices, five bosses, companion and final flag")
         quit(0)

@@ -31,5 +31,7 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act.gd
       - name: Prologue and six-chapter end-to-end flow
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act_flow.gd
+      - name: All twelve acts and 72 chapters controller regression
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_campaign_72.gd
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20

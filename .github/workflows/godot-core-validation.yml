@@ -33,5 +33,7 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act_flow.gd
       - name: All twelve acts and 72 chapters controller regression
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_campaign_72.gd
+      - name: RPG gameplay systems and complete functional menu
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_rpg_core.gd
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20

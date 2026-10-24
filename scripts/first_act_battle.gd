@@ -177,21 +177,44 @@ func _act(action: String) -> void:
             damage = maxi(3, int(stats.get("attack", member["attack"])) + dice.randi_range(-5, 8) - int(enemy["def"]))
             message = "%s 攻击造成 %d 伤害。" % [name, damage]
         "skill":
-            if int(member["mp"]) < 6:
-                _redraw("%s 的 MP 不够。" % name)
-                return
-            member["mp"] = int(member["mp"]) - 6
-            if str(member["id"]) == "char_tidecaller":
-                var best_index: int = 0
-                for idx in range(game_state.actors.size()):
-                    if int(game_state.actors[idx]["max_hp"]) - int(game_state.actors[idx]["hp"]) > int(game_state.actors[best_index]["max_hp"]) - int(game_state.actors[best_index]["hp"]):
-                        best_index = idx
-                game_state.actors[hero_turn] = member
-                game_state.heal_member(best_index, 48 + int(member["level"]) * 3)
-                message = "%s 使用潮愈术，治疗了 %s！" % [name, str(game_state.actors[best_index]["name"])]
+            var owned: Array = game_core.skills(str(member.get("id",""))) if game_core != null else []
+            var chosen: Dictionary = {}
+            for available in owned:
+                if int(available.get("mp_cost",0)) <= int(member.get("mp",0)):
+                    chosen = available
+            if chosen.is_empty():
+                if int(member["mp"]) < 6:
+                    _redraw("%s 的 MP 不够。" % name)
+                    return
+                member["mp"] = int(member["mp"]) - 6
+                damage = maxi(8,int(stats.get("attack",0)) + dice.randi_range(15,29) - int(enemy["def"]))
+                message = "%s 发动%s，造成 %d 伤害！" % [name,str(member["skill"]),damage]
             else:
-                damage = maxi(8, int(stats.get("attack", member["attack"])) + dice.randi_range(15, 29) - int(enemy["def"]))
-                message = "%s 发动%s，造成 %d 伤害！" % [name, str(member["skill"]), damage]
+                member["mp"] = int(member["mp"]) - int(chosen.get("mp_cost",0))
+                var effect: Dictionary = chosen.get("effect",{})
+                var kind: String = str(effect.get("kind","damage"))
+                var power: int = int(effect.get("power",0))
+                if kind == "heal":
+                    var healed_index: int = hero_turn
+                    for idx in range(game_state.actors.size()):
+                        if game_core != null and not game_core.is_active(str(game_state.actors[idx].get("id",""))):
+                            continue
+                        var missing: int = int(game_state.actors[idx]["max_hp"]) - int(game_state.actors[idx]["hp"])
+                        var current_gap: int = int(game_state.actors[healed_index]["max_hp"]) - int(game_state.actors[healed_index]["hp"])
+                        if missing > current_gap:
+                            healed_index = idx
+                    game_state.actors[hero_turn] = member
+                    game_state.heal_member(healed_index, maxi(20,power * 2))
+                    message = "%s 发动%s，治疗%s。" % [name,str(chosen.get("name","技能")),str(game_state.actors[healed_index]["name"])]
+                elif kind == "shield":
+                    defense[hero_turn] = true
+                    message = "%s 施放%s，强化了本回合的防御。" % [name,str(chosen.get("name","守护"))]
+                elif kind == "buff":
+                    damage = maxi(8,int(stats.get("attack",0)) + power - int(enemy["def"]))
+                    message = "%s 以%s打破敌人架势，造成%d伤害！" % [name,str(chosen.get("name","技能")),damage]
+                else:
+                    damage = maxi(8,int(stats.get("attack",0)) + power - int(enemy["def"]))
+                    message = "%s 发动%s，造成%d伤害！" % [name,str(chosen.get("name","技能")),damage]
         "guard":
             defense[hero_turn] = true
             message = "%s 严阵以待，本回合受到的伤害降低。" % name

@@ -308,7 +308,8 @@ func _crisis_choice_complete() -> void:
         _save_progress()
         _return_to_world()
         return
-    var fight: Dictionary = _current_scene().get("encounter", {})
+    var encounter_value: Variant = _current_scene().get("encounter", {})
+    var fight: Dictionary = encounter_value if encounter_value is Dictionary else {}
     if fight.is_empty():
         _advance_scene()
         _save_progress()
@@ -332,7 +333,8 @@ func _start_battle(is_boss: bool) -> void:
     battle.completed.connect(_battle_finished)
     battle.invincible = invincible
     battle.game_core = game_core
-    battle.encounter_data = _current_scene().get("encounter", {}) if is_boss else {}
+    var battle_event: Variant = _current_scene().get("encounter", {}) if is_boss else {}
+    battle.encounter_data = battle_event if battle_event is Dictionary else {}
     battle.start(progress, progress.chapter, is_boss)
 
 func _random_encounter() -> void:

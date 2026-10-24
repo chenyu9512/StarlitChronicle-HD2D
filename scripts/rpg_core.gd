@@ -201,12 +201,26 @@ func change_job(id: String, job: String) -> String:
 func job_name(id: String) -> String:
     return str((jobs.get(id,{}) as Dictionary).get("name",id))
 
+func _skill_track(job: String) -> String:
+    var tracks: Dictionary = {
+        "swordsman":"wayfarer", "guardian":"vanguard", "monk":"vanguard",
+        "ranger":"seeker", "healer":"tidecaller", "mage":"mirrorweaver",
+        "engineer":"smith", "bard":"cantor", "star_knight":"wayfarer",
+        "shadow_blade":"seeker", "high_priest":"tidecaller",
+        "element_archmage":"mirrorweaver", "beast_keeper":"seeker",
+        "arc_gunner":"navigator", "war_singer":"cantor",
+        "star_smith":"smith", "oath_keeper":"vanguard",
+        "time_scholar":"mirrorweaver", "celestial_sailor":"navigator",
+        "allmaker":"alchemist"
+    }
+    return str(tracks.get(job,job))
+
 func skills(id: String) -> Array:
     var result: Array = []
     var i: int = actor_index(id)
     if i < 0:
         return result
-    var job: String = str(state.rpg["jobs"].get(id,"swordsman"))
+    var job: String = _skill_track(str(state.rpg["jobs"].get(id,"swordsman")))
     var level: int = int(state.actors[i].get("level",1))
     for skill in records("skills"):
         if str(skill.get("job_id","")) == job and level >= int(skill.get("unlock_level",999)):

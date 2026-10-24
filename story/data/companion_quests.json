@@ -7,7 +7,8 @@
     "shouxian": "朔弦",
     "tifa": "缇珐",
     "ize": "伊泽",
-    "xuanli": "玄璃"
+    "xuanli": "玄璃",
+    "nuoyi": "诺依"
   },
   "quests": [
     {
@@ -5018,6 +5019,833 @@
         "b": "先制定开放的人口登记和迁移程序"
       },
       "story_reward_flag": "bond.xuanli.06",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_nuoyi_01",
+      "title": "救援名单的空位",
+      "type": "companion",
+      "lead": "诺依",
+      "lead_id": "nuoyi",
+      "region": "荒原邮站",
+      "npc": "驿站老板",
+      "premise": "诺依寻找旧英雄，却被要求面对那些没有等回亲人的家庭。",
+      "required_chapter": "ch049",
+      "required_flags": [
+        "story.ch049.done"
+      ],
+      "completion_flag": "side.cq_nuoyi_01.done",
+      "stages": [
+        {
+          "id": "cq_nuoyi_01.meet",
+          "objective": "与驿站老板交谈",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_01.0.l01",
+              "speaker": "老板",
+              "text": "你找的是拯救大家的英雄？"
+            },
+            {
+              "id": "cq_nuoyi_01.0.l02",
+              "speaker": "诺依",
+              "text": "是曾经愿意听一个孩子说话的人。"
+            },
+            {
+              "id": "cq_nuoyi_01.0.l03",
+              "speaker": "老板",
+              "text": "那你也该听听我们没等回来的家人。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_01.investigate",
+          "objective": "调查荒原邮站的线索",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_01.1.l01",
+              "speaker": "诺依",
+              "text": "这张名单只有获救者，背面还有未归者。"
+            },
+            {
+              "id": "cq_nuoyi_01.1.l02",
+              "speaker": "老板",
+              "text": "我弟弟的名字在背面。"
+            },
+            {
+              "id": "cq_nuoyi_01.1.l03",
+              "speaker": "年轻旅人",
+              "text": "你会把这一页也带去给他看吗？"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_01.choice",
+          "objective": "决定事件处理方式",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_01.2.l01",
+              "speaker": "诺依",
+              "text": "我不找永远正确的人。"
+            },
+            {
+              "id": "cq_nuoyi_01.2.l02",
+              "speaker": "老板",
+              "text": "那你就把两页一起带走。"
+            },
+            {
+              "id": "cq_nuoyi_01.2.l03",
+              "speaker": "年轻旅人",
+              "text": "有些人会说这样不是英雄传说。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_nuoyi_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开完整救援名单",
+                "sets": {
+                  "side.cq_nuoyi_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先保护遗属隐私并逐户核对",
+                "sets": {
+                  "side.cq_nuoyi_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_nuoyi_01.resolution",
+          "objective": "确认委托人的回应",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_01.3.l01",
+              "speaker": "旁白",
+              "text": "邮站重新悬挂完整救援名单。"
+            },
+            {
+              "id": "cq_nuoyi_01.3.l02",
+              "speaker": "诺依",
+              "text": "我会连没能救下的人也告诉他。"
+            },
+            {
+              "id": "cq_nuoyi_01.3.l03",
+              "speaker": "老板",
+              "text": "这样我们至少不用被要求只记得感谢。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_nuoyi_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "公开完整救援名单",
+        "b": "先保护遗属隐私并逐户核对"
+      },
+      "story_reward_flag": "bond.nuoyi.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_nuoyi_02",
+      "title": "墙另一面的那本书",
+      "type": "companion",
+      "lead": "诺依",
+      "lead_id": "nuoyi",
+      "region": "灾后王都东墙",
+      "npc": "流民孩子",
+      "premise": "城墙切断孩子与朋友之间的借书路线。",
+      "required_chapter": "ch050",
+      "required_flags": [
+        "story.ch050.done",
+        "side.cq_nuoyi_01.done"
+      ],
+      "completion_flag": "side.cq_nuoyi_02.done",
+      "stages": [
+        {
+          "id": "cq_nuoyi_02.meet",
+          "objective": "与流民孩子交谈",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_02.0.l01",
+              "speaker": "孩子",
+              "text": "这本书我已经借了三年，还不到朋友家。"
+            },
+            {
+              "id": "cq_nuoyi_02.0.l02",
+              "speaker": "诺依",
+              "text": "不是地图没有路，是有人封了门。"
+            },
+            {
+              "id": "cq_nuoyi_02.0.l03",
+              "speaker": "医师",
+              "text": "这条门连送药也得绕远。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_02.investigate",
+          "objective": "调查灾后王都东墙的线索",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_02.1.l01",
+              "speaker": "守卫",
+              "text": "新旧两区互不信任，所以不准通行。"
+            },
+            {
+              "id": "cq_nuoyi_02.1.l02",
+              "speaker": "诺依",
+              "text": "那就写明通行风险，不要把所有人变成可疑者。"
+            },
+            {
+              "id": "cq_nuoyi_02.1.l03",
+              "speaker": "孩子",
+              "text": "我只想告诉朋友结尾很好看。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_02.choice",
+          "objective": "决定事件处理方式",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_02.2.l01",
+              "speaker": "守卫",
+              "text": "谁来核对通过的人？"
+            },
+            {
+              "id": "cq_nuoyi_02.2.l02",
+              "speaker": "医师",
+              "text": "急救先由双方医馆担保。"
+            },
+            {
+              "id": "cq_nuoyi_02.2.l03",
+              "speaker": "诺依",
+              "text": "生活往来也该有清晰公开的申请流程。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_nuoyi_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先开放跨区医疗与公共图书借还",
+                "sets": {
+                  "side.cq_nuoyi_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让居民共同绘制可审核通行路线",
+                "sets": {
+                  "side.cq_nuoyi_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_nuoyi_02.resolution",
+          "objective": "确认委托人的回应",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_02.3.l01",
+              "speaker": "旁白",
+              "text": "城墙旁开启第一条受监督的通道。"
+            },
+            {
+              "id": "cq_nuoyi_02.3.l02",
+              "speaker": "孩子",
+              "text": "我把书还了，朋友借给我下一本。"
+            },
+            {
+              "id": "cq_nuoyi_02.3.l03",
+              "speaker": "诺依",
+              "text": "以后地图由真正走过的人继续添上新路。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_nuoyi_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先开放跨区医疗与公共图书借还",
+        "b": "让居民共同绘制可审核通行路线"
+      },
+      "story_reward_flag": "bond.nuoyi.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_nuoyi_03",
+      "title": "不催促的邀请",
+      "type": "companion",
+      "lead": "诺依",
+      "lead_id": "nuoyi",
+      "region": "雾岭农庄",
+      "npc": "修桥村妇",
+      "premise": "主角只愿修水渠，诺依不准备强迫他回归。",
+      "required_chapter": "ch051",
+      "required_flags": [
+        "story.ch051.done",
+        "side.cq_nuoyi_02.done"
+      ],
+      "completion_flag": "side.cq_nuoyi_03.done",
+      "stages": [
+        {
+          "id": "cq_nuoyi_03.meet",
+          "objective": "与修桥村妇交谈",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_03.0.l01",
+              "speaker": "村妇",
+              "text": "人家不想再做勇者，你就不能让他种地？"
+            },
+            {
+              "id": "cq_nuoyi_03.0.l02",
+              "speaker": "诺依",
+              "text": "我带来的是救援计划，不是命令。"
+            },
+            {
+              "id": "cq_nuoyi_03.0.l03",
+              "speaker": "主角",
+              "text": "我怕再次让人相信我能做所有事。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_03.investigate",
+          "objective": "调查雾岭农庄的线索",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_03.1.l01",
+              "speaker": "诺依",
+              "text": "这是我做的地图，里头还有许多空白。"
+            },
+            {
+              "id": "cq_nuoyi_03.1.l02",
+              "speaker": "主角",
+              "text": "你想让我填上它们？"
+            },
+            {
+              "id": "cq_nuoyi_03.1.l03",
+              "speaker": "诺依",
+              "text": "想请你告诉我哪些地方走错过。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_03.choice",
+          "objective": "决定事件处理方式",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_03.2.l01",
+              "speaker": "主角",
+              "text": "如果我不同意呢？"
+            },
+            {
+              "id": "cq_nuoyi_03.2.l02",
+              "speaker": "诺依",
+              "text": "那也可以。地图会留在这里，明天我仍会去救人。"
+            },
+            {
+              "id": "cq_nuoyi_03.2.l03",
+              "speaker": "村妇",
+              "text": "这才像一份邀请。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_nuoyi_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "解释具体任务并保留拒绝权",
+                "sets": {
+                  "side.cq_nuoyi_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先留下路线图，允许日后回复",
+                "sets": {
+                  "side.cq_nuoyi_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_nuoyi_03.resolution",
+          "objective": "确认委托人的回应",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_03.3.l01",
+              "speaker": "旁白",
+              "text": "主角没有立刻答应，但帮诺依改完了水路标记。"
+            },
+            {
+              "id": "cq_nuoyi_03.3.l02",
+              "speaker": "主角",
+              "text": "把图留下，我想再看一遍。"
+            },
+            {
+              "id": "cq_nuoyi_03.3.l03",
+              "speaker": "诺依",
+              "text": "我不会催你。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_nuoyi_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "解释具体任务并保留拒绝权",
+        "b": "先留下路线图，允许日后回复"
+      },
+      "story_reward_flag": "bond.nuoyi.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_nuoyi_04",
+      "title": "继承不是模仿",
+      "type": "companion",
+      "lead": "诺依",
+      "lead_id": "nuoyi",
+      "region": "新生救援营",
+      "npc": "年轻队员",
+      "premise": "年轻队员希望诺依成为终身领队，担心换人会带来错误。",
+      "required_chapter": "ch054",
+      "required_flags": [
+        "story.ch054.done",
+        "side.cq_nuoyi_03.done"
+      ],
+      "completion_flag": "side.cq_nuoyi_04.done",
+      "stages": [
+        {
+          "id": "cq_nuoyi_04.meet",
+          "objective": "与年轻队员交谈",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_04.0.l01",
+              "speaker": "队员",
+              "text": "你能像旧英雄一样一直带领我们吗？"
+            },
+            {
+              "id": "cq_nuoyi_04.0.l02",
+              "speaker": "诺依",
+              "text": "我也会判断错误。"
+            },
+            {
+              "id": "cq_nuoyi_04.0.l03",
+              "speaker": "主角",
+              "text": "我当年就是忘了这点。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_04.investigate",
+          "objective": "调查新生救援营的线索",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_04.1.l01",
+              "speaker": "雷索",
+              "text": "共同的安全规则比某个人的命令长久。"
+            },
+            {
+              "id": "cq_nuoyi_04.1.l02",
+              "speaker": "年轻队员",
+              "text": "新队长也许不如诺依熟悉。"
+            },
+            {
+              "id": "cq_nuoyi_04.1.l03",
+              "speaker": "诺依",
+              "text": "那就由熟悉当地的人补上知识。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_04.choice",
+          "objective": "决定事件处理方式",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_04.2.l01",
+              "speaker": "队员",
+              "text": "经验不足的人可以带队吗？"
+            },
+            {
+              "id": "cq_nuoyi_04.2.l02",
+              "speaker": "诺依",
+              "text": "先做副队长，跟大家一起复盘。"
+            },
+            {
+              "id": "cq_nuoyi_04.2.l03",
+              "speaker": "主角",
+              "text": "犯错被看见，才能有机会修正。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_nuoyi_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立公开轮值与事故复盘",
+                "sets": {
+                  "side.cq_nuoyi_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "以副队长制度培养新成员",
+                "sets": {
+                  "side.cq_nuoyi_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_nuoyi_04.resolution",
+          "objective": "确认委托人的回应",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_04.3.l01",
+              "speaker": "旁白",
+              "text": "诺依退到后排，认真记录年轻队长的第一次指挥。"
+            },
+            {
+              "id": "cq_nuoyi_04.3.l02",
+              "speaker": "队员",
+              "text": "你不会怕大家不再需要你吗？"
+            },
+            {
+              "id": "cq_nuoyi_04.3.l03",
+              "speaker": "诺依",
+              "text": "能独立救人的队伍越多越好。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_nuoyi_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "建立公开轮值与事故复盘",
+        "b": "以副队长制度培养新成员"
+      },
+      "story_reward_flag": "bond.nuoyi.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_nuoyi_05",
+      "title": "不握剑的课本",
+      "type": "companion",
+      "lead": "诺依",
+      "lead_id": "nuoyi",
+      "region": "群灯城儿童学堂",
+      "npc": "学堂老师",
+      "premise": "孩子都想模仿勇者，却不愿学习求救、修理和护理。",
+      "required_chapter": "ch059",
+      "required_flags": [
+        "story.ch059.done",
+        "side.cq_nuoyi_04.done"
+      ],
+      "completion_flag": "side.cq_nuoyi_05.done",
+      "stages": [
+        {
+          "id": "cq_nuoyi_05.meet",
+          "objective": "与学堂老师交谈",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_05.0.l01",
+              "speaker": "老师",
+              "text": "孩子们说修桥不是英雄该做的事。"
+            },
+            {
+              "id": "cq_nuoyi_05.0.l02",
+              "speaker": "诺依",
+              "text": "我小时候也这么想。"
+            },
+            {
+              "id": "cq_nuoyi_05.0.l03",
+              "speaker": "岚音",
+              "text": "先教他们认医务所和求援路标。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_05.investigate",
+          "objective": "调查群灯城儿童学堂的线索",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_05.1.l01",
+              "speaker": "孩子",
+              "text": "若遇到怪物，不拿剑怎么办？"
+            },
+            {
+              "id": "cq_nuoyi_05.1.l02",
+              "speaker": "雷索",
+              "text": "先知道怎样撤退，怎样保护身边的人。"
+            },
+            {
+              "id": "cq_nuoyi_05.1.l03",
+              "speaker": "诺依",
+              "text": "会认地图、包扎伤口也能救人。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_05.choice",
+          "objective": "决定事件处理方式",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_05.2.l01",
+              "speaker": "老师",
+              "text": "要不要举办一场模拟战斗？"
+            },
+            {
+              "id": "cq_nuoyi_05.2.l02",
+              "speaker": "诺依",
+              "text": "也办模拟灾害，让每个人试试不同工作。"
+            },
+            {
+              "id": "cq_nuoyi_05.2.l03",
+              "speaker": "孩子",
+              "text": "我想先学会修锅。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_nuoyi_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先普及灾害自救课程",
+                "sets": {
+                  "side.cq_nuoyi_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "举行非战斗职业体验日",
+                "sets": {
+                  "side.cq_nuoyi_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_nuoyi_05.resolution",
+          "objective": "确认委托人的回应",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_05.3.l01",
+              "speaker": "旁白",
+              "text": "学堂增加急救、绘图和简单维修课程。"
+            },
+            {
+              "id": "cq_nuoyi_05.3.l02",
+              "speaker": "孩子",
+              "text": "我今天没有打败怪物，却帮爷爷包了手。"
+            },
+            {
+              "id": "cq_nuoyi_05.3.l03",
+              "speaker": "诺依",
+              "text": "这也是可以骄傲的一天。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_nuoyi_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先普及灾害自救课程",
+        "b": "举行非战斗职业体验日"
+      },
+      "story_reward_flag": "bond.nuoyi.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_nuoyi_06",
+      "title": "手灯的下一位主人",
+      "type": "companion",
+      "lead": "诺依",
+      "lead_id": "nuoyi",
+      "region": "终幕殿前救援营",
+      "npc": "年轻救援者",
+      "premise": "出发前一名年轻人要求独自继承诺依的身份。",
+      "required_chapter": "ch071",
+      "required_flags": [
+        "story.ch071.done",
+        "side.cq_nuoyi_05.done"
+      ],
+      "completion_flag": "side.cq_nuoyi_06.done",
+      "stages": [
+        {
+          "id": "cq_nuoyi_06.meet",
+          "objective": "与年轻救援者交谈",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_06.0.l01",
+              "speaker": "年轻救援者",
+              "text": "如果你回不来，我就是新的诺依。"
+            },
+            {
+              "id": "cq_nuoyi_06.0.l02",
+              "speaker": "诺依",
+              "text": "你有自己的名字，不必成为我。"
+            },
+            {
+              "id": "cq_nuoyi_06.0.l03",
+              "speaker": "主角",
+              "text": "灯能传下去，判断还要自己做。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_06.investigate",
+          "objective": "调查终幕殿前救援营的线索",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_06.1.l01",
+              "speaker": "维莎",
+              "text": "救援手册不能只写谁曾经下令。"
+            },
+            {
+              "id": "cq_nuoyi_06.1.l02",
+              "speaker": "诺依",
+              "text": "应写明如何检查情况，也允许后人修改。"
+            },
+            {
+              "id": "cq_nuoyi_06.1.l03",
+              "speaker": "年轻救援者",
+              "text": "那我还能用这盏灯吗？"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_nuoyi_06.choice",
+          "objective": "决定事件处理方式",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_06.2.l01",
+              "speaker": "诺依",
+              "text": "谁需要去救人，谁就可以取灯。"
+            },
+            {
+              "id": "cq_nuoyi_06.2.l02",
+              "speaker": "年轻救援者",
+              "text": "如果大家作出不同决定呢？"
+            },
+            {
+              "id": "cq_nuoyi_06.2.l03",
+              "speaker": "主角",
+              "text": "先听理由，再一起承担后果。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_nuoyi_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "把手灯归入公共物资",
+                "sets": {
+                  "side.cq_nuoyi_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立可传承、可改写的救援记录",
+                "sets": {
+                  "side.cq_nuoyi_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_nuoyi_06.resolution",
+          "objective": "确认委托人的回应",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_06.3.l01",
+              "speaker": "旁白",
+              "text": "手灯进入公共救援箱，旁边留下使用记录本。"
+            },
+            {
+              "id": "cq_nuoyi_06.3.l02",
+              "speaker": "年轻救援者",
+              "text": "以后可能有人不认识你。"
+            },
+            {
+              "id": "cq_nuoyi_06.3.l03",
+              "speaker": "诺依",
+              "text": "那就说明新的救援者已经继续出发了。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_nuoyi_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "把手灯归入公共物资",
+        "b": "建立可传承、可改写的救援记录"
+      },
+      "story_reward_flag": "bond.nuoyi.06",
       "status": "authored_text_not_runtime_bound"
     }
   ]

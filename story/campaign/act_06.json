@@ -1,0 +1,1521 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 6,
+  "title": "镜眠王国",
+  "theme": "踏入映世、尊重觉醒选择，修复镜眠灯。",
+  "progression_unlock": "mirror_lantern",
+  "chapters": [
+    {
+      "id": "ch031",
+      "number": 31,
+      "act": 6,
+      "chapter_number": 1,
+      "title": "永远晴朗的街道",
+      "location": "镜眠王都·日轮街",
+      "required_flags": [
+        "story.ch030.done"
+      ],
+      "chapter_start_flag": "ch031.started",
+      "chapter_complete_flag": "story.ch031.done",
+      "lead_character": "玄璃",
+      "summary": "在镜眠王都·日轮街，调查居民重复同一天的证据。王国居民恳求玩家不要打破难得的安宁。最终，主角决定调查幻境源头，而不是强行叫醒所有人。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        37,
+        41
+      ],
+      "boss": "笑颜面偶",
+      "scenes": [
+        {
+          "id": "ch031.opening",
+          "title": "到达：镜眠王都·日轮街",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "镜眠王都·日轮街"
+          },
+          "dialogue": [
+            {
+              "id": "ch031.opening.l01",
+              "speaker": "旁白",
+              "text": "【镜眠王都·日轮街】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch031.opening.l02",
+              "speaker": "玄璃",
+              "text": "你们的影子每晚都消失，为什么没人觉得奇怪？"
+            },
+            {
+              "id": "ch031.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。调查居民重复同一天的证据。"
+            },
+            {
+              "id": "ch031.opening.l04",
+              "speaker": "玄璃",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "镜眠王都·日轮街"
+            },
+            {
+              "type": "interact",
+              "target": "ch031.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch031.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch031.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch031.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch031.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在镜眠王都·日轮街找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch031.investigate.l02",
+              "speaker": "玄璃",
+              "text": "街上日历永远停在花祭当天，花却一直新开。"
+            },
+            {
+              "id": "ch031.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch031.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch031.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch031.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch031.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch031.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch031.crisis",
+            "requires_flags": [
+              "ch031.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch031.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch031.crisis.l02",
+              "speaker": "玄璃",
+              "text": "王国居民恳求玩家不要打破难得的安宁。"
+            },
+            {
+              "id": "ch031.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch031.crisis.l04",
+              "speaker": "玄璃",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch031.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch031.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch031.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch031.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch031.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch031",
+            "display_name": "笑颜面偶",
+            "win_flag": "ch031.battle_won",
+            "recommended_level": 40
+          }
+        },
+        {
+          "id": "ch031.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch031.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch031.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch031.resolve.l02",
+              "speaker": "玄璃",
+              "text": "主角决定调查幻境源头，而不是强行叫醒所有人。"
+            },
+            {
+              "id": "ch031.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch031.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】永远晴朗的街道。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch031"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch031.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1340,
+              "gold": 474
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch031.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch031.done",
+          "speaker": "路人",
+          "text": "听说你们在镜眠王都·日轮街帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch032",
+      "number": 32,
+      "act": 6,
+      "chapter_number": 2,
+      "title": "镜子背后的人",
+      "location": "镜宫回廊",
+      "required_flags": [
+        "story.ch031.done"
+      ],
+      "chapter_start_flag": "ch032.started",
+      "chapter_complete_flag": "story.ch032.done",
+      "lead_character": "玄璃",
+      "summary": "在镜宫回廊，找到镜面转换术并救出迷路孩童。失踪孩子在映世拥有幸福家庭，不愿返回现世。最终，队伍和孩子协商，让其自愿在两个世界之间做决定。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        38,
+        42
+      ],
+      "boss": "镜面行者",
+      "scenes": [
+        {
+          "id": "ch032.opening",
+          "title": "到达：镜宫回廊",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "镜宫回廊"
+          },
+          "dialogue": [
+            {
+              "id": "ch032.opening.l01",
+              "speaker": "旁白",
+              "text": "【镜宫回廊】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch032.opening.l02",
+              "speaker": "玄璃",
+              "text": "这里的门会把你送到“想去”的地方，不是“该去”的地方。"
+            },
+            {
+              "id": "ch032.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。找到镜面转换术并救出迷路孩童。"
+            },
+            {
+              "id": "ch032.opening.l04",
+              "speaker": "玄璃",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "镜宫回廊"
+            },
+            {
+              "type": "interact",
+              "target": "ch032.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch032.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch032.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch032.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch032.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在镜宫回廊找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch032.investigate.l02",
+              "speaker": "玄璃",
+              "text": "映世里的建筑由未完成的愿望塑形。"
+            },
+            {
+              "id": "ch032.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch032.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch032.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch032.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch032.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch032.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch032.crisis",
+            "requires_flags": [
+              "ch032.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch032.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch032.crisis.l02",
+              "speaker": "玄璃",
+              "text": "失踪孩子在映世拥有幸福家庭，不愿返回现世。"
+            },
+            {
+              "id": "ch032.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch032.crisis.l04",
+              "speaker": "玄璃",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch032.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch032.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch032.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch032.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch032.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch032",
+            "display_name": "镜面行者",
+            "win_flag": "ch032.battle_won",
+            "recommended_level": 41
+          }
+        },
+        {
+          "id": "ch032.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch032.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch032.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch032.resolve.l02",
+              "speaker": "玄璃",
+              "text": "队伍和孩子协商，让其自愿在两个世界之间做决定。"
+            },
+            {
+              "id": "ch032.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch032.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】镜子背后的人。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch032"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch032.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1380,
+              "gold": 488
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch032.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch032.done",
+          "speaker": "路人",
+          "text": "听说你们在镜宫回廊帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch033",
+      "number": 33,
+      "act": 6,
+      "chapter_number": 3,
+      "title": "另一种人生",
+      "location": "七重梦庭",
+      "required_flags": [
+        "story.ch032.done"
+      ],
+      "chapter_start_flag": "ch033.started",
+      "chapter_complete_flag": "story.ch033.done",
+      "lead_character": "岚音",
+      "summary": "在七重梦庭，分别走过队友未选择的人生分支。伙伴们开始怀疑自己的现在是否比另一条路更好。最终，众人带着遗憾回到现世，羁绊因坦诚而加深。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        39,
+        43
+      ],
+      "boss": "愿景残响",
+      "scenes": [
+        {
+          "id": "ch033.opening",
+          "title": "到达：七重梦庭",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "七重梦庭"
+          },
+          "dialogue": [
+            {
+              "id": "ch033.opening.l01",
+              "speaker": "旁白",
+              "text": "【七重梦庭】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch033.opening.l02",
+              "speaker": "岚音",
+              "text": "原来如果那天我告诉你真相，我们可能再也不会一起出发。"
+            },
+            {
+              "id": "ch033.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。分别走过队友未选择的人生分支。"
+            },
+            {
+              "id": "ch033.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "七重梦庭"
+            },
+            {
+              "type": "interact",
+              "target": "ch033.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch033.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch033.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch033.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch033.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在七重梦庭找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch033.investigate.l02",
+              "speaker": "岚音",
+              "text": "每个分支都真实拥有情绪，却无法脱离梦庭成长。"
+            },
+            {
+              "id": "ch033.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch033.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch033.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch033.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch033.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch033.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch033.crisis",
+            "requires_flags": [
+              "ch033.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch033.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch033.crisis.l02",
+              "speaker": "岚音",
+              "text": "伙伴们开始怀疑自己的现在是否比另一条路更好。"
+            },
+            {
+              "id": "ch033.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch033.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch033.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch033.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch033.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch033.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch033.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch033",
+            "display_name": "愿景残响",
+            "win_flag": "ch033.battle_won",
+            "recommended_level": 42
+          }
+        },
+        {
+          "id": "ch033.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch033.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch033.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch033.resolve.l02",
+              "speaker": "岚音",
+              "text": "众人带着遗憾回到现世，羁绊因坦诚而加深。"
+            },
+            {
+              "id": "ch033.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch033.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】另一种人生。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch033"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch033.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1420,
+              "gold": 502
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch033.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch033.done",
+          "speaker": "路人",
+          "text": "听说你们在七重梦庭帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch034",
+      "number": 34,
+      "act": 6,
+      "chapter_number": 4,
+      "title": "被创造的少女",
+      "location": "映世·无名剧场",
+      "required_flags": [
+        "story.ch033.done"
+      ],
+      "chapter_start_flag": "ch034.started",
+      "chapter_complete_flag": "story.ch034.done",
+      "lead_character": "玄璃",
+      "summary": "在映世·无名剧场，调查玄璃的出生记录并阻止身份抹除。古代程序将她登记为“可回收幻象”。最终，主角破坏回收装置，玄璃亲手写下自己的名字。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        40,
+        44
+      ],
+      "boss": "梦核回收者",
+      "scenes": [
+        {
+          "id": "ch034.opening",
+          "title": "到达：映世·无名剧场",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "映世·无名剧场"
+          },
+          "dialogue": [
+            {
+              "id": "ch034.opening.l01",
+              "speaker": "旁白",
+              "text": "【映世·无名剧场】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch034.opening.l02",
+              "speaker": "玄璃",
+              "text": "如果没有人记得我出生，难道我就没有活着的权利？"
+            },
+            {
+              "id": "ch034.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。调查玄璃的出生记录并阻止身份抹除。"
+            },
+            {
+              "id": "ch034.opening.l04",
+              "speaker": "玄璃",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "映世·无名剧场"
+            },
+            {
+              "type": "interact",
+              "target": "ch034.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch034.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch034.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch034.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch034.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在映世·无名剧场找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch034.investigate.l02",
+              "speaker": "玄璃",
+              "text": "玄璃由无数被放弃的愿望凝成，却拥有独立意志。"
+            },
+            {
+              "id": "ch034.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch034.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch034.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch034.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch034.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch034.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch034.crisis",
+            "requires_flags": [
+              "ch034.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch034.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch034.crisis.l02",
+              "speaker": "玄璃",
+              "text": "古代程序将她登记为“可回收幻象”。"
+            },
+            {
+              "id": "ch034.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch034.crisis.l04",
+              "speaker": "玄璃",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch034.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch034.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch034.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch034.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch034.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch034",
+            "display_name": "梦核回收者",
+            "win_flag": "ch034.battle_won",
+            "recommended_level": 43
+          }
+        },
+        {
+          "id": "ch034.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch034.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch034.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch034.resolve.l02",
+              "speaker": "玄璃",
+              "text": "主角破坏回收装置，玄璃亲手写下自己的名字。"
+            },
+            {
+              "id": "ch034.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch034.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】被创造的少女。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch034"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch034.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1460,
+              "gold": 516
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch034.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch034.done",
+          "speaker": "路人",
+          "text": "听说你们在映世·无名剧场帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch035",
+      "number": 35,
+      "act": 6,
+      "chapter_number": 5,
+      "title": "醒来的人们",
+      "location": "镜眠王都·疗养院",
+      "required_flags": [
+        "story.ch034.done"
+      ],
+      "chapter_start_flag": "ch035.started",
+      "chapter_complete_flag": "story.ch035.done",
+      "lead_character": "岚音",
+      "summary": "在镜眠王都·疗养院，帮助居民了解现实与梦境的代价。官员要求强制唤醒，许多病弱居民无法承受。最终，岚音设计循序醒转疗法，王国保留自愿短眠的医疗设施。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        42,
+        46
+      ],
+      "boss": "眠潮蔓藤",
+      "scenes": [
+        {
+          "id": "ch035.opening",
+          "title": "到达：镜眠王都·疗养院",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "镜眠王都·疗养院"
+          },
+          "dialogue": [
+            {
+              "id": "ch035.opening.l01",
+              "speaker": "旁白",
+              "text": "【镜眠王都·疗养院】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch035.opening.l02",
+              "speaker": "岚音",
+              "text": "醒来不一定幸福，但选择必须属于他们自己。"
+            },
+            {
+              "id": "ch035.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。帮助居民了解现实与梦境的代价。"
+            },
+            {
+              "id": "ch035.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "镜眠王都·疗养院"
+            },
+            {
+              "type": "interact",
+              "target": "ch035.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch035.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch035.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch035.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch035.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在镜眠王都·疗养院找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch035.investigate.l02",
+              "speaker": "岚音",
+              "text": "梦境为每位居民保存了失去之人的理想形象。"
+            },
+            {
+              "id": "ch035.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch035.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch035.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch035.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch035.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch035.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch035.crisis",
+            "requires_flags": [
+              "ch035.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch035.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch035.crisis.l02",
+              "speaker": "岚音",
+              "text": "官员要求强制唤醒，许多病弱居民无法承受。"
+            },
+            {
+              "id": "ch035.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch035.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch035.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch035.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch035.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch035.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch035.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch035",
+            "display_name": "眠潮蔓藤",
+            "win_flag": "ch035.battle_won",
+            "recommended_level": 45
+          }
+        },
+        {
+          "id": "ch035.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch035.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch035.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch035.resolve.l02",
+              "speaker": "岚音",
+              "text": "岚音设计循序醒转疗法，王国保留自愿短眠的医疗设施。"
+            },
+            {
+              "id": "ch035.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch035.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】醒来的人们。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch035"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch035.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1500,
+              "gold": 530
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch035.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch035.done",
+          "speaker": "路人",
+          "text": "听说你们在镜眠王都·疗养院帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch036",
+      "number": 36,
+      "act": 6,
+      "chapter_number": 6,
+      "title": "镜眠灯下的真相",
+      "location": "镜眠母灯深处",
+      "required_flags": [
+        "story.ch035.done"
+      ],
+      "chapter_start_flag": "ch036.started",
+      "chapter_complete_flag": "story.ch036.done",
+      "lead_character": "玄璃",
+      "summary": "在镜眠母灯深处，解除强制睡眠程序修复镜眠灯。赫西安的投影许诺让每个人见回死去的亲人。最终，众人选择不接受永恒停滞，镜眠灯恢复原有的开放功能。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        43,
+        47
+      ],
+      "boss": "梦境王座",
+      "scenes": [
+        {
+          "id": "ch036.opening",
+          "title": "到达：镜眠母灯深处",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "镜眠母灯深处"
+          },
+          "dialogue": [
+            {
+              "id": "ch036.opening.l01",
+              "speaker": "旁白",
+              "text": "【镜眠母灯深处】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch036.opening.l02",
+              "speaker": "玄璃",
+              "text": "我宁愿明天会难过，也不要今天永远结束。"
+            },
+            {
+              "id": "ch036.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。解除强制睡眠程序修复镜眠灯。"
+            },
+            {
+              "id": "ch036.opening.l04",
+              "speaker": "玄璃",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "镜眠母灯深处"
+            },
+            {
+              "type": "interact",
+              "target": "ch036.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch036.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch036.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch036.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch036.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在镜眠母灯深处找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch036.investigate.l02",
+              "speaker": "玄璃",
+              "text": "镜眠灯被赫西安改写，将居民的自由愿望转成静止能源。"
+            },
+            {
+              "id": "ch036.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch036.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch036.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch036.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch036.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch036.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch036.crisis",
+            "requires_flags": [
+              "ch036.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch036.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch036.crisis.l02",
+              "speaker": "玄璃",
+              "text": "赫西安的投影许诺让每个人见回死去的亲人。"
+            },
+            {
+              "id": "ch036.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch036.crisis.l04",
+              "speaker": "玄璃",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch036.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch036.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch036.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch036.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch036.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch036",
+            "display_name": "梦境王座",
+            "win_flag": "ch036.battle_won",
+            "recommended_level": 46
+          }
+        },
+        {
+          "id": "ch036.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch036.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch036.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch036.resolve.l02",
+              "speaker": "玄璃",
+              "text": "众人选择不接受永恒停滞，镜眠灯恢复原有的开放功能。"
+            },
+            {
+              "id": "ch036.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch036.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】镜眠灯下的真相。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch036"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch036.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1540,
+              "gold": 544
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch036.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch036.done",
+          "speaker": "路人",
+          "text": "听说你们在镜眠母灯深处帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    }
+  ]
+}

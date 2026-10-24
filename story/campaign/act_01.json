@@ -1,0 +1,1516 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 1,
+  "title": "白砂海岸",
+  "theme": "从故乡出发，调查海雾失忆并点亮潮歌灯。",
+  "progression_unlock": "tide_lantern",
+  "chapters": [
+    {
+      "id": "ch001",
+      "number": 1,
+      "act": 1,
+      "chapter_number": 1,
+      "title": "不曾寄出的信",
+      "location": "晨露村·澄舟旧屋",
+      "required_flags": [
+        "story.prologue_done"
+      ],
+      "chapter_start_flag": "ch001.started",
+      "chapter_complete_flag": "story.ch001.done",
+      "lead_character": "岚音",
+      "summary": "在晨露村·澄舟旧屋，检查养父留下的旧箱和潮湿地图。村长声称从未听过澄舟，屋内却藏着村长亲笔的旧收据。最终，主角收起信件，决定到白砂港寻找落款上的航船。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        1,
+        5
+      ],
+      "boss": null,
+      "scenes": [
+        {
+          "id": "ch001.opening",
+          "title": "到达：晨露村·澄舟旧屋",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "晨露村·澄舟旧屋"
+          },
+          "dialogue": [
+            {
+              "id": "ch001.opening.l01",
+              "speaker": "旁白",
+              "text": "【晨露村·澄舟旧屋】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch001.opening.l02",
+              "speaker": "岚音",
+              "text": "这封信封了十年，封口却像昨天才干。"
+            },
+            {
+              "id": "ch001.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。检查养父留下的旧箱和潮湿地图。"
+            },
+            {
+              "id": "ch001.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "晨露村·澄舟旧屋"
+            },
+            {
+              "type": "interact",
+              "target": "ch001.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch001.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch001.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch001.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch001.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在晨露村·澄舟旧屋找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch001.investigate.l02",
+              "speaker": "岚音",
+              "text": "收件人写着“第七位守灯人”，背面沾着海盐。"
+            },
+            {
+              "id": "ch001.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch001.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch001.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch001.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch001.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch001.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch001.crisis",
+            "requires_flags": [
+              "ch001.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch001.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch001.crisis.l02",
+              "speaker": "岚音",
+              "text": "村长声称从未听过澄舟，屋内却藏着村长亲笔的旧收据。"
+            },
+            {
+              "id": "ch001.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch001.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch001.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch001.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch001.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch001.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch001.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": null
+        },
+        {
+          "id": "ch001.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch001.decision_made"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch001.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch001.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角收起信件，决定到白砂港寻找落款上的航船。"
+            },
+            {
+              "id": "ch001.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch001.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】不曾寄出的信。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch001"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch001.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 140,
+              "gold": 54
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch001.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch001.done",
+          "speaker": "路人",
+          "text": "听说你们在晨露村·澄舟旧屋帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch002",
+      "number": 2,
+      "act": 1,
+      "chapter_number": 2,
+      "title": "失去名字的归人",
+      "location": "白砂港·收容所",
+      "required_flags": [
+        "story.ch001.done"
+      ],
+      "chapter_start_flag": "ch002.started",
+      "chapter_complete_flag": "story.ch002.done",
+      "lead_character": "岚音",
+      "summary": "在白砂港·收容所，为归港水手找回姓名并调查航海日志。医院主任企图焚烧病例，理由是保护病患免受传染。最终，主角保留病例副本，确认失忆并非普通疾病。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        2,
+        6
+      ],
+      "boss": "雾潮寄生体",
+      "scenes": [
+        {
+          "id": "ch002.opening",
+          "title": "到达：白砂港·收容所",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "白砂港·收容所"
+          },
+          "dialogue": [
+            {
+              "id": "ch002.opening.l01",
+              "speaker": "旁白",
+              "text": "【白砂港·收容所】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch002.opening.l02",
+              "speaker": "岚音",
+              "text": "他只记得自己有个女儿，却不知道该叫谁的名字。"
+            },
+            {
+              "id": "ch002.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。为归港水手找回姓名并调查航海日志。"
+            },
+            {
+              "id": "ch002.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "白砂港·收容所"
+            },
+            {
+              "type": "interact",
+              "target": "ch002.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch002.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch002.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch002.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch002.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在白砂港·收容所找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch002.investigate.l02",
+              "speaker": "岚音",
+              "text": "水手手背写着“不要相信第二次钟声”。"
+            },
+            {
+              "id": "ch002.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch002.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch002.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch002.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch002.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch002.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch002.crisis",
+            "requires_flags": [
+              "ch002.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch002.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch002.crisis.l02",
+              "speaker": "岚音",
+              "text": "医院主任企图焚烧病例，理由是保护病患免受传染。"
+            },
+            {
+              "id": "ch002.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch002.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch002.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch002.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch002.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch002.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch002.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch002",
+            "display_name": "雾潮寄生体",
+            "win_flag": "ch002.battle_won",
+            "recommended_level": 5
+          }
+        },
+        {
+          "id": "ch002.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch002.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch002.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch002.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角保留病例副本，确认失忆并非普通疾病。"
+            },
+            {
+              "id": "ch002.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch002.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】失去名字的归人。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch002"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch002.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 180,
+              "gold": 68
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch002.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch002.done",
+          "speaker": "路人",
+          "text": "听说你们在白砂港·收容所帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch003",
+      "number": 3,
+      "act": 1,
+      "chapter_number": 3,
+      "title": "海雾中的遗迹",
+      "location": "断桅海蚀洞",
+      "required_flags": [
+        "story.ch002.done"
+      ],
+      "chapter_start_flag": "ch003.started",
+      "chapter_complete_flag": "story.ch003.done",
+      "lead_character": "朔弦",
+      "summary": "在断桅海蚀洞，破解三座潮汐机关，取回破损星针。守护机关将“闯入者”和“归来之人”同时判为敌人。最终，星针指向天空，遗迹墙面出现澄舟年轻时的影像。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        3,
+        7
+      ],
+      "boss": "潮痕守卫",
+      "scenes": [
+        {
+          "id": "ch003.opening",
+          "title": "到达：断桅海蚀洞",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "断桅海蚀洞"
+          },
+          "dialogue": [
+            {
+              "id": "ch003.opening.l01",
+              "speaker": "旁白",
+              "text": "【断桅海蚀洞】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch003.opening.l02",
+              "speaker": "朔弦",
+              "text": "这片礁石平时不在海图上，今天却像专门等我们。"
+            },
+            {
+              "id": "ch003.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。破解三座潮汐机关，取回破损星针。"
+            },
+            {
+              "id": "ch003.opening.l04",
+              "speaker": "朔弦",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "断桅海蚀洞"
+            },
+            {
+              "type": "interact",
+              "target": "ch003.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch003.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch003.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch003.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch003.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在断桅海蚀洞找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch003.investigate.l02",
+              "speaker": "朔弦",
+              "text": "石壁刻着三条归航路线，只有第三条指向地下。"
+            },
+            {
+              "id": "ch003.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch003.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch003.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch003.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch003.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch003.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch003.crisis",
+            "requires_flags": [
+              "ch003.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch003.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch003.crisis.l02",
+              "speaker": "朔弦",
+              "text": "守护机关将“闯入者”和“归来之人”同时判为敌人。"
+            },
+            {
+              "id": "ch003.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch003.crisis.l04",
+              "speaker": "朔弦",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch003.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch003.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch003.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch003.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch003.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch003",
+            "display_name": "潮痕守卫",
+            "win_flag": "ch003.battle_won",
+            "recommended_level": 6
+          }
+        },
+        {
+          "id": "ch003.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch003.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch003.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch003.resolve.l02",
+              "speaker": "朔弦",
+              "text": "星针指向天空，遗迹墙面出现澄舟年轻时的影像。"
+            },
+            {
+              "id": "ch003.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch003.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】海雾中的遗迹。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch003"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch003.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 220,
+              "gold": 82
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch003.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch003.done",
+          "speaker": "路人",
+          "text": "听说你们在断桅海蚀洞帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch004",
+      "number": 4,
+      "act": 1,
+      "chapter_number": 4,
+      "title": "第三位同行者",
+      "location": "白砂港·黑帆酒馆",
+      "required_flags": [
+        "story.ch003.done"
+      ],
+      "chapter_start_flag": "ch004.started",
+      "chapter_complete_flag": "story.ch004.done",
+      "lead_character": "朔弦",
+      "summary": "在白砂港·黑帆酒馆，追查走私船的假货单并争取朔弦同行。朔弦曾为灰帷会运过货，害怕被主角认出。最终，朔弦坦白旧罪并加入队伍，保留一张神秘海图。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        4,
+        8
+      ],
+      "boss": "灰帷水手",
+      "scenes": [
+        {
+          "id": "ch004.opening",
+          "title": "到达：白砂港·黑帆酒馆",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "白砂港·黑帆酒馆"
+          },
+          "dialogue": [
+            {
+              "id": "ch004.opening.l01",
+              "speaker": "旁白",
+              "text": "【白砂港·黑帆酒馆】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch004.opening.l02",
+              "speaker": "朔弦",
+              "text": "别把我当善人，我只是比你们更讨厌骗人。"
+            },
+            {
+              "id": "ch004.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。追查走私船的假货单并争取朔弦同行。"
+            },
+            {
+              "id": "ch004.opening.l04",
+              "speaker": "朔弦",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "白砂港·黑帆酒馆"
+            },
+            {
+              "type": "interact",
+              "target": "ch004.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch004.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch004.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch004.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch004.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在白砂港·黑帆酒馆找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch004.investigate.l02",
+              "speaker": "朔弦",
+              "text": "走私货单中所谓盐包其实装着记忆结晶。"
+            },
+            {
+              "id": "ch004.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch004.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch004.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch004.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch004.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch004.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch004.crisis",
+            "requires_flags": [
+              "ch004.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch004.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch004.crisis.l02",
+              "speaker": "朔弦",
+              "text": "朔弦曾为灰帷会运过货，害怕被主角认出。"
+            },
+            {
+              "id": "ch004.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch004.crisis.l04",
+              "speaker": "朔弦",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch004.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch004.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch004.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch004.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch004.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch004",
+            "display_name": "灰帷水手",
+            "win_flag": "ch004.battle_won",
+            "recommended_level": 7
+          }
+        },
+        {
+          "id": "ch004.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch004.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch004.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch004.resolve.l02",
+              "speaker": "朔弦",
+              "text": "朔弦坦白旧罪并加入队伍，保留一张神秘海图。"
+            },
+            {
+              "id": "ch004.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch004.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】第三位同行者。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch004"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch004.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 260,
+              "gold": 96
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch004.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch004.done",
+          "speaker": "路人",
+          "text": "听说你们在白砂港·黑帆酒馆帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch005",
+      "number": 5,
+      "act": 1,
+      "chapter_number": 5,
+      "title": "潮底巨影",
+      "location": "鲸骨浅滩",
+      "required_flags": [
+        "story.ch004.done"
+      ],
+      "chapter_start_flag": "ch005.started",
+      "chapter_complete_flag": "story.ch005.done",
+      "lead_character": "岚音",
+      "summary": "在鲸骨浅滩，保护渔船、打开海兽身上的星锁。港务官要求直接杀死海兽，以免海运再次受阻。最终，主角解除星锁，海兽带领众人找到潮歌灯的入口。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        6,
+        10
+      ],
+      "boss": "缚潮古兽",
+      "scenes": [
+        {
+          "id": "ch005.opening",
+          "title": "到达：鲸骨浅滩",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "鲸骨浅滩"
+          },
+          "dialogue": [
+            {
+              "id": "ch005.opening.l01",
+              "speaker": "旁白",
+              "text": "【鲸骨浅滩】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch005.opening.l02",
+              "speaker": "岚音",
+              "text": "它不是在攻击渔船，它是在求救。"
+            },
+            {
+              "id": "ch005.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。保护渔船、打开海兽身上的星锁。"
+            },
+            {
+              "id": "ch005.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "鲸骨浅滩"
+            },
+            {
+              "type": "interact",
+              "target": "ch005.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch005.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch005.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch005.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch005.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在鲸骨浅滩找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch005.investigate.l02",
+              "speaker": "岚音",
+              "text": "海兽体内的星锁来自人为植入的古代装置。"
+            },
+            {
+              "id": "ch005.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch005.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch005.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch005.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch005.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch005.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch005.crisis",
+            "requires_flags": [
+              "ch005.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch005.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch005.crisis.l02",
+              "speaker": "岚音",
+              "text": "港务官要求直接杀死海兽，以免海运再次受阻。"
+            },
+            {
+              "id": "ch005.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch005.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch005.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch005.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch005.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch005.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch005.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch005",
+            "display_name": "缚潮古兽",
+            "win_flag": "ch005.battle_won",
+            "recommended_level": 9
+          }
+        },
+        {
+          "id": "ch005.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch005.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch005.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch005.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角解除星锁，海兽带领众人找到潮歌灯的入口。"
+            },
+            {
+              "id": "ch005.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch005.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】潮底巨影。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch005"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch005.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 300,
+              "gold": 110
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch005.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch005.done",
+          "speaker": "路人",
+          "text": "听说你们在鲸骨浅滩帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch006",
+      "number": 6,
+      "act": 1,
+      "chapter_number": 6,
+      "title": "归航灯重燃",
+      "location": "潮歌灯塔",
+      "required_flags": [
+        "story.ch005.done"
+      ],
+      "chapter_start_flag": "ch006.started",
+      "chapter_complete_flag": "story.ch006.done",
+      "lead_character": "岚音",
+      "summary": "在潮歌灯塔，收集三处灯芯碎片并重燃母灯。重燃需要献出一段个人记忆，主角拒绝接受这个条件。最终，众人以共同讲述的归航故事代替祭品，潮歌灯亮起。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        7,
+        11
+      ],
+      "boss": "潮歌守门人",
+      "scenes": [
+        {
+          "id": "ch006.opening",
+          "title": "到达：潮歌灯塔",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "潮歌灯塔"
+          },
+          "dialogue": [
+            {
+              "id": "ch006.opening.l01",
+              "speaker": "旁白",
+              "text": "【潮歌灯塔】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch006.opening.l02",
+              "speaker": "岚音",
+              "text": "如果光回来，失去的人也会回来吗？"
+            },
+            {
+              "id": "ch006.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。收集三处灯芯碎片并重燃母灯。"
+            },
+            {
+              "id": "ch006.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "潮歌灯塔"
+            },
+            {
+              "type": "interact",
+              "target": "ch006.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch006.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch006.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch006.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch006.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在潮歌灯塔找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch006.investigate.l02",
+              "speaker": "岚音",
+              "text": "灯芯记录每艘船最后一次平安抵港的声音。"
+            },
+            {
+              "id": "ch006.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch006.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch006.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch006.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch006.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch006.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch006.crisis",
+            "requires_flags": [
+              "ch006.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch006.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch006.crisis.l02",
+              "speaker": "岚音",
+              "text": "重燃需要献出一段个人记忆，主角拒绝接受这个条件。"
+            },
+            {
+              "id": "ch006.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch006.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch006.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch006.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch006.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch006.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch006.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch006",
+            "display_name": "潮歌守门人",
+            "win_flag": "ch006.battle_won",
+            "recommended_level": 10
+          }
+        },
+        {
+          "id": "ch006.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch006.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch006.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch006.resolve.l02",
+              "speaker": "岚音",
+              "text": "众人以共同讲述的归航故事代替祭品，潮歌灯亮起。"
+            },
+            {
+              "id": "ch006.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch006.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】归航灯重燃。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch006"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch006.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 340,
+              "gold": 124
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch006.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch006.done",
+          "speaker": "路人",
+          "text": "听说你们在潮歌灯塔帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    }
+  ]
+}

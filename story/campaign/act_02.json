@@ -1,0 +1,1516 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 2,
+  "title": "三誓诸国",
+  "theme": "阻止人为挑起的三国战争，修复律序灯。",
+  "progression_unlock": "oath_lantern",
+  "chapters": [
+    {
+      "id": "ch007",
+      "number": 7,
+      "act": 2,
+      "chapter_number": 1,
+      "title": "被拒绝的使者",
+      "location": "三誓王都·外廷",
+      "required_flags": [
+        "story.ch006.done"
+      ],
+      "chapter_start_flag": "ch007.started",
+      "chapter_complete_flag": "story.ch007.done",
+      "lead_character": "雷索",
+      "summary": "在三誓王都·外廷，向三国递交海难情报并获得调查许可。大臣要求玩家隐瞒边境难民，才肯开放王城档案。最终，主角拒绝伪造证词，循商道秘密进入边境。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        8,
+        12
+      ],
+      "boss": null,
+      "scenes": [
+        {
+          "id": "ch007.opening",
+          "title": "到达：三誓王都·外廷",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·外廷"
+          },
+          "dialogue": [
+            {
+              "id": "ch007.opening.l01",
+              "speaker": "旁白",
+              "text": "【三誓王都·外廷】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch007.opening.l02",
+              "speaker": "雷索",
+              "text": "这张通行证在三国都不算数，和平比战争更需要耐心。"
+            },
+            {
+              "id": "ch007.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。向三国递交海难情报并获得调查许可。"
+            },
+            {
+              "id": "ch007.opening.l04",
+              "speaker": "雷索",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·外廷"
+            },
+            {
+              "type": "interact",
+              "target": "ch007.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch007.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch007.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch007.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch007.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在三誓王都·外廷找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch007.investigate.l02",
+              "speaker": "雷索",
+              "text": "三份外交函盖着同一个不应存在的秘密印章。"
+            },
+            {
+              "id": "ch007.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch007.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch007.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch007.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch007.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch007.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch007.crisis",
+            "requires_flags": [
+              "ch007.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch007.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch007.crisis.l02",
+              "speaker": "雷索",
+              "text": "大臣要求玩家隐瞒边境难民，才肯开放王城档案。"
+            },
+            {
+              "id": "ch007.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch007.crisis.l04",
+              "speaker": "雷索",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch007.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch007.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch007.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch007.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch007.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": null
+        },
+        {
+          "id": "ch007.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch007.decision_made"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch007.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch007.resolve.l02",
+              "speaker": "雷索",
+              "text": "主角拒绝伪造证词，循商道秘密进入边境。"
+            },
+            {
+              "id": "ch007.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch007.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】被拒绝的使者。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch007"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch007.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 380,
+              "gold": 138
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch007.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch007.done",
+          "speaker": "路人",
+          "text": "听说你们在三誓王都·外廷帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch008",
+      "number": 8,
+      "act": 2,
+      "chapter_number": 2,
+      "title": "断绝的商路",
+      "location": "灰鹰商道",
+      "required_flags": [
+        "story.ch007.done"
+      ],
+      "chapter_start_flag": "ch008.started",
+      "chapter_complete_flag": "story.ch008.done",
+      "lead_character": "雷索",
+      "summary": "在灰鹰商道，护送粮车通过战区，记录袭击者特征。商队首领想用暴力报复对岸村庄，几乎引发冲突。最终，众人护住双方平民，带回可交叉验证的武器编号。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        9,
+        13
+      ],
+      "boss": "伪装边防队",
+      "scenes": [
+        {
+          "id": "ch008.opening",
+          "title": "到达：灰鹰商道",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "灰鹰商道"
+          },
+          "dialogue": [
+            {
+              "id": "ch008.opening.l01",
+              "speaker": "旁白",
+              "text": "【灰鹰商道】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch008.opening.l02",
+              "speaker": "雷索",
+              "text": "这条路断一天，边境村子就少吃一天饭。"
+            },
+            {
+              "id": "ch008.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。护送粮车通过战区，记录袭击者特征。"
+            },
+            {
+              "id": "ch008.opening.l04",
+              "speaker": "雷索",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "灰鹰商道"
+            },
+            {
+              "type": "interact",
+              "target": "ch008.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch008.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch008.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch008.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch008.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在灰鹰商道找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch008.investigate.l02",
+              "speaker": "雷索",
+              "text": "劫匪弩箭来自王都军械库，而非敌国。"
+            },
+            {
+              "id": "ch008.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch008.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch008.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch008.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch008.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch008.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch008.crisis",
+            "requires_flags": [
+              "ch008.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch008.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch008.crisis.l02",
+              "speaker": "雷索",
+              "text": "商队首领想用暴力报复对岸村庄，几乎引发冲突。"
+            },
+            {
+              "id": "ch008.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch008.crisis.l04",
+              "speaker": "雷索",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch008.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch008.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch008.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch008.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch008.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch008",
+            "display_name": "伪装边防队",
+            "win_flag": "ch008.battle_won",
+            "recommended_level": 12
+          }
+        },
+        {
+          "id": "ch008.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch008.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch008.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch008.resolve.l02",
+              "speaker": "雷索",
+              "text": "众人护住双方平民，带回可交叉验证的武器编号。"
+            },
+            {
+              "id": "ch008.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch008.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】断绝的商路。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch008"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch008.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 420,
+              "gold": 152
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch008.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch008.done",
+          "speaker": "路人",
+          "text": "听说你们在灰鹰商道帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch009",
+      "number": 9,
+      "act": 2,
+      "chapter_number": 3,
+      "title": "无罪者的审判",
+      "location": "三誓王都·审判厅",
+      "required_flags": [
+        "story.ch008.done"
+      ],
+      "chapter_start_flag": "ch009.started",
+      "chapter_complete_flag": "story.ch009.done",
+      "lead_character": "雷索",
+      "summary": "在三誓王都·审判厅，寻找幸存证人并为雷索公开辩护。证人愿说出真相，却担心家人被王室报复。最终，法庭公开军令副本，雷索恢复名誉但拒绝复职。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        10,
+        14
+      ],
+      "boss": "王城禁卫",
+      "scenes": [
+        {
+          "id": "ch009.opening",
+          "title": "到达：三誓王都·审判厅",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·审判厅"
+          },
+          "dialogue": [
+            {
+              "id": "ch009.opening.l01",
+              "speaker": "旁白",
+              "text": "【三誓王都·审判厅】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch009.opening.l02",
+              "speaker": "雷索",
+              "text": "我违抗过命令，这点我不会否认。但那不是罪。"
+            },
+            {
+              "id": "ch009.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。寻找幸存证人并为雷索公开辩护。"
+            },
+            {
+              "id": "ch009.opening.l04",
+              "speaker": "雷索",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·审判厅"
+            },
+            {
+              "type": "interact",
+              "target": "ch009.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch009.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch009.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch009.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch009.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在三誓王都·审判厅找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch009.investigate.l02",
+              "speaker": "雷索",
+              "text": "雷索被命令清剿的村子根本没有敌军。"
+            },
+            {
+              "id": "ch009.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch009.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch009.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch009.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch009.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch009.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch009.crisis",
+            "requires_flags": [
+              "ch009.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch009.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch009.crisis.l02",
+              "speaker": "雷索",
+              "text": "证人愿说出真相，却担心家人被王室报复。"
+            },
+            {
+              "id": "ch009.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch009.crisis.l04",
+              "speaker": "雷索",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch009.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch009.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch009.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch009.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch009.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch009",
+            "display_name": "王城禁卫",
+            "win_flag": "ch009.battle_won",
+            "recommended_level": 13
+          }
+        },
+        {
+          "id": "ch009.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch009.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch009.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch009.resolve.l02",
+              "speaker": "雷索",
+              "text": "法庭公开军令副本，雷索恢复名誉但拒绝复职。"
+            },
+            {
+              "id": "ch009.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch009.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】无罪者的审判。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch009"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch009.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 460,
+              "gold": 166
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch009.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch009.done",
+          "speaker": "路人",
+          "text": "听说你们在三誓王都·审判厅帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch010",
+      "number": 10,
+      "act": 2,
+      "chapter_number": 4,
+      "title": "三面旗帜",
+      "location": "三国边境议事站",
+      "required_flags": [
+        "story.ch009.done"
+      ],
+      "chapter_start_flag": "ch010.started",
+      "chapter_complete_flag": "story.ch010.done",
+      "lead_character": "岚音",
+      "summary": "在三国边境议事站，分别帮助三国居民并调查粮仓失火。三国使者把共同调查当成丢面子的让步。最终，主角安排三国共同运粮，第一次建立实际合作。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        12,
+        16
+      ],
+      "boss": "灰帷纵火者",
+      "scenes": [
+        {
+          "id": "ch010.opening",
+          "title": "到达：三国边境议事站",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三国边境议事站"
+          },
+          "dialogue": [
+            {
+              "id": "ch010.opening.l01",
+              "speaker": "旁白",
+              "text": "【三国边境议事站】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch010.opening.l02",
+              "speaker": "岚音",
+              "text": "每个人说的都是自己受过的伤，可没人听见别人。"
+            },
+            {
+              "id": "ch010.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。分别帮助三国居民并调查粮仓失火。"
+            },
+            {
+              "id": "ch010.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三国边境议事站"
+            },
+            {
+              "type": "interact",
+              "target": "ch010.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch010.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch010.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch010.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch010.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在三国边境议事站找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch010.investigate.l02",
+              "speaker": "岚音",
+              "text": "三处纵火现场都出现灰帷会特有的无烟灰。"
+            },
+            {
+              "id": "ch010.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch010.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch010.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch010.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch010.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch010.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch010.crisis",
+            "requires_flags": [
+              "ch010.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch010.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch010.crisis.l02",
+              "speaker": "岚音",
+              "text": "三国使者把共同调查当成丢面子的让步。"
+            },
+            {
+              "id": "ch010.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch010.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch010.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch010.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch010.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch010.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch010.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch010",
+            "display_name": "灰帷纵火者",
+            "win_flag": "ch010.battle_won",
+            "recommended_level": 15
+          }
+        },
+        {
+          "id": "ch010.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch010.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch010.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch010.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角安排三国共同运粮，第一次建立实际合作。"
+            },
+            {
+              "id": "ch010.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch010.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】三面旗帜。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch010"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch010.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 500,
+              "gold": 180
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch010.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch010.done",
+          "speaker": "路人",
+          "text": "听说你们在三国边境议事站帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch011",
+      "number": 11,
+      "act": 2,
+      "chapter_number": 5,
+      "title": "最后的盟约",
+      "location": "旧盟约桥",
+      "required_flags": [
+        "story.ch010.done"
+      ],
+      "chapter_start_flag": "ch011.started",
+      "chapter_complete_flag": "story.ch011.done",
+      "lead_character": "雷索",
+      "summary": "在旧盟约桥，保护签约使团并阻止边境决战。顾问当众撕毁协议，想让王族背负对方先开战的罪。最终，玩家公布原始军令，三国士兵共同拒绝作战。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        13,
+        17
+      ],
+      "boss": "伪誓顾问",
+      "scenes": [
+        {
+          "id": "ch011.opening",
+          "title": "到达：旧盟约桥",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "旧盟约桥"
+          },
+          "dialogue": [
+            {
+              "id": "ch011.opening.l01",
+              "speaker": "旁白",
+              "text": "【旧盟约桥】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch011.opening.l02",
+              "speaker": "雷索",
+              "text": "一纸盟约救不了人，愿意承担后果的人才可以。"
+            },
+            {
+              "id": "ch011.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。保护签约使团并阻止边境决战。"
+            },
+            {
+              "id": "ch011.opening.l04",
+              "speaker": "雷索",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "旧盟约桥"
+            },
+            {
+              "type": "interact",
+              "target": "ch011.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch011.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch011.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch011.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch011.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在旧盟约桥找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch011.investigate.l02",
+              "speaker": "雷索",
+              "text": "王室顾问暗中向两边军队发出了同样的进攻指令。"
+            },
+            {
+              "id": "ch011.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch011.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch011.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch011.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch011.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch011.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch011.crisis",
+            "requires_flags": [
+              "ch011.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch011.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch011.crisis.l02",
+              "speaker": "雷索",
+              "text": "顾问当众撕毁协议，想让王族背负对方先开战的罪。"
+            },
+            {
+              "id": "ch011.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch011.crisis.l04",
+              "speaker": "雷索",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch011.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch011.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch011.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch011.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch011.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch011",
+            "display_name": "伪誓顾问",
+            "win_flag": "ch011.battle_won",
+            "recommended_level": 16
+          }
+        },
+        {
+          "id": "ch011.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch011.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch011.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch011.resolve.l02",
+              "speaker": "雷索",
+              "text": "玩家公布原始军令，三国士兵共同拒绝作战。"
+            },
+            {
+              "id": "ch011.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch011.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】最后的盟约。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch011"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch011.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 540,
+              "gold": 194
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch011.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch011.done",
+          "speaker": "路人",
+          "text": "听说你们在旧盟约桥帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch012",
+      "number": 12,
+      "act": 2,
+      "chapter_number": 6,
+      "title": "王冠不等于信任",
+      "location": "律序母灯坛",
+      "required_flags": [
+        "story.ch011.done"
+      ],
+      "chapter_start_flag": "ch012.started",
+      "chapter_complete_flag": "story.ch012.done",
+      "lead_character": "雷索",
+      "summary": "在律序母灯坛，让三国代表主动承诺公开粮仓与军令。旧仪式要求三位君主相互交出王位作为担保。最终，平民代表与国王共同立誓，律序灯在没有献祭的情况下重燃。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        14,
+        18
+      ],
+      "boss": "律序执剑者",
+      "scenes": [
+        {
+          "id": "ch012.opening",
+          "title": "到达：律序母灯坛",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "律序母灯坛"
+          },
+          "dialogue": [
+            {
+              "id": "ch012.opening.l01",
+              "speaker": "旁白",
+              "text": "【律序母灯坛】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch012.opening.l02",
+              "speaker": "雷索",
+              "text": "我愿意先把自己的错误写进历史。"
+            },
+            {
+              "id": "ch012.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。让三国代表主动承诺公开粮仓与军令。"
+            },
+            {
+              "id": "ch012.opening.l04",
+              "speaker": "雷索",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "律序母灯坛"
+            },
+            {
+              "type": "interact",
+              "target": "ch012.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch012.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch012.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch012.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch012.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在律序母灯坛找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch012.investigate.l02",
+              "speaker": "雷索",
+              "text": "律序灯从不判断血统，只验证是否有人兑现承诺。"
+            },
+            {
+              "id": "ch012.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch012.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch012.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch012.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch012.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch012.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch012.crisis",
+            "requires_flags": [
+              "ch012.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch012.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch012.crisis.l02",
+              "speaker": "雷索",
+              "text": "旧仪式要求三位君主相互交出王位作为担保。"
+            },
+            {
+              "id": "ch012.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch012.crisis.l04",
+              "speaker": "雷索",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch012.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch012.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch012.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch012.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch012.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch012",
+            "display_name": "律序执剑者",
+            "win_flag": "ch012.battle_won",
+            "recommended_level": 17
+          }
+        },
+        {
+          "id": "ch012.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch012.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch012.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch012.resolve.l02",
+              "speaker": "雷索",
+              "text": "平民代表与国王共同立誓，律序灯在没有献祭的情况下重燃。"
+            },
+            {
+              "id": "ch012.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch012.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】王冠不等于信任。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch012"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch012.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 580,
+              "gold": 208
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch012.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch012.done",
+          "speaker": "路人",
+          "text": "听说你们在律序母灯坛帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    }
+  ]
+}

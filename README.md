@@ -1,81 +1,57 @@
-# 星灯纪行 / Starlit Chronicle
+# ⭐ 星灯纪行 / Starlit Chronicle
 
-> **⭐ 当前唯一游戏主体：[`main` 分支](https://github.com/chenyu9512/StarlitChronicle-HD2D/tree/main)。**
-> **工程阶段：v0.3 第一幕（童年序章＋第1—6章）可玩集成版。** 不是全72章商业发行成品。
+**当前完整游戏主体：[`main`](https://github.com/chenyu9512/StarlitChronicle-HD2D/tree/main)**  
+Godot 4.7.2 · HD-2D 风格原创 RPG · iPhone 横屏优先 · 第一幕 v0.3 开发版
 
-**GitHub 仓库**：`chenyu9512/StarlitChronicle-HD2D`（私人仓库）  
-**开发引擎**：Godot 4.7.2 / GDScript  
-**主要平台**：iPhone 横屏；Windows 上先运行和调试  
-**默认场景**：`scenes/first_act.tscn`  
-**旧版场景**：`scenes/main.tscn`（保留供历史对照）
+## ✅ 分支已精简：现在只有 3 条
 
-## 一分钟看懂：为什么会有8个分支？
+| 分支 | 中文作用 | 应该用来做什么 |
+|---|---|---|
+| **`main`** | ⭐ **唯一完整游戏主体** | 下载、运行、修复Bug、整合正式代码与新资源 |
+| `content/full-story-v1` | **剧情开发** | 编写/修改12幕72章的剧本、对白、任务文本 |
+| `feature/content-foundation-v0-2` | **美术与数据开发** | 制作角色、怪物、地图素材、装备道具及内容数据库 |
 
-之前为了分离编剧、美术、金手指、第一幕整合与版本备份，先后建立了独立分支。**功能已合入 `main` 的集成分支没有及时清理**，因此列表看起来比实际需要的复杂。
+**另外5条旧集成与备份分支已经删除。** 它们都没有 `main` 尚未包含的独立提交，因此无需继续保留分支。旧版本的回退锚点改为 Git 标签：
 
-**现在规定：只有3条持续使用的分支。其余5条全部按历史只读留档管理，不作为新功能的开发起点。**
+- `archive-v0.1.1-before-core`：v0.1.1 早期 Godot 原型。
+- `archive-v0.2-before-first-act`：第一幕开发前的 v0.2 主体。
 
-| 分支 | 中文名称 | 管理状态 | 你什么时候用 |
-| --- | --- | --- | --- |
-| **`main`** | ⭐ **完整主体/唯一运行入口** | **正式整合、持续维护** | **下载、运行、测试、查看当前游戏** |
-| `content/full-story-v1` | 剧情与对白资料 | **持续开发** | 编写72章剧本、文本、任务对白；审核后择项同步到main |
-| `feature/content-foundation-v0-2` | 美术及内容数据库 | **持续开发** | 制作SVG/PNG、场景美术、怪物/装备等资源；审核后择项同步到main |
-| `feature/first-act-production-v0-3` | 第一幕功能集成留档 | 历史只读（已合入） | 追溯第一幕开发提交，不是最新版 |
-| `feature/first-act-resource-sync-v0-3` | 第一幕素材同步留档 | 历史只读（与此前main提交一致） | 追溯精修美术与文本同步，不是最新版 |
-| `feature/game-core-cheats-v0.2` | v0.2 金手指集成留档 | 历史只读（已合入） | 回看金手指实现历史 |
-| `backup/main-before-first-act-20261024` | v0.2 游戏主体备份 | 历史只读（安全回退） | 发生重大回归时查旧版 |
-| `backup/main-v0.1.1-before-core` | v0.1.1 早期工程备份 | 历史只读（安全回退） | 对比最早能运行的 Godot 原型 |
+**以后不要再把旧功能分支当最新版。** 长期只维护这3条分支；临时功能分支在验证合并后清理。详细规范见 [《仓库与分支说明》（中文）](仓库与分支说明.md)。
 
-完整逐条说明和开发规范：**[《仓库与分支说明》（中文）](仓库与分支说明.md)**。
-
-### 当前内容同步状态
-
-- **美术分支的 Batch 0—3 和海岸精修 V2** 已按资源文件同步到 `main`；素材分支自身保留旧版玩法脚本，**绝不能把整个分支的 `scripts/` 覆盖主仓库**。
-- **剧情分支** 的第一幕重写、第二至第四幕已审核文本包和世界资料已经同步；审查时发现其 **第7、9、10、11、12章** 后续还有不同于 `main` 的文本修订，**尚待单独审稿，不视为已合并**。
-- 集成代码以 `main` 为唯一来源。**不允许无差别合并两条内容工作分支**。
-
-## 运行方式（Windows / Godot）
+## 游戏运行方式
 
 ```powershell
 git clone -b main https://github.com/chenyu9512/StarlitChronicle-HD2D.git
 ```
 
-已克隆过的工程更新：
+Windows 上安装 Godot 4.7.2，选择导入仓库根目录 `project.godot`，等待资源导入，然后按 **F5**。
 
-```powershell
-git switch main
-git pull origin main
-```
+- 正式主体入口：`scenes/first_act.tscn`
+- 历史原型场景仍保留于代码内：`scenes/main.tscn`
+- 第一幕存档：`user://first_act_v3.json`；旧存档不会被覆盖
+- 移动：WASD / 方向键 / 触屏方向控制；调查：E / 屏幕按钮
+- 隐藏金手指：右上角星星4秒内连点5次，或按 F10，密码 `9169`
 
-在 Godot 4.7.2 中 **Import** 本仓库根目录的 `project.godot`，等待图片资源导入完成后按 **F5**。默认进入 `scenes/first_act.tscn`。
+## 当前已接入的游戏内容
 
-- **移动**：WASD、方向键或触屏方向控制。
-- **调查**：E / 屏幕“调查”按钮。
-- **菜单与存档**：游戏内菜单；第一幕存档为 `user://first_act_v3.json`，不会覆盖旧版 V1 存档。
-- **隐藏金手指**：右上角星星4秒内连续点击5次（PC 可按 F10），密码 `9169`。
+序章九场、第1—6章可移动关卡目标、六条三阶段地图支线、五场章节 Boss、剧情选项、角色成长与伙伴加入、商店、战斗、存档和横屏触屏界面。美术资源包含海岸地区 SVG、PNG、角色和怪物图片、图块与场景资料。
 
-## 第一幕已经接入的玩法
+**注意：** 当前是第一幕已通过 Godot 自动化检查的游戏开发版，并非完成的72章商业游戏。专属正式关卡美术、完整音乐音效/动画、深度装备职业系统和 iPhone 真机发布验收仍需开发。
 
-九场序章、第一幕六章的**实地移动／任务目标／对白与选项／战斗和章节结算**；六条可在地图上领取与交付的支线；第2—6章五场 Boss；新角色行走表、海岸图块、道具及怪物资源；横屏触控 HUD、升级成长及离线存档。项目依然保留12幕72章的长期剧情资料和未完全实现的设计型数据库。
+## 重要目录
 
-**当前并未完成全部72章可探索地图、商业级角色/Boss动画、完整职业/装备系统、BGM/音效，以及 iPhone 真机长期性能与正式签名验证。** 请勿把数据量或 Godot 自动检查通过解释为 App Store 成品认证。
-
-## 主要代码与文档
-
-| 文件/目录 | 作用 |
-| --- | --- |
-| `project.godot` | Godot 项目入口 |
-| `scenes/first_act.tscn` | **当前主体主场景** |
+| 位置 | 内容 |
+|---|---|
+| `scenes/first_act.tscn` | 当前游戏入口 |
 | `scripts/first_act.gd` | 第一幕主流程 |
-| `scripts/first_act_world.gd` | 地图与实体交互 |
-| `scripts/first_act_battle.gd` | 回合制战斗 |
-| `scripts/first_act_ui.gd` | 界面与触控 |
-| `scripts/first_act_state.gd` | 进度和存档 |
-| `data/first_act_side_quests.json` | 第一幕支线 |
-| `story/` | 剧情源数据 |
-| `data/content/` | 结构化设计数据库 |
-| `assets/art/` | SVG/PNG 美术资源 |
-| `docs/FIRST_ACT_DELIVERY.md` | 第一幕技术验收和说明 |
-| `仓库与分支说明.md` | **分支含义和维护规则** |
+| `scripts/first_act_world.gd` | 地图与互动 |
+| `scripts/first_act_battle.gd` | 战斗系统 |
+| `scripts/first_act_ui.gd` | 界面与触屏 |
+| `scripts/first_act_state.gd` | 状态与存档 |
+| `story/` | 剧情内容 |
+| `data/content/` | 资源数据库 |
+| `assets/art/` | 原创 SVG / PNG 素材 |
+| `docs/FIRST_ACT_DELIVERY.md` | 第一幕交付说明 |
+| `仓库与分支说明.md` | 分支职责与回退规则 |
 
-**开发纪律：** 不再为每个小版本永久保留一个开发分支。需要复杂集成时使用临时分支，经过自动检查和验证合入 `main` 后结束使用；备份保持只读。参见 [Actions 自动检查](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions)。
+游戏主体与 GameLingoAI 项目互相独立。

@@ -1,9 +1,15 @@
-# Changelog
+# 版本更新记录
+
+## 0.3.0 — 2026-10-24
+- 从剧情与美术开发分支合并新资源，89项SVG + 89项PNG、第一幕扩写对白、更新数据库和剧情设计。
+- 新的第1—6章主入口：可移动地图、实际目标/NPC、选择、5 Boss及6条三阶段支线。
+- 新角色行走表、怪物与地图图集、横屏HUD/对话头像/虚拟控制、3人队伍成长、离线新存档与备份。
+- 隐藏9169金手指继续适配本次主体。
+- Godot 4.7.2自动引擎测试与从序章到第6章的剧情/战斗贯通回归成功。
+- **仍需发行级完善**：关卡精修、音频、Boss专属动画、装备系统、iOS签名与设备长时间测试。
+
+## 0.2.0 — 2026-10-24
+- 两大内容分支初次同步、剧情导航及金手指集成。
 
 ## 0.1.1 — 2026-10-24
-
-- Fixed a Godot GDScript parser error in `scripts/world.gd` (`distance` automatic type inference from Dictionary/Variant).
-- Preserved all previous gameplay files and save format.
-- Re-checked project resource integrity using `tools/validate_project.py`.
-
-Note: Godot runtime and Apple iOS build tests were not possible in this environment.
+- 修复 GDScript `distance` 类型推断错误。

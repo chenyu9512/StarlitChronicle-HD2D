@@ -1,0 +1,2741 @@
+{
+  "schema": "starlit.story.quest_journal.v1",
+  "chapters": [
+    {
+      "id": "ch001",
+      "chapter": 1,
+      "act": 1,
+      "title": "不曾寄出的信",
+      "location": "晨露村·澄舟旧屋",
+      "log_before": "【不曾寄出的信】前往晨露村·澄舟旧屋。这封信封了十年，封口却像昨天才干。",
+      "log_investigate": "【不曾寄出的信】调查：收件人写着“第七位守灯人”，背面沾着海盐。",
+      "log_crisis": "【不曾寄出的信】关键事件：村长声称从未听过澄舟，屋内却藏着村长亲笔的旧收据。",
+      "log_after": "【不曾寄出的信】主角收起信件，决定到白砂港寻找落款上的航船。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "晨露村·澄舟旧屋"
+        },
+        {
+          "type": "interact",
+          "target": "ch001.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch001.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch001.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch001.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch001"
+        }
+      ],
+      "completion_flag": "story.ch001.done"
+    },
+    {
+      "id": "ch002",
+      "chapter": 2,
+      "act": 1,
+      "title": "失去名字的归人",
+      "location": "白砂港·收容所",
+      "log_before": "【失去名字的归人】前往白砂港·收容所。他只记得自己有个女儿，却不知道该叫谁的名字。",
+      "log_investigate": "【失去名字的归人】调查：水手手背写着“不要相信第二次钟声”。",
+      "log_crisis": "【失去名字的归人】关键事件：医院主任企图焚烧病例，理由是保护病患免受传染。",
+      "log_after": "【失去名字的归人】主角保留病例副本，确认失忆并非普通疾病。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "白砂港·收容所"
+        },
+        {
+          "type": "interact",
+          "target": "ch002.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch002.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch002.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch002.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch002"
+        }
+      ],
+      "completion_flag": "story.ch002.done"
+    },
+    {
+      "id": "ch003",
+      "chapter": 3,
+      "act": 1,
+      "title": "海雾中的遗迹",
+      "location": "断桅海蚀洞",
+      "log_before": "【海雾中的遗迹】前往断桅海蚀洞。这片礁石平时不在海图上，今天却像专门等我们。",
+      "log_investigate": "【海雾中的遗迹】调查：石壁刻着三条归航路线，只有第三条指向地下。",
+      "log_crisis": "【海雾中的遗迹】关键事件：守护机关将“闯入者”和“归来之人”同时判为敌人。",
+      "log_after": "【海雾中的遗迹】星针指向天空，遗迹墙面出现澄舟年轻时的影像。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "断桅海蚀洞"
+        },
+        {
+          "type": "interact",
+          "target": "ch003.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch003.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch003.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch003.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch003"
+        }
+      ],
+      "completion_flag": "story.ch003.done"
+    },
+    {
+      "id": "ch004",
+      "chapter": 4,
+      "act": 1,
+      "title": "第三位同行者",
+      "location": "白砂港·黑帆酒馆",
+      "log_before": "【第三位同行者】前往白砂港·黑帆酒馆。别把我当善人，我只是比你们更讨厌骗人。",
+      "log_investigate": "【第三位同行者】调查：走私货单中所谓盐包其实装着记忆结晶。",
+      "log_crisis": "【第三位同行者】关键事件：朔弦曾为灰帷会运过货，害怕被主角认出。",
+      "log_after": "【第三位同行者】朔弦坦白旧罪并加入队伍，保留一张神秘海图。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "白砂港·黑帆酒馆"
+        },
+        {
+          "type": "interact",
+          "target": "ch004.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch004.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch004.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch004.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch004"
+        }
+      ],
+      "completion_flag": "story.ch004.done"
+    },
+    {
+      "id": "ch005",
+      "chapter": 5,
+      "act": 1,
+      "title": "潮底巨影",
+      "location": "鲸骨浅滩",
+      "log_before": "【潮底巨影】前往鲸骨浅滩。它不是在攻击渔船，它是在求救。",
+      "log_investigate": "【潮底巨影】调查：海兽体内的星锁来自人为植入的古代装置。",
+      "log_crisis": "【潮底巨影】关键事件：港务官要求直接杀死海兽，以免海运再次受阻。",
+      "log_after": "【潮底巨影】主角解除星锁，海兽带领众人找到潮歌灯的入口。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "鲸骨浅滩"
+        },
+        {
+          "type": "interact",
+          "target": "ch005.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch005.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch005.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch005.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch005"
+        }
+      ],
+      "completion_flag": "story.ch005.done"
+    },
+    {
+      "id": "ch006",
+      "chapter": 6,
+      "act": 1,
+      "title": "归航灯重燃",
+      "location": "潮歌灯塔",
+      "log_before": "【归航灯重燃】前往潮歌灯塔。如果光回来，失去的人也会回来吗？",
+      "log_investigate": "【归航灯重燃】调查：灯芯记录每艘船最后一次平安抵港的声音。",
+      "log_crisis": "【归航灯重燃】关键事件：重燃需要献出一段个人记忆，主角拒绝接受这个条件。",
+      "log_after": "【归航灯重燃】众人以共同讲述的归航故事代替祭品，潮歌灯亮起。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "潮歌灯塔"
+        },
+        {
+          "type": "interact",
+          "target": "ch006.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch006.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch006.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch006.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch006"
+        }
+      ],
+      "completion_flag": "story.ch006.done"
+    },
+    {
+      "id": "ch007",
+      "chapter": 7,
+      "act": 2,
+      "title": "被拒绝的使者",
+      "location": "三誓王都·外廷",
+      "log_before": "【被拒绝的使者】前往三誓王都·外廷。这张通行证在三国都不算数，和平比战争更需要耐心。",
+      "log_investigate": "【被拒绝的使者】调查：三份外交函盖着同一个不应存在的秘密印章。",
+      "log_crisis": "【被拒绝的使者】关键事件：大臣要求玩家隐瞒边境难民，才肯开放王城档案。",
+      "log_after": "【被拒绝的使者】主角拒绝伪造证词，循商道秘密进入边境。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "三誓王都·外廷"
+        },
+        {
+          "type": "interact",
+          "target": "ch007.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch007.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch007.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch007.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch007"
+        }
+      ],
+      "completion_flag": "story.ch007.done"
+    },
+    {
+      "id": "ch008",
+      "chapter": 8,
+      "act": 2,
+      "title": "断绝的商路",
+      "location": "灰鹰商道",
+      "log_before": "【断绝的商路】前往灰鹰商道。这条路断一天，边境村子就少吃一天饭。",
+      "log_investigate": "【断绝的商路】调查：劫匪弩箭来自王都军械库，而非敌国。",
+      "log_crisis": "【断绝的商路】关键事件：商队首领想用暴力报复对岸村庄，几乎引发冲突。",
+      "log_after": "【断绝的商路】众人护住双方平民，带回可交叉验证的武器编号。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "灰鹰商道"
+        },
+        {
+          "type": "interact",
+          "target": "ch008.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch008.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch008.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch008.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch008"
+        }
+      ],
+      "completion_flag": "story.ch008.done"
+    },
+    {
+      "id": "ch009",
+      "chapter": 9,
+      "act": 2,
+      "title": "无罪者的审判",
+      "location": "三誓王都·审判厅",
+      "log_before": "【无罪者的审判】前往三誓王都·审判厅。我违抗过命令，这点我不会否认。但那不是罪。",
+      "log_investigate": "【无罪者的审判】调查：雷索被命令清剿的村子根本没有敌军。",
+      "log_crisis": "【无罪者的审判】关键事件：证人愿说出真相，却担心家人被王室报复。",
+      "log_after": "【无罪者的审判】法庭公开军令副本，雷索恢复名誉但拒绝复职。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "三誓王都·审判厅"
+        },
+        {
+          "type": "interact",
+          "target": "ch009.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch009.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch009.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch009.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch009"
+        }
+      ],
+      "completion_flag": "story.ch009.done"
+    },
+    {
+      "id": "ch010",
+      "chapter": 10,
+      "act": 2,
+      "title": "三面旗帜",
+      "location": "三国边境议事站",
+      "log_before": "【三面旗帜】前往三国边境议事站。每个人说的都是自己受过的伤，可没人听见别人。",
+      "log_investigate": "【三面旗帜】调查：三处纵火现场都出现灰帷会特有的无烟灰。",
+      "log_crisis": "【三面旗帜】关键事件：三国使者把共同调查当成丢面子的让步。",
+      "log_after": "【三面旗帜】主角安排三国共同运粮，第一次建立实际合作。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "三国边境议事站"
+        },
+        {
+          "type": "interact",
+          "target": "ch010.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch010.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch010.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch010.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch010"
+        }
+      ],
+      "completion_flag": "story.ch010.done"
+    },
+    {
+      "id": "ch011",
+      "chapter": 11,
+      "act": 2,
+      "title": "最后的盟约",
+      "location": "旧盟约桥",
+      "log_before": "【最后的盟约】前往旧盟约桥。一纸盟约救不了人，愿意承担后果的人才可以。",
+      "log_investigate": "【最后的盟约】调查：王室顾问暗中向两边军队发出了同样的进攻指令。",
+      "log_crisis": "【最后的盟约】关键事件：顾问当众撕毁协议，想让王族背负对方先开战的罪。",
+      "log_after": "【最后的盟约】玩家公布原始军令，三国士兵共同拒绝作战。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "旧盟约桥"
+        },
+        {
+          "type": "interact",
+          "target": "ch011.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch011.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch011.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch011.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch011"
+        }
+      ],
+      "completion_flag": "story.ch011.done"
+    },
+    {
+      "id": "ch012",
+      "chapter": 12,
+      "act": 2,
+      "title": "王冠不等于信任",
+      "location": "律序母灯坛",
+      "log_before": "【王冠不等于信任】前往律序母灯坛。我愿意先把自己的错误写进历史。",
+      "log_investigate": "【王冠不等于信任】调查：律序灯从不判断血统，只验证是否有人兑现承诺。",
+      "log_crisis": "【王冠不等于信任】关键事件：旧仪式要求三位君主相互交出王位作为担保。",
+      "log_after": "【王冠不等于信任】平民代表与国王共同立誓，律序灯在没有献祭的情况下重燃。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "律序母灯坛"
+        },
+        {
+          "type": "interact",
+          "target": "ch012.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch012.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch012.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch012.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch012"
+        }
+      ],
+      "completion_flag": "story.ch012.done"
+    },
+    {
+      "id": "ch013",
+      "chapter": 13,
+      "act": 3,
+      "title": "矿坑里的第二个太阳",
+      "location": "赤炉联邦·七号矿坑",
+      "log_before": "【矿坑里的第二个太阳】前往赤炉联邦·七号矿坑。别碰那颗石头，它亮得像太阳，温度却低得像尸体。",
+      "log_investigate": "【矿坑里的第二个太阳】调查：矿井产量在停工时仍持续增长，账册记录着不存在的班次。",
+      "log_crisis": "【矿坑里的第二个太阳】关键事件：矿工家属在名单中发现自己的姓名已经被划去。",
+      "log_after": "【矿坑里的第二个太阳】众人救出幸存者，携带矿石样本前往工匠总署。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "赤炉联邦·七号矿坑"
+        },
+        {
+          "type": "interact",
+          "target": "ch013.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch013.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch013.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch013.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch013"
+        }
+      ],
+      "completion_flag": "story.ch013.done"
+    },
+    {
+      "id": "ch014",
+      "chapter": 14,
+      "act": 3,
+      "title": "不说谎的机器",
+      "location": "赤炉工坊·试验台",
+      "log_before": "【不说谎的机器】前往赤炉工坊·试验台。机器不会骗人，输入它的命令的人却会。",
+      "log_investigate": "【不说谎的机器】调查：机械反复呼唤一个矿工孩子的乳名。",
+      "log_crisis": "【不说谎的机器】关键事件：总署认定声音只是噪声，准备拆毁旧机。",
+      "log_after": "【不说谎的机器】缇珐保存记忆结晶，决定公开能源技术的缺陷。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "赤炉工坊·试验台"
+        },
+        {
+          "type": "interact",
+          "target": "ch014.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch014.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch014.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch014.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch014"
+        }
+      ],
+      "completion_flag": "story.ch014.done"
+    },
+    {
+      "id": "ch015",
+      "chapter": 15,
+      "act": 3,
+      "title": "百工试炼",
+      "location": "赤炉联邦·百工塔",
+      "log_before": "【百工试炼】前往赤炉联邦·百工塔。握住锤子的人不只会打铁，也能决定要造什么。",
+      "log_investigate": "【百工试炼】调查：转职仪式源于古代人学习多种技艺的开放制度。",
+      "log_crisis": "【百工试炼】关键事件：工匠议会要求签署永久效忠合同才允许继承技术。",
+      "log_after": "【百工试炼】玩家选择公开试炼图纸，职业系统正式开放。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "赤炉联邦·百工塔"
+        },
+        {
+          "type": "interact",
+          "target": "ch015.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch015.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch015.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch015.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch015"
+        }
+      ],
+      "completion_flag": "story.ch015.done"
+    },
+    {
+      "id": "ch016",
+      "chapter": 16,
+      "act": 3,
+      "title": "被遗忘的矿工",
+      "location": "灰砂安置区",
+      "log_before": "【被遗忘的矿工】前往灰砂安置区。他们还活着，为什么整个城市都装作没看见？",
+      "log_investigate": "【被遗忘的矿工】调查：矿工记忆被提取后制成公共能源。",
+      "log_crisis": "【被遗忘的矿工】关键事件：受益居民害怕停供，因此有人自愿替工厂掩盖罪行。",
+      "log_after": "【被遗忘的矿工】众人建立公开名册，为矿工争取补偿和姓名。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "灰砂安置区"
+        },
+        {
+          "type": "interact",
+          "target": "ch016.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch016.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch016.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch016.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch016"
+        }
+      ],
+      "completion_flag": "story.ch016.done"
+    },
+    {
+      "id": "ch017",
+      "chapter": 17,
+      "act": 3,
+      "title": "熔炉暴走",
+      "location": "赤炉主炉",
+      "log_before": "【熔炉暴走】前往赤炉主炉。那颗心脏是我画的图，可我没允许它用来杀人。",
+      "log_investigate": "【熔炉暴走】调查：军方把缇珐的民生引擎改造成火炮系统。",
+      "log_crisis": "【熔炉暴走】关键事件：关机将使医院短时间断电，直接爆破又会伤及全城。",
+      "log_after": "【熔炉暴走】队伍分头抢修备用发电机，阻止机械暴走。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "赤炉主炉"
+        },
+        {
+          "type": "interact",
+          "target": "ch017.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch017.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch017.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch017.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch017"
+        }
+      ],
+      "completion_flag": "story.ch017.done"
+    },
+    {
+      "id": "ch018",
+      "chapter": 18,
+      "act": 3,
+      "title": "真正的炉火",
+      "location": "炉心母灯室",
+      "log_before": "【真正的炉火】前往炉心母灯室。我不是要证明自己没错，我想让他们不必再受伤。",
+      "log_investigate": "【真正的炉火】调查：炉心灯本可由低功率共享网络维持，从来不必吞噬记忆。",
+      "log_crisis": "【真正的炉火】关键事件：旧统治者威胁公布真相会毁灭工业信誉。",
+      "log_after": "【真正的炉火】市民自愿停工配合改造，炉心灯重燃。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "炉心母灯室"
+        },
+        {
+          "type": "interact",
+          "target": "ch018.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch018.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch018.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch018.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch018"
+        }
+      ],
+      "completion_flag": "story.ch018.done"
+    },
+    {
+      "id": "ch019",
+      "chapter": 19,
+      "act": 4,
+      "title": "骑士最后的命令",
+      "location": "十年前·肃清边村",
+      "log_before": "【骑士最后的命令】前往十年前·肃清边村。军令写的是消灭敌人，可这里连一把剑都没有。",
+      "log_investigate": "【骑士最后的命令】调查：所谓叛军信号来自村中用于求救的烟火。",
+      "log_crisis": "【骑士最后的命令】关键事件：直属长官命令雷索烧毁所有民宅以掩盖误报。",
+      "log_after": "【骑士最后的命令】雷索放走居民，接受被夺爵位的代价。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "十年前·肃清边村"
+        },
+        {
+          "type": "interact",
+          "target": "ch019.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch019.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch019.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch019.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch019"
+        }
+      ],
+      "completion_flag": "story.ch019.done"
+    },
+    {
+      "id": "ch020",
+      "chapter": 20,
+      "act": 4,
+      "title": "没有目的地的船",
+      "location": "七年前·无名海",
+      "log_before": "【没有目的地的船】前往七年前·无名海。我记得码头上有一棵歪树，他们却说从来没有那个岛。",
+      "log_investigate": "【没有目的地的船】调查：海图破口处的经纬线被人刻意刮掉。",
+      "log_crisis": "【没有目的地的船】关键事件：船长决定将仍寻找故乡的朔弦卖给灰帷会。",
+      "log_after": "【没有目的地的船】朔弦逃脱并藏起船长的航海日记。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "七年前·无名海"
+        },
+        {
+          "type": "interact",
+          "target": "ch020.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch020.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch020.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch020.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch020"
+        }
+      ],
+      "completion_flag": "story.ch020.done"
+    },
+    {
+      "id": "ch021",
+      "chapter": 21,
+      "act": 4,
+      "title": "药师的谎言",
+      "location": "十年前·晨露药房",
+      "log_before": "【药师的谎言】前往十年前·晨露药房。我把那张纸藏起来，不是因为不信任你。",
+      "log_investigate": "【药师的谎言】调查：澄舟曾嘱咐岚音，若主角失忆就让其远离第七座灯。",
+      "log_crisis": "【药师的谎言】关键事件：岚音母亲要求销毁记录，否则主角会被议会找到。",
+      "log_after": "【药师的谎言】岚音藏下病历，决心终有一天亲口解释。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "十年前·晨露药房"
+        },
+        {
+          "type": "interact",
+          "target": "ch021.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch021.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch021.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch021.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch021"
+        }
+      ],
+      "completion_flag": "story.ch021.done"
+    },
+    {
+      "id": "ch022",
+      "chapter": 22,
+      "act": 4,
+      "title": "白夜祭",
+      "location": "三誓王都·灯会",
+      "log_before": "【白夜祭】前往三誓王都·灯会。歌声最适合藏真话，因为人们只会记住旋律。",
+      "log_investigate": "【白夜祭】调查：秘宴拍卖的不是宝物，而是贵族不想留下的记忆。",
+      "log_crisis": "【白夜祭】关键事件：灰帷会盯上伊泽保管的古老歌曲。",
+      "log_after": "【白夜祭】队伍揭露拍卖账簿，从王宫暗室取出旧议会档案。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "三誓王都·灯会"
+        },
+        {
+          "type": "interact",
+          "target": "ch022.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch022.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch022.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch022.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch022"
+        }
+      ],
+      "completion_flag": "story.ch022.done"
+    },
+    {
+      "id": "ch023",
+      "chapter": 23,
+      "act": 4,
+      "title": "被修改的记录",
+      "location": "王城地下档案室",
+      "log_before": "【被修改的记录】前往王城地下档案室。档案被改过三次，有人害怕别人读到原件。",
+      "log_investigate": "【被修改的记录】调查：古代灯阵通过储存愿望实现对现实的微调。",
+      "log_crisis": "【被修改的记录】关键事件：守卫将删除调查者的名字，试图让他们从记录里消失。",
+      "log_after": "【被修改的记录】主角保住原件，发现第七位守灯者的名字被抹去。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "王城地下档案室"
+        },
+        {
+          "type": "interact",
+          "target": "ch023.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch023.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch023.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch023.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch023"
+        }
+      ],
+      "completion_flag": "story.ch023.done"
+    },
+    {
+      "id": "ch024",
+      "chapter": 24,
+      "act": 4,
+      "title": "守灯者的罪",
+      "location": "断层议会遗迹",
+      "log_before": "【守灯者的罪】前往断层议会遗迹。拯救世界的人，也得面对自己做错的事。",
+      "log_investigate": "【守灯者的罪】调查：七灯初建时，古人把一部分人的记忆当成封印材料。",
+      "log_crisis": "【守灯者的罪】关键事件：三国使者担心公开真相会摧毁新建立的信任。",
+      "log_after": "【守灯者的罪】主角公开档案并承担民众的愤怒，下一条航路随之出现。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "断层议会遗迹"
+        },
+        {
+          "type": "interact",
+          "target": "ch024.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch024.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch024.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch024.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch024"
+        }
+      ],
+      "completion_flag": "story.ch024.done"
+    },
+    {
+      "id": "ch025",
+      "chapter": 25,
+      "act": 5,
+      "title": "我们的第一艘船",
+      "location": "海歌港·旧船坞",
+      "log_before": "【我们的第一艘船】前往海歌港·旧船坞。船不是自由的证明，愿意上船的人才是。",
+      "log_investigate": "【我们的第一艘船】调查：废弃船舱内刻有澄舟的修船标记。",
+      "log_crisis": "【我们的第一艘船】关键事件：港长要扣押旧船抵债，即便债务早已还清。",
+      "log_after": "【我们的第一艘船】玩家用旧债收据换得船籍，远航船「逐星号」起航。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "海歌港·旧船坞"
+        },
+        {
+          "type": "interact",
+          "target": "ch025.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch025.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch025.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch025.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch025"
+        }
+      ],
+      "completion_flag": "story.ch025.done"
+    },
+    {
+      "id": "ch026",
+      "chapter": 26,
+      "act": 5,
+      "title": "不会归港的邮差",
+      "location": "晴汐小岛",
+      "log_before": "【不会归港的邮差】前往晴汐小岛。他每年都寄信，邮戳却来自一座不存在的岛。",
+      "log_investigate": "【不会归港的邮差】调查：邮差的老航线在海图上被反复涂改。",
+      "log_crisis": "【不会归港的邮差】关键事件：岛民坚持收件人早死，信纸上的新墨却证明有人近期收信。",
+      "log_after": "【不会归港的邮差】主角找到第一张失落航页，答应继续寻找消失的群岛。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "晴汐小岛"
+        },
+        {
+          "type": "interact",
+          "target": "ch026.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch026.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch026.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch026.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch026"
+        }
+      ],
+      "completion_flag": "story.ch026.done"
+    },
+    {
+      "id": "ch027",
+      "chapter": 27,
+      "act": 5,
+      "title": "潮声下的古国",
+      "location": "青蓝海沟·沉城",
+      "log_before": "【潮声下的古国】前往青蓝海沟·沉城。听，那不是海浪，是有人在水下敲钟。",
+      "log_investigate": "【潮声下的古国】调查：王国沉没前曾主动关闭海底灯，以保住陆上城市。",
+      "log_crisis": "【潮声下的古国】关键事件：海底守卫把所有来访者视为当年的叛徒。",
+      "log_after": "【潮声下的古国】主角记录沉城居民姓名，让古钟最后响一次。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "青蓝海沟·沉城"
+        },
+        {
+          "type": "interact",
+          "target": "ch027.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch027.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch027.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch027.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch027"
+        }
+      ],
+      "completion_flag": "story.ch027.done"
+    },
+    {
+      "id": "ch028",
+      "chapter": 28,
+      "act": 5,
+      "title": "唱给不存在之人的歌",
+      "location": "断歌礁",
+      "log_before": "【唱给不存在之人的歌】前往断歌礁。我唱了那么多年，竟不知道这首歌写给谁。",
+      "log_investigate": "【唱给不存在之人的歌】调查：歌词里出现主角养父的字迹与失落旧洲地名。",
+      "log_crisis": "【唱给不存在之人的歌】关键事件：伊泽发现歌声会唤醒寂潮，也可能召来灰帷会。",
+      "log_after": "【唱给不存在之人的歌】伊泽决定不再独自保管秘密，正式加入冒险队伍。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "断歌礁"
+        },
+        {
+          "type": "interact",
+          "target": "ch028.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch028.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch028.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch028.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch028"
+        }
+      ],
+      "completion_flag": "story.ch028.done"
+    },
+    {
+      "id": "ch029",
+      "chapter": 29,
+      "act": 5,
+      "title": "无风海域",
+      "location": "静浪禁航区",
+      "log_before": "【无风海域】前往静浪禁航区。这片海连影子都走不动，我们得自己找路。",
+      "log_investigate": "【无风海域】调查：航标被改成通往赫西安旧船队的陷阱。",
+      "log_crisis": "【无风海域】关键事件：为了救一艘陌生商船，队伍必须放弃最佳航窗。",
+      "log_after": "【无风海域】主角先救商船，借众船合力驶出禁海。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "静浪禁航区"
+        },
+        {
+          "type": "interact",
+          "target": "ch029.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch029.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch029.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch029.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch029"
+        }
+      ],
+      "completion_flag": "story.ch029.done"
+    },
+    {
+      "id": "ch030",
+      "chapter": 30,
+      "act": 5,
+      "title": "风航灯的约定",
+      "location": "风航群岛·云礁",
+      "log_before": "【风航灯的约定】前往风航群岛·云礁。自由不是没人管你，是你能选择去哪里。",
+      "log_investigate": "【风航灯的约定】调查：风航灯依靠不同船队共享航路记忆维持。",
+      "log_crisis": "【风航灯的约定】关键事件：海盗首领想独占海域，让其他船只能向其缴费。",
+      "log_after": "【风航灯的约定】群岛组成航路公约，风航灯照亮远海。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "风航群岛·云礁"
+        },
+        {
+          "type": "interact",
+          "target": "ch030.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch030.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch030.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch030.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch030"
+        }
+      ],
+      "completion_flag": "story.ch030.done"
+    },
+    {
+      "id": "ch031",
+      "chapter": 31,
+      "act": 6,
+      "title": "永远晴朗的街道",
+      "location": "镜眠王都·日轮街",
+      "log_before": "【永远晴朗的街道】前往镜眠王都·日轮街。你们的影子每晚都消失，为什么没人觉得奇怪？",
+      "log_investigate": "【永远晴朗的街道】调查：街上日历永远停在花祭当天，花却一直新开。",
+      "log_crisis": "【永远晴朗的街道】关键事件：王国居民恳求玩家不要打破难得的安宁。",
+      "log_after": "【永远晴朗的街道】主角决定调查幻境源头，而不是强行叫醒所有人。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "镜眠王都·日轮街"
+        },
+        {
+          "type": "interact",
+          "target": "ch031.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch031.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch031.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch031.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch031"
+        }
+      ],
+      "completion_flag": "story.ch031.done"
+    },
+    {
+      "id": "ch032",
+      "chapter": 32,
+      "act": 6,
+      "title": "镜子背后的人",
+      "location": "镜宫回廊",
+      "log_before": "【镜子背后的人】前往镜宫回廊。这里的门会把你送到“想去”的地方，不是“该去”的地方。",
+      "log_investigate": "【镜子背后的人】调查：映世里的建筑由未完成的愿望塑形。",
+      "log_crisis": "【镜子背后的人】关键事件：失踪孩子在映世拥有幸福家庭，不愿返回现世。",
+      "log_after": "【镜子背后的人】队伍和孩子协商，让其自愿在两个世界之间做决定。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "镜宫回廊"
+        },
+        {
+          "type": "interact",
+          "target": "ch032.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch032.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch032.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch032.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch032"
+        }
+      ],
+      "completion_flag": "story.ch032.done"
+    },
+    {
+      "id": "ch033",
+      "chapter": 33,
+      "act": 6,
+      "title": "另一种人生",
+      "location": "七重梦庭",
+      "log_before": "【另一种人生】前往七重梦庭。原来如果那天我告诉你真相，我们可能再也不会一起出发。",
+      "log_investigate": "【另一种人生】调查：每个分支都真实拥有情绪，却无法脱离梦庭成长。",
+      "log_crisis": "【另一种人生】关键事件：伙伴们开始怀疑自己的现在是否比另一条路更好。",
+      "log_after": "【另一种人生】众人带着遗憾回到现世，羁绊因坦诚而加深。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "七重梦庭"
+        },
+        {
+          "type": "interact",
+          "target": "ch033.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch033.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch033.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch033.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch033"
+        }
+      ],
+      "completion_flag": "story.ch033.done"
+    },
+    {
+      "id": "ch034",
+      "chapter": 34,
+      "act": 6,
+      "title": "被创造的少女",
+      "location": "映世·无名剧场",
+      "log_before": "【被创造的少女】前往映世·无名剧场。如果没有人记得我出生，难道我就没有活着的权利？",
+      "log_investigate": "【被创造的少女】调查：玄璃由无数被放弃的愿望凝成，却拥有独立意志。",
+      "log_crisis": "【被创造的少女】关键事件：古代程序将她登记为“可回收幻象”。",
+      "log_after": "【被创造的少女】主角破坏回收装置，玄璃亲手写下自己的名字。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "映世·无名剧场"
+        },
+        {
+          "type": "interact",
+          "target": "ch034.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch034.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch034.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch034.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch034"
+        }
+      ],
+      "completion_flag": "story.ch034.done"
+    },
+    {
+      "id": "ch035",
+      "chapter": 35,
+      "act": 6,
+      "title": "醒来的人们",
+      "location": "镜眠王都·疗养院",
+      "log_before": "【醒来的人们】前往镜眠王都·疗养院。醒来不一定幸福，但选择必须属于他们自己。",
+      "log_investigate": "【醒来的人们】调查：梦境为每位居民保存了失去之人的理想形象。",
+      "log_crisis": "【醒来的人们】关键事件：官员要求强制唤醒，许多病弱居民无法承受。",
+      "log_after": "【醒来的人们】岚音设计循序醒转疗法，王国保留自愿短眠的医疗设施。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "镜眠王都·疗养院"
+        },
+        {
+          "type": "interact",
+          "target": "ch035.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch035.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch035.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch035.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch035"
+        }
+      ],
+      "completion_flag": "story.ch035.done"
+    },
+    {
+      "id": "ch036",
+      "chapter": 36,
+      "act": 6,
+      "title": "镜眠灯下的真相",
+      "location": "镜眠母灯深处",
+      "log_before": "【镜眠灯下的真相】前往镜眠母灯深处。我宁愿明天会难过，也不要今天永远结束。",
+      "log_investigate": "【镜眠灯下的真相】调查：镜眠灯被赫西安改写，将居民的自由愿望转成静止能源。",
+      "log_crisis": "【镜眠灯下的真相】关键事件：赫西安的投影许诺让每个人见回死去的亲人。",
+      "log_after": "【镜眠灯下的真相】众人选择不接受永恒停滞，镜眠灯恢复原有的开放功能。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "镜眠母灯深处"
+        },
+        {
+          "type": "interact",
+          "target": "ch036.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch036.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch036.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch036.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch036"
+        }
+      ],
+      "completion_flag": "story.ch036.done"
+    },
+    {
+      "id": "ch037",
+      "chapter": 37,
+      "act": 7,
+      "title": "地图上的空白",
+      "location": "旧洲外海·无名岛",
+      "log_before": "【地图上的空白】前往旧洲外海·无名岛。我的故乡就藏在这些白纸后面，我敢肯定。",
+      "log_investigate": "【地图上的空白】调查：海面并非空无一物，而是所有测绘罗盘同时忽略同一片海。",
+      "log_crisis": "【地图上的空白】关键事件：航页一旦被修复，海上商会就要承认自己隐瞒了几十年的航线。",
+      "log_after": "【地图上的空白】第一座失落岛屿重现，朔弦终于看见儿时码头上的歪树。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "旧洲外海·无名岛"
+        },
+        {
+          "type": "interact",
+          "target": "ch037.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch037.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch037.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch037.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch037"
+        }
+      ],
+      "completion_flag": "story.ch037.done"
+    },
+    {
+      "id": "ch038",
+      "chapter": 38,
+      "act": 7,
+      "title": "一整座城的谎言",
+      "location": "旧洲·默契城",
+      "log_before": "【一整座城的谎言】前往旧洲·默契城。他们每个人都记得自己的家，却没有两个人记得同一个昨天。",
+      "log_investigate": "【一整座城的谎言】调查：城内所有户籍的第一代住户日期完全相同。",
+      "log_crisis": "【一整座城的谎言】关键事件：居民宁愿假装记得一切，也害怕知道自己的过去曾被夺去。",
+      "log_after": "【一整座城的谎言】主角公开档案并保护不愿立即接受真相的家庭。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "旧洲·默契城"
+        },
+        {
+          "type": "interact",
+          "target": "ch038.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch038.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch038.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch038.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch038"
+        }
+      ],
+      "completion_flag": "story.ch038.done"
+    },
+    {
+      "id": "ch039",
+      "chapter": 39,
+      "act": 7,
+      "title": "叫作诺依的孩子",
+      "location": "旧洲·裂谷村",
+      "log_before": "【叫作诺依的孩子】前往旧洲·裂谷村。你可以哭，也可以不说话。我们会等你。",
+      "log_investigate": "【叫作诺依的孩子】调查：诺依握着一枚写着母亲名字的旧车票。",
+      "log_crisis": "【叫作诺依的孩子】关键事件：救援队判断剩余搜寻已无希望，但诺依仍听见井下求救声。",
+      "log_after": "【叫作诺依的孩子】主角冒险重返井下救出幸存者，正式收留诺依同行。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "旧洲·裂谷村"
+        },
+        {
+          "type": "interact",
+          "target": "ch039.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch039.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch039.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch039.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch039"
+        }
+      ],
+      "completion_flag": "story.ch039.done"
+    },
+    {
+      "id": "ch040",
+      "chapter": 40,
+      "act": 7,
+      "title": "历史没有正确答案",
+      "location": "岁影回廊·灰烬年代",
+      "log_before": "【历史没有正确答案】前往岁影回廊·灰烬年代。历史不是一首只允许一个人唱的歌。",
+      "log_investigate": "【历史没有正确答案】调查：封城者为防扩散救了很多人，也把孤城居民永远留在里面。",
+      "log_crisis": "【历史没有正确答案】关键事件：回廊要求玩家挑选一方为英雄并删除另一方的证词。",
+      "log_after": "【历史没有正确答案】主角拒绝删去任何一方，让受害与善意同时留在历史里。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "岁影回廊·灰烬年代"
+        },
+        {
+          "type": "interact",
+          "target": "ch040.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch040.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch040.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch040.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch040"
+        }
+      ],
+      "completion_flag": "story.ch040.done"
+    },
+    {
+      "id": "ch041",
+      "chapter": 41,
+      "act": 7,
+      "title": "根系之下",
+      "location": "旧洲·地脉树海",
+      "log_before": "【根系之下】前往旧洲·地脉树海。所谓根，也许只是世界不肯承认的伤口。",
+      "log_investigate": "【根系之下】调查：古代灯阵不只保存记忆，还限制未来可能出现的路线。",
+      "log_crisis": "【根系之下】关键事件：根忆守卫声称如果解除限制，寂潮将立即卷土重来。",
+      "log_after": "【根系之下】队伍找到可逆的分布式灯网图纸，留下重建的可能。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "旧洲·地脉树海"
+        },
+        {
+          "type": "interact",
+          "target": "ch041.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch041.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch041.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch041.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch041"
+        }
+      ],
+      "completion_flag": "story.ch041.done"
+    },
+    {
+      "id": "ch042",
+      "chapter": 42,
+      "act": 7,
+      "title": "被世界记起的人们",
+      "location": "根忆母灯坛",
+      "log_before": "【被世界记起的人们】前往根忆母灯坛。请把名字告诉我，我要一字不漏地唱给世界。",
+      "log_investigate": "【被世界记起的人们】调查：根忆灯回应的不是献祭，而是彼此承认存在的见证。",
+      "log_crisis": "【被世界记起的人们】关键事件：少数旧贵族拒绝让被驱逐的人重返历史。",
+      "log_after": "【被世界记起的人们】居民轮流报出姓名与故事，根忆灯亮起，失落旧洲重现。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "根忆母灯坛"
+        },
+        {
+          "type": "interact",
+          "target": "ch042.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch042.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch042.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch042.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch042"
+        }
+      ],
+      "completion_flag": "story.ch042.done"
+    },
+    {
+      "id": "ch043",
+      "chapter": 43,
+      "act": 8,
+      "title": "六灯的代价",
+      "location": "三誓王都·星务署",
+      "log_before": "【六灯的代价】前往三誓王都·星务署。等等，所有光都在往同一个地方流。",
+      "log_investigate": "【六灯的代价】调查：星灯修复时的溢出能量被秘密汇入天轨圣域。",
+      "log_crisis": "【六灯的代价】关键事件：星务署拒绝停机检查，声称此刻停止会导致城市断电。",
+      "log_after": "【六灯的代价】玩家取得完整输能图，才发现过去的努力正被人利用。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "三誓王都·星务署"
+        },
+        {
+          "type": "interact",
+          "target": "ch043.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch043.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch043.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch043.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch043"
+        }
+      ],
+      "completion_flag": "story.ch043.done"
+    },
+    {
+      "id": "ch044",
+      "chapter": 44,
+      "act": 8,
+      "title": "守灯者归来",
+      "location": "群灯广场",
+      "log_before": "【守灯者归来】前往群灯广场。我没有拿走幸福，我只想让它不必再被夺走。",
+      "log_investigate": "【守灯者归来】调查：赫西安出示大量确实得救的居民，公开自己的永昼计划。",
+      "log_crisis": "【守灯者归来】关键事件：群众对主角提出尖锐质问：自由是否值得以亲人死亡为代价。",
+      "log_after": "【守灯者归来】主角无法简单说服所有人，宣布每个人都有权知道计划代价。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "群灯广场"
+        },
+        {
+          "type": "interact",
+          "target": "ch044.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch044.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch044.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch044.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch044"
+        }
+      ],
+      "completion_flag": "story.ch044.done"
+    },
+    {
+      "id": "ch045",
+      "chapter": 45,
+      "act": 8,
+      "title": "选择安宁的人们",
+      "location": "赤炉城区·避难街",
+      "log_before": "【选择安宁的人们】前往赤炉城区·避难街。选择错误的人，也不该因此被烧掉房子。",
+      "log_investigate": "【选择安宁的人们】调查：支持赫西安者多数有无法治疗的伤痛，非单纯被蛊惑。",
+      "log_crisis": "【选择安宁的人们】关键事件：自由派民兵计划驱逐所有赞成者，引发内战。",
+      "log_after": "【选择安宁的人们】队伍公开约束盟友的暴力，帮助双方撤离火线。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "赤炉城区·避难街"
+        },
+        {
+          "type": "interact",
+          "target": "ch045.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch045.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch045.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch045.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch045"
+        }
+      ],
+      "completion_flag": "story.ch045.done"
+    },
+    {
+      "id": "ch046",
+      "chapter": 46,
+      "act": 8,
+      "title": "黑星升起",
+      "location": "天顶观测站",
+      "log_before": "【黑星升起】前往天顶观测站。黑星不是从宇宙飞来的，是有人把时间折成了一个点。",
+      "log_investigate": "【黑星升起】调查：天衡灯已在无人知晓时启动，正在冻结世界各地的未来。",
+      "log_crisis": "【黑星升起】关键事件：主角若关闭塔顶装置，地面护盾就会立即崩溃。",
+      "log_after": "【黑星升起】众人只能维持部分护盾，目睹黑星覆盖王都。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天顶观测站"
+        },
+        {
+          "type": "interact",
+          "target": "ch046.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch046.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch046.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch046.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch046"
+        }
+      ],
+      "completion_flag": "story.ch046.done"
+    },
+    {
+      "id": "ch047",
+      "chapter": 47,
+      "act": 8,
+      "title": "破碎的同行之誓",
+      "location": "三誓王都·撤离城门",
+      "log_before": "【破碎的同行之誓】前往三誓王都·撤离城门。不用等命令了。这里每个人都有自己的战场。",
+      "log_investigate": "【破碎的同行之誓】调查：城门机关被恶意改成只允许贵族通过。",
+      "log_crisis": "【破碎的同行之誓】关键事件：守护儿童、老人、伤者的路线同时崩溃，队伍必须分开。",
+      "log_after": "【破碎的同行之誓】主角安排多个撤离小队，队友各自承担危险任务。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "三誓王都·撤离城门"
+        },
+        {
+          "type": "interact",
+          "target": "ch047.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch047.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch047.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch047.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch047"
+        }
+      ],
+      "completion_flag": "story.ch047.done"
+    },
+    {
+      "id": "ch048",
+      "chapter": 48,
+      "act": 8,
+      "title": "漫长的告别",
+      "location": "潮歌灯塔·黑星之夜",
+      "log_before": "【漫长的告别】前往潮歌灯塔·黑星之夜。我们做不到救所有人，但眼前这个人还有手。抓住他。",
+      "log_investigate": "【漫长的告别】调查：赫西安留给主角一条逃往完美世界的路。",
+      "log_crisis": "【漫长的告别】关键事件：继续战斗也无法阻止灯网失衡，某些城市注定消失。",
+      "log_after": "【漫长的告别】主角让最后一艘船离岸，亲眼看着星灯逐盏熄灭；故事跨越十二年。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "潮歌灯塔·黑星之夜"
+        },
+        {
+          "type": "interact",
+          "target": "ch048.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch048.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch048.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch048.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch048"
+        }
+      ],
+      "completion_flag": "story.ch048.done"
+    },
+    {
+      "id": "ch049",
+      "chapter": 49,
+      "act": 9,
+      "title": "旧英雄的名字",
+      "location": "十二年后·荒原邮站",
+      "log_before": "【旧英雄的名字】前往十二年后·荒原邮站。大家都说那个人失败了，可没人说他救过多少人。",
+      "log_investigate": "【旧英雄的名字】调查：旅人保留着十二年前主角帮助自己的旧物。",
+      "log_crisis": "【旧英雄的名字】关键事件：新生代冒险者认为老英雄不值得寻找。",
+      "log_after": "【旧英雄的名字】诺依带着旧日名单出发，决定亲自判断那位主角是谁。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "十二年后·荒原邮站"
+        },
+        {
+          "type": "interact",
+          "target": "ch049.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch049.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch049.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch049.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch049"
+        }
+      ],
+      "completion_flag": "story.ch049.done"
+    },
+    {
+      "id": "ch050",
+      "chapter": 50,
+      "act": 9,
+      "title": "改变的王都",
+      "location": "十二年后·三誓王都",
+      "log_before": "【改变的王都】前往十二年后·三誓王都。城墙修高了，街上的人却不敢互相问名字。",
+      "log_investigate": "【改变的王都】调查：王都被分成自愿沉睡区与自由生活区，双方互相隔绝。",
+      "log_crisis": "【改变的王都】关键事件：诺依的救援许可证只允许进入一侧，另一侧有人急需援助。",
+      "log_after": "【改变的王都】诺依冲破检查站送药，得到雷索旧部的帮助。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "十二年后·三誓王都"
+        },
+        {
+          "type": "interact",
+          "target": "ch050.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch050.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch050.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch050.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch050"
+        }
+      ],
+      "completion_flag": "story.ch050.done"
+    },
+    {
+      "id": "ch051",
+      "chapter": 51,
+      "act": 9,
+      "title": "山间无名旅人",
+      "location": "雾岭·偏远农庄",
+      "log_before": "【山间无名旅人】前往雾岭·偏远农庄。我不是来请传说里的英雄。我想请你帮我。",
+      "log_investigate": "【山间无名旅人】调查：主角这些年一直在匿名修复村庄，从未真正停止帮助别人。",
+      "log_crisis": "【山间无名旅人】关键事件：主角认定再次举起旗帜只会让人追随一个注定失败的希望。",
+      "log_after": "【山间无名旅人】诺依留下一盏不起眼的手灯，等待主角自己作出决定。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "雾岭·偏远农庄"
+        },
+        {
+          "type": "interact",
+          "target": "ch051.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch051.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch051.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch051.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch051"
+        }
+      ],
+      "completion_flag": "story.ch051.done"
+    },
+    {
+      "id": "ch052",
+      "chapter": 52,
+      "act": 9,
+      "title": "再一次同行",
+      "location": "暮林古道",
+      "log_before": "【再一次同行】前往暮林古道。我们走过的路不是白走了，只是还没走完。",
+      "log_investigate": "【再一次同行】调查：昔日伙伴各自守护着不同地区，仍保存着旧队伍的徽章。",
+      "log_crisis": "【再一次同行】关键事件：多年隔阂让队员不再相信集体计划能成功。",
+      "log_after": "【再一次同行】主角坦白失败后的恐惧，队伍重新签下同行约定。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "暮林古道"
+        },
+        {
+          "type": "interact",
+          "target": "ch052.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch052.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch052.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch052.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch052"
+        }
+      ],
+      "completion_flag": "story.ch052.done"
+    },
+    {
+      "id": "ch053",
+      "chapter": 53,
+      "act": 9,
+      "title": "那些没能守住的家",
+      "location": "晨露村·旧灯塔",
+      "log_before": "【那些没能守住的家】前往晨露村·旧灯塔。原来不是所有人都盼着我回来。",
+      "log_investigate": "【那些没能守住的家】调查：旧灯塔账簿记录着由主角救出的孩子和不曾回来的人。",
+      "log_crisis": "【那些没能守住的家】关键事件：一位失去家人的村民拒绝原谅主角，众人不得强迫其和解。",
+      "log_after": "【那些没能守住的家】主角接受这份愤怒，亲手修复一座无人祭扫的墓碑。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "晨露村·旧灯塔"
+        },
+        {
+          "type": "interact",
+          "target": "ch053.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch053.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch053.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch053.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch053"
+        }
+      ],
+      "completion_flag": "story.ch053.done"
+    },
+    {
+      "id": "ch054",
+      "chapter": 54,
+      "act": 9,
+      "title": "传承之灯",
+      "location": "旧洲·新生营地",
+      "log_before": "【传承之灯】前往旧洲·新生营地。我想学的不是你的剑术，是你为什么一直肯回头。",
+      "log_investigate": "【传承之灯】调查：诺依在旧洲遇见当年受援儿童组成的救援队。",
+      "log_crisis": "【传承之灯】关键事件：队员争论由谁承担最危险的任务，主角主动选择放手。",
+      "log_after": "【传承之灯】诺依指挥救援成功，主角确认希望不只属于一个英雄。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "旧洲·新生营地"
+        },
+        {
+          "type": "interact",
+          "target": "ch054.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch054.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch054.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch054.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch054"
+        }
+      ],
+      "completion_flag": "story.ch054.done"
+    },
+    {
+      "id": "ch055",
+      "chapter": 55,
+      "act": 10,
+      "title": "废墟上的第一间屋子",
+      "location": "群灯之城·西区",
+      "log_before": "【废墟上的第一间屋子】前往群灯之城·西区。先把门装好。人有地方关门睡觉，才敢想明天。",
+      "log_investigate": "【废墟上的第一间屋子】调查：废墟旧地契属于一家已经迁往敌对阵营的住户。",
+      "log_crisis": "【废墟上的第一间屋子】关键事件：部分幸存者主张直接占用房屋，不必询问原主人。",
+      "log_after": "【废墟上的第一间屋子】主角建立临时住用协议，既安置难民也保护原有权利。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "群灯之城·西区"
+        },
+        {
+          "type": "interact",
+          "target": "ch055.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch055.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch055.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch055.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch055"
+        }
+      ],
+      "completion_flag": "story.ch055.done"
+    },
+    {
+      "id": "ch056",
+      "chapter": 56,
+      "act": 10,
+      "title": "冒险者的新公会",
+      "location": "群灯之城·旧会馆",
+      "log_before": "【冒险者的新公会】前往群灯之城·旧会馆。先把账目贴墙上。我们不能再养出另一个灰帷会。",
+      "log_investigate": "【冒险者的新公会】调查：公会早年曾负责配送救命物资，被战争切断记录。",
+      "log_crisis": "【冒险者的新公会】关键事件：旧佣兵团提出武力保护条件，索要对城市的永久管辖权。",
+      "log_after": "【冒险者的新公会】众人拒绝私兵独占，建立透明委托制度。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "群灯之城·旧会馆"
+        },
+        {
+          "type": "interact",
+          "target": "ch056.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch056.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch056.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch056.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch056"
+        }
+      ],
+      "completion_flag": "story.ch056.done"
+    },
+    {
+      "id": "ch057",
+      "chapter": 57,
+      "act": 10,
+      "title": "值得回来的地方",
+      "location": "群灯之城·居民街",
+      "log_before": "【值得回来的地方】前往群灯之城·居民街。街角有面包味道的时候，人才会觉得这里能住一辈子。",
+      "log_investigate": "【值得回来的地方】调查：流亡者带来的家乡技术可以互相补足城市短缺。",
+      "log_crisis": "【值得回来的地方】关键事件：不同族群争执广场该属于哪种传统节日。",
+      "log_after": "【值得回来的地方】玩家举办群灯节，让居民自己决定共同的节庆方式。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "群灯之城·居民街"
+        },
+        {
+          "type": "interact",
+          "target": "ch057.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch057.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch057.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch057.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch057"
+        }
+      ],
+      "completion_flag": "story.ch057.done"
+    },
+    {
+      "id": "ch058",
+      "chapter": 58,
+      "act": 10,
+      "title": "叛逃的记灯师",
+      "location": "城郊·封存档案车",
+      "log_before": "【叛逃的记灯师】前往城郊·封存档案车。我曾把几百人的未来写进报表，今天才敢写下自己的名字。",
+      "log_investigate": "【叛逃的记灯师】调查：维莎携带赫西安控制六灯的全部运算图谱。",
+      "log_crisis": "【叛逃的记灯师】关键事件：她过去参与过封印计划，幸存者要求当场处置。",
+      "log_after": "【叛逃的记灯师】主角保护审判公正，维莎公开罪证并承担修复责任。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "城郊·封存档案车"
+        },
+        {
+          "type": "interact",
+          "target": "ch058.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch058.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch058.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch058.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch058"
+        }
+      ],
+      "completion_flag": "story.ch058.done"
+    },
+    {
+      "id": "ch059",
+      "chapter": 59,
+      "act": 10,
+      "title": "不是所有人都想战斗",
+      "location": "群灯城·自由议事厅",
+      "log_before": "【不是所有人都想战斗】前往群灯城·自由议事厅。守护自由，也包括守护别人不拿武器的自由。",
+      "log_investigate": "【不是所有人都想战斗】调查：赞同中立的村落愿提供粮食、医疗和情报。",
+      "log_crisis": "【不是所有人都想战斗】关键事件：强硬派要求强制征兵，威胁断绝粮路。",
+      "log_after": "【不是所有人都想战斗】主角通过自愿互助体系获得支持，建立自由城市盟约。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "群灯城·自由议事厅"
+        },
+        {
+          "type": "interact",
+          "target": "ch059.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch059.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch059.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch059.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch059"
+        }
+      ],
+      "completion_flag": "story.ch059.done"
+    },
+    {
+      "id": "ch060",
+      "chapter": 60,
+      "act": 10,
+      "title": "千灯共明",
+      "location": "群灯城·星灯中枢",
+      "log_before": "【千灯共明】前往群灯城·星灯中枢。一盏灯坏了，其他人的灯也要能继续亮。",
+      "log_investigate": "【千灯共明】调查：分散灯网能够让居民选择贡献能源，消除集中封印风险。",
+      "log_crisis": "【千灯共明】关键事件：赫西安动用赤烬军团破坏民众自愿接入的节点。",
+      "log_after": "【千灯共明】居民逐户点亮手灯，六灯网络第一次不受司录者控制。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "群灯城·星灯中枢"
+        },
+        {
+          "type": "interact",
+          "target": "ch060.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch060.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch060.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch060.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch060"
+        }
+      ],
+      "completion_flag": "story.ch060.done"
+    },
+    {
+      "id": "ch061",
+      "chapter": 61,
+      "act": 11,
+      "title": "驶向群星的船",
+      "location": "天轨外海·浮空船坞",
+      "log_before": "【驶向群星的船】前往天轨外海·浮空船坞。以前以为海那边就是尽头，现在连天空也有航路。",
+      "log_investigate": "【驶向群星的船】调查：澄舟当年亲手改造过星帆，为主角预留登陆密钥。",
+      "log_crisis": "【驶向群星的船】关键事件：浮空通道只能容纳有限重量，部分船员必须留下。",
+      "log_after": "【驶向群星的船】众人建立往返补给站，星帆船驶入云海。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天轨外海·浮空船坞"
+        },
+        {
+          "type": "interact",
+          "target": "ch061.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch061.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch061.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch061.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch061"
+        }
+      ],
+      "completion_flag": "story.ch061.done"
+    },
+    {
+      "id": "ch062",
+      "chapter": 62,
+      "act": 11,
+      "title": "星灯诞生的地方",
+      "location": "天轨圣域·原初实验室",
+      "log_before": "【星灯诞生的地方】前往天轨圣域·原初实验室。我们把能避免的痛苦叫作误差，才忘记它属于人。",
+      "log_investigate": "【星灯诞生的地方】调查：寂潮源于古人试图固定所有人幸福未来时造成的概率塌陷。",
+      "log_crisis": "【星灯诞生的地方】关键事件：旧实验室仍主张扩大实验直到成功，拒绝承认方法存在根本问题。",
+      "log_after": "【星灯诞生的地方】主角销毁自动执行命令，保留公开的原始报告。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天轨圣域·原初实验室"
+        },
+        {
+          "type": "interact",
+          "target": "ch062.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch062.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch062.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch062.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch062"
+        }
+      ],
+      "completion_flag": "story.ch062.done"
+    },
+    {
+      "id": "ch063",
+      "chapter": 63,
+      "act": 11,
+      "title": "父亲留下的谎言",
+      "location": "天轨圣域·澄舟密室",
+      "log_before": "【父亲留下的谎言】前往天轨圣域·澄舟密室。他不是不信你，他是怕世界先找到你。",
+      "log_investigate": "【父亲留下的谎言】调查：澄舟将主角未来抹出命运档案，并留下跨越映世的童年影像。",
+      "log_crisis": "【父亲留下的谎言】关键事件：若恢复记录，赫西安可重新推算主角所有行动。",
+      "log_after": "【父亲留下的谎言】主角保留自由的空白未来，终于理解养父失踪的选择。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天轨圣域·澄舟密室"
+        },
+        {
+          "type": "interact",
+          "target": "ch063.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch063.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch063.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch063.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch063"
+        }
+      ],
+      "completion_flag": "story.ch063.done"
+    },
+    {
+      "id": "ch064",
+      "chapter": 64,
+      "act": 11,
+      "title": "最后的母灯",
+      "location": "天衡母灯坛",
+      "log_before": "【最后的母灯】前往天衡母灯坛。每个人都应该拥有不被预先写好的明天。",
+      "log_investigate": "【最后的母灯】调查：天衡灯并非最强武器，而是控制所有可能未来的分配中心。",
+      "log_crisis": "【最后的母灯】关键事件：启动灯坛会释放长期封存的失败可能性。",
+      "log_after": "【最后的母灯】众人决定承担风险，让时间重新自由流动。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天衡母灯坛"
+        },
+        {
+          "type": "interact",
+          "target": "ch064.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch064.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch064.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch064.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch064"
+        }
+      ],
+      "completion_flag": "story.ch064.done"
+    },
+    {
+      "id": "ch065",
+      "chapter": 65,
+      "act": 11,
+      "title": "七位守门者",
+      "location": "天轨圣域·环形议会",
+      "log_before": "【七位守门者】前往天轨圣域·环形议会。他们各自保护过什么，也各自伤害过什么。",
+      "log_investigate": "【七位守门者】调查：七守卫保留着早期议会对自由、秩序、记忆的争辩。",
+      "log_crisis": "【七位守门者】关键事件：旧议会要求玩家选择删除一组历史证据以换取通行。",
+      "log_after": "【七位守门者】主角保留全部记忆与争议，通过第七道门。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天轨圣域·环形议会"
+        },
+        {
+          "type": "interact",
+          "target": "ch065.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch065.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch065.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch065.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch065"
+        }
+      ],
+      "completion_flag": "story.ch065.done"
+    },
+    {
+      "id": "ch066",
+      "chapter": 66,
+      "act": 11,
+      "title": "时间开始流动",
+      "location": "天轨圣域·终末天桥",
+      "log_before": "【时间开始流动】前往天轨圣域·终末天桥。我终于能把这道门打开，不用先问谁愿意被牺牲。",
+      "log_investigate": "【时间开始流动】调查：分散网络与映世自由意识形成共鸣，产生第三道路所需的理论。",
+      "log_crisis": "【时间开始流动】关键事件：赫西安启动静止时间阻止众人抵达司录殿。",
+      "log_after": "【时间开始流动】主角利用空白未来穿过锁死的时刻，终门开启。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "天轨圣域·终末天桥"
+        },
+        {
+          "type": "interact",
+          "target": "ch066.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch066.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch066.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch066.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch066"
+        }
+      ],
+      "completion_flag": "story.ch066.done"
+    },
+    {
+      "id": "ch067",
+      "chapter": 67,
+      "act": 12,
+      "title": "没有悲伤的国度",
+      "location": "永昼界·迎宾花园",
+      "log_before": "【没有悲伤的国度】前往永昼界·迎宾花园。每个人都笑着，可他们的鞋底一粒新泥也没有。",
+      "log_investigate": "【没有悲伤的国度】调查：花园中的孩子不会长大，母亲也不会再失去他们。",
+      "log_crisis": "【没有悲伤的国度】关键事件：居民以为主角是来夺走幸福的破坏者。",
+      "log_after": "【没有悲伤的国度】主角承诺先倾听所有人的心声，再决定七灯命运。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "永昼界·迎宾花园"
+        },
+        {
+          "type": "interact",
+          "target": "ch067.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch067.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch067.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch067.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch067"
+        }
+      ],
+      "completion_flag": "story.ch067.done"
+    },
+    {
+      "id": "ch068",
+      "chapter": 68,
+      "act": 12,
+      "title": "谁也不会失去",
+      "location": "永昼界·归人长廊",
+      "log_before": "【谁也不会失去】前往永昼界·归人长廊。你可以想念一个人，不代表你要永远困在那一天。",
+      "log_investigate": "【谁也不会失去】调查：每个伙伴都能见到最想见的亲人或旧日自己。",
+      "log_crisis": "【谁也不会失去】关键事件：赫西安让玩家选择带走一人，但代价是其未来永远停止。",
+      "log_after": "【谁也不会失去】队友们含泪告别幻象，决定带着回忆继续生活。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "永昼界·归人长廊"
+        },
+        {
+          "type": "interact",
+          "target": "ch068.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch068.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch068.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch068.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch068"
+        }
+      ],
+      "completion_flag": "story.ch068.done"
+    },
+    {
+      "id": "ch069",
+      "chapter": 69,
+      "act": 12,
+      "title": "最温柔的牢笼",
+      "location": "永昼界·静时城市",
+      "log_before": "【最温柔的牢笼】前往永昼界·静时城市。他们很幸福，但这孩子再也写不出第二页日记了。",
+      "log_investigate": "【最温柔的牢笼】调查：居民可以重演美好时光，却无法作出从未出现过的新选择。",
+      "log_crisis": "【最温柔的牢笼】关键事件：维持永昼将使所有未出生生命失去诞生的机会。",
+      "log_after": "【最温柔的牢笼】主角将真相告诉居民，允许他们加入最终表决。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "永昼界·静时城市"
+        },
+        {
+          "type": "interact",
+          "target": "ch069.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch069.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch069.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch069.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch069"
+        }
+      ],
+      "completion_flag": "story.ch069.done"
+    },
+    {
+      "id": "ch070",
+      "chapter": 70,
+      "act": 12,
+      "title": "灯火与人",
+      "location": "永昼界·七灯评议庭",
+      "log_before": "【灯火与人】前往永昼界·七灯评议庭。从前每次表决都由七个人替世界决定。今天不一样。",
+      "log_investigate": "【灯火与人】调查：七灯既可维持改良秩序、彻底熄灭，也能分散交给居民。",
+      "log_crisis": "【灯火与人】关键事件：理想化的第三条道路需要所有失落航页的见证和自愿网络。",
+      "log_after": "【灯火与人】代表们听取主角论证，结局选择条件正式解锁。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "永昼界·七灯评议庭"
+        },
+        {
+          "type": "interact",
+          "target": "ch070.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch070.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch070.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch070.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch070"
+        }
+      ],
+      "completion_flag": "story.ch070.done"
+    },
+    {
+      "id": "ch071",
+      "chapter": 71,
+      "act": 12,
+      "title": "终幕司录者",
+      "location": "永昼界·终幕殿",
+      "log_before": "【终幕司录者】前往永昼界·终幕殿。我见过太多英雄哭着求我让时间停下。你又能坚持多久？",
+      "log_investigate": "【终幕司录者】调查：赫西安曾失去家人与故乡，才开始厌恶一切不可逆的选择。",
+      "log_crisis": "【终幕司录者】关键事件：最终形态把主角的童年、战争失败和失去的可能性化为攻击。",
+      "log_after": "【终幕司录者】伙伴携多年共同记忆破除幻境，赫西安终于承认世界不能由一人拥有。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "永昼界·终幕殿"
+        },
+        {
+          "type": "interact",
+          "target": "ch071.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch071.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch071.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch071.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch071"
+        }
+      ],
+      "completion_flag": "story.ch071.done"
+    },
+    {
+      "id": "ch072",
+      "chapter": 72,
+      "act": 12,
+      "title": "星灯纪行",
+      "location": "晨露海岸·黎明",
+      "log_before": "【星灯纪行】前往晨露海岸·黎明。走完这一程，我们还能继续回头看星星吗？",
+      "log_investigate": "【星灯纪行】调查：最后一盏随身星灯承载的是一路同行者留下的名字。",
+      "log_crisis": "【星灯纪行】关键事件：世界无法保证永远和平，谁都不能替后人决定完整一生。",
+      "log_after": "【星灯纪行】主角将手灯交给诺依，新的时代终于开始。",
+      "objectives": [
+        {
+          "type": "reach",
+          "target": "晨露海岸·黎明"
+        },
+        {
+          "type": "interact",
+          "target": "ch072.key_npc"
+        },
+        {
+          "type": "inspect",
+          "target": "ch072.clue"
+        },
+        {
+          "type": "speak",
+          "target": "ch072.witness"
+        },
+        {
+          "type": "decide",
+          "target": "ch072.choice"
+        },
+        {
+          "type": "finish_chapter",
+          "target": "ch072"
+        }
+      ],
+      "completion_flag": "story.ch072.done"
+    }
+  ]
+}

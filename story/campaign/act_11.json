@@ -1,0 +1,1521 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 11,
+  "title": "天轨圣域",
+  "theme": "破解寂潮起源与时间封印，修复天衡灯。",
+  "progression_unlock": "balance_lantern",
+  "chapters": [
+    {
+      "id": "ch061",
+      "number": 61,
+      "act": 11,
+      "chapter_number": 1,
+      "title": "驶向群星的船",
+      "location": "天轨外海·浮空船坞",
+      "required_flags": [
+        "story.ch060.done"
+      ],
+      "chapter_start_flag": "ch061.started",
+      "chapter_complete_flag": "story.ch061.done",
+      "lead_character": "朔弦",
+      "summary": "在天轨外海·浮空船坞，修复星帆并升至浮空岛。浮空通道只能容纳有限重量，部分船员必须留下。最终，众人建立往返补给站，星帆船驶入云海。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        73,
+        77
+      ],
+      "boss": "天轨巡游兽",
+      "scenes": [
+        {
+          "id": "ch061.opening",
+          "title": "开场：天轨外海·浮空船坞",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天轨外海·浮空船坞"
+          },
+          "dialogue": [
+            {
+              "id": "ch061.opening.l01",
+              "speaker": "旁白",
+              "text": "【天轨外海·浮空船坞】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch061.opening.l02",
+              "speaker": "朔弦",
+              "text": "以前以为海那边就是尽头，现在连天空也有航路。"
+            },
+            {
+              "id": "ch061.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：修复星帆并升至浮空岛。"
+            },
+            {
+              "id": "ch061.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天轨外海·浮空船坞"
+            },
+            {
+              "type": "interact",
+              "target": "ch061.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch061.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch061.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch061.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch061.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch061.investigate.l02",
+              "speaker": "朔弦",
+              "text": "澄舟当年亲手改造过星帆，为主角预留登陆密钥。"
+            },
+            {
+              "id": "ch061.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch061.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch061.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch061.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch061.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch061.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch061.crisis",
+            "requires_flags": [
+              "ch061.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch061.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch061.crisis.l02",
+              "speaker": "朔弦",
+              "text": "浮空通道只能容纳有限重量，部分船员必须留下。"
+            },
+            {
+              "id": "ch061.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch061.crisis.l04",
+              "speaker": "朔弦",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch061.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch061.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch061.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch061.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch061.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch061",
+            "display_name": "天轨巡游兽",
+            "win_flag": "ch061.battle_won",
+            "recommended_level": 76
+          }
+        },
+        {
+          "id": "ch061.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch061.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch061.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch061.resolve.l02",
+              "speaker": "朔弦",
+              "text": "众人建立往返补给站，星帆船驶入云海。"
+            },
+            {
+              "id": "ch061.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch061.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】驶向群星的船。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch061"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch061.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2540,
+              "gold": 894
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch061.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch061.done",
+          "speaker": "路人",
+          "text": "以后再说起天轨外海·浮空船坞，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch062",
+      "number": 62,
+      "act": 11,
+      "chapter_number": 2,
+      "title": "星灯诞生的地方",
+      "location": "天轨圣域·原初实验室",
+      "required_flags": [
+        "story.ch061.done"
+      ],
+      "chapter_start_flag": "ch062.started",
+      "chapter_complete_flag": "story.ch062.done",
+      "lead_character": "维莎",
+      "summary": "在天轨圣域·原初实验室，调查寂潮起源的七份实验报告。旧实验室仍主张扩大实验直到成功，拒绝承认方法存在根本问题。最终，主角销毁自动执行命令，保留公开的原始报告。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        74,
+        78
+      ],
+      "boss": "原初算偶",
+      "scenes": [
+        {
+          "id": "ch062.opening",
+          "title": "开场：天轨圣域·原初实验室",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天轨圣域·原初实验室"
+          },
+          "dialogue": [
+            {
+              "id": "ch062.opening.l01",
+              "speaker": "旁白",
+              "text": "【天轨圣域·原初实验室】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch062.opening.l02",
+              "speaker": "维莎",
+              "text": "我们把能避免的痛苦叫作误差，才忘记它属于人。"
+            },
+            {
+              "id": "ch062.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：调查寂潮起源的七份实验报告。"
+            },
+            {
+              "id": "ch062.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天轨圣域·原初实验室"
+            },
+            {
+              "type": "interact",
+              "target": "ch062.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch062.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch062.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch062.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch062.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch062.investigate.l02",
+              "speaker": "维莎",
+              "text": "寂潮源于古人试图固定所有人幸福未来时造成的概率塌陷。"
+            },
+            {
+              "id": "ch062.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch062.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch062.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch062.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch062.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch062.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch062.crisis",
+            "requires_flags": [
+              "ch062.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch062.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch062.crisis.l02",
+              "speaker": "维莎",
+              "text": "旧实验室仍主张扩大实验直到成功，拒绝承认方法存在根本问题。"
+            },
+            {
+              "id": "ch062.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch062.crisis.l04",
+              "speaker": "维莎",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch062.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch062.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch062.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch062.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch062.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch062",
+            "display_name": "原初算偶",
+            "win_flag": "ch062.battle_won",
+            "recommended_level": 77
+          }
+        },
+        {
+          "id": "ch062.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch062.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch062.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch062.resolve.l02",
+              "speaker": "维莎",
+              "text": "主角销毁自动执行命令，保留公开的原始报告。"
+            },
+            {
+              "id": "ch062.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch062.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】星灯诞生的地方。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch062"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch062.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2580,
+              "gold": 908
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch062.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch062.done",
+          "speaker": "路人",
+          "text": "以后再说起天轨圣域·原初实验室，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch063",
+      "number": 63,
+      "act": 11,
+      "chapter_number": 3,
+      "title": "父亲留下的谎言",
+      "location": "天轨圣域·澄舟密室",
+      "required_flags": [
+        "story.ch062.done"
+      ],
+      "chapter_start_flag": "ch063.started",
+      "chapter_complete_flag": "story.ch063.done",
+      "lead_character": "岚音",
+      "summary": "在天轨圣域·澄舟密室，还原养父记忆并修复空白年表。若恢复记录，赫西安可重新推算主角所有行动。最终，主角保留自由的空白未来，终于理解养父失踪的选择。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        75,
+        79
+      ],
+      "boss": "记忆监察者",
+      "scenes": [
+        {
+          "id": "ch063.opening",
+          "title": "开场：天轨圣域·澄舟密室",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天轨圣域·澄舟密室"
+          },
+          "dialogue": [
+            {
+              "id": "ch063.opening.l01",
+              "speaker": "旁白",
+              "text": "【天轨圣域·澄舟密室】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch063.opening.l02",
+              "speaker": "岚音",
+              "text": "他不是不信你，他是怕世界先找到你。"
+            },
+            {
+              "id": "ch063.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：还原养父记忆并修复空白年表。"
+            },
+            {
+              "id": "ch063.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天轨圣域·澄舟密室"
+            },
+            {
+              "type": "interact",
+              "target": "ch063.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch063.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch063.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch063.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch063.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch063.investigate.l02",
+              "speaker": "岚音",
+              "text": "澄舟将主角未来抹出命运档案，并留下跨越映世的童年影像。"
+            },
+            {
+              "id": "ch063.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch063.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch063.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch063.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch063.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch063.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch063.crisis",
+            "requires_flags": [
+              "ch063.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch063.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch063.crisis.l02",
+              "speaker": "岚音",
+              "text": "若恢复记录，赫西安可重新推算主角所有行动。"
+            },
+            {
+              "id": "ch063.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch063.crisis.l04",
+              "speaker": "岚音",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch063.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch063.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch063.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch063.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch063.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch063",
+            "display_name": "记忆监察者",
+            "win_flag": "ch063.battle_won",
+            "recommended_level": 78
+          }
+        },
+        {
+          "id": "ch063.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch063.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch063.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch063.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角保留自由的空白未来，终于理解养父失踪的选择。"
+            },
+            {
+              "id": "ch063.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch063.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】父亲留下的谎言。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch063"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch063.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2620,
+              "gold": 922
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch063.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch063.done",
+          "speaker": "路人",
+          "text": "以后再说起天轨圣域·澄舟密室，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch064",
+      "number": 64,
+      "act": 11,
+      "chapter_number": 4,
+      "title": "最后的母灯",
+      "location": "天衡母灯坛",
+      "required_flags": [
+        "story.ch063.done"
+      ],
+      "chapter_start_flag": "ch064.started",
+      "chapter_complete_flag": "story.ch064.done",
+      "lead_character": "玄璃",
+      "summary": "在天衡母灯坛，解除时间锁并恢复流动的日夜。启动灯坛会释放长期封存的失败可能性。最终，众人决定承担风险，让时间重新自由流动。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        76,
+        80
+      ],
+      "boss": "天衡审判者",
+      "scenes": [
+        {
+          "id": "ch064.opening",
+          "title": "开场：天衡母灯坛",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天衡母灯坛"
+          },
+          "dialogue": [
+            {
+              "id": "ch064.opening.l01",
+              "speaker": "旁白",
+              "text": "【天衡母灯坛】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch064.opening.l02",
+              "speaker": "玄璃",
+              "text": "每个人都应该拥有不被预先写好的明天。"
+            },
+            {
+              "id": "ch064.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：解除时间锁并恢复流动的日夜。"
+            },
+            {
+              "id": "ch064.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天衡母灯坛"
+            },
+            {
+              "type": "interact",
+              "target": "ch064.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch064.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch064.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch064.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch064.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch064.investigate.l02",
+              "speaker": "玄璃",
+              "text": "天衡灯并非最强武器，而是控制所有可能未来的分配中心。"
+            },
+            {
+              "id": "ch064.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch064.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch064.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch064.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch064.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch064.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch064.crisis",
+            "requires_flags": [
+              "ch064.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch064.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch064.crisis.l02",
+              "speaker": "玄璃",
+              "text": "启动灯坛会释放长期封存的失败可能性。"
+            },
+            {
+              "id": "ch064.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch064.crisis.l04",
+              "speaker": "玄璃",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch064.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch064.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch064.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch064.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch064.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch064",
+            "display_name": "天衡审判者",
+            "win_flag": "ch064.battle_won",
+            "recommended_level": 79
+          }
+        },
+        {
+          "id": "ch064.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch064.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch064.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch064.resolve.l02",
+              "speaker": "玄璃",
+              "text": "众人决定承担风险，让时间重新自由流动。"
+            },
+            {
+              "id": "ch064.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch064.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】最后的母灯。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch064"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch064.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2660,
+              "gold": 936
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch064.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch064.done",
+          "speaker": "路人",
+          "text": "以后再说起天衡母灯坛，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch065",
+      "number": 65,
+      "act": 11,
+      "chapter_number": 5,
+      "title": "七位守门者",
+      "location": "天轨圣域·环形议会",
+      "required_flags": [
+        "story.ch064.done"
+      ],
+      "chapter_start_flag": "ch065.started",
+      "chapter_complete_flag": "story.ch065.done",
+      "lead_character": "雷索",
+      "summary": "在天轨圣域·环形议会，逐一挑战七个不同执念的守卫。旧议会要求玩家选择删除一组历史证据以换取通行。最终，主角保留全部记忆与争议，通过第七道门。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        78,
+        82
+      ],
+      "boss": "七灯议会合议体",
+      "scenes": [
+        {
+          "id": "ch065.opening",
+          "title": "开场：天轨圣域·环形议会",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天轨圣域·环形议会"
+          },
+          "dialogue": [
+            {
+              "id": "ch065.opening.l01",
+              "speaker": "旁白",
+              "text": "【天轨圣域·环形议会】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch065.opening.l02",
+              "speaker": "雷索",
+              "text": "他们各自保护过什么，也各自伤害过什么。"
+            },
+            {
+              "id": "ch065.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：逐一挑战七个不同执念的守卫。"
+            },
+            {
+              "id": "ch065.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天轨圣域·环形议会"
+            },
+            {
+              "type": "interact",
+              "target": "ch065.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch065.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch065.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch065.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch065.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch065.investigate.l02",
+              "speaker": "雷索",
+              "text": "七守卫保留着早期议会对自由、秩序、记忆的争辩。"
+            },
+            {
+              "id": "ch065.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch065.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch065.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch065.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch065.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch065.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch065.crisis",
+            "requires_flags": [
+              "ch065.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch065.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch065.crisis.l02",
+              "speaker": "雷索",
+              "text": "旧议会要求玩家选择删除一组历史证据以换取通行。"
+            },
+            {
+              "id": "ch065.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch065.crisis.l04",
+              "speaker": "雷索",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch065.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch065.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch065.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch065.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch065.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch065",
+            "display_name": "七灯议会合议体",
+            "win_flag": "ch065.battle_won",
+            "recommended_level": 81
+          }
+        },
+        {
+          "id": "ch065.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch065.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch065.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch065.resolve.l02",
+              "speaker": "雷索",
+              "text": "主角保留全部记忆与争议，通过第七道门。"
+            },
+            {
+              "id": "ch065.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch065.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】七位守门者。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch065"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch065.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2700,
+              "gold": 950
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch065.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch065.done",
+          "speaker": "路人",
+          "text": "以后再说起天轨圣域·环形议会，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch066",
+      "number": 66,
+      "act": 11,
+      "chapter_number": 6,
+      "title": "时间开始流动",
+      "location": "天轨圣域·终末天桥",
+      "required_flags": [
+        "story.ch065.done"
+      ],
+      "chapter_start_flag": "ch066.started",
+      "chapter_complete_flag": "story.ch066.done",
+      "lead_character": "维莎",
+      "summary": "在天轨圣域·终末天桥，让七灯建立最终共鸣并打开永昼核心。赫西安启动静止时间阻止众人抵达司录殿。最终，主角利用空白未来穿过锁死的时刻，终门开启。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        79,
+        83
+      ],
+      "boss": "定时星蛇",
+      "scenes": [
+        {
+          "id": "ch066.opening",
+          "title": "开场：天轨圣域·终末天桥",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天轨圣域·终末天桥"
+          },
+          "dialogue": [
+            {
+              "id": "ch066.opening.l01",
+              "speaker": "旁白",
+              "text": "【天轨圣域·终末天桥】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch066.opening.l02",
+              "speaker": "维莎",
+              "text": "我终于能把这道门打开，不用先问谁愿意被牺牲。"
+            },
+            {
+              "id": "ch066.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：让七灯建立最终共鸣并打开永昼核心。"
+            },
+            {
+              "id": "ch066.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天轨圣域·终末天桥"
+            },
+            {
+              "type": "interact",
+              "target": "ch066.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch066.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch066.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch066.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch066.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch066.investigate.l02",
+              "speaker": "维莎",
+              "text": "分散网络与映世自由意识形成共鸣，产生第三道路所需的理论。"
+            },
+            {
+              "id": "ch066.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch066.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch066.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch066.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch066.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch066.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch066.crisis",
+            "requires_flags": [
+              "ch066.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch066.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch066.crisis.l02",
+              "speaker": "维莎",
+              "text": "赫西安启动静止时间阻止众人抵达司录殿。"
+            },
+            {
+              "id": "ch066.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch066.crisis.l04",
+              "speaker": "维莎",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch066.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch066.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch066.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch066.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch066.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch066",
+            "display_name": "定时星蛇",
+            "win_flag": "ch066.battle_won",
+            "recommended_level": 82
+          }
+        },
+        {
+          "id": "ch066.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch066.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch066.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch066.resolve.l02",
+              "speaker": "维莎",
+              "text": "主角利用空白未来穿过锁死的时刻，终门开启。"
+            },
+            {
+              "id": "ch066.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch066.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】时间开始流动。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch066"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch066.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2740,
+              "gold": 964
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch066.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch066.done",
+          "speaker": "路人",
+          "text": "以后再说起天轨圣域·终末天桥，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    }
+  ]
+}

@@ -733,6 +733,104 @@
       "art_status": "prototype",
       "implementation": "playable",
       "status": "prototype"
+    },
+    {
+      "id": "map_city_01",
+      "name": "群灯旧会馆",
+      "region_id": "region_city",
+      "type": "town",
+      "neighbors": [
+        "map_city_02"
+      ],
+      "level_range": [
+        70,
+        75
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_produced",
+      "implementation": "planned",
+      "status": "design"
+    },
+    {
+      "id": "map_city_02",
+      "name": "自由议事厅",
+      "region_id": "region_city",
+      "type": "hall",
+      "neighbors": [
+        "map_city_01",
+        "map_city_03"
+      ],
+      "level_range": [
+        71,
+        76
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_produced",
+      "implementation": "planned",
+      "status": "design"
+    },
+    {
+      "id": "map_city_03",
+      "name": "群灯居民街",
+      "region_id": "region_city",
+      "type": "residential",
+      "neighbors": [
+        "map_city_02",
+        "map_city_04"
+      ],
+      "level_range": [
+        72,
+        77
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_produced",
+      "implementation": "planned",
+      "status": "design"
+    },
+    {
+      "id": "map_city_04",
+      "name": "星灯中枢",
+      "region_id": "region_city",
+      "type": "dungeon",
+      "neighbors": [
+        "map_city_03",
+        "map_city_05"
+      ],
+      "level_range": [
+        73,
+        78
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_produced",
+      "implementation": "planned",
+      "status": "design"
+    },
+    {
+      "id": "map_city_05",
+      "name": "西区修复工地",
+      "region_id": "region_city",
+      "type": "worksite",
+      "neighbors": [
+        "map_city_04"
+      ],
+      "level_range": [
+        74,
+        79
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_produced",
+      "implementation": "planned",
+      "status": "design"
     }
   ]
 }

@@ -37,22 +37,37 @@
             {
               "id": "ch061.opening.l01",
               "speaker": "旁白",
-              "text": "【天轨外海·浮空船坞】远方传来的声音打断了众人的脚步。"
+              "text": "浮空船坞的风帆与海面方向相反，旧木桨早已无法到达天空。"
             },
             {
               "id": "ch061.opening.l02",
               "speaker": "朔弦",
-              "text": "以前以为海那边就是尽头，现在连天空也有航路。"
+              "text": "从前以为海另一边就是尽头，现在连云上也有路。"
             },
             {
               "id": "ch061.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：修复星帆并升至浮空岛。"
+              "speaker": "缇珐",
+              "text": "星帆的接线坏了三处，飞上去可能比沉船更快。"
             },
             {
               "id": "ch061.opening.l04",
+              "speaker": "诺依",
+              "text": "那就先修，不用让所有人同时上船。"
+            },
+            {
+              "id": "ch061.opening.l05",
+              "speaker": "岚音",
+              "text": "补给和医师要分两批，浮空失压最先伤到的人没有力气求救。"
+            },
+            {
+              "id": "ch061.opening.l06",
+              "speaker": "主角",
+              "text": "这条船要带大家去下一步，不是去证明我们有多勇敢。"
+            },
+            {
+              "id": "ch061.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "澄舟留下的修船标记再次出现在船梁上。"
             }
           ],
           "objectives": [
@@ -71,7 +86,11 @@
               "key": "ch061.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "船帆迎着反向的风展开",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch061.investigate",
@@ -84,22 +103,37 @@
             {
               "id": "ch061.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "星帆接口内刻着一行字：“若你看到它，说明船终于能去往天空”。"
             },
             {
               "id": "ch061.investigate.l02",
-              "speaker": "朔弦",
-              "text": "澄舟当年亲手改造过星帆，为主角预留登陆密钥。"
+              "speaker": "主角",
+              "text": "是澄舟的笔迹。"
             },
             {
               "id": "ch061.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "朔弦",
+              "text": "他修过的船真多，看来那人一辈子都在给别人留下退路。"
             },
             {
               "id": "ch061.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "维莎",
+              "text": "密钥能打开天轨的旧补给站，而非直接进入圣域。"
+            },
+            {
+              "id": "ch061.investigate.l05",
+              "speaker": "缇珐",
+              "text": "他没有只给我们一条单程路。"
+            },
+            {
+              "id": "ch061.investigate.l06",
+              "speaker": "诺依",
+              "text": "那就把往返路程画出来，让后来的人也能安全走。"
+            },
+            {
+              "id": "ch061.investigate.l07",
+              "speaker": "岚音",
+              "text": "回来的船位必须预留给伤者。"
             }
           ],
           "objectives": [
@@ -118,7 +152,11 @@
               "key": "ch061.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "澄舟刻痕叠映旧船影像",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch061.crisis",
@@ -133,23 +171,38 @@
           "dialogue": [
             {
               "id": "ch061.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "天轨巡游兽",
+              "text": "呜——！"
             },
             {
               "id": "ch061.crisis.l02",
               "speaker": "朔弦",
-              "text": "浮空通道只能容纳有限重量，部分船员必须留下。"
+              "text": "别攻击它的翅膀！它只是在守护航路。"
             },
             {
               "id": "ch061.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "缇珐",
+              "text": "风压忽然升高，星帆要被撕开了！"
             },
             {
               "id": "ch061.crisis.l04",
+              "speaker": "主角",
+              "text": "先降高度，再绕开浮空巢群。"
+            },
+            {
+              "id": "ch061.crisis.l05",
+              "speaker": "诺依",
+              "text": "船员去内舱固定物资，老船员帮我重新校风向。"
+            },
+            {
+              "id": "ch061.crisis.l06",
+              "speaker": "维莎",
+              "text": "若直接向圣域冲，会失去唯一稳定的返航坐标。"
+            },
+            {
+              "id": "ch061.crisis.l07",
               "speaker": "朔弦",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "那我们就不走捷径。自由也需要知道怎么回来。"
             }
           ],
           "objectives": [
@@ -190,6 +243,10 @@
             "display_name": "天轨巡游兽",
             "win_flag": "ch061.battle_won",
             "recommended_level": 76
+          },
+          "direction": {
+            "shot": "巨鸟从云海中升起",
+            "note": "仅为文字演出说明"
           }
         },
         {
@@ -205,22 +262,37 @@
             {
               "id": "ch061.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "星帆穿过云层，一座曾被传说抹去的补给站出现在天际。"
             },
             {
               "id": "ch061.resolve.l02",
               "speaker": "朔弦",
-              "text": "众人建立往返补给站，星帆船驶入云海。"
+              "text": "第一条天空航路，记下来了。"
             },
             {
               "id": "ch061.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "诺依",
+              "text": "把锚点放好，以后救援船也能来。"
             },
             {
               "id": "ch061.resolve.l04",
+              "speaker": "主角",
+              "text": "澄舟想让我们见到的，恐怕不只是第七盏灯。"
+            },
+            {
+              "id": "ch061.resolve.l05",
+              "speaker": "维莎",
+              "text": "真正的原始实验室就在圣域之中。"
+            },
+            {
+              "id": "ch061.resolve.l06",
+              "speaker": "岚音",
+              "text": "先让船员休息。未知的真相还会在那儿等着。"
+            },
+            {
+              "id": "ch061.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】驶向群星的船。"
+              "text": "星帆船停靠在天轨圣域外缘，众人第一次看到七灯的原始构造。"
             }
           ],
           "objectives": [
@@ -240,7 +312,11 @@
               "xp": 2540,
               "gold": 894
             }
-          ]
+          ],
+          "direction": {
+            "shot": "星帆与旧补给站相连",
+            "note": "仅为文字演出说明"
+          }
         }
       ],
       "npc_reactions": [
@@ -289,22 +365,37 @@
             {
               "id": "ch062.opening.l01",
               "speaker": "旁白",
-              "text": "【天轨圣域·原初实验室】远方传来的声音打断了众人的脚步。"
+              "text": "原初实验室的天花板映出寂潮发生前的城市，街道上人人面带笑容。"
             },
             {
               "id": "ch062.opening.l02",
               "speaker": "维莎",
-              "text": "我们把能避免的痛苦叫作误差，才忘记它属于人。"
+              "text": "这里不是神殿，是一座把未来当实验材料的研究所。"
             },
             {
               "id": "ch062.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：调查寂潮起源的七份实验报告。"
+              "speaker": "玄璃",
+              "text": "映世里那些未完成愿望，最初就是从这里被排除出去的。"
             },
             {
               "id": "ch062.opening.l04",
+              "speaker": "缇珐",
+              "text": "他们想创造不会出事故的机器，却把世界也当成了机器。"
+            },
+            {
+              "id": "ch062.opening.l05",
+              "speaker": "诺依",
+              "text": "那些笑容是真的吗？"
+            },
+            {
+              "id": "ch062.opening.l06",
+              "speaker": "主角",
+              "text": "至少当时的人相信自己会幸福。我们先看原始报告。"
+            },
+            {
+              "id": "ch062.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "实验台上留下七份记录，没有任何一份写着“保证所有人满意”。"
             }
           ],
           "objectives": [
@@ -323,7 +414,11 @@
               "key": "ch062.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "理想城市笑容画面逐渐出现破绽",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch062.investigate",
@@ -336,22 +431,37 @@
             {
               "id": "ch062.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "第一份报告记载消除疫病，第二份消除贫穷，第三份开始限制可能引发痛苦的选择。"
             },
             {
               "id": "ch062.investigate.l02",
               "speaker": "维莎",
-              "text": "寂潮源于古人试图固定所有人幸福未来时造成的概率塌陷。"
+              "text": "前两次试验确实帮助过很多人。"
             },
             {
               "id": "ch062.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "岚音",
+              "text": "所以才有人相信继续扩大也一定正确。"
             },
             {
               "id": "ch062.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "玄璃",
+              "text": "到了第六次，世界不再容许新愿望出现，寂潮由此开始。"
+            },
+            {
+              "id": "ch062.investigate.l05",
+              "speaker": "主角",
+              "text": "他们把后果称为误差，却没有写下具体受害者。"
+            },
+            {
+              "id": "ch062.investigate.l06",
+              "speaker": "伊泽",
+              "text": "我们得把名字补回来。"
+            },
+            {
+              "id": "ch062.investigate.l07",
+              "speaker": "诺依",
+              "text": "不能因为结果曾经好过，就不准别人说后来发生的坏事。"
             }
           ],
           "objectives": [
@@ -370,7 +480,11 @@
               "key": "ch062.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "第六份报告的缺页",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch062.crisis",
@@ -385,23 +499,38 @@
           "dialogue": [
             {
               "id": "ch062.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "原初算偶",
+              "text": "实验目标未达成，请继续扩大成功条件。"
             },
             {
               "id": "ch062.crisis.l02",
-              "speaker": "维莎",
-              "text": "旧实验室仍主张扩大实验直到成功，拒绝承认方法存在根本问题。"
+              "speaker": "缇珐",
+              "text": "停下！扩大就是在继续排除未来。"
             },
             {
               "id": "ch062.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "原初算偶",
+              "text": "消除痛苦的概率将提高。"
             },
             {
               "id": "ch062.crisis.l04",
+              "speaker": "岚音",
+              "text": "可人的痛苦不能只用一个数字代表。"
+            },
+            {
+              "id": "ch062.crisis.l05",
               "speaker": "维莎",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "我曾替这种说法工作，所以我知道它会如何吞掉人的姓名。"
+            },
+            {
+              "id": "ch062.crisis.l06",
+              "speaker": "主角",
+              "text": "保存报告，销毁自动执行命令。事实不应该被机器继续篡改。"
+            },
+            {
+              "id": "ch062.crisis.l07",
+              "speaker": "原初算偶",
+              "text": "指令冲突，启动强制校验。"
             }
           ],
           "objectives": [
@@ -442,6 +571,10 @@
             "display_name": "原初算偶",
             "win_flag": "ch062.battle_won",
             "recommended_level": 77
+          },
+          "direction": {
+            "shot": "自动执行按钮不断亮起",
+            "note": "仅为文字演出说明"
           }
         },
         {
@@ -457,22 +590,37 @@
             {
               "id": "ch062.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "自动实验停止，原始报告由众人分别封存、备份。"
             },
             {
               "id": "ch062.resolve.l02",
               "speaker": "维莎",
-              "text": "主角销毁自动执行命令，保留公开的原始报告。"
+              "text": "我以前以为查到真正原因就能让过错变轻，现在知道不能。"
             },
             {
               "id": "ch062.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "玄璃",
+              "text": "但至少不会再有人被这台机器当成不需要的可能。"
             },
             {
               "id": "ch062.resolve.l04",
+              "speaker": "缇珐",
+              "text": "技术仍能救人，只是必须允许人们质疑它。"
+            },
+            {
+              "id": "ch062.resolve.l05",
+              "speaker": "主角",
+              "text": "澄舟曾来过这里，下一扇门应该留下他的记录。"
+            },
+            {
+              "id": "ch062.resolve.l06",
+              "speaker": "诺依",
+              "text": "那就去听他自己说，而不是只听传说。"
+            },
+            {
+              "id": "ch062.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】星灯诞生的地方。"
+              "text": "实验室大门开启，露出一间被保护了十数年的旧工作室。"
             }
           ],
           "objectives": [
@@ -492,7 +640,11 @@
               "xp": 2580,
               "gold": 908
             }
-          ]
+          ],
+          "direction": {
+            "shot": "报告复制给不同角色保管",
+            "note": "仅为文字演出说明"
+          }
         }
       ],
       "npc_reactions": [
@@ -541,22 +693,37 @@
             {
               "id": "ch063.opening.l01",
               "speaker": "旁白",
-              "text": "【天轨圣域·澄舟密室】远方传来的声音打断了众人的脚步。"
+              "text": "澄舟的密室里有一张儿童量身尺和一只修了一半的星灯，远比外面宏伟的机器普通。"
             },
             {
               "id": "ch063.opening.l02",
-              "speaker": "岚音",
-              "text": "他不是不信你，他是怕世界先找到你。"
+              "speaker": "主角",
+              "text": "他总说自己只是个会修东西的人。"
             },
             {
               "id": "ch063.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：还原养父记忆并修复空白年表。"
+              "speaker": "岚音",
+              "text": "这尺上还留着你小时候的身高。"
             },
             {
               "id": "ch063.opening.l04",
+              "speaker": "维莎",
+              "text": "密室里有一份特殊档案：你未来的全部预测都被主动删除。"
+            },
+            {
+              "id": "ch063.opening.l05",
+              "speaker": "诺依",
+              "text": "为什么有人能决定一个孩子将来该做什么？"
+            },
+            {
+              "id": "ch063.opening.l06",
+              "speaker": "主角",
+              "text": "澄舟想让我不被那套东西找到。"
+            },
+            {
+              "id": "ch063.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "旧留声机慢慢转动，传出熟悉的声音。"
             }
           ],
           "objectives": [
@@ -575,7 +742,11 @@
               "key": "ch063.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "身高刻度与庞大命运仪器对比",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch063.investigate",
@@ -587,23 +758,38 @@
           "dialogue": [
             {
               "id": "ch063.investigate.l01",
-              "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "speaker": "影像·澄舟",
+              "text": "如果你看到这里，说明你已经走得比我希望的还远。"
             },
             {
               "id": "ch063.investigate.l02",
-              "speaker": "岚音",
-              "text": "澄舟将主角未来抹出命运档案，并留下跨越映世的童年影像。"
+              "speaker": "主角",
+              "text": "你当年为什么不告诉我？"
             },
             {
               "id": "ch063.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "影像·澄舟",
+              "text": "我发现第七灯会把你的每一个决定记录成可预测的路线。"
             },
             {
               "id": "ch063.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "岚音",
+              "text": "他当时交给我的病历，就是为了保护这份空白。"
+            },
+            {
+              "id": "ch063.investigate.l05",
+              "speaker": "影像·澄舟",
+              "text": "我不能替你挑一种安全人生，只能让你有机会自己选择。"
+            },
+            {
+              "id": "ch063.investigate.l06",
+              "speaker": "维莎",
+              "text": "他删掉的是模型对未来的权利，而不是你的真实过去。"
+            },
+            {
+              "id": "ch063.investigate.l07",
+              "speaker": "主角",
+              "text": "所以那些像古代记忆的影像，是还未发生的未来被投射回来？"
             }
           ],
           "objectives": [
@@ -622,7 +808,11 @@
               "key": "ch063.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "澄舟的影像不做完美复活",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch063.crisis",
@@ -637,23 +827,38 @@
           "dialogue": [
             {
               "id": "ch063.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "记忆监察者",
+              "text": "未登记命运，必须补录全部可能。"
             },
             {
               "id": "ch063.crisis.l02",
-              "speaker": "岚音",
-              "text": "若恢复记录，赫西安可重新推算主角所有行动。"
+              "speaker": "诺依",
+              "text": "他不是缺损的数据。他就在这里。"
             },
             {
               "id": "ch063.crisis.l03",
               "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "text": "我想知道全部过去，但不愿再让你替我写明天。"
             },
             {
               "id": "ch063.crisis.l04",
+              "speaker": "玄璃",
+              "text": "空白不代表错误，也可能代表还没选择。"
+            },
+            {
+              "id": "ch063.crisis.l05",
               "speaker": "岚音",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "我当年隐藏病历，也曾替你决定风险。这一次我们一起面对。"
+            },
+            {
+              "id": "ch063.crisis.l06",
+              "speaker": "维莎",
+              "text": "保留空白未来，仍可公开这份历史。"
+            },
+            {
+              "id": "ch063.crisis.l07",
+              "speaker": "记忆监察者",
+              "text": "无法预测。无法通过。"
             }
           ],
           "objectives": [
@@ -694,6 +899,10 @@
             "display_name": "记忆监察者",
             "win_flag": "ch063.battle_won",
             "recommended_level": 78
+          },
+          "direction": {
+            "shot": "监守者试图填满空白栏",
+            "note": "仅为文字演出说明"
           }
         },
         {
@@ -709,22 +918,37 @@
             {
               "id": "ch063.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "档案恢复了澄舟的研究记录，主角未来一栏仍保持空白。"
             },
             {
               "id": "ch063.resolve.l02",
-              "speaker": "岚音",
-              "text": "主角保留自由的空白未来，终于理解养父失踪的选择。"
+              "speaker": "主角",
+              "text": "我原以为找到他，就能把十年前那一天重新过一遍。"
             },
             {
               "id": "ch063.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "岚音",
+              "text": "我们做不到。但可以记得他是怎样照顾过我们。"
             },
             {
               "id": "ch063.resolve.l04",
+              "speaker": "诺依",
+              "text": "那个量身尺，我可以把它带回晨露村吗？"
+            },
+            {
+              "id": "ch063.resolve.l05",
+              "speaker": "主角",
+              "text": "带回去吧。让以后长大的孩子也能在旁边量身高。"
+            },
+            {
+              "id": "ch063.resolve.l06",
+              "speaker": "维莎",
+              "text": "下一扇门通向最后的母灯。"
+            },
+            {
+              "id": "ch063.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】父亲留下的谎言。"
+              "text": "没有出现奇迹般的重逢，只有一段普通而坚定的父亲留言。"
             }
           ],
           "objectives": [
@@ -744,7 +968,11 @@
               "xp": 2620,
               "gold": 922
             }
-          ]
+          ],
+          "direction": {
+            "shot": "量身尺被交给诺依",
+            "note": "仅为文字演出说明"
+          }
         }
       ],
       "npc_reactions": [
@@ -793,22 +1021,37 @@
             {
               "id": "ch064.opening.l01",
               "speaker": "旁白",
-              "text": "【天衡母灯坛】远方传来的声音打断了众人的脚步。"
+              "text": "天衡母灯悬在一座没有钟声的大厅中央，所有影子都指向同一个方向。"
             },
             {
               "id": "ch064.opening.l02",
               "speaker": "玄璃",
-              "text": "每个人都应该拥有不被预先写好的明天。"
+              "text": "这里的时间不是停下了，是被规定必须怎样走。"
             },
             {
               "id": "ch064.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：解除时间锁并恢复流动的日夜。"
+              "speaker": "维莎",
+              "text": "母灯负责所有未来可能性的分配。"
             },
             {
               "id": "ch064.opening.l04",
+              "speaker": "雷索",
+              "text": "过去我们以为只要修好灯，就能修好世界。"
+            },
+            {
+              "id": "ch064.opening.l05",
+              "speaker": "主角",
+              "text": "现在才知道，修复也可能意味着重新打开旧锁。"
+            },
+            {
+              "id": "ch064.opening.l06",
+              "speaker": "岚音",
+              "text": "先确认里面被关住的是什么，别再让居民毫不知情地承担。"
+            },
+            {
+              "id": "ch064.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "大厅下方有七条光路，其中一条被完全封闭。"
             }
           ],
           "objectives": [
@@ -827,7 +1070,11 @@
               "key": "ch064.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "所有影子指向同一处",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch064.investigate",
@@ -840,22 +1087,37 @@
             {
               "id": "ch064.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "封闭的线路里有未出生的孩子、未启航的船、未说出口的道歉。"
             },
             {
               "id": "ch064.investigate.l02",
-              "speaker": "玄璃",
-              "text": "天衡灯并非最强武器，而是控制所有可能未来的分配中心。"
+              "speaker": "诺依",
+              "text": "这些不是已经发生的事情。"
             },
             {
               "id": "ch064.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "玄璃",
+              "text": "是。它们是有机会发生却被提前取消的生活。"
             },
             {
               "id": "ch064.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "维莎",
+              "text": "天衡灯原本只为防止灾难扩散，后来开始判定哪些未来值得存在。"
+            },
+            {
+              "id": "ch064.investigate.l05",
+              "speaker": "缇珐",
+              "text": "又是同一个问题：有人把工具变成了支配别人的机器。"
+            },
+            {
+              "id": "ch064.investigate.l06",
+              "speaker": "主角",
+              "text": "我们需要让它重新允许选择，但不能对危险假装看不见。"
+            },
+            {
+              "id": "ch064.investigate.l07",
+              "speaker": "雷索",
+              "text": "就像打开城门前必须先准备援助和退路。"
             }
           ],
           "objectives": [
@@ -874,7 +1136,11 @@
               "key": "ch064.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "未发生生活片段在灯下闪现",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch064.crisis",
@@ -889,23 +1155,38 @@
           "dialogue": [
             {
               "id": "ch064.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "天衡审判者",
+              "text": "开放未来将使悲伤、战争和错误重新成为可能。"
             },
             {
               "id": "ch064.crisis.l02",
-              "speaker": "玄璃",
-              "text": "启动灯坛会释放长期封存的失败可能性。"
+              "speaker": "赫西安残响",
+              "text": "你们明知道这点，还要打开？"
             },
             {
               "id": "ch064.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "岚音",
+              "text": "我们不能保证没人再生病，但不能因此让所有人永远不醒。"
             },
             {
               "id": "ch064.crisis.l04",
               "speaker": "玄璃",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "我愿意承受明天的不确定性。"
+            },
+            {
+              "id": "ch064.crisis.l05",
+              "speaker": "诺依",
+              "text": "我也愿意，而且不是你替我同意。"
+            },
+            {
+              "id": "ch064.crisis.l06",
+              "speaker": "主角",
+              "text": "解除强制锁定，把实际风险交给能够知情的人共同承担。"
+            },
+            {
+              "id": "ch064.crisis.l07",
+              "speaker": "天衡审判者",
+              "text": "未来不再可被单一记录者完整控制。"
             }
           ],
           "objectives": [
@@ -946,6 +1227,10 @@
             "display_name": "天衡审判者",
             "win_flag": "ch064.battle_won",
             "recommended_level": 79
+          },
+          "direction": {
+            "shot": "审判者的时间刻度破裂",
+            "note": "仅为文字演出说明"
           }
         },
         {
@@ -961,22 +1246,37 @@
             {
               "id": "ch064.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "母灯第一次让大厅投下不断变化的影子，时间重新拥有不同的方向。"
             },
             {
               "id": "ch064.resolve.l02",
-              "speaker": "玄璃",
-              "text": "众人决定承担风险，让时间重新自由流动。"
+              "speaker": "维莎",
+              "text": "只是解除了一道旧锁，之后仍需要社会与技术共同维护。"
             },
             {
               "id": "ch064.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "缇珐",
+              "text": "我们有分散式灯网的经验。"
             },
             {
               "id": "ch064.resolve.l04",
+              "speaker": "雷索",
+              "text": "把每个地区的选择权交还当地。"
+            },
+            {
+              "id": "ch064.resolve.l05",
+              "speaker": "主角",
+              "text": "第七座母灯终于不再命令世界一定幸福。"
+            },
+            {
+              "id": "ch064.resolve.l06",
+              "speaker": "玄璃",
+              "text": "它只允许明天来到。"
+            },
+            {
+              "id": "ch064.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】最后的母灯。"
+              "text": "天衡母灯获得修复，七灯的旧中央控制已经开始松动。"
             }
           ],
           "objectives": [
@@ -996,7 +1296,11 @@
               "xp": 2660,
               "gold": 936
             }
-          ]
+          ],
+          "direction": {
+            "shot": "影子分向不同方向",
+            "note": "仅为文字演出说明"
+          }
         }
       ],
       "npc_reactions": [
@@ -1045,22 +1349,37 @@
             {
               "id": "ch065.opening.l01",
               "speaker": "旁白",
-              "text": "【天轨圣域·环形议会】远方传来的声音打断了众人的脚步。"
+              "text": "环形议会的七个守卫各自占据不同席位，席背铭刻“自由、秩序、记忆、创造、归航、梦境、时间”。"
             },
             {
               "id": "ch065.opening.l02",
               "speaker": "雷索",
-              "text": "他们各自保护过什么，也各自伤害过什么。"
+              "text": "它们似乎分别守护着一项曾经救过人的理念。"
             },
             {
               "id": "ch065.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：逐一挑战七个不同执念的守卫。"
+              "speaker": "维莎",
+              "text": "也各自保留了无法承认的错误。"
             },
             {
               "id": "ch065.opening.l04",
+              "speaker": "伊泽",
+              "text": "既然有七种声音，就不该让其中一种永远盖住其他六种。"
+            },
+            {
+              "id": "ch065.opening.l05",
+              "speaker": "诺依",
+              "text": "我们得逐个听吗？"
+            },
+            {
+              "id": "ch065.opening.l06",
+              "speaker": "主角",
+              "text": "要听。不能因为急着抵达终点，就再删掉中途的证词。"
+            },
+            {
+              "id": "ch065.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "七位守门者依次提出自己保留的历史片段。"
             }
           ],
           "objectives": [
@@ -1079,7 +1398,11 @@
               "key": "ch065.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "七席分别亮起不同颜色",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch065.investigate",
@@ -1091,23 +1414,38 @@
           "dialogue": [
             {
               "id": "ch065.investigate.l01",
-              "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "speaker": "第一守门者",
+              "text": "自由导致背叛，是否愿意永远禁止背叛？"
             },
             {
               "id": "ch065.investigate.l02",
-              "speaker": "雷索",
-              "text": "七守卫保留着早期议会对自由、秩序、记忆的争辩。"
+              "speaker": "第二守门者",
+              "text": "秩序曾阻止战争，是否允许无限扩张控制？"
             },
             {
               "id": "ch065.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "第三守门者",
+              "text": "记忆会带来痛苦，是否删除所有伤心往事？"
             },
             {
               "id": "ch065.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "岚音",
+              "text": "每一种答案都在把人的一部分当成不必要。"
+            },
+            {
+              "id": "ch065.investigate.l05",
+              "speaker": "雷索",
+              "text": "秩序不该靠消灭错误选择存在的可能。"
+            },
+            {
+              "id": "ch065.investigate.l06",
+              "speaker": "玄璃",
+              "text": "梦境不应替代每个人的现实。"
+            },
+            {
+              "id": "ch065.investigate.l07",
+              "speaker": "主角",
+              "text": "让每个守卫保留证词，再由共同见证审议它们的代价。"
             }
           ],
           "objectives": [
@@ -1126,7 +1464,11 @@
               "key": "ch065.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "七道理念问题依次显示",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch065.crisis",
@@ -1141,23 +1483,38 @@
           "dialogue": [
             {
               "id": "ch065.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "七灯议会合议体",
+              "text": "不同记录不能并存，请选择一组删除。"
             },
             {
               "id": "ch065.crisis.l02",
-              "speaker": "雷索",
-              "text": "旧议会要求玩家选择删除一组历史证据以换取通行。"
+              "speaker": "诺依",
+              "text": "可是我们一路上的故事，哪一段都不是只有一个人说了算。"
             },
             {
               "id": "ch065.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "维莎",
+              "text": "旧议会需要一个答案，所以才不断销毁不合答案的记录。"
             },
             {
               "id": "ch065.crisis.l04",
+              "speaker": "伊泽",
+              "text": "我们可以保留争论，而不是保留唯一胜利者。"
+            },
+            {
+              "id": "ch065.crisis.l05",
+              "speaker": "主角",
+              "text": "不删。连当年支持献祭的人为何恐惧，也该被记下来。"
+            },
+            {
+              "id": "ch065.crisis.l06",
               "speaker": "雷索",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "记下不等于原谅。拒绝遗忘也不代表拒绝审判。"
+            },
+            {
+              "id": "ch065.crisis.l07",
+              "speaker": "七灯议会合议体",
+              "text": "完整历史存续条件……重新计算。"
             }
           ],
           "objectives": [
@@ -1198,6 +1555,10 @@
             "display_name": "七灯议会合议体",
             "win_flag": "ch065.battle_won",
             "recommended_level": 81
+          },
+          "direction": {
+            "shot": "合议体要求只留一份",
+            "note": "仅为文字演出说明"
           }
         },
         {
@@ -1213,22 +1574,37 @@
             {
               "id": "ch065.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "七座席位不再互相遮挡，各自把保存的历史交给众人。"
             },
             {
               "id": "ch065.resolve.l02",
-              "speaker": "雷索",
-              "text": "主角保留全部记忆与争议，通过第七道门。"
+              "speaker": "维莎",
+              "text": "旧议会终于同意自己也应该接受质询。"
             },
             {
               "id": "ch065.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "诺依",
+              "text": "它们还会回来阻止别人吗？"
             },
             {
               "id": "ch065.resolve.l04",
+              "speaker": "主角",
+              "text": "我们留好公开记录，未来的人可以继续改变规则。"
+            },
+            {
+              "id": "ch065.resolve.l05",
+              "speaker": "伊泽",
+              "text": "七种声音终于不必唱成一种旋律。"
+            },
+            {
+              "id": "ch065.resolve.l06",
+              "speaker": "玄璃",
+              "text": "下一条路可以由人自己选择。"
+            },
+            {
+              "id": "ch065.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】七位守门者。"
+              "text": "最后的议会门开启，星灯纪行进入时间尽头。"
             }
           ],
           "objectives": [
@@ -1248,7 +1624,11 @@
               "xp": 2700,
               "gold": 950
             }
-          ]
+          ],
+          "direction": {
+            "shot": "公开档案分送七地",
+            "note": "仅为文字演出说明"
+          }
         }
       ],
       "npc_reactions": [
@@ -1297,22 +1677,37 @@
             {
               "id": "ch066.opening.l01",
               "speaker": "旁白",
-              "text": "【天轨圣域·终末天桥】远方传来的声音打断了众人的脚步。"
+              "text": "终末天桥上，时间像破裂的冰面一样反复拼合，远处永昼核心散发柔和的光。"
             },
             {
               "id": "ch066.opening.l02",
               "speaker": "维莎",
-              "text": "我终于能把这道门打开，不用先问谁愿意被牺牲。"
+              "text": "门的那一侧是赫西安将所有未来锁成一页的地方。"
             },
             {
               "id": "ch066.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：让七灯建立最终共鸣并打开永昼核心。"
+              "speaker": "玄璃",
+              "text": "他不只想保留今天，他连明天会发生什么也想替人写好。"
             },
             {
               "id": "ch066.opening.l04",
+              "speaker": "诺依",
+              "text": "我们已经有七灯，也有自愿共享的城市。"
+            },
+            {
+              "id": "ch066.opening.l05",
+              "speaker": "主角",
+              "text": "它们不保证胜利，只证明存在不必受他控制的路。"
+            },
+            {
+              "id": "ch066.opening.l06",
+              "speaker": "雷索",
+              "text": "队伍准备好了。还是那句话，能救的人先救。"
+            },
+            {
+              "id": "ch066.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "桥下传来过去与未来同时发生的钟声。"
             }
           ],
           "objectives": [
@@ -1331,7 +1726,11 @@
               "key": "ch066.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "时间如裂冰重复接合",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch066.investigate",
@@ -1344,22 +1743,37 @@
             {
               "id": "ch066.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "分散式灯网的信号从七地传来，支持与反对的意见一起出现在公开屏幕。"
             },
             {
               "id": "ch066.investigate.l02",
-              "speaker": "维莎",
-              "text": "分散网络与映世自由意识形成共鸣，产生第三道路所需的理论。"
+              "speaker": "缇珐",
+              "text": "有人选择暂时不接入，也有人愿意继续提供能源。"
             },
             {
               "id": "ch066.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "维莎",
+              "text": "这些不同决定没有让系统崩溃，反而使它不再有单一弱点。"
             },
             {
               "id": "ch066.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "岚音",
+              "text": "医疗区仍然需要专门照顾不能自行决定的人。"
+            },
+            {
+              "id": "ch066.investigate.l05",
+              "speaker": "玄璃",
+              "text": "映世的自主意识也能协助维持不被规定的未来。"
+            },
+            {
+              "id": "ch066.investigate.l06",
+              "speaker": "主角",
+              "text": "不是用一个更好的统治者替换赫西安，而是让任何人都无法独占结果。"
+            },
+            {
+              "id": "ch066.investigate.l07",
+              "speaker": "诺依",
+              "text": "那我们去把门打开。"
             }
           ],
           "objectives": [
@@ -1378,7 +1792,11 @@
               "key": "ch066.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "七地多种意见同时显现",
+            "note": "仅为文字演出说明"
+          }
         },
         {
           "id": "ch066.crisis",
@@ -1393,23 +1811,38 @@
           "dialogue": [
             {
               "id": "ch066.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "定时星蛇",
+              "text": "时间锁定。所有未来已获批准，不得更改。"
             },
             {
               "id": "ch066.crisis.l02",
-              "speaker": "维莎",
-              "text": "赫西安启动静止时间阻止众人抵达司录殿。"
+              "speaker": "雷索",
+              "text": "它在重复旧议会的命令。"
             },
             {
               "id": "ch066.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "朔弦",
+              "text": "看来最后一段路还要走得更慢一点。"
             },
             {
               "id": "ch066.crisis.l04",
               "speaker": "维莎",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "时间循环每次都会把队伍送回原地，必须利用主角被抹去的命运空白。"
+            },
+            {
+              "id": "ch066.crisis.l05",
+              "speaker": "主角",
+              "text": "那是澄舟留给我的选择，不是用来让别人听命的力量。"
+            },
+            {
+              "id": "ch066.crisis.l06",
+              "speaker": "玄璃",
+              "text": "我们一起穿过去，我来固定仍有可能改变的那个瞬间。"
+            },
+            {
+              "id": "ch066.crisis.l07",
+              "speaker": "诺依",
+              "text": "前面也许没路，但我们知道怎么回头。"
             }
           ],
           "objectives": [
@@ -1450,6 +1883,10 @@
             "display_name": "定时星蛇",
             "win_flag": "ch066.battle_won",
             "recommended_level": 82
+          },
+          "direction": {
+            "shot": "循环天桥中人物反复返回",
+            "note": "仅为文字演出说明"
           }
         },
         {
@@ -1465,22 +1902,37 @@
             {
               "id": "ch066.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "天桥尽头的锁一层层松开，永昼核心第一次显露其中生活着的人。"
             },
             {
               "id": "ch066.resolve.l02",
               "speaker": "维莎",
-              "text": "主角利用空白未来穿过锁死的时刻，终门开启。"
+              "text": "门开了。没有任何人必须先献出记忆。"
             },
             {
               "id": "ch066.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "岚音",
+              "text": "里面的人不全是敌人。他们也有自己相信的幸福。"
             },
             {
               "id": "ch066.resolve.l04",
+              "speaker": "主角",
+              "text": "所以最后的决定不能只由我们在战斗里作出。"
+            },
+            {
+              "id": "ch066.resolve.l05",
+              "speaker": "伊泽",
+              "text": "把他们的声音也写进最后一章。"
+            },
+            {
+              "id": "ch066.resolve.l06",
+              "speaker": "诺依",
+              "text": "等这次旅程结束，我还想带新的孩子来看真正的天空。"
+            },
+            {
+              "id": "ch066.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】时间开始流动。"
+              "text": "第十一幕结束。永昼国度的大门缓缓开启，最后的选择仍未作出。"
             }
           ],
           "objectives": [
@@ -1505,7 +1957,11 @@
               "key": "world.seven_lanterns",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "永昼门后是正常生活的人群",
+            "note": "仅为文字演出说明"
+          }
         }
       ],
       "npc_reactions": [
@@ -1522,5 +1978,6 @@
       ],
       "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
     }
-  ]
+  ],
+  "dialogue_revision": "integrated_full_dialogue_v2_from_story"
 }

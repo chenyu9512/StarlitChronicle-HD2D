@@ -1,0 +1,1615 @@
+{
+  "schema": "starlit.story.regional_quests.v2",
+  "status": "text_only_not_runtime_bound",
+  "notes": "12幕分区新支线。玩家选择记入支线自身标志，不自动改变结局门槛；后续应接地图和正式运行器。",
+  "quests": [
+    {
+      "id": "rq_001",
+      "title": "遗失的贝壳罐",
+      "type": "regional_v2",
+      "region": "白砂港渔村",
+      "npc": "渔家女儿",
+      "premise": "父亲失忆归航后不记得给孩子收集贝壳的约定。",
+      "required_chapter": "ch002",
+      "required_flags": [
+        "story.ch002.done"
+      ],
+      "completion_flag": "side.rq_001.done",
+      "stages": [
+        {
+          "id": "rq_001.meet",
+          "objective": "听取渔家女儿的委托",
+          "dialogue": [
+            {
+              "id": "rq_001.0.l01",
+              "speaker": "女儿",
+              "text": "爸爸从前每次出海都带一个贝壳。"
+            },
+            {
+              "id": "rq_001.0.l02",
+              "speaker": "岚音",
+              "text": "现在他可能不记得，但会愿意听你讲。"
+            },
+            {
+              "id": "rq_001.0.l03",
+              "speaker": "主角",
+              "text": "先找那只装贝壳的旧罐。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_001.investigate",
+          "objective": "调查白砂港渔村的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_001.1.l01",
+              "speaker": "水手",
+              "text": "我记得海浪的声音，却记不得罐子放哪儿。"
+            },
+            {
+              "id": "rq_001.1.l02",
+              "speaker": "女儿",
+              "text": "我只找到盖子。"
+            },
+            {
+              "id": "rq_001.1.l03",
+              "speaker": "主角",
+              "text": "旧船仓的木板下有一处能藏东西。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_001.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_001.2.l01",
+              "speaker": "女儿",
+              "text": "如果爸爸再也记不起来，我们是不是就没了约定？"
+            },
+            {
+              "id": "rq_001.2.l02",
+              "speaker": "水手",
+              "text": "我愿意从今天起陪你重新找。"
+            },
+            {
+              "id": "rq_001.2.l03",
+              "speaker": "岚音",
+              "text": "过去的日子珍贵，今天也一样。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_001.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "和父亲一起寻找最后一枚",
+                "sets": {
+                  "side.rq_001.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先修复旧罐与文字标签",
+                "sets": {
+                  "side.rq_001.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_001.resolution",
+          "objective": "向渔家女儿反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_001.3.l01",
+              "speaker": "旁白",
+              "text": "小罐里有七枚贝壳，新的第八枚由父女一起捡起。"
+            },
+            {
+              "id": "rq_001.3.l02",
+              "speaker": "女儿",
+              "text": "这枚是今天的。"
+            },
+            {
+              "id": "rq_001.3.l03",
+              "speaker": "水手",
+              "text": "那就从今天继续。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_001.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "和父亲一起寻找最后一枚",
+        "b": "先修复旧罐与文字标签"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_002",
+      "title": "没有海兽的网",
+      "type": "regional_v2",
+      "region": "鲸骨浅滩",
+      "npc": "渔网师傅",
+      "premise": "渔夫要求加固带倒刺的捕兽网，却可能再次伤到受控海兽。",
+      "required_chapter": "ch005",
+      "required_flags": [
+        "story.ch005.done"
+      ],
+      "completion_flag": "side.rq_002.done",
+      "stages": [
+        {
+          "id": "rq_002.meet",
+          "objective": "听取渔网师傅的委托",
+          "dialogue": [
+            {
+              "id": "rq_002.0.l01",
+              "speaker": "网师傅",
+              "text": "大伙害怕海兽回来，想在网里多加几排铁钩。"
+            },
+            {
+              "id": "rq_002.0.l02",
+              "speaker": "朔弦",
+              "text": "它伤人是因为星锁，不是为了吃渔夫。"
+            },
+            {
+              "id": "rq_002.0.l03",
+              "speaker": "主角",
+              "text": "先看看哪些地方还会被鱼网缠住。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_002.investigate",
+          "objective": "调查鲸骨浅滩的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_002.1.l01",
+              "speaker": "网师傅",
+              "text": "不用钩子，如何防止大鱼撞进来？"
+            },
+            {
+              "id": "rq_002.1.l02",
+              "speaker": "岚音",
+              "text": "可以用声音和浮标引导。"
+            },
+            {
+              "id": "rq_002.1.l03",
+              "speaker": "朔弦",
+              "text": "我知道一条不会穿过兽群活动区的航线。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_002.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_002.2.l01",
+              "speaker": "渔夫",
+              "text": "我不信那头东西永远温顺。"
+            },
+            {
+              "id": "rq_002.2.l02",
+              "speaker": "主角",
+              "text": "安全不是靠假装没有风险，我们可以设避让线。"
+            },
+            {
+              "id": "rq_002.2.l03",
+              "speaker": "网师傅",
+              "text": "那就先试一组不会钩住皮肉的新网。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_002.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "改造不伤海兽的浮标网",
+                "sets": {
+                  "side.rq_002.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先划定人兽共用的避让海域",
+                "sets": {
+                  "side.rq_002.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_002.resolution",
+          "objective": "向渔网师傅反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_002.3.l01",
+              "speaker": "旁白",
+              "text": "新浮标让渔船远离海兽浅滩，渔网仍能正常捕鱼。"
+            },
+            {
+              "id": "rq_002.3.l02",
+              "speaker": "渔夫",
+              "text": "我还是有点怕，但愿意试。"
+            },
+            {
+              "id": "rq_002.3.l03",
+              "speaker": "朔弦",
+              "text": "肯承认怕，已经比逞强出海好多了。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_002.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "改造不伤海兽的浮标网",
+        "b": "先划定人兽共用的避让海域"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_003",
+      "title": "没人敲响的第二声钟",
+      "type": "regional_v2",
+      "region": "潮歌灯塔",
+      "npc": "灯塔值夜人",
+      "premise": "修灯后港口要求钟只报平安，却有人担心海难警报被压下。",
+      "required_chapter": "ch006",
+      "required_flags": [
+        "story.ch006.done"
+      ],
+      "completion_flag": "side.rq_003.done",
+      "stages": [
+        {
+          "id": "rq_003.meet",
+          "objective": "听取灯塔值夜人的委托",
+          "dialogue": [
+            {
+              "id": "rq_003.0.l01",
+              "speaker": "值夜人",
+              "text": "灯终于亮了，但第二声钟还是不准敲。"
+            },
+            {
+              "id": "rq_003.0.l02",
+              "speaker": "主角",
+              "text": "十年前就是第二声钟引发了恐慌。"
+            },
+            {
+              "id": "rq_003.0.l03",
+              "speaker": "岚音",
+              "text": "不能因为害怕警报就永远不报。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_003.investigate",
+          "objective": "调查潮歌灯塔的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_003.1.l01",
+              "speaker": "值夜人",
+              "text": "第一次报归港，第二次报险情。"
+            },
+            {
+              "id": "rq_003.1.l02",
+              "speaker": "老渔妇",
+              "text": "从前有人把警报当成灾难本身。"
+            },
+            {
+              "id": "rq_003.1.l03",
+              "speaker": "主角",
+              "text": "那就说明不同钟声代表什么。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_003.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_003.2.l01",
+              "speaker": "港务员",
+              "text": "警报太多会吓跑商人。"
+            },
+            {
+              "id": "rq_003.2.l02",
+              "speaker": "值夜人",
+              "text": "不报警会让船沉在海里。"
+            },
+            {
+              "id": "rq_003.2.l03",
+              "speaker": "朔弦",
+              "text": "把警报和误报都写进日志，向所有船长公开。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_003.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立不同钟声的公开含义",
+                "sets": {
+                  "side.rq_003.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先组织船长的警报演练",
+                "sets": {
+                  "side.rq_003.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_003.resolution",
+          "objective": "向灯塔值夜人反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_003.3.l01",
+              "speaker": "旁白",
+              "text": "港口挂出钟声说明，老人们自愿参加夜间轮值。"
+            },
+            {
+              "id": "rq_003.3.l02",
+              "speaker": "值夜人",
+              "text": "今天第二声钟响，是因为真有船需要救。"
+            },
+            {
+              "id": "rq_003.3.l03",
+              "speaker": "主角",
+              "text": "那就让它继续提醒人回家。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_003.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "建立不同钟声的公开含义",
+        "b": "先组织船长的警报演练"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_004",
+      "title": "三份重复的入境章",
+      "type": "regional_v2",
+      "region": "三誓王都外廷",
+      "npc": "难民父亲",
+      "premise": "跨国求医的父亲持有三份一样的签章却不被接待。",
+      "required_chapter": "ch007",
+      "required_flags": [
+        "story.ch007.done"
+      ],
+      "completion_flag": "side.rq_004.done",
+      "stages": [
+        {
+          "id": "rq_004.meet",
+          "objective": "听取难民父亲的委托",
+          "dialogue": [
+            {
+              "id": "rq_004.0.l01",
+              "speaker": "父亲",
+              "text": "三道门都盖章了，可没有一扇门让我进去。"
+            },
+            {
+              "id": "rq_004.0.l02",
+              "speaker": "雷索",
+              "text": "签章不是治疗。"
+            },
+            {
+              "id": "rq_004.0.l03",
+              "speaker": "岚音",
+              "text": "孩子先去医务所，手续我们随后处理。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_004.investigate",
+          "objective": "调查三誓王都外廷的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_004.1.l01",
+              "speaker": "书记官",
+              "text": "这些章来自同一枚模具，所以都无效。"
+            },
+            {
+              "id": "rq_004.1.l02",
+              "speaker": "主角",
+              "text": "是谁要求他们逐一排队？"
+            },
+            {
+              "id": "rq_004.1.l03",
+              "speaker": "父亲",
+              "text": "我只知道每次排队，孩子都更虚弱。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_004.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_004.2.l01",
+              "speaker": "书记官",
+              "text": "若不查清，别人也会要求破例。"
+            },
+            {
+              "id": "rq_004.2.l02",
+              "speaker": "雷索",
+              "text": "紧急生命救助不应叫破例。"
+            },
+            {
+              "id": "rq_004.2.l03",
+              "speaker": "主角",
+              "text": "保留原章作证，再制订跨境救医的确认流程。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_004.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先开展紧急救医，再追查假章",
+                "sets": {
+                  "side.rq_004.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "公开三廷同一模具的调查",
+                "sets": {
+                  "side.rq_004.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_004.resolution",
+          "objective": "向难民父亲反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_004.3.l01",
+              "speaker": "旁白",
+              "text": "三廷增设紧急医疗绿色通行登记。"
+            },
+            {
+              "id": "rq_004.3.l02",
+              "speaker": "父亲",
+              "text": "我不想再拿着纸站一整夜。"
+            },
+            {
+              "id": "rq_004.3.l03",
+              "speaker": "岚音",
+              "text": "以后先让医师见到病人。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_004.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先开展紧急救医，再追查假章",
+        "b": "公开三廷同一模具的调查"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_005",
+      "title": "粮袋底下的字",
+      "type": "regional_v2",
+      "region": "三国边境议事站",
+      "npc": "搬粮工",
+      "premise": "运粮车上的袋子写着被烧村落的姓名，官员不愿公开。",
+      "required_chapter": "ch010",
+      "required_flags": [
+        "story.ch010.done"
+      ],
+      "completion_flag": "side.rq_005.done",
+      "stages": [
+        {
+          "id": "rq_005.meet",
+          "objective": "听取搬粮工的委托",
+          "dialogue": [
+            {
+              "id": "rq_005.0.l01",
+              "speaker": "搬粮工",
+              "text": "每袋粮底部都刻着一个名字。"
+            },
+            {
+              "id": "rq_005.0.l02",
+              "speaker": "雷索",
+              "text": "这是从失火粮仓抢救的遗留物？"
+            },
+            {
+              "id": "rq_005.0.l03",
+              "speaker": "主角",
+              "text": "先核实，不要用猜测伤害家属。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_005.investigate",
+          "objective": "调查三国边境议事站的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_005.1.l01",
+              "speaker": "搬粮工",
+              "text": "这些粮由三地居民共同捐献。"
+            },
+            {
+              "id": "rq_005.1.l02",
+              "speaker": "使者",
+              "text": "名字公开会引发索赔。"
+            },
+            {
+              "id": "rq_005.1.l03",
+              "speaker": "岚音",
+              "text": "索赔是需要解决的权利，不该靠改字躲掉。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_005.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_005.2.l01",
+              "speaker": "使者",
+              "text": "若把名单贴出，三国各自都会难堪。"
+            },
+            {
+              "id": "rq_005.2.l02",
+              "speaker": "主角",
+              "text": "让受灾者自己知道哪些物资被带走，怎样补偿。"
+            },
+            {
+              "id": "rq_005.2.l03",
+              "speaker": "搬粮工",
+              "text": "我愿在交接册上亲自签名。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_005.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开粮食去向与赔偿手续",
+                "sets": {
+                  "side.rq_005.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先向受灾家庭核对姓名",
+                "sets": {
+                  "side.rq_005.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_005.resolution",
+          "objective": "向搬粮工反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_005.3.l01",
+              "speaker": "旁白",
+              "text": "粮袋归还与赔偿登记同时开放。"
+            },
+            {
+              "id": "rq_005.3.l02",
+              "speaker": "使者",
+              "text": "第一次有人拿着真实名单来质询我们。"
+            },
+            {
+              "id": "rq_005.3.l03",
+              "speaker": "雷索",
+              "text": "那就好好回答。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_005.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "公开粮食去向与赔偿手续",
+        "b": "先向受灾家庭核对姓名"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_006",
+      "title": "桥边再开张的汤摊",
+      "type": "regional_v2",
+      "region": "旧盟约桥",
+      "npc": "汤摊老板",
+      "premise": "桥恢复后，老板想同时接待三国客人，却遭老顾客抵制。",
+      "required_chapter": "ch012",
+      "required_flags": [
+        "story.ch012.done"
+      ],
+      "completion_flag": "side.rq_006.done",
+      "stages": [
+        {
+          "id": "rq_006.meet",
+          "objective": "听取汤摊老板的委托",
+          "dialogue": [
+            {
+              "id": "rq_006.0.l01",
+              "speaker": "老板",
+              "text": "过去我只给自己国家的兵煮汤。"
+            },
+            {
+              "id": "rq_006.0.l02",
+              "speaker": "朔弦",
+              "text": "如今过桥的都是饿肚子的旅人。"
+            },
+            {
+              "id": "rq_006.0.l03",
+              "speaker": "雷索",
+              "text": "你不必一天改掉所有习惯。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_006.investigate",
+          "objective": "调查旧盟约桥的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_006.1.l01",
+              "speaker": "老板",
+              "text": "我的锅里有三种不同的香料。"
+            },
+            {
+              "id": "rq_006.1.l02",
+              "speaker": "客人甲",
+              "text": "用对岸的调味就不算我们的汤！"
+            },
+            {
+              "id": "rq_006.1.l03",
+              "speaker": "岚音",
+              "text": "先让厨师尝尝，再争是谁的。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_006.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_006.2.l01",
+              "speaker": "客人乙",
+              "text": "如果他们来坐，我以后就不来了。"
+            },
+            {
+              "id": "rq_006.2.l02",
+              "speaker": "老板",
+              "text": "这是我的摊子，愿意给所有人一碗热汤。"
+            },
+            {
+              "id": "rq_006.2.l03",
+              "speaker": "雷索",
+              "text": "不强迫一起坐，也不应该赶走谁。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_006.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由顾客自由选择座位",
+                "sets": {
+                  "side.rq_006.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "举办三国公开试吃日",
+                "sets": {
+                  "side.rq_006.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_006.resolution",
+          "objective": "向汤摊老板反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_006.3.l01",
+              "speaker": "旁白",
+              "text": "汤摊划出安静的长桌，旅人可以坐一起，也可以各自吃饭。"
+            },
+            {
+              "id": "rq_006.3.l02",
+              "speaker": "老板",
+              "text": "味道并没有因为客人不同变坏。"
+            },
+            {
+              "id": "rq_006.3.l03",
+              "speaker": "朔弦",
+              "text": "我希望多来一碗。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_006.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "由顾客自由选择座位",
+        "b": "举办三国公开试吃日"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_007",
+      "title": "不见了的工时",
+      "type": "regional_v2",
+      "region": "赤炉七号矿井",
+      "npc": "矿工会计",
+      "premise": "矿工明明领取过饭票，工资账却显示他们从未上工。",
+      "required_chapter": "ch013",
+      "required_flags": [
+        "story.ch013.done"
+      ],
+      "completion_flag": "side.rq_007.done",
+      "stages": [
+        {
+          "id": "rq_007.meet",
+          "objective": "听取矿工会计的委托",
+          "dialogue": [
+            {
+              "id": "rq_007.0.l01",
+              "speaker": "会计",
+              "text": "我自己写的账，可里面有九个人突然不见了。"
+            },
+            {
+              "id": "rq_007.0.l02",
+              "speaker": "缇珐",
+              "text": "旧能源回路会干扰登记。"
+            },
+            {
+              "id": "rq_007.0.l03",
+              "speaker": "主角",
+              "text": "饭票与宿舍记录也拿来核对。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_007.investigate",
+          "objective": "调查赤炉七号矿井的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_007.1.l01",
+              "speaker": "矿工",
+              "text": "我记得一整周在下井，却没有工资。"
+            },
+            {
+              "id": "rq_007.1.l02",
+              "speaker": "会计",
+              "text": "饭堂还有你的签名。"
+            },
+            {
+              "id": "rq_007.1.l03",
+              "speaker": "岚音",
+              "text": "先保障治疗与生活，不要让人因为没有记录就饿肚子。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_007.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_007.2.l01",
+              "speaker": "厂主",
+              "text": "凭几张饭票就要给工资？"
+            },
+            {
+              "id": "rq_007.2.l02",
+              "speaker": "主角",
+              "text": "还有工具领用和同事证词。"
+            },
+            {
+              "id": "rq_007.2.l03",
+              "speaker": "缇珐",
+              "text": "需要赔偿的不是一台坏机器，是被它影响的人。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_007.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "按多源证据补发工时",
+                "sets": {
+                  "side.rq_007.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先成立工人参与的调查组",
+                "sets": {
+                  "side.rq_007.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_007.resolution",
+          "objective": "向矿工会计反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_007.3.l01",
+              "speaker": "旁白",
+              "text": "补发工时按多方证据逐项核实。"
+            },
+            {
+              "id": "rq_007.3.l02",
+              "speaker": "矿工",
+              "text": "钱还没全回来，但这周终于不是白干。"
+            },
+            {
+              "id": "rq_007.3.l03",
+              "speaker": "会计",
+              "text": "以后我要保留两份独立的账。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_007.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "按多源证据补发工时",
+        "b": "先成立工人参与的调查组"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_008",
+      "title": "谁替矿工送饭",
+      "type": "regional_v2",
+      "region": "灰砂安置区",
+      "npc": "食堂女工",
+      "premise": "失忆矿工的饭票反复作废，食堂女工每天垫钱。",
+      "required_chapter": "ch016",
+      "required_flags": [
+        "story.ch016.done"
+      ],
+      "completion_flag": "side.rq_008.done",
+      "stages": [
+        {
+          "id": "rq_008.meet",
+          "objective": "听取食堂女工的委托",
+          "dialogue": [
+            {
+              "id": "rq_008.0.l01",
+              "speaker": "女工",
+              "text": "我知道他是谁，可机器说饭票无效。"
+            },
+            {
+              "id": "rq_008.0.l02",
+              "speaker": "岚音",
+              "text": "不能让登记错误决定一个人有没有饭吃。"
+            },
+            {
+              "id": "rq_008.0.l03",
+              "speaker": "缇珐",
+              "text": "先把旧读卡器断开。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_008.investigate",
+          "objective": "调查灰砂安置区的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_008.1.l01",
+              "speaker": "矿工",
+              "text": "我已经忘了自己吃没吃过。"
+            },
+            {
+              "id": "rq_008.1.l02",
+              "speaker": "女工",
+              "text": "那就按医师建议分餐。"
+            },
+            {
+              "id": "rq_008.1.l03",
+              "speaker": "主角",
+              "text": "把医疗需求和支付资格分开。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_008.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_008.2.l01",
+              "speaker": "厂房经理",
+              "text": "免费配餐会有人占便宜。"
+            },
+            {
+              "id": "rq_008.2.l02",
+              "speaker": "岚音",
+              "text": "有具体的复核办法，也不能让病人先饿着。"
+            },
+            {
+              "id": "rq_008.2.l03",
+              "speaker": "女工",
+              "text": "我愿意继续做饭，不愿一直垫钱。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_008.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先发放紧急配餐券",
+                "sets": {
+                  "side.rq_008.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立医务所与食堂联合认证",
+                "sets": {
+                  "side.rq_008.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_008.resolution",
+          "objective": "向食堂女工反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_008.3.l01",
+              "speaker": "旁白",
+              "text": "食堂建立匿名救助券和公开补贴账。"
+            },
+            {
+              "id": "rq_008.3.l02",
+              "speaker": "女工",
+              "text": "我终于不用在收银机前跟病人争辩。"
+            },
+            {
+              "id": "rq_008.3.l03",
+              "speaker": "矿工",
+              "text": "今天的汤还是热的。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_008.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先发放紧急配餐券",
+        "b": "建立医务所与食堂联合认证"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_009",
+      "title": "炉城最后一趟夜车",
+      "type": "regional_v2",
+      "region": "赤炉工人街",
+      "npc": "电车司机",
+      "premise": "炉心改造后，夜班电车需要暂停，住在城外的工人无法回家。",
+      "required_chapter": "ch018",
+      "required_flags": [
+        "story.ch018.done"
+      ],
+      "completion_flag": "side.rq_009.done",
+      "stages": [
+        {
+          "id": "rq_009.meet",
+          "objective": "听取电车司机的委托",
+          "dialogue": [
+            {
+              "id": "rq_009.0.l01",
+              "speaker": "司机",
+              "text": "他们说为了改革，末班车今晚停开。"
+            },
+            {
+              "id": "rq_009.0.l02",
+              "speaker": "缇珐",
+              "text": "我没看到新供电图有这条说明。"
+            },
+            {
+              "id": "rq_009.0.l03",
+              "speaker": "主角",
+              "text": "先问还有多少工人需要坐车。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_009.investigate",
+          "objective": "调查赤炉工人街的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_009.1.l01",
+              "speaker": "司机",
+              "text": "医院也有夜班护士。"
+            },
+            {
+              "id": "rq_009.1.l02",
+              "speaker": "岚音",
+              "text": "他们不能在凌晨走两小时回家。"
+            },
+            {
+              "id": "rq_009.1.l03",
+              "speaker": "缇珐",
+              "text": "把电车调到低功率线，不必全部停运。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_009.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_009.2.l01",
+              "speaker": "维修长",
+              "text": "夜车继续跑会增加新的用电风险。"
+            },
+            {
+              "id": "rq_009.2.l02",
+              "speaker": "司机",
+              "text": "那就分段运行，再安排共乘车接驳。"
+            },
+            {
+              "id": "rq_009.2.l03",
+              "speaker": "主角",
+              "text": "把变更提前告知，不要让人下班才知道无车。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_009.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "低功率电车加临时接驳",
+                "sets": {
+                  "side.rq_009.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "优先保障医院夜班通勤",
+                "sets": {
+                  "side.rq_009.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_009.resolution",
+          "objective": "向电车司机反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_009.3.l01",
+              "speaker": "旁白",
+              "text": "末班车缩短了路线，却保住了医院与工人夜间通勤。"
+            },
+            {
+              "id": "rq_009.3.l02",
+              "speaker": "司机",
+              "text": "车轮还转着，人也终于能回家。"
+            },
+            {
+              "id": "rq_009.3.l03",
+              "speaker": "缇珐",
+              "text": "技术改革不能只看白天的统计。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_009.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "低功率电车加临时接驳",
+        "b": "优先保障医院夜班通勤"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_010",
+      "title": "烟不是军旗",
+      "type": "regional_v2",
+      "region": "灰石边村旧麦田",
+      "npc": "村长后裔",
+      "premise": "旧日求救烟的遗址被人错误标作叛乱信号。",
+      "required_chapter": "ch019",
+      "required_flags": [
+        "story.ch019.done"
+      ],
+      "completion_flag": "side.rq_010.done",
+      "stages": [
+        {
+          "id": "rq_010.meet",
+          "objective": "听取村长后裔的委托",
+          "dialogue": [
+            {
+              "id": "rq_010.0.l01",
+              "speaker": "后裔",
+              "text": "我们那天只想救掉进井里的孩子。"
+            },
+            {
+              "id": "rq_010.0.l02",
+              "speaker": "雷索",
+              "text": "我知道，我当时看见了。"
+            },
+            {
+              "id": "rq_010.0.l03",
+              "speaker": "主角",
+              "text": "旧告示却仍写着叛军信号。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_010.investigate",
+          "objective": "调查灰石边村旧麦田的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_010.1.l01",
+              "speaker": "旧军士",
+              "text": "战地地图把求救烟都标成了敌人。"
+            },
+            {
+              "id": "rq_010.1.l02",
+              "speaker": "后裔",
+              "text": "我的祖母一生都没敢再点求救火。"
+            },
+            {
+              "id": "rq_010.1.l03",
+              "speaker": "岚音",
+              "text": "现在应该恢复真正的警报说明。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_010.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_010.2.l01",
+              "speaker": "管理员",
+              "text": "改标牌就要承认当年的审判有问题。"
+            },
+            {
+              "id": "rq_010.2.l02",
+              "speaker": "雷索",
+              "text": "事实不会因为标牌旧就不必改变。"
+            },
+            {
+              "id": "rq_010.2.l03",
+              "speaker": "主角",
+              "text": "附上不同来源和更正日期。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_010.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先公开多方历史证据",
+                "sets": {
+                  "side.rq_010.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "举办对求救信号的公共教育",
+                "sets": {
+                  "side.rq_010.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_010.resolution",
+          "objective": "向村长后裔反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_010.3.l01",
+              "speaker": "旁白",
+              "text": "纪念路标改成求救烟的真实含义。"
+            },
+            {
+              "id": "rq_010.3.l02",
+              "speaker": "后裔",
+              "text": "祖母若还活着，会愿意在这里生一堆取暖的火。"
+            },
+            {
+              "id": "rq_010.3.l03",
+              "speaker": "雷索",
+              "text": "今天的火终于不用再被当作敌人。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_010.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先公开多方历史证据",
+        "b": "举办对求救信号的公共教育"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_011",
+      "title": "卖不出去的灯笼",
+      "type": "regional_v2",
+      "region": "王都白夜祭",
+      "npc": "灯笼手艺人",
+      "premise": "节庆手艺人制作了给失踪者的无名灯笼，却无人愿买。",
+      "required_chapter": "ch022",
+      "required_flags": [
+        "story.ch022.done"
+      ],
+      "completion_flag": "side.rq_011.done",
+      "stages": [
+        {
+          "id": "rq_011.meet",
+          "objective": "听取灯笼手艺人的委托",
+          "dialogue": [
+            {
+              "id": "rq_011.0.l01",
+              "speaker": "手艺人",
+              "text": "没有名字的灯笼没人敢挂，怕招来旧日的雾。"
+            },
+            {
+              "id": "rq_011.0.l02",
+              "speaker": "伊泽尚未加入的乐师",
+              "text": "那是因为人们不知道该怎么说思念。"
+            },
+            {
+              "id": "rq_011.0.l03",
+              "speaker": "主角",
+              "text": "先请手艺人讲灯笼的由来。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_011.investigate",
+          "objective": "调查王都白夜祭的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_011.1.l01",
+              "speaker": "手艺人",
+              "text": "我儿子失踪那年，最后学会做的就是这种小灯。"
+            },
+            {
+              "id": "rq_011.1.l02",
+              "speaker": "岚音",
+              "text": "你可以挂，也可以不挂，无需替别人决定。"
+            },
+            {
+              "id": "rq_011.1.l03",
+              "speaker": "朔弦",
+              "text": "如果要挂，别把它放在危险的风口。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_011.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_011.2.l01",
+              "speaker": "宫廷护卫",
+              "text": "祭典只准挂写着祝福的灯。"
+            },
+            {
+              "id": "rq_011.2.l02",
+              "speaker": "手艺人",
+              "text": "我也想祝福，但仍然想他。"
+            },
+            {
+              "id": "rq_011.2.l03",
+              "speaker": "主角",
+              "text": "纪念与庆祝都属于节日的一部分。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_011.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "划出自愿纪念灯区",
+                "sets": {
+                  "side.rq_011.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "将旧日手艺写入节庆展览",
+                "sets": {
+                  "side.rq_011.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_011.resolution",
+          "objective": "向灯笼手艺人反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_011.3.l01",
+              "speaker": "旁白",
+              "text": "城门后巷划出自愿纪念灯区。"
+            },
+            {
+              "id": "rq_011.3.l02",
+              "speaker": "手艺人",
+              "text": "今天有人给灯写了新名字，也有人留下空白。"
+            },
+            {
+              "id": "rq_011.3.l03",
+              "speaker": "岚音",
+              "text": "这是他们自己的方式。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_011.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "划出自愿纪念灯区",
+        "b": "将旧日手艺写入节庆展览"
+      },
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "rq_012",
+      "title": "九百年后的邮戳",
+      "type": "regional_v2",
+      "region": "断层议会遗迹",
+      "npc": "档案信使",
+      "premise": "古代致歉书写好九百年却一直未寄给受害者后代。",
+      "required_chapter": "ch024",
+      "required_flags": [
+        "story.ch024.done"
+      ],
+      "completion_flag": "side.rq_012.done",
+      "stages": [
+        {
+          "id": "rq_012.meet",
+          "objective": "听取档案信使的委托",
+          "dialogue": [
+            {
+              "id": "rq_012.0.l01",
+              "speaker": "信使",
+              "text": "这封信的邮戳每年都改，地址却一直空白。"
+            },
+            {
+              "id": "rq_012.0.l02",
+              "speaker": "伊泽尚未入队的档案员",
+              "text": "有人担心知道真相的人会愤怒。"
+            },
+            {
+              "id": "rq_012.0.l03",
+              "speaker": "主角",
+              "text": "愤怒不应成为不给人知情权的理由。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_012.investigate",
+          "objective": "调查断层议会遗迹的相关证据",
+          "dialogue": [
+            {
+              "id": "rq_012.1.l01",
+              "speaker": "档案员",
+              "text": "受害者散落各地，原住址已不存在。"
+            },
+            {
+              "id": "rq_012.1.l02",
+              "speaker": "雷索",
+              "text": "不要替他们指定一个唯一收件人。"
+            },
+            {
+              "id": "rq_012.1.l03",
+              "speaker": "岚音",
+              "text": "先整理公开说明，再让后代自行查阅。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "rq_012.choice",
+          "objective": "处理与居民有关的冲突",
+          "dialogue": [
+            {
+              "id": "rq_012.2.l01",
+              "speaker": "信使",
+              "text": "如果有人拒绝读，我们还能算送到吗？"
+            },
+            {
+              "id": "rq_012.2.l02",
+              "speaker": "主角",
+              "text": "让人有机会知道信存在，就是第一步。"
+            },
+            {
+              "id": "rq_012.2.l03",
+              "speaker": "档案员",
+              "text": "我们不必强行把每个家庭的伤口打开。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "rq_012.choice",
+            "prompt": "这件事你会如何处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "开放家属自愿查阅渠道",
+                "sets": {
+                  "side.rq_012.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "设立移动档案巡回说明会",
+                "sets": {
+                  "side.rq_012.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "rq_012.resolution",
+          "objective": "向档案信使反馈结果",
+          "dialogue": [
+            {
+              "id": "rq_012.3.l01",
+              "speaker": "旁白",
+              "text": "致歉书副本进入各地公开档案馆，原件得以保存。"
+            },
+            {
+              "id": "rq_012.3.l02",
+              "speaker": "信使",
+              "text": "终于不用每年替它盖一枚假的邮戳。"
+            },
+            {
+              "id": "rq_012.3.l03",
+              "speaker": "雷索",
+              "text": "迟来的责任，还需要以后的行动证明。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.rq_012.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "开放家属自愿查阅渠道",
+        "b": "设立移动档案巡回说明会"
+      },
+      "status": "authored_text_not_runtime_bound"
+    }
+  ]
+}

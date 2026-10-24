@@ -37,22 +37,37 @@
             {
               "id": "ch049.opening.l01",
               "speaker": "旁白",
-              "text": "【十二年后·荒原邮站】远方传来的声音打断了众人的脚步。"
+              "text": "十二年后，荒原邮站的窗边坐着一名青年。他把一枚旧车票压在地图下，车票背面仍留着母亲的名字。"
             },
             {
               "id": "ch049.opening.l02",
               "speaker": "诺依",
-              "text": "大家都说那个人失败了，可没人说他救过多少人。"
+              "text": "有人说这张地图少了一条路。可我小时候确实从那里走过。"
             },
             {
               "id": "ch049.opening.l03",
-              "speaker": "诺依（心声）",
-              "text": "我们先完成眼前的任务：操作青年诺依寻找旧队友的线索。"
+              "speaker": "邮站老板",
+              "text": "你找的那个人不是英雄了。有人说他躲到山里种菜去了。"
             },
             {
               "id": "ch049.opening.l04",
+              "speaker": "诺依",
+              "text": "我找的不是传说里不会输的人。"
+            },
+            {
+              "id": "ch049.opening.l05",
+              "speaker": "新冒险者",
+              "text": "那你何必大老远去找一个败过的人？"
+            },
+            {
+              "id": "ch049.opening.l06",
+              "speaker": "诺依",
+              "text": "因为我记得他曾经为我回来过一次。"
+            },
+            {
+              "id": "ch049.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "邮站旁的旧灯被风吹灭，诺依拿起随身灯准备出发。"
             }
           ],
           "objectives": [
@@ -76,7 +91,11 @@
               "key": "party.active_pov",
               "value": "诺依"
             }
-          ]
+          ],
+          "direction": {
+            "shot": "旧车票压住新地图角",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch049.investigate",
@@ -89,22 +108,37 @@
             {
               "id": "ch049.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "老人交出一本写满救援队名字的薄册，其中有许多旁人不愿再提的人。"
             },
             {
               "id": "ch049.investigate.l02",
-              "speaker": "诺依",
-              "text": "旅人保留着十二年前主角帮助自己的旧物。"
+              "speaker": "邮站老板",
+              "text": "这是黑星之后头一年。他们没停止找人。"
             },
             {
               "id": "ch049.investigate.l03",
-              "speaker": "诺依（心声）",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "诺依",
+              "text": "那为什么大家只记得他们失败？"
             },
             {
               "id": "ch049.investigate.l04",
+              "speaker": "邮站老板",
+              "text": "因为失败看得见，之后十几年默默做的事没人替他们唱。"
+            },
+            {
+              "id": "ch049.investigate.l05",
+              "speaker": "新冒险者",
+              "text": "册子写得再好，荒原的窃光兽也不会因此走开。"
+            },
+            {
+              "id": "ch049.investigate.l06",
+              "speaker": "诺依",
+              "text": "我会护送邮车，再去找名单上还活着的人。"
+            },
+            {
+              "id": "ch049.investigate.l07",
               "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "text": "诺依在自己的新手记第一页写下：“先去做事，再问为什么。”"
             }
           ],
           "objectives": [
@@ -123,7 +157,11 @@
               "key": "ch049.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "救援簿名单一页比一页凌乱",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch049.crisis",
@@ -138,23 +176,38 @@
           "dialogue": [
             {
               "id": "ch049.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "荒原窃光兽",
+              "text": "呜——！"
             },
             {
               "id": "ch049.crisis.l02",
-              "speaker": "诺依",
-              "text": "新生代冒险者认为老英雄不值得寻找。"
+              "speaker": "邮童",
+              "text": "灯灭了！今晚车队看不见路！"
             },
             {
               "id": "ch049.crisis.l03",
-              "speaker": "诺依（心声）",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "诺依",
+              "text": "把备用灯给最小的孩子，其余人跟着我走。"
             },
             {
               "id": "ch049.crisis.l04",
+              "speaker": "新冒险者",
+              "text": "你连队伍都没组成，怎么敢单独冲过去？"
+            },
+            {
+              "id": "ch049.crisis.l05",
               "speaker": "诺依",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "我不是单独冲。我需要你护住车尾，可以吗？"
+            },
+            {
+              "id": "ch049.crisis.l06",
+              "speaker": "邮站老板",
+              "text": "我在这里负责清点人数！一个也别漏。"
+            },
+            {
+              "id": "ch049.crisis.l07",
+              "speaker": "旁白",
+              "text": "窃光兽被驱离，邮路重新亮起一串短灯。"
             }
           ],
           "objectives": [
@@ -172,20 +225,22 @@
           ],
           "choice": {
             "id": "ch049.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "诺依首次独立带队，怎样处理邮站求救？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "召集车夫分工保护灯火",
                 "sets": {
-                  "ch049.approach": "hear"
+                  "ch049.approach": "shared_rescue",
+                  "world.ch049.approach": "shared_rescue"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先引开窃光兽，再组织护送",
                 "sets": {
-                  "ch049.approach": "protect"
+                  "ch049.approach": "decoy",
+                  "world.ch049.approach": "decoy"
                 }
               }
             ]
@@ -195,6 +250,10 @@
             "display_name": "荒原窃光兽",
             "win_flag": "ch049.battle_won",
             "recommended_level": 61
+          },
+          "direction": {
+            "shot": "诺依第一次请陌生人帮忙",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
           }
         },
         {
@@ -210,22 +269,32 @@
             {
               "id": "ch049.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "邮车顺利离站，老板把一份旧队伍的行踪记录交给诺依。"
             },
             {
               "id": "ch049.resolve.l02",
-              "speaker": "诺依",
-              "text": "诺依带着旧日名单出发，决定亲自判断那位主角是谁。"
+              "speaker": "邮站老板",
+              "text": "雷索曾在王都帮人开过救援通道。可以先从他查起。"
             },
             {
               "id": "ch049.resolve.l03",
-              "speaker": "诺依（心声）",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "诺依",
+              "text": "我会把找到的人名字写回来，不管他们愿不愿意再做英雄。"
             },
             {
               "id": "ch049.resolve.l04",
+              "speaker": "新冒险者",
+              "text": "你刚才叫我帮忙时，没有命令我。"
+            },
+            {
+              "id": "ch049.resolve.l05",
+              "speaker": "诺依",
+              "text": "因为我自己也怕。一个人当然做不好。"
+            },
+            {
+              "id": "ch049.resolve.l06",
               "speaker": "旁白",
-              "text": "【任务完成】旧英雄的名字。"
+              "text": "诺依背起行囊，荒原后方出现十二年后的三誓王都。"
             }
           ],
           "objectives": [
@@ -245,7 +314,11 @@
               "xp": 2060,
               "gold": 726
             }
-          ]
+          ],
+          "direction": {
+            "shot": "邮车灯光连成微弱的归途",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         }
       ],
       "npc_reactions": [
@@ -262,7 +335,8 @@
       ],
       "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
       "playable_character": "诺依",
-      "pov_mode": "twelve_years_after"
+      "pov_mode": "twelve_years_after",
+      "script_revision": "act09_full_dialogue_v2"
     },
     {
       "id": "ch050",
@@ -296,22 +370,37 @@
             {
               "id": "ch050.opening.l01",
               "speaker": "旁白",
-              "text": "【十二年后·三誓王都】远方传来的声音打断了众人的脚步。"
+              "text": "十二年后的王都比记忆中的更高。城墙分隔了自由城区与自愿永昼区，往来者必须持两种许可证。"
             },
             {
               "id": "ch050.opening.l02",
               "speaker": "诺依",
-              "text": "城墙修高了，街上的人却不敢互相问名字。"
+              "text": "城还是那个城，路却比以前更绕。"
             },
             {
               "id": "ch050.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：拜访故友并确认王都现状。"
+              "speaker": "检查官",
+              "text": "你的救援许可证只能进入西侧，不得向永昼区运输物品。"
             },
             {
               "id": "ch050.opening.l04",
-              "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "speaker": "诺依",
+              "text": "这是给东侧病房的退烧药。"
+            },
+            {
+              "id": "ch050.opening.l05",
+              "speaker": "检查官",
+              "text": "规矩不是我定的。"
+            },
+            {
+              "id": "ch050.opening.l06",
+              "speaker": "老卫兵",
+              "text": "我认识你的名字。多年前有人为了把你送离旧洲，差点跌下悬崖。"
+            },
+            {
+              "id": "ch050.opening.l07",
+              "speaker": "诺依",
+              "text": "我只是来送药。认识我反而更该让我过去。"
             }
           ],
           "objectives": [
@@ -330,7 +419,11 @@
               "key": "ch050.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "高墙上贴两种不同颜色通行证",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch050.investigate",
@@ -343,22 +436,37 @@
             {
               "id": "ch050.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "老卫兵交给诺依一张过时的救援通行图，标着一处被堵住的旧涵洞。"
             },
             {
               "id": "ch050.investigate.l02",
-              "speaker": "诺依",
-              "text": "王都被分成自愿沉睡区与自由生活区，双方互相隔绝。"
+              "speaker": "老卫兵",
+              "text": "这张图是雷索留下的。当时不用区分住在哪边，只问谁需要帮忙。"
             },
             {
               "id": "ch050.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "诺依",
+              "text": "现在这条涵洞为什么封了？"
             },
             {
               "id": "ch050.investigate.l04",
+              "speaker": "检查官",
+              "text": "怕有人借此偷运禁物。"
+            },
+            {
+              "id": "ch050.investigate.l05",
+              "speaker": "诺依",
+              "text": "药品也算禁物？"
+            },
+            {
+              "id": "ch050.investigate.l06",
+              "speaker": "检查官",
+              "text": "我没有权力修改清单。"
+            },
+            {
+              "id": "ch050.investigate.l07",
               "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "text": "两边的医院都在同一张墙上写着“今日缺药”，却看不见彼此。"
             }
           ],
           "objectives": [
@@ -377,7 +485,11 @@
               "key": "ch050.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "同一墙面两侧的缺药告示",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch050.crisis",
@@ -392,23 +504,38 @@
           "dialogue": [
             {
               "id": "ch050.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "门卫机关",
+              "text": "身份不符。终止通行。"
             },
             {
               "id": "ch050.crisis.l02",
               "speaker": "诺依",
-              "text": "诺依的救援许可证只允许进入一侧，另一侧有人急需援助。"
+              "text": "如果我把药留在这里，它会自己走进病房吗？"
             },
             {
               "id": "ch050.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "老卫兵",
+              "text": "后面的支架可以手动开启。我来挡住巡逻队。"
             },
             {
               "id": "ch050.crisis.l04",
+              "speaker": "检查官",
+              "text": "我若帮忙，明天可能丢掉这份工作。"
+            },
+            {
+              "id": "ch050.crisis.l05",
               "speaker": "诺依",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "我会把登记表留下，证明你是为了救治病人。"
+            },
+            {
+              "id": "ch050.crisis.l06",
+              "speaker": "旁白",
+              "text": "机关伸出长臂封住通道，药箱从诺依肩上滑落。"
+            },
+            {
+              "id": "ch050.crisis.l07",
+              "speaker": "诺依",
+              "text": "箱子别破！先把药递进去！"
             }
           ],
           "objectives": [
@@ -426,20 +553,22 @@
           ],
           "choice": {
             "id": "ch050.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "旧城区检查站阻拦送药，你怎么推进？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "留下公开的药品登记，组织接力",
                 "sets": {
-                  "ch050.approach": "hear"
+                  "ch050.approach": "public_delivery",
+                  "world.ch050.approach": "public_delivery"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "从旧涵洞紧急送达，再补交记录",
                 "sets": {
-                  "ch050.approach": "protect"
+                  "ch050.approach": "emergency_route",
+                  "world.ch050.approach": "emergency_route"
                 }
               }
             ]
@@ -449,6 +578,10 @@
             "display_name": "门卫机关",
             "win_flag": "ch050.battle_won",
             "recommended_level": 63
+          },
+          "direction": {
+            "shot": "药箱滑落，人手从缝中接住",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
           }
         },
         {
@@ -464,22 +597,37 @@
             {
               "id": "ch050.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "第一批药送到病房时，东侧居民也把自己的备用绷带送到西侧。"
             },
             {
               "id": "ch050.resolve.l02",
-              "speaker": "诺依",
-              "text": "诺依冲破检查站送药，得到雷索旧部的帮助。"
+              "speaker": "检查官",
+              "text": "这是我第一次看见两边交换东西。"
             },
             {
               "id": "ch050.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "老卫兵",
+              "text": "雷索如今不在王都，他留下的救援队还在。"
             },
             {
               "id": "ch050.resolve.l04",
+              "speaker": "诺依",
+              "text": "能告诉我下一站吗？"
+            },
+            {
+              "id": "ch050.resolve.l05",
+              "speaker": "老卫兵",
+              "text": "暮林古道有他们的旧驿站。至于你要找的主角，我听说在雾岭。"
+            },
+            {
+              "id": "ch050.resolve.l06",
+              "speaker": "诺依",
+              "text": "先写下这个病房的药单，再去找人。"
+            },
+            {
+              "id": "ch050.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】改变的王都。"
+              "text": "城墙上的两块告示牌第一次贴上相同的援助清单。"
             }
           ],
           "objectives": [
@@ -499,7 +647,11 @@
               "xp": 2100,
               "gold": 740
             }
-          ]
+          ],
+          "direction": {
+            "shot": "一张联合药单跨在墙缝上",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         }
       ],
       "npc_reactions": [
@@ -514,7 +666,8 @@
           "text": "以后再说起十二年后·三誓王都，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_full_dialogue_v2"
     },
     {
       "id": "ch051",
@@ -548,22 +701,37 @@
             {
               "id": "ch051.opening.l01",
               "speaker": "旁白",
-              "text": "【雾岭·偏远农庄】远方传来的声音打断了众人的脚步。"
+              "text": "雾岭小农庄的门口晒着粮食，农夫正俯身替邻家老奶奶修踏板。"
             },
             {
               "id": "ch051.opening.l02",
               "speaker": "诺依",
-              "text": "我不是来请传说里的英雄。我想请你帮我。"
+              "text": "请问，有一位过去被叫作灯行者的人住在这里吗？"
             },
             {
               "id": "ch051.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：寻找隐居主角并请求同行。"
+              "speaker": "农夫",
+              "text": "村里没有英雄。只有会修屋顶、偶尔在下雨时忘了关窗的人。"
             },
             {
               "id": "ch051.opening.l04",
+              "speaker": "诺依",
+              "text": "那能请你帮我找找吗？"
+            },
+            {
+              "id": "ch051.opening.l05",
+              "speaker": "农夫",
+              "text": "……诺依。你长高了。"
+            },
+            {
+              "id": "ch051.opening.l06",
+              "speaker": "诺依",
+              "text": "我也认得你。只是你没穿那件旧披风。"
+            },
+            {
+              "id": "ch051.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "主角转身去端一盆木屑，像想借日常小事躲过这场重逢。"
             }
           ],
           "objectives": [
@@ -582,7 +750,11 @@
               "key": "ch051.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "旧英雄俯身修木踏板的手",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch051.investigate",
@@ -595,22 +767,37 @@
             {
               "id": "ch051.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "主角的工具间藏着各地村庄的修桥账簿，许多条目没有署名。"
             },
             {
               "id": "ch051.investigate.l02",
               "speaker": "诺依",
-              "text": "主角这些年一直在匿名修复村庄，从未真正停止帮助别人。"
+              "text": "他们说你从黑星之后就不再做任何事。"
             },
             {
               "id": "ch051.investigate.l03",
               "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "text": "我没有再举起那面旗。修门板算不上伟大的事。"
             },
             {
               "id": "ch051.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "诺依",
+              "text": "可那些门板帮助别人回家。"
+            },
+            {
+              "id": "ch051.investigate.l05",
+              "speaker": "主角",
+              "text": "当年跟着我的人以为灯亮了就能安全。后来他们失去了一切。"
+            },
+            {
+              "id": "ch051.investigate.l06",
+              "speaker": "诺依",
+              "text": "我来，不是求你保证不会再失败。"
+            },
+            {
+              "id": "ch051.investigate.l07",
+              "speaker": "主角",
+              "text": "那你到底来求什么？"
             }
           ],
           "objectives": [
@@ -629,7 +816,11 @@
               "key": "ch051.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "工具间名册无人署名",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch051.crisis",
@@ -644,23 +835,38 @@
           "dialogue": [
             {
               "id": "ch051.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "岭间魔狼",
+              "text": "嗷——！"
             },
             {
               "id": "ch051.crisis.l02",
-              "speaker": "诺依",
-              "text": "主角认定再次举起旗帜只会让人追随一个注定失败的希望。"
+              "speaker": "邻居老人",
+              "text": "羊圈里还有孩子！门从里面卡住了！"
             },
             {
               "id": "ch051.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "诺依",
+              "text": "我去绕后面开锁，你能帮我顶住木梁吗？"
             },
             {
               "id": "ch051.crisis.l04",
+              "speaker": "主角",
+              "text": "你知道狼群从哪里来吗？"
+            },
+            {
+              "id": "ch051.crisis.l05",
               "speaker": "诺依",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "先把孩子接出来，之后再找原因。"
+            },
+            {
+              "id": "ch051.crisis.l06",
+              "speaker": "主角",
+              "text": "……好。这里的横梁还能撑一刻钟。"
+            },
+            {
+              "id": "ch051.crisis.l07",
+              "speaker": "旁白",
+              "text": "主角下意识站到落木前，诺依却已带孩子从侧门走出。"
             }
           ],
           "objectives": [
@@ -678,20 +884,22 @@
           ],
           "choice": {
             "id": "ch051.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对不愿再出发的旧英雄，诺依应怎样说？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "承认失败确实造成过伤害",
                 "sets": {
-                  "ch051.approach": "hear"
+                  "ch051.approach": "acknowledge",
+                  "world.ch051.approach": "acknowledge"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "指出其多年匿名帮助留下的痕迹",
                 "sets": {
-                  "ch051.approach": "protect"
+                  "ch051.approach": "quiet_work",
+                  "world.ch051.approach": "quiet_work"
                 }
               }
             ]
@@ -701,6 +909,10 @@
             "display_name": "岭间魔狼",
             "win_flag": "ch051.battle_won",
             "recommended_level": 64
+          },
+          "direction": {
+            "shot": "救援时诺依主动分配而非请示",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
           }
         },
         {
@@ -716,22 +928,42 @@
             {
               "id": "ch051.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "风雪停后，诺依把小星灯留在农庄窗台。灯玻璃上有旧裂痕。"
             },
             {
               "id": "ch051.resolve.l02",
-              "speaker": "诺依",
-              "text": "诺依留下一盏不起眼的手灯，等待主角自己作出决定。"
+              "speaker": "主角",
+              "text": "这盏灯你还留着？"
             },
             {
               "id": "ch051.resolve.l03",
-              "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "speaker": "诺依",
+              "text": "第七幕你让我拿着它，不是为了让我一辈子跟在你身后。"
             },
             {
               "id": "ch051.resolve.l04",
+              "speaker": "主角",
+              "text": "我害怕再让别人相信我。"
+            },
+            {
+              "id": "ch051.resolve.l05",
+              "speaker": "诺依",
+              "text": "那就别让别人只相信你。跟我一起找能相信彼此的人。"
+            },
+            {
+              "id": "ch051.resolve.l06",
+              "speaker": "主角",
+              "text": "我需要一点时间。"
+            },
+            {
+              "id": "ch051.resolve.l07",
+              "speaker": "诺依",
+              "text": "我先去修暮林驿站。灯留在这里，你可以决定要不要带上。"
+            },
+            {
+              "id": "ch051.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】山间无名旅人。"
+              "text": "窗台上的小星灯亮了一夜，没有人强迫主角出发。"
             }
           ],
           "objectives": [
@@ -751,7 +983,11 @@
               "xp": 2140,
               "gold": 754
             }
-          ]
+          ],
+          "direction": {
+            "shot": "裂痕小星灯亮在不敲门的窗台",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         }
       ],
       "npc_reactions": [
@@ -766,7 +1002,8 @@
           "text": "以后再说起雾岭·偏远农庄，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_full_dialogue_v2"
     },
     {
       "id": "ch052",
@@ -800,22 +1037,32 @@
             {
               "id": "ch052.opening.l01",
               "speaker": "旁白",
-              "text": "【暮林古道】远方传来的声音打断了众人的脚步。"
+              "text": "暮林驿站的墙倒了一半。昔日同行者各自来到这里，却没有一个人先说“欢迎回来”。"
             },
             {
               "id": "ch052.opening.l02",
               "speaker": "岚音",
-              "text": "我们走过的路不是白走了，只是还没走完。"
+              "text": "你们都到了。我带来的药只能放在有屋顶的地方。"
             },
             {
               "id": "ch052.opening.l03",
-              "speaker": "主角",
-              "text": "我们先完成眼前的任务：重聚三名旧伙伴并修复荒废驿站。"
+              "speaker": "雷索",
+              "text": "我带木料。能撑一晚，但之后还得找工匠。"
             },
             {
               "id": "ch052.opening.l04",
+              "speaker": "朔弦",
+              "text": "我带船上的旧帆。别笑，它用来挡雨比挡风还好。"
+            },
+            {
+              "id": "ch052.opening.l05",
+              "speaker": "诺依",
+              "text": "还有一个人可能会来。他需要自己决定。"
+            },
+            {
+              "id": "ch052.opening.l06",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "路的另一头响起熟悉的脚步。主角抱着那盏小灯走近。"
             }
           ],
           "objectives": [
@@ -834,7 +1081,11 @@
               "key": "ch052.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "残破驿站前伙伴各自摆下物资",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch052.investigate",
@@ -847,22 +1098,42 @@
             {
               "id": "ch052.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "驿站墙上还挂着十二年前的合照。黑星之后，照片被雨淋得只剩半张。"
             },
             {
               "id": "ch052.investigate.l02",
-              "speaker": "岚音",
-              "text": "昔日伙伴各自守护着不同地区，仍保存着旧队伍的徽章。"
+              "speaker": "主角",
+              "text": "我不知道该先道歉，还是先问你们过得好不好。"
             },
             {
               "id": "ch052.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "岚音",
+              "text": "先帮我把药箱搬进屋。然后我们可以慢慢说。"
             },
             {
               "id": "ch052.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "雷索",
+              "text": "我们这些年也做过错事，别把所有责任独自拿走。"
+            },
+            {
+              "id": "ch052.investigate.l05",
+              "speaker": "朔弦",
+              "text": "我想骂你一句“笨蛋”，可先修屋顶吧。"
+            },
+            {
+              "id": "ch052.investigate.l06",
+              "speaker": "诺依",
+              "text": "我在邮站听过每个人的消息，你们没有谁真正停止帮助别人。"
+            },
+            {
+              "id": "ch052.investigate.l07",
+              "speaker": "主角",
+              "text": "那为什么再一起走还是这么难？"
+            },
+            {
+              "id": "ch052.investigate.l08",
+              "speaker": "岚音",
+              "text": "因为我们都记得自己失去过什么。"
             }
           ],
           "objectives": [
@@ -881,7 +1152,11 @@
               "key": "ch052.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "合照边角被雨水泡皱",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch052.crisis",
@@ -896,23 +1171,38 @@
           "dialogue": [
             {
               "id": "ch052.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "落灯盗首",
+              "text": "这座旧驿站是我们的地盘，没交过路钱不能修。"
             },
             {
               "id": "ch052.crisis.l02",
-              "speaker": "岚音",
-              "text": "多年隔阂让队员不再相信集体计划能成功。"
+              "speaker": "朔弦",
+              "text": "你们什么时候连漏雨都要收费？"
             },
             {
               "id": "ch052.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "雷索",
+              "text": "我们是来替旅人修屋顶的，不是争一面旗。"
             },
             {
               "id": "ch052.crisis.l04",
-              "speaker": "岚音",
-              "text": "说出你的决定吧，我会站在这里。"
+              "speaker": "诺依",
+              "text": "如果你们也需要住处，可以一起修。可不能抢别人的药。"
+            },
+            {
+              "id": "ch052.crisis.l05",
+              "speaker": "盗首",
+              "text": "我凭什么相信你们？"
+            },
+            {
+              "id": "ch052.crisis.l06",
+              "speaker": "主角",
+              "text": "不用先相信。我来和你一起抬这根梁，之后你看我们是不是说到做到。"
+            },
+            {
+              "id": "ch052.crisis.l07",
+              "speaker": "旁白",
+              "text": "盗团在犹豫中放下武器，驿站临时开放给所有赶路人。"
             }
           ],
           "objectives": [
@@ -930,20 +1220,22 @@
           ],
           "choice": {
             "id": "ch052.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "重聚的队伍如何重新订立同行原则？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "明确允许质疑队长与互相求助",
                 "sets": {
-                  "ch052.approach": "hear"
+                  "ch052.approach": "speak_up",
+                  "world.ch052.approach": "speak_up"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "约定所有重大行动由各队员共同确认",
                 "sets": {
-                  "ch052.approach": "protect"
+                  "ch052.approach": "shared_vote",
+                  "world.ch052.approach": "shared_vote"
                 }
               }
             ]
@@ -953,6 +1245,10 @@
             "display_name": "落灯盗团",
             "win_flag": "ch052.battle_won",
             "recommended_level": 65
+          },
+          "direction": {
+            "shot": "主角与盗首一起抬同一根梁",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
           }
         },
         {
@@ -968,22 +1264,42 @@
             {
               "id": "ch052.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "雨停后，驿站重新挂起写着“可免费歇脚”的木牌。"
             },
             {
               "id": "ch052.resolve.l02",
               "speaker": "岚音",
-              "text": "主角坦白失败后的恐惧，队伍重新签下同行约定。"
+              "text": "这回你愿意把怕的事说出来了吗？"
             },
             {
               "id": "ch052.resolve.l03",
               "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "text": "我怕再次看着有人因为相信我而死。"
             },
             {
               "id": "ch052.resolve.l04",
+              "speaker": "雷索",
+              "text": "我们不会把未来交给你一个人决定。"
+            },
+            {
+              "id": "ch052.resolve.l05",
+              "speaker": "诺依",
+              "text": "也不会把你的失败当成停止帮助人的理由。"
+            },
+            {
+              "id": "ch052.resolve.l06",
+              "speaker": "朔弦",
+              "text": "新同行约定第一条：哪儿漏水，谁发现谁先说。"
+            },
+            {
+              "id": "ch052.resolve.l07",
+              "speaker": "主角",
+              "text": "那我先说，我现在确实还怕。"
+            },
+            {
+              "id": "ch052.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】再一次同行。"
+              "text": "伙伴们重新围在一盏并不明亮的小灯旁。"
             }
           ],
           "objectives": [
@@ -1003,7 +1319,11 @@
               "xp": 2180,
               "gold": 768
             }
-          ]
+          ],
+          "direction": {
+            "shot": "小灯围着人而不是人围着英雄",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         }
       ],
       "npc_reactions": [
@@ -1018,7 +1338,8 @@
           "text": "以后再说起暮林古道，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_full_dialogue_v2"
     },
     {
       "id": "ch053",
@@ -1052,22 +1373,37 @@
             {
               "id": "ch053.opening.l01",
               "speaker": "旁白",
-              "text": "【晨露村·旧灯塔】远方传来的声音打断了众人的脚步。"
+              "text": "晨露村的旧灯塔仍旧站立。村人看到主角回来，有人挥手，也有人转身关门。"
             },
             {
               "id": "ch053.opening.l02",
-              "speaker": "主角",
-              "text": "原来不是所有人都盼着我回来。"
+              "speaker": "旧邻居",
+              "text": "当年你离开时，很多人说会等你回来。"
             },
             {
               "id": "ch053.opening.l03",
               "speaker": "主角",
-              "text": "我们先完成眼前的任务：回访故乡并面对牺牲者家庭。"
+              "text": "我知道。有人没能等到。"
             },
             {
               "id": "ch053.opening.l04",
-              "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "speaker": "诺依",
+              "text": "我们是来修灯塔的，也来看看那些没能回家的人的名字。"
+            },
+            {
+              "id": "ch053.opening.l05",
+              "speaker": "村民父亲",
+              "text": "我女儿死在黑星那晚。你当时说会保护所有人。"
+            },
+            {
+              "id": "ch053.opening.l06",
+              "speaker": "主角",
+              "text": "我说过。我没做到。"
+            },
+            {
+              "id": "ch053.opening.l07",
+              "speaker": "村民父亲",
+              "text": "不要再说你尽力了。那天我不需要听这个。"
             }
           ],
           "objectives": [
@@ -1086,7 +1422,11 @@
               "key": "ch053.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "迎接与关门的村民在同一条街",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch053.investigate",
@@ -1099,22 +1439,37 @@
             {
               "id": "ch053.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "村外墓地的一块石碑倒在草里，名字已经看不清。"
             },
             {
               "id": "ch053.investigate.l02",
-              "speaker": "主角",
-              "text": "旧灯塔账簿记录着由主角救出的孩子和不曾回来的人。"
+              "speaker": "岚音",
+              "text": "这名字当年被撤离名单漏掉过，我保存着副本。"
             },
             {
               "id": "ch053.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "诺依",
+              "text": "可以把它重新刻回去吗？"
             },
             {
               "id": "ch053.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "主角",
+              "text": "先问家属。他们未必希望我动这块碑。"
+            },
+            {
+              "id": "ch053.investigate.l05",
+              "speaker": "村民父亲",
+              "text": "……她喜欢海。你若要修，就把碑转向灯塔那边。"
+            },
+            {
+              "id": "ch053.investigate.l06",
+              "speaker": "诺依",
+              "text": "我来把碎石挑出来，你来刻字。"
+            },
+            {
+              "id": "ch053.investigate.l07",
+              "speaker": "主角",
+              "text": "谢谢你让我做这件事。"
             }
           ],
           "objectives": [
@@ -1133,7 +1488,11 @@
               "key": "ch053.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "斑驳碑面旧名渐可辨认",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch053.crisis",
@@ -1148,23 +1507,38 @@
           "dialogue": [
             {
               "id": "ch053.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "旧潮遗骸",
+              "text": "未归者……永远停留……"
             },
             {
               "id": "ch053.crisis.l02",
-              "speaker": "主角",
-              "text": "一位失去家人的村民拒绝原谅主角，众人不得强迫其和解。"
+              "speaker": "村民父亲",
+              "text": "那声音是她的吗？"
             },
             {
               "id": "ch053.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "岚音",
+              "text": "不是。它只是把我们最想听的声音拼起来。"
             },
             {
               "id": "ch053.crisis.l04",
               "speaker": "主角",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "别用我的亏欠去把村子重新锁在那晚。"
+            },
+            {
+              "id": "ch053.crisis.l05",
+              "speaker": "诺依",
+              "text": "先护住墓碑和来祭扫的人，别追着幻影走。"
+            },
+            {
+              "id": "ch053.crisis.l06",
+              "speaker": "雷索",
+              "text": "没有谁需要靠击败这东西来证明自己已经被原谅。"
+            },
+            {
+              "id": "ch053.crisis.l07",
+              "speaker": "旁白",
+              "text": "旧潮残响被驱散，碑上的名字仍完整留着。"
             }
           ],
           "objectives": [
@@ -1182,20 +1556,22 @@
           ],
           "choice": {
             "id": "ch053.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对明确拒绝原谅的家属，主角该怎么做？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "接受对方的愤怒，不要求回应",
                 "sets": {
-                  "ch053.approach": "hear"
+                  "ch053.approach": "respect_grief",
+                  "world.ch053.approach": "respect_grief"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先申请许可，再独立修复墓碑",
                 "sets": {
-                  "ch053.approach": "protect"
+                  "ch053.approach": "practical_help",
+                  "world.ch053.approach": "practical_help"
                 }
               }
             ]
@@ -1205,6 +1581,10 @@
             "display_name": "旧潮遗骸",
             "win_flag": "ch053.battle_won",
             "recommended_level": 66
+          },
+          "direction": {
+            "shot": "残响像旧声音的拼接而非死者回归",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
           }
         },
         {
@@ -1220,22 +1600,42 @@
             {
               "id": "ch053.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "石碑修好。村民父亲没有向主角道谢，只把一束花放在碑前。"
             },
             {
               "id": "ch053.resolve.l02",
-              "speaker": "主角",
-              "text": "主角接受这份愤怒，亲手修复一座无人祭扫的墓碑。"
+              "speaker": "村民父亲",
+              "text": "我还是不能原谅你。"
             },
             {
               "id": "ch053.resolve.l03",
               "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "text": "我知道。我不会要求你那样做。"
             },
             {
               "id": "ch053.resolve.l04",
+              "speaker": "诺依",
+              "text": "那我们明天还来修桥吗？"
+            },
+            {
+              "id": "ch053.resolve.l05",
+              "speaker": "村民父亲",
+              "text": "桥归大家。要修就修，不必问我。"
+            },
+            {
+              "id": "ch053.resolve.l06",
+              "speaker": "岚音",
+              "text": "有些伤不会因为一个结局就消失。"
+            },
+            {
+              "id": "ch053.resolve.l07",
+              "speaker": "主角",
+              "text": "所以明天的工作也不能因为一句原谅没听到就停下。"
+            },
+            {
+              "id": "ch053.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】那些没能守住的家。"
+              "text": "主角在灯塔前停了一会儿，没有去敲那户人家的门。"
             }
           ],
           "objectives": [
@@ -1255,7 +1655,11 @@
               "xp": 2220,
               "gold": 782
             }
-          ]
+          ],
+          "direction": {
+            "shot": "修好的墓碑前不出现拥抱和解",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         }
       ],
       "npc_reactions": [
@@ -1270,7 +1674,8 @@
           "text": "以后再说起晨露村·旧灯塔，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_full_dialogue_v2"
     },
     {
       "id": "ch054",
@@ -1304,22 +1709,37 @@
             {
               "id": "ch054.opening.l01",
               "speaker": "旁白",
-              "text": "【旧洲·新生营地】远方传来的声音打断了众人的脚步。"
+              "text": "旧洲新生营地搭起了简陋的学堂。诺依小时候认识的那些孩子，如今也在带人修路。"
             },
             {
               "id": "ch054.opening.l02",
               "speaker": "诺依",
-              "text": "我想学的不是你的剑术，是你为什么一直肯回头。"
+              "text": "当年大家总跟着主角走。现在我们可以自己画撤离路线。"
             },
             {
               "id": "ch054.opening.l03",
               "speaker": "主角",
-              "text": "我们先完成眼前的任务：让诺依主持救援并完成新旧队伍协作。"
+              "text": "那这次由你担任领队。"
             },
             {
               "id": "ch054.opening.l04",
+              "speaker": "诺依",
+              "text": "真的？我可能做错。"
+            },
+            {
+              "id": "ch054.opening.l05",
+              "speaker": "雷索",
+              "text": "我们也会。知道何时修改计划，比保证永不失误更重要。"
+            },
+            {
+              "id": "ch054.opening.l06",
+              "speaker": "岚音",
+              "text": "我负责医疗，但撤离优先顺序由你组织讨论。"
+            },
+            {
+              "id": "ch054.opening.l07",
               "speaker": "旁白",
-              "text": "地图上出现了新的调查标记。"
+              "text": "营地外的山道忽然塌陷，运输药品的队伍被困在另一侧。"
             }
           ],
           "objectives": [
@@ -1338,7 +1758,11 @@
               "key": "ch054.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "曾被救的孩子成为今天的救援者",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch054.investigate",
@@ -1351,22 +1775,37 @@
             {
               "id": "ch054.investigate.l01",
               "speaker": "旁白",
-              "text": "某件不起眼的事物让众人停下脚步。"
+              "text": "诺依展开地图，三条救援路线都各有风险：近路易塌、远路缺水、河道需要临时桥。"
             },
             {
               "id": "ch054.investigate.l02",
               "speaker": "诺依",
-              "text": "诺依在旧洲遇见当年受援儿童组成的救援队。"
+              "text": "先问每队会什么，不要把所有任务塞给最有名的人。"
             },
             {
               "id": "ch054.investigate.l03",
-              "speaker": "主角",
-              "text": "光凭猜测还不够。去找能作证的人。"
+              "speaker": "朔弦",
+              "text": "我懂打结和搭索桥，河道交给我。"
             },
             {
               "id": "ch054.investigate.l04",
-              "speaker": "旁白",
-              "text": "调查内容被写入星灯手记。"
+              "speaker": "缇珐",
+              "text": "我能固定临时支架，但需要有人测承重。"
+            },
+            {
+              "id": "ch054.investigate.l05",
+              "speaker": "岚音",
+              "text": "医疗队先做好分诊，不让伤员在路上被忘记。"
+            },
+            {
+              "id": "ch054.investigate.l06",
+              "speaker": "主角",
+              "text": "我可以去最危险的断崖。你说怎么安排。"
+            },
+            {
+              "id": "ch054.investigate.l07",
+              "speaker": "诺依",
+              "text": "不，你来守后援。我要让所有人知道，我们不是只有一名能上前线的人。"
             }
           ],
           "objectives": [
@@ -1385,7 +1824,11 @@
               "key": "ch054.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "三条不同风险路线并列",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         },
         {
           "id": "ch054.crisis",
@@ -1400,23 +1843,38 @@
           "dialogue": [
             {
               "id": "ch054.crisis.l01",
-              "speaker": "旁白",
-              "text": "被掩埋的矛盾终于爆发。"
+              "speaker": "群星考验者",
+              "text": "指挥权确认。必须选择一名永远承担风险的人。"
             },
             {
               "id": "ch054.crisis.l02",
               "speaker": "诺依",
-              "text": "队员争论由谁承担最危险的任务，主角主动选择放手。"
+              "text": "我拒绝。任何一个人都有可能累，也会有退下来的权利。"
             },
             {
               "id": "ch054.crisis.l03",
-              "speaker": "主角",
-              "text": "我们作出的选择，会成为别人生活的一部分。"
+              "speaker": "雷索",
+              "text": "我曾以为责任就是不许别人靠近危险，现在理解另一种安排。"
             },
             {
               "id": "ch054.crisis.l04",
+              "speaker": "主角",
+              "text": "如果你需要我，我就在这里。决定由你做。"
+            },
+            {
+              "id": "ch054.crisis.l05",
               "speaker": "诺依",
-              "text": "说出你的决定吧，我会站在这里。"
+              "text": "先护住绳桥，再由最熟悉地形的人带药过河。"
+            },
+            {
+              "id": "ch054.crisis.l06",
+              "speaker": "群星考验者",
+              "text": "多主体协作不可预测。测试方案失效。"
+            },
+            {
+              "id": "ch054.crisis.l07",
+              "speaker": "旁白",
+              "text": "救援队没有按照古旧考验分配牺牲者，却顺利把药送过山道。"
             }
           ],
           "objectives": [
@@ -1434,20 +1892,22 @@
           ],
           "choice": {
             "id": "ch054.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "作为新一代领队，诺依如何分配危险工作？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "根据每个人技能轮值承担风险",
                 "sets": {
-                  "ch054.approach": "hear"
+                  "ch054.approach": "skill_rotation",
+                  "world.ch054.approach": "skill_rotation"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "建立后援与替补，任何人都可申请换岗",
                 "sets": {
-                  "ch054.approach": "protect"
+                  "ch054.approach": "backup_system",
+                  "world.ch054.approach": "backup_system"
                 }
               }
             ]
@@ -1457,6 +1917,10 @@
             "display_name": "群星考验者",
             "win_flag": "ch054.battle_won",
             "recommended_level": 67
+          },
+          "direction": {
+            "shot": "旧考验要求唯一承担者的字迹被划去",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
           }
         },
         {
@@ -1472,22 +1936,42 @@
             {
               "id": "ch054.resolve.l01",
               "speaker": "旁白",
-              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+              "text": "营地在黄昏举行小型欢迎宴。没有人称诺依为新勇者，大家只问他明天要先修哪条路。"
             },
             {
               "id": "ch054.resolve.l02",
               "speaker": "诺依",
-              "text": "诺依指挥救援成功，主角确认希望不只属于一个英雄。"
+              "text": "我以为成为大人，就是终于有人会听我的命令。"
             },
             {
               "id": "ch054.resolve.l03",
               "speaker": "主角",
-              "text": "把这段经历记下来。不要让它再被抹去。"
+              "text": "你今天让所有人都有机会把话说完。这比命令有用。"
             },
             {
               "id": "ch054.resolve.l04",
+              "speaker": "岚音",
+              "text": "下次记得先让伤员坐下。你今天紧张得忘了这件事。"
+            },
+            {
+              "id": "ch054.resolve.l05",
+              "speaker": "诺依",
+              "text": "记住了。我会改。"
+            },
+            {
+              "id": "ch054.resolve.l06",
+              "speaker": "雷索",
+              "text": "新一代不必走我们每一步旧路。"
+            },
+            {
+              "id": "ch054.resolve.l07",
+              "speaker": "主角",
+              "text": "那我们一起去建一个不用等英雄回来才有人开门的地方。"
+            },
+            {
+              "id": "ch054.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】传承之灯。"
+              "text": "群灯之城的第一张规划地图在桌上展开。"
             }
           ],
           "objectives": [
@@ -1507,7 +1991,11 @@
               "xp": 2260,
               "gold": 796
             }
-          ]
+          ],
+          "direction": {
+            "shot": "规划图由许多手共同按住",
+            "emotional_boundary": "不得强迫旧英雄或受害者和解；诺依的成长不能变成新一轮天命独裁"
+          }
         }
       ],
       "npc_reactions": [
@@ -1522,7 +2010,9 @@
           "text": "以后再说起旧洲·新生营地，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_full_dialogue_v2"
     }
-  ]
+  ],
+  "dialogue_revision": "act09_full_dialogue_v2"
 }

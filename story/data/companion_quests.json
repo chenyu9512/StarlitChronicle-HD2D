@@ -1,0 +1,1712 @@
+{
+  "schema": "starlit.story.companion_quests.v1",
+  "status": "text_only_not_bound",
+  "characters": {
+    "lanyin": "岚音",
+    "leiso": "雷索"
+  },
+  "quests": [
+    {
+      "id": "cq_lanyin_01",
+      "title": "未完成的病历",
+      "type": "companion",
+      "lead": "岚音",
+      "lead_id": "lanyin",
+      "region": "白砂港临时医务室",
+      "npc": "水手小汐",
+      "premise": "病患拥有两份名字不同的病签。",
+      "required_chapter": "ch003",
+      "required_flags": [
+        "story.ch003.done"
+      ],
+      "completion_flag": "side.cq_lanyin_01.done",
+      "stages": [
+        {
+          "id": "cq_lanyin_01.meet",
+          "objective": "与水手小汐交谈",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_01.0.l01",
+              "speaker": "小汐",
+              "text": "我现在只认得这个名字。"
+            },
+            {
+              "id": "cq_lanyin_01.0.l02",
+              "speaker": "岚音",
+              "text": "先别急着证明哪份才是真的。"
+            },
+            {
+              "id": "cq_lanyin_01.0.l03",
+              "speaker": "主角",
+              "text": "你希望我们怎样称呼你？"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_01.investigate",
+          "objective": "调查白砂港临时医务室的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_01.1.l01",
+              "speaker": "护士",
+              "text": "他怕写明失忆就再不能上船。"
+            },
+            {
+              "id": "cq_lanyin_01.1.l02",
+              "speaker": "岚音",
+              "text": "隐瞒病情会害他在海上得不到及时救治。"
+            },
+            {
+              "id": "cq_lanyin_01.1.l03",
+              "speaker": "小汐",
+              "text": "我不想被一张纸决定以后只能留在岸上。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_01.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_01.2.l01",
+              "speaker": "岚音",
+              "text": "医疗记录和船员资格应当分开。"
+            },
+            {
+              "id": "cq_lanyin_01.2.l02",
+              "speaker": "主角",
+              "text": "先尊重他的隐私，再安排专业复诊。"
+            },
+            {
+              "id": "cq_lanyin_01.2.l03",
+              "speaker": "小汐",
+              "text": "如果我愿意治疗，你们也愿意听我说想回海上的理由吗？"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_lanyin_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "病人自主决定信息披露",
+                "sets": {
+                  "side.cq_lanyin_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立匿名病历与转岗援助",
+                "sets": {
+                  "side.cq_lanyin_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_lanyin_01.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_01.3.l01",
+              "speaker": "护士",
+              "text": "新病历注明治疗需求，但不向船主公开无关的私人记忆。"
+            },
+            {
+              "id": "cq_lanyin_01.3.l02",
+              "speaker": "小汐",
+              "text": "谢谢你们没有先宣布我已经不能航海。"
+            },
+            {
+              "id": "cq_lanyin_01.3.l03",
+              "speaker": "岚音",
+              "text": "我得学会先问病人，而不是替病人做决定。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_lanyin_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "病人自主决定信息披露",
+        "b": "建立匿名病历与转岗援助"
+      },
+      "post_completion": {
+        "speaker": "岚音",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.lanyin.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_lanyin_02",
+      "title": "蓝围巾之外",
+      "type": "companion",
+      "lead": "岚音",
+      "lead_id": "lanyin",
+      "region": "赤炉工坊医务所",
+      "npc": "矿工孩子",
+      "premise": "孩子保存了失忆父亲的录音，却不想每次见面都播放。",
+      "required_chapter": "ch014",
+      "required_flags": [
+        "story.ch014.done",
+        "side.cq_lanyin_01.done"
+      ],
+      "completion_flag": "side.cq_lanyin_02.done",
+      "stages": [
+        {
+          "id": "cq_lanyin_02.meet",
+          "objective": "与矿工孩子交谈",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_02.0.l01",
+              "speaker": "孩子",
+              "text": "大家都让我放录音给爸爸听。"
+            },
+            {
+              "id": "cq_lanyin_02.0.l02",
+              "speaker": "岚音",
+              "text": "你想让他听吗？"
+            },
+            {
+              "id": "cq_lanyin_02.0.l03",
+              "speaker": "孩子",
+              "text": "我想先跟他一起吃一次饭。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_02.investigate",
+          "objective": "调查赤炉工坊医务所的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_02.1.l01",
+              "speaker": "缇珐",
+              "text": "装置可以重复声音，却不能还回原来的日子。"
+            },
+            {
+              "id": "cq_lanyin_02.1.l02",
+              "speaker": "岚音",
+              "text": "他现在可能会重新认识自己的孩子。"
+            },
+            {
+              "id": "cq_lanyin_02.1.l03",
+              "speaker": "孩子",
+              "text": "如果他不记得过去，我们还能有新的回忆吗？"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_02.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_02.2.l01",
+              "speaker": "主角",
+              "text": "让家属知道治疗方法和风险。"
+            },
+            {
+              "id": "cq_lanyin_02.2.l02",
+              "speaker": "岚音",
+              "text": "不要把认回旧名字当成唯一目标。"
+            },
+            {
+              "id": "cq_lanyin_02.2.l03",
+              "speaker": "孩子",
+              "text": "我想教爸爸重新煮那道汤。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_lanyin_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "以日常陪伴为治疗核心",
+                "sets": {
+                  "side.cq_lanyin_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先由医师评估录音辅助疗法",
+                "sets": {
+                  "side.cq_lanyin_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_lanyin_02.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_02.3.l01",
+              "speaker": "矿工",
+              "text": "我记不得蓝围巾是哪天买的，却记得今天的汤很烫。"
+            },
+            {
+              "id": "cq_lanyin_02.3.l02",
+              "speaker": "孩子",
+              "text": "那下次我放凉一点。"
+            },
+            {
+              "id": "cq_lanyin_02.3.l03",
+              "speaker": "岚音",
+              "text": "这也是他们重新共同拥有的一天。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_lanyin_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "以日常陪伴为治疗核心",
+        "b": "先由医师评估录音辅助疗法"
+      },
+      "post_completion": {
+        "speaker": "岚音",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.lanyin.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_lanyin_03",
+      "title": "第二份嘱托",
+      "type": "companion",
+      "lead": "岚音",
+      "lead_id": "lanyin",
+      "region": "晨露村药房后屋",
+      "npc": "岚音母亲",
+      "premise": "藏匿的病历副本附有澄舟一段未交出的原话。",
+      "required_chapter": "ch021",
+      "required_flags": [
+        "story.ch021.done",
+        "side.cq_lanyin_02.done"
+      ],
+      "completion_flag": "side.cq_lanyin_03.done",
+      "stages": [
+        {
+          "id": "cq_lanyin_03.meet",
+          "objective": "与岚音母亲交谈",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_03.0.l01",
+              "speaker": "岚音母亲",
+              "text": "那年我也劝她不要说。"
+            },
+            {
+              "id": "cq_lanyin_03.0.l02",
+              "speaker": "岚音",
+              "text": "但最后选择隐瞒的是我。"
+            },
+            {
+              "id": "cq_lanyin_03.0.l03",
+              "speaker": "主角",
+              "text": "我想读完整的原话。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_03.investigate",
+          "objective": "调查晨露村药房后屋的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_03.1.l01",
+              "speaker": "主角",
+              "text": "澄舟写着“保护不等于替他选择”。"
+            },
+            {
+              "id": "cq_lanyin_03.1.l02",
+              "speaker": "岚音",
+              "text": "我竟只记住了前半句。"
+            },
+            {
+              "id": "cq_lanyin_03.1.l03",
+              "speaker": "岚音母亲",
+              "text": "害怕也不能让我们免于解释。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_03.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_03.2.l01",
+              "speaker": "岚音",
+              "text": "我不要求你现在说没关系。"
+            },
+            {
+              "id": "cq_lanyin_03.2.l02",
+              "speaker": "主角",
+              "text": "我能理解当年的担心，也仍会难过。"
+            },
+            {
+              "id": "cq_lanyin_03.2.l03",
+              "speaker": "岚音母亲",
+              "text": "把全部证据交给他吧，别再让我们替他决定。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_lanyin_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由主角独自阅读完整嘱托",
+                "sets": {
+                  "side.cq_lanyin_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让当事人共同核对证词",
+                "sets": {
+                  "side.cq_lanyin_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_lanyin_03.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_03.3.l01",
+              "speaker": "旁白",
+              "text": "旧抽屉里终于不再藏着唯一的副本。"
+            },
+            {
+              "id": "cq_lanyin_03.3.l02",
+              "speaker": "主角",
+              "text": "我会自己保管原件。"
+            },
+            {
+              "id": "cq_lanyin_03.3.l03",
+              "speaker": "岚音",
+              "text": "以后有了新线索，先告诉你，再一起想办法。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_lanyin_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "由主角独自阅读完整嘱托",
+        "b": "让当事人共同核对证词"
+      },
+      "post_completion": {
+        "speaker": "岚音",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.lanyin.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_lanyin_04",
+      "title": "醒来后的半杯茶",
+      "type": "companion",
+      "lead": "岚音",
+      "lead_id": "lanyin",
+      "region": "镜眠王都疗养院",
+      "npc": "照护员",
+      "premise": "老人每日给已故伴侣保留半杯茶，医官要求收走杯子。",
+      "required_chapter": "ch035",
+      "required_flags": [
+        "story.ch035.done",
+        "side.cq_lanyin_03.done"
+      ],
+      "completion_flag": "side.cq_lanyin_04.done",
+      "stages": [
+        {
+          "id": "cq_lanyin_04.meet",
+          "objective": "与照护员交谈",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_04.0.l01",
+              "speaker": "照护员",
+              "text": "他总把另一只杯子放到空椅旁。"
+            },
+            {
+              "id": "cq_lanyin_04.0.l02",
+              "speaker": "岚音",
+              "text": "先问问他为何这样做。"
+            },
+            {
+              "id": "cq_lanyin_04.0.l03",
+              "speaker": "老人",
+              "text": "她以前嫌茶烫，我会等到她说能喝。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_04.investigate",
+          "objective": "调查镜眠王都疗养院的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_04.1.l01",
+              "speaker": "岚音",
+              "text": "老人知道伴侣已经去世。"
+            },
+            {
+              "id": "cq_lanyin_04.1.l02",
+              "speaker": "玄璃",
+              "text": "想念她不意味着不会醒来。"
+            },
+            {
+              "id": "cq_lanyin_04.1.l03",
+              "speaker": "老人",
+              "text": "我只是希望醒来的时候，也有地方放这份思念。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_04.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_04.2.l01",
+              "speaker": "照护员",
+              "text": "医生说他必须尽快戒掉这个习惯。"
+            },
+            {
+              "id": "cq_lanyin_04.2.l02",
+              "speaker": "岚音",
+              "text": "疗法可以调整，不能用强制驱逐悲伤。"
+            },
+            {
+              "id": "cq_lanyin_04.2.l03",
+              "speaker": "主角",
+              "text": "让他自己选择陪伴形式，并安排复诊。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_lanyin_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "允许保留纪念仪式",
+                "sets": {
+                  "side.cq_lanyin_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立循序醒转与陪伴计划",
+                "sets": {
+                  "side.cq_lanyin_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_lanyin_04.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_04.3.l01",
+              "speaker": "老人",
+              "text": "今天喝完了两杯茶，还想明天再散步。"
+            },
+            {
+              "id": "cq_lanyin_04.3.l02",
+              "speaker": "玄璃",
+              "text": "真实的风会吹凉茶，也会吹走一些闷气。"
+            },
+            {
+              "id": "cq_lanyin_04.3.l03",
+              "speaker": "岚音",
+              "text": "治疗不是把人变成从来不难过的人。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_lanyin_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "允许保留纪念仪式",
+        "b": "建立循序醒转与陪伴计划"
+      },
+      "post_completion": {
+        "speaker": "岚音",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.lanyin.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_lanyin_05",
+      "title": "没有英雄的碑文",
+      "type": "companion",
+      "lead": "岚音",
+      "lead_id": "lanyin",
+      "region": "晨露村旧码头",
+      "npc": "石匠",
+      "premise": "失踪者家属反对将黑星之夜的纪念碑写成英雄颂。",
+      "required_chapter": "ch053",
+      "required_flags": [
+        "story.ch053.done",
+        "side.cq_lanyin_04.done"
+      ],
+      "completion_flag": "side.cq_lanyin_05.done",
+      "stages": [
+        {
+          "id": "cq_lanyin_05.meet",
+          "objective": "与石匠交谈",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_05.0.l01",
+              "speaker": "石匠",
+              "text": "有人写谢谢，有人写为什么他没回来。"
+            },
+            {
+              "id": "cq_lanyin_05.0.l02",
+              "speaker": "岚音",
+              "text": "两个声音都该有位置。"
+            },
+            {
+              "id": "cq_lanyin_05.0.l03",
+              "speaker": "主角",
+              "text": "我不该替他们定碑文。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_05.investigate",
+          "objective": "调查晨露村旧码头的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_05.1.l01",
+              "speaker": "老家属",
+              "text": "我儿子只是爱吃汤面，别把他刻成士兵。"
+            },
+            {
+              "id": "cq_lanyin_05.1.l02",
+              "speaker": "诺依",
+              "text": "我记得他在撤离船上帮过别人。"
+            },
+            {
+              "id": "cq_lanyin_05.1.l03",
+              "speaker": "岚音",
+              "text": "这些日常比统一的赞歌更重要。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_05.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_05.2.l01",
+              "speaker": "村长",
+              "text": "用统一悼词才不会争吵。"
+            },
+            {
+              "id": "cq_lanyin_05.2.l02",
+              "speaker": "主角",
+              "text": "这份争吵也是还活着的人在表达失去。"
+            },
+            {
+              "id": "cq_lanyin_05.2.l03",
+              "speaker": "岚音",
+              "text": "由家属决定什么可以公开，什么留在家里。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_lanyin_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "开放家属个人附文",
+                "sets": {
+                  "side.cq_lanyin_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立可随时补录的口述档案",
+                "sets": {
+                  "side.cq_lanyin_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_lanyin_05.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_05.3.l01",
+              "speaker": "旁白",
+              "text": "石碑刻上姓名，也为未确认者保留空白。"
+            },
+            {
+              "id": "cq_lanyin_05.3.l02",
+              "speaker": "老家属",
+              "text": "有人读到他喜欢汤面，我就知道人们记得的不只最后一天。"
+            },
+            {
+              "id": "cq_lanyin_05.3.l03",
+              "speaker": "岚音",
+              "text": "空白也不是忘记。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_lanyin_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "开放家属个人附文",
+        "b": "建立可随时补录的口述档案"
+      },
+      "post_completion": {
+        "speaker": "岚音",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.lanyin.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_lanyin_06",
+      "title": "医师也有休息日",
+      "type": "companion",
+      "lead": "岚音",
+      "lead_id": "lanyin",
+      "region": "群灯城联合医馆",
+      "npc": "年轻医师",
+      "premise": "医师连续值班，仍不敢承认自己需要休息。",
+      "required_chapter": "ch060",
+      "required_flags": [
+        "story.ch060.done",
+        "side.cq_lanyin_05.done"
+      ],
+      "completion_flag": "side.cq_lanyin_06.done",
+      "stages": [
+        {
+          "id": "cq_lanyin_06.meet",
+          "objective": "与年轻医师交谈",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_06.0.l01",
+              "speaker": "年轻医师",
+              "text": "我一休息，候诊名单又长了。"
+            },
+            {
+              "id": "cq_lanyin_06.0.l02",
+              "speaker": "岚音",
+              "text": "你已经把昨天病人的记录写到了今天。"
+            },
+            {
+              "id": "cq_lanyin_06.0.l03",
+              "speaker": "诺依",
+              "text": "公会可以帮你做非医疗后勤。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_06.investigate",
+          "objective": "调查群灯城联合医馆的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_06.1.l01",
+              "speaker": "岚音",
+              "text": "把个人奉献当成永久制度，迟早害了病人。"
+            },
+            {
+              "id": "cq_lanyin_06.1.l02",
+              "speaker": "年轻医师",
+              "text": "你当年不也一直这么做？"
+            },
+            {
+              "id": "cq_lanyin_06.1.l03",
+              "speaker": "岚音",
+              "text": "所以我不想让别人继续重复。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_lanyin_06.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_06.2.l01",
+              "speaker": "院长",
+              "text": "增加轮班，会有诊室调整开放时间。"
+            },
+            {
+              "id": "cq_lanyin_06.2.l02",
+              "speaker": "主角",
+              "text": "把可服务时段公开，比让疲倦医师假装全能安全。"
+            },
+            {
+              "id": "cq_lanyin_06.2.l03",
+              "speaker": "年轻医师",
+              "text": "我也可以是需要被照顾的人吗？"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_lanyin_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "优先保证医师休息和透明告知",
+                "sets": {
+                  "side.cq_lanyin_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先训练志愿者承担后勤",
+                "sets": {
+                  "side.cq_lanyin_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_lanyin_06.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_06.3.l01",
+              "speaker": "旁白",
+              "text": "医馆实行轮班与紧急分诊。"
+            },
+            {
+              "id": "cq_lanyin_06.3.l02",
+              "speaker": "年轻医师",
+              "text": "昨夜我睡了整晚，醒来第一次没有急着认错。"
+            },
+            {
+              "id": "cq_lanyin_06.3.l03",
+              "speaker": "岚音",
+              "text": "我也按新制度休息，不把自己当作例外。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_lanyin_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "优先保证医师休息和透明告知",
+        "b": "先训练志愿者承担后勤"
+      },
+      "post_completion": {
+        "speaker": "岚音",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.lanyin.06",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_leiso_01",
+      "title": "没有徽章的巡逻",
+      "type": "companion",
+      "lead": "雷索",
+      "lead_id": "leiso",
+      "region": "三誓王都旧巡逻线",
+      "npc": "守门少年",
+      "premise": "一名少年希望雷索教他当“好骑士”，但只学过盘查陌生人。",
+      "required_chapter": "ch009",
+      "required_flags": [
+        "story.ch009.done"
+      ],
+      "completion_flag": "side.cq_leiso_01.done",
+      "stages": [
+        {
+          "id": "cq_leiso_01.meet",
+          "objective": "与守门少年交谈",
+          "dialogue": [
+            {
+              "id": "cq_leiso_01.0.l01",
+              "speaker": "守门少年",
+              "text": "你既然无罪，为何不再穿骑士服？"
+            },
+            {
+              "id": "cq_leiso_01.0.l02",
+              "speaker": "雷索",
+              "text": "制服不会让判断永远正确。"
+            },
+            {
+              "id": "cq_leiso_01.0.l03",
+              "speaker": "主角",
+              "text": "跟他走一次夜路再问吧。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_01.investigate",
+          "objective": "调查三誓王都旧巡逻线的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_leiso_01.1.l01",
+              "speaker": "老妇",
+              "text": "旧路太长，我走不到医务站。"
+            },
+            {
+              "id": "cq_leiso_01.1.l02",
+              "speaker": "少年",
+              "text": "我的巡逻手册只写着要盘查证件。"
+            },
+            {
+              "id": "cq_leiso_01.1.l03",
+              "speaker": "雷索",
+              "text": "先问一个人需不需要帮忙。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_01.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_leiso_01.2.l01",
+              "speaker": "旧教官",
+              "text": "巡逻要统一口令，不是慈善活动。"
+            },
+            {
+              "id": "cq_leiso_01.2.l02",
+              "speaker": "雷索",
+              "text": "规则得让最需要保护的人能用得上。"
+            },
+            {
+              "id": "cq_leiso_01.2.l03",
+              "speaker": "主角",
+              "text": "先增设休息点，再公开讨论巡逻流程。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_leiso_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由居民一起修订巡逻条款",
+                "sets": {
+                  "side.cq_leiso_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先建立夜间紧急援助点",
+                "sets": {
+                  "side.cq_leiso_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_leiso_01.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_leiso_01.3.l01",
+              "speaker": "少年",
+              "text": "我把救助路线加进巡逻图了。"
+            },
+            {
+              "id": "cq_leiso_01.3.l02",
+              "speaker": "老妇",
+              "text": "那块路边长椅比一把剑更管用。"
+            },
+            {
+              "id": "cq_leiso_01.3.l03",
+              "speaker": "雷索",
+              "text": "你以后要自己决定为什么守夜。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_leiso_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "由居民一起修订巡逻条款",
+        "b": "先建立夜间紧急援助点"
+      },
+      "post_completion": {
+        "speaker": "雷索",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.leiso.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_leiso_02",
+      "title": "三面小旗",
+      "type": "companion",
+      "lead": "雷索",
+      "lead_id": "leiso",
+      "region": "三国边境小学",
+      "npc": "乡村教师",
+      "premise": "三个国家的孩子拒绝把彼此的家画在共同地图上。",
+      "required_chapter": "ch012",
+      "required_flags": [
+        "story.ch012.done",
+        "side.cq_leiso_01.done"
+      ],
+      "completion_flag": "side.cq_leiso_02.done",
+      "stages": [
+        {
+          "id": "cq_leiso_02.meet",
+          "objective": "与乡村教师交谈",
+          "dialogue": [
+            {
+              "id": "cq_leiso_02.0.l01",
+              "speaker": "教师",
+              "text": "他们把地图撕了，说画敌人的家等于背叛。"
+            },
+            {
+              "id": "cq_leiso_02.0.l02",
+              "speaker": "雷索",
+              "text": "先让孩子们说说每天走哪条路。"
+            },
+            {
+              "id": "cq_leiso_02.0.l03",
+              "speaker": "孩子甲",
+              "text": "可爸爸说对岸的人不好。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_02.investigate",
+          "objective": "调查三国边境小学的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_leiso_02.1.l01",
+              "speaker": "孩子乙",
+              "text": "我每周过桥给外婆送药。"
+            },
+            {
+              "id": "cq_leiso_02.1.l02",
+              "speaker": "雷索",
+              "text": "所以桥不能只算一个国家的。"
+            },
+            {
+              "id": "cq_leiso_02.1.l03",
+              "speaker": "主角",
+              "text": "让孩子们各画自己走过的地方。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_02.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_leiso_02.2.l01",
+              "speaker": "孩子甲",
+              "text": "我要画他的桥，就算帮敌人吗？"
+            },
+            {
+              "id": "cq_leiso_02.2.l02",
+              "speaker": "雷索",
+              "text": "你可以不同意他家大人的事，也可以认得这个同学。"
+            },
+            {
+              "id": "cq_leiso_02.2.l03",
+              "speaker": "教师",
+              "text": "我们不要求孩子替大人道歉。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_leiso_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由孩子各自补画生活路线",
+                "sets": {
+                  "side.cq_leiso_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "共同修复被撕毁的地图",
+                "sets": {
+                  "side.cq_leiso_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_leiso_02.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_leiso_02.3.l01",
+              "speaker": "旁白",
+              "text": "三色小旗还在，旗帜之间添上了学校、桥和河流。"
+            },
+            {
+              "id": "cq_leiso_02.3.l02",
+              "speaker": "孩子乙",
+              "text": "我终于知道他外婆住哪里。"
+            },
+            {
+              "id": "cq_leiso_02.3.l03",
+              "speaker": "雷索",
+              "text": "和平不需要谁把故乡擦掉。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_leiso_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "由孩子各自补画生活路线",
+        "b": "共同修复被撕毁的地图"
+      },
+      "post_completion": {
+        "speaker": "雷索",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.leiso.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_leiso_03",
+      "title": "签过字的老人",
+      "type": "companion",
+      "lead": "雷索",
+      "lead_id": "leiso",
+      "region": "断层遗迹军政档案室",
+      "npc": "老军士",
+      "premise": "旧军士想销毁自己签发过的战争命令，不敢面对后代。",
+      "required_chapter": "ch024",
+      "required_flags": [
+        "story.ch024.done",
+        "side.cq_leiso_02.done"
+      ],
+      "completion_flag": "side.cq_leiso_03.done",
+      "stages": [
+        {
+          "id": "cq_leiso_03.meet",
+          "objective": "与老军士交谈",
+          "dialogue": [
+            {
+              "id": "cq_leiso_03.0.l01",
+              "speaker": "老军士",
+              "text": "我孙子若知道当年我签过什么，还会叫我爷爷吗？"
+            },
+            {
+              "id": "cq_leiso_03.0.l02",
+              "speaker": "雷索",
+              "text": "我也曾穿着那身军服。"
+            },
+            {
+              "id": "cq_leiso_03.0.l03",
+              "speaker": "主角",
+              "text": "删去纸上的字，改变不了已经发生的事。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_03.investigate",
+          "objective": "调查断层遗迹军政档案室的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_leiso_03.1.l01",
+              "speaker": "老军士",
+              "text": "我后来偷偷放走过村民。"
+            },
+            {
+              "id": "cq_leiso_03.1.l02",
+              "speaker": "雷索",
+              "text": "那也该记下，但不能拿来抵消前面的伤害。"
+            },
+            {
+              "id": "cq_leiso_03.1.l03",
+              "speaker": "档案员",
+              "text": "我能把两份证词完整保留。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_03.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_leiso_03.2.l01",
+              "speaker": "老军士",
+              "text": "我能不能只告诉孙子我救人的事？"
+            },
+            {
+              "id": "cq_leiso_03.2.l02",
+              "speaker": "主角",
+              "text": "你可以选择怎样开口，不能替他选择相信哪一半。"
+            },
+            {
+              "id": "cq_leiso_03.2.l03",
+              "speaker": "雷索",
+              "text": "先说你确实做过的事，别急着要求原谅。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_leiso_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "完整公开军令和个人证词",
+                "sets": {
+                  "side.cq_leiso_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先向家属讲述，再申请公开归档",
+                "sets": {
+                  "side.cq_leiso_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_leiso_03.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_leiso_03.3.l01",
+              "speaker": "旁白",
+              "text": "老军士带着完整卷宗回家。"
+            },
+            {
+              "id": "cq_leiso_03.3.l02",
+              "speaker": "老军士",
+              "text": "孙子问我为什么现在才说，我还没答好。"
+            },
+            {
+              "id": "cq_leiso_03.3.l03",
+              "speaker": "雷索",
+              "text": "愿意继续回答，已经比烧掉档案更好了。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_leiso_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "完整公开军令和个人证词",
+        "b": "先向家属讲述，再申请公开归档"
+      },
+      "post_completion": {
+        "speaker": "雷索",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.leiso.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_leiso_04",
+      "title": "最后一道城门",
+      "type": "companion",
+      "lead": "雷索",
+      "lead_id": "leiso",
+      "region": "三誓王都东门",
+      "npc": "撤离官",
+      "premise": "战乱中名额不足，撤离官要求雷索先放军官家眷通行。",
+      "required_chapter": "ch047",
+      "required_flags": [
+        "story.ch047.done",
+        "side.cq_leiso_03.done"
+      ],
+      "completion_flag": "side.cq_leiso_04.done",
+      "stages": [
+        {
+          "id": "cq_leiso_04.meet",
+          "objective": "与撤离官交谈",
+          "dialogue": [
+            {
+              "id": "cq_leiso_04.0.l01",
+              "speaker": "撤离官",
+              "text": "上级名单要求贵族家属先走。"
+            },
+            {
+              "id": "cq_leiso_04.0.l02",
+              "speaker": "雷索",
+              "text": "我看见门外还有不能自己走的伤员。"
+            },
+            {
+              "id": "cq_leiso_04.0.l03",
+              "speaker": "岚音",
+              "text": "下一批还有几个孩子。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_04.investigate",
+          "objective": "调查三誓王都东门的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_leiso_04.1.l01",
+              "speaker": "雷索",
+              "text": "旧式通行牌没有写医疗需要。"
+            },
+            {
+              "id": "cq_leiso_04.1.l02",
+              "speaker": "撤离官",
+              "text": "改名单会有人追责。"
+            },
+            {
+              "id": "cq_leiso_04.1.l03",
+              "speaker": "主角",
+              "text": "把救援依据写下，让人知道不是私下决定。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_04.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_leiso_04.2.l01",
+              "speaker": "撤离官",
+              "text": "只剩下一刻钟。"
+            },
+            {
+              "id": "cq_leiso_04.2.l02",
+              "speaker": "雷索",
+              "text": "优先无法自行行动者，再安排愿意留下的护卫。"
+            },
+            {
+              "id": "cq_leiso_04.2.l03",
+              "speaker": "岚音",
+              "text": "每个人都该知道自己的风险，不能被暗中留下。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_leiso_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "优先医疗紧急程度",
+                "sets": {
+                  "side.cq_leiso_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "公开撤离顺序与自愿让位机制",
+                "sets": {
+                  "side.cq_leiso_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_leiso_04.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_leiso_04.3.l01",
+              "speaker": "旁白",
+              "text": "东门在最后一批撤离后塌下。"
+            },
+            {
+              "id": "cq_leiso_04.3.l02",
+              "speaker": "雷索",
+              "text": "还是有人没回来。"
+            },
+            {
+              "id": "cq_leiso_04.3.l03",
+              "speaker": "主角",
+              "text": "把未归者名字也写在册子里，之后还要继续找。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_leiso_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "优先医疗紧急程度",
+        "b": "公开撤离顺序与自愿让位机制"
+      },
+      "post_completion": {
+        "speaker": "雷索",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.leiso.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_leiso_05",
+      "title": "旧披风的归处",
+      "type": "companion",
+      "lead": "雷索",
+      "lead_id": "leiso",
+      "region": "北境救护站",
+      "npc": "获救青年",
+      "premise": "当年被雷索救下的孩子长大了，不想再把旧披风当作必须成为英雄的命令。",
+      "required_chapter": "ch052",
+      "required_flags": [
+        "story.ch052.done",
+        "side.cq_leiso_04.done"
+      ],
+      "completion_flag": "side.cq_leiso_05.done",
+      "stages": [
+        {
+          "id": "cq_leiso_05.meet",
+          "objective": "与获救青年交谈",
+          "dialogue": [
+            {
+              "id": "cq_leiso_05.0.l01",
+              "speaker": "获救青年",
+              "text": "这件披风该还你，我没能变成你那样的人。"
+            },
+            {
+              "id": "cq_leiso_05.0.l02",
+              "speaker": "雷索",
+              "text": "你不需要变成我。"
+            },
+            {
+              "id": "cq_leiso_05.0.l03",
+              "speaker": "诺依",
+              "text": "先说说这些年你怎样生活。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_05.investigate",
+          "objective": "调查北境救护站的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_leiso_05.1.l01",
+              "speaker": "青年",
+              "text": "我总觉得一害怕就是辜负你。"
+            },
+            {
+              "id": "cq_leiso_05.1.l02",
+              "speaker": "雷索",
+              "text": "害怕时向人求援，也能保护别人。"
+            },
+            {
+              "id": "cq_leiso_05.1.l03",
+              "speaker": "主角",
+              "text": "披风不必留在谁的私人纪念箱里。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_05.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_leiso_05.2.l01",
+              "speaker": "青年",
+              "text": "若不穿它上战场，披风还有用吗？"
+            },
+            {
+              "id": "cq_leiso_05.2.l02",
+              "speaker": "雷索",
+              "text": "能挡风就有用。"
+            },
+            {
+              "id": "cq_leiso_05.2.l03",
+              "speaker": "诺依",
+              "text": "放在救护站，谁冷了就借去穿。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_leiso_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "存入公共救助物资柜",
+                "sets": {
+                  "side.cq_leiso_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "举办公开讲述后由青年决定",
+                "sets": {
+                  "side.cq_leiso_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_leiso_05.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_leiso_05.3.l01",
+              "speaker": "旁白",
+              "text": "披风挂在公共物资柜里。"
+            },
+            {
+              "id": "cq_leiso_05.3.l02",
+              "speaker": "青年",
+              "text": "今天我把它借给另一个孩子。"
+            },
+            {
+              "id": "cq_leiso_05.3.l03",
+              "speaker": "雷索",
+              "text": "总算做回一件普通又有用的衣服。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_leiso_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "存入公共救助物资柜",
+        "b": "举办公开讲述后由青年决定"
+      },
+      "post_completion": {
+        "speaker": "雷索",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.leiso.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_leiso_06",
+      "title": "不用握剑的守夜",
+      "type": "companion",
+      "lead": "雷索",
+      "lead_id": "leiso",
+      "region": "群灯城志愿议事厅",
+      "npc": "木匠",
+      "premise": "木匠拒绝参战，却愿修避难所，被指责懦弱。",
+      "required_chapter": "ch059",
+      "required_flags": [
+        "story.ch059.done",
+        "side.cq_leiso_05.done"
+      ],
+      "completion_flag": "side.cq_leiso_06.done",
+      "stages": [
+        {
+          "id": "cq_leiso_06.meet",
+          "objective": "与木匠交谈",
+          "dialogue": [
+            {
+              "id": "cq_leiso_06.0.l01",
+              "speaker": "木匠",
+              "text": "我会修桥，但不想再造炮。"
+            },
+            {
+              "id": "cq_leiso_06.0.l02",
+              "speaker": "强硬派",
+              "text": "敌人来了谁替你守？"
+            },
+            {
+              "id": "cq_leiso_06.0.l03",
+              "speaker": "雷索",
+              "text": "他还没说完自己的选择。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_06.investigate",
+          "objective": "调查群灯城志愿议事厅的关键线索",
+          "dialogue": [
+            {
+              "id": "cq_leiso_06.1.l01",
+              "speaker": "木匠",
+              "text": "我儿子死于军械试验。"
+            },
+            {
+              "id": "cq_leiso_06.1.l02",
+              "speaker": "诺依",
+              "text": "救援也需要工匠、粮车和医师。"
+            },
+            {
+              "id": "cq_leiso_06.1.l03",
+              "speaker": "雷索",
+              "text": "不拿剑不意味着不承担责任。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_leiso_06.choice",
+          "objective": "决定怎样应对出现的冲突",
+          "dialogue": [
+            {
+              "id": "cq_leiso_06.2.l01",
+              "speaker": "强硬派",
+              "text": "所有人都拒绝怎么办？"
+            },
+            {
+              "id": "cq_leiso_06.2.l02",
+              "speaker": "雷索",
+              "text": "有人自愿持剑，也有人让持剑者有路回家。"
+            },
+            {
+              "id": "cq_leiso_06.2.l03",
+              "speaker": "主角",
+              "text": "把不同职责与退出权一同写在协议里。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_leiso_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "确立志愿防卫与平等后勤权利",
+                "sets": {
+                  "side.cq_leiso_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先修建避难所再完成公共章程",
+                "sets": {
+                  "side.cq_leiso_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_leiso_06.resolution",
+          "objective": "向当事人确认结果",
+          "dialogue": [
+            {
+              "id": "cq_leiso_06.3.l01",
+              "speaker": "旁白",
+              "text": "避难所的新门装好了，旁边刻着紧急疏散图。"
+            },
+            {
+              "id": "cq_leiso_06.3.l02",
+              "speaker": "木匠",
+              "text": "我没有打仗，但今晚有人睡得安全。"
+            },
+            {
+              "id": "cq_leiso_06.3.l03",
+              "speaker": "雷索",
+              "text": "这也是守护。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_leiso_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "确立志愿防卫与平等后勤权利",
+        "b": "先修建避难所再完成公共章程"
+      },
+      "post_completion": {
+        "speaker": "雷索",
+        "text": "我们还会在下一段路上继续讨论这件事。"
+      },
+      "story_reward_flag": "bond.leiso.06",
+      "status": "authored_text_not_runtime_bound"
+    }
+  ]
+}

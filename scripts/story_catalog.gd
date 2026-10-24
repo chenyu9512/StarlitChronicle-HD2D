@@ -136,4 +136,7 @@ func get_dialogue(scene: Dictionary) -> Array:
     return scene.get("dialogue", [])
 
 func get_errors_text() -> String:
-    return "\n".join(errors)
+    var combined: String = ""
+    for error in errors:
+        combined += error + "\n"
+    return combined.strip_edges()

@@ -1,6 +1,6 @@
 extends Node
-## 星灯纪行剧情状态机。可嵌入未来正式Game控制器。
-## 不依赖原型State，使用独立JSON存档，避免破坏v0.1.1。
+## 剧情运行器：独立存档，不触及旧版游戏 State / save_v1。
+## 所有战斗与地图判定通过信号交给外部控制器，永不自动伪造胜利。
 
 signal dialogue_opened(line: Dictionary)
 signal objective_changed(objective: Dictionary)
@@ -14,7 +14,9 @@ signal story_error(message: String)
 
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const STORY_SAVE_PATH: String = "user://starlit_story_v1.json"
+
 var catalog
+var loaded: bool = false
 var flags: Dictionary = {}
 var current_chapter_id: String = ""
 var current_chapter: Dictionary = {}
@@ -24,7 +26,7 @@ var dialogue_ended: bool = false
 var waiting_battle: bool = false
 var choice_made: bool = false
 var objective_progress: Dictionary = {}
-var loaded: bool = false
+var side_quest_progress: Dictionary = {}
 
 func _ready() -> void:
     catalog = CatalogScript.new()
@@ -36,6 +38,7 @@ func begin_prologue() -> bool:
     if not loaded:
         return false
     flags.clear()
+    side_quest_progress.clear()
     current_chapter_id = "prologue"
     current_chapter = catalog.prologue
     current_scene_index = 0
@@ -44,7 +47,10 @@ func begin_prologue() -> bool:
 
 func begin_chapter(chapter_id: String) -> bool:
     if not loaded or not catalog.can_enter_chapter(chapter_id, flags):
-        story_error.emit("章节未解锁或资料缺失：" + chapter_id)
+        story_error.emit("章节尚未解锁：" + chapter_id)
+        return false
+    if bool(flags.get("story." + chapter_id + ".done", false)):
+        story_error.emit("已通关章节不可重复领取奖励：" + chapter_id)
         return false
     current_chapter_id = chapter_id
     current_chapter = catalog.get_chapter(chapter_id)
@@ -56,98 +62,124 @@ func _get_scene() -> Dictionary:
     var scenes: Array = current_chapter.get("scenes", [])
     if current_scene_index < 0 or current_scene_index >= scenes.size():
         return {}
-    var entry: Dictionary = scenes[current_scene_index]
-    return entry
+    var scene: Dictionary = scenes[current_scene_index]
+    return scene
+
+func _scene_completed_key(scene_id: String) -> String:
+    return "scene." + scene_id + ".completed"
 
 func _open_scene() -> void:
     var scene: Dictionary = _get_scene()
     if scene.is_empty():
-        story_error.emit("无法定位剧情场景：" + current_chapter_id)
+        story_error.emit("无法定位场景：" + current_chapter_id)
         return
     var trigger: Dictionary = scene.get("trigger", {})
-    var requirements: Array = trigger.get("requires_flags", [])
-    if not catalog.requirements_met(requirements, flags):
-        story_error.emit("场景条件尚未达成：" + str(scene.get("id", "")))
+    var required: Array = trigger.get("requires_flags", [])
+    if not catalog.requirements_met(required, flags):
+        story_error.emit("场景解锁条件未满足：" + str(scene.get("id", "")))
         return
     line_index = 0
     dialogue_ended = false
     waiting_battle = false
     choice_made = false
     objective_progress.clear()
-    var dialogue: Array = scene.get("dialogue", [])
-    if dialogue.is_empty():
+    save_story()
+    var lines: Array = scene.get("dialogue", [])
+    if lines.is_empty():
         _on_dialogue_end()
     else:
-        dialogue_opened.emit(dialogue[0])
+        var first_line: Dictionary = lines[0]
+        dialogue_opened.emit(first_line)
 
 func advance_dialogue() -> void:
-    if dialogue_ended or waiting_battle:
+    if dialogue_ended or waiting_battle or _get_scene().is_empty():
         return
     var scene: Dictionary = _get_scene()
-    var dialogue: Array = scene.get("dialogue", [])
-    if line_index + 1 < dialogue.size():
+    var lines: Array = scene.get("dialogue", [])
+    if line_index + 1 < lines.size():
         line_index += 1
-        dialogue_opened.emit(dialogue[line_index])
-        return
-    _on_dialogue_end()
+        var next_line: Dictionary = lines[line_index]
+        save_story()
+        dialogue_opened.emit(next_line)
+    else:
+        _on_dialogue_end()
 
 func _on_dialogue_end() -> void:
     dialogue_ended = true
+    save_story()
     var scene: Dictionary = _get_scene()
-    if scene.has("choice"):
-        choice_requested.emit(scene["choice"])
+    if scene.has("choice") and not choice_made:
+        var choice: Dictionary = scene["choice"]
+        choice_requested.emit(choice)
         return
-    if scene.has("encounter") and scene["encounter"] is Dictionary:
-        waiting_battle = true
-        battle_requested.emit(scene["encounter"])
+    if scene.has("encounter"):
+        _request_battle()
         return
     _request_next_objective_or_finish()
 
-func _request_next_objective_or_finish() -> void:
+func _request_battle() -> void:
+    var scene: Dictionary = _get_scene()
+    if not scene.has("encounter"):
+        return
+    waiting_battle = true
+    save_story()
+    var encounter: Dictionary = scene["encounter"]
+    battle_requested.emit(encounter)
+
+func _next_objective() -> Dictionary:
     var scene: Dictionary = _get_scene()
     var objectives: Array = scene.get("objectives", [])
-    for objective in objectives:
-        var entry: Dictionary = objective
-        var target: String = str(entry.get("target", ""))
+    for item in objectives:
+        var objective: Dictionary = item
+        var target: String = str(objective.get("target", ""))
         if not objective_progress.has(target):
-            objective_changed.emit(entry)
-            return
-    _finish_scene()
+            return objective
+    return {}
+
+func _request_next_objective_or_finish() -> void:
+    var next_objective: Dictionary = _next_objective()
+    if next_objective.is_empty():
+        _finish_scene()
+    else:
+        objective_changed.emit(next_objective)
 
 func complete_objective(target: String) -> bool:
-    if not dialogue_ended or waiting_battle:
+    if not dialogue_ended or waiting_battle or _get_scene().is_empty():
         return false
     var scene: Dictionary = _get_scene()
-    var objectives: Array = scene.get("objectives", [])
-    for objective in objectives:
-        var entry: Dictionary = objective
-        if str(entry.get("target", "")) == target:
-            objective_progress[target] = true
-            _request_next_objective_or_finish()
-            return true
-    return false
+    if scene.has("choice") and not choice_made:
+        return false
+    var next_objective: Dictionary = _next_objective()
+    if next_objective.is_empty() or str(next_objective.get("target", "")) != target:
+        story_error.emit("任务目标不匹配或顺序错误：" + target)
+        return false
+    objective_progress[target] = true
+    save_story()
+    _request_next_objective_or_finish()
+    return true
 
 func choose_option(option_id: String) -> bool:
     var scene: Dictionary = _get_scene()
     if not dialogue_ended or not scene.has("choice") or choice_made:
         return false
     var choice: Dictionary = scene["choice"]
-    for item in choice.get("options", []):
+    var options: Array = choice.get("options", [])
+    for item in options:
         var option: Dictionary = item
         if str(option.get("id", "")) != option_id:
             continue
-        var needs: Array = option.get("requires_flags", [])
-        if not catalog.requirements_met(needs, flags):
-            story_error.emit("该选项条件未满足：" + option_id)
+        var requires: Array = option.get("requires_flags", [])
+        if not catalog.requirements_met(requires, flags):
+            story_error.emit("该选项未解锁：" + option_id)
             return false
         var sets: Dictionary = option.get("sets", {})
         for key in sets:
             flags[str(key)] = sets[key]
         choice_made = true
         objective_progress[str(choice.get("id", ""))] = true
-        if scene.has("encounter") and scene["encounter"] is Dictionary:
-            waiting_battle = true
-            battle_requested.emit(scene["encounter"])
+        save_story()
+        if scene.has("encounter"):
+            _request_battle()
         else:
             _request_next_objective_or_finish()
         return true
@@ -156,8 +188,7 @@ func choose_option(option_id: String) -> bool:
 func retry_encounter() -> void:
     var scene: Dictionary = _get_scene()
     if dialogue_ended and not waiting_battle and scene.has("encounter"):
-        waiting_battle = true
-        battle_requested.emit(scene["encounter"])
+        _request_battle()
 
 func report_battle_result(victory: bool) -> void:
     if not waiting_battle:
@@ -165,109 +196,200 @@ func report_battle_result(victory: bool) -> void:
     waiting_battle = false
     var scene: Dictionary = _get_scene()
     if not victory:
-        story_error.emit("本场战斗失败；可恢复队伍并重新挑战。")
+        save_story()
+        story_error.emit("战斗失败；恢复队伍后可重新挑战。")
         return
     var encounter: Dictionary = scene.get("encounter", {})
-    var victory_flag: String = str(encounter.get("win_flag", ""))
-    if not victory_flag.is_empty():
-        flags[victory_flag] = true
+    var flag: String = str(encounter.get("win_flag", ""))
+    if not flag.is_empty():
+        flags[flag] = true
+        # 兼容结局前置要求。
+        if flag == "ch071.battle_won":
+            flags["boss.ch071.won"] = true
+    save_story()
     _finish_scene()
+
+func _apply_milestones() -> void:
+    if bool(flags.get("story.ch060.done", false)):
+        flags["world.distributed_network"] = true
+    if bool(flags.get("story.ch066.done", false)):
+        flags["world.seven_lanterns"] = true
+    if bool(flags.get("ch071.battle_won", false)):
+        flags["boss.ch071.won"] = true
+    var page_count: int = 0
+    for index in range(1, 13):
+        if bool(flags.get("world.page_%02d" % index, false)):
+            page_count += 1
+    if page_count == 12:
+        flags["world.all_twelve_pages"] = true
 
 func _finish_scene() -> void:
     var scene: Dictionary = _get_scene()
     if scene.is_empty():
         return
+    var scene_id: String = str(scene.get("id", ""))
+    var complete_key: String = _scene_completed_key(scene_id)
+    if bool(flags.get(complete_key, false)):
+        return # 存档恢复/重复点击不重复结算。
+    flags[complete_key] = true
+    var rewards: Array[Dictionary] = []
     for item in scene.get("effects", []):
         var effect: Dictionary = item
         match str(effect.get("type", "")):
             "set_flag":
                 flags[str(effect.get("key", ""))] = effect.get("value", true)
             "grant":
-                reward_granted.emit(effect)
+                rewards.append(effect)
             "time_skip":
                 flags["world.years_passed"] = int(flags.get("world.years_passed", 0)) + int(effect.get("years", 0))
                 world_event.emit(effect)
             "finish_chapter":
-                pass
-    scene_finished.emit(str(scene.get("id", "")))
+                pass # 章节完成旗标由数据显式 set_flag。
+    _apply_milestones()
+    scene_finished.emit(scene_id)
     var scenes: Array = current_chapter.get("scenes", [])
-    if current_scene_index + 1 < scenes.size():
-        current_scene_index += 1
-        save_story()
+    current_scene_index += 1
+    if not save_story():
+        story_error.emit("剧情状态未成功存储；请检查磁盘空间。")
+    for reward in rewards:
+        reward_granted.emit(reward)
+    if current_scene_index < scenes.size():
         _open_scene()
     else:
-        # 完成哨兵位置必须持久化，防止读档后二次发奖。
-        current_scene_index = scenes.size()
-        save_story()
         chapter_finished.emit(current_chapter_id)
 
-func complete_side_quest(quest_id: String) -> bool:
-    ## 此方法应在正式任务控制器校验3个阶段目标后调用。
+func start_side_quest(quest_id: String) -> bool:
     if not loaded:
         return false
     var quest: Dictionary = catalog.get_quest(quest_id)
     if quest.is_empty():
         return false
-    var key: String = str(quest.get("completion_flag", ""))
-    if bool(flags.get(key, false)):
+    var complete_flag: String = str(quest.get("completion_flag", ""))
+    if bool(flags.get(complete_flag, false)):
         return false
-    flags[key] = true
-    reward_granted.emit(quest.get("rewards", {}))
+    var required_chapter: String = str(quest.get("required_chapter", ""))
+    if not required_chapter.is_empty():
+        if not bool(flags.get("story." + required_chapter + ".done", false)):
+            story_error.emit("对应主线尚未完成：" + required_chapter)
+            return false
+    if not side_quest_progress.has(quest_id):
+        side_quest_progress[quest_id] = 0
+        save_story()
+    return true
+
+func advance_side_quest(quest_id: String, stage_id: String) -> bool:
+    var quest: Dictionary = catalog.get_quest(quest_id)
+    if quest.is_empty() or not side_quest_progress.has(quest_id):
+        return false
+    var stage_index: int = int(side_quest_progress[quest_id])
+    var stages: Array = quest.get("stages", [])
+    if stage_index >= stages.size():
+        return false
+    var stage: Dictionary = stages[stage_index]
+    if str(stage.get("id", "")) != stage_id:
+        return false
+    side_quest_progress[quest_id] = stage_index + 1
+    save_story()
+    return true
+
+func complete_side_quest(quest_id: String) -> bool:
+    var quest: Dictionary = catalog.get_quest(quest_id)
+    if quest.is_empty() or not side_quest_progress.has(quest_id):
+        return false
+    var stages: Array = quest.get("stages", [])
+    if int(side_quest_progress[quest_id]) != stages.size():
+        story_error.emit("支线目标尚未全部完成：" + quest_id)
+        return false
+    var flag: String = str(quest.get("completion_flag", ""))
+    if bool(flags.get(flag, false)):
+        return false
+    flags[flag] = true
     if str(quest.get("type", "")) == "lost_page":
         var page: int = int(quest.get("page_number", 0))
         if page >= 1 and page <= 12:
             flags["world.page_%02d" % page] = true
-            var all_present: bool = true
-            for number in range(1, 13):
-                if not bool(flags.get("world.page_%02d" % number, false)):
-                    all_present = false
-                    break
-            if all_present:
-                flags["world.all_twelve_pages"] = true
+    _apply_milestones()
     save_story()
+    var rewards: Dictionary = quest.get("rewards", {})
+    reward_granted.emit(rewards)
     return true
+
+func get_current_scene() -> Dictionary:
+    return _get_scene()
 
 func export_flags() -> Dictionary:
     return flags.duplicate(true)
 
 func save_story() -> bool:
     var data: Dictionary = {
-        "version": 1,
+        "version": 2,
         "current_chapter_id": current_chapter_id,
         "current_scene_index": current_scene_index,
         "line_index": line_index,
+        "dialogue_ended": dialogue_ended,
+        "waiting_battle": waiting_battle,
+        "choice_made": choice_made,
+        "objective_progress": objective_progress,
+        "side_quest_progress": side_quest_progress,
         "flags": flags
     }
-    var file := FileAccess.open(STORY_SAVE_PATH, FileAccess.WRITE)
+    var file: FileAccess = FileAccess.open(STORY_SAVE_PATH, FileAccess.WRITE)
     if file == null:
-        story_error.emit("剧情存档失败。")
+        story_error.emit("剧情存档失败：" + str(FileAccess.get_open_error()))
         return false
-    file.store_string(JSON.stringify(data))
+    file.store_string(JSON.stringify(data, "  "))
     file.close()
     return true
 
 func load_story() -> bool:
     if not loaded or not FileAccess.file_exists(STORY_SAVE_PATH):
         return false
-    var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(STORY_SAVE_PATH))
-    if not (parsed is Dictionary):
+    var value: Variant = JSON.parse_string(FileAccess.get_file_as_string(STORY_SAVE_PATH))
+    if not (value is Dictionary):
         return false
-    var data: Dictionary = parsed
-    if int(data.get("version", -1)) != 1 or not (data.get("flags") is Dictionary):
+    var data: Dictionary = value
+    var version: int = int(data.get("version", -1))
+    if version != 1 and version != 2:
         return false
+    if not (data.get("flags", null) is Dictionary):
+        return false
+    var chapter_id: String = str(data.get("current_chapter_id", ""))
+    var chapter: Dictionary = catalog.prologue if chapter_id == "prologue" else catalog.get_chapter(chapter_id)
+    if chapter.is_empty():
+        return false
+    # 所有字段通过校验后一次应用；坏档不会清空现有运行状态。
     flags = data["flags"]
-    current_chapter_id = str(data.get("current_chapter_id", ""))
-    if current_chapter_id == "prologue":
-        current_chapter = catalog.prologue
+    _apply_milestones()
+    side_quest_progress = data.get("side_quest_progress", {})
+    current_chapter_id = chapter_id
+    current_chapter = chapter
+    var scenes: Array = chapter.get("scenes", [])
+    current_scene_index = clampi(int(data.get("current_scene_index", 0)), 0, scenes.size())
+    if current_scene_index >= scenes.size():
+        return true # 章节完成哨兵，UI可引导进入下一章。
+    var scene: Dictionary = _get_scene()
+    var lines: Array = scene.get("dialogue", [])
+    # 旧版存档缺少进行中字段：保守地从场景开头恢复。
+    if version == 1:
+        _open_scene()
+        return true
+    line_index = clampi(int(data.get("line_index", 0)), 0, maxi(lines.size()-1, 0))
+    dialogue_ended = bool(data.get("dialogue_ended", false))
+    waiting_battle = bool(data.get("waiting_battle", false))
+    choice_made = bool(data.get("choice_made", false))
+    objective_progress = data.get("objective_progress", {})
+    if waiting_battle:
+        var encounter: Dictionary = scene.get("encounter", {})
+        battle_requested.emit(encounter)
+    elif not dialogue_ended:
+        if lines.is_empty():
+            _on_dialogue_end()
+        else:
+            var current_line: Dictionary = lines[line_index]
+            dialogue_opened.emit(current_line)
+    elif scene.has("choice") and not choice_made:
+        var choice: Dictionary = scene["choice"]
+        choice_requested.emit(choice)
     else:
-        current_chapter = catalog.get_chapter(current_chapter_id)
-    if current_chapter.is_empty():
-        return false
-    var scenes: Array = current_chapter.get("scenes", [])
-    var saved_index: int = int(data.get("current_scene_index", 0))
-    if saved_index >= scenes.size():
-        current_scene_index = scenes.size()
-        return true # 当前章节已结算，调用begin_chapter(next_id)继续。
-    current_scene_index = clampi(saved_index, 0, maxi(scenes.size() - 1, 0))
-    _open_scene()
+        _request_next_objective_or_finish()
     return true

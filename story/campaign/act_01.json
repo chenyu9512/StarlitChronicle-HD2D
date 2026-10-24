@@ -252,20 +252,22 @@
           ],
           "choice": {
             "id": "ch001.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "村长的记忆正在模糊。你打算怎么追问？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先核实收据与第二次钟声",
                 "sets": {
-                  "ch001.approach": "listen"
+                  "ch001.approach": "reason",
+                  "world.ch001.method": "reason"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先安抚村长，让他慢慢回忆",
                 "sets": {
-                  "ch001.approach": "act"
+                  "ch001.approach": "comfort",
+                  "world.ch001.method": "comfort"
                 }
               }
             ]
@@ -591,20 +593,22 @@
           ],
           "choice": {
             "id": "ch002.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "收容所需要对外求援，但病患身份必须被保护。",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "公开匿名病例，请港口协助调查",
                 "sets": {
-                  "ch002.approach": "listen"
+                  "ch002.approach": "public_anon",
+                  "world.ch002.method": "public_anon"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "优先封存隐私，派人逐户求证",
                 "sets": {
-                  "ch002.approach": "act"
+                  "ch002.approach": "private_inquiry",
+                  "world.ch002.method": "private_inquiry"
                 }
               }
             ]
@@ -925,20 +929,22 @@
           ],
           "choice": {
             "id": "ch003.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "古代守卫出现识别冲突。现在先做什么？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "关闭机关保护同伴",
                 "sets": {
-                  "ch003.approach": "listen"
+                  "ch003.approach": "disable",
+                  "world.ch003.method": "disable"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "用刻字验证朔弦的记忆",
                 "sets": {
-                  "ch003.approach": "act"
+                  "ch003.approach": "verify",
+                  "world.ch003.method": "verify"
                 }
               }
             ]
@@ -1254,20 +1260,22 @@
           ],
           "choice": {
             "id": "ch004.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "灰帷会的人找上门，酒馆里还有普通客人。",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "让朔弦当面说明货单的真相",
                 "sets": {
-                  "ch004.approach": "listen"
+                  "ch004.approach": "confess",
+                  "world.ch004.method": "confess"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先保护酒馆客人再面对敌人",
                 "sets": {
-                  "ch004.approach": "act"
+                  "ch004.approach": "evacuate",
+                  "world.ch004.method": "evacuate"
                 }
               }
             ]
@@ -1578,20 +1586,22 @@
           ],
           "choice": {
             "id": "ch005.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "海兽发狂，星锁正在变亮。",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先设法拆除星锁",
                 "sets": {
-                  "ch005.approach": "listen"
+                  "ch005.approach": "unlock",
+                  "world.ch005.method": "unlock"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先疏散渔船和岸边居民",
                 "sets": {
-                  "ch005.approach": "act"
+                  "ch005.approach": "evacuate",
+                  "world.ch005.method": "evacuate"
                 }
               }
             ]
@@ -1917,20 +1927,22 @@
           ],
           "choice": {
             "id": "ch006.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "潮歌灯要求献出记忆，你决定尝试哪条新途径？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "邀请居民讲述归航的故事",
                 "sets": {
-                  "ch006.approach": "listen"
+                  "ch006.approach": "testimony",
+                  "world.ch006.method": "testimony"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "召集海员共享航路日志",
                 "sets": {
-                  "ch006.approach": "act"
+                  "ch006.approach": "sailors",
+                  "world.ch006.method": "sailors"
                 }
               }
             ]

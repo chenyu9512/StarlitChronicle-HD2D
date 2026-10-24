@@ -37,22 +37,42 @@
             {
               "id": "ch013.opening.l01",
               "speaker": "旁白",
-              "text": "【赤炉联邦·七号矿坑】空气中藏着异样的气息。"
+              "text": "赤炉联邦的七号矿井冒着蓝白色雾气。井口的工牌排成两列，像一场没有人出席的点名。"
             },
             {
               "id": "ch013.opening.l02",
-              "speaker": "缇珐",
-              "text": "别碰那颗石头，它亮得像太阳，温度却低得像尸体。"
+              "speaker": "矿工阿锤",
+              "text": "昨天矿里停工了。账上却写着我们挖了一百箱矿。"
             },
             {
               "id": "ch013.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。调查矿工消失与星矿异常发光。"
+              "speaker": "岚音",
+              "text": "工牌上为什么有这么多没有照片的位置？"
             },
             {
               "id": "ch013.opening.l04",
+              "speaker": "阿锤",
+              "text": "不是没有照片，是那个人被人从照片里剪走了。"
+            },
+            {
+              "id": "ch013.opening.l05",
               "speaker": "缇珐",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "别碰那块发白的矿。看着发亮，摸上去像死人手掌。"
+            },
+            {
+              "id": "ch013.opening.l06",
+              "speaker": "主角",
+              "text": "你是工匠署派来的？"
+            },
+            {
+              "id": "ch013.opening.l07",
+              "speaker": "缇珐",
+              "text": "我自己来的。他们说设备没问题，可我的测温表已经坏了三只。"
+            },
+            {
+              "id": "ch013.opening.l08",
+              "speaker": "朔弦",
+              "text": "那我们来得正好。至少多四双手能拉绳子。"
             }
           ],
           "objectives": [
@@ -71,7 +91,12 @@
               "key": "ch013.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "工牌上留下与照片大小相等的空白",
+            "ambient": "现场工业和生活声",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch013.investigate",
@@ -84,22 +109,42 @@
             {
               "id": "ch013.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在赤炉联邦·七号矿坑找到了一处被忽视的痕迹。"
+              "text": "矿井第七层仍在转动的传送带上，堆着没人登记的矿袋。"
             },
             {
               "id": "ch013.investigate.l02",
               "speaker": "缇珐",
-              "text": "矿井产量在停工时仍持续增长，账册记录着不存在的班次。"
+              "text": "设备明明停止了，齿轮却还在照常转。"
             },
             {
               "id": "ch013.investigate.l03",
               "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "text": "有人半夜偷挖？"
             },
             {
               "id": "ch013.investigate.l04",
+              "speaker": "矿工阿锤",
+              "text": "没有脚印。可我昨晚在宿舍听见自己的声音喊“继续干活”。"
+            },
+            {
+              "id": "ch013.investigate.l05",
+              "speaker": "岚音",
+              "text": "你额头的旧伤还在，记得怎么受的吗？"
+            },
+            {
+              "id": "ch013.investigate.l06",
+              "speaker": "阿锤",
+              "text": "我只记得结婚那天。之后好多年……像被挖空了。"
+            },
+            {
+              "id": "ch013.investigate.l07",
+              "speaker": "缇珐",
+              "text": "这不是机械故障，是有人把记忆接进了矿井控制系统。"
+            },
+            {
+              "id": "ch013.investigate.l08",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "远处的工牌挂钩轻轻晃动，无人看见是谁经过。"
             }
           ],
           "objectives": [
@@ -118,7 +163,12 @@
               "key": "ch013.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "停止的齿轮与自行移动的矿袋交叉剪辑",
+            "ambient": "金属轻响与短暂停顿",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch013.crisis",
@@ -134,22 +184,42 @@
             {
               "id": "ch013.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "一名矿工家属冲向矿井总管，把一张被划去名字的薪资表拍在桌上。"
             },
             {
               "id": "ch013.crisis.l02",
-              "speaker": "缇珐",
-              "text": "矿工家属在名单中发现自己的姓名已经被划去。"
+              "speaker": "矿工妻子",
+              "text": "我丈夫还活着，你们凭什么说他没有在这里工作过？"
             },
             {
               "id": "ch013.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "矿井总管",
+              "text": "没有登记就没有事故，没有事故就没有赔偿。"
             },
             {
               "id": "ch013.crisis.l04",
               "speaker": "缇珐",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "你知道矿车半夜还在动。签字的是你！"
+            },
+            {
+              "id": "ch013.crisis.l05",
+              "speaker": "矿井总管",
+              "text": "关掉能源，隔壁医院也会断电。谁来负责？"
+            },
+            {
+              "id": "ch013.crisis.l06",
+              "speaker": "主角",
+              "text": "先把还在井下的人救上来。然后公开每一份班次记录。"
+            },
+            {
+              "id": "ch013.crisis.l07",
+              "speaker": "岚音",
+              "text": "谁受伤我就先救谁，不看他们是否出现在名单上。"
+            },
+            {
+              "id": "ch013.crisis.l08",
+              "speaker": "朔弦",
+              "text": "我去把升降梯绞盘松开，再拖下去大家都出不来了。"
             }
           ],
           "objectives": [
@@ -167,20 +237,22 @@
           ],
           "choice": {
             "id": "ch013.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "救援和能源记录同时受到威胁，你优先怎样行动？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先救出被困矿工，保留现场",
                 "sets": {
-                  "ch013.approach": "listen"
+                  "ch013.approach": "rescue",
+                  "world.ch013.approach": "rescue"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先把失忆能源的证据交给家属",
                 "sets": {
-                  "ch013.approach": "act"
+                  "ch013.approach": "evidence",
+                  "world.ch013.approach": "evidence"
                 }
               }
             ]
@@ -190,6 +262,11 @@
             "display_name": "噬忆矿螳",
             "win_flag": "ch013.battle_won",
             "recommended_level": 18
+          },
+          "direction": {
+            "shot": "工伤名单贴近矿工妻子的颤抖双手",
+            "ambient": "对话留白、让冲突主角发声",
+            "note": "纯文本演出建议，尚未配套资源"
           }
         },
         {
@@ -205,22 +282,42 @@
             {
               "id": "ch013.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "被困矿工陆续升井，其中一人紧握着写满孩子乳名的碎布。"
             },
             {
               "id": "ch013.resolve.l02",
-              "speaker": "缇珐",
-              "text": "众人救出幸存者，携带矿石样本前往工匠总署。"
+              "speaker": "矿工妻子",
+              "text": "你还认得我吗？"
             },
             {
               "id": "ch013.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "获救矿工",
+              "text": "……我记不得你的名字，但我知道有人一直等着我。"
             },
             {
               "id": "ch013.resolve.l04",
+              "speaker": "岚音",
+              "text": "慢慢来。名字能重新学，先回家。"
+            },
+            {
+              "id": "ch013.resolve.l05",
+              "speaker": "缇珐",
+              "text": "这颗矿样得交给总署。我会让他们看到。"
+            },
+            {
+              "id": "ch013.resolve.l06",
+              "speaker": "主角",
+              "text": "先做两份。一份交工匠，一份留在家属手里。"
+            },
+            {
+              "id": "ch013.resolve.l07",
+              "speaker": "阿锤",
+              "text": "以前下井只能靠灯。今天算是第一次有人在井口等我们回来。"
+            },
+            {
+              "id": "ch013.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】矿坑里的第二个太阳。新的道路正在展开。"
+              "text": "井口的缺名工牌被重新挂起，暂时只写“待核实”。"
             }
           ],
           "objectives": [
@@ -240,7 +337,12 @@
               "xp": 620,
               "gold": 222
             }
-          ]
+          ],
+          "direction": {
+            "shot": "工牌重新悬挂，但未恢复的名字留白",
+            "ambient": "低音量环境声收尾",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         }
       ],
       "npc_reactions": [
@@ -255,7 +357,9 @@
           "text": "听说你们在赤炉联邦·七号矿坑帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_03_rewrite_v2",
+      "production_notes": "第三幕人物对白与伦理困境精修，原条件/任务/场景及Boss ID均保留。"
     },
     {
       "id": "ch014",
@@ -289,22 +393,42 @@
             {
               "id": "ch014.opening.l01",
               "speaker": "旁白",
-              "text": "【赤炉工坊·试验台】空气中藏着异样的气息。"
+              "text": "缇珐的工坊堆满齿轮、风扇和修到一半的烧水器。角落里有台机器一遍遍重复同一个声音。"
             },
             {
               "id": "ch014.opening.l02",
-              "speaker": "缇珐",
-              "text": "机器不会骗人，输入它的命令的人却会。"
+              "speaker": "机械音",
+              "text": "小石头……小石头……别忘了围巾……"
             },
             {
               "id": "ch014.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。修复一台保留人声的旧机械。"
+              "speaker": "缇珐",
+              "text": "听着像一段损坏录音。工匠署却说这只是杂音。"
             },
             {
               "id": "ch014.opening.l04",
+              "speaker": "岚音",
+              "text": "“小石头”也许是孩子的乳名。"
+            },
+            {
+              "id": "ch014.opening.l05",
+              "speaker": "主角",
+              "text": "你能修好吗？"
+            },
+            {
+              "id": "ch014.opening.l06",
               "speaker": "缇珐",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "我能。可修好以后，可能会发现自己不想知道的事。"
+            },
+            {
+              "id": "ch014.opening.l07",
+              "speaker": "朔弦",
+              "text": "那就先给它装个开关。别让你一晚上不睡觉。"
+            },
+            {
+              "id": "ch014.opening.l08",
+              "speaker": "缇珐",
+              "text": "……你看着不像会说实用话的人。"
             }
           ],
           "objectives": [
@@ -323,7 +447,12 @@
               "key": "ch014.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "工坊散乱的工具里始终有一个空杯",
+            "ambient": "现场工业和生活声",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch014.investigate",
@@ -336,22 +465,47 @@
             {
               "id": "ch014.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在赤炉工坊·试验台找到了一处被忽视的痕迹。"
+              "text": "修好的机械吐出一段断续的家人对话，声音后面混着矿车轰鸣。"
             },
             {
               "id": "ch014.investigate.l02",
-              "speaker": "缇珐",
-              "text": "机械反复呼唤一个矿工孩子的乳名。"
+              "speaker": "矿工录音",
+              "text": "等发了工资，给小石头买一件蓝围巾。"
             },
             {
               "id": "ch014.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "孩子录音",
+              "text": "我不要新的，只要你这次陪我去海边。"
             },
             {
               "id": "ch014.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "缇珐",
+              "text": "这是记忆的完整片段。它根本不该在炉心里。"
+            },
+            {
+              "id": "ch014.investigate.l05",
+              "speaker": "岚音",
+              "text": "那位矿工如今连孩子的名字都叫不出来。"
+            },
+            {
+              "id": "ch014.investigate.l06",
+              "speaker": "主角",
+              "text": "设备是谁设计的？"
+            },
+            {
+              "id": "ch014.investigate.l07",
+              "speaker": "缇珐",
+              "text": "底层回路……是我三年前画的。我以为它只是节省燃料。"
+            },
+            {
+              "id": "ch014.investigate.l08",
+              "speaker": "朔弦",
+              "text": "设计不是命令别人用它去偷。可你总得把知道的说出去。"
+            },
+            {
+              "id": "ch014.investigate.l09",
+              "speaker": "缇珐",
+              "text": "我会。让我把每个接线图都找回来。"
             }
           ],
           "objectives": [
@@ -370,7 +524,12 @@
               "key": "ch014.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "录音波形映到褪色围巾上",
+            "ambient": "金属轻响与短暂停顿",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch014.crisis",
@@ -386,22 +545,47 @@
             {
               "id": "ch014.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "工匠总署派来的监察员命令拆解旧机，将结晶封进危险品箱。"
             },
             {
               "id": "ch014.crisis.l02",
-              "speaker": "缇珐",
-              "text": "总署认定声音只是噪声，准备拆毁旧机。"
+              "speaker": "监察员",
+              "text": "这东西非法采集私人记忆，按规定必须立即销毁。"
             },
             {
               "id": "ch014.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "缇珐",
+              "text": "证据也一起销毁？你们倒是很守规矩。"
             },
             {
               "id": "ch014.crisis.l04",
+              "speaker": "监察员",
+              "text": "你要为了一个失控样品，动摇整个城市的电力？"
+            },
+            {
+              "id": "ch014.crisis.l05",
+              "speaker": "岚音",
+              "text": "城里的医院也需要电。我们不是要不计后果地关掉一切。"
+            },
+            {
+              "id": "ch014.crisis.l06",
+              "speaker": "主角",
+              "text": "先封存，允许家属和独立医师见证，不让任何人带走原件。"
+            },
+            {
+              "id": "ch014.crisis.l07",
+              "speaker": "监察员",
+              "text": "谁给你们授权？"
+            },
+            {
+              "id": "ch014.crisis.l08",
+              "speaker": "朔弦",
+              "text": "如果没人肯负责，我就在街上把事情唱给所有人听。虽然我唱得很难听。"
+            },
+            {
+              "id": "ch014.crisis.l09",
               "speaker": "缇珐",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "把机器留下。我以设计者的身份签责任书。"
             }
           ],
           "objectives": [
@@ -419,20 +603,22 @@
           ],
           "choice": {
             "id": "ch014.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "机器里藏着私人记忆，应先怎样保全证据？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "邀请家属共同见证并保留副本",
                 "sets": {
-                  "ch014.approach": "listen"
+                  "ch014.approach": "family_copy",
+                  "world.ch014.approach": "family_copy"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "由独立医师封存原件，阻止部门销毁",
                 "sets": {
-                  "ch014.approach": "act"
+                  "ch014.approach": "medical_seal",
+                  "world.ch014.approach": "medical_seal"
                 }
               }
             ]
@@ -442,6 +628,11 @@
             "display_name": "失控采矿机",
             "win_flag": "ch014.battle_won",
             "recommended_level": 19
+          },
+          "direction": {
+            "shot": "监察员的封条遮住机器发声孔",
+            "ambient": "对话留白、让冲突主角发声",
+            "note": "纯文本演出建议，尚未配套资源"
           }
         },
         {
@@ -457,22 +648,47 @@
             {
               "id": "ch014.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "矿工的孩子站在工坊门口，抱着一条已经褪色的蓝围巾。"
             },
             {
               "id": "ch014.resolve.l02",
-              "speaker": "缇珐",
-              "text": "缇珐保存记忆结晶，决定公开能源技术的缺陷。"
+              "speaker": "孩子",
+              "text": "爸爸真的答应过我去海边吗？"
             },
             {
               "id": "ch014.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "缇珐",
+              "text": "答应过。他自己说的。可我不知道怎样把那段记忆还给他。"
             },
             {
               "id": "ch014.resolve.l04",
+              "speaker": "孩子",
+              "text": "那就先让他回家。我可以再告诉他一次。"
+            },
+            {
+              "id": "ch014.resolve.l05",
+              "speaker": "岚音",
+              "text": "你不必替大人承担所有事。"
+            },
+            {
+              "id": "ch014.resolve.l06",
+              "speaker": "主角",
+              "text": "这份记录会交给家属保管，不让它只存在机器里面。"
+            },
+            {
+              "id": "ch014.resolve.l07",
+              "speaker": "缇珐",
+              "text": "我想跟你们同行，直到找到让炉子不再偷走任何人的办法。"
+            },
+            {
+              "id": "ch014.resolve.l08",
+              "speaker": "朔弦",
+              "text": "可以。不过队里有人会管你按时吃饭。"
+            },
+            {
+              "id": "ch014.resolve.l09",
               "speaker": "旁白",
-              "text": "【任务完成】不说谎的机器。新的道路正在展开。"
+              "text": "缇珐正式加入队伍；故障机器第一次安静下来。"
             }
           ],
           "objectives": [
@@ -492,7 +708,12 @@
               "xp": 660,
               "gold": 236
             }
-          ]
+          ],
+          "direction": {
+            "shot": "工坊门口的蓝围巾随风轻动",
+            "ambient": "低音量环境声收尾",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         }
       ],
       "npc_reactions": [
@@ -507,7 +728,9 @@
           "text": "听说你们在赤炉工坊·试验台帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_03_rewrite_v2",
+      "production_notes": "第三幕人物对白与伦理困境精修，原条件/任务/场景及Boss ID均保留。"
     },
     {
       "id": "ch015",
@@ -541,22 +764,42 @@
             {
               "id": "ch015.opening.l01",
               "speaker": "旁白",
-              "text": "【赤炉联邦·百工塔】空气中藏着异样的气息。"
+              "text": "百工塔外聚集着学徒。高处写着：“技艺有主，未经许可不得教授”。"
             },
             {
               "id": "ch015.opening.l02",
               "speaker": "缇珐",
-              "text": "握住锤子的人不只会打铁，也能决定要造什么。"
+              "text": "这行字不是建塔时刻的。漆还没有风吹日晒过。"
             },
             {
               "id": "ch015.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。完成八项职业试炼并破解权限封锁。"
+              "speaker": "雷索",
+              "text": "这里的试炼可以让你们学会新的职业？"
             },
             {
               "id": "ch015.opening.l04",
               "speaker": "缇珐",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "本来是让人互相学习，后来被工匠议会改成了许可生意。"
+            },
+            {
+              "id": "ch015.opening.l05",
+              "speaker": "主角",
+              "text": "能进去的人由谁决定？"
+            },
+            {
+              "id": "ch015.opening.l06",
+              "speaker": "门卫",
+              "text": "由持有终身效忠合同的工匠引荐。"
+            },
+            {
+              "id": "ch015.opening.l07",
+              "speaker": "朔弦",
+              "text": "终身？我连明年还在哪片海上都不知道。"
+            },
+            {
+              "id": "ch015.opening.l08",
+              "speaker": "岚音",
+              "text": "如果医师也被要求终身只替一家治病，会有多少人得不到药。"
             }
           ],
           "objectives": [
@@ -575,7 +818,12 @@
               "key": "ch015.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "新旧标语的漆色差异",
+            "ambient": "现场工业和生活声",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch015.investigate",
@@ -588,22 +836,42 @@
             {
               "id": "ch015.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在赤炉联邦·百工塔找到了一处被忽视的痕迹。"
+              "text": "塔内八间试炼室分别展示不同技艺。每一扇门都刻着“把自己的本领教给后来的人”。"
             },
             {
               "id": "ch015.investigate.l02",
               "speaker": "缇珐",
-              "text": "转职仪式源于古代人学习多种技艺的开放制度。"
+              "text": "这才是初代塔主留下的真话。"
             },
             {
               "id": "ch015.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "雷索",
+              "text": "盾牌试炼不是硬扛，而是判断什么时候该让队友撤退。"
             },
             {
               "id": "ch015.investigate.l04",
+              "speaker": "岚音",
+              "text": "治疗试炼要求分配有限的草药，没有完美答案。"
+            },
+            {
+              "id": "ch015.investigate.l05",
+              "speaker": "朔弦",
+              "text": "游侠试炼竟然要我先找出口。我以为是偷东西比赛。"
+            },
+            {
+              "id": "ch015.investigate.l06",
+              "speaker": "主角",
+              "text": "所有技艺都让人承担某种责任。"
+            },
+            {
+              "id": "ch015.investigate.l07",
+              "speaker": "缇珐",
+              "text": "是的。学得越多，越该知道自己不知道什么。"
+            },
+            {
+              "id": "ch015.investigate.l08",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "塔顶档案显示，远古职业从未要求单一主人。"
             }
           ],
           "objectives": [
@@ -622,7 +890,12 @@
               "key": "ch015.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "八扇门依次开启，内容不以战斗强弱排序",
+            "ambient": "金属轻响与短暂停顿",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch015.crisis",
@@ -638,22 +911,47 @@
             {
               "id": "ch015.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "议会长站在顶层，只要一纸合同就能让全部试炼通过。"
             },
             {
               "id": "ch015.crisis.l02",
-              "speaker": "缇珐",
-              "text": "工匠议会要求签署永久效忠合同才允许继承技术。"
+              "speaker": "议会长",
+              "text": "签了它。你们可以获得职业资格，但技术归本署所有。"
             },
             {
               "id": "ch015.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "缇珐",
+              "text": "那我教给下一代医师的修理法，也是你们的财产？"
             },
             {
               "id": "ch015.crisis.l04",
-              "speaker": "缇珐",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "议会长",
+              "text": "当然。社会必须有秩序。"
+            },
+            {
+              "id": "ch015.crisis.l05",
+              "speaker": "主角",
+              "text": "秩序不是让人忘记是谁在劳动。"
+            },
+            {
+              "id": "ch015.crisis.l06",
+              "speaker": "雷索",
+              "text": "如果学徒连拒绝不合理命令都不允许，何来真正的技术责任。"
+            },
+            {
+              "id": "ch015.crisis.l07",
+              "speaker": "岚音",
+              "text": "至少让那些试炼说明可以公开给所有人看。"
+            },
+            {
+              "id": "ch015.crisis.l08",
+              "speaker": "朔弦",
+              "text": "我负责把图纸贴到城市最显眼的墙上。"
+            },
+            {
+              "id": "ch015.crisis.l09",
+              "speaker": "议会长",
+              "text": "未经许可，你们将失去本塔认可！"
             }
           ],
           "objectives": [
@@ -671,20 +969,22 @@
           ],
           "choice": {
             "id": "ch015.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "公开试炼图纸时，怎样安排学徒参与？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "让各行业公会共同管理图纸",
                 "sets": {
-                  "ch015.approach": "listen"
+                  "ch015.approach": "guild",
+                  "world.ch015.approach": "guild"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "建立免费公开课堂，先培训基础技艺",
                 "sets": {
-                  "ch015.approach": "act"
+                  "ch015.approach": "open_class",
+                  "world.ch015.approach": "open_class"
                 }
               }
             ]
@@ -694,6 +994,11 @@
             "display_name": "百工机关偶",
             "win_flag": "ch015.battle_won",
             "recommended_level": 21
+          },
+          "direction": {
+            "shot": "合同遮住原始塔规的文字",
+            "ambient": "对话留白、让冲突主角发声",
+            "note": "纯文本演出建议，尚未配套资源"
           }
         },
         {
@@ -709,22 +1014,42 @@
             {
               "id": "ch015.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "试炼图纸被抄写给公会学徒，百工塔第一次在日落后也允许平民进入。"
             },
             {
               "id": "ch015.resolve.l02",
-              "speaker": "缇珐",
-              "text": "玩家选择公开试炼图纸，职业系统正式开放。"
+              "speaker": "学徒",
+              "text": "原来盾牌试炼不需要贵族推荐。"
             },
             {
               "id": "ch015.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "缇珐",
+              "text": "记住，这些图纸会出错。你们必须继续改它。"
             },
             {
               "id": "ch015.resolve.l04",
+              "speaker": "主角",
+              "text": "技术不该靠一份终身契约才能传下去。"
+            },
+            {
+              "id": "ch015.resolve.l05",
+              "speaker": "岚音",
+              "text": "学会治疗之后，也要记得谁还得不到治疗。"
+            },
+            {
+              "id": "ch015.resolve.l06",
+              "speaker": "雷索",
+              "text": "学会保护之后，也要问为什么有人需要被保护。"
+            },
+            {
+              "id": "ch015.resolve.l07",
+              "speaker": "朔弦",
+              "text": "至于我，先去学习怎样不再把火药桶放在船舱旁。"
+            },
+            {
+              "id": "ch015.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】百工试炼。新的道路正在展开。"
+              "text": "职业试炼的古代记录归入公开档案，旅人获得转职资格。"
             }
           ],
           "objectives": [
@@ -744,7 +1069,12 @@
               "xp": 700,
               "gold": 250
             }
-          ]
+          ],
+          "direction": {
+            "shot": "学徒自己拿起抄写的图纸",
+            "ambient": "低音量环境声收尾",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         }
       ],
       "npc_reactions": [
@@ -759,7 +1089,9 @@
           "text": "听说你们在赤炉联邦·百工塔帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_03_rewrite_v2",
+      "production_notes": "第三幕人物对白与伦理困境精修，原条件/任务/场景及Boss ID均保留。"
     },
     {
       "id": "ch016",
@@ -793,22 +1125,42 @@
             {
               "id": "ch016.opening.l01",
               "speaker": "旁白",
-              "text": "【灰砂安置区】空气中藏着异样的气息。"
+              "text": "灰砂安置区的广场上，居民排队领取配额。一名老妇抱着空药盒，反复读写在盒底的名字。"
             },
             {
               "id": "ch016.opening.l02",
-              "speaker": "岚音",
-              "text": "他们还活着，为什么整个城市都装作没看见？"
+              "speaker": "老妇",
+              "text": "他们说没有这个人领过药。可药盒是我丈夫天天带回家的。"
             },
             {
               "id": "ch016.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。恢复矿工身份档案并安置家属。"
+              "speaker": "岚音",
+              "text": "我看见他的病历了，确实在矿区工作过。"
             },
             {
               "id": "ch016.opening.l04",
-              "speaker": "岚音",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "缇珐",
+              "text": "旧工厂把提取的记忆当作应急燃料，连账本都被改了。"
+            },
+            {
+              "id": "ch016.opening.l05",
+              "speaker": "雷索",
+              "text": "那这里有多少人被从登记册里划掉？"
+            },
+            {
+              "id": "ch016.opening.l06",
+              "speaker": "档案员",
+              "text": "不知道。有些人连家属也开始忘记他们。"
+            },
+            {
+              "id": "ch016.opening.l07",
+              "speaker": "主角",
+              "text": "先从仍有人记得的名字开始，逐个核实。"
+            },
+            {
+              "id": "ch016.opening.l08",
+              "speaker": "朔弦",
+              "text": "我来抄一份航运记录，也许能对上矿车出入日期。"
             }
           ],
           "objectives": [
@@ -827,7 +1179,12 @@
               "key": "ch016.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "药盒底部的名字随手指摩挲逐渐清晰",
+            "ambient": "现场工业和生活声",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch016.investigate",
@@ -840,22 +1197,42 @@
             {
               "id": "ch016.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在灰砂安置区找到了一处被忽视的痕迹。"
+              "text": "安置所墙上挂着两份名单，一份是官方名册，一份是居民自己写的。"
             },
             {
               "id": "ch016.investigate.l02",
               "speaker": "岚音",
-              "text": "矿工记忆被提取后制成公共能源。"
+              "text": "两份比起来，少了二十七个人。"
             },
             {
               "id": "ch016.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "档案员",
+              "text": "我并没有故意漏掉。我每次写完第二天，就忘记自己写过。"
             },
             {
               "id": "ch016.investigate.l04",
+              "speaker": "缇珐",
+              "text": "提取设备有反向干扰。记录者也会被影响。"
+            },
+            {
+              "id": "ch016.investigate.l05",
+              "speaker": "老妇",
+              "text": "所以我把他的名字缝进了衣服里。"
+            },
+            {
+              "id": "ch016.investigate.l06",
+              "speaker": "雷索",
+              "text": "这不是你该一个人承担的事。"
+            },
+            {
+              "id": "ch016.investigate.l07",
+              "speaker": "主角",
+              "text": "我们做三份互相校对。口述、纸本、见证人各存一处。"
+            },
+            {
+              "id": "ch016.investigate.l08",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "居民陆续在登记表旁签字，没有人再被要求独自证明自己存在。"
             }
           ],
           "objectives": [
@@ -874,7 +1251,12 @@
               "key": "ch016.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "纸名册与绣在衣角的名字并置",
+            "ambient": "金属轻响与短暂停顿",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch016.crisis",
@@ -890,22 +1272,42 @@
             {
               "id": "ch016.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "依靠低价能源生存的居民担心停工，一部分人挡在安置所门口。"
             },
             {
               "id": "ch016.crisis.l02",
-              "speaker": "岚音",
-              "text": "受益居民害怕停供，因此有人自愿替工厂掩盖罪行。"
+              "speaker": "居民甲",
+              "text": "你们关掉炉子，明天孩子就没有热水！"
             },
             {
               "id": "ch016.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "居民乙",
+              "text": "可热水是靠拿走我父亲的记忆换来的！"
             },
             {
               "id": "ch016.crisis.l04",
+              "speaker": "缇珐",
+              "text": "你们都说得对——这是我最难接受的地方。"
+            },
+            {
+              "id": "ch016.crisis.l05",
               "speaker": "岚音",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "先保证医院和供水，再逐步停掉提取设备。"
+            },
+            {
+              "id": "ch016.crisis.l06",
+              "speaker": "主角",
+              "text": "能源问题不能靠让受害者闭嘴解决。"
+            },
+            {
+              "id": "ch016.crisis.l07",
+              "speaker": "雷索",
+              "text": "由城市公共仓库提供过渡燃料，调拨记录对所有人开放。"
+            },
+            {
+              "id": "ch016.crisis.l08",
+              "speaker": "朔弦",
+              "text": "我知道一批不走官道的备用煤，先说好，这次全有收据。"
             }
           ],
           "objectives": [
@@ -923,20 +1325,22 @@
           ],
           "choice": {
             "id": "ch016.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "居民担心停炉会导致生活断供，先采取哪项措施？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "保障医院供能后公开全部矿工身份",
                 "sets": {
-                  "ch016.approach": "listen"
+                  "ch016.approach": "hospital_first",
+                  "world.ch016.approach": "hospital_first"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先公布临时补偿与能源替代时间表",
                 "sets": {
-                  "ch016.approach": "act"
+                  "ch016.approach": "timeline_first",
+                  "world.ch016.approach": "timeline_first"
                 }
               }
             ]
@@ -946,6 +1350,11 @@
             "display_name": "记忆收割机",
             "win_flag": "ch016.battle_won",
             "recommended_level": 22
+          },
+          "direction": {
+            "shot": "安置所门口两侧都是普通家庭",
+            "ambient": "对话留白、让冲突主角发声",
+            "note": "纯文本演出建议，尚未配套资源"
           }
         },
         {
@@ -961,22 +1370,42 @@
             {
               "id": "ch016.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "公开名册挂在广场上，失忆的矿工家属第一次能查到自己的登记编号。"
             },
             {
               "id": "ch016.resolve.l02",
-              "speaker": "岚音",
-              "text": "众人建立公开名册，为矿工争取补偿和姓名。"
+              "speaker": "老妇",
+              "text": "他的名字写回去了。我不必再把它藏在袖口。"
             },
             {
               "id": "ch016.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "缇珐",
+              "text": "补偿还没落实，这不能叫已经解决。"
             },
             {
               "id": "ch016.resolve.l04",
+              "speaker": "岚音",
+              "text": "至少病人能得到护理，身份不会因一台机器变成空白。"
+            },
+            {
+              "id": "ch016.resolve.l05",
+              "speaker": "主角",
+              "text": "把赔偿清单也挂上。别让道歉成为下一次遗忘。"
+            },
+            {
+              "id": "ch016.resolve.l06",
+              "speaker": "雷索",
+              "text": "记录不是结束，是责任开始的地方。"
+            },
+            {
+              "id": "ch016.resolve.l07",
+              "speaker": "朔弦",
+              "text": "至于那批备用煤……账单我已经提前给你们看了。"
+            },
+            {
+              "id": "ch016.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】被遗忘的矿工。新的道路正在展开。"
+              "text": "暮色里，安置区的路灯一点点恢复，并不再闪动。"
             }
           ],
           "objectives": [
@@ -996,7 +1425,12 @@
               "xp": 740,
               "gold": 264
             }
-          ]
+          ],
+          "direction": {
+            "shot": "登记册挂上墙，路灯保持稳定亮度",
+            "ambient": "低音量环境声收尾",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         }
       ],
       "npc_reactions": [
@@ -1011,7 +1445,9 @@
           "text": "听说你们在灰砂安置区帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_03_rewrite_v2",
+      "production_notes": "第三幕人物对白与伦理困境精修，原条件/任务/场景及Boss ID均保留。"
     },
     {
       "id": "ch017",
@@ -1045,22 +1481,37 @@
             {
               "id": "ch017.opening.l01",
               "speaker": "旁白",
-              "text": "【赤炉主炉】空气中藏着异样的气息。"
+              "text": "赤炉主炉高耸入云，钟摆和蒸汽管同时开始异常震动。"
             },
             {
               "id": "ch017.opening.l02",
               "speaker": "缇珐",
-              "text": "那颗心脏是我画的图，可我没允许它用来杀人。"
+              "text": "那套引擎最早是为了让贫民区不断电，我亲手画过第一张图。"
             },
             {
               "id": "ch017.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。关闭四组能量阀门阻止战争机械启动。"
+              "speaker": "雷索",
+              "text": "如今军队把它装进了机甲胸口。"
             },
             {
               "id": "ch017.opening.l04",
               "speaker": "缇珐",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "……我知道。红色装甲上的散热槽，也是我设计的。"
+            },
+            {
+              "id": "ch017.opening.l05",
+              "speaker": "岚音",
+              "text": "城南医院没有备用电力。现在关主炉，正在治疗的人怎么办？"
+            },
+            {
+              "id": "ch017.opening.l06",
+              "speaker": "主角",
+              "text": "既不能任它开火，也不能简单把供能全砍掉。"
+            },
+            {
+              "id": "ch017.opening.l07",
+              "speaker": "朔弦",
+              "text": "先找阀门。船漏水时也不能只想着把海堵住。"
             }
           ],
           "objectives": [
@@ -1079,7 +1530,12 @@
               "key": "ch017.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "蒸汽管如脉搏般震动",
+            "ambient": "现场工业和生活声",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch017.investigate",
@@ -1092,22 +1548,42 @@
             {
               "id": "ch017.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在赤炉主炉找到了一处被忽视的痕迹。"
+              "text": "主炉控制室里有四组能量阀，分别通向炮口、城防、医院和居民区。"
             },
             {
               "id": "ch017.investigate.l02",
               "speaker": "缇珐",
-              "text": "军方把缇珐的民生引擎改造成火炮系统。"
+              "text": "军方把医疗供电也并进了武器回路，真敢做。"
             },
             {
               "id": "ch017.investigate.l03",
               "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "text": "能单独切断炮口吗？"
             },
             {
               "id": "ch017.investigate.l04",
+              "speaker": "缇珐",
+              "text": "理论上能。前提是有人在外面帮我稳住压强。"
+            },
+            {
+              "id": "ch017.investigate.l05",
+              "speaker": "雷索",
+              "text": "我去机甲腿部关节附近，尽量拖住它。"
+            },
+            {
+              "id": "ch017.investigate.l06",
+              "speaker": "岚音",
+              "text": "医院那边我去联系医师，准备手动供氧。"
+            },
+            {
+              "id": "ch017.investigate.l07",
+              "speaker": "朔弦",
+              "text": "我找仓库管理员，把备用电池先拉出来。"
+            },
+            {
+              "id": "ch017.investigate.l08",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "巨型机甲开始第一次充能，整个城区都能听见金属的喘息声。"
             }
           ],
           "objectives": [
@@ -1126,7 +1602,12 @@
               "key": "ch017.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "四组阀门分别投影不同社区",
+            "ambient": "金属轻响与短暂停顿",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch017.crisis",
@@ -1142,22 +1623,47 @@
             {
               "id": "ch017.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "控制台提示“关闭炮口将导致全区供电失衡”，倒计时开始。"
             },
             {
               "id": "ch017.crisis.l02",
-              "speaker": "缇珐",
-              "text": "关机将使医院短时间断电，直接爆破又会伤及全城。"
+              "speaker": "军方技官",
+              "text": "让它开一炮！只要打掉叛乱街区，我们还能控制局面！"
             },
             {
               "id": "ch017.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "缇珐",
+              "text": "那边住的是维修工的家人！"
             },
             {
               "id": "ch017.crisis.l04",
+              "speaker": "军方技官",
+              "text": "技术是工具，决定用途的是上级！"
+            },
+            {
+              "id": "ch017.crisis.l05",
+              "speaker": "主角",
+              "text": "做出决定的人必须看见结果。别把人的命当成开关。"
+            },
+            {
+              "id": "ch017.crisis.l06",
+              "speaker": "雷索",
+              "text": "我可以挡下第一击，但挡不了第二次。"
+            },
+            {
+              "id": "ch017.crisis.l07",
+              "speaker": "岚音",
+              "text": "医院已有三分钟临时供电。我们只有这一次机会。"
+            },
+            {
+              "id": "ch017.crisis.l08",
+              "speaker": "朔弦",
+              "text": "备用电池到了！先别问我是怎么从仓库拖出来的！"
+            },
+            {
+              "id": "ch017.crisis.l09",
               "speaker": "缇珐",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "我来接线。别碰左侧那条红管！"
             }
           ],
           "objectives": [
@@ -1175,20 +1681,22 @@
           ],
           "choice": {
             "id": "ch017.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "主炉失控，城内供电告急。你如何组织队伍？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先为医院建立临时电力保障",
                 "sets": {
-                  "ch017.approach": "listen"
+                  "ch017.approach": "hospital_backup",
+                  "world.ch017.approach": "hospital_backup"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先切断机甲炮口，争取保护时间",
                 "sets": {
-                  "ch017.approach": "act"
+                  "ch017.approach": "weapon_lock",
+                  "world.ch017.approach": "weapon_lock"
                 }
               }
             ]
@@ -1198,6 +1706,11 @@
             "display_name": "赤炉巨机",
             "win_flag": "ch017.battle_won",
             "recommended_level": 23
+          },
+          "direction": {
+            "shot": "机甲炮口与医院供氧灯快速切换",
+            "ambient": "对话留白、让冲突主角发声",
+            "note": "纯文本演出建议，尚未配套资源"
           }
         },
         {
@@ -1213,22 +1726,42 @@
             {
               "id": "ch017.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "最后一组阀门关闭，机甲的炮口慢慢垂下，城市灯火经历短暂闪烁后重新稳定。"
             },
             {
               "id": "ch017.resolve.l02",
               "speaker": "缇珐",
-              "text": "队伍分头抢修备用发电机，阻止机械暴走。"
+              "text": "它没有开火……医院也还有电。"
             },
             {
               "id": "ch017.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "岚音",
+              "text": "重症病人暂时安全。我们还得尽快修复供能。"
             },
             {
               "id": "ch017.resolve.l04",
+              "speaker": "雷索",
+              "text": "有些人以为胜利是打倒敌人。今天只是没让灾难发生。"
+            },
+            {
+              "id": "ch017.resolve.l05",
+              "speaker": "主角",
+              "text": "下一步要改的，是这个城市为什么得用同一台机器决定生死。"
+            },
+            {
+              "id": "ch017.resolve.l06",
+              "speaker": "缇珐",
+              "text": "我会把原始设计图和改造记录全部公开。"
+            },
+            {
+              "id": "ch017.resolve.l07",
+              "speaker": "朔弦",
+              "text": "还有我的煤单。那可比战争机器便宜多了。"
+            },
+            {
+              "id": "ch017.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】熔炉暴走。新的道路正在展开。"
+              "text": "蒸汽渐渐散去，炉城第一次听清下方居民的脚步。"
             }
           ],
           "objectives": [
@@ -1248,7 +1781,12 @@
               "xp": 780,
               "gold": 278
             }
-          ]
+          ],
+          "direction": {
+            "shot": "炮口垂下时只保留风与呼吸声",
+            "ambient": "低音量环境声收尾",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         }
       ],
       "npc_reactions": [
@@ -1263,7 +1801,9 @@
           "text": "听说你们在赤炉主炉帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_03_rewrite_v2",
+      "production_notes": "第三幕人物对白与伦理困境精修，原条件/任务/场景及Boss ID均保留。"
     },
     {
       "id": "ch018",
@@ -1297,22 +1837,42 @@
             {
               "id": "ch018.opening.l01",
               "speaker": "旁白",
-              "text": "【炉心母灯室】空气中藏着异样的气息。"
+              "text": "炉心母灯藏在工厂深处。它的护罩上写满曾经被匿名献出的“能源供给”编号。"
             },
             {
               "id": "ch018.opening.l02",
               "speaker": "缇珐",
-              "text": "我不是要证明自己没错，我想让他们不必再受伤。"
+              "text": "那不是矿石编号，是被提取过记忆的人。"
             },
             {
               "id": "ch018.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。重建能源回路并向公众公布燃料来源。"
+              "speaker": "岚音",
+              "text": "那他们有权知道自己的过去被拿去做了什么。"
             },
             {
               "id": "ch018.opening.l04",
+              "speaker": "主角",
+              "text": "我们能以别的方法点亮它吗？"
+            },
+            {
+              "id": "ch018.opening.l05",
               "speaker": "缇珐",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "可以。把大炉拆成千百个小节点，各自只提供愿意承担的部分。"
+            },
+            {
+              "id": "ch018.opening.l06",
+              "speaker": "雷索",
+              "text": "那旧议会凭什么认定，少数人必须永远付出代价？"
+            },
+            {
+              "id": "ch018.opening.l07",
+              "speaker": "朔弦",
+              "text": "大人物通常喜欢一台谁都管不着的大机器。维修费可不便宜。"
+            },
+            {
+              "id": "ch018.opening.l08",
+              "speaker": "旁白",
+              "text": "母灯内部的记录投射出城市多年运行的能源曲线。"
             }
           ],
           "objectives": [
@@ -1331,7 +1891,12 @@
               "key": "ch018.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "灯芯编号缓慢变成人名",
+            "ambient": "现场工业和生活声",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch018.investigate",
@@ -1344,22 +1909,37 @@
             {
               "id": "ch018.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在炉心母灯室找到了一处被忽视的痕迹。"
+              "text": "古代图纸显示，最初的炉心灯是一套低功率共享回路。"
             },
             {
               "id": "ch018.investigate.l02",
               "speaker": "缇珐",
-              "text": "炉心灯本可由低功率共享网络维持，从来不必吞噬记忆。"
+              "text": "原来它根本不需要夺走记忆。那只是后来有人为求效率加上的捷径。"
             },
             {
               "id": "ch018.investigate.l03",
               "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "text": "谁改的？"
             },
             {
               "id": "ch018.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "档案管理员",
+              "text": "几代工匠和官员都签过字。没有哪个人能独自背全部责任。"
+            },
+            {
+              "id": "ch018.investigate.l05",
+              "speaker": "岚音",
+              "text": "但每个签过字的人，都可以说明当时为什么没有阻止。"
+            },
+            {
+              "id": "ch018.investigate.l06",
+              "speaker": "雷索",
+              "text": "这份记录不能只给幸存者看，也要公开给未来的工匠。"
+            },
+            {
+              "id": "ch018.investigate.l07",
+              "speaker": "朔弦",
+              "text": "我来安排街头公告。别再让好消息只走贵族的门。"
             }
           ],
           "objectives": [
@@ -1378,7 +1958,12 @@
               "key": "ch018.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "古图纸的低功率节点与新设计叠印",
+            "ambient": "金属轻响与短暂停顿",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         },
         {
           "id": "ch018.crisis",
@@ -1394,22 +1979,47 @@
             {
               "id": "ch018.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "炉心旧统治者挡在总控台前。城市的工人正在等是否停工的决定。"
             },
             {
               "id": "ch018.crisis.l02",
-              "speaker": "缇珐",
-              "text": "旧统治者威胁公布真相会毁灭工业信誉。"
+              "speaker": "旧总督",
+              "text": "公布一切，你们会毁掉赤炉的信誉。再没有人敢用我们的设备！"
             },
             {
               "id": "ch018.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "缇珐",
+              "text": "也许他们本来就不该毫无怀疑地用。"
             },
             {
               "id": "ch018.crisis.l04",
+              "speaker": "旧总督",
+              "text": "工业需要代价，不是每个人都能理解。"
+            },
+            {
+              "id": "ch018.crisis.l05",
+              "speaker": "矿工妻子",
+              "text": "代价是谁付的，我们这些人比你更明白。"
+            },
+            {
+              "id": "ch018.crisis.l06",
+              "speaker": "主角",
+              "text": "工人可以选择怎样分担，而不是被迫献出记忆。"
+            },
+            {
+              "id": "ch018.crisis.l07",
+              "speaker": "岚音",
+              "text": "医院可以配合分时供电。我们已经做过一次。"
+            },
+            {
+              "id": "ch018.crisis.l08",
+              "speaker": "雷索",
+              "text": "旧制度的结束不必靠一场屠杀，但真相必须公开。"
+            },
+            {
+              "id": "ch018.crisis.l09",
               "speaker": "缇珐",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "把停工通知发出去。我会留在这里直到灯重新亮起。"
             }
           ],
           "objectives": [
@@ -1427,20 +2037,22 @@
           ],
           "choice": {
             "id": "ch018.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "公开旧能源真相时，你希望先保证哪一点？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "由矿工家属监督停工与补偿方案",
                 "sets": {
-                  "ch018.approach": "listen"
+                  "ch018.approach": "victim_oversight",
+                  "world.ch018.approach": "victim_oversight"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "让工厂和医院公开每项替代供能计划",
                 "sets": {
-                  "ch018.approach": "act"
+                  "ch018.approach": "energy_transparency",
+                  "world.ch018.approach": "energy_transparency"
                 }
               }
             ]
@@ -1450,6 +2062,11 @@
             "display_name": "炉心监察者",
             "win_flag": "ch018.battle_won",
             "recommended_level": 24
+          },
+          "direction": {
+            "shot": "总督高台下出现普通矿工的举手",
+            "ambient": "对话留白、让冲突主角发声",
+            "note": "纯文本演出建议，尚未配套资源"
           }
         },
         {
@@ -1465,22 +2082,47 @@
             {
               "id": "ch018.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "各厂区短暂熄灯，工人们在窗口逐一亮起手灯，低功率网络开始接通。"
             },
             {
               "id": "ch018.resolve.l02",
-              "speaker": "缇珐",
-              "text": "市民自愿停工配合改造，炉心灯重燃。"
+              "speaker": "学徒",
+              "text": "第一组稳定了！第二组也亮了！"
             },
             {
               "id": "ch018.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "缇珐",
+              "text": "供能很少，但这是他们自己愿意给出的。"
             },
             {
               "id": "ch018.resolve.l04",
+              "speaker": "岚音",
+              "text": "医院还在运作，今天没有人因为停炉失去治疗。"
+            },
+            {
+              "id": "ch018.resolve.l05",
+              "speaker": "矿工妻子",
+              "text": "我丈夫的记忆还没有回来。我希望以后有人记得这件事。"
+            },
+            {
+              "id": "ch018.resolve.l06",
+              "speaker": "主角",
+              "text": "那就把失去的也写进历史。不能只庆祝今天成功了。"
+            },
+            {
+              "id": "ch018.resolve.l07",
+              "speaker": "雷索",
+              "text": "新的制度会被人考验。让它经得起质询。"
+            },
+            {
+              "id": "ch018.resolve.l08",
+              "speaker": "朔弦",
+              "text": "先吃顿饭吧，我看缇珐眼睛都快合上了。"
+            },
+            {
+              "id": "ch018.resolve.l09",
               "speaker": "旁白",
-              "text": "【任务完成】真正的炉火。新的道路正在展开。"
+              "text": "炉心母灯重燃，灯光沿着无数条细小的街道向远处延伸。"
             }
           ],
           "objectives": [
@@ -1500,7 +2142,12 @@
               "xp": 820,
               "gold": 292
             }
-          ]
+          ],
+          "direction": {
+            "shot": "小窗户的手灯从远景接成细碎光线",
+            "ambient": "低音量环境声收尾",
+            "note": "纯文本演出建议，尚未配套资源"
+          }
         }
       ],
       "npc_reactions": [
@@ -1515,7 +2162,10 @@
           "text": "听说你们在炉心母灯室帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_03_rewrite_v2",
+      "production_notes": "第三幕人物对白与伦理困境精修，原条件/任务/场景及Boss ID均保留。"
     }
-  ]
+  ],
+  "dialogue_revision": "act_03_rewrite_v2"
 }

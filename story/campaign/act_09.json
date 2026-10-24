@@ -225,20 +225,22 @@
           ],
           "choice": {
             "id": "ch049.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "诺依如何回应质疑旧英雄的人？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "同时记录获救者与失去亲人的证言",
                 "sets": {
-                  "ch049.approach": "hear"
+                  "ch049.approach": "record",
+                  "world.ch049.approach": "record"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "邀请年轻旅人一同参加救援后再评价",
                 "sets": {
-                  "ch049.approach": "protect"
+                  "ch049.approach": "action",
+                  "world.ch049.approach": "action"
                 }
               }
             ]
@@ -333,7 +335,8 @@
       ],
       "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
       "playable_character": "诺依",
-      "pov_mode": "twelve_years_after"
+      "pov_mode": "twelve_years_after",
+      "script_revision": "act09_dialogue_v2"
     },
     {
       "id": "ch050",
@@ -550,20 +553,22 @@
           ],
           "choice": {
             "id": "ch050.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "两区登记互不承认，该怎样改变？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "要求设置跨区紧急医疗通道",
                 "sets": {
-                  "ch050.approach": "hear"
+                  "ch050.approach": "corridor",
+                  "world.ch050.approach": "corridor"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先让医师共同署名，保全病历证据",
                 "sets": {
-                  "ch050.approach": "protect"
+                  "ch050.approach": "medical_record",
+                  "world.ch050.approach": "medical_record"
                 }
               }
             ]
@@ -656,7 +661,8 @@
           "text": "以后再说起十二年后·三誓王都，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_dialogue_v2"
     },
     {
       "id": "ch051",
@@ -878,20 +884,22 @@
           ],
           "choice": {
             "id": "ch051.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "诺依怎样邀请失意的主角？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "说明新队伍的具体计划，让他自行决定",
                 "sets": {
-                  "ch051.approach": "hear"
+                  "ch051.approach": "plan",
+                  "world.ch051.approach": "plan"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先留下一盏手灯，不要求立即同行",
                 "sets": {
-                  "ch051.approach": "protect"
+                  "ch051.approach": "leave_lamp",
+                  "world.ch051.approach": "leave_lamp"
                 }
               }
             ]
@@ -989,7 +997,8 @@
           "text": "以后再说起雾岭·偏远农庄，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_dialogue_v2"
     },
     {
       "id": "ch052",
@@ -1206,20 +1215,22 @@
           ],
           "choice": {
             "id": "ch052.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "重聚的队伍如何分配责任？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "让诺依负责新队伍的救援路线",
                 "sets": {
-                  "ch052.approach": "hear"
+                  "ch052.approach": "noi_lead",
+                  "world.ch052.approach": "noi_lead"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "建立轮值领队制度，由所有人共同商议",
                 "sets": {
-                  "ch052.approach": "protect"
+                  "ch052.approach": "rotation",
+                  "world.ch052.approach": "rotation"
                 }
               }
             ]
@@ -1317,7 +1328,8 @@
           "text": "以后再说起暮林古道，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_dialogue_v2"
     },
     {
       "id": "ch053",
@@ -1534,20 +1546,22 @@
           ],
           "choice": {
             "id": "ch053.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对不愿原谅的家属，主角怎样行动？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "尊重对方边界，转而修复公共安全设施",
                 "sets": {
-                  "ch053.approach": "hear"
+                  "ch053.approach": "respect",
+                  "world.ch053.approach": "respect"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "提出公开修复计划，由村民投票决定",
                 "sets": {
-                  "ch053.approach": "protect"
+                  "ch053.approach": "community_vote",
+                  "world.ch053.approach": "community_vote"
                 }
               }
             ]
@@ -1645,7 +1659,8 @@
           "text": "以后再说起晨露村·旧灯塔，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_dialogue_v2"
     },
     {
       "id": "ch054",
@@ -1862,20 +1877,22 @@
           ],
           "choice": {
             "id": "ch054.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "营地救援将如何决定领导者？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "由诺依组织公开分工与质询",
                 "sets": {
-                  "ch054.approach": "hear"
+                  "ch054.approach": "noi_coordination",
+                  "world.ch054.approach": "noi_coordination"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "按每项技能选择现场负责人",
                 "sets": {
-                  "ch054.approach": "protect"
+                  "ch054.approach": "specialists",
+                  "world.ch054.approach": "specialists"
                 }
               }
             ]
@@ -1978,8 +1995,9 @@
           "text": "以后再说起旧洲·新生营地，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act09_dialogue_v2"
     }
   ],
-  "dialogue_revision": "integrated_full_dialogue_v2_from_story"
+  "dialogue_revision": "act09_dialogue_v2"
 }

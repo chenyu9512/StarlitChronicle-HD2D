@@ -220,20 +220,22 @@
           ],
           "choice": {
             "id": "ch061.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "驶向天轨时优先保障什么？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "先建往返补给站和撤离航路",
                 "sets": {
-                  "ch061.approach": "hear"
+                  "ch061.approach": "return_station",
+                  "world.ch061.approach": "return_station"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "优先修好星帆和医护舱，再正式出航",
                 "sets": {
-                  "ch061.approach": "protect"
+                  "ch061.approach": "medical_ship",
+                  "world.ch061.approach": "medical_ship"
                 }
               }
             ]
@@ -331,7 +333,8 @@
           "text": "以后再说起天轨外海·浮空船坞，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act11_dialogue_v2"
     },
     {
       "id": "ch062",
@@ -548,20 +551,22 @@
           ],
           "choice": {
             "id": "ch062.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对原初实验数据，你优先如何处理？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "公开原始报告并注明不确定性",
                 "sets": {
-                  "ch062.approach": "hear"
+                  "ch062.approach": "publish_report",
+                  "world.ch062.approach": "publish_report"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先保全受害者记录，再停止自动执行",
                 "sets": {
-                  "ch062.approach": "protect"
+                  "ch062.approach": "protect_records",
+                  "world.ch062.approach": "protect_records"
                 }
               }
             ]
@@ -659,7 +664,8 @@
           "text": "以后再说起天轨圣域·原初实验室，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act11_dialogue_v2"
     },
     {
       "id": "ch063",
@@ -876,20 +882,22 @@
           ],
           "choice": {
             "id": "ch063.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对被删除的命运记录，主角选择什么？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "保留未来空白，公开澄舟的研究事实",
                 "sets": {
-                  "ch063.approach": "hear"
+                  "ch063.approach": "keep_blank",
+                  "world.ch063.approach": "keep_blank"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "整理父亲的历史档案，让后人自行查阅",
                 "sets": {
-                  "ch063.approach": "protect"
+                  "ch063.approach": "preserve_history",
+                  "world.ch063.approach": "preserve_history"
                 }
               }
             ]
@@ -987,7 +995,8 @@
           "text": "以后再说起天轨圣域·澄舟密室，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act11_dialogue_v2"
     },
     {
       "id": "ch064",
@@ -1204,20 +1213,22 @@
           ],
           "choice": {
             "id": "ch064.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "天衡母灯解锁后应先设什么保障？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "分步开放未来路径，建立地区风险告知",
                 "sets": {
-                  "ch064.approach": "hear"
+                  "ch064.approach": "staged",
+                  "world.ch064.approach": "staged"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "同步共享节点控制权，限制单人操作",
                 "sets": {
-                  "ch064.approach": "protect"
+                  "ch064.approach": "distributed",
+                  "world.ch064.approach": "distributed"
                 }
               }
             ]
@@ -1315,7 +1326,8 @@
           "text": "以后再说起天衡母灯坛，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act11_dialogue_v2"
     },
     {
       "id": "ch065",
@@ -1532,20 +1544,22 @@
           ],
           "choice": {
             "id": "ch065.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "议会要求删除互相矛盾的记录，如何回应？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "保留全部证词并公开历史争议",
                 "sets": {
-                  "ch065.approach": "hear"
+                  "ch065.approach": "keep_all",
+                  "world.ch065.approach": "keep_all"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "为每份争议附上来源与责任说明",
                 "sets": {
-                  "ch065.approach": "protect"
+                  "ch065.approach": "annotate",
+                  "world.ch065.approach": "annotate"
                 }
               }
             ]
@@ -1643,7 +1657,8 @@
           "text": "以后再说起天轨圣域·环形议会，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act11_dialogue_v2"
     },
     {
       "id": "ch066",
@@ -1860,20 +1875,22 @@
           ],
           "choice": {
             "id": "ch066.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "进入永昼核心之前先准备什么？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "同步七地愿意参与者的共同见证",
                 "sets": {
-                  "ch066.approach": "hear"
+                  "ch066.approach": "witness",
+                  "world.ch066.approach": "witness"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先确认永昼居民的安全通行与撤离权",
                 "sets": {
-                  "ch066.approach": "protect"
+                  "ch066.approach": "safe_entry",
+                  "world.ch066.approach": "safe_entry"
                 }
               }
             ]
@@ -1976,8 +1993,9 @@
           "text": "以后再说起天轨圣域·终末天桥，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act11_dialogue_v2"
     }
   ],
-  "dialogue_revision": "integrated_full_dialogue_v2_from_story"
+  "dialogue_revision": "act11_dialogue_v2"
 }

@@ -220,20 +220,22 @@
           ],
           "choice": {
             "id": "ch067.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "花园居民面对选择权时，怎样给予支持？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "先建立公开的选择与退出说明",
                 "sets": {
-                  "ch067.approach": "hear"
+                  "ch067.approach": "public_choice",
+                  "world.ch067.approach": "public_choice"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先照顾不愿离开的家庭，并帮助孩子表达愿望",
                 "sets": {
-                  "ch067.approach": "protect"
+                  "ch067.approach": "family_support",
+                  "world.ch067.approach": "family_support"
                 }
               }
             ]
@@ -331,7 +333,8 @@
           "text": "以后再说起永昼界·迎宾花园，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act12_dialogue_v2"
     },
     {
       "id": "ch068",
@@ -543,20 +546,22 @@
           ],
           "choice": {
             "id": "ch068.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "遇见最想念的人时，你如何面对？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "珍惜回忆，不接受永久停滞",
                 "sets": {
-                  "ch068.approach": "hear"
+                  "ch068.approach": "carry_memory",
+                  "world.ch068.approach": "carry_memory"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先与伙伴分享所见，确认彼此是否愿意离开",
                 "sets": {
-                  "ch068.approach": "protect"
+                  "ch068.approach": "share_grief",
+                  "world.ch068.approach": "share_grief"
                 }
               }
             ]
@@ -654,7 +659,8 @@
           "text": "以后再说起永昼界·归人长廊，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act12_dialogue_v2"
     },
     {
       "id": "ch069",
@@ -871,20 +877,22 @@
           ],
           "choice": {
             "id": "ch069.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "永昼居民意见不同，怎样组织讨论？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "开放所有记录，确保居民知情发言",
                 "sets": {
-                  "ch069.approach": "hear"
+                  "ch069.approach": "open_records",
+                  "world.ch069.approach": "open_records"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "优先设计离开与留下都能获得照护的制度",
                 "sets": {
-                  "ch069.approach": "protect"
+                  "ch069.approach": "both_paths",
+                  "world.ch069.approach": "both_paths"
                 }
               }
             ]
@@ -982,7 +990,8 @@
           "text": "以后再说起永昼界·静时城市，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act12_dialogue_v2"
     },
     {
       "id": "ch070",
@@ -1199,20 +1208,22 @@
           ],
           "choice": {
             "id": "ch070.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "评议庭如何保存各种立场？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "公开保留全部方案及反对意见",
                 "sets": {
-                  "ch070.approach": "hear"
+                  "ch070.approach": "full_record",
+                  "world.ch070.approach": "full_record"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先要求各地写明承担的风险与监督机制",
                 "sets": {
-                  "ch070.approach": "protect"
+                  "ch070.approach": "accountability",
+                  "world.ch070.approach": "accountability"
                 }
               }
             ]
@@ -1310,7 +1321,8 @@
           "text": "以后再说起永昼界·七灯评议庭，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act12_dialogue_v2"
     },
     {
       "id": "ch071",
@@ -1532,20 +1544,22 @@
           ],
           "choice": {
             "id": "ch071.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对赫西安的最后诱惑，怎样回答？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "承认不能保证幸福，但拒绝永恒控制",
                 "sets": {
-                  "ch071.approach": "hear"
+                  "ch071.approach": "refuse_control",
+                  "world.ch071.approach": "refuse_control"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "提出由各地共同承担未来风险的具体承诺",
                 "sets": {
-                  "ch071.approach": "protect"
+                  "ch071.approach": "shared_responsibility",
+                  "world.ch071.approach": "shared_responsibility"
                 }
               }
             ]
@@ -1643,7 +1657,8 @@
           "text": "以后再说起永昼界·终幕殿，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act12_dialogue_v2"
     },
     {
       "id": "ch072",
@@ -1860,20 +1875,22 @@
           ],
           "choice": {
             "id": "ch072.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "最后的星灯应如何照亮未来？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "先与各地见证者确认承担方式",
                 "sets": {
-                  "ch072.approach": "hear"
+                  "ch072.approach": "delegate",
+                  "world.ch072.approach": "delegate"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "把选择解释给下一代，再完成最终决定",
                 "sets": {
-                  "ch072.approach": "protect"
+                  "ch072.approach": "explain",
+                  "world.ch072.approach": "explain"
                 }
               }
             ]
@@ -1969,24 +1986,24 @@
           },
           "dialogue": [
             {
-              "id": "ch072.ending.l01",
-              "speaker": "赫西安",
-              "text": "你确定了吗？世界会再次犯错。"
-            },
-            {
-              "id": "ch072.ending.l02",
-              "speaker": "主角",
-              "text": "我无法替所有人保证幸福，但我能保证，他们的明天不该被夺走。"
-            },
-            {
-              "id": "ch072.ending.l03",
-              "speaker": "诺依",
-              "text": "我会把你们的故事继续讲下去。"
-            },
-            {
-              "id": "ch072.ending.l04",
               "speaker": "旁白",
-              "text": "新的太阳升起。世界依然不完美，却仍在前进。"
+              "text": "七灯评议庭的最终记录在晨露海岸展开。三个未来都需要承担真实的代价。",
+              "id": "ch072.ending.l01"
+            },
+            {
+              "speaker": "维莎",
+              "text": "无论决定是什么，不能再用一份统计表替所有人签名。",
+              "id": "ch072.ending.l02"
+            },
+            {
+              "speaker": "诺依",
+              "text": "我们会继续活下去，也会继续提出不同的意见。",
+              "id": "ch072.ending.l03"
+            },
+            {
+              "speaker": "主角",
+              "text": "那么，把这个世界的明天交还给仍然生活在其中的人吧。",
+              "id": "ch072.ending.l04"
             }
           ],
           "objectives": [
@@ -1998,7 +2015,7 @@
           "effects": [],
           "choice": {
             "id": "world.ending",
-            "prompt": "选择世界未来",
+            "prompt": "选择世界的下一段历史。三条道路各有责任，任何一条都不保证永远不会失去。",
             "options": [
               {
                 "id": "keep",
@@ -2027,6 +2044,10 @@
                 }
               }
             ]
+          },
+          "direction": {
+            "shot": "最后的手灯与海上日出重叠，镜头在结局选择后转入对应后日谈",
+            "note": "A/B/C 各自独立后日谈在 story/data/endings.json；不得只播放同一段公共结语"
           }
         }
       ],
@@ -2042,8 +2063,9 @@
           "text": "以后再说起晨露海岸·黎明，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act12_dialogue_v2"
     }
   ],
-  "dialogue_revision": "integrated_full_dialogue_v2_from_story"
+  "dialogue_revision": "act12_dialogue_v2"
 }

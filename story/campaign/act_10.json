@@ -220,20 +220,22 @@
           ],
           "choice": {
             "id": "ch055.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "第一栋公共修缮房屋如何分配？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "优先安排急需住处的家庭，签临时住用协议",
                 "sets": {
-                  "ch055.approach": "hear"
+                  "ch055.approach": "urgent",
+                  "world.ch055.approach": "urgent"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先公开地契和修缮资金，再由居民商议",
                 "sets": {
-                  "ch055.approach": "protect"
+                  "ch055.approach": "public_review",
+                  "world.ch055.approach": "public_review"
                 }
               }
             ]
@@ -331,7 +333,8 @@
           "text": "以后再说起群灯之城·西区，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2"
     },
     {
       "id": "ch056",
@@ -538,20 +541,22 @@
           ],
           "choice": {
             "id": "ch056.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "冒险者新公会的首要章程是什么？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "公开费用、委托风险与撤退权",
                 "sets": {
-                  "ch056.approach": "hear"
+                  "ch056.approach": "transparent",
+                  "world.ch056.approach": "transparent"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先保障市民参与的监督与申诉渠道",
                 "sets": {
-                  "ch056.approach": "protect"
+                  "ch056.approach": "civil_oversight",
+                  "world.ch056.approach": "civil_oversight"
                 }
               }
             ]
@@ -649,7 +654,8 @@
           "text": "以后再说起群灯之城·旧会馆，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2"
     },
     {
       "id": "ch057",
@@ -866,20 +872,22 @@
           ],
           "choice": {
             "id": "ch057.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "城市广场应如何安排不同传统？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "由各族群轮流主持公开节日",
                 "sets": {
-                  "ch057.approach": "hear"
+                  "ch057.approach": "rotating",
+                  "world.ch057.approach": "rotating"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "兼设安静时段与自由参与的公共活动",
                 "sets": {
-                  "ch057.approach": "protect"
+                  "ch057.approach": "inclusive",
+                  "world.ch057.approach": "inclusive"
                 }
               }
             ]
@@ -972,7 +980,8 @@
           "text": "以后再说起群灯之城·居民街，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2"
     },
     {
       "id": "ch058",
@@ -1189,20 +1198,22 @@
           ],
           "choice": {
             "id": "ch058.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "如何处理叛逃记灯师维莎？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "先保护证人与原始记录，再举行公开听证",
                 "sets": {
-                  "ch058.approach": "hear"
+                  "ch058.approach": "public_hearing",
+                  "world.ch058.approach": "public_hearing"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先邀请受害者代表参与调查与监督",
                 "sets": {
-                  "ch058.approach": "protect"
+                  "ch058.approach": "victim_panel",
+                  "world.ch058.approach": "victim_panel"
                 }
               }
             ]
@@ -1305,7 +1316,8 @@
           "text": "以后再说起城郊·封存档案车，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2"
     },
     {
       "id": "ch059",
@@ -1517,20 +1529,22 @@
           ],
           "choice": {
             "id": "ch059.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "面对强制征兵提议，先强调什么？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "明确拒绝强制服役，建立志愿防卫",
                 "sets": {
-                  "ch059.approach": "hear"
+                  "ch059.approach": "right_refuse",
+                  "world.ch059.approach": "right_refuse"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先统计自愿医疗、后勤与工匠承诺",
                 "sets": {
-                  "ch059.approach": "protect"
+                  "ch059.approach": "civil_support",
+                  "world.ch059.approach": "civil_support"
                 }
               }
             ]
@@ -1633,7 +1647,8 @@
           "text": "以后再说起群灯城·自由议事厅，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2"
     },
     {
       "id": "ch060",
@@ -1850,20 +1865,22 @@
           ],
           "choice": {
             "id": "ch060.choice",
-            "prompt": "当前冲突应优先处理哪一件事？",
+            "prompt": "群灯网初次启动应采取什么方案？",
             "options": [
               {
                 "id": "hear",
-                "label": "先取得更多证词",
+                "label": "先由社区代表确认自愿接入，再逐区亮灯",
                 "sets": {
-                  "ch060.approach": "hear"
+                  "ch060.approach": "community",
+                  "world.ch060.approach": "community"
                 }
               },
               {
                 "id": "protect",
-                "label": "先保护受威胁的人",
+                "label": "先独立启动医院与疏散所的备用节点",
                 "sets": {
-                  "ch060.approach": "protect"
+                  "ch060.approach": "emergency_nodes",
+                  "world.ch060.approach": "emergency_nodes"
                 }
               }
             ]
@@ -1966,8 +1983,9 @@
           "text": "以后再说起群灯城·星灯中枢，人们应该不会忘记今天。"
         }
       ],
-      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2"
     }
   ],
-  "dialogue_revision": "integrated_full_dialogue_v2_from_story"
+  "dialogue_revision": "act10_dialogue_v2"
 }

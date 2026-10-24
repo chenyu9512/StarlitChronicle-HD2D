@@ -1302,41 +1302,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "风压造成全队行动延迟，船主提供航图可抵消",
           "dialogue": [
             {
               "speaker": "逆风海魁",
-              "text": "海盗首领想独占海域，让其他船只能向其缴费。"
+              "text": "我守了这片风二十年。你们想来就来？"
             },
             {
-              "speaker": "伊泽",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "朔弦",
+              "text": "你守的是收费亭，不是风。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血后海魁试图关闭灯塔，需保护公共锚点",
           "dialogue": [
             {
               "speaker": "逆风海魁",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "没人会免费替别人守夜！"
             },
             {
-              "speaker": "主角",
-              "text": "风航灯依靠不同船队共享航路记忆维持。"
+              "speaker": "伊泽",
+              "text": "那让每条船自己作决定，不用替他们拒绝。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "伊泽",
-          "text": "群岛组成航路公约，风航灯照亮远海。"
+          "speaker": "船主甲",
+          "text": "风航灯属于所有愿意共同维护航路的人。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "风航群岛的旧海盗首领，试图用海兽与独占航标维持垄断。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch031",
@@ -1596,30 +1598,30 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "睡眠异常状态要求队友相互呼唤才能解除",
           "dialogue": [
             {
               "speaker": "梦境王座",
-              "text": "赫西安的投影许诺让每个人见回死去的亲人。"
+              "text": "醒来会带来离别。拒绝唤醒。"
             },
             {
               "speaker": "玄璃",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "离开是他们自己的选择，不是你的错误。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血封闭全部退出门，恢复自愿锚点可降低防护",
           "dialogue": [
             {
               "speaker": "梦境王座",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "正在删除未经允许的明日。"
             },
             {
-              "speaker": "主角",
-              "text": "镜眠灯被赫西安改写，将居民的自由愿望转成静止能源。"
+              "speaker": "岚音",
+              "text": "先恢复退出门，再让每个人决定何时醒来。"
             }
           ]
         }
@@ -1627,10 +1629,12 @@
       "after_battle": [
         {
           "speaker": "玄璃",
-          "text": "众人选择不接受永恒停滞，镜眠灯恢复原有的开放功能。"
+          "text": "从今以后，他们的梦和清晨都属于自己。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "镜眠王座由永久安宁计划驱动，防御机制来自居民被限制的选择权。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch037",
@@ -1890,41 +1894,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "多阶段护卫与生存压力",
+          "mechanic": "队伍需保护不同群体的见证石板不被抹除",
           "dialogue": [
             {
               "speaker": "根忆哀歌",
-              "text": "少数旧贵族拒绝让被驱逐的人重返历史。"
+              "text": "矛盾者将被遗忘，历史方可稳定。"
             },
             {
               "speaker": "伊泽",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "有矛盾也要留下，不然只是一张伪造的谱。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血启动姓名消失机制，完整见证可阻止技能",
           "dialogue": [
             {
               "speaker": "根忆哀歌",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "不同姓名，禁止同页。"
             },
             {
-              "speaker": "主角",
-              "text": "根忆灯回应的不是献祭，而是彼此承认存在的见证。"
+              "speaker": "诺依",
+              "text": "那我妈妈的名字呢？她也该有地方被记住。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "伊泽",
-          "text": "居民轮流报出姓名与故事，根忆灯亮起，失落旧洲重现。"
+          "speaker": "旧族代表",
+          "text": "名字终于回来了，我们也终于能继续争论。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "根忆母灯的防御残响，试图以删除不一致历史换取统一过去。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch043",
@@ -2184,41 +2190,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "多阶段护卫与生存压力",
+          "mechanic": "该战不是常规击杀，胜利条件为坚持足够回合使最后一船离开",
           "dialogue": [
             {
               "speaker": "黑星化身",
-              "text": "继续战斗也无法阻止灯网失衡，某些城市注定消失。"
+              "text": "未来将闭合，伤痛不再发生。"
             },
             {
-              "speaker": "岚音",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "主角",
+              "text": "先送最后一艘船走！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "第二阶段黑星会吞没航标，保护灯塔信号至船只出海",
           "dialogue": [
             {
               "speaker": "黑星化身",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "所有路线将被封存。"
             },
             {
-              "speaker": "主角",
-              "text": "赫西安留给主角一条逃往完美世界的路。"
+              "speaker": "岚音",
+              "text": "我们不是在争胜负，我们是在争撤离的时间！"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "岚音",
-          "text": "主角让最后一艘船离岸，亲眼看着星灯逐盏熄灭；故事跨越十二年。"
+          "speaker": "伊泽",
+          "text": "今天没能救下所有人，但船上的姓名一个也不能丢。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "黑星化身是被压缩的未来和六灯被劫持能源的集合体，目标是保障最后撤离。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch049",
@@ -2478,30 +2486,30 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "多阶段护卫与生存压力",
+          "mechanic": "战斗要求由不同角色依次完成救援行动",
           "dialogue": [
             {
               "speaker": "群星考验者",
-              "text": "队员争论由谁承担最危险的任务，主角主动选择放手。"
+              "text": "只允许唯一英雄负担救援。"
             },
             {
               "speaker": "诺依",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "今天由我们自己分工，不需要一个人承担全部。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血强制只留单人指挥，诺依可恢复多人任务分工",
           "dialogue": [
             {
               "speaker": "群星考验者",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "多人命令将导致混乱。"
             },
             {
               "speaker": "主角",
-              "text": "诺依在旧洲遇见当年受援儿童组成的救援队。"
+              "text": "混乱可以讨论，不能因此把选择收走。"
             }
           ]
         }
@@ -2509,10 +2517,12 @@
       "after_battle": [
         {
           "speaker": "诺依",
-          "text": "诺依指挥救援成功，主角确认希望不只属于一个英雄。"
+          "text": "传承不是把一把剑交给下一个孤独的人。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "群星考验者代表旧式单英雄救世理念，由新旧队伍协同突破。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch055",
@@ -2723,41 +2733,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "群体协作与行动顺序",
+          "mechanic": "地面分布节点可提供护盾，先保住居民再反击",
           "dialogue": [
             {
               "speaker": "赤烬主力机",
-              "text": "赫西安动用赤烬军团破坏民众自愿接入的节点。"
+              "text": "未经授权的社区灯网将被清除。"
             },
             {
               "speaker": "缇珐",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "每个人都有权决定自己的灯怎么亮。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血军团试图破坏全部节点，分组防守可避免级联损坏",
           "dialogue": [
             {
               "speaker": "赤烬主力机",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "独立节点判定为错误。"
             },
             {
-              "speaker": "主角",
-              "text": "分散灯网能够让居民选择贡献能源，消除集中封印风险。"
+              "speaker": "维莎",
+              "text": "错误是可以公开改正的，不是被你集中消灭的。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "缇珐",
-          "text": "居民逐户点亮手灯，六灯网络第一次不受司录者控制。"
+          "speaker": "诺依",
+          "text": "一盏灯坏了，另外的人仍可以继续守着。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "赤烬军团的主力机试图摧毁分散灯网，使民众重回中央控制。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch061",
@@ -3017,30 +3029,30 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "群体协作与行动顺序",
+          "mechanic": "第一次阶段每三回合重排行动顺序，显示星轨提示",
           "dialogue": [
             {
               "speaker": "定时星蛇",
-              "text": "赫西安启动静止时间阻止众人抵达司录殿。"
+              "text": "不被批准的将来，禁止抵达。"
             },
             {
-              "speaker": "维莎",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "玄璃",
+              "text": "还没发生的事，凭什么被你禁止？"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血循环整队位置，可利用主角命运空白中断重置",
           "dialogue": [
             {
               "speaker": "定时星蛇",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "时间已锁定。返回原点。"
             },
             {
               "speaker": "主角",
-              "text": "分散网络与映世自由意识形成共鸣，产生第三道路所需的理论。"
+              "text": "我没有被写入它的记录，我们还有路可走。"
             }
           ]
         }
@@ -3048,10 +3060,12 @@
       "after_battle": [
         {
           "speaker": "维莎",
-          "text": "主角利用空白未来穿过锁死的时刻，终门开启。"
+          "text": "时间不再被只写一个答案的人拿在手里。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "定时星蛇是天桥时间封锁机关的具象，能重置回合与已执行行动。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     },
     {
       "id": "boss.ch067",
@@ -3262,30 +3276,30 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "群体协作与行动顺序",
+          "mechanic": "第一阶段投射伙伴最想见的人，使用羁绊行动可避免被困在完美回忆",
           "dialogue": [
             {
-              "speaker": "终幕司录者赫西安",
-              "text": "最终形态把主角的童年、战争失败和失去的可能性化为攻击。"
+              "speaker": "赫西安",
+              "text": "你能保证明天没人哭吗？"
             },
             {
-              "speaker": "赫西安",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "主角",
+              "text": "不能。但我不会替所有人取消明天。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "第二阶段以黑星之夜的失败作为精神压制，伙伴共同见证可打破",
           "dialogue": [
             {
-              "speaker": "终幕司录者赫西安",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "speaker": "赫西安",
+              "text": "失去与后悔都是生命的错误。"
             },
             {
-              "speaker": "主角",
-              "text": "赫西安曾失去家人与故乡，才开始厌恶一切不可逆的选择。"
+              "speaker": "诺依",
+              "text": "不是。它们也是我们为什么还愿意回来救人的理由。"
             }
           ]
         }
@@ -3293,10 +3307,12 @@
       "after_battle": [
         {
           "speaker": "赫西安",
-          "text": "伙伴携多年共同记忆破除幻境，赫西安终于承认世界不能由一人拥有。"
+          "text": "我一直想让人永远不必说再见。也许我从来没听过他们想说什么。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "赫西安是终幕司录者，以亲人的记忆与战争失败质问玩家是否仍选择自由。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
     }
   ]
 }

@@ -1,13 +1,13 @@
 {
   "format": "starlit.content.v1",
-  "version": "0.2.0-design",
+  "version": "0.2.1-story-aligned",
   "created": "2026-10-24",
   "language": "zh-CN",
   "categories": [
     {
       "id": "regions",
       "path": "res://data/content/regions.json",
-      "count": 7
+      "count": 8
     },
     {
       "id": "characters",
@@ -17,12 +17,12 @@
     {
       "id": "npcs",
       "path": "res://data/content/npcs.json",
-      "count": 35
+      "count": 40
     },
     {
       "id": "maps",
       "path": "res://data/content/maps.json",
-      "count": 37
+      "count": 42
     },
     {
       "id": "items",
@@ -61,5 +61,6 @@
     }
   ],
   "world_path": "res://data/content/world.json",
-  "note": "世界与内容大纲。除旧版地图外，新关卡和美术尚未实装。"
+  "note": "RPG content design catalog (549 records); new map scenes and formal art are not yet produced.",
+  "story_integration": "Chapters ch001..ch072 are linked to story sources on separate branch content/full-story-v1 (PR #1); merge required before runtime story playback."
 }

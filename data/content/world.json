@@ -2,63 +2,78 @@
   "id": "world_lovien",
   "name": "洛维恩",
   "title": "星灯纪行 / Starlit Chronicle",
+  "story_source_branch": "content/full-story-v1",
   "layers": [
     {
       "id": "present",
-      "name": "现世"
+      "name": "现世",
+      "rule": "物理与历史连续性"
     },
     {
       "id": "reflection",
-      "name": "映世"
+      "name": "映世",
+      "rule": "未实现的愿望与选择之空间"
     },
     {
       "id": "time_corridor",
-      "name": "岁影回廊"
+      "name": "岁影回廊",
+      "rule": "已保存历史的见证，不可无代价改写过去"
     }
   ],
-  "core_conflict": "七座母灯受寂潮侵蚀；赫西安主张以万灯永昼消除黑夜，却会抹除自由与记忆。",
+  "core_conflict": "古文明压缩不幸未来的试验引发寂潮；赫西安试图用万灯永昼终止苦难，却剥夺众人自由和记忆。",
   "mother_lamps": [
     {
-      "id": "lamp_coast",
-      "name": "潮汐母灯",
-      "region_id": "region_coast"
+      "id": "lamp_tide",
+      "name": "潮歌母灯",
+      "region_id": "region_coast",
+      "restore_act": 1
     },
     {
-      "id": "lamp_oaths",
-      "name": "誓约母灯",
-      "region_id": "region_oaths"
+      "id": "lamp_oath",
+      "name": "律序母灯",
+      "region_id": "region_oaths",
+      "restore_act": 2
     },
     {
       "id": "lamp_forge",
-      "name": "锻火母灯",
-      "region_id": "region_forge"
+      "name": "炉心母灯",
+      "region_id": "region_forge",
+      "restore_act": 3
     },
     {
-      "id": "lamp_isles",
-      "name": "海歌母灯",
-      "region_id": "region_isles"
+      "id": "lamp_wind",
+      "name": "风航母灯",
+      "region_id": "region_isles",
+      "restore_act": 5
     },
     {
       "id": "lamp_mirror",
       "name": "镜眠母灯",
-      "region_id": "region_mirror"
+      "region_id": "region_mirror",
+      "restore_act": 6
     },
     {
-      "id": "lamp_oldland",
-      "name": "岁影母灯",
-      "region_id": "region_oldland"
+      "id": "lamp_root",
+      "name": "根忆母灯",
+      "region_id": "region_oldland",
+      "restore_act": 7
     },
     {
-      "id": "lamp_sanctum",
-      "name": "天轨母灯",
-      "region_id": "region_sanctum"
+      "id": "lamp_balance",
+      "name": "天衡母灯",
+      "region_id": "region_sanctum",
+      "restore_act": 11
     }
   ],
   "story": {
     "acts": 12,
-    "chapters": 72
+    "chapters": 72,
+    "chapter_id_format": "ch001..ch072",
+    "time_skip_after_act": 8,
+    "time_skip_years": 12,
+    "story_pr_url": "https://github.com/chenyu9512/StarlitChronicle-HD2D/pull/1"
   },
-  "canon_origin": "白砂海岸星落之夜；灯行者、澄舟与岚音展开旅程。",
+  "canon_origin": "晨露村星灯祭；黎昂（可自定义主角名）、养父澄舟、药师岚音。",
   "legacy_prototype": {
     "maps": [
       "map_legacy_village",
@@ -68,6 +83,6 @@
       "黎昂",
       "澪"
     ],
-    "note": "旧版试玩保留，尚未将主角身份与地图剧情迁移进正式世界。"
+    "note": "澪为原型占位，正式角色岚音需待存档迁移后替换。"
   }
 }

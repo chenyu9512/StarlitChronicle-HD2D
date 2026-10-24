@@ -3,7 +3,7 @@ extends Control
 ## 只展示JSON中真实存在的对话，不模拟任务战斗和正式存档。
 
 const CatalogScript = preload("res://scripts/story_catalog.gd")
-var catalog: RefCounted
+var catalog  # 动态脚本实例：访问StoryCatalog公开方法
 var chapter_index: int = -1  # -1 = 童年序章
 var scene_index: int = 0
 var line_index: int = 0

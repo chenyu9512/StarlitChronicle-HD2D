@@ -34,7 +34,7 @@ for category in ("monsters","bosses"):
 for row in tables["quests"].values():
     check("regions",row["region_id"],row["id"])
     check("maps",row["map_id"],row["id"])
-    check("npcs",row["giver_id"],row["id"])
+    if row["giver_id"]:check("npcs",row["giver_id"],row["id"])
     if row["target_id"]:check("bosses",row["target_id"],row["id"])
     if row["required_quest"]:check("quests",row["required_quest"],row["id"])
 assert sorted(q["chapter"] for q in tables["quests"].values() if q["kind"]=="main")==list(range(1,73))
@@ -42,3 +42,9 @@ world=json.loads((base/"world.json").read_text(encoding="utf8"))
 assert len(world["mother_lamps"])==7
 for lamp in world["mother_lamps"]:check("regions",lamp["region_id"],lamp["id"])
 print("Validated Starlit catalog: "+", ".join(f"{cat}={len(rows)}" for cat,rows in tables.items()))
+
+# The 72 canonical story IDs must stay distinct and in chapter order.
+main_quests=sorted((q for q in tables["quests"].values() if q["kind"]=="main"),key=lambda q:q["chapter"])
+assert [q.get("story_chapter_id") for q in main_quests]==[f"ch{i:03d}" for i in range(1,73)]
+assert all(q.get("story_source") and q.get("complete_flag") for q in main_quests)
+assert {lamp["name"] for lamp in world["mother_lamps"]}=={"潮歌母灯","律序母灯","炉心母灯","风航母灯","镜眠母灯","根忆母灯","天衡母灯"}

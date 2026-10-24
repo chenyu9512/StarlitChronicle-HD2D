@@ -369,3 +369,17 @@ func advance_story_side(quest: Dictionary, choice: Dictionary = {}) -> String:
                 state.flags["world.all_twelve_pages"] = true
         return "委托完成："+str(quest.get("title",id))+"，奖励已领取。"
     return "已完成委托阶段 %d/%d。" % [position + 1,steps.size()]
+
+func roll_monster_loot(monster_id: String) -> Array[String]:
+    var found: Array[String] = []
+    if monster_id.is_empty():
+        return found
+    var monster: Dictionary = entry("monsters",monster_id)
+    for drop in monster.get("loot",[]):
+        var chance: float = clampf(float(drop.get("chance",0.0)),0.0,1.0)
+        if randf() <= chance:
+            var id: String = str(drop.get("item_id",""))
+            if not id.is_empty():
+                add_item(id,1)
+                found.append(display_name(id))
+    return found

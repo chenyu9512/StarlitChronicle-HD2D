@@ -35,6 +35,8 @@ var nodes: Dictionary = {}
 var hero
 var companion
 var third
+var fourth
+var party_ids: Array = []
 var camera: Camera2D
 var focus_name: String = ""
 var focus_label: Label
@@ -67,20 +69,26 @@ func build(new_chapter: int, party_size: int) -> void:
     _decorate()
     _build_sites()
     hero = Actor.new()
-    hero.setup("res://assets/art/characters/leon/walk_4dir_3frames.png")
+    hero.setup(_party_sprite(0, "leon"))
     hero.position = Vector2(6 * TILE + 16, 13 * TILE + 16)
     hero.z_index = 3
     scenery.add_child(hero)
     companion = Actor.new()
-    companion.setup("res://assets/art/characters/lanyin/walk_4dir_3frames.png")
+    companion.setup(_party_sprite(1, "lanyin"))
     companion.position = hero.position + Vector2(-29, 22)
     scenery.add_child(companion)
     third = null
     if party_size >= 3:
         third = Actor.new()
-        third.setup("res://assets/art/characters/shuoxian/walk_4dir_3frames.png")
+        third.setup(_party_sprite(2, "shuoxian"))
         third.position = hero.position + Vector2(-52, 30)
         scenery.add_child(third)
+    fourth = null
+    if party_size >= 4:
+        fourth = Actor.new()
+        fourth.setup(_party_sprite(3,"chengzhou"))
+        fourth.position = hero.position + Vector2(-78,38)
+        scenery.add_child(fourth)
     camera = Camera2D.new()
     camera.zoom = Vector2(1.33, 1.33)
     camera.position_smoothing_enabled = true
@@ -96,6 +104,13 @@ func build(new_chapter: int, party_size: int) -> void:
     movement = Vector2.ZERO
     encounter_meter = 0.0
     next_encounter = rng.randf_range(350.0, 500.0)
+
+func _party_sprite(position: int, fallback: String) -> String:
+    var characters: Dictionary = {"char_wayfarer":"leon","char_tidecaller":"lanyin","char_seeker":"shuoxian","char_chengzhou":"chengzhou"}
+    var id: String = str(party_ids[position]) if position < party_ids.size() else ""
+    var suffix: String = str(characters.get(id,fallback))
+    var name: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % suffix
+    return name if ResourceLoader.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
 
 func _make_tiles() -> void:
     var tile_set := TileSet.new()
@@ -253,6 +268,9 @@ func _physics_process(delta: float) -> void:
     if is_instance_valid(third):
         third.position = third.position.lerp(hero.position + Vector2(-53, 27), minf(1.0, delta * 3.1))
         third.set_motion(delta, moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
+    if is_instance_valid(fourth):
+        fourth.position = fourth.position.lerp(hero.position + Vector2(-78,40),minf(1.0,delta*2.8))
+        fourth.set_motion(delta,moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
     if chapter >= 2 and moved.length_squared() > 0.001:
         encounter_meter += moved.length()
         if encounter_meter > next_encounter:

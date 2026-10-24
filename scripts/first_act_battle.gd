@@ -56,6 +56,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         var hp: int = 25 + chapter * 10 + monster_number * 8
         enemy = {"name":monster_names[monster_number], "hp":hp, "max_hp":hp, "atk":7+chapter*2+monster_number, "def":2+int(monster_number/2), "xp":20+chapter*8+monster_number*3, "gold":12+chapter*4+monster_number*2, "art":MONSTER_ART[monster_number]}
         chain_hp = 0
+        enemy["monster_id"] = "mon_coast_%02d" % (monster_number + 1)
     _build()
     _start_actor()
     _redraw("%s 出现在你们面前！" % str(enemy["name"]))

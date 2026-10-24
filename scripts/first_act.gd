@@ -84,7 +84,8 @@ func _start(continue_game: bool) -> void:
 func _enter_location() -> void:
     game_core.register_chapter(progress.chapter)
     world.custom_region = game_core.location_name(progress.chapter)
-    world.build(progress.chapter, progress.actors.size())
+    world.party_ids = progress.rpg.get("party", []).duplicate()
+    world.build(progress.chapter, world.party_ids.size())
     world.locked = false
     busy = false
     pending = ""
@@ -167,7 +168,7 @@ func _interact(target: String) -> void:
             ui.show_message("盐露草售价 16 G，金币不足。")
         else:
             progress.gold -= 16
-            progress.potions += 1
+            game_core.add_item("item_herb_01",1)
             progress.save()
             ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
         _focus()
@@ -403,16 +404,18 @@ func _random_encounter() -> void:
     _start_battle(false)
 
 func _battle_finished(won: bool, xp: int, money: int) -> void:
+    var defeated_monster: String = str(battle.enemy.get("monster_id","")) if is_instance_valid(battle) else ""
     if is_instance_valid(battle):
         battle.queue_free()
         battle = null
     if won:
         var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
+        var loot: Array[String] = game_core.roll_monster_loot(defeated_monster)
         if battle_is_boss:
             progress.flags["ch%03d.battle_won" % progress.chapter] = true
             _advance_scene()
         else:
-            ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s" % [xp * (5 if five_xp else 1), money, "，".join(levels)])
+            ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s%s" % [xp * (5 if five_xp else 1), money, "，".join(levels), (" 掉落："+ "、".join(loot) if not loot.is_empty() else "")])
     else:
         progress.gold = maxi(0, progress.gold - 15)
         progress.heal_all()
@@ -443,6 +446,9 @@ func _advance_scene() -> void:
 func _complete_chapter() -> void:
     var last: int = progress.chapter
     progress.flags["story.ch%03d.done" % last] = true
+    var quest_key: String = "quest_main_%03d" % last
+    if not game_core.entry("quests",quest_key).is_empty():
+        progress.rpg["quests"][quest_key] = true
     if last == 4:
         progress.recruit_sailor()
     if last == 6:
@@ -490,6 +496,9 @@ func _show_menu() -> void:
 
 func _return_to_world() -> void:
     busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or cheat.shade.visible
+    if not busy and world.party_ids != progress.rpg.get("party",[]):
+        _enter_location()
+        return
     world.locked = busy
     ui.set_play_visible(not is_instance_valid(battle))
     _focus()

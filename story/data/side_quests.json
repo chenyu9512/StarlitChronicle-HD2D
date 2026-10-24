@@ -1,6 +1,6 @@
 {
   "schema": "starlit.story.sidequest.v1",
-  "status": "scripted_blocking_v1_regional_metadata_fixed",
+  "status": "page12_five_stage_revision_v2_partial_legacy_life",
   "count": 36,
   "global_milestone": {
     "flag": "world.all_twelve_pages",
@@ -40,19 +40,22 @@
       "stages": [
         {
           "id": "sq_page_01.start",
-          "objective": "与老邮差交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_01.start.l01",
               "speaker": "老邮差",
-              "text": "那条航线上，一共有十二封没有地址的信。"
+              "text": "同一天的邮戳，竟盖在十二个不同年份的信封上。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_01.start.l02",
+              "speaker": "朔弦",
+              "text": "你会不会每年都忘了翻日历？"
             },
             {
+              "id": "sq_page_01.start.l03",
               "speaker": "老邮差",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "我倒希望只是自己糊涂。"
             }
           ],
           "effects": [
@@ -65,19 +68,22 @@
         },
         {
           "id": "sq_page_01.investigate",
-          "objective": "调查白砂港·旧邮仓并搜集证据",
+          "objective": "检验白砂港·旧邮仓的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【白砂港·旧邮仓】线索逐渐清晰。"
-            },
-            {
-              "speaker": "老邮差",
-              "text": "信封上盖着同一天、不同年份的邮戳。"
-            },
-            {
+              "id": "sq_page_01.investigate.l01",
               "speaker": "主角",
-              "text": "最先抵达的信写给一名尚未出生的人。"
+              "text": "第一封信写给一个尚未出生的孩子。"
+            },
+            {
+              "id": "sq_page_01.investigate.l02",
+              "speaker": "老邮差",
+              "text": "那是失踪船长写的，寄件人栏被海水泡花了。"
+            },
+            {
+              "id": "sq_page_01.investigate.l03",
+              "speaker": "朔弦",
+              "text": "信纸边上的盐味不同，它们经过的海路不一样。"
             }
           ],
           "effects": [
@@ -89,20 +95,111 @@
           ]
         },
         {
-          "id": "sq_page_01.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_01.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_01.witness.l01",
+              "speaker": "码头老妇",
+              "text": "我认识那位船长，他给没能归来的水手写过很多信。"
+            },
+            {
+              "id": "sq_page_01.witness.l02",
               "speaker": "老邮差",
-              "text": "第一张航页记录“约定可以比地图长久”。"
+              "text": "可没有地址的信能送到哪里？"
             },
             {
+              "id": "sq_page_01.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "先向收件人家属确认，他们是否愿意知道这批信。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_01.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_01.decision.l01",
+              "speaker": "邮务官",
+              "text": "港口没有登记的地址，一律当作废纸处理。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_01.decision.l02",
+              "speaker": "朔弦",
+              "text": "那是你们的表格有问题，不是信没资格存在。"
+            },
+            {
+              "id": "sq_page_01.decision.l03",
+              "speaker": "老邮差",
+              "text": "我不求全部送达，只求别替他们宣布永远无人收信。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_01.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由收件人家属自愿拆阅并建立纪念信箱",
+                "sets": {
+                  "side.sq_page_01.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_01.branch_a.l01",
+                    "speaker": "老邮差",
+                    "text": "我会逐户询问，没人愿意读的信就妥善收好。"
+                  },
+                  {
+                    "id": "sq_page_01.branch_a.l02",
+                    "speaker": "主角",
+                    "text": "人可以拒绝打开，不等于信就该消失。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "保留原封与航线证据，先查清船长去向",
+                "sets": {
+                  "side.sq_page_01.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_01.branch_b.l01",
+                    "speaker": "朔弦",
+                    "text": "把航图与邮戳分开拓印，免得调查时弄坏原信。"
+                  },
+                  {
+                    "id": "sq_page_01.branch_b.l02",
+                    "speaker": "老邮差",
+                    "text": "这样即使没人知道地址，也能先查它曾经过哪里。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_01.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_01.finish.l01",
+              "speaker": "旁白",
+              "text": "老邮仓新设迟到信件登记册，第一个空白收件栏由家属自愿填写。"
+            },
+            {
+              "id": "sq_page_01.finish.l02",
+              "speaker": "老邮差",
+              "text": "这份航图背面的信，写着“约定可以比地图长久”。"
+            },
+            {
+              "id": "sq_page_01.finish.l03",
+              "speaker": "主角",
+              "text": "第一张航页留下来，不是替谁保证会回来，是让往后的船记得有人曾等待。"
             }
           ],
           "effects": [
@@ -126,9 +223,11 @@
       ],
       "npc_after": {
         "speaker": "老邮差",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "我会逐户询问，没人愿意读的信就妥善收好。"
       },
-      "page_number": 1
+      "page_number": 1,
+      "collectible_text": "《旧邮仓交接簿》十二封信、十二个年份，收件地址空缺；不得自行拆阅，先联系家属或登记见证。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_02",
@@ -148,19 +247,22 @@
       "stages": [
         {
           "id": "sq_page_02.start",
-          "objective": "与农妇交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_02.start.l01",
               "speaker": "农妇",
-              "text": "这枚王徽不是我家祖传的，我只知道它藏在麦袋底下。"
+              "text": "我家麦袋底下捡到这枚王徽，谁也不敢认。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_02.start.l02",
+              "speaker": "雷索",
+              "text": "旧王家的纹章，为什么会在粮袋里？"
             },
             {
+              "id": "sq_page_02.start.l03",
               "speaker": "农妇",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "有人说这是藏兵器的证据。"
             }
           ],
           "effects": [
@@ -173,19 +275,22 @@
         },
         {
           "id": "sq_page_02.investigate",
-          "objective": "调查三誓边村·麦田并搜集证据",
+          "objective": "检验三誓边村·麦田的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【三誓边村·麦田】线索逐渐清晰。"
-            },
-            {
-              "speaker": "农妇",
-              "text": "旧国王曾为平民修建临时粮仓。"
-            },
-            {
+              "id": "sq_page_02.investigate.l01",
               "speaker": "主角",
-              "text": "后人只记得战争，没人承认旧王曾做善事。"
+              "text": "王徽背面有磨损的粮仓编号。"
+            },
+            {
+              "id": "sq_page_02.investigate.l02",
+              "speaker": "雷索",
+              "text": "旧国王曾亲自授权开仓救民。"
+            },
+            {
+              "id": "sq_page_02.investigate.l03",
+              "speaker": "农妇",
+              "text": "我祖母说过，那冬天王城的人也饿着。"
             }
           ],
           "effects": [
@@ -197,20 +302,111 @@
           ]
         },
         {
-          "id": "sq_page_02.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_02.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
-              "speaker": "农妇",
-              "text": "第二张航页记下被政治抹去的普通善意。"
+              "id": "sq_page_02.witness.l01",
+              "speaker": "边村老人",
+              "text": "开仓是真的，后来战争也是真的。"
             },
             {
+              "id": "sq_page_02.witness.l02",
+              "speaker": "雷索",
+              "text": "不该为了纪念他的善行就替他洗去所有过错。"
+            },
+            {
+              "id": "sq_page_02.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "让当年两边的记录都进档案。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_02.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_02.decision.l01",
+              "speaker": "城中书记",
+              "text": "若公开这枚王徽，王室会拿它当功德证明。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_02.decision.l02",
+              "speaker": "农妇",
+              "text": "可若把它埋回去，我祖母的故事也会消失。"
+            },
+            {
+              "id": "sq_page_02.decision.l03",
+              "speaker": "雷索",
+              "text": "我们可以附上粮仓账本和当年的反对证词。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_02.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开王徽与两套相互矛盾的粮仓账",
+                "sets": {
+                  "side.sq_page_02.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_02.branch_a.l01",
+                    "speaker": "雷索",
+                    "text": "把账本同王徽放在一起，别让参观者只看到一件漂亮的金属。"
+                  },
+                  {
+                    "id": "sq_page_02.branch_a.l02",
+                    "speaker": "农妇",
+                    "text": "我会在说明牌上写下祖母的真实经历。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先由边村幸存家属审读王徽相关记录",
+                "sets": {
+                  "side.sq_page_02.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_02.branch_b.l01",
+                    "speaker": "农妇",
+                    "text": "我先问村里的老人，他们愿意哪些名字被公开。"
+                  },
+                  {
+                    "id": "sq_page_02.branch_b.l02",
+                    "speaker": "雷索",
+                    "text": "愿意作证的人有权决定怎样被记下。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_02.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_02.finish.l01",
+              "speaker": "旁白",
+              "text": "旧王开仓的记录与战时征粮的记录被并列展示。"
+            },
+            {
+              "id": "sq_page_02.finish.l02",
+              "speaker": "农妇",
+              "text": "原来祖母说的善事是真的，却不是这段历史的全部。"
+            },
+            {
+              "id": "sq_page_02.finish.l03",
+              "speaker": "主角",
+              "text": "第二张航页留下的是被政治掩没的普通人和他们吃过的粮。"
             }
           ],
           "effects": [
@@ -234,9 +430,11 @@
       ],
       "npc_after": {
         "speaker": "农妇",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "把账本同王徽放在一起，别让参观者只看到一件漂亮的金属。"
       },
-      "page_number": 2
+      "page_number": 2,
+      "collectible_text": "《王徽背面的粮仓号》旧王授权开仓，账册同时载有后期征粮记录；两者并不互相抵消。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_03",
@@ -256,19 +454,22 @@
       "stages": [
         {
           "id": "sq_page_03.start",
-          "objective": "与教师交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_03.start.l01",
               "speaker": "教师",
-              "text": "孩子每天放学都唱一首没有人教过的歌。"
+              "text": "孩子们放学总唱这首歌，却没人承认教过。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_03.start.l02",
+              "speaker": "缇珐",
+              "text": "最后一句听起来不像歌词。"
             },
             {
-              "speaker": "教师",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_page_03.start.l03",
+              "speaker": "孩子",
+              "text": "爸爸说每个数字都要唱准。"
             }
           ],
           "effects": [
@@ -281,19 +482,22 @@
         },
         {
           "id": "sq_page_03.investigate",
-          "objective": "调查赤炉矿区·小学校并搜集证据",
+          "objective": "检验赤炉矿区·小学校的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【赤炉矿区·小学校】线索逐渐清晰。"
-            },
-            {
-              "speaker": "教师",
-              "text": "歌谱里藏着矿工罢工留下的工时名单。"
-            },
-            {
+              "id": "sq_page_03.investigate.l01",
               "speaker": "主角",
-              "text": "厂方要求删去歌曲以免影响生产。"
+              "text": "歌谱边上写着连续的工时和工号。"
+            },
+            {
+              "id": "sq_page_03.investigate.l02",
+              "speaker": "教师",
+              "text": "矿工罢工时有人把名单编成歌，怕账本被销毁。"
+            },
+            {
+              "id": "sq_page_03.investigate.l03",
+              "speaker": "孩子",
+              "text": "我以为那是找不到家的叔叔们的名字。"
             }
           ],
           "effects": [
@@ -305,20 +509,111 @@
           ]
         },
         {
-          "id": "sq_page_03.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_03.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_03.witness.l01",
+              "speaker": "矿工遗属",
+              "text": "那场罢工后，厂里说他们从来没来过。"
+            },
+            {
+              "id": "sq_page_03.witness.l02",
+              "speaker": "缇珐",
+              "text": "还有工资单、饭票和工具出借记录。"
+            },
+            {
+              "id": "sq_page_03.witness.l03",
               "speaker": "教师",
-              "text": "第三张航页让矿工的姓名回到街道碑上。"
+              "text": "孩子不该替大人的证据承担报复。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_03.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_03.decision.l01",
+              "speaker": "工坊主管",
+              "text": "学校不得传播可能扰乱生产的歌词。"
             },
             {
+              "id": "sq_page_03.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "孩子无需在厂方和家属之间作证，证据可由成年人查验。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_03.decision.l03",
+              "speaker": "缇珐",
+              "text": "我们会核对工号，不能让工会只剩传言。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_03.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由工人与家属审查名单，暂缓公开儿童身份",
+                "sets": {
+                  "side.sq_page_03.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_03.branch_a.l01",
+                    "speaker": "缇珐",
+                    "text": "矿工会先确认每一个工号，不让孩子站到争论最前面。"
+                  },
+                  {
+                    "id": "sq_page_03.branch_a.l02",
+                    "speaker": "教师",
+                    "text": "他们仍可以把歌当歌来唱。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先封存原谱并申请独立工时核算",
+                "sets": {
+                  "side.sq_page_03.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_03.branch_b.l01",
+                    "speaker": "教师",
+                    "text": "原谱会保存在学校和工会各一份。"
+                  },
+                  {
+                    "id": "sq_page_03.branch_b.l02",
+                    "speaker": "缇珐",
+                    "text": "等核算完，再让厂方解释究竟少了多少工时。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_03.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_03.finish.l01",
+              "speaker": "旁白",
+              "text": "工时名单被独立核验并归还矿工家属，学校保留原曲。"
+            },
+            {
+              "id": "sq_page_03.finish.l02",
+              "speaker": "孩子",
+              "text": "这次我知道每个数字后面都有人。"
+            },
+            {
+              "id": "sq_page_03.finish.l03",
+              "speaker": "教师",
+              "text": "第三张航页记下那些本该从不被删掉的名字。"
             }
           ],
           "effects": [
@@ -342,9 +637,11 @@
       ],
       "npc_after": {
         "speaker": "教师",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "矿工会先确认每一个工号，不让孩子站到争论最前面。"
       },
-      "page_number": 3
+      "page_number": 3,
+      "collectible_text": "《童谣工时表》每一节对应一个工号、日期及出勤时长；请勿公开儿童的私人资料。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_04",
@@ -364,19 +661,22 @@
       "stages": [
         {
           "id": "sq_page_04.start",
-          "objective": "与老兵交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_04.start.l01",
               "speaker": "老兵",
-              "text": "我留下它，是怕自己将来又说没看见。"
+              "text": "这半张烧焦的军令是我留下的，怕将来又说没看见。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_04.start.l02",
+              "speaker": "雷索",
+              "text": "被烧掉的一面写着清剿，背面是谁的笔迹？"
             },
             {
+              "id": "sq_page_04.start.l03",
               "speaker": "老兵",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "那个替村民求情的人。"
             }
           ],
           "effects": [
@@ -389,19 +689,22 @@
         },
         {
           "id": "sq_page_04.investigate",
-          "objective": "调查肃清边村·废哨所并搜集证据",
+          "objective": "检验肃清边村·废哨所的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【肃清边村·废哨所】线索逐渐清晰。"
-            },
-            {
-              "speaker": "老兵",
-              "text": "被烧掉的军令背面写着替居民求情的军官姓名。"
-            },
-            {
+              "id": "sq_page_04.investigate.l01",
               "speaker": "主角",
-              "text": "军官后人不愿承认祖辈也犯过错。"
+              "text": "背面签名没有官阶，只有一行求准撤离妇孺的申请。"
+            },
+            {
+              "id": "sq_page_04.investigate.l02",
+              "speaker": "雷索",
+              "text": "他曾执行错误命令，也曾试图阻止一部分伤害。"
+            },
+            {
+              "id": "sq_page_04.investigate.l03",
+              "speaker": "老兵",
+              "text": "我也直到今天才敢把整张纸拿出来。"
             }
           ],
           "effects": [
@@ -413,20 +716,111 @@
           ]
         },
         {
-          "id": "sq_page_04.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_04.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
-              "speaker": "老兵",
-              "text": "第四张航页保留功过并存的完整记录。"
+              "id": "sq_page_04.witness.l01",
+              "speaker": "军官后人",
+              "text": "别把我祖辈的罪写在救人故事里。"
             },
             {
+              "id": "sq_page_04.witness.l02",
+              "speaker": "雷索",
+              "text": "若只记救人，就会再次把受害者擦掉。"
+            },
+            {
+              "id": "sq_page_04.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "两方面的证词都要保留，不替后人裁判应如何感受。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_04.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_04.decision.l01",
+              "speaker": "档案司录",
+              "text": "可将背面善行单独列为荣誉纪念。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_04.decision.l02",
+              "speaker": "老兵",
+              "text": "那我保存军令还有什么意义？"
+            },
+            {
+              "id": "sq_page_04.decision.l03",
+              "speaker": "雷索",
+              "text": "正因为他并非只有一种面貌，历史才需要原件。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_04.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "保留正反面全件并公开查阅",
+                "sets": {
+                  "side.sq_page_04.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_04.branch_a.l01",
+                    "speaker": "老兵",
+                    "text": "我把当年保存原件的缘由也写进去。"
+                  },
+                  {
+                    "id": "sq_page_04.branch_a.l02",
+                    "speaker": "雷索",
+                    "text": "责任和勇气都不是一句赞美能总结的。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先设受害家属与后代共同审核区",
+                "sets": {
+                  "side.sq_page_04.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_04.branch_b.l01",
+                    "speaker": "军官后人",
+                    "text": "我愿意在家属旁听时读完那张纸。"
+                  },
+                  {
+                    "id": "sq_page_04.branch_b.l02",
+                    "speaker": "老兵",
+                    "text": "他们有权质问我，我不会再逃开。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_04.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_04.finish.l01",
+              "speaker": "旁白",
+              "text": "第四张航页将军令正反两面并录，申请救援的人与受害者都没有被删去。"
+            },
+            {
+              "id": "sq_page_04.finish.l02",
+              "speaker": "军官后人",
+              "text": "我很难受，但我会读完它。"
+            },
+            {
+              "id": "sq_page_04.finish.l03",
+              "speaker": "雷索",
+              "text": "愿后人不必通过烧纸才能面对过去。"
             }
           ],
           "effects": [
@@ -450,9 +844,11 @@
       ],
       "npc_after": {
         "speaker": "老兵",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "我把当年保存原件的缘由也写进去。"
       },
-      "page_number": 4
+      "page_number": 4,
+      "collectible_text": "《半毁的军令》正面：清剿命令；背面：批准平民撤离的紧急申请。不可拆作两份互不关联的历史。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_05",
@@ -472,19 +868,22 @@
       "stages": [
         {
           "id": "sq_page_05.start",
-          "objective": "与渔女交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_05.start.l01",
               "speaker": "渔女",
-              "text": "这台钟只在退潮时走，我父亲说它在等回家的人。"
+              "text": "这台钟只在退潮时走。父亲说它等的是没回家的船。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_05.start.l02",
+              "speaker": "朔弦",
+              "text": "钟面太旧，退潮时才有人帮它上发条吧？"
             },
             {
+              "id": "sq_page_05.start.l03",
               "speaker": "渔女",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "可父亲去世后，它还是走。"
             }
           ],
           "effects": [
@@ -497,19 +896,22 @@
         },
         {
           "id": "sq_page_05.investigate",
-          "objective": "调查晴汐小岛·观潮台并搜集证据",
+          "objective": "检验晴汐小岛·观潮台的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【晴汐小岛·观潮台】线索逐渐清晰。"
-            },
-            {
-              "speaker": "渔女",
-              "text": "潮汐表背面刻着失落群岛的旧坐标。"
-            },
-            {
+              "id": "sq_page_05.investigate.l01",
               "speaker": "主角",
-              "text": "商会想收走钟表作为私人航路专利。"
+              "text": "背面的刻痕不是装饰，而是一组旧岛屿坐标。"
+            },
+            {
+              "id": "sq_page_05.investigate.l02",
+              "speaker": "朔弦",
+              "text": "星位和潮差合在一起，正好能穿过一片被抹去的航道。"
+            },
+            {
+              "id": "sq_page_05.investigate.l03",
+              "speaker": "渔女",
+              "text": "那么多年了，海还记得那些岛。"
             }
           ],
           "effects": [
@@ -521,20 +923,111 @@
           ]
         },
         {
-          "id": "sq_page_05.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_05.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
-              "speaker": "渔女",
-              "text": "第五张航页确认大海是人人可以共享的路。"
+              "id": "sq_page_05.witness.l01",
+              "speaker": "老船长",
+              "text": "这坐标人人都能用，过去我们也一起换过潮汐表。"
             },
             {
+              "id": "sq_page_05.witness.l02",
+              "speaker": "朔弦",
+              "text": "现在却有人把航标锁进收费柜。"
+            },
+            {
+              "id": "sq_page_05.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "先查原始船队记录，确认坐标来源。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_05.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_05.decision.l01",
+              "speaker": "商会代理",
+              "text": "航路发现者有权永久独占通行。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_05.decision.l02",
+              "speaker": "渔女",
+              "text": "那是我父亲与许多水手共同记的。"
+            },
+            {
+              "id": "sq_page_05.decision.l03",
+              "speaker": "朔弦",
+              "text": "海不属于写账写得最快的人。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_05.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "免费公开潮汐坐标并保留来源",
+                "sets": {
+                  "side.sq_page_05.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_05.branch_a.l01",
+                    "speaker": "朔弦",
+                    "text": "把每次潮差都记上，免得把一次安全当成永远安全。"
+                  },
+                  {
+                    "id": "sq_page_05.branch_a.l02",
+                    "speaker": "渔女",
+                    "text": "我父亲会愿意别的船长继续改这张表。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先让岛民船队共同确认维护规则",
+                "sets": {
+                  "side.sq_page_05.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_05.branch_b.l01",
+                    "speaker": "渔女",
+                    "text": "我们先召集本岛水手，他们知道哪些礁石会移动。"
+                  },
+                  {
+                    "id": "sq_page_05.branch_b.l02",
+                    "speaker": "朔弦",
+                    "text": "维护责任公开，才不是换个名字的独占。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_05.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_05.finish.l01",
+              "speaker": "旁白",
+              "text": "公用航标重新标注失落群岛，潮汐表留在岛上供所有船长查阅。"
+            },
+            {
+              "id": "sq_page_05.finish.l02",
+              "speaker": "渔女",
+              "text": "父亲等的船也许不会回来，但往后的船能少迷一次路。"
+            },
+            {
+              "id": "sq_page_05.finish.l03",
+              "speaker": "主角",
+              "text": "第五张航页证明航路由许多人共同留下。"
             }
           ],
           "effects": [
@@ -558,9 +1051,11 @@
       ],
       "npc_after": {
         "speaker": "渔女",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "把每次潮差都记上，免得把一次安全当成永远安全。"
       },
-      "page_number": 5
+      "page_number": 5,
+      "collectible_text": "《最后的潮汐表》刻有旧星位与退潮时间，附注：新航道只能在核对当日潮汐后使用。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_06",
@@ -580,19 +1075,22 @@
       "stages": [
         {
           "id": "sq_page_06.start",
-          "objective": "与潜水工交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_06.start.l01",
               "speaker": "潜水工",
-              "text": "钟表停在孩子出生那天，我们能不能让它继续走？"
+              "text": "沉城的钟停在一个孩子出生那天。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_06.start.l02",
+              "speaker": "伊泽",
+              "text": "城市沉没前还有人过生日？"
             },
             {
-              "speaker": "潜水工",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_page_06.start.l03",
+              "speaker": "岚音",
+              "text": "一个人在灾难发生前也有许多普通日子。"
             }
           ],
           "effects": [
@@ -605,19 +1103,22 @@
         },
         {
           "id": "sq_page_06.investigate",
-          "objective": "调查青蓝海沟·王国大厅并搜集证据",
+          "objective": "检验青蓝海沟·王国大厅的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【青蓝海沟·王国大厅】线索逐渐清晰。"
-            },
-            {
-              "speaker": "潜水工",
-              "text": "沉城居民把最后的生日名单锁在钟楼。"
-            },
-            {
+              "id": "sq_page_06.investigate.l01",
               "speaker": "主角",
-              "text": "守卫坚持名单属于亡者，活人无权宣读。"
+              "text": "钟楼内封着最后一批出生记录。"
+            },
+            {
+              "id": "sq_page_06.investigate.l02",
+              "speaker": "伊泽",
+              "text": "平民的名字比王室名单写得还小。"
+            },
+            {
+              "id": "sq_page_06.investigate.l03",
+              "speaker": "潜水工",
+              "text": "被救上岸的人后来连自己祖母的出生地都不知道。"
             }
           ],
           "effects": [
@@ -629,20 +1130,111 @@
           ]
         },
         {
-          "id": "sq_page_06.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_06.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_06.witness.l01",
+              "speaker": "沉城残响",
+              "text": "名单属于已亡之人，禁止活人宣读。"
+            },
+            {
+              "id": "sq_page_06.witness.l02",
+              "speaker": "伊泽",
+              "text": "宣读必须尊重家属，不等于应当永久封存。"
+            },
+            {
+              "id": "sq_page_06.witness.l03",
+              "speaker": "岚音",
+              "text": "先联系可确认的后裔，询问他们想知道多少。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_06.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_06.decision.l01",
+              "speaker": "钟卫",
+              "text": "擅自带走文书，将触发沉城封锁。"
+            },
+            {
+              "id": "sq_page_06.decision.l02",
               "speaker": "潜水工",
-              "text": "第六张航页收录沉城平民的出生日期。"
+              "text": "我们不碰原件，只带走经核对的副本。"
             },
             {
+              "id": "sq_page_06.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "保存遗址也要让留下来的人有机会找到亲人。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_06.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由家属授权公开姓名与生日",
+                "sets": {
+                  "side.sq_page_06.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_06.branch_a.l01",
+                    "speaker": "伊泽",
+                    "text": "每一页都注明是哪些家属同意公开。"
+                  },
+                  {
+                    "id": "sq_page_06.branch_a.l02",
+                    "speaker": "潜水工",
+                    "text": "这样他们不必被当成纪念品给别人看。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "建立只供后裔申请的沉城档案副本",
+                "sets": {
+                  "side.sq_page_06.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_06.branch_b.l01",
+                    "speaker": "岚音",
+                    "text": "需要隐私的人先保留查询资格。"
+                  },
+                  {
+                    "id": "sq_page_06.branch_b.l02",
+                    "speaker": "潜水工",
+                    "text": "原件不会离开钟楼，后代却能找回生日。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_06.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_06.finish.l01",
+              "speaker": "旁白",
+              "text": "出生簿的副本归还家属，原件依旧安全保存在沉城。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_06.finish.l02",
+              "speaker": "潜水工",
+              "text": "第一封回信说要给祖母补过一个生日。"
+            },
+            {
+              "id": "sq_page_06.finish.l03",
+              "speaker": "伊泽",
+              "text": "第六张航页不唱亡城的荣光，先记这些孩子哪天来到世上。"
             }
           ],
           "effects": [
@@ -666,9 +1258,11 @@
       ],
       "npc_after": {
         "speaker": "潜水工",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "每一页都注明是哪些家属同意公开。"
       },
-      "page_number": 6
+      "page_number": 6,
+      "collectible_text": "《沉城出生簿》最后一页记载新生儿生日，缺失的不是年份，而是愿意替他们说出名字的人。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_07",
@@ -688,19 +1282,22 @@
       "stages": [
         {
           "id": "sq_page_07.start",
-          "objective": "与护理师交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_07.start.l01",
               "speaker": "护理师",
-              "text": "老人每天梦见一道门，我想知道门外是什么。"
+              "text": "老人每天梦见一道门，却不知门外是什么。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_07.start.l02",
+              "speaker": "玄璃",
+              "text": "有时梦是一个人不肯放下的请求。"
             },
             {
-              "speaker": "护理师",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_page_07.start.l03",
+              "speaker": "岚音",
+              "text": "别急着替他解释。"
             }
           ],
           "effects": [
@@ -713,19 +1310,22 @@
         },
         {
           "id": "sq_page_07.investigate",
-          "objective": "调查镜眠王都·镜庭并搜集证据",
+          "objective": "检验镜眠王都·镜庭的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【镜眠王都·镜庭】线索逐渐清晰。"
-            },
-            {
-              "speaker": "护理师",
-              "text": "梦门背后保存着被王国遗忘的失踪救援队。"
-            },
-            {
+              "id": "sq_page_07.investigate.l01",
               "speaker": "主角",
-              "text": "医官担心患者得知真相后醒来会受伤。"
+              "text": "门后的记录竟是当年失踪救援队的名字。"
+            },
+            {
+              "id": "sq_page_07.investigate.l02",
+              "speaker": "护理师",
+              "text": "老人是他们最后的领路人，他醒来后失去了这段记忆。"
+            },
+            {
+              "id": "sq_page_07.investigate.l03",
+              "speaker": "玄璃",
+              "text": "被遗忘的人还在他的梦里等一句回应。"
             }
           ],
           "effects": [
@@ -737,20 +1337,111 @@
           ]
         },
         {
-          "id": "sq_page_07.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_07.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_07.witness.l01",
+              "speaker": "老人",
+              "text": "我害怕一旦知道他们没有回来，就再也睡不着。"
+            },
+            {
+              "id": "sq_page_07.witness.l02",
+              "speaker": "岚音",
+              "text": "你有权先知道我能告诉你什么，再决定要不要听。"
+            },
+            {
+              "id": "sq_page_07.witness.l03",
               "speaker": "护理师",
-              "text": "第七张航页允许以自愿、循序的方式记住过去。"
+              "text": "我们也会安排醒后的陪伴。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_07.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_07.decision.l01",
+              "speaker": "医官",
+              "text": "知道真相可能加剧他的病情。"
             },
             {
+              "id": "sq_page_07.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "风险要说清，但不该自动删除知情权。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_07.decision.l03",
+              "speaker": "玄璃",
+              "text": "让梦门可以自己关上和打开，而不是只留一道锁。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_07.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先告知风险，让老人决定阅读哪些记录",
+                "sets": {
+                  "side.sq_page_07.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_07.branch_a.l01",
+                    "speaker": "岚音",
+                    "text": "他选择只读一页，我们就只读一页。"
+                  },
+                  {
+                    "id": "sq_page_07.branch_a.l02",
+                    "speaker": "玄璃",
+                    "text": "门能由他自己打开，才真的成为他的门。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先改善治疗和陪护安排，再开放梦门",
+                "sets": {
+                  "side.sq_page_07.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_07.branch_b.l01",
+                    "speaker": "护理师",
+                    "text": "第一周安排陪伴，不要求他一次面对所有真相。"
+                  },
+                  {
+                    "id": "sq_page_07.branch_b.l02",
+                    "speaker": "岚音",
+                    "text": "等他准备好，资料仍在那里。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_07.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_07.finish.l01",
+              "speaker": "旁白",
+              "text": "老人自主决定先读一名救援者的记录，其他名字留待以后。"
+            },
+            {
+              "id": "sq_page_07.finish.l02",
+              "speaker": "老人",
+              "text": "我仍怕，可今天至少知道他叫什么。"
+            },
+            {
+              "id": "sq_page_07.finish.l03",
+              "speaker": "护理师",
+              "text": "第七张航页记录自愿、循序地重拾过去的方法。"
             }
           ],
           "effects": [
@@ -774,9 +1465,11 @@
       ],
       "npc_after": {
         "speaker": "护理师",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "他选择只读一页，我们就只读一页。"
       },
-      "page_number": 7
+      "page_number": 7,
+      "collectible_text": "《镜庭救援档》标有失踪救援队名称、路线及最终无线讯号；当事人阅读须出于自愿。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_08",
@@ -796,19 +1489,22 @@
       "stages": [
         {
           "id": "sq_page_08.start",
-          "objective": "与记录员交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_08.start.l01",
               "speaker": "记录员",
-              "text": "我已经不知道这些名字究竟属于谁了。"
+              "text": "这座城的户籍只剩一张，六代人都在重复使用。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_08.start.l02",
+              "speaker": "玄璃",
+              "text": "名字太少，日子却不会因此只有一个。"
             },
             {
-              "speaker": "记录员",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_page_08.start.l03",
+              "speaker": "伊泽",
+              "text": "人们是不是被迫选了同一种过去？"
             }
           ],
           "effects": [
@@ -821,19 +1517,22 @@
         },
         {
           "id": "sq_page_08.investigate",
-          "objective": "调查默契城·户籍馆并搜集证据",
+          "objective": "检验默契城·户籍馆的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【默契城·户籍馆】线索逐渐清晰。"
-            },
-            {
-              "speaker": "记录员",
-              "text": "同一张纸被不同年代的居民重复使用。"
-            },
-            {
+              "id": "sq_page_08.investigate.l01",
               "speaker": "主角",
-              "text": "居民中有人愿保留现有名字，不想强制恢复旧名。"
+              "text": "不同墨层能看出原来的姓氏。"
+            },
+            {
+              "id": "sq_page_08.investigate.l02",
+              "speaker": "记录员",
+              "text": "有人早已习惯现在的名字，不愿被宣布为假。"
+            },
+            {
+              "id": "sq_page_08.investigate.l03",
+              "speaker": "岚音",
+              "text": "恢复历史不能取消今日的身份。"
             }
           ],
           "effects": [
@@ -845,20 +1544,111 @@
           ]
         },
         {
-          "id": "sq_page_08.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_08.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_08.witness.l01",
+              "speaker": "老人",
+              "text": "我想查祖母的旧名。"
+            },
+            {
+              "id": "sq_page_08.witness.l02",
+              "speaker": "青年",
+              "text": "可我不想把自己改回一个从没用过的姓。"
+            },
+            {
+              "id": "sq_page_08.witness.l03",
+              "speaker": "玄璃",
+              "text": "他们都拥有同一张纸上的权利。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_08.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_08.decision.l01",
+              "speaker": "档案官",
+              "text": "一人只能保留一个姓名，否则登记混乱。"
+            },
+            {
+              "id": "sq_page_08.decision.l02",
               "speaker": "记录员",
-              "text": "第八张航页同时记录新旧名字及本人选择。"
+              "text": "是制度太窄，不是居民的人生太复杂。"
             },
             {
+              "id": "sq_page_08.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "保留历史索引，也允许本人决定现用称呼。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_08.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立旧名与现用名双向查询索引",
+                "sets": {
+                  "side.sq_page_08.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_08.branch_a.l01",
+                    "speaker": "记录员",
+                    "text": "同一人可以保留历史关联，也有自己的现用名。"
+                  },
+                  {
+                    "id": "sq_page_08.branch_a.l02",
+                    "speaker": "玄璃",
+                    "text": "这份登记开始学着尊重人了。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先逐户征询同意后开放历史姓名",
+                "sets": {
+                  "side.sq_page_08.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_08.branch_b.l01",
+                    "speaker": "岚音",
+                    "text": "先问哪些名字可以公开，避免寻亲变成曝光隐私。"
+                  },
+                  {
+                    "id": "sq_page_08.branch_b.l02",
+                    "speaker": "记录员",
+                    "text": "我们会逐步补足，不急着替任何人落笔。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_08.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_08.finish.l01",
+              "speaker": "旁白",
+              "text": "默契城旧名与现用名并存，只有当事人能提出变更。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_08.finish.l02",
+              "speaker": "青年",
+              "text": "我可以查祖母的名字，却仍叫现在的自己。"
+            },
+            {
+              "id": "sq_page_08.finish.l03",
+              "speaker": "伊泽",
+              "text": "第八张航页终于不是替所有人决定真正名字的一张纸。"
             }
           ],
           "effects": [
@@ -882,9 +1672,11 @@
       ],
       "npc_after": {
         "speaker": "记录员",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "同一人可以保留历史关联，也有自己的现用名。"
       },
-      "page_number": 8
+      "page_number": 8,
+      "collectible_text": "《默契城户籍更正簿》同一纸页多代复用；旧名仅作历史索引，是否作为现用名由本人选择。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_09",
@@ -904,19 +1696,22 @@
       "stages": [
         {
           "id": "sq_page_09.start",
-          "objective": "与老裁缝交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_09.start.l01",
               "speaker": "老裁缝",
-              "text": "我替新人保管礼服，保管了整整八十年。"
+              "text": "我替新人保管礼服，一放就是八十年。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_09.start.l02",
+              "speaker": "伊泽",
+              "text": "它怎么一点都没坏？"
             },
             {
+              "id": "sq_page_09.start.l03",
               "speaker": "老裁缝",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "我每年都重新补缝，怕有人回来时没得穿。"
             }
           ],
           "effects": [
@@ -929,19 +1724,22 @@
         },
         {
           "id": "sq_page_09.investigate",
-          "objective": "调查旧洲·废礼堂并搜集证据",
+          "objective": "检验旧洲·废礼堂的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【旧洲·废礼堂】线索逐渐清晰。"
-            },
-            {
-              "speaker": "老裁缝",
-              "text": "一对恋人当年因封城被迫分别，却彼此留了消息。"
-            },
-            {
+              "id": "sq_page_09.investigate.l01",
               "speaker": "主角",
-              "text": "岁影回廊要求抹去失散的一方才能结束仪式。"
+              "text": "礼服内衬各有一封未寄出的信。"
+            },
+            {
+              "id": "sq_page_09.investigate.l02",
+              "speaker": "老裁缝",
+              "text": "封城那天，两人被迫去了不同方向，却都在问对方有没有平安。"
+            },
+            {
+              "id": "sq_page_09.investigate.l03",
+              "speaker": "伊泽",
+              "text": "故事不是谁等得更久，是他们都曾试着往前走。"
             }
           ],
           "effects": [
@@ -953,20 +1751,111 @@
           ]
         },
         {
-          "id": "sq_page_09.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_09.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_09.witness.l01",
+              "speaker": "岁影残响",
+              "text": "要结束仪式，必须将一方的等待从历史中删除。"
+            },
+            {
+              "id": "sq_page_09.witness.l02",
               "speaker": "老裁缝",
-              "text": "第九张航页让双方的等待被后人共同见证。"
+              "text": "那另一人岂不是从此没有来过？"
             },
             {
+              "id": "sq_page_09.witness.l03",
+              "speaker": "玄璃",
+              "text": "悲伤不是需要从档案里剔除的错误。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_09.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_09.decision.l01",
+              "speaker": "婚礼守卫",
+              "text": "只允许记录一条合法的结局。"
+            },
+            {
+              "id": "sq_page_09.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "他们没举行完婚礼，也不意味着他们的爱不存在。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_09.decision.l03",
+              "speaker": "伊泽",
+              "text": "把两封信完整保存，不替亡者结成一场虚构婚礼。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_09.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "并列保存两人信件和礼服，不补办虚构婚礼",
+                "sets": {
+                  "side.sq_page_09.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_09.branch_a.l01",
+                    "speaker": "伊泽",
+                    "text": "信里没有告诉我们婚礼最后应该怎样。"
+                  },
+                  {
+                    "id": "sq_page_09.branch_a.l02",
+                    "speaker": "老裁缝",
+                    "text": "那就让它们维持真实的模样。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先寻找后代见证者，再决定公开方式",
+                "sets": {
+                  "side.sq_page_09.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_09.branch_b.l01",
+                    "speaker": "老裁缝",
+                    "text": "我愿意等后代来看过，再打开那只衣柜。"
+                  },
+                  {
+                    "id": "sq_page_09.branch_b.l02",
+                    "speaker": "主角",
+                    "text": "晚一点公开不意味着晚一点尊重。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_09.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_09.finish.l01",
+              "speaker": "旁白",
+              "text": "废礼堂开放小型纪念展，两份信由后人共同见证。"
+            },
+            {
+              "id": "sq_page_09.finish.l02",
+              "speaker": "老裁缝",
+              "text": "我终于能把礼服放进干净的柜子，不必每天盯着门。"
+            },
+            {
+              "id": "sq_page_09.finish.l03",
+              "speaker": "主角",
+              "text": "第九张航页让双方的生活继续被记住，而不替他们重写结局。"
             }
           ],
           "effects": [
@@ -990,9 +1879,11 @@
       ],
       "npc_after": {
         "speaker": "老裁缝",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "信里没有告诉我们婚礼最后应该怎样。"
       },
-      "page_number": 9
+      "page_number": 9,
+      "collectible_text": "《未寄出的两封信》两人都写了“希望你平安”，没有一封要求另一人永远留在过去。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_10",
@@ -1012,19 +1903,22 @@
       "stages": [
         {
           "id": "sq_page_10.start",
-          "objective": "与厨师交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_10.start.l01",
               "speaker": "厨师",
-              "text": "这些菜不是我发明的，是避难所每个人贡献一道。"
+              "text": "这不是我发明的菜。那年每个避难者贡献一点，才做出一锅饭。"
             },
             {
+              "id": "sq_page_10.start.l02",
+              "speaker": "诺依",
+              "text": "我小时候在船上也吃过。"
+            },
+            {
+              "id": "sq_page_10.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "厨师",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "你记得是谁最先开始煮的？"
             }
           ],
           "effects": [
@@ -1037,19 +1931,22 @@
         },
         {
           "id": "sq_page_10.investigate",
-          "objective": "调查灾后王都·公用厨房并搜集证据",
+          "objective": "检验灾后王都·公用厨房的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【灾后王都·公用厨房】线索逐渐清晰。"
-            },
-            {
-              "speaker": "厨师",
-              "text": "食谱边页留着十二年前第一批救援队名字。"
-            },
-            {
+              "id": "sq_page_10.investigate.l01",
               "speaker": "主角",
-              "text": "权贵想以城市纪念名义独占食谱版权。"
+              "text": "食谱边上写着十二年前救援队的姓名。"
+            },
+            {
+              "id": "sq_page_10.investigate.l02",
+              "speaker": "厨师",
+              "text": "有个孩子拿来最后半袋面粉，连名字都没写。"
+            },
+            {
+              "id": "sq_page_10.investigate.l03",
+              "speaker": "诺依",
+              "text": "那时候我以为大人会记住所有人。"
             }
           ],
           "effects": [
@@ -1061,20 +1958,111 @@
           ]
         },
         {
-          "id": "sq_page_10.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_10.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_10.witness.l01",
+              "speaker": "前议员",
+              "text": "市议会愿意把食谱收为官方纪念资产，由特许餐馆经营。"
+            },
+            {
+              "id": "sq_page_10.witness.l02",
               "speaker": "厨师",
-              "text": "第十张航页记录灾难里不被歌颂的互助。"
+              "text": "那以后避难所的人想煮还得付钱？"
             },
             {
+              "id": "sq_page_10.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "别让灾时互助变成少数人的永久许可。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_10.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_10.decision.l01",
+              "speaker": "议员",
+              "text": "独占版权能筹更多纪念经费。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_10.decision.l02",
+              "speaker": "诺依",
+              "text": "可以募捐，但不能夺走原作者与公众共同留下的做法。"
+            },
+            {
+              "id": "sq_page_10.decision.l03",
+              "speaker": "厨师",
+              "text": "我愿把全套步骤贴在厨房门口。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_10.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开食谱与原始救援名单",
+                "sets": {
+                  "side.sq_page_10.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_10.branch_a.l01",
+                    "speaker": "厨师",
+                    "text": "谁想做都能按这份食谱试，调料不必一模一样。"
+                  },
+                  {
+                    "id": "sq_page_10.branch_a.l02",
+                    "speaker": "诺依",
+                    "text": "他们可以改良，不必先得到纪念馆许可。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "由旧避难者共同核对原始贡献者再公布",
+                "sets": {
+                  "side.sq_page_10.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_10.branch_b.l01",
+                    "speaker": "诺依",
+                    "text": "我们先听那些还活着的厨房工人怎么说。"
+                  },
+                  {
+                    "id": "sq_page_10.branch_b.l02",
+                    "speaker": "厨师",
+                    "text": "每补一个名字，就多知道一段那晚的事。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_10.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_10.finish.l01",
+              "speaker": "旁白",
+              "text": "食谱作为公共记忆开放使用，姓名录上还有许多待核查的空位。"
+            },
+            {
+              "id": "sq_page_10.finish.l02",
+              "speaker": "厨师",
+              "text": "明天我教孩子们做那锅饭。"
+            },
+            {
+              "id": "sq_page_10.finish.l03",
+              "speaker": "诺依",
+              "text": "第十张航页是当年大家彼此帮忙的证据，不是哪个人的金奖。"
             }
           ],
           "effects": [
@@ -1098,9 +2086,11 @@
       ],
       "npc_after": {
         "speaker": "厨师",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "谁想做都能按这份食谱试，调料不必一模一样。"
       },
-      "page_number": 10
+      "page_number": 10,
+      "collectible_text": "《黑星避难厨房合辑》由多名避难者口授，非私人专利；食谱旁保存救援和失联名单。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_11",
@@ -1120,19 +2110,22 @@
       "stages": [
         {
           "id": "sq_page_11.start",
-          "objective": "与石匠交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_11.start.l01",
               "speaker": "石匠",
-              "text": "图上有很多门，每扇门都能通向一个人的家。"
+              "text": "这块拼图不是风景画，瓦片上每扇门都通向一个人的家。"
             },
             {
+              "id": "sq_page_11.start.l02",
+              "speaker": "诺依",
+              "text": "这些门有些如今已经不存在了。"
+            },
+            {
+              "id": "sq_page_11.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "石匠",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "没有房子的人也还应该有路可回。"
             }
           ],
           "effects": [
@@ -1145,19 +2138,22 @@
         },
         {
           "id": "sq_page_11.investigate",
-          "objective": "调查群灯之城·居民广场并搜集证据",
+          "objective": "检验群灯之城·居民广场的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【群灯之城·居民广场】线索逐渐清晰。"
+              "id": "sq_page_11.investigate.l01",
+              "speaker": "迁入者",
+              "text": "我们把逃难时走的路拼到一起。"
             },
             {
+              "id": "sq_page_11.investigate.l02",
               "speaker": "石匠",
-              "text": "迁入者用碎瓦共同拼出逃难和回家路线。"
+              "text": "有人走北门，有人走西门，两条记忆还在争。"
             },
             {
-              "speaker": "主角",
-              "text": "有人提议只留下获胜阵营的路线。"
+              "id": "sq_page_11.investigate.l03",
+              "speaker": "伊泽",
+              "text": "路线不同是因为他们来自不同的地方。"
             }
           ],
           "effects": [
@@ -1169,20 +2165,111 @@
           ]
         },
         {
-          "id": "sq_page_11.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_11.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
-              "speaker": "石匠",
-              "text": "第十一张航页将相互矛盾的道路一起保存。"
+              "id": "sq_page_11.witness.l01",
+              "speaker": "旧军士",
+              "text": "把战败一方的路线刮掉，城市才会团结。"
             },
             {
+              "id": "sq_page_11.witness.l02",
+              "speaker": "诺依",
+              "text": "那些路上也走过躲避炮火的孩子。"
+            },
+            {
+              "id": "sq_page_11.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "人不该因为站错过一边就失去曾经回家的路。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_11.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_11.decision.l01",
+              "speaker": "议事代表",
+              "text": "留全图可能重新引发指责。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_11.decision.l02",
+              "speaker": "伊泽",
+              "text": "我们可以标明当年道路由谁记录、不确定之处在哪里。"
+            },
+            {
+              "id": "sq_page_11.decision.l03",
+              "speaker": "石匠",
+              "text": "瓦片还够多，不必从这张图里夺走别人的路。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_11.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "所有路线并列公开并附见证人来源",
+                "sets": {
+                  "side.sq_page_11.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_11.branch_a.l01",
+                    "speaker": "石匠",
+                    "text": "地图上每条线都有来源，不必强求它们全部重合。"
+                  },
+                  {
+                    "id": "sq_page_11.branch_a.l02",
+                    "speaker": "诺依",
+                    "text": "后来的人可以自己问为什么走法不同。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "先邀不同迁入者核对瓦片路线",
+                "sets": {
+                  "side.sq_page_11.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_11.branch_b.l01",
+                    "speaker": "迁入者",
+                    "text": "我认出了母亲当年住过的门。"
+                  },
+                  {
+                    "id": "sq_page_11.branch_b.l02",
+                    "speaker": "伊泽",
+                    "text": "让他们先讲，地图自然会长成许多人的形状。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_11.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_11.finish.l01",
+              "speaker": "旁白",
+              "text": "公共广场保留不同阵营、不同年份的迁徙路线，标注见证来源。"
+            },
+            {
+              "id": "sq_page_11.finish.l02",
+              "speaker": "石匠",
+              "text": "这回所有人都能找到自己走过的门。"
+            },
+            {
+              "id": "sq_page_11.finish.l03",
+              "speaker": "主角",
+              "text": "第十一张航页不是一条胜利的路，而是许多人都曾试着回家的证据。"
             }
           ],
           "effects": [
@@ -1206,9 +2293,11 @@
       ],
       "npc_after": {
         "speaker": "石匠",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "地图上每条线都有来源，不必强求它们全部重合。"
       },
-      "page_number": 11
+      "page_number": 11,
+      "collectible_text": "《万门碎瓦图》群灯城迁徙路线由居民共同拼合；互相矛盾的道路须附时代与证人，不予强删。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_page_12",
@@ -1228,19 +2317,22 @@
       "stages": [
         {
           "id": "sq_page_12.start",
-          "objective": "与维莎交谈并了解请求",
+          "objective": "调查委托人与相关人留下的初始线索",
           "dialogue": [
             {
+              "id": "sq_page_12.start.l01",
               "speaker": "维莎",
-              "text": "最后一页是空白的，这不是损坏。"
+              "text": "最后一张航页是空白的，不是损坏。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_page_12.start.l02",
+              "speaker": "玄璃",
+              "text": "有人替我们把尚未发生的日子留了下来。"
             },
             {
-              "speaker": "维莎",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_page_12.start.l03",
+              "speaker": "诺依",
+              "text": "旧议会不会允许它一直空着吧？"
             }
           ],
           "effects": [
@@ -1253,19 +2345,22 @@
         },
         {
           "id": "sq_page_12.investigate",
-          "objective": "调查天轨圣域·旧阅览室并搜集证据",
+          "objective": "检验天轨圣域·旧阅览室的文献与现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【天轨圣域·旧阅览室】线索逐渐清晰。"
-            },
-            {
-              "speaker": "维莎",
-              "text": "空白页原本留给尚未出生的人书写。"
-            },
-            {
+              "id": "sq_page_12.investigate.l01",
               "speaker": "主角",
-              "text": "议会程序试图预先写入“最安全的未来”。"
+              "text": "档案印着“预留给尚未出生者”。"
+            },
+            {
+              "id": "sq_page_12.investigate.l02",
+              "speaker": "维莎",
+              "text": "可系统里还有一条自动填写最安全未来的命令。"
+            },
+            {
+              "id": "sq_page_12.investigate.l03",
+              "speaker": "玄璃",
+              "text": "它会把空白变成另一份不得更改的答案。"
             }
           ],
           "effects": [
@@ -1277,20 +2372,111 @@
           ]
         },
         {
-          "id": "sq_page_12.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_page_12.witness",
+          "objective": "听取与历史记录有关的其他见证",
           "dialogue": [
             {
+              "id": "sq_page_12.witness.l01",
+              "speaker": "议会程序",
+              "text": "若不提前记录正确未来，未知风险将持续上升。"
+            },
+            {
+              "id": "sq_page_12.witness.l02",
               "speaker": "维莎",
-              "text": "第十二张航页未写上答案，只留下所有人继续书写的权利。"
+              "text": "风险要告知人，不能靠禁止人产生不同未来来处理。"
             },
             {
+              "id": "sq_page_12.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "保留原始档案并终止强制书写命令。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_page_12.decision",
+          "objective": "回应保存航页时出现的争议",
+          "dialogue": [
+            {
+              "id": "sq_page_12.decision.l01",
+              "speaker": "记录监守者",
+              "text": "留空等于放弃保护。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_page_12.decision.l02",
+              "speaker": "诺依",
+              "text": "保护不一定是替人把明天写完。"
+            },
+            {
+              "id": "sq_page_12.decision.l03",
+              "speaker": "维莎",
+              "text": "我们有七地自愿共同维护的方案，不必再制造永久的唯一记录者。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_page_12.choice",
+            "prompt": "你准备怎样保存这段历史？",
+            "options": [
+              {
+                "id": "a",
+                "label": "永久禁止强制预写，交公共档案保护空白",
+                "sets": {
+                  "side.sq_page_12.approach": "a"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_12.branch_a.l01",
+                    "speaker": "维莎",
+                    "text": "我亲手取消了自动填写权限，也保留注销记录供人质询。"
+                  },
+                  {
+                    "id": "sq_page_12.branch_a.l02",
+                    "speaker": "玄璃",
+                    "text": "空白是一项权利，不是遗漏。"
+                  }
+                ]
+              },
+              {
+                "id": "b",
+                "label": "设置公开监督机制，允许未来者自愿书写",
+                "sets": {
+                  "side.sq_page_12.approach": "b"
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "sq_page_12.branch_b.l01",
+                    "speaker": "诺依",
+                    "text": "未来的人有权写，也有权不写。"
+                  },
+                  {
+                    "id": "sq_page_12.branch_b.l02",
+                    "speaker": "维莎",
+                    "text": "记录者的工作是保存选择，不是替所有人选出正确答案。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_page_12.finish",
+          "objective": "向委托人交付经见证的失落航页",
+          "dialogue": [
+            {
+              "id": "sq_page_12.finish.l01",
+              "speaker": "旁白",
+              "text": "第十二张航页仍保持空白，但边缘记录所有见证者与保存方式。"
+            },
+            {
+              "id": "sq_page_12.finish.l02",
+              "speaker": "玄璃",
+              "text": "它现在终于能等到真正想写下一句的人。"
+            },
+            {
+              "id": "sq_page_12.finish.l03",
+              "speaker": "维莎",
+              "text": "世界不需要把这页填满，才能证明自己还活着。"
             }
           ],
           "effects": [
@@ -1314,9 +2500,11 @@
       ],
       "npc_after": {
         "speaker": "维莎",
-        "text": "谢谢你愿意听完这件小事。"
+        "text": "我亲手取消了自动填写权限，也保留注销记录供人质询。"
       },
-      "page_number": 12
+      "page_number": 12,
+      "collectible_text": "《第十二张失落航页》预留给尚未出生的人，不得预先填入唯一的未来；此项空白同样受公开保护。",
+      "script_revision": "lost_page_five_stage_v2"
     },
     {
       "id": "sq_life_01",

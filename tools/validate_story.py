@@ -91,8 +91,9 @@ quests = side.get("quests", [])
 if len(quests) != 36 or len({q.get("id") for q in quests}) != 36:
     errors.append("Expected 36 unique side quests")
 for q in quests:
-    if len(q.get("stages", [])) != 3:
-        errors.append(f"Side quest needs 3 stages: {q.get('id')}")
+    expected = 5 if q.get("type") == "lost_page" else 3
+    if len(q.get("stages", [])) != expected:
+        errors.append(f"Side quest needs {expected} stages: {q.get('id')}")
 pages = [q for q in quests if q.get("type") == "lost_page"]
 if len(pages) != 12 or set(q.get("page_number") for q in pages) != set(range(1, 13)):
     errors.append("Expected all twelve lost page quests")

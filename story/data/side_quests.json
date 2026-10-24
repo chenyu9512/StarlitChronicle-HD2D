@@ -3578,19 +3578,22 @@
       "stages": [
         {
           "id": "sq_life_07.start",
-          "objective": "与学徒交谈并了解请求",
+          "objective": "接受居民委托",
           "dialogue": [
             {
+              "id": "sq_life_07.start.l01",
               "speaker": "学徒",
-              "text": "它总在停工时回来，好像等谁下班。"
+              "text": "那只猫总在停工时回来，守在炉房门口。"
             },
             {
+              "id": "sq_life_07.start.l02",
+              "speaker": "缇珐",
+              "text": "它听见汽笛才来的吗？"
+            },
+            {
+              "id": "sq_life_07.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "学徒",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "项圈上有磨掉的字。"
             }
           ],
           "effects": [
@@ -3603,19 +3606,22 @@
         },
         {
           "id": "sq_life_07.investigate",
-          "objective": "调查赤炉工厂·休息间并搜集证据",
+          "objective": "调查赤炉工厂·休息间的相关证物",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【赤炉工厂·休息间】线索逐渐清晰。"
+              "id": "sq_life_07.investigate.l01",
+              "speaker": "矿工妻子",
+              "text": "我丈夫每天给它一块面包。"
             },
             {
+              "id": "sq_life_07.investigate.l02",
+              "speaker": "岚音",
+              "text": "他失忆后记不起猫的名字了。"
+            },
+            {
+              "id": "sq_life_07.investigate.l03",
               "speaker": "学徒",
-              "text": "老矿工曾每天给猫带一块面包。"
-            },
-            {
-              "speaker": "主角",
-              "text": "将猫送回矿工的家，获得工匠徽记。"
+              "text": "可猫听见他的脚步就跑来。"
             }
           ],
           "effects": [
@@ -3627,20 +3633,87 @@
           ]
         },
         {
-          "id": "sq_life_07.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_07.witness",
+          "objective": "听取当事人及其他居民说法",
           "dialogue": [
             {
+              "id": "sq_life_07.witness.l01",
+              "speaker": "矿工",
+              "text": "这是我以前养的猫？"
+            },
+            {
+              "id": "sq_life_07.witness.l02",
+              "speaker": "妻子",
+              "text": "它一直等你下班。"
+            },
+            {
+              "id": "sq_life_07.witness.l03",
+              "speaker": "岚音",
+              "text": "不必逼他现在就认出过去。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_07.decision",
+          "objective": "讨论并选择后续做法",
+          "dialogue": [
+            {
+              "id": "sq_life_07.decision.l01",
+              "speaker": "工厂主管",
+              "text": "猫总在高温区游荡，不安全。"
+            },
+            {
+              "id": "sq_life_07.decision.l02",
               "speaker": "学徒",
-              "text": "小猫回到矿工家，仍每天等在门口。"
+              "text": "我能替它找回家路。"
             },
             {
+              "id": "sq_life_07.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "把安全路线和收养人一起确认。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_07.choice",
+            "prompt": "如何解决居民遇到的问题？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先由矿工家属安排熟悉环境",
+                "sets": {
+                  "side.sq_life_07.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "给猫制作安全地址项圈",
+                "sets": {
+                  "side.sq_life_07.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_07.finish",
+          "objective": "与当事人确认最终结果",
+          "dialogue": [
+            {
+              "id": "sq_life_07.finish.l01",
+              "speaker": "旁白",
+              "text": "猫在矿工家门口团成一团。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_07.finish.l02",
+              "speaker": "矿工",
+              "text": "它是不是喜欢吃面包？"
+            },
+            {
+              "id": "sq_life_07.finish.l03",
+              "speaker": "学徒",
+              "text": "你们能重新认识。"
             }
           ],
           "effects": [
@@ -3659,8 +3732,9 @@
       ],
       "npc_after": {
         "speaker": "学徒",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "你们能重新认识。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_08",
@@ -3679,19 +3753,22 @@
       "stages": [
         {
           "id": "sq_life_08.start",
-          "objective": "与缇珐交谈并了解请求",
+          "objective": "接受居民委托",
           "dialogue": [
             {
+              "id": "sq_life_08.start.l01",
               "speaker": "缇珐",
-              "text": "我想造一把不会用于打仗的工具。"
+              "text": "我想造一把专门救人、不为攻城设计的锤。"
             },
             {
+              "id": "sq_life_08.start.l02",
+              "speaker": "工匠",
+              "text": "锤子本来就是砸东西的。"
+            },
+            {
+              "id": "sq_life_08.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "缇珐",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "先听救援队说怎样砸才安全。"
             }
           ],
           "effects": [
@@ -3704,19 +3781,22 @@
         },
         {
           "id": "sq_life_08.investigate",
-          "objective": "调查赤炉试炼塔并搜集证据",
+          "objective": "调查赤炉试炼塔的相关证物",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【赤炉试炼塔】线索逐渐清晰。"
+              "id": "sq_life_08.investigate.l01",
+              "speaker": "救援工",
+              "text": "旧锤头尖，会伤瓦砾下的人。"
             },
             {
+              "id": "sq_life_08.investigate.l02",
               "speaker": "缇珐",
-              "text": "锤头形状可以专门防止武器加工。"
+              "text": "改成分散冲击的破拆头。"
             },
             {
-              "speaker": "主角",
-              "text": "制作救援破拆锤，并在第十幕救灾中使用。"
+              "id": "sq_life_08.investigate.l03",
+              "speaker": "岚音",
+              "text": "也要写明禁用场合。"
             }
           ],
           "effects": [
@@ -3728,20 +3808,87 @@
           ]
         },
         {
-          "id": "sq_life_08.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_08.witness",
+          "objective": "听取当事人及其他居民说法",
           "dialogue": [
             {
+              "id": "sq_life_08.witness.l01",
+              "speaker": "学徒",
+              "text": "别人还是能拿新锤打人。"
+            },
+            {
+              "id": "sq_life_08.witness.l02",
               "speaker": "缇珐",
-              "text": "不适合打造兵器的工具，反而能救出压在废墟里的人。"
+              "text": "我无法保证使用者永远正确，但可以减少误伤风险。"
             },
             {
+              "id": "sq_life_08.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "需要公开操作规范。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_08.decision",
+          "objective": "讨论并选择后续做法",
+          "dialogue": [
+            {
+              "id": "sq_life_08.decision.l01",
+              "speaker": "考官",
+              "text": "杀伤能力低的工具怎么算技艺？"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_08.decision.l02",
+              "speaker": "救援工",
+              "text": "能救命就是技艺。"
+            },
+            {
+              "id": "sq_life_08.decision.l03",
+              "speaker": "缇珐",
+              "text": "让实际试验回答。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_08.choice",
+            "prompt": "如何解决居民遇到的问题？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由医护主持安全试验",
+                "sets": {
+                  "side.sq_life_08.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让工匠学徒参与结构复核",
+                "sets": {
+                  "side.sq_life_08.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_08.finish",
+          "objective": "与当事人确认最终结果",
+          "dialogue": [
+            {
+              "id": "sq_life_08.finish.l01",
+              "speaker": "旁白",
+              "text": "救援破拆锤通过安全演练。"
+            },
+            {
+              "id": "sq_life_08.finish.l02",
+              "speaker": "缇珐",
+              "text": "以后它归公共救援仓库，不是我的专利。"
+            },
+            {
+              "id": "sq_life_08.finish.l03",
+              "speaker": "岚音",
+              "text": "希望第一次真正用到它，就能安全救出人。"
             }
           ],
           "effects": [
@@ -3760,8 +3907,9 @@
       ],
       "npc_after": {
         "speaker": "缇珐",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "希望第一次真正用到它，就能安全救出人。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_09",
@@ -3780,19 +3928,22 @@
       "stages": [
         {
           "id": "sq_life_09.start",
-          "objective": "与老人交谈并了解请求",
+          "objective": "接受居民委托",
           "dialogue": [
             {
+              "id": "sq_life_09.start.l01",
               "speaker": "老人",
-              "text": "机器总只播一半，好像有人把下半句偷走了。"
+              "text": "留声机总播一半，像有人把祝福偷走了。"
             },
             {
+              "id": "sq_life_09.start.l02",
+              "speaker": "缇珐",
+              "text": "唱针没坏，后半张唱片不见了。"
+            },
+            {
+              "id": "sq_life_09.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "老人",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "先找保管记录。"
             }
           ],
           "effects": [
@@ -3805,19 +3956,22 @@
         },
         {
           "id": "sq_life_09.investigate",
-          "objective": "调查赤炉旧街并搜集证据",
+          "objective": "调查赤炉旧街的相关证物",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【赤炉旧街】线索逐渐清晰。"
+              "id": "sq_life_09.investigate.l01",
+              "speaker": "邻居",
+              "text": "停工那年，有人把后半张藏在抽屉防止损坏。"
             },
             {
+              "id": "sq_life_09.investigate.l02",
               "speaker": "老人",
-              "text": "失落的录音是父女普通的生日祝福。"
+              "text": "那是我女儿小时候的生日录音。"
             },
             {
-              "speaker": "主角",
-              "text": "修复唱片，首次开放家庭纪念墙。"
+              "id": "sq_life_09.investigate.l03",
+              "speaker": "缇珐",
+              "text": "可以修，却不能抹平全部刮痕。"
             }
           ],
           "effects": [
@@ -3829,20 +3983,87 @@
           ]
         },
         {
-          "id": "sq_life_09.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_09.witness",
+          "objective": "听取当事人及其他居民说法",
           "dialogue": [
             {
+              "id": "sq_life_09.witness.l01",
+              "speaker": "成年女儿",
+              "text": "我怕再也听不到最后一句。"
+            },
+            {
+              "id": "sq_life_09.witness.l02",
               "speaker": "老人",
-              "text": "留声机终于播出了父亲对女儿完整的生日祝福。"
+              "text": "我又怕听见年轻时候的自己。"
             },
             {
+              "id": "sq_life_09.witness.l03",
+              "speaker": "岚音",
+              "text": "你们可以自己选择什么时候一起听。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_09.decision",
+          "objective": "讨论并选择后续做法",
+          "dialogue": [
+            {
+              "id": "sq_life_09.decision.l01",
+              "speaker": "收藏员",
+              "text": "修复完成能当街播放，大家一定喜欢。"
+            },
+            {
+              "id": "sq_life_09.decision.l02",
+              "speaker": "女儿",
+              "text": "但那本来只是说给我听的。"
+            },
+            {
+              "id": "sq_life_09.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "修复技术可以公开，私人声音不必。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_09.choice",
+            "prompt": "如何解决居民遇到的问题？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先让父女私下完整听一遍",
+                "sets": {
+                  "side.sq_life_09.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "公开修复步骤但不公开录音",
+                "sets": {
+                  "side.sq_life_09.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_09.finish",
+          "objective": "与当事人确认最终结果",
+          "dialogue": [
+            {
+              "id": "sq_life_09.finish.l01",
+              "speaker": "旁白",
+              "text": "留声机终于唱完那段生日祝福。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_09.finish.l02",
+              "speaker": "女儿",
+              "text": "末尾原来是“下次一起去看海”。"
+            },
+            {
+              "id": "sq_life_09.finish.l03",
+              "speaker": "老人",
+              "text": "那我们现在就去一回。"
             }
           ],
           "effects": [
@@ -3861,8 +4082,9 @@
       ],
       "npc_after": {
         "speaker": "老人",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "那我们现在就去一回。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_10",
@@ -3881,19 +4103,22 @@
       "stages": [
         {
           "id": "sq_life_10.start",
-          "objective": "与雷索交谈并了解请求",
+          "objective": "接受居民委托",
           "dialogue": [
             {
+              "id": "sq_life_10.start.l01",
               "speaker": "雷索",
-              "text": "我以为它烧掉了，没想到还有人替我收着。"
+              "text": "这件披风我以为烧掉了，竟有人留到今天。"
             },
             {
+              "id": "sq_life_10.start.l02",
+              "speaker": "村民后裔",
+              "text": "祖母在它里面缝了人名。"
+            },
+            {
+              "id": "sq_life_10.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "雷索",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "那些字写的是谁？"
             }
           ],
           "effects": [
@@ -3906,19 +4131,22 @@
         },
         {
           "id": "sq_life_10.investigate",
-          "objective": "调查三誓边村并搜集证据",
+          "objective": "调查三誓边村的相关证物",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【三誓边村】线索逐渐清晰。"
-            },
-            {
+              "id": "sq_life_10.investigate.l01",
               "speaker": "雷索",
-              "text": "披风内侧缝着被救村民的姓名。"
+              "text": "是那年从沟渠撤出的居民。"
             },
             {
-              "speaker": "主角",
-              "text": "雷索公开承认当年违令，不再回避自己。"
+              "id": "sq_life_10.investigate.l02",
+              "speaker": "后裔",
+              "text": "祖母让每个幸存者都签一点。"
+            },
+            {
+              "id": "sq_life_10.investigate.l03",
+              "speaker": "岚音",
+              "text": "这不是为了写你的功绩。"
             }
           ],
           "effects": [
@@ -3930,20 +4158,87 @@
           ]
         },
         {
-          "id": "sq_life_10.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_10.witness",
+          "objective": "听取当事人及其他居民说法",
           "dialogue": [
             {
+              "id": "sq_life_10.witness.l01",
+              "speaker": "老军士",
+              "text": "披风能证明你当年违令救人。"
+            },
+            {
+              "id": "sq_life_10.witness.l02",
               "speaker": "雷索",
-              "text": "雷索公开承认当年的违令，也承认曾经的犹豫。"
+              "text": "它也提醒我没能救回的人。"
             },
             {
+              "id": "sq_life_10.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "别用一件证物概括那天全部故事。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_10.decision",
+          "objective": "讨论并选择后续做法",
+          "dialogue": [
+            {
+              "id": "sq_life_10.decision.l01",
+              "speaker": "村民",
+              "text": "送到王都展览，我们就再看不到它了。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_10.decision.l02",
+              "speaker": "后裔",
+              "text": "想让村里的孩子也认得这些名字。"
+            },
+            {
+              "id": "sq_life_10.decision.l03",
+              "speaker": "雷索",
+              "text": "应由家属共同决定展示方式。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_10.choice",
+            "prompt": "如何解决居民遇到的问题？",
+            "options": [
+              {
+                "id": "a",
+                "label": "在村里保留披风并登记姓名",
+                "sets": {
+                  "side.sq_life_10.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "征得家属同意后举办流动展览",
+                "sets": {
+                  "side.sq_life_10.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_10.finish",
+          "objective": "与当事人确认最终结果",
+          "dialogue": [
+            {
+              "id": "sq_life_10.finish.l01",
+              "speaker": "旁白",
+              "text": "披风留在边村公共旧屋。"
+            },
+            {
+              "id": "sq_life_10.finish.l02",
+              "speaker": "雷索",
+              "text": "我确实害怕，也确实拒绝过那道命令。"
+            },
+            {
+              "id": "sq_life_10.finish.l03",
+              "speaker": "后裔",
+              "text": "祖母想让你知道，人们记得那条救命的沟。"
             }
           ],
           "effects": [
@@ -3962,8 +4257,9 @@
       ],
       "npc_after": {
         "speaker": "雷索",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "祖母想让你知道，人们记得那条救命的沟。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_11",
@@ -3982,19 +4278,22 @@
       "stages": [
         {
           "id": "sq_life_11.start",
-          "objective": "与女童交谈并了解请求",
+          "objective": "接受居民委托",
           "dialogue": [
             {
+              "id": "sq_life_11.start.l01",
               "speaker": "女童",
-              "text": "红围巾上有颗歪歪的星星，我一定认得出来。"
+              "text": "红围巾不见了！上面那颗歪星星我认得。"
             },
             {
+              "id": "sq_life_11.start.l02",
+              "speaker": "岚音",
+              "text": "先留在这里，别一个人乱跑。"
+            },
+            {
+              "id": "sq_life_11.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "女童",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "你记得最后在哪里看见？"
             }
           ],
           "effects": [
@@ -4007,19 +4306,22 @@
         },
         {
           "id": "sq_life_11.investigate",
-          "objective": "调查白夜祭·市集并搜集证据",
+          "objective": "调查白夜祭·市集的相关证物",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【白夜祭·市集】线索逐渐清晰。"
+              "id": "sq_life_11.investigate.l01",
+              "speaker": "灯笼摊主",
+              "text": "风把围巾吹到流动货车旁。"
             },
             {
-              "speaker": "女童",
-              "text": "围巾最后落在卖灯笼的流动商贩摊位。"
-            },
-            {
+              "id": "sq_life_11.investigate.l02",
               "speaker": "主角",
-              "text": "孩子与母亲团聚，节庆广场增加热闹NPC。"
+              "text": "摊位刚转去东街。"
+            },
+            {
+              "id": "sq_life_11.investigate.l03",
+              "speaker": "岚音",
+              "text": "母亲的联络地点先记下来。"
             }
           ],
           "effects": [
@@ -4031,20 +4333,87 @@
           ]
         },
         {
-          "id": "sq_life_11.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_11.witness",
+          "objective": "听取当事人及其他居民说法",
           "dialogue": [
             {
+              "id": "sq_life_11.witness.l01",
               "speaker": "女童",
-              "text": "母女在热闹的白夜祭重新找到彼此。"
+              "text": "我怕妈妈走了。"
             },
             {
+              "id": "sq_life_11.witness.l02",
+              "speaker": "守卫",
+              "text": "可以开临时寻人处，不公布孩子的私事。"
+            },
+            {
+              "id": "sq_life_11.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "歪星针脚正好是核实线索。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_11.decision",
+          "objective": "讨论并选择后续做法",
+          "dialogue": [
+            {
+              "id": "sq_life_11.decision.l01",
+              "speaker": "灯笼商",
+              "text": "我捡到了红围巾，来认一认。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_11.decision.l02",
+              "speaker": "女童",
+              "text": "左边最后一针是我缝的。"
+            },
+            {
+              "id": "sq_life_11.decision.l03",
+              "speaker": "岚音",
+              "text": "再请妈妈亲自确认。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_11.choice",
+            "prompt": "如何解决居民遇到的问题？",
+            "options": [
+              {
+                "id": "a",
+                "label": "设置节庆临时寻人点",
+                "sets": {
+                  "side.sq_life_11.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由母亲核对针脚后归还",
+                "sets": {
+                  "side.sq_life_11.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_11.finish",
+          "objective": "与当事人确认最终结果",
+          "dialogue": [
+            {
+              "id": "sq_life_11.finish.l01",
+              "speaker": "旁白",
+              "text": "母亲终于找到女儿，红围巾重新系在脖子上。"
+            },
+            {
+              "id": "sq_life_11.finish.l02",
+              "speaker": "女童",
+              "text": "以后我先去寻人处，不自己乱跑。"
+            },
+            {
+              "id": "sq_life_11.finish.l03",
+              "speaker": "母亲",
+              "text": "我们把见面的地方约好。"
             }
           ],
           "effects": [
@@ -4063,8 +4432,9 @@
       ],
       "npc_after": {
         "speaker": "女童",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "我们把见面的地方约好。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_12",
@@ -4073,7 +4443,7 @@
       "region": "白夜祭·后台",
       "required_chapter": "ch023",
       "recommended_after_flag": "story.ch023.done",
-      "npc": "伊泽",
+      "npc": "宫廷乐师",
       "summary": "我只有一首歌的时间，要让所有人都听见证人说话。 证人不愿上台，但愿意将证据写在歌词里。",
       "completion_flag": "side.sq_life_12.done",
       "rewards": {
@@ -4083,19 +4453,22 @@
       "stages": [
         {
           "id": "sq_life_12.start",
-          "objective": "与伊泽交谈并了解请求",
+          "objective": "接受居民委托",
           "dialogue": [
             {
-              "speaker": "伊泽",
-              "text": "我只有一首歌的时间，要让所有人都听见证人说话。"
+              "id": "sq_life_12.start.l01",
+              "speaker": "宫廷乐师",
+              "text": "我只有一首歌的时间，让证人说出愿意说的话。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_life_12.start.l02",
+              "speaker": "雷索",
+              "text": "她为何不直接上台？"
             },
             {
-              "speaker": "伊泽",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_life_12.start.l03",
+              "speaker": "乐师",
+              "text": "她怕被当作拍卖品再看一遍。"
             }
           ],
           "effects": [
@@ -4108,19 +4481,22 @@
         },
         {
           "id": "sq_life_12.investigate",
-          "objective": "调查白夜祭·后台并搜集证据",
+          "objective": "调查白夜祭·后台的相关证物",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【白夜祭·后台】线索逐渐清晰。"
+              "id": "sq_life_12.investigate.l01",
+              "speaker": "证人",
+              "text": "我愿交出证据，不想把一生唱给陌生人听。"
             },
             {
-              "speaker": "伊泽",
-              "text": "证人不愿上台，但愿意将证据写在歌词里。"
-            },
-            {
+              "id": "sq_life_12.investigate.l02",
               "speaker": "主角",
-              "text": "护送证人完成公开演出，解锁伊泽技能。"
+              "text": "你决定说多少。"
+            },
+            {
+              "id": "sq_life_12.investigate.l03",
+              "speaker": "宫廷乐师",
+              "text": "我负责帮你争取安全的时间。"
             }
           ],
           "effects": [
@@ -4132,20 +4508,87 @@
           ]
         },
         {
-          "id": "sq_life_12.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_12.witness",
+          "objective": "听取当事人及其他居民说法",
           "dialogue": [
             {
-              "speaker": "伊泽",
-              "text": "证人在演出中读出了自己愿意公开的证据。"
+              "id": "sq_life_12.witness.l01",
+              "speaker": "宫廷管事",
+              "text": "只有正式节目能登台。"
             },
             {
+              "id": "sq_life_12.witness.l02",
+              "speaker": "雷索",
+              "text": "别为演出逼证人冒险。"
+            },
+            {
+              "id": "sq_life_12.witness.l03",
+              "speaker": "乐师",
+              "text": "侧门通向见证席，可以有不暴露身份的方式。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_12.decision",
+          "objective": "讨论并选择后续做法",
+          "dialogue": [
+            {
+              "id": "sq_life_12.decision.l01",
+              "speaker": "证人",
+              "text": "如果我到时不愿开口呢？"
+            },
+            {
+              "id": "sq_life_12.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "仍会保护你和证物。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_12.decision.l03",
+              "speaker": "宫廷乐师",
+              "text": "我可以把歌唱完，不将沉默说成背叛。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_12.choice",
+            "prompt": "如何解决居民遇到的问题？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由证人自行宣读已匿名的证据",
+                "sets": {
+                  "side.sq_life_12.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "请档案员代读经授权的书面证词",
+                "sets": {
+                  "side.sq_life_12.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_12.finish",
+          "objective": "与当事人确认最终结果",
+          "dialogue": [
+            {
+              "id": "sq_life_12.finish.l01",
+              "speaker": "旁白",
+              "text": "证人只公开自己同意的证据，私人记忆没有被拍卖。"
+            },
+            {
+              "id": "sq_life_12.finish.l02",
+              "speaker": "宫廷乐师",
+              "text": "这次演出短，却终于留出人的选择。"
+            },
+            {
+              "id": "sq_life_12.finish.l03",
+              "speaker": "雷索",
+              "text": "值得被听到的是证词，不是噱头。"
             }
           ],
           "effects": [
@@ -4163,9 +4606,11 @@
         }
       ],
       "npc_after": {
-        "speaker": "伊泽",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "speaker": "宫廷乐师",
+        "text": "值得被听到的是证词，不是噱头。"
+      },
+      "script_revision": "regional_five_stage_v2",
+      "timeline_note": "第23章伊泽尚未登场，委托人是独立宫廷乐师。"
     },
     {
       "id": "sq_life_13",

@@ -3,7 +3,9 @@
   "status": "text_only_not_bound",
   "characters": {
     "lanyin": "岚音",
-    "leiso": "雷索"
+    "leiso": "雷索",
+    "shouxian": "朔弦",
+    "tifa": "缇珐"
   },
   "quests": [
     {
@@ -1706,6 +1708,1660 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.06",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_shouxian_01",
+      "title": "还债的航海图",
+      "type": "companion",
+      "lead": "朔弦",
+      "lead_id": "shouxian",
+      "region": "白砂港旧酒馆",
+      "npc": "酒馆老板",
+      "premise": "朔弦早年受雇运输的账单上，有一名受害者的住址。",
+      "required_chapter": "ch005",
+      "required_flags": [
+        "story.ch005.done"
+      ],
+      "completion_flag": "side.cq_shouxian_01.done",
+      "stages": [
+        {
+          "id": "cq_shouxian_01.meet",
+          "objective": "与酒馆老板交谈",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_01.0.l01",
+              "speaker": "酒馆老板",
+              "text": "你每次寄钱都不写名字。"
+            },
+            {
+              "id": "cq_shouxian_01.0.l02",
+              "speaker": "朔弦",
+              "text": "总不能让人知道我从前干过什么。"
+            },
+            {
+              "id": "cq_shouxian_01.0.l03",
+              "speaker": "主角",
+              "text": "他们可以决定要不要收，也可以决定要不要见你。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_01.investigate",
+          "objective": "调查白砂港旧酒馆的证据",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_01.1.l01",
+              "speaker": "受害家属",
+              "text": "钱是来了，但我们一直不知道是谁寄的。"
+            },
+            {
+              "id": "cq_shouxian_01.1.l02",
+              "speaker": "朔弦",
+              "text": "是我。当年那条船我也在。"
+            },
+            {
+              "id": "cq_shouxian_01.1.l03",
+              "speaker": "岚音",
+              "text": "如果他还没准备原谅，你就让他说完。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_01.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_01.2.l01",
+              "speaker": "受害家属",
+              "text": "把钱收下，难道就等于替你洗清了吗？"
+            },
+            {
+              "id": "cq_shouxian_01.2.l02",
+              "speaker": "朔弦",
+              "text": "不是。我欠的不只是钱，还有我知道的航路与货单。"
+            },
+            {
+              "id": "cq_shouxian_01.2.l03",
+              "speaker": "主角",
+              "text": "证物交由家属决定去向。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_shouxian_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先当面交代运输记录",
+                "sets": {
+                  "side.cq_shouxian_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先把可核查的证据交给家属",
+                "sets": {
+                  "side.cq_shouxian_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_shouxian_01.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_01.3.l01",
+              "speaker": "酒馆老板",
+              "text": "货单已经送到公开档案馆。"
+            },
+            {
+              "id": "cq_shouxian_01.3.l02",
+              "speaker": "受害家属",
+              "text": "以后别再匿名寄钱了，有话就署名。"
+            },
+            {
+              "id": "cq_shouxian_01.3.l03",
+              "speaker": "朔弦",
+              "text": "这次我会把自己的名字写清。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_shouxian_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先当面交代运输记录",
+        "b": "先把可核查的证据交给家属"
+      },
+      "story_reward_flag": "bond.shouxian.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_shouxian_02",
+      "title": "船长没有画完的星位",
+      "type": "companion",
+      "lead": "朔弦",
+      "lead_id": "shouxian",
+      "region": "海歌港旧船坞",
+      "npc": "老水手",
+      "premise": "朔弦在往日航路中发现一位曾帮助自己逃离的水手。",
+      "required_chapter": "ch020",
+      "required_flags": [
+        "story.ch020.done",
+        "side.cq_shouxian_01.done"
+      ],
+      "completion_flag": "side.cq_shouxian_02.done",
+      "stages": [
+        {
+          "id": "cq_shouxian_02.meet",
+          "objective": "与老水手交谈",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_02.0.l01",
+              "speaker": "老水手",
+              "text": "你的船越来越大，脾气还是那么硬。"
+            },
+            {
+              "id": "cq_shouxian_02.0.l02",
+              "speaker": "朔弦",
+              "text": "你那时往我小艇里扔干面包，我还没付钱。"
+            },
+            {
+              "id": "cq_shouxian_02.0.l03",
+              "speaker": "主角",
+              "text": "先问问他这些年过得怎么样。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_02.investigate",
+          "objective": "调查海歌港旧船坞的证据",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_02.1.l01",
+              "speaker": "老水手",
+              "text": "我偷偷保存过一张无名岛星位图。"
+            },
+            {
+              "id": "cq_shouxian_02.1.l02",
+              "speaker": "朔弦",
+              "text": "我一直以为它被船长烧了。"
+            },
+            {
+              "id": "cq_shouxian_02.1.l03",
+              "speaker": "老水手",
+              "text": "我也害怕，才藏了这么久。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_02.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_02.2.l01",
+              "speaker": "朔弦",
+              "text": "你当年为什么没跟我一起逃？"
+            },
+            {
+              "id": "cq_shouxian_02.2.l02",
+              "speaker": "老水手",
+              "text": "我有家人在船上，不能一走了之。"
+            },
+            {
+              "id": "cq_shouxian_02.2.l03",
+              "speaker": "主角",
+              "text": "两种选择都有代价，不必争谁勇敢。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_shouxian_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开两份航路图一起比对",
+                "sets": {
+                  "side.cq_shouxian_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "将老船员的证词先存档",
+                "sets": {
+                  "side.cq_shouxian_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_shouxian_02.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_02.3.l01",
+              "speaker": "旁白",
+              "text": "两张星位图在灯下拼成一条断续的路。"
+            },
+            {
+              "id": "cq_shouxian_02.3.l02",
+              "speaker": "老水手",
+              "text": "到了那座岛，替我看看那棵歪树。"
+            },
+            {
+              "id": "cq_shouxian_02.3.l03",
+              "speaker": "朔弦",
+              "text": "我会亲自回来告诉你。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_shouxian_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "公开两份航路图一起比对",
+        "b": "将老船员的证词先存档"
+      },
+      "story_reward_flag": "bond.shouxian.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_shouxian_03",
+      "title": "邮差的退回船票",
+      "type": "companion",
+      "lead": "朔弦",
+      "lead_id": "shouxian",
+      "region": "晴汐小岛码头",
+      "npc": "老邮差",
+      "premise": "许多岛民无钱接收寄错港口的信件，邮差仍垫付船费。",
+      "required_chapter": "ch026",
+      "required_flags": [
+        "story.ch026.done",
+        "side.cq_shouxian_02.done"
+      ],
+      "completion_flag": "side.cq_shouxian_03.done",
+      "stages": [
+        {
+          "id": "cq_shouxian_03.meet",
+          "objective": "与老邮差交谈",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_03.0.l01",
+              "speaker": "老邮差",
+              "text": "我不是圣人，腿脚不好以后也送不动了。"
+            },
+            {
+              "id": "cq_shouxian_03.0.l02",
+              "speaker": "朔弦",
+              "text": "我能帮你跑几趟海路。"
+            },
+            {
+              "id": "cq_shouxian_03.0.l03",
+              "speaker": "主角",
+              "text": "得让邮路有制度，不是再找一个人把自己累垮。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_03.investigate",
+          "objective": "调查晴汐小岛码头的证据",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_03.1.l01",
+              "speaker": "船务官",
+              "text": "免费送信会赔本。"
+            },
+            {
+              "id": "cq_shouxian_03.1.l02",
+              "speaker": "老邮差",
+              "text": "有的信比货还要紧。"
+            },
+            {
+              "id": "cq_shouxian_03.1.l03",
+              "speaker": "朔弦",
+              "text": "货也要运，为什么不能让商船自愿带一袋信？"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_03.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_03.2.l01",
+              "speaker": "船务官",
+              "text": "没人保证他们不把信扔进海里。"
+            },
+            {
+              "id": "cq_shouxian_03.2.l02",
+              "speaker": "主角",
+              "text": "建立交接登记，让寄件人知道每一段去向。"
+            },
+            {
+              "id": "cq_shouxian_03.2.l03",
+              "speaker": "朔弦",
+              "text": "别让我再看见一封信因为找不到船就白等十年。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_shouxian_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立商船自愿接力邮路",
+                "sets": {
+                  "side.cq_shouxian_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "设立寄件人可查询的交接台账",
+                "sets": {
+                  "side.cq_shouxian_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_shouxian_03.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_03.3.l01",
+              "speaker": "旁白",
+              "text": "第一条由多船分担的邮路开始运作。"
+            },
+            {
+              "id": "cq_shouxian_03.3.l02",
+              "speaker": "老邮差",
+              "text": "我总算能在雨天歇会儿。"
+            },
+            {
+              "id": "cq_shouxian_03.3.l03",
+              "speaker": "朔弦",
+              "text": "以后我也要学会不必自己跑完每一条路。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_shouxian_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "建立商船自愿接力邮路",
+        "b": "设立寄件人可查询的交接台账"
+      },
+      "story_reward_flag": "bond.shouxian.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_shouxian_04",
+      "title": "歪树下的两张椅",
+      "type": "companion",
+      "lead": "朔弦",
+      "lead_id": "shouxian",
+      "region": "无名岛旧码头",
+      "npc": "故乡老人",
+      "premise": "朔弦归来后发现曾经的朋友不愿接受他把外乡人带回岛上。",
+      "required_chapter": "ch037",
+      "required_flags": [
+        "story.ch037.done",
+        "side.cq_shouxian_03.done"
+      ],
+      "completion_flag": "side.cq_shouxian_04.done",
+      "stages": [
+        {
+          "id": "cq_shouxian_04.meet",
+          "objective": "与故乡老人交谈",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_04.0.l01",
+              "speaker": "故乡老人",
+              "text": "你一回来，岛就要让外面的人知道了。"
+            },
+            {
+              "id": "cq_shouxian_04.0.l02",
+              "speaker": "朔弦",
+              "text": "我也不是来替大家宣布开放。"
+            },
+            {
+              "id": "cq_shouxian_04.0.l03",
+              "speaker": "主角",
+              "text": "先让岛上居民自己商议。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_04.investigate",
+          "objective": "调查无名岛旧码头的证据",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_04.1.l01",
+              "speaker": "童年友人",
+              "text": "当年我一直留在这里，你却在外面讲我们的故事。"
+            },
+            {
+              "id": "cq_shouxian_04.1.l02",
+              "speaker": "朔弦",
+              "text": "我讲，是因为怕自己忘了。"
+            },
+            {
+              "id": "cq_shouxian_04.1.l03",
+              "speaker": "友人",
+              "text": "可你没有问过我们想不想被别人听见。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_04.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_04.2.l01",
+              "speaker": "朔弦",
+              "text": "我从前把故乡当成自己的失物。"
+            },
+            {
+              "id": "cq_shouxian_04.2.l02",
+              "speaker": "主角",
+              "text": "现在它是很多人仍然生活的地方。"
+            },
+            {
+              "id": "cq_shouxian_04.2.l03",
+              "speaker": "故乡老人",
+              "text": "先把救援航线开放，住址和生活故事由各家决定。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_shouxian_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先建立岛民共同商议会",
+                "sets": {
+                  "side.cq_shouxian_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "只公开公共救援航路并保护私宅",
+                "sets": {
+                  "side.cq_shouxian_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_shouxian_04.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_04.3.l01",
+              "speaker": "旁白",
+              "text": "歪树下摆上两张椅子，岛民和归来者终于坐下说话。"
+            },
+            {
+              "id": "cq_shouxian_04.3.l02",
+              "speaker": "童年友人",
+              "text": "下次别只带故事回来，带些鱼干。"
+            },
+            {
+              "id": "cq_shouxian_04.3.l03",
+              "speaker": "朔弦",
+              "text": "成交。那把椅子给我留着。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_shouxian_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先建立岛民共同商议会",
+        "b": "只公开公共救援航路并保护私宅"
+      },
+      "story_reward_flag": "bond.shouxian.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_shouxian_05",
+      "title": "不收船票的乘客",
+      "type": "companion",
+      "lead": "朔弦",
+      "lead_id": "shouxian",
+      "region": "灾后海歌港",
+      "npc": "无名乘客",
+      "premise": "十二年后，朔弦发现自己当年免费救上船的孩子已成船长。",
+      "required_chapter": "ch052",
+      "required_flags": [
+        "story.ch052.done",
+        "side.cq_shouxian_04.done"
+      ],
+      "completion_flag": "side.cq_shouxian_05.done",
+      "stages": [
+        {
+          "id": "cq_shouxian_05.meet",
+          "objective": "与无名乘客交谈",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_05.0.l01",
+              "speaker": "年轻船长",
+              "text": "你不记得我，但我坐过逐星号最后一趟撤离船。"
+            },
+            {
+              "id": "cq_shouxian_05.0.l02",
+              "speaker": "朔弦",
+              "text": "那夜太黑，我只记得船装得很满。"
+            },
+            {
+              "id": "cq_shouxian_05.0.l03",
+              "speaker": "诺依",
+              "text": "他一直想亲口告诉你一件事。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_05.investigate",
+          "objective": "调查灾后海歌港的证据",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_05.1.l01",
+              "speaker": "年轻船长",
+              "text": "我没能救下我的父亲，可我如今每天都帮人靠岸。"
+            },
+            {
+              "id": "cq_shouxian_05.1.l02",
+              "speaker": "朔弦",
+              "text": "那夜有很多我找不到的人。"
+            },
+            {
+              "id": "cq_shouxian_05.1.l03",
+              "speaker": "主角",
+              "text": "他不是来让你重新道歉的。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_05.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_05.2.l01",
+              "speaker": "年轻船长",
+              "text": "你能教我认那片会把地图擦白的海吗？"
+            },
+            {
+              "id": "cq_shouxian_05.2.l02",
+              "speaker": "朔弦",
+              "text": "可以。但别把我说过的话当成永远不变的海况。"
+            },
+            {
+              "id": "cq_shouxian_05.2.l03",
+              "speaker": "诺依",
+              "text": "让新船长写更新后的航图。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_shouxian_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由年轻船长主导更新海图",
+                "sets": {
+                  "side.cq_shouxian_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "开设老船长口述与实测对照会",
+                "sets": {
+                  "side.cq_shouxian_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_shouxian_05.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_05.3.l01",
+              "speaker": "年轻船长",
+              "text": "这是我们这一代的第一张共同海图。"
+            },
+            {
+              "id": "cq_shouxian_05.3.l02",
+              "speaker": "朔弦",
+              "text": "新画的礁石比我记得的还多。"
+            },
+            {
+              "id": "cq_shouxian_05.3.l03",
+              "speaker": "诺依",
+              "text": "那我们终于不必拿旧图冒险了。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_shouxian_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "由年轻船长主导更新海图",
+        "b": "开设老船长口述与实测对照会"
+      },
+      "story_reward_flag": "bond.shouxian.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_shouxian_06",
+      "title": "每艘船的归港灯",
+      "type": "companion",
+      "lead": "朔弦",
+      "lead_id": "shouxian",
+      "region": "群灯之城新港",
+      "npc": "灯塔管理员",
+      "premise": "新港公约允许所有船免费求救，却缺少夜间维护人员。",
+      "required_chapter": "ch060",
+      "required_flags": [
+        "story.ch060.done",
+        "side.cq_shouxian_05.done"
+      ],
+      "completion_flag": "side.cq_shouxian_06.done",
+      "stages": [
+        {
+          "id": "cq_shouxian_06.meet",
+          "objective": "与灯塔管理员交谈",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_06.0.l01",
+              "speaker": "灯塔管理员",
+              "text": "我一个人守不了所有夜班。"
+            },
+            {
+              "id": "cq_shouxian_06.0.l02",
+              "speaker": "朔弦",
+              "text": "以前我以为船长就得永远不睡。"
+            },
+            {
+              "id": "cq_shouxian_06.0.l03",
+              "speaker": "诺依",
+              "text": "我们可以组织轮值，也允许退出。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_06.investigate",
+          "objective": "调查群灯之城新港的证据",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_06.1.l01",
+              "speaker": "老船长",
+              "text": "不收求救费，总要有人付灯油。"
+            },
+            {
+              "id": "cq_shouxian_06.1.l02",
+              "speaker": "朔弦",
+              "text": "让愿意出港的船按能力分摊，账本贴在码头。"
+            },
+            {
+              "id": "cq_shouxian_06.1.l03",
+              "speaker": "主角",
+              "text": "紧急救援不能因为有人没钱缴费而拒绝。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_shouxian_06.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_06.2.l01",
+              "speaker": "灯塔管理员",
+              "text": "如果本月没有足够经费呢？"
+            },
+            {
+              "id": "cq_shouxian_06.2.l02",
+              "speaker": "诺依",
+              "text": "由城市应急基金补足，并向居民公开。"
+            },
+            {
+              "id": "cq_shouxian_06.2.l03",
+              "speaker": "朔弦",
+              "text": "海上最危险的不是有人迷路，是有人看见求救却装作没听见。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_shouxian_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开自愿航运维护基金",
+                "sets": {
+                  "side.cq_shouxian_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立免费救援与政府兜底双机制",
+                "sets": {
+                  "side.cq_shouxian_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_shouxian_06.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_06.3.l01",
+              "speaker": "旁白",
+              "text": "码头的归港灯逐盏亮起。"
+            },
+            {
+              "id": "cq_shouxian_06.3.l02",
+              "speaker": "灯塔管理员",
+              "text": "今晚轮到我休息了。"
+            },
+            {
+              "id": "cq_shouxian_06.3.l03",
+              "speaker": "朔弦",
+              "text": "我也终于学会把航路交给别人守。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_shouxian_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "公开自愿航运维护基金",
+        "b": "建立免费救援与政府兜底双机制"
+      },
+      "story_reward_flag": "bond.shouxian.06",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_tifa_01",
+      "title": "被退回的设计图",
+      "type": "companion",
+      "lead": "缇珐",
+      "lead_id": "tifa",
+      "region": "赤炉工坊学徒舍",
+      "npc": "工匠学徒",
+      "premise": "一张用于医疗照明的设计图因“不利于军用扩展”被拒绝。",
+      "required_chapter": "ch014",
+      "required_flags": [
+        "story.ch014.done"
+      ],
+      "completion_flag": "side.cq_tifa_01.done",
+      "stages": [
+        {
+          "id": "cq_tifa_01.meet",
+          "objective": "与工匠学徒交谈",
+          "dialogue": [
+            {
+              "id": "cq_tifa_01.0.l01",
+              "speaker": "学徒",
+              "text": "他们说修病房灯不算真正的工匠成绩。"
+            },
+            {
+              "id": "cq_tifa_01.0.l02",
+              "speaker": "缇珐",
+              "text": "给人用得上的东西，有什么不算？"
+            },
+            {
+              "id": "cq_tifa_01.0.l03",
+              "speaker": "主角",
+              "text": "先看图纸能否安全供电。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_01.investigate",
+          "objective": "调查赤炉工坊学徒舍的证据",
+          "dialogue": [
+            {
+              "id": "cq_tifa_01.1.l01",
+              "speaker": "学徒",
+              "text": "我借用旧矿灯电路，里面却有秘密记忆接口。"
+            },
+            {
+              "id": "cq_tifa_01.1.l02",
+              "speaker": "缇珐",
+              "text": "那个接口必须切掉。"
+            },
+            {
+              "id": "cq_tifa_01.1.l03",
+              "speaker": "岚音",
+              "text": "疗养院只需要稳光，不该读取病人的过去。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_01.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_tifa_01.2.l01",
+              "speaker": "工坊考官",
+              "text": "去掉接口，效率就比军用版低。"
+            },
+            {
+              "id": "cq_tifa_01.2.l02",
+              "speaker": "缇珐",
+              "text": "效率不应是衡量价值的唯一尺。"
+            },
+            {
+              "id": "cq_tifa_01.2.l03",
+              "speaker": "主角",
+              "text": "让病房医师和病人评价实际需要。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_tifa_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开非军用安全评价",
+                "sets": {
+                  "side.cq_tifa_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先在医馆进行自愿试用",
+                "sets": {
+                  "side.cq_tifa_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_tifa_01.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_tifa_01.3.l01",
+              "speaker": "旁白",
+              "text": "不读取记忆的床头灯终于完成。"
+            },
+            {
+              "id": "cq_tifa_01.3.l02",
+              "speaker": "学徒",
+              "text": "第一位病人说灯不刺眼，今晚能好好看书。"
+            },
+            {
+              "id": "cq_tifa_01.3.l03",
+              "speaker": "缇珐",
+              "text": "这比任何军用测试分数都让我高兴。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_tifa_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "公开非军用安全评价",
+        "b": "先在医馆进行自愿试用"
+      },
+      "story_reward_flag": "bond.tifa.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_tifa_02",
+      "title": "四号阀门的名字",
+      "type": "companion",
+      "lead": "缇珐",
+      "lead_id": "tifa",
+      "region": "赤炉主炉维修层",
+      "npc": "老工匠",
+      "premise": "旧军方改装时，以数字掩盖四号阀门所连接的居民区。",
+      "required_chapter": "ch017",
+      "required_flags": [
+        "story.ch017.done",
+        "side.cq_tifa_01.done"
+      ],
+      "completion_flag": "side.cq_tifa_02.done",
+      "stages": [
+        {
+          "id": "cq_tifa_02.meet",
+          "objective": "与老工匠交谈",
+          "dialogue": [
+            {
+              "id": "cq_tifa_02.0.l01",
+              "speaker": "老工匠",
+              "text": "我把工坊、医院、居住区都改成了数字。"
+            },
+            {
+              "id": "cq_tifa_02.0.l02",
+              "speaker": "缇珐",
+              "text": "是有人不愿让控制员知道一按开关会伤到谁。"
+            },
+            {
+              "id": "cq_tifa_02.0.l03",
+              "speaker": "主角",
+              "text": "把旧名字补回去。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_02.investigate",
+          "objective": "调查赤炉主炉维修层的证据",
+          "dialogue": [
+            {
+              "id": "cq_tifa_02.1.l01",
+              "speaker": "老工匠",
+              "text": "那时有人要求我签保密单，否则全厂停工。"
+            },
+            {
+              "id": "cq_tifa_02.1.l02",
+              "speaker": "缇珐",
+              "text": "我知道恐惧，也不能因此不让人查到底。"
+            },
+            {
+              "id": "cq_tifa_02.1.l03",
+              "speaker": "岚音",
+              "text": "医馆的供电优先级要由医护确认。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_02.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_tifa_02.2.l01",
+              "speaker": "维修主管",
+              "text": "标上住区名字，万一有人故意针对它们呢？"
+            },
+            {
+              "id": "cq_tifa_02.2.l02",
+              "speaker": "主角",
+              "text": "公开规范与设置安全权限是两回事。"
+            },
+            {
+              "id": "cq_tifa_02.2.l03",
+              "speaker": "缇珐",
+              "text": "让维修者知道后果，权限由多方共同审查。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_tifa_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "恢复真实用途标牌并增加共同复核",
+                "sets": {
+                  "side.cq_tifa_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先编写新安全手册再开放资料",
+                "sets": {
+                  "side.cq_tifa_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_tifa_02.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_tifa_02.3.l01",
+              "speaker": "旁白",
+              "text": "四组阀门的真实用途被重新刻在控制台上。"
+            },
+            {
+              "id": "cq_tifa_02.3.l02",
+              "speaker": "老工匠",
+              "text": "以后操作前，我会先读一次名字。"
+            },
+            {
+              "id": "cq_tifa_02.3.l03",
+              "speaker": "缇珐",
+              "text": "一条线连接着的不是数字，是生活。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_tifa_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "恢复真实用途标牌并增加共同复核",
+        "b": "先编写新安全手册再开放资料"
+      },
+      "story_reward_flag": "bond.tifa.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_tifa_03",
+      "title": "不再用于战争的锤",
+      "type": "companion",
+      "lead": "缇珐",
+      "lead_id": "tifa",
+      "region": "赤炉百工塔",
+      "npc": "锻造导师",
+      "premise": "工匠请求缇珐改造军用破门锤，以便救援队破拆废墟。",
+      "required_chapter": "ch018",
+      "required_flags": [
+        "story.ch018.done",
+        "side.cq_tifa_02.done"
+      ],
+      "completion_flag": "side.cq_tifa_03.done",
+      "stages": [
+        {
+          "id": "cq_tifa_03.meet",
+          "objective": "与锻造导师交谈",
+          "dialogue": [
+            {
+              "id": "cq_tifa_03.0.l01",
+              "speaker": "锻造导师",
+              "text": "这把锤最初是为攻城而造。"
+            },
+            {
+              "id": "cq_tifa_03.0.l02",
+              "speaker": "缇珐",
+              "text": "也能改成保护被困者的工具。"
+            },
+            {
+              "id": "cq_tifa_03.0.l03",
+              "speaker": "主角",
+              "text": "先问救援队真正需要什么。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_03.investigate",
+          "objective": "调查赤炉百工塔的证据",
+          "dialogue": [
+            {
+              "id": "cq_tifa_03.1.l01",
+              "speaker": "救援工",
+              "text": "锤头太尖，砸墙时会伤到后面的伤员。"
+            },
+            {
+              "id": "cq_tifa_03.1.l02",
+              "speaker": "缇珐",
+              "text": "改成分散冲击的结构，再加隔音把手。"
+            },
+            {
+              "id": "cq_tifa_03.1.l03",
+              "speaker": "岚音",
+              "text": "使用说明得写清何时不能挥锤。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_03.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_tifa_03.2.l01",
+              "speaker": "锻造导师",
+              "text": "你想靠换个锤头就抹去它以前伤过的人？"
+            },
+            {
+              "id": "cq_tifa_03.2.l02",
+              "speaker": "缇珐",
+              "text": "不能。我只是想让后来的人用得更负责任。"
+            },
+            {
+              "id": "cq_tifa_03.2.l03",
+              "speaker": "主角",
+              "text": "把来历与风险一并刻在工具柜上。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_tifa_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由救援队共同评估破拆风险",
+                "sets": {
+                  "side.cq_tifa_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "保留旧武器史并公开改造记录",
+                "sets": {
+                  "side.cq_tifa_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_tifa_03.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_tifa_03.3.l01",
+              "speaker": "旁白",
+              "text": "新破拆锤进入公共救援仓库。"
+            },
+            {
+              "id": "cq_tifa_03.3.l02",
+              "speaker": "救援工",
+              "text": "它第一次救出的是一只被压在墙下的猫。"
+            },
+            {
+              "id": "cq_tifa_03.3.l03",
+              "speaker": "缇珐",
+              "text": "好。至少这个功能测试我愿意签名。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_tifa_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "由救援队共同评估破拆风险",
+        "b": "保留旧武器史并公开改造记录"
+      },
+      "story_reward_flag": "bond.tifa.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_tifa_04",
+      "title": "根系之间的备用线路",
+      "type": "companion",
+      "lead": "缇珐",
+      "lead_id": "tifa",
+      "region": "旧洲地脉林场",
+      "npc": "护林工",
+      "premise": "森林维护者担心新的分散灯网会切断树木的生命脉络。",
+      "required_chapter": "ch041",
+      "required_flags": [
+        "story.ch041.done",
+        "side.cq_tifa_03.done"
+      ],
+      "completion_flag": "side.cq_tifa_04.done",
+      "stages": [
+        {
+          "id": "cq_tifa_04.meet",
+          "objective": "与护林工交谈",
+          "dialogue": [
+            {
+              "id": "cq_tifa_04.0.l01",
+              "speaker": "护林工",
+              "text": "这棵树救过我们的村子，不是可以随便拆换的零件。"
+            },
+            {
+              "id": "cq_tifa_04.0.l02",
+              "speaker": "缇珐",
+              "text": "我不会直接剪断它。"
+            },
+            {
+              "id": "cq_tifa_04.0.l03",
+              "speaker": "玄璃",
+              "text": "根系里仍有未发生的可能。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_04.investigate",
+          "objective": "调查旧洲地脉林场的证据",
+          "dialogue": [
+            {
+              "id": "cq_tifa_04.1.l01",
+              "speaker": "护林工",
+              "text": "过去的守灯者保证过不会伤树，最后连树名都忘了。"
+            },
+            {
+              "id": "cq_tifa_04.1.l02",
+              "speaker": "缇珐",
+              "text": "我们先做可退出的试验支路。"
+            },
+            {
+              "id": "cq_tifa_04.1.l03",
+              "speaker": "主角",
+              "text": "测量结果由护林者和工匠各保留一份。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_04.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_tifa_04.2.l01",
+              "speaker": "护林工",
+              "text": "如果试验失败，你们会留下来处理后果吗？"
+            },
+            {
+              "id": "cq_tifa_04.2.l02",
+              "speaker": "缇珐",
+              "text": "会。计划也要写出失败后怎么恢复旧路。"
+            },
+            {
+              "id": "cq_tifa_04.2.l03",
+              "speaker": "玄璃",
+              "text": "没有人需要用整片森林为一次证明付账。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_tifa_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先建立可撤除的试验区",
+                "sets": {
+                  "side.cq_tifa_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让护林者参与每次技术评估",
+                "sets": {
+                  "side.cq_tifa_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_tifa_04.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_tifa_04.3.l01",
+              "speaker": "旁白",
+              "text": "备用线路未伤树根，森林居民得以继续自主维护。"
+            },
+            {
+              "id": "cq_tifa_04.3.l02",
+              "speaker": "护林工",
+              "text": "我不同意你们所有的方案，但这次有人听完。"
+            },
+            {
+              "id": "cq_tifa_04.3.l03",
+              "speaker": "缇珐",
+              "text": "不同意的意见也得留在报告里。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_tifa_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "先建立可撤除的试验区",
+        "b": "让护林者参与每次技术评估"
+      },
+      "story_reward_flag": "bond.tifa.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_tifa_05",
+      "title": "第一间修理铺",
+      "type": "companion",
+      "lead": "缇珐",
+      "lead_id": "tifa",
+      "region": "群灯城西区",
+      "npc": "年轻修理匠",
+      "premise": "新城市缺少公共修理点，居民买不起新工具，只能丢弃旧物。",
+      "required_chapter": "ch055",
+      "required_flags": [
+        "story.ch055.done",
+        "side.cq_tifa_04.done"
+      ],
+      "completion_flag": "side.cq_tifa_05.done",
+      "stages": [
+        {
+          "id": "cq_tifa_05.meet",
+          "objective": "与年轻修理匠交谈",
+          "dialogue": [
+            {
+              "id": "cq_tifa_05.0.l01",
+              "speaker": "年轻修理匠",
+              "text": "大家的锅、灯、车轮都坏了，可没人有钱买新的。"
+            },
+            {
+              "id": "cq_tifa_05.0.l02",
+              "speaker": "缇珐",
+              "text": "先别问怎么建工厂，找张结实的桌子。"
+            },
+            {
+              "id": "cq_tifa_05.0.l03",
+              "speaker": "诺依",
+              "text": "公会可以负责收集各户修理请求。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_05.investigate",
+          "objective": "调查群灯城西区的证据",
+          "dialogue": [
+            {
+              "id": "cq_tifa_05.1.l01",
+              "speaker": "缇珐",
+              "text": "这些旧物有些能修，有些不能再安全使用。"
+            },
+            {
+              "id": "cq_tifa_05.1.l02",
+              "speaker": "年轻修理匠",
+              "text": "那我们该怎么向居民解释不能修？"
+            },
+            {
+              "id": "cq_tifa_05.1.l03",
+              "speaker": "主角",
+              "text": "给出原因和替代方案，不让人以为被嫌穷。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_05.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_tifa_05.2.l01",
+              "speaker": "商会代表",
+              "text": "免费修理会让商店没生意。"
+            },
+            {
+              "id": "cq_tifa_05.2.l02",
+              "speaker": "缇珐",
+              "text": "修理不等于永远免费，可应公开零件和劳动成本。"
+            },
+            {
+              "id": "cq_tifa_05.2.l03",
+              "speaker": "诺依",
+              "text": "困难家庭的修理费由互助基金补助。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_tifa_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立透明维修费与公益补贴",
+                "sets": {
+                  "side.cq_tifa_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "开设旧物安全维修培训",
+                "sets": {
+                  "side.cq_tifa_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_tifa_05.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_tifa_05.3.l01",
+              "speaker": "旁白",
+              "text": "第一间修理铺开门，门口没有炫目的大型机械。"
+            },
+            {
+              "id": "cq_tifa_05.3.l02",
+              "speaker": "年轻修理匠",
+              "text": "今天修好了八盏灯和一辆儿童车。"
+            },
+            {
+              "id": "cq_tifa_05.3.l03",
+              "speaker": "缇珐",
+              "text": "这种工作值得我们每天继续做。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_tifa_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "建立透明维修费与公益补贴",
+        "b": "开设旧物安全维修培训"
+      },
+      "story_reward_flag": "bond.tifa.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_tifa_06",
+      "title": "不能只靠一个人的图纸",
+      "type": "companion",
+      "lead": "缇珐",
+      "lead_id": "tifa",
+      "region": "群灯城能源议事厅",
+      "npc": "市民技师",
+      "premise": "分散灯网全部关键图纸仍由缇珐一人保管。",
+      "required_chapter": "ch060",
+      "required_flags": [
+        "story.ch060.done",
+        "side.cq_tifa_05.done"
+      ],
+      "completion_flag": "side.cq_tifa_06.done",
+      "stages": [
+        {
+          "id": "cq_tifa_06.meet",
+          "objective": "与市民技师交谈",
+          "dialogue": [
+            {
+              "id": "cq_tifa_06.0.l01",
+              "speaker": "市民技师",
+              "text": "如果你离开，大家该找谁修？"
+            },
+            {
+              "id": "cq_tifa_06.0.l02",
+              "speaker": "缇珐",
+              "text": "我本来想先整理好再交出去。"
+            },
+            {
+              "id": "cq_tifa_06.0.l03",
+              "speaker": "主角",
+              "text": "所谓整理好，可能永远没有那一天。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_06.investigate",
+          "objective": "调查群灯城能源议事厅的证据",
+          "dialogue": [
+            {
+              "id": "cq_tifa_06.1.l01",
+              "speaker": "维莎",
+              "text": "中央控制又会从最可信任的人开始。"
+            },
+            {
+              "id": "cq_tifa_06.1.l02",
+              "speaker": "缇珐",
+              "text": "这话很难听，但是真的。"
+            },
+            {
+              "id": "cq_tifa_06.1.l03",
+              "speaker": "诺依",
+              "text": "让居民学徒一同理解图纸，别只复制不知道意思的符号。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_tifa_06.choice",
+          "objective": "面对冲突并作出决定",
+          "dialogue": [
+            {
+              "id": "cq_tifa_06.2.l01",
+              "speaker": "市民技师",
+              "text": "若有人学会后用它造武器呢？"
+            },
+            {
+              "id": "cq_tifa_06.2.l02",
+              "speaker": "缇珐",
+              "text": "公开不是没有安全边界。我们可以共同管理危险接口。"
+            },
+            {
+              "id": "cq_tifa_06.2.l03",
+              "speaker": "主角",
+              "text": "更重要的是别再让单个工匠成为唯一开关。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_tifa_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开基础维修与共同安全审查",
+                "sets": {
+                  "side.cq_tifa_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先举办跨地区师徒联合培训",
+                "sets": {
+                  "side.cq_tifa_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_tifa_06.resolution",
+          "objective": "确认结果并向当事人报告",
+          "dialogue": [
+            {
+              "id": "cq_tifa_06.3.l01",
+              "speaker": "旁白",
+              "text": "技术手册被改成多作者署名版。"
+            },
+            {
+              "id": "cq_tifa_06.3.l02",
+              "speaker": "缇珐",
+              "text": "我也终于能够放假一天。"
+            },
+            {
+              "id": "cq_tifa_06.3.l03",
+              "speaker": "维莎",
+              "text": "账本上不再只有你一个人的名字。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_tifa_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "公开基础维修与共同安全审查",
+        "b": "先举办跨地区师徒联合培训"
+      },
+      "story_reward_flag": "bond.tifa.06",
       "status": "authored_text_not_runtime_bound"
     }
   ]

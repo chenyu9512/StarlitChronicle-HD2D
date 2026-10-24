@@ -1,0 +1,1686 @@
+{
+  "format": "starlit.content.v1",
+  "category": "quests",
+  "entries": [
+    {
+      "id": "quest_main_001",
+      "name": "第1章·星落之夜·异兆",
+      "kind": "main",
+      "act": 1,
+      "chapter": 1,
+      "region_id": "region_coast",
+      "map_id": "map_coast_01",
+      "objective": "灯火失声、潮村异变与第一次选择：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": null,
+      "rewards": {
+        "xp": 78,
+        "gold": 37
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_002",
+      "name": "第2章·星落之夜·引路",
+      "kind": "main",
+      "act": 1,
+      "chapter": 2,
+      "region_id": "region_coast",
+      "map_id": "map_coast_02",
+      "objective": "灯火失声、潮村异变与第一次选择：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_001",
+      "rewards": {
+        "xp": 96,
+        "gold": 49
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_003",
+      "name": "第3章·星落之夜·分歧",
+      "kind": "main",
+      "act": 1,
+      "chapter": 3,
+      "region_id": "region_coast",
+      "map_id": "map_coast_03",
+      "objective": "灯火失声、潮村异变与第一次选择：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_002",
+      "rewards": {
+        "xp": 114,
+        "gold": 61
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_004",
+      "name": "第4章·星落之夜·深入",
+      "kind": "main",
+      "act": 1,
+      "chapter": 4,
+      "region_id": "region_coast",
+      "map_id": "map_coast_04",
+      "objective": "灯火失声、潮村异变与第一次选择：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_003",
+      "rewards": {
+        "xp": 132,
+        "gold": 73
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_005",
+      "name": "第5章·星落之夜·逆转",
+      "kind": "main",
+      "act": 1,
+      "chapter": 5,
+      "region_id": "region_coast",
+      "map_id": "map_coast_05",
+      "objective": "灯火失声、潮村异变与第一次选择：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_coast_01",
+      "target_id": "boss_act_01",
+      "required_quest": "quest_main_004",
+      "rewards": {
+        "xp": 150,
+        "gold": 85
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_006",
+      "name": "第6章·星落之夜·尾声",
+      "kind": "main",
+      "act": 1,
+      "chapter": 6,
+      "region_id": "region_coast",
+      "map_id": "map_coast_01",
+      "objective": "灯火失声、潮村异变与第一次选择：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_005",
+      "rewards": {
+        "xp": 168,
+        "gold": 97
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_007",
+      "name": "第7章·白砂风暴·异兆",
+      "kind": "main",
+      "act": 2,
+      "chapter": 7,
+      "region_id": "region_coast",
+      "map_id": "map_coast_01",
+      "objective": "追逐潮汐母灯，发现寂潮源头：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_006",
+      "rewards": {
+        "xp": 186,
+        "gold": 109
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_008",
+      "name": "第8章·白砂风暴·引路",
+      "kind": "main",
+      "act": 2,
+      "chapter": 8,
+      "region_id": "region_coast",
+      "map_id": "map_coast_02",
+      "objective": "追逐潮汐母灯，发现寂潮源头：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_007",
+      "rewards": {
+        "xp": 204,
+        "gold": 121
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_009",
+      "name": "第9章·白砂风暴·分歧",
+      "kind": "main",
+      "act": 2,
+      "chapter": 9,
+      "region_id": "region_coast",
+      "map_id": "map_coast_03",
+      "objective": "追逐潮汐母灯，发现寂潮源头：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_008",
+      "rewards": {
+        "xp": 222,
+        "gold": 133
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_010",
+      "name": "第10章·白砂风暴·深入",
+      "kind": "main",
+      "act": 2,
+      "chapter": 10,
+      "region_id": "region_coast",
+      "map_id": "map_coast_04",
+      "objective": "追逐潮汐母灯，发现寂潮源头：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_009",
+      "rewards": {
+        "xp": 240,
+        "gold": 145
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_011",
+      "name": "第11章·白砂风暴·逆转",
+      "kind": "main",
+      "act": 2,
+      "chapter": 11,
+      "region_id": "region_coast",
+      "map_id": "map_coast_05",
+      "objective": "追逐潮汐母灯，发现寂潮源头：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_coast_01",
+      "target_id": "boss_act_02",
+      "required_quest": "quest_main_010",
+      "rewards": {
+        "xp": 258,
+        "gold": 157
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_012",
+      "name": "第12章·白砂风暴·尾声",
+      "kind": "main",
+      "act": 2,
+      "chapter": 12,
+      "region_id": "region_coast",
+      "map_id": "map_coast_01",
+      "objective": "追逐潮汐母灯，发现寂潮源头：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_coast_01",
+      "target_id": null,
+      "required_quest": "quest_main_011",
+      "rewards": {
+        "xp": 276,
+        "gold": 169
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_013",
+      "name": "第13章·三誓残旗·异兆",
+      "kind": "main",
+      "act": 3,
+      "chapter": 13,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_01",
+      "objective": "骑士盟约破裂与雷索归队：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_012",
+      "rewards": {
+        "xp": 294,
+        "gold": 181
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_014",
+      "name": "第14章·三誓残旗·引路",
+      "kind": "main",
+      "act": 3,
+      "chapter": 14,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_02",
+      "objective": "骑士盟约破裂与雷索归队：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_013",
+      "rewards": {
+        "xp": 312,
+        "gold": 193
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_015",
+      "name": "第15章·三誓残旗·分歧",
+      "kind": "main",
+      "act": 3,
+      "chapter": 15,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_03",
+      "objective": "骑士盟约破裂与雷索归队：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_014",
+      "rewards": {
+        "xp": 330,
+        "gold": 205
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_016",
+      "name": "第16章·三誓残旗·深入",
+      "kind": "main",
+      "act": 3,
+      "chapter": 16,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_04",
+      "objective": "骑士盟约破裂与雷索归队：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_015",
+      "rewards": {
+        "xp": 348,
+        "gold": 217
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_017",
+      "name": "第17章·三誓残旗·逆转",
+      "kind": "main",
+      "act": 3,
+      "chapter": 17,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_05",
+      "objective": "骑士盟约破裂与雷索归队：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_oaths_01",
+      "target_id": "boss_act_03",
+      "required_quest": "quest_main_016",
+      "rewards": {
+        "xp": 366,
+        "gold": 229
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_018",
+      "name": "第18章·三誓残旗·尾声",
+      "kind": "main",
+      "act": 3,
+      "chapter": 18,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_01",
+      "objective": "骑士盟约破裂与雷索归队：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_017",
+      "rewards": {
+        "xp": 384,
+        "gold": 241
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_019",
+      "name": "第19章·断约之城·异兆",
+      "kind": "main",
+      "act": 4,
+      "chapter": 19,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_01",
+      "objective": "誓约母灯重燃，赫西安留下预言：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_018",
+      "rewards": {
+        "xp": 402,
+        "gold": 253
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_020",
+      "name": "第20章·断约之城·引路",
+      "kind": "main",
+      "act": 4,
+      "chapter": 20,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_02",
+      "objective": "誓约母灯重燃，赫西安留下预言：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_019",
+      "rewards": {
+        "xp": 420,
+        "gold": 265
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_021",
+      "name": "第21章·断约之城·分歧",
+      "kind": "main",
+      "act": 4,
+      "chapter": 21,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_03",
+      "objective": "誓约母灯重燃，赫西安留下预言：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_020",
+      "rewards": {
+        "xp": 438,
+        "gold": 277
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_022",
+      "name": "第22章·断约之城·深入",
+      "kind": "main",
+      "act": 4,
+      "chapter": 22,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_04",
+      "objective": "誓约母灯重燃，赫西安留下预言：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_021",
+      "rewards": {
+        "xp": 456,
+        "gold": 289
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_023",
+      "name": "第23章·断约之城·逆转",
+      "kind": "main",
+      "act": 4,
+      "chapter": 23,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_05",
+      "objective": "誓约母灯重燃，赫西安留下预言：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_oaths_01",
+      "target_id": "boss_act_04",
+      "required_quest": "quest_main_022",
+      "rewards": {
+        "xp": 474,
+        "gold": 301
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_024",
+      "name": "第24章·断约之城·尾声",
+      "kind": "main",
+      "act": 4,
+      "chapter": 24,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_01",
+      "objective": "誓约母灯重燃，赫西安留下预言：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_oaths_01",
+      "target_id": null,
+      "required_quest": "quest_main_023",
+      "rewards": {
+        "xp": 492,
+        "gold": 313
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_025",
+      "name": "第25章·赤炉余烬·异兆",
+      "kind": "main",
+      "act": 5,
+      "chapter": 25,
+      "region_id": "region_forge",
+      "map_id": "map_forge_01",
+      "objective": "联邦炉心与库洛的军工计划：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_024",
+      "rewards": {
+        "xp": 510,
+        "gold": 325
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_026",
+      "name": "第26章·赤炉余烬·引路",
+      "kind": "main",
+      "act": 5,
+      "chapter": 26,
+      "region_id": "region_forge",
+      "map_id": "map_forge_02",
+      "objective": "联邦炉心与库洛的军工计划：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_025",
+      "rewards": {
+        "xp": 528,
+        "gold": 337
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_027",
+      "name": "第27章·赤炉余烬·分歧",
+      "kind": "main",
+      "act": 5,
+      "chapter": 27,
+      "region_id": "region_forge",
+      "map_id": "map_forge_03",
+      "objective": "联邦炉心与库洛的军工计划：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_026",
+      "rewards": {
+        "xp": 546,
+        "gold": 349
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_028",
+      "name": "第28章·赤炉余烬·深入",
+      "kind": "main",
+      "act": 5,
+      "chapter": 28,
+      "region_id": "region_forge",
+      "map_id": "map_forge_04",
+      "objective": "联邦炉心与库洛的军工计划：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_027",
+      "rewards": {
+        "xp": 564,
+        "gold": 361
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_029",
+      "name": "第29章·赤炉余烬·逆转",
+      "kind": "main",
+      "act": 5,
+      "chapter": 29,
+      "region_id": "region_forge",
+      "map_id": "map_forge_05",
+      "objective": "联邦炉心与库洛的军工计划：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_forge_01",
+      "target_id": "boss_act_05",
+      "required_quest": "quest_main_028",
+      "rewards": {
+        "xp": 582,
+        "gold": 373
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_030",
+      "name": "第30章·赤炉余烬·尾声",
+      "kind": "main",
+      "act": 5,
+      "chapter": 30,
+      "region_id": "region_forge",
+      "map_id": "map_forge_01",
+      "objective": "联邦炉心与库洛的军工计划：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_029",
+      "rewards": {
+        "xp": 600,
+        "gold": 385
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_031",
+      "name": "第31章·炉心悲歌·异兆",
+      "kind": "main",
+      "act": 6,
+      "chapter": 31,
+      "region_id": "region_forge",
+      "map_id": "map_forge_01",
+      "objective": "停炉与救人的两难：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_030",
+      "rewards": {
+        "xp": 618,
+        "gold": 397
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_032",
+      "name": "第32章·炉心悲歌·引路",
+      "kind": "main",
+      "act": 6,
+      "chapter": 32,
+      "region_id": "region_forge",
+      "map_id": "map_forge_02",
+      "objective": "停炉与救人的两难：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_031",
+      "rewards": {
+        "xp": 636,
+        "gold": 409
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_033",
+      "name": "第33章·炉心悲歌·分歧",
+      "kind": "main",
+      "act": 6,
+      "chapter": 33,
+      "region_id": "region_forge",
+      "map_id": "map_forge_03",
+      "objective": "停炉与救人的两难：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_032",
+      "rewards": {
+        "xp": 654,
+        "gold": 421
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_034",
+      "name": "第34章·炉心悲歌·深入",
+      "kind": "main",
+      "act": 6,
+      "chapter": 34,
+      "region_id": "region_forge",
+      "map_id": "map_forge_04",
+      "objective": "停炉与救人的两难：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_033",
+      "rewards": {
+        "xp": 672,
+        "gold": 433
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_035",
+      "name": "第35章·炉心悲歌·逆转",
+      "kind": "main",
+      "act": 6,
+      "chapter": 35,
+      "region_id": "region_forge",
+      "map_id": "map_forge_05",
+      "objective": "停炉与救人的两难：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_forge_01",
+      "target_id": "boss_act_06",
+      "required_quest": "quest_main_034",
+      "rewards": {
+        "xp": 690,
+        "gold": 445
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_036",
+      "name": "第36章·炉心悲歌·尾声",
+      "kind": "main",
+      "act": 6,
+      "chapter": 36,
+      "region_id": "region_forge",
+      "map_id": "map_forge_01",
+      "objective": "停炉与救人的两难：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_forge_01",
+      "target_id": null,
+      "required_quest": "quest_main_035",
+      "rewards": {
+        "xp": 708,
+        "gold": 457
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_037",
+      "name": "第37章·群岛无歌·异兆",
+      "kind": "main",
+      "act": 7,
+      "chapter": 37,
+      "region_id": "region_isles",
+      "map_id": "map_isles_01",
+      "objective": "海歌消失，伊泽的航图揭开深潮：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_036",
+      "rewards": {
+        "xp": 726,
+        "gold": 469
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_038",
+      "name": "第38章·群岛无歌·引路",
+      "kind": "main",
+      "act": 7,
+      "chapter": 38,
+      "region_id": "region_isles",
+      "map_id": "map_isles_02",
+      "objective": "海歌消失，伊泽的航图揭开深潮：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_037",
+      "rewards": {
+        "xp": 744,
+        "gold": 481
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_039",
+      "name": "第39章·群岛无歌·分歧",
+      "kind": "main",
+      "act": 7,
+      "chapter": 39,
+      "region_id": "region_isles",
+      "map_id": "map_isles_03",
+      "objective": "海歌消失，伊泽的航图揭开深潮：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_038",
+      "rewards": {
+        "xp": 762,
+        "gold": 493
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_040",
+      "name": "第40章·群岛无歌·深入",
+      "kind": "main",
+      "act": 7,
+      "chapter": 40,
+      "region_id": "region_isles",
+      "map_id": "map_isles_04",
+      "objective": "海歌消失，伊泽的航图揭开深潮：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_039",
+      "rewards": {
+        "xp": 780,
+        "gold": 505
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_041",
+      "name": "第41章·群岛无歌·逆转",
+      "kind": "main",
+      "act": 7,
+      "chapter": 41,
+      "region_id": "region_isles",
+      "map_id": "map_isles_05",
+      "objective": "海歌消失，伊泽的航图揭开深潮：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_isles_01",
+      "target_id": "boss_act_07",
+      "required_quest": "quest_main_040",
+      "rewards": {
+        "xp": 798,
+        "gold": 517
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_042",
+      "name": "第42章·群岛无歌·尾声",
+      "kind": "main",
+      "act": 7,
+      "chapter": 42,
+      "region_id": "region_isles",
+      "map_id": "map_isles_01",
+      "objective": "海歌消失，伊泽的航图揭开深潮：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_041",
+      "rewards": {
+        "xp": 816,
+        "gold": 529
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_043",
+      "name": "第43章·沉海王座·异兆",
+      "kind": "main",
+      "act": 8,
+      "chapter": 43,
+      "region_id": "region_isles",
+      "map_id": "map_isles_01",
+      "objective": "母灯的代价与归来之人：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_042",
+      "rewards": {
+        "xp": 834,
+        "gold": 541
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_044",
+      "name": "第44章·沉海王座·引路",
+      "kind": "main",
+      "act": 8,
+      "chapter": 44,
+      "region_id": "region_isles",
+      "map_id": "map_isles_02",
+      "objective": "母灯的代价与归来之人：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_043",
+      "rewards": {
+        "xp": 852,
+        "gold": 553
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_045",
+      "name": "第45章·沉海王座·分歧",
+      "kind": "main",
+      "act": 8,
+      "chapter": 45,
+      "region_id": "region_isles",
+      "map_id": "map_isles_03",
+      "objective": "母灯的代价与归来之人：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_044",
+      "rewards": {
+        "xp": 870,
+        "gold": 565
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_046",
+      "name": "第46章·沉海王座·深入",
+      "kind": "main",
+      "act": 8,
+      "chapter": 46,
+      "region_id": "region_isles",
+      "map_id": "map_isles_04",
+      "objective": "母灯的代价与归来之人：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_045",
+      "rewards": {
+        "xp": 888,
+        "gold": 577
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_047",
+      "name": "第47章·沉海王座·逆转",
+      "kind": "main",
+      "act": 8,
+      "chapter": 47,
+      "region_id": "region_isles",
+      "map_id": "map_isles_05",
+      "objective": "母灯的代价与归来之人：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_isles_01",
+      "target_id": "boss_act_08",
+      "required_quest": "quest_main_046",
+      "rewards": {
+        "xp": 906,
+        "gold": 589
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_048",
+      "name": "第48章·沉海王座·尾声",
+      "kind": "main",
+      "act": 8,
+      "chapter": 48,
+      "region_id": "region_isles",
+      "map_id": "map_isles_01",
+      "objective": "母灯的代价与归来之人：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_isles_01",
+      "target_id": null,
+      "required_quest": "quest_main_047",
+      "rewards": {
+        "xp": 924,
+        "gold": 601
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_049",
+      "name": "第49章·镜中无眠·异兆",
+      "kind": "main",
+      "act": 9,
+      "chapter": 49,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_01",
+      "objective": "镜眠王国的记忆改写与玄璃身世：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_mirror_01",
+      "target_id": null,
+      "required_quest": "quest_main_048",
+      "rewards": {
+        "xp": 942,
+        "gold": 613
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_050",
+      "name": "第50章·镜中无眠·引路",
+      "kind": "main",
+      "act": 9,
+      "chapter": 50,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_02",
+      "objective": "镜眠王国的记忆改写与玄璃身世：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_mirror_01",
+      "target_id": null,
+      "required_quest": "quest_main_049",
+      "rewards": {
+        "xp": 960,
+        "gold": 625
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_051",
+      "name": "第51章·镜中无眠·分歧",
+      "kind": "main",
+      "act": 9,
+      "chapter": 51,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_03",
+      "objective": "镜眠王国的记忆改写与玄璃身世：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_mirror_01",
+      "target_id": null,
+      "required_quest": "quest_main_050",
+      "rewards": {
+        "xp": 978,
+        "gold": 637
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_052",
+      "name": "第52章·镜中无眠·深入",
+      "kind": "main",
+      "act": 9,
+      "chapter": 52,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_04",
+      "objective": "镜眠王国的记忆改写与玄璃身世：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_mirror_01",
+      "target_id": null,
+      "required_quest": "quest_main_051",
+      "rewards": {
+        "xp": 996,
+        "gold": 649
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_053",
+      "name": "第53章·镜中无眠·逆转",
+      "kind": "main",
+      "act": 9,
+      "chapter": 53,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_05",
+      "objective": "镜眠王国的记忆改写与玄璃身世：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_mirror_01",
+      "target_id": "boss_act_09",
+      "required_quest": "quest_main_052",
+      "rewards": {
+        "xp": 1014,
+        "gold": 661
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_054",
+      "name": "第54章·镜中无眠·尾声",
+      "kind": "main",
+      "act": 9,
+      "chapter": 54,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_01",
+      "objective": "镜眠王国的记忆改写与玄璃身世：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_mirror_01",
+      "target_id": null,
+      "required_quest": "quest_main_053",
+      "rewards": {
+        "xp": 1032,
+        "gold": 673
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_055",
+      "name": "第55章·旧洲时痕·异兆",
+      "kind": "main",
+      "act": 10,
+      "chapter": 55,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_01",
+      "objective": "岁影回廊揭开万灯永昼计划：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_oldland_01",
+      "target_id": null,
+      "required_quest": "quest_main_054",
+      "rewards": {
+        "xp": 1050,
+        "gold": 685
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_056",
+      "name": "第56章·旧洲时痕·引路",
+      "kind": "main",
+      "act": 10,
+      "chapter": 56,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_02",
+      "objective": "岁影回廊揭开万灯永昼计划：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_oldland_01",
+      "target_id": null,
+      "required_quest": "quest_main_055",
+      "rewards": {
+        "xp": 1068,
+        "gold": 697
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_057",
+      "name": "第57章·旧洲时痕·分歧",
+      "kind": "main",
+      "act": 10,
+      "chapter": 57,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_03",
+      "objective": "岁影回廊揭开万灯永昼计划：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_oldland_01",
+      "target_id": null,
+      "required_quest": "quest_main_056",
+      "rewards": {
+        "xp": 1086,
+        "gold": 709
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_058",
+      "name": "第58章·旧洲时痕·深入",
+      "kind": "main",
+      "act": 10,
+      "chapter": 58,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_04",
+      "objective": "岁影回廊揭开万灯永昼计划：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_oldland_01",
+      "target_id": null,
+      "required_quest": "quest_main_057",
+      "rewards": {
+        "xp": 1104,
+        "gold": 721
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_059",
+      "name": "第59章·旧洲时痕·逆转",
+      "kind": "main",
+      "act": 10,
+      "chapter": 59,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_05",
+      "objective": "岁影回廊揭开万灯永昼计划：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_oldland_01",
+      "target_id": "boss_act_10",
+      "required_quest": "quest_main_058",
+      "rewards": {
+        "xp": 1122,
+        "gold": 733
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_060",
+      "name": "第60章·旧洲时痕·尾声",
+      "kind": "main",
+      "act": 10,
+      "chapter": 60,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_01",
+      "objective": "岁影回廊揭开万灯永昼计划：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_oldland_01",
+      "target_id": null,
+      "required_quest": "quest_main_059",
+      "rewards": {
+        "xp": 1140,
+        "gold": 745
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_061",
+      "name": "第61章·七灯共鸣·异兆",
+      "kind": "main",
+      "act": 11,
+      "chapter": 61,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_01",
+      "objective": "伙伴对最终选择产生分歧：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_060",
+      "rewards": {
+        "xp": 1158,
+        "gold": 757
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_062",
+      "name": "第62章·七灯共鸣·引路",
+      "kind": "main",
+      "act": 11,
+      "chapter": 62,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_02",
+      "objective": "伙伴对最终选择产生分歧：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_061",
+      "rewards": {
+        "xp": 1176,
+        "gold": 769
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_063",
+      "name": "第63章·七灯共鸣·分歧",
+      "kind": "main",
+      "act": 11,
+      "chapter": 63,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_03",
+      "objective": "伙伴对最终选择产生分歧：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_062",
+      "rewards": {
+        "xp": 1194,
+        "gold": 781
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_064",
+      "name": "第64章·七灯共鸣·深入",
+      "kind": "main",
+      "act": 11,
+      "chapter": 64,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_04",
+      "objective": "伙伴对最终选择产生分歧：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_063",
+      "rewards": {
+        "xp": 1212,
+        "gold": 793
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_065",
+      "name": "第65章·七灯共鸣·逆转",
+      "kind": "main",
+      "act": 11,
+      "chapter": 65,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_05",
+      "objective": "伙伴对最终选择产生分歧：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_sanctum_01",
+      "target_id": "boss_act_11",
+      "required_quest": "quest_main_064",
+      "rewards": {
+        "xp": 1230,
+        "gold": 805
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_066",
+      "name": "第66章·七灯共鸣·尾声",
+      "kind": "main",
+      "act": 11,
+      "chapter": 66,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_01",
+      "objective": "伙伴对最终选择产生分歧：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_065",
+      "rewards": {
+        "xp": 1248,
+        "gold": 817
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_067",
+      "name": "第67章·最后的夜·异兆",
+      "kind": "main",
+      "act": 12,
+      "chapter": 67,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_01",
+      "objective": "直面赫西安，决定自由与黑夜的命运：完成「异兆」阶段。",
+      "task_type": "talk",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_066",
+      "rewards": {
+        "xp": 1266,
+        "gold": 829
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_068",
+      "name": "第68章·最后的夜·引路",
+      "kind": "main",
+      "act": 12,
+      "chapter": 68,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_02",
+      "objective": "直面赫西安，决定自由与黑夜的命运：完成「引路」阶段。",
+      "task_type": "investigate",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_067",
+      "rewards": {
+        "xp": 1284,
+        "gold": 841
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_069",
+      "name": "第69章·最后的夜·分歧",
+      "kind": "main",
+      "act": 12,
+      "chapter": 69,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_03",
+      "objective": "直面赫西安，决定自由与黑夜的命运：完成「分歧」阶段。",
+      "task_type": "escort",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_068",
+      "rewards": {
+        "xp": 1302,
+        "gold": 853
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_070",
+      "name": "第70章·最后的夜·深入",
+      "kind": "main",
+      "act": 12,
+      "chapter": 70,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_04",
+      "objective": "直面赫西安，决定自由与黑夜的命运：完成「深入」阶段。",
+      "task_type": "dungeon",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_069",
+      "rewards": {
+        "xp": 1320,
+        "gold": 865
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_071",
+      "name": "第71章·最后的夜·逆转",
+      "kind": "main",
+      "act": 12,
+      "chapter": 71,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_05",
+      "objective": "直面赫西安，决定自由与黑夜的命运：完成「逆转」阶段。",
+      "task_type": "boss",
+      "giver_id": "npc_sanctum_01",
+      "target_id": "boss_act_12",
+      "required_quest": "quest_main_070",
+      "rewards": {
+        "xp": 1338,
+        "gold": 877
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_main_072",
+      "name": "第72章·最后的夜·尾声",
+      "kind": "main",
+      "act": 12,
+      "chapter": 72,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_01",
+      "objective": "直面赫西安，决定自由与黑夜的命运：完成「尾声」阶段。",
+      "task_type": "story_resolution",
+      "giver_id": "npc_sanctum_01",
+      "target_id": null,
+      "required_quest": "quest_main_071",
+      "rewards": {
+        "xp": 1356,
+        "gold": 889
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_01",
+      "name": "支线·星落之夜的失物",
+      "kind": "side",
+      "act": 1,
+      "chapter": null,
+      "region_id": "region_coast",
+      "map_id": "map_coast_02",
+      "objective": "帮助当地人解决与星落之夜有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_coast_02",
+      "target_id": null,
+      "required_quest": "quest_main_001",
+      "rewards": {
+        "xp": 50,
+        "gold": 30
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_02",
+      "name": "支线·白砂风暴的失物",
+      "kind": "side",
+      "act": 2,
+      "chapter": null,
+      "region_id": "region_coast",
+      "map_id": "map_coast_02",
+      "objective": "帮助当地人解决与白砂风暴有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_coast_02",
+      "target_id": null,
+      "required_quest": "quest_main_007",
+      "rewards": {
+        "xp": 70,
+        "gold": 40
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_03",
+      "name": "支线·三誓残旗的失物",
+      "kind": "side",
+      "act": 3,
+      "chapter": null,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_02",
+      "objective": "帮助当地人解决与三誓残旗有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_oaths_02",
+      "target_id": null,
+      "required_quest": "quest_main_013",
+      "rewards": {
+        "xp": 90,
+        "gold": 50
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_04",
+      "name": "支线·断约之城的失物",
+      "kind": "side",
+      "act": 4,
+      "chapter": null,
+      "region_id": "region_oaths",
+      "map_id": "map_oaths_02",
+      "objective": "帮助当地人解决与断约之城有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_oaths_02",
+      "target_id": null,
+      "required_quest": "quest_main_019",
+      "rewards": {
+        "xp": 110,
+        "gold": 60
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_05",
+      "name": "支线·赤炉余烬的失物",
+      "kind": "side",
+      "act": 5,
+      "chapter": null,
+      "region_id": "region_forge",
+      "map_id": "map_forge_02",
+      "objective": "帮助当地人解决与赤炉余烬有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_forge_02",
+      "target_id": null,
+      "required_quest": "quest_main_025",
+      "rewards": {
+        "xp": 130,
+        "gold": 70
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_06",
+      "name": "支线·炉心悲歌的失物",
+      "kind": "side",
+      "act": 6,
+      "chapter": null,
+      "region_id": "region_forge",
+      "map_id": "map_forge_02",
+      "objective": "帮助当地人解决与炉心悲歌有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_forge_02",
+      "target_id": null,
+      "required_quest": "quest_main_031",
+      "rewards": {
+        "xp": 150,
+        "gold": 80
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_07",
+      "name": "支线·群岛无歌的失物",
+      "kind": "side",
+      "act": 7,
+      "chapter": null,
+      "region_id": "region_isles",
+      "map_id": "map_isles_02",
+      "objective": "帮助当地人解决与群岛无歌有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_isles_02",
+      "target_id": null,
+      "required_quest": "quest_main_037",
+      "rewards": {
+        "xp": 170,
+        "gold": 90
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_08",
+      "name": "支线·沉海王座的失物",
+      "kind": "side",
+      "act": 8,
+      "chapter": null,
+      "region_id": "region_isles",
+      "map_id": "map_isles_02",
+      "objective": "帮助当地人解决与沉海王座有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_isles_02",
+      "target_id": null,
+      "required_quest": "quest_main_043",
+      "rewards": {
+        "xp": 190,
+        "gold": 100
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_09",
+      "name": "支线·镜中无眠的失物",
+      "kind": "side",
+      "act": 9,
+      "chapter": null,
+      "region_id": "region_mirror",
+      "map_id": "map_mirror_02",
+      "objective": "帮助当地人解决与镜中无眠有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_mirror_02",
+      "target_id": null,
+      "required_quest": "quest_main_049",
+      "rewards": {
+        "xp": 210,
+        "gold": 110
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_10",
+      "name": "支线·旧洲时痕的失物",
+      "kind": "side",
+      "act": 10,
+      "chapter": null,
+      "region_id": "region_oldland",
+      "map_id": "map_oldland_02",
+      "objective": "帮助当地人解决与旧洲时痕有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_oldland_02",
+      "target_id": null,
+      "required_quest": "quest_main_055",
+      "rewards": {
+        "xp": 230,
+        "gold": 120
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_11",
+      "name": "支线·七灯共鸣的失物",
+      "kind": "side",
+      "act": 11,
+      "chapter": null,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_02",
+      "objective": "帮助当地人解决与七灯共鸣有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_sanctum_02",
+      "target_id": null,
+      "required_quest": "quest_main_061",
+      "rewards": {
+        "xp": 250,
+        "gold": 130
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    },
+    {
+      "id": "quest_side_12",
+      "name": "支线·最后的夜的失物",
+      "kind": "side",
+      "act": 12,
+      "chapter": null,
+      "region_id": "region_sanctum",
+      "map_id": "map_sanctum_02",
+      "objective": "帮助当地人解决与最后的夜有关的日常困境。",
+      "task_type": "investigate",
+      "giver_id": "npc_sanctum_02",
+      "target_id": null,
+      "required_quest": "quest_main_067",
+      "rewards": {
+        "xp": 270,
+        "gold": 140
+      },
+      "implementation": "outline_only",
+      "status": "design"
+    }
+  ]
+}

@@ -20,7 +20,10 @@ const SITES: Dictionary = {
     "crisis": Vector2i(34, 19),
     "resolve": Vector2i(10, 19),
     "inn": Vector2i(20, 8),
-    "shop": Vector2i(9, 10)
+    "shop": Vector2i(9, 10),
+    "side_start": Vector2i(7, 19),
+    "side_item": Vector2i(39, 12),
+    "side_return": Vector2i(19, 24)
 }
 var chapter: int = 0
 var root: Node2D
@@ -35,6 +38,7 @@ var camera: Camera2D
 var focus_name: String = ""
 var focus_label: Label
 var focus_light: Sprite2D
+var side_light: Sprite2D
 var movement: Vector2 = Vector2.ZERO
 var locked: bool = false
 var walk_speed: float = 141.0
@@ -163,7 +167,7 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool) -> Sprite2D:
     return sprite
 
 func _build_sites() -> void:
-    var icons := {"key_npc": "beacon", "clue": "crate", "witness": "medicine_basket", "crisis": "sea_crystal", "resolve": "star_lantern", "inn": "well", "shop": "fish_stall"}
+    var icons := {"key_npc": "beacon", "clue": "crate", "witness": "medicine_basket", "crisis": "sea_crystal", "resolve": "star_lantern", "inn": "well", "shop": "fish_stall", "side_start": "sign", "side_item": "crate", "side_return": "beacon"}
     for k in SITES.keys():
         var where: Vector2i = SITES[k]
         var sprite: Sprite2D = _add_sprite(str(icons[k]), where, false)
@@ -191,6 +195,13 @@ func _make_focus_marker() -> void:
     focus_label.add_theme_constant_override("shadow_offset_y", 2)
     focus_label.z_index = 20
     root.add_child(focus_label)
+    side_light = Sprite2D.new()
+    side_light.texture = load("res://assets/fx/glow.png")
+    side_light.modulate = Color(0.38, 0.90, 1.0, 0.67)
+    side_light.scale = Vector2(0.85, 0.85)
+    side_light.z_index = 13
+    root.add_child(side_light)
+    set_side_focus("")
     set_focus("")
 
 func set_focus(name: String) -> void:
@@ -204,6 +215,14 @@ func set_focus(name: String) -> void:
         focus_light.position = anchor.position + Vector2(0, -45)
         focus_label.position = anchor.position + Vector2(-36, -86)
         focus_label.text = "✦ 前往调查"
+
+func set_side_focus(name: String) -> void:
+    if not is_instance_valid(side_light):
+        return
+    side_light.visible = nodes.has(name)
+    if side_light.visible:
+        var target: Sprite2D = nodes[name]
+        side_light.position = target.position + Vector2(0, -40)
 
 func _physics_process(delta: float) -> void:
     if not is_instance_valid(hero):

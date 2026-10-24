@@ -19,9 +19,15 @@ var battle_is_boss: bool = false
 var invincible: bool = false
 var no_encounters: bool = false
 var five_xp: bool = false
+var side_quests: Dictionary = {}
 
 func _ready() -> void:
     progress = StateScript.new()
+    var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
+    if side_file is Dictionary:
+        for row in side_file.get("quests", []):
+            if row is Dictionary:
+                side_quests[int(row.get("chapter", 0))] = row
     catalog = CatalogScript.new()
     var loaded: bool = catalog.load_all()
     world = WorldScript.new()
@@ -110,7 +116,23 @@ func _objective() -> String:
 
 func _focus() -> void:
     world.set_focus(_target() if not (progress.chapter == 6 and bool(progress.flags.get("story.ch006.done", false))) else "")
-    ui.set_hud(progress.chapter, world.region_name(), _objective(), progress.actors, progress.gold, progress.potions)
+    var side_step: int = _side_step()
+    var extra: String = ""
+    var side_target: String = ""
+    if progress.chapter > 0 and side_quests.has(progress.chapter):
+        var side: Dictionary = side_quests[progress.chapter]
+        match side_step:
+            0:
+                side_target = "side_start"
+                extra = "【支线委托】%s · 寻找委托人" % str(side["name"])
+            1:
+                side_target = "side_item"
+                extra = "【支线委托】%s · 找到遗失物" % str(side["name"])
+            2:
+                side_target = "side_return"
+                extra = "【支线委托】%s · 交还物品" % str(side["name"])
+    world.set_side_focus(side_target)
+    ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
 
 func _interact(target: String) -> void:
     if busy:
@@ -127,6 +149,9 @@ func _interact(target: String) -> void:
             progress.save()
             ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
         _focus()
+        return
+    if target.begins_with("side_"):
+        _side_interact(target)
         return
     if progress.chapter == 6 and bool(progress.flags.get("story.ch006.done", false)):
         ui.show_message("第一幕已结束。潮歌灯仍照亮着归航之路。")
@@ -151,6 +176,46 @@ func _interact(target: String) -> void:
             else:
                 _present("crisis")
         3: _present("resolve")
+
+func _side_flag(suffix: String) -> String:
+    var side: Dictionary = side_quests.get(progress.chapter, {})
+    return "side." + str(side.get("id", "unknown")) + "." + suffix
+
+func _side_step() -> int:
+    if progress.chapter == 0 or not side_quests.has(progress.chapter):
+        return -1
+    if bool(progress.flags.get(_side_flag("done"), false)):
+        return -1
+    if bool(progress.flags.get(_side_flag("found"), false)):
+        return 2
+    if bool(progress.flags.get(_side_flag("accepted"), false)):
+        return 1
+    return 0
+
+func _side_interact(target: String) -> void:
+    if progress.chapter == 0 or not side_quests.has(progress.chapter):
+        return
+    var step: int = _side_step()
+    var quest: Dictionary = side_quests[progress.chapter]
+    var phase: String = ""
+    var action: String = ""
+    if step == 0 and target == "side_start":
+        phase = "start"
+        action = "side_accept"
+    elif step == 1 and target == "side_item":
+        phase = "find"
+        action = "side_found"
+    elif step == 2 and target == "side_return":
+        phase = "finish"
+        action = "side_complete"
+    if phase.is_empty():
+        ui.show_message("支线任务：" + str(quest.get("name", "")))
+        return
+    pending = action
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue(quest.get(phase, []))
 
 func _present(on_complete: String) -> void:
     var scene: Dictionary = _current_scene()
@@ -191,6 +256,17 @@ func _dialogue_ended() -> void:
                 return
             _crisis_choice_complete()
             return
+        "side_accept":
+            progress.flags[_side_flag("accepted")] = true
+        "side_found":
+            progress.flags[_side_flag("found")] = true
+        "side_complete":
+            progress.flags[_side_flag("done")] = true
+            var quest: Dictionary = side_quests.get(progress.chapter, {})
+            var reward: Dictionary = quest.get("reward", {})
+            progress.give_rewards(int(reward.get("xp", 0)), int(reward.get("gold", 0)))
+            progress.potions += int(reward.get("potions", 0))
+            ui.show_message("支线完成！获得经验、金币与药草奖励。")
         "resolve":
             _apply_effects(_current_scene())
             _complete_chapter()

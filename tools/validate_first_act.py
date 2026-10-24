@@ -47,5 +47,10 @@ assert len(pro['scenes']) == 9
 bosses = json.loads((root/'story'/'data'/'bosses.json').read_text(encoding='utf-8'))
 by_id = {e['id'] for e in bosses['bosses']}
 assert all(f'boss.ch{i:03d}' in by_id for i in range(2, 7))
+side = json.loads((root/'data'/'first_act_side_quests.json').read_text(encoding='utf-8'))
+assert len(side['quests']) == 6
+assert [q['chapter'] for q in side['quests']] == list(range(1,7))
+for quest in side['quests']:
+    assert all(quest[k] for k in ('id','name','start','find','finish'))
 assert '9169' in (root/'scripts'/'cheat_panel.gd').read_text(encoding='utf-8')
 print('PASS: First Act nine prologue scenes, six playable chapters, 5 boss links, objective IDs, all art PNGs')

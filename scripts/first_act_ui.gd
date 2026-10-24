@@ -291,6 +291,7 @@ func show_choices(choice_data: Dictionary) -> void:
     dialog_speaker.text = "旅途的抉择"
     dialog_text.text = str(choice_data.get("prompt", "现在你决定怎样做？"))
     for child in choice_area.get_children():
+        choice_area.remove_child(child)
         child.queue_free()
     for option in choice_data.get("options", []):
         if not option is Dictionary:

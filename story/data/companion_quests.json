@@ -5,7 +5,9 @@
     "lanyin": "岚音",
     "leiso": "雷索",
     "shouxian": "朔弦",
-    "tifa": "缇珐"
+    "tifa": "缇珐",
+    "ize": "伊泽",
+    "xuanli": "玄璃"
   },
   "quests": [
     {
@@ -3362,6 +3364,1660 @@
         "b": "先举办跨地区师徒联合培训"
       },
       "story_reward_flag": "bond.tifa.06",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_ize_01",
+      "title": "无人唱出的最后一节",
+      "type": "companion",
+      "lead": "伊泽",
+      "lead_id": "ize",
+      "region": "断歌礁旧乐棚",
+      "npc": "民间歌者",
+      "premise": "老歌者记得残谱末尾，却担心唱出来会唤醒旧日的痛苦。",
+      "required_chapter": "ch028",
+      "required_flags": [
+        "story.ch028.done"
+      ],
+      "completion_flag": "side.cq_ize_01.done",
+      "stages": [
+        {
+          "id": "cq_ize_01.meet",
+          "objective": "与民间歌者交谈",
+          "dialogue": [
+            {
+              "id": "cq_ize_01.0.l01",
+              "speaker": "老歌者",
+              "text": "最后一句我会唱，但我从来没敢让人听。"
+            },
+            {
+              "id": "cq_ize_01.0.l02",
+              "speaker": "伊泽",
+              "text": "我也曾把危险当成沉默的理由。"
+            },
+            {
+              "id": "cq_ize_01.0.l03",
+              "speaker": "主角",
+              "text": "先问那些故事里的人愿不愿被公开。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_01.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_ize_01.1.l01",
+              "speaker": "老歌者",
+              "text": "歌里并没有怪物，只是被驱离家乡的孩子。"
+            },
+            {
+              "id": "cq_ize_01.1.l02",
+              "speaker": "岚音",
+              "text": "如果涉及活着的人，必须先确认身份与隐私。"
+            },
+            {
+              "id": "cq_ize_01.1.l03",
+              "speaker": "伊泽",
+              "text": "我可以把证词放进档案，不必一次唱给所有人听。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_01.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_ize_01.2.l01",
+              "speaker": "村民",
+              "text": "为什么我们的苦事得成为节庆节目？"
+            },
+            {
+              "id": "cq_ize_01.2.l02",
+              "speaker": "伊泽",
+              "text": "不该由我把痛苦变成取悦观众的歌。"
+            },
+            {
+              "id": "cq_ize_01.2.l03",
+              "speaker": "主角",
+              "text": "让村民决定演出目的和场合。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_ize_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "举办自愿的记忆夜",
+                "sets": {
+                  "side.cq_ize_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先整理可匿名保存的完整歌词",
+                "sets": {
+                  "side.cq_ize_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_ize_01.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_ize_01.3.l01",
+              "speaker": "老歌者",
+              "text": "这回是大家一起决定什么时候唱。"
+            },
+            {
+              "id": "cq_ize_01.3.l02",
+              "speaker": "伊泽",
+              "text": "我也学会了不为了证明自己勇敢而唱。"
+            },
+            {
+              "id": "cq_ize_01.3.l03",
+              "speaker": "村民",
+              "text": "有一晚，我们愿意自己开口。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_ize_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "举办自愿的记忆夜",
+        "b": "先整理可匿名保存的完整歌词"
+      },
+      "story_reward_flag": "bond.ize.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_ize_02",
+      "title": "谁来记住船名",
+      "type": "companion",
+      "lead": "伊泽",
+      "lead_id": "ize",
+      "region": "风航灯旧锚台",
+      "npc": "年轻船员",
+      "premise": "海难纪念板只刻着船长姓名，许多普通水手没有留下记录。",
+      "required_chapter": "ch030",
+      "required_flags": [
+        "story.ch030.done",
+        "side.cq_ize_01.done"
+      ],
+      "completion_flag": "side.cq_ize_02.done",
+      "stages": [
+        {
+          "id": "cq_ize_02.meet",
+          "objective": "与年轻船员交谈",
+          "dialogue": [
+            {
+              "id": "cq_ize_02.0.l01",
+              "speaker": "年轻船员",
+              "text": "父亲在那艘船上，但名单里没有他。"
+            },
+            {
+              "id": "cq_ize_02.0.l02",
+              "speaker": "伊泽",
+              "text": "他做什么工作？"
+            },
+            {
+              "id": "cq_ize_02.0.l03",
+              "speaker": "船员",
+              "text": "他负责煮饭。大家说这不算英雄。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_02.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_ize_02.1.l01",
+              "speaker": "朔弦",
+              "text": "没有做饭的人，一条船撑不了多久。"
+            },
+            {
+              "id": "cq_ize_02.1.l02",
+              "speaker": "伊泽",
+              "text": "先核对航海工账和厨房采购单。"
+            },
+            {
+              "id": "cq_ize_02.1.l03",
+              "speaker": "主角",
+              "text": "不用先把人变成英雄，才能把名字留下。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_02.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_ize_02.2.l01",
+              "speaker": "船主",
+              "text": "纪念碑位置有限，不可能刻每个人。"
+            },
+            {
+              "id": "cq_ize_02.2.l02",
+              "speaker": "伊泽",
+              "text": "那就另建一本可增补的船员册。"
+            },
+            {
+              "id": "cq_ize_02.2.l03",
+              "speaker": "年轻船员",
+              "text": "我愿意出钱买纸，不要求刻金字。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_ize_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "扩建可增补的公开船员册",
+                "sets": {
+                  "side.cq_ize_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由各家属共同决定纪念方式",
+                "sets": {
+                  "side.cq_ize_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_ize_02.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_ize_02.3.l01",
+              "speaker": "旁白",
+              "text": "航海者名册收录了修船工、厨师和甲板水手。"
+            },
+            {
+              "id": "cq_ize_02.3.l02",
+              "speaker": "年轻船员",
+              "text": "父亲名字旁终于写了他最擅长做的鱼汤。"
+            },
+            {
+              "id": "cq_ize_02.3.l03",
+              "speaker": "伊泽",
+              "text": "一首歌唱不完所有人，许多页书可以。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_ize_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "扩建可增补的公开船员册",
+        "b": "由各家属共同决定纪念方式"
+      },
+      "story_reward_flag": "bond.ize.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_ize_03",
+      "title": "两种结局的同一首歌",
+      "type": "companion",
+      "lead": "伊泽",
+      "lead_id": "ize",
+      "region": "岁影回廊旧剧院",
+      "npc": "流亡演员",
+      "premise": "剧团争论要不要把封城官员写成单纯恶人。",
+      "required_chapter": "ch040",
+      "required_flags": [
+        "story.ch040.done",
+        "side.cq_ize_02.done"
+      ],
+      "completion_flag": "side.cq_ize_03.done",
+      "stages": [
+        {
+          "id": "cq_ize_03.meet",
+          "objective": "与流亡演员交谈",
+          "dialogue": [
+            {
+              "id": "cq_ize_03.0.l01",
+              "speaker": "演员",
+              "text": "我们要演一出让孩子能看懂的戏。"
+            },
+            {
+              "id": "cq_ize_03.0.l02",
+              "speaker": "伊泽",
+              "text": "看懂不等于只许有一位坏人。"
+            },
+            {
+              "id": "cq_ize_03.0.l03",
+              "speaker": "诺依",
+              "text": "我也想知道城门关上时谁在门内。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_03.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_ize_03.1.l01",
+              "speaker": "演员甲",
+              "text": "外城居民得救了。"
+            },
+            {
+              "id": "cq_ize_03.1.l02",
+              "speaker": "演员乙",
+              "text": "城内居民失去了逃生机会。"
+            },
+            {
+              "id": "cq_ize_03.1.l03",
+              "speaker": "伊泽",
+              "text": "两幕应由不同的见证者讲述，不能删去一个。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_03.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_ize_03.2.l01",
+              "speaker": "剧团团长",
+              "text": "太复杂的戏没人买票。"
+            },
+            {
+              "id": "cq_ize_03.2.l02",
+              "speaker": "主角",
+              "text": "你可以让他们看见问题，而不是背下唯一答案。"
+            },
+            {
+              "id": "cq_ize_03.2.l03",
+              "speaker": "伊泽",
+              "text": "我愿意写一个让两边都能说话的结尾。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_ize_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "用双视角并行剧本演出",
+                "sets": {
+                  "side.cq_ize_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "采用演出后开放问答的形式",
+                "sets": {
+                  "side.cq_ize_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_ize_03.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_ize_03.3.l01",
+              "speaker": "旁白",
+              "text": "演出结束，观众没有立刻鼓掌，先有孩子举手提问。"
+            },
+            {
+              "id": "cq_ize_03.3.l02",
+              "speaker": "演员",
+              "text": "他们没有要求我们告诉谁必定正确。"
+            },
+            {
+              "id": "cq_ize_03.3.l03",
+              "speaker": "伊泽",
+              "text": "这才是那首歌尚未结束的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_ize_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "用双视角并行剧本演出",
+        "b": "采用演出后开放问答的形式"
+      },
+      "story_reward_flag": "bond.ize.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_ize_04",
+      "title": "十二张纸的歌",
+      "type": "companion",
+      "lead": "伊泽",
+      "lead_id": "ize",
+      "region": "旧洲根忆灯坛",
+      "npc": "老档案员",
+      "premise": "档案员担心十二张失落航页太零碎，不适合编入国史。",
+      "required_chapter": "ch042",
+      "required_flags": [
+        "story.ch042.done",
+        "side.cq_ize_03.done"
+      ],
+      "completion_flag": "side.cq_ize_04.done",
+      "stages": [
+        {
+          "id": "cq_ize_04.meet",
+          "objective": "与老档案员交谈",
+          "dialogue": [
+            {
+              "id": "cq_ize_04.0.l01",
+              "speaker": "档案员",
+              "text": "普通人的小事放进去，史书会厚得搬不动。"
+            },
+            {
+              "id": "cq_ize_04.0.l02",
+              "speaker": "伊泽",
+              "text": "那就让它厚一点。"
+            },
+            {
+              "id": "cq_ize_04.0.l03",
+              "speaker": "诺依",
+              "text": "我也想把妈妈的车票故事放进去。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_04.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_ize_04.1.l01",
+              "speaker": "档案员",
+              "text": "有些故事互相矛盾，怎么判断谁的说法真实？"
+            },
+            {
+              "id": "cq_ize_04.1.l02",
+              "speaker": "伊泽",
+              "text": "注明各自来源，不把猜测写成事实。"
+            },
+            {
+              "id": "cq_ize_04.1.l03",
+              "speaker": "玄璃",
+              "text": "未被证明的记忆，也不应擅自定作谎话。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_04.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_ize_04.2.l01",
+              "speaker": "旧贵族",
+              "text": "我们的祖先功绩不能和流亡者的怨言并列。"
+            },
+            {
+              "id": "cq_ize_04.2.l02",
+              "speaker": "伊泽",
+              "text": "并列不是宣告所有观点正确，是承认不同的人都曾存在。"
+            },
+            {
+              "id": "cq_ize_04.2.l03",
+              "speaker": "主角",
+              "text": "给历史补充页码和证人索引。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_ize_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "采用多人署名和证词索引",
+                "sets": {
+                  "side.cq_ize_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "保留原始相互矛盾的材料",
+                "sets": {
+                  "side.cq_ize_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_ize_04.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_ize_04.3.l01",
+              "speaker": "档案员",
+              "text": "史书的封面终于写不下全部作者名。"
+            },
+            {
+              "id": "cq_ize_04.3.l02",
+              "speaker": "诺依",
+              "text": "那能不能写“很多人一起”？"
+            },
+            {
+              "id": "cq_ize_04.3.l03",
+              "speaker": "伊泽",
+              "text": "这次我愿意做一个没有署名的编者。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_ize_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "采用多人署名和证词索引",
+        "b": "保留原始相互矛盾的材料"
+      },
+      "story_reward_flag": "bond.ize.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_ize_05",
+      "title": "旧照片没有歌",
+      "type": "companion",
+      "lead": "伊泽",
+      "lead_id": "ize",
+      "region": "暮林驿站后台",
+      "npc": "旅店老板",
+      "premise": "十二年前的旧队伍照片旁挂着过度美化的英雄史诗，失去的人未被提起。",
+      "required_chapter": "ch052",
+      "required_flags": [
+        "story.ch052.done",
+        "side.cq_ize_04.done"
+      ],
+      "completion_flag": "side.cq_ize_05.done",
+      "stages": [
+        {
+          "id": "cq_ize_05.meet",
+          "objective": "与旅店老板交谈",
+          "dialogue": [
+            {
+              "id": "cq_ize_05.0.l01",
+              "speaker": "旅店老板",
+              "text": "客人都爱听从不失败的英雄故事。"
+            },
+            {
+              "id": "cq_ize_05.0.l02",
+              "speaker": "伊泽",
+              "text": "但那场撤离有很多人没回来。"
+            },
+            {
+              "id": "cq_ize_05.0.l03",
+              "speaker": "诺依",
+              "text": "我不想让你们把他们写成没人认识的背景。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_05.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_ize_05.1.l01",
+              "speaker": "主角",
+              "text": "有些夜晚连我们自己都不愿想起。"
+            },
+            {
+              "id": "cq_ize_05.1.l02",
+              "speaker": "伊泽",
+              "text": "我可以先让你们听过再决定是否演。"
+            },
+            {
+              "id": "cq_ize_05.1.l03",
+              "speaker": "岚音",
+              "text": "也要请遇难者家属表达是否愿公开。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_05.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_ize_05.2.l01",
+              "speaker": "旅店老板",
+              "text": "不唱胜利，观众会不会离开？"
+            },
+            {
+              "id": "cq_ize_05.2.l02",
+              "speaker": "伊泽",
+              "text": "或许有人离开，也有人第一次知道自己的家人被记住。"
+            },
+            {
+              "id": "cq_ize_05.2.l03",
+              "speaker": "诺依",
+              "text": "别替听众决定他们只能接受一种歌。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_ize_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "举行家属参与的记忆演出",
+                "sets": {
+                  "side.cq_ize_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先建立可公开审阅的歌本",
+                "sets": {
+                  "side.cq_ize_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_ize_05.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_ize_05.3.l01",
+              "speaker": "旁白",
+              "text": "新歌第一次演出时，没有高举旧英雄的画像。"
+            },
+            {
+              "id": "cq_ize_05.3.l02",
+              "speaker": "旅店老板",
+              "text": "有人哭了，也有人陪他们坐着。"
+            },
+            {
+              "id": "cq_ize_05.3.l03",
+              "speaker": "伊泽",
+              "text": "这一首不属于我，它属于那晚仍努力活着的人。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_ize_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "举行家属参与的记忆演出",
+        "b": "先建立可公开审阅的歌本"
+      },
+      "story_reward_flag": "bond.ize.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_ize_06",
+      "title": "没有第二节的童谣",
+      "type": "companion",
+      "lead": "伊泽",
+      "lead_id": "ize",
+      "region": "永昼花园",
+      "npc": "花园孩子",
+      "premise": "永昼的孩子每天唱同一首童谣，想学新歌却总被系统阻止。",
+      "required_chapter": "ch067",
+      "required_flags": [
+        "story.ch067.done",
+        "side.cq_ize_05.done"
+      ],
+      "completion_flag": "side.cq_ize_06.done",
+      "stages": [
+        {
+          "id": "cq_ize_06.meet",
+          "objective": "与花园孩子交谈",
+          "dialogue": [
+            {
+              "id": "cq_ize_06.0.l01",
+              "speaker": "花园孩子",
+              "text": "我唱到第二句就会忘记自己想写什么。"
+            },
+            {
+              "id": "cq_ize_06.0.l02",
+              "speaker": "伊泽",
+              "text": "那就先写下第一句以外你今天看见的事。"
+            },
+            {
+              "id": "cq_ize_06.0.l03",
+              "speaker": "玄璃",
+              "text": "不要让系统替他删除。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_06.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_ize_06.1.l01",
+              "speaker": "孩子",
+              "text": "今天有一朵花掉了花瓣。"
+            },
+            {
+              "id": "cq_ize_06.1.l02",
+              "speaker": "母亲",
+              "text": "我以为这样是坏事。"
+            },
+            {
+              "id": "cq_ize_06.1.l03",
+              "speaker": "伊泽",
+              "text": "对孩子来说，也许那是第一件新鲜事。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_ize_06.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_ize_06.2.l01",
+              "speaker": "园丁系统",
+              "text": "新的歌词可能导致情绪波动。"
+            },
+            {
+              "id": "cq_ize_06.2.l02",
+              "speaker": "伊泽",
+              "text": "人听歌可以难过，也可以快乐，不该先替他们删词。"
+            },
+            {
+              "id": "cq_ize_06.2.l03",
+              "speaker": "主角",
+              "text": "让家长和孩子知情，愿意的人可以参与。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_ize_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "与家长共同开放创作课",
+                "sets": {
+                  "side.cq_ize_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先保存孩子原始歌词避免删除",
+                "sets": {
+                  "side.cq_ize_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_ize_06.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_ize_06.3.l01",
+              "speaker": "旁白",
+              "text": "新的歌只有两句，孩子却第一次记住自己写的第二句。"
+            },
+            {
+              "id": "cq_ize_06.3.l02",
+              "speaker": "母亲",
+              "text": "他明天还想继续写。"
+            },
+            {
+              "id": "cq_ize_06.3.l03",
+              "speaker": "伊泽",
+              "text": "那正是我希望留下的一首未完成的歌。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_ize_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "与家长共同开放创作课",
+        "b": "先保存孩子原始歌词避免删除"
+      },
+      "story_reward_flag": "bond.ize.06",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_xuanli_01",
+      "title": "不属于任何人的户籍",
+      "type": "companion",
+      "lead": "玄璃",
+      "lead_id": "xuanli",
+      "region": "镜眠王都档案局",
+      "npc": "户籍员",
+      "premise": "玄璃能登记姓名，却无法选择真实居住地，系统仍将她归为镜宫财产。",
+      "required_chapter": "ch034",
+      "required_flags": [
+        "story.ch034.done"
+      ],
+      "completion_flag": "side.cq_xuanli_01.done",
+      "stages": [
+        {
+          "id": "cq_xuanli_01.meet",
+          "objective": "与户籍员交谈",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_01.0.l01",
+              "speaker": "户籍员",
+              "text": "你的原籍是镜宫，住址也是镜宫。"
+            },
+            {
+              "id": "cq_xuanli_01.0.l02",
+              "speaker": "玄璃",
+              "text": "我想住哪里，难道必须由出生的地方决定？"
+            },
+            {
+              "id": "cq_xuanli_01.0.l03",
+              "speaker": "主角",
+              "text": "她的名字已经由自己签下。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_01.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_01.1.l01",
+              "speaker": "玄璃",
+              "text": "我在现世看见过雨、树和会吵架的人。"
+            },
+            {
+              "id": "cq_xuanli_01.1.l02",
+              "speaker": "户籍员",
+              "text": "规定里只有“现世出生”和“映世资产”。"
+            },
+            {
+              "id": "cq_xuanli_01.1.l03",
+              "speaker": "岚音",
+              "text": "规定没有第三项，不代表第三种人不存在。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_01.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_01.2.l01",
+              "speaker": "档案长",
+              "text": "若接受一个例外，后来还会有许多人申请。"
+            },
+            {
+              "id": "cq_xuanli_01.2.l02",
+              "speaker": "玄璃",
+              "text": "那说明我不是唯一需要被看见的人。"
+            },
+            {
+              "id": "cq_xuanli_01.2.l03",
+              "speaker": "主角",
+              "text": "让登记制度可以审查，不用以特批替代权利。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_xuanli_01.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立平等的自选居住登记",
+                "sets": {
+                  "side.cq_xuanli_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先收集更多映世居民意见",
+                "sets": {
+                  "side.cq_xuanli_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_xuanli_01.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_01.3.l01",
+              "speaker": "旁白",
+              "text": "新登记表出现“自选常住地”一栏。"
+            },
+            {
+              "id": "cq_xuanli_01.3.l02",
+              "speaker": "玄璃",
+              "text": "这是我第一次自己写下要回去的地方。"
+            },
+            {
+              "id": "cq_xuanli_01.3.l03",
+              "speaker": "户籍员",
+              "text": "我还要学着填这一栏，也想听你们的建议。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_xuanli_01.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "建立平等的自选居住登记",
+        "b": "先收集更多映世居民意见"
+      },
+      "story_reward_flag": "bond.xuanli.01",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_xuanli_02",
+      "title": "真正的雨与假雨",
+      "type": "companion",
+      "lead": "玄璃",
+      "lead_id": "xuanli",
+      "region": "镜眠王都城外花园",
+      "npc": "园丁",
+      "premise": "花园的幻雨从不会打湿人，玄璃想记录现实降雨的气味。",
+      "required_chapter": "ch036",
+      "required_flags": [
+        "story.ch036.done",
+        "side.cq_xuanli_01.done"
+      ],
+      "completion_flag": "side.cq_xuanli_02.done",
+      "stages": [
+        {
+          "id": "cq_xuanli_02.meet",
+          "objective": "与园丁交谈",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_02.0.l01",
+              "speaker": "园丁",
+              "text": "今天有雨，你为什么还站在外面？"
+            },
+            {
+              "id": "cq_xuanli_02.0.l02",
+              "speaker": "玄璃",
+              "text": "我想知道它为什么冷得让人想躲。"
+            },
+            {
+              "id": "cq_xuanli_02.0.l03",
+              "speaker": "岚音",
+              "text": "冷了就回屋，不需要为了证明自己真实而受冻。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_02.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_02.1.l01",
+              "speaker": "玄璃",
+              "text": "映世的雨只会在别人需要时出现。"
+            },
+            {
+              "id": "cq_xuanli_02.1.l02",
+              "speaker": "园丁",
+              "text": "现世的雨可不管今天是不是好日子。"
+            },
+            {
+              "id": "cq_xuanli_02.1.l03",
+              "speaker": "主角",
+              "text": "有些事不为我们而发生，也能被我们喜欢。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_02.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_02.2.l01",
+              "speaker": "玄璃",
+              "text": "如果我说自己其实更喜欢幻雨，会不会不像真正的人？"
+            },
+            {
+              "id": "cq_xuanli_02.2.l02",
+              "speaker": "岚音",
+              "text": "喜欢什么不决定你是什么。"
+            },
+            {
+              "id": "cq_xuanli_02.2.l03",
+              "speaker": "园丁",
+              "text": "那把两种雨都写在你的笔记里。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_xuanli_02.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "记录现世天气与感受",
+                "sets": {
+                  "side.cq_xuanli_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让映世居民也参加真实的雨夜活动",
+                "sets": {
+                  "side.cq_xuanli_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_xuanli_02.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_02.3.l01",
+              "speaker": "旁白",
+              "text": "玄璃在笔记中记下湿鞋、泥味和屋檐声。"
+            },
+            {
+              "id": "cq_xuanli_02.3.l02",
+              "speaker": "玄璃",
+              "text": "我还是会在太冷时想回镜宫。"
+            },
+            {
+              "id": "cq_xuanli_02.3.l03",
+              "speaker": "主角",
+              "text": "想回熟悉的地方，不妨碍你继续出发。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_xuanli_02.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "记录现世天气与感受",
+        "b": "让映世居民也参加真实的雨夜活动"
+      },
+      "story_reward_flag": "bond.xuanli.02",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_xuanli_03",
+      "title": "第三扇空门",
+      "type": "companion",
+      "lead": "玄璃",
+      "lead_id": "xuanli",
+      "region": "旧洲根系树海",
+      "npc": "护林少女",
+      "premise": "第三扇记忆门没有内容，却被地方官要求补上一段“正确历史”。",
+      "required_chapter": "ch041",
+      "required_flags": [
+        "story.ch041.done",
+        "side.cq_xuanli_02.done"
+      ],
+      "completion_flag": "side.cq_xuanli_03.done",
+      "stages": [
+        {
+          "id": "cq_xuanli_03.meet",
+          "objective": "与护林少女交谈",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_03.0.l01",
+              "speaker": "护林少女",
+              "text": "这门什么都没有，官员说必须写点东西。"
+            },
+            {
+              "id": "cq_xuanli_03.0.l02",
+              "speaker": "玄璃",
+              "text": "它可能留给还没发生的事。"
+            },
+            {
+              "id": "cq_xuanli_03.0.l03",
+              "speaker": "主角",
+              "text": "先查原始图纸，不猜测空白意义。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_03.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_03.1.l01",
+              "speaker": "缇珐",
+              "text": "这里预留了一个可扩展接口。"
+            },
+            {
+              "id": "cq_xuanli_03.1.l02",
+              "speaker": "护林少女",
+              "text": "祖辈说没写字是因为以后的人可以自己留下。"
+            },
+            {
+              "id": "cq_xuanli_03.1.l03",
+              "speaker": "玄璃",
+              "text": "那就不该替他们抢先写完。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_03.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_03.2.l01",
+              "speaker": "地方官",
+              "text": "空白会让人不安，也便于坏人乱写。"
+            },
+            {
+              "id": "cq_xuanli_03.2.l02",
+              "speaker": "玄璃",
+              "text": "我们可以订立可修改的使用规则，而不是把内容写死。"
+            },
+            {
+              "id": "cq_xuanli_03.2.l03",
+              "speaker": "主角",
+              "text": "先记录为什么保留这道门。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_xuanli_03.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "保留空门并添加公开解释",
+                "sets": {
+                  "side.cq_xuanli_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "建立居民可修改的记录制度",
+                "sets": {
+                  "side.cq_xuanli_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_xuanli_03.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_03.3.l01",
+              "speaker": "旁白",
+              "text": "空门仍空着，门边增加了说明与共同维护人名。"
+            },
+            {
+              "id": "cq_xuanli_03.3.l02",
+              "speaker": "护林少女",
+              "text": "我喜欢它不是秘密，而是邀请。"
+            },
+            {
+              "id": "cq_xuanli_03.3.l03",
+              "speaker": "玄璃",
+              "text": "未来不用因为还没发生，就被叫作损坏。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_xuanli_03.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "保留空门并添加公开解释",
+        "b": "建立居民可修改的记录制度"
+      },
+      "story_reward_flag": "bond.xuanli.03",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_xuanli_04",
+      "title": "我也会判断错误",
+      "type": "companion",
+      "lead": "玄璃",
+      "lead_id": "xuanli",
+      "region": "旧洲新生救援营",
+      "npc": "年轻救援者",
+      "premise": "救援者将玄璃当作永远不会犯错的未来感知者，要求她替全队做所有决定。",
+      "required_chapter": "ch054",
+      "required_flags": [
+        "story.ch054.done",
+        "side.cq_xuanli_03.done"
+      ],
+      "completion_flag": "side.cq_xuanli_04.done",
+      "stages": [
+        {
+          "id": "cq_xuanli_04.meet",
+          "objective": "与年轻救援者交谈",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_04.0.l01",
+              "speaker": "年轻救援者",
+              "text": "你看过另一种未来，快告诉我们最佳路线！"
+            },
+            {
+              "id": "cq_xuanli_04.0.l02",
+              "speaker": "玄璃",
+              "text": "我看见的是可能，不是答案。"
+            },
+            {
+              "id": "cq_xuanli_04.0.l03",
+              "speaker": "诺依",
+              "text": "我们仍然需要实地确认。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_04.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_04.1.l01",
+              "speaker": "玄璃",
+              "text": "上次我预测山路可通，结果雨把桥冲断了。"
+            },
+            {
+              "id": "cq_xuanli_04.1.l02",
+              "speaker": "救援者",
+              "text": "可是我们以为你不会算错。"
+            },
+            {
+              "id": "cq_xuanli_04.1.l03",
+              "speaker": "主角",
+              "text": "她不欠任何人“完美”这个承诺。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_04.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_04.2.l01",
+              "speaker": "诺依",
+              "text": "把预测和勘测放在两栏，不能把一种替代另一种。"
+            },
+            {
+              "id": "cq_xuanli_04.2.l02",
+              "speaker": "玄璃",
+              "text": "如果我不确定，我会说不确定。"
+            },
+            {
+              "id": "cq_xuanli_04.2.l03",
+              "speaker": "年轻救援者",
+              "text": "那我们也该学会自己确认。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_xuanli_04.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立预测与实地确认双重程序",
+                "sets": {
+                  "side.cq_xuanli_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让玄璃停止担任唯一路线判断者",
+                "sets": {
+                  "side.cq_xuanli_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_xuanli_04.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_04.3.l01",
+              "speaker": "旁白",
+              "text": "新的救援地图把预测、实测和修订日期分开。"
+            },
+            {
+              "id": "cq_xuanli_04.3.l02",
+              "speaker": "玄璃",
+              "text": "我终于不用假装自己总是知道。"
+            },
+            {
+              "id": "cq_xuanli_04.3.l03",
+              "speaker": "诺依",
+              "text": "会承认不确定的人，反而更适合做伙伴。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_xuanli_04.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "建立预测与实地确认双重程序",
+        "b": "让玄璃停止担任唯一路线判断者"
+      },
+      "story_reward_flag": "bond.xuanli.04",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_xuanli_05",
+      "title": "被划掉的可能",
+      "type": "companion",
+      "lead": "玄璃",
+      "lead_id": "xuanli",
+      "region": "天轨原初实验室",
+      "npc": "档案残响",
+      "premise": "实验室里保留着无数未实现愿望，部分被标注为“没有价值”。",
+      "required_chapter": "ch062",
+      "required_flags": [
+        "story.ch062.done",
+        "side.cq_xuanli_04.done"
+      ],
+      "completion_flag": "side.cq_xuanli_05.done",
+      "stages": [
+        {
+          "id": "cq_xuanli_05.meet",
+          "objective": "与档案残响交谈",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_05.0.l01",
+              "speaker": "档案残响",
+              "text": "该梦想社会收益不足，予以删除。"
+            },
+            {
+              "id": "cq_xuanli_05.0.l02",
+              "speaker": "玄璃",
+              "text": "它是一个孩子想给母亲做早饭的愿望。"
+            },
+            {
+              "id": "cq_xuanli_05.0.l03",
+              "speaker": "维莎",
+              "text": "当年我们把它算成可舍弃的微小项。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_05.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_05.1.l01",
+              "speaker": "主角",
+              "text": "那个孩子后来怎样了？"
+            },
+            {
+              "id": "cq_xuanli_05.1.l02",
+              "speaker": "维莎",
+              "text": "记录没写，因为系统只统计最终结果。"
+            },
+            {
+              "id": "cq_xuanli_05.1.l03",
+              "speaker": "玄璃",
+              "text": "被排除的生活，不应该因此不算活过。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_05.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_05.2.l01",
+              "speaker": "档案残响",
+              "text": "全部恢复将产生无法计算的风险。"
+            },
+            {
+              "id": "cq_xuanli_05.2.l02",
+              "speaker": "玄璃",
+              "text": "不必逼每个愿望实现，只要不替人预先宣布它不配存在。"
+            },
+            {
+              "id": "cq_xuanli_05.2.l03",
+              "speaker": "维莎",
+              "text": "把删除规则和受影响者记录一起公开。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_xuanli_05.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "保留被删愿望的原始证词",
+                "sets": {
+                  "side.cq_xuanli_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "公开实验筛选规则并允许申诉",
+                "sets": {
+                  "side.cq_xuanli_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_xuanli_05.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_05.3.l01",
+              "speaker": "旁白",
+              "text": "愿望档案改为保留选择权的公开记录。"
+            },
+            {
+              "id": "cq_xuanli_05.3.l02",
+              "speaker": "玄璃",
+              "text": "我不是那些愿望的替身，但我愿意帮助它们被看见。"
+            },
+            {
+              "id": "cq_xuanli_05.3.l03",
+              "speaker": "主角",
+              "text": "这正是你自己作出的决定。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_xuanli_05.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "保留被删愿望的原始证词",
+        "b": "公开实验筛选规则并允许申诉"
+      },
+      "story_reward_flag": "bond.xuanli.05",
+      "status": "authored_text_not_runtime_bound"
+    },
+    {
+      "id": "cq_xuanli_06",
+      "title": "谁有权留下映世",
+      "type": "companion",
+      "lead": "玄璃",
+      "lead_id": "xuanli",
+      "region": "七灯评议庭侧厅",
+      "npc": "映世居民代表",
+      "premise": "部分现世代表提议让映世继续存在，但不赋予其居民完全政治权利。",
+      "required_chapter": "ch070",
+      "required_flags": [
+        "story.ch070.done",
+        "side.cq_xuanli_05.done"
+      ],
+      "completion_flag": "side.cq_xuanli_06.done",
+      "stages": [
+        {
+          "id": "cq_xuanli_06.meet",
+          "objective": "与映世居民代表交谈",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_06.0.l01",
+              "speaker": "映世代表",
+              "text": "他们愿意给我们一座家，却不愿让我们决定门朝哪边开。"
+            },
+            {
+              "id": "cq_xuanli_06.0.l02",
+              "speaker": "玄璃",
+              "text": "那只是换了一个更漂亮的笼子。"
+            },
+            {
+              "id": "cq_xuanli_06.0.l03",
+              "speaker": "诺依",
+              "text": "请代表说出自己需要什么。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_06.investigate",
+          "objective": "调查事件证据",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_06.1.l01",
+              "speaker": "维莎",
+              "text": "有人担心映世居民的寿命和现实身份难以登记。"
+            },
+            {
+              "id": "cq_xuanli_06.1.l02",
+              "speaker": "玄璃",
+              "text": "难以登记是制度的工作，不是我们失去权利的理由。"
+            },
+            {
+              "id": "cq_xuanli_06.1.l03",
+              "speaker": "主角",
+              "text": "可建立公开的转换程序和申诉途径。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "cq_xuanli_06.choice",
+          "objective": "面对事件冲突并选择应对",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_06.2.l01",
+              "speaker": "现世议员",
+              "text": "如果投票人数一直变化怎么办？"
+            },
+            {
+              "id": "cq_xuanli_06.2.l02",
+              "speaker": "映世代表",
+              "text": "现世也有人出生和离开。"
+            },
+            {
+              "id": "cq_xuanli_06.2.l03",
+              "speaker": "玄璃",
+              "text": "我们愿意承担同样的义务，也应有同样的声音。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "cq_xuanli_06.choice",
+            "prompt": "你准备怎样处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "确立平等代表权与申诉流程",
+                "sets": {
+                  "side.cq_xuanli_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先制定开放的人口登记和迁移程序",
+                "sets": {
+                  "side.cq_xuanli_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cq_xuanli_06.resolution",
+          "objective": "向相关人报告结局",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_06.3.l01",
+              "speaker": "旁白",
+              "text": "评议庭记录下映世居民的公民资格与参与规则。"
+            },
+            {
+              "id": "cq_xuanli_06.3.l02",
+              "speaker": "映世代表",
+              "text": "这一次我们不只是被保护的对象。"
+            },
+            {
+              "id": "cq_xuanli_06.3.l03",
+              "speaker": "玄璃",
+              "text": "我可以在别人面前说“我们”，而不用先解释自己是否真实。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.cq_xuanli_06.done",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "ending_variation": {
+        "a": "确立平等代表权与申诉流程",
+        "b": "先制定开放的人口登记和迁移程序"
+      },
+      "story_reward_flag": "bond.xuanli.06",
       "status": "authored_text_not_runtime_bound"
     }
   ]

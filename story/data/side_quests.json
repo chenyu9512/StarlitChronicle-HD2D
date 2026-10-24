@@ -1,6 +1,6 @@
 {
   "schema": "starlit.story.sidequest.v1",
-  "status": "page12_five_stage_revision_v2_partial_legacy_life",
+  "status": "all_36_five_stage_script_v2",
   "count": 36,
   "global_milestone": {
     "flag": "world.all_twelve_pages",
@@ -5679,19 +5679,22 @@
       "stages": [
         {
           "id": "sq_life_19.start",
-          "objective": "与书记员交谈并了解请求",
+          "objective": "与居民沟通并确认委托",
           "dialogue": [
             {
+              "id": "sq_life_19.start.l01",
               "speaker": "书记员",
-              "text": "我怕把他真正的名字写错，所以一直不敢落笔。"
+              "text": "我怕把他的名字写错，已经盯着这页户籍三天。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_life_19.start.l02",
+              "speaker": "玄璃",
+              "text": "他自己怎么说？"
             },
             {
+              "id": "sq_life_19.start.l03",
               "speaker": "书记员",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "只记得发音，不记得字。"
             }
           ],
           "effects": [
@@ -5704,19 +5707,22 @@
         },
         {
           "id": "sq_life_19.investigate",
-          "objective": "调查旧洲·默契城并搜集证据",
+          "objective": "调查个人记录或现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【旧洲·默契城】线索逐渐清晰。"
+              "id": "sq_life_19.investigate.l01",
+              "speaker": "幸存者",
+              "text": "母亲喊我时是这段声音，写法我不确定。"
             },
             {
-              "speaker": "书记员",
-              "text": "幸存者记得发音，不记得文字。"
-            },
-            {
+              "id": "sq_life_19.investigate.l02",
               "speaker": "主角",
-              "text": "选择双重记法，登记姓名不再是唯一凭证。"
+              "text": "可以先记读音与来源。"
+            },
+            {
+              "id": "sq_life_19.investigate.l03",
+              "speaker": "伊泽",
+              "text": "不同年代的人也许写过不同字。"
             }
           ],
           "effects": [
@@ -5728,20 +5734,87 @@
           ]
         },
         {
-          "id": "sq_life_19.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_19.witness",
+          "objective": "听取其他当事人的愿望与证词",
           "dialogue": [
             {
+              "id": "sq_life_19.witness.l01",
+              "speaker": "老邻居",
+              "text": "我记得他父亲用过另一个姓。"
+            },
+            {
+              "id": "sq_life_19.witness.l02",
+              "speaker": "幸存者",
+              "text": "可那不是我现在想用的名字。"
+            },
+            {
+              "id": "sq_life_19.witness.l03",
+              "speaker": "玄璃",
+              "text": "历史可以存档，称呼应听本人。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_19.decision",
+          "objective": "决定如何协助解决事件",
+          "dialogue": [
+            {
+              "id": "sq_life_19.decision.l01",
+              "speaker": "档案长",
+              "text": "一张表只允许一个姓名。"
+            },
+            {
+              "id": "sq_life_19.decision.l02",
               "speaker": "书记员",
-              "text": "居民的旧名与新名都被如实保留，由本人决定如何被称呼。"
+              "text": "那就再加旧名索引栏。"
             },
             {
+              "id": "sq_life_19.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "不必为了填表逼他选择否认哪段生活。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_19.choice",
+            "prompt": "你准备采用哪种方式？",
+            "options": [
+              {
+                "id": "a",
+                "label": "记录读音与历史姓名双索引",
+                "sets": {
+                  "side.sq_life_19.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "本人决定现用姓名及公开范围",
+                "sets": {
+                  "side.sq_life_19.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_19.finish",
+          "objective": "回访居民并结束任务",
+          "dialogue": [
+            {
+              "id": "sq_life_19.finish.l01",
+              "speaker": "旁白",
+              "text": "户籍册同时保留历史名字与现在的称呼。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_19.finish.l02",
+              "speaker": "幸存者",
+              "text": "我终于不用每天解释自己不是别人。"
+            },
+            {
+              "id": "sq_life_19.finish.l03",
+              "speaker": "书记员",
+              "text": "下次我先问本人，再握笔。"
             }
           ],
           "effects": [
@@ -5760,8 +5833,9 @@
       ],
       "npc_after": {
         "speaker": "书记员",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "下次我先问本人，再握笔。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_20",
@@ -5780,19 +5854,22 @@
       "stages": [
         {
           "id": "sq_life_20.start",
-          "objective": "与诺依交谈并了解请求",
+          "objective": "与居民沟通并确认委托",
           "dialogue": [
             {
+              "id": "sq_life_20.start.l01",
               "speaker": "诺依",
-              "text": "我想写给已经不在的人，可不知道地址。"
+              "text": "我想写信给妈妈，可不知道地址。"
             },
             {
+              "id": "sq_life_20.start.l02",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "text": "这里有纪念信箱，不要求信一定寄到哪里。"
             },
             {
+              "id": "sq_life_20.start.l03",
               "speaker": "诺依",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "她会不会觉得我写得太丑？"
             }
           ],
           "effects": [
@@ -5805,19 +5882,22 @@
         },
         {
           "id": "sq_life_20.investigate",
-          "objective": "调查旧洲·难民营并搜集证据",
+          "objective": "调查个人记录或现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【旧洲·难民营】线索逐渐清晰。"
+              "id": "sq_life_20.investigate.l01",
+              "speaker": "邮务员",
+              "text": "纪念信会单独保存，家属可以选择带走或留在这里。"
             },
             {
+              "id": "sq_life_20.investigate.l02",
               "speaker": "诺依",
-              "text": "营地邮筒专门收无地址纪念信。"
+              "text": "我只认识几种字。"
             },
             {
-              "speaker": "主角",
-              "text": "主角陪孩子投信，开启诺依传承羁绊。"
+              "id": "sq_life_20.investigate.l03",
+              "speaker": "岚音",
+              "text": "先写你最想说的一句话。"
             }
           ],
           "effects": [
@@ -5829,20 +5909,87 @@
           ]
         },
         {
-          "id": "sq_life_20.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_20.witness",
+          "objective": "听取其他当事人的愿望与证词",
           "dialogue": [
             {
+              "id": "sq_life_20.witness.l01",
               "speaker": "诺依",
-              "text": "诺依把写给母亲的信投进了纪念信箱。"
+              "text": "我想告诉她我们后来真的去了海边。"
             },
             {
+              "id": "sq_life_20.witness.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "那就写。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_20.witness.l03",
+              "speaker": "诺依",
+              "text": "但我一写到她的名字就想哭。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_20.decision",
+          "objective": "决定如何协助解决事件",
+          "dialogue": [
+            {
+              "id": "sq_life_20.decision.l01",
+              "speaker": "岚音",
+              "text": "哭了也可以停下来。"
+            },
+            {
+              "id": "sq_life_20.decision.l02",
+              "speaker": "诺依",
+              "text": "我可以先只画一张海吗？"
+            },
+            {
+              "id": "sq_life_20.decision.l03",
+              "speaker": "主角",
+              "text": "画画也是写信的一种。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_20.choice",
+            "prompt": "你准备采用哪种方式？",
+            "options": [
+              {
+                "id": "a",
+                "label": "由诺依自己写下一句话",
+                "sets": {
+                  "side.sq_life_20.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先画海，改天再继续写字",
+                "sets": {
+                  "side.sq_life_20.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_20.finish",
+          "objective": "回访居民并结束任务",
+          "dialogue": [
+            {
+              "id": "sq_life_20.finish.l01",
+              "speaker": "旁白",
+              "text": "诺依在信纸上画了一片海，自己把信投进箱里。"
+            },
+            {
+              "id": "sq_life_20.finish.l02",
+              "speaker": "诺依",
+              "text": "我想以后再来写第二封。"
+            },
+            {
+              "id": "sq_life_20.finish.l03",
+              "speaker": "主角",
+              "text": "我会陪你来，等你愿意的时候。"
             }
           ],
           "effects": [
@@ -5861,8 +6008,9 @@
       ],
       "npc_after": {
         "speaker": "诺依",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "我会陪你来，等你愿意的时候。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_21",
@@ -5881,19 +6029,22 @@
       "stages": [
         {
           "id": "sq_life_21.start",
-          "objective": "与老邻居交谈并了解请求",
+          "objective": "与居民沟通并确认委托",
           "dialogue": [
             {
+              "id": "sq_life_21.start.l01",
               "speaker": "老邻居",
-              "text": "有个人每次来都把茶放冷，怕烫着孩子。"
+              "text": "这个人每次喝茶都等冷了才碰杯，怕烫到身边的孩子。"
             },
             {
+              "id": "sq_life_21.start.l02",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "text": "你说的是澄舟吗？"
             },
             {
+              "id": "sq_life_21.start.l03",
               "speaker": "老邻居",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "我直到昨天才想起这个名字。"
             }
           ],
           "effects": [
@@ -5906,19 +6057,22 @@
         },
         {
           "id": "sq_life_21.investigate",
-          "objective": "调查晨露村·旧屋并搜集证据",
+          "objective": "调查个人记录或现场证据",
           "dialogue": [
             {
+              "id": "sq_life_21.investigate.l01",
               "speaker": "旁白",
-              "text": "【晨露村·旧屋】线索逐渐清晰。"
+              "text": "茶杯底下刻着简单的三角修补记号。"
             },
             {
+              "id": "sq_life_21.investigate.l02",
               "speaker": "老邻居",
-              "text": "老邻居终于想起澄舟曾来过。"
+              "text": "他帮我换过椅脚，从没收工钱。"
             },
             {
-              "speaker": "主角",
-              "text": "主角听到养父琐碎的生活故事，而非英雄传说。"
+              "id": "sq_life_21.investigate.l03",
+              "speaker": "诺依",
+              "text": "他是不是很了不起？"
             }
           ],
           "effects": [
@@ -5930,20 +6084,87 @@
           ]
         },
         {
-          "id": "sq_life_21.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_21.witness",
+          "objective": "听取其他当事人的愿望与证词",
           "dialogue": [
             {
-              "speaker": "老邻居",
-              "text": "老邻居讲起澄舟曾来家里喝茶的琐事。"
-            },
-            {
+              "id": "sq_life_21.witness.l01",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "他修船也会忘记带工具，还总说自己已经吃过饭。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_21.witness.l02",
+              "speaker": "老邻居",
+              "text": "是啊，我还骂过他做事太急。"
+            },
+            {
+              "id": "sq_life_21.witness.l03",
+              "speaker": "岚音",
+              "text": "不必把所有记忆写成传说。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_21.decision",
+          "objective": "决定如何协助解决事件",
+          "dialogue": [
+            {
+              "id": "sq_life_21.decision.l01",
+              "speaker": "老邻居",
+              "text": "我该把这只杯子交给你吗？"
+            },
+            {
+              "id": "sq_life_21.decision.l02",
+              "speaker": "主角",
+              "text": "它属于你家，不需要送给我。"
+            },
+            {
+              "id": "sq_life_21.decision.l03",
+              "speaker": "诺依",
+              "text": "我们能把记号拓下来，留作记录。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_21.choice",
+            "prompt": "你准备采用哪种方式？",
+            "options": [
+              {
+                "id": "a",
+                "label": "保留杯子，登记澄舟的旧日修缮",
+                "sets": {
+                  "side.sq_life_21.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "让老邻居自由讲述并保存口述记录",
+                "sets": {
+                  "side.sq_life_21.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_21.finish",
+          "objective": "回访居民并结束任务",
+          "dialogue": [
+            {
+              "id": "sq_life_21.finish.l01",
+              "speaker": "旁白",
+              "text": "主角在旧屋喝下一杯放得微凉的茶。"
+            },
+            {
+              "id": "sq_life_21.finish.l02",
+              "speaker": "老邻居",
+              "text": "我想起来的全是些小事。"
+            },
+            {
+              "id": "sq_life_21.finish.l03",
+              "speaker": "主角",
+              "text": "对我而言，这些小事已经足够重要。"
             }
           ],
           "effects": [
@@ -5962,8 +6183,9 @@
       ],
       "npc_after": {
         "speaker": "老邻居",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "对我而言，这些小事已经足够重要。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_22",
@@ -5982,19 +6204,22 @@
       "stages": [
         {
           "id": "sq_life_22.start",
-          "objective": "与旅店老板交谈并了解请求",
+          "objective": "与居民沟通并确认委托",
           "dialogue": [
             {
+              "id": "sq_life_22.start.l01",
               "speaker": "旅店老板",
-              "text": "你们当年合照时吵了半天，谁该站正中间。"
+              "text": "旧照片找到了，你们当年抢着决定谁站中间。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_life_22.start.l02",
+              "speaker": "朔弦",
+              "text": "我当时只想避开那盏刺眼的灯。"
             },
             {
-              "speaker": "旅店老板",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_life_22.start.l03",
+              "speaker": "岚音",
+              "text": "你明明想站得最显眼。"
             }
           ],
           "effects": [
@@ -6007,19 +6232,22 @@
         },
         {
           "id": "sq_life_22.investigate",
-          "objective": "调查暮林古道·驿站并搜集证据",
+          "objective": "调查个人记录或现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【暮林古道·驿站】线索逐渐清晰。"
+              "id": "sq_life_22.investigate.l01",
+              "speaker": "诺依",
+              "text": "背面写着未完成的旅行计划。"
             },
             {
-              "speaker": "旅店老板",
-              "text": "照片背面留下当年未兑现的旅行计划。"
-            },
-            {
+              "id": "sq_life_22.investigate.l02",
               "speaker": "主角",
-              "text": "队伍重新拍照，角色菜单更新纪念画面。"
+              "text": "那时我们说等战争结束再一起看一次海。"
+            },
+            {
+              "id": "sq_life_22.investigate.l03",
+              "speaker": "雷索",
+              "text": "后来我们连坐在一起吃饭都很难。"
             }
           ],
           "effects": [
@@ -6031,20 +6259,87 @@
           ]
         },
         {
-          "id": "sq_life_22.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_22.witness",
+          "objective": "听取其他当事人的愿望与证词",
           "dialogue": [
             {
+              "id": "sq_life_22.witness.l01",
               "speaker": "旅店老板",
-              "text": "队伍重新拍下照片，大家不再争谁该站最前面。"
+              "text": "照片还要挂在英雄墙上吗？"
             },
             {
+              "id": "sq_life_22.witness.l02",
+              "speaker": "诺依",
+              "text": "这次大家可以重新选站位。"
+            },
+            {
+              "id": "sq_life_22.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "不必让某个人站在最前面。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_22.decision",
+          "objective": "决定如何协助解决事件",
+          "dialogue": [
+            {
+              "id": "sq_life_22.decision.l01",
+              "speaker": "朔弦",
+              "text": "以前那些没回来的伙伴，也应留在旧照片里。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_22.decision.l02",
+              "speaker": "岚音",
+              "text": "两张一起挂，不把旧日的伤藏起来。"
+            },
+            {
+              "id": "sq_life_22.decision.l03",
+              "speaker": "雷索",
+              "text": "新的照片不表示过去从未发生。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_22.choice",
+            "prompt": "你准备采用哪种方式？",
+            "options": [
+              {
+                "id": "a",
+                "label": "把两张照片并排公开展出",
+                "sets": {
+                  "side.sq_life_22.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由伙伴各写一段旧照片的注释",
+                "sets": {
+                  "side.sq_life_22.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_22.finish",
+          "objective": "回访居民并结束任务",
+          "dialogue": [
+            {
+              "id": "sq_life_22.finish.l01",
+              "speaker": "旁白",
+              "text": "新照片放在旧照片旁，所有人并肩站着。"
+            },
+            {
+              "id": "sq_life_22.finish.l02",
+              "speaker": "旅店老板",
+              "text": "这次没吵谁站正中间。"
+            },
+            {
+              "id": "sq_life_22.finish.l03",
+              "speaker": "朔弦",
+              "text": "下次我要坐在椅子上拍。"
             }
           ],
           "effects": [
@@ -6063,8 +6358,9 @@
       ],
       "npc_after": {
         "speaker": "旅店老板",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "下次我要坐在椅子上拍。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_23",
@@ -6083,19 +6379,22 @@
       "stages": [
         {
           "id": "sq_life_23.start",
-          "objective": "与工匠交谈并了解请求",
+          "objective": "与居民沟通并确认委托",
           "dialogue": [
             {
+              "id": "sq_life_23.start.l01",
               "speaker": "工匠",
-              "text": "以前我每天为了赶工不回家，现在总觉得来不及。"
+              "text": "从前赶工太久，现在修了房子却还是不敢回家。"
             },
             {
+              "id": "sq_life_23.start.l02",
+              "speaker": "缇珐",
+              "text": "不是所有工作都必须今天完工。"
+            },
+            {
+              "id": "sq_life_23.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "工匠",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "你家人怎么想？"
             }
           ],
           "effects": [
@@ -6108,19 +6407,22 @@
         },
         {
           "id": "sq_life_23.investigate",
-          "objective": "调查群灯城·建造区并搜集证据",
+          "objective": "调查个人记录或现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【群灯城·建造区】线索逐渐清晰。"
+              "id": "sq_life_23.investigate.l01",
+              "speaker": "妻子",
+              "text": "孩子只想爸爸陪着吃一顿热饭。"
             },
             {
+              "id": "sq_life_23.investigate.l02",
               "speaker": "工匠",
-              "text": "工匠的家人不需要他每天都是英雄。"
+              "text": "可城墙没修完，我不能走。"
             },
             {
-              "speaker": "主角",
-              "text": "建立正常轮班制度，城市幸福度提升。"
+              "id": "sq_life_23.investigate.l03",
+              "speaker": "诺依",
+              "text": "先核对工程进度和实际人手。"
             }
           ],
           "effects": [
@@ -6132,20 +6434,87 @@
           ]
         },
         {
-          "id": "sq_life_23.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_23.witness",
+          "objective": "听取其他当事人的愿望与证词",
           "dialogue": [
             {
-              "speaker": "工匠",
-              "text": "新排班让工匠终于有时间陪家人吃饭。"
+              "id": "sq_life_23.witness.l01",
+              "speaker": "年轻学徒",
+              "text": "大家都以为师傅不下班才叫负责。"
             },
             {
+              "id": "sq_life_23.witness.l02",
+              "speaker": "缇珐",
+              "text": "我以前也这样说过，后来差点把自己熬倒。"
+            },
+            {
+              "id": "sq_life_23.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "把工时与休息写清。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_23.decision",
+          "objective": "决定如何协助解决事件",
+          "dialogue": [
+            {
+              "id": "sq_life_23.decision.l01",
+              "speaker": "主管",
+              "text": "增加轮班要延长工期。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_23.decision.l02",
+              "speaker": "诺依",
+              "text": "可以公开调整计划，让居民决定哪些区域最紧急。"
+            },
+            {
+              "id": "sq_life_23.decision.l03",
+              "speaker": "工匠",
+              "text": "我愿承担我的部分，不愿再把家人永远排到最后。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_23.choice",
+            "prompt": "你准备采用哪种方式？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先实行工匠轮班与休息安排",
+                "sets": {
+                  "side.sq_life_23.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由居民确认优先修缮区域和工期",
+                "sets": {
+                  "side.sq_life_23.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_23.finish",
+          "objective": "回访居民并结束任务",
+          "dialogue": [
+            {
+              "id": "sq_life_23.finish.l01",
+              "speaker": "旁白",
+              "text": "工程有了轮班表和每周公开进度。"
+            },
+            {
+              "id": "sq_life_23.finish.l02",
+              "speaker": "工匠",
+              "text": "今晚我回家教孩子修小木车。"
+            },
+            {
+              "id": "sq_life_23.finish.l03",
+              "speaker": "缇珐",
+              "text": "城市需要房子，也需要住在房子里的人。"
             }
           ],
           "effects": [
@@ -6164,8 +6533,9 @@
       ],
       "npc_after": {
         "speaker": "工匠",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "城市需要房子，也需要住在房子里的人。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_24",
@@ -6184,19 +6554,22 @@
       "stages": [
         {
           "id": "sq_life_24.start",
-          "objective": "与摊主交谈并了解请求",
+          "objective": "与居民沟通并确认委托",
           "dialogue": [
             {
+              "id": "sq_life_24.start.l01",
               "speaker": "摊主",
-              "text": "三国的调料全吵着要当第一名。"
+              "text": "三国的香料都争着当第一名，三位厨师差点把锅分成三份。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_life_24.start.l02",
+              "speaker": "朔弦",
+              "text": "要不每个人先吃一口？"
             },
             {
-              "speaker": "摊主",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_life_24.start.l03",
+              "speaker": "伊泽",
+              "text": "吵架也别把汤烧糊。"
             }
           ],
           "effects": [
@@ -6209,19 +6582,22 @@
         },
         {
           "id": "sq_life_24.investigate",
-          "objective": "调查群灯之城·广场并搜集证据",
+          "objective": "调查个人记录或现场证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【群灯之城·广场】线索逐渐清晰。"
+              "id": "sq_life_24.investigate.l01",
+              "speaker": "北地厨师",
+              "text": "我们的调料能在冬天保存。"
             },
             {
-              "speaker": "摊主",
-              "text": "三位厨师都不肯删掉自己家乡的味道。"
+              "id": "sq_life_24.investigate.l02",
+              "speaker": "南地厨师",
+              "text": "我们会加新鲜香草。"
             },
             {
-              "speaker": "主角",
-              "text": "办成开放食谱节，永久解锁组合料理。"
+              "id": "sq_life_24.investigate.l03",
+              "speaker": "中庭厨师",
+              "text": "我家祖母做法又不一样。"
             }
           ],
           "effects": [
@@ -6233,20 +6609,87 @@
           ]
         },
         {
-          "id": "sq_life_24.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_24.witness",
+          "objective": "听取其他当事人的愿望与证词",
           "dialogue": [
             {
+              "id": "sq_life_24.witness.l01",
               "speaker": "摊主",
-              "text": "三国厨师把不同的家乡味道端到同一张桌上。"
+              "text": "以前商路没有边界，大家本来就在一起换食谱。"
             },
             {
+              "id": "sq_life_24.witness.l02",
+              "speaker": "伊泽",
+              "text": "所以找唯一发明者可能没意义。"
+            },
+            {
+              "id": "sq_life_24.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "让每位厨师讲讲自己家的来源。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_24.decision",
+          "objective": "决定如何协助解决事件",
+          "dialogue": [
+            {
+              "id": "sq_life_24.decision.l01",
+              "speaker": "厨师甲",
+              "text": "若摆在同一个摊位，会不会有人说我丢了家乡味？"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_24.decision.l02",
+              "speaker": "朔弦",
+              "text": "你又没把锅扔掉。"
+            },
+            {
+              "id": "sq_life_24.decision.l03",
+              "speaker": "伊泽",
+              "text": "把每个版本的故事都挂出来。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_24.choice",
+            "prompt": "你准备采用哪种方式？",
+            "options": [
+              {
+                "id": "a",
+                "label": "举办开放的三国食谱节",
+                "sets": {
+                  "side.sq_life_24.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先保存各家独立做法与来源",
+                "sets": {
+                  "side.sq_life_24.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_24.finish",
+          "objective": "回访居民并结束任务",
+          "dialogue": [
+            {
+              "id": "sq_life_24.finish.l01",
+              "speaker": "旁白",
+              "text": "自由广场开办三国食谱小节，顾客自由选择不同口味。"
+            },
+            {
+              "id": "sq_life_24.finish.l02",
+              "speaker": "摊主",
+              "text": "原来三种味道都有人喜欢。"
+            },
+            {
+              "id": "sq_life_24.finish.l03",
+              "speaker": "伊泽",
+              "text": "这一页菜单比争谁第一有意思。"
             }
           ],
           "effects": [
@@ -6265,8 +6708,9 @@
       ],
       "npc_after": {
         "speaker": "摊主",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "这一页菜单比争谁第一有意思。"
+      },
+      "script_revision": "regional_five_stage_v2"
     }
   ]
 }

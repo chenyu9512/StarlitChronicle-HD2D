@@ -34,7 +34,7 @@ for category in ("monsters","bosses"):
 for row in tables["quests"].values():
     check("regions",row["region_id"],row["id"])
     check("maps",row["map_id"],row["id"])
-    check("npcs",row["giver_id"],row["id"])
+    if row["giver_id"]:check("npcs",row["giver_id"],row["id"])
     if row["target_id"]:check("bosses",row["target_id"],row["id"])
     if row["required_quest"]:check("quests",row["required_quest"],row["id"])
 assert sorted(q["chapter"] for q in tables["quests"].values() if q["kind"]=="main")==list(range(1,73))

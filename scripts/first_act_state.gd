@@ -12,7 +12,8 @@ var potions: int = 6
 var flags: Dictionary = {}
 var actors: Array[Dictionary] = []
 var inventory: Dictionary = {"item_herb_01": 6}
-var level_cap: int = 40
+var level_cap: int = 99
+var rpg: Dictionary = {}
 var play_seconds: float = 0.0
 
 func _init() -> void:
@@ -28,6 +29,7 @@ func new_game() -> void:
     flags = {}
     inventory = {"item_herb_01": 6}
     play_seconds = 0.0
+    rpg = {}
     actors = [
         {"id": "char_wayfarer", "name": "黎昂", "level": 1, "xp": 0, "hp": 112, "max_hp": 112, "mp": 32, "max_mp": 32, "attack": 21, "defense": 9, "speed": 11, "skill": "星火斩"},
         {"id": "char_tidecaller", "name": "岚音", "level": 1, "xp": 0, "hp": 88, "max_hp": 88, "mp": 56, "max_mp": 56, "attack": 15, "defense": 7, "speed": 13, "skill": "潮愈术"}
@@ -79,7 +81,7 @@ func _next_level_xp(lvl: int) -> int:
     return 38 + lvl * 17
 
 func _pack() -> Dictionary:
-    return {"version": VERSION, "chapter": chapter, "scene": scene_index, "task": task_index, "dialogue_seen": dialogue_seen, "gold": gold, "potions": potions, "actors": actors, "flags": flags, "inventory": inventory, "play_seconds": play_seconds}
+    return {"version": VERSION, "chapter": chapter, "scene": scene_index, "task": task_index, "dialogue_seen": dialogue_seen, "gold": gold, "potions": potions, "actors": actors, "flags": flags, "inventory": inventory, "rpg": rpg, "play_seconds": play_seconds}
 
 func save() -> bool:
     var payload: String = JSON.stringify(_pack())
@@ -106,7 +108,7 @@ func load_saved() -> bool:
         if not _valid_payload(payload):
             continue
         var d: Dictionary = payload
-        chapter = clampi(int(d["chapter"]), 0, 6)
+        chapter = clampi(int(d["chapter"]), 0, 72)
         scene_index = maxi(0, int(d["scene"]))
         task_index = maxi(0, int(d["task"]))
         dialogue_seen = bool(d["dialogue_seen"])
@@ -114,6 +116,7 @@ func load_saved() -> bool:
         potions = clampi(int(d["potions"]), 0, 999)
         flags = d["flags"].duplicate(true)
         inventory = d["inventory"].duplicate(true)
+        rpg = d.get("rpg", {}).duplicate(true)
         actors.clear()
         for record in d["actors"]:
             actors.append(record.duplicate(true))
@@ -129,7 +132,7 @@ func _valid_payload(value: Variant) -> bool:
         return false
     if not (obj.get("actors") is Array) or not (obj.get("flags") is Dictionary) or not (obj.get("inventory") is Dictionary):
         return false
-    if obj["actors"].size() < 2 or obj["actors"].size() > 3:
+    if obj["actors"].size() < 2 or obj["actors"].size() > 12:
         return false
     for entry in obj["actors"]:
         if not (entry is Dictionary):
@@ -137,4 +140,4 @@ func _valid_payload(value: Variant) -> bool:
         for key in ["name", "hp", "max_hp", "mp", "max_mp", "attack", "defense", "level", "xp", "skill"]:
             if not entry.has(key):
                 return false
-    return int(obj.get("chapter", -1)) >= 0 and int(obj.get("chapter", 99)) <= 6 and int(obj.get("scene", -1)) >= 0 and int(obj.get("task", -1)) >= 0
+    return int(obj.get("chapter", -1)) >= 0 and int(obj.get("chapter", 99)) <= 72 and int(obj.get("scene", -1)) >= 0 and int(obj.get("task", -1)) >= 0

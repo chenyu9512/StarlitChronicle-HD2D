@@ -6,12 +6,16 @@ const BattleScript = preload("res://scripts/first_act_battle.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
+const RPGCore = preload("res://scripts/rpg_core.gd")
+const RPGMenu = preload("res://scripts/rpg_menu.gd")
 var progress
 var catalog
 var world
 var ui
 var battle
 var cheat
+var game_core
+var adventure_menu
 var busy: bool = true
 var paused_for_dialogue: bool = false
 var pending: String = ""
@@ -23,6 +27,7 @@ var side_quests: Dictionary = {}
 
 func _ready() -> void:
     progress = StateScript.new()
+    game_core = RPGCore.new()
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -40,12 +45,16 @@ func _ready() -> void:
     ui.move_changed.connect(func(v: Vector2) -> void: world.movement = v)
     ui.action_pressed.connect(func() -> void: world.interact())
     ui.menu_pressed.connect(_show_menu)
+    ui.adventure_book_requested.connect(_open_adventure_book)
     ui.menu_dismissed.connect(_return_to_world)
     ui.save_pressed.connect(_save)
     ui.potion_pressed.connect(_use_potion)
     ui.rest_pressed.connect(_rest)
     ui.dialogue_finished.connect(_dialogue_ended)
     ui.choice_picked.connect(_choice_picked)
+    adventure_menu = RPGMenu.new()
+    add_child(adventure_menu)
+    adventure_menu.closed.connect(_return_to_world)
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -68,9 +77,12 @@ func _start(continue_game: bool) -> void:
     if not continue_game or not progress.load_saved():
         progress.new_game()
         progress.save()
+    game_core.bind(progress)
     _enter_location()
 
 func _enter_location() -> void:
+    game_core.register_chapter(progress.chapter)
+    world.custom_region = game_core.location_name(progress.chapter)
     world.build(progress.chapter, progress.actors.size())
     world.locked = false
     busy = false
@@ -98,17 +110,18 @@ func _target() -> String:
         1: return "clue" if progress.task_index == 0 else "witness"
         2: return "crisis"
         3: return "resolve"
+        4: return "resolve"
     return ""
 
 func _objective() -> String:
-    if progress.chapter == 6 and bool(progress.flags.get("story.ch006.done", false)):
+    if progress.chapter == 72 and bool(progress.flags.get("story.ch072.done", false)):
         return "第一幕完成 · 潮歌灯已经重燃。可以继续探索与保存。"
     var scene: Dictionary = _current_scene()
     var prefix: String = str(scene.get("title", "探索周围"))
     if progress.chapter == 0:
         return "前往 ✦ 光点：" + prefix
     match progress.scene_index:
-        0: return prefix + " · 找到" + WorldScript.NPC_NAMES[progress.chapter]
+        0: return prefix + " · 找到" + (WorldScript.NPC_NAMES[progress.chapter] if progress.chapter < WorldScript.NPC_NAMES.size() else "关键人物")
         1: return prefix + (" · 调查线索" if progress.task_index == 0 else " · 询问目击者")
         2: return prefix + (" · 迎战敌人" if progress.task_index == 1 else " · 前往冲突现场")
         3: return prefix + " · 返回归航点，完成本章"
@@ -176,6 +189,7 @@ func _interact(target: String) -> void:
             else:
                 _present("crisis")
         3: _present("resolve")
+        4: _present("resolve")
 
 func _side_flag(suffix: String) -> String:
     var side: Dictionary = side_quests.get(progress.chapter, {})
@@ -269,6 +283,10 @@ func _dialogue_ended() -> void:
             ui.show_message("支线完成！获得经验、金币与药草奖励。")
         "resolve":
             _apply_effects(_current_scene())
+            if progress.chapter == 72 and progress.scene_index == 3:
+                _advance_scene()
+                _return_to_world()
+                return
             _complete_chapter()
             return
     pending = ""
@@ -290,6 +308,12 @@ func _crisis_choice_complete() -> void:
         _save_progress()
         _return_to_world()
         return
+    var fight: Dictionary = _current_scene().get("encounter", {})
+    if fight.is_empty():
+        _advance_scene()
+        _save_progress()
+        _return_to_world()
+        return
     progress.task_index = 1
     _save_progress()
     _start_battle(true)
@@ -307,6 +331,8 @@ func _start_battle(is_boss: bool) -> void:
     add_child(battle)
     battle.completed.connect(_battle_finished)
     battle.invincible = invincible
+    battle.game_core = game_core
+    battle.encounter_data = _current_scene().get("encounter", {}) if is_boss else {}
     battle.start(progress, progress.chapter, is_boss)
 
 func _random_encounter() -> void:
@@ -360,17 +386,21 @@ func _complete_chapter() -> void:
         progress.recruit_sailor()
     if last == 6:
         progress.flags["world.seven_lanterns.first"] = true
-        progress.scene_index = 4
+    if last == 72:
+        progress.flags["story.complete"] = true
         _save_progress()
         _enter_location()
-        ui.show_message("第一幕完成：潮歌灯重燃！旅途仍将继续。")
+        ui.show_message("终章已完成！星灯的故事在此落幕。")
         return
     progress.chapter += 1
     progress.scene_index = 0
     progress.task_index = 0
+    var newcomer: String = game_core.recruit_from_story(progress.chapter)
     progress.heal_all()
     _save_progress()
     _enter_location()
+    if not newcomer.is_empty():
+        ui.show_message(newcomer)
     var next_chapter: Dictionary = catalog.get_chapter("ch%03d" % progress.chapter)
     ui.show_message("第%d章 · %s" % [progress.chapter, str(next_chapter.get("title", "新的旅程"))])
 
@@ -382,6 +412,14 @@ func _save() -> void:
     _save_progress()
     ui.show_message("已保存第一幕进度。")
 
+func _open_adventure_book() -> void:
+    if is_instance_valid(battle):
+        return
+    ui.close_menu()
+    busy = true
+    world.locked = true
+    adventure_menu.show_menu(game_core, progress)
+
 func _show_menu() -> void:
     if busy:
         return
@@ -390,7 +428,7 @@ func _show_menu() -> void:
     ui.show_menu(progress.actors, progress.gold, progress.potions)
 
 func _return_to_world() -> void:
-    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or cheat.shade.visible
+    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or cheat.shade.visible
     world.locked = busy
     ui.set_play_visible(not is_instance_valid(battle))
     _focus()
@@ -411,7 +449,7 @@ func _use_potion() -> void:
         ui.show_message("队员生命已经全满。")
         return
     progress.heal_member(who, 65)
-    progress.potions -= 1
+    game_core.take_item("item_herb_01", 1)
     _save_progress()
     ui.show_menu(progress.actors, progress.gold, progress.potions)
     _focus()
@@ -437,7 +475,7 @@ func _run_cheat(command: String) -> void:
     match command:
         "heal": progress.heal_all()
         "gold": progress.gold += 10000
-        "potions": progress.potions += 99
+        "potions": game_core.add_item("item_herb_01", 99)
         "level":
             for i in range(progress.actors.size()):
                 var a: Dictionary = progress.actors[i]

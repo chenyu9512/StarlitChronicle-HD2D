@@ -26,6 +26,7 @@ const SITES: Dictionary = {
     "side_return": Vector2i(19, 24)
 }
 var chapter: int = 0
+var custom_region: String = ""
 var root: Node2D
 var scenery: Node2D
 var layer: TileMapLayer
@@ -50,7 +51,7 @@ func _ready() -> void:
     rng.randomize()
 
 func build(new_chapter: int, party_size: int) -> void:
-    chapter = clampi(new_chapter, 0, 6)
+    chapter = maxi(0, new_chapter)
     if is_instance_valid(root):
         remove_child(root)
         root.free()
@@ -119,8 +120,8 @@ func _make_tiles() -> void:
     layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     layer.z_index = -5
     root.add_child(layer)
-    var coast: bool = chapter in [2, 5, 6]
-    var dungeon: bool = chapter == 3
+    var coast: bool = chapter in [2, 5, 6] or (chapter > 6 and int((chapter - 1) / 6) % 3 == 0)
+    var dungeon: bool = chapter == 3 or (chapter > 6 and int((chapter - 1) / 6) % 3 == 2)
     for y in range(HEIGHT):
         for x in range(WIDTH):
             var sea_edge: bool = coast and (x <= 2 or y >= HEIGHT - 3 or (chapter == 5 and y >= 23 and x > 23))
@@ -286,4 +287,4 @@ func interact() -> void:
         interacted.emit(chosen)
 
 func region_name() -> String:
-    return REGION_NAMES[chapter]
+    return REGION_NAMES[chapter] if chapter < REGION_NAMES.size() else custom_region

@@ -10,6 +10,7 @@ signal rest_pressed()
 signal dialogue_finished()
 signal choice_picked(choice: Dictionary)
 signal menu_dismissed()
+signal adventure_book_requested()
 const BLUE: Color = Color("0b1c32")
 const GOLD: Color = Color("e6c47d")
 var root: Control
@@ -331,10 +332,11 @@ func _build_menu() -> void:
     menu_summary.custom_minimum_size.y = 150
     menu_summary.add_theme_font_size_override("normal_font_size", 19)
     flow.add_child(menu_summary)
-    for label_text in ["✚ 使用药草恢复最弱队员", "✧ 在营地休息（30 G）", "▣ 手动保存", "返回探索"]:
+    for label_text in ["✦ 全功能冒险手册", "✚ 使用药草恢复最弱队员", "✧ 在营地休息（30 G）", "▣ 手动保存", "返回探索"]:
         var b := _button(label_text)
         flow.add_child(b)
         match label_text:
+            "✦ 全功能冒险手册": b.pressed.connect(func() -> void: adventure_book_requested.emit())
             "✚ 使用药草恢复最弱队员": b.pressed.connect(func() -> void: potion_pressed.emit())
             "✧ 在营地休息（30 G）": b.pressed.connect(func() -> void: rest_pressed.emit())
             "▣ 手动保存": b.pressed.connect(func() -> void: save_pressed.emit())
@@ -381,7 +383,7 @@ func _build_title() -> void:
     title.add_theme_color_override("font_color", GOLD)
     center.add_child(title)
     var sub := Label.new()
-    sub.text = "ST★RLIT CHRONICLE   ·   第一幕  /  白砂海岸"
+    sub.text = "ST★RLIT CHRONICLE   ·   十二幕七十二章  /  星空航路"
     sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     sub.add_theme_font_size_override("font_size", 17)
     center.add_child(sub)

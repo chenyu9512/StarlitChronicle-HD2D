@@ -5,6 +5,8 @@ const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰
 const BOSS_ART: Dictionary = {2:"tide_ghost",3:"tide_guardian",4:"salt_wolf",5:"star_ray",6:"tide_guardian"}
 const MONSTER_ART: Array[String] = ["salt_slime", "fog_crab", "shell_hermit", "tide_ghost", "sand_lizard", "salt_wolf", "white_seabird", "star_ray", "tide_guardian"]
 var game_state
+var game_core
+var encounter_data: Dictionary = {}
 var chapter: int = 1
 var boss: bool = false
 var enemy: Dictionary = {}
@@ -45,6 +47,8 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         var hp: int = 145 + chapter * 55
         var dmg: int = 12 + chapter * 2
         enemy = {"name":BOSS_NAMES.get(chapter, "遗迹守卫"), "hp":hp, "max_hp":hp, "atk":dmg, "def":4+chapter, "xp":150+chapter*65, "gold":85+chapter*40, "art":BOSS_ART.get(chapter,"tide_guardian")}
+        if not encounter_data.is_empty():
+            enemy["name"] = str(encounter_data.get("display_name", enemy["name"]))
         chain_hp = 125 if chapter == 5 else 0
     else:
         var monster_number: int = dice.randi_range(0, mini(8, chapter + 2))
@@ -148,14 +152,14 @@ func _build() -> void:
     special_button = _button(commands, special_name, "special")
 
 func _start_actor() -> void:
-    while hero_turn < game_state.actors.size() and int(game_state.actors[hero_turn]["hp"]) <= 0:
+    while hero_turn < game_state.actors.size() and (int(game_state.actors[hero_turn]["hp"]) <= 0 or (game_core != null and not game_core.is_active(str(game_state.actors[hero_turn].get("id",""))))):
         hero_turn += 1
     if hero_turn >= game_state.actors.size():
         _enemy_turn()
         hero_turn = 0
         defense.clear()
         current_round += 1
-        while hero_turn < game_state.actors.size() and int(game_state.actors[hero_turn]["hp"]) <= 0:
+        while hero_turn < game_state.actors.size() and (int(game_state.actors[hero_turn]["hp"]) <= 0 or (game_core != null and not game_core.is_active(str(game_state.actors[hero_turn].get("id",""))))):
             hero_turn += 1
     if hero_turn >= game_state.actors.size() and not win_locked:
         _finish(false)
@@ -165,11 +169,12 @@ func _act(action: String) -> void:
         return
     var member: Dictionary = game_state.actors[hero_turn]
     var name: String = str(member["name"])
+    var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
     var message: String = ""
     var damage: int = 0
     match action:
         "attack":
-            damage = maxi(3, int(member["attack"]) + dice.randi_range(-5, 8) - int(enemy["def"]))
+            damage = maxi(3, int(stats.get("attack", member["attack"])) + dice.randi_range(-5, 8) - int(enemy["def"]))
             message = "%s 攻击造成 %d 伤害。" % [name, damage]
         "skill":
             if int(member["mp"]) < 6:
@@ -185,7 +190,7 @@ func _act(action: String) -> void:
                 game_state.heal_member(best_index, 48 + int(member["level"]) * 3)
                 message = "%s 使用潮愈术，治疗了 %s！" % [name, str(game_state.actors[best_index]["name"])]
             else:
-                damage = maxi(8, int(member["attack"]) + dice.randi_range(15, 29) - int(enemy["def"]))
+                damage = maxi(8, int(stats.get("attack", member["attack"])) + dice.randi_range(15, 29) - int(enemy["def"]))
                 message = "%s 发动%s，造成 %d 伤害！" % [name, str(member["skill"]), damage]
         "guard":
             defense[hero_turn] = true
@@ -197,11 +202,14 @@ func _act(action: String) -> void:
             if not game_state.heal_member(hero_turn, 65):
                 _redraw("%s 的生命已经全满。" % name)
                 return
-            game_state.potions -= 1
+            if game_core != null:
+                game_core.take_item("item_herb_01", 1)
+            else:
+                game_state.potions -= 1
             message = "%s 使用药草恢复生命。" % name
         "special":
             if boss and chapter == 5:
-                chain_hp = maxi(0, chain_hp - maxi(20, int(member["attack"]) + dice.randi_range(8, 20)))
+                chain_hp = maxi(0, chain_hp - maxi(20, int(stats.get("attack", member["attack"])) + dice.randi_range(8, 20)))
                 message = "%s 拆除星纹锁，剩余耐久 %d！" % [name, chain_hp]
                 if chain_hp == 0:
                     _redraw(message + "古兽摆脱了控制！")
@@ -216,7 +224,7 @@ func _act(action: String) -> void:
                     _finish(true)
                     return
             else:
-                damage = maxi(8, int(member["attack"]) + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
+                damage = maxi(8, int(stats.get("attack", member["attack"])) + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
     game_state.actors[hero_turn] = member if action != "skill" or str(member["id"]) != "char_tidecaller" else game_state.actors[hero_turn]
     if damage > 0:
@@ -247,14 +255,15 @@ func _enemy_turn() -> void:
         return
     var living: Array[int] = []
     for i in range(game_state.actors.size()):
-        if int(game_state.actors[i]["hp"]) > 0:
+        if int(game_state.actors[i]["hp"]) > 0 and (game_core == null or game_core.is_active(str(game_state.actors[i].get("id","")))):
             living.append(i)
     if living.is_empty():
         _finish(false)
         return
     var target: int = living[dice.randi_range(0, living.size() - 1)]
     var member: Dictionary = game_state.actors[target]
-    var damage: int = maxi(1, int(enemy["atk"]) + dice.randi_range(-3, 5) - int(member["defense"]))
+    var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
+    var damage: int = maxi(1, int(enemy["atk"]) + dice.randi_range(-3, 5) - int(stats.get("defense",member["defense"])))
     if defense.has(target):
         damage = maxi(1, int(float(damage) * 0.35))
     if invincible:
@@ -272,7 +281,7 @@ func _enemy_turn() -> void:
 
 func _all_fallen() -> bool:
     for member in game_state.actors:
-        if int(member["hp"]) > 0:
+        if int(member["hp"]) > 0 and (game_core == null or game_core.is_active(str(member.get("id","")))):
             return false
     return true
 
@@ -289,6 +298,8 @@ func _redraw(message: String) -> void:
     var lines: PackedStringArray = []
     for i in range(game_state.actors.size()):
         var member: Dictionary = game_state.actors[i]
+        if game_core != null and not game_core.is_active(str(member.get("id",""))):
+            continue
         var current: String = "[color=#f9d58b]▶ " if i == hero_turn else "[color=#c9e4eb]"
         lines.append("%s%s  Lv.%d   HP %d/%d  MP %d/%d[/color]" % [current, str(member["name"]), int(member["level"]), int(member["hp"]), int(member["max_hp"]), int(member["mp"]), int(member["max_mp"])])
     party_info.text = "    ".join(lines)

@@ -1,7 +1,7 @@
 extends RefCounted
 ## Read-only, versioned content catalog. Never mutates old saved games.
-const BASE := "res://data/content/"
-const CATEGORIES := ["regions", "characters", "npcs", "maps", "items", "weapons", "armor", "skills", "monsters", "bosses", "quests"]
+const BASE = "res://data/content/"
+const CATEGORIES = ["regions", "characters", "npcs", "maps", "items", "weapons", "armor", "skills", "monsters", "bosses", "quests"]
 
 static func load_entries(category: String) -> Array[Dictionary]:
     var result: Array[Dictionary] = []

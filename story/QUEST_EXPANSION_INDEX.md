@@ -206,3 +206,17 @@
 
 阅读位置：[跨时代剧情回访](screenplay/legacy_followups.md)。原始文本：[数据包](data/legacy_followups.json)。
 
+
+## 第六阶段精修｜2026-10-24
+
+上方仍是120任务导航。此阶段完成：原36条从3阶段改成每条5阶段；全部120条均增设独立A/B选项回应。
+
+**完整中文阅读版：**
+- [十二张失落航页](screenplay/sidequests/lost_pages_01_12.md)
+- [旧居民任务01–12](screenplay/sidequests/legacy_life_01_12.md)
+- [旧居民任务13–24](screenplay/sidequests/legacy_life_13_24.md)
+- [伙伴个人任务目录](screenplay/companions/)
+- [新增地区任务目录](screenplay/regional/)
+- [跨时代回访](screenplay/legacy_followups.md)
+
+详细状态及限制：[第六阶段文本审计](PHASE_06_BRANCH_DIALOGUE_AUDIT.md)。

@@ -6,6 +6,7 @@ var state
 var tables: Dictionary = {}
 var indices: Dictionary = {}
 var jobs: Dictionary = {}
+var narrative_side_quests: Array = []
 
 func bind(progress) -> void:
     state = progress
@@ -21,9 +22,10 @@ func bind(progress) -> void:
     for job in pack.get("jobs", []):
         if job is Dictionary:
             jobs[str(job.get("id",""))] = job
+    narrative_side_quests = _read("res://story/data/side_quests.json").get("quests", [])
     if not (state.rpg is Dictionary):
         state.rpg = {}
-    for key in ["equipment","jobs","quests","regions","discovered","settings"]:
+    for key in ["equipment","jobs","quests","regions","discovered","settings","narrative_side"]:
         if not (state.rpg.get(key) is Dictionary):
             state.rpg[key] = {}
     if not (state.rpg.get("party") is Array):
@@ -314,3 +316,56 @@ func recruit_from_story(chapter: int) -> String:
         register_actor(pid)
         return n + "加入了队伍。"
     return ""
+
+func available_story_side(chapter: int) -> Dictionary:
+    for quest in narrative_side_quests:
+        var required: String = str(quest.get("required_chapter","ch001"))
+        var value: int = int(required.trim_prefix("ch"))
+        if chapter < value:
+            continue
+        var id: String = str(quest.get("id",""))
+        if not state.rpg["narrative_side"].has(id + ".done"):
+            return quest
+    return {}
+
+func story_side_stage(id: String) -> int:
+    return maxi(0,int(state.rpg["narrative_side"].get(id,0)))
+
+func story_stage_record(quest: Dictionary) -> Dictionary:
+    var stages: Array = quest.get("stages",[])
+    var position: int = story_side_stage(str(quest.get("id","")))
+    if position < 0 or position >= stages.size():
+        return {}
+    return stages[position]
+
+func advance_story_side(quest: Dictionary, choice: Dictionary = {}) -> String:
+    var id: String = str(quest.get("id",""))
+    if id.is_empty() or bool(state.rpg["narrative_side"].get(id+".done",false)):
+        return "委托已经完成。"
+    var steps: Array = quest.get("stages",[])
+    var position: int = story_side_stage(id)
+    if position >= steps.size():
+        return "任务阶段记录无效。"
+    var step: Dictionary = steps[position]
+    for key in (choice.get("sets",{}) as Dictionary).keys():
+        state.flags[str(key)] = choice["sets"][key]
+    for effect in step.get("effects",[]):
+        if str(effect.get("type","")) == "set_flag":
+            state.flags[str(effect.get("key",""))] = effect.get("value",true)
+    state.rpg["narrative_side"][id] = position + 1
+    if position + 1 >= steps.size():
+        state.rpg["narrative_side"][id+".done"] = true
+        state.flags[str(quest.get("completion_flag","side."+id+".done"))] = true
+        var reward: Dictionary = quest.get("rewards",{})
+        state.give_rewards(int(reward.get("xp",0)),int(reward.get("gold",0)))
+        var page: String = str(reward.get("lost_page",""))
+        if not page.is_empty():
+            state.flags["world."+page] = true
+            var complete: bool = true
+            for index in range(1,13):
+                if not bool(state.flags.get("world.page_%02d" % index,false)):
+                    complete = false
+            if complete:
+                state.flags["world.all_twelve_pages"] = true
+        return "委托完成："+str(quest.get("title",id))+"，奖励已领取。"
+    return "已完成委托阶段 %d/%d。" % [position + 1,steps.size()]

@@ -180,6 +180,12 @@ func _build_sites() -> void:
     for i in range(9):
         var key: String = "prologue_%d" % i
         nodes[key].visible = chapter == 0
+    # 编剧分支的36条支线：五阶段航页与普通三阶段委托均具有地图实体。
+    for i in range(5):
+        var site: Vector2i = Vector2i(10 + (i % 3) * 11, 5 + int(i / 3) * 18)
+        var prop: Sprite2D = _add_sprite("sign" if i == 0 else ("crate" if i % 2 else "sea_crystal"), site, false)
+        nodes["story_stage_%d" % i] = prop
+        prop.visible = chapter > 0
 
 func _make_focus_marker() -> void:
     focus_light = Sprite2D.new()

@@ -24,6 +24,7 @@ var invincible: bool = false
 var no_encounters: bool = false
 var five_xp: bool = false
 var side_quests: Dictionary = {}
+var active_story_side: Dictionary = {}
 
 func _ready() -> void:
     progress = StateScript.new()
@@ -144,6 +145,14 @@ func _focus() -> void:
             2:
                 side_target = "side_return"
                 extra = "【支线委托】%s · 交还物品" % str(side["name"])
+    if side_target.is_empty() and progress.chapter > 0:
+        var quest: Dictionary = game_core.available_story_side(progress.chapter)
+        if not quest.is_empty():
+            var stage: int = game_core.story_side_stage(str(quest.get("id","")))
+            var stages: Array = quest.get("stages",[])
+            if stage < stages.size():
+                side_target = "story_stage_%d" % stage
+                extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
     world.set_side_focus(side_target)
     ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
 
@@ -165,6 +174,9 @@ func _interact(target: String) -> void:
         return
     if target.begins_with("side_"):
         _side_interact(target)
+        return
+    if target.begins_with("story_stage_"):
+        _story_side_interact(target)
         return
     if progress.chapter == 72 and bool(progress.flags.get("story.complete", false)):
         ui.show_message("第一幕已结束。潮歌灯仍照亮着归航之路。")
@@ -190,6 +202,39 @@ func _interact(target: String) -> void:
                 _present("crisis")
         3: _present("resolve")
         4: _present("resolve")
+
+func _story_side_interact(target: String) -> void:
+    var quest: Dictionary = game_core.available_story_side(progress.chapter)
+    if quest.is_empty():
+        ui.show_message("当前没有可接取的世界支线。")
+        return
+    var step: int = game_core.story_side_stage(str(quest.get("id","")))
+    if target != "story_stage_%d" % step:
+        ui.show_message("请先完成本次委托的上一个目标。")
+        return
+    var entry: Dictionary = game_core.story_stage_record(quest)
+    if entry.is_empty():
+        return
+    active_story_side = quest
+    pending = "story_side"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue(entry.get("dialogue", []))
+
+func _finish_story_side(selected: Dictionary = {}) -> void:
+    var result: String = game_core.advance_story_side(active_story_side, selected)
+    var branch_dialogue: Array = selected.get("branch_dialogue", [])
+    _save_progress()
+    if not branch_dialogue.is_empty():
+        pending = "story_side_branch"
+        paused_for_dialogue = true
+        ui.show_dialogue(branch_dialogue)
+    else:
+        active_story_side = {}
+        pending = ""
+        _return_to_world()
+    ui.show_message(result)
 
 func _side_flag(suffix: String) -> String:
     var side: Dictionary = side_quests.get(progress.chapter, {})
@@ -270,6 +315,17 @@ func _dialogue_ended() -> void:
                 return
             _crisis_choice_complete()
             return
+        "story_side":
+            var stage: Dictionary = game_core.story_stage_record(active_story_side)
+            var pick: Dictionary = stage.get("choice", {})
+            if not pick.is_empty():
+                pending = "story_side_choice"
+                ui.show_choices(pick)
+                return
+            _finish_story_side()
+            return
+        "story_side_branch":
+            active_story_side = {}
         "side_accept":
             progress.flags[_side_flag("accepted")] = true
         "side_found":
@@ -294,6 +350,9 @@ func _dialogue_ended() -> void:
     _return_to_world()
 
 func _choice_picked(item: Dictionary) -> void:
+    if pending == "story_side_choice":
+        _finish_story_side(item)
+        return
     for key in (item.get("sets", {}) as Dictionary).keys():
         progress.flags[str(key)] = (item["sets"] as Dictionary)[key]
     var scene: Dictionary = _current_scene()

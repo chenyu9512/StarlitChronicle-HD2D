@@ -186,6 +186,12 @@ func render(section: String) -> void:
         "任务":
             _label("主线 · 第%d章 %s" % [save_state.chapter,manager.chapter_name(save_state.chapter)],true)
             _label("任务进度按对话、线索和战斗实体事件写入，不接受无条件直接领取奖励。")
+            var current_side: Dictionary = manager.available_story_side(save_state.chapter)
+            if not current_side.is_empty():
+                var count: int = manager.story_side_stage(str(current_side.get("id","")))
+                var total: int = current_side.get("stages",[]).size()
+                _label("【世界支线】%s · 阶段 %d/%d" % [str(current_side.get("title","")),count + 1,total])
+                _label("请前往地图蓝色标记互动，完成实地调查。")
             var shown: int = 0
             for quest in manager.records("quests"):
                 if int(quest.get("chapter",99)) > save_state.chapter:

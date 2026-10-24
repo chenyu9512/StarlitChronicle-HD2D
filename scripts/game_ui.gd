@@ -28,7 +28,7 @@ var menu_feedback: Label
 var catalog_overlay: Control
 var catalog_text: RichTextLabel
 var catalog_picker: OptionButton
-const CATALOG_LABELS := ["世界地域", "正式人物", "NPC 居民", "地图", "道具与材料", "武器", "防具", "魔法与技能", "普通怪物", "首领 BOSS", "任务（含72章主线）"]
+const CATALOG_LABELS = ["世界地域", "正式人物", "NPC 居民", "地图", "道具与材料", "武器", "防具", "魔法与技能", "普通怪物", "首领 BOSS", "任务（含72章主线）"]
 var held: Dictionary = {}
 
 func _ready() -> void:

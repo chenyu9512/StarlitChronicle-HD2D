@@ -36,3 +36,11 @@
 文档针对开发者：`WORLD_BIBLE.md`、`CAST_BIBLE.md`、`NARRATIVE_DESIGN.md`、`CANON_MIGRATION.md`。
 文本针对引擎：`campaign/*.json`、`data/*.json`。
 避免直接将这份草稿当作终版配音送审，最终本地化/过场/配音需要单独锁版。
+
+## 2026-10-24｜第三阶段：纯剧情与文本精修
+
+本次**不修改Godot运行代码或存档协议**。第二幕（第7–12章）186条、第三幕（第13–18章）197条、第四幕（第19–24章）190条独立对白已按各章人物矛盾重写；第一幕保留178条精修对白。以上四幕的Markdown阅读版已与剧情JSON重新同步。
+
+新增 `story/data/ambient_dialogues.json`（36段选项后续反应、23场营地对白）、`story/data/lore_texts.json`（27份世界阅读物），并把 `story/data/npc_barks.json` 扩为69句。第7–24章任务日志与16个Boss剧情模板也已对应更新。
+
+**注意**：新扩展的ambient/lore文本仍是文本资源，不意味着已接入场景；第五至十二幕仍处于首轮草稿状态。完整统计、人物登场时间线和待办请看 `story/PHASE_03_TEXT_AUDIT.md`。

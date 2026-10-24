@@ -35,6 +35,7 @@ func _ready() -> void:
 func begin_prologue() -> bool:
     if not loaded:
         return false
+    flags.clear()
     current_chapter_id = "prologue"
     current_chapter = catalog.prologue
     current_scene_index = 0
@@ -152,6 +153,12 @@ func choose_option(option_id: String) -> bool:
         return true
     return false
 
+func retry_encounter() -> void:
+    var scene: Dictionary = _get_scene()
+    if dialogue_ended and not waiting_battle and scene.has("encounter"):
+        waiting_battle = true
+        battle_requested.emit(scene["encounter"])
+
 func report_battle_result(victory: bool) -> void:
     if not waiting_battle:
         return
@@ -183,12 +190,15 @@ func _finish_scene() -> void:
             "finish_chapter":
                 pass
     scene_finished.emit(str(scene.get("id", "")))
-    save_story()
     var scenes: Array = current_chapter.get("scenes", [])
     if current_scene_index + 1 < scenes.size():
         current_scene_index += 1
+        save_story()
         _open_scene()
     else:
+        # 完成哨兵位置必须持久化，防止读档后二次发奖。
+        current_scene_index = scenes.size()
+        save_story()
         chapter_finished.emit(current_chapter_id)
 
 func complete_side_quest(quest_id: String) -> bool:
@@ -199,7 +209,10 @@ func complete_side_quest(quest_id: String) -> bool:
     if quest.is_empty():
         return false
     var key: String = str(quest.get("completion_flag", ""))
+    if bool(flags.get(key, false)):
+        return false
     flags[key] = true
+    reward_granted.emit(quest.get("rewards", {}))
     if str(quest.get("type", "")) == "lost_page":
         var page: int = int(quest.get("page_number", 0))
         if page >= 1 and page <= 12:
@@ -251,6 +264,10 @@ func load_story() -> bool:
     if current_chapter.is_empty():
         return false
     var scenes: Array = current_chapter.get("scenes", [])
-    current_scene_index = clampi(int(data.get("current_scene_index", 0)), 0, maxi(scenes.size()-1,0))
+    var saved_index: int = int(data.get("current_scene_index", 0))
+    if saved_index >= scenes.size():
+        current_scene_index = scenes.size()
+        return true # 当前章节已结算，调用begin_chapter(next_id)继续。
+    current_scene_index = clampi(saved_index, 0, maxi(scenes.size() - 1, 0))
     _open_scene()
     return true

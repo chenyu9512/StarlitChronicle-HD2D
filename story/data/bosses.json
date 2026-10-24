@@ -15,30 +15,34 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "第一阶段施加“遗名”减益，队友技能名称暂时模糊，但属性不改变",
           "dialogue": [
             {
-              "speaker": "雾潮寄生体",
-              "text": "医院主任企图焚烧病例，理由是保护病患免受传染。"
+              "speaker": "岚音",
+              "text": "别让它靠近病床！先把门打开，让病人撤出去。"
             },
             {
-              "speaker": "岚音",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "雾潮寄生体",
+              "text": "铃……第二声……归来者……无名……"
+            },
+            {
+              "speaker": "主角",
+              "text": "它在重复那位水手写在手背上的警告！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "二阶段开放铃核弱点，使用净化或打断可降低寄生",
           "dialogue": [
             {
               "speaker": "雾潮寄生体",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "铃声停止……名字会回来吗……"
             },
             {
-              "speaker": "主角",
-              "text": "水手手背写着“不要相信第二次钟声”。"
+              "speaker": "岚音",
+              "text": "雾核露出来了！趁它收拢触须时切断连接。"
             }
           ]
         }
@@ -49,7 +53,9 @@
           "text": "主角保留病例副本，确认失忆并非普通疾病。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "吞噬水手身份认知的雾潮寄生体，与被篡改的海上钟声同步。其外形由潮湿卷须与破损船铃组成。",
+      "victory_mechanic": "胜利条件为封印雾核，不以杀死病患作为目标"
     },
     {
       "id": "boss.ch003",
@@ -64,30 +70,34 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "场地潮汐升降，每两回合改变可用站位",
           "dialogue": [
             {
               "speaker": "潮痕守卫",
-              "text": "守护机关将“闯入者”和“归来之人”同时判为敌人。"
+              "text": "归来识别失败。闯入者清除程序开始。"
             },
             {
               "speaker": "朔弦",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "它刚才看我的眼神，比收债的人还可怕。"
+            },
+            {
+              "speaker": "主角",
+              "text": "避开那条红色星纹。它应该是主控制线。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "50%血量触发权限冲突，防御增强但露出后背控制枢纽",
           "dialogue": [
             {
               "speaker": "潮痕守卫",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "警告……身份校验冲突……"
             },
             {
-              "speaker": "主角",
-              "text": "石壁刻着三条归航路线，只有第三条指向地下。"
+              "speaker": "朔弦",
+              "text": "左侧机关开始旋转了！趁它抬手时关掉！"
             }
           ]
         }
@@ -98,7 +108,9 @@
           "text": "星针指向天空，遗迹墙面出现澄舟年轻时的影像。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "潮痕守卫识别系统损坏，将归来者错判为入侵者。玩家需要令它停止攻击而不是摧毁整个遗迹。",
+      "victory_mechanic": "胜利可选择保留其核心，后续用于解读澄舟影像"
     },
     {
       "id": "boss.ch004",
@@ -113,30 +125,34 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "开场有3个平民保护目标，玩家行动会影响战后感谢对话",
           "dialogue": [
             {
               "speaker": "灰帷水手",
-              "text": "朔弦曾为灰帷会运过货，害怕被主角认出。"
+              "text": "朔弦，把货单和星针交出来。今天没人需要受伤。"
             },
             {
               "speaker": "朔弦",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "说得倒好听，上次你们也是这么说的。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "我先带客人从后门走，你们别把战斗引到楼上！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "50%血量释放烟幕，命中下降；侦察技能可解除",
           "dialogue": [
             {
               "speaker": "灰帷水手",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "烟幕！别让他们看见账本！"
             },
             {
-              "speaker": "主角",
-              "text": "走私货单中所谓盐包其实装着记忆结晶。"
+              "speaker": "朔弦",
+              "text": "左边那只手！账本在他袖子里。"
             }
           ]
         }
@@ -147,7 +163,9 @@
           "text": "朔弦坦白旧罪并加入队伍，保留一张神秘海图。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "灰帷会的追缉水手，擅长烟幕与勒索；本战场位于酒馆，有平民撤离目标。",
+      "victory_mechanic": "胜利保留货单证据并不自动免除朔弦的责任"
     },
     {
       "id": "boss.ch005",
@@ -162,30 +180,34 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "独立星锁部件拥有耐久值，可用拆卸类技能直接攻击",
           "dialogue": [
             {
               "speaker": "缚潮古兽",
-              "text": "港务官要求直接杀死海兽，以免海运再次受阻。"
+              "text": "呜——！"
             },
             {
               "speaker": "岚音",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "它背上的锁在烧伤它。绝不能再用火了！"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "我来让它转头！你们瞄准那条发亮的链子。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "巨浪在特定回合击退前排，但可用防御减轻伤害",
           "dialogue": [
             {
-              "speaker": "缚潮古兽",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "speaker": "岚音",
+              "text": "星锁裂开了！再坚持一下！"
             },
             {
               "speaker": "主角",
-              "text": "海兽体内的星锁来自人为植入的古代装置。"
+              "text": "先保护它的头部，别让锁链勒得更紧。"
             }
           ]
         }
@@ -196,7 +218,9 @@
           "text": "主角解除星锁，海兽带领众人找到潮歌灯的入口。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "受古代星锁控制的深海灵兽，危险来自锁链而非其本性，目标是制服后解除束缚。",
+      "victory_mechanic": "星锁被拆除即达成非致命胜利，灵兽将在剧情中领航"
     },
     {
       "id": "boss.ch006",
@@ -211,30 +235,34 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "第一阶段有献祭倒计时，但可通过对话和支援行动延缓",
           "dialogue": [
             {
               "speaker": "潮歌守门人",
-              "text": "重燃需要献出一段个人记忆，主角拒绝接受这个条件。"
+              "text": "请交出最珍贵的记忆，以完成灯芯校准。"
             },
             {
               "speaker": "岚音",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "我们不会把任何人的过去当作燃料。"
+            },
+            {
+              "speaker": "主角",
+              "text": "如果它只会索取，我们就证明还有另一种供能方式。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "归航记忆达到3份后触发防护罩破裂，进入第二阶段",
           "dialogue": [
             {
               "speaker": "潮歌守门人",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "新供能来源……未被记录。重新计算中……"
             },
             {
-              "speaker": "主角",
-              "text": "灯芯记录每艘船最后一次平安抵港的声音。"
+              "speaker": "朔弦",
+              "text": "快把归航记录送过去，它的防护罩正在松动！"
             }
           ]
         }
@@ -245,7 +273,9 @@
           "text": "众人以共同讲述的归航故事代替祭品，潮歌灯亮起。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "执行旧议会献祭协议的潮歌守门人，守护灯芯而非敌视人类。以其他途径取代献祭后进入最终验证。",
+      "victory_mechanic": "胜利激活新的自愿共享线路，给后续灯塔修复剧情留下先例"
     },
     {
       "id": "boss.ch008",

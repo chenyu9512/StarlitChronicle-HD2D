@@ -1,0 +1,43 @@
+name: Export HD-2D PNG Assets
+on:
+  push:
+    branches:
+      - feature/content-foundation-v0-2
+    paths:
+      - "assets/art/**/*.svg"
+      - "assets/art/art_manifest.json"
+      - "tools/export_hd2d_svg.py"
+      - "tools/validate_hd2d_art.py"
+      - "tools/make_art_contact_sheet.py"
+      - ".github/workflows/export-hd2d-art.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deterministic asset renderer
+        run: python -m pip install cairosvg pillow
+      - name: Check originals, render PNG and verify sizes
+        run: |
+          python tools/validate_hd2d_art.py
+          python tools/export_hd2d_svg.py
+          python tools/validate_hd2d_art.py --check-png
+          python tools/make_art_contact_sheet.py
+      - name: Commit generated images to the same branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/art/
+          if ! git diff --cached --quiet; then
+            git commit -m "art: render batch 0-3 SVG masters to 89 Godot-ready PNGs"
+            git push origin HEAD:${{ github.ref_name }}
+          fi

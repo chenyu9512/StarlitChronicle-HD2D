@@ -4629,19 +4629,22 @@
       "stages": [
         {
           "id": "sq_life_13.start",
-          "objective": "与水手交谈并了解请求",
+          "objective": "确认并接受委托",
           "dialogue": [
             {
+              "id": "sq_life_13.start.l01",
               "speaker": "水手",
-              "text": "它离开土地会死吧？可我想把家带上船。"
+              "text": "这盆花离开陆地会不会死？可我想把家带上船。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_life_13.start.l02",
+              "speaker": "朔弦",
+              "text": "这不是装在窗边就能活的植物。"
             },
             {
-              "speaker": "水手",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_life_13.start.l03",
+              "speaker": "岚音",
+              "text": "先知道它原来生长在哪里。"
             }
           ],
           "effects": [
@@ -4654,19 +4657,22 @@
         },
         {
           "id": "sq_life_13.investigate",
-          "objective": "调查逐星号·船员室并搜集证据",
+          "objective": "调查相关人物和物件",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【逐星号·船员室】线索逐渐清晰。"
+              "id": "sq_life_13.investigate.l01",
+              "speaker": "岚音",
+              "text": "它需要潮湿但不能泡盐水。"
             },
             {
+              "id": "sq_life_13.investigate.l02",
               "speaker": "水手",
-              "text": "盆栽需要海风和雨水交替才能存活。"
+              "text": "我只有一只破木桶。"
             },
             {
-              "speaker": "主角",
-              "text": "在船上建小花园，开放船舱布置。"
+              "id": "sq_life_13.investigate.l03",
+              "speaker": "缇珐",
+              "text": "可以做一层隔盐的底盘。"
             }
           ],
           "effects": [
@@ -4678,20 +4684,87 @@
           ]
         },
         {
-          "id": "sq_life_13.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_13.witness",
+          "objective": "让相关人充分表达愿望",
           "dialogue": [
             {
+              "id": "sq_life_13.witness.l01",
+              "speaker": "老船员",
+              "text": "船上地方本来就挤，谁来照顾这盆花？"
+            },
+            {
+              "id": "sq_life_13.witness.l02",
               "speaker": "水手",
-              "text": "水手把盆栽带上船，小花园成了共同照顾的地方。"
+              "text": "我愿意，但不能每次值夜都抱着它。"
             },
             {
+              "id": "sq_life_13.witness.l03",
+              "speaker": "朔弦",
+              "text": "大家也能轮流浇水。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_13.decision",
+          "objective": "讨论解决办法并作出选择",
+          "dialogue": [
+            {
+              "id": "sq_life_13.decision.l01",
+              "speaker": "船长",
+              "text": "航行安全比盆栽要紧。"
+            },
+            {
+              "id": "sq_life_13.decision.l02",
+              "speaker": "缇珐",
+              "text": "固定架不能挡住逃生通道。"
+            },
+            {
+              "id": "sq_life_13.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "先通过安全检查，再分配船员值日。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_13.choice",
+            "prompt": "怎样安排后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "设计固定花盆与雨水收集盒",
+                "sets": {
+                  "side.sq_life_13.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由船员共同轮值照顾",
+                "sets": {
+                  "side.sq_life_13.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_13.finish",
+          "objective": "确认事件结果并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_13.finish.l01",
+              "speaker": "旁白",
+              "text": "逐星号船舱角落出现小小的绿叶区。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_13.finish.l02",
+              "speaker": "水手",
+              "text": "风大时我还是会担心它。"
+            },
+            {
+              "id": "sq_life_13.finish.l03",
+              "speaker": "朔弦",
+              "text": "这船第一次有了个专门给花留的座位。"
             }
           ],
           "effects": [
@@ -4710,8 +4783,9 @@
       ],
       "npc_after": {
         "speaker": "水手",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "这船第一次有了个专门给花留的座位。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_14",
@@ -4730,19 +4804,22 @@
       "stages": [
         {
           "id": "sq_life_14.start",
-          "objective": "与守塔妇人交谈并了解请求",
+          "objective": "确认并接受委托",
           "dialogue": [
             {
+              "id": "sq_life_14.start.l01",
               "speaker": "守塔妇人",
-              "text": "灯塔照亮的是大家的路，不是富人的船。"
+              "text": "旧航标不亮了，附近的商船又想只给交钱的人看灯。"
             },
             {
+              "id": "sq_life_14.start.l02",
+              "speaker": "朔弦",
+              "text": "海上求救不能先看账单。"
+            },
+            {
+              "id": "sq_life_14.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "守塔妇人",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "先查明维修需要多少物资。"
             }
           ],
           "effects": [
@@ -4755,19 +4832,22 @@
         },
         {
           "id": "sq_life_14.investigate",
-          "objective": "调查海歌群岛·偏港并搜集证据",
+          "objective": "调查相关人物和物件",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【海歌群岛·偏港】线索逐渐清晰。"
-            },
-            {
+              "id": "sq_life_14.investigate.l01",
               "speaker": "守塔妇人",
-              "text": "旧航海公约允许所有船只免费求救。"
+              "text": "原始公约写明遇险船免费使用求救灯。"
             },
             {
-              "speaker": "主角",
-              "text": "修复灯塔，获得安全航行路线。"
+              "id": "sq_life_14.investigate.l02",
+              "speaker": "船主",
+              "text": "那由谁负责更换灯油？"
+            },
+            {
+              "id": "sq_life_14.investigate.l03",
+              "speaker": "朔弦",
+              "text": "可以谈分担成本，不该拒绝救助。"
             }
           ],
           "effects": [
@@ -4779,20 +4859,87 @@
           ]
         },
         {
-          "id": "sq_life_14.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_14.witness",
+          "objective": "让相关人充分表达愿望",
           "dialogue": [
             {
-              "speaker": "守塔妇人",
-              "text": "偏港灯塔重新免费为所有遇险船只引路。"
+              "id": "sq_life_14.witness.l01",
+              "speaker": "老渔夫",
+              "text": "我儿子曾靠这盏灯避过暗礁。"
             },
             {
+              "id": "sq_life_14.witness.l02",
+              "speaker": "船主",
+              "text": "我也付过很多维护费。"
+            },
+            {
+              "id": "sq_life_14.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "把付出和需求分别记录，不让谁独占它。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_14.decision",
+          "objective": "讨论解决办法并作出选择",
+          "dialogue": [
+            {
+              "id": "sq_life_14.decision.l01",
+              "speaker": "商会代理",
+              "text": "不给付费优先，就没人愿意投入。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_14.decision.l02",
+              "speaker": "守塔妇人",
+              "text": "灯塔的第一用途是让人活着回家。"
+            },
+            {
+              "id": "sq_life_14.decision.l03",
+              "speaker": "朔弦",
+              "text": "公开基金和轮值比永久专利靠谱。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_14.choice",
+            "prompt": "怎样安排后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立公开维护基金",
+                "sets": {
+                  "side.sq_life_14.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "组织船队轮值维护",
+                "sets": {
+                  "side.sq_life_14.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_14.finish",
+          "objective": "确认事件结果并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_14.finish.l01",
+              "speaker": "旁白",
+              "text": "偏港灯塔恢复向所有船只开放的求救光。"
+            },
+            {
+              "id": "sq_life_14.finish.l02",
+              "speaker": "守塔妇人",
+              "text": "这回获救的是从没到过这里的外港渔船。"
+            },
+            {
+              "id": "sq_life_14.finish.l03",
+              "speaker": "朔弦",
+              "text": "希望他以后也愿替别人留灯。"
             }
           ],
           "effects": [
@@ -4811,8 +4958,9 @@
       ],
       "npc_after": {
         "speaker": "守塔妇人",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "希望他以后也愿替别人留灯。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_15",
@@ -4831,19 +4979,22 @@
       "stages": [
         {
           "id": "sq_life_15.start",
-          "objective": "与少年交谈并了解请求",
+          "objective": "确认并接受委托",
           "dialogue": [
             {
+              "id": "sq_life_15.start.l01",
               "speaker": "少年",
-              "text": "它救过我一次，却没人给它起名字。"
+              "text": "那头海兽把我从浪里托起来过，可没人给它起名字。"
             },
             {
+              "id": "sq_life_15.start.l02",
+              "speaker": "朔弦",
+              "text": "它也许听不懂人的名字。"
+            },
+            {
+              "id": "sq_life_15.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "少年",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "先确认它是否愿意靠近。"
             }
           ],
           "effects": [
@@ -4856,19 +5007,22 @@
         },
         {
           "id": "sq_life_15.investigate",
-          "objective": "调查鲸背水道并搜集证据",
+          "objective": "调查相关人物和物件",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【鲸背水道】线索逐渐清晰。"
+              "id": "sq_life_15.investigate.l01",
+              "speaker": "岚音",
+              "text": "海兽对声音敏感，不认识旗帜。"
             },
             {
+              "id": "sq_life_15.investigate.l02",
               "speaker": "少年",
-              "text": "海兽其实辨认声音而非旗帜。"
+              "text": "我每次吹口哨它就回头。"
             },
             {
-              "speaker": "主角",
-              "text": "为友善海兽命名，开放一次灵兽支援。"
+              "id": "sq_life_15.investigate.l03",
+              "speaker": "朔弦",
+              "text": "别让它把口哨当成必须服从的命令。"
             }
           ],
           "effects": [
@@ -4880,20 +5034,87 @@
           ]
         },
         {
-          "id": "sq_life_15.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_15.witness",
+          "objective": "让相关人充分表达愿望",
           "dialogue": [
             {
+              "id": "sq_life_15.witness.l01",
+              "speaker": "渔夫",
+              "text": "给海兽起名会让孩子以为它是宠物。"
+            },
+            {
+              "id": "sq_life_15.witness.l02",
               "speaker": "少年",
-              "text": "海兽有了名字，少年也知道救助并不意味着占有。"
+              "text": "我只是想说谢谢。"
             },
             {
+              "id": "sq_life_15.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "尊重它是否靠近的意愿。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_15.decision",
+          "objective": "讨论解决办法并作出选择",
+          "dialogue": [
+            {
+              "id": "sq_life_15.decision.l01",
+              "speaker": "岚音",
+              "text": "若它愿意回来，可以用同一段柔和旋律识别。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_15.decision.l02",
+              "speaker": "少年",
+              "text": "它不来我也不会生气。"
+            },
+            {
+              "id": "sq_life_15.decision.l03",
+              "speaker": "朔弦",
+              "text": "那才像跟海上朋友打招呼。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_15.choice",
+            "prompt": "怎样安排后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "让孩子选择称呼并观察海兽反应",
+                "sets": {
+                  "side.sq_life_15.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先建立避让海兽的安全航道",
+                "sets": {
+                  "side.sq_life_15.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_15.finish",
+          "objective": "确认事件结果并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_15.finish.l01",
+              "speaker": "旁白",
+              "text": "海兽在远处短暂浮出水面，孩子轻轻喊出自己选择的名字。"
+            },
+            {
+              "id": "sq_life_15.finish.l02",
+              "speaker": "少年",
+              "text": "它好像听见了，也可能只是来换气。"
+            },
+            {
+              "id": "sq_life_15.finish.l03",
+              "speaker": "主角",
+              "text": "无论怎样，不必抓住它。"
             }
           ],
           "effects": [
@@ -4912,8 +5133,9 @@
       ],
       "npc_after": {
         "speaker": "少年",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "无论怎样，不必抓住它。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_16",
@@ -4932,19 +5154,22 @@
       "stages": [
         {
           "id": "sq_life_16.start",
-          "objective": "与钟匠家属交谈并了解请求",
+          "objective": "确认并接受委托",
           "dialogue": [
             {
+              "id": "sq_life_16.start.l01",
               "speaker": "钟匠家属",
-              "text": "他总说还差一分钟就下班。"
+              "text": "他天天说还有一分钟下班，十年都没回家吃过饭。"
             },
             {
-              "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "id": "sq_life_16.start.l02",
+              "speaker": "玄璃",
+              "text": "在他的梦里，时间停在哪里？"
             },
             {
-              "speaker": "钟匠家属",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_life_16.start.l03",
+              "speaker": "岚音",
+              "text": "先别突然把他拖出来。"
             }
           ],
           "effects": [
@@ -4957,19 +5182,22 @@
         },
         {
           "id": "sq_life_16.investigate",
-          "objective": "调查镜眠王国·钟表铺并搜集证据",
+          "objective": "调查相关人物和物件",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【镜眠王国·钟表铺】线索逐渐清晰。"
+              "id": "sq_life_16.investigate.l01",
+              "speaker": "钟匠",
+              "text": "若钟修好了，那晚我就能按时赶回去。"
             },
             {
-              "speaker": "钟匠家属",
-              "text": "钟匠执着想补回与家人错过的时间。"
+              "id": "sq_life_16.investigate.l02",
+              "speaker": "家属",
+              "text": "那晚已经过去很多年。"
             },
             {
+              "id": "sq_life_16.investigate.l03",
               "speaker": "主角",
-              "text": "双方共同决定唤醒计划，开放钟表收藏。"
+              "text": "你可以记得那次迟到，但不能让所有明天跟着停。"
             }
           ],
           "effects": [
@@ -4981,20 +5209,87 @@
           ]
         },
         {
-          "id": "sq_life_16.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_16.witness",
+          "objective": "让相关人充分表达愿望",
           "dialogue": [
             {
-              "speaker": "钟匠家属",
-              "text": "钟匠终于愿意下班，回家和家人一起吃饭。"
+              "id": "sq_life_16.witness.l01",
+              "speaker": "玄璃",
+              "text": "他在梦里反复修同一颗齿轮。"
             },
             {
+              "id": "sq_life_16.witness.l02",
+              "speaker": "岚音",
+              "text": "长时间循环会影响身心，醒转要有医疗计划。"
+            },
+            {
+              "id": "sq_life_16.witness.l03",
+              "speaker": "家属",
+              "text": "我只想让他愿意听听我们今天过得怎样。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_16.decision",
+          "objective": "讨论解决办法并作出选择",
+          "dialogue": [
+            {
+              "id": "sq_life_16.decision.l01",
+              "speaker": "医官",
+              "text": "强制唤醒会更快。"
+            },
+            {
+              "id": "sq_life_16.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "快不代表对他安全。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_16.decision.l03",
+              "speaker": "玄璃",
+              "text": "先为他留一条能自己走出来的门。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_16.choice",
+            "prompt": "怎样安排后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先建立逐步醒转治疗",
+                "sets": {
+                  "side.sq_life_16.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由家属自愿陪伴认识新日常",
+                "sets": {
+                  "side.sq_life_16.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_16.finish",
+          "objective": "确认事件结果并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_16.finish.l01",
+              "speaker": "旁白",
+              "text": "钟匠在医护陪伴下第一次离开梦室，与家人吃完一顿饭。"
+            },
+            {
+              "id": "sq_life_16.finish.l02",
+              "speaker": "钟匠",
+              "text": "我还是会想那一分钟。"
+            },
+            {
+              "id": "sq_life_16.finish.l03",
+              "speaker": "家属",
+              "text": "那明晚也一起吃饭吧。"
             }
           ],
           "effects": [
@@ -5013,8 +5308,9 @@
       ],
       "npc_after": {
         "speaker": "钟匠家属",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "那明晚也一起吃饭吧。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_17",
@@ -5033,19 +5329,22 @@
       "stages": [
         {
           "id": "sq_life_17.start",
-          "objective": "与玄璃交谈并了解请求",
+          "objective": "确认并接受委托",
           "dialogue": [
             {
+              "id": "sq_life_17.start.l01",
               "speaker": "玄璃",
-              "text": "我不想靠你为我说话，我想自己签字。"
+              "text": "我不想每次都由你替我说话，能让我自己签字吗？"
             },
             {
+              "id": "sq_life_17.start.l02",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "text": "当然。"
             },
             {
-              "speaker": "玄璃",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "id": "sq_life_17.start.l03",
+              "speaker": "档案员",
+              "text": "登记表没有映世出生栏。"
             }
           ],
           "effects": [
@@ -5058,19 +5357,22 @@
         },
         {
           "id": "sq_life_17.investigate",
-          "objective": "调查镜眠王都·档案局并搜集证据",
+          "objective": "调查相关人物和物件",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【镜眠王都·档案局】线索逐渐清晰。"
-            },
-            {
+              "id": "sq_life_17.investigate.l01",
               "speaker": "玄璃",
-              "text": "旧程序没有映世出生身份栏位。"
+              "text": "他们把我的出生地写成财产所属地。"
             },
             {
-              "speaker": "主角",
-              "text": "建立新公民登记选项，玄璃羁绊增长。"
+              "id": "sq_life_17.investigate.l02",
+              "speaker": "岚音",
+              "text": "住在哪里应由她自己决定。"
+            },
+            {
+              "id": "sq_life_17.investigate.l03",
+              "speaker": "档案员",
+              "text": "我不能凭空填一栏。"
             }
           ],
           "effects": [
@@ -5082,20 +5384,87 @@
           ]
         },
         {
-          "id": "sq_life_17.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_17.witness",
+          "objective": "让相关人充分表达愿望",
           "dialogue": [
             {
+              "id": "sq_life_17.witness.l01",
+              "speaker": "映世居民",
+              "text": "我们都有名字，却只有编号。"
+            },
+            {
+              "id": "sq_life_17.witness.l02",
               "speaker": "玄璃",
-              "text": "玄璃亲自签下自己的姓名，不再需要别人替她证明。"
+              "text": "我不是要独享一次破例。"
             },
             {
+              "id": "sq_life_17.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "把需求一起交给档案局。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_17.decision",
+          "objective": "讨论解决办法并作出选择",
+          "dialogue": [
+            {
+              "id": "sq_life_17.decision.l01",
+              "speaker": "档案长",
+              "text": "制度改动会增加核实成本。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_17.decision.l02",
+              "speaker": "玄璃",
+              "text": "行政成本不该决定我是不是人。"
+            },
+            {
+              "id": "sq_life_17.decision.l03",
+              "speaker": "岚音",
+              "text": "可以建立公开核验和申诉流程。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_17.choice",
+            "prompt": "怎样安排后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "新增映世居民平等登记栏",
+                "sets": {
+                  "side.sq_life_17.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先设公民身份咨询和申诉窗口",
+                "sets": {
+                  "side.sq_life_17.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_17.finish",
+          "objective": "确认事件结果并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_17.finish.l01",
+              "speaker": "旁白",
+              "text": "玄璃亲自签下姓名，其他映世居民也得到申请身份的渠道。"
+            },
+            {
+              "id": "sq_life_17.finish.l02",
+              "speaker": "玄璃",
+              "text": "字写得不漂亮，但这是我自己的。"
+            },
+            {
+              "id": "sq_life_17.finish.l03",
+              "speaker": "主角",
+              "text": "以后还会写很多次。"
             }
           ],
           "effects": [
@@ -5114,8 +5483,9 @@
       ],
       "npc_after": {
         "speaker": "玄璃",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "以后还会写很多次。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_18",
@@ -5134,19 +5504,22 @@
       "stages": [
         {
           "id": "sq_life_18.start",
-          "objective": "与玄璃交谈并了解请求",
+          "objective": "确认并接受委托",
           "dialogue": [
             {
+              "id": "sq_life_18.start.l01",
               "speaker": "玄璃",
-              "text": "原来雨点砸在脸上，是会有点疼的。"
+              "text": "幻雨永远不冷，现世的雨怎么会砸得脸有点疼？"
             },
             {
+              "id": "sq_life_18.start.l02",
+              "speaker": "岚音",
+              "text": "冷了就回屋，没必要站着证明什么。"
+            },
+            {
+              "id": "sq_life_18.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "玄璃",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "去檐下看会更舒服。"
             }
           ],
           "effects": [
@@ -5159,19 +5532,22 @@
         },
         {
           "id": "sq_life_18.investigate",
-          "objective": "调查映世·花庭并搜集证据",
+          "objective": "调查相关人物和物件",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【映世·花庭】线索逐渐清晰。"
+              "id": "sq_life_18.investigate.l01",
+              "speaker": "园丁",
+              "text": "花庭幻雨只在有人希望时落下。"
             },
             {
+              "id": "sq_life_18.investigate.l02",
               "speaker": "玄璃",
-              "text": "花庭幻雨与现实天气并不同步。"
+              "text": "真正的雨不听任何人请求。"
             },
             {
-              "speaker": "主角",
-              "text": "一起在现世经历一场雨，解锁生活互动。"
+              "id": "sq_life_18.investigate.l03",
+              "speaker": "岚音",
+              "text": "所以才需要带伞。"
             }
           ],
           "effects": [
@@ -5183,20 +5559,87 @@
           ]
         },
         {
-          "id": "sq_life_18.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_18.witness",
+          "objective": "让相关人充分表达愿望",
           "dialogue": [
             {
+              "id": "sq_life_18.witness.l01",
               "speaker": "玄璃",
-              "text": "玄璃第一次在真正的雨中笑出声。"
+              "text": "如果我更喜欢幻雨，会不会显得不够真实？"
             },
             {
+              "id": "sq_life_18.witness.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "喜欢什么从来不决定你属于哪里。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_18.witness.l03",
+              "speaker": "园丁",
+              "text": "两种雨都值得记在笔记里。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_18.decision",
+          "objective": "讨论解决办法并作出选择",
+          "dialogue": [
+            {
+              "id": "sq_life_18.decision.l01",
+              "speaker": "岚音",
+              "text": "雨停前还有些时间。"
+            },
+            {
+              "id": "sq_life_18.decision.l02",
+              "speaker": "玄璃",
+              "text": "我想听它从屋檐滚下来。"
+            },
+            {
+              "id": "sq_life_18.decision.l03",
+              "speaker": "主角",
+              "text": "那就先坐一会儿，不必非做点什么。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_18.choice",
+            "prompt": "怎样安排后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "记录真实降雨的气味与声音",
+                "sets": {
+                  "side.sq_life_18.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "邀请映世居民共同体验雨夜",
+                "sets": {
+                  "side.sq_life_18.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_18.finish",
+          "objective": "确认事件结果并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_18.finish.l01",
+              "speaker": "旁白",
+              "text": "玄璃在笔记上写下湿鞋、泥味和檐角声。"
+            },
+            {
+              "id": "sq_life_18.finish.l02",
+              "speaker": "玄璃",
+              "text": "下回我还是想带伞。"
+            },
+            {
+              "id": "sq_life_18.finish.l03",
+              "speaker": "岚音",
+              "text": "这才叫真正学会在雨里生活。"
             }
           ],
           "effects": [
@@ -5215,8 +5658,9 @@
       ],
       "npc_after": {
         "speaker": "玄璃",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "这才叫真正学会在雨里生活。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_19",

@@ -6988,14 +6988,38 @@
                 "label": "公开审批责任并保护病历隐私",
                 "sets": {
                   "side.cq_weisha_01.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_01.choice.a.l01",
+                    "speaker": "维莎",
+                    "text": "审批签名留在可查的原件上，受害者病历交本人决定是否公开。"
+                  },
+                  {
+                    "id": "cq_weisha_01.choice.a.l02",
+                    "speaker": "家属",
+                    "text": "我还不原谅，但终于知道谁负责。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先由家属代表审读原始文件",
                 "sets": {
                   "side.cq_weisha_01.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_01.choice.b.l01",
+                    "speaker": "家属代表",
+                    "text": "我们先审读原始记录，再决定公开范围。"
+                  },
+                  {
+                    "id": "cq_weisha_01.choice.b.l02",
+                    "speaker": "维莎",
+                    "text": "我不会拿隐私当遮掩责任的借口。"
+                  }
+                ]
               }
             ]
           }
@@ -7034,7 +7058,8 @@
         "b": "先由家属代表审读原始文件"
       },
       "story_reward_flag": "bond.weisha.01",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_weisha_02",
@@ -7126,14 +7151,38 @@
                 "label": "按家庭需要分配补给",
                 "sets": {
                   "side.cq_weisha_02.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_02.choice.a.l01",
+                    "speaker": "后勤主管",
+                    "text": "现在按实际照护需求先送物资。"
+                  },
+                  {
+                    "id": "cq_weisha_02.choice.a.l02",
+                    "speaker": "维莎",
+                    "text": "救助不是劳动排行榜的奖金。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "另设自愿照护与休息登记",
                 "sets": {
                   "side.cq_weisha_02.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_02.choice.b.l01",
+                    "speaker": "岚音",
+                    "text": "陪伴可自愿记录，不强迫家属报工时。"
+                  },
+                  {
+                    "id": "cq_weisha_02.choice.b.l02",
+                    "speaker": "维莎",
+                    "text": "无法计量也不代表没有价值。"
+                  }
+                ]
               }
             ]
           }
@@ -7172,7 +7221,8 @@
         "b": "另设自愿照护与休息登记"
       },
       "story_reward_flag": "bond.weisha.02",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_weisha_03",
@@ -7264,14 +7314,38 @@
                 "label": "增加自动到期与重新确认",
                 "sets": {
                   "side.cq_weisha_03.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_03.choice.a.l01",
+                    "speaker": "社区代表",
+                    "text": "共享协议按期重新确认，可以自愿退出。"
+                  },
+                  {
+                    "id": "cq_weisha_03.choice.a.l02",
+                    "speaker": "维莎",
+                    "text": "这回自愿不是一句没写完的话。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "优先建立安全断开与紧急保障",
                 "sets": {
                   "side.cq_weisha_03.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_03.choice.b.l01",
+                    "speaker": "缇珐",
+                    "text": "接口能安全断开，退出后仍有紧急供电。"
+                  },
+                  {
+                    "id": "cq_weisha_03.choice.b.l02",
+                    "speaker": "维莎",
+                    "text": "技术麻烦不再成为剥夺退出权的理由。"
+                  }
+                ]
               }
             ]
           }
@@ -7310,7 +7384,8 @@
         "b": "优先建立安全断开与紧急保障"
       },
       "story_reward_flag": "bond.weisha.03",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_weisha_04",
@@ -7402,14 +7477,38 @@
                 "label": "公开删除制度的全部证据",
                 "sets": {
                   "side.cq_weisha_04.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_04.choice.a.l01",
+                    "speaker": "维莎",
+                    "text": "删除规则与审批历史完整公开。"
+                  },
+                  {
+                    "id": "cq_weisha_04.choice.a.l02",
+                    "speaker": "玄璃",
+                    "text": "证据保留，不等于替孩子决定必然学画。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先恢复个人选择与申诉途径",
                 "sets": {
                   "side.cq_weisha_04.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_04.choice.b.l01",
+                    "speaker": "档案残响",
+                    "text": "被删者可提出申诉并重新获得选择途径。"
+                  },
+                  {
+                    "id": "cq_weisha_04.choice.b.l02",
+                    "speaker": "维莎",
+                    "text": "记录者不再替所有人写终点。"
+                  }
+                ]
               }
             ]
           }
@@ -7448,7 +7547,8 @@
         "b": "先恢复个人选择与申诉途径"
       },
       "story_reward_flag": "bond.weisha.04",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_weisha_05",
@@ -7540,14 +7640,38 @@
                 "label": "取消永久席并开放轮值",
                 "sets": {
                   "side.cq_weisha_05.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_05.choice.a.l01",
+                    "speaker": "议会残响",
+                    "text": "永久记录席位取消，改为公开轮值。"
+                  },
+                  {
+                    "id": "cq_weisha_05.choice.a.l02",
+                    "speaker": "维莎",
+                    "text": "我愿继续工作，但不要永远正确的权力。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "组建跨地区共同审查会",
                 "sets": {
                   "side.cq_weisha_05.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_05.choice.b.l01",
+                    "speaker": "诺依",
+                    "text": "多地审核员共同复核，意见不同也照样记下。"
+                  },
+                  {
+                    "id": "cq_weisha_05.choice.b.l02",
+                    "speaker": "维莎",
+                    "text": "终于没人需要一人担负所有答案。"
+                  }
+                ]
               }
             ]
           }
@@ -7586,7 +7710,8 @@
         "b": "组建跨地区共同审查会"
       },
       "story_reward_flag": "bond.weisha.05",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_weisha_06",
@@ -7678,14 +7803,38 @@
                 "label": "明确责任与救助条款",
                 "sets": {
                   "side.cq_weisha_06.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_06.choice.a.l01",
+                    "speaker": "失忆者代表",
+                    "text": "风险报告写明负责人、救助和申诉。"
+                  },
+                  {
+                    "id": "cq_weisha_06.choice.a.l02",
+                    "speaker": "维莎",
+                    "text": "不再用“可接受损失”遮住人的生活。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先由受影响者审阅最终风险报告",
                 "sets": {
                   "side.cq_weisha_06.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_weisha_06.choice.b.l01",
+                    "speaker": "受害者代表",
+                    "text": "我们发现三处漏项，报告已经补正。"
+                  },
+                  {
+                    "id": "cq_weisha_06.choice.b.l02",
+                    "speaker": "维莎",
+                    "text": "反对意见也保留在正式记录里。"
+                  }
+                ]
               }
             ]
           }
@@ -7724,7 +7873,8 @@
         "b": "先由受影响者审阅最终风险报告"
       },
       "story_reward_flag": "bond.weisha.06",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     }
   ]
 }

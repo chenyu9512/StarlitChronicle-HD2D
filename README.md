@@ -98,6 +98,8 @@ Godot 4.7 的 iOS 原生导出必须运行于 macOS/Xcode。已经随工程附�
 
 ## 全游戏资源基础（v0.2 开发分支）
 
-正式世界设定「洛维恩」的第一批内容数据库位于 `data/content/`，共 538 条设计记录（涵盖人物、NPC、怪物、BOSS、地图定义、武器、防具、物品、技能、任务与地域）。提供 `scripts/content_db.gd` 只读 Godot 查询器，并在菜单加入「星灯图鉴（内容预览）」可分类查看。运行 `python tools/validate_content.py` 可检查完整性。
+正式世界设定「洛维恩」的第一批内容数据库位于 `data/content/`，共 549 条设计记录（涵盖人物、NPC、怪物、BOSS、地图定义、武器、防具、物品、技能、任务与地域）。提供 `scripts/content_db.gd` 只读 Godot 查询器，并在菜单加入「星灯图鉴（内容预览）」可分类查看。运行 `python tools/validate_content.py` 可检查完整性。
 
-**进度说明：** 设计数据不等于完成美术、场景或战斗逻辑；正式地图尚未制作，72章剧情仍为任务骨架，现有序章和存档原样保留。详细规范见 `docs/CONTENT_FOUNDATION.md`。
+**进度说明：** 设计数据不等于完成美术、场景或战斗逻辑；正式地图尚未制作，72章任务已与独立剧情分支的真实章名、地点和摘要同步，但正式剧情引擎仍未接入主游戏，现有序章和存档原样保留。详细规范见 `docs/CONTENT_FOUNDATION.md`。
+
+**剧情与图鉴协作：** 这批资源已与 [正式剧情 PR #1](https://github.com/chenyu9512/StarlitChronicle-HD2D/pull/1) 对齐；两个 PR 需要分别审查，故事文件合并后方可利用 `story_source` 路径运行剧情。

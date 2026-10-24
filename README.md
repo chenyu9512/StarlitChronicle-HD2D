@@ -95,3 +95,9 @@ Godot 4.7 的 iOS 原生导出必须运行于 macOS/Xcode。已经随工程附�
 - 为 `player_position`、`target_position` 和 `distance` 添加显式 GDScript 类型，避免通过 Dictionary/Variant 自动推断失败。
 - 兼容原有 `user://starlit_save_v1.json` 存档格式；本次未修改地图、战斗、剧情数据或存档协议。
 - 校验说明：运行了 Python 资源和地图完整性检查；当前环境未安装 Godot，也没有 macOS/Xcode，尚无法在本环境证明游戏可通过 Godot 运行及 iOS 编译。
+
+## 全游戏资源基础（v0.2 开发分支）
+
+正式世界设定「洛维恩」的第一批内容数据库位于 `data/content/`，共 538 条设计记录（涵盖人物、NPC、怪物、BOSS、地图定义、武器、防具、物品、技能、任务与地域）。提供 `scripts/content_db.gd` 只读 Godot 查询器，并在菜单加入「星灯图鉴（内容预览）」可分类查看。运行 `python tools/validate_content.py` 可检查完整性。
+
+**进度说明：** 设计数据不等于完成美术、场景或战斗逻辑；正式地图尚未制作，72章剧情仍为任务骨架，现有序章和存档原样保留。详细规范见 `docs/CONTENT_FOUNDATION.md`。

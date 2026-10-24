@@ -1,4 +1,6 @@
 extends CanvasLayer
+
+const ContentDB = preload("res://scripts/content_db.gd")
 ## Native responsive game HUD / D-pad / dialogue / local-save menu.
 ## All controls are regular Godot GUI nodes, so multi-touch works on iPhone.
 
@@ -23,6 +25,10 @@ var dialog_index := 0
 var menu_overlay: Control
 var menu_label: Label
 var menu_feedback: Label
+var catalog_overlay: Control
+var catalog_text: RichTextLabel
+var catalog_picker: OptionButton
+const CATALOG_LABELS := ["世界地域", "正式人物", "NPC 居民", "地图", "道具与材料", "武器", "防具", "魔法与技能", "普通怪物", "首领 BOSS", "任务（含72章主线）"]
 var held: Dictionary = {}
 
 func _ready() -> void:
@@ -36,6 +42,7 @@ func _ready() -> void:
     _build_touchpad()
     _build_dialog()
     _build_menu()
+    _build_catalog()
     refresh_hud()
 
 func _panel_style() -> StyleBoxFlat:
@@ -184,6 +191,9 @@ func _build_menu() -> void:
     var save := _make_button("保存游戏（本机离线）", 21)
     save.pressed.connect(func() -> void: save_requested.emit())
     flow.add_child(save)
+    var catalog := _make_button("星灯图鉴（内容预览）", 19)
+    catalog.pressed.connect(_show_catalog)
+    flow.add_child(catalog)
     var close := _make_button("返回游戏", 21)
     close.pressed.connect(_close_menu)
     flow.add_child(close)
@@ -193,6 +203,62 @@ func _build_menu() -> void:
     menu_feedback.add_theme_color_override("font_color", Color(0.76, 0.94, 0.87))
     flow.add_child(menu_feedback)
     menu_overlay.hide()
+
+func _build_catalog() -> void:
+    catalog_overlay = _make_full_overlay("ContentCatalogOverlay")
+    var panel := PanelContainer.new()
+    panel.anchor_left = 0.14
+    panel.anchor_right = 0.86
+    panel.anchor_top = 0.08
+    panel.anchor_bottom = 0.94
+    panel.add_theme_stylebox_override("panel", _panel_style())
+    catalog_overlay.add_child(panel)
+    var flow := VBoxContainer.new()
+    flow.add_theme_constant_override("separation", 10)
+    panel.add_child(flow)
+    var heading := Label.new()
+    heading.text = "✦ 星灯图鉴 · 研发内容预览"
+    heading.add_theme_font_size_override("font_size", 25)
+    flow.add_child(heading)
+    catalog_picker = OptionButton.new()
+    catalog_picker.custom_minimum_size = Vector2(250, 48)
+    for category_label in CATALOG_LABELS:
+        catalog_picker.add_item(category_label)
+    catalog_picker.item_selected.connect(_render_catalog)
+    flow.add_child(catalog_picker)
+    catalog_text = RichTextLabel.new()
+    catalog_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    catalog_text.scroll_active = true
+    catalog_text.bbcode_enabled = false
+    catalog_text.add_theme_font_size_override("normal_font_size", 20)
+    flow.add_child(catalog_text)
+    var close := _make_button("返回菜单", 19)
+    close.pressed.connect(func() -> void: catalog_overlay.hide())
+    flow.add_child(close)
+    catalog_overlay.hide()
+
+func _show_catalog() -> void:
+    catalog_picker.select(0)
+    _render_catalog(0)
+    catalog_overlay.show()
+
+func _render_catalog(index: int) -> void:
+    if index < 0 or index >= ContentDB.CATEGORIES.size():
+        return
+    var category: String = ContentDB.CATEGORIES[index]
+    var records: Array[Dictionary] = ContentDB.load_entries(category)
+    var lines := PackedStringArray()
+    for entry in records:
+        var detail: String = str(entry.get("character_arc", entry.get("lore", entry.get("objective", ""))))
+        if detail.is_empty() and entry.has("element"):
+            detail = "属性：" + str(entry["element"])
+        if detail.is_empty() and entry.has("tier"):
+            detail = "品阶：" + str(entry["tier"])
+        if detail.is_empty() and entry.has("region_id"):
+            detail = "区域：" + str(entry["region_id"])
+        lines.append("◆ " + str(entry["name"]) + "   [" + str(entry["id"]) + "]\n" + detail)
+    catalog_text.text = "收录 %d 条设计记录（部分尚无可用美术或战斗实现）\n\n" % records.size() + "\n\n".join(lines)
+    catalog_text.scroll_to_line(0)
 
 func refresh_hud() -> void:
     if not is_instance_valid(hud_label):

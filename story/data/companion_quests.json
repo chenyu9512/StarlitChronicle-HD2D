@@ -101,14 +101,38 @@
                 "label": "病人自主决定信息披露",
                 "sets": {
                   "side.cq_lanyin_01.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_01.choice.a.l01",
+                    "speaker": "小汐",
+                    "text": "详细病史先交给岚音保管，船主只会收到我同意的健康评估。"
+                  },
+                  {
+                    "id": "cq_lanyin_01.choice.a.l02",
+                    "speaker": "岚音",
+                    "text": "他选择了能被谁了解，也选择继续治疗。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "建立匿名病历与转岗援助",
                 "sets": {
                   "side.cq_lanyin_01.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_01.choice.b.l01",
+                    "speaker": "护士",
+                    "text": "先启用匿名病历，暂时安排岸上的工作。"
+                  },
+                  {
+                    "id": "cq_lanyin_01.choice.b.l02",
+                    "speaker": "小汐",
+                    "text": "我仍然想出海，但不必以隐瞒病情换船票。"
+                  }
+                ]
               }
             ]
           }
@@ -151,7 +175,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.lanyin.01",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_lanyin_02",
@@ -243,14 +268,38 @@
                 "label": "以日常陪伴为治疗核心",
                 "sets": {
                   "side.cq_lanyin_02.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_02.choice.a.l01",
+                    "speaker": "孩子",
+                    "text": "今晚我和爸爸一起切菜，不放录音也没关系。"
+                  },
+                  {
+                    "id": "cq_lanyin_02.choice.a.l02",
+                    "speaker": "岚音",
+                    "text": "新的生活可以从一顿热饭开始。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先由医师评估录音辅助疗法",
                 "sets": {
                   "side.cq_lanyin_02.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_02.choice.b.l01",
+                    "speaker": "岚音",
+                    "text": "医师会先确认录音会不会令他过度疲惫。"
+                  },
+                  {
+                    "id": "cq_lanyin_02.choice.b.l02",
+                    "speaker": "孩子",
+                    "text": "等爸爸自己愿意听时，我再把围巾的故事讲给他。"
+                  }
+                ]
               }
             ]
           }
@@ -293,7 +342,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.lanyin.02",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_lanyin_03",
@@ -385,14 +435,38 @@
                 "label": "由主角独自阅读完整嘱托",
                 "sets": {
                   "side.cq_lanyin_03.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_03.choice.a.l01",
+                    "speaker": "主角",
+                    "text": "先让我独自读完那行字，我需要自己的时间。"
+                  },
+                  {
+                    "id": "cq_lanyin_03.choice.a.l02",
+                    "speaker": "岚音",
+                    "text": "好，我在门外，不催你回答。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "让当事人共同核对证词",
                 "sets": {
                   "side.cq_lanyin_03.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_03.choice.b.l01",
+                    "speaker": "岚音母亲",
+                    "text": "我们把当年的判断和证据分别说清。"
+                  },
+                  {
+                    "id": "cq_lanyin_03.choice.b.l02",
+                    "speaker": "主角",
+                    "text": "我会听，但原谅不是核对结果的附带条件。"
+                  }
+                ]
               }
             ]
           }
@@ -435,7 +509,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.lanyin.03",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_lanyin_04",
@@ -527,14 +602,38 @@
                 "label": "允许保留纪念仪式",
                 "sets": {
                   "side.cq_lanyin_04.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_04.choice.a.l01",
+                    "speaker": "老人",
+                    "text": "那只空茶杯暂时放着，我还想每天跟她说一句话。"
+                  },
+                  {
+                    "id": "cq_lanyin_04.choice.a.l02",
+                    "speaker": "岚音",
+                    "text": "这是一份纪念，不是必须抹去的症状。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "建立循序醒转与陪伴计划",
                 "sets": {
                   "side.cq_lanyin_04.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_04.choice.b.l01",
+                    "speaker": "照护员",
+                    "text": "今晚减少梦境时长，明天由老人自己决定是否继续。"
+                  },
+                  {
+                    "id": "cq_lanyin_04.choice.b.l02",
+                    "speaker": "老人",
+                    "text": "有人等我喝完茶，我也就敢多醒一会儿。"
+                  }
+                ]
               }
             ]
           }
@@ -577,7 +676,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.lanyin.04",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_lanyin_05",
@@ -669,14 +769,38 @@
                 "label": "开放家属个人附文",
                 "sets": {
                   "side.cq_lanyin_05.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_05.choice.a.l01",
+                    "speaker": "老家属",
+                    "text": "碑旁写着他爱吃热面，我不想让他只留下死去的日期。"
+                  },
+                  {
+                    "id": "cq_lanyin_05.choice.a.l02",
+                    "speaker": "岚音",
+                    "text": "这是家属自己选择留下的记忆。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "建立可随时补录的口述档案",
                 "sets": {
                   "side.cq_lanyin_05.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_05.choice.b.l01",
+                    "speaker": "石匠",
+                    "text": "口述档案预留新页，失踪者名字以后还能增补。"
+                  },
+                  {
+                    "id": "cq_lanyin_05.choice.b.l02",
+                    "speaker": "诺依",
+                    "text": "没有人能因为晚一点找回来就永远缺席。"
+                  }
+                ]
               }
             ]
           }
@@ -719,7 +843,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.lanyin.05",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_lanyin_06",
@@ -811,14 +936,38 @@
                 "label": "优先保证医师休息和透明告知",
                 "sets": {
                   "side.cq_lanyin_06.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_06.choice.a.l01",
+                    "speaker": "院长",
+                    "text": "先把夜班时长贴在门口，重症仍有应急医师。"
+                  },
+                  {
+                    "id": "cq_lanyin_06.choice.a.l02",
+                    "speaker": "年轻医师",
+                    "text": "我第一次知道休息不等于拒绝救人。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先训练志愿者承担后勤",
                 "sets": {
                   "side.cq_lanyin_06.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_lanyin_06.choice.b.l01",
+                    "speaker": "诺依",
+                    "text": "公会派来两名志愿者负责分发餐食和搬运。"
+                  },
+                  {
+                    "id": "cq_lanyin_06.choice.b.l02",
+                    "speaker": "岚音",
+                    "text": "这不是让他们代替医师，是让医师能专心看病。"
+                  }
+                ]
               }
             ]
           }
@@ -861,7 +1010,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.lanyin.06",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_leiso_01",
@@ -952,14 +1102,38 @@
                 "label": "由居民一起修订巡逻条款",
                 "sets": {
                   "side.cq_leiso_01.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_01.choice.a.l01",
+                    "speaker": "守门少年",
+                    "text": "居民把需要休息的路段画给我看了。"
+                  },
+                  {
+                    "id": "cq_leiso_01.choice.a.l02",
+                    "speaker": "雷索",
+                    "text": "你现在知道巡逻不只是问谁没有证件。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先建立夜间紧急援助点",
                 "sets": {
                   "side.cq_leiso_01.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_01.choice.b.l01",
+                    "speaker": "老妇",
+                    "text": "今晚那张新长椅让我走到了医务站。"
+                  },
+                  {
+                    "id": "cq_leiso_01.choice.b.l02",
+                    "speaker": "雷索",
+                    "text": "可以先救一个眼前的人，再慢慢修改整套手册。"
+                  }
+                ]
               }
             ]
           }
@@ -1002,7 +1176,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.01",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_leiso_02",
@@ -1094,14 +1269,38 @@
                 "label": "由孩子各自补画生活路线",
                 "sets": {
                   "side.cq_leiso_02.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_02.choice.a.l01",
+                    "speaker": "孩子甲",
+                    "text": "我画学校，他画桥，我们发现原来每天都走同一条河边。"
+                  },
+                  {
+                    "id": "cq_leiso_02.choice.a.l02",
+                    "speaker": "雷索",
+                    "text": "把路交给走路的人来画。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "共同修复被撕毁的地图",
                 "sets": {
                   "side.cq_leiso_02.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_02.choice.b.l01",
+                    "speaker": "教师",
+                    "text": "孩子们一起把撕碎的图拼回来了。"
+                  },
+                  {
+                    "id": "cq_leiso_02.choice.b.l02",
+                    "speaker": "孩子乙",
+                    "text": "这次我没用胶水盖住他的家。"
+                  }
+                ]
               }
             ]
           }
@@ -1144,7 +1343,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.02",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_leiso_03",
@@ -1236,14 +1436,38 @@
                 "label": "完整公开军令和个人证词",
                 "sets": {
                   "side.cq_leiso_03.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_03.choice.a.l01",
+                    "speaker": "老军士",
+                    "text": "档案室保留军令原件，也附上我当年的逃避。"
+                  },
+                  {
+                    "id": "cq_leiso_03.choice.a.l02",
+                    "speaker": "雷索",
+                    "text": "公开不是宣布过去已被原谅。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先向家属讲述，再申请公开归档",
                 "sets": {
                   "side.cq_leiso_03.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_03.choice.b.l01",
+                    "speaker": "老军士",
+                    "text": "我先把卷宗交给孙子，不要求他听完就夸我。"
+                  },
+                  {
+                    "id": "cq_leiso_03.choice.b.l02",
+                    "speaker": "雷索",
+                    "text": "你至少没再替他决定该相信哪一段。"
+                  }
+                ]
               }
             ]
           }
@@ -1286,7 +1510,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.03",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_leiso_04",
@@ -1378,14 +1603,38 @@
                 "label": "优先医疗紧急程度",
                 "sets": {
                   "side.cq_leiso_04.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_04.choice.a.l01",
+                    "speaker": "岚音",
+                    "text": "伤者和儿童按危险程度先行，名单随车公示。"
+                  },
+                  {
+                    "id": "cq_leiso_04.choice.a.l02",
+                    "speaker": "雷索",
+                    "text": "这一次没人因为姓氏被排在担架前面。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "公开撤离顺序与自愿让位机制",
                 "sets": {
                   "side.cq_leiso_04.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_04.choice.b.l01",
+                    "speaker": "撤离官",
+                    "text": "愿留下的护卫签了名，每个人都知道自己的风险。"
+                  },
+                  {
+                    "id": "cq_leiso_04.choice.b.l02",
+                    "speaker": "雷索",
+                    "text": "志愿必须能反悔，别把他们困在门后。"
+                  }
+                ]
               }
             ]
           }
@@ -1428,7 +1677,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.04",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_leiso_05",
@@ -1520,14 +1770,38 @@
                 "label": "存入公共救助物资柜",
                 "sets": {
                   "side.cq_leiso_05.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_05.choice.a.l01",
+                    "speaker": "获救青年",
+                    "text": "披风今天借给了一个怕冷的孩子。"
+                  },
+                  {
+                    "id": "cq_leiso_05.choice.a.l02",
+                    "speaker": "雷索",
+                    "text": "那它终于不必只代表我一人。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "举办公开讲述后由青年决定",
                 "sets": {
                   "side.cq_leiso_05.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_05.choice.b.l01",
+                    "speaker": "青年",
+                    "text": "我决定把披风的故事说完后，再将它放进救护站。"
+                  },
+                  {
+                    "id": "cq_leiso_05.choice.b.l02",
+                    "speaker": "雷索",
+                    "text": "你不必因感激而复制我的人生。"
+                  }
+                ]
               }
             ]
           }
@@ -1570,7 +1844,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.05",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_leiso_06",
@@ -1662,14 +1937,38 @@
                 "label": "确立志愿防卫与平等后勤权利",
                 "sets": {
                   "side.cq_leiso_06.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_06.choice.a.l01",
+                    "speaker": "木匠",
+                    "text": "志愿公约写明我可以修桥，也可以拒绝握剑。"
+                  },
+                  {
+                    "id": "cq_leiso_06.choice.a.l02",
+                    "speaker": "雷索",
+                    "text": "守护的工作远不止战场。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先修建避难所再完成公共章程",
                 "sets": {
                   "side.cq_leiso_06.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_leiso_06.choice.b.l01",
+                    "speaker": "诺依",
+                    "text": "避难所先建好了，城里的孩子今晚有屋顶。"
+                  },
+                  {
+                    "id": "cq_leiso_06.choice.b.l02",
+                    "speaker": "雷索",
+                    "text": "等人安全了，再继续讨论怎样让每份贡献受尊重。"
+                  }
+                ]
               }
             ]
           }
@@ -1712,7 +2011,8 @@
         "text": "我们还会在下一段路上继续讨论这件事。"
       },
       "story_reward_flag": "bond.leiso.06",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_shouxian_01",
@@ -1803,14 +2103,38 @@
                 "label": "先当面交代运输记录",
                 "sets": {
                   "side.cq_shouxian_01.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_01.choice.a.l01",
+                    "speaker": "受害家属",
+                    "text": "我听完你当年运货的经过，还需要时间才能决定。"
+                  },
+                  {
+                    "id": "cq_shouxian_01.choice.a.l02",
+                    "speaker": "朔弦",
+                    "text": "我不来换一句原谅，只来把自己知道的事说完。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先把可核查的证据交给家属",
                 "sets": {
                   "side.cq_shouxian_01.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_01.choice.b.l01",
+                    "speaker": "酒馆老板",
+                    "text": "原始货单已交给家属，寄款记录也可以查。"
+                  },
+                  {
+                    "id": "cq_shouxian_01.choice.b.l02",
+                    "speaker": "朔弦",
+                    "text": "比起匿名还钱，我至少不再把证据藏起来。"
+                  }
+                ]
               }
             ]
           }
@@ -1849,7 +2173,8 @@
         "b": "先把可核查的证据交给家属"
       },
       "story_reward_flag": "bond.shouxian.01",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_shouxian_02",
@@ -1941,14 +2266,38 @@
                 "label": "公开两份航路图一起比对",
                 "sets": {
                   "side.cq_shouxian_02.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_02.choice.a.l01",
+                    "speaker": "老水手",
+                    "text": "两张星位图终于放在一张桌上了。"
+                  },
+                  {
+                    "id": "cq_shouxian_02.choice.a.l02",
+                    "speaker": "朔弦",
+                    "text": "这回连我也不能凭记忆乱画暗礁。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "将老船员的证词先存档",
                 "sets": {
                   "side.cq_shouxian_02.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_02.choice.b.l01",
+                    "speaker": "老水手",
+                    "text": "我把当年的船长证词留在档案里。"
+                  },
+                  {
+                    "id": "cq_shouxian_02.choice.b.l02",
+                    "speaker": "朔弦",
+                    "text": "航图可以再画，替那夜作证的人不能随便删掉。"
+                  }
+                ]
               }
             ]
           }
@@ -1987,7 +2336,8 @@
         "b": "将老船员的证词先存档"
       },
       "story_reward_flag": "bond.shouxian.02",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_shouxian_03",
@@ -2079,14 +2429,38 @@
                 "label": "建立商船自愿接力邮路",
                 "sets": {
                   "side.cq_shouxian_03.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_03.choice.a.l01",
+                    "speaker": "老邮差",
+                    "text": "第一袋信跟着三艘商船接力，终于靠岸。"
+                  },
+                  {
+                    "id": "cq_shouxian_03.choice.a.l02",
+                    "speaker": "朔弦",
+                    "text": "谁都不用一人跑完整片海。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "设立寄件人可查询的交接台账",
                 "sets": {
                   "side.cq_shouxian_03.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_03.choice.b.l01",
+                    "speaker": "邮务员",
+                    "text": "寄件人能查每一站的交接记录。"
+                  },
+                  {
+                    "id": "cq_shouxian_03.choice.b.l02",
+                    "speaker": "老邮差",
+                    "text": "下次信晚到了，我们至少知道它还在哪条船上。"
+                  }
+                ]
               }
             ]
           }
@@ -2125,7 +2499,8 @@
         "b": "设立寄件人可查询的交接台账"
       },
       "story_reward_flag": "bond.shouxian.03",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_shouxian_04",
@@ -2217,14 +2592,38 @@
                 "label": "先建立岛民共同商议会",
                 "sets": {
                   "side.cq_shouxian_04.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_04.choice.a.l01",
+                    "speaker": "故乡老人",
+                    "text": "岛民终于自己坐到一张桌上，决定接待旅人。"
+                  },
+                  {
+                    "id": "cq_shouxian_04.choice.a.l02",
+                    "speaker": "朔弦",
+                    "text": "这才像回家，而不是替大家宣布岛归我所有。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "只公开公共救援航路并保护私宅",
                 "sets": {
                   "side.cq_shouxian_04.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_04.choice.b.l01",
+                    "speaker": "童年友人",
+                    "text": "公共救援航路会公开，私宅仍留在岛民自己手里。"
+                  },
+                  {
+                    "id": "cq_shouxian_04.choice.b.l02",
+                    "speaker": "朔弦",
+                    "text": "终于能把人领回家，而不必把家交给全世界围观。"
+                  }
+                ]
               }
             ]
           }
@@ -2263,7 +2662,8 @@
         "b": "只公开公共救援航路并保护私宅"
       },
       "story_reward_flag": "bond.shouxian.04",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_shouxian_05",
@@ -2355,14 +2755,38 @@
                 "label": "由年轻船长主导更新海图",
                 "sets": {
                   "side.cq_shouxian_05.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_05.choice.a.l01",
+                    "speaker": "年轻船长",
+                    "text": "海图上的新暗礁由我亲自测过，别再说只是旧英雄的记忆。"
+                  },
+                  {
+                    "id": "cq_shouxian_05.choice.a.l02",
+                    "speaker": "朔弦",
+                    "text": "好，今天由你来教我。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "开设老船长口述与实测对照会",
                 "sets": {
                   "side.cq_shouxian_05.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_05.choice.b.l01",
+                    "speaker": "老船长",
+                    "text": "我们把口述和实测摆在一起，差得最大的那段重新出航。"
+                  },
+                  {
+                    "id": "cq_shouxian_05.choice.b.l02",
+                    "speaker": "诺依",
+                    "text": "有人说错了可以修正，不必把一张旧图当圣物。"
+                  }
+                ]
               }
             ]
           }
@@ -2401,7 +2825,8 @@
         "b": "开设老船长口述与实测对照会"
       },
       "story_reward_flag": "bond.shouxian.05",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_shouxian_06",
@@ -2493,14 +2918,38 @@
                 "label": "公开自愿航运维护基金",
                 "sets": {
                   "side.cq_shouxian_06.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_06.choice.a.l01",
+                    "speaker": "灯塔管理员",
+                    "text": "航运基金每月公开，不交费的遇险船也照样求救。"
+                  },
+                  {
+                    "id": "cq_shouxian_06.choice.a.l02",
+                    "speaker": "朔弦",
+                    "text": "海上的第一条规矩终于不是先付钱。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "建立免费救援与政府兜底双机制",
                 "sets": {
                   "side.cq_shouxian_06.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_shouxian_06.choice.b.l01",
+                    "speaker": "诺依",
+                    "text": "应急基金保证最穷的船也有回港灯。"
+                  },
+                  {
+                    "id": "cq_shouxian_06.choice.b.l02",
+                    "speaker": "灯塔管理员",
+                    "text": "今晚我可以休息，因为守灯已是许多人的事。"
+                  }
+                ]
               }
             ]
           }
@@ -2539,7 +2988,8 @@
         "b": "建立免费救援与政府兜底双机制"
       },
       "story_reward_flag": "bond.shouxian.06",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_tifa_01",
@@ -2630,14 +3080,38 @@
                 "label": "公开非军用安全评价",
                 "sets": {
                   "side.cq_tifa_01.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_01.choice.a.l01",
+                    "speaker": "学徒",
+                    "text": "新的床头灯先公开了安全评价，军方不再有理由偷改设计。"
+                  },
+                  {
+                    "id": "cq_tifa_01.choice.a.l02",
+                    "speaker": "缇珐",
+                    "text": "被患者需要，比被考官夸赞重要。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先在医馆进行自愿试用",
                 "sets": {
                   "side.cq_tifa_01.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_01.choice.b.l01",
+                    "speaker": "病房医师",
+                    "text": "先让愿意试用的人确认亮度和安全。"
+                  },
+                  {
+                    "id": "cq_tifa_01.choice.b.l02",
+                    "speaker": "学徒",
+                    "text": "患者说它不刺眼，我终于知道该怎样改图。"
+                  }
+                ]
               }
             ]
           }
@@ -2676,7 +3150,8 @@
         "b": "先在医馆进行自愿试用"
       },
       "story_reward_flag": "bond.tifa.01",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_tifa_02",
@@ -2768,14 +3243,38 @@
                 "label": "恢复真实用途标牌并增加共同复核",
                 "sets": {
                   "side.cq_tifa_02.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_02.choice.a.l01",
+                    "speaker": "老工匠",
+                    "text": "四号阀门重新刻回居民区的名称，还要两人复核。"
+                  },
+                  {
+                    "id": "cq_tifa_02.choice.a.l02",
+                    "speaker": "缇珐",
+                    "text": "控制台终于知道自己连接着谁。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先编写新安全手册再开放资料",
                 "sets": {
                   "side.cq_tifa_02.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_02.choice.b.l01",
+                    "speaker": "维修主管",
+                    "text": "新的安全手册先送医院和工厂共同审读。"
+                  },
+                  {
+                    "id": "cq_tifa_02.choice.b.l02",
+                    "speaker": "缇珐",
+                    "text": "图纸可以公开，但不应让危险接口无人负责。"
+                  }
+                ]
               }
             ]
           }
@@ -2814,7 +3313,8 @@
         "b": "先编写新安全手册再开放资料"
       },
       "story_reward_flag": "bond.tifa.02",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_tifa_03",
@@ -2906,14 +3406,38 @@
                 "label": "由救援队共同评估破拆风险",
                 "sets": {
                   "side.cq_tifa_03.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_03.choice.a.l01",
+                    "speaker": "救援工",
+                    "text": "每种破拆方式都通过了模拟废墟测试。"
+                  },
+                  {
+                    "id": "cq_tifa_03.choice.a.l02",
+                    "speaker": "缇珐",
+                    "text": "请把不能使用的场景也写到说明书首页。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "保留旧武器史并公开改造记录",
                 "sets": {
                   "side.cq_tifa_03.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_03.choice.b.l01",
+                    "speaker": "锻造导师",
+                    "text": "旧锤曾用于攻城的记录同样进入档案。"
+                  },
+                  {
+                    "id": "cq_tifa_03.choice.b.l02",
+                    "speaker": "缇珐",
+                    "text": "改用途不会抹掉历史，至少可以约束明天。"
+                  }
+                ]
               }
             ]
           }
@@ -2952,7 +3476,8 @@
         "b": "保留旧武器史并公开改造记录"
       },
       "story_reward_flag": "bond.tifa.03",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_tifa_04",
@@ -3044,14 +3569,38 @@
                 "label": "先建立可撤除的试验区",
                 "sets": {
                   "side.cq_tifa_04.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_04.choice.a.l01",
+                    "speaker": "护林工",
+                    "text": "试验支路能安全拆除，树根被保护着。"
+                  },
+                  {
+                    "id": "cq_tifa_04.choice.a.l02",
+                    "speaker": "缇珐",
+                    "text": "任何失败都有退路，才有资格开工。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "让护林者参与每次技术评估",
                 "sets": {
                   "side.cq_tifa_04.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_04.choice.b.l01",
+                    "speaker": "护林少女",
+                    "text": "每次检查都有护林者签字，没人能偷偷扩大工程。"
+                  },
+                  {
+                    "id": "cq_tifa_04.choice.b.l02",
+                    "speaker": "玄璃",
+                    "text": "森林不再只是图纸上一处可替换的零件。"
+                  }
+                ]
               }
             ]
           }
@@ -3090,7 +3639,8 @@
         "b": "让护林者参与每次技术评估"
       },
       "story_reward_flag": "bond.tifa.04",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_tifa_05",
@@ -3182,14 +3732,38 @@
                 "label": "建立透明维修费与公益补贴",
                 "sets": {
                   "side.cq_tifa_05.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_05.choice.a.l01",
+                    "speaker": "年轻修理匠",
+                    "text": "费用和补贴张贴出来，孩子的轮椅先修好了。"
+                  },
+                  {
+                    "id": "cq_tifa_05.choice.a.l02",
+                    "speaker": "缇珐",
+                    "text": "公开价格也让我们知道自己的劳动并非不要钱。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "开设旧物安全维修培训",
                 "sets": {
                   "side.cq_tifa_05.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_05.choice.b.l01",
+                    "speaker": "年轻修理匠",
+                    "text": "这周学徒修好了五件旧物，还主动贴出不能修的原因。"
+                  },
+                  {
+                    "id": "cq_tifa_05.choice.b.l02",
+                    "speaker": "缇珐",
+                    "text": "懂得拒绝危险维修，也是合格的工匠。"
+                  }
+                ]
               }
             ]
           }
@@ -3228,7 +3802,8 @@
         "b": "开设旧物安全维修培训"
       },
       "story_reward_flag": "bond.tifa.05",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_tifa_06",
@@ -3320,14 +3895,38 @@
                 "label": "公开基础维修与共同安全审查",
                 "sets": {
                   "side.cq_tifa_06.approach": "a"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_06.choice.a.l01",
+                    "speaker": "市民技师",
+                    "text": "公共手册收录必要的维修方法，危险接口由多人审核。"
+                  },
+                  {
+                    "id": "cq_tifa_06.choice.a.l02",
+                    "speaker": "缇珐",
+                    "text": "我不再是整座城市唯一的开关。"
+                  }
+                ]
               },
               {
                 "id": "b",
                 "label": "先举办跨地区师徒联合培训",
                 "sets": {
                   "side.cq_tifa_06.approach": "b"
-                }
+                },
+                "branch_dialogue": [
+                  {
+                    "id": "cq_tifa_06.choice.b.l01",
+                    "speaker": "跨区学徒",
+                    "text": "今天有人教我看电路，明天由我教别人。"
+                  },
+                  {
+                    "id": "cq_tifa_06.choice.b.l02",
+                    "speaker": "缇珐",
+                    "text": "技术如果只活在我脑子里，终有一天还会成为枷锁。"
+                  }
+                ]
               }
             ]
           }
@@ -3366,7 +3965,8 @@
         "b": "先举办跨地区师徒联合培训"
       },
       "story_reward_flag": "bond.tifa.06",
-      "status": "authored_text_not_runtime_bound"
+      "status": "authored_text_not_runtime_bound",
+      "branch_revision": "personal_A_B_unique_v2"
     },
     {
       "id": "cq_ize_01",

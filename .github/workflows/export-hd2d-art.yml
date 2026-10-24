@@ -8,6 +8,7 @@ on:
       - "assets/art/art_manifest.json"
       - "tools/export_hd2d_svg.py"
       - "tools/validate_hd2d_art.py"
+      - "tools/qa_hd2d_refinement.py"
       - "tools/make_art_contact_sheet.py"
       - ".github/workflows/export-hd2d-art.yml"
   workflow_dispatch:
@@ -31,6 +32,7 @@ jobs:
           python tools/validate_hd2d_art.py
           python tools/export_hd2d_svg.py
           python tools/validate_hd2d_art.py --check-png
+          python tools/qa_hd2d_refinement.py
           python tools/make_art_contact_sheet.py
       - name: Package reviewed image assets
         run: |
@@ -38,14 +40,14 @@ jobs:
           from pathlib import Path
           from zipfile import ZipFile, ZIP_DEFLATED
           root=Path('assets/art')
-          with ZipFile('starlit_art_batches_0_3_png.zip','w',ZIP_DEFLATED,compresslevel=6) as z:
+          with ZipFile('starlit_coast_refinement_v2_png.zip','w',ZIP_DEFLATED,compresslevel=6) as z:
               for p in sorted(root.rglob('*.png')):
                   z.write(p,p.as_posix())
           print('Packed',sum(1 for p in root.rglob('*.png')),'PNG images')
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: starlit-art-batches-0-3-png
+          name: starlit-coast-refinement-v2-png
           path: starlit_art_batches_0_3_png.zip
           retention-days: 30
       - name: Commit generated images to the same branch
@@ -54,6 +56,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/art/
           if ! git diff --cached --quiet; then
-            git commit -m "art: render batch 0-3 SVG masters to 89 Godot-ready PNGs"
+            git commit -m "art: export batch 0-3 assets including coast refinement v2"
             git push origin HEAD:${{ github.ref_name }}
           fi

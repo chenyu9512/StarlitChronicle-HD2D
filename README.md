@@ -109,3 +109,6 @@ Godot 4.7 的 iOS 原生导出必须运行于 macOS/Xcode。已经随工程附�
 本分支已生成 `assets/art/` 内 89 张可编辑 SVG 主稿、89 张对应 PNG，以及 `assets/art/_spec/preview_batch_0_3.png` 总览图。自动导出依赖 `tools/export_hd2d_svg.py`；完整清单见 `assets/art/art_manifest.json`，验收记录见 `docs/ART_BATCH_0_3_DELIVERY.md`。
 
 开发人员可在 Godot 打开 `scenes/art_gallery.tscn` 并按 F6 查看角色、图块、道具和怪物。**这些是首轮可用的程序化矢量像素风素材，尚非商业精修版**；主游戏仍保留原可玩序章资产，新的第一幕场景、地图碰撞和怪物战斗整合尚未完成。GitHub Actions 工作流会自动导出 PNG，并提供完整美术压缩包作为临时构建工件。
+
+## 白砂海岸美术第二轮精修（coast-v2）
+原有89套美术中，已精修并原位替换55套：9种普通怪物×3图（27）、海岸4幅场景背景、4套32px图块图集、20种海岸装饰道具。保留原始ID、画布规格、文件路径，PNG由 GitHub Actions 自动生成。 `assets/art/art_manifest.json` 中有 `refinement_version: coast-v2` 标注。所有图像须经最终视觉验收，并不等于已做成可行走地图或完整战斗动画。精修QA可运行 `python tools/qa_hd2d_refinement.py`。

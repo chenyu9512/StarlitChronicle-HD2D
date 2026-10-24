@@ -103,3 +103,9 @@ Godot 4.7 的 iOS 原生导出必须运行于 macOS/Xcode。已经随工程附�
 **进度说明：** 设计数据不等于完成美术、场景或战斗逻辑；正式地图尚未制作，72章任务已与独立剧情分支的真实章名、地点和摘要同步，但正式剧情引擎仍未接入主游戏，现有序章和存档原样保留。详细规范见 `docs/CONTENT_FOUNDATION.md`。
 
 **剧情与图鉴协作：** 这批资源已与 [正式剧情 PR #1](https://github.com/chenyu9512/StarlitChronicle-HD2D/pull/1) 对齐；两个 PR 需要分别审查，故事文件合并后方可利用 `story_source` 路径运行剧情。
+
+## 批次0–3 正式美术资源首轮产物
+
+本分支已生成 `assets/art/` 内 89 张可编辑 SVG 主稿、89 张对应 PNG，以及 `assets/art/_spec/preview_batch_0_3.png` 总览图。自动导出依赖 `tools/export_hd2d_svg.py`；完整清单见 `assets/art/art_manifest.json`，验收记录见 `docs/ART_BATCH_0_3_DELIVERY.md`。
+
+开发人员可在 Godot 打开 `scenes/art_gallery.tscn` 并按 F6 查看角色、图块、道具和怪物。**这些是首轮可用的程序化矢量像素风素材，尚非商业精修版**；主游戏仍保留原可玩序章资产，新的第一幕场景、地图碰撞和怪物战斗整合尚未完成。GitHub Actions 工作流会自动导出 PNG，并提供完整美术压缩包作为临时构建工件。

@@ -74,7 +74,7 @@ func _render(index: int) -> void:
         var png: String = "res://" + path.trim_suffix(".svg") + ".png"
         if not ResourceLoader.exists(png):
             continue
-        var tex: Texture2D = load(png)
+        var tex: Texture2D = load(png) as Texture2D
         if tex == null:
             continue
         var column := VBoxContainer.new()

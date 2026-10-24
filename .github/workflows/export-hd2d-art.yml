@@ -32,6 +32,22 @@ jobs:
           python tools/export_hd2d_svg.py
           python tools/validate_hd2d_art.py --check-png
           python tools/make_art_contact_sheet.py
+      - name: Package reviewed image assets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          root=Path('assets/art')
+          with ZipFile('starlit_art_batches_0_3_png.zip','w',ZIP_DEFLATED,compresslevel=6) as z:
+              for p in sorted(root.rglob('*.png')):
+                  z.write(p,p.as_posix())
+          print('Packed',sum(1 for p in root.rglob('*.png')),'PNG images')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: starlit-art-batches-0-3-png
+          path: starlit_art_batches_0_3_png.zip
+          retention-days: 30
       - name: Commit generated images to the same branch
         run: |
           git config user.name "github-actions[bot]"

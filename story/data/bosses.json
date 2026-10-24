@@ -290,41 +290,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "箭阵压制可通过掩护粮车打断",
           "dialogue": [
             {
-              "speaker": "伪装边防队",
-              "text": "商队首领想用暴力报复对岸村庄，几乎引发冲突。"
+              "speaker": "队长",
+              "text": "把车留下！谁再往前一步就放箭。"
             },
             {
               "speaker": "雷索",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "别看他们的旗，看军械刻号！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "过半阶段敌人试图烧毁断箭，需保护物证",
           "dialogue": [
             {
-              "speaker": "伪装边防队",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "speaker": "队长",
+              "text": "把证据烧掉！我们照样能换套制服。"
             },
             {
               "speaker": "主角",
-              "text": "劫匪弩箭来自王都军械库，而非敌国。"
+              "text": "先护住粮袋后面的孩子。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "雷索",
-          "text": "众人护住双方平民，带回可交叉验证的武器编号。"
+          "speaker": "车队长",
+          "text": "他们的制服不是任何一国的。原来我们都被骗了。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "一群穿着伪造边防制服的袭击者，为掩盖雇主试图抢走断箭与粮车。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch009",
@@ -339,41 +341,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "初期以盾墙挡路，绕侧门可削弱防御",
           "dialogue": [
             {
-              "speaker": "王城禁卫",
-              "text": "证人愿说出真相，却担心家人被王室报复。"
+              "speaker": "禁卫长",
+              "text": "无许可之人不得接近法庭。"
             },
             {
               "speaker": "雷索",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "证人不是犯人，别把你们的刀指向她。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "中期禁卫尝试夺取证物，保护证物可改变战后对白",
           "dialogue": [
             {
-              "speaker": "王城禁卫",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "speaker": "禁卫长",
+              "text": "阻断通路！不得让证词呈交！"
             },
             {
               "speaker": "主角",
-              "text": "雷索被命令清剿的村子根本没有敌军。"
+              "text": "击落武器，别伤害听令行事的普通卫兵。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "雷索",
-          "text": "法庭公开军令副本，雷索恢复名誉但拒绝复职。"
+          "speaker": "幸存老妇",
+          "text": "我以为今天又会有人消失。谢谢你们没有弃我而去。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "为阻止证人入庭而奉命拦截的王城禁卫，不应处理成全体禁卫都是邪恶。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch010",
@@ -388,41 +392,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "场地中存在三处引燃点，调查与救火都属于目标",
           "dialogue": [
             {
-              "speaker": "灰帷纵火者",
-              "text": "三国使者把共同调查当成丢面子的让步。"
+              "speaker": "纵火者",
+              "text": "让他们吵吧，火从谁家先烧起来又有什么关系？"
             },
             {
               "speaker": "岚音",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "把火种从粮车旁移开！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "敌人在半血时同时引燃两处，队员可分头应对",
           "dialogue": [
             {
-              "speaker": "灰帷纵火者",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "speaker": "纵火者",
+              "text": "你们越忙着救人，我越有时间放下一包。"
             },
             {
-              "speaker": "主角",
-              "text": "三处纵火现场都出现灰帷会特有的无烟灰。"
+              "speaker": "雷索",
+              "text": "分开队伍，把引线截住。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "岚音",
-          "text": "主角安排三国共同运粮，第一次建立实际合作。"
+          "speaker": "使者丙",
+          "text": "我们刚刚还在争是谁放的火，现在总算看清了。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "灰帷会使用隐燃粉的纵火者，试图挑起三个国家彼此攻击。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch011",
@@ -437,41 +443,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "战斗目标优先保护和平使团与原始军令",
           "dialogue": [
             {
-              "speaker": "伪誓顾问",
-              "text": "顾问当众撕毁协议，想让王族背负对方先开战的罪。"
+              "speaker": "王室顾问",
+              "text": "不用等和约签完。让他们先流血，自然会听从新命令。"
             },
             {
               "speaker": "雷索",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "今天谁也别想拿另一国的士兵当替罪羊。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血顾问试图引爆桥下炸药，解除引线可避免平民伤亡",
           "dialogue": [
             {
-              "speaker": "伪誓顾问",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "speaker": "王室顾问",
+              "text": "毁掉原始军令！我还可以再写十份！"
             },
             {
-              "speaker": "主角",
-              "text": "王室顾问暗中向两边军队发出了同样的进攻指令。"
+              "speaker": "朔弦",
+              "text": "印章能造假，人心可没那么容易。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "雷索",
-          "text": "玩家公布原始军令，三国士兵共同拒绝作战。"
+          "speaker": "使节",
+          "text": "没想到让士兵放下武器的，不是王令，而是他们终于看见了证据。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "挟持盟约并操控伪造军令的王室顾问，以及负责执行阴谋的精锐护卫。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch012",
@@ -486,41 +494,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "护卫通过誓约锁链限制行动，履约记录可打破锁链",
           "dialogue": [
             {
               "speaker": "律序执剑者",
-              "text": "旧仪式要求三位君主相互交出王位作为担保。"
+              "text": "三王交权，誓言才能永久。"
             },
             {
-              "speaker": "雷索",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "平民代表",
+              "text": "我拒绝让自己的日子被当作抵押。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "当民间三项承诺得到认可时，进入无需击毁本体的终止阶段",
           "dialogue": [
             {
               "speaker": "律序执剑者",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "检测到未经认证的誓言……开始清除。"
             },
             {
-              "speaker": "主角",
-              "text": "律序灯从不判断血统，只验证是否有人兑现承诺。"
+              "speaker": "雷索",
+              "text": "守住他们的发言权。等他们把话说完。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "雷索",
-          "text": "平民代表与国王共同立誓，律序灯在没有献祭的情况下重燃。"
+          "speaker": "律序执剑者",
+          "text": "共同见证已通过。旧式王权担保，不再适用。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "古律令拟成的守卫，只认王权献祭而拒绝民间见证，并非真正恶人。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch013",
@@ -535,41 +545,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "攻击矿壳造成碎晶，碎晶会模糊一个指令描述",
           "dialogue": [
             {
               "speaker": "噬忆矿螳",
-              "text": "矿工家属在名单中发现自己的姓名已经被划去。"
+              "text": "咔……咔咔！"
             },
             {
               "speaker": "缇珐",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "别看光亮的壳，关节才是它活动的地方。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血后矿螳试图钻进承重柱，先稳定支架再继续",
           "dialogue": [
             {
               "speaker": "噬忆矿螳",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "嗡——咔！"
             },
             {
-              "speaker": "主角",
-              "text": "矿井产量在停工时仍持续增长，账册记录着不存在的班次。"
+              "speaker": "岚音",
+              "text": "矿工还在后面，别把石壁打塌了。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "缇珐",
-          "text": "众人救出幸存者，携带矿石样本前往工匠总署。"
+          "speaker": "阿锤",
+          "text": "那些矿晶终于不再自己移动，我听见下面有人喊救命。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "被寂潮矿化侵蚀的矿坑守卫昆虫，吞噬记忆能源而扩张，不会使用人类完整语言。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch014",
@@ -584,30 +596,30 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "拆除外部采矿臂可减少无差别攻击",
           "dialogue": [
             {
               "speaker": "失控采矿机",
-              "text": "总署认定声音只是噪声，准备拆毁旧机。"
+              "text": "作业继续……继续……"
             },
             {
               "speaker": "缇珐",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "别砸储存盒！里面装着被人的记忆！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "剩余低血时机器重复家人语音，可借机切断能源而非粉碎内核",
           "dialogue": [
             {
               "speaker": "失控采矿机",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "小石头……蓝围巾……"
             },
             {
-              "speaker": "主角",
-              "text": "机械反复呼唤一个矿工孩子的乳名。"
+              "speaker": "岚音",
+              "text": "听见了，先断开采矿臂的动力！"
             }
           ]
         }
@@ -615,10 +627,12 @@
       "after_battle": [
         {
           "speaker": "缇珐",
-          "text": "缇珐保存记忆结晶，决定公开能源技术的缺陷。"
+          "text": "录音保住了。但这只是证据，人的生活不能困在盒子里。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "被非法记忆回路驱动的采矿机，存有家人的声音；目标是安全停机并保留证据。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch015",
@@ -633,41 +647,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "第一阶段切换守护、治疗、控制三类测试",
           "dialogue": [
             {
               "speaker": "百工机关偶",
-              "text": "工匠议会要求签署永久效忠合同才允许继承技术。"
+              "text": "试炼启动。请证明技艺属于承担责任的人。"
             },
             {
-              "speaker": "缇珐",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "雷索",
+              "text": "这次不要靠单一职业硬冲。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血转为多目标救援，顺序正确可以结束考验而非击毁机关偶",
           "dialogue": [
             {
               "speaker": "百工机关偶",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "未知协作方式……更新考题。"
             },
             {
-              "speaker": "主角",
-              "text": "转职仪式源于古代人学习多种技艺的开放制度。"
+              "speaker": "缇珐",
+              "text": "原来它在学我们怎么解决问题。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "缇珐",
-          "text": "玩家选择公开试炼图纸，职业系统正式开放。"
+          "speaker": "百工机关偶",
+          "text": "通过。知识传递权限已向学徒开放。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "百工塔的多技艺考验机关偶，检测职业协作而非要求杀伤力。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch016",
@@ -682,41 +698,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "护盾与医院临时供电计量有关，单纯硬打会触发断电警告",
           "dialogue": [
             {
               "speaker": "记忆收割机",
-              "text": "受益居民害怕停供，因此有人自愿替工厂掩盖罪行。"
+              "text": "配额不足。自动提取程序启动。"
             },
             {
               "speaker": "岚音",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "把病人带开！这不是他们答应过的治疗。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血启动抽取程序，优先拆除吸收管线可保护受害者",
           "dialogue": [
             {
               "speaker": "记忆收割机",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "能源需求优先级：最高。"
             },
             {
-              "speaker": "主角",
-              "text": "矿工记忆被提取后制成公共能源。"
+              "speaker": "缇珐",
+              "text": "我在关闭一条供电线，但先让医院接上备用电！"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "岚音",
-          "text": "众人建立公开名册，为矿工争取补偿和姓名。"
+          "speaker": "老妇",
+          "text": "那台机器终于关了。但我丈夫的名字，别从名单上删掉。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "提取矿工记忆的能源装置，防御来源于周围居民对断电的恐惧。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch017",
@@ -731,30 +749,30 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "战场四阀门对应不同城镇区域，关炮口不能直接关医院",
           "dialogue": [
             {
               "speaker": "赤炉巨机",
-              "text": "关机将使医院短时间断电，直接爆破又会伤及全城。"
+              "text": "城市净化协议，准备发射。"
             },
             {
               "speaker": "缇珐",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "不准开炮！那是我设计来给医院供电的！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血触发炮口过载，需要队友分工关闭供能并保护医护",
           "dialogue": [
             {
               "speaker": "赤炉巨机",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "炮口过载，进入二次蓄能。"
             },
             {
-              "speaker": "主角",
-              "text": "军方把缇珐的民生引擎改造成火炮系统。"
+              "speaker": "岚音",
+              "text": "医院临时供电还撑得住，快去接第四组阀门！"
             }
           ]
         }
@@ -762,10 +780,12 @@
       "after_battle": [
         {
           "speaker": "缇珐",
-          "text": "队伍分头抢修备用发电机，阻止机械暴走。"
+          "text": "它没有开火。接下来我要亲自把所有改造图公开。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "被军方改造成炮台的巨大民生引擎，具备四组阀门和炮口独立阶段。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch018",
@@ -780,41 +800,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "强化攻势与资源管理",
+          "mechanic": "初期用能源锁链限制行动，需由不同角色点亮共识节点",
           "dialogue": [
             {
               "speaker": "炉心监察者",
-              "text": "旧统治者威胁公布真相会毁灭工业信誉。"
+              "text": "维持最高效率。未经许可的关机视为危险操作。"
             },
             {
               "speaker": "缇珐",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "效率不该靠偷走人的过去计算。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "半血校验共享回路，每完成一次自愿供能降低强制抽取强度",
           "dialogue": [
             {
               "speaker": "炉心监察者",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "新网络功率不足，判定不可接受。"
             },
             {
               "speaker": "主角",
-              "text": "炉心灯本可由低功率共享网络维持，从来不必吞噬记忆。"
+              "text": "不足就一起补。不能因此逼一个人献出记忆。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "缇珐",
-          "text": "市民自愿停工配合改造，炉心灯重燃。"
+          "speaker": "矿工妻子",
+          "text": "灯亮了，可我们不想别人说受害者的问题已经全部解决。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "旧炉心制度的监察程序，将“效率”置于自愿之上，挑战旧能源逻辑。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch019",
@@ -829,41 +851,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "玩法设计为延迟点火、护送村民，敌方撤军可完成",
           "dialogue": [
             {
               "speaker": "肃清队长",
-              "text": "直属长官命令雷索烧毁所有民宅以掩盖误报。"
+              "text": "下令了！给我点火！"
             },
             {
-              "speaker": "雷索",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "年轻雷索",
+              "text": "收回命令。村民没有武器。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "中段主官试图封堵沟渠撤离线，优先解除封锁",
           "dialogue": [
             {
               "speaker": "肃清队长",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "少尉，违令你连头衔都保不住！"
             },
             {
-              "speaker": "主角",
-              "text": "所谓叛军信号来自村中用于求救的烟火。"
+              "speaker": "年轻雷索",
+              "text": "那就把徽章拿走。把火灭了。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "雷索",
-          "text": "雷索放走居民，接受被夺爵位的代价。"
+          "speaker": "村妇",
+          "text": "我们活下来了。那孩子到现在还记得那件披风。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "执行屠村命令的军队主官与其指挥阵列，用于雷索过去视角的非致命抵抗。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch020",
@@ -878,41 +902,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "小艇地形障碍迫使玩家避开重装敌人，非正面击杀",
           "dialogue": [
             {
               "speaker": "灰帷猎手",
-              "text": "船长决定将仍寻找故乡的朔弦卖给灰帷会。"
+              "text": "船长说了，把孩子和日志一起交出来。"
             },
             {
-              "speaker": "朔弦",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "年轻朔弦",
+              "text": "你们买得起船，也买不起我的故乡。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "过半阶段出现同伙快艇，利用潮汐与灯标摆脱追缉",
           "dialogue": [
             {
               "speaker": "灰帷猎手",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "海上没有人会替你作证。"
             },
             {
-              "speaker": "主角",
-              "text": "海图破口处的经纬线被人刻意刮掉。"
+              "speaker": "小水手",
+              "text": "错了，我还在这里！快划走！"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "朔弦",
-          "text": "朔弦逃脱并藏起船长的航海日记。"
+          "speaker": "年轻朔弦",
+          "text": "我还记得那棵歪树。只要我记得，路就没断。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "与灰帷会合作追缉朔弦的海上猎手，代表其失去故乡后的第一次逃亡。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch022",
@@ -927,41 +953,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "攻击外壳可中断运输，误击结晶会降低证据完整性",
           "dialogue": [
             {
               "speaker": "白夜傀儡",
-              "text": "灰帷会盯上伊泽保管的古老歌曲。"
+              "text": "交易开始。记忆将移交最高出价者。"
             },
             {
-              "speaker": "伊泽",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "宫廷乐师",
+              "text": "箱子里的人声不是货物！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "过半尝试启动记忆封存，先解除锁定能留下身份匿名化资料",
           "dialogue": [
             {
               "speaker": "白夜傀儡",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "访问权限不足。执行保全。"
             },
             {
-              "speaker": "主角",
-              "text": "秘宴拍卖的不是宝物，而是贵族不想留下的记忆。"
+              "speaker": "雷索",
+              "text": "这里有很多宾客。先引开它，别让人群受伤！"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "伊泽",
-          "text": "队伍揭露拍卖账簿，从王宫暗室取出旧议会档案。"
+          "speaker": "宫廷乐师",
+          "text": "谢谢你们。以后这场白夜祭，人们会记得被带走的不只是宝石。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "灰帷会操纵的记忆容器傀儡，负责搬运白夜祭拍卖品，保护受害者隐私为目标。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch023",
@@ -976,41 +1004,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "名字符印会临时隐藏一个指令名，可通过同伴呼喊恢复",
           "dialogue": [
             {
               "speaker": "记录监守者",
-              "text": "守卫将删除调查者的名字，试图让他们从记录里消失。"
+              "text": "访问者无记录。证词无效。"
             },
             {
-              "speaker": "维莎",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "speaker": "岚音",
+              "text": "互相叫出名字，不要让任何人走散！"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "过半阶段企图删除记录原件，优先保护档案比击毁守卫更重要",
           "dialogue": [
             {
               "speaker": "记录监守者",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "存在冲突。执行删除。"
             },
             {
               "speaker": "主角",
-              "text": "古代灯阵通过储存愿望实现对现实的微调。"
+              "text": "把那些未署名的人也写回来！"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "维莎",
-          "text": "主角保住原件，发现第七位守灯者的名字被抹去。"
+          "speaker": "朔弦",
+          "text": "书架终于不乱跑了。要我再来一次？想都别想。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "古档案守卫通过抹去“来访者身份”否定证词，无法被普通武力永久消灭。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch024",
@@ -1025,41 +1055,43 @@
         {
           "at": "battle_start",
           "name": "逼近",
-          "mechanic": "幻象、异常状态与战术转换",
+          "mechanic": "击破多段记录封印，每段对应不同群体证词",
           "dialogue": [
             {
               "speaker": "古议会之影",
-              "text": "三国使者担心公开真相会摧毁新建立的信任。"
+              "text": "请选择唯一正确的历史，其他记录将被删除。"
             },
             {
               "speaker": "雷索",
-              "text": "先保护附近的人！别让它把我们逼到绝路。"
+              "text": "做过善事的人也可能犯错，不能只留一半。"
             }
           ]
         },
         {
           "at": "hp_below_50_percent",
           "name": "真相显露",
-          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "mechanic": "过半要求选一方删除，玩家可坚持保留多方见证以解锁和平结算",
           "dialogue": [
             {
               "speaker": "古议会之影",
-              "text": "为什么还要反抗……未来本应被写好。"
+              "text": "多方证词冲突。建议执行删减。"
             },
             {
-              "speaker": "主角",
-              "text": "七灯初建时，古人把一部分人的记忆当成封印材料。"
+              "speaker": "岚音",
+              "text": "那就把冲突也留着，人总可以继续解释。"
             }
           ]
         }
       ],
       "after_battle": [
         {
-          "speaker": "雷索",
-          "text": "主角公开档案并承担民众的愤怒，下一条航路随之出现。"
+          "speaker": "议会残响",
+          "text": "矛盾未消除。允许完整记录继续存续。"
         }
       ],
-      "implementation_status": "battle_design_text_only"
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "古议会争议的残留意识，试图强迫玩家从历史中删除一方证词才能继续。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
     },
     {
       "id": "boss.ch026",

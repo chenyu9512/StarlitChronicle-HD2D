@@ -235,10 +235,10 @@
       "act": 2,
       "title": "被拒绝的使者",
       "location": "三誓王都·外廷",
-      "log_before": "【被拒绝的使者】前往三誓王都·外廷。这张通行证在三国都不算数，和平比战争更需要耐心。",
-      "log_investigate": "【被拒绝的使者】调查：三份外交函盖着同一个不应存在的秘密印章。",
-      "log_crisis": "【被拒绝的使者】关键事件：大臣要求玩家隐瞒边境难民，才肯开放王城档案。",
-      "log_after": "【被拒绝的使者】主角拒绝伪造证词，循商道秘密进入边境。",
+      "log_before": "【当前目标】将白砂港失忆病患的病例送往三誓王都，外廷却要求三个国家逐一签字。",
+      "log_investigate": "【调查线索】三封退回函盖着同一枚残损印章；后巷的难民登记可能揭露更多。",
+      "log_crisis": "【关键事件】救济官被要求将难民改称“短期旅客”，否则施粥棚就会关闭。",
+      "log_after": "【章节完成】保住难民名单与病例副本。雷索指出灰鹰商道的粮车可以通往边境。",
       "objectives": [
         {
           "type": "reach",
@@ -265,7 +265,8 @@
           "target": "ch007"
         }
       ],
-      "completion_flag": "story.ch007.done"
+      "completion_flag": "story.ch007.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch008",
@@ -273,10 +274,10 @@
       "act": 2,
       "title": "断绝的商路",
       "location": "灰鹰商道",
-      "log_before": "【断绝的商路】前往灰鹰商道。这条路断一天，边境村子就少吃一天饭。",
-      "log_investigate": "【断绝的商路】调查：劫匪弩箭来自王都军械库，而非敌国。",
-      "log_crisis": "【断绝的商路】关键事件：商队首领想用暴力报复对岸村庄，几乎引发冲突。",
-      "log_after": "【断绝的商路】众人护住双方平民，带回可交叉验证的武器编号。",
+      "log_before": "【当前目标】护送粮车穿越灰鹰商道。两岸村庄因连续遇袭，几乎不再交谈。",
+      "log_investigate": "【调查线索】袭击者遗留的弩箭刻着王都军械库编号，却染着另一国的羽色。",
+      "log_crisis": "【关键事件】车队长准备报复对岸村庄；证据尚不足以认定纵火者身份。",
+      "log_after": "【章节完成】双方见证同一批伪造军械，首次共同护送粮食。携物证回王都。",
       "objectives": [
         {
           "type": "reach",
@@ -303,7 +304,8 @@
           "target": "ch008"
         }
       ],
-      "completion_flag": "story.ch008.done"
+      "completion_flag": "story.ch008.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch009",
@@ -311,10 +313,10 @@
       "act": 2,
       "title": "无罪者的审判",
       "location": "三誓王都·审判厅",
-      "log_before": "【无罪者的审判】前往三誓王都·审判厅。我违抗过命令，这点我不会否认。但那不是罪。",
-      "log_investigate": "【无罪者的审判】调查：雷索被命令清剿的村子根本没有敌军。",
-      "log_crisis": "【无罪者的审判】关键事件：证人愿说出真相，却担心家人被王室报复。",
-      "log_after": "【无罪者的审判】法庭公开军令副本，雷索恢复名誉但拒绝复职。",
+      "log_before": "【当前目标】雷索接受重新审判。幸存证人愿意作证，却担心家人遭到报复。",
+      "log_investigate": "【调查线索】旧军令没有敌军位置，却要求清除一切“联络点”。",
+      "log_crisis": "【关键事件】指挥官以证人家属安全威胁出庭者，必须先保全证据和人身安全。",
+      "log_after": "【章节完成】雷索获判无罪，却拒绝恢复旧军籍，正式加入队伍。",
       "objectives": [
         {
           "type": "reach",
@@ -341,7 +343,8 @@
           "target": "ch009"
         }
       ],
-      "completion_flag": "story.ch009.done"
+      "completion_flag": "story.ch009.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch010",
@@ -349,10 +352,10 @@
       "act": 2,
       "title": "三面旗帜",
       "location": "三国边境议事站",
-      "log_before": "【三面旗帜】前往三国边境议事站。每个人说的都是自己受过的伤，可没人听见别人。",
-      "log_investigate": "【三面旗帜】调查：三处纵火现场都出现灰帷会特有的无烟灰。",
-      "log_crisis": "【三面旗帜】关键事件：三国使者把共同调查当成丢面子的让步。",
-      "log_after": "【三面旗帜】主角安排三国共同运粮，第一次建立实际合作。",
+      "log_before": "【当前目标】三国边境粮仓频频失火，各国使者互相指责，议事站陷入僵局。",
+      "log_investigate": "【调查线索】三处粮仓的灰烬性质相同，可能出自灰帷会的隐燃粉。",
+      "log_crisis": "【关键事件】第一批救援粮车被三国卫队围住，居民仍在等待配给。",
+      "log_after": "【章节完成】三国代表共同点验和运送粮食，公开调查书首次签署。",
       "objectives": [
         {
           "type": "reach",
@@ -379,7 +382,8 @@
           "target": "ch010"
         }
       ],
-      "completion_flag": "story.ch010.done"
+      "completion_flag": "story.ch010.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch011",
@@ -387,10 +391,10 @@
       "act": 2,
       "title": "最后的盟约",
       "location": "旧盟约桥",
-      "log_before": "【最后的盟约】前往旧盟约桥。一纸盟约救不了人，愿意承担后果的人才可以。",
-      "log_investigate": "【最后的盟约】调查：王室顾问暗中向两边军队发出了同样的进攻指令。",
-      "log_crisis": "【最后的盟约】关键事件：顾问当众撕毁协议，想让王族背负对方先开战的罪。",
-      "log_after": "【最后的盟约】玩家公布原始军令，三国士兵共同拒绝作战。",
+      "log_before": "【当前目标】护送三国使节到旧盟约桥，阻止可能爆发的边境决战。",
+      "log_investigate": "【调查线索】桥底引线、王宫零件以及三份密信指向同一名王室顾问。",
+      "log_crisis": "【关键事件】顾问撕毁协议并下令两岸进攻，桥下炸药可能殃及平民。",
+      "log_after": "【章节完成】原始军令公开，士兵放下武器。三国决定重新举行公开签约。",
       "objectives": [
         {
           "type": "reach",
@@ -417,7 +421,8 @@
           "target": "ch011"
         }
       ],
-      "completion_flag": "story.ch011.done"
+      "completion_flag": "story.ch011.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch012",
@@ -425,10 +430,10 @@
       "act": 2,
       "title": "王冠不等于信任",
       "location": "律序母灯坛",
-      "log_before": "【王冠不等于信任】前往律序母灯坛。我愿意先把自己的错误写进历史。",
-      "log_investigate": "【王冠不等于信任】调查：律序灯从不判断血统，只验证是否有人兑现承诺。",
-      "log_crisis": "【王冠不等于信任】关键事件：旧仪式要求三位君主相互交出王位作为担保。",
-      "log_after": "【王冠不等于信任】平民代表与国王共同立誓，律序灯在没有献祭的情况下重燃。",
+      "log_before": "【当前目标】前往律序母灯坛，为三国拟定不依赖强制控制的共同誓言。",
+      "log_investigate": "【调查线索】母灯回应普通人的履约行为，而非单独回应王权或印章。",
+      "log_crisis": "【关键事件】旧仪式试图要求三位君主交换王权，民众拒绝成为抵押品。",
+      "log_after": "【章节完成】各地代表共同公开承诺和监督规则，律序母灯重燃。",
       "objectives": [
         {
           "type": "reach",
@@ -455,7 +460,8 @@
           "target": "ch012"
         }
       ],
-      "completion_flag": "story.ch012.done"
+      "completion_flag": "story.ch012.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch013",
@@ -463,10 +469,10 @@
       "act": 3,
       "title": "矿坑里的第二个太阳",
       "location": "赤炉联邦·七号矿坑",
-      "log_before": "【矿坑里的第二个太阳】前往赤炉联邦·七号矿坑。别碰那颗石头，它亮得像太阳，温度却低得像尸体。",
-      "log_investigate": "【矿坑里的第二个太阳】调查：矿井产量在停工时仍持续增长，账册记录着不存在的班次。",
-      "log_crisis": "【矿坑里的第二个太阳】关键事件：矿工家属在名单中发现自己的姓名已经被划去。",
-      "log_after": "【矿坑里的第二个太阳】众人救出幸存者，携带矿石样本前往工匠总署。",
+      "log_before": "【当前目标】七号矿井停工后仍有产量，数十名矿工从官方记录里消失。",
+      "log_investigate": "【调查线索】矿车没有人操作却持续搬运；矿工的记忆可能被接入控制系统。",
+      "log_crisis": "【关键事件】矿工家属要求承认劳动者身份，矿井总管却以供电安全推卸责任。",
+      "log_after": "【章节完成】救出幸存矿工并保存原始记录，前往赤炉工匠总署。",
       "objectives": [
         {
           "type": "reach",
@@ -493,7 +499,8 @@
           "target": "ch013"
         }
       ],
-      "completion_flag": "story.ch013.done"
+      "completion_flag": "story.ch013.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch014",
@@ -501,10 +508,10 @@
       "act": 3,
       "title": "不说谎的机器",
       "location": "赤炉工坊·试验台",
-      "log_before": "【不说谎的机器】前往赤炉工坊·试验台。机器不会骗人，输入它的命令的人却会。",
-      "log_investigate": "【不说谎的机器】调查：机械反复呼唤一个矿工孩子的乳名。",
-      "log_crisis": "【不说谎的机器】关键事件：总署认定声音只是噪声，准备拆毁旧机。",
-      "log_after": "【不说谎的机器】缇珐保存记忆结晶，决定公开能源技术的缺陷。",
+      "log_before": "【当前目标】缇珐工坊的旧机器反复呼唤一个孩子的乳名，似乎保留了私人记忆。",
+      "log_investigate": "【调查线索】修复机器后听到矿工与孩子关于蓝围巾的日常谈话。",
+      "log_crisis": "【关键事件】监察员要求销毁旧机，岚音担心证据被抹去、医院同时失去供能。",
+      "log_after": "【章节完成】记录交由家属与见证人保管，缇珐决定同行，追查非法能源技术。",
       "objectives": [
         {
           "type": "reach",
@@ -531,7 +538,8 @@
           "target": "ch014"
         }
       ],
-      "completion_flag": "story.ch014.done"
+      "completion_flag": "story.ch014.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch015",
@@ -539,10 +547,10 @@
       "act": 3,
       "title": "百工试炼",
       "location": "赤炉联邦·百工塔",
-      "log_before": "【百工试炼】前往赤炉联邦·百工塔。握住锤子的人不只会打铁，也能决定要造什么。",
-      "log_investigate": "【百工试炼】调查：转职仪式源于古代人学习多种技艺的开放制度。",
-      "log_crisis": "【百工试炼】关键事件：工匠议会要求签署永久效忠合同才允许继承技术。",
-      "log_after": "【百工试炼】玩家选择公开试炼图纸，职业系统正式开放。",
+      "log_before": "【当前目标】进入百工塔了解职业技艺，现有议会却以终身合同控制试炼资格。",
+      "log_investigate": "【调查线索】古代塔规要求将本领传给后来的人，并无永久效忠条件。",
+      "log_crisis": "【关键事件】议会要求签署独占协议才允许继承技艺，学徒的学习权受到威胁。",
+      "log_after": "【章节完成】八类基础技艺记录重新公开，职业试炼向普通学徒开放。",
       "objectives": [
         {
           "type": "reach",
@@ -569,7 +577,8 @@
           "target": "ch015"
         }
       ],
-      "completion_flag": "story.ch015.done"
+      "completion_flag": "story.ch015.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch016",
@@ -577,10 +586,10 @@
       "act": 3,
       "title": "被遗忘的矿工",
       "location": "灰砂安置区",
-      "log_before": "【被遗忘的矿工】前往灰砂安置区。他们还活着，为什么整个城市都装作没看见？",
-      "log_investigate": "【被遗忘的矿工】调查：矿工记忆被提取后制成公共能源。",
-      "log_crisis": "【被遗忘的矿工】关键事件：受益居民害怕停供，因此有人自愿替工厂掩盖罪行。",
-      "log_after": "【被遗忘的矿工】众人建立公开名册，为矿工争取补偿和姓名。",
+      "log_before": "【当前目标】灰砂安置区居民不断失去记忆，名字甚至从药品与工资记录消失。",
+      "log_investigate": "【调查线索】官方名册与居民自制名单相差二十七人，记忆提取设备存在干扰。",
+      "log_crisis": "【关键事件】居民担心停掉旧能源会影响医院与供水，受害者却不能继续被沉默。",
+      "log_after": "【章节完成】建立公开名册、见证机制与替代能源计划，开始追索补偿。",
       "objectives": [
         {
           "type": "reach",
@@ -607,7 +616,8 @@
           "target": "ch016"
         }
       ],
-      "completion_flag": "story.ch016.done"
+      "completion_flag": "story.ch016.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch017",
@@ -615,10 +625,10 @@
       "act": 3,
       "title": "熔炉暴走",
       "location": "赤炉主炉",
-      "log_before": "【熔炉暴走】前往赤炉主炉。那颗心脏是我画的图，可我没允许它用来杀人。",
-      "log_investigate": "【熔炉暴走】调查：军方把缇珐的民生引擎改造成火炮系统。",
-      "log_crisis": "【熔炉暴走】关键事件：关机将使医院短时间断电，直接爆破又会伤及全城。",
-      "log_after": "【熔炉暴走】队伍分头抢修备用发电机，阻止机械暴走。",
+      "log_before": "【当前目标】赤炉主炉的民生引擎被改装为巨型战争机械，炮口已进入充能。",
+      "log_investigate": "【调查线索】医疗、居民供电与炮口被强制接入同一供能网络，必须分阀处理。",
+      "log_crisis": "【关键事件】直接停机可能伤及医院病人，任其运转又会攻击城区。",
+      "log_after": "【章节完成】小队分头修复备用供电、关闭炮口，阻止机械暴走。",
       "objectives": [
         {
           "type": "reach",
@@ -645,7 +655,8 @@
           "target": "ch017"
         }
       ],
-      "completion_flag": "story.ch017.done"
+      "completion_flag": "story.ch017.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch018",
@@ -653,10 +664,10 @@
       "act": 3,
       "title": "真正的炉火",
       "location": "炉心母灯室",
-      "log_before": "【真正的炉火】前往炉心母灯室。我不是要证明自己没错，我想让他们不必再受伤。",
-      "log_investigate": "【真正的炉火】调查：炉心灯本可由低功率共享网络维持，从来不必吞噬记忆。",
-      "log_crisis": "【真正的炉火】关键事件：旧统治者威胁公布真相会毁灭工业信誉。",
-      "log_after": "【真正的炉火】市民自愿停工配合改造，炉心灯重燃。",
+      "log_before": "【当前目标】进入炉心母灯室，决定是否向全城公开星灯能源的真实代价。",
+      "log_investigate": "【调查线索】古代图纸显示母灯原可使用共享低功率网络，并不需要吞噬记忆。",
+      "log_crisis": "【关键事件】总督声称公开真相会毁掉工业信誉，矿工家属要求参与新制度。",
+      "log_after": "【章节完成】市民自愿短暂停工并建立共享回路，炉心母灯重燃。",
       "objectives": [
         {
           "type": "reach",
@@ -683,7 +694,8 @@
           "target": "ch018"
         }
       ],
-      "completion_flag": "story.ch018.done"
+      "completion_flag": "story.ch018.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch019",
@@ -691,10 +703,10 @@
       "act": 4,
       "title": "骑士最后的命令",
       "location": "十年前·肃清边村",
-      "log_before": "【骑士最后的命令】前往十年前·肃清边村。军令写的是消灭敌人，可这里连一把剑都没有。",
-      "log_investigate": "【骑士最后的命令】调查：所谓叛军信号来自村中用于求救的烟火。",
-      "log_crisis": "【骑士最后的命令】关键事件：直属长官命令雷索烧毁所有民宅以掩盖误报。",
-      "log_after": "【骑士最后的命令】雷索放走居民，接受被夺爵位的代价。",
+      "log_before": "【当前目标】过去视角：年轻雷索收到清剿边村的命令，却没有见到敌军。",
+      "log_investigate": "【调查线索】所谓联络信号只是村民求救烟；军令要求清除全部可能联络点。",
+      "log_crisis": "【关键事件】主官准备放火，雷索必须决定是否违抗军令护送平民。",
+      "log_after": "【章节完成】雷索失去军籍却保住居民，旧披风与军令成为日后的证据。",
       "objectives": [
         {
           "type": "reach",
@@ -721,7 +733,8 @@
           "target": "ch019"
         }
       ],
-      "completion_flag": "story.ch019.done"
+      "completion_flag": "story.ch019.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch020",
@@ -729,10 +742,10 @@
       "act": 4,
       "title": "没有目的地的船",
       "location": "七年前·无名海",
-      "log_before": "【没有目的地的船】前往七年前·无名海。我记得码头上有一棵歪树，他们却说从来没有那个岛。",
-      "log_investigate": "【没有目的地的船】调查：海图破口处的经纬线被人刻意刮掉。",
-      "log_crisis": "【没有目的地的船】关键事件：船长决定将仍寻找故乡的朔弦卖给灰帷会。",
-      "log_after": "【没有目的地的船】朔弦逃脱并藏起船长的航海日记。",
+      "log_before": "【当前目标】过去视角：少年朔弦寻找地图上不存在的故乡，船长却否认海岛存在。",
+      "log_investigate": "【调查线索】海图的经纬线被人为刮掉，船长日志记载着封存的无名岛。",
+      "log_crisis": "【关键事件】灰帷猎手靠近船只，船长试图用少年朔弦换取报酬。",
+      "log_after": "【章节完成】朔弦携带旧日志逃离，决定有朝一日找回故乡航路。",
       "objectives": [
         {
           "type": "reach",
@@ -759,7 +772,8 @@
           "target": "ch020"
         }
       ],
-      "completion_flag": "story.ch020.done"
+      "completion_flag": "story.ch020.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch021",
@@ -767,10 +781,10 @@
       "act": 4,
       "title": "药师的谎言",
       "location": "十年前·晨露药房",
-      "log_before": "【药师的谎言】前往十年前·晨露药房。我把那张纸藏起来，不是因为不信任你。",
-      "log_investigate": "【药师的谎言】调查：澄舟曾嘱咐岚音，若主角失忆就让其远离第七座灯。",
-      "log_crisis": "【药师的谎言】关键事件：岚音母亲要求销毁记录，否则主角会被议会找到。",
-      "log_after": "【药师的谎言】岚音藏下病历，决心终有一天亲口解释。",
+      "log_before": "【当前目标】过去视角：少年岚音在熄灯之夜后收到澄舟留下的病历与嘱托。",
+      "log_investigate": "【调查线索】病历写有尚未发生的未来，警告第七灯会追查主角。",
+      "log_crisis": "【关键事件】岚音为了保护童年好友隐瞒真相，十年后终于不得不坦白。",
+      "log_after": "【章节完成】岚音交出完整病历。主角可以表达受伤，也可以选择共同调查。",
       "objectives": [
         {
           "type": "reach",
@@ -797,7 +811,8 @@
           "target": "ch021"
         }
       ],
-      "completion_flag": "story.ch021.done"
+      "completion_flag": "story.ch021.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch022",
@@ -805,10 +820,10 @@
       "act": 4,
       "title": "白夜祭",
       "location": "三誓王都·灯会",
-      "log_before": "【白夜祭】前往三誓王都·灯会。歌声最适合藏真话，因为人们只会记住旋律。",
-      "log_investigate": "【白夜祭】调查：秘宴拍卖的不是宝物，而是贵族不想留下的记忆。",
-      "log_crisis": "【白夜祭】关键事件：灰帷会盯上伊泽保管的古老歌曲。",
-      "log_after": "【白夜祭】队伍揭露拍卖账簿，从王宫暗室取出旧议会档案。",
+      "log_before": "【当前目标】白夜祭当天，队伍潜入王宫拍卖会，调查记忆被出售的地下交易。",
+      "log_investigate": "【调查线索】拍卖账册包含战乱受害者的私人记忆，一名宫廷乐师愿意作证。",
+      "log_crisis": "【关键事件】拍卖主持以交易规则威胁证人，记忆结晶随时可能被搬走。",
+      "log_after": "【章节完成】保护证人与交易记录，发现通往王城地下档案室的线索。",
       "objectives": [
         {
           "type": "reach",
@@ -835,7 +850,8 @@
           "target": "ch022"
         }
       ],
-      "completion_flag": "story.ch022.done"
+      "completion_flag": "story.ch022.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch023",
@@ -843,10 +859,10 @@
       "act": 4,
       "title": "被修改的记录",
       "location": "王城地下档案室",
-      "log_before": "【被修改的记录】前往王城地下档案室。档案被改过三次，有人害怕别人读到原件。",
-      "log_investigate": "【被修改的记录】调查：古代灯阵通过储存愿望实现对现实的微调。",
-      "log_crisis": "【被修改的记录】关键事件：守卫将删除调查者的名字，试图让他们从记录里消失。",
-      "log_after": "【被修改的记录】主角保住原件，发现第七位守灯者的名字被抹去。",
+      "log_before": "【当前目标】进入不断变化的地下档案室，寻找七灯建造记录的原件。",
+      "log_investigate": "【调查线索】原始记忆捐献名册没有个人签字，封底出现记灯师维莎的姓名。",
+      "log_crisis": "【关键事件】档案守卫企图抹去访客姓名，令所有证词自动无效。",
+      "log_after": "【章节完成】同伴互相确认身份，保存原始档案与未署名记忆，前往断层议会遗迹。",
       "objectives": [
         {
           "type": "reach",
@@ -873,7 +889,8 @@
           "target": "ch023"
         }
       ],
-      "completion_flag": "story.ch023.done"
+      "completion_flag": "story.ch023.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch024",
@@ -881,10 +898,10 @@
       "act": 4,
       "title": "守灯者的罪",
       "location": "断层议会遗迹",
-      "log_before": "【守灯者的罪】前往断层议会遗迹。拯救世界的人，也得面对自己做错的事。",
-      "log_investigate": "【守灯者的罪】调查：七灯初建时，古人把一部分人的记忆当成封印材料。",
-      "log_crisis": "【守灯者的罪】关键事件：三国使者担心公开真相会摧毁新建立的信任。",
-      "log_after": "【守灯者的罪】主角公开档案并承担民众的愤怒，下一条航路随之出现。",
+      "log_before": "【当前目标】断层议会遗迹保留千年前建造七灯时的争论，众人决定调查原始代价。",
+      "log_investigate": "【调查线索】古代会议记录显示：自愿供能被一次“临时”措施逐渐替换为强制提取。",
+      "log_crisis": "【关键事件】三国使者担心公开真相冲击和平，但受害者也有知情权。",
+      "log_after": "【章节完成】公开完整证据并保留多方见证，取得驶向海歌港的下一步线索。",
       "objectives": [
         {
           "type": "reach",
@@ -911,7 +928,8 @@
           "target": "ch024"
         }
       ],
-      "completion_flag": "story.ch024.done"
+      "completion_flag": "story.ch024.done",
+      "script_revision": "acts02_04_journal_v2"
     },
     {
       "id": "ch025",

@@ -2523,19 +2523,22 @@
       "stages": [
         {
           "id": "sq_life_01.start",
-          "objective": "与灯匠交谈并了解请求",
+          "objective": "受理居民委托",
           "dialogue": [
             {
+              "id": "sq_life_01.start.l01",
               "speaker": "灯匠",
-              "text": "村里剩下的灯有三盏忽明忽暗。"
+              "text": "黄昏街三盏灯轮流熄灭，孩子们说海怪上岸了。"
             },
             {
+              "id": "sq_life_01.start.l02",
+              "speaker": "岚音",
+              "text": "先让孩子不要靠近灯柱。"
+            },
+            {
+              "id": "sq_life_01.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "灯匠",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "白天检查电线。"
             }
           ],
           "effects": [
@@ -2548,19 +2551,22 @@
         },
         {
           "id": "sq_life_01.investigate",
-          "objective": "调查晨露村·黄昏街并搜集证据",
+          "objective": "调查现场物件和证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【晨露村·黄昏街】线索逐渐清晰。"
-            },
-            {
-              "speaker": "灯匠",
-              "text": "一条灯线被螃蟹咬断，镇民却传成海怪入侵。"
-            },
-            {
+              "id": "sq_life_01.investigate.l01",
               "speaker": "主角",
-              "text": "修好灯后孩子们重新敢在夜晚回家。"
+              "text": "第一盏灯柱有蟹钳划痕。"
+            },
+            {
+              "id": "sq_life_01.investigate.l02",
+              "speaker": "灯匠",
+              "text": "旧线盒被盐水泡坏，还让螃蟹钻进去。"
+            },
+            {
+              "id": "sq_life_01.investigate.l03",
+              "speaker": "岚音",
+              "text": "怪物倒是比传闻小得多。"
             }
           ],
           "effects": [
@@ -2572,20 +2578,87 @@
           ]
         },
         {
-          "id": "sq_life_01.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_01.witness",
+          "objective": "听取事件另一方的说法",
           "dialogue": [
             {
+              "id": "sq_life_01.witness.l01",
+              "speaker": "夜班渔夫",
+              "text": "我说过看见小蟹，但谁也不信。"
+            },
+            {
+              "id": "sq_life_01.witness.l02",
               "speaker": "灯匠",
-              "text": "路灯恢复后，孩子们终于敢走夜路。"
+              "text": "是我不肯承认设备老旧。"
             },
             {
+              "id": "sq_life_01.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "把事实告诉居民，再安排修理。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_01.decision",
+          "objective": "决定后续处理方式",
+          "dialogue": [
+            {
+              "id": "sq_life_01.decision.l01",
+              "speaker": "街坊",
+              "text": "谁负责以后每年维护？"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_01.decision.l02",
+              "speaker": "灯匠",
+              "text": "我能教年轻人巡检。"
+            },
+            {
+              "id": "sq_life_01.decision.l03",
+              "speaker": "主角",
+              "text": "开一份公开维护表。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_01.choice",
+            "prompt": "怎样推进后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "建立居民轮流巡灯制度",
+                "sets": {
+                  "side.sq_life_01.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "先更换防盐防蟹接线盒",
+                "sets": {
+                  "side.sq_life_01.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_01.finish",
+          "objective": "交付居民委托并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_01.finish.l01",
+              "speaker": "旁白",
+              "text": "黄昏时三盏灯同时亮起。"
+            },
+            {
+              "id": "sq_life_01.finish.l02",
+              "speaker": "孩子",
+              "text": "今晚终于可以放心走回家。"
+            },
+            {
+              "id": "sq_life_01.finish.l03",
+              "speaker": "灯匠",
+              "text": "线盒高了一截，小蟹爬不上来。"
             }
           ],
           "effects": [
@@ -2604,8 +2677,9 @@
       ],
       "npc_after": {
         "speaker": "灯匠",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "线盒高了一截，小蟹爬不上来。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_02",
@@ -2624,19 +2698,22 @@
       "stages": [
         {
           "id": "sq_life_02.start",
-          "objective": "与岚音交谈并了解请求",
+          "objective": "受理居民委托",
           "dialogue": [
             {
+              "id": "sq_life_02.start.l01",
               "speaker": "岚音",
-              "text": "病人比床多，我只能把我自己的床让出来。"
+              "text": "药房病人多到睡在走廊，我把自己的床让了出去。"
             },
             {
+              "id": "sq_life_02.start.l02",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
+              "text": "那你睡哪儿？"
             },
             {
+              "id": "sq_life_02.start.l03",
               "speaker": "岚音",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "有人愿捐木头，只是没人组织。"
             }
           ],
           "effects": [
@@ -2649,19 +2726,22 @@
         },
         {
           "id": "sq_life_02.investigate",
-          "objective": "调查晨露药房并搜集证据",
+          "objective": "调查现场物件和证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【晨露药房】线索逐渐清晰。"
+              "id": "sq_life_02.investigate.l01",
+              "speaker": "木匠",
+              "text": "床要能让病人安全翻身，不能只求做得快。"
             },
             {
+              "id": "sq_life_02.investigate.l02",
               "speaker": "岚音",
-              "text": "村民愿捐木材，只是不知道如何组织。"
+              "text": "还要方便清洗。"
             },
             {
+              "id": "sq_life_02.investigate.l03",
               "speaker": "主角",
-              "text": "建起公共病床，解锁恢复道具折扣。"
+              "text": "先列木料和工时。"
             }
           ],
           "effects": [
@@ -2673,20 +2753,87 @@
           ]
         },
         {
-          "id": "sq_life_02.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_02.witness",
+          "objective": "听取事件另一方的说法",
           "dialogue": [
             {
+              "id": "sq_life_02.witness.l01",
+              "speaker": "病人",
+              "text": "别给我们做一张用来拍照的床。"
+            },
+            {
+              "id": "sq_life_02.witness.l02",
               "speaker": "岚音",
-              "text": "药房多出一张病床，谁也不必再睡在走廊。"
+              "text": "得考虑之后谁换床单。"
             },
             {
+              "id": "sq_life_02.witness.l03",
+              "speaker": "木匠",
+              "text": "维护也要有人做。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_02.decision",
+          "objective": "决定后续处理方式",
+          "dialogue": [
+            {
+              "id": "sq_life_02.decision.l01",
+              "speaker": "村民",
+              "text": "捐得多的能不能先住？"
+            },
+            {
+              "id": "sq_life_02.decision.l02",
+              "speaker": "岚音",
+              "text": "按病情安排，不按捐赠多少。"
+            },
+            {
+              "id": "sq_life_02.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "公开物资账目，但不能出售看病顺序。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_02.choice",
+            "prompt": "怎样推进后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "公开病床建造和维护账目",
+                "sets": {
+                  "side.sq_life_02.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "培训村民协助日常护理",
+                "sets": {
+                  "side.sq_life_02.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_02.finish",
+          "objective": "交付居民委托并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_02.finish.l01",
+              "speaker": "旁白",
+              "text": "药房添了第二张病床。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_02.finish.l02",
+              "speaker": "病人",
+              "text": "终于不用在走廊听雨了。"
+            },
+            {
+              "id": "sq_life_02.finish.l03",
+              "speaker": "岚音",
+              "text": "捐赠者写在感谢册，不写在床位上。"
             }
           ],
           "effects": [
@@ -2705,8 +2852,9 @@
       ],
       "npc_after": {
         "speaker": "岚音",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "捐赠者写在感谢册，不写在床位上。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_03",
@@ -2725,19 +2873,22 @@
       "stages": [
         {
           "id": "sq_life_03.start",
-          "objective": "与厨娘交谈并了解请求",
+          "objective": "受理居民委托",
           "dialogue": [
             {
+              "id": "sq_life_03.start.l01",
               "speaker": "厨娘",
-              "text": "这锅汤不是咸了，是盐罐里混进了糖。"
+              "text": "谁把糖倒进盐罐？这锅鱼汤没法卖了。"
             },
             {
+              "id": "sq_life_03.start.l02",
+              "speaker": "朔弦",
+              "text": "我觉得还挺新鲜。"
+            },
+            {
+              "id": "sq_life_03.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "厨娘",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "别贫，检查仓库。"
             }
           ],
           "effects": [
@@ -2750,19 +2901,22 @@
         },
         {
           "id": "sq_life_03.investigate",
-          "objective": "调查白砂港·厨房并搜集证据",
+          "objective": "调查现场物件和证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【白砂港·厨房】线索逐渐清晰。"
-            },
-            {
+              "id": "sq_life_03.investigate.l01",
               "speaker": "厨娘",
-              "text": "朔弦曾在这里欠下一顿饭钱。"
+              "text": "旧货架被潮气泡坏。"
             },
             {
-              "speaker": "主角",
-              "text": "帮厨房修好仓库，朔弦自愿偿还欠款。"
+              "id": "sq_life_03.investigate.l02",
+              "speaker": "朔弦",
+              "text": "我欠的饭钱还在账上？"
+            },
+            {
+              "id": "sq_life_03.investigate.l03",
+              "speaker": "厨娘",
+              "text": "十顿，不是一顿。"
             }
           ],
           "effects": [
@@ -2774,20 +2928,92 @@
           ]
         },
         {
-          "id": "sq_life_03.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_03.witness",
+          "objective": "听取事件另一方的说法",
           "dialogue": [
             {
+              "id": "sq_life_03.witness.l01",
+              "speaker": "船工",
+              "text": "海盐送来那天借了糖罐，忘记贴标签。"
+            },
+            {
+              "id": "sq_life_03.witness.l02",
               "speaker": "厨娘",
-              "text": "朔弦补上欠厨房的饭钱，也帮忙修好仓库。"
+              "text": "仓库得修。"
             },
             {
+              "id": "sq_life_03.witness.l03",
+              "speaker": "朔弦",
+              "text": "我出力修架，也把欠账还了。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_03.decision",
+          "objective": "决定后续处理方式",
+          "dialogue": [
+            {
+              "id": "sq_life_03.decision.l01",
+              "speaker": "厨娘",
+              "text": "修好以后谁管？"
+            },
+            {
+              "id": "sq_life_03.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "各罐标清用途并做进货登记。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_03.decision.l03",
+              "speaker": "朔弦",
+              "text": "账单写我的名字，不再偷偷赊。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_03.choice",
+            "prompt": "怎样推进后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先修仓库再补充货品标签",
+                "sets": {
+                  "side.sq_life_03.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "将还款和维护写进公开明细",
+                "sets": {
+                  "side.sq_life_03.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_03.finish",
+          "objective": "交付居民委托并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_03.finish.l01",
+              "speaker": "旁白",
+              "text": "鱼汤终于有了熟悉的味道。"
+            },
+            {
+              "id": "sq_life_03.finish.l02",
+              "speaker": "厨娘",
+              "text": "今天可以开张了。"
+            },
+            {
+              "id": "sq_life_03.finish.l03",
+              "speaker": "朔弦",
+              "text": "那么明天我能赊一顿吗？"
+            },
+            {
+              "id": "sq_life_03.finish.l04",
+              "speaker": "厨娘",
+              "text": "不行！"
             }
           ],
           "effects": [
@@ -2806,8 +3032,9 @@
       ],
       "npc_after": {
         "speaker": "厨娘",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "不行！"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_04",
@@ -2826,19 +3053,22 @@
       "stages": [
         {
           "id": "sq_life_04.start",
-          "objective": "与旗手交谈并了解请求",
+          "objective": "受理居民委托",
           "dialogue": [
             {
+              "id": "sq_life_04.start.l01",
               "speaker": "旗手",
-              "text": "两国的旗语一样，意思却完全反过来。"
+              "text": "对岸的准许通行信号，在这边却是停止。"
             },
             {
+              "id": "sq_life_04.start.l02",
+              "speaker": "雷索",
+              "text": "两国怎么用反了同一套旗语？"
+            },
+            {
+              "id": "sq_life_04.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "旗手",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "先让粮车在安全处等待。"
             }
           ],
           "effects": [
@@ -2851,19 +3081,22 @@
         },
         {
           "id": "sq_life_04.investigate",
-          "objective": "调查三誓关卡并搜集证据",
+          "objective": "调查现场物件和证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【三誓关卡】线索逐渐清晰。"
-            },
-            {
+              "id": "sq_life_04.investigate.l01",
               "speaker": "旗手",
-              "text": "古代旗语教材曾被人故意交换页码。"
+              "text": "旧教材第六页和第九页互换过。"
             },
             {
+              "id": "sq_life_04.investigate.l02",
+              "speaker": "新兵",
+              "text": "我照着这本书学了半年。"
+            },
+            {
+              "id": "sq_life_04.investigate.l03",
               "speaker": "主角",
-              "text": "两地学员合写新版旗语手册。"
+              "text": "两边的原本要一起核对。"
             }
           ],
           "effects": [
@@ -2875,20 +3108,87 @@
           ]
         },
         {
-          "id": "sq_life_04.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_04.witness",
+          "objective": "听取事件另一方的说法",
           "dialogue": [
             {
+              "id": "sq_life_04.witness.l01",
+              "speaker": "车夫",
+              "text": "昨天我差点被当成敌军。"
+            },
+            {
+              "id": "sq_life_04.witness.l02",
+              "speaker": "雷索",
+              "text": "不能把责任全推给新兵。"
+            },
+            {
+              "id": "sq_life_04.witness.l03",
               "speaker": "旗手",
-              "text": "新版旗语由两国学员共同编写，不再有人因误读被扣押。"
+              "text": "有人故意改教材的可能也该调查。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_04.decision",
+          "objective": "决定后续处理方式",
+          "dialogue": [
+            {
+              "id": "sq_life_04.decision.l01",
+              "speaker": "关卡长",
+              "text": "选一个国家的旗语就行。"
             },
             {
+              "id": "sq_life_04.decision.l02",
+              "speaker": "旗手",
+              "text": "为什么不一起编新版？"
+            },
+            {
+              "id": "sq_life_04.decision.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "加入应急信号与旧码对照。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_04.choice",
+            "prompt": "怎样推进后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先用临时双边急救信号",
+                "sets": {
+                  "side.sq_life_04.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由两国学员共同制定手册",
+                "sets": {
+                  "side.sq_life_04.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_04.finish",
+          "objective": "交付居民委托并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_04.finish.l01",
+              "speaker": "旁白",
+              "text": "两岸学员一起测试新版旗语。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_04.finish.l02",
+              "speaker": "车夫",
+              "text": "过桥终于不用靠猜。"
+            },
+            {
+              "id": "sq_life_04.finish.l03",
+              "speaker": "旗手",
+              "text": "雨天和雾天的手册也要加上。"
             }
           ],
           "effects": [
@@ -2907,8 +3207,9 @@
       ],
       "npc_after": {
         "speaker": "旗手",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "雨天和雾天的手册也要加上。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_05",
@@ -2927,19 +3228,22 @@
       "stages": [
         {
           "id": "sq_life_05.start",
-          "objective": "与鞋匠交谈并了解请求",
+          "objective": "受理居民委托",
           "dialogue": [
             {
+              "id": "sq_life_05.start.l01",
               "speaker": "鞋匠",
-              "text": "这双旧鞋穿破了，还被说成国宝。"
+              "text": "这双磨破的鞋，被王宫说成国王的旧物。"
             },
             {
+              "id": "sq_life_05.start.l02",
+              "speaker": "雷索",
+              "text": "鞋底像长期挑重担磨坏的。"
+            },
+            {
+              "id": "sq_life_05.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "鞋匠",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "找捐赠档案。"
             }
           ],
           "effects": [
@@ -2952,19 +3256,22 @@
         },
         {
           "id": "sq_life_05.investigate",
-          "objective": "调查三誓王都·旧裁缝铺并搜集证据",
+          "objective": "调查现场物件和证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【三誓王都·旧裁缝铺】线索逐渐清晰。"
-            },
-            {
+              "id": "sq_life_05.investigate.l01",
               "speaker": "鞋匠",
-              "text": "它原属于给难民送粮的普通搬运工。"
+              "text": "鞋里绣了搬运工家人的名字。"
             },
             {
+              "id": "sq_life_05.investigate.l02",
+              "speaker": "档案员",
+              "text": "王宫的旧牌子没有注明来源。"
+            },
+            {
+              "id": "sq_life_05.investigate.l03",
               "speaker": "主角",
-              "text": "让王宫归还文物出处，声望提升。"
+              "text": "文物不能只凭传闻定主人。"
             }
           ],
           "effects": [
@@ -2976,20 +3283,87 @@
           ]
         },
         {
-          "id": "sq_life_05.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_05.witness",
+          "objective": "听取事件另一方的说法",
           "dialogue": [
             {
+              "id": "sq_life_05.witness.l01",
+              "speaker": "搬运工后裔",
+              "text": "祖父送过粮，从未做过国王。"
+            },
+            {
+              "id": "sq_life_05.witness.l02",
               "speaker": "鞋匠",
-              "text": "王宫重新标注旧鞋真正的主人。"
+              "text": "改说明会不会被王宫收走？"
             },
             {
+              "id": "sq_life_05.witness.l03",
+              "speaker": "雷索",
+              "text": "实际走过那些路的人比传说更值得被记住。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_05.decision",
+          "objective": "决定后续处理方式",
+          "dialogue": [
+            {
+              "id": "sq_life_05.decision.l01",
+              "speaker": "宫廷管事",
+              "text": "换掉王室说明会影响庆典。"
+            },
+            {
+              "id": "sq_life_05.decision.l02",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "可以保留误记的历史，但别再继续写错。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_05.decision.l03",
+              "speaker": "鞋匠",
+              "text": "把真实来历放到展柜前。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_05.choice",
+            "prompt": "怎样推进后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "先由家属审核展品出处",
+                "sets": {
+                  "side.sq_life_05.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "公开修改说明并保留旧误记",
+                "sets": {
+                  "side.sq_life_05.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_05.finish",
+          "objective": "交付居民委托并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_05.finish.l01",
+              "speaker": "旁白",
+              "text": "展柜改写为普通搬运工的送粮故事。"
+            },
+            {
+              "id": "sq_life_05.finish.l02",
+              "speaker": "后裔",
+              "text": "祖父不当国王也值得纪念。"
+            },
+            {
+              "id": "sq_life_05.finish.l03",
+              "speaker": "鞋匠",
+              "text": "这双鞋总算回到真正走过的路上。"
             }
           ],
           "effects": [
@@ -3008,8 +3382,9 @@
       ],
       "npc_after": {
         "speaker": "鞋匠",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "text": "这双鞋总算回到真正走过的路上。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_06",
@@ -3018,7 +3393,7 @@
       "region": "三国边界·教堂",
       "required_chapter": "ch012",
       "recommended_after_flag": "story.ch012.done",
-      "npc": "伊泽",
+      "npc": "教堂唱诗教师",
       "summary": "孩子们唱同一首歌，却总要争哪个国家写的。 曲谱由三个国家的老人分别写过一段。",
       "completion_flag": "side.sq_life_06.done",
       "rewards": {
@@ -3028,19 +3403,22 @@
       "stages": [
         {
           "id": "sq_life_06.start",
-          "objective": "与伊泽交谈并了解请求",
+          "objective": "受理居民委托",
           "dialogue": [
             {
-              "speaker": "伊泽",
-              "text": "孩子们唱同一首歌，却总要争哪个国家写的。"
+              "id": "sq_life_06.start.l01",
+              "speaker": "唱诗教师",
+              "text": "三国的孩子唱同一首歌，却都说归自己国家。"
             },
             {
+              "id": "sq_life_06.start.l02",
+              "speaker": "孩子",
+              "text": "老师让我们删掉对岸那一句。"
+            },
+            {
+              "id": "sq_life_06.start.l03",
               "speaker": "主角",
-              "text": "我可以帮忙。先告诉我已知的线索。"
-            },
-            {
-              "speaker": "伊泽",
-              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+              "text": "曲谱给我看看。"
             }
           ],
           "effects": [
@@ -3053,19 +3431,22 @@
         },
         {
           "id": "sq_life_06.investigate",
-          "objective": "调查三国边界·教堂并搜集证据",
+          "objective": "调查现场物件和证据",
           "dialogue": [
             {
-              "speaker": "旁白",
-              "text": "【三国边界·教堂】线索逐渐清晰。"
+              "id": "sq_life_06.investigate.l01",
+              "speaker": "唱诗教师",
+              "text": "三位老人各自写过不同一段。"
             },
             {
-              "speaker": "伊泽",
-              "text": "曲谱由三个国家的老人分别写过一段。"
+              "id": "sq_life_06.investigate.l02",
+              "speaker": "孩子甲",
+              "text": "原来歌不是同一个人写的。"
             },
             {
-              "speaker": "主角",
-              "text": "三地孩子共同演唱，打开羁绊演出。"
+              "id": "sq_life_06.investigate.l03",
+              "speaker": "雷索",
+              "text": "你们唱歌前就已经在分享东西。"
             }
           ],
           "effects": [
@@ -3077,20 +3458,87 @@
           ]
         },
         {
-          "id": "sq_life_06.finish",
-          "objective": "处理发现并向委托人回复",
+          "id": "sq_life_06.witness",
+          "objective": "听取事件另一方的说法",
           "dialogue": [
             {
-              "speaker": "伊泽",
-              "text": "三国的孩子一起唱完了这首原本就由三地合写的歌。"
+              "id": "sq_life_06.witness.l01",
+              "speaker": "老唱诗人",
+              "text": "有人怕口音不同不好听。"
             },
             {
+              "id": "sq_life_06.witness.l02",
+              "speaker": "孩子乙",
+              "text": "可我们一直这样唱。"
+            },
+            {
+              "id": "sq_life_06.witness.l03",
               "speaker": "主角",
-              "text": "希望这段故事今后不会被人忘记。"
+              "text": "请老人把原版教给孩子。"
+            }
+          ],
+          "effects": []
+        },
+        {
+          "id": "sq_life_06.decision",
+          "objective": "决定后续处理方式",
+          "dialogue": [
+            {
+              "id": "sq_life_06.decision.l01",
+              "speaker": "教堂管事",
+              "text": "正式演出必须署一个国家的名。"
             },
             {
-              "speaker": "系统",
-              "text": "支线任务完成。"
+              "id": "sq_life_06.decision.l02",
+              "speaker": "唱诗教师",
+              "text": "三段歌就该有三份署名。"
+            },
+            {
+              "id": "sq_life_06.decision.l03",
+              "speaker": "雷索",
+              "text": "让孩子和创作者决定。"
+            }
+          ],
+          "effects": [],
+          "choice": {
+            "id": "sq_life_06.choice",
+            "prompt": "怎样推进后续处理？",
+            "options": [
+              {
+                "id": "a",
+                "label": "将三位老作者共同署名",
+                "sets": {
+                  "side.sq_life_06.approach": "a"
+                }
+              },
+              {
+                "id": "b",
+                "label": "由孩子共同商议合唱方式",
+                "sets": {
+                  "side.sq_life_06.approach": "b"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "sq_life_06.finish",
+          "objective": "交付居民委托并回访",
+          "dialogue": [
+            {
+              "id": "sq_life_06.finish.l01",
+              "speaker": "旁白",
+              "text": "三国孩子唱完了全部曲谱。"
+            },
+            {
+              "id": "sq_life_06.finish.l02",
+              "speaker": "唱诗教师",
+              "text": "节目单写上三位老人。"
+            },
+            {
+              "id": "sq_life_06.finish.l03",
+              "speaker": "孩子",
+              "text": "这次不必争谁唱错了。"
             }
           ],
           "effects": [
@@ -3108,9 +3556,10 @@
         }
       ],
       "npc_after": {
-        "speaker": "伊泽",
-        "text": "谢谢你愿意听完这件小事。"
-      }
+        "speaker": "教堂唱诗教师",
+        "text": "这次不必争谁唱错了。"
+      },
+      "script_revision": "regional_five_stage_v2"
     },
     {
       "id": "sq_life_07",

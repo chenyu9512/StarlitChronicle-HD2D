@@ -37,22 +37,42 @@
             {
               "id": "ch025.opening.l01",
               "speaker": "旁白",
-              "text": "【海歌港·旧船坞】空气中藏着异样的气息。"
+              "text": "海歌港旧船坞里，一艘破船被抬上木架，船腹的裂口像一道旧伤。"
             },
             {
               "id": "ch025.opening.l02",
               "speaker": "朔弦",
-              "text": "船不是自由的证明，愿意上船的人才是。"
+              "text": "听好，船能修。就是修完以后大概没人相信它能浮起来。"
             },
             {
               "id": "ch025.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。筹集木材、修复船体并挑选船员。"
+              "speaker": "缇珐",
+              "text": "龙骨还直，最贵的部分没坏。你能找到桅杆，我就能补板。"
             },
             {
               "id": "ch025.opening.l04",
-              "speaker": "朔弦",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "船坞老人",
+              "text": "这船名叫逐星号。她的上一任船主修到一半便走了。"
+            },
+            {
+              "id": "ch025.opening.l05",
+              "speaker": "主角",
+              "text": "走去了哪里？"
+            },
+            {
+              "id": "ch025.opening.l06",
+              "speaker": "船坞老人",
+              "text": "不知道。他只在底舱刻下个小灯的图案。"
+            },
+            {
+              "id": "ch025.opening.l07",
+              "speaker": "岚音",
+              "text": "这个刻痕……是澄舟修工具时惯用的记号。"
+            },
+            {
+              "id": "ch025.opening.l08",
+              "speaker": "雷索",
+              "text": "先清点木料，再决定需要多少船员。"
             }
           ],
           "objectives": [
@@ -71,7 +91,12 @@
               "key": "ch025.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "破船旁的木屑与海潮一同流动",
+            "narrative_intent": "表现海上生活与地点",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch025.investigate",
@@ -84,22 +109,37 @@
             {
               "id": "ch025.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在海歌港·旧船坞找到了一处被忽视的痕迹。"
+              "text": "船籍册夹着两张彼此矛盾的欠款单：一张写着欠三百枚金币，另一张写着债务已清。"
             },
             {
               "id": "ch025.investigate.l02",
-              "speaker": "朔弦",
-              "text": "废弃船舱内刻有澄舟的修船标记。"
+              "speaker": "缇珐",
+              "text": "这边的修理零件是原厂件，说明主人确实曾花钱保养。"
             },
             {
               "id": "ch025.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "朔弦",
+              "text": "旧港长最爱把已清的债算第二遍。我以前也被他算过。"
             },
             {
               "id": "ch025.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "船坞老人",
+              "text": "有证据吗？我只剩这张收到的转账纸。"
+            },
+            {
+              "id": "ch025.investigate.l05",
+              "speaker": "主角",
+              "text": "印章底下有第二层墨。看起来有人后来补写了数字。"
+            },
+            {
+              "id": "ch025.investigate.l06",
+              "speaker": "岚音",
+              "text": "我们去找当年的码头账房，他应该认得这套账。"
+            },
+            {
+              "id": "ch025.investigate.l07",
+              "speaker": "雷索",
+              "text": "船不能靠谎言驶向大海。先把船籍拿回来。"
             }
           ],
           "objectives": [
@@ -118,7 +158,12 @@
               "key": "ch025.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "双份欠款单叠在透光桌面",
+            "narrative_intent": "发现历史留下的证据",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch025.crisis",
@@ -133,23 +178,38 @@
           "dialogue": [
             {
               "id": "ch025.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "港长",
+              "text": "船是公共债务的抵押物，没有我的同意谁也不准开走。"
             },
             {
               "id": "ch025.crisis.l02",
               "speaker": "朔弦",
-              "text": "港长要扣押旧船抵债，即便债务早已还清。"
+              "text": "你拿一张伪造欠条，想从同一条船身上拿两次钱？"
             },
             {
               "id": "ch025.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "港长",
+              "text": "你这个跑过黑船的人，有资格讲信誉？"
             },
             {
               "id": "ch025.crisis.l04",
               "speaker": "朔弦",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "所以这次我带着收据来了。不是靠一张嘴。"
+            },
+            {
+              "id": "ch025.crisis.l05",
+              "speaker": "缇珐",
+              "text": "我能修船，却修不了港口所有人的账。你们最好今天说清。"
+            },
+            {
+              "id": "ch025.crisis.l06",
+              "speaker": "主角",
+              "text": "公开两张单据，让船工们也看看是谁付过工钱。"
+            },
+            {
+              "id": "ch025.crisis.l07",
+              "speaker": "船坞老人",
+              "text": "那钱我亲眼见过。今日我愿意当证人。"
             }
           ],
           "objectives": [
@@ -167,25 +227,32 @@
           ],
           "choice": {
             "id": "ch025.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "面对争议船籍，如何取回逐星号？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先公开还款收据，要求重审",
                 "sets": {
-                  "ch025.approach": "listen"
+                  "ch025.approach": "public_account",
+                  "world.ch025.approach": "public_account"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "召集船工证言，核对修理账目",
                 "sets": {
-                  "ch025.approach": "act"
+                  "ch025.approach": "witness_testimony",
+                  "world.ch025.approach": "witness_testimony"
                 }
               }
             ]
           },
-          "encounter": null
+          "encounter": null,
+          "direction": {
+            "shot": "港长的印章盖不住原收据",
+            "narrative_intent": "人物主动面对冲突",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch025.resolve",
@@ -200,22 +267,42 @@
             {
               "id": "ch025.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "傍晚，旧债被撤销。修好的逐星号缓缓滑进海里，水线恰好盖住最旧的伤口。"
             },
             {
               "id": "ch025.resolve.l02",
               "speaker": "朔弦",
-              "text": "玩家用旧债收据换得船籍，远航船「逐星号」起航。"
+              "text": "新船长第一条规矩：船上禁止为了面子隐瞒漏水。"
             },
             {
               "id": "ch025.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "缇珐",
+              "text": "第二条，维修记录不许用酒渍当签名。"
             },
             {
               "id": "ch025.resolve.l04",
+              "speaker": "岚音",
+              "text": "第三条，有人不舒服要说。晕船也不丢人。"
+            },
+            {
+              "id": "ch025.resolve.l05",
+              "speaker": "雷索",
+              "text": "我只问，这船有多少逃生艇？"
+            },
+            {
+              "id": "ch025.resolve.l06",
+              "speaker": "主角",
+              "text": "足够让每个人在危险时都有选择。"
+            },
+            {
+              "id": "ch025.resolve.l07",
+              "speaker": "船坞老人",
+              "text": "走吧。你们从这里出海，以后有人总会记得这天。"
+            },
+            {
+              "id": "ch025.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】我们的第一艘船。新的道路正在展开。"
+              "text": "逐星号离港，远海的风航灯仍然漆黑。"
             }
           ],
           "objectives": [
@@ -235,7 +322,12 @@
               "xp": 1100,
               "gold": 390
             }
-          ]
+          ],
+          "direction": {
+            "shot": "船下水时镜头只拍被浪盖住的旧裂缝",
+            "narrative_intent": "通过人物动作显示世界变化",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         }
       ],
       "npc_reactions": [
@@ -250,7 +342,9 @@
           "text": "听说你们在海歌港·旧船坞帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act05_full_dialogue_v2",
+      "production_notes": "第五幕文本精修；原场景/任务/奖励/战斗ID不变；新人物伊泽先第27章相遇、28章加入。"
     },
     {
       "id": "ch026",
@@ -284,22 +378,37 @@
             {
               "id": "ch026.opening.l01",
               "speaker": "旁白",
-              "text": "【晴汐小岛】空气中藏着异样的气息。"
+              "text": "晴汐小岛的邮筒已经锈住，却每日有人往里塞信。"
             },
             {
               "id": "ch026.opening.l02",
-              "speaker": "朔弦",
-              "text": "他每年都寄信，邮戳却来自一座不存在的岛。"
+              "speaker": "老邮差",
+              "text": "这是三封无人领取的海上家书。寄信人和收信人都还在等。"
             },
             {
               "id": "ch026.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。送达三封无人领取的海上家书。"
+              "speaker": "朔弦",
+              "text": "等谁？岛上人说那三个地址早就不存在了。"
             },
             {
               "id": "ch026.opening.l04",
-              "speaker": "朔弦",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "老邮差",
+              "text": "可每年同一天，邮筒里都会出现一张新的回执。"
+            },
+            {
+              "id": "ch026.opening.l05",
+              "speaker": "主角",
+              "text": "回执会不会有人伪造？"
+            },
+            {
+              "id": "ch026.opening.l06",
+              "speaker": "岚音",
+              "text": "墨水是新的，纸上的盐却和十年前一样。"
+            },
+            {
+              "id": "ch026.opening.l07",
+              "speaker": "雷索",
+              "text": "我们按最后登记的地址逐户走，别先替别人认定死亡。"
             }
           ],
           "objectives": [
@@ -318,7 +427,12 @@
               "key": "ch026.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "锈邮筒与新墨水形成对比",
+            "narrative_intent": "表现海上生活与地点",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch026.investigate",
@@ -331,22 +445,37 @@
             {
               "id": "ch026.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在晴汐小岛找到了一处被忽视的痕迹。"
+              "text": "第一封信被送到空屋；第二封的收件人改了名字；第三封写着一条地图上没有的街。"
             },
             {
               "id": "ch026.investigate.l02",
               "speaker": "朔弦",
-              "text": "邮差的老航线在海图上被反复涂改。"
+              "text": "这条街在我旧航图上有一半轮廓。"
             },
             {
               "id": "ch026.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "老邮差",
+              "text": "那街曾通向港口，后来风暴一夜把它抹去。"
             },
             {
               "id": "ch026.investigate.l04",
+              "speaker": "岚音",
+              "text": "不是把路冲坏，是连居民都不记得在那里住过。"
+            },
+            {
+              "id": "ch026.investigate.l05",
+              "speaker": "主角",
+              "text": "为什么三封信上的回执墨迹时间却不同？"
+            },
+            {
+              "id": "ch026.investigate.l06",
+              "speaker": "老邮差",
+              "text": "有人每次都替别人签收，像不肯承认自己还活着。"
+            },
+            {
+              "id": "ch026.investigate.l07",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "最后一张回执背面印着一小页海图，轮廓与失落航页重合。"
             }
           ],
           "objectives": [
@@ -365,7 +494,12 @@
               "key": "ch026.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "地图边缘的半条街与真实石阶重叠",
+            "narrative_intent": "发现历史留下的证据",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch026.crisis",
@@ -381,22 +515,37 @@
             {
               "id": "ch026.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "潮汐退去后，空街尽头浮出一道人影。它不停向邮筒走去，却总在半途消散。"
             },
             {
               "id": "ch026.crisis.l02",
-              "speaker": "朔弦",
-              "text": "岛民坚持收件人早死，信纸上的新墨却证明有人近期收信。"
+              "speaker": "海信残响",
+              "text": "不能寄……寄不到……他们都走了……"
             },
             {
               "id": "ch026.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "朔弦",
+              "text": "是记忆残响，不是哪个害人的鬼。它仍在履行最后一次投递。"
             },
             {
               "id": "ch026.crisis.l04",
-              "speaker": "朔弦",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "岚音",
+              "text": "如果把信强行烧掉，也许它会停止，但那些名字也没了。"
+            },
+            {
+              "id": "ch026.crisis.l05",
+              "speaker": "主角",
+              "text": "把三封信念给等候的人，再让收件人自己决定是否留下。"
+            },
+            {
+              "id": "ch026.crisis.l06",
+              "speaker": "老邮差",
+              "text": "别只读结尾。信头写着出发时的天气，他们最想知道这个。"
+            },
+            {
+              "id": "ch026.crisis.l07",
+              "speaker": "雷索",
+              "text": "我守住街口，别让涨潮吞掉邮筒。"
             }
           ],
           "objectives": [
@@ -414,20 +563,22 @@
           ],
           "choice": {
             "id": "ch026.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "三封信涉及消失的住户，怎样让故事留存？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先征求收件者同意，再公开航路",
                 "sets": {
-                  "ch026.approach": "listen"
+                  "ch026.approach": "consent",
+                  "world.ch026.approach": "consent"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "由邮差保管原件，居民留有抄本",
                 "sets": {
-                  "ch026.approach": "act"
+                  "ch026.approach": "archive",
+                  "world.ch026.approach": "archive"
                 }
               }
             ]
@@ -437,6 +588,11 @@
             "display_name": "海信怨灵",
             "win_flag": "ch026.battle_won",
             "recommended_level": 34
+          },
+          "direction": {
+            "shot": "潮水线追上脚边，书信声代替怪物吼声",
+            "narrative_intent": "人物主动面对冲突",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
           }
         },
         {
@@ -452,22 +608,37 @@
             {
               "id": "ch026.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "三封信终于读完。海信残响停下脚步，将最后一张航页交给老邮差。"
             },
             {
               "id": "ch026.resolve.l02",
-              "speaker": "朔弦",
-              "text": "主角找到第一张失落航页，答应继续寻找消失的群岛。"
+              "speaker": "老邮差",
+              "text": "我不是来和亡者告别的。我想替活着的人完成一次约定。"
             },
             {
               "id": "ch026.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "朔弦",
+              "text": "航页上画着我记得的那棵歪树……至少树根的位置一样。"
             },
             {
               "id": "ch026.resolve.l04",
+              "speaker": "岚音",
+              "text": "它证明那条路存在过。还有机会找回去。"
+            },
+            {
+              "id": "ch026.resolve.l05",
+              "speaker": "主角",
+              "text": "把原件留给岛民共同保存，我们带上抄本继续航行。"
+            },
+            {
+              "id": "ch026.resolve.l06",
+              "speaker": "雷索",
+              "text": "归航不一定是某个人回来，也可能是一封终于送到的信。"
+            },
+            {
+              "id": "ch026.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】不会归港的邮差。新的道路正在展开。"
+              "text": "邮筒的门第一次顺利合上，晴汐小岛重新有了邮路。"
             }
           ],
           "objectives": [
@@ -487,7 +658,12 @@
               "xp": 1140,
               "gold": 404
             }
-          ]
+          ],
+          "direction": {
+            "shot": "邮筒门的轻响结束长场景",
+            "narrative_intent": "通过人物动作显示世界变化",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         }
       ],
       "npc_reactions": [
@@ -502,7 +678,9 @@
           "text": "听说你们在晴汐小岛帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act05_full_dialogue_v2",
+      "production_notes": "第五幕文本精修；原场景/任务/奖励/战斗ID不变；新人物伊泽先第27章相遇、28章加入。"
     },
     {
       "id": "ch027",
@@ -536,22 +714,37 @@
             {
               "id": "ch027.opening.l01",
               "speaker": "旁白",
-              "text": "【青蓝海沟·沉城】空气中藏着异样的气息。"
+              "text": "逐星号驶入青蓝海沟，海面下传出古钟声。钟声每响一次，周围水色就变深一层。"
             },
             {
               "id": "ch027.opening.l02",
-              "speaker": "伊泽",
-              "text": "听，那不是海浪，是有人在水下敲钟。"
+              "speaker": "陌生吟游者",
+              "text": "那不是浪在敲岩壁，是水底有人还在报时。"
             },
             {
               "id": "ch027.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。取得潜水钟并探索沉没王国。"
+              "speaker": "朔弦",
+              "text": "你是谁？海上观景团？"
             },
             {
               "id": "ch027.opening.l04",
               "speaker": "伊泽",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "叫我伊泽吧。我在找一首只剩半段的歌。"
+            },
+            {
+              "id": "ch027.opening.l05",
+              "speaker": "岚音",
+              "text": "你怎么知道这片海下面有城？"
+            },
+            {
+              "id": "ch027.opening.l06",
+              "speaker": "伊泽",
+              "text": "因为我的老师死前一直说，那里有一座该被记住的钟楼。"
+            },
+            {
+              "id": "ch027.opening.l07",
+              "speaker": "主角",
+              "text": "我们准备下潜。若你能提供海沟里的路，就同行到城门前。"
             }
           ],
           "objectives": [
@@ -570,7 +763,12 @@
               "key": "ch027.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "钟声入水而不伴画面震动",
+            "narrative_intent": "表现海上生活与地点",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch027.investigate",
@@ -583,22 +781,37 @@
             {
               "id": "ch027.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在青蓝海沟·沉城找到了一处被忽视的痕迹。"
+              "text": "潜水钟穿过一层沉积的珊瑚，城门铭牌上写着“今日仍是国庆日”。"
             },
             {
               "id": "ch027.investigate.l02",
               "speaker": "伊泽",
-              "text": "王国沉没前曾主动关闭海底灯，以保住陆上城市。"
+              "text": "这座城最后一天还在庆祝。居民根本不知道灾难要来。"
             },
             {
               "id": "ch027.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "缇珐",
+              "text": "不，阀门是主动关闭的。有人做出过决定。"
             },
             {
               "id": "ch027.investigate.l04",
+              "speaker": "雷索",
+              "text": "若关闭海底灯能保住陆上城镇，留下的人又同意了吗？"
+            },
+            {
+              "id": "ch027.investigate.l05",
+              "speaker": "主角",
+              "text": "找到会议记录和居民名单，两边都不能省。"
+            },
+            {
+              "id": "ch027.investigate.l06",
+              "speaker": "岚音",
+              "text": "看，这些供气室里的床铺还摆着孩子的鞋。"
+            },
+            {
+              "id": "ch027.investigate.l07",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "钟楼最下层留着一封没有寄出的“撤离许可申请”。"
             }
           ],
           "objectives": [
@@ -617,7 +830,12 @@
               "key": "ch027.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "珊瑚附着在尚有鞋子的宿舍床架",
+            "narrative_intent": "发现历史留下的证据",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch027.crisis",
@@ -632,23 +850,43 @@
           "dialogue": [
             {
               "id": "ch027.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "深海钟卫",
+              "text": "拒绝访问。叛徒不得进入钟楼。"
             },
             {
               "id": "ch027.crisis.l02",
               "speaker": "伊泽",
-              "text": "海底守卫把所有来访者视为当年的叛徒。"
+              "text": "我们不是当年关门的人，我们来把他们的名字带出去。"
             },
             {
               "id": "ch027.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "深海钟卫",
+              "text": "放弃本城者，全部视为叛徒。"
             },
             {
               "id": "ch027.crisis.l04",
-              "speaker": "伊泽",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "雷索",
+              "text": "守卫只记得一道命令，连是谁下令都忘了。"
+            },
+            {
+              "id": "ch027.crisis.l05",
+              "speaker": "岚音",
+              "text": "这里没有活人需要继续惩罚，只有旧记录需要保护。"
+            },
+            {
+              "id": "ch027.crisis.l06",
+              "speaker": "主角",
+              "text": "打开居民名册，让它核对那些曾守在城里的人。"
+            },
+            {
+              "id": "ch027.crisis.l07",
+              "speaker": "缇珐",
+              "text": "我关闭攻击回路，你们念名字。现在！"
+            },
+            {
+              "id": "ch027.crisis.l08",
+              "speaker": "旁白",
+              "text": "钟卫眼中冰蓝的光终于从红色警戒转为普通灯光。"
             }
           ],
           "objectives": [
@@ -666,20 +904,22 @@
           ],
           "choice": {
             "id": "ch027.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "沉城遗产该如何被后来者记住？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先保存普通居民的完整名单",
                 "sets": {
-                  "ch027.approach": "listen"
+                  "ch027.approach": "names",
+                  "world.ch027.approach": "names"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先公布当年关闭海底灯的会议记录",
                 "sets": {
-                  "ch027.approach": "act"
+                  "ch027.approach": "decision_record",
+                  "world.ch027.approach": "decision_record"
                 }
               }
             ]
@@ -689,6 +929,11 @@
             "display_name": "深海钟卫",
             "win_flag": "ch027.battle_won",
             "recommended_level": 35
+          },
+          "direction": {
+            "shot": "钟卫防护色彩随名字被读出改变",
+            "narrative_intent": "人物主动面对冲突",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
           }
         },
         {
@@ -704,22 +949,42 @@
             {
               "id": "ch027.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "古钟最后响了一次，传遍海沟。逐星号上的人都能听见。"
             },
             {
               "id": "ch027.resolve.l02",
               "speaker": "伊泽",
-              "text": "主角记录沉城居民姓名，让古钟最后响一次。"
+              "text": "我本来想给这座城写一首英雄颂，看来不够。"
             },
             {
               "id": "ch027.resolve.l03",
               "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "text": "被留下的人不全是英雄，也不是谁的代价表格。"
             },
             {
               "id": "ch027.resolve.l04",
+              "speaker": "雷索",
+              "text": "把他们的名字写全。不能只记住做决定的人。"
+            },
+            {
+              "id": "ch027.resolve.l05",
+              "speaker": "岚音",
+              "text": "可以在海面立一座浮标，提醒后来者这里仍是故乡。"
+            },
+            {
+              "id": "ch027.resolve.l06",
+              "speaker": "伊泽",
+              "text": "我愿在每年钟响这一天来唱一遍。"
+            },
+            {
+              "id": "ch027.resolve.l07",
+              "speaker": "朔弦",
+              "text": "你要是真能唱到这儿的鱼都记得，我以后给你免船费。"
+            },
+            {
+              "id": "ch027.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】潮声下的古国。新的道路正在展开。"
+              "text": "伊泽暂时留在逐星号，答应带众人去断歌礁寻找残谱。"
             }
           ],
           "objectives": [
@@ -739,7 +1004,12 @@
               "xp": 1180,
               "gold": 418
             }
-          ]
+          ],
+          "direction": {
+            "shot": "浮标在钟声余波中轻轻摆动",
+            "narrative_intent": "通过人物动作显示世界变化",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         }
       ],
       "npc_reactions": [
@@ -754,7 +1024,9 @@
           "text": "听说你们在青蓝海沟·沉城帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act05_full_dialogue_v2",
+      "production_notes": "第五幕文本精修；原场景/任务/奖励/战斗ID不变；新人物伊泽先第27章相遇、28章加入。"
     },
     {
       "id": "ch028",
@@ -788,22 +1060,37 @@
             {
               "id": "ch028.opening.l01",
               "speaker": "旁白",
-              "text": "【断歌礁】空气中藏着异样的气息。"
+              "text": "断歌礁没有植物，却总有人说在夜里听见童年的歌声。"
             },
             {
               "id": "ch028.opening.l02",
               "speaker": "伊泽",
-              "text": "我唱了那么多年，竟不知道这首歌写给谁。"
+              "text": "我会唱其中四句，可每唱到第五句就忘了词。"
             },
             {
               "id": "ch028.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。搜集三段残谱寻找歌谣来源。"
+              "speaker": "朔弦",
+              "text": "你不是专业唱歌的吗，忘词听起来很伤行当。"
             },
             {
               "id": "ch028.opening.l04",
               "speaker": "伊泽",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "这首歌每缺一段，地图就少一座岛。不好笑。"
+            },
+            {
+              "id": "ch028.opening.l05",
+              "speaker": "岚音",
+              "text": "你老师有没有留下乐谱？"
+            },
+            {
+              "id": "ch028.opening.l06",
+              "speaker": "伊泽",
+              "text": "三份，分别藏在潮洞、灯礁和从不靠岸的旧邮船上。"
+            },
+            {
+              "id": "ch028.opening.l07",
+              "speaker": "主角",
+              "text": "那就分头找，但谁也别独自唱全曲。"
             }
           ],
           "objectives": [
@@ -822,7 +1109,12 @@
               "key": "ch028.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "空旷石礁上只有衣料与海风声",
+            "narrative_intent": "表现海上生活与地点",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch028.investigate",
@@ -835,22 +1127,37 @@
             {
               "id": "ch028.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在断歌礁找到了一处被忽视的痕迹。"
+              "text": "三张残谱拼起来，曲谱背面的字是澄舟的笔迹。"
             },
             {
               "id": "ch028.investigate.l02",
-              "speaker": "伊泽",
-              "text": "歌词里出现主角养父的字迹与失落旧洲地名。"
+              "speaker": "主角",
+              "text": "这是他常用的字。我认得尾笔向左的习惯。"
             },
             {
               "id": "ch028.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "伊泽",
+              "text": "原来那位写下最后一段的人是你的养父。"
             },
             {
               "id": "ch028.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "缇珐",
+              "text": "音符之间还有星纹。旋律像一把能打开某种封存档案的钥匙。"
+            },
+            {
+              "id": "ch028.investigate.l05",
+              "speaker": "岚音",
+              "text": "这可能也会把被压住的寂潮叫醒。"
+            },
+            {
+              "id": "ch028.investigate.l06",
+              "speaker": "伊泽",
+              "text": "所以老师让我一个人保管。他怕有人为了找到城，牺牲活人。"
+            },
+            {
+              "id": "ch028.investigate.l07",
+              "speaker": "主角",
+              "text": "秘密太重时，不能只让一个人扛着。先记下哪些音符危险。"
             }
           ],
           "objectives": [
@@ -869,7 +1176,12 @@
               "key": "ch028.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "残谱上的音符逐渐与星纹重合",
+            "narrative_intent": "发现历史留下的证据",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch028.crisis",
@@ -885,22 +1197,37 @@
             {
               "id": "ch028.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "伊泽试唱到第五段，海面突然无声，雾里出现许多伸手索取名字的影子。"
             },
             {
               "id": "ch028.crisis.l02",
-              "speaker": "伊泽",
-              "text": "伊泽发现歌声会唤醒寂潮，也可能召来灰帷会。"
+              "speaker": "无声海妖",
+              "text": "把那句话唱完，你会见到所有失去的人。"
             },
             {
               "id": "ch028.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "伊泽",
+              "text": "我想见老师。但我不能为了他让船上的人都失去明天。"
             },
             {
               "id": "ch028.crisis.l04",
+              "speaker": "朔弦",
+              "text": "你现在不必唱。把谱交给我们一起看。"
+            },
+            {
+              "id": "ch028.crisis.l05",
+              "speaker": "岚音",
+              "text": "我在船尾准备防护，别让残响靠近普通船员。"
+            },
+            {
+              "id": "ch028.crisis.l06",
+              "speaker": "主角",
+              "text": "先截断海妖与星纹共鸣，保留乐谱本身。"
+            },
+            {
+              "id": "ch028.crisis.l07",
               "speaker": "伊泽",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "这一回，我想选择和别人一起守住它。"
             }
           ],
           "objectives": [
@@ -918,20 +1245,22 @@
           ],
           "choice": {
             "id": "ch028.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "危险的古曲应当如何保管？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "多份保存并公开风险说明",
                 "sets": {
-                  "ch028.approach": "listen"
+                  "ch028.approach": "open_annotation",
+                  "world.ch028.approach": "open_annotation"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "由同行者分头保管，限制完整演奏",
                 "sets": {
-                  "ch028.approach": "act"
+                  "ch028.approach": "distributed_custody",
+                  "world.ch028.approach": "distributed_custody"
                 }
               }
             ]
@@ -941,6 +1270,11 @@
             "display_name": "无声海妖",
             "win_flag": "ch028.battle_won",
             "recommended_level": 36
+          },
+          "direction": {
+            "shot": "海面突然静音，倒影还在唱歌",
+            "narrative_intent": "人物主动面对冲突",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
           }
         },
         {
@@ -956,22 +1290,37 @@
             {
               "id": "ch028.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "海面恢复风声。伊泽亲手抄出七份危险标注，各交伙伴保存。"
             },
             {
               "id": "ch028.resolve.l02",
               "speaker": "伊泽",
-              "text": "伊泽决定不再独自保管秘密，正式加入冒险队伍。"
+              "text": "以往我一开口，就有人要我唱英雄。我最怕唱错一个名字。"
             },
             {
               "id": "ch028.resolve.l03",
               "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "text": "从现在起，可以有人在旁边指出你唱错了。"
             },
             {
               "id": "ch028.resolve.l04",
+              "speaker": "朔弦",
+              "text": "这不是招募船员的话术吗？怎么听着怪感人。"
+            },
+            {
+              "id": "ch028.resolve.l05",
+              "speaker": "岚音",
+              "text": "我们先把谱收好，下一段路还长。"
+            },
+            {
+              "id": "ch028.resolve.l06",
+              "speaker": "伊泽",
+              "text": "请让我正式同行。我会记住沿途那些没出现在王史里的名字。"
+            },
+            {
+              "id": "ch028.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】唱给不存在之人的歌。新的道路正在展开。"
+              "text": "伊泽加入队伍。断歌礁不再传来强迫人回忆的歌声。"
             }
           ],
           "objectives": [
@@ -991,7 +1340,12 @@
               "xp": 1220,
               "gold": 432
             }
-          ]
+          ],
+          "direction": {
+            "shot": "七份抄谱被传入不同人的手中",
+            "narrative_intent": "通过人物动作显示世界变化",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         }
       ],
       "npc_reactions": [
@@ -1006,7 +1360,9 @@
           "text": "听说你们在断歌礁帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act05_full_dialogue_v2",
+      "production_notes": "第五幕文本精修；原场景/任务/奖励/战斗ID不变；新人物伊泽先第27章相遇、28章加入。"
     },
     {
       "id": "ch029",
@@ -1040,22 +1396,32 @@
             {
               "id": "ch029.opening.l01",
               "speaker": "旁白",
-              "text": "【静浪禁航区】空气中藏着异样的气息。"
+              "text": "静浪禁航区里连船帆也不鼓动。太阳落到天边后，似乎迟迟不肯继续下降。"
             },
             {
               "id": "ch029.opening.l02",
               "speaker": "朔弦",
-              "text": "这片海连影子都走不动，我们得自己找路。"
+              "text": "别看我。这地方连影子都走不动，船也不听我的。"
             },
             {
               "id": "ch029.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。用星针校准六座航标渡过死海。"
+              "speaker": "缇珐",
+              "text": "星针能指到六座旧航标，但它们的角度都偏了一点。"
             },
             {
               "id": "ch029.opening.l04",
-              "speaker": "朔弦",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "雷索",
+              "text": "一根标错方向就可能送一整船人进海沟。"
+            },
+            {
+              "id": "ch029.opening.l05",
+              "speaker": "主角",
+              "text": "我们一座一座校准，确认后留下能让后来船只辨认的记号。"
+            },
+            {
+              "id": "ch029.opening.l06",
+              "speaker": "伊泽",
+              "text": "我来记每次转动的刻度，不让它们被忘了。"
             }
           ],
           "objectives": [
@@ -1074,7 +1440,12 @@
               "key": "ch029.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "船帆垂落却没有风动",
+            "narrative_intent": "表现海上生活与地点",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch029.investigate",
@@ -1087,22 +1458,37 @@
             {
               "id": "ch029.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在静浪禁航区找到了一处被忽视的痕迹。"
+              "text": "第三座航标内部藏着一张刻意换过的导航片，指向赫西安旧船队停泊处。"
             },
             {
               "id": "ch029.investigate.l02",
               "speaker": "朔弦",
-              "text": "航标被改成通往赫西安旧船队的陷阱。"
+              "text": "有人早就把死海改成了收费航路，肯交代价才会让你过去。"
             },
             {
               "id": "ch029.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "缇珐",
+              "text": "六座标本来可以互相校验。现在有人拆掉了防错装置。"
             },
             {
               "id": "ch029.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "岚音",
+              "text": "前方有一艘商船，它的灯怎么忽然暗了？"
+            },
+            {
+              "id": "ch029.investigate.l05",
+              "speaker": "船长信号",
+              "text": "求救。航窗即将关闭。请求领航。"
+            },
+            {
+              "id": "ch029.investigate.l06",
+              "speaker": "主角",
+              "text": "去救它之前，确认我们的船能不能一起脱离。"
+            },
+            {
+              "id": "ch029.investigate.l07",
+              "speaker": "朔弦",
+              "text": "能。只是我们恐怕会错过最好的那阵风。"
             }
           ],
           "objectives": [
@@ -1121,7 +1507,12 @@
               "key": "ch029.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "六座航标画出几乎无法察觉的错角",
+            "narrative_intent": "发现历史留下的证据",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch029.crisis",
@@ -1137,22 +1528,42 @@
             {
               "id": "ch029.crisis.l01",
               "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "text": "海面下伸出巨大的触臂，缠住商船与最后一座航标之间的缆绳。"
             },
             {
               "id": "ch029.crisis.l02",
-              "speaker": "朔弦",
-              "text": "为了救一艘陌生商船，队伍必须放弃最佳航窗。"
+              "speaker": "商船船长",
+              "text": "别靠近！我们已经拖累过两艘救援船了！"
             },
             {
               "id": "ch029.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "朔弦",
+              "text": "海上哪有“拖累”这回事，只有船要不要一起回去。"
             },
             {
               "id": "ch029.crisis.l04",
-              "speaker": "朔弦",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "雷索",
+              "text": "先切掉缆绳，伤员由我们转运。"
+            },
+            {
+              "id": "ch029.crisis.l05",
+              "speaker": "缇珐",
+              "text": "另一条旧海索能接成新的牵引线。"
+            },
+            {
+              "id": "ch029.crisis.l06",
+              "speaker": "主角",
+              "text": "放弃最佳航窗，先把商船救出来。"
+            },
+            {
+              "id": "ch029.crisis.l07",
+              "speaker": "伊泽",
+              "text": "我来为两船报同步节拍。跟着声音划！"
+            },
+            {
+              "id": "ch029.crisis.l08",
+              "speaker": "旁白",
+              "text": "静海巨蛸追着最后一束灯光冲出深水。"
             }
           ],
           "objectives": [
@@ -1170,20 +1581,22 @@
           ],
           "choice": {
             "id": "ch029.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "援救商船会错过短暂航窗，怎样组织行动？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先接驳伤员，再牵引商船",
                 "sets": {
-                  "ch029.approach": "listen"
+                  "ch029.approach": "crew_first",
+                  "world.ch029.approach": "crew_first"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先修复公共航标，为两船打开航路",
                 "sets": {
-                  "ch029.approach": "act"
+                  "ch029.approach": "beacons_first",
+                  "world.ch029.approach": "beacons_first"
                 }
               }
             ]
@@ -1193,6 +1606,11 @@
             "display_name": "静海巨蛸",
             "win_flag": "ch029.battle_won",
             "recommended_level": 37
+          },
+          "direction": {
+            "shot": "旧海索绷紧，两船第一次同向运动",
+            "narrative_intent": "人物主动面对冲突",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
           }
         },
         {
@@ -1208,22 +1626,42 @@
             {
               "id": "ch029.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "两艘船同时驶离静浪区，最后一根修好的航标在身后缓缓旋转。"
             },
             {
               "id": "ch029.resolve.l02",
-              "speaker": "朔弦",
-              "text": "主角先救商船，借众船合力驶出禁海。"
+              "speaker": "商船船长",
+              "text": "我没想过还有人会回头。"
             },
             {
               "id": "ch029.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "朔弦",
+              "text": "以后换你看见别人遇险时回头就行。"
             },
             {
               "id": "ch029.resolve.l04",
+              "speaker": "岚音",
+              "text": "先去处理冻伤，这地方明明没有风却冷得可怕。"
+            },
+            {
+              "id": "ch029.resolve.l05",
+              "speaker": "缇珐",
+              "text": "航标防错装置的图纸，我会留给所有经过的人。"
+            },
+            {
+              "id": "ch029.resolve.l06",
+              "speaker": "主角",
+              "text": "那条付费秘航也要记入海图，写清它怎样把人送进陷阱。"
+            },
+            {
+              "id": "ch029.resolve.l07",
+              "speaker": "伊泽",
+              "text": "今晚有两艘船的名字，可以一起写进我的歌里。"
+            },
+            {
+              "id": "ch029.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】无风海域。新的道路正在展开。"
+              "text": "逐星号终于看见了风航群岛的第一道天际线。"
             }
           ],
           "objectives": [
@@ -1243,7 +1681,12 @@
               "xp": 1260,
               "gold": 446
             }
-          ]
+          ],
+          "direction": {
+            "shot": "脱离禁航区后忽然恢复风声",
+            "narrative_intent": "通过人物动作显示世界变化",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         }
       ],
       "npc_reactions": [
@@ -1258,7 +1701,9 @@
           "text": "听说你们在静浪禁航区帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act05_full_dialogue_v2",
+      "production_notes": "第五幕文本精修；原场景/任务/奖励/战斗ID不变；新人物伊泽先第27章相遇、28章加入。"
     },
     {
       "id": "ch030",
@@ -1292,22 +1737,37 @@
             {
               "id": "ch030.opening.l01",
               "speaker": "旁白",
-              "text": "【风航群岛·云礁】空气中藏着异样的气息。"
+              "text": "风航群岛的云礁上停满彩色小船。每位船主都带来一本写着不同风向的旧日志。"
             },
             {
               "id": "ch030.opening.l02",
-              "speaker": "伊泽",
-              "text": "自由不是没人管你，是你能选择去哪里。"
+              "speaker": "群岛代表",
+              "text": "这里没有国王，但总有人想当唯一的领航员。"
             },
             {
               "id": "ch030.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。召集群岛船主修复风航灯。"
+              "speaker": "朔弦",
+              "text": "我第一次喜欢一个没人当国王的地方。"
             },
             {
               "id": "ch030.opening.l04",
               "speaker": "伊泽",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "自由不是谁都能随意封别人的路。这里的公约呢？"
+            },
+            {
+              "id": "ch030.opening.l05",
+              "speaker": "代表",
+              "text": "被海盗拿走了。他们把求救灯塔改成收费岗亭。"
+            },
+            {
+              "id": "ch030.opening.l06",
+              "speaker": "主角",
+              "text": "要重新点亮风航灯，先得让航路能由船主们共同记下。"
+            },
+            {
+              "id": "ch030.opening.l07",
+              "speaker": "岚音",
+              "text": "还得保证迷路的孩子和商船可以免费求救。"
             }
           ],
           "objectives": [
@@ -1326,7 +1786,12 @@
               "key": "ch030.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "彩帆如市集棚布随风展开",
+            "narrative_intent": "表现海上生活与地点",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch030.investigate",
@@ -1339,22 +1804,37 @@
             {
               "id": "ch030.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在风航群岛·云礁找到了一处被忽视的痕迹。"
+              "text": "风航灯旧档案里记录着五十七条由不同船家贡献的归航路。"
             },
             {
               "id": "ch030.investigate.l02",
-              "speaker": "伊泽",
-              "text": "风航灯依靠不同船队共享航路记忆维持。"
+              "speaker": "缇珐",
+              "text": "灯的供能不靠谁的血，而是靠航路相互印证。"
             },
             {
               "id": "ch030.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "朔弦",
+              "text": "这和星针相同。只有一条路时，谁都能说它是唯一正确的。"
             },
             {
               "id": "ch030.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "伊泽",
+              "text": "我想把每条路的绘制者姓名都留下。"
+            },
+            {
+              "id": "ch030.investigate.l05",
+              "speaker": "群岛代表",
+              "text": "一些路是老海盗画的。也要留下？"
+            },
+            {
+              "id": "ch030.investigate.l06",
+              "speaker": "主角",
+              "text": "只要它确实救过人，就写下事实；做过坏事的人也不能因此独占航路。"
+            },
+            {
+              "id": "ch030.investigate.l07",
+              "speaker": "雷索",
+              "text": "记录功过，可以同时保留。"
             }
           ],
           "objectives": [
@@ -1373,7 +1853,12 @@
               "key": "ch030.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "航图记录不同家庭的笔迹",
+            "narrative_intent": "发现历史留下的证据",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         },
         {
           "id": "ch030.crisis",
@@ -1388,23 +1873,43 @@
           "dialogue": [
             {
               "id": "ch030.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "逆风海魁",
+              "text": "从今以后，想从这片海回家，先交出你的船籍和灯油。"
             },
             {
               "id": "ch030.crisis.l02",
-              "speaker": "伊泽",
-              "text": "海盗首领想独占海域，让其他船只能向其缴费。"
+              "speaker": "朔弦",
+              "text": "你倒会做买卖，把别人回家的路也卖了。"
             },
             {
               "id": "ch030.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "逆风海魁",
+              "text": "没有人管海上的秩序，所以我来管。"
             },
             {
               "id": "ch030.crisis.l04",
+              "speaker": "群岛代表",
+              "text": "你每次来收钱，我们都要拿孩子的药费抵。"
+            },
+            {
+              "id": "ch030.crisis.l05",
               "speaker": "伊泽",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "你不能说保护风航灯，就替所有船定价格。"
+            },
+            {
+              "id": "ch030.crisis.l06",
+              "speaker": "主角",
+              "text": "海上救援必须先于收费，这是今日的新约第一条。"
+            },
+            {
+              "id": "ch030.crisis.l07",
+              "speaker": "雷索",
+              "text": "船主们已站到一起。你不会再只面对单独一艘小船。"
+            },
+            {
+              "id": "ch030.crisis.l08",
+              "speaker": "旁白",
+              "text": "风航灯塔周围的缆索被各船一齐拉紧。"
             }
           ],
           "objectives": [
@@ -1422,20 +1927,22 @@
           ],
           "choice": {
             "id": "ch030.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "风航群岛新公约应优先固定哪项权利？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "所有船只共享航图与求救灯",
                 "sets": {
-                  "ch030.approach": "listen"
+                  "ch030.approach": "shared_charts",
+                  "world.ch030.approach": "shared_charts"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "成立船主轮值制度并公布航路账",
                 "sets": {
-                  "ch030.approach": "act"
+                  "ch030.approach": "rotating_watch",
+                  "world.ch030.approach": "rotating_watch"
                 }
               }
             ]
@@ -1445,6 +1952,11 @@
             "display_name": "逆风海魁",
             "win_flag": "ch030.battle_won",
             "recommended_level": 39
+          },
+          "direction": {
+            "shot": "各船拉紧同一根缆索",
+            "narrative_intent": "人物主动面对冲突",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
           }
         },
         {
@@ -1460,22 +1972,42 @@
             {
               "id": "ch030.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "逆风海魁退去，群岛船主把航路日志一册册交到公共灯塔。"
             },
             {
               "id": "ch030.resolve.l02",
-              "speaker": "伊泽",
-              "text": "群岛组成航路公约，风航灯照亮远海。"
+              "speaker": "代表",
+              "text": "每艘船都留一份，谁也不能单独更改所有海图。"
             },
             {
               "id": "ch030.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "朔弦",
+              "text": "我愿把逐星号的隐秘航线也添进去。"
             },
             {
               "id": "ch030.resolve.l04",
+              "speaker": "伊泽",
+              "text": "这些名字足够写一首很长的歌。歌里不必只有船长。"
+            },
+            {
+              "id": "ch030.resolve.l05",
+              "speaker": "岚音",
+              "text": "从明天起，求救船不需要先证明付得起钱。"
+            },
+            {
+              "id": "ch030.resolve.l06",
+              "speaker": "主角",
+              "text": "也别把海上所有风险说成已经结束。有人还得日日守望。"
+            },
+            {
+              "id": "ch030.resolve.l07",
+              "speaker": "缇珐",
+              "text": "风航灯亮了！它照出一条通向镜眠王国的云路。"
+            },
+            {
+              "id": "ch030.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】风航灯的约定。新的道路正在展开。"
+              "text": "远处海面第一次有不同船队同时点灯回应，风航母灯重新燃起。"
             }
           ],
           "objectives": [
@@ -1495,7 +2027,12 @@
               "xp": 1300,
               "gold": 460
             }
-          ]
+          ],
+          "direction": {
+            "shot": "风航灯亮后，船只各自点灯回应",
+            "narrative_intent": "通过人物动作显示世界变化",
+            "audio_note": "以海风、绳索和人群环境声表现，不预设配音"
+          }
         }
       ],
       "npc_reactions": [
@@ -1510,7 +2047,10 @@
           "text": "听说你们在风航群岛·云礁帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act05_full_dialogue_v2",
+      "production_notes": "第五幕文本精修；原场景/任务/奖励/战斗ID不变；新人物伊泽先第27章相遇、28章加入。"
     }
-  ]
+  ],
+  "dialogue_revision": "act05_full_dialogue_v2"
 }

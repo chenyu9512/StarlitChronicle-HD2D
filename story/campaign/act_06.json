@@ -17,7 +17,7 @@
       ],
       "chapter_start_flag": "ch031.started",
       "chapter_complete_flag": "story.ch031.done",
-      "lead_character": "玄璃",
+      "lead_character": "岚音",
       "summary": "在镜眠王都·日轮街，调查居民重复同一天的证据。王国居民恳求玩家不要打破难得的安宁。最终，主角决定调查幻境源头，而不是强行叫醒所有人。",
       "production_status": "scripted_blocking_v1",
       "recommended_level": [
@@ -37,22 +37,37 @@
             {
               "id": "ch031.opening.l01",
               "speaker": "旁白",
-              "text": "【镜眠王都·日轮街】空气中藏着异样的气息。"
+              "text": "镜眠王都的街上永远有阳光，广场喷泉边的花瓣在空中停留得过于整齐。"
             },
             {
               "id": "ch031.opening.l02",
-              "speaker": "玄璃",
-              "text": "你们的影子每晚都消失，为什么没人觉得奇怪？"
+              "speaker": "朔弦",
+              "text": "这地方连街上的水果都没有坏的。小贩靠什么挣钱？"
             },
             {
               "id": "ch031.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。调查居民重复同一天的证据。"
+              "speaker": "卖花少女",
+              "text": "每年花祭都很热闹。今天的花祭也一样。"
             },
             {
               "id": "ch031.opening.l04",
-              "speaker": "玄璃",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "岚音",
+              "text": "你说“每年”，可墙上的日历写着今天是同一个日期。"
+            },
+            {
+              "id": "ch031.opening.l05",
+              "speaker": "伊泽",
+              "text": "我听见同一段舞曲，演奏者连错的那个音都一样。"
+            },
+            {
+              "id": "ch031.opening.l06",
+              "speaker": "主角",
+              "text": "先观察，不要贸然告诉全城他们在梦里。"
+            },
+            {
+              "id": "ch031.opening.l07",
+              "speaker": "雷索",
+              "text": "有人是真的快乐。我们要弄清谁替他们决定了时间。"
             }
           ],
           "objectives": [
@@ -71,7 +86,12 @@
               "key": "ch031.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "花瓣在晴天固定旋转",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch031.investigate",
@@ -84,22 +104,42 @@
             {
               "id": "ch031.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在镜眠王都·日轮街找到了一处被忽视的痕迹。"
+              "text": "主角把一片花瓣藏在石缝，绕街一周后，花瓣回到树上，同一小贩再次说出欢迎词。"
             },
             {
               "id": "ch031.investigate.l02",
-              "speaker": "玄璃",
-              "text": "街上日历永远停在花祭当天，花却一直新开。"
+              "speaker": "卖花少女",
+              "text": "欢迎来到花祭！今天一定不会下雨。"
             },
             {
               "id": "ch031.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "岚音",
+              "text": "她左手的伤口一直没有结痂，也没变严重。"
             },
             {
               "id": "ch031.investigate.l04",
+              "speaker": "缇珐",
+              "text": "整座城像被固定在同一段运行周期，偏偏人们的情绪又是真的。"
+            },
+            {
+              "id": "ch031.investigate.l05",
+              "speaker": "伊泽",
+              "text": "歌重复，不代表唱的人没有心。"
+            },
+            {
+              "id": "ch031.investigate.l06",
+              "speaker": "主角",
+              "text": "这里有没有人能记得昨天？"
+            },
+            {
+              "id": "ch031.investigate.l07",
+              "speaker": "年迈钟匠",
+              "text": "我记得一个不下雨的昨天。那是我妻子还在世的日子。"
+            },
+            {
+              "id": "ch031.investigate.l08",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "钟匠的工作台上有一把生锈的钥匙，钥匙上刻着“镜宫”。"
             }
           ],
           "objectives": [
@@ -118,7 +158,12 @@
               "key": "ch031.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "藏花瓣的石缝空了，花瓣回到枝上",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch031.crisis",
@@ -133,23 +178,38 @@
           "dialogue": [
             {
               "id": "ch031.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "王国侍从",
+              "text": "外乡人，请勿破坏居民的花祭。"
             },
             {
               "id": "ch031.crisis.l02",
-              "speaker": "玄璃",
-              "text": "王国居民恳求玩家不要打破难得的安宁。"
+              "speaker": "岚音",
+              "text": "我们还没有破坏。只是想知道伤口为何不愈合。"
             },
             {
               "id": "ch031.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "侍从",
+              "text": "在这里，谁都不会再次失去家人。这难道不好？"
             },
             {
               "id": "ch031.crisis.l04",
-              "speaker": "玄璃",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "朔弦",
+              "text": "如果一艘船永远停在最好的浪头上，船员还能下船吗？"
+            },
+            {
+              "id": "ch031.crisis.l05",
+              "speaker": "主角",
+              "text": "我们先找到这座城市的选择机制，不强迫居民醒来。"
+            },
+            {
+              "id": "ch031.crisis.l06",
+              "speaker": "伊泽",
+              "text": "让他们先知道代价，再说愿意与否。"
+            },
+            {
+              "id": "ch031.crisis.l07",
+              "speaker": "旁白",
+              "text": "笑颜面偶从街角的窗里出现，每个面具都保持相同的微笑。"
             }
           ],
           "objectives": [
@@ -167,20 +227,22 @@
           ],
           "choice": {
             "id": "ch031.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "面对似乎幸福的重复生活，首先采取什么态度？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "记录循环证据，征求居民是否知情",
                 "sets": {
-                  "ch031.approach": "listen"
+                  "ch031.approach": "public_evidence",
+                  "world.ch031.approach": "public_evidence"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "从疗养院与钟匠的个人经历调查",
                 "sets": {
-                  "ch031.approach": "act"
+                  "ch031.approach": "personal_history",
+                  "world.ch031.approach": "personal_history"
                 }
               }
             ]
@@ -190,6 +252,11 @@
             "display_name": "笑颜面偶",
             "win_flag": "ch031.battle_won",
             "recommended_level": 40
+          },
+          "direction": {
+            "shot": "所有笑颜面具都朝玩家转动",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
           }
         },
         {
@@ -205,22 +272,37 @@
             {
               "id": "ch031.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "众人没有敲碎街上的钟，而是从钟匠那里取得通往镜宫的钥匙。"
             },
             {
               "id": "ch031.resolve.l02",
-              "speaker": "玄璃",
-              "text": "主角决定调查幻境源头，而不是强行叫醒所有人。"
+              "speaker": "钟匠",
+              "text": "我喜欢她还在身边的日子。可我也想知道她最后写给我的信。"
             },
             {
               "id": "ch031.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "岚音",
+              "text": "我们不会替你决定要不要看。"
             },
             {
               "id": "ch031.resolve.l04",
+              "speaker": "主角",
+              "text": "等调查结束，我们会把能做的选择告诉居民。"
+            },
+            {
+              "id": "ch031.resolve.l05",
+              "speaker": "朔弦",
+              "text": "我去船上留话，免得逐星号也在这里等成一幅画。"
+            },
+            {
+              "id": "ch031.resolve.l06",
+              "speaker": "伊泽",
+              "text": "今天的花祭我记下了。但这不该成为明年唯一的歌。"
+            },
+            {
+              "id": "ch031.resolve.l07",
               "speaker": "旁白",
-              "text": "【任务完成】永远晴朗的街道。新的道路正在展开。"
+              "text": "镜宫回廊入口浮现，花瓣第一次落在地面。"
             }
           ],
           "objectives": [
@@ -240,7 +322,12 @@
               "xp": 1340,
               "gold": 474
             }
-          ]
+          ],
+          "direction": {
+            "shot": "第一片落地花瓣留在石阶上",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         }
       ],
       "npc_reactions": [
@@ -255,7 +342,9 @@
           "text": "听说你们在镜眠王都·日轮街帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act06_full_dialogue_v2",
+      "production_notes": "第31章玄璃未入队，32章认识，34章正式入队。原章节流程与触发ID保持不变。"
     },
     {
       "id": "ch032",
@@ -289,22 +378,42 @@
             {
               "id": "ch032.opening.l01",
               "speaker": "旁白",
-              "text": "【镜宫回廊】空气中藏着异样的气息。"
+              "text": "镜宫里的门通向不符合外部结构的长廊，镜面映出的是人们未曾选择的人生。"
             },
             {
               "id": "ch032.opening.l02",
-              "speaker": "玄璃",
-              "text": "这里的门会把你送到“想去”的地方，不是“该去”的地方。"
+              "speaker": "朔弦",
+              "text": "我在镜子里看见自己的船从来没出过海。那也太无聊了。"
             },
             {
               "id": "ch032.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。找到镜面转换术并救出迷路孩童。"
+              "speaker": "岚音",
+              "text": "失踪孩子的鞋印到这里就断了。"
             },
             {
               "id": "ch032.opening.l04",
+              "speaker": "陌生少女",
+              "text": "别照着脚印走，门只会把你送到“想去”的地方。"
+            },
+            {
+              "id": "ch032.opening.l05",
+              "speaker": "主角",
+              "text": "你是谁？刚才的声音从哪面镜子传来？"
+            },
+            {
+              "id": "ch032.opening.l06",
+              "speaker": "陌生少女",
+              "text": "从所有镜子之外。我叫玄璃。至少，我喜欢这个名字。"
+            },
+            {
+              "id": "ch032.opening.l07",
+              "speaker": "伊泽",
+              "text": "一个不愿站在镜中等待的人，倒比这里的守卫更像旅人。"
+            },
+            {
+              "id": "ch032.opening.l08",
               "speaker": "玄璃",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "先救孩子。以后再决定要不要相信我。"
             }
           ],
           "objectives": [
@@ -323,7 +432,12 @@
               "key": "ch032.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "镜里反映未选人生而非面孔",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch032.investigate",
@@ -336,22 +450,42 @@
             {
               "id": "ch032.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在镜宫回廊找到了一处被忽视的痕迹。"
+              "text": "孩子坐在映世的小屋里，与一对早已不在人世的父母吃着晚饭。"
             },
             {
               "id": "ch032.investigate.l02",
-              "speaker": "玄璃",
-              "text": "映世里的建筑由未完成的愿望塑形。"
+              "speaker": "孩子",
+              "text": "你们来接我？可爸爸妈妈就在这里。我不想走。"
             },
             {
               "id": "ch032.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "岚音",
+              "text": "我不会现在就拉你走。可你的身体还在另一边等着醒来。"
             },
             {
               "id": "ch032.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "玄璃",
+              "text": "这里的人物会回答，会拥抱，却无法陪你一起变老。"
+            },
+            {
+              "id": "ch032.investigate.l05",
+              "speaker": "孩子",
+              "text": "那边没人陪我吃饭。"
+            },
+            {
+              "id": "ch032.investigate.l06",
+              "speaker": "主角",
+              "text": "我们可以先让你和照顾你的人见面，再决定离开的时间。"
+            },
+            {
+              "id": "ch032.investigate.l07",
+              "speaker": "孩子",
+              "text": "我能带走这里的餐巾吗？"
+            },
+            {
+              "id": "ch032.investigate.l08",
+              "speaker": "玄璃",
+              "text": "餐巾无法离开，但你可以把上面的花样记下来，回去再绣一块。"
             }
           ],
           "objectives": [
@@ -370,7 +504,12 @@
               "key": "ch032.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "虚实餐桌交错，餐巾留在镜内",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch032.crisis",
@@ -385,23 +524,38 @@
           "dialogue": [
             {
               "id": "ch032.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "镜面行者",
+              "text": "未授权的愿望迁移。回收目标。"
             },
             {
               "id": "ch032.crisis.l02",
               "speaker": "玄璃",
-              "text": "失踪孩子在映世拥有幸福家庭，不愿返回现世。"
+              "text": "别碰那个孩子！他有权自己决定留下多久。"
             },
             {
               "id": "ch032.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "镜面行者",
+              "text": "所有映世对象均为可回收素材。"
             },
             {
               "id": "ch032.crisis.l04",
+              "speaker": "主角",
+              "text": "孩子是现世的人，她……至少也在自己说话。"
+            },
+            {
+              "id": "ch032.crisis.l05",
               "speaker": "玄璃",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "我不是你们的证物。我在这里生活过很久。"
+            },
+            {
+              "id": "ch032.crisis.l06",
+              "speaker": "岚音",
+              "text": "不论来自哪边，都不该被当成可以随时擦去的东西。"
+            },
+            {
+              "id": "ch032.crisis.l07",
+              "speaker": "朔弦",
+              "text": "左边那面镜子会反射攻击，快把孩子带到后面。"
             }
           ],
           "objectives": [
@@ -419,20 +573,22 @@
           ],
           "choice": {
             "id": "ch032.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "孩子不愿离开映世的家庭，你如何交谈？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "尊重选择，安排循序离开与探访",
                 "sets": {
-                  "ch032.approach": "listen"
+                  "ch032.approach": "gradual",
+                  "world.ch032.approach": "gradual"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先联系现世照护人，让两边共同协商",
                 "sets": {
-                  "ch032.approach": "act"
+                  "ch032.approach": "care_network",
+                  "world.ch032.approach": "care_network"
                 }
               }
             ]
@@ -442,6 +598,11 @@
             "display_name": "镜面行者",
             "win_flag": "ch032.battle_won",
             "recommended_level": 41
+          },
+          "direction": {
+            "shot": "少女站在镜子外缘抵住回收光",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
           }
         },
         {
@@ -457,22 +618,42 @@
             {
               "id": "ch032.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "镜面行者被停机。孩子先回到现世疗养院，并保留自愿探视映世的选择。"
             },
             {
               "id": "ch032.resolve.l02",
-              "speaker": "玄璃",
-              "text": "队伍和孩子协商，让其自愿在两个世界之间做决定。"
+              "speaker": "孩子",
+              "text": "我明天可以让护理师看看我自己画的那块餐巾吗？"
             },
             {
               "id": "ch032.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "岚音",
+              "text": "当然。你先告诉她喜欢什么颜色。"
             },
             {
               "id": "ch032.resolve.l04",
+              "speaker": "玄璃",
+              "text": "你们竟然问我的意见。大多数闯入者只问怎么出去。"
+            },
+            {
+              "id": "ch032.resolve.l05",
+              "speaker": "主角",
+              "text": "那你愿不愿意带我们走下一段路？"
+            },
+            {
+              "id": "ch032.resolve.l06",
+              "speaker": "玄璃",
+              "text": "先别叫我伙伴。我有自己的事要做。"
+            },
+            {
+              "id": "ch032.resolve.l07",
+              "speaker": "伊泽",
+              "text": "总比把人叫作“素材”强。"
+            },
+            {
+              "id": "ch032.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】镜子背后的人。新的道路正在展开。"
+              "text": "玄璃打开七重梦庭的入口，身影在镜面和现实之间短暂重叠。"
             }
           ],
           "objectives": [
@@ -492,7 +673,12 @@
               "xp": 1380,
               "gold": 488
             }
-          ]
+          ],
+          "direction": {
+            "shot": "现实的孩子亲手画餐巾纹样",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         }
       ],
       "npc_reactions": [
@@ -507,7 +693,9 @@
           "text": "听说你们在镜宫回廊帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act06_full_dialogue_v2",
+      "production_notes": "第31章玄璃未入队，32章认识，34章正式入队。原章节流程与触发ID保持不变。"
     },
     {
       "id": "ch033",
@@ -541,22 +729,37 @@
             {
               "id": "ch033.opening.l01",
               "speaker": "旁白",
-              "text": "【七重梦庭】空气中藏着异样的气息。"
+              "text": "七重梦庭里，每扇门都写着一个“如果”。推开后，伙伴们会看见曾经放弃的人生。"
             },
             {
               "id": "ch033.opening.l02",
               "speaker": "岚音",
-              "text": "原来如果那天我告诉你真相，我们可能再也不会一起出发。"
+              "text": "如果当年我没有隐瞒病历，也许我们早就不再说话。"
             },
             {
               "id": "ch033.opening.l03",
               "speaker": "主角",
-              "text": "先把眼前的事弄清楚。分别走过队友未选择的人生分支。"
+              "text": "也可能更早一起出发。谁也不知道。"
             },
             {
               "id": "ch033.opening.l04",
-              "speaker": "岚音",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "雷索",
+              "text": "那边的我执行了军令，披风没有脏，爵位还在。"
+            },
+            {
+              "id": "ch033.opening.l05",
+              "speaker": "朔弦",
+              "text": "另一条船里，我从没被人骗过，却也再没离开故乡。"
+            },
+            {
+              "id": "ch033.opening.l06",
+              "speaker": "伊泽",
+              "text": "这些都不是给人挑选的奖励，是尚未活过的日子。"
+            },
+            {
+              "id": "ch033.opening.l07",
+              "speaker": "玄璃",
+              "text": "我在这里长大。我知道愿望会变，却很少有人允许它变。"
             }
           ],
           "objectives": [
@@ -575,7 +778,12 @@
               "key": "ch033.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "七面门上依次出现“如果”",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch033.investigate",
@@ -588,22 +796,37 @@
             {
               "id": "ch033.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在七重梦庭找到了一处被忽视的痕迹。"
+              "text": "第三重梦庭中的岚音经营一家安静的药房，主角只是偶尔路过的陌生旅人。"
             },
             {
               "id": "ch033.investigate.l02",
               "speaker": "岚音",
-              "text": "每个分支都真实拥有情绪，却无法脱离梦庭成长。"
+              "text": "那里的我看起来平安。可我连你的名字也不知道。"
             },
             {
               "id": "ch033.investigate.l03",
               "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "text": "她也救了很多人，不必因为没和我同行就变得不值得。"
             },
             {
               "id": "ch033.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "雷索",
+              "text": "我的另一条路能保住爵位，却救不了当年的村庄。"
+            },
+            {
+              "id": "ch033.investigate.l05",
+              "speaker": "朔弦",
+              "text": "我突然不想再看了。最难受的不是那条路坏，而是它也有好的地方。"
+            },
+            {
+              "id": "ch033.investigate.l06",
+              "speaker": "伊泽",
+              "text": "人只能为走过的路承担责任，没必要把没走过的每一条都判成错误。"
+            },
+            {
+              "id": "ch033.investigate.l07",
+              "speaker": "玄璃",
+              "text": "你们比这里的镜子更知道什么叫遗憾。"
             }
           ],
           "objectives": [
@@ -622,7 +845,12 @@
               "key": "ch033.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "药房的平静与陌生视线相撞",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch033.crisis",
@@ -637,23 +865,38 @@
           "dialogue": [
             {
               "id": "ch033.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "愿景残响",
+              "text": "留下吧。这里每个人都可以拥有没有失误的人生。"
             },
             {
               "id": "ch033.crisis.l02",
               "speaker": "岚音",
-              "text": "伙伴们开始怀疑自己的现在是否比另一条路更好。"
+              "text": "如果从不犯错，我又怎么学会面对自己藏起来的病历？"
             },
             {
               "id": "ch033.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "雷索",
+              "text": "如果从不失去，我或许永远不知道该违抗命令。"
             },
             {
               "id": "ch033.crisis.l04",
-              "speaker": "岚音",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "朔弦",
+              "text": "我还是想回去，哪怕那条船经常漏水。"
+            },
+            {
+              "id": "ch033.crisis.l05",
+              "speaker": "主角",
+              "text": "我们不必证明现在一定比另一条路幸福。"
+            },
+            {
+              "id": "ch033.crisis.l06",
+              "speaker": "玄璃",
+              "text": "只要不替对方决定，就还有资格一起走。"
+            },
+            {
+              "id": "ch033.crisis.l07",
+              "speaker": "旁白",
+              "text": "七面镜子逐渐失去“最正确的人生”的文字，回廊重新出现出口。"
             }
           ],
           "objectives": [
@@ -671,20 +914,22 @@
           ],
           "choice": {
             "id": "ch033.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "梦庭展示美好却不能继续成长的另一条人生。",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "承认遗憾，选择返回现实",
                 "sets": {
-                  "ch033.approach": "listen"
+                  "ch033.approach": "accept",
+                  "world.ch033.approach": "accept"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "记下各自的愿景，作为未来的提醒",
                 "sets": {
-                  "ch033.approach": "act"
+                  "ch033.approach": "remember",
+                  "world.ch033.approach": "remember"
                 }
               }
             ]
@@ -694,6 +939,11 @@
             "display_name": "愿景残响",
             "win_flag": "ch033.battle_won",
             "recommended_level": 42
+          },
+          "direction": {
+            "shot": "人物镜影逐渐变成未写完的字",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
           }
         },
         {
@@ -709,22 +959,42 @@
             {
               "id": "ch033.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "众人在梦庭出口停了很久，没有谁急着替彼此说一句漂亮话。"
             },
             {
               "id": "ch033.resolve.l02",
               "speaker": "岚音",
-              "text": "众人带着遗憾回到现世，羁绊因坦诚而加深。"
+              "text": "我很庆幸还能跟你一起找澄舟。但我也不能说过去的隐瞒无关紧要。"
             },
             {
               "id": "ch033.resolve.l03",
               "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "text": "我知道。以后你可以先告诉我你害怕什么。"
             },
             {
               "id": "ch033.resolve.l04",
+              "speaker": "雷索",
+              "text": "这比保证永不犯错实际得多。"
+            },
+            {
+              "id": "ch033.resolve.l05",
+              "speaker": "朔弦",
+              "text": "我保证至少以后修船不会瞒着你们。"
+            },
+            {
+              "id": "ch033.resolve.l06",
+              "speaker": "缇珐",
+              "text": "这条最好写下来，我已经拿出本子了。"
+            },
+            {
+              "id": "ch033.resolve.l07",
+              "speaker": "伊泽",
+              "text": "我们的故事终于有一句不押韵的结尾。"
+            },
+            {
+              "id": "ch033.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】另一种人生。新的道路正在展开。"
+              "text": "队伍获得七重梦庭的完整映世坐标，通往无名剧场的门打开。"
             }
           ],
           "objectives": [
@@ -744,7 +1014,12 @@
               "xp": 1420,
               "gold": 502
             }
-          ]
+          ],
+          "direction": {
+            "shot": "众人走出时没有人被强制微笑",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         }
       ],
       "npc_reactions": [
@@ -759,7 +1034,9 @@
           "text": "听说你们在七重梦庭帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act06_full_dialogue_v2",
+      "production_notes": "第31章玄璃未入队，32章认识，34章正式入队。原章节流程与触发ID保持不变。"
     },
     {
       "id": "ch034",
@@ -793,22 +1070,37 @@
             {
               "id": "ch034.opening.l01",
               "speaker": "旁白",
-              "text": "【映世·无名剧场】空气中藏着异样的气息。"
+              "text": "无名剧场的观众席空无一人，台上却摆着几十件写着“未被选择”的服装。"
             },
             {
               "id": "ch034.opening.l02",
               "speaker": "玄璃",
-              "text": "如果没有人记得我出生，难道我就没有活着的权利？"
+              "text": "我最初在这里学会走路。台下总有人说“重来一次”，可从来不问我累不累。"
             },
             {
               "id": "ch034.opening.l03",
               "speaker": "主角",
-              "text": "先把眼前的事弄清楚。调查玄璃的出生记录并阻止身份抹除。"
+              "text": "这里记录着你的来历吗？"
             },
             {
               "id": "ch034.opening.l04",
               "speaker": "玄璃",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "text": "记录的是素材号，没有名字。每当我自己写一个，第二天就被擦掉。"
+            },
+            {
+              "id": "ch034.opening.l05",
+              "speaker": "岚音",
+              "text": "你在镜宫告诉孩子，可以选择。现在换你了。"
+            },
+            {
+              "id": "ch034.opening.l06",
+              "speaker": "伊泽",
+              "text": "剧场里没人鼓掌，也不意味着表演者不存在。"
+            },
+            {
+              "id": "ch034.opening.l07",
+              "speaker": "旁白",
+              "text": "舞台后方的门牌上写着“自我意识偏差处理室”。"
             }
           ],
           "objectives": [
@@ -827,7 +1119,12 @@
               "key": "ch034.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "舞台上摆满从未被穿过的戏服",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch034.investigate",
@@ -840,22 +1137,37 @@
             {
               "id": "ch034.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在映世·无名剧场找到了一处被忽视的痕迹。"
+              "text": "档案显示玄璃由许多被放弃的愿望凝聚，随后形成能自行作出新选择的意识。"
             },
             {
               "id": "ch034.investigate.l02",
-              "speaker": "玄璃",
-              "text": "玄璃由无数被放弃的愿望凝成，却拥有独立意志。"
+              "speaker": "缇珐",
+              "text": "程序没把她当作人，是因为旧分类里根本没有这一栏。"
             },
             {
               "id": "ch034.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "雷索",
+              "text": "那么该改的应该是分类，而不是她。"
             },
             {
               "id": "ch034.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "玄璃",
+              "text": "过去我一直拿别人的愿望当剧本。直到有一天我想把台词改掉。"
+            },
+            {
+              "id": "ch034.investigate.l05",
+              "speaker": "主角",
+              "text": "那天你改了什么？"
+            },
+            {
+              "id": "ch034.investigate.l06",
+              "speaker": "玄璃",
+              "text": "我把“请留下”改成“我想出去”。"
+            },
+            {
+              "id": "ch034.investigate.l07",
+              "speaker": "岚音",
+              "text": "这就是你的选择。和谁创造了你没有关系。"
             }
           ],
           "objectives": [
@@ -874,7 +1186,12 @@
               "key": "ch034.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "身份栏只有编号，墨水总被擦掉",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch034.crisis",
@@ -889,23 +1206,38 @@
           "dialogue": [
             {
               "id": "ch034.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "梦核回收者",
+              "text": "检测到不合规自主意识。回收后可恢复剧场稳定。"
             },
             {
               "id": "ch034.crisis.l02",
               "speaker": "玄璃",
-              "text": "古代程序将她登记为“可回收幻象”。"
+              "text": "我已经听过这句话几百遍。这次我不会自己躲回后台。"
             },
             {
               "id": "ch034.crisis.l03",
               "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "text": "我们来帮你拆掉回收装置，但你的名字由你自己写。"
             },
             {
               "id": "ch034.crisis.l04",
+              "speaker": "回收者",
+              "text": "未授权实体不具有命名权。"
+            },
+            {
+              "id": "ch034.crisis.l05",
+              "speaker": "雷索",
+              "text": "这条规则从何而来？谁签过字？"
+            },
+            {
+              "id": "ch034.crisis.l06",
+              "speaker": "缇珐",
+              "text": "回收器主轴在舞台地板下。拆主轴，别碰那些还在做梦的残响。"
+            },
+            {
+              "id": "ch034.crisis.l07",
               "speaker": "玄璃",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "我来告诉你们怎么进去。那是我自己走出来的路。"
             }
           ],
           "objectives": [
@@ -923,20 +1255,22 @@
           ],
           "choice": {
             "id": "ch034.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "面对回收程序，如何帮助玄璃确立自己的权利？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "先保全玄璃的自述与署名",
                 "sets": {
-                  "ch034.approach": "listen"
+                  "ch034.approach": "testimony",
+                  "world.ch034.approach": "testimony"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先关闭回收核心，保护仍在梦中的意识",
                 "sets": {
-                  "ch034.approach": "act"
+                  "ch034.approach": "safety",
+                  "world.ch034.approach": "safety"
                 }
               }
             ]
@@ -946,6 +1280,11 @@
             "display_name": "梦核回收者",
             "win_flag": "ch034.battle_won",
             "recommended_level": 43
+          },
+          "direction": {
+            "shot": "回收程序光束与空观众席形成压迫",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
           }
         },
         {
@@ -961,22 +1300,42 @@
             {
               "id": "ch034.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "回收器停转，无名剧场的台灯缓慢熄去，只留下舞台中央一支未用过的笔。"
             },
             {
               "id": "ch034.resolve.l02",
               "speaker": "玄璃",
-              "text": "主角破坏回收装置，玄璃亲手写下自己的名字。"
+              "text": "我从前最怕灯熄。因为灯一灭，别人就会说那场戏没有发生。"
             },
             {
               "id": "ch034.resolve.l03",
               "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "text": "你现在不需要观众替你证明。"
             },
             {
               "id": "ch034.resolve.l04",
+              "speaker": "玄璃",
+              "text": "那我写了。玄——璃。"
+            },
+            {
+              "id": "ch034.resolve.l05",
+              "speaker": "岚音",
+              "text": "写得很好。你愿意以后和我们一起旅行吗？"
+            },
+            {
+              "id": "ch034.resolve.l06",
+              "speaker": "玄璃",
+              "text": "愿意。我想亲眼看看没有剧本的雨。"
+            },
+            {
+              "id": "ch034.resolve.l07",
+              "speaker": "伊泽",
+              "text": "这次第一句歌由你来写。"
+            },
+            {
+              "id": "ch034.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】被创造的少女。新的道路正在展开。"
+              "text": "玄璃正式加入队伍。剧场入口不再显示“回收对象”，而是留下她写的名字。"
             }
           ],
           "objectives": [
@@ -996,7 +1355,12 @@
               "xp": 1460,
               "gold": 516
             }
-          ]
+          ],
+          "direction": {
+            "shot": "一支笔写下名字，镜头停在字迹干透的过程",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         }
       ],
       "npc_reactions": [
@@ -1011,7 +1375,9 @@
           "text": "听说你们在映世·无名剧场帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act06_full_dialogue_v2",
+      "production_notes": "第31章玄璃未入队，32章认识，34章正式入队。原章节流程与触发ID保持不变。"
     },
     {
       "id": "ch035",
@@ -1045,22 +1411,37 @@
             {
               "id": "ch035.opening.l01",
               "speaker": "旁白",
-              "text": "【镜眠王都·疗养院】空气中藏着异样的气息。"
+              "text": "镜眠王都疗养院挤满了入梦多年的居民。有些人刚被唤醒，仍抓着旧日衣角。"
             },
             {
               "id": "ch035.opening.l02",
-              "speaker": "岚音",
-              "text": "醒来不一定幸福，但选择必须属于他们自己。"
+              "speaker": "医官",
+              "text": "再不叫醒，他们身体会一直耗尽；可突然醒来的人又承受不住。"
             },
             {
               "id": "ch035.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。帮助居民了解现实与梦境的代价。"
+              "speaker": "岚音",
+              "text": "先分清需要医疗干预和只是选择继续做梦的人。"
             },
             {
               "id": "ch035.opening.l04",
-              "speaker": "岚音",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "玄璃",
+              "text": "我知道映世的出口，但不懂现世的护理。"
+            },
+            {
+              "id": "ch035.opening.l05",
+              "speaker": "缇珐",
+              "text": "我可以把设备改成缓慢降低共鸣，不让脑中影像瞬间消失。"
+            },
+            {
+              "id": "ch035.opening.l06",
+              "speaker": "主角",
+              "text": "任何治疗都要告知本人或可信的照护人，不能用“为了你好”跳过说明。"
+            },
+            {
+              "id": "ch035.opening.l07",
+              "speaker": "雷索",
+              "text": "我负责保护病房，不让急着恢复秩序的官员闯进来。"
             }
           ],
           "objectives": [
@@ -1079,7 +1460,12 @@
               "key": "ch035.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "拥挤病房里的空椅",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch035.investigate",
@@ -1092,22 +1478,42 @@
             {
               "id": "ch035.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在镜眠王都·疗养院找到了一处被忽视的痕迹。"
+              "text": "病房里，一名老妇将刚醒来的手伸向空椅，久久不肯松开。"
             },
             {
               "id": "ch035.investigate.l02",
-              "speaker": "岚音",
-              "text": "梦境为每位居民保存了失去之人的理想形象。"
+              "speaker": "老妇",
+              "text": "我丈夫就在这里。你们为什么让我看不见他？"
             },
             {
               "id": "ch035.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "岚音",
+              "text": "我不能替你把他带回来，但可以先告诉你现在在哪里。"
             },
             {
               "id": "ch035.investigate.l04",
+              "speaker": "老妇",
+              "text": "我还要回去。那里至少有人跟我说晚安。"
+            },
+            {
+              "id": "ch035.investigate.l05",
+              "speaker": "玄璃",
+              "text": "你可以有告别的时间。只是时间会继续向前。"
+            },
+            {
+              "id": "ch035.investigate.l06",
+              "speaker": "医官",
+              "text": "她的心脏无法承受突然转移，必须分三次降低入梦。"
+            },
+            {
+              "id": "ch035.investigate.l07",
+              "speaker": "主角",
+              "text": "把计划写给她看，不要求她立刻作答。"
+            },
+            {
+              "id": "ch035.investigate.l08",
               "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "text": "老妇接过纸，先问今天晚饭会吃什么。"
             }
           ],
           "objectives": [
@@ -1126,7 +1532,12 @@
               "key": "ch035.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "老妇的手从空椅慢慢移向纸面",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch035.crisis",
@@ -1141,23 +1552,43 @@
           "dialogue": [
             {
               "id": "ch035.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "王国官员",
+              "text": "立刻叫醒所有人！城市需要恢复生产。"
             },
             {
               "id": "ch035.crisis.l02",
               "speaker": "岚音",
-              "text": "官员要求强制唤醒，许多病弱居民无法承受。"
+              "text": "你不能把病房变成另一套强制制度。"
             },
             {
               "id": "ch035.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "官员",
+              "text": "你们要任他们一直沉睡下去吗？"
             },
             {
               "id": "ch035.crisis.l04",
-              "speaker": "岚音",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "speaker": "玄璃",
+              "text": "他们也有权问自己醒来以后怎样活。"
+            },
+            {
+              "id": "ch035.crisis.l05",
+              "speaker": "缇珐",
+              "text": "我能提供分段唤醒装置，先从自愿、适合的病人做起。"
+            },
+            {
+              "id": "ch035.crisis.l06",
+              "speaker": "主角",
+              "text": "病重者留在监护下，愿意醒来的人有明确程序，不愿意的人可以申请复查。"
+            },
+            {
+              "id": "ch035.crisis.l07",
+              "speaker": "雷索",
+              "text": "任何人都不得把病人从床上拖走。"
+            },
+            {
+              "id": "ch035.crisis.l08",
+              "speaker": "旁白",
+              "text": "眠潮蔓藤从墙上的镜面缓缓伸出，仿佛旧程序不愿交出控制。"
             }
           ],
           "objectives": [
@@ -1175,20 +1606,22 @@
           ],
           "choice": {
             "id": "ch035.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "疗养院需要恢复秩序，你优先保证什么？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "由护理师建立分阶段知情同意计划",
                 "sets": {
-                  "ch035.approach": "listen"
+                  "ch035.approach": "informed_care",
+                  "world.ch035.approach": "informed_care"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先保护病重者，逐步开放自愿醒转",
                 "sets": {
-                  "ch035.approach": "act"
+                  "ch035.approach": "medical_priority",
+                  "world.ch035.approach": "medical_priority"
                 }
               }
             ]
@@ -1198,6 +1631,11 @@
             "display_name": "眠潮蔓藤",
             "win_flag": "ch035.battle_won",
             "recommended_level": 45
+          },
+          "direction": {
+            "shot": "镜面藤蔓越过官员的命令板",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
           }
         },
         {
@@ -1213,22 +1651,42 @@
             {
               "id": "ch035.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "第一批自愿醒来的居民在医院花园坐下，许久没有人说话。"
             },
             {
               "id": "ch035.resolve.l02",
-              "speaker": "岚音",
-              "text": "岚音设计循序醒转疗法，王国保留自愿短眠的医疗设施。"
+              "speaker": "老妇",
+              "text": "今天的风有点冷。我原本很讨厌冷风。"
             },
             {
               "id": "ch035.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "岚音",
+              "text": "不喜欢也没关系。你可以裹好毯子。"
             },
             {
               "id": "ch035.resolve.l04",
+              "speaker": "玄璃",
+              "text": "我以前以为真实就一定比梦好。看来真实只是允许更多可能。"
+            },
+            {
+              "id": "ch035.resolve.l05",
+              "speaker": "医官",
+              "text": "疗养院会保留自愿短眠治疗，但不再强制延长。"
+            },
+            {
+              "id": "ch035.resolve.l06",
+              "speaker": "主角",
+              "text": "把每个人的决定分别记录，不用一个数字代表他们。"
+            },
+            {
+              "id": "ch035.resolve.l07",
+              "speaker": "缇珐",
+              "text": "我会留下维护图纸。别再让任何装置比病人更有发言权。"
+            },
+            {
+              "id": "ch035.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】醒来的人们。新的道路正在展开。"
+              "text": "花园的第一朵花在自然的雨后凋谢，第二天又有新的花开放。"
             }
           ],
           "objectives": [
@@ -1248,7 +1706,12 @@
               "xp": 1500,
               "gold": 530
             }
-          ]
+          ],
+          "direction": {
+            "shot": "雨后的真实花朵带有破损叶片",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         }
       ],
       "npc_reactions": [
@@ -1263,7 +1726,9 @@
           "text": "听说你们在镜眠王都·疗养院帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act06_full_dialogue_v2",
+      "production_notes": "第31章玄璃未入队，32章认识，34章正式入队。原章节流程与触发ID保持不变。"
     },
     {
       "id": "ch036",
@@ -1297,22 +1762,37 @@
             {
               "id": "ch036.opening.l01",
               "speaker": "旁白",
-              "text": "【镜眠母灯深处】空气中藏着异样的气息。"
+              "text": "镜眠母灯深处悬着一座没有影子的王座，王国每日重复的晴天全汇向这里。"
             },
             {
               "id": "ch036.opening.l02",
               "speaker": "玄璃",
-              "text": "我宁愿明天会难过，也不要今天永远结束。"
+              "text": "我以为梦庭是自由的地方，直到我发现有人把出口锁上。"
             },
             {
               "id": "ch036.opening.l03",
-              "speaker": "主角",
-              "text": "先把眼前的事弄清楚。解除强制睡眠程序修复镜眠灯。"
+              "speaker": "岚音",
+              "text": "这里每条供能线都连着某个病人的愿望。"
             },
             {
               "id": "ch036.opening.l04",
-              "speaker": "玄璃",
-              "text": "别忘了，沿途的人也有自己的故事。"
+              "speaker": "缇珐",
+              "text": "没有知情许可，却被自动列入永久睡眠。又是同样的错误。"
+            },
+            {
+              "id": "ch036.opening.l05",
+              "speaker": "赫西安投影",
+              "text": "那些孩子不再失去父母，老人永远能牵住伴侣。你们为何要毁掉它？"
+            },
+            {
+              "id": "ch036.opening.l06",
+              "speaker": "主角",
+              "text": "因为你没有问过他们想不想明天。"
+            },
+            {
+              "id": "ch036.opening.l07",
+              "speaker": "雷索",
+              "text": "提供庇护不等于占有人生。"
             }
           ],
           "objectives": [
@@ -1331,7 +1811,12 @@
               "key": "ch036.started",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "没有影子的王座与满城的晴天重叠",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch036.investigate",
@@ -1344,22 +1829,42 @@
             {
               "id": "ch036.investigate.l01",
               "speaker": "旁白",
-              "text": "众人在镜眠母灯深处找到了一处被忽视的痕迹。"
+              "text": "灯芯内侧刻着两份协议：一份允许自愿入梦，一份被后人改成“永久幸福保护”。"
             },
             {
               "id": "ch036.investigate.l02",
               "speaker": "玄璃",
-              "text": "镜眠灯被赫西安改写，将居民的自由愿望转成静止能源。"
+              "text": "旧版有退出键。赫西安把它从所有居民眼前藏了起来。"
             },
             {
               "id": "ch036.investigate.l03",
-              "speaker": "主角",
-              "text": "先别急着下结论。还有谁能证实这件事？"
+              "speaker": "岚音",
+              "text": "那些哭着醒来的人，并不是不该被治疗，而是根本没被允许作选择。"
             },
             {
               "id": "ch036.investigate.l04",
-              "speaker": "旁白",
-              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+              "speaker": "伊泽",
+              "text": "有些愿望会改变。如果不允许改变，连祈祷都成了一句命令。"
+            },
+            {
+              "id": "ch036.investigate.l05",
+              "speaker": "缇珐",
+              "text": "把退出权限还给每个人，灯不一定要熄灭。"
+            },
+            {
+              "id": "ch036.investigate.l06",
+              "speaker": "主角",
+              "text": "我们先保留医疗用途，解除自动续梦。"
+            },
+            {
+              "id": "ch036.investigate.l07",
+              "speaker": "赫西安投影",
+              "text": "改变意味着再次失去。你们愿意承担这种痛苦吗？"
+            },
+            {
+              "id": "ch036.investigate.l08",
+              "speaker": "玄璃",
+              "text": "不该由你替所有人承担，也不该由你替所有人决定。"
             }
           ],
           "objectives": [
@@ -1378,7 +1883,12 @@
               "key": "ch036.evidence",
               "value": true
             }
-          ]
+          ],
+          "direction": {
+            "shot": "原协议与改写协议文字缓慢分开",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         },
         {
           "id": "ch036.crisis",
@@ -1393,23 +1903,38 @@
           "dialogue": [
             {
               "id": "ch036.crisis.l01",
-              "speaker": "旁白",
-              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+              "speaker": "梦境王座",
+              "text": "幸福稳定率下降。建议永久封存不合作意识。"
             },
             {
               "id": "ch036.crisis.l02",
-              "speaker": "玄璃",
-              "text": "赫西安的投影许诺让每个人见回死去的亲人。"
+              "speaker": "赫西安投影",
+              "text": "我曾亲眼看见一家人一夜间消失。没有人有权指责我想留住他们。"
             },
             {
               "id": "ch036.crisis.l03",
-              "speaker": "主角",
-              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+              "speaker": "岚音",
+              "text": "你的悲伤是真的。它不能让其他人的明天变成你的所有物。"
             },
             {
               "id": "ch036.crisis.l04",
               "speaker": "玄璃",
-              "text": "这一次由你决定如何开口。我会一起承担后果。"
+              "text": "我曾是无名剧场的可回收素材。今天不会再坐回那个座位。"
+            },
+            {
+              "id": "ch036.crisis.l05",
+              "speaker": "主角",
+              "text": "拆掉强制程序，保留能自由打开的门。"
+            },
+            {
+              "id": "ch036.crisis.l06",
+              "speaker": "雷索",
+              "text": "我护住灯芯，你们去断开回收回路。"
+            },
+            {
+              "id": "ch036.crisis.l07",
+              "speaker": "伊泽",
+              "text": "我会唱曾经被遗忘者的名字，而不是命令他们回来。"
             }
           ],
           "objectives": [
@@ -1427,20 +1952,22 @@
           ],
           "choice": {
             "id": "ch036.choice",
-            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "prompt": "解除梦境封锁时，先坚持什么原则？",
             "options": [
               {
                 "id": "listen",
-                "label": "先听当事人的解释",
+                "label": "恢复所有人的自主退出权",
                 "sets": {
-                  "ch036.approach": "listen"
+                  "ch036.approach": "exit_right",
+                  "world.ch036.approach": "exit_right"
                 }
               },
               {
                 "id": "act",
-                "label": "先保护可能受伤的人",
+                "label": "先让病弱者获得可控过渡与知情保护",
                 "sets": {
-                  "ch036.approach": "act"
+                  "ch036.approach": "safe_transition",
+                  "world.ch036.approach": "safe_transition"
                 }
               }
             ]
@@ -1450,6 +1977,11 @@
             "display_name": "梦境王座",
             "win_flag": "ch036.battle_won",
             "recommended_level": 46
+          },
+          "direction": {
+            "shot": "王座一动不动，周围所有角色都在向前走",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
           }
         },
         {
@@ -1465,22 +1997,42 @@
             {
               "id": "ch036.resolve.l01",
               "speaker": "旁白",
-              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+              "text": "王座崩解后，镜眠母灯散发出柔和光线，所有镜子都映出正在流动的时间。"
             },
             {
               "id": "ch036.resolve.l02",
               "speaker": "玄璃",
-              "text": "众人选择不接受永恒停滞，镜眠灯恢复原有的开放功能。"
+              "text": "原来镜子也能映出不确定的明天。"
             },
             {
               "id": "ch036.resolve.l03",
-              "speaker": "主角",
-              "text": "总有些事，不能只写成一行冒险记录。"
+              "speaker": "岚音",
+              "text": "疗养院里的病人可以慢慢醒，或者在知情下选择短眠。"
             },
             {
               "id": "ch036.resolve.l04",
+              "speaker": "缇珐",
+              "text": "这回退出按钮没被藏起来。我亲手把它刻在每台装置上。"
+            },
+            {
+              "id": "ch036.resolve.l05",
+              "speaker": "赫西安投影",
+              "text": "你们迟早会看见痛苦，然后要求一切停止。"
+            },
+            {
+              "id": "ch036.resolve.l06",
+              "speaker": "主角",
+              "text": "也许会痛，但我们仍有权改变决定。"
+            },
+            {
+              "id": "ch036.resolve.l07",
+              "speaker": "伊泽",
+              "text": "这段故事不能唱成“战胜悲伤”。我们只为人们保住了继续生活的路。"
+            },
+            {
+              "id": "ch036.resolve.l08",
               "speaker": "旁白",
-              "text": "【任务完成】镜眠灯下的真相。新的道路正在展开。"
+              "text": "镜眠母灯重燃。来自旧洲的残缺海图在所有镜面上浮现。"
             }
           ],
           "objectives": [
@@ -1500,7 +2052,12 @@
               "xp": 1540,
               "gold": 544
             }
-          ]
+          ],
+          "direction": {
+            "shot": "镜中终于出现自然流动的阴影",
+            "theme": "梦境不必邪恶；剥夺选择才是问题",
+            "audio_note": "区别真实环境音与被循环的音乐"
+          }
         }
       ],
       "npc_reactions": [
@@ -1515,7 +2072,10 @@
           "text": "听说你们在镜眠母灯深处帮了大忙。至少我们今天能安心一些。"
         }
       ],
-      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act06_full_dialogue_v2",
+      "production_notes": "第31章玄璃未入队，32章认识，34章正式入队。原章节流程与触发ID保持不变。"
     }
-  ]
+  ],
+  "dialogue_revision": "act06_full_dialogue_v2"
 }

@@ -172,6 +172,7 @@ func _act(action: String) -> void:
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
     var message: String = ""
     var damage: int = 0
+    var healed_via_skill: bool = false
     match action:
         "attack":
             damage = maxi(3, int(stats.get("attack", member["attack"])) + dice.randi_range(-5, 8) - int(enemy["def"]))
@@ -205,6 +206,7 @@ func _act(action: String) -> void:
                             healed_index = idx
                     game_state.actors[hero_turn] = member
                     game_state.heal_member(healed_index, maxi(20,power * 2))
+                    healed_via_skill = true
                     message = "%s 发动%s，治疗%s。" % [name,str(chosen.get("name","技能")),str(game_state.actors[healed_index]["name"])]
                 elif kind == "shield":
                     defense[hero_turn] = true
@@ -249,7 +251,8 @@ func _act(action: String) -> void:
             else:
                 damage = maxi(8, int(stats.get("attack", member["attack"])) + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
-    game_state.actors[hero_turn] = member if action != "skill" or str(member["id"]) != "char_tidecaller" else game_state.actors[hero_turn]
+    if not healed_via_skill:
+        game_state.actors[hero_turn] = member
     if damage > 0:
         if boss and chapter == 5:
             # 古兽的剧情结局是卸下星锁，而不是杀死生命体。

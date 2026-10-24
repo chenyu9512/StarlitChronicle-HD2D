@@ -23,6 +23,7 @@ var party_line: Label
 var dpad: Control
 var act_button: Button
 var menu_button: Button
+var shortcut_button: Button
 var dialog_layer: Control
 var dialog_speaker: Label
 var dialog_text: RichTextLabel
@@ -144,6 +145,14 @@ func _build_controls() -> void:
     menu_button.offset_bottom = -111
     menu_button.pressed.connect(func() -> void: menu_pressed.emit())
     root.add_child(menu_button)
+    shortcut_button = _button("✦ 功能栏", 17)
+    shortcut_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+    shortcut_button.offset_left = -342
+    shortcut_button.offset_right = -207
+    shortcut_button.offset_top = -168
+    shortcut_button.offset_bottom = -111
+    shortcut_button.pressed.connect(func() -> void: adventure_book_requested.emit())
+    root.add_child(shortcut_button)
     toast = Label.new()
     toast.anchor_left = 0.29
     toast.anchor_right = 0.71
@@ -413,5 +422,6 @@ func set_play_visible(value: bool) -> void:
     dpad.visible = value
     act_button.visible = value
     menu_button.visible = value
+    shortcut_button.visible = value
     if not value:
         clear_movement()

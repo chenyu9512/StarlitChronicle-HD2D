@@ -114,7 +114,7 @@ func _target() -> String:
     return ""
 
 func _objective() -> String:
-    if progress.chapter == 72 and bool(progress.flags.get("story.ch072.done", false)):
+    if progress.chapter == 72 and bool(progress.flags.get("story.complete", false)):
         return "终章已完成 · 星灯纪行迎来结局。可继续探索与保存。"
     var scene: Dictionary = _current_scene()
     var prefix: String = str(scene.get("title", "探索周围"))
@@ -128,7 +128,7 @@ func _objective() -> String:
     return "探索旅途中的秘密"
 
 func _focus() -> void:
-    world.set_focus(_target() if not (progress.chapter == 72 and bool(progress.flags.get("story.ch072.done", false))) else "")
+    world.set_focus(_target() if not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else "")
     var side_step: int = _side_step()
     var extra: String = ""
     var side_target: String = ""
@@ -166,7 +166,7 @@ func _interact(target: String) -> void:
     if target.begins_with("side_"):
         _side_interact(target)
         return
-    if progress.chapter == 72 and bool(progress.flags.get("story.ch072.done", false)):
+    if progress.chapter == 72 and bool(progress.flags.get("story.complete", false)):
         ui.show_message("第一幕已结束。潮歌灯仍照亮着归航之路。")
         return
     if target != _target():

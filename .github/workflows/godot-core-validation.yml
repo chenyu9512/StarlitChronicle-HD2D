@@ -1,0 +1,29 @@
+name: Godot 4.7.2 Core Validation
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation tools
+        run: python -m pip install --disable-pip-version-check pillow pyyaml
+      - name: Validate maps, story and item catalog
+        run: |
+          python tools/validate_project.py
+          python tools/validate_story.py
+          python tools/validate_content.py
+      - name: Install official Godot 4.7.2 editor
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Headless project import and GDScript check
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Headless main scene smoke test
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20

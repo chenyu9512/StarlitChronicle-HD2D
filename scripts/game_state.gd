@@ -13,6 +13,18 @@ var gold := 35
 var potions := 3
 var party: Array[Dictionary] = []
 
+# Canonical story progress is additional data; old v1 save files remain compatible.
+var story_chapter: int = 0  # 0 = childhood prologue; 1..72 = main chapters
+var story_scene: int = 0
+var story_flags: Dictionary = {}
+var story_ending: String = ""
+
+# Temporary local developer switches are NEVER persisted in save files.
+var cheat_god: bool = false
+var cheat_no_encounters: bool = false
+var cheat_xp_five: bool = false
+var cheat_fast_walk: bool = false
+
 func _ready() -> void:
     new_game()
 
@@ -24,9 +36,17 @@ func new_game() -> void:
     opened_chests.clear()
     gold = 35
     potions = 3
+    story_chapter = 0
+    story_scene = 0
+    story_flags.clear()
+    story_ending = ""
+    cheat_god = false
+    cheat_no_encounters = false
+    cheat_xp_five = false
+    cheat_fast_walk = false
     party = [
         {"name":"黎昂", "level":1, "xp":0, "hp":96, "max_hp":96, "mp":20, "max_mp":20, "attack":17, "defense":5, "skill":"烈风斩"},
-        {"name":"澪", "level":1, "xp":0, "hp":71, "max_hp":71, "mp":46, "max_mp":46, "attack":11, "defense":3, "skill":"星火术"}
+        {"name":"岚音", "level":1, "xp":0, "hp":71, "max_hp":71, "mp":46, "max_mp":46, "attack":11, "defense":3, "skill":"星火术"}
     ]
 
 func save_game() -> bool:
@@ -39,7 +59,11 @@ func save_game() -> bool:
         "opened_chests": opened_chests,
         "gold": gold,
         "potions": potions,
-        "party": party
+        "party": party,
+        "story_chapter": story_chapter,
+        "story_scene": story_scene,
+        "story_flags": story_flags,
+        "story_ending": story_ending
     }
     var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
     if file == null:
@@ -78,6 +102,15 @@ func load_game() -> bool:
         opened_chests.append(str(chest))
     gold = maxi(0, int(loaded.get("gold", 35)))
     potions = maxi(0, int(loaded.get("potions", 3)))
+    story_chapter = clampi(int(loaded.get("story_chapter", 0)), 0, 72)
+    story_scene = maxi(0, int(loaded.get("story_scene", 0)))
+    var imported_flags: Variant = loaded.get("story_flags", {})
+    story_flags = imported_flags.duplicate(true) if imported_flags is Dictionary else {}
+    story_ending = str(loaded.get("story_ending", ""))
+    cheat_god = false
+    cheat_no_encounters = false
+    cheat_xp_five = false
+    cheat_fast_walk = false
     party.clear()
     for entry in new_party:
         party.append(entry)

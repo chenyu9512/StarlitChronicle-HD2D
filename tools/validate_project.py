@@ -8,7 +8,7 @@ import re, json, yaml
 ROOT=Path(__file__).resolve().parents[1]
 assert (ROOT/'project.godot').exists()
 assert (ROOT/'scenes/main.tscn').exists()
-assert len(list((ROOT/'scripts').glob('*.gd')))==6
+assert len(list((ROOT/'scripts').glob('*.gd')))>=7
 settings=(ROOT/'project.godot').read_text(encoding='utf8')
 assert 'renderer/rendering_method.mobile="gl_compatibility"' in settings
 assert 'autoload' in settings.lower()
@@ -60,3 +60,7 @@ for name in ('hero','companion'):
 for name in ('slime','bat','golem','boss'):
  assert Image.open(ROOT/f'assets/enemies/{name}.png').size==(128,128)
 print('OK: paths, JSON, PNG dimensions, YAML, reachability and references validated')
+
+# Validate the expanded canonical catalog without disturbing legacy prototype resources.
+import runpy
+runpy.run_path(str(ROOT/'tools'/'validate_content.py'))

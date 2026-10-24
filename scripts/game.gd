@@ -4,10 +4,15 @@ extends Node2D
 const WorldScript = preload("res://scripts/world.gd")
 const UIScript = preload("res://scripts/game_ui.gd")
 const BattleScript = preload("res://scripts/battle.gd")
+const CheatScript = preload("res://scripts/cheat_panel.gd")
+const StoryScript = preload("res://scripts/story_session.gd")
 
 var world
 var ui
 var battle
+var cheat_panel
+var story_session
+var story_battle_pending: bool = false
 var busy := false
 
 func _ready() -> void:
@@ -26,6 +31,16 @@ func _ready() -> void:
     ui.save_requested.connect(_save)
     ui.potion_requested.connect(_use_potion)
     ui.move_changed.connect(_on_move_changed)
+    story_session = StoryScript.new()
+    add_child(story_session)
+    story_session.closed.connect(_on_story_closed)
+    story_session.battle_requested.connect(_on_story_battle)
+    cheat_panel = CheatScript.new()
+    add_child(cheat_panel)
+    cheat_panel.opened.connect(_on_cheat_opened)
+    cheat_panel.closed.connect(_on_cheat_closed)
+    cheat_panel.command_requested.connect(_run_cheat)
+    ui.story_requested.connect(_open_story)
     _refresh_hud()
     busy = true
     world.locked = true
@@ -113,9 +128,10 @@ func _change_map(id: String, spawn: Vector2i) -> void:
     State.save_game()
 
 func _on_encounter() -> void:
-    _start_battle(false)
+    if not State.cheat_no_encounters:
+        _start_battle(false)
 
-func _start_battle(is_boss: bool) -> void:
+func _start_battle(is_boss: bool, story_enemy_id: String = "", story_enemy_name: String = "") -> void:
     busy = true
     world.locked = true
     world.input_vector = Vector2.ZERO
@@ -123,14 +139,32 @@ func _start_battle(is_boss: bool) -> void:
     battle = BattleScript.new()
     add_child(battle)
     battle.finished.connect(_on_battle_finished)
-    battle.begin(is_boss)
+    if story_enemy_id.is_empty():
+        battle.begin(is_boss)
+    else:
+        battle.begin_story(story_enemy_id, story_enemy_name)
 
 func _on_battle_finished(victory: bool, was_boss: bool, xp: int, gold: int) -> void:
     if is_instance_valid(battle):
         battle.queue_free()
     ui.set_exploration_visible(true)
     busy = false
+    if story_battle_pending:
+        story_battle_pending = false
+        if victory:
+            State.grant_rewards(xp * (5 if State.cheat_xp_five else 1), gold)
+        else:
+            State.fully_heal()
+        State.save_game()
+        ui.set_exploration_visible(true)
+        story_session.battle_result(victory)
+        busy = true
+        world.locked = true
+        _refresh_hud()
+        return
     if victory:
+        if State.cheat_xp_five:
+            xp *= 5
         var messages: Array[String] = ["战斗胜利！获得 %d 经验与 %d 金币。" % [xp, gold]]
         for line in State.grant_rewards(xp, gold):
             messages.append(line)
@@ -187,6 +221,104 @@ func _use_potion() -> void:
     State.potions -= 1
     ui.set_menu_message("%s 恢复了生命值！" % person["name"])
     _refresh_hud()
+
+func _open_story() -> void:
+    if is_instance_valid(battle):
+        return
+    if ui.menu_overlay.visible:
+        ui._close_menu()
+    busy = true
+    world.locked = true
+    world.input_vector = Vector2.ZERO
+    story_session.open_campaign()
+
+func _on_story_closed() -> void:
+    busy = false
+    world.locked = false
+    _refresh_hud()
+
+func _on_story_battle(enemy_id: String, enemy_name: String) -> void:
+    story_battle_pending = true
+    _start_battle(true, enemy_id, enemy_name)
+
+func _on_cheat_opened() -> void:
+    busy = true
+    world.locked = true
+    world.input_vector = Vector2.ZERO
+
+func _on_cheat_closed() -> void:
+    busy = story_session.overlay.visible or is_instance_valid(battle) or ui.menu_overlay.visible or ui.is_dialog_open()
+    world.locked = busy
+    _refresh_hud()
+
+func _run_cheat(command: String) -> void:
+    var feedback: String = ""
+    match command:
+        "heal":
+            State.fully_heal()
+            feedback = "全队恢复完成。"
+        "gold":
+            State.gold += 10000
+            feedback = "金币已增加 10000。"
+        "potions":
+            State.potions += 99
+            feedback = "药草已增加 99。"
+        "level":
+            for i in range(State.party.size()):
+                var actor: Dictionary = State.party[i]
+                actor["level"] = mini(99, int(actor.get("level", 1)) + 10)
+                actor["max_hp"] = int(actor["max_hp"]) + 120
+                actor["max_mp"] = int(actor["max_mp"]) + 50
+                actor["attack"] = int(actor["attack"]) + 30
+                actor["defense"] = int(actor["defense"]) + 10
+                State.party[i] = actor
+            State.fully_heal()
+            feedback = "全队等级已提升。"
+        "stats":
+            for i in range(State.party.size()):
+                var actor: Dictionary = State.party[i]
+                actor["attack"] = int(actor["attack"]) + 50
+                actor["defense"] = int(actor["defense"]) + 30
+                State.party[i] = actor
+            feedback = "攻击与防御已强化。"
+        "god":
+            State.cheat_god = not State.cheat_god
+            State.fully_heal()
+            feedback = "无敌模式：" + ("开启" if State.cheat_god else "关闭")
+        "encounters":
+            State.cheat_no_encounters = not State.cheat_no_encounters
+            feedback = "禁止随机遇敌：" + ("开启" if State.cheat_no_encounters else "关闭")
+        "xp":
+            State.cheat_xp_five = not State.cheat_xp_five
+            feedback = "经验 ×5：" + ("开启" if State.cheat_xp_five else "关闭")
+        "speed":
+            State.cheat_fast_walk = not State.cheat_fast_walk
+            feedback = "加速移动：" + ("开启" if State.cheat_fast_walk else "关闭")
+        "village", "ruins":
+            if story_battle_pending or is_instance_valid(battle):
+                feedback = "战斗中不可传送。"
+            else:
+                var target: String = command
+                _change_map(target, Vector2i(12, 17) if target == "village" else Vector2i(4, 14))
+                world.locked = true
+                busy = true
+                feedback = "已传送至" + ("晨露村" if target == "village" else "星落遗迹")
+        "next_chapter":
+            if State.story_chapter < 72:
+                if State.story_chapter == 0:
+                    State.story_flags["story.prologue_done"] = true
+                else:
+                    State.story_flags["story.ch%03d.done" % State.story_chapter] = true
+                State.story_chapter += 1
+                State.story_scene = 0
+                feedback = "剧情调试跳至第 %02d 章。" % State.story_chapter
+            else:
+                feedback = "已经到达最后章节。"
+        _:
+            feedback = "无效调试指令。"
+    State.save_game()
+    _refresh_hud()
+    cheat_panel.report(feedback)
 
 func _refresh_hud() -> void:
     if is_instance_valid(ui):

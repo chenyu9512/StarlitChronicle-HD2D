@@ -1,0 +1,1521 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 3,
+  "title": "赤炉联邦",
+  "theme": "拆解以记忆作燃料的工业制度，点亮炉心灯。",
+  "progression_unlock": "forge_lantern",
+  "chapters": [
+    {
+      "id": "ch013",
+      "number": 13,
+      "act": 3,
+      "chapter_number": 1,
+      "title": "矿坑里的第二个太阳",
+      "location": "赤炉联邦·七号矿坑",
+      "required_flags": [
+        "story.ch012.done"
+      ],
+      "chapter_start_flag": "ch013.started",
+      "chapter_complete_flag": "story.ch013.done",
+      "lead_character": "缇珐",
+      "summary": "在赤炉联邦·七号矿坑，调查矿工消失与星矿异常发光。矿工家属在名单中发现自己的姓名已经被划去。最终，众人救出幸存者，携带矿石样本前往工匠总署。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        15,
+        19
+      ],
+      "boss": "噬忆矿螳",
+      "scenes": [
+        {
+          "id": "ch013.opening",
+          "title": "到达：赤炉联邦·七号矿坑",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "赤炉联邦·七号矿坑"
+          },
+          "dialogue": [
+            {
+              "id": "ch013.opening.l01",
+              "speaker": "旁白",
+              "text": "【赤炉联邦·七号矿坑】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch013.opening.l02",
+              "speaker": "缇珐",
+              "text": "别碰那颗石头，它亮得像太阳，温度却低得像尸体。"
+            },
+            {
+              "id": "ch013.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。调查矿工消失与星矿异常发光。"
+            },
+            {
+              "id": "ch013.opening.l04",
+              "speaker": "缇珐",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "赤炉联邦·七号矿坑"
+            },
+            {
+              "type": "interact",
+              "target": "ch013.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch013.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch013.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch013.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch013.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在赤炉联邦·七号矿坑找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch013.investigate.l02",
+              "speaker": "缇珐",
+              "text": "矿井产量在停工时仍持续增长，账册记录着不存在的班次。"
+            },
+            {
+              "id": "ch013.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch013.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch013.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch013.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch013.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch013.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch013.crisis",
+            "requires_flags": [
+              "ch013.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch013.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch013.crisis.l02",
+              "speaker": "缇珐",
+              "text": "矿工家属在名单中发现自己的姓名已经被划去。"
+            },
+            {
+              "id": "ch013.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch013.crisis.l04",
+              "speaker": "缇珐",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch013.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch013.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch013.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch013.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch013.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch013",
+            "display_name": "噬忆矿螳",
+            "win_flag": "ch013.battle_won",
+            "recommended_level": 18
+          }
+        },
+        {
+          "id": "ch013.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch013.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch013.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch013.resolve.l02",
+              "speaker": "缇珐",
+              "text": "众人救出幸存者，携带矿石样本前往工匠总署。"
+            },
+            {
+              "id": "ch013.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch013.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】矿坑里的第二个太阳。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch013"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch013.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 620,
+              "gold": 222
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch013.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch013.done",
+          "speaker": "路人",
+          "text": "听说你们在赤炉联邦·七号矿坑帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch014",
+      "number": 14,
+      "act": 3,
+      "chapter_number": 2,
+      "title": "不说谎的机器",
+      "location": "赤炉工坊·试验台",
+      "required_flags": [
+        "story.ch013.done"
+      ],
+      "chapter_start_flag": "ch014.started",
+      "chapter_complete_flag": "story.ch014.done",
+      "lead_character": "缇珐",
+      "summary": "在赤炉工坊·试验台，修复一台保留人声的旧机械。总署认定声音只是噪声，准备拆毁旧机。最终，缇珐保存记忆结晶，决定公开能源技术的缺陷。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        16,
+        20
+      ],
+      "boss": "失控采矿机",
+      "scenes": [
+        {
+          "id": "ch014.opening",
+          "title": "到达：赤炉工坊·试验台",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "赤炉工坊·试验台"
+          },
+          "dialogue": [
+            {
+              "id": "ch014.opening.l01",
+              "speaker": "旁白",
+              "text": "【赤炉工坊·试验台】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch014.opening.l02",
+              "speaker": "缇珐",
+              "text": "机器不会骗人，输入它的命令的人却会。"
+            },
+            {
+              "id": "ch014.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。修复一台保留人声的旧机械。"
+            },
+            {
+              "id": "ch014.opening.l04",
+              "speaker": "缇珐",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "赤炉工坊·试验台"
+            },
+            {
+              "type": "interact",
+              "target": "ch014.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch014.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch014.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch014.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch014.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在赤炉工坊·试验台找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch014.investigate.l02",
+              "speaker": "缇珐",
+              "text": "机械反复呼唤一个矿工孩子的乳名。"
+            },
+            {
+              "id": "ch014.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch014.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch014.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch014.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch014.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch014.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch014.crisis",
+            "requires_flags": [
+              "ch014.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch014.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch014.crisis.l02",
+              "speaker": "缇珐",
+              "text": "总署认定声音只是噪声，准备拆毁旧机。"
+            },
+            {
+              "id": "ch014.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch014.crisis.l04",
+              "speaker": "缇珐",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch014.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch014.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch014.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch014.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch014.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch014",
+            "display_name": "失控采矿机",
+            "win_flag": "ch014.battle_won",
+            "recommended_level": 19
+          }
+        },
+        {
+          "id": "ch014.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch014.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch014.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch014.resolve.l02",
+              "speaker": "缇珐",
+              "text": "缇珐保存记忆结晶，决定公开能源技术的缺陷。"
+            },
+            {
+              "id": "ch014.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch014.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】不说谎的机器。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch014"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch014.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 660,
+              "gold": 236
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch014.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch014.done",
+          "speaker": "路人",
+          "text": "听说你们在赤炉工坊·试验台帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch015",
+      "number": 15,
+      "act": 3,
+      "chapter_number": 3,
+      "title": "百工试炼",
+      "location": "赤炉联邦·百工塔",
+      "required_flags": [
+        "story.ch014.done"
+      ],
+      "chapter_start_flag": "ch015.started",
+      "chapter_complete_flag": "story.ch015.done",
+      "lead_character": "缇珐",
+      "summary": "在赤炉联邦·百工塔，完成八项职业试炼并破解权限封锁。工匠议会要求签署永久效忠合同才允许继承技术。最终，玩家选择公开试炼图纸，职业系统正式开放。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        18,
+        22
+      ],
+      "boss": "百工机关偶",
+      "scenes": [
+        {
+          "id": "ch015.opening",
+          "title": "到达：赤炉联邦·百工塔",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "赤炉联邦·百工塔"
+          },
+          "dialogue": [
+            {
+              "id": "ch015.opening.l01",
+              "speaker": "旁白",
+              "text": "【赤炉联邦·百工塔】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch015.opening.l02",
+              "speaker": "缇珐",
+              "text": "握住锤子的人不只会打铁，也能决定要造什么。"
+            },
+            {
+              "id": "ch015.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。完成八项职业试炼并破解权限封锁。"
+            },
+            {
+              "id": "ch015.opening.l04",
+              "speaker": "缇珐",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "赤炉联邦·百工塔"
+            },
+            {
+              "type": "interact",
+              "target": "ch015.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch015.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch015.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch015.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch015.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在赤炉联邦·百工塔找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch015.investigate.l02",
+              "speaker": "缇珐",
+              "text": "转职仪式源于古代人学习多种技艺的开放制度。"
+            },
+            {
+              "id": "ch015.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch015.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch015.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch015.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch015.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch015.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch015.crisis",
+            "requires_flags": [
+              "ch015.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch015.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch015.crisis.l02",
+              "speaker": "缇珐",
+              "text": "工匠议会要求签署永久效忠合同才允许继承技术。"
+            },
+            {
+              "id": "ch015.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch015.crisis.l04",
+              "speaker": "缇珐",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch015.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch015.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch015.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch015.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch015.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch015",
+            "display_name": "百工机关偶",
+            "win_flag": "ch015.battle_won",
+            "recommended_level": 21
+          }
+        },
+        {
+          "id": "ch015.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch015.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch015.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch015.resolve.l02",
+              "speaker": "缇珐",
+              "text": "玩家选择公开试炼图纸，职业系统正式开放。"
+            },
+            {
+              "id": "ch015.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch015.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】百工试炼。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch015"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch015.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 700,
+              "gold": 250
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch015.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch015.done",
+          "speaker": "路人",
+          "text": "听说你们在赤炉联邦·百工塔帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch016",
+      "number": 16,
+      "act": 3,
+      "chapter_number": 4,
+      "title": "被遗忘的矿工",
+      "location": "灰砂安置区",
+      "required_flags": [
+        "story.ch015.done"
+      ],
+      "chapter_start_flag": "ch016.started",
+      "chapter_complete_flag": "story.ch016.done",
+      "lead_character": "岚音",
+      "summary": "在灰砂安置区，恢复矿工身份档案并安置家属。受益居民害怕停供，因此有人自愿替工厂掩盖罪行。最终，众人建立公开名册，为矿工争取补偿和姓名。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        19,
+        23
+      ],
+      "boss": "记忆收割机",
+      "scenes": [
+        {
+          "id": "ch016.opening",
+          "title": "到达：灰砂安置区",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "灰砂安置区"
+          },
+          "dialogue": [
+            {
+              "id": "ch016.opening.l01",
+              "speaker": "旁白",
+              "text": "【灰砂安置区】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch016.opening.l02",
+              "speaker": "岚音",
+              "text": "他们还活着，为什么整个城市都装作没看见？"
+            },
+            {
+              "id": "ch016.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。恢复矿工身份档案并安置家属。"
+            },
+            {
+              "id": "ch016.opening.l04",
+              "speaker": "岚音",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "灰砂安置区"
+            },
+            {
+              "type": "interact",
+              "target": "ch016.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch016.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch016.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch016.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch016.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在灰砂安置区找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch016.investigate.l02",
+              "speaker": "岚音",
+              "text": "矿工记忆被提取后制成公共能源。"
+            },
+            {
+              "id": "ch016.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch016.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch016.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch016.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch016.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch016.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch016.crisis",
+            "requires_flags": [
+              "ch016.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch016.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch016.crisis.l02",
+              "speaker": "岚音",
+              "text": "受益居民害怕停供，因此有人自愿替工厂掩盖罪行。"
+            },
+            {
+              "id": "ch016.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch016.crisis.l04",
+              "speaker": "岚音",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch016.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch016.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch016.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch016.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch016.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch016",
+            "display_name": "记忆收割机",
+            "win_flag": "ch016.battle_won",
+            "recommended_level": 22
+          }
+        },
+        {
+          "id": "ch016.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch016.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch016.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch016.resolve.l02",
+              "speaker": "岚音",
+              "text": "众人建立公开名册，为矿工争取补偿和姓名。"
+            },
+            {
+              "id": "ch016.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch016.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】被遗忘的矿工。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch016"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch016.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 740,
+              "gold": 264
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch016.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch016.done",
+          "speaker": "路人",
+          "text": "听说你们在灰砂安置区帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch017",
+      "number": 17,
+      "act": 3,
+      "chapter_number": 5,
+      "title": "熔炉暴走",
+      "location": "赤炉主炉",
+      "required_flags": [
+        "story.ch016.done"
+      ],
+      "chapter_start_flag": "ch017.started",
+      "chapter_complete_flag": "story.ch017.done",
+      "lead_character": "缇珐",
+      "summary": "在赤炉主炉，关闭四组能量阀门阻止战争机械启动。关机将使医院短时间断电，直接爆破又会伤及全城。最终，队伍分头抢修备用发电机，阻止机械暴走。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        20,
+        24
+      ],
+      "boss": "赤炉巨机",
+      "scenes": [
+        {
+          "id": "ch017.opening",
+          "title": "到达：赤炉主炉",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "赤炉主炉"
+          },
+          "dialogue": [
+            {
+              "id": "ch017.opening.l01",
+              "speaker": "旁白",
+              "text": "【赤炉主炉】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch017.opening.l02",
+              "speaker": "缇珐",
+              "text": "那颗心脏是我画的图，可我没允许它用来杀人。"
+            },
+            {
+              "id": "ch017.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。关闭四组能量阀门阻止战争机械启动。"
+            },
+            {
+              "id": "ch017.opening.l04",
+              "speaker": "缇珐",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "赤炉主炉"
+            },
+            {
+              "type": "interact",
+              "target": "ch017.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch017.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch017.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch017.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch017.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在赤炉主炉找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch017.investigate.l02",
+              "speaker": "缇珐",
+              "text": "军方把缇珐的民生引擎改造成火炮系统。"
+            },
+            {
+              "id": "ch017.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch017.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch017.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch017.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch017.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch017.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch017.crisis",
+            "requires_flags": [
+              "ch017.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch017.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch017.crisis.l02",
+              "speaker": "缇珐",
+              "text": "关机将使医院短时间断电，直接爆破又会伤及全城。"
+            },
+            {
+              "id": "ch017.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch017.crisis.l04",
+              "speaker": "缇珐",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch017.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch017.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch017.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch017.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch017.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch017",
+            "display_name": "赤炉巨机",
+            "win_flag": "ch017.battle_won",
+            "recommended_level": 23
+          }
+        },
+        {
+          "id": "ch017.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch017.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch017.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch017.resolve.l02",
+              "speaker": "缇珐",
+              "text": "队伍分头抢修备用发电机，阻止机械暴走。"
+            },
+            {
+              "id": "ch017.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch017.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】熔炉暴走。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch017"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch017.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 780,
+              "gold": 278
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch017.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch017.done",
+          "speaker": "路人",
+          "text": "听说你们在赤炉主炉帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    },
+    {
+      "id": "ch018",
+      "number": 18,
+      "act": 3,
+      "chapter_number": 6,
+      "title": "真正的炉火",
+      "location": "炉心母灯室",
+      "required_flags": [
+        "story.ch017.done"
+      ],
+      "chapter_start_flag": "ch018.started",
+      "chapter_complete_flag": "story.ch018.done",
+      "lead_character": "缇珐",
+      "summary": "在炉心母灯室，重建能源回路并向公众公布燃料来源。旧统治者威胁公布真相会毁灭工业信誉。最终，市民自愿停工配合改造，炉心灯重燃。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        21,
+        25
+      ],
+      "boss": "炉心监察者",
+      "scenes": [
+        {
+          "id": "ch018.opening",
+          "title": "到达：炉心母灯室",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "炉心母灯室"
+          },
+          "dialogue": [
+            {
+              "id": "ch018.opening.l01",
+              "speaker": "旁白",
+              "text": "【炉心母灯室】空气中藏着异样的气息。"
+            },
+            {
+              "id": "ch018.opening.l02",
+              "speaker": "缇珐",
+              "text": "我不是要证明自己没错，我想让他们不必再受伤。"
+            },
+            {
+              "id": "ch018.opening.l03",
+              "speaker": "主角",
+              "text": "先把眼前的事弄清楚。重建能源回路并向公众公布燃料来源。"
+            },
+            {
+              "id": "ch018.opening.l04",
+              "speaker": "缇珐",
+              "text": "别忘了，沿途的人也有自己的故事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "炉心母灯室"
+            },
+            {
+              "type": "interact",
+              "target": "ch018.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch018.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch018.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch018.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch018.investigate.l01",
+              "speaker": "旁白",
+              "text": "众人在炉心母灯室找到了一处被忽视的痕迹。"
+            },
+            {
+              "id": "ch018.investigate.l02",
+              "speaker": "缇珐",
+              "text": "炉心灯本可由低功率共享网络维持，从来不必吞噬记忆。"
+            },
+            {
+              "id": "ch018.investigate.l03",
+              "speaker": "主角",
+              "text": "先别急着下结论。还有谁能证实这件事？"
+            },
+            {
+              "id": "ch018.investigate.l04",
+              "speaker": "旁白",
+              "text": "日志、物件与目击证言彼此印证，事件终于露出轮廓。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch018.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch018.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch018.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch018.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch018.crisis",
+            "requires_flags": [
+              "ch018.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch018.crisis.l01",
+              "speaker": "旁白",
+              "text": "当最后一份证据摆上桌面，原本平静的局面终于被打破。"
+            },
+            {
+              "id": "ch018.crisis.l02",
+              "speaker": "缇珐",
+              "text": "旧统治者威胁公布真相会毁灭工业信誉。"
+            },
+            {
+              "id": "ch018.crisis.l03",
+              "speaker": "主角",
+              "text": "不能只顾眼前的胜负。谁会因为我们的决定付出代价？"
+            },
+            {
+              "id": "ch018.crisis.l04",
+              "speaker": "缇珐",
+              "text": "这一次由你决定如何开口。我会一起承担后果。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch018.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch018.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch018.choice",
+            "prompt": "面对眼前的矛盾，你打算怎样行动？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先听当事人的解释",
+                "sets": {
+                  "ch018.approach": "listen"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保护可能受伤的人",
+                "sets": {
+                  "ch018.approach": "act"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch018",
+            "display_name": "炉心监察者",
+            "win_flag": "ch018.battle_won",
+            "recommended_level": 24
+          }
+        },
+        {
+          "id": "ch018.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch018.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch018.resolve.l01",
+              "speaker": "旁白",
+              "text": "风声渐弱，人们终于有机会面对自己刚才不愿承认的事。"
+            },
+            {
+              "id": "ch018.resolve.l02",
+              "speaker": "缇珐",
+              "text": "市民自愿停工配合改造，炉心灯重燃。"
+            },
+            {
+              "id": "ch018.resolve.l03",
+              "speaker": "主角",
+              "text": "总有些事，不能只写成一行冒险记录。"
+            },
+            {
+              "id": "ch018.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】真正的炉火。新的道路正在展开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch018"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch018.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 820,
+              "gold": 292
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch018.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch018.done",
+          "speaker": "路人",
+          "text": "听说你们在炉心母灯室帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。"
+    }
+  ]
+}

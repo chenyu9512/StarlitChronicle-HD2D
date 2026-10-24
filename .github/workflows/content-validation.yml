@@ -1,0 +1,22 @@
+name: Validate Starlit Content
+on:
+  push:
+    paths:
+      - "data/content/**"
+      - "tools/validate_content.py"
+      - ".github/workflows/content-validation.yml"
+  pull_request:
+    paths:
+      - "data/content/**"
+      - "tools/validate_content.py"
+      - ".github/workflows/content-validation.yml"
+jobs:
+  validate-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate links, chapters, identifiers and asset fallback paths
+        run: python tools/validate_content.py

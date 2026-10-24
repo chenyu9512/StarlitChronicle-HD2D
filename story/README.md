@@ -1,0 +1,38 @@
+# 星灯纪行｜叙事内容包 V1.0
+
+> 正式企划：洛维恩世界 / 十二幕七十二章 / 七座母灯 / 现世、映世、岁影回廊。作者原创，吸收经典JRPG的通用设计思想，不复制现成作品专有剧情、咒文、敌人、角色或音乐。
+
+## 仓库中的实际状态
+- `story/campaign/act_01.json` 至 `act_12.json`：72章、每章四个基本场景（开场/调查/冲突/收束），最终章额外结局节点，共289个场景。每一章都有对白ID、NPC发言人、任务目标、条件、完成标志、奖励；Boss章节含战斗触发元数据。
+- `story/campaign/prologue.json`：童年星灯祭九场可编排事件，建立澄舟失踪及主角未被记录的秘密。
+- `story/data/`：角色、地理、支线、系统UI、职业、怪物等叙事关联素材，供后续地图、事件、战斗系统引用。
+- `scripts/story_catalog.gd`：Godot独立读取、检索与条件检查接口，不依赖任何在线服务。
+- `scenes/story_preview.tscn`：剧情数据预览场景，供编剧与开发者逐句查阅，不替换当前主游戏。
+- `tools/validate_story.py`：从仓库根目录运行数据检查。
+
+## 严格说明
+此内容包是**覆盖完整剧情架构的生产级第一轮叙事蓝图与可消费的文本数据**，并非90-120小时终版全部配音稿；章节剧情已按可实施事件拆解，但演出资产、对应新地图、事件坐标、Boss AI、时长/难度调校、成百条支线的逐句终稿仍需要继续深化。带有 `production_status: scripted_blocking_v1` 的章节即表示“已有可用文本与分场，但未达到文本锁定”。
+
+## 与当前 v0.1.1 原型的关系
+原型：晨露村、星落遗迹、黎昂/澪、守灯人找星核；新正典：玩家主角（可自定义名）、岚音、养父澄舟、星灯祭与七灯冒险。
+为确保旧存档可读，本次**不修改** `scripts/game.gd` / `scripts/game_state.gd` / `data/village.json`。把原版“黎昂”解释为默认主角名候选，把“澪”设为可重命名的原型同伴占位，正式上线统一更换为岚音；“星落遗迹”保留为第一幕地下遗迹之一，“守灯人带回星核”改写为年轻时的预兆任务。详见 `story/CANON_MIGRATION.md`。
+
+## 数据约定
+- 章节：`id=ch001..ch072`、`act`、`required_flags`、`scenes[]`
+- 场景：`trigger`, `dialogue[{id,speaker,text}]`, `objectives[]`, `effects[]`
+- 条件：`story.ch001.done` / `world.*` / `party.*` 为稳定key
+- 战斗：`encounter.enemy_id` 不直接表示敌人已实现，获胜须写入 `win_flag`
+- 决策：`choice.options[].sets` 为决策状态变化；封闭场景须由游戏控制器检查必需标志
+- 变量：角色称呼在文本里使用“主角”，正式对话器可替换为自定义名称
+
+## 运行与校验
+1. Windows在仓库根目录运行 `python tools/validate_story.py`。
+2. Godot导入本仓库，点击“场景 > 打开”选择 `scenes/story_preview.tscn` 并运行当前场景（F6）。
+3. 预览器按“上一章 / 下一章 / 下一句”浏览剧情；读取的是游戏工程内实际JSON。
+4. `StoryCatalog`可用`load_all()`, `get_chapter(id)`, `get_scene(chapter_id,scene_id)`, `requirements_met(data,flags)`。
+5. 正式地图触发器仍需在游戏事件系统中注册场景target与地图坐标，这一步不由JSON自动完成。
+
+## 内容制作用途
+文档针对开发者：`WORLD_BIBLE.md`、`CAST_BIBLE.md`、`NARRATIVE_DESIGN.md`、`CANON_MIGRATION.md`。
+文本针对引擎：`campaign/*.json`、`data/*.json`。
+避免直接将这份草稿当作终版配音送审，最终本地化/过场/配音需要单独锁版。

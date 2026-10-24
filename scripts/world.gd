@@ -141,7 +141,7 @@ func _physics_process(delta: float) -> void:
         return
     var key_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
     var direction := (key_dir + input_vector).limit_length(1.0)
-    var step := direction * delta * 136.0
+    var step := direction * delta * (244.0 if State.cheat_fast_walk else 136.0)
     var old_pos: Vector2 = player.position
     var proposed := old_pos + Vector2(step.x, 0)
     if not _is_solid(proposed):
@@ -153,7 +153,7 @@ func _physics_process(delta: float) -> void:
     player.set_motion(delta, actual.normalized())
     companion.position = companion.position.lerp(player.position + Vector2(-19, 20), minf(delta * 4.0, 1.0))
     companion.set_motion(delta, actual.normalized() if actual.length() > 0.1 else Vector2.ZERO)
-    if map_id == "ruins":
+    if map_id == "ruins" and not State.cheat_no_encounters:
         travel_meter += actual.length()
         if travel_meter >= next_encounter:
             travel_meter = 0.0

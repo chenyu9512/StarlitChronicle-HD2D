@@ -17,6 +17,7 @@ var boss_fight := false
 var defending: Dictionary = {}
 var rng := RandomNumberGenerator.new()
 var battle_over := false
+const ContentDB = preload("res://scripts/content_db.gd")
 
 func _ready() -> void:
     layer = 30
@@ -137,6 +138,32 @@ func begin(is_boss: bool) -> void:
     _next_living_actor()
     _refresh()
 
+func begin_story(enemy_id: String, display_name: String) -> void:
+    boss_fight = true
+    actor_index = 0
+    defending.clear()
+    battle_over = false
+    var entry: Dictionary = ContentDB.lookup("bosses", enemy_id)
+    if entry.is_empty():
+        entry = ContentDB.lookup("monsters", enemy_id)
+    var chapter_level: int = maxi(1, State.story_chapter)
+    var level_scale: int = maxi(1, mini(50, chapter_level * 2))
+    var image_path: String = str(entry.get("preview_fallback", "res://assets/enemies/boss.png"))
+    if not ResourceLoader.exists(image_path):
+        image_path = "res://assets/enemies/boss.png"
+    enemies = [{
+        "name": display_name, "id": enemy_id, "sprite_path": image_path,
+        "hp": int(entry.get("hp", 85 + level_scale * 18)),
+        "max_hp": int(entry.get("hp", 85 + level_scale * 18)),
+        "attack": int(entry.get("attack", 12 + level_scale * 2)),
+        "defense": int(entry.get("defense", 3 + level_scale)),
+        "xp": int(entry.get("xp", 60 + level_scale * 15)),
+        "gold": int(entry.get("gold", 25 + level_scale * 6))
+    }]
+    narration.text = display_name + " 出现在你们面前！"
+    _next_living_actor()
+    _refresh()
+
 func _refresh() -> void:
     var enemy_info := ""
     for i in range(enemies.size()):
@@ -147,7 +174,9 @@ func _refresh() -> void:
         var portrait := enemy_sprites[i]
         portrait.visible = i < enemies.size() and int(enemies[i]["hp"]) > 0
         if i < enemies.size():
-            portrait.texture = load("res://assets/enemies/%s.png" % enemies[i]["id"])
+            var sprite_path: String = str(enemies[i].get("sprite_path", "res://assets/enemies/%s.png" % str(enemies[i]["id"])))
+            if ResourceLoader.exists(sprite_path):
+                portrait.texture = load(sprite_path)
     var stats := ""
     for person in State.party:
         stats += "%s  HP %s/%s  MP %s/%s       " % [person["name"], person["hp"], person["max_hp"], person["mp"], person["max_mp"]]
@@ -179,10 +208,10 @@ func _act(kind: String) -> void:
         action_text = "%s 举起武器，进入防御姿态。" % actor["name"]
     elif kind == "skill":
         var mp_cost := 6
-        if int(actor["mp"]) < mp_cost:
+        if not State.cheat_god and int(actor["mp"]) < mp_cost:
             narration.text = "MP 不足！请选择普通攻击或道具。"
             return
-        actor["mp"] = int(actor["mp"]) - mp_cost
+        actor["mp"] = int(actor["mp"]) if State.cheat_god else int(actor["mp"]) - mp_cost
         State.party[actor_index] = actor
         var damage := maxi(4, int(actor["attack"]) + rng.randi_range(12, 22) - _target_defense())
         var hit_name := _hit_enemy(damage)
@@ -254,6 +283,8 @@ func _enemy_phase() -> void:
         var dmg := maxi(1, int(monster["attack"]) + rng.randi_range(-3, 4) - int(victim["defense"]))
         if defending.has(victim_index):
             dmg = maxi(1, int(dmg / 2))
+        if State.cheat_god:
+            dmg = 0
         victim["hp"] = maxi(0, int(victim["hp"]) - dmg)
         State.party[victim_index] = victim
         summary.append("%s 攻击%s（-%d HP）" % [monster["name"], victim["name"], dmg])

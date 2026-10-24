@@ -1,3 +1,15 @@
+# 星灯纪行 · Starlit Chronicle — v0.2.0 游戏主体骨架
+
+**Godot 4 原创横屏 RPG / iPhone 优先 / 本地离线。**
+
+当前版本融合两条内容分支：`content/full-story-v1`（12幕72章、289个叙事场景）及 `feature/content-foundation-v0-2`（分类游戏数据）。主菜单可进入逐句演出的可交互剧情流程，包含选项、事件战斗与进度保存，并支持原有村庄与遗迹试玩地图。
+
+**隐藏金手指：** 右上角小星星在4秒内连续点击5次（桌面 F10 同样可打开），输入密码 `9169` 解锁。提供回复、金币、药草、等级、属性、无敌、禁遇敌、经验倍率、加速、传送和章节调试等功能。部分作弊产生的角色/物品变化会写入存档；暂时性的作弊开关重启会恢复默认。
+
+**开发状态与边界：** 已经完成游戏玩法骨架和叙事数据接线，**不等于72章都拥有独立 HD-2D 实景地图或专属美术和过场**；游戏演出、完整关卡、商店/装备与职业系统仍需逐步开发。具体集成说明见 `docs/INTEGRATION_V0_2.md`。以现有 `main` 的v0.1.1作为可回退备份。
+
+---
+
 # 星灯纪行 / Starlit Chronicle
 
 原创、离线、iPhone 横屏优先的 HD-2D 风格 JRPG 原型。基于 Godot 4.7.2 / GDScript，无云端 API、无账号登录、无收费 SDK。**这是第一版可试玩工程，不是已经完成的商业版，也不是编译好的 IPA。**
@@ -95,3 +107,11 @@ Godot 4.7 的 iOS 原生导出必须运行于 macOS/Xcode。已经随工程附�
 - 为 `player_position`、`target_position` 和 `distance` 添加显式 GDScript 类型，避免通过 Dictionary/Variant 自动推断失败。
 - 兼容原有 `user://starlit_save_v1.json` 存档格式；本次未修改地图、战斗、剧情数据或存档协议。
 - 校验说明：运行了 Python 资源和地图完整性检查；当前环境未安装 Godot，也没有 macOS/Xcode，尚无法在本环境证明游戏可通过 Godot 运行及 iOS 编译。
+
+## 全游戏资源基础（v0.2 开发分支）
+
+正式世界设定「洛维恩」的第一批内容数据库位于 `data/content/`，共 549 条设计记录（涵盖人物、NPC、怪物、BOSS、地图定义、武器、防具、物品、技能、任务与地域）。提供 `scripts/content_db.gd` 只读 Godot 查询器，并在菜单加入「星灯图鉴（内容预览）」可分类查看。运行 `python tools/validate_content.py` 可检查完整性。
+
+**进度说明：** 设计数据不等于完成美术、场景或战斗逻辑；正式地图尚未制作，72章任务已与独立剧情分支的真实章名、地点和摘要同步，但正式剧情引擎仍未接入主游戏，现有序章和存档原样保留。详细规范见 `docs/CONTENT_FOUNDATION.md`。
+
+**剧情与图鉴协作：** 这批资源已与 [正式剧情 PR #1](https://github.com/chenyu9512/StarlitChronicle-HD2D/pull/1) 对齐；两个 PR 需要分别审查，故事文件合并后方可利用 `story_source` 路径运行剧情。

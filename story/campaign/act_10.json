@@ -1,0 +1,1516 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 10,
+  "title": "群灯之城",
+  "theme": "建立分散式灯网与自由之城。",
+  "progression_unlock": "distributed_network",
+  "chapters": [
+    {
+      "id": "ch055",
+      "number": 55,
+      "act": 10,
+      "chapter_number": 1,
+      "title": "废墟上的第一间屋子",
+      "location": "群灯之城·西区",
+      "required_flags": [
+        "story.ch054.done"
+      ],
+      "chapter_start_flag": "ch055.started",
+      "chapter_complete_flag": "story.ch055.done",
+      "lead_character": "缇珐",
+      "summary": "在群灯之城·西区，收集材料为难民修复第一栋房屋。部分幸存者主张直接占用房屋，不必询问原主人。最终，主角建立临时住用协议，既安置难民也保护原有权利。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        66,
+        70
+      ],
+      "boss": "废铁搬运偶",
+      "scenes": [
+        {
+          "id": "ch055.opening",
+          "title": "开场：群灯之城·西区",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯之城·西区"
+          },
+          "dialogue": [
+            {
+              "id": "ch055.opening.l01",
+              "speaker": "旁白",
+              "text": "【群灯之城·西区】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch055.opening.l02",
+              "speaker": "缇珐",
+              "text": "先把门装好。人有地方关门睡觉，才敢想明天。"
+            },
+            {
+              "id": "ch055.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：收集材料为难民修复第一栋房屋。"
+            },
+            {
+              "id": "ch055.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯之城·西区"
+            },
+            {
+              "type": "interact",
+              "target": "ch055.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch055.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch055.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch055.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch055.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch055.investigate.l02",
+              "speaker": "缇珐",
+              "text": "废墟旧地契属于一家已经迁往敌对阵营的住户。"
+            },
+            {
+              "id": "ch055.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch055.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch055.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch055.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch055.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch055.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch055.crisis",
+            "requires_flags": [
+              "ch055.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch055.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch055.crisis.l02",
+              "speaker": "缇珐",
+              "text": "部分幸存者主张直接占用房屋，不必询问原主人。"
+            },
+            {
+              "id": "ch055.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch055.crisis.l04",
+              "speaker": "缇珐",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch055.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch055.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch055.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch055.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch055.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch055",
+            "display_name": "废铁搬运偶",
+            "win_flag": "ch055.battle_won",
+            "recommended_level": 69
+          }
+        },
+        {
+          "id": "ch055.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch055.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch055.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch055.resolve.l02",
+              "speaker": "缇珐",
+              "text": "主角建立临时住用协议，既安置难民也保护原有权利。"
+            },
+            {
+              "id": "ch055.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch055.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】废墟上的第一间屋子。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch055"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch055.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2300,
+              "gold": 810
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch055.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch055.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯之城·西区，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch056",
+      "number": 56,
+      "act": 10,
+      "chapter_number": 2,
+      "title": "冒险者的新公会",
+      "location": "群灯之城·旧会馆",
+      "required_flags": [
+        "story.ch055.done"
+      ],
+      "chapter_start_flag": "ch056.started",
+      "chapter_complete_flag": "story.ch056.done",
+      "lead_character": "朔弦",
+      "summary": "在群灯之城·旧会馆，招聘工匠和探险者，完成三个公益委托。旧佣兵团提出武力保护条件，索要对城市的永久管辖权。最终，众人拒绝私兵独占，建立透明委托制度。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        67,
+        71
+      ],
+      "boss": "佣兵试探队",
+      "scenes": [
+        {
+          "id": "ch056.opening",
+          "title": "开场：群灯之城·旧会馆",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯之城·旧会馆"
+          },
+          "dialogue": [
+            {
+              "id": "ch056.opening.l01",
+              "speaker": "旁白",
+              "text": "【群灯之城·旧会馆】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch056.opening.l02",
+              "speaker": "朔弦",
+              "text": "先把账目贴墙上。我们不能再养出另一个灰帷会。"
+            },
+            {
+              "id": "ch056.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：招聘工匠和探险者，完成三个公益委托。"
+            },
+            {
+              "id": "ch056.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯之城·旧会馆"
+            },
+            {
+              "type": "interact",
+              "target": "ch056.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch056.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch056.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch056.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch056.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch056.investigate.l02",
+              "speaker": "朔弦",
+              "text": "公会早年曾负责配送救命物资，被战争切断记录。"
+            },
+            {
+              "id": "ch056.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch056.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch056.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch056.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch056.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch056.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch056.crisis",
+            "requires_flags": [
+              "ch056.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch056.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch056.crisis.l02",
+              "speaker": "朔弦",
+              "text": "旧佣兵团提出武力保护条件，索要对城市的永久管辖权。"
+            },
+            {
+              "id": "ch056.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch056.crisis.l04",
+              "speaker": "朔弦",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch056.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch056.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch056.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch056.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch056.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch056",
+            "display_name": "佣兵试探队",
+            "win_flag": "ch056.battle_won",
+            "recommended_level": 70
+          }
+        },
+        {
+          "id": "ch056.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch056.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch056.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch056.resolve.l02",
+              "speaker": "朔弦",
+              "text": "众人拒绝私兵独占，建立透明委托制度。"
+            },
+            {
+              "id": "ch056.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch056.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】冒险者的新公会。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch056"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch056.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2340,
+              "gold": 824
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch056.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch056.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯之城·旧会馆，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch057",
+      "number": 57,
+      "act": 10,
+      "chapter_number": 3,
+      "title": "值得回来的地方",
+      "location": "群灯之城·居民街",
+      "required_flags": [
+        "story.ch056.done"
+      ],
+      "chapter_start_flag": "ch057.started",
+      "chapter_complete_flag": "story.ch057.done",
+      "lead_character": "岚音",
+      "summary": "在群灯之城·居民街，规划工坊、旅馆与灵兽牧场。不同族群争执广场该属于哪种传统节日。最终，玩家举办群灯节，让居民自己决定共同的节庆方式。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        68,
+        72
+      ],
+      "boss": null,
+      "scenes": [
+        {
+          "id": "ch057.opening",
+          "title": "开场：群灯之城·居民街",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯之城·居民街"
+          },
+          "dialogue": [
+            {
+              "id": "ch057.opening.l01",
+              "speaker": "旁白",
+              "text": "【群灯之城·居民街】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch057.opening.l02",
+              "speaker": "岚音",
+              "text": "街角有面包味道的时候，人才会觉得这里能住一辈子。"
+            },
+            {
+              "id": "ch057.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：规划工坊、旅馆与灵兽牧场。"
+            },
+            {
+              "id": "ch057.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯之城·居民街"
+            },
+            {
+              "type": "interact",
+              "target": "ch057.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch057.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch057.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch057.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch057.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch057.investigate.l02",
+              "speaker": "岚音",
+              "text": "流亡者带来的家乡技术可以互相补足城市短缺。"
+            },
+            {
+              "id": "ch057.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch057.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch057.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch057.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch057.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch057.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch057.crisis",
+            "requires_flags": [
+              "ch057.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch057.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch057.crisis.l02",
+              "speaker": "岚音",
+              "text": "不同族群争执广场该属于哪种传统节日。"
+            },
+            {
+              "id": "ch057.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch057.crisis.l04",
+              "speaker": "岚音",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch057.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch057.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch057.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch057.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch057.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": null
+        },
+        {
+          "id": "ch057.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch057.decision_made"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch057.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch057.resolve.l02",
+              "speaker": "岚音",
+              "text": "玩家举办群灯节，让居民自己决定共同的节庆方式。"
+            },
+            {
+              "id": "ch057.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch057.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】值得回来的地方。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch057"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch057.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2380,
+              "gold": 838
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch057.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch057.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯之城·居民街，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch058",
+      "number": 58,
+      "act": 10,
+      "chapter_number": 4,
+      "title": "叛逃的记灯师",
+      "location": "城郊·封存档案车",
+      "required_flags": [
+        "story.ch057.done"
+      ],
+      "chapter_start_flag": "ch058.started",
+      "chapter_complete_flag": "story.ch058.done",
+      "lead_character": "维莎",
+      "summary": "在城郊·封存档案车，护送维莎逃离旧议会追兵。她过去参与过封印计划，幸存者要求当场处置。最终，主角保护审判公正，维莎公开罪证并承担修复责任。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        69,
+        73
+      ],
+      "boss": "议会追猎者",
+      "scenes": [
+        {
+          "id": "ch058.opening",
+          "title": "开场：城郊·封存档案车",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "城郊·封存档案车"
+          },
+          "dialogue": [
+            {
+              "id": "ch058.opening.l01",
+              "speaker": "旁白",
+              "text": "【城郊·封存档案车】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch058.opening.l02",
+              "speaker": "维莎",
+              "text": "我曾把几百人的未来写进报表，今天才敢写下自己的名字。"
+            },
+            {
+              "id": "ch058.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：护送维莎逃离旧议会追兵。"
+            },
+            {
+              "id": "ch058.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "城郊·封存档案车"
+            },
+            {
+              "type": "interact",
+              "target": "ch058.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch058.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch058.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch058.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch058.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch058.investigate.l02",
+              "speaker": "维莎",
+              "text": "维莎携带赫西安控制六灯的全部运算图谱。"
+            },
+            {
+              "id": "ch058.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch058.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch058.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch058.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch058.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch058.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch058.crisis",
+            "requires_flags": [
+              "ch058.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch058.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch058.crisis.l02",
+              "speaker": "维莎",
+              "text": "她过去参与过封印计划，幸存者要求当场处置。"
+            },
+            {
+              "id": "ch058.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch058.crisis.l04",
+              "speaker": "维莎",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch058.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch058.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch058.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch058.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch058.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch058",
+            "display_name": "议会追猎者",
+            "win_flag": "ch058.battle_won",
+            "recommended_level": 72
+          }
+        },
+        {
+          "id": "ch058.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch058.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch058.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch058.resolve.l02",
+              "speaker": "维莎",
+              "text": "主角保护审判公正，维莎公开罪证并承担修复责任。"
+            },
+            {
+              "id": "ch058.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch058.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】叛逃的记灯师。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch058"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch058.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2420,
+              "gold": 852
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch058.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch058.done",
+          "speaker": "路人",
+          "text": "以后再说起城郊·封存档案车，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch059",
+      "number": 59,
+      "act": 10,
+      "chapter_number": 5,
+      "title": "不是所有人都想战斗",
+      "location": "群灯城·自由议事厅",
+      "required_flags": [
+        "story.ch058.done"
+      ],
+      "chapter_start_flag": "ch059.started",
+      "chapter_complete_flag": "story.ch059.done",
+      "lead_character": "雷索",
+      "summary": "在群灯城·自由议事厅，组织不同阵营平民制定不参战公约。强硬派要求强制征兵，威胁断绝粮路。最终，主角通过自愿互助体系获得支持，建立自由城市盟约。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        70,
+        74
+      ],
+      "boss": "强硬派机兵",
+      "scenes": [
+        {
+          "id": "ch059.opening",
+          "title": "开场：群灯城·自由议事厅",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯城·自由议事厅"
+          },
+          "dialogue": [
+            {
+              "id": "ch059.opening.l01",
+              "speaker": "旁白",
+              "text": "【群灯城·自由议事厅】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch059.opening.l02",
+              "speaker": "雷索",
+              "text": "守护自由，也包括守护别人不拿武器的自由。"
+            },
+            {
+              "id": "ch059.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：组织不同阵营平民制定不参战公约。"
+            },
+            {
+              "id": "ch059.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯城·自由议事厅"
+            },
+            {
+              "type": "interact",
+              "target": "ch059.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch059.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch059.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch059.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch059.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch059.investigate.l02",
+              "speaker": "雷索",
+              "text": "赞同中立的村落愿提供粮食、医疗和情报。"
+            },
+            {
+              "id": "ch059.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch059.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch059.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch059.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch059.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch059.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch059.crisis",
+            "requires_flags": [
+              "ch059.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch059.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch059.crisis.l02",
+              "speaker": "雷索",
+              "text": "强硬派要求强制征兵，威胁断绝粮路。"
+            },
+            {
+              "id": "ch059.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch059.crisis.l04",
+              "speaker": "雷索",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch059.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch059.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch059.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch059.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch059.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch059",
+            "display_name": "强硬派机兵",
+            "win_flag": "ch059.battle_won",
+            "recommended_level": 73
+          }
+        },
+        {
+          "id": "ch059.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch059.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch059.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch059.resolve.l02",
+              "speaker": "雷索",
+              "text": "主角通过自愿互助体系获得支持，建立自由城市盟约。"
+            },
+            {
+              "id": "ch059.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch059.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】不是所有人都想战斗。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch059"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch059.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2460,
+              "gold": 866
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch059.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch059.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯城·自由议事厅，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch060",
+      "number": 60,
+      "act": 10,
+      "chapter_number": 6,
+      "title": "千灯共明",
+      "location": "群灯城·星灯中枢",
+      "required_flags": [
+        "story.ch059.done"
+      ],
+      "chapter_start_flag": "ch060.started",
+      "chapter_complete_flag": "story.ch060.done",
+      "lead_character": "缇珐",
+      "summary": "在群灯城·星灯中枢，部署分散式灯网并抵御敌军突袭。赫西安动用赤烬军团破坏民众自愿接入的节点。最终，居民逐户点亮手灯，六灯网络第一次不受司录者控制。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        72,
+        76
+      ],
+      "boss": "赤烬主力机",
+      "scenes": [
+        {
+          "id": "ch060.opening",
+          "title": "开场：群灯城·星灯中枢",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯城·星灯中枢"
+          },
+          "dialogue": [
+            {
+              "id": "ch060.opening.l01",
+              "speaker": "旁白",
+              "text": "【群灯城·星灯中枢】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch060.opening.l02",
+              "speaker": "缇珐",
+              "text": "一盏灯坏了，其他人的灯也要能继续亮。"
+            },
+            {
+              "id": "ch060.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：部署分散式灯网并抵御敌军突袭。"
+            },
+            {
+              "id": "ch060.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯城·星灯中枢"
+            },
+            {
+              "type": "interact",
+              "target": "ch060.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch060.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch060.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch060.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch060.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch060.investigate.l02",
+              "speaker": "缇珐",
+              "text": "分散灯网能够让居民选择贡献能源，消除集中封印风险。"
+            },
+            {
+              "id": "ch060.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch060.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch060.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch060.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch060.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch060.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch060.crisis",
+            "requires_flags": [
+              "ch060.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch060.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch060.crisis.l02",
+              "speaker": "缇珐",
+              "text": "赫西安动用赤烬军团破坏民众自愿接入的节点。"
+            },
+            {
+              "id": "ch060.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch060.crisis.l04",
+              "speaker": "缇珐",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch060.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch060.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch060.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch060.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch060.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch060",
+            "display_name": "赤烬主力机",
+            "win_flag": "ch060.battle_won",
+            "recommended_level": 75
+          }
+        },
+        {
+          "id": "ch060.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch060.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch060.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch060.resolve.l02",
+              "speaker": "缇珐",
+              "text": "居民逐户点亮手灯，六灯网络第一次不受司录者控制。"
+            },
+            {
+              "id": "ch060.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch060.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】千灯共明。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch060"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch060.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2500,
+              "gold": 880
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch060.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch060.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯城·星灯中枢，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    }
+  ]
+}

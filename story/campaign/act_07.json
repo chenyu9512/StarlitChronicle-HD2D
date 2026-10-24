@@ -1,0 +1,1521 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 7,
+  "title": "失落旧洲",
+  "theme": "重建被抹去的地域，修复根忆灯。",
+  "progression_unlock": "root_lantern",
+  "chapters": [
+    {
+      "id": "ch037",
+      "number": 37,
+      "act": 7,
+      "chapter_number": 1,
+      "title": "地图上的空白",
+      "location": "旧洲外海·无名岛",
+      "required_flags": [
+        "story.ch036.done"
+      ],
+      "chapter_start_flag": "ch037.started",
+      "chapter_complete_flag": "story.ch037.done",
+      "lead_character": "朔弦",
+      "summary": "在旧洲外海·无名岛，拼接失落航页并找到通行航道。航页一旦被修复，海上商会就要承认自己隐瞒了几十年的航线。最终，第一座失落岛屿重现，朔弦终于看见儿时码头上的歪树。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        44,
+        48
+      ],
+      "boss": "遮航迷雾",
+      "scenes": [
+        {
+          "id": "ch037.opening",
+          "title": "开场：旧洲外海·无名岛",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "旧洲外海·无名岛"
+          },
+          "dialogue": [
+            {
+              "id": "ch037.opening.l01",
+              "speaker": "旁白",
+              "text": "【旧洲外海·无名岛】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch037.opening.l02",
+              "speaker": "朔弦",
+              "text": "我的故乡就藏在这些白纸后面，我敢肯定。"
+            },
+            {
+              "id": "ch037.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：拼接失落航页并找到通行航道。"
+            },
+            {
+              "id": "ch037.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "旧洲外海·无名岛"
+            },
+            {
+              "type": "interact",
+              "target": "ch037.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch037.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch037.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch037.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch037.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch037.investigate.l02",
+              "speaker": "朔弦",
+              "text": "海面并非空无一物，而是所有测绘罗盘同时忽略同一片海。"
+            },
+            {
+              "id": "ch037.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch037.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch037.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch037.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch037.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch037.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch037.crisis",
+            "requires_flags": [
+              "ch037.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch037.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch037.crisis.l02",
+              "speaker": "朔弦",
+              "text": "航页一旦被修复，海上商会就要承认自己隐瞒了几十年的航线。"
+            },
+            {
+              "id": "ch037.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch037.crisis.l04",
+              "speaker": "朔弦",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch037.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch037.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch037.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch037.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch037.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch037",
+            "display_name": "遮航迷雾",
+            "win_flag": "ch037.battle_won",
+            "recommended_level": 47
+          }
+        },
+        {
+          "id": "ch037.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch037.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch037.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch037.resolve.l02",
+              "speaker": "朔弦",
+              "text": "第一座失落岛屿重现，朔弦终于看见儿时码头上的歪树。"
+            },
+            {
+              "id": "ch037.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch037.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】地图上的空白。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch037"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch037.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1580,
+              "gold": 558
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch037.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch037.done",
+          "speaker": "路人",
+          "text": "以后再说起旧洲外海·无名岛，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch038",
+      "number": 38,
+      "act": 7,
+      "chapter_number": 2,
+      "title": "一整座城的谎言",
+      "location": "旧洲·默契城",
+      "required_flags": [
+        "story.ch037.done"
+      ],
+      "chapter_start_flag": "ch038.started",
+      "chapter_complete_flag": "story.ch038.done",
+      "lead_character": "岚音",
+      "summary": "在旧洲·默契城，调查城市居民共同编造的来历。居民宁愿假装记得一切，也害怕知道自己的过去曾被夺去。最终，主角公开档案并保护不愿立即接受真相的家庭。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        45,
+        49
+      ],
+      "boss": "伪忆群影",
+      "scenes": [
+        {
+          "id": "ch038.opening",
+          "title": "开场：旧洲·默契城",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "旧洲·默契城"
+          },
+          "dialogue": [
+            {
+              "id": "ch038.opening.l01",
+              "speaker": "旁白",
+              "text": "【旧洲·默契城】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch038.opening.l02",
+              "speaker": "岚音",
+              "text": "他们每个人都记得自己的家，却没有两个人记得同一个昨天。"
+            },
+            {
+              "id": "ch038.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：调查城市居民共同编造的来历。"
+            },
+            {
+              "id": "ch038.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "旧洲·默契城"
+            },
+            {
+              "type": "interact",
+              "target": "ch038.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch038.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch038.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch038.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch038.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch038.investigate.l02",
+              "speaker": "岚音",
+              "text": "城内所有户籍的第一代住户日期完全相同。"
+            },
+            {
+              "id": "ch038.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch038.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch038.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch038.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch038.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch038.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch038.crisis",
+            "requires_flags": [
+              "ch038.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch038.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch038.crisis.l02",
+              "speaker": "岚音",
+              "text": "居民宁愿假装记得一切，也害怕知道自己的过去曾被夺去。"
+            },
+            {
+              "id": "ch038.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch038.crisis.l04",
+              "speaker": "岚音",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch038.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch038.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch038.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch038.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch038.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch038",
+            "display_name": "伪忆群影",
+            "win_flag": "ch038.battle_won",
+            "recommended_level": 48
+          }
+        },
+        {
+          "id": "ch038.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch038.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch038.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch038.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角公开档案并保护不愿立即接受真相的家庭。"
+            },
+            {
+              "id": "ch038.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch038.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】一整座城的谎言。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch038"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch038.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1620,
+              "gold": 572
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch038.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch038.done",
+          "speaker": "路人",
+          "text": "以后再说起旧洲·默契城，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch039",
+      "number": 39,
+      "act": 7,
+      "chapter_number": 3,
+      "title": "叫作诺依的孩子",
+      "location": "旧洲·裂谷村",
+      "required_flags": [
+        "story.ch038.done"
+      ],
+      "chapter_start_flag": "ch039.started",
+      "chapter_complete_flag": "story.ch039.done",
+      "lead_character": "岚音",
+      "summary": "在旧洲·裂谷村，护送失亲孩子穿越坍塌区并寻找幸存者。救援队判断剩余搜寻已无希望，但诺依仍听见井下求救声。最终，主角冒险重返井下救出幸存者，正式收留诺依同行。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        46,
+        50
+      ],
+      "boss": "谷地岩蛇",
+      "scenes": [
+        {
+          "id": "ch039.opening",
+          "title": "开场：旧洲·裂谷村",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "旧洲·裂谷村"
+          },
+          "dialogue": [
+            {
+              "id": "ch039.opening.l01",
+              "speaker": "旁白",
+              "text": "【旧洲·裂谷村】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch039.opening.l02",
+              "speaker": "岚音",
+              "text": "你可以哭，也可以不说话。我们会等你。"
+            },
+            {
+              "id": "ch039.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：护送失亲孩子穿越坍塌区并寻找幸存者。"
+            },
+            {
+              "id": "ch039.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "旧洲·裂谷村"
+            },
+            {
+              "type": "interact",
+              "target": "ch039.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch039.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch039.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch039.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch039.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch039.investigate.l02",
+              "speaker": "岚音",
+              "text": "诺依握着一枚写着母亲名字的旧车票。"
+            },
+            {
+              "id": "ch039.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch039.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch039.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch039.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch039.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch039.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch039.crisis",
+            "requires_flags": [
+              "ch039.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch039.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch039.crisis.l02",
+              "speaker": "岚音",
+              "text": "救援队判断剩余搜寻已无希望，但诺依仍听见井下求救声。"
+            },
+            {
+              "id": "ch039.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch039.crisis.l04",
+              "speaker": "岚音",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch039.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch039.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch039.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch039.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch039.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch039",
+            "display_name": "谷地岩蛇",
+            "win_flag": "ch039.battle_won",
+            "recommended_level": 49
+          }
+        },
+        {
+          "id": "ch039.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch039.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch039.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch039.resolve.l02",
+              "speaker": "岚音",
+              "text": "主角冒险重返井下救出幸存者，正式收留诺依同行。"
+            },
+            {
+              "id": "ch039.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch039.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】叫作诺依的孩子。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch039"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch039.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1660,
+              "gold": 586
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch039.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch039.done",
+          "speaker": "路人",
+          "text": "以后再说起旧洲·裂谷村，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch040",
+      "number": 40,
+      "act": 7,
+      "chapter_number": 4,
+      "title": "历史没有正确答案",
+      "location": "岁影回廊·灰烬年代",
+      "required_flags": [
+        "story.ch039.done"
+      ],
+      "chapter_start_flag": "ch040.started",
+      "chapter_complete_flag": "story.ch040.done",
+      "lead_character": "伊泽",
+      "summary": "在岁影回廊·灰烬年代，重现古代封城事件并记录不同证词。回廊要求玩家挑选一方为英雄并删除另一方的证词。最终，主角拒绝删去任何一方，让受害与善意同时留在历史里。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        48,
+        52
+      ],
+      "boss": "旧日裁决者",
+      "scenes": [
+        {
+          "id": "ch040.opening",
+          "title": "开场：岁影回廊·灰烬年代",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "岁影回廊·灰烬年代"
+          },
+          "dialogue": [
+            {
+              "id": "ch040.opening.l01",
+              "speaker": "旁白",
+              "text": "【岁影回廊·灰烬年代】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch040.opening.l02",
+              "speaker": "伊泽",
+              "text": "历史不是一首只允许一个人唱的歌。"
+            },
+            {
+              "id": "ch040.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：重现古代封城事件并记录不同证词。"
+            },
+            {
+              "id": "ch040.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "岁影回廊·灰烬年代"
+            },
+            {
+              "type": "interact",
+              "target": "ch040.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch040.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch040.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch040.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch040.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch040.investigate.l02",
+              "speaker": "伊泽",
+              "text": "封城者为防扩散救了很多人，也把孤城居民永远留在里面。"
+            },
+            {
+              "id": "ch040.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch040.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch040.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch040.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch040.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch040.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch040.crisis",
+            "requires_flags": [
+              "ch040.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch040.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch040.crisis.l02",
+              "speaker": "伊泽",
+              "text": "回廊要求玩家挑选一方为英雄并删除另一方的证词。"
+            },
+            {
+              "id": "ch040.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch040.crisis.l04",
+              "speaker": "伊泽",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch040.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch040.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch040.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch040.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch040.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch040",
+            "display_name": "旧日裁决者",
+            "win_flag": "ch040.battle_won",
+            "recommended_level": 51
+          }
+        },
+        {
+          "id": "ch040.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch040.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch040.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch040.resolve.l02",
+              "speaker": "伊泽",
+              "text": "主角拒绝删去任何一方，让受害与善意同时留在历史里。"
+            },
+            {
+              "id": "ch040.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch040.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】历史没有正确答案。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch040"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch040.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1700,
+              "gold": 600
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch040.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch040.done",
+          "speaker": "路人",
+          "text": "以后再说起岁影回廊·灰烬年代，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch041",
+      "number": 41,
+      "act": 7,
+      "chapter_number": 5,
+      "title": "根系之下",
+      "location": "旧洲·地脉树海",
+      "required_flags": [
+        "story.ch040.done"
+      ],
+      "chapter_start_flag": "ch041.started",
+      "chapter_complete_flag": "story.ch041.done",
+      "lead_character": "玄璃",
+      "summary": "在旧洲·地脉树海，开启三道根系记忆门并调查母灯网络。根忆守卫声称如果解除限制，寂潮将立即卷土重来。最终，队伍找到可逆的分布式灯网图纸，留下重建的可能。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        49,
+        53
+      ],
+      "boss": "地脉缠根王",
+      "scenes": [
+        {
+          "id": "ch041.opening",
+          "title": "开场：旧洲·地脉树海",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "旧洲·地脉树海"
+          },
+          "dialogue": [
+            {
+              "id": "ch041.opening.l01",
+              "speaker": "旁白",
+              "text": "【旧洲·地脉树海】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch041.opening.l02",
+              "speaker": "玄璃",
+              "text": "所谓根，也许只是世界不肯承认的伤口。"
+            },
+            {
+              "id": "ch041.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：开启三道根系记忆门并调查母灯网络。"
+            },
+            {
+              "id": "ch041.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "旧洲·地脉树海"
+            },
+            {
+              "type": "interact",
+              "target": "ch041.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch041.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch041.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch041.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch041.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch041.investigate.l02",
+              "speaker": "玄璃",
+              "text": "古代灯阵不只保存记忆，还限制未来可能出现的路线。"
+            },
+            {
+              "id": "ch041.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch041.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch041.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch041.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch041.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch041.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch041.crisis",
+            "requires_flags": [
+              "ch041.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch041.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch041.crisis.l02",
+              "speaker": "玄璃",
+              "text": "根忆守卫声称如果解除限制，寂潮将立即卷土重来。"
+            },
+            {
+              "id": "ch041.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch041.crisis.l04",
+              "speaker": "玄璃",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch041.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch041.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch041.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch041.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch041.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch041",
+            "display_name": "地脉缠根王",
+            "win_flag": "ch041.battle_won",
+            "recommended_level": 52
+          }
+        },
+        {
+          "id": "ch041.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch041.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch041.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch041.resolve.l02",
+              "speaker": "玄璃",
+              "text": "队伍找到可逆的分布式灯网图纸，留下重建的可能。"
+            },
+            {
+              "id": "ch041.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch041.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】根系之下。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch041"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch041.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1740,
+              "gold": 614
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch041.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch041.done",
+          "speaker": "路人",
+          "text": "以后再说起旧洲·地脉树海，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    },
+    {
+      "id": "ch042",
+      "number": 42,
+      "act": 7,
+      "chapter_number": 6,
+      "title": "被世界记起的人们",
+      "location": "根忆母灯坛",
+      "required_flags": [
+        "story.ch041.done"
+      ],
+      "chapter_start_flag": "ch042.started",
+      "chapter_complete_flag": "story.ch042.done",
+      "lead_character": "伊泽",
+      "summary": "在根忆母灯坛，召集旧洲各族共同确认被抹除的史实。少数旧贵族拒绝让被驱逐的人重返历史。最终，居民轮流报出姓名与故事，根忆灯亮起，失落旧洲重现。",
+      "production_status": "scripted_blocking_v1",
+      "recommended_level": [
+        50,
+        54
+      ],
+      "boss": "根忆哀歌",
+      "scenes": [
+        {
+          "id": "ch042.opening",
+          "title": "开场：根忆母灯坛",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "根忆母灯坛"
+          },
+          "dialogue": [
+            {
+              "id": "ch042.opening.l01",
+              "speaker": "旁白",
+              "text": "【根忆母灯坛】远方传来的声音打断了众人的脚步。"
+            },
+            {
+              "id": "ch042.opening.l02",
+              "speaker": "伊泽",
+              "text": "请把名字告诉我，我要一字不漏地唱给世界。"
+            },
+            {
+              "id": "ch042.opening.l03",
+              "speaker": "主角",
+              "text": "我们先完成眼前的任务：召集旧洲各族共同确认被抹除的史实。"
+            },
+            {
+              "id": "ch042.opening.l04",
+              "speaker": "旁白",
+              "text": "地图上出现了新的调查标记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "根忆母灯坛"
+            },
+            {
+              "type": "interact",
+              "target": "ch042.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch042.started",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch042.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch042.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch042.investigate.l01",
+              "speaker": "旁白",
+              "text": "某件不起眼的事物让众人停下脚步。"
+            },
+            {
+              "id": "ch042.investigate.l02",
+              "speaker": "伊泽",
+              "text": "根忆灯回应的不是献祭，而是彼此承认存在的见证。"
+            },
+            {
+              "id": "ch042.investigate.l03",
+              "speaker": "主角",
+              "text": "光凭猜测还不够。去找能作证的人。"
+            },
+            {
+              "id": "ch042.investigate.l04",
+              "speaker": "旁白",
+              "text": "调查内容被写入星灯手记。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch042.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch042.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch042.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "ch042.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch042.crisis",
+            "requires_flags": [
+              "ch042.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch042.crisis.l01",
+              "speaker": "旁白",
+              "text": "被掩埋的矛盾终于爆发。"
+            },
+            {
+              "id": "ch042.crisis.l02",
+              "speaker": "伊泽",
+              "text": "少数旧贵族拒绝让被驱逐的人重返历史。"
+            },
+            {
+              "id": "ch042.crisis.l03",
+              "speaker": "主角",
+              "text": "我们作出的选择，会成为别人生活的一部分。"
+            },
+            {
+              "id": "ch042.crisis.l04",
+              "speaker": "伊泽",
+              "text": "说出你的决定吧，我会站在这里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch042.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch042.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch042.choice",
+            "prompt": "当前冲突应优先处理哪一件事？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先取得更多证词",
+                "sets": {
+                  "ch042.approach": "hear"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护受威胁的人",
+                "sets": {
+                  "ch042.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch042",
+            "display_name": "根忆哀歌",
+            "win_flag": "ch042.battle_won",
+            "recommended_level": 53
+          }
+        },
+        {
+          "id": "ch042.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch042.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch042.resolve.l01",
+              "speaker": "旁白",
+              "text": "风暴暂时平息，有些问题却仍在等待回答。"
+            },
+            {
+              "id": "ch042.resolve.l02",
+              "speaker": "伊泽",
+              "text": "居民轮流报出姓名与故事，根忆灯亮起，失落旧洲重现。"
+            },
+            {
+              "id": "ch042.resolve.l03",
+              "speaker": "主角",
+              "text": "把这段经历记下来。不要让它再被抹去。"
+            },
+            {
+              "id": "ch042.resolve.l04",
+              "speaker": "旁白",
+              "text": "【任务完成】被世界记起的人们。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch042"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch042.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1780,
+              "gold": 628
+            }
+          ]
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch042.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch042.done",
+          "speaker": "路人",
+          "text": "以后再说起根忆母灯坛，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。"
+    }
+  ]
+}

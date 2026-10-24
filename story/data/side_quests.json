@@ -1,0 +1,3746 @@
+{
+  "schema": "starlit.story.sidequest.v1",
+  "status": "scripted_blocking_v1",
+  "count": 36,
+  "global_milestone": {
+    "flag": "world.all_twelve_pages",
+    "requires_flags": [
+      "world.page_01",
+      "world.page_02",
+      "world.page_03",
+      "world.page_04",
+      "world.page_05",
+      "world.page_06",
+      "world.page_07",
+      "world.page_08",
+      "world.page_09",
+      "world.page_10",
+      "world.page_11",
+      "world.page_12"
+    ],
+    "when": "after_all_page_quests",
+    "note": "由运行层归并写入，非自动在主线结束时授予"
+  },
+  "quests": [
+    {
+      "id": "sq_page_01",
+      "title": "断港的十二封信",
+      "type": "lost_page",
+      "region": "白砂港·旧邮仓",
+      "required_chapter": "ch005",
+      "recommended_after_flag": "story.ch005.done",
+      "npc": "老邮差",
+      "summary": "那条航线上，一共有十二封没有地址的信。 信封上盖着同一天、不同年份的邮戳。",
+      "completion_flag": "side.sq_page_01.done",
+      "rewards": {
+        "xp": 170,
+        "gold": 75,
+        "lost_page": "page_01"
+      },
+      "stages": [
+        {
+          "id": "sq_page_01.start",
+          "objective": "与老邮差交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "老邮差",
+              "text": "那条航线上，一共有十二封没有地址的信。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "老邮差",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_01.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_01.investigate",
+          "objective": "调查白砂港·旧邮仓并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【白砂港·旧邮仓】线索逐渐清晰。"
+            },
+            {
+              "speaker": "老邮差",
+              "text": "信封上盖着同一天、不同年份的邮戳。"
+            },
+            {
+              "speaker": "主角",
+              "text": "最先抵达的信写给一名尚未出生的人。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_01.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_01.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "老邮差",
+              "text": "第一张航页记录“约定可以比地图长久”。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_01.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 170,
+              "gold": 75
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_01",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "老邮差",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 1
+    },
+    {
+      "id": "sq_page_02",
+      "title": "泥土里的王徽",
+      "type": "lost_page",
+      "region": "三誓边村·麦田",
+      "required_chapter": "ch010",
+      "recommended_after_flag": "story.ch010.done",
+      "npc": "农妇",
+      "summary": "这枚王徽不是我家祖传的，我只知道它藏在麦袋底下。 旧国王曾为平民修建临时粮仓。",
+      "completion_flag": "side.sq_page_02.done",
+      "rewards": {
+        "xp": 270,
+        "gold": 115,
+        "lost_page": "page_02"
+      },
+      "stages": [
+        {
+          "id": "sq_page_02.start",
+          "objective": "与农妇交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "农妇",
+              "text": "这枚王徽不是我家祖传的，我只知道它藏在麦袋底下。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "农妇",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_02.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_02.investigate",
+          "objective": "调查三誓边村·麦田并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【三誓边村·麦田】线索逐渐清晰。"
+            },
+            {
+              "speaker": "农妇",
+              "text": "旧国王曾为平民修建临时粮仓。"
+            },
+            {
+              "speaker": "主角",
+              "text": "后人只记得战争，没人承认旧王曾做善事。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_02.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_02.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "农妇",
+              "text": "第二张航页记下被政治抹去的普通善意。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_02.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 270,
+              "gold": 115
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_02",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "农妇",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 2
+    },
+    {
+      "id": "sq_page_03",
+      "title": "矿工孩子的歌",
+      "type": "lost_page",
+      "region": "赤炉矿区·小学校",
+      "required_chapter": "ch015",
+      "recommended_after_flag": "story.ch015.done",
+      "npc": "教师",
+      "summary": "孩子每天放学都唱一首没有人教过的歌。 歌谱里藏着矿工罢工留下的工时名单。",
+      "completion_flag": "side.sq_page_03.done",
+      "rewards": {
+        "xp": 370,
+        "gold": 155,
+        "lost_page": "page_03"
+      },
+      "stages": [
+        {
+          "id": "sq_page_03.start",
+          "objective": "与教师交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "教师",
+              "text": "孩子每天放学都唱一首没有人教过的歌。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "教师",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_03.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_03.investigate",
+          "objective": "调查赤炉矿区·小学校并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【赤炉矿区·小学校】线索逐渐清晰。"
+            },
+            {
+              "speaker": "教师",
+              "text": "歌谱里藏着矿工罢工留下的工时名单。"
+            },
+            {
+              "speaker": "主角",
+              "text": "厂方要求删去歌曲以免影响生产。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_03.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_03.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "教师",
+              "text": "第三张航页让矿工的姓名回到街道碑上。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_03.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 370,
+              "gold": 155
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_03",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "教师",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 3
+    },
+    {
+      "id": "sq_page_04",
+      "title": "没有署名的军令",
+      "type": "lost_page",
+      "region": "肃清边村·废哨所",
+      "required_chapter": "ch019",
+      "recommended_after_flag": "story.ch019.done",
+      "npc": "老兵",
+      "summary": "我留下它，是怕自己将来又说没看见。 被烧掉的军令背面写着替居民求情的军官姓名。",
+      "completion_flag": "side.sq_page_04.done",
+      "rewards": {
+        "xp": 450,
+        "gold": 187,
+        "lost_page": "page_04"
+      },
+      "stages": [
+        {
+          "id": "sq_page_04.start",
+          "objective": "与老兵交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "老兵",
+              "text": "我留下它，是怕自己将来又说没看见。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "老兵",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_04.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_04.investigate",
+          "objective": "调查肃清边村·废哨所并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【肃清边村·废哨所】线索逐渐清晰。"
+            },
+            {
+              "speaker": "老兵",
+              "text": "被烧掉的军令背面写着替居民求情的军官姓名。"
+            },
+            {
+              "speaker": "主角",
+              "text": "军官后人不愿承认祖辈也犯过错。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_04.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_04.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "老兵",
+              "text": "第四张航页保留功过并存的完整记录。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_04.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 450,
+              "gold": 187
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_04",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "老兵",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 4
+    },
+    {
+      "id": "sq_page_05",
+      "title": "最后的潮汐表",
+      "type": "lost_page",
+      "region": "晴汐小岛·观潮台",
+      "required_chapter": "ch026",
+      "recommended_after_flag": "story.ch026.done",
+      "npc": "渔女",
+      "summary": "这台钟只在退潮时走，我父亲说它在等回家的人。 潮汐表背面刻着失落群岛的旧坐标。",
+      "completion_flag": "side.sq_page_05.done",
+      "rewards": {
+        "xp": 590,
+        "gold": 243,
+        "lost_page": "page_05"
+      },
+      "stages": [
+        {
+          "id": "sq_page_05.start",
+          "objective": "与渔女交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "渔女",
+              "text": "这台钟只在退潮时走，我父亲说它在等回家的人。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "渔女",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_05.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_05.investigate",
+          "objective": "调查晴汐小岛·观潮台并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【晴汐小岛·观潮台】线索逐渐清晰。"
+            },
+            {
+              "speaker": "渔女",
+              "text": "潮汐表背面刻着失落群岛的旧坐标。"
+            },
+            {
+              "speaker": "主角",
+              "text": "商会想收走钟表作为私人航路专利。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_05.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_05.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "渔女",
+              "text": "第五张航页确认大海是人人可以共享的路。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_05.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 590,
+              "gold": 243
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_05",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "渔女",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 5
+    },
+    {
+      "id": "sq_page_06",
+      "title": "沉城的生日",
+      "type": "lost_page",
+      "region": "青蓝海沟·王国大厅",
+      "required_chapter": "ch027",
+      "recommended_after_flag": "story.ch027.done",
+      "npc": "潜水工",
+      "summary": "钟表停在孩子出生那天，我们能不能让它继续走？ 沉城居民把最后的生日名单锁在钟楼。",
+      "completion_flag": "side.sq_page_06.done",
+      "rewards": {
+        "xp": 610,
+        "gold": 251,
+        "lost_page": "page_06"
+      },
+      "stages": [
+        {
+          "id": "sq_page_06.start",
+          "objective": "与潜水工交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "潜水工",
+              "text": "钟表停在孩子出生那天，我们能不能让它继续走？"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "潜水工",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_06.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_06.investigate",
+          "objective": "调查青蓝海沟·王国大厅并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【青蓝海沟·王国大厅】线索逐渐清晰。"
+            },
+            {
+              "speaker": "潜水工",
+              "text": "沉城居民把最后的生日名单锁在钟楼。"
+            },
+            {
+              "speaker": "主角",
+              "text": "守卫坚持名单属于亡者，活人无权宣读。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_06.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_06.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "潜水工",
+              "text": "第六张航页收录沉城平民的出生日期。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_06.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 610,
+              "gold": 251
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_06",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "潜水工",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 6
+    },
+    {
+      "id": "sq_page_07",
+      "title": "梦里开门的人",
+      "type": "lost_page",
+      "region": "镜眠王都·镜庭",
+      "required_chapter": "ch033",
+      "recommended_after_flag": "story.ch033.done",
+      "npc": "护理师",
+      "summary": "老人每天梦见一道门，我想知道门外是什么。 梦门背后保存着被王国遗忘的失踪救援队。",
+      "completion_flag": "side.sq_page_07.done",
+      "rewards": {
+        "xp": 730,
+        "gold": 299,
+        "lost_page": "page_07"
+      },
+      "stages": [
+        {
+          "id": "sq_page_07.start",
+          "objective": "与护理师交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "护理师",
+              "text": "老人每天梦见一道门，我想知道门外是什么。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "护理师",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_07.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_07.investigate",
+          "objective": "调查镜眠王都·镜庭并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【镜眠王都·镜庭】线索逐渐清晰。"
+            },
+            {
+              "speaker": "护理师",
+              "text": "梦门背后保存着被王国遗忘的失踪救援队。"
+            },
+            {
+              "speaker": "主角",
+              "text": "医官担心患者得知真相后醒来会受伤。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_07.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_07.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "护理师",
+              "text": "第七张航页允许以自愿、循序的方式记住过去。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_07.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 730,
+              "gold": 299
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_07",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "护理师",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 7
+    },
+    {
+      "id": "sq_page_08",
+      "title": "只剩一张户籍",
+      "type": "lost_page",
+      "region": "默契城·户籍馆",
+      "required_chapter": "ch038",
+      "recommended_after_flag": "story.ch038.done",
+      "npc": "记录员",
+      "summary": "我已经不知道这些名字究竟属于谁了。 同一张纸被不同年代的居民重复使用。",
+      "completion_flag": "side.sq_page_08.done",
+      "rewards": {
+        "xp": 830,
+        "gold": 339,
+        "lost_page": "page_08"
+      },
+      "stages": [
+        {
+          "id": "sq_page_08.start",
+          "objective": "与记录员交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "记录员",
+              "text": "我已经不知道这些名字究竟属于谁了。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "记录员",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_08.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_08.investigate",
+          "objective": "调查默契城·户籍馆并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【默契城·户籍馆】线索逐渐清晰。"
+            },
+            {
+              "speaker": "记录员",
+              "text": "同一张纸被不同年代的居民重复使用。"
+            },
+            {
+              "speaker": "主角",
+              "text": "居民中有人愿保留现有名字，不想强制恢复旧名。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_08.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_08.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "记录员",
+              "text": "第八张航页同时记录新旧名字及本人选择。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_08.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 830,
+              "gold": 339
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_08",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "记录员",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 8
+    },
+    {
+      "id": "sq_page_09",
+      "title": "未曾结束的婚礼",
+      "type": "lost_page",
+      "region": "旧洲·废礼堂",
+      "required_chapter": "ch040",
+      "recommended_after_flag": "story.ch040.done",
+      "npc": "老裁缝",
+      "summary": "我替新人保管礼服，保管了整整八十年。 一对恋人当年因封城被迫分别，却彼此留了消息。",
+      "completion_flag": "side.sq_page_09.done",
+      "rewards": {
+        "xp": 870,
+        "gold": 355,
+        "lost_page": "page_09"
+      },
+      "stages": [
+        {
+          "id": "sq_page_09.start",
+          "objective": "与老裁缝交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "老裁缝",
+              "text": "我替新人保管礼服，保管了整整八十年。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "老裁缝",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_09.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_09.investigate",
+          "objective": "调查旧洲·废礼堂并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【旧洲·废礼堂】线索逐渐清晰。"
+            },
+            {
+              "speaker": "老裁缝",
+              "text": "一对恋人当年因封城被迫分别，却彼此留了消息。"
+            },
+            {
+              "speaker": "主角",
+              "text": "岁影回廊要求抹去失散的一方才能结束仪式。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_09.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_09.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "老裁缝",
+              "text": "第九张航页让双方的等待被后人共同见证。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_09.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 870,
+              "gold": 355
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_09",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "老裁缝",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 9
+    },
+    {
+      "id": "sq_page_10",
+      "title": "黑星下的食谱",
+      "type": "lost_page",
+      "region": "灾后王都·公用厨房",
+      "required_chapter": "ch050",
+      "recommended_after_flag": "story.ch050.done",
+      "npc": "厨师",
+      "summary": "这些菜不是我发明的，是避难所每个人贡献一道。 食谱边页留着十二年前第一批救援队名字。",
+      "completion_flag": "side.sq_page_10.done",
+      "rewards": {
+        "xp": 1070,
+        "gold": 435,
+        "lost_page": "page_10"
+      },
+      "stages": [
+        {
+          "id": "sq_page_10.start",
+          "objective": "与厨师交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "厨师",
+              "text": "这些菜不是我发明的，是避难所每个人贡献一道。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "厨师",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_10.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_10.investigate",
+          "objective": "调查灾后王都·公用厨房并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【灾后王都·公用厨房】线索逐渐清晰。"
+            },
+            {
+              "speaker": "厨师",
+              "text": "食谱边页留着十二年前第一批救援队名字。"
+            },
+            {
+              "speaker": "主角",
+              "text": "权贵想以城市纪念名义独占食谱版权。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_10.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_10.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "厨师",
+              "text": "第十张航页记录灾难里不被歌颂的互助。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_10.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1070,
+              "gold": 435
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_10",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "厨师",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 10
+    },
+    {
+      "id": "sq_page_11",
+      "title": "废墟里的地图",
+      "type": "lost_page",
+      "region": "群灯之城·居民广场",
+      "required_chapter": "ch057",
+      "recommended_after_flag": "story.ch057.done",
+      "npc": "石匠",
+      "summary": "图上有很多门，每扇门都能通向一个人的家。 迁入者用碎瓦共同拼出逃难和回家路线。",
+      "completion_flag": "side.sq_page_11.done",
+      "rewards": {
+        "xp": 1210,
+        "gold": 491,
+        "lost_page": "page_11"
+      },
+      "stages": [
+        {
+          "id": "sq_page_11.start",
+          "objective": "与石匠交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "石匠",
+              "text": "图上有很多门，每扇门都能通向一个人的家。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "石匠",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_11.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_11.investigate",
+          "objective": "调查群灯之城·居民广场并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【群灯之城·居民广场】线索逐渐清晰。"
+            },
+            {
+              "speaker": "石匠",
+              "text": "迁入者用碎瓦共同拼出逃难和回家路线。"
+            },
+            {
+              "speaker": "主角",
+              "text": "有人提议只留下获胜阵营的路线。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_11.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_11.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "石匠",
+              "text": "第十一张航页将相互矛盾的道路一起保存。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_11.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1210,
+              "gold": 491
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_11",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "石匠",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 11
+    },
+    {
+      "id": "sq_page_12",
+      "title": "明日的空白页",
+      "type": "lost_page",
+      "region": "天轨圣域·旧阅览室",
+      "required_chapter": "ch065",
+      "recommended_after_flag": "story.ch065.done",
+      "npc": "维莎",
+      "summary": "最后一页是空白的，这不是损坏。 空白页原本留给尚未出生的人书写。",
+      "completion_flag": "side.sq_page_12.done",
+      "rewards": {
+        "xp": 1370,
+        "gold": 555,
+        "lost_page": "page_12"
+      },
+      "stages": [
+        {
+          "id": "sq_page_12.start",
+          "objective": "与维莎交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "维莎",
+              "text": "最后一页是空白的，这不是损坏。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_12.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_12.investigate",
+          "objective": "调查天轨圣域·旧阅览室并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【天轨圣域·旧阅览室】线索逐渐清晰。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "空白页原本留给尚未出生的人书写。"
+            },
+            {
+              "speaker": "主角",
+              "text": "议会程序试图预先写入“最安全的未来”。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_12.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_page_12.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "维莎",
+              "text": "第十二张航页未写上答案，只留下所有人继续书写的权利。"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_page_12.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1370,
+              "gold": 555
+            },
+            {
+              "type": "set_flag",
+              "key": "world.page_12",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "维莎",
+        "text": "谢谢你愿意听完这件小事。"
+      },
+      "page_number": 12
+    },
+    {
+      "id": "sq_life_01",
+      "title": "路灯修理师",
+      "type": "regional",
+      "region": "晨露村·黄昏街",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "灯匠",
+      "summary": "村里剩下的灯有三盏忽明忽暗。 一条灯线被螃蟹咬断，镇民却传成海怪入侵。",
+      "completion_flag": "side.sq_life_01.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_01.start",
+          "objective": "与灯匠交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "灯匠",
+              "text": "村里剩下的灯有三盏忽明忽暗。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "灯匠",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_01.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_01.investigate",
+          "objective": "调查晨露村·黄昏街并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【晨露村·黄昏街】线索逐渐清晰。"
+            },
+            {
+              "speaker": "灯匠",
+              "text": "一条灯线被螃蟹咬断，镇民却传成海怪入侵。"
+            },
+            {
+              "speaker": "主角",
+              "text": "修好灯后孩子们重新敢在夜晚回家。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_01.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_01.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "灯匠",
+              "text": "2"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_01.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "灯匠",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_02",
+      "title": "药房的第二张床",
+      "type": "regional",
+      "region": "晨露药房",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "岚音",
+      "summary": "病人比床多，我只能把我自己的床让出来。 村民愿捐木材，只是不知道如何组织。",
+      "completion_flag": "side.sq_life_02.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_02.start",
+          "objective": "与岚音交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "岚音",
+              "text": "病人比床多，我只能把我自己的床让出来。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_02.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_02.investigate",
+          "objective": "调查晨露药房并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【晨露药房】线索逐渐清晰。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "村民愿捐木材，只是不知道如何组织。"
+            },
+            {
+              "speaker": "主角",
+              "text": "建起公共病床，解锁恢复道具折扣。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_02.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_02.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "岚音",
+              "text": "2"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_02.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "岚音",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_03",
+      "title": "海盐与糖",
+      "type": "regional",
+      "region": "白砂港·厨房",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "厨娘",
+      "summary": "这锅汤不是咸了，是盐罐里混进了糖。 朔弦曾在这里欠下一顿饭钱。",
+      "completion_flag": "side.sq_life_03.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_03.start",
+          "objective": "与厨娘交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "厨娘",
+              "text": "这锅汤不是咸了，是盐罐里混进了糖。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "厨娘",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_03.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_03.investigate",
+          "objective": "调查白砂港·厨房并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【白砂港·厨房】线索逐渐清晰。"
+            },
+            {
+              "speaker": "厨娘",
+              "text": "朔弦曾在这里欠下一顿饭钱。"
+            },
+            {
+              "speaker": "主角",
+              "text": "帮厨房修好仓库，朔弦自愿偿还欠款。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_03.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_03.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "厨娘",
+              "text": "5"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_03.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "厨娘",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_04",
+      "title": "被误读的旗语",
+      "type": "regional",
+      "region": "三誓关卡",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "旗手",
+      "summary": "两国的旗语一样，意思却完全反过来。 古代旗语教材曾被人故意交换页码。",
+      "completion_flag": "side.sq_life_04.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_04.start",
+          "objective": "与旗手交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "旗手",
+              "text": "两国的旗语一样，意思却完全反过来。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "旗手",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_04.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_04.investigate",
+          "objective": "调查三誓关卡并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【三誓关卡】线索逐渐清晰。"
+            },
+            {
+              "speaker": "旗手",
+              "text": "古代旗语教材曾被人故意交换页码。"
+            },
+            {
+              "speaker": "主角",
+              "text": "两地学员合写新版旗语手册。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_04.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_04.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "旗手",
+              "text": "8"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_04.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "旗手",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_05",
+      "title": "国王的旧鞋",
+      "type": "regional",
+      "region": "三誓王都·旧裁缝铺",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "鞋匠",
+      "summary": "这双旧鞋穿破了，还被说成国宝。 它原属于给难民送粮的普通搬运工。",
+      "completion_flag": "side.sq_life_05.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_05.start",
+          "objective": "与鞋匠交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "鞋匠",
+              "text": "这双旧鞋穿破了，还被说成国宝。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "鞋匠",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_05.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_05.investigate",
+          "objective": "调查三誓王都·旧裁缝铺并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【三誓王都·旧裁缝铺】线索逐渐清晰。"
+            },
+            {
+              "speaker": "鞋匠",
+              "text": "它原属于给难民送粮的普通搬运工。"
+            },
+            {
+              "speaker": "主角",
+              "text": "让王宫归还文物出处，声望提升。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_05.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_05.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "鞋匠",
+              "text": "11"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_05.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "鞋匠",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_06",
+      "title": "边境合唱团",
+      "type": "regional",
+      "region": "三国边界·教堂",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "伊泽",
+      "summary": "孩子们唱同一首歌，却总要争哪个国家写的。 曲谱由三个国家的老人分别写过一段。",
+      "completion_flag": "side.sq_life_06.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_06.start",
+          "objective": "与伊泽交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "伊泽",
+              "text": "孩子们唱同一首歌，却总要争哪个国家写的。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_06.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_06.investigate",
+          "objective": "调查三国边界·教堂并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【三国边界·教堂】线索逐渐清晰。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "曲谱由三个国家的老人分别写过一段。"
+            },
+            {
+              "speaker": "主角",
+              "text": "三地孩子共同演唱，打开羁绊演出。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_06.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_06.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "伊泽",
+              "text": "12"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_06.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "伊泽",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_07",
+      "title": "炉房里的猫",
+      "type": "regional",
+      "region": "赤炉工厂·休息间",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "学徒",
+      "summary": "它总在停工时回来，好像等谁下班。 老矿工曾每天给猫带一块面包。",
+      "completion_flag": "side.sq_life_07.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_07.start",
+          "objective": "与学徒交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "学徒",
+              "text": "它总在停工时回来，好像等谁下班。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "学徒",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_07.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_07.investigate",
+          "objective": "调查赤炉工厂·休息间并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【赤炉工厂·休息间】线索逐渐清晰。"
+            },
+            {
+              "speaker": "学徒",
+              "text": "老矿工曾每天给猫带一块面包。"
+            },
+            {
+              "speaker": "主角",
+              "text": "将猫送回矿工的家，获得工匠徽记。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_07.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_07.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "学徒",
+              "text": "16"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_07.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "学徒",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_08",
+      "title": "一把不会伤人的锤",
+      "type": "regional",
+      "region": "赤炉试炼塔",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "缇珐",
+      "summary": "我想造一把不会用于打仗的工具。 锤头形状可以专门防止武器加工。",
+      "completion_flag": "side.sq_life_08.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_08.start",
+          "objective": "与缇珐交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "缇珐",
+              "text": "我想造一把不会用于打仗的工具。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_08.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_08.investigate",
+          "objective": "调查赤炉试炼塔并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【赤炉试炼塔】线索逐渐清晰。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "锤头形状可以专门防止武器加工。"
+            },
+            {
+              "speaker": "主角",
+              "text": "制作救援破拆锤，并在第十幕救灾中使用。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_08.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_08.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "缇珐",
+              "text": "18"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_08.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "缇珐",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_09",
+      "title": "故障的留声机",
+      "type": "regional",
+      "region": "赤炉旧街",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "老人",
+      "summary": "机器总只播一半，好像有人把下半句偷走了。 失落的录音是父女普通的生日祝福。",
+      "completion_flag": "side.sq_life_09.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_09.start",
+          "objective": "与老人交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "老人",
+              "text": "机器总只播一半，好像有人把下半句偷走了。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "老人",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_09.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_09.investigate",
+          "objective": "调查赤炉旧街并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【赤炉旧街】线索逐渐清晰。"
+            },
+            {
+              "speaker": "老人",
+              "text": "失落的录音是父女普通的生日祝福。"
+            },
+            {
+              "speaker": "主角",
+              "text": "修复唱片，首次开放家庭纪念墙。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_09.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_09.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "老人",
+              "text": "18"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_09.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "老人",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_10",
+      "title": "雷索的旧披风",
+      "type": "regional",
+      "region": "三誓边村",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "雷索",
+      "summary": "我以为它烧掉了，没想到还有人替我收着。 披风内侧缝着被救村民的姓名。",
+      "completion_flag": "side.sq_life_10.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_10.start",
+          "objective": "与雷索交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "雷索",
+              "text": "我以为它烧掉了，没想到还有人替我收着。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_10.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_10.investigate",
+          "objective": "调查三誓边村并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【三誓边村】线索逐渐清晰。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "披风内侧缝着被救村民的姓名。"
+            },
+            {
+              "speaker": "主角",
+              "text": "雷索公开承认当年违令，不再回避自己。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_10.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_10.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "雷索",
+              "text": "20"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_10.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "雷索",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_11",
+      "title": "走失的红围巾",
+      "type": "regional",
+      "region": "白夜祭·市集",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "女童",
+      "summary": "红围巾上有颗歪歪的星星，我一定认得出来。 围巾最后落在卖灯笼的流动商贩摊位。",
+      "completion_flag": "side.sq_life_11.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_11.start",
+          "objective": "与女童交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "女童",
+              "text": "红围巾上有颗歪歪的星星，我一定认得出来。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "女童",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_11.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_11.investigate",
+          "objective": "调查白夜祭·市集并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【白夜祭·市集】线索逐渐清晰。"
+            },
+            {
+              "speaker": "女童",
+              "text": "围巾最后落在卖灯笼的流动商贩摊位。"
+            },
+            {
+              "speaker": "主角",
+              "text": "孩子与母亲团聚，节庆广场增加热闹NPC。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_11.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_11.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "女童",
+              "text": "22"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_11.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "女童",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_12",
+      "title": "最短的演出",
+      "type": "regional",
+      "region": "白夜祭·后台",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "伊泽",
+      "summary": "我只有一首歌的时间，要让所有人都听见证人说话。 证人不愿上台，但愿意将证据写在歌词里。",
+      "completion_flag": "side.sq_life_12.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_12.start",
+          "objective": "与伊泽交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "伊泽",
+              "text": "我只有一首歌的时间，要让所有人都听见证人说话。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_12.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_12.investigate",
+          "objective": "调查白夜祭·后台并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【白夜祭·后台】线索逐渐清晰。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "证人不愿上台，但愿意将证据写在歌词里。"
+            },
+            {
+              "speaker": "主角",
+              "text": "护送证人完成公开演出，解锁伊泽技能。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_12.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_12.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "伊泽",
+              "text": "23"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_12.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "伊泽",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_13",
+      "title": "船舱里的盆栽",
+      "type": "regional",
+      "region": "逐星号·船员室",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "水手",
+      "summary": "它离开土地会死吧？可我想把家带上船。 盆栽需要海风和雨水交替才能存活。",
+      "completion_flag": "side.sq_life_13.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_13.start",
+          "objective": "与水手交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "水手",
+              "text": "它离开土地会死吧？可我想把家带上船。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "水手",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_13.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_13.investigate",
+          "objective": "调查逐星号·船员室并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【逐星号·船员室】线索逐渐清晰。"
+            },
+            {
+              "speaker": "水手",
+              "text": "盆栽需要海风和雨水交替才能存活。"
+            },
+            {
+              "speaker": "主角",
+              "text": "在船上建小花园，开放船舱布置。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_13.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_13.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "水手",
+              "text": "26"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_13.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "水手",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_14",
+      "title": "不收费的灯塔",
+      "type": "regional",
+      "region": "海歌群岛·偏港",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "守塔妇人",
+      "summary": "灯塔照亮的是大家的路，不是富人的船。 旧航海公约允许所有船只免费求救。",
+      "completion_flag": "side.sq_life_14.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_14.start",
+          "objective": "与守塔妇人交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "守塔妇人",
+              "text": "灯塔照亮的是大家的路，不是富人的船。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "守塔妇人",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_14.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_14.investigate",
+          "objective": "调查海歌群岛·偏港并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【海歌群岛·偏港】线索逐渐清晰。"
+            },
+            {
+              "speaker": "守塔妇人",
+              "text": "旧航海公约允许所有船只免费求救。"
+            },
+            {
+              "speaker": "主角",
+              "text": "修复灯塔，获得安全航行路线。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_14.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_14.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "守塔妇人",
+              "text": "29"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_14.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "守塔妇人",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_15",
+      "title": "给海兽的名字",
+      "type": "regional",
+      "region": "鲸背水道",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "少年",
+      "summary": "它救过我一次，却没人给它起名字。 海兽其实辨认声音而非旗帜。",
+      "completion_flag": "side.sq_life_15.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_15.start",
+          "objective": "与少年交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "少年",
+              "text": "它救过我一次，却没人给它起名字。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "少年",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_15.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_15.investigate",
+          "objective": "调查鲸背水道并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【鲸背水道】线索逐渐清晰。"
+            },
+            {
+              "speaker": "少年",
+              "text": "海兽其实辨认声音而非旗帜。"
+            },
+            {
+              "speaker": "主角",
+              "text": "为友善海兽命名，开放一次灵兽支援。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_15.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_15.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "少年",
+              "text": "30"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_15.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "少年",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_16",
+      "title": "睡不醒的钟匠",
+      "type": "regional",
+      "region": "镜眠王国·钟表铺",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "钟匠家属",
+      "summary": "他总说还差一分钟就下班。 钟匠执着想补回与家人错过的时间。",
+      "completion_flag": "side.sq_life_16.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_16.start",
+          "objective": "与钟匠家属交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "钟匠家属",
+              "text": "他总说还差一分钟就下班。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "钟匠家属",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_16.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_16.investigate",
+          "objective": "调查镜眠王国·钟表铺并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【镜眠王国·钟表铺】线索逐渐清晰。"
+            },
+            {
+              "speaker": "钟匠家属",
+              "text": "钟匠执着想补回与家人错过的时间。"
+            },
+            {
+              "speaker": "主角",
+              "text": "双方共同决定唤醒计划，开放钟表收藏。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_16.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_16.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "钟匠家属",
+              "text": "34"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_16.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "钟匠家属",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_17",
+      "title": "玄璃的身份证明",
+      "type": "regional",
+      "region": "镜眠王都·档案局",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "玄璃",
+      "summary": "我不想靠你为我说话，我想自己签字。 旧程序没有映世出生身份栏位。",
+      "completion_flag": "side.sq_life_17.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_17.start",
+          "objective": "与玄璃交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "玄璃",
+              "text": "我不想靠你为我说话，我想自己签字。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_17.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_17.investigate",
+          "objective": "调查镜眠王都·档案局并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【镜眠王都·档案局】线索逐渐清晰。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "旧程序没有映世出生身份栏位。"
+            },
+            {
+              "speaker": "主角",
+              "text": "建立新公民登记选项，玄璃羁绊增长。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_17.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_17.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "玄璃",
+              "text": "35"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_17.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "玄璃",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_18",
+      "title": "真正的雨",
+      "type": "regional",
+      "region": "映世·花庭",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "玄璃",
+      "summary": "原来雨点砸在脸上，是会有点疼的。 花庭幻雨与现实天气并不同步。",
+      "completion_flag": "side.sq_life_18.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_18.start",
+          "objective": "与玄璃交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "玄璃",
+              "text": "原来雨点砸在脸上，是会有点疼的。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_18.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_18.investigate",
+          "objective": "调查映世·花庭并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【映世·花庭】线索逐渐清晰。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "花庭幻雨与现实天气并不同步。"
+            },
+            {
+              "speaker": "主角",
+              "text": "一起在现世经历一场雨，解锁生活互动。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_18.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_18.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "玄璃",
+              "text": "36"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_18.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "玄璃",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_19",
+      "title": "写错的名字",
+      "type": "regional",
+      "region": "旧洲·默契城",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "书记员",
+      "summary": "我怕把他真正的名字写错，所以一直不敢落笔。 幸存者记得发音，不记得文字。",
+      "completion_flag": "side.sq_life_19.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_19.start",
+          "objective": "与书记员交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "书记员",
+              "text": "我怕把他真正的名字写错，所以一直不敢落笔。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "书记员",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_19.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_19.investigate",
+          "objective": "调查旧洲·默契城并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【旧洲·默契城】线索逐渐清晰。"
+            },
+            {
+              "speaker": "书记员",
+              "text": "幸存者记得发音，不记得文字。"
+            },
+            {
+              "speaker": "主角",
+              "text": "选择双重记法，登记姓名不再是唯一凭证。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_19.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_19.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "书记员",
+              "text": "38"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_19.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "书记员",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_20",
+      "title": "诺依的第一封信",
+      "type": "regional",
+      "region": "旧洲·难民营",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "诺依",
+      "summary": "我想写给已经不在的人，可不知道地址。 营地邮筒专门收无地址纪念信。",
+      "completion_flag": "side.sq_life_20.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_20.start",
+          "objective": "与诺依交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "诺依",
+              "text": "我想写给已经不在的人，可不知道地址。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_20.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_20.investigate",
+          "objective": "调查旧洲·难民营并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【旧洲·难民营】线索逐渐清晰。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "营地邮筒专门收无地址纪念信。"
+            },
+            {
+              "speaker": "主角",
+              "text": "主角陪孩子投信，开启诺依传承羁绊。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_20.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_20.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "诺依",
+              "text": "41"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_20.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "诺依",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_21",
+      "title": "一杯没喝完的茶",
+      "type": "regional",
+      "region": "晨露村·旧屋",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "老邻居",
+      "summary": "有个人每次来都把茶放冷，怕烫着孩子。 老邻居终于想起澄舟曾来过。",
+      "completion_flag": "side.sq_life_21.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_21.start",
+          "objective": "与老邻居交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "老邻居",
+              "text": "有个人每次来都把茶放冷，怕烫着孩子。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "老邻居",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_21.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_21.investigate",
+          "objective": "调查晨露村·旧屋并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【晨露村·旧屋】线索逐渐清晰。"
+            },
+            {
+              "speaker": "老邻居",
+              "text": "老邻居终于想起澄舟曾来过。"
+            },
+            {
+              "speaker": "主角",
+              "text": "主角听到养父琐碎的生活故事，而非英雄传说。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_21.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_21.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "老邻居",
+              "text": "53"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_21.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "老邻居",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_22",
+      "title": "旧队伍的照片",
+      "type": "regional",
+      "region": "暮林古道·驿站",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "旅店老板",
+      "summary": "你们当年合照时吵了半天，谁该站正中间。 照片背面留下当年未兑现的旅行计划。",
+      "completion_flag": "side.sq_life_22.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_22.start",
+          "objective": "与旅店老板交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "旅店老板",
+              "text": "你们当年合照时吵了半天，谁该站正中间。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "旅店老板",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_22.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_22.investigate",
+          "objective": "调查暮林古道·驿站并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【暮林古道·驿站】线索逐渐清晰。"
+            },
+            {
+              "speaker": "旅店老板",
+              "text": "照片背面留下当年未兑现的旅行计划。"
+            },
+            {
+              "speaker": "主角",
+              "text": "队伍重新拍照，角色菜单更新纪念画面。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_22.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_22.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "旅店老板",
+              "text": "52"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_22.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "旅店老板",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_23",
+      "title": "晚归的人",
+      "type": "regional",
+      "region": "群灯城·建造区",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "工匠",
+      "summary": "以前我每天为了赶工不回家，现在总觉得来不及。 工匠的家人不需要他每天都是英雄。",
+      "completion_flag": "side.sq_life_23.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_23.start",
+          "objective": "与工匠交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "工匠",
+              "text": "以前我每天为了赶工不回家，现在总觉得来不及。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "工匠",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_23.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_23.investigate",
+          "objective": "调查群灯城·建造区并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【群灯城·建造区】线索逐渐清晰。"
+            },
+            {
+              "speaker": "工匠",
+              "text": "工匠的家人不需要他每天都是英雄。"
+            },
+            {
+              "speaker": "主角",
+              "text": "建立正常轮班制度，城市幸福度提升。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_23.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_23.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "工匠",
+              "text": "57"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_23.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "工匠",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    },
+    {
+      "id": "sq_life_24",
+      "title": "自由广场的小食摊",
+      "type": "regional",
+      "region": "群灯之城·广场",
+      "required_chapter": "chundefined",
+      "recommended_after_flag": "story.chundefined.done",
+      "npc": "摊主",
+      "summary": "三国的调料全吵着要当第一名。 三位厨师都不肯删掉自己家乡的味道。",
+      "completion_flag": "side.sq_life_24.done",
+      "rewards": {
+        "xp": null,
+        "gold": null
+      },
+      "stages": [
+        {
+          "id": "sq_life_24.start",
+          "objective": "与摊主交谈并了解请求",
+          "dialogue": [
+            {
+              "speaker": "摊主",
+              "text": "三国的调料全吵着要当第一名。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我可以帮忙。先告诉我已知的线索。"
+            },
+            {
+              "speaker": "摊主",
+              "text": "真正的线索恐怕藏在别人不愿看的地方。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_24.accepted",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_24.investigate",
+          "objective": "调查群灯之城·广场并搜集证据",
+          "dialogue": [
+            {
+              "speaker": "旁白",
+              "text": "【群灯之城·广场】线索逐渐清晰。"
+            },
+            {
+              "speaker": "摊主",
+              "text": "三位厨师都不肯删掉自己家乡的味道。"
+            },
+            {
+              "speaker": "主角",
+              "text": "办成开放食谱节，永久解锁组合料理。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_24.evidence",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "sq_life_24.finish",
+          "objective": "处理发现并向委托人回复",
+          "dialogue": [
+            {
+              "speaker": "摊主",
+              "text": "59"
+            },
+            {
+              "speaker": "主角",
+              "text": "希望这段故事今后不会被人忘记。"
+            },
+            {
+              "speaker": "系统",
+              "text": "支线任务完成。"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "side.sq_life_24.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": null,
+              "gold": null
+            }
+          ]
+        }
+      ],
+      "npc_after": {
+        "speaker": "摊主",
+        "text": "谢谢你愿意听完这件小事。"
+      }
+    }
+  ]
+}

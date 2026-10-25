@@ -1,8 +1,10 @@
 extends RefCounted
 ## Phase19-4: twelve canonical lost-page walkable interiors without replacing towns.
 const SOURCE: String = "res://story/data/phase19_lost_page_submaps.json"
+const LIFE_SOURCE: String = "res://story/data/phase19_life_submaps.json"
 const LAYOUT_DIR: String = "res://data/levels/v4/interiors/"
 var entries: Dictionary = {}
+var life_entries: Dictionary = {}
 var errors: Array[String] = []
 
 func _init() -> void:
@@ -29,9 +31,30 @@ func _init() -> void:
         entries[quest_id] = q
     if entries.size()!=12:
         errors.append("expected exactly twelve playable quest submaps")
+    if not FileAccess.file_exists(LIFE_SOURCE):
+        errors.append("life quest submaps missing")
+        return
+    var life_doc: Variant = JSON.parse_string(FileAccess.get_file_as_string(LIFE_SOURCE))
+    if not (life_doc is Dictionary):
+        errors.append("life quest submap format invalid")
+        return
+    for raw in life_doc.get("quests",[]):
+        if not (raw is Dictionary):
+            continue
+        var life: Dictionary = raw
+        var id: String = str(life.get("quest_id",""))
+        var map_id: String = str(life.get("map_id",""))
+        var building: String = str(life.get("building_id",""))
+        var path: String = LAYOUT_DIR+"%s__%s.json" % [map_id,building]
+        if id.is_empty() or life_entries.has(id) or entries.has(id) or building!="quest__"+id or not FileAccess.file_exists(path):
+            errors.append("invalid dedicated life room: "+id)
+            continue
+        life_entries[id] = life
+    if life_entries.size()!=19:
+        errors.append("expected nineteen canon indoor life sites")
 
 func detail(quest_id: String) -> Dictionary:
-    return entries.get(quest_id,{})
+    return entries.get(quest_id,life_entries.get(quest_id,{}))
 
 func matches(quest_id: String,map_id: String,chapter: int) -> bool:
     var data: Dictionary = detail(quest_id)
@@ -44,6 +67,9 @@ func local(map_id: String,chapter: int) -> Array:
     for quest_id in entries:
         if matches(str(quest_id),map_id,chapter):
             results.append(entries[quest_id])
+    for quest_id in life_entries:
+        if matches(str(quest_id),map_id,chapter):
+            results.append(life_entries[quest_id])
     return results
 
 func room_name(quest_id: String) -> String:

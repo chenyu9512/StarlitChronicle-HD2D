@@ -691,7 +691,7 @@ func interact() -> void:
             continue
         if not nodes[key].visible:
             continue
-        var point: Sprite2D = nodes[key]
+        var point: Node2D = nodes[key]
         var distance: float = hero.position.distance_to(point.position)
         if distance < best:
             best = distance

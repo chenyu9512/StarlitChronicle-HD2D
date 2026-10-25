@@ -80,19 +80,7 @@ func apply(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features:
         var center: Vector2i = _point(clearing.get("center",[]))
         if _valid(center):
             _stamp(ground,walls,center,clampi(int(clearing.get("radius",2)),1,6),1,false)
-    for override in level_info.get("paint_overrides",[]):
-        var cell: Vector2i = _point(override.get("cell",[]))
-        if not _valid(cell):
-            continue
-        _stamp(ground,walls,cell,0,clampi(int(override.get("row",1)),0,7),bool(override.get("blocked",false)))
-    for override in level_info.get("collision_overrides",[]):
-        var cell: Vector2i = _point(override.get("cell",[]))
-        if not _valid(cell):
-            continue
-        if bool(override.get("blocked",true)):
-            walls[cell]=true
-        else:
-            walls.erase(cell)
+    apply_editor_patches(level_info,ground,walls)
     for point in level_info.get("landmarks",[]):
         var cell: Vector2i = _point(point.get("cell",[]))
         if _valid(cell) and not walls.has(cell):
@@ -110,6 +98,21 @@ func nearest_road(point: Vector2i,roadway: Array[Vector2i]) -> Vector2i:
             closest=candidate
             best=dist
     return closest
+
+func apply_editor_patches(level_info: Dictionary,ground: Dictionary,walls: Dictionary) -> void:
+    for override in level_info.get("paint_overrides",[]):
+        var cell: Vector2i = _point(override.get("cell",[]))
+        if not _valid(cell):
+            continue
+        _stamp(ground,walls,cell,0,clampi(int(override.get("row",1)),0,7),bool(override.get("blocked",false)))
+    for override in level_info.get("collision_overrides",[]):
+        var cell: Vector2i = _point(override.get("cell",[]))
+        if not _valid(cell):
+            continue
+        if bool(override.get("blocked",true)):
+            walls[cell]=true
+        else:
+            walls.erase(cell)
 
 func open_water_tiles(level_info: Dictionary, final_walls: Dictionary) -> Dictionary:
     # Water is visually blue only while the cell still represents impassable water.

@@ -26,6 +26,7 @@ var compact: bool = false
 var main_target: String = ""
 var side_target: String = ""
 var selected_location: String = ""
+var quest_destination: String = ""
 var map_points: Dictionary = {}
 
 func setup(world_ref, router_ref, is_compact: bool = false) -> void:
@@ -122,7 +123,7 @@ func _draw_local() -> void:
         var color: Color = Color.TRANSPARENT
         if id == main_target:
             color = MAIN
-        elif id == side_target or id.begins_with("story_stage_") or id.begins_with("side_"):
+        elif id == side_target or id.begins_with("branchmap:") or id.begins_with("questhint:") or id.begins_with("story_stage_") or id.begins_with("side_"):
             color = SIDE
         elif id in ["inn","home_door"] or id.begins_with("building:"):
             color = Color("84d9a4")
@@ -146,7 +147,7 @@ func _draw_local() -> void:
         if world.fog != null and not world.fog.revealed(world.fog_key(),mark.x,mark.y) and not objective:
             continue
         if compact and not map_rect.has_point(pos):
-            if id == main_target:
+            if id == main_target or id == side_target:
                 var edge: Vector2 = Vector2(clampf(pos.x,map_rect.position.x + 5.0,map_rect.end.x - 5.0),clampf(pos.y,map_rect.position.y + 5.0,map_rect.end.y - 5.0))
                 draw_circle(edge,4.0,MAIN)
             continue
@@ -246,6 +247,14 @@ func _draw_atlas(regional: bool) -> void:
             if id < dest and map_points.has(dest):
                 var known: bool = router.is_available(str(id)) and router.is_available(dest)
                 draw_line(origin,map_points[dest],Color("b4c4c5") if known else Color("496574"),3.0 if regional else 1.7,true)
+    if not quest_destination.is_empty() and map_points.has(quest_destination):
+        var goal: Vector2 = map_points[quest_destination]
+        draw_arc(goal,13.0,0.0,TAU,32,Color("78e4ef"),2.5,true)
+        draw_circle(goal,5.0,Color("b9f1eb"))
+        var route: Array[String] = router.shortest_route(quest_destination)
+        for index in range(route.size()-1):
+            if map_points.has(route[index]) and map_points.has(route[index+1]):
+                draw_line(map_points[route[index]],map_points[route[index+1]],Color("67cfdc",0.8),3.0,true)
     if not selected_location.is_empty():
         var highlighted_route: Array[String] = router.shortest_route(selected_location)
         for step in range(highlighted_route.size()-1):

@@ -1,0 +1,38 @@
+name: Map UI Gameplay Validation
+on:
+  push:
+    paths:
+      - "scripts/map_view.gd"
+      - "scripts/map_hud.gd"
+      - "scripts/first_act.gd"
+      - "scripts/first_act_ui.gd"
+      - "scripts/rpg_menu.gd"
+      - "tools/smoke_map_ui.gd"
+      - ".github/workflows/map-ui-validation.yml"
+  pull_request:
+    paths:
+      - "scripts/map_view.gd"
+      - "scripts/map_hud.gd"
+      - "scripts/first_act.gd"
+      - "scripts/first_act_ui.gd"
+      - "scripts/rpg_menu.gd"
+      - "tools/smoke_map_ui.gd"
+      - ".github/workflows/map-ui-validation.yml"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  map-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import map and UI dependencies
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Run minimap and world atlas gameplay regression
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd

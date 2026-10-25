@@ -183,7 +183,7 @@ func _make_tiles() -> void:
         layer.modulate = Color.WHITE if regional_art else map_profile.get("color",Color.WHITE)
     root.add_child(layer)
     if not interior_building.is_empty():
-        terrain_layout = geography.interior(interior_building,interior_kind)
+        terrain_layout = geography.interior(interior_building,interior_kind,str(map_profile.get("id","")))
     else:
         terrain_layout = geography.layout(str(map_profile.get("id","map_coast_01")),chapter)
     blocked = terrain_layout.get("blocked",{}).duplicate()
@@ -262,10 +262,10 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
 
 func _build_sites() -> void:
     if not interior_building.is_empty():
-        var exit: Sprite2D = _add_sprite("sign",Vector2i(35,34),false,true)
-        nodes["interior_exit"] = exit
-        nodes["interior_service"] = _add_sprite("beacon",Vector2i(29,17),false,true)
-        nodes["interior_storage"] = _add_sprite("barrel",Vector2i(45,19),false,true)
+        var markers: Dictionary = terrain_layout.get("interact_cells",{})
+        nodes["interior_exit"] = _add_sprite("sign",markers.get("exit",Vector2i(35,34)),false,true)
+        nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
+        nodes["interior_storage"] = _add_sprite("barrel",markers.get("storage",Vector2i(45,19)),false,true)
         return
     var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))
     if archetype == "dungeon":

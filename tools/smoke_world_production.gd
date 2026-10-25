@@ -69,6 +69,21 @@ func _run() -> void:
     verify(dungeon_count==8,"World should contain eight distinct large dungeons")
     verify(dungeon_shapes.size()==8,"Two dungeons accidentally share the same collision topology")
     verify(town_layouts.size()==6,"Settlement geography must employ all six street archetypes")
+    # Twelve physically distinct, fully connected authored first-act interiors.
+    var indoor_shapes: Dictionary = {}
+    for town in ["map_coast_01","map_coast_02"]:
+        for building in ["inn","shop","guild","smith","house","shrine"]:
+            var indoor: Dictionary = geo.interior(building,building,town)
+            verify(str(indoor.get("authored_source",""))=="v4","Missing physical V4 interior: "+town+" / "+building)
+            var marks: Dictionary = indoor.get("interact_cells",{})
+            var access: Array[Vector2i] = []
+            for site in ["exit","service","storage"]:
+                access.append(marks.get(site,Vector2i.ZERO))
+            verify(geo.reachable(indoor,[indoor.get("spawn",Vector2i.ZERO)],access),"Inaccessible V4 interior service: "+town+" / "+building)
+            var signature: String = str((indoor.get("blocked",{}) as Dictionary).hash())
+            verify(not indoor_shapes.has(signature),"Duplicated V4 interior geography: "+town+" / "+building)
+            indoor_shapes[signature]=true
+    verify(indoor_shapes.size()==12,"Expected 12 unique first-act rooms")
     var state = State.new()
     var registry = Registry.new()
     registry.bind(state)
@@ -83,11 +98,17 @@ func _run() -> void:
     verify(world.nodes.has("building:inn"),"Town is missing an enterable inn door")
     var outside: Vector2 = world.hero.position
     verify(world.enter_building("inn"),"Could not enter real walking interior")
+    verify(str(world.terrain_layout.get("authored_source",""))=="v4","Morning Dew inn is not using authored room terrain")
     verify(world.nodes.has("interior_exit") and world.nodes.has("interior_storage"),"Interior is missing physical interactable objects")
     verify(not world.nodes.has("key_npc"),"Outside story NPC leaked into building interior")
     verify(not world._blocked(world.hero.position),"Indoor spawn is not passable")
+    var inn_collision: Dictionary = world.terrain_layout.get("blocked",{}).duplicate()
     verify(world.leave_building(),"Could not leave building interior")
     verify(world.hero.position == outside,"Exterior return position not restored")
+    verify(world.enter_building("shop"),"Could not enter the shop interior")
+    verify(str(world.terrain_layout.get("authored_source",""))=="v4","Shop failed to load its distinct room layout")
+    verify(world.terrain_layout.get("blocked",{})!=inn_collision,"Shop still uses inn's physical floorplan")
+    verify(world.leave_building(),"Shop exit did not return to the overworld")
     var observed: Array[String] = []
     world.interacted.connect(func(id: String) -> void: observed.append(id))
     for id in geo.zones.keys():

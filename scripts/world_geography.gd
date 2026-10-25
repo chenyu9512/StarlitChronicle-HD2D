@@ -1,5 +1,6 @@
 extends RefCounted
 const WorldLevelV3 = preload("res://scripts/world_level_v3.gd")
+const InteriorV4 = preload("res://scripts/world_interior_v4.gd")
 ## 72x48 real-world sector architecture, shared by collision, renderer, minimap and tests.
 ## Authored spatial zone configuration is in world_atlas_v2.json; geometry is deterministic.
 const WIDTH: int = 72
@@ -266,7 +267,11 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         wet = authored.open_water_tiles(authored_level,walls)
     return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
 
-func interior(building: String,building_kind: String) -> Dictionary:
+func interior(building: String,building_kind: String,map_id: String = "") -> Dictionary:
+    var custom: Dictionary = InteriorV4.new().load_level(map_id,building,building_kind)
+    if not custom.is_empty():
+        return custom
+    # Existing V2-generated room remains an old-save-compatible fallback.
     var terrain: Dictionary = {}
     var blocked: Dictionary = {}
     var top: int = 10

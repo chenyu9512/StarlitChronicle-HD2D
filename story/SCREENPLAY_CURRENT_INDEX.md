@@ -62,6 +62,12 @@
 - [第19-3批交付报告](PHASE_19_BATCH03_SCENE_DELIVERY.md)：NPC阶段外观、玩家检查/延期、场景记录与地图可玩边界。
 - Godot运行器：`scripts/story_scene_director.gd`、`scripts/story_branch_runtime.gd`；静态/动态验证：`tools/validate_phase19_scene_dressing.py`、`tools/smoke_story_world_phase19_2.gd`。
 
+## 第19阶段第四批｜12间专属航页场景
+
+- [12个航页专属可进入场景](data/phase19_lost_page_submaps.json)及其各自的 `data/levels/v4/interiors/<map_id>__quest__sq_page_XX.json` 真实关卡布局。
+- [第19-4批关卡交付报告](PHASE_19_BATCH04_LOST_PAGE_INTERIORS_DELIVERY.md)：连续五阶段原任务、A/B后续、证物档案与V3恢复。
+- 关卡验证：`tools/validate_phase19_lost_page_rooms.py`、`tools/smoke_phase19_lost_page_rooms.gd`、`tools/smoke_story_side_quests.gd`。12张都有独立几何布局，但专用绘制、表情和特制机关仍需后续制作。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线结构及数据格式。

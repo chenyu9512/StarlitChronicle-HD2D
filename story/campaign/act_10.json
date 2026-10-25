@@ -2208,7 +2208,7 @@
       "chapter_complete_flag": "story.ch060.done",
       "lead_character": "缇珐",
       "summary": "在群灯城·星灯中枢，部署分散式灯网并抵御敌军突袭。赫西安动用赤烬军团破坏民众自愿接入的节点。最终，居民逐户点亮手灯，六灯网络第一次不受司录者控制。",
-      "production_status": "scripted_blocking_v1",
+      "production_status": "scripted_blocking_v3_phase15_city",
       "recommended_level": [
         72,
         76
@@ -2249,6 +2249,31 @@
               "text": "医疗和救援不能因为某家退出共享就停止。"
             },
             {
+              "id": "ch060.opening.p15.l01",
+              "speaker": "社区电工",
+              "text": "南区愿意接入，但老井旁的两户担心新线会影响水泵。"
+            },
+            {
+              "id": "ch060.opening.p15.l02",
+              "speaker": "缇珐",
+              "text": "先量水泵功率，试验期间保留手动取水。"
+            },
+            {
+              "id": "ch060.opening.p15.l03",
+              "speaker": "维莎",
+              "text": "接入表有退出日期和复核联系人，不再允许默认签字。"
+            },
+            {
+              "id": "ch060.opening.p15.l04",
+              "speaker": "诺依",
+              "text": "我和居民解释风险，反对的人也可以申请防灾救助。"
+            },
+            {
+              "id": "ch060.opening.p15.l05",
+              "speaker": "主角",
+              "text": "一盏灯亮起来之前，得先知道是谁能把它关掉。"
+            },
+            {
               "id": "ch060.opening.l06",
               "speaker": "主角",
               "text": "把最重要的权利先写进协议，再启动网络。"
@@ -2278,7 +2303,9 @@
           ],
           "direction": {
             "shot": "中枢无王座只有独立小灯",
-            "note": "纯文本演出"
+            "note": "纯文本演出",
+            "phase15_focus": "居民知情与退出权、供水和医疗最低保障",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
           }
         },
         {
@@ -2315,6 +2342,31 @@
               "text": "各区有自己的备用路线，断开一个不会让所有人失去光。"
             },
             {
+              "id": "ch060.investigate.p15.l01",
+              "speaker": "赤炉学徒",
+              "text": "我们手里有第41章的旧图纸，可每条支路都在这里重新验算过。"
+            },
+            {
+              "id": "ch060.investigate.p15.l02",
+              "speaker": "缇珐",
+              "text": "十二区的隔离阀不能共用一把钥匙，任何一处故障都得能本地停机。"
+            },
+            {
+              "id": "ch060.investigate.p15.l03",
+              "speaker": "维莎",
+              "text": "旧议会的权限记录会公开，包括曾经偷偷提高取能额度的签名。"
+            },
+            {
+              "id": "ch060.investigate.p15.l04",
+              "speaker": "岚音",
+              "text": "医院的备电足够维持紧急治疗，再由值班医师确认切换窗口。"
+            },
+            {
+              "id": "ch060.investigate.p15.l05",
+              "speaker": "诺依",
+              "text": "先让社区审查图纸、提出异议，再按他们同意的顺序点灯。"
+            },
+            {
               "id": "ch060.investigate.l06",
               "speaker": "朔弦",
               "text": "海歌船队愿意供给航标记录，不索取独占费用。"
@@ -2344,7 +2396,9 @@
           ],
           "direction": {
             "shot": "公共图纸铺满桌子",
-            "note": "纯文本演出"
+            "note": "纯文本演出",
+            "phase15_focus": "第41章图纸经过审查正式变成可实施工程",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
           }
         },
         {
@@ -2382,6 +2436,31 @@
               "id": "ch060.crisis.l05",
               "speaker": "诺依",
               "text": "不要让孩子们留在灯网接口旁。"
+            },
+            {
+              "id": "ch060.crisis.p15.l01",
+              "speaker": "赤烬机兵",
+              "text": "侦测到未经批准的独立控制节点，开始集中回收。"
+            },
+            {
+              "id": "ch060.crisis.p15.l02",
+              "speaker": "缇珐",
+              "text": "别把全部线路连回我这里！每区按隔离程序独立断开。"
+            },
+            {
+              "id": "ch060.crisis.p15.l03",
+              "speaker": "雷索",
+              "text": "护城队保护街口，撤离线别与维修队抢同一条路。"
+            },
+            {
+              "id": "ch060.crisis.p15.l04",
+              "speaker": "诺依",
+              "text": "西区先护住孩子，东区把临时灯送往诊所，谁也不必等待英雄口令。"
+            },
+            {
+              "id": "ch060.crisis.p15.l05",
+              "speaker": "主角",
+              "text": "一处失联先隔离，再从其他区报平安。不能为了救灯牺牲居民。"
             },
             {
               "id": "ch060.crisis.l06",
@@ -2437,7 +2516,9 @@
           },
           "direction": {
             "shot": "战争机甲与居民小灯形成对照",
-            "note": "纯文本演出"
+            "note": "纯文本演出",
+            "phase15_focus": "独立隔离而非中心英雄控制，保护撤离路线",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
           }
         },
         {
@@ -2476,6 +2557,31 @@
               "text": "这一次城市不是由一个英雄点亮的。"
             },
             {
+              "id": "ch060.resolve.p15.l01",
+              "speaker": "社区电工",
+              "text": "南区有一家选择不接入，水泵照样获得公共检修。"
+            },
+            {
+              "id": "ch060.resolve.p15.l02",
+              "speaker": "维莎",
+              "text": "今晚还有两条支路需要复查，我会把问题挂到公开看板上。"
+            },
+            {
+              "id": "ch060.resolve.p15.l03",
+              "speaker": "缇珐",
+              "text": "现在故障会被隔离，也不需要任何人的记忆充当燃料。"
+            },
+            {
+              "id": "ch060.resolve.p15.l04",
+              "speaker": "诺依",
+              "text": "大家把自己能拿得稳的小灯点起来，这才是我们一起建的城。"
+            },
+            {
+              "id": "ch060.resolve.p15.l05",
+              "speaker": "主角",
+              "text": "我们终于能向天轨出发，但下次灯坏了，城里的人不必等我们回来。"
+            },
+            {
               "id": "ch060.resolve.l06",
               "speaker": "主角",
               "text": "它属于愿意一起守护的人。"
@@ -2511,7 +2617,9 @@
           ],
           "direction": {
             "shot": "千灯分别点亮，保留各自亮度",
-            "note": "纯文本演出"
+            "note": "纯文本演出",
+            "phase15_focus": "第60章resolve才授予world.distributed_network且留持续维护责任",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
           }
         }
       ],
@@ -2528,8 +2636,21 @@
         }
       ],
       "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
-      "script_revision": "act10_dialogue_v2"
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
     }
   ],
-  "dialogue_revision": "act10_dialogue_v2"
+  "dialogue_revision": "act10_dialogue_v2",
+  "phase15_revision": {
+    "date": "2026-10-25",
+    "scope": "ch055_ch060",
+    "new_lines": 120,
+    "original_lines": 0,
+    "original_count_check": "compare_baseline_commit",
+    "status": "narrative_pass_only_not_runtime_bound",
+    "policy": "stable original ids, triggers, choice, rewards untouched"
+  }
 }

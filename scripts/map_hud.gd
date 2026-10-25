@@ -243,7 +243,12 @@ func _refresh_info() -> void:
     if is_instance_valid(world.hero):
         hero_pos = Vector2i(world.hero.position / 32.0)
     var area_class: String = "建筑内部" if not world.interior_building.is_empty() else str(world.map_profile.get("kind","field"))
-    map_info.text = "%s\n\n地理坐标：%d，%d\n地图区域：%d × %d格\n类型：%s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class]
+    var current_clock: Dictionary = router.state.rpg.get("game_clock",{})
+    var minutes: int = int(current_clock.get("minutes",480))
+    var time_label: String = "%02d:%02d" % [int(minutes/60),minutes%60]
+    var weather_id: String = str(world.ambience.weather) if world.ambience!=null and is_instance_valid(world.ambience) else "clear"
+    var weather_name: String = {"clear":"晴朗","rain":"阵雨","mist":"薄雾","ash":"浮灰"}.get(weather_id,"晴朗")
+    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,int(current_clock.get("day",1)),time_label,weather_name]
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)
         if info.is_empty():
@@ -265,7 +270,7 @@ func _refresh_info() -> void:
         route_button.disabled = possible_route.size() <= 1
         route_button.text = "前往下一站（不越级）"
     else:
-        route_info.text = "金色：主线目标\n浅蓝：支线委托\n绿色：建筑或旅馆\n棕色：出入口\n白金：自己\n\n与实际72×48地形同步。\n可从世界地图查看分区及解锁道路。"
+        route_info.text = "金色：主线目标\n浅蓝：委托及居民\n绿色：客栈/建筑/营地\n紫色：符文机关与室内服务\n琥珀：藏宝与地区路口\n白金：自己\n\n区域地形与角色位置同步，地图会显示实际时间和天气。"
         route_button.visible = false
         route_button.disabled = true
 

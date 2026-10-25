@@ -10,6 +10,7 @@ signal load_slot_requested(slot: int)
 signal housing_purchase_requested()
 signal housing_open_requested()
 const Core = preload("res://scripts/rpg_core.gd")
+const ArtAssets = preload("res://scripts/art_assets.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
@@ -198,8 +199,26 @@ func render(section: String) -> void:
             for actor in save_state.actors:
                 var pid: String = str(actor.get("id",""))
                 var stats: Dictionary = manager.gear_stats(pid)
-                _label("%s %s Lv.%d  HP %d/%d  MP %d/%d  攻%d  防%d" % ["●" if manager.is_active(pid) else "○",str(actor.get("name","")),int(actor.get("level",1)),int(actor.get("hp",0)),int(stats.get("max_hp",0)),int(actor.get("mp",0)),int(stats.get("max_mp",0)),int(stats.get("attack",0)),int(stats.get("defense",0))])
-                _button(content,"变更 %s 出战状态" % str(actor.get("name","")),func() -> void: _apply(manager.toggle_party(pid)))
+                var actor_row := HBoxContainer.new()
+                actor_row.add_theme_constant_override("separation", 12)
+                content.add_child(actor_row)
+                var head_path: String = ArtAssets.party_head(pid)
+                if not head_path.is_empty():
+                    var head := TextureRect.new()
+                    head.texture = load(head_path)
+                    head.custom_minimum_size = Vector2(64, 64)
+                    head.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+                    head.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+                    head.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+                    actor_row.add_child(head)
+                var summary := VBoxContainer.new()
+                summary.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+                actor_row.add_child(summary)
+                var stats_label := Label.new()
+                stats_label.text = "%s %s Lv.%d  HP %d/%d  MP %d/%d  攻%d  防%d" % ["●" if manager.is_active(pid) else "○",str(actor.get("name","")),int(actor.get("level",1)),int(actor.get("hp",0)),int(stats.get("max_hp",0)),int(actor.get("mp",0)),int(stats.get("max_mp",0)),int(stats.get("attack",0)),int(stats.get("defense",0))]
+                stats_label.add_theme_font_size_override("font_size", 16)
+                summary.add_child(stats_label)
+                _button(summary,"变更 %s 出战状态" % str(actor.get("name","")),func() -> void: _apply(manager.toggle_party(pid)),14)
         "背包":
             _label("背包 · 选择道具使用对象",true)
             _select_actor()

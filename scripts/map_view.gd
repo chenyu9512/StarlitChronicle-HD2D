@@ -97,6 +97,23 @@ func _draw_local() -> void:
         for i in range(1, 4):
             var xx: float = origin.x + float(W) * cell * float(i) / 4.0
             draw_line(Vector2(xx,origin.y), Vector2(xx,origin.y + float(H)*cell), Color(0.8,0.9,0.95,0.12), 1.0)
+    # The full town map describes districts, rather than reducing a lived-in
+    # settlement to anonymous dots. Mini map stays uncluttered for navigation.
+    if not compact:
+        var town_plan: Dictionary = world.terrain_layout.get("town_plan",{})
+        if not town_plan.is_empty():
+            var town_font: Font = get_theme_default_font()
+            for district in town_plan.get("districts",[]):
+                var center_data: Array = district.get("center",[])
+                if center_data.size()<2:
+                    continue
+                var location: Vector2i = Vector2i(int(center_data[0]),int(center_data[1]))
+                if world.fog != null and not world.fog.revealed(world.fog_key(),location.x,location.y):
+                    continue
+                var label_pos: Vector2 = origin + Vector2(float(location.x-first_x),float(location.y-first_y))*cell
+                draw_line(label_pos+Vector2(-18,6),label_pos+Vector2(18,6),Color("dfc18d",0.45),1.2,true)
+                if town_font != null:
+                    draw_string(town_font,label_pos+Vector2(-42,-8),str(district.get("name","街区")),HORIZONTAL_ALIGNMENT_CENTER,84.0,11,Color("f2e4c8"))
     for key in world.nodes.keys():
         var id: String = str(key)
         var node: Node2D = world.nodes[key]

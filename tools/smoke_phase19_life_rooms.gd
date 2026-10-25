@@ -65,6 +65,13 @@ func _run() -> void:
         if game.world.interior_building!="quest__"+quest_id:
             continue
         ck(game.world.terrain_layout.get("quest_points",[]).size()==3,"visible three clue sites "+quest_id)
+        ck(game.world.terrain_layout.get("story_stage_points",[]).size()==5,
+            "original five stages have their own interaction stations "+quest_id)
+        ck(game.world.terrain_layout.get("branch_stage_points",[]).size()==3,
+            "three A/B continuation positions independent of exhibits "+quest_id)
+        ck(game.world.nodes.has("story_stage_0") and
+            game.world.nodes["story_stage_0"].get_script()==preload("res://scripts/world_npc_visual.gd"),
+            "original life quest giver is animated NPCVisual, not a sign "+quest_id)
         ck(game.world.nodes.has("interior_exit"),"real return portal "+quest_id)
         for index in range(3):
             var clue_id: String="questcase:"+str(index)

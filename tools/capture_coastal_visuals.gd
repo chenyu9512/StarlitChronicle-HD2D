@@ -55,8 +55,36 @@ func _capture() -> void:
             await process_frame
         await RenderingServer.frame_post_draw
         result.append(_record(id,world))
+    # A14 captures verify roof lighting at night and depth sorting at the cave
+    # foreground. These are additional real-render evidence, not mockups.
     world.map_profile=registry.profile("map_coast_01")
     world.build(3,2)
+    world.sync_world_clock(3,1260)
+    for node in world.scenery.get_children():
+        if node.get_script()!=null and node.get_script().resource_path=="res://scripts/world_structure.gd":
+            if node.purpose=="inn":
+                world.hero.position=node.position+Vector2(70,40)
+                break
+    world.camera.position_smoothing_enabled=false
+    world.camera.reset_smoothing()
+    for step in range(4):
+        await process_frame
+    await RenderingServer.frame_post_draw
+    result.append(_record("map_coast_01_night",world))
+    world.map_profile=registry.profile("map_coast_04")
+    world.build(3,2)
+    if world.coastal_scene!=null and world.coastal_scene.foreground_sprites.has("cave_near_column"):
+        var cave_column: Sprite2D=world.coastal_scene.foreground_sprites["cave_near_column"]
+        world.hero.position=cave_column.position+Vector2(-10,24)
+    world.camera.position_smoothing_enabled=false
+    world.camera.reset_smoothing()
+    for step in range(4):
+        await process_frame
+    await RenderingServer.frame_post_draw
+    result.append(_record("map_coast_04_depth",world))
+    world.map_profile=registry.profile("map_coast_01")
+    world.build(3,2)
+    world.sync_world_clock(3,660)
     if not world.enter_building("inn"):
         errors.append("Cannot enter inn for interior evidence")
     else:
@@ -81,8 +109,8 @@ func _capture() -> void:
     else:
         handle.store_string(JSON.stringify(manifest,"  ")+"\n")
         handle.close()
-    if errors.is_empty() and result.size()==5:
-        print("PASS A12: 5 real Godot visual captures at 1152x648; device QA remains human")
+    if errors.is_empty() and result.size()==7:
+        print("PASS A14: 7 actual Godot scene captures including night architecture and cave depth; hardware QA still pending")
         quit(0)
     else:
         for failure in errors:

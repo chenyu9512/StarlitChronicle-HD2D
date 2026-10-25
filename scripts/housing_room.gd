@@ -12,6 +12,7 @@ var list: VBoxContainer
 var info: Label
 var selected: String = ""
 var mode: String = "摆放"
+var resident_tile: Vector2i = Vector2i(4,5)
 
 func _ready() -> void:
     layer = 52
@@ -58,6 +59,7 @@ func _ready() -> void:
     main.add_child(room)
     var row := HBoxContainer.new()
     room.add_child(row)
+    _button(row,"自由行走",func() -> void: _mode("行走"))
     _button(row,"摆放",func() -> void: _mode("摆放"))
     _button(row,"收回",func() -> void: _mode("收回"))
     _button(row,"在家休息",func() -> void: _result(housing.rest()))
@@ -89,7 +91,8 @@ func open_house(service, state, core = null) -> void:
     progress = state
     rpg_core = core
     selected = ""
-    mode = "摆放"
+    mode = "行走"
+    resident_tile = Vector2i(4,5)
     root.show()
     render()
 
@@ -99,9 +102,64 @@ func close_house() -> void:
         closed.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
+    if root.visible and mode == "行走":
+        var direction: Vector2i = Vector2i.ZERO
+        if event.is_action_pressed("move_up"): direction = Vector2i.UP
+        elif event.is_action_pressed("move_down"): direction = Vector2i.DOWN
+        elif event.is_action_pressed("move_left"): direction = Vector2i.LEFT
+        elif event.is_action_pressed("move_right"): direction = Vector2i.RIGHT
+        if direction != Vector2i.ZERO:
+            walk(direction)
+            get_viewport().set_input_as_handled()
+            return
+        if event.is_action_pressed("interact"):
+            inspect_furniture()
+            get_viewport().set_input_as_handled()
+            return
     if root.visible and event.is_action_pressed("ui_cancel"):
         close_house()
         get_viewport().set_input_as_handled()
+
+func walk(direction: Vector2i) -> bool:
+    if mode != "行走" or direction.length_squared() != 1:
+        return false
+    var target: Vector2i = resident_tile + direction
+    if target.x < 0 or target.y < 0 or target.x >= housing.WIDTH or target.y >= housing.HEIGHT:
+        return false
+    if not housing.at(target.x,target.y).is_empty():
+        info.text = "前面摆放着家具，可先走到旁边调查。"
+        return false
+    resident_tile = target
+    render()
+    return true
+
+func inspect_furniture() -> void:
+    for delta in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+        var coord: Vector2i = resident_tile + delta
+        var furniture: Dictionary = housing.at(coord.x,coord.y)
+        if furniture.is_empty():
+            continue
+        var entry: Dictionary = housing.item(str(furniture.get("id","")))
+        var effect: String = str(entry.get("effect",""))
+        match effect:
+            "rest":
+                _result(housing.rest())
+                return
+            "storage":
+                info.text = "储物柜：请使用右侧的物品存入/取出操作。"
+                return
+            "cook":
+                info.text = "灶台：右侧已列出制作食谱。"
+                return
+            "craft":
+                info.text = "星纹锻台：右侧列出可锻造武器。"
+                return
+            "light":
+                info.text = "星灯温柔地照亮房间。"
+                return
+        info.text = "查看：" + str(entry.get("name","家具"))
+        return
+    info.text = "附近没有可以调查的家具。"
 
 func _mode(value: String) -> void:
     mode = value
@@ -114,7 +172,9 @@ func _result(message: String) -> void:
     info.text = message + " · " + info.text
 
 func _click(x: int,y: int) -> void:
-    if mode == "收回":
+    if mode == "行走":
+        info.text = "自由行走中：WASD移动，E调查邻近家具；点选「摆放」进入装修。"
+    elif mode == "收回":
         _result(housing.remove_at(x,y))
     elif not selected.is_empty():
         _result(housing.place(selected,x,y))
@@ -155,7 +215,9 @@ func render() -> void:
             var yy: int = y
             var occupied: Dictionary = housing.at(x,y)
             var caption: String = "·"
-            if not occupied.is_empty():
+            if mode == "行走" and Vector2i(x,y) == resident_tile:
+                caption = "人"
+            elif not occupied.is_empty():
                 caption = str(housing.item(str(occupied.get("id",""))).get("glyph","◆"))
             elif y == housing.HEIGHT-1 and x in [4,5]:
                 caption = "门"

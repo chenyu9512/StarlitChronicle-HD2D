@@ -85,10 +85,12 @@ func _run() -> void:
     map.setup(world,registry,false)
     map.display_mode("world")
     map.size = Vector2(900,550)
-    map._draw_atlas(false)
+    map.queue_redraw()
+    await process_frame
     verify(map.map_points.size()==40,"World drawing must show forty explorable geographic pins (not prototypes)")
     map.display_mode("region")
-    map._draw_atlas(true)
+    map.queue_redraw()
+    await process_frame
     verify(map.map_points.size()==5,"Coast regional inset should show its five relevant map sectors")
     if failures.is_empty():
         print("PASS: 8 geographic biomes; %d playable 72x48 zones, %d town districts, %d dungeons, %d navigable quest+gate anchors, physical town interiors and 3-tier map navigation" % [playable_count,settlement_count,dungeon_count,all_checks])

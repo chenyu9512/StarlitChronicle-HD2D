@@ -463,7 +463,7 @@ func _interact(target: String) -> void:
             return
         var town_id: String = world_router.current_map()
         var task_id: String = target.trim_prefix("townlife:")
-        var hour: int = int(progress.rpg.get("game_clock",{}).get("minutes",480)/60)
+        var hour: int = int(float(progress.rpg.get("game_clock",{}).get("minutes",480))/60.0)
         var result: Dictionary = world.town_ecology.interact(town_id,task_id,progress,hour)
         if bool(result.get("changed",false)):
             var reward: Dictionary = result.get("reward",{})

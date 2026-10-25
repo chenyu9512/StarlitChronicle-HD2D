@@ -80,6 +80,12 @@
 - [第19-6阶段交付报告](PHASE_19_BATCH06_LIFE_SCENES_DELIVERY.md)列出V4场景、NPC/线索、A/B运行合同及仍待制作的84条地区/伙伴实体化。
 - 实际校验脚本：`tools/validate_phase19_life_rooms.py`和`tools/smoke_phase19_life_rooms.gd`。
 
+## 第19-7批｜伙伴和地区实体探索
+
+- [84条任务场景映射与54间独立建筑](data/phase19_companion_regional_submaps.json)：34伙伴室内+20地区室内，14伙伴野外+16地区野外，全部保留原正典。
+- [第19-7批开发交付报告](PHASE_19_BATCH07_COMPANION_REGIONAL_ROOMS_DELIVERY.md)：世界位置、NPC与证物、11个不重叠可达格、A/B剧情及V3兼容。
+- 新校验：`tools/validate_phase19_companion_regional_rooms.py`、`tools/smoke_phase19_companion_regional_rooms.gd`；最新CI执行情况需独立确认，不因旧绿色验收推断新文件已全通过。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线结构及数据格式。

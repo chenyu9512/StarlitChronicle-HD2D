@@ -17,6 +17,8 @@ jobs:
         run: |
           python tools/validate_project.py
           python tools/validate_story.py
+          python tools/validate_story_progression.py
+          python tools/validate_narrative_v21.py
           python tools/validate_content.py
           python tools/validate_first_act.py
           python tools/qa_hd2d_refinement.py

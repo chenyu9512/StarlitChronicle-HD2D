@@ -59,14 +59,17 @@ func _draw_local() -> void:
         return
     # The compact map follows the hero through a 21 × 15-cell window.
     # The expanded map always displays the whole authored 44 × 28 terrain.
-    var columns: int = 25 if compact else W
-    var rows: int = 17 if compact else H
+    var map_extent: Vector2i = world.terrain_layout.get("size",Vector2i(W,H))
+    var actual_w: int = map_extent.x
+    var actual_h: int = map_extent.y
+    var columns: int = 25 if compact else actual_w
+    var rows: int = 17 if compact else actual_h
     var first_x: int = 0
     var first_y: int = 0
     if compact and is_instance_valid(world.hero):
         var hero_tile: Vector2i = Vector2i(world.hero.position / TILE)
-        first_x = clampi(hero_tile.x - int(columns / 2),0,W - columns)
-        first_y = clampi(hero_tile.y - int(rows / 2),0,H - rows)
+        first_x = clampi(hero_tile.x - int(columns / 2),0,actual_w - columns)
+        first_y = clampi(hero_tile.y - int(rows / 2),0,actual_h - rows)
     var cell: float = minf((size.x - 20.0) / float(columns), (size.y - 20.0) / float(rows))
     if cell <= 0.0:
         return
@@ -96,8 +99,8 @@ func _draw_local() -> void:
             draw_rect(Rect2(origin + Vector2(x - first_x,y - first_y) * cell, Vector2(cell + 0.08,cell + 0.08)), shade, true)
     if not compact:
         for i in range(1, 4):
-            var xx: float = origin.x + float(W) * cell * float(i) / 4.0
-            draw_line(Vector2(xx,origin.y), Vector2(xx,origin.y + float(H)*cell), Color(0.8,0.9,0.95,0.12), 1.0)
+            var xx: float = origin.x + float(actual_w) * cell * float(i) / 4.0
+            draw_line(Vector2(xx,origin.y), Vector2(xx,origin.y + float(actual_h)*cell), Color(0.8,0.9,0.95,0.12), 1.0)
     # The full town map describes districts, rather than reducing a lived-in
     # settlement to anonymous dots. Mini map stays uncluttered for navigation.
     if not compact:

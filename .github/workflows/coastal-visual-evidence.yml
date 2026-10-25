@@ -42,7 +42,7 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
       - name: Verify outdoor facades, route/cave art, PCM and actor response
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_coastal_exterior.gd
-      - name: Render five real gameplay visual QA frames
+      - name: Render seven real gameplay visual QA frames
         shell: bash
         run: |
           mkdir -p build/art-qa
@@ -52,6 +52,8 @@ jobs:
           test -s build/art-qa/map_coast_03.png
           test -s build/art-qa/map_coast_04.png
           test -s build/art-qa/morning_dew_inn.png
+          test -s build/art-qa/map_coast_01_night.png
+          test -s build/art-qa/map_coast_04_depth.png
           test -s build/art-qa/manifest.json
       - name: Capture P4 prologue in-world festival, meteor, blackout and time-jump frames
         shell: bash

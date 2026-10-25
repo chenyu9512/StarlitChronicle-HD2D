@@ -37,7 +37,7 @@ func _run() -> void:
     atlas._set_mode("world")
     await process_frame
     _expect(atlas.full_view.mode == "world","World atlas must be selectable")
-    _expect(atlas.full_view.map_points.size() == 42,"World atlas must contain all 42 authored locations")
+    _expect(atlas.full_view.map_points.size() == 40,"World atlas must show 40 explorable locations; legacy prototypes remain excluded")
     _expect(not router.can_travel("unknown_map"),"Unknown nodes must never permit travel")
     var flags_before: Dictionary = state.flags.duplicate(true)
     var world_before: Dictionary = state.rpg.get("world",{}).duplicate(true)
@@ -51,7 +51,7 @@ func _run() -> void:
     atlas.show_exploration(false)
     _expect(not atlas.small_frame.visible,"Battle/story/menu must hide minimap")
     if errors.is_empty():
-        print("PASS: minimap, local atlas, 42 world nodes, objective markers, no unauthorized travel and modal closure")
+        print("PASS: minimap, local atlas, 40 geographic gameplay sectors plus two excluded prototypes, objectives, gated travel and modal closure")
         quit(0)
     else:
         for error in errors:

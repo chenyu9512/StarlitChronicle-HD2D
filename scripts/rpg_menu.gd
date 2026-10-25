@@ -342,7 +342,13 @@ func render(section: String) -> void:
                 _button(content,"下一页 ▶",func() -> void: _page_quest(1))
             var shown: int = 0
             for quest in manager.records("quests"):
-                if int(quest.get("chapter",99)) > save_state.chapter:
+                var chapter_value: Variant = quest.get("chapter", null)
+                if chapter_value == null:
+                    continue
+                if not (chapter_value is int or chapter_value is float):
+                    push_warning("任务章节格式无效：" + str(quest.get("id", "")))
+                    continue
+                if int(chapter_value) > save_state.chapter:
                     continue
                 _label(("✓ " if save_state.rpg["quests"].has(str(quest.get("id",""))) else "◇ ")+str(quest.get("name",""))+" "+str(quest.get("objective","")))
                 shown += 1

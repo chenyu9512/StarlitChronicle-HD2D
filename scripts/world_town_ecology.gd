@@ -33,6 +33,8 @@ func _init() -> void:
         for district in (plans[map_id] as Dictionary).get("districts",[]):
             districts[str(district.get("name",""))]=true
         var ordered: Dictionary = {}
+        if str(record.get("market_special","")).is_empty():
+            issues.append("Settlement lacks regional specialty merchandise "+map_id)
         var events: Array = record.get("events",[])
         if events.size()!=3:
             issues.append("Each town needs three different neighborhood activities: "+map_id)
@@ -55,6 +57,12 @@ func _init() -> void:
 
 func config(map_id: String) -> Dictionary:
     return towns.get(map_id,{})
+
+func specialty_item(map_id: String,core) -> String:
+    var goods: String = str(config(map_id).get("market_special",""))
+    if goods.is_empty() or core==null or core.entry("items",goods).is_empty():
+        return ""
+    return goods
 
 func entries(map_id: String) -> Array:
     return (config(map_id) as Dictionary).get("events",[])

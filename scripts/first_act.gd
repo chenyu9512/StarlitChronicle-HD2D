@@ -50,6 +50,7 @@ var cinematic_resume: String = ""
 var cinematic_force_play: bool = false
 var cinematic_prologue: Dictionary = {}
 var cinematic_chapters: Dictionary = {}
+var cinematic_scene_blocking: Dictionary = {}
 var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
 var active_optional_flag: String = ""
@@ -141,6 +142,7 @@ func _ready() -> void:
     service_menu.action_requested.connect(_service_action)
     cinematic_prologue = JSON.parse_string(FileAccess.get_file_as_string("res://data/cinematics/prologue.json"))
     cinematic_chapters = JSON.parse_string(FileAccess.get_file_as_string("res://data/cinematics/chapter_transitions.json"))
+    cinematic_scene_blocking = JSON.parse_string(FileAccess.get_file_as_string("res://data/cinematics/scene_blocking.json"))
     cinematic = CinematicDirector.new()
     add_child(cinematic)
     cinematic.finished.connect(_cinematic_finished)
@@ -778,8 +780,14 @@ func _present(on_complete: String) -> void:
     busy = true
     paused_for_dialogue = true
     world.locked = true
-    if world.nodes.has(_target()) and on_complete in ["prologue","opening","crisis","resolve"]:
-        cinematic_camera.shot(world.camera,world.nodes[_target()].position,"reveal" if on_complete=="crisis" else "focus")
+    var blocking: Dictionary = cinematic_scene_blocking.get("scenes",{}).get(str(scene.get("id","")),{})
+    var shot_focus: String=str(blocking.get("focus",_target()))
+    if on_complete=="prologue":
+        shot_focus=_target()
+    if world.nodes.has(shot_focus) and on_complete in ["prologue","opening","clue","crisis","resolve"]:
+        cinematic_camera.shot(world.camera,world.nodes[shot_focus].position,"reveal" if str(blocking.get("camera",""))=="confrontation" else "focus")
+    if on_complete=="clue" and not blocking.is_empty():
+        cinematic.sound.cue(str(blocking.get("mood","mystery")))
     ui.show_dialogue(scene.get("dialogue", []),bool(progress.flags.get("cinematic.dialogue."+str(scene.get("id",""))+".seen",false)))
 
 func _dialogue_ended() -> void:

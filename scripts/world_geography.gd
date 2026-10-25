@@ -245,7 +245,7 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         if not authored_level.is_empty():
             # Town and dungeon geometry remains chapter-safe, while artist-painted
             # per-cell surface/collision corrections are now genuinely applied.
-            authored.apply_editor_patches(authored_level,terrain,walls)
+            authored.apply_safe_paths(authored_level,terrain,walls,features,dungeon)
     # Gate entrances sit inside passable terrain and connect existing registry neighbors.
     var gates: Array[Dictionary] = []
     var names: Array = spec.get("neighbors",[])

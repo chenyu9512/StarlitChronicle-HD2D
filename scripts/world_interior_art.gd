@@ -26,6 +26,8 @@ var flicker_elapsed: float = 0.0
 var animated_fire: AnimatedSprite2D
 var sun_shafts: Sprite2D
 var night_mode: bool = false
+var room_day_tint: Color = Color("dbcebd")
+var room_night_tint: Color = Color("b4ada7")
 
 func _process(delta: float) -> void:
     # Soft asymmetric fire and lamp breathing, without any global time/timer.
@@ -45,14 +47,17 @@ func set_clock(minutes: int) -> void:
     if is_instance_valid(sun_shafts):
         sun_shafts.modulate.a = 0.035 if night else 0.46
     if color_grade!=null:
-        color_grade.color = Color("b4ada7") if night else Color("dbcebd")
+        color_grade.color = room_night_tint if night else room_day_tint
     for lamp in active_lights:
         lamp.color = Color("fff0cd") if night else Color("ffe2b0")
 
 func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
     var profile_id: String=str(layout.get("art_profile",""))
-    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_"):
+    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1":
         return
+    if profile_id=="quest_research_v1":
+        room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
+        room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
     var chosen_atlas: String=str(layout.get("art_tileset",""))
     if not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas):
         theme_atlas=chosen_atlas

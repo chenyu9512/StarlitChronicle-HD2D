@@ -255,8 +255,14 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         _road(terrain,walls,start,gate,seed+i,1)
         gates.append({"id":destination,"cell":gate})
     # A route may not be allowed across locked chapters; physical gate is still visible.
+    # Manual cell edits are the LAST authority. The initial V3 apply happened
+    # before automatic quest links and gates, which could erase editor changes.
+    # A blocked quest marker or exit is deliberately caught by map QA rather
+    # than being silently removed from the designer's data.
+    if not authored_level.is_empty():
+        authored.apply_editor_patches(authored_level,terrain,walls)
     var wet: Dictionary = {}
-    if not dungeon and not village and not authored_level.is_empty():
+    if not authored_level.is_empty():
         wet = authored.open_water_tiles(authored_level,walls)
     return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
 

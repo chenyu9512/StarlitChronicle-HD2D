@@ -195,7 +195,7 @@ func _make_tiles() -> void:
         if water_mask.has(tile):
             source_id = 1
             atlas = Vector2i(atlas.x,2)
-        elif interior_building.is_empty() and str(map_profile.get("region_id","")) in ["region_coast","region_isles"] and atlas.y==6 and tile.y>=HEIGHT-7:
+        elif interior_building.is_empty() and blocked.has(tile) and str(map_profile.get("region_id","")) in ["region_coast","region_isles"] and atlas.y==6 and tile.y>=HEIGHT-7:
             source_id = 1
             atlas = Vector2i(atlas.x,2)
         layer.set_cell(tile,source_id,atlas)

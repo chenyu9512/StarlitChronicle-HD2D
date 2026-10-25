@@ -70,14 +70,20 @@ func _draw_polyline(ground: Dictionary,walls: Dictionary,points: Array,thickness
             var p: Vector2i = Vector2i(roundi(lerpf(float(a.x),float(b.x),t)),roundi(lerpf(float(a.y),float(b.y),t)))
             _stamp(ground,walls,p,thickness,row,solid)
 
-func apply(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary]) -> Array[Vector2i]:
-    var roadway: Array[Vector2i] = []
-    if level_info.is_empty():
-        return roadway
+func apply_authored_barriers(level_info: Dictionary,ground: Dictionary,walls: Dictionary) -> void:
+    # The same authored water/obstacles affect collision and rendering in every
+    # sector type. Doors, quest-critical corridors and bridges are reviewed by
+    # reachability tests; collision_overrides explicitly define author bridges.
     for kind in ["obstacles","waterways"]:
         for record in level_info.get(kind,[]):
             var thickness: int = clampi(int(record.get("width",1)),1,6)
             _draw_polyline(ground,walls,record.get("points",[]),thickness,clampi(int(record.get("tile_row",6)),0,7),true)
+
+func apply(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary]) -> Array[Vector2i]:
+    var roadway: Array[Vector2i] = []
+    if level_info.is_empty():
+        return roadway
+    apply_authored_barriers(level_info,ground,walls)
     for road in level_info.get("roads",[]):
         var points: Array = road.get("points",[])
         var thickness: int = clampi(int(road.get("width",1)),0,5)
@@ -136,11 +142,16 @@ func apply_safe_paths(level_info: Dictionary,ground: Dictionary,walls: Dictionar
         for cell in scratch.keys():
             if ground.has(cell) and not walls.has(cell):
                 ground[cell] = scratch[cell]
+    # V3 previously omitted these two layers for towns and dungeons, so
+    # waterways and authored cliffs were invisible to their physical layouts.
+    # Paint only the existing road surface above, never silently punch holes
+    # through authored dungeon walls with decorative road polylines.
+    apply_authored_barriers(level_info,ground,walls)
+    apply_editor_patches(level_info,ground,walls)
     for point in level_info.get("landmarks",[]):
         var cell: Vector2i = _point(point.get("cell",[]))
         if _valid(cell) and not walls.has(cell):
             features.append({"kind":str(point.get("kind","rock")),"cell":cell,"name":str(point.get("id","landmark"))})
-    apply_editor_patches(level_info,ground,walls)
 
 func open_water_tiles(level_info: Dictionary, final_walls: Dictionary) -> Dictionary:
     # Water is visually blue only while the cell still represents impassable water.

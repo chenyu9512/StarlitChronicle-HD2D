@@ -62,6 +62,36 @@ func _run() -> void:
         verify(tiles[Vector2i(26,27)].y==4,"Hand-painted tile row was ignored: "+str(id))
         verify(current.get("tiles",{}).size()==72*48,"Terrain has missing cells: "+str(id))
         changed += 1
+    # Map V4 compatibility regression: test the FULL layout pipeline (rather
+    # than only Levels.apply) across all three playable map archetypes. An
+    # automatic route to the spawn or a gate must not erase the artist's last
+    # explicit cell edit. Changes are temporary and never saved to disk.
+    for id in ["map_coast_01","map_coast_03","map_coast_04"]:
+        var original: Dictionary = source.level(id)
+        var patch: Dictionary = original.duplicate(true)
+        var water: Array = (patch.get("waterways",[]) as Array).duplicate(true)
+        water.append({"id":"qa-v4-water","width":1,"points":[[66,36],[67,36]],"tile_row":6})
+        patch["waterways"] = water
+        var rocks: Array = (patch.get("obstacles",[]) as Array).duplicate(true)
+        rocks.append({"id":"qa-v4-cliff","width":1,"points":[[66,32],[67,32]],"tile_row":2})
+        patch["obstacles"] = rocks
+        patch["paint_overrides"] = [{"cell":[10,23],"row":4,"blocked":true}]
+        patch["collision_overrides"] = [{"cell":[4,24],"blocked":true}]
+        geo.authored.levels[id] = patch
+        var active: Dictionary = geo.layout(id,3)
+        verify((active.get("blocked",{}) as Dictionary).has(Vector2i(10,23)),"Map V4 lost final spawn collision edit: "+id)
+        verify(active.get("tiles",{}).get(Vector2i(10,23),Vector2i.ZERO).y==4,"Map V4 lost final spawn paint edit: "+id)
+        verify((active.get("blocked",{}) as Dictionary).has(Vector2i(4,24)),"Map V4 lost final gate collision edit: "+id)
+        verify((active.get("blocked",{}) as Dictionary).has(Vector2i(66,32)),"Map V4 lost cliff collision: "+id)
+        verify(active.get("tiles",{}).get(Vector2i(66,32),Vector2i.ZERO).y==2,"Map V4 lost cliff surface: "+id)
+        verify((active.get("blocked",{}) as Dictionary).has(Vector2i(66,36)),"Map V4 lost water collision: "+id)
+        verify((active.get("water_mask",{}) as Dictionary).has(Vector2i(66,36)),"Map V4 lost water rendering mask: "+id)
+        # A hand-authored bridge removes the water overlay in map and renderer.
+        patch["collision_overrides"] = [{"cell":[4,24],"blocked":true},{"cell":[66,36],"blocked":false}]
+        var bridged: Dictionary = geo.layout(id,3)
+        verify(not (bridged.get("blocked",{}) as Dictionary).has(Vector2i(66,36)),"Map V4 manual bridge is still blocked: "+id)
+        verify(not (bridged.get("water_mask",{}) as Dictionary).has(Vector2i(66,36)),"Map V4 bridge is still rendered as water: "+id)
+        geo.authored.levels[id] = original
     verify(examined==40,"Missing forty playable V3 datasets")
     verify(overworld==21,"Expected 21 wilderness/route/landmark regions after eleven towns and eight dungeons")
     if errors.is_empty():

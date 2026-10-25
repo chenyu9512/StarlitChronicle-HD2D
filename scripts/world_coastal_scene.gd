@@ -7,7 +7,9 @@ const TILE: int = 32
 const ACCEPTED: Array[String] = [
     "tide_pool","dune_grass","fish_net_stand","harbor_crane",
     "tide_cliff","cave_stalactite","cave_crystal","cave_altar",
-    "sea_bridge","quest_glow"
+    "sea_bridge","quest_glow",
+    "saltwind_oak","sea_wind_pine","dune_shrub",
+    "cave_foreground_column","cave_hanging_ledge"
 ]
 var map_id: String = ""
 var authored_sprites: Dictionary = {}
@@ -20,9 +22,17 @@ var cavern_lights: Array[PointLight2D] = []
 var surface_detail: TileMapLayer
 var detail_count: int = 0
 var shoreline_count: int = 0
+var depth_stage: Node2D
+var foreground_sprites: Dictionary = {}
+var wind_sway_sprites: Array[Sprite2D] = []
+var reflections: Array[Sprite2D] = []
+var reflection_frames: Array[AtlasTexture] = []
+var reflection_count: int = 0
+var reflection_frame: int = -1
 
-func configure(map_key: String, layout: Dictionary) -> void:
+func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) -> void:
     map_id = map_key
+    depth_stage = sort_host
     if not map_id in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04"]:
         return
     if not FileAccess.file_exists(PATH):
@@ -44,11 +54,20 @@ func configure(map_key: String, layout: Dictionary) -> void:
             continue
         sprite.name=id
         var layer: String=str(item.get("layer","furniture"))
-        sprite.z_index = -3 if layer=="floor" else (2 if layer=="background" else 3)
+        var depth_sorted: bool=layer in ["vegetation","foreground"] and is_instance_valid(depth_stage)
+        # For depth props, the scene root is y-sorted with the hero. Do not
+        # move the footpoint when adding a tall canopy: use Sprite2D.offset.
+        sprite.z_index=3 if depth_sorted else (-3 if layer=="floor" else (2 if layer=="background" else 3))
         var offset: Array=item.get("offset",[])
         if offset.size()==2:
             sprite.offset=Vector2(float(offset[0]),float(offset[1]))
-        add_child(sprite)
+        if depth_sorted:
+            depth_stage.add_child(sprite)
+            foreground_sprites[id]=sprite
+            if layer=="vegetation":
+                wind_sway_sprites.append(sprite)
+        else:
+            add_child(sprite)
         authored_sprites[id]=sprite
         if asset=="tide_pool":
             tidal_sprites.append(sprite)
@@ -71,9 +90,40 @@ func configure(map_key: String, layout: Dictionary) -> void:
         tidal_sprites.append(wave)
         selected+=1
     water_count=selected
+    _install_water_reflections(mask)
     _install_surface_detail(layout)
     if map_id=="map_coast_04":
         _make_cavern_lighting()
+
+func _install_water_reflections(mask: Dictionary) -> void:
+    var file: String=ART+"sea_glimmer_4f.svg"
+    if not ResourceLoader.exists(file):
+        return
+    var atlas_texture: Texture2D=load(file)
+    if atlas_texture==null:
+        return
+    for frame in range(4):
+        var piece:=AtlasTexture.new()
+        piece.atlas=atlas_texture
+        piece.region=Rect2(frame*64,0,64,32)
+        reflection_frames.append(piece)
+    # Sampling exclusively from the authoritative water mask, limited to 32
+    # GPU sprites so mobile memory/render cost does not scale with map size.
+    for raw in mask.keys():
+        var cell: Vector2i=raw
+        if posmod(cell.x*29+cell.y*17+19,43)!=0 or reflection_count>=32:
+            continue
+        var reflection:=Sprite2D.new()
+        reflection.name="WaterReflection_%d" % reflection_count
+        reflection.texture=reflection_frames[reflection_count%4]
+        reflection.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+        reflection.position=Vector2(float(cell.x)*TILE+16.0,float(cell.y)*TILE+16.0)
+        reflection.scale=Vector2(0.58,0.67)
+        reflection.z_index=-3
+        reflection.modulate.a=0.41
+        add_child(reflection)
+        reflections.append(reflection)
+        reflection_count+=1
 
 func _install_surface_detail(layout: Dictionary) -> void:
     # One atlas layer instead of hundreds of nodes. No collision writes.
@@ -188,3 +238,14 @@ func _process(delta: float) -> void:
         wave.offset.x=2.0*sin(animated_phase*1.6+float(i)*0.79)
         if wave.name.begins_with("AnimatedSurf"):
             wave.modulate.a=0.19+0.10*(0.5+0.5*sin(animated_phase*2.2+float(i)))
+    # Small rotational sway around ground footpoints; no collision/movement.
+    for i in range(wind_sway_sprites.size()):
+        var plant: Sprite2D=wind_sway_sprites[i]
+        plant.rotation=0.010*sin(animated_phase*0.84+float(i)*1.15)
+    var frame: int=posmod(int(animated_phase*5.0),4)
+    if frame!=reflection_frame and reflection_frames.size()==4:
+        reflection_frame=frame
+        for i in range(reflections.size()):
+            reflections[i].texture=reflection_frames[(frame+i)%4]
+    for i in range(cavern_lights.size()):
+        cavern_lights[i].energy=1.05*(0.96+0.04*sin(animated_phase*1.7+float(i)*2.4))

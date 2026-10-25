@@ -332,7 +332,7 @@ func _install_coastal_scenery() -> void:
     coastal_scene=CoastalScene.new()
     coastal_scene.name="CoastalScene"
     scenery.add_child(coastal_scene)
-    coastal_scene.configure(map_id,terrain_layout)
+    coastal_scene.configure(map_id,terrain_layout,scenery)
 
 func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind

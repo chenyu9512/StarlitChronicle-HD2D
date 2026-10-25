@@ -24,6 +24,17 @@ func _run() -> void:
             verify(world.coastal_scene.authored_sprites.size()>=6,"Missing independent scenery pieces: "+area)
             for child in world.coastal_scene.authored_sprites.values():
                 verify(child.texture!=null,"Failed to import coastal art: "+area)
+            verify(world.coastal_scene.foreground_sprites.size()==3,"A14 depth props absent from stage: "+area)
+            for depth_prop in world.coastal_scene.foreground_sprites.values():
+                verify(depth_prop.get_parent()==world.scenery,"Y-sort host mismatch for tall scenery: "+area)
+                verify(depth_prop.z_index==world.hero.z_index,"Foreground does not share actor depth layer: "+area)
+            verify(world.coastal_scene.reflection_frames.size()==4,"Sea glimmer spritesheet not imported: "+area)
+            verify(world.coastal_scene.reflection_count<=32,"Reflections exceed mobile draw budget: "+area)
+            if world.coastal_scene.reflection_count>0:
+                var light_sprite: Sprite2D=world.coastal_scene.reflections[0]
+                var first_frame: Texture2D=light_sprite.texture
+                world.coastal_scene._process(0.21)
+                verify(light_sprite.texture!=first_frame,"Reflections have no frame animation: "+area)
         verify(world.coastal_audio!=null and world.coastal_audio.player!=null,"Missing original ambient loop: "+area)
         if world.coastal_audio!=null and world.coastal_audio.player!=null:
             verify(world.coastal_audio.player.stream.data.size()==16000,"Incorrect native PCM data: "+area)
@@ -51,6 +62,11 @@ func _run() -> void:
                     if is_instance_valid(prop.facade):
                         drawn+=1
             verify(count>=5 and drawn>=5,"Town lacks independent architectural artwork: "+area)
+            for roof in world.scenery.get_children():
+                if roof.get_script()!=null and roof.get_script().resource_path=="res://scripts/world_structure.gd" and is_instance_valid(roof.facade):
+                    verify(roof.z_index==world.hero.z_index,"Architecture not ground Y-sorted with hero: "+area)
+                    verify(roof.facade.z_index==0,"Facade uses absolute Z and breaks Y-sort: "+area)
+                    verify(is_instance_valid(roof.ground_shadow) and roof.ground_shadow.z_index==-1,"Missing building footprint shadow: "+area)
             var lamps: int=0
             for building_node in world.scenery.get_children():
                 if building_node.get_script()!=null and building_node.get_script().resource_path=="res://scripts/world_structure.gd":

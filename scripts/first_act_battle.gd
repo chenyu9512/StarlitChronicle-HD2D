@@ -5,6 +5,7 @@ const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
 const BattleActors = preload("res://scripts/battle_actors.gd")
+const BattleSFX = preload("res://scripts/battle_sfx.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -43,6 +44,7 @@ var commands: HBoxContainer
 var portrait: TextureRect
 var actor_stage
 var vfx
+var sfx
 var special_button: Button
 
 func _ready() -> void:
@@ -195,6 +197,9 @@ func _build() -> void:
     var settings: Dictionary = game_state.rpg.get("settings", {})
     vfx.reduced_motion = bool(settings.get("reduced_motion",false))
     vfx.bind_enemy(portrait,str(enemy.get("art","")),boss)
+    sfx = BattleSFX.new()
+    sfx.enabled = bool(settings.get("battle_sfx_enabled",true))
+    root.add_child(sfx)
 
 func _choose_skill() -> void:
     if is_instance_valid(skill_picker):
@@ -528,6 +533,23 @@ func _act(action: String) -> void:
             else:
                 damage = maxi(8, combat_attack + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
+    if is_instance_valid(sfx):
+        var sound_key: String = action
+        var sound_element: String = ""
+        if action == "skill":
+            var sound_skill: Dictionary = _get_skill(chosen_skill)
+            var sound_effect: Dictionary = sound_skill.get("effect",{})
+            sound_element = str(sound_skill.get("element",""))
+            match str(sound_effect.get("kind","damage")):
+                "heal": sound_key = "heal"
+                "shield": sound_key = "guard"
+                "buff": sound_key = "charge"
+                _: sound_key = "cast"
+        elif action == "potion":
+            sound_key = "heal"
+        elif action == "special":
+            sound_key = "charge"
+        sfx.play_event(sound_key,sound_element)
     if is_instance_valid(actor_stage):
         actor_stage.play_action(str(member.get("id","")),action)
         actor_stage.update_party(game_state.actors)
@@ -544,6 +566,8 @@ func _act(action: String) -> void:
             if not weapon_trait_id.is_empty():
                 message += " · 武器特性：" + weapon_trait_id
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
+        if is_instance_valid(sfx):
+            sfx.play_event("hit")
         if is_instance_valid(vfx):
             if action == "skill":
                 vfx.play_skill(_vfx_ally_point(),_vfx_foe_point(),_get_skill(chosen_skill),damage,hit_all_enemies)
@@ -590,6 +614,8 @@ func _act(action: String) -> void:
         enemy["atk"] = int(enemy["atk"]) + 4
         if is_instance_valid(vfx):
             vfx.play_phase(_vfx_foe_point())
+        if is_instance_valid(sfx):
+            sfx.play_event("phase")
     if formation.complete() and (not boss or chapter != 5):
         _redraw(message)
         _finish(true)
@@ -658,7 +684,9 @@ func _enemy_strike() -> void:
     if is_instance_valid(actor_stage):
         actor_stage.play_hit(str(member.get("id","")),int(member["hp"]) <= 0)
     if is_instance_valid(vfx):
-        vfx.play_enemy_attack(_vfx_foe_point(),_vfx_ally_point(),damage)
+        vfx.play_enemy_attack(_vfx_foe_point(),_vfx_member_point(target),damage)
+    if is_instance_valid(sfx):
+        sfx.play_event("enemy_hit")
     if damage > 0 and int(member["hp"]) > 0:
         var element: String = str(enemy.get("element",""))
         var ailment: String = ""
@@ -750,6 +778,8 @@ func _finish(victory: bool) -> void:
     if victory:
         if is_instance_valid(vfx):
             vfx.play_victory(_vfx_foe_point())
+        if is_instance_valid(sfx):
+            sfx.play_event("victory")
         report.text = "胜利！%s" % ("古兽已经重获自由。" if boss and chapter == 5 else "战斗结束，大家平安归来。")
     else:
         report.text = "全队失去战斗力，准备在营地重新整备。"

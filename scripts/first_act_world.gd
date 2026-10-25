@@ -590,14 +590,16 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
                     if ResourceLoader.exists(prop_path):
                         (nodes[stage_key] as Sprite2D).texture=load(prop_path)
                         nodes[stage_key].set_meta("quest_evidence_type",prop_kind)
-                    var task_label := Label.new()
-                    task_label.name = "QuestSpecificLocation"
+                    var task_label: Label = nodes[stage_key].get_node_or_null("QuestSpecificLocation")
+                    if task_label==null:
+                        task_label = Label.new()
+                        task_label.name = "QuestSpecificLocation"
+                        task_label.position=Vector2(-75,-57)
+                        task_label.custom_minimum_size.x=150
+                        task_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+                        task_label.add_theme_font_size_override("font_size",12)
+                        nodes[stage_key].add_child(task_label)
                     task_label.text = str(task_evidence.get("evidence_label","调查证物") if stage==1 else task_evidence.get("witness_name","委托人")).left(17)
-                    task_label.position=Vector2(-75,-57)
-                    task_label.custom_minimum_size.x=150
-                    task_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-                    task_label.add_theme_font_size_override("font_size",12)
-                    nodes[stage_key].add_child(task_label)
                 occupied.append(location)
     # Show up to six other quest witnesses in this sector; the tracked event
     # receives three ordered interaction roles (person, evidence, notice).

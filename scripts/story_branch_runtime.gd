@@ -81,8 +81,9 @@ func load_all() -> bool:
                         continue
                     var flags: Dictionary = contract.get("required_flags",
                         contract.get("required_runtime_flags", {}))
-                    var previous: String = str(contract.get("previous_optional_stage",
-                        contract.get("must_follow", "")))
+                    var previous_value: Variant = contract.get("previous_optional_stage",
+                        contract.get("must_follow", null))
+                    var previous: String = "" if previous_value == null else str(previous_value)
                     var seen_key: String = str(contract.get("proposed_seen_flag",
                         contract.get("completion_marker_proposed", "")))
                     if not (flags is Dictionary) or seen_key.is_empty():
@@ -97,7 +98,7 @@ func load_all() -> bool:
                         "required_flags":flags,
                         "required_present_flags":contract.get("required_present_flags", []),
                         "companion_presence_required":bool(contract.get("companion_presence_required",false)),
-                        "previous_id":previous if previous != "<null>" else "",
+                        "previous_id":previous,
                         "seen_flag":seen_key, "dialogue":lines,
                         "player_action":str(contract.get("player_action",
                             "、".join(contract.get("player_actions",[])))),
@@ -269,3 +270,12 @@ func cancel() -> bool:
 func counts() -> Dictionary:
     return {"quests":quest_events.size(), "optional_events":events.size()-48,
         "ending_codas":48, "loaded":errors.is_empty()}
+
+func eligible_events(limit: int = 12) -> Array:
+    var result: Array = []
+    for id in events:
+        if eligible(str(id)):
+            result.append(events[id])
+            if result.size() >= limit:
+                break
+    return result

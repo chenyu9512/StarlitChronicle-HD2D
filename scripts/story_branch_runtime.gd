@@ -201,13 +201,13 @@ func offered_count() -> int:
             amount += 1
     return amount
 
-func begin(event_id: String) -> bool:
+func begin(event_id: String, source: String = "menu") -> bool:
     if state == null or not eligible(event_id):
         return false
     var storage: Dictionary = _storage()
     if not (storage.get("active",{}) as Dictionary).is_empty():
         return false
-    storage["active"] = {"id":event_id,"line":0}
+    storage["active"] = {"id":event_id,"line":0,"source":"field" if source == "field" else "menu"}
     if not state.save():
         storage["active"] = {}
         return false

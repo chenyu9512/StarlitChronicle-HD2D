@@ -79,18 +79,18 @@ func _run() -> void:
             "original quest giver is an animated NPC visual "+id)
         if game.world.nodes.has("story_stage_0") and game.world.nodes["story_stage_0"] is NPC:
             var npc: Node = game.world.nodes["story_stage_0"]
-            ck(str(npc.story_phase)=="intro","story NPC starts in introductory state "+id)
+            ck(str(npc.get("story_phase"))=="intro","story NPC starts in introductory state "+id)
             game.progress.flags["side."+id+".approach"]="a"
             game.world.refresh_room_npcs(game.progress.flags)
-            ck(str(npc.story_route)=="a","NPC outfit accent follows persisted A route "+id)
+            ck(str(npc.get("story_route"))=="a","NPC outfit accent follows persisted A route "+id)
             game.progress.flags["side."+id+".approach"]="b"
             game.world.refresh_room_npcs(game.progress.flags)
-            ck(str(npc.story_route)=="b","NPC outfit accent follows persisted B route "+id)
+            ck(str(npc.get("story_route"))=="b","NPC outfit accent follows persisted B route "+id)
             game.progress.flags.erase("side."+id+".approach")
             game.world.refresh_room_npcs(game.progress.flags)
-            ck(str(npc.story_route)=="","missing route is never guessed "+id)
+            ck(str(npc.get("story_route"))=="","missing route is never guessed "+id)
             game.world.sync_world_clock(2,1320)
-            ck(int(npc.story_hour)==22,"NPC respects evening tint without moving collision "+id)
+            ck(int(npc.get("story_hour"))==22,"NPC respects evening tint without moving collision "+id)
         ck(game.world.terrain_layout.get("quest_points",[]).size()==3,
             "three physical evidence sites "+id)
         var clue: String = "questcase:1"

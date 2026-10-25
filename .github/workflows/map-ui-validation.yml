@@ -9,6 +9,7 @@ on:
       - "scripts/rpg_menu.gd"
       - "tools/smoke_map_ui.gd"
       - "tools/smoke_world_production.gd"
+      - "tools/smoke_world_story_interactions.gd"
       - "scripts/world_geography.gd"
       - "scripts/world_registry.gd"
       - "scripts/first_act_world.gd"
@@ -23,6 +24,7 @@ on:
       - "scripts/rpg_menu.gd"
       - "tools/smoke_map_ui.gd"
       - "tools/smoke_world_production.gd"
+      - "tools/smoke_world_story_interactions.gd"
       - "scripts/world_geography.gd"
       - "scripts/world_registry.gd"
       - "scripts/first_act_world.gd"
@@ -48,3 +50,5 @@ jobs:
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
       - name: Validate world sector routing, terrain and interiors
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd
+      - name: Validate story-safe world travel and physical dungeon treasure
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_story_interactions.gd

@@ -13,8 +13,8 @@ const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
 const TILE: int = 32
-const WIDTH: int = 72
-const HEIGHT: int = 48
+var WIDTH: int = 72
+var HEIGHT: int = 48
 const GROUND: String = "res://assets/art/tilesets/coast_ground.png"
 const WATER: String = "res://assets/art/tilesets/coast_water.png"
 const REGION_TILE_DIR: String = "res://assets/art/tilesets/regions/"
@@ -177,6 +177,11 @@ func _make_tiles() -> void:
         terrain_layout = geography.interior(interior_building,interior_kind,str(map_profile.get("id","")))
     else:
         terrain_layout = geography.layout(str(map_profile.get("id","map_coast_01")),chapter)
+    var extent: Vector2i = terrain_layout.get("size",Vector2i(72,48))
+    WIDTH = extent.x
+    HEIGHT = extent.y
+    if fog != null:
+        fog.configure(fog_key(),extent)
     var inn_art: bool = str(terrain_layout.get("art_profile",""))=="coast_inn_v1" and ResourceLoader.exists(INN_ATLAS)
     var tile_set := TileSet.new()
     tile_set.tile_size = Vector2i(TILE, TILE)

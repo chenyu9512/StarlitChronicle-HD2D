@@ -827,6 +827,8 @@ func _telegraph_next_boss_action() -> void:
     if is_instance_valid(battle_hud):
         battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,last_warning_text)
     if is_instance_valid(sfx):
+        sfx.play_event("charge")
+
 func _all_fallen() -> bool:
     for member in game_state.actors:
         if int(member["hp"]) > 0 and (game_core == null or game_core.is_active(str(member.get("id","")))):

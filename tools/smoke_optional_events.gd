@@ -40,6 +40,7 @@ func _run() -> void:
     root.add_child(live)
     live.ui.title_overlay.hide()
     live._start(false)
+    live.progress.chapter = 1
     live.progress.flags["ch001.started"] = true
     live.progress.scene_index = 1
     live._enter_location()

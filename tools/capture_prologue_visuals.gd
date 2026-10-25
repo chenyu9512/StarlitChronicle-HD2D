@@ -28,7 +28,7 @@ func _screenshot(id: String,stage: String,game) -> void:
         "id":id,"stage":stage,"file":path,
         "width":frame.get_width(),"height":frame.get_height(),
         "luminance":snappedf(brightness/float(maxi(1,samples)),0.0001),
-        "visual_hash":str(frame.get_data().md5_text()),
+        "visual_hash":str(hash(frame.get_data())),
         "chapter":game.progress.chapter
     })
 

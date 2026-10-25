@@ -11,6 +11,7 @@ signal dialogue_finished()
 signal choice_picked(choice: Dictionary)
 signal menu_dismissed()
 signal adventure_book_requested()
+signal atlas_requested()
 const BLUE: Color = Color("0b1c32")
 const GOLD: Color = Color("e6c47d")
 var root: Control
@@ -337,7 +338,7 @@ func _build_menu() -> void:
     flow.add_theme_constant_override("separation", 10)
     scroller.add_child(flow)
     var title := Label.new()
-    title.text = "✦ 灯行者 · 旅途手册"
+    title.text = "✦ 灯行者 · 旅途指令"
     title.add_theme_font_size_override("font_size", 27)
     title.add_theme_color_override("font_color", GOLD)
     flow.add_child(title)
@@ -346,14 +347,22 @@ func _build_menu() -> void:
     menu_summary.custom_minimum_size.y = 150
     menu_summary.add_theme_font_size_override("normal_font_size", 19)
     flow.add_child(menu_summary)
-    for label_text in ["✦ 全功能冒险手册", "✚ 使用药草恢复最弱队员", "✧ 在营地休息（30 G）", "▣ 手动保存", "返回探索"]:
-        var b := _button(label_text)
-        flow.add_child(b)
+    var command_grid := GridContainer.new()
+    command_grid.columns = 2
+    command_grid.add_theme_constant_override("h_separation", 10)
+    command_grid.add_theme_constant_override("v_separation", 10)
+    flow.add_child(command_grid)
+    for label_text in ["✦ 冒险手册", "◇ 航路地图", "✚ 使用药草", "✧ 营地休息（30G）", "▣ 保存旅程", "↩ 返回探索"]:
+        var b := _button(label_text,17)
+        b.custom_minimum_size.y = 56
+        b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+        command_grid.add_child(b)
         match label_text:
-            "✦ 全功能冒险手册": b.pressed.connect(func() -> void: adventure_book_requested.emit())
-            "✚ 使用药草恢复最弱队员": b.pressed.connect(func() -> void: potion_pressed.emit())
-            "✧ 在营地休息（30 G）": b.pressed.connect(func() -> void: rest_pressed.emit())
-            "▣ 手动保存": b.pressed.connect(func() -> void: save_pressed.emit())
+            "✦ 冒险手册": b.pressed.connect(func() -> void: adventure_book_requested.emit())
+            "◇ 航路地图": b.pressed.connect(func() -> void: atlas_requested.emit())
+            "✚ 使用药草": b.pressed.connect(func() -> void: potion_pressed.emit())
+            "✧ 营地休息（30G）": b.pressed.connect(func() -> void: rest_pressed.emit())
+            "▣ 保存旅程": b.pressed.connect(func() -> void: save_pressed.emit())
             _: b.pressed.connect(close_menu)
     menu_layer.hide()
 

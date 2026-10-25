@@ -2,6 +2,7 @@ extends CanvasLayer
 ## 手机和桌面通用的大功能栏：十二个栏目均提供有用的数据或操作。
 signal closed()
 signal replay_ending_requested(id: String)
+signal branch_event_requested(event_id: String)
 signal travel_requested(map_id: String)
 signal map_requested()
 signal save_slot_requested(slot: int)
@@ -10,9 +11,9 @@ signal housing_purchase_requested()
 signal housing_open_requested()
 const Core = preload("res://scripts/rpg_core.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
-    "冒险": ["任务","世界地图","地区探索","冒险履历"],
+    "冒险": ["任务","剧情后续","世界地图","地区探索","冒险履历"],
     "伙伴": ["队伍","职业","技能"],
     "装备": ["背包","武器","防具","商店","锻造"],
     "收藏": ["图鉴","结局档案"],
@@ -30,8 +31,10 @@ var member: String = ""
 var encyclopedia: String = "monsters"
 var quest_filter: String = "全部"
 var quest_page: int = 0
+var branch_page: int = 0
 var active_group: String = "伙伴"
 var section_tabs: HBoxContainer
+var branch_runtime
 var chapter_details
 var world_router
 var game_events
@@ -167,6 +170,10 @@ func _select_actor() -> void:
         var pid: String = str(actor.get("id",""))
         _button(h,("▶ " if pid == member else "") + str(actor.get("name",pid)),func() -> void: _choose(pid),14)
 
+func _branch_page(delta: int) -> void:
+    branch_page = maxi(0,branch_page + delta)
+    render("剧情后续")
+
 func _filter_quest(value: String) -> void:
     quest_filter = value
     quest_page = 0
@@ -243,6 +250,24 @@ func render(section: String) -> void:
                     _button(content,"%s / 熟练%d阶 / %s" % [str(row.get("name",job_id)),manager.job_rank(member,job_id),str(row.get("role",""))],func() -> void: _apply(manager.change_job(member,job_id)),15)
                 else:
                     _label("🔒 "+str(row.get("name",job_id))+" · "+reason)
+        "剧情后续":
+            _label("支线后续 · 已完成委托的A/B独立回访",true)
+            _label("只出现当前存档已选路线且满足章节条件的事件。此为第19阶段临时游玩入口，后续会改为地图NPC/物件触发。")
+            if branch_runtime == null or not branch_runtime.errors.is_empty():
+                _label("剧情扩展数据尚未加载。")
+            else:
+                var available: Array = branch_runtime.eligible_events(1000)
+                _label("目前可触发 %d 场；翻页不会跳过剧情顺序。" % available.size())
+                branch_page = clampi(branch_page,0,maxi(0,(available.size()-1)/8))
+                for index in range(branch_page*8,mini(available.size(),(branch_page+1)*8)):
+                    var row: Dictionary = available[index]
+                    var event_id: String = str(row.get("id",""))
+                    var heading: String = "%s · %s" % [str(row.get("region","伙伴尾声")),str(row.get("title",""))]
+                    _button(content,heading,func() -> void: branch_event_requested.emit(event_id),14)
+                var pagination := HBoxContainer.new()
+                content.add_child(pagination)
+                _button(pagination,"上一页",func() -> void: _branch_page(-1),14)
+                _button(pagination,"下一页",func() -> void: _branch_page(1),14)
         "任务":
             _label("主线 · 第%d章 %s" % [save_state.chapter,manager.chapter_name(save_state.chapter)],true)
             _label("任务进度按对话、线索和战斗实体事件写入，不接受无条件直接领取奖励。")

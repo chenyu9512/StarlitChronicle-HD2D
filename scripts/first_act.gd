@@ -380,6 +380,7 @@ func _focus() -> void:
     var branch_world: Dictionary = world.sync_story_world_markers(
         story_world_bindings,game_core,branch_runtime,tracked)
     world.refresh_room_evidence(progress.rpg)
+    world.refresh_room_npcs(progress.flags)
     world.sync_prologue_markers(progress.scene_index,progress.chapter)
     world.set_focus(_target() if not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else "")
     var side_step: int = _side_step()

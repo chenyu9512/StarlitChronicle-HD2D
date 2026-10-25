@@ -302,12 +302,78 @@ func interior(building: String,building_kind: String,map_id: String = "") -> Dic
     _carve(terrain,blocked,exit,2,2)
     _carve(terrain,blocked,Vector2i(36,25),2,2)
     var feature: Array[Dictionary] = [
-        {"kind":"sign","cell":Vector2i(29,17),"name":"室内公告"},
+        {"kind":"sign","cell":Vector2i(29,17),"name":"室内服务告示"},
         {"kind":"barrel","cell":Vector2i(45,19),"name":"储物处"},
         {"kind":"star_lantern","cell":Vector2i(30,30),"name":"照明灯"},
         {"kind":"flowerpot","cell":Vector2i(44,29),"name":"室内装饰"}
     ]
-    return {"tiles":terrain,"blocked":blocked,"features":feature,"gates":[],"spawn":Vector2i(35,bottom-5),"size":Vector2i(WIDTH,HEIGHT),"interior":building_kind}
+    # Building functions have distinctly staged furniture, not four identical
+    # props and the same vacant room for every shop, inn and shrine.
+    var furniture: Dictionary = {
+        "inn":[
+            ["fish_stall",Vector2i(26,16),"旅馆接待台"],
+            ["barrel",Vector2i(26,27),"厨房储物"],
+            ["barrel",Vector2i(25,30),"客厅茶点"],
+            ["flowerpot",Vector2i(44,14),"窗边绿植"],
+            ["star_lantern",Vector2i(48,27),"客房灯"],
+            ["medicine_basket",Vector2i(43,31),"住客行李"],
+            ["crate",Vector2i(25,23),"床边柜"],
+            ["crate",Vector2i(47,32),"行李箱"]
+        ],
+        "shop":[
+            ["fish_stall",Vector2i(28,16),"商店柜台"],
+            ["medicine_basket",Vector2i(24,24),"药品展示"],
+            ["crate",Vector2i(23,16),"进货箱"],
+            ["crate",Vector2i(25,27),"储备货物"],
+            ["barrel",Vector2i(43,15),"零散商品"],
+            ["barrel",Vector2i(46,30),"货箱"],
+            ["flowerpot",Vector2i(44,31),"装饰花"],
+            ["sign",Vector2i(47,24),"商品价格牌"]
+        ],
+        "guild":[
+            ["sign",Vector2i(25,17),"任务布告栏"],
+            ["sign",Vector2i(46,17),"公会远征地图"],
+            ["fish_stall",Vector2i(26,26),"登记接待台"],
+            ["crate",Vector2i(45,29),"委托卷宗"],
+            ["barrel",Vector2i(24,30),"远征补给"],
+            ["star_lantern",Vector2i(48,25),"集会灯"],
+            ["medicine_basket",Vector2i(44,14),"补给货架"],
+            ["flowerpot",Vector2i(23,15),"壁龛植物"]
+        ],
+        "smith":[
+            ["beacon",Vector2i(44,15),"熔炉"],
+            ["rock",Vector2i(42,18),"铁砧"],
+            ["barrel",Vector2i(47,22),"冷却槽"],
+            ["crate",Vector2i(47,29),"矿料箱"],
+            ["crate",Vector2i(24,18),"金属原矿"],
+            ["sign",Vector2i(27,16),"工坊工艺板"],
+            ["star_lantern",Vector2i(27,29),"工作照明"],
+            ["rock",Vector2i(44,32),"磨刀台"]
+        ],
+        "shrine":[
+            ["beacon",Vector2i(35,15),"祈灯圣坛"],
+            ["sea_crystal",Vector2i(33,15),"星纹水晶"],
+            ["sea_crystal",Vector2i(37,15),"星纹水晶"],
+            ["flowerpot",Vector2i(25,23),"祈祷花束"],
+            ["flowerpot",Vector2i(46,23),"祈祷花束"],
+            ["star_lantern",Vector2i(29,27),"长明灯"],
+            ["star_lantern",Vector2i(43,27),"长明灯"],
+            ["sign",Vector2i(47,16),"仪式铭文"]
+        ],
+        "house":[
+            ["crate",Vector2i(25,16),"收纳柜"],
+            ["barrel",Vector2i(25,23),"厨房储藏"],
+            ["medicine_basket",Vector2i(43,15),"日常药包"],
+            ["flowerpot",Vector2i(45,25),"窗台花盆"],
+            ["star_lantern",Vector2i(28,30),"卧室灯"],
+            ["crate",Vector2i(43,30),"小木桌"],
+            ["sign",Vector2i(44,18),"家人留言板"],
+            ["barrel",Vector2i(24,30),"生活储物"]
+        ]
+    }
+    for item in furniture.get(building,[]):
+        feature.append({"kind":str(item[0]),"cell":item[1],"name":str(item[2])})
+    return {"tiles":terrain,"blocked":blocked,"features":feature,"gates":[],"spawn":Vector2i(35,bottom-5),"size":Vector2i(WIDTH,HEIGHT),"interior":building_kind,"building":building}
 
 func reachable(layout_data: Dictionary, origins: Array[Vector2i], targets: Array[Vector2i]) -> bool:
     var walls: Dictionary = layout_data.get("blocked",{})

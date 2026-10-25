@@ -3,6 +3,7 @@ extends CanvasLayer
 signal closed()
 signal replay_ending_requested(id: String)
 signal travel_requested(map_id: String)
+signal map_requested()
 signal save_slot_requested(slot: int)
 signal load_slot_requested(slot: int)
 signal housing_purchase_requested()
@@ -257,6 +258,7 @@ func render(section: String) -> void:
                     break
         "世界地图":
             _label("世界航路 / 42地图 · 8大地区",true)
+            _button(content,"◇ 展开图形世界地图（可触控地区、查看道路）",func() -> void: map_requested.emit(),17)
             if world_router == null:
                 _label("地图服务暂未加载。")
             else:

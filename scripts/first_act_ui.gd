@@ -87,32 +87,33 @@ func _full_screen(name: String, shade_alpha: float = 0.85) -> Control:
 func _build_hud() -> void:
     hud = PanelContainer.new()
     hud.anchor_left = 0.015
-    hud.anchor_right = 0.985
+    hud.anchor_right = 0.782
     hud.anchor_top = 0.025
     hud.anchor_bottom = 0.192
     hud.add_theme_stylebox_override("panel", _panel_style(Color(0.025, 0.075, 0.12, 0.90), Color("ac935d")))
     hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
     root.add_child(hud)
     var row := HBoxContainer.new()
-    row.add_theme_constant_override("separation", 25)
+    row.add_theme_constant_override("separation", 10)
     row.mouse_filter = Control.MOUSE_FILTER_IGNORE
     hud.add_child(row)
     name_label = Label.new()
-    name_label.custom_minimum_size.x = 260
-    name_label.add_theme_font_size_override("font_size", 22)
+    name_label.custom_minimum_size.x = 203
+    name_label.add_theme_font_size_override("font_size", 19)
     name_label.add_theme_color_override("font_color", GOLD)
     name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     row.add_child(name_label)
     tracker = RichTextLabel.new()
     tracker.bbcode_enabled = true
     tracker.scroll_active = false
     tracker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     tracker.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    tracker.add_theme_font_size_override("normal_font_size", 18)
+    tracker.add_theme_font_size_override("normal_font_size", 16)
     row.add_child(tracker)
     party_line = Label.new()
-    party_line.custom_minimum_size.x = 255
-    party_line.add_theme_font_size_override("font_size", 17)
+    party_line.custom_minimum_size.x = 170
+    party_line.add_theme_font_size_override("font_size", 15)
     party_line.mouse_filter = Control.MOUSE_FILTER_IGNORE
     row.add_child(party_line)
 
@@ -137,7 +138,7 @@ func _build_controls() -> void:
     act_button.offset_bottom = -28
     act_button.pressed.connect(func() -> void: action_pressed.emit())
     root.add_child(act_button)
-    menu_button = _button("☰ 队伍 · 菜单", 17)
+    menu_button = _button("☰ 指令", 17)
     menu_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
     menu_button.offset_left = -195
     menu_button.offset_right = -15
@@ -145,7 +146,7 @@ func _build_controls() -> void:
     menu_button.offset_bottom = -111
     menu_button.pressed.connect(func() -> void: menu_pressed.emit())
     root.add_child(menu_button)
-    shortcut_button = _button("✦ 功能栏", 17)
+    shortcut_button = _button("✦ 冒险书", 17)
     shortcut_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
     shortcut_button.offset_left = -342
     shortcut_button.offset_right = -207
@@ -189,12 +190,14 @@ func clear_movement() -> void:
     _emit_movement()
 
 func set_hud(chapter: int, location: String, objective: String, actors: Array[Dictionary], gold: int, potions: int) -> void:
-    name_label.text = "✦ %s\n%s" % ["序章 · 记忆之灯" if chapter == 0 else "第一幕 · 第%d章" % chapter, location]
-    tracker.text = "[color=#e6c47d]当前任务[/color]\n" + objective
+    var act_number: int = int((chapter - 1) / 6) + 1 if chapter > 0 else 0
+    name_label.text = "✦ %s\n%s" % ["序章 · 记忆之灯" if chapter == 0 else "第%d幕 · 第%d章" % [act_number,chapter], location]
+    tracker.text = "[color=#e6c47d]◆ 当前目标[/color]\n" + objective
     var values := PackedStringArray()
     for member in actors:
-        values.append("%s HP%d/%d" % [str(member["name"]), int(member["hp"]), int(member["max_hp"])])
-    party_line.text = "%s\n%d G  ·  药草 %d" % ["  ".join(values), gold, potions]
+        values.append("%s %d/%d" % [str(member.get("name","")),int(member.get("hp",0)),int(member.get("max_hp",1))])
+    party_line.text = "队伍 · %d人\n%d G  ·  药草 %d" % [values.size(), gold, potions]
+    party_line.tooltip_text = "HP / " + "  ".join(values)
 
 func show_message(text_value: String) -> void:
     toast.text = text_value

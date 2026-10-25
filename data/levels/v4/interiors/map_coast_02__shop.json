@@ -1,10 +1,10 @@
 {
   "schema": "starlit.interior.v4",
-  "revision": 1,
+  "revision": 2,
   "map_id": "map_coast_02",
   "building_id": "shop",
   "name": "白砂港·码头集市",
-  "status": "physical_layout_not_final_art",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
   "size": [
     72,
     48
@@ -96,6 +96,161 @@
         23
       ],
       "name": "白砂港·码头集市·储物处"
+    }
+  ],
+  "art_profile": "coast_district_shop_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/harbor_shop_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        25,
+        17
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        52,
+        23
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_0_provisions_shelves",
+      "asset": "provisions_shelves",
+      "cell": [
+        30,
+        13
+      ],
+      "offset": [
+        0,
+        -72
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_provisions_shelves",
+      "asset": "provisions_shelves",
+      "cell": [
+        48,
+        26
+      ],
+      "offset": [
+        0,
+        -72
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_2_merchant_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_3_bread_basket",
+      "asset": "bread_basket",
+      "cell": [
+        26,
+        19
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_saltgrass_planter",
+      "asset": "saltgrass_planter",
+      "cell": [
+        51,
+        21
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_5_window",
+      "asset": "window",
+      "cell": [
+        31,
+        27
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        41,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      30,
+      13
+    ],
+    [
+      48,
+      26
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "harbor_shop_light_0",
+      "cell": [
+        25,
+        17
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "harbor_shop_light_1",
+      "cell": [
+        31,
+        25
+      ],
+      "scale": 1.6,
+      "energy": 0.55
     }
   ]
 }

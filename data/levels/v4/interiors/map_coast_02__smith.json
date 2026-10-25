@@ -1,10 +1,10 @@
 {
   "schema": "starlit.interior.v4",
-  "revision": 1,
+  "revision": 2,
   "map_id": "map_coast_02",
   "building_id": "smith",
   "name": "白砂港·船锚锻坊",
-  "status": "physical_layout_not_final_art",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
   "size": [
     72,
     48
@@ -96,6 +96,170 @@
         18
       ],
       "name": "白砂港·船锚锻坊·储物处"
+    }
+  ],
+  "art_profile": "coast_district_smith_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/harbor_smith_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "smith_anvil",
+      "cell": [
+        23,
+        21
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        53,
+        18
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "forge_hearth",
+      "asset": "smith_forge",
+      "cell": [
+        28,
+        17
+      ],
+      "offset": [
+        0,
+        -76
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_smith_anvil",
+      "asset": "smith_anvil",
+      "cell": [
+        49,
+        21
+      ],
+      "offset": [
+        0,
+        -55
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_2_smith_toolwall",
+      "asset": "smith_toolwall",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -64
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_3_barrels",
+      "asset": "barrels",
+      "cell": [
+        24,
+        23
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_merchant_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        52,
+        16
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_5_lantern",
+      "asset": "lantern",
+      "cell": [
+        32,
+        27
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        42,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      28,
+      17
+    ],
+    [
+      49,
+      21
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "harbor_smith_light_0",
+      "cell": [
+        23,
+        21
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "harbor_smith_light_1",
+      "cell": [
+        30,
+        27
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    },
+    {
+      "id": "harbor_smith_light_2",
+      "cell": [
+        53,
+        18
+      ],
+      "scale": 1.6,
+      "energy": 0.55
     }
   ]
 }

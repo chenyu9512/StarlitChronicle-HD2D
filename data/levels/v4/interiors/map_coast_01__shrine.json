@@ -1,10 +1,10 @@
 {
   "schema": "starlit.interior.v4",
-  "revision": 1,
+  "revision": 2,
   "map_id": "map_coast_01",
   "building_id": "shrine",
   "name": "晨露村·祈灯祠",
-  "status": "physical_layout_not_final_art",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
   "size": [
     72,
     48
@@ -104,6 +104,170 @@
         20
       ],
       "name": "晨露村·祈灯祠·储物处"
+    }
+  ],
+  "art_profile": "coast_district_shrine_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/dew_shrine_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "shrine_altar",
+      "cell": [
+        36,
+        15
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        48,
+        20
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_0_shrine_altar",
+      "asset": "shrine_altar",
+      "cell": [
+        39,
+        13
+      ],
+      "offset": [
+        0,
+        -58
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_shrine_starseal",
+      "asset": "shrine_starseal",
+      "cell": [
+        44,
+        23
+      ],
+      "offset": [
+        0,
+        -12
+      ],
+      "layer": "floor"
+    },
+    {
+      "id": "stage_2_shrine_incense",
+      "asset": "shrine_incense",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_3_lantern",
+      "asset": "lantern",
+      "cell": [
+        37,
+        17
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_guild_emblem",
+      "asset": "guild_emblem",
+      "cell": [
+        47,
+        18
+      ],
+      "offset": [
+        0,
+        -66
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_5_window",
+      "asset": "window",
+      "cell": [
+        32,
+        27
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        42,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      39,
+      13
+    ],
+    [
+      44,
+      23
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "dew_shrine_light_0",
+      "cell": [
+        36,
+        15
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "dew_shrine_light_1",
+      "cell": [
+        37,
+        24
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    },
+    {
+      "id": "dew_shrine_light_2",
+      "cell": [
+        48,
+        20
+      ],
+      "scale": 1.6,
+      "energy": 0.55
     }
   ]
 }

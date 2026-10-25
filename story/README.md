@@ -51,6 +51,10 @@
 
 已按正典地域将24条生活支线分为19处可进入室内与5处真实户外调查地点。19间独立V4关卡具备不同地形、家具、碰撞、昼夜灯光、三处调查点及原V3存档回访；12张航页独立关卡完整保留。48伙伴与36地区任务仍需继续场景制作。详见[第19-6批交付报告](PHASE_19_BATCH06_LIFE_SCENES_DELIVERY.md)、[24条生活支线地图合同](data/phase19_life_submaps.json)。
 
+## 第19-7批｜48伙伴与36地区的独立场景（2026-10-25）
+
+按原剧本和地图现场落实了剩余84条任务的空间归属：34伙伴+20地区共54间各自独立的V4室内关卡（带NPC、五个原任务交互点、三处A/B回访和三处证物），14伙伴+16地区共30条保留真正户外场景。加上既有12航页和19生活，共有85间独立V4室内任务场景。沿用原V3存档和正典奖励；独立最终美术、NPC自主行动与完整Godot新批次验收仍待持续完成。参见[第19-7批交付报告](PHASE_19_BATCH07_COMPANION_REGIONAL_ROOMS_DELIVERY.md)和[84条任务场景配置](data/phase19_companion_regional_submaps.json)。
+
 ## 项目校验
 
 - 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`

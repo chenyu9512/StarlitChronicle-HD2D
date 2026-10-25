@@ -30,7 +30,7 @@ func setup(info: Dictionary) -> void:
     queue_redraw()
 
 func _draw() -> void:
-    draw_ellipse(Vector2(0,9),Vector2(13,4),Color(0.01,0.03,0.05,0.35))
+    draw_circle(Vector2(0,8),10.0,Color(0.01,0.03,0.05,0.35))
     draw_rect(Rect2(-7,-7,6,17),tone.darkened(0.35),true)
     draw_rect(Rect2(1,-7,6,17),tone.darkened(0.36),true)
     draw_colored_polygon(PackedVector2Array([Vector2(-12,-20),Vector2(12,-20),Vector2(10,-5),Vector2(-10,-5)]),tone)

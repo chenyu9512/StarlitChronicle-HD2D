@@ -19,6 +19,8 @@ var chapter: int = 1
 var boss: bool = false
 var enemy: Dictionary = {}
 var hero_turn: int = 0
+var party_order: Array[int] = []
+var turn_cursor: int = 0
 var current_round: int = 1
 var phase_two: bool = false
 var chain_hp: int = 0
@@ -75,6 +77,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     formation.start(encounter_registry,chapter,boss,enemy)
     active_target = 0
     enemy = formation.units[0]
+    _begin_round()
     _build()
     _start_actor()
     _redraw("%s 出现在你们面前！" % str(enemy["name"]))
@@ -273,18 +276,51 @@ func _hide_skills() -> void:
         skill_picker.queue_free()
         skill_picker = null
 
+func _begin_round() -> void:
+    var eligible: Array = []
+    if game_core != null:
+        for member in game_state.actors:
+            var actor_id: String = str(member.get("id",""))
+            if game_core.is_active(actor_id):
+                eligible.append(actor_id)
+    party_order = combat_rules.initiative_order(game_state.actors,eligible)
+    turn_cursor = 0
+    hero_turn = party_order[0] if not party_order.is_empty() else game_state.actors.size()
+
 func _start_actor() -> void:
-    while hero_turn < game_state.actors.size() and (int(game_state.actors[hero_turn]["hp"]) <= 0 or (game_core != null and not game_core.is_active(str(game_state.actors[hero_turn].get("id",""))))):
-        hero_turn += 1
-    if hero_turn >= game_state.actors.size():
-        _enemy_turn()
-        combat_rules.tick_round()
-        hero_turn = 0
-        defense.clear()
-        current_round += 1
-        while hero_turn < game_state.actors.size() and (int(game_state.actors[hero_turn]["hp"]) <= 0 or (game_core != null and not game_core.is_active(str(game_state.actors[hero_turn].get("id",""))))):
-            hero_turn += 1
-    if hero_turn >= game_state.actors.size() and not win_locked:
+    # An incapacitated turn advances automatically; damage is applied once only.
+    # The safety cap avoids an infinite loop if externally corrupted battle data appears.
+    var attempts: int = 0
+    while not win_locked and attempts < 128:
+        attempts += 1
+        if turn_cursor >= party_order.size():
+            _enemy_turn()
+            if win_locked:
+                return
+            combat_rules.tick_round()
+            defense.clear()
+            current_round += 1
+            _begin_round()
+            if party_order.is_empty():
+                _finish(false)
+                return
+        hero_turn = party_order[turn_cursor]
+        var member: Dictionary = game_state.actors[hero_turn]
+        var actor_id: String = str(member.get("id",""))
+        if int(member.get("hp",0)) <= 0 or (game_core != null and not game_core.is_active(actor_id)):
+            turn_cursor += 1
+            continue
+        var effect: Dictionary = combat_rules.resolve_actor_turn(actor_id,int(member.get("max_hp",1)))
+        var poison_damage: int = int(effect.get("damage",0))
+        if poison_damage > 0:
+            member["hp"] = maxi(0,int(member.get("hp",0))-poison_damage)
+            game_state.actors[hero_turn] = member
+        if int(member.get("hp",0)) <= 0 or bool(effect.get("skip",false)):
+            turn_cursor += 1
+            continue
+        return
+    if not win_locked:
+        push_warning("Battle turn scheduler reached its safety cap")
         _finish(false)
 
 func _act(action: String) -> void:
@@ -294,7 +330,14 @@ func _act(action: String) -> void:
         _choose_enemy_target(action)
         return
     if action == "skill":
+        if combat_rules.has_negative(str(game_state.actors[hero_turn].get("id","")),"silence"):
+            _redraw("沉默状态无法施展技能。")
+            return
         _choose_skill()
+        return
+    if action.begins_with("skill:") and combat_rules.has_negative(str(game_state.actors[hero_turn].get("id","")),"silence"):
+        _hide_skills()
+        _redraw("沉默状态无法施展技能。")
         return
     if action == "cancel_skill":
         _hide_skills()
@@ -470,7 +513,7 @@ func _act(action: String) -> void:
         var remaining: Array[int] = formation.alive_indices()
         if not remaining.is_empty():
             _select_enemy(remaining[0])
-    hero_turn += 1
+    turn_cursor += 1
     _start_actor()
     if not win_locked:
         _redraw(message)
@@ -511,6 +554,19 @@ func _enemy_strike() -> void:
         damage = 0
     member["hp"] = maxi(0, int(member["hp"]) - damage)
     game_state.actors[target] = member
+    if damage > 0 and int(member["hp"]) > 0:
+        var element: String = str(enemy.get("element",""))
+        var ailment: String = ""
+        if element in ["毒","暗"] and dice.randf() < 0.14:
+            ailment = "poison"
+        elif element == "火" and dice.randf() < 0.14:
+            ailment = "burn"
+        elif element in ["冰","霜"] and dice.randf() < 0.12:
+            ailment = "freeze"
+        elif boss and current_round % 4 == 0 and dice.randf() < 0.12:
+            ailment = "stun"
+        if not ailment.is_empty():
+            combat_rules.apply_negative(str(member.get("id","")),ailment,2 if ailment in ["poison","burn"] else 1)
     if boss and chapter == 6:
         countdown -= 1
         if countdown <= 0:
@@ -552,6 +608,9 @@ func _redraw(message: String) -> void:
         var current: String = "[color=#f9d58b]▶ " if i == hero_turn else "[color=#c9e4eb]"
         var status: Dictionary = combat_rules.actor_effects.get(str(member.get("id","")),{})
         var buffs: String = (" ✦增强" if int(status.get("attack_turns",0)) > 0 else "") + (" ◈护盾" if int(status.get("shield_turns",0)) > 0 else "") + (" ★聚星%d" % int(status.get("star_charge",0)) if int(status.get("star_charge",0)) > 0 else "")
+        var condition: String = combat_rules.status_report(str(member.get("id","")))
+        if not condition.is_empty():
+            buffs += " ⚠" + condition
         lines.append("%s%s  Lv.%d   HP %d/%d  MP %d/%d%s[/color]" % [current, str(member["name"]), int(member["level"]), int(member["hp"]), int(member["max_hp"]), int(member["mp"]), int(member["max_mp"]),buffs])
     party_info.text = "    ".join(lines)
 

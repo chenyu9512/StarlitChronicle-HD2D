@@ -1372,7 +1372,7 @@ func _open_regional_service() -> void:
     ui.clear_movement()
     ui.set_play_visible(false)
     atlas.show_exploration(false)
-    service_menu.open_service(kind,region_id,world.interior_kind,progress,game_core,world.town_life)
+    service_menu.open_service(kind,region_id,world.interior_kind,progress,game_core,world.town_life,world_router.current_map())
 
 func _service_action(action: String) -> void:
     var message: String = ""

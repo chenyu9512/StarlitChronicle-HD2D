@@ -104,10 +104,18 @@ func _draw_local() -> void:
             color = MAIN
         elif id == side_target or id.begins_with("story_stage_") or id.begins_with("side_"):
             color = SIDE
-        elif id in ["inn", "home_door"] or id.begins_with("building:"):
+        elif id in ["inn","home_door"] or id.begins_with("building:"):
             color = Color("84d9a4")
-        elif id == "shop":
+        elif id == "shop" or id == "interior_service":
             color = Color("a9b6ff")
+        elif id.begins_with("citizen:"):
+            color = Color("aedce4")
+        elif id.begins_with("dungeon_switch_"):
+            color = Color("f4a9e5")
+        elif id in ["dungeon_chest","wild_cache"]:
+            color = Color("f2bd73")
+        elif id == "wild_camp":
+            color = Color("a8de9a")
         elif id.begins_with("exit:") or id == "interior_exit":
             color = Color("e9b783")
         if color.a <= 0.0:

@@ -79,6 +79,23 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
             quest_points.append(quest_cell)
         if quest_points.size()!=3:
             return {}
+    var story_stage_points: Array[Vector2i] = []
+    var branch_stage_points: Array[Vector2i] = []
+    if building_id.begins_with("quest__"):
+        for raw_stage in data.get("story_stage_points",[]):
+            var place: Vector2i = _point(raw_stage)
+            if place.x<2 or place.x>=WIDTH-2 or place.y<2 or place.y>=HEIGHT-2 or walls.has(place):
+                return {}
+            story_stage_points.append(place)
+        for raw_branch in data.get("branch_stage_points",[]):
+            var place: Vector2i = _point(raw_branch)
+            if place.x<2 or place.x>=WIDTH-2 or place.y<2 or place.y>=HEIGHT-2 or walls.has(place):
+                return {}
+            branch_stage_points.append(place)
+        if not story_stage_points.is_empty() and story_stage_points.size()!=5:
+            return {}
+        if not branch_stage_points.is_empty() and branch_stage_points.size()!=3:
+            return {}
     var features: Array[Dictionary]=[]
     for prop in data.get("features",[]):
         if not prop is Dictionary:
@@ -91,6 +108,8 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "interior":kind,"interact_cells":points,"authored_source":"v4",
         "layout_id":map_id+"#"+building_id,
         "quest_points":quest_points,
+        "story_stage_points":story_stage_points,
+        "branch_stage_points":branch_stage_points,
         "art_profile":str(data.get("art_profile","")),
         "art_tileset":str(data.get("art_tileset","")),
         "visuals":data.get("visuals",[]),

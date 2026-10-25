@@ -12,6 +12,29 @@ var gesture_clock: float = 0.0
 var blink_phase: float = 0.0
 var animation_redraws: int = 0
 var base_art_offset: float = -21.0
+var story_phase: String = "intro"
+var story_route: String = ""
+var story_hour: int = 12
+
+func apply_story_presentation(phase: String, route: String, minutes: int) -> void:
+    # Visual state only; original dialogue/choice flags and identity are untouched.
+    if role != "quest":
+        return
+    story_phase = phase if phase in ["intro","investigate","community","revisit","resolved"] else "intro"
+    story_route = route if route in ["a","b"] else ""
+    story_hour = posmod(minutes / 60,24)
+    match story_phase:
+        "intro": tone = Color("b9a482")
+        "investigate": tone = Color("789da6")
+        "community": tone = Color("84aa83")
+        "revisit": tone = Color("9791c4")
+        "resolved": tone = Color("9ebf98")
+    if story_route == "a":
+        tone = tone.lerp(Color("7cd5ca"),0.35)
+    elif story_route == "b":
+        tone = tone.lerp(Color("eac282"),0.35)
+    modulate = Color("b9c0dc") if story_hour<6 or story_hour>=20 else Color.WHITE
+    queue_redraw()
 
 func _process(delta: float) -> void:
     idle_elapsed+=delta
@@ -93,5 +116,16 @@ func _draw() -> void:
         draw_line(Vector2(-5,-27),Vector2(-2,-27),Color("253747"),1)
         draw_line(Vector2(2,-27),Vector2(5,-27),Color("253747"),1)
     if role=="quest":
+        # A small sash/eye variation reflects chapter and A/B state, not a
+        # claim to bespoke costumes or hand-authored animation frames.
+        var sash: Color = Color("78cab5") if story_route=="a" else (Color("d9b77c") if story_route=="b" else tone.lightened(0.15))
+        draw_line(Vector2(-8,-18),Vector2(9,-7),sash,3)
+        if story_phase=="investigate":
+            draw_line(Vector2(-6,-32),Vector2(-1,-33),Color("40392e"),1.5)
+            draw_line(Vector2(1,-33),Vector2(6,-32),Color("40392e"),1.5)
+        elif story_phase in ["resolved","community"]:
+            draw_arc(Vector2(0,-23),3.0,0.15,PI-0.15,8,Color("694c46"),1.2)
+        elif story_phase=="revisit":
+            draw_circle(Vector2(11,-34),3.0,Color("b4a4ff"))
         var pulse: float=0.76+0.22*(0.5+0.5*sin(idle_elapsed*3.0))
         draw_colored_polygon(PackedVector2Array([Vector2(-6,-48),Vector2(0,-54),Vector2(6,-48),Vector2(0,-42)]),Color(1.0,0.90,0.55,pulse))

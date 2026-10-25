@@ -6,116 +6,245 @@
   "category": "town",
   "design_intent": "王都高墙与轨道运输",
   "size": [
-    72,
-    48
+    88,
+    54
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-修复大道",
       "width": 2,
       "points": [
         [
-          10,
-          23
+          6,
+          24
         ],
         [
-          21,
-          14
+          18,
+          22
         ],
         [
-          35,
-          23
+          39,
+          28
         ],
         [
-          55,
-          15
+          56,
+          24
         ],
         [
-          60,
+          81,
           35
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-city",
       "width": 1,
       "points": [
         [
-          10,
-          23
-        ],
-        [
-          17,
-          34
-        ],
-        [
-          38,
-          39
-        ],
-        [
-          60,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "route-secret",
-      "width": 1,
-      "points": [
-        [
-          35,
-          23
+          18,
+          5
         ],
         [
           40,
-          10
+          18
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          42,
+          47
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          9,
+          37
+        ],
+        [
+          39,
+          42
+        ],
+        [
+          48,
+          30
+        ],
+        [
+          17,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          48,
+          30
+        ],
+        [
+          73,
+          18
+        ],
+        [
+          82,
+          27
+        ],
+        [
+          79,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          23,
+          13
         ],
         [
           55,
-          15
+          18
+        ],
+        [
+          61,
+          41
+        ],
+        [
+          76,
+          46
         ]
       ]
     }
   ],
-  "obstacles": [],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_city_02",
+      "width": 2,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          83,
+          14
+        ],
+        [
+          84,
+          41
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_city_02",
       "center": [
         24,
-        14
+        22
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_city_02",
       "center": [
-        60,
-        35
+        45,
+        32
       ],
-      "radius": 3
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_city_02",
+      "center": [
+        78,
+        45
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_city_02",
       "cell": [
         57,
-        13
-      ],
-      "kind": "beacon"
-    },
-    {
-      "id": "old-waystone",
-      "cell": [
-        19,
-        33
+        16
       ],
       "kind": "rock"
+    },
+    {
+      "id": "secondary-lookout-map_city_02",
+      "cell": [
+        21,
+        32
+      ],
+      "kind": "sign"
+    },
+    {
+      "id": "peripheral-crest-map_city_02",
+      "cell": [
+        79,
+        44
+      ],
+      "kind": "barrel"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        84,
+        50
+      ],
+      "row": 5,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        84,
+        38
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        79,
+        17
+      ],
+      "kind": "beacon",
+      "name": "复工灯位·自由议事厅"
+    },
+    {
+      "cell": [
+        77,
+        44
+      ],
+      "kind": "sign",
+      "name": "居民庭院·自由议事厅"
+    },
+    {
+      "cell": [
+        65,
+        45
+      ],
+      "kind": "star_lantern",
+      "name": "联络岗亭·自由议事厅"
+    }
+  ],
+  "layout_identity": "city.02.修复大道",
+  "layout_principle": "修复大道：依据「自由议事厅」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

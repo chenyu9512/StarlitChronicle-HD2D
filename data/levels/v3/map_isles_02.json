@@ -6,73 +6,121 @@
   "category": "field",
   "design_intent": "群岛水路与石桥",
   "size": [
-    72,
-    48
+    92,
+    58
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-潮沟分支",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          24
         ],
         [
-          22,
-          14
+          23,
+          17
         ],
         [
           37,
-          23
+          19
         ],
         [
-          56,
-          15
+          61,
+          27
         ],
         [
-          60,
-          35
+          85,
+          30
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-isles",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          29,
+          5
         ],
         [
-          17,
+          43,
+          16
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          48,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          12,
+          32
+        ],
+        [
+          29,
           36
         ],
         [
-          40,
-          39
-        ],
-        [
           60,
           35
+        ],
+        [
+          24,
+          17
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "expedition-wing",
       "width": 1,
       "points": [
         [
-          37,
+          48,
+          25
+        ],
+        [
+          76,
           23
         ],
         [
-          40,
-          10
+          86,
+          44
         ],
         [
-          56,
-          15
+          83,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          20,
+          11
+        ],
+        [
+          50,
+          9
+        ],
+        [
+          59,
+          32
+        ],
+        [
+          80,
+          50
         ]
       ]
     }
@@ -115,6 +163,25 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_isles_02",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          87,
+          17
+        ],
+        [
+          88,
+          45
+        ]
+      ],
+      "tile_row": 2
     }
   ],
   "waterways": [
@@ -140,45 +207,125 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "regional-stream-map_isles_02",
+      "width": 1,
+      "points": [
+        [
+          87,
+          6
+        ],
+        [
+          84,
+          18
+        ],
+        [
+          87,
+          45
+        ]
+      ],
+      "tile_row": 6
     }
   ],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_isles_02",
       "center": [
-        24,
-        14
+        22,
+        20
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_isles_02",
       "center": [
-        60,
-        35
+        52,
+        37
+      ],
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_isles_02",
+      "center": [
+        82,
+        49
       ],
       "radius": 3
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_isles_02",
       "cell": [
-        57,
-        13
+        48,
+        19
       ],
       "kind": "beacon"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_isles_02",
       "cell": [
-        19,
-        33
+        21,
+        35
       ],
-      "kind": "rock"
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "peripheral-crest-map_isles_02",
+      "cell": [
+        83,
+        48
+      ],
+      "kind": "flowerpot"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        88,
+        54
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        88,
+        42
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        83,
+        24
+      ],
+      "kind": "beacon",
+      "name": "潮桥灯位·五色环礁"
+    },
+    {
+      "cell": [
+        81,
+        48
+      ],
+      "kind": "sign",
+      "name": "珊瑚浅径·五色环礁"
+    },
+    {
+      "cell": [
+        68,
+        49
+      ],
+      "kind": "star_lantern",
+      "name": "归航星标·五色环礁"
+    }
+  ],
+  "layout_identity": "isles.02.潮沟分支",
+  "layout_principle": "潮沟分支：依据「五色环礁」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

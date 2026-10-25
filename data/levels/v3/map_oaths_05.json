@@ -6,73 +6,121 @@
   "category": "landmark",
   "design_intent": "誓约山脊和隐秘山径",
   "size": [
-    72,
-    48
+    98,
+    64
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-岗哨高路",
       "width": 1,
       "points": [
         [
-          10,
+          6,
+          20
+        ],
+        [
+          19,
           23
         ],
         [
-          20,
-          12
+          35,
+          21
         ],
         [
-          39,
-          22
+          57,
+          17
         ],
         [
-          54,
-          18
-        ],
-        [
-          60,
-          35
+          91,
+          16
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-oaths",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          19,
+          5
         ],
         [
-          20,
-          38
+          33,
+          14
+        ],
+        [
+          36,
+          31
         ],
         [
           42,
-          39
-        ],
-        [
-          60,
-          35
+          57
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "old-quarter",
       "width": 1,
       "points": [
         [
-          39,
-          22
+          17,
+          38
         ],
         [
-          39,
-          8
+          30,
+          41
         ],
         [
-          54,
-          18
+          62,
+          31
+        ],
+        [
+          25,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          44,
+          31
+        ],
+        [
+          74,
+          25
+        ],
+        [
+          92,
+          46
+        ],
+        [
+          89,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          15,
+          9
+        ],
+        [
+          56,
+          11
+        ],
+        [
+          68,
+          34
+        ],
+        [
+          86,
+          56
         ]
       ]
     }
@@ -115,46 +163,126 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_oaths_05",
+      "width": 2,
+      "points": [
+        [
+          75,
+          10
+        ],
+        [
+          93,
+          13
+        ],
+        [
+          94,
+          51
+        ]
+      ],
+      "tile_row": 2
     }
   ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_oaths_05",
       "center": [
-        24,
-        14
+        20,
+        18
       ],
-      "radius": 3
+      "radius": 4
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_oaths_05",
       "center": [
-        60,
-        35
+        53,
+        33
       ],
-      "radius": 3
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_oaths_05",
+      "center": [
+        88,
+        55
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_oaths_05",
       "cell": [
-        56,
-        16
+        50,
+        21
+      ],
+      "kind": "flowerpot"
+    },
+    {
+      "id": "secondary-lookout-map_oaths_05",
+      "cell": [
+        17,
+        37
       ],
       "kind": "beacon"
     },
     {
-      "id": "old-waystone",
+      "id": "peripheral-crest-map_oaths_05",
       "cell": [
-        18,
-        34
+        89,
+        54
       ],
-      "kind": "rock"
+      "kind": "star_lantern"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        94,
+        60
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        94,
+        48
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        89,
+        25
+      ],
+      "kind": "beacon",
+      "name": "崖壁守望·旧王谒见厅"
+    },
+    {
+      "cell": [
+        87,
+        54
+      ],
+      "kind": "sign",
+      "name": "誓碑庭院·旧王谒见厅"
+    },
+    {
+      "cell": [
+        64,
+        55
+      ],
+      "kind": "star_lantern",
+      "name": "三门瞭望·旧王谒见厅"
+    }
+  ],
+  "layout_identity": "oaths.05.岗哨高路",
+  "layout_principle": "岗哨高路：依据「旧王谒见厅」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

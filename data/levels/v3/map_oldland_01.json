@@ -6,116 +6,280 @@
   "category": "town",
   "design_intent": "旧洲风蚀峡谷",
   "size": [
-    72,
-    48
+    88,
+    64
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-遗迹环城",
       "width": 2,
       "points": [
         [
-          10,
-          23
+          6,
+          27
         ],
         [
-          20,
+          26,
+          20
+        ],
+        [
+          34,
+          19
+        ],
+        [
+          54,
+          18
+        ],
+        [
+          81,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "branch-oldland",
+      "width": 1,
+      "points": [
+        [
+          28,
+          5
+        ],
+        [
+          34,
           13
         ],
         [
-          39,
-          22
-        ],
-        [
-          54,
-          14
-        ],
-        [
-          60,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "route-ridge",
-      "width": 1,
-      "points": [
-        [
-          10,
-          23
-        ],
-        [
-          16,
-          38
+          38,
+          32
         ],
         [
           42,
-          38
-        ],
-        [
-          60,
-          35
+          57
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "old-quarter",
       "width": 1,
       "points": [
         [
-          39,
-          22
+          12,
+          35
         ],
         [
-          39,
-          9
+          24,
+          36
         ],
         [
-          54,
-          14
+          60,
+          28
+        ],
+        [
+          19,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          51,
+          24
+        ],
+        [
+          75,
+          16
+        ],
+        [
+          82,
+          23
+        ],
+        [
+          79,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          18,
+          8
+        ],
+        [
+          49,
+          12
+        ],
+        [
+          67,
+          39
+        ],
+        [
+          76,
+          56
         ]
       ]
     }
   ],
-  "obstacles": [],
-  "waterways": [],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_oldland_01",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          83,
+          17
+        ],
+        [
+          84,
+          51
+        ]
+      ],
+      "tile_row": 3
+    },
+    {
+      "id": "individual-south-crest-map_oldland_01",
+      "width": 1,
+      "points": [
+        [
+          32,
+          58
+        ],
+        [
+          81,
+          59
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_oldland_01",
+      "width": 1,
+      "points": [
+        [
+          83,
+          6
+        ],
+        [
+          80,
+          26
+        ],
+        [
+          83,
+          51
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_oldland_01",
       "center": [
-        24,
-        14
+        19,
+        17
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_oldland_01",
+      "center": [
+        47,
+        30
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "expansion-court-map_oldland_01",
       "center": [
-        60,
-        35
+        78,
+        55
       ],
       "radius": 3
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_oldland_01",
       "cell": [
-        56,
-        12
+        55,
+        22
       ],
-      "kind": "beacon"
+      "kind": "barrel"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_oldland_01",
       "cell": [
-        18,
-        34
+        24,
+        38
       ],
       "kind": "rock"
+    },
+    {
+      "id": "peripheral-crest-map_oldland_01",
+      "cell": [
+        79,
+        54
+      ],
+      "kind": "sea_crystal"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        84,
+        60
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        84,
+        48
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        79,
+        19
+      ],
+      "kind": "beacon",
+      "name": "断代遗碑·遗民营地"
+    },
+    {
+      "cell": [
+        77,
+        54
+      ],
+      "kind": "sign",
+      "name": "遗失钟楼·遗民营地"
+    },
+    {
+      "cell": [
+        68,
+        55
+      ],
+      "kind": "star_lantern",
+      "name": "考古营地·遗民营地"
+    }
+  ],
+  "layout_identity": "oldland.01.遗迹环城",
+  "layout_principle": "遗迹环城：依据「遗民营地」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

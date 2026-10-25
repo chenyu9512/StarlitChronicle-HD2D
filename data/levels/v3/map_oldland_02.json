@@ -6,73 +6,121 @@
   "category": "field",
   "design_intent": "旧洲风蚀峡谷",
   "size": [
-    72,
-    48
+    82,
+    66
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-沉降盆地",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          24
         ],
         [
-          21,
+          18,
+          12
+        ],
+        [
+          35,
+          31
+        ],
+        [
+          56,
+          30
+        ],
+        [
+          75,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "branch-oldland",
+      "width": 1,
+      "points": [
+        [
+          24,
+          5
+        ],
+        [
+          46,
           14
         ],
         [
-          35,
-          23
+          25,
+          32
         ],
         [
-          55,
-          15
-        ],
-        [
-          60,
-          35
+          54,
+          59
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "old-quarter",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          15,
+          37
         ],
         [
-          17,
-          34
-        ],
-        [
-          38,
+          36,
           39
         ],
         [
-          60,
-          35
+          51,
+          30
+        ],
+        [
+          14,
+          20
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "expedition-wing",
       "width": 1,
       "points": [
         [
-          35,
-          23
+          48,
+          20
         ],
         [
-          40,
-          10
+          75,
+          28
         ],
         [
-          55,
-          15
+          76,
+          25
+        ],
+        [
+          73,
+          58
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          17,
+          9
+        ],
+        [
+          45,
+          12
+        ],
+        [
+          68,
+          37
+        ],
+        [
+          70,
+          58
         ]
       ]
     }
@@ -115,46 +163,146 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_oldland_02",
+      "width": 2,
+      "points": [
+        [
+          74,
+          11
+        ],
+        [
+          77,
+          11
+        ],
+        [
+          78,
+          53
+        ]
+      ],
+      "tile_row": 3
     }
   ],
-  "waterways": [],
+  "waterways": [
+    {
+      "id": "regional-stream-map_oldland_02",
+      "width": 2,
+      "points": [
+        [
+          77,
+          6
+        ],
+        [
+          74,
+          27
+        ],
+        [
+          77,
+          53
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_oldland_02",
       "center": [
-        24,
-        14
+        20,
+        18
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_oldland_02",
       "center": [
-        60,
-        35
+        59,
+        32
       ],
-      "radius": 3
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_oldland_02",
+      "center": [
+        72,
+        57
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_oldland_02",
       "cell": [
-        57,
-        13
+        53,
+        22
       ],
-      "kind": "beacon"
+      "kind": "crate"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_oldland_02",
       "cell": [
-        19,
-        33
+        21,
+        38
       ],
-      "kind": "rock"
+      "kind": "star_lantern"
+    },
+    {
+      "id": "peripheral-crest-map_oldland_02",
+      "cell": [
+        73,
+        56
+      ],
+      "kind": "sign"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        78,
+        62
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        78,
+        50
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        73,
+        31
+      ],
+      "kind": "beacon",
+      "name": "断代遗碑·荒星平原"
+    },
+    {
+      "cell": [
+        71,
+        56
+      ],
+      "kind": "sign",
+      "name": "遗失钟楼·荒星平原"
+    },
+    {
+      "cell": [
+        62,
+        57
+      ],
+      "kind": "star_lantern",
+      "name": "考古营地·荒星平原"
+    }
+  ],
+  "layout_identity": "oldland.02.沉降盆地",
+  "layout_principle": "沉降盆地：依据「荒星平原」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

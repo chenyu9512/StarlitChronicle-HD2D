@@ -6,116 +6,245 @@
   "category": "town",
   "design_intent": "王都高墙与轨道运输",
   "size": [
-    72,
-    48
+    90,
+    56
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-河港三环",
       "width": 2,
       "points": [
         [
-          10,
-          23
+          6,
+          21
         ],
         [
-          22,
-          15
+          20,
+          14
         ],
         [
-          36,
-          24
+          40,
+          19
         ],
         [
-          56,
-          16
+          58,
+          36
         ],
         [
-          60,
-          35
+          83,
+          27
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-city",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          30,
+          5
         ],
         [
-          18,
-          35
+          28,
+          19
         ],
         [
-          39,
+          37,
+          26
+        ],
+        [
+          54,
+          49
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          12,
+          39
+        ],
+        [
+          34,
+          36
+        ],
+        [
+          60,
+          32
+        ],
+        [
+          29,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          45,
+          26
+        ],
+        [
+          73,
+          16
+        ],
+        [
+          84,
           37
         ],
         [
-          60,
-          35
+          81,
+          48
         ]
       ]
     },
     {
-      "id": "route-secret",
-      "width": 1,
+      "id": "hidden-loop",
+      "width": 0,
       "points": [
         [
-          36,
-          24
+          22,
+          14
         ],
         [
-          38,
-          11
+          51,
+          18
         ],
         [
-          56,
-          16
+          62,
+          39
+        ],
+        [
+          78,
+          48
         ]
       ]
     }
   ],
-  "obstacles": [],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_city_03",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          85,
+          17
+        ],
+        [
+          86,
+          43
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_city_03",
       "center": [
-        24,
-        14
+        25,
+        23
       ],
-      "radius": 3
+      "radius": 4
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_city_03",
       "center": [
-        60,
-        35
+        57,
+        34
+      ],
+      "radius": 2
+    },
+    {
+      "id": "expansion-court-map_city_03",
+      "center": [
+        80,
+        47
       ],
       "radius": 3
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_city_03",
       "cell": [
         55,
-        14
+        16
       ],
-      "kind": "beacon"
+      "kind": "star_lantern"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_city_03",
       "cell": [
-        20,
-        35
+        18,
+        32
       ],
-      "kind": "rock"
+      "kind": "flowerpot"
+    },
+    {
+      "id": "peripheral-crest-map_city_03",
+      "cell": [
+        81,
+        46
+      ],
+      "kind": "crate"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        86,
+        52
+      ],
+      "row": 5,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        86,
+        40
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        81,
+        29
+      ],
+      "kind": "beacon",
+      "name": "复工灯位·群灯居民街"
+    },
+    {
+      "cell": [
+        79,
+        46
+      ],
+      "kind": "sign",
+      "name": "居民庭院·群灯居民街"
+    },
+    {
+      "cell": [
+        68,
+        47
+      ],
+      "kind": "star_lantern",
+      "name": "联络岗亭·群灯居民街"
+    }
+  ],
+  "layout_identity": "city.03.河港三环",
+  "layout_principle": "河港三环：依据「群灯居民街」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

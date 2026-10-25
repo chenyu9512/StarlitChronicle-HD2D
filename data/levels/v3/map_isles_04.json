@@ -6,116 +6,280 @@
   "category": "dungeon",
   "design_intent": "群岛水路与石桥",
   "size": [
-    72,
-    48
+    102,
+    60
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-潮沟分支",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          18
         ],
         [
-          20,
-          16
-        ],
-        [
-          39,
+          27,
           21
         ],
         [
-          54,
-          17
+          39,
+          22
         ],
         [
-          60,
-          35
+          55,
+          27
+        ],
+        [
+          95,
+          34
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-isles",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          21,
+          5
         ],
         [
-          19,
-          38
+          43,
+          18
+        ],
+        [
+          24,
+          29
+        ],
+        [
+          49,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          9,
+          36
+        ],
+        [
+          36,
+          42
+        ],
+        [
+          63,
+          29
+        ],
+        [
+          14,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          57,
+          33
+        ],
+        [
+          76,
+          19
+        ],
+        [
+          96,
+          33
+        ],
+        [
+          93,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          18,
+          13
         ],
         [
           42,
-          38
+          9
         ],
         [
-          60,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "route-secret",
-      "width": 1,
-      "points": [
-        [
-          39,
-          21
+          61,
+          28
         ],
         [
-          39,
-          12
-        ],
-        [
-          54,
-          17
+          90,
+          52
         ]
       ]
     }
   ],
-  "obstacles": [],
-  "waterways": [],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_isles_04",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          97,
+          14
+        ],
+        [
+          98,
+          47
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-south-crest-map_isles_04",
+      "width": 1,
+      "points": [
+        [
+          23,
+          54
+        ],
+        [
+          95,
+          55
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_isles_04",
+      "width": 1,
+      "points": [
+        [
+          97,
+          6
+        ],
+        [
+          94,
+          20
+        ],
+        [
+          97,
+          47
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_isles_04",
       "center": [
         24,
-        14
+        22
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_isles_04",
+      "center": [
+        59,
+        31
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "expansion-court-map_isles_04",
       "center": [
-        60,
-        35
+        92,
+        51
       ],
       "radius": 3
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_isles_04",
       "cell": [
-        56,
-        15
+        58,
+        19
       ],
-      "kind": "beacon"
+      "kind": "star_lantern"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_isles_04",
       "cell": [
-        17,
-        34
+        15,
+        35
       ],
-      "kind": "rock"
+      "kind": "flowerpot"
+    },
+    {
+      "id": "peripheral-crest-map_isles_04",
+      "cell": [
+        93,
+        50
+      ],
+      "kind": "crate"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        98,
+        56
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        98,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        93,
+        31
+      ],
+      "kind": "beacon",
+      "name": "潮桥灯位·深潮神庙"
+    },
+    {
+      "cell": [
+        91,
+        50
+      ],
+      "kind": "sign",
+      "name": "珊瑚浅径·深潮神庙"
+    },
+    {
+      "cell": [
+        65,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "归航星标·深潮神庙"
+    }
+  ],
+  "layout_identity": "isles.04.潮沟分支",
+  "layout_principle": "潮沟分支：依据「深潮神庙」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

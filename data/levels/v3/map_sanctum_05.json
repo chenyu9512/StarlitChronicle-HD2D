@@ -6,73 +6,121 @@
   "category": "landmark",
   "design_intent": "浮空星轨和断桥",
   "size": [
-    72,
-    48
+    100,
+    64
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-星环回廊",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          25
         ],
         [
-          20,
-          12
+          19,
+          13
         ],
         [
-          39,
-          22
+          41,
+          29
         ],
         [
-          54,
-          18
+          57,
+          19
         ],
         [
-          60,
-          35
+          93,
+          26
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-sanctum",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          21,
+          5
         ],
         [
-          20,
+          35,
+          20
+        ],
+        [
+          36,
+          33
+        ],
+        [
+          46,
+          57
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          13,
           38
         ],
         [
-          42,
-          39
+          29,
+          37
         ],
         [
-          60,
-          35
+          49,
+          31
+        ],
+        [
+          24,
+          21
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "expedition-wing",
       "width": 1,
       "points": [
         [
-          39,
-          22
+          49,
+          33
         ],
         [
-          39,
-          8
+          76,
+          19
         ],
         [
-          54,
-          18
+          94,
+          30
+        ],
+        [
+          91,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          13,
+          15
+        ],
+        [
+          42,
+          13
+        ],
+        [
+          63,
+          28
+        ],
+        [
+          88,
+          56
         ]
       ]
     }
@@ -115,46 +163,141 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_sanctum_05",
+      "width": 2,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          95,
+          18
+        ],
+        [
+          96,
+          51
+        ]
+      ],
+      "tile_row": 2
+    },
+    {
+      "id": "individual-south-crest-map_sanctum_05",
+      "width": 1,
+      "points": [
+        [
+          30,
+          58
+        ],
+        [
+          93,
+          59
+        ]
+      ],
+      "tile_row": 2
     }
   ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_sanctum_05",
       "center": [
-        24,
-        14
+        26,
+        24
       ],
-      "radius": 3
+      "radius": 2
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_sanctum_05",
       "center": [
-        60,
-        35
+        52,
+        33
       ],
-      "radius": 3
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_sanctum_05",
+      "center": [
+        90,
+        55
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_sanctum_05",
       "cell": [
-        56,
-        16
+        58,
+        11
       ],
-      "kind": "beacon"
+      "kind": "crate"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_sanctum_05",
       "cell": [
-        18,
-        34
+        22,
+        39
       ],
-      "kind": "rock"
+      "kind": "star_lantern"
+    },
+    {
+      "id": "peripheral-crest-map_sanctum_05",
+      "cell": [
+        91,
+        54
+      ],
+      "kind": "sign"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        96,
+        60
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        96,
+        48
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        91,
+        24
+      ],
+      "kind": "beacon",
+      "name": "天轨节点·永昼祭坛"
+    },
+    {
+      "cell": [
+        89,
+        54
+      ],
+      "kind": "sign",
+      "name": "观星圣坛·永昼祭坛"
+    },
+    {
+      "cell": [
+        69,
+        55
+      ],
+      "kind": "star_lantern",
+      "name": "浮空石庭·永昼祭坛"
+    }
+  ],
+  "layout_identity": "sanctum.05.星环回廊",
+  "layout_principle": "星环回廊：依据「永昼祭坛」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

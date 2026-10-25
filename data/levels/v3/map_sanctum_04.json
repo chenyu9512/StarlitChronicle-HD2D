@@ -6,116 +6,245 @@
   "category": "dungeon",
   "design_intent": "浮空星轨和断桥",
   "size": [
-    72,
-    48
+    100,
+    72
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-浮岛支径",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          28
         ],
         [
-          23,
-          16
-        ],
-        [
-          38,
+          27,
           21
         ],
         [
-          57,
+          40,
           17
         ],
         [
-          60,
-          35
+          55,
+          31
+        ],
+        [
+          93,
+          34
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-sanctum",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          25,
+          5
         ],
         [
-          19,
-          37
+          47,
+          19
         ],
         [
-          41,
-          38
+          24,
+          33
         ],
         [
-          60,
-          35
+          57,
+          65
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "old-quarter",
       "width": 1,
       "points": [
         [
-          38,
+          10,
+          36
+        ],
+        [
+          34,
+          43
+        ],
+        [
+          58,
+          29
+        ],
+        [
+          29,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          52,
           21
         ],
         [
-          38,
-          12
+          76,
+          21
         ],
         [
-          57,
-          17
+          94,
+          44
+        ],
+        [
+          91,
+          64
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          14,
+          14
+        ],
+        [
+          46,
+          13
+        ],
+        [
+          62,
+          30
+        ],
+        [
+          88,
+          64
         ]
       ]
     }
   ],
-  "obstacles": [],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_sanctum_04",
+      "width": 1,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          95,
+          15
+        ],
+        [
+          96,
+          59
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_sanctum_04",
       "center": [
-        24,
-        14
+        25,
+        23
+      ],
+      "radius": 4
+    },
+    {
+      "id": "fork-outlook-map_sanctum_04",
+      "center": [
+        57,
+        31
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "expansion-court-map_sanctum_04",
       "center": [
-        60,
-        35
+        90,
+        63
       ],
       "radius": 3
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_sanctum_04",
       "cell": [
-        55,
-        15
+        46,
+        11
       ],
-      "kind": "beacon"
+      "kind": "barrel"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_sanctum_04",
       "cell": [
-        17,
-        35
+        25,
+        39
       ],
       "kind": "rock"
+    },
+    {
+      "id": "peripheral-crest-map_sanctum_04",
+      "cell": [
+        91,
+        62
+      ],
+      "kind": "sea_crystal"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        96,
+        68
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        96,
+        56
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        91,
+        29
+      ],
+      "kind": "beacon",
+      "name": "天轨节点·岁影尽头"
+    },
+    {
+      "cell": [
+        89,
+        62
+      ],
+      "kind": "sign",
+      "name": "观星圣坛·岁影尽头"
+    },
+    {
+      "cell": [
+        66,
+        63
+      ],
+      "kind": "star_lantern",
+      "name": "浮空石庭·岁影尽头"
+    }
+  ],
+  "layout_identity": "sanctum.04.浮岛支径",
+  "layout_principle": "浮岛支径：依据「岁影尽头」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

@@ -6,73 +6,121 @@
   "category": "field",
   "design_intent": "誓约山脊和隐秘山径",
   "size": [
-    72,
-    48
+    92,
+    64
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-悬崖折返",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          29
         ],
         [
-          21,
-          14
+          23,
+          27
         ],
         [
-          36,
-          23
+          32,
+          27
         ],
         [
-          55,
-          15
+          61,
+          29
         ],
         [
-          60,
-          35
+          85,
+          20
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-oaths",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          31,
+          5
         ],
+        [
+          45,
+          11
+        ],
+        [
+          25,
+          31
+        ],
+        [
+          52,
+          57
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
         [
           17,
+          32
+        ],
+        [
+          28,
+          41
+        ],
+        [
+          47,
           35
         ],
         [
-          39,
-          39
-        ],
-        [
-          60,
-          35
+          23,
+          19
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "expedition-wing",
       "width": 1,
       "points": [
         [
-          36,
-          23
+          53,
+          27
         ],
         [
-          39,
-          10
+          74,
+          17
         ],
         [
-          55,
-          15
+          86,
+          43
+        ],
+        [
+          83,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          18,
+          17
+        ],
+        [
+          52,
+          11
+        ],
+        [
+          65,
+          40
+        ],
+        [
+          80,
+          56
         ]
       ]
     }
@@ -115,46 +163,126 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_oaths_02",
+      "width": 1,
+      "points": [
+        [
+          75,
+          10
+        ],
+        [
+          87,
+          13
+        ],
+        [
+          88,
+          51
+        ]
+      ],
+      "tile_row": 2
     }
   ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_oaths_02",
       "center": [
-        24,
-        14
+        28,
+        26
       ],
-      "radius": 3
+      "radius": 4
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_oaths_02",
       "center": [
-        60,
-        35
+        51,
+        37
+      ],
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_oaths_02",
+      "center": [
+        82,
+        55
       ],
       "radius": 3
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_oaths_02",
       "cell": [
         56,
-        13
+        21
       ],
-      "kind": "beacon"
+      "kind": "star_lantern"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_oaths_02",
       "cell": [
-        19,
-        34
+        26,
+        37
       ],
-      "kind": "rock"
+      "kind": "flowerpot"
+    },
+    {
+      "id": "peripheral-crest-map_oaths_02",
+      "cell": [
+        83,
+        54
+      ],
+      "kind": "crate"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        88,
+        60
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        88,
+        48
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        83,
+        23
+      ],
+      "kind": "beacon",
+      "name": "崖壁守望·断誓山径"
+    },
+    {
+      "cell": [
+        81,
+        54
+      ],
+      "kind": "sign",
+      "name": "誓碑庭院·断誓山径"
+    },
+    {
+      "cell": [
+        64,
+        55
+      ],
+      "kind": "star_lantern",
+      "name": "三门瞭望·断誓山径"
+    }
+  ],
+  "layout_identity": "oaths.02.悬崖折返",
+  "layout_principle": "悬崖折返：依据「断誓山径」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

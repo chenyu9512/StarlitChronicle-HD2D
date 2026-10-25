@@ -6,73 +6,121 @@
   "category": "route",
   "design_intent": "潮滩沙丘与林间海风道",
   "size": [
-    72,
-    48
+    94,
+    54
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-海滩凹湾",
       "width": 1,
       "points": [
         [
-          10,
+          6,
+          31
+        ],
+        [
+          25,
+          19
+        ],
+        [
+          32,
           23
         ],
         [
-          22,
-          15
-        ],
-        [
-          36,
-          24
-        ],
-        [
-          56,
-          16
-        ],
-        [
-          60,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "route-ridge",
-      "width": 1,
-      "points": [
-        [
-          10,
-          23
-        ],
-        [
-          18,
-          35
-        ],
-        [
-          39,
+          53,
           37
         ],
         [
-          60,
-          35
+          87,
+          32
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "branch-coast",
       "width": 1,
       "points": [
         [
-          36,
-          24
+          23,
+          5
         ],
         [
-          38,
+          29,
           11
         ],
         [
+          37,
+          27
+        ],
+        [
           56,
-          16
+          47
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          10,
+          34
+        ],
+        [
+          25,
+          43
+        ],
+        [
+          43,
+          37
+        ],
+        [
+          20,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          55,
+          35
+        ],
+        [
+          74,
+          27
+        ],
+        [
+          88,
+          41
+        ],
+        [
+          85,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          21,
+          17
+        ],
+        [
+          44,
+          19
+        ],
+        [
+          65,
+          36
+        ],
+        [
+          82,
+          46
         ]
       ]
     }
@@ -115,6 +163,25 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_coast_03",
+      "width": 2,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          89,
+          15
+        ],
+        [
+          90,
+          41
+        ]
+      ],
+      "tile_row": 2
     }
   ],
   "waterways": [
@@ -140,45 +207,125 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "regional-stream-map_coast_03",
+      "width": 2,
+      "points": [
+        [
+          89,
+          6
+        ],
+        [
+          86,
+          24
+        ],
+        [
+          89,
+          41
+        ]
+      ],
+      "tile_row": 6
     }
   ],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_coast_03",
       "center": [
-        24,
-        14
+        28,
+        26
       ],
       "radius": 3
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_coast_03",
       "center": [
-        60,
-        35
+        48,
+        39
       ],
-      "radius": 3
+      "radius": 2
+    },
+    {
+      "id": "expansion-court-map_coast_03",
+      "center": [
+        84,
+        45
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_coast_03",
       "cell": [
-        55,
-        14
+        52,
+        17
       ],
-      "kind": "beacon"
+      "kind": "crate"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_coast_03",
       "cell": [
-        20,
-        35
+        28,
+        33
       ],
-      "kind": "rock"
+      "kind": "star_lantern"
+    },
+    {
+      "id": "peripheral-crest-map_coast_03",
+      "cell": [
+        85,
+        44
+      ],
+      "kind": "sign"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        90,
+        50
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        90,
+        38
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        85,
+        20
+      ],
+      "kind": "beacon",
+      "name": "盐风观潮·盐风古道"
+    },
+    {
+      "cell": [
+        83,
+        44
+      ],
+      "kind": "sign",
+      "name": "滩涂哨台·盐风古道"
+    },
+    {
+      "cell": [
+        66,
+        45
+      ],
+      "kind": "star_lantern",
+      "name": "海湾灯台·盐风古道"
+    }
+  ],
+  "layout_identity": "coast.03.海滩凹湾",
+  "layout_principle": "海滩凹湾：依据「盐风古道」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

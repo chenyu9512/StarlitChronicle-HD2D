@@ -6,73 +6,121 @@
   "category": "field",
   "design_intent": "镜湖湿地与迷雾森林",
   "size": [
-    72,
-    48
+    84,
+    60
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-回廊螺旋",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          19
         ],
         [
-          20,
-          14
-        ],
-        [
-          38,
-          23
-        ],
-        [
-          54,
-          15
-        ],
-        [
-          60,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "route-ridge",
-      "width": 1,
-      "points": [
-        [
-          10,
-          23
-        ],
-        [
-          17,
-          37
-        ],
-        [
-          41,
-          39
-        ],
-        [
-          60,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "route-secret",
-      "width": 1,
-      "points": [
-        [
-          38,
-          23
+          18,
+          22
         ],
         [
           40,
+          23
+        ],
+        [
+          56,
+          28
+        ],
+        [
+          77,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "branch-mirror",
+      "width": 1,
+      "points": [
+        [
+          22,
+          5
+        ],
+        [
+          44,
+          19
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          50,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          10,
+          37
+        ],
+        [
+          37,
+          43
+        ],
+        [
+          43,
+          30
+        ],
+        [
+          15,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          58,
+          34
+        ],
+        [
+          73,
+          20
+        ],
+        [
+          78,
+          34
+        ],
+        [
+          75,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          19,
+          14
+        ],
+        [
+          43,
           10
         ],
         [
-          54,
-          15
+          62,
+          29
+        ],
+        [
+          72,
+          52
         ]
       ]
     }
@@ -115,6 +163,40 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_mirror_02",
+      "width": 2,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          79,
+          15
+        ],
+        [
+          80,
+          47
+        ]
+      ],
+      "tile_row": 2
+    },
+    {
+      "id": "individual-south-crest-map_mirror_02",
+      "width": 1,
+      "points": [
+        [
+          24,
+          54
+        ],
+        [
+          77,
+          55
+        ]
+      ],
+      "tile_row": 2
     }
   ],
   "waterways": [
@@ -140,45 +222,125 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "regional-stream-map_mirror_02",
+      "width": 2,
+      "points": [
+        [
+          79,
+          6
+        ],
+        [
+          76,
+          21
+        ],
+        [
+          79,
+          47
+        ]
+      ],
+      "tile_row": 6
     }
   ],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_mirror_02",
       "center": [
-        24,
-        14
+        25,
+        23
       ],
-      "radius": 3
+      "radius": 2
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_mirror_02",
       "center": [
         60,
-        35
+        32
       ],
-      "radius": 3
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_mirror_02",
+      "center": [
+        74,
+        51
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_mirror_02",
       "cell": [
-        57,
-        13
+        59,
+        20
+      ],
+      "kind": "flowerpot"
+    },
+    {
+      "id": "secondary-lookout-map_mirror_02",
+      "cell": [
+        16,
+        36
       ],
       "kind": "beacon"
     },
     {
-      "id": "old-waystone",
+      "id": "peripheral-crest-map_mirror_02",
       "cell": [
-        19,
-        33
+        75,
+        50
       ],
-      "kind": "rock"
+      "kind": "star_lantern"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        80,
+        56
+      ],
+      "row": 7,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        80,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        75,
+        15
+      ],
+      "kind": "beacon",
+      "name": "倒影碑庭·夜镜森林"
+    },
+    {
+      "cell": [
+        73,
+        50
+      ],
+      "kind": "sign",
+      "name": "折光泉眼·夜镜森林"
+    },
+    {
+      "cell": [
+        66,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "镜林路牌·夜镜森林"
+    }
+  ],
+  "layout_identity": "mirror.02.回廊螺旋",
+  "layout_principle": "回廊螺旋：依据「夜镜森林」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

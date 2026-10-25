@@ -6,73 +6,121 @@
   "category": "field",
   "design_intent": "火山灰台地与古代矿道",
   "size": [
-    72,
-    48
+    82,
+    60
   ],
   "roads": [
     {
-      "id": "route-primary",
+      "id": "spine-工业栈桥",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          6,
+          29
         ],
         [
-          22,
-          14
+          18,
+          12
         ],
         [
-          36,
-          23
-        ],
-        [
-          56,
+          34,
           15
         ],
         [
-          60,
-          35
+          56,
+          26
+        ],
+        [
+          75,
+          25
         ]
       ]
     },
     {
-      "id": "route-ridge",
+      "id": "branch-forge",
       "width": 1,
       "points": [
         [
-          10,
-          23
+          20,
+          5
         ],
         [
-          17,
-          35
+          42,
+          13
         ],
         [
-          39,
-          39
+          25,
+          28
         ],
         [
-          60,
-          35
+          46,
+          53
         ]
       ]
     },
     {
-      "id": "route-secret",
+      "id": "old-quarter",
       "width": 1,
       "points": [
         [
-          36,
-          23
+          14,
+          37
         ],
         [
           38,
-          10
+          38
         ],
         [
           56,
-          15
+          30
+        ],
+        [
+          16,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          53,
+          32
+        ],
+        [
+          75,
+          26
+        ],
+        [
+          76,
+          42
+        ],
+        [
+          73,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          21,
+          8
+        ],
+        [
+          41,
+          20
+        ],
+        [
+          67,
+          35
+        ],
+        [
+          70,
+          52
         ]
       ]
     }
@@ -115,46 +163,126 @@
         ]
       ],
       "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_forge_02",
+      "width": 2,
+      "points": [
+        [
+          74,
+          10
+        ],
+        [
+          77,
+          19
+        ],
+        [
+          78,
+          47
+        ]
+      ],
+      "tile_row": 4
     }
   ],
   "waterways": [],
   "clearings": [
     {
-      "id": "safe-camp",
+      "id": "story-rest-map_forge_02",
       "center": [
-        24,
-        14
+        19,
+        17
       ],
-      "radius": 3
+      "radius": 4
     },
     {
-      "id": "scenic-lane",
+      "id": "fork-outlook-map_forge_02",
       "center": [
-        60,
-        35
+        61,
+        32
       ],
-      "radius": 3
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_forge_02",
+      "center": [
+        72,
+        51
+      ],
+      "radius": 4
     }
   ],
   "landmarks": [
     {
-      "id": "landscape-view",
+      "id": "local-witness-map_forge_02",
       "cell": [
-        55,
-        13
+        51,
+        18
       ],
-      "kind": "beacon"
+      "kind": "sea_crystal"
     },
     {
-      "id": "old-waystone",
+      "id": "secondary-lookout-map_forge_02",
       "cell": [
-        19,
-        35
+        26,
+        34
       ],
-      "kind": "rock"
+      "kind": "barrel"
+    },
+    {
+      "id": "peripheral-crest-map_forge_02",
+      "cell": [
+        73,
+        50
+      ],
+      "kind": "beacon"
     }
   ],
-  "paint_overrides": [],
-  "collision_overrides": [],
-  "revision": 1
+  "paint_overrides": [
+    {
+      "cell": [
+        78,
+        56
+      ],
+      "row": 4,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        78,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        73,
+        16
+      ],
+      "kind": "beacon",
+      "name": "熔脉观测·烟塔工坊"
+    },
+    {
+      "cell": [
+        71,
+        50
+      ],
+      "kind": "sign",
+      "name": "旧轨道口·烟塔工坊"
+    },
+    {
+      "cell": [
+        70,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "高炉冷却·烟塔工坊"
+    }
+  ],
+  "layout_identity": "forge.02.工业栈桥",
+  "layout_principle": "工业栈桥：依据「烟塔工坊」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
 }

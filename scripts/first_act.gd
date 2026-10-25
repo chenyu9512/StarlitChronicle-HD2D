@@ -244,7 +244,7 @@ func _play_story_cinematic(cue_id: String,resume: String) -> bool:
     atlas.show_exploration(false)
     return true
 
-func _cinematic_finished(cue_id: String,skipped: bool) -> void:
+func _cinematic_finished(cue_id: String,_skipped: bool) -> void:
     # Completed and skipped scenes have identical canonical state effects.
     # This is presentation-only: narrative effects remain in _dialogue_ended.
     if cue_id.is_empty():
@@ -1044,7 +1044,7 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
     if won:
         var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
-        var job_levels: Array[String] = game_core.award_job_xp(maxi(5,int(xp / 5)),battle_is_boss)
+        var job_levels: Array[String] = game_core.award_job_xp(maxi(5,int(float(xp) / 5.0)),battle_is_boss)
         game_events.record("battle_victory",{"boss":battle_is_boss,"xp":xp,"gold":money})
         var loot: Array[String] = game_core.roll_monster_loot(defeated_monster)
         if battle_is_boss:

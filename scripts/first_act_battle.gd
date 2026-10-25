@@ -1,4 +1,5 @@
 extends CanvasLayer
+const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -6,6 +7,8 @@ const BOSS_ART: Dictionary = {2:"tide_ghost",3:"tide_guardian",4:"salt_wolf",5:"
 const MONSTER_ART: Array[String] = ["salt_slime", "fog_crab", "shell_hermit", "tide_ghost", "sand_lizard", "salt_wolf", "white_seabird", "star_ray", "tide_guardian"]
 var game_state
 var game_core
+var encounter_registry
+var skill_picker: PanelContainer
 var encounter_data: Dictionary = {}
 var chapter: int = 1
 var boss: bool = false
@@ -34,6 +37,8 @@ func _ready() -> void:
 
 func start(save_state, chapter_no: int, is_boss: bool) -> void:
     game_state = save_state
+    if encounter_registry == null:
+        encounter_registry = EncounterRegistry.new()
     chapter = chapter_no
     boss = is_boss
     hero_turn = 0
@@ -49,6 +54,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         enemy = {"name":BOSS_NAMES.get(chapter, "遗迹守卫"), "hp":hp, "max_hp":hp, "atk":dmg, "def":4+chapter, "xp":150+chapter*65, "gold":85+chapter*40, "art":BOSS_ART.get(chapter,"tide_guardian")}
         if not encounter_data.is_empty():
             enemy["name"] = str(encounter_data.get("display_name", enemy["name"]))
+        enemy = encounter_registry.story_boss(chapter,encounter_data,enemy)
         chain_hp = 125 if chapter == 5 else 0
     else:
         var monster_number: int = dice.randi_range(0, mini(8, chapter + 2))
@@ -56,7 +62,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         var hp: int = 25 + chapter * 10 + monster_number * 8
         enemy = {"name":monster_names[monster_number], "hp":hp, "max_hp":hp, "atk":7+chapter*2+monster_number, "def":2+int(monster_number/2), "xp":20+chapter*8+monster_number*3, "gold":12+chapter*4+monster_number*2, "art":MONSTER_ART[monster_number]}
         chain_hp = 0
-        enemy["monster_id"] = "mon_coast_%02d" % (monster_number + 1)
+        enemy = encounter_registry.roll_monster(chapter)
     _build()
     _start_actor()
     _redraw("%s 出现在你们面前！" % str(enemy["name"]))
@@ -152,6 +158,44 @@ func _build() -> void:
     var special_name: String = "✦ 拆除星锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else "✦ 识破弱点")
     special_button = _button(commands, special_name, "special")
 
+func _choose_skill() -> void:
+    if is_instance_valid(skill_picker):
+        skill_picker.queue_free()
+    var actor: Dictionary = game_state.actors[hero_turn]
+    var learned: Array = game_core.skills(str(actor.get("id",""))) if game_core != null else []
+    skill_picker = PanelContainer.new()
+    skill_picker.anchor_left = 0.16
+    skill_picker.anchor_right = 0.84
+    skill_picker.anchor_top = 0.20
+    skill_picker.anchor_bottom = 0.84
+    skill_picker.add_theme_stylebox_override("panel",_style(Color("091b31"),Color("e6c47d")))
+    root.add_child(skill_picker)
+    var scroll := ScrollContainer.new()
+    skill_picker.add_child(scroll)
+    var list := VBoxContainer.new()
+    list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    scroll.add_child(list)
+    var caption := Label.new()
+    caption.text = "选择技能 · "+str(actor.get("name",""))
+    caption.add_theme_font_size_override("font_size",22)
+    list.add_child(caption)
+    if learned.is_empty():
+        var unavailable := Label.new()
+        unavailable.text = "尚未学会职业技能，先提升等级或转职。"
+        list.add_child(unavailable)
+    for record in learned:
+        var id: String = str(record.get("id",""))
+        var cost: int = int(record.get("mp_cost",0))
+        var title: String = "%s · MP %d · %s" % [str(record.get("name",id)),cost,str(record.get("description",""))]
+        var b: Button = _button(list,title,"skill:"+id)
+        b.disabled = int(actor.get("mp",0)) < cost
+    _button(list,"返回战斗","cancel_skill")
+
+func _hide_skills() -> void:
+    if is_instance_valid(skill_picker):
+        skill_picker.queue_free()
+        skill_picker = null
+
 func _start_actor() -> void:
     while hero_turn < game_state.actors.size() and (int(game_state.actors[hero_turn]["hp"]) <= 0 or (game_core != null and not game_core.is_active(str(game_state.actors[hero_turn].get("id",""))))):
         hero_turn += 1
@@ -168,6 +212,17 @@ func _start_actor() -> void:
 func _act(action: String) -> void:
     if win_locked or hero_turn >= game_state.actors.size():
         return
+    if action == "skill":
+        _choose_skill()
+        return
+    if action == "cancel_skill":
+        _hide_skills()
+        return
+    var chosen_skill: String = ""
+    if action.begins_with("skill:"):
+        chosen_skill = action.trim_prefix("skill:")
+        action = "skill"
+        _hide_skills()
     var member: Dictionary = game_state.actors[hero_turn]
     var name: String = str(member["name"])
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
@@ -182,15 +237,12 @@ func _act(action: String) -> void:
             var owned: Array = game_core.skills(str(member.get("id",""))) if game_core != null else []
             var chosen: Dictionary = {}
             for available in owned:
-                if int(available.get("mp_cost",0)) <= int(member.get("mp",0)):
+                if str(available.get("id","")) == chosen_skill:
                     chosen = available
-            if chosen.is_empty():
-                if int(member["mp"]) < 6:
-                    _redraw("%s 的 MP 不够。" % name)
-                    return
-                member["mp"] = int(member["mp"]) - 6
-                damage = maxi(8,int(stats.get("attack",0)) + dice.randi_range(15,29) - int(enemy["def"]))
-                message = "%s 发动%s，造成 %d 伤害！" % [name,str(member["skill"]),damage]
+                    break
+            if chosen.is_empty() or int(chosen.get("mp_cost",999)) > int(member.get("mp",0)):
+                _redraw("当前技能不可使用。")
+                return
             else:
                 member["mp"] = int(member["mp"]) - int(chosen.get("mp_cost",0))
                 var effect: Dictionary = chosen.get("effect",{})

@@ -55,6 +55,10 @@
 
 按原剧本和地图现场落实了剩余84条任务的空间归属：34伙伴+20地区共54间各自独立的V4室内关卡（带NPC、五个原任务交互点、三处A/B回访和三处证物），14伙伴+16地区共30条保留真正户外场景。加上既有12航页和19生活，共有85间独立V4室内任务场景。沿用原V3存档和正典奖励；独立最终美术、NPC自主行动与完整Godot新批次验收仍待持续完成。参见[第19-7批交付报告](PHASE_19_BATCH07_COMPANION_REGIONAL_ROOMS_DELIVERY.md)和[84条任务场景配置](data/phase19_companion_regional_submaps.json)。
 
+## 第19-8批｜85处内景数据验收与NPC表现
+
+已逐一独立读取第19-7新增54张V4地图，核对54/54出生点、出口和11类互动点的静态通路；全部保留之前的12航页与19生活内景，共85间。NPC表现已按原剧情阶段、A/B分支和昼夜改变表情与服装配色；对GitHub Actions在执行测试之前失败的情况增加了可复现的本地验收入口，不能将当前新代码宣称为已通过Godot引擎。参见[第19-8阶段审计报告](PHASE_19_BATCH08_RUNTIME_AUDIT.md)及`tools/run_phase19_acceptance.py`。
+
 ## 项目校验
 
 - 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`

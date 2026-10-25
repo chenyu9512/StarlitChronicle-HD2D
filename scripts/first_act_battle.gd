@@ -437,6 +437,12 @@ func _act(action: String) -> void:
     if not healed_via_skill:
         game_state.actors[hero_turn] = member
     if damage > 0:
+        if game_core != null:
+            var trait: String = game_core.weapon_trait(str(member.get("id","")))
+            var tier: int = game_core.weapon_tier(str(member.get("id","")))
+            damage = combat_rules.weapon_damage(damage,trait,enemy,tier)
+            if not trait.is_empty():
+                message += " · 武器特性："+trait
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
         if boss and chapter == 5:
             # 古兽的剧情结局是卸下星锁，而不是杀死生命体。

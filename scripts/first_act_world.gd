@@ -361,7 +361,7 @@ func _spawn_residents() -> void:
     var residents: Array = town_life.residents(district)
     for index in range(residents.size()):
         var record: Dictionary = residents[index]
-        var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(record.get("role","lore")),index,hour)
+        var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(record.get("role","lore")),index,hour,geography.zone(str(map_profile.get("id",""))).get("buildings",[]))
         var point: Vector2i = _resident_spot(authored_spot,used)
         var citizen = NPCVisual.new()
         citizen.setup(record)
@@ -387,7 +387,7 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
         var key: String = "citizen:"+str(people[i].get("id",""))
         if not nodes.has(key):
             continue
-        var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(people[i].get("role","lore")),i,int(clock_minutes/60))
+        var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(people[i].get("role","lore")),i,int(clock_minutes/60),geography.zone(str(map_profile.get("id",""))).get("buildings",[]))
         var point: Vector2i = _resident_spot(authored_spot,used)
         nodes[key].position=Vector2(point*TILE)+Vector2(16,16)
         npc_positions[key]=point

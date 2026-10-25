@@ -7,6 +7,7 @@ const Actor = preload("res://scripts/first_act_actor.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
+const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
@@ -49,6 +50,7 @@ var geography = Geography.new()
 var fog
 var fog_last_cell: Vector2i = Vector2i(-100,-100)
 var town_life = TownLife.new()
+var discoveries = WorldDiscoveries.new()
 var ambience
 var clock_minutes: int = 480
 var calendar_day: int = 1
@@ -384,6 +386,32 @@ func _build_sites() -> void:
     elif archetype in ["field","route","landmark"]:
         nodes["wild_cache"] = _add_sprite("crate",Vector2i(60,35),false,true)
         nodes["wild_camp"] = _add_sprite("star_lantern",Vector2i(24,14),false,true)
+    # New exploratory sites are authentic outdoor interactions in the expanded sector,
+    # not replacements for existing chapter, house or side-quest markers.
+    var current_map_id: String = str(map_profile.get("id",""))
+    for record in discoveries.entries(current_map_id):
+        var coordinates: Array = record.get("cell",[])
+        if coordinates.size()!=2:
+            continue
+        var target_cell: Vector2i = Vector2i(int(coordinates[0]),int(coordinates[1]))
+        if blocked.has(target_cell):
+            # Find the closest free floor without moving the documented marker.
+            # The authored dataset must still pass dedicated accessibility checks.
+            var found: bool = false
+            for distance in range(1,5):
+                if found:
+                    break
+                for shift in [Vector2i(distance,0),Vector2i(-distance,0),Vector2i(0,distance),Vector2i(0,-distance)]:
+                    var candidate: Vector2i = target_cell+shift
+                    if not blocked.has(candidate):
+                        target_cell = candidate
+                        found = true
+                        break
+        var key: String = "discovery:"+str(record.get("id",""))
+        var discovery_marker: Sprite2D = _add_sprite(str(record.get("icon","sign")),target_cell,false,true)
+        discovery_marker.visible = chapter>0
+        discovery_marker.set_meta("site_name",str(record.get("name","未知地标")))
+        nodes[key] = discovery_marker
     for gate in terrain_layout.get("gates",[]):
         var id: String = str(gate.get("id",""))
         if not id.is_empty():

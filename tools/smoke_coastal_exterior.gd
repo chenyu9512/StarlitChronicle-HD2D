@@ -28,6 +28,9 @@ func _run() -> void:
         if world.coastal_audio!=null and world.coastal_audio.player!=null:
             verify(world.coastal_audio.player.stream.data.size()==16000,"Incorrect native PCM data: "+area)
         verify(not world._blocked(world.hero.position),"Scenery accidentally blocked spawn: "+area)
+        verify(world.coastal_scene.surface_detail!=null,"No batched shoreline and surface detail atlas: "+area)
+        verify(world.coastal_scene.detail_count>=20,"Surface embellishment sparse or missing: "+area)
+        verify(world.ambience.map_pixels==Vector2(world.WIDTH*32,world.HEIGHT*32),"Expanded-area weather incorrectly clipped: "+area)
         if area in ["map_coast_03","map_coast_04"]:
             var floor_source: TileSetAtlasSource=world.layer.tile_set.get_source(0)
             var suffix: String="saltwind_route_tileset.svg" if area=="map_coast_03" else "tide_cavern_tileset.svg"
@@ -35,6 +38,8 @@ func _run() -> void:
         if area=="map_coast_04":
             verify(world.coastal_scene.cavern_grade!=null,"Cave still uses outdoor brightness")
             verify(world.coastal_scene.cavern_lights.size()==3,"Boss chamber missing authored light sources")
+            var sea_atlas: TileSetAtlasSource=world.layer.tile_set.get_source(1)
+            verify(sea_atlas.texture.resource_path.ends_with("cavern_water_atlas.svg"),"Cavern displays wrong water texture")
         if area in ["map_coast_01","map_coast_02"]:
             var count: int=0
             var drawn: int=0
@@ -46,6 +51,17 @@ func _run() -> void:
                     if is_instance_valid(prop.facade):
                         drawn+=1
             verify(count>=5 and drawn>=5,"Town lacks independent architectural artwork: "+area)
+            var lamps: int=0
+            for building_node in world.scenery.get_children():
+                if building_node.get_script()!=null and building_node.get_script().resource_path=="res://scripts/world_structure.gd":
+                    if is_instance_valid(building_node.door_lamp):
+                        lamps+=1
+            verify(lamps>=5,"Real town door lanterns are missing: "+area)
+            world.sync_world_clock(3,1260)
+            for building_node in world.scenery.get_children():
+                if building_node.get_script()!=null and building_node.get_script().resource_path=="res://scripts/world_structure.gd" and is_instance_valid(building_node.door_lamp):
+                    verify(building_node.door_lamp.energy>0.6,"Night lighting did not change with game clock: "+area)
+            world.sync_world_clock(3,660)
         else:
             verify(world.nodes.has("dungeon_switch_a") if area=="map_coast_04" else world.nodes.has("wild_camp"),"Original geography interactions missing: "+area)
         verify(is_instance_valid(world.hero.sprite),"Playable actor sprite missing: "+area)

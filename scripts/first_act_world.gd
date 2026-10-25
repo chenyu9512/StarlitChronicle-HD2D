@@ -159,7 +159,7 @@ func build(new_chapter: int, party_size: int) -> void:
     ambience = Ambience.new()
     ambience.z_index = 12
     ambience.hero = hero
-    ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")))
+    ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")),Vector2i(WIDTH,HEIGHT))
     root.add_child(ambience)
     coastal_audio=CoastalAudio.new()
     coastal_audio.name="CoastalAudio"
@@ -227,7 +227,12 @@ func _make_tiles() -> void:
             land.create_tile(Vector2i(x, y))
     tile_set.add_source(land, 0)
     var sea := TileSetAtlasSource.new()
-    sea.texture = load(water_path if regional_art else WATER)
+    var selected_water: String=water_path if regional_art else WATER
+    if interior_building.is_empty() and str(map_profile.get("id",""))=="map_coast_04":
+        var cavern_water: String="res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg"
+        if ResourceLoader.exists(cavern_water):
+            selected_water=cavern_water
+    sea.texture = load(selected_water)
     sea.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
@@ -282,7 +287,7 @@ func _decorate() -> void:
                     var size_data: Array = record.get("size",[8,6])
                     width_data = Vector2i(int(size_data[0]),int(size_data[1]))
                     break
-            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region,str(map_profile.get("id","")))
+            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region,str(map_profile.get("id","")),clock_minutes)
             architecture.position = Vector2(cell*TILE)+Vector2(16,16)
             scenery.add_child(architecture)
         else:
@@ -714,6 +719,10 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
         var indoor_art: Node = root.get_node_or_null("InteriorArt")
         if indoor_art!=null:
             indoor_art.set_clock(clock_minutes)
+    elif is_instance_valid(scenery):
+        for visual in scenery.get_children():
+            if visual is WorldStructure:
+                visual.set_clock(clock_minutes)
     if old_period==next_period or interior_building.length()>0 or not bool(map_profile.get("settlement",false)):
         return
     var used: Dictionary = {}

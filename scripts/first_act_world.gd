@@ -64,6 +64,7 @@ var fourth
 var party_ids: Array = []
 var camera: Camera2D
 var focus_name: String = ""
+var side_focus_name: String = ""
 var focus_label: Label
 var focus_light: Sprite2D
 var side_light: Sprite2D
@@ -558,6 +559,7 @@ func set_focus(name: String) -> void:
         focus_label.text = "✦ 前往调查"
 
 func set_side_focus(name: String) -> void:
+    side_focus_name = name
     if not is_instance_valid(side_light):
         return
     side_light.visible = nodes.has(name)
@@ -633,6 +635,13 @@ func interact() -> void:
         var focus_node: Node2D = nodes[focus_name]
         if is_instance_valid(focus_node) and focus_node.visible and hero.position.distance_to(focus_node.position) <= 45.0:
             interacted.emit(focus_name)
+            return
+    # Tracked story-side / postscript objectives take priority over ambient
+    # doorways and passing NPCs, but never override a nearby critical main NPC.
+    if not side_focus_name.is_empty() and nodes.has(side_focus_name):
+        var tracked_node: Node2D = nodes[side_focus_name]
+        if is_instance_valid(tracked_node) and tracked_node.visible and hero.position.distance_to(tracked_node.position)<=38.0:
+            interacted.emit(side_focus_name)
             return
     # Chapter interaction markers must never be shadowed by a newly placed
     # building doorway, gate, camp or side treasure in their immediate radius.

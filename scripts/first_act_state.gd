@@ -105,24 +105,28 @@ func load_saved() -> bool:
         if not FileAccess.file_exists(path):
             continue
         var payload: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
-        if not _valid_payload(payload):
-            continue
-        var d: Dictionary = payload
-        chapter = clampi(int(d["chapter"]), 0, 72)
-        scene_index = maxi(0, int(d["scene"]))
-        task_index = maxi(0, int(d["task"]))
-        dialogue_seen = bool(d["dialogue_seen"])
-        gold = maxi(0, int(d["gold"]))
-        potions = clampi(int(d["potions"]), 0, 999)
-        flags = d["flags"].duplicate(true)
-        inventory = d["inventory"].duplicate(true)
-        rpg = d.get("rpg", {}).duplicate(true)
-        actors.clear()
-        for record in d["actors"]:
-            actors.append(record.duplicate(true))
-        play_seconds = float(d.get("play_seconds", 0.0))
-        return true
+        if restore_snapshot(payload):
+            return true
     return false
+
+func restore_snapshot(value: Variant) -> bool:
+    if not _valid_payload(value):
+        return false
+    var d: Dictionary = value
+    chapter = clampi(int(d["chapter"]),0,72)
+    scene_index = maxi(0,int(d["scene"]))
+    task_index = maxi(0,int(d["task"]))
+    dialogue_seen = bool(d["dialogue_seen"])
+    gold = maxi(0,int(d["gold"]))
+    potions = clampi(int(d["potions"]),0,999)
+    flags = d["flags"].duplicate(true)
+    inventory = d["inventory"].duplicate(true)
+    rpg = d.get("rpg",{}).duplicate(true)
+    actors.clear()
+    for record in d["actors"]:
+        actors.append(record.duplicate(true))
+    play_seconds = float(d.get("play_seconds",0.0))
+    return true
 
 func _valid_payload(value: Variant) -> bool:
     if not (value is Dictionary):

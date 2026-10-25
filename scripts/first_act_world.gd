@@ -27,6 +27,7 @@ const SITES: Dictionary = {
 }
 var chapter: int = 0
 var custom_region: String = ""
+var map_profile: Dictionary = {}
 var root: Node2D
 var scenery: Node2D
 var layer: TileMapLayer
@@ -134,9 +135,13 @@ func _make_tiles() -> void:
     layer.tile_set = tile_set
     layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     layer.z_index = -5
+    if not map_profile.is_empty():
+        layer.modulate = map_profile.get("color",Color.WHITE)
     root.add_child(layer)
-    var coast: bool = chapter in [2, 5, 6] or (chapter > 6 and int((chapter - 1) / 6) % 3 == 0)
-    var dungeon: bool = chapter == 3 or (chapter > 6 and int((chapter - 1) / 6) % 3 == 2)
+    var map_type: String = str(map_profile.get("kind","field"))
+    var map_seed: int = absi(int(map_profile.get("seed",chapter)))
+    var coast: bool = map_type in ["field","landmark","route"] or chapter in [2, 5, 6]
+    var dungeon: bool = map_type in ["dungeon","hall","worksite"] or chapter == 3
     for y in range(HEIGHT):
         for x in range(WIDTH):
             var sea_edge: bool = coast and (x <= 2 or y >= HEIGHT - 3 or (chapter == 5 and y >= 23 and x > 23))
@@ -146,7 +151,7 @@ func _make_tiles() -> void:
                 layer.set_cell(Vector2i(x, y), 1 if sea_edge else 0, Vector2i((x + y) % 4, 2 if sea_edge else 6))
             else:
                 var path: bool = x >= 5 and x <= 38 and (abs(y - 14) <= 2 or abs(x - 22) <= 2)
-                var ax: int = 1 if path else (x + y + chapter * 2) % 4
+                var ax: int = 1 if path else (x + y + map_seed % 4) % 4
                 var ay: int = 3 if path else (5 if dungeon else (1 if coast else 0))
                 layer.set_cell(Vector2i(x, y), 0, Vector2i(ax, ay))
     for y in range(11, 18):
@@ -164,6 +169,12 @@ func _decorate() -> void:
         objects.append_array([["rock", 14, 6], ["rock", 30, 7], ["sea_crystal", 24, 22], ["beacon", 34, 23]])
     if chapter == 4:
         objects.append_array([["barrel", 28, 6], ["barrel", 17, 23], ["crate", 37, 14]])
+    if not map_profile.is_empty():
+        var map_seed: int = absi(int(map_profile.get("seed",0)))
+        for k in range(5):
+            var xx: int = 5 + int((map_seed + k * 23) % 34)
+            var yy: int = 4 if k % 2 == 0 else 23
+            objects.append([PROPS[(map_seed + k) % PROPS.size()],xx,yy])
     for entry in objects:
         var pos := Vector2i(int(entry[1]), int(entry[2]))
         _add_sprite(str(entry[0]), pos, false)
@@ -323,4 +334,4 @@ func interact() -> void:
         interacted.emit(chosen)
 
 func region_name() -> String:
-    return REGION_NAMES[chapter] if chapter < REGION_NAMES.size() else custom_region
+    return str(map_profile.get("name",custom_region)) if not map_profile.is_empty() else (REGION_NAMES[chapter] if chapter < REGION_NAMES.size() else custom_region)

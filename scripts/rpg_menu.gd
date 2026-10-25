@@ -2,9 +2,12 @@ extends CanvasLayer
 ## 手机和桌面通用的大功能栏：十二个栏目均提供有用的数据或操作。
 signal closed()
 signal replay_ending_requested(id: String)
+signal travel_requested(map_id: String)
+signal save_slot_requested(slot: int)
+signal load_slot_requested(slot: int)
 const Core = preload("res://scripts/rpg_core.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","设置"]
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","设置"]
 var manager
 var save_state
 var root: Control
@@ -17,6 +20,9 @@ var encyclopedia: String = "monsters"
 var quest_filter: String = "全部"
 var quest_page: int = 0
 var chapter_details
+var world_router
+var game_events
+var slot_service
 
 func _ready() -> void:
     layer = 46
@@ -240,10 +246,20 @@ func render(section: String) -> void:
                 if shown >= 30:
                     break
         "世界地图":
-            _label("已发现的区域",true)
-            for region in save_state.rpg["regions"].keys():
-                _label("◆ "+str(region))
-            _label("全游戏包含 %d 项地图设计数据；新地区随剧情解锁。" % manager.records("maps").size())
+            _label("世界航路 / 42地图 · 8大地区",true)
+            if world_router == null:
+                _label("地图服务暂未加载。")
+            else:
+                var current_map: Dictionary = world_router.profile()
+                _label("当前位置：" + str(current_map.get("region_name","")) + " / " + str(current_map.get("name","")),true)
+                _label("已到访 %d/42 处（含2个旧版地图规划记录）；此页面只允许通过已解锁的相邻出口。" % world_router.visited_count())
+                for entry in world_router.neighbors():
+                    var target: String = str(entry.get("id",""))
+                    if bool(entry.get("unlocked",false)):
+                        _button(content,"前往 ◇ "+str(entry.get("name",target)),func() -> void: travel_requested.emit(target),15)
+                    else:
+                        _label("🔒 尚未解锁 · "+str(entry.get("name",target))+"（需推进该区域剧情）")
+                _label("未制作独立场景的地点暂使用可运行的地区风格地图模板，并不会被标记为正式美术已完成。")
         "地区探索":
             _label("第%d章 · 场景调查与居民见证" % save_state.chapter,true)
             if save_state.chapter < 1:
@@ -307,6 +323,30 @@ func render(section: String) -> void:
                 else:
                     _label("🔒 %s · %s（未解锁）" % [eid,ending_name])
             _label("结局的四段完整后日谈会在第72章的最终抉择后保存，可在此回放。")
+        "冒险履历":
+            _label("旅程记录 / 探索成就",true)
+            if game_events != null:
+                _label("第%d天 · %s · %s" % [int(save_state.rpg["game_clock"].get("day",1)),game_events.time_label(),game_events.phase()])
+                var badges: Dictionary = save_state.rpg.get("achievements",{})
+                for item in badges:
+                    if bool(badges[item]):
+                        _label("★ " + str(item))
+                var history: Array = game_events.history()
+                _label("最近事件（最多160条历史记录）",true)
+                for idx in range(history.size()-1,maxi(-1,history.size()-16),-1):
+                    var item: Dictionary = history[idx]
+                    _label("第%d章 · %s" % [int(item.get("chapter",0)),str(item.get("kind",""))])
+        "存档管理":
+            _label("多档位存档 · 3个独立手动槽位",true)
+            if slot_service != null:
+                for slot in range(1,4):
+                    var n: int = slot
+                    var info: Dictionary = slot_service.summary(n)
+                    _label("槽位 %d：%s" % [n,("第%d章 / %dG" % [int(info.get("chapter",0)),int(info.get("gold",0))]) if bool(info.get("exists",false)) else "空槽位"])
+                    _button(content,"写入存档 %d" % n,func() -> void: save_slot_requested.emit(n))
+                    if bool(info.get("exists",false)):
+                        _button(content,"载入存档 %d" % n,func() -> void: load_slot_requested.emit(n))
+                _label("主游戏仍自动保存到原V3路径；手动档槽位拥有独立备份。")
         "设置":
             _label("系统与存档",true)
             _button(content,"立即保存",func() -> void: _apply("已写入存档。" if save_state.save() else "存档写入失败。"))

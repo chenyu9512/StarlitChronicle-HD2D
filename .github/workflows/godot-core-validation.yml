@@ -43,5 +43,7 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_chapter_ambient.gd
       - name: Legacy chapter-72 save migration
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_legacy_ending.gd
+      - name: Game architecture world routing and persistence integration
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_architecture.gd
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20

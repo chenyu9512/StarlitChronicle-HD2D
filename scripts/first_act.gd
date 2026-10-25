@@ -10,6 +10,9 @@ const RPGCore = preload("res://scripts/rpg_core.gd")
 const RPGMenu = preload("res://scripts/rpg_menu.gd")
 const EndingDirector = preload("res://scripts/ending_director.gd")
 const ChapterAmbient = preload("res://scripts/chapter_ambient.gd")
+const WorldRegistry = preload("res://scripts/world_registry.gd")
+const GameEvents = preload("res://scripts/game_events.gd")
+const SaveSlots = preload("res://scripts/save_slots.gd")
 var progress
 var catalog
 var world
@@ -20,6 +23,10 @@ var game_core
 var adventure_menu
 var ending_director
 var chapter_ambient
+var world_router
+var game_events
+var save_slots
+var clock_tick: float = 0.0
 var active_optional_flag: String = ""
 var ending_replay_id: String = ""
 var ending_replay_scene: int = 0
@@ -38,6 +45,9 @@ func _ready() -> void:
     game_core = RPGCore.new()
     ending_director = EndingDirector.new()
     chapter_ambient = ChapterAmbient.new()
+    world_router = WorldRegistry.new()
+    game_events = GameEvents.new()
+    save_slots = SaveSlots.new()
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -66,6 +76,12 @@ func _ready() -> void:
     add_child(adventure_menu)
     adventure_menu.closed.connect(_return_to_world)
     adventure_menu.replay_ending_requested.connect(_replay_ending)
+    adventure_menu.travel_requested.connect(_travel_to)
+    adventure_menu.save_slot_requested.connect(_save_slot)
+    adventure_menu.load_slot_requested.connect(_load_slot)
+    adventure_menu.world_router = world_router
+    adventure_menu.game_events = game_events
+    adventure_menu.slot_service = save_slots
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -75,6 +91,18 @@ func _ready() -> void:
     ui.show_title(FileAccess.file_exists(StateScript.SAVE_PATH) or FileAccess.file_exists(StateScript.BACKUP_PATH))
     if not loaded:
         push_error("剧情资源载入失败：" + catalog.get_errors_text())
+
+func _process(delta: float) -> void:
+    if progress == null or game_events == null:
+        return
+    if busy:
+        return
+    progress.play_seconds += delta
+    clock_tick += delta
+    if clock_tick >= 8.0:
+        var elapsed: int = int(clock_tick / 8.0)
+        clock_tick = fmod(clock_tick,8.0)
+        game_events.advance_time(elapsed)
 
 func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("interact") and not busy:
@@ -89,6 +117,8 @@ func _start(continue_game: bool) -> void:
         progress.new_game()
         progress.save()
     game_core.bind(progress)
+    world_router.bind(progress)
+    game_events.bind(progress)
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
         # v0.3旧版结算标记没有三结局记录：迁移到终局选择，保留装备、等级与支线。
         progress.flags.erase("story.complete")
@@ -104,7 +134,9 @@ func _start(continue_game: bool) -> void:
 
 func _enter_location() -> void:
     game_core.register_chapter(progress.chapter)
-    world.custom_region = game_core.location_name(progress.chapter)
+    world_router.sync_chapter(progress.chapter)
+    world.map_profile = world_router.profile()
+    world.custom_region = str(world.map_profile.get("name",game_core.location_name(progress.chapter)))
     world.party_ids = progress.rpg.get("party", []).duplicate()
     world.build(progress.chapter, world.party_ids.size())
     world.locked = false
@@ -302,6 +334,8 @@ func _story_side_interact(target: String) -> void:
 
 func _finish_story_side(selected: Dictionary = {}) -> void:
     var result: String = game_core.advance_story_side(active_story_side, selected)
+    if result.begins_with("委托完成"):
+        game_events.record("side_quest_completed",{"id":str(active_story_side.get("id",""))})
     var branch_dialogue: Array = selected.get("branch_dialogue", [])
     _save_progress()
     if not branch_dialogue.is_empty():
@@ -409,6 +443,7 @@ func _dialogue_ended() -> void:
         "optional_inspect":
             if not active_optional_flag.is_empty():
                 progress.flags[active_optional_flag] = true
+                game_events.record("investigation",{"flag":active_optional_flag})
             active_optional_flag = ""
         "ambient_midpoint":
             progress.flags["explore.ch%03d.midpoint" % progress.chapter] = true
@@ -504,6 +539,7 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         battle = null
     if won:
         var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
+        game_events.record("battle_victory",{"boss":battle_is_boss,"xp":xp,"gold":money})
         var loot: Array[String] = game_core.roll_monster_loot(defeated_monster)
         if battle_is_boss:
             progress.flags["ch%03d.battle_won" % progress.chapter] = true
@@ -550,6 +586,7 @@ func _complete_chapter() -> void:
     if last == 72:
         _begin_ending_choice()
         return
+    game_events.record("chapter_completed",{"chapter":last})
     progress.chapter += 1
     progress.scene_index = 0
     progress.task_index = 0
@@ -630,6 +667,7 @@ func _finalize_ending() -> void:
         return
     progress.flags["story.ch072.done"] = true
     progress.flags["story.complete"] = true
+    game_events.record("chapter_completed",{"chapter":72,"ending":id})
     progress.rpg["ending_complete"] = true
     var archive: Dictionary = progress.rpg.get("ending_archive", {})
     archive[id] = true
@@ -650,6 +688,41 @@ func _replay_ending(id: String) -> void:
     ending_replay_id = id
     ending_replay_scene = 0
     _play_ending_scene()
+
+func _travel_to(map_id: String) -> void:
+    if progress.chapter < 1 or is_instance_valid(battle):
+        return
+    if not world_router.travel(map_id):
+        ui.show_message("航路尚未解锁，请先沿主线探索相邻地区。")
+        return
+    game_events.advance_time(45)
+    game_events.record("travel",{"map_id":map_id})
+    adventure_menu.close_menu()
+    _enter_location()
+    _save_progress()
+    ui.show_message("已抵达：" + str(world_router.profile().get("name",map_id)))
+
+func _save_slot(slot: int) -> void:
+    var success: bool = save_slots.save_slot(progress,slot)
+    adventure_menu.render("存档管理")
+    adventure_menu.footer.text = "槽位 %d %s" % [slot,"已保存" if success else "保存失败"]
+
+func _load_slot(slot: int) -> void:
+    if not save_slots.load_slot(progress,slot):
+        adventure_menu.footer.text = "槽位文件损坏或读取失败。"
+        return
+    game_core.bind(progress)
+    world_router.bind(progress)
+    game_events.bind(progress)
+    adventure_menu.close_menu()
+    _enter_location()
+    _save_progress()
+    if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete",false)):
+        if str(progress.rpg.get("ending_id","")).is_empty():
+            _begin_ending_choice()
+        else:
+            _play_ending_scene()
+    ui.show_message("已载入手动存档 %d。" % slot)
 
 func _save_progress() -> void:
     if not progress.save():
@@ -709,6 +782,7 @@ func _rest() -> void:
         ui.show_message("需要30 G才能休息。")
         return
     progress.gold -= 30
+    game_events.advance_time(480)
     progress.heal_all()
     _save_progress()
     ui.show_message("全队休息完毕，HP/MP完全恢复。")
@@ -729,7 +803,7 @@ func _run_cheat(command: String) -> void:
         "level":
             for i in range(progress.actors.size()):
                 var a: Dictionary = progress.actors[i]
-                a["level"] = mini(40, int(a["level"]) + 10)
+                a["level"] = mini(progress.level_cap, int(a["level"]) + 10)
                 a["max_hp"] = int(a["max_hp"]) + 120
                 a["max_mp"] = int(a["max_mp"]) + 50
                 a["attack"] = int(a["attack"]) + 30

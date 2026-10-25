@@ -123,6 +123,11 @@ func gear_stats(id: String) -> Dictionary:
         var object: Dictionary = entry("weapons",str(slots[slot])) if str(slot) == "weapon" else entry("armor",str(slots[slot]))
         for stat in ["attack","defense","magic"]:
             result[stat] += int(object.get(stat,0))
+        if str(slot) == "weapon":
+            match str(object.get("trait","")):
+                "护佑": result["defense"] += maxi(2,int(object.get("tier",1))*2)
+                "术力": result["magic"] += maxi(2,int(object.get("tier",1))*3)
+                "突刺": result["speed"] += maxi(1,int(object.get("tier",1)))
         var bonus: Dictionary = object.get("bonus",{})
         var amount: int = int(bonus.get("power",0))
         match str(bonus.get("kind","")):
@@ -132,6 +137,15 @@ func gear_stats(id: String) -> Dictionary:
             "防御": result["defense"] += amount
             "速度": result["speed"] += amount
     return result
+
+func weapon_trait(actor_id: String) -> String:
+    var slots: Dictionary = state.rpg.get("equipment",{}).get(actor_id,{})
+    var weapon_id: String = str(slots.get("weapon",""))
+    return str(entry("weapons",weapon_id).get("trait",""))
+
+func weapon_tier(actor_id: String) -> int:
+    var slots: Dictionary = state.rpg.get("equipment",{}).get(actor_id,{})
+    return maxi(0,int(entry("weapons",str(slots.get("weapon",""))).get("tier",0)))
 
 func equip(id: String, slot: String, item_id: String) -> String:
     if actor_index(id) < 0 or slot not in SLOTS or count(item_id) < 1:

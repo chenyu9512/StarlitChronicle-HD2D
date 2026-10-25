@@ -4,6 +4,7 @@ const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
+const BattleActors = preload("res://scripts/battle_actors.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -40,6 +41,7 @@ var foe_info: Label
 var report: Label
 var commands: HBoxContainer
 var portrait: TextureRect
+var actor_stage
 var vfx
 var special_button: Button
 
@@ -144,6 +146,18 @@ func _build() -> void:
     portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     root.add_child(portrait)
+    actor_stage = BattleActors.new()
+    actor_stage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    actor_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(actor_stage)
+    var actor_ids: Array = []
+    if game_core != null:
+        for member in game_state.actors:
+            if game_core.is_active(str(member.get("id",""))):
+                actor_ids.append(str(member.get("id","")))
+    var battle_settings: Dictionary = game_state.rpg.get("settings",{})
+    actor_stage.reduced_motion = bool(battle_settings.get("reduced_motion",false))
+    actor_stage.configure(game_state.actors,actor_ids)
     var lower := PanelContainer.new()
     lower.anchor_left = 0.05
     lower.anchor_right = 0.95
@@ -332,6 +346,8 @@ func _start_actor() -> void:
         if poison_damage > 0:
             member["hp"] = maxi(0,int(member.get("hp",0))-poison_damage)
             game_state.actors[hero_turn] = member
+            if is_instance_valid(actor_stage):
+                actor_stage.play_hit(actor_id,int(member["hp"]) <= 0)
         if int(member.get("hp",0)) <= 0 or bool(effect.get("skip",false)):
             turn_cursor += 1
             continue
@@ -432,7 +448,7 @@ func _act(action: String) -> void:
                         message = "%s 施展%s，治疗%s。" % [name,label,str(game_state.actors[target_index].get("name",""))]
                     healed_via_skill = true
                     if is_instance_valid(vfx):
-                        vfx.play_heal(_vfx_ally_point(),label)
+                        vfx.play_heal(_vfx_member_point(target_index),label)
                 elif kind == "shield":
                     var targets: Array[int] = []
                     if target_type == "all_allies":
@@ -512,6 +528,12 @@ func _act(action: String) -> void:
             else:
                 damage = maxi(8, combat_attack + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
+    if is_instance_valid(actor_stage):
+        actor_stage.play_action(str(member.get("id","")),action)
+        actor_stage.update_party(game_state.actors)
+    if action == "skill" and damage <= 0 and is_instance_valid(vfx):
+        var support_skill: Dictionary = _get_skill(chosen_skill)
+        vfx.play_skill(_vfx_ally_point(),_vfx_member_point(target_index),support_skill,0,str(support_skill.get("target","")) == "all_allies")
     if not healed_via_skill:
         game_state.actors[hero_turn] = member
     if damage > 0:
@@ -524,7 +546,7 @@ func _act(action: String) -> void:
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
         if is_instance_valid(vfx):
             if action == "skill":
-                vfx.play_spell(_vfx_ally_point(),_vfx_foe_point(),str(_get_skill(chosen_skill).get("element","")),damage,hit_all_enemies)
+                vfx.play_skill(_vfx_ally_point(),_vfx_foe_point(),_get_skill(chosen_skill),damage,hit_all_enemies)
             elif action == "special":
                 vfx.play_special(_vfx_foe_point(),damage)
             else:
@@ -633,6 +655,8 @@ func _enemy_strike() -> void:
         damage = 0
     member["hp"] = maxi(0, int(member["hp"]) - damage)
     game_state.actors[target] = member
+    if is_instance_valid(actor_stage):
+        actor_stage.play_hit(str(member.get("id","")),int(member["hp"]) <= 0)
     if is_instance_valid(vfx):
         vfx.play_enemy_attack(_vfx_foe_point(),_vfx_ally_point(),damage)
     if damage > 0 and int(member["hp"]) > 0:
@@ -665,8 +689,13 @@ func _vfx_foe_point() -> Vector2:
         return portrait.position + portrait.size * 0.5
     return Vector2(root.size.x*0.5,root.size.y*0.38) if is_instance_valid(root) else Vector2(576,246)
 
+func _vfx_member_point(index: int) -> Vector2:
+    if index >= 0 and index < game_state.actors.size() and is_instance_valid(actor_stage):
+        return actor_stage.actor_point(str(game_state.actors[index].get("id","")))
+    return Vector2(root.size.x*0.28,root.size.y*0.48) if is_instance_valid(root) else Vector2(322,310)
+
 func _vfx_ally_point() -> Vector2:
-    return Vector2(root.size.x*0.37,root.size.y*0.72) if is_instance_valid(root) else Vector2(426,466)
+    return _vfx_member_point(hero_turn)
 
 func _all_fallen() -> bool:
     for member in game_state.actors:
@@ -675,6 +704,8 @@ func _all_fallen() -> bool:
     return true
 
 func _redraw(message: String) -> void:
+    if is_instance_valid(actor_stage):
+        actor_stage.update_party(game_state.actors)
     report.text = message
     var header: String = "%s   HP %d/%d" % [str(enemy["name"]), int(enemy["hp"]), int(enemy["max_hp"])]
     if chapter == 5 and boss:

@@ -21,6 +21,8 @@ func _run() -> void:
     var overworld: int = 0
     var changed: int = 0
     var seen_geometry: Dictionary = {}
+    var distinct_sizes: Dictionary = {}
+    var distinct_layouts: Dictionary = {}
     for id in geo.zones.keys():
         var zone: Dictionary = geo.zone(str(id))
         if not bool(zone.get("playable",false)):
@@ -29,7 +31,14 @@ func _run() -> void:
         var authored: Dictionary = source.level(str(id))
         verify(not authored.is_empty(),"No editable V3 record for "+str(id))
         var dimensions: Array = authored.get("size",[])
-        verify(dimensions.size()==2 and int(dimensions[0])==72 and int(dimensions[1])==48,"Invalid authored V3 map dimensions: "+str(id))
+        verify(dimensions.size()==2 and int(dimensions[0])>=72 and int(dimensions[1])>=48,"Invalid authored V3 map dimensions: "+str(id))
+        var footprint_key: String = str(dimensions)
+        verify(not distinct_sizes.has(footprint_key),"Duplicate authored map dimensions: "+str(id))
+        distinct_sizes[footprint_key] = true
+        verify(authored.get("expansion_nodes",[]).size()>=2,"Missing authored sector expansion: "+str(id))
+        var layout_key: String = str([authored.get("roads",[]),authored.get("obstacles",[]),authored.get("waterways",[])])
+        verify(not distinct_layouts.has(layout_key),"Duplicate authored geometry: "+str(id))
+        distinct_layouts[layout_key]=true
         verify(authored.get("roads",[]).size()>=2,"Missing independent authored road network: "+str(id))
         var current: Dictionary = geo.layout(str(id),3)
         var previous: Dictionary = geo.layout(str(id),61)
@@ -60,7 +69,7 @@ func _run() -> void:
         verify(walls.has(Vector2i(26,27)),"Hand-authored collision patch was not applied: "+str(id))
         verify(not walls.has(Vector2i(27,27)),"Collision erase patch was not applied: "+str(id))
         verify(tiles[Vector2i(26,27)].y==4,"Hand-painted tile row was ignored: "+str(id))
-        verify(current.get("tiles",{}).size()==72*48,"Terrain has missing cells: "+str(id))
+        verify(current.get("tiles",{}).size()==int(dimensions[0])*int(dimensions[1]),"Terrain has missing cells: "+str(id))
         changed += 1
     # Map V4 compatibility regression: test the FULL layout pipeline (rather
     # than only Levels.apply) across all three playable map archetypes. An
@@ -96,6 +105,7 @@ func _run() -> void:
         verify(not (bridged.get("water_mask",{}) as Dictionary).has(Vector2i(66,36)),"Map V4 bridge is still rendered as water: "+id)
         geo.authored.levels[id] = original
     verify(examined==40,"Missing forty playable V3 datasets")
+    verify(distinct_sizes.size()==40 and distinct_layouts.size()==40,"Forty world layouts must have unique size and geometry signatures")
     verify(overworld==21,"Expected 21 wilderness/route/landmark regions after eleven towns and eight dungeons")
     if errors.is_empty():
         print("PASS: %d standalone authorable V3 definitions, %d distinct wilderness collision layouts, all quest/gate paths, independent editor collision patches" % [examined,overworld])

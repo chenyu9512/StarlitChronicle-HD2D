@@ -3312,7 +3312,28 @@
       ],
       "implementation_status": "narrative_climax_v2_text_only",
       "background": "赫西安是终幕司录者，以亲人的记忆与战争失败质问玩家是否仍选择自由。",
-      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。",
+      "narrative_lanes": [
+        {
+          "id": "hesian.ethic.no_suffering",
+          "name": "没有苦难",
+          "trigger": "ch071.crisis dialogue → battle_start",
+          "realization": "第一阶段完美回忆诱惑；伙伴以不同意见破除强制承诺"
+        },
+        {
+          "id": "hesian.ethic.no_loss",
+          "name": "没有失去",
+          "trigger": "battle_start → hp_below_50_percent",
+          "realization": "从回忆困境转为黑星夜失去的记忆压制；共同见证作为转换契机"
+        },
+        {
+          "id": "hesian.ethic.no_uncertainty",
+          "name": "没有不确定",
+          "trigger": "hp_below_50_percent → after_battle",
+          "realization": "第二战斗阶段的终极立场，在胜利后通过允许未来可被修正的对白落地"
+        }
+      ],
+      "stage_contract": "三层理念≠三段血量阶段。本版仍为两段战斗文字设计；第三理念贯穿第二阶段末尾与战后回应，禁止误报有第三血量阶段。"
     }
   ]
 }

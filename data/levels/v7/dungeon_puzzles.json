@@ -1,0 +1,432 @@
+{
+  "schema": "starlit.dungeon_puzzles.v7",
+  "notes": "Eight distinct opt-in post-quest dungeon puzzle mechanisms. Legacy two-switch chapter chest remains intact for save/quest compatibility.",
+  "maps": {
+    "map_coast_04": {
+      "name": "潮声洞窟",
+      "title": "潮痕石阀",
+      "mode": "sequence",
+      "hint": "依洞壁退潮记录依次拨动石阀：中→左→右。错序会让潮位复位。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "退潮主阀",
+          "cell": [
+            91,
+            15
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "回声潮闸",
+          "cell": [
+            89,
+            50
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "排水侧轮",
+          "cell": [
+            69,
+            51
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "潮痕石阀 · 典藏宝柜",
+        "cell": [
+          65,
+          49
+        ],
+        "icon": "crate"
+      },
+      "pattern": [
+        "b",
+        "a",
+        "c"
+      ],
+      "reward": {
+        "gold": 135,
+        "item_id": "item_ether_02",
+        "amount": 1
+      }
+    },
+    "map_oaths_04": {
+      "name": "誓石神殿",
+      "title": "守誓天平",
+      "mode": "balance",
+      "hint": "左侧压下两格，右侧卸去一格，让誓约秤停在第三道刻度。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "负重石座",
+          "cell": [
+            91,
+            30
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "轻量石盘",
+          "cell": [
+            89,
+            56
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "平衡指针",
+          "cell": [
+            70,
+            57
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "守誓天平 · 典藏宝柜",
+        "cell": [
+          66,
+          55
+        ],
+        "icon": "crate"
+      },
+      "pattern": [],
+      "target": 3,
+      "reward": {
+        "gold": 172,
+        "item_id": "item_ether_03",
+        "amount": 1
+      }
+    },
+    "map_forge_04": {
+      "name": "灰烬铁路",
+      "title": "矿轨通电板",
+      "mode": "circuit",
+      "hint": "三根电轨有彼此相连的导电片。调成红、暗、红的信号组合。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "煤车导轨",
+          "cell": [
+            81,
+            23
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "分岔继电器",
+          "cell": [
+            79,
+            52
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "应急总闸",
+          "cell": [
+            67,
+            53
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "矿轨通电板 · 典藏宝柜",
+        "cell": [
+          63,
+          51
+        ],
+        "icon": "crate"
+      },
+      "pattern": [],
+      "target": [
+        1,
+        0,
+        1
+      ],
+      "reward": {
+        "gold": 209,
+        "item_id": "item_ether_04",
+        "amount": 1
+      }
+    },
+    "map_isles_04": {
+      "name": "深潮神庙",
+      "title": "潮汐蓄水室",
+      "mode": "water_level",
+      "hint": "先抬高潮水，再利用排水阀控制水线回到第二道刻痕。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "潮汐进水口",
+          "cell": [
+            93,
+            31
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "排水石阀",
+          "cell": [
+            91,
+            50
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "水位观察灯",
+          "cell": [
+            65,
+            51
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "潮汐蓄水室 · 典藏宝柜",
+        "cell": [
+          61,
+          49
+        ],
+        "icon": "crate"
+      },
+      "pattern": [],
+      "target": 2,
+      "reward": {
+        "gold": 246,
+        "item_id": "item_ether_05",
+        "amount": 1
+      }
+    },
+    "map_mirror_04": {
+      "name": "银玻璃塔",
+      "title": "逆像折光厅",
+      "mode": "mirror",
+      "hint": "两面镜片分别指向第三道和第二道刻线，镜像切换后封印才会显形。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "左镜座",
+          "cell": [
+            81,
+            22
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "右镜座",
+          "cell": [
+            79,
+            58
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "镜面翻转盘",
+          "cell": [
+            63,
+            59
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "逆像折光厅 · 典藏宝柜",
+        "cell": [
+          59,
+          57
+        ],
+        "icon": "crate"
+      },
+      "pattern": [],
+      "target": [
+        2,
+        1
+      ],
+      "reward": {
+        "gold": 283,
+        "item_id": "item_ether_06",
+        "amount": 1
+      }
+    },
+    "map_oldland_04": {
+      "name": "星墓秘殿",
+      "title": "失序钟盘",
+      "mode": "time_phase",
+      "hint": "每次扳动都会改变时间相位：前进、倒退或跨越两刻。让三根指针的余光归于第三相。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "向前转轮",
+          "cell": [
+            83,
+            21
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "逆行转轮",
+          "cell": [
+            81,
+            58
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "时裂跳针",
+          "cell": [
+            68,
+            59
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "失序钟盘 · 典藏宝柜",
+        "cell": [
+          64,
+          57
+        ],
+        "icon": "crate"
+      },
+      "pattern": [],
+      "target": 3,
+      "reward": {
+        "gold": 320,
+        "item_id": "item_ether_07",
+        "amount": 1
+      }
+    },
+    "map_sanctum_04": {
+      "name": "岁影尽头",
+      "title": "七灯星钟",
+      "mode": "rhythm",
+      "hint": "根据祭台上的星钟节律敲击，左、远、左、中依次共鸣。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "晨星音盘",
+          "cell": [
+            91,
+            29
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "昼星音盘",
+          "cell": [
+            89,
+            62
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "远星音盘",
+          "cell": [
+            66,
+            63
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "七灯星钟 · 典藏宝柜",
+        "cell": [
+          62,
+          61
+        ],
+        "icon": "crate"
+      },
+      "pattern": [
+        "a",
+        "c",
+        "a",
+        "b"
+      ],
+      "reward": {
+        "gold": 357,
+        "item_id": "item_ether_08",
+        "amount": 1
+      }
+    },
+    "map_city_04": {
+      "name": "星灯中枢",
+      "title": "灯网继电台",
+      "mode": "dial",
+      "hint": "三组支路的旋转分配盘应依次停在第二、第一、第二档。",
+      "controls": [
+        {
+          "id": "a",
+          "name": "议事供能盘",
+          "cell": [
+            83,
+            24
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "b",
+          "name": "居民供能盘",
+          "cell": [
+            81,
+            46
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "c",
+          "name": "修复供能盘",
+          "cell": [
+            62,
+            47
+          ],
+          "icon": "star_lantern"
+        }
+      ],
+      "seal": {
+        "id": "seal",
+        "name": "灯网继电台 · 典藏宝柜",
+        "cell": [
+          58,
+          45
+        ],
+        "icon": "crate"
+      },
+      "pattern": [],
+      "target": [
+        2,
+        1,
+        2
+      ],
+      "reward": {
+        "gold": 394,
+        "item_id": "item_ether_09",
+        "amount": 1
+      }
+    }
+  }
+}

@@ -251,7 +251,10 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         _road(terrain,walls,start,gate,seed+i,1)
         gates.append({"id":destination,"cell":gate})
     # A route may not be allowed across locked chapters; physical gate is still visible.
-    return {"tiles":terrain,"blocked":walls,"features":features,"gates":gates,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
+    var wet: Dictionary = {}
+    if not dungeon and not village and not authored_level.is_empty():
+        wet = authored.open_water_tiles(authored_level,walls)
+    return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
 
 func interior(building: String,building_kind: String) -> Dictionary:
     var terrain: Dictionary = {}

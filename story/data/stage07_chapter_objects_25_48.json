@@ -1,0 +1,1279 @@
+{
+  "schema": "starlit.story.chapter_inspection.v1",
+  "status": "text_only_not_runtime_bound",
+  "note": "每章两处独立调查文本，沿用主线原有章节解锁。新增旗标为可选探索标志，不影响原主线结算。",
+  "chapters": [
+    {
+      "chapter_id": "ch025",
+      "chapter_title": "我们的第一艘船",
+      "region": "海歌港·旧船坞",
+      "objects": [
+        {
+          "id": "ch025.inspect.1",
+          "name": "旧船抵押木牌",
+          "interaction_label": "调查：旧船抵押木牌",
+          "location": "海歌港·旧船坞",
+          "description": "木牌写着未清的债，旁边还贴着催缴单，没有说明船是否还能安全出港。",
+          "chapter": "ch025",
+          "requires_flags": [
+            "ch025.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch025.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看旧船抵押木牌。木牌写着未清的债，旁边还贴着催缴单，没有说明船是否还能安全出港。"
+            }
+          ],
+          "codex_title": "我们的第一艘船：旧船抵押木牌",
+          "investigation_flag": "explore.ch025.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch025.inspect.2",
+          "name": "船底三角修补痕",
+          "interaction_label": "调查：船底三角修补痕",
+          "location": "海歌港·旧船坞",
+          "description": "一道不起眼的木工标记与澄舟手艺相同，边缘还有新近检查过的刻痕。",
+          "chapter": "ch025",
+          "requires_flags": [
+            "ch025.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch025.inspect.2.line",
+              "speaker": "朔弦",
+              "text": "船账写着已经清偿，后一页却多出一笔“失踪税”。"
+            }
+          ],
+          "codex_title": "我们的第一艘船：船底三角修补痕",
+          "investigation_flag": "explore.ch025.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch026",
+      "chapter_title": "不会归港的邮差",
+      "region": "晴汐小岛",
+      "objects": [
+        {
+          "id": "ch026.inspect.1",
+          "name": "孤岛邮筒",
+          "interaction_label": "调查：孤岛邮筒",
+          "location": "晴汐小岛",
+          "description": "同一枚邮戳落在相隔十年的信封上，铁口却一直有人擦拭。",
+          "chapter": "ch026",
+          "requires_flags": [
+            "ch026.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch026.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看孤岛邮筒。同一枚邮戳落在相隔十年的信封上，铁口却一直有人擦拭。"
+            }
+          ],
+          "codex_title": "不会归港的邮差：孤岛邮筒",
+          "investigation_flag": "explore.ch026.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch026.inspect.2",
+          "name": "无人领取的船票",
+          "interaction_label": "调查：无人领取的船票",
+          "location": "晴汐小岛",
+          "description": "票角盖着如今地图上已不存在的岛印，收件人名字依稀可辨。",
+          "chapter": "ch026",
+          "requires_flags": [
+            "ch026.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch026.inspect.2.line",
+              "speaker": "朔弦",
+              "text": "一座岛不该在同一天寄出十年的信。"
+            }
+          ],
+          "codex_title": "不会归港的邮差：无人领取的船票",
+          "investigation_flag": "explore.ch026.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch027",
+      "chapter_title": "潮声下的古国",
+      "region": "青蓝海沟·沉城",
+      "objects": [
+        {
+          "id": "ch027.inspect.1",
+          "name": "沉城撤离名册",
+          "interaction_label": "调查：沉城撤离名册",
+          "location": "青蓝海沟·沉城",
+          "description": "两份名单分别写在城门两侧，人数不同，像有人必须被排除。",
+          "chapter": "ch027",
+          "requires_flags": [
+            "ch027.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch027.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看沉城撤离名册。两份名单分别写在城门两侧，人数不同，像有人必须被排除。"
+            }
+          ],
+          "codex_title": "潮声下的古国：沉城撤离名册",
+          "investigation_flag": "explore.ch027.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch027.inspect.2",
+          "name": "深海钟楼出生簿",
+          "interaction_label": "调查：深海钟楼出生簿",
+          "location": "青蓝海沟·沉城",
+          "description": "页尾记着沉城最后一次婴儿诞生，日期比传说中的覆灭日还晚。",
+          "chapter": "ch027",
+          "requires_flags": [
+            "ch027.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch027.inspect.2.line",
+              "speaker": "伊泽",
+              "text": "这首歌里提过这座城市，只唱了离开的人。"
+            }
+          ],
+          "codex_title": "潮声下的古国：深海钟楼出生簿",
+          "investigation_flag": "explore.ch027.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch028",
+      "chapter_title": "唱给不存在之人的歌",
+      "region": "断歌礁",
+      "objects": [
+        {
+          "id": "ch028.inspect.1",
+          "name": "岩壁上的第一段歌",
+          "interaction_label": "调查：岩壁上的第一段歌",
+          "location": "断歌礁",
+          "description": "被盐水冲淡的字迹没有署名，每句都像在呼唤已经离开的水手。",
+          "chapter": "ch028",
+          "requires_flags": [
+            "ch028.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch028.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看岩壁上的第一段歌。被盐水冲淡的字迹没有署名，每句都像在呼唤已经离开的水手。"
+            }
+          ],
+          "codex_title": "唱给不存在之人的歌：岩壁上的第一段歌",
+          "investigation_flag": "explore.ch028.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch028.inspect.2",
+          "name": "钟内折起的第二段",
+          "interaction_label": "调查：钟内折起的第二段",
+          "location": "断歌礁",
+          "description": "不同笔迹在同一处押韵，像许多人替未能相见的人续写。",
+          "chapter": "ch028",
+          "requires_flags": [
+            "ch028.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch028.inspect.2.line",
+              "speaker": "伊泽",
+              "text": "字迹不是一个人写的，最后一段却有相同的押韵。"
+            }
+          ],
+          "codex_title": "唱给不存在之人的歌：钟内折起的第二段",
+          "investigation_flag": "explore.ch028.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch029",
+      "chapter_title": "无风海域",
+      "region": "静浪禁航区",
+      "objects": [
+        {
+          "id": "ch029.inspect.1",
+          "name": "被磁石动过的航标",
+          "interaction_label": "调查：被磁石动过的航标",
+          "location": "静浪禁航区",
+          "description": "星针接近时突然转向，外壳里藏着与公开航路不符的磁石。",
+          "chapter": "ch029",
+          "requires_flags": [
+            "ch029.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch029.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看被磁石动过的航标。星针接近时突然转向，外壳里藏着与公开航路不符的磁石。"
+            }
+          ],
+          "codex_title": "无风海域：被磁石动过的航标",
+          "investigation_flag": "explore.ch029.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch029.inspect.2",
+          "name": "禁航区静水图",
+          "interaction_label": "调查：禁航区静水图",
+          "location": "静浪禁航区",
+          "description": "所有船都沿同一条无风海路失踪，图上的安全航窗异常整齐。",
+          "chapter": "ch029",
+          "requires_flags": [
+            "ch029.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch029.inspect.2.line",
+              "speaker": "缇珐",
+              "text": "不是海没有风，是航标把船引进了停滞区。"
+            }
+          ],
+          "codex_title": "无风海域：禁航区静水图",
+          "investigation_flag": "explore.ch029.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch030",
+      "chapter_title": "风航灯的约定",
+      "region": "风航群岛·云礁",
+      "objects": [
+        {
+          "id": "ch030.inspect.1",
+          "name": "云礁公约石",
+          "interaction_label": "调查：云礁公约石",
+          "location": "风航群岛·云礁",
+          "description": "船队名字刻得一样大，石上的字却被新木栏遮去一半。",
+          "chapter": "ch030",
+          "requires_flags": [
+            "ch030.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch030.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看云礁公约石。船队名字刻得一样大，石上的字却被新木栏遮去一半。"
+            }
+          ],
+          "codex_title": "风航灯的约定：云礁公约石",
+          "investigation_flag": "explore.ch030.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch030.inspect.2",
+          "name": "众船潮汐簿",
+          "interaction_label": "调查：众船潮汐簿",
+          "location": "风航群岛·云礁",
+          "description": "每页由不同船长修订，原先的公开航道如今被收费章覆盖。",
+          "chapter": "ch030",
+          "requires_flags": [
+            "ch030.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch030.inspect.2.line",
+              "speaker": "朔弦",
+              "text": "以前这条路谁都能走，留下地图是为下一个船员活着回来。"
+            }
+          ],
+          "codex_title": "风航灯的约定：众船潮汐簿",
+          "investigation_flag": "explore.ch030.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch031",
+      "chapter_title": "永远晴朗的街道",
+      "region": "镜眠王都·日轮街",
+      "objects": [
+        {
+          "id": "ch031.inspect.1",
+          "name": "重复的入住簿",
+          "interaction_label": "调查：重复的入住簿",
+          "location": "镜眠王都·日轮街",
+          "description": "纸张被翻过很多次，日期却永远停在午后三时的同一天。",
+          "chapter": "ch031",
+          "requires_flags": [
+            "ch031.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch031.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看重复的入住簿。纸张被翻过很多次，日期却永远停在午后三时的同一天。"
+            }
+          ],
+          "codex_title": "永远晴朗的街道：重复的入住簿",
+          "investigation_flag": "explore.ch031.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch031.inspect.2",
+          "name": "窗边不凋的花",
+          "interaction_label": "调查：窗边不凋的花",
+          "location": "镜眠王都·日轮街",
+          "description": "叶缘既不枯萎也不生长，花泥里竟没有新的根须。",
+          "chapter": "ch031",
+          "requires_flags": [
+            "ch031.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch031.inspect.2.line",
+              "speaker": "岚音",
+              "text": "这里的人不是一起说谎，他们的昨天确实无法连到今天。"
+            }
+          ],
+          "codex_title": "永远晴朗的街道：窗边不凋的花",
+          "investigation_flag": "explore.ch031.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch032",
+      "chapter_title": "镜子背后的人",
+      "region": "镜宫回廊",
+      "objects": [
+        {
+          "id": "ch032.inspect.1",
+          "name": "温热的镜中晚餐",
+          "interaction_label": "调查：温热的镜中晚餐",
+          "location": "镜宫回廊",
+          "description": "饭菜永远不会冷，桌上却没有谁真正洗过碗的痕迹。",
+          "chapter": "ch032",
+          "requires_flags": [
+            "ch032.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch032.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看温热的镜中晚餐。饭菜永远不会冷，桌上却没有谁真正洗过碗的痕迹。"
+            }
+          ],
+          "codex_title": "镜子背后的人：温热的镜中晚餐",
+          "investigation_flag": "explore.ch032.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch032.inspect.2",
+          "name": "孩子的退出门牌",
+          "interaction_label": "调查：孩子的退出门牌",
+          "location": "镜宫回廊",
+          "description": "门上写着可自由回家，门后实际却只通往另一间同样的镜室。",
+          "chapter": "ch032",
+          "requires_flags": [
+            "ch032.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch032.inspect.2.line",
+              "speaker": "孩子",
+              "text": "在这里爸爸每天都回家，也不会生病。"
+            }
+          ],
+          "codex_title": "镜子背后的人：孩子的退出门牌",
+          "investigation_flag": "explore.ch032.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch033",
+      "chapter_title": "另一种人生",
+      "region": "七重梦庭",
+      "objects": [
+        {
+          "id": "ch033.inspect.1",
+          "name": "七重梦庭门牌",
+          "interaction_label": "调查：七重梦庭门牌",
+          "location": "七重梦庭",
+          "description": "每扇门都写着一种不同的人生，门楣上看不到返回现实的时间。",
+          "chapter": "ch033",
+          "requires_flags": [
+            "ch033.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch033.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看七重梦庭门牌。每扇门都写着一种不同的人生，门楣上看不到返回现实的时间。"
+            }
+          ],
+          "codex_title": "另一种人生：七重梦庭门牌",
+          "investigation_flag": "explore.ch033.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch033.inspect.2",
+          "name": "伙伴遗憾的留言",
+          "interaction_label": "调查：伙伴遗憾的留言",
+          "location": "七重梦庭",
+          "description": "墙上记录了他们最不愿再面对的选择，像是专为诱人留下而写。",
+          "chapter": "ch033",
+          "requires_flags": [
+            "ch033.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch033.inspect.2.line",
+              "speaker": "岚音",
+              "text": "我看见自己告诉你全部真相的那一天，你转身离开了晨露村。"
+            }
+          ],
+          "codex_title": "另一种人生：伙伴遗憾的留言",
+          "investigation_flag": "explore.ch033.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch034",
+      "chapter_title": "被创造的少女",
+      "region": "映世·无名剧场",
+      "objects": [
+        {
+          "id": "ch034.inspect.1",
+          "name": "无名剧场座牌",
+          "interaction_label": "调查：无名剧场座牌",
+          "location": "映世·无名剧场",
+          "description": "每个座位写着未实现的愿望，舞台却没有观众席。",
+          "chapter": "ch034",
+          "requires_flags": [
+            "ch034.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch034.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看无名剧场座牌。每个座位写着未实现的愿望，舞台却没有观众席。"
+            }
+          ],
+          "codex_title": "被创造的少女：无名剧场座牌",
+          "investigation_flag": "explore.ch034.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch034.inspect.2",
+          "name": "玄璃初生记录",
+          "interaction_label": "调查：玄璃初生记录",
+          "location": "映世·无名剧场",
+          "description": "最早是重复别人的愿望，后来却多出她自己写下的一句问题。",
+          "chapter": "ch034",
+          "requires_flags": [
+            "ch034.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch034.inspect.2.line",
+              "speaker": "玄璃",
+              "text": "我起初只会重复那些句子，后来开始想问为什么他们没有说。"
+            }
+          ],
+          "codex_title": "被创造的少女：玄璃初生记录",
+          "investigation_flag": "explore.ch034.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch035",
+      "chapter_title": "醒来的人们",
+      "region": "镜眠王都·疗养院",
+      "objects": [
+        {
+          "id": "ch035.inspect.1",
+          "name": "疗养院双人茶具",
+          "interaction_label": "调查：疗养院双人茶具",
+          "location": "镜眠王都·疗养院",
+          "description": "一只杯子有水痕，另一只总被老人仔细擦亮。",
+          "chapter": "ch035",
+          "requires_flags": [
+            "ch035.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch035.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看疗养院双人茶具。一只杯子有水痕，另一只总被老人仔细擦亮。"
+            }
+          ],
+          "codex_title": "醒来的人们：疗养院双人茶具",
+          "investigation_flag": "explore.ch035.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch035.inspect.2",
+          "name": "强制醒转同意书",
+          "interaction_label": "调查：强制醒转同意书",
+          "location": "镜眠王都·疗养院",
+          "description": "表格上有风险说明，却没有真正让患者表达同意的地方。",
+          "chapter": "ch035",
+          "requires_flags": [
+            "ch035.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch035.inspect.2.line",
+              "speaker": "老人",
+              "text": "在梦里，她还会提醒我茶太烫。"
+            }
+          ],
+          "codex_title": "醒来的人们：强制醒转同意书",
+          "investigation_flag": "explore.ch035.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch036",
+      "chapter_title": "镜眠灯下的真相",
+      "region": "镜眠母灯深处",
+      "objects": [
+        {
+          "id": "ch036.inspect.1",
+          "name": "静止的日光",
+          "interaction_label": "调查：静止的日光",
+          "location": "镜眠母灯深处",
+          "description": "日光停在石台上，没有升降；阴影从未随着钟声移动。",
+          "chapter": "ch036",
+          "requires_flags": [
+            "ch036.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch036.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看静止的日光。日光停在石台上，没有升降；阴影从未随着钟声移动。"
+            }
+          ],
+          "codex_title": "镜眠灯下的真相：静止的日光",
+          "investigation_flag": "explore.ch036.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch036.inspect.2",
+          "name": "早期镜眠治疗约定",
+          "interaction_label": "调查：早期镜眠治疗约定",
+          "location": "镜眠母灯深处",
+          "description": "最初注明可以随时醒来，后来新增的永久停留条款没有任何人签名。",
+          "chapter": "ch036",
+          "requires_flags": [
+            "ch036.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch036.inspect.2.line",
+              "speaker": "玄璃",
+              "text": "这部分是旧时代的医疗协议，后来被人改成了永久停留。"
+            }
+          ],
+          "codex_title": "镜眠灯下的真相：早期镜眠治疗约定",
+          "investigation_flag": "explore.ch036.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch037",
+      "chapter_title": "地图上的空白",
+      "region": "旧洲外海·无名岛",
+      "objects": [
+        {
+          "id": "ch037.inspect.1",
+          "name": "反复指向空白的罗盘",
+          "interaction_label": "调查：反复指向空白的罗盘",
+          "location": "旧洲外海·无名岛",
+          "description": "船头不论朝向哪边，指针总缓缓回到海图上的缺失处。",
+          "chapter": "ch037",
+          "requires_flags": [
+            "ch037.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch037.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看反复指向空白的罗盘。船头不论朝向哪边，指针总缓缓回到海图上的缺失处。"
+            }
+          ],
+          "codex_title": "地图上的空白：反复指向空白的罗盘",
+          "investigation_flag": "explore.ch037.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch037.inspect.2",
+          "name": "旧航页拼图",
+          "interaction_label": "调查：旧航页拼图",
+          "location": "旧洲外海·无名岛",
+          "description": "被擦去的海岸终于与船长手绘的浅水道连到一起。",
+          "chapter": "ch037",
+          "requires_flags": [
+            "ch037.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch037.inspect.2.line",
+              "speaker": "朔弦",
+              "text": "你看，歪树！就在灯塔后面的斜坡上。"
+            }
+          ],
+          "codex_title": "地图上的空白：旧航页拼图",
+          "investigation_flag": "explore.ch037.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch038",
+      "chapter_title": "一整座城的谎言",
+      "region": "旧洲·默契城",
+      "objects": [
+        {
+          "id": "ch038.inspect.1",
+          "name": "六代重叠的户籍页",
+          "interaction_label": "调查：六代重叠的户籍页",
+          "location": "旧洲·默契城",
+          "description": "同一格里多次涂改出生年份，前代的姓名透过墨迹隐约可见。",
+          "chapter": "ch038",
+          "requires_flags": [
+            "ch038.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch038.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看六代重叠的户籍页。同一格里多次涂改出生年份，前代的姓名透过墨迹隐约可见。"
+            }
+          ],
+          "codex_title": "一整座城的谎言：六代重叠的户籍页",
+          "investigation_flag": "explore.ch038.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch038.inspect.2",
+          "name": "无日期的街门牌",
+          "interaction_label": "调查：无日期的街门牌",
+          "location": "旧洲·默契城",
+          "description": "门牌不曾更换，却有人声称它属于完全不同的年代。",
+          "chapter": "ch038",
+          "requires_flags": [
+            "ch038.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch038.inspect.2.line",
+              "speaker": "书记",
+              "text": "我们用同一个日期登记，是为了省去复杂手续。"
+            }
+          ],
+          "codex_title": "一整座城的谎言：无日期的街门牌",
+          "investigation_flag": "explore.ch038.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch039",
+      "chapter_title": "叫作诺依的孩子",
+      "region": "旧洲·裂谷村",
+      "objects": [
+        {
+          "id": "ch039.inspect.1",
+          "name": "画着旧井的车票",
+          "interaction_label": "调查：画着旧井的车票",
+          "location": "旧洲·裂谷村",
+          "description": "纸背的井沿用蜡笔涂成蓝色，孩子把它折得很整齐。",
+          "chapter": "ch039",
+          "requires_flags": [
+            "ch039.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch039.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看画着旧井的车票。纸背的井沿用蜡笔涂成蓝色，孩子把它折得很整齐。"
+            }
+          ],
+          "codex_title": "叫作诺依的孩子：画着旧井的车票",
+          "investigation_flag": "explore.ch039.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch039.inspect.2",
+          "name": "裂谷救援名单",
+          "interaction_label": "调查：裂谷救援名单",
+          "location": "旧洲·裂谷村",
+          "description": "亲属去向栏留着空白，仍有人在旁边画出想去的海岸。",
+          "chapter": "ch039",
+          "requires_flags": [
+            "ch039.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch039.inspect.2.line",
+              "speaker": "诺依",
+              "text": "我们说好今天去看海。这票是她攒了很久才买的。"
+            }
+          ],
+          "codex_title": "叫作诺依的孩子：裂谷救援名单",
+          "investigation_flag": "explore.ch039.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch040",
+      "chapter_title": "历史没有正确答案",
+      "region": "岁影回廊·灰烬年代",
+      "objects": [
+        {
+          "id": "ch040.inspect.1",
+          "name": "互相矛盾的证词",
+          "interaction_label": "调查：互相矛盾的证词",
+          "location": "岁影回廊·灰烬年代",
+          "description": "两份纸都盖着见证印，却分别来自城门内外的人。",
+          "chapter": "ch040",
+          "requires_flags": [
+            "ch040.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch040.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看互相矛盾的证词。两份纸都盖着见证印，却分别来自城门内外的人。"
+            }
+          ],
+          "codex_title": "历史没有正确答案：互相矛盾的证词",
+          "investigation_flag": "explore.ch040.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch040.inspect.2",
+          "name": "封城地图",
+          "interaction_label": "调查：封城地图",
+          "location": "岁影回廊·灰烬年代",
+          "description": "同一扇门对不同街区意味着避难通道与无法逃脱的屏障。",
+          "chapter": "ch040",
+          "requires_flags": [
+            "ch040.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch040.inspect.2.line",
+              "speaker": "城内证人",
+              "text": "门关上的时候，没人问过我们想不想留下。"
+            }
+          ],
+          "codex_title": "历史没有正确答案：封城地图",
+          "investigation_flag": "explore.ch040.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch041",
+      "chapter_title": "根系之下",
+      "region": "旧洲·地脉树海",
+      "objects": [
+        {
+          "id": "ch041.inspect.1",
+          "name": "第三扇空门",
+          "interaction_label": "调查：第三扇空门",
+          "location": "旧洲·地脉树海",
+          "description": "门面没有刻字，旁边却留着未来可继续增加记录的槽口。",
+          "chapter": "ch041",
+          "requires_flags": [
+            "ch041.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch041.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看第三扇空门。门面没有刻字，旁边却留着未来可继续增加记录的槽口。"
+            }
+          ],
+          "codex_title": "根系之下：第三扇空门",
+          "investigation_flag": "explore.ch041.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch041.inspect.2",
+          "name": "根系上的无名木牌",
+          "interaction_label": "调查：根系上的无名木牌",
+          "location": "旧洲·地脉树海",
+          "description": "木牌背面有手写笔划，正面却被统一打磨成无字。",
+          "chapter": "ch041",
+          "requires_flags": [
+            "ch041.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch041.inspect.2.line",
+              "speaker": "玄璃",
+              "text": "第三扇门不是故障，它预留给尚未决定的明天。"
+            }
+          ],
+          "codex_title": "根系之下：根系上的无名木牌",
+          "investigation_flag": "explore.ch041.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch042",
+      "chapter_title": "被世界记起的人们",
+      "region": "根忆母灯坛",
+      "objects": [
+        {
+          "id": "ch042.inspect.1",
+          "name": "不完整的母灯铭刻",
+          "interaction_label": "调查：不完整的母灯铭刻",
+          "location": "根忆母灯坛",
+          "description": "石台留下一个个姓名的开头，像有人写到一半被迫停手。",
+          "chapter": "ch042",
+          "requires_flags": [
+            "ch042.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch042.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看不完整的母灯铭刻。石台留下一个个姓名的开头，像有人写到一半被迫停手。"
+            }
+          ],
+          "codex_title": "被世界记起的人们：不完整的母灯铭刻",
+          "investigation_flag": "explore.ch042.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch042.inspect.2",
+          "name": "多人共同签写的证词",
+          "interaction_label": "调查：多人共同签写的证词",
+          "location": "根忆母灯坛",
+          "description": "不同笔迹把彼此见过的人串到一起，没有一位署名为唯一主人。",
+          "chapter": "ch042",
+          "requires_flags": [
+            "ch042.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch042.inspect.2.line",
+              "speaker": "伊泽",
+              "text": "一首歌里不必有所有人的名字，很多首歌却能让每个人都有位置。"
+            }
+          ],
+          "codex_title": "被世界记起的人们：多人共同签写的证词",
+          "investigation_flag": "explore.ch042.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch043",
+      "chapter_title": "六灯的代价",
+      "region": "三誓王都·星务署",
+      "objects": [
+        {
+          "id": "ch043.inspect.1",
+          "name": "六灯蓄能盘",
+          "interaction_label": "调查：六灯蓄能盘",
+          "location": "三誓王都·星务署",
+          "description": "每重燃一盏母灯，天轨计数便多出一格，背后还有无人签批的输能路线。",
+          "chapter": "ch043",
+          "requires_flags": [
+            "ch043.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch043.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看六灯蓄能盘。每重燃一盏母灯，天轨计数便多出一格，背后还有无人签批的输能路线。"
+            }
+          ],
+          "codex_title": "六灯的代价：六灯蓄能盘",
+          "investigation_flag": "explore.ch043.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch043.inspect.2",
+          "name": "被修改的流向图",
+          "interaction_label": "调查：被修改的流向图",
+          "location": "三誓王都·星务署",
+          "description": "旧版线路通向各地，新的线路却不经居民同意直达天轨。",
+          "chapter": "ch043",
+          "requires_flags": [
+            "ch043.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch043.inspect.2.line",
+              "speaker": "缇珐",
+              "text": "我们修好的是灯，别人改掉的是输能方向。"
+            }
+          ],
+          "codex_title": "六灯的代价：被修改的流向图",
+          "investigation_flag": "explore.ch043.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch044",
+      "chapter_title": "守灯者归来",
+      "region": "群灯广场",
+      "objects": [
+        {
+          "id": "ch044.inspect.1",
+          "name": "广场家书展台",
+          "interaction_label": "调查：广场家书展台",
+          "location": "群灯广场",
+          "description": "一些人展示重获的记忆，另一些人握着再也见不到亲人的相片。",
+          "chapter": "ch044",
+          "requires_flags": [
+            "ch044.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch044.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看广场家书展台。一些人展示重获的记忆，另一些人握着再也见不到亲人的相片。"
+            }
+          ],
+          "codex_title": "守灯者归来：广场家书展台",
+          "investigation_flag": "explore.ch044.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch044.inspect.2",
+          "name": "居民意见箱",
+          "interaction_label": "调查：居民意见箱",
+          "location": "群灯广场",
+          "description": "纸条同时写着感谢与怨恨，没人可以只抽走其中一类。",
+          "chapter": "ch044",
+          "requires_flags": [
+            "ch044.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch044.inspect.2.line",
+              "speaker": "赫西安",
+              "text": "想想那个病人。灯一亮，他记起了亲人，却再也无法见她。"
+            }
+          ],
+          "codex_title": "守灯者归来：居民意见箱",
+          "investigation_flag": "explore.ch044.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch045",
+      "chapter_title": "选择安宁的人们",
+      "region": "赤炉城区·避难街",
+      "objects": [
+        {
+          "id": "ch045.inspect.1",
+          "name": "避难街裂开的相框",
+          "interaction_label": "调查：避难街裂开的相框",
+          "location": "赤炉城区·避难街",
+          "description": "相片里的人已经离去，框外有人把碎片用布仔细缠住。",
+          "chapter": "ch045",
+          "requires_flags": [
+            "ch045.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch045.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看避难街裂开的相框。相片里的人已经离去，框外有人把碎片用布仔细缠住。"
+            }
+          ],
+          "codex_title": "选择安宁的人们：避难街裂开的相框",
+          "investigation_flag": "explore.ch045.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch045.inspect.2",
+          "name": "对立阵营供水牌",
+          "interaction_label": "调查：对立阵营供水牌",
+          "location": "赤炉城区·避难街",
+          "description": "井旁贴着两块不同口号的牌子，却没有一条规定说如何给伤者送水。",
+          "chapter": "ch045",
+          "requires_flags": [
+            "ch045.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch045.inspect.2.line",
+              "speaker": "妇女",
+              "text": "我不是想害谁，我只是想再听丈夫叫我的名字。"
+            }
+          ],
+          "codex_title": "选择安宁的人们：对立阵营供水牌",
+          "investigation_flag": "explore.ch045.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch046",
+      "chapter_title": "黑星升起",
+      "region": "天顶观测站",
+      "objects": [
+        {
+          "id": "ch046.inspect.1",
+          "name": "手动紧急闸",
+          "interaction_label": "调查：手动紧急闸",
+          "location": "天顶观测站",
+          "description": "旧闸柄连接七灯旧式分流结构，但控制台如今只剩一枚总开关。",
+          "chapter": "ch046",
+          "requires_flags": [
+            "ch046.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch046.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看手动紧急闸。旧闸柄连接七灯旧式分流结构，但控制台如今只剩一枚总开关。"
+            }
+          ],
+          "codex_title": "黑星升起：手动紧急闸",
+          "investigation_flag": "explore.ch046.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch046.inspect.2",
+          "name": "倒转的天顶指针",
+          "interaction_label": "调查：倒转的天顶指针",
+          "location": "天顶观测站",
+          "description": "所有计时器一起向回走，记录纸却继续向前卷动。",
+          "chapter": "ch046",
+          "requires_flags": [
+            "ch046.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch046.inspect.2.line",
+              "speaker": "缇珐",
+              "text": "这套控制台曾经可以分离供能，如今只留一个总开关。"
+            }
+          ],
+          "codex_title": "黑星升起：倒转的天顶指针",
+          "investigation_flag": "explore.ch046.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch047",
+      "chapter_title": "破碎的同行之誓",
+      "region": "三誓王都·撤离城门",
+      "objects": [
+        {
+          "id": "ch047.inspect.1",
+          "name": "城门贵族通行册",
+          "interaction_label": "调查：城门贵族通行册",
+          "location": "三誓王都·撤离城门",
+          "description": "名单按姓氏排序，无法行走的伤者被写在最末页。",
+          "chapter": "ch047",
+          "requires_flags": [
+            "ch047.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch047.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看城门贵族通行册。名单按姓氏排序，无法行走的伤者被写在最末页。"
+            }
+          ],
+          "codex_title": "破碎的同行之誓：城门贵族通行册",
+          "investigation_flag": "explore.ch047.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch047.inspect.2",
+          "name": "未归者撤离牌",
+          "interaction_label": "调查：未归者撤离牌",
+          "location": "三誓王都·撤离城门",
+          "description": "撤离车号仍在，几名未能上车的居民用指尖在牌上划了姓名。",
+          "chapter": "ch047",
+          "requires_flags": [
+            "ch047.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch047.inspect.2.line",
+              "speaker": "雷索",
+              "text": "因为有人改了规则。不是因为他们更应该活。"
+            }
+          ],
+          "codex_title": "破碎的同行之誓：未归者撤离牌",
+          "investigation_flag": "explore.ch047.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch048",
+      "chapter_title": "漫长的告别",
+      "region": "潮歌灯塔·黑星之夜",
+      "objects": [
+        {
+          "id": "ch048.inspect.1",
+          "name": "灯塔最后一盏航标",
+          "interaction_label": "调查：灯塔最后一盏航标",
+          "location": "潮歌灯塔·黑星之夜",
+          "description": "灯光仍在呼吸般忽明忽暗，船只却只剩最后一趟出港机会。",
+          "chapter": "ch048",
+          "requires_flags": [
+            "ch048.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch048.inspect.1.line",
+              "speaker": "旁白",
+              "text": "仔细查看灯塔最后一盏航标。灯光仍在呼吸般忽明忽暗，船只却只剩最后一趟出港机会。"
+            }
+          ],
+          "codex_title": "漫长的告别：灯塔最后一盏航标",
+          "investigation_flag": "explore.ch048.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch048.inspect.2",
+          "name": "通往永昼的窄光门",
+          "interaction_label": "调查：通往永昼的窄光门",
+          "location": "潮歌灯塔·黑星之夜",
+          "description": "门边没有锁孔，刻着一种诱人停下的安慰句子。",
+          "chapter": "ch048",
+          "requires_flags": [
+            "ch048.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch048.inspect.2.line",
+              "speaker": "赫西安残响",
+              "text": "你可以停下来。你已经见过尽力之后的失败。"
+            }
+          ],
+          "codex_title": "漫长的告别：通往永昼的窄光门",
+          "investigation_flag": "explore.ch048.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    }
+  ]
+}

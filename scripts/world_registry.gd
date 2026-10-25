@@ -167,6 +167,34 @@ func neighbors() -> Array:
         result.append(info)
     return result
 
+func shortest_route(target: String) -> Array[String]:
+    # Navigation aid only: each leg still uses can_travel and the saved discovery locks.
+    var route: Array[String] = []
+    if state == null or not is_available(target):
+        return route
+    var initial: String = current_map()
+    if target == initial:
+        route.append(initial)
+        return route
+    var seen: Dictionary = {initial:""}
+    var queue: Array[String] = [initial]
+    var offset: int = 0
+    while offset < queue.size() and not seen.has(target):
+        var here: String = queue[offset]
+        offset += 1
+        for value in maps[here].get("neighbors",[]):
+            var next_id: String = str(value)
+            if not seen.has(next_id) and is_available(next_id):
+                seen[next_id] = here
+                queue.append(next_id)
+    if not seen.has(target):
+        return route
+    var backtrack: String = target
+    while not backtrack.is_empty():
+        route.push_front(backtrack)
+        backtrack = str(seen.get(backtrack,""))
+    return route
+
 func can_travel(target: String) -> bool:
     if state == null or target == current_map() or not is_available(target):
         return false

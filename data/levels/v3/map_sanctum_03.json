@@ -1,0 +1,160 @@
+{
+  "schema_version": 3,
+  "map_id": "map_sanctum_03",
+  "title": "反转星穹",
+  "biome": "celestial",
+  "category": "route",
+  "design_intent": "浮空星轨和断桥",
+  "size": [
+    72,
+    48
+  ],
+  "roads": [
+    {
+      "id": "route-primary",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          15
+        ],
+        [
+          37,
+          24
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-ridge",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          18,
+          36
+        ],
+        [
+          40,
+          37
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-secret",
+      "width": 1,
+      "points": [
+        [
+          37,
+          24
+        ],
+        [
+          40,
+          11
+        ],
+        [
+          56,
+          16
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          8
+        ],
+        [
+          33,
+          8
+        ],
+        [
+          64,
+          10
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          42
+        ],
+        [
+          35,
+          42
+        ],
+        [
+          64,
+          44
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "safe-camp",
+      "center": [
+        24,
+        14
+      ],
+      "radius": 3
+    },
+    {
+      "id": "scenic-lane",
+      "center": [
+        60,
+        35
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "landscape-view",
+      "cell": [
+        57,
+        14
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "old-waystone",
+      "cell": [
+        20,
+        33
+      ],
+      "kind": "rock"
+    }
+  ],
+  "paint_overrides": [],
+  "collision_overrides": [],
+  "revision": 1
+}

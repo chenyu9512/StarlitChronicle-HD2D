@@ -1,0 +1,184 @@
+{
+  "schema_version": 3,
+  "map_id": "map_isles_02",
+  "title": "五色环礁",
+  "biome": "archipelago",
+  "category": "field",
+  "design_intent": "群岛水路与石桥",
+  "size": [
+    72,
+    48
+  ],
+  "roads": [
+    {
+      "id": "route-primary",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          14
+        ],
+        [
+          37,
+          23
+        ],
+        [
+          56,
+          15
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-ridge",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          17,
+          36
+        ],
+        [
+          40,
+          39
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-secret",
+      "width": 1,
+      "points": [
+        [
+          37,
+          23
+        ],
+        [
+          40,
+          10
+        ],
+        [
+          56,
+          15
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 2,
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          33,
+          7
+        ],
+        [
+          64,
+          8
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          40
+        ],
+        [
+          35,
+          40
+        ],
+        [
+          64,
+          41
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "tidal-channel",
+      "width": 4,
+      "points": [
+        [
+          67,
+          6
+        ],
+        [
+          61,
+          16
+        ],
+        [
+          67,
+          31
+        ],
+        [
+          66,
+          43
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "safe-camp",
+      "center": [
+        24,
+        14
+      ],
+      "radius": 3
+    },
+    {
+      "id": "scenic-lane",
+      "center": [
+        60,
+        35
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "landscape-view",
+      "cell": [
+        57,
+        13
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "old-waystone",
+      "cell": [
+        19,
+        33
+      ],
+      "kind": "rock"
+    }
+  ],
+  "paint_overrides": [],
+  "collision_overrides": [],
+  "revision": 1
+}

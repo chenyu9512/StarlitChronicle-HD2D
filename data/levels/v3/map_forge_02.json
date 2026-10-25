@@ -1,0 +1,160 @@
+{
+  "schema_version": 3,
+  "map_id": "map_forge_02",
+  "title": "烟塔工坊",
+  "biome": "volcanic",
+  "category": "field",
+  "design_intent": "火山灰台地与古代矿道",
+  "size": [
+    72,
+    48
+  ],
+  "roads": [
+    {
+      "id": "route-primary",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          14
+        ],
+        [
+          36,
+          23
+        ],
+        [
+          56,
+          15
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-ridge",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          17,
+          35
+        ],
+        [
+          39,
+          39
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-secret",
+      "width": 1,
+      "points": [
+        [
+          36,
+          23
+        ],
+        [
+          38,
+          10
+        ],
+        [
+          56,
+          15
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 2,
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          33,
+          6
+        ],
+        [
+          64,
+          8
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          40
+        ],
+        [
+          35,
+          39
+        ],
+        [
+          64,
+          41
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "safe-camp",
+      "center": [
+        24,
+        14
+      ],
+      "radius": 3
+    },
+    {
+      "id": "scenic-lane",
+      "center": [
+        60,
+        35
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "landscape-view",
+      "cell": [
+        55,
+        13
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "old-waystone",
+      "cell": [
+        19,
+        35
+      ],
+      "kind": "rock"
+    }
+  ],
+  "paint_overrides": [],
+  "collision_overrides": [],
+  "revision": 1
+}

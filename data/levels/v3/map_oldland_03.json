@@ -1,0 +1,160 @@
+{
+  "schema_version": 3,
+  "map_id": "map_oldland_03",
+  "title": "时裂峡谷",
+  "biome": "badlands",
+  "category": "route",
+  "design_intent": "旧洲风蚀峡谷",
+  "size": [
+    72,
+    48
+  ],
+  "roads": [
+    {
+      "id": "route-primary",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          15
+        ],
+        [
+          36,
+          24
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-ridge",
+      "width": 1,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          18,
+          35
+        ],
+        [
+          39,
+          37
+        ],
+        [
+          60,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "route-secret",
+      "width": 1,
+      "points": [
+        [
+          36,
+          24
+        ],
+        [
+          38,
+          11
+        ],
+        [
+          56,
+          16
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          8
+        ],
+        [
+          33,
+          7
+        ],
+        [
+          64,
+          10
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          42
+        ],
+        [
+          35,
+          41
+        ],
+        [
+          64,
+          44
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "safe-camp",
+      "center": [
+        24,
+        14
+      ],
+      "radius": 3
+    },
+    {
+      "id": "scenic-lane",
+      "center": [
+        60,
+        35
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "landscape-view",
+      "cell": [
+        55,
+        14
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "old-waystone",
+      "cell": [
+        20,
+        35
+      ],
+      "kind": "rock"
+    }
+  ],
+  "paint_overrides": [],
+  "collision_overrides": [],
+  "revision": 1
+}

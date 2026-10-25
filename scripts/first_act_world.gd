@@ -8,6 +8,7 @@ const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
+const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
@@ -50,6 +51,7 @@ var npc_positions: Dictionary = {}
 var story_marker_ids: Array[String] = []
 var story_marker_signature: String = ""
 var story_marker_positions: Dictionary = {}
+var scene_director = SceneDirector.new()
 var interior_building: String = ""
 var interior_kind: String = ""
 var exterior_position: Vector2 = Vector2.ZERO
@@ -363,18 +365,22 @@ func _clear_story_world_markers() -> void:
     story_marker_ids.clear()
     story_marker_positions.clear()
 
-func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String,branch: String = "") -> void:
+func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String,branch: String = "", art_override: String = "", phase: String = "") -> void:
     var marker: Node2D
     if kind == "npc":
         var npc = NPCVisual.new()
         npc.setup({"name":caption,"role":"quest"})
         npc.modulate = Color("9eebd4") if branch == "a" else (Color("efd09d") if branch == "b" else Color.WHITE)
+        if phase == "revisit":
+            npc.modulate = npc.modulate.lerp(Color("bdc4ff"),0.32)
+        elif phase == "community":
+            npc.modulate = npc.modulate.lerp(Color("ffe5a8"),0.19)
         marker = npc
         marker.z_index = 5
         marker.position = Vector2(cell*TILE)+Vector2(16,16)
         scenery.add_child(marker)
     else:
-        var art: String = "sea_crystal" if kind == "evidence" else "sign"
+        var art: String = art_override if not art_override.is_empty() else ("sea_crystal" if kind == "evidence" else "sign")
         var obj: Sprite2D = _add_sprite(art,cell,false,true)
         obj.modulate = Color("a2e8f1") if kind == "evidence" else Color("f2d79a")
         marker = obj
@@ -459,8 +465,9 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
         if spot.x<0:
             continue
         occupied.append(spot)
+        var hint_plan: Dictionary = scene_director.stage(str(e.get("quest_id","")),e,0)
         _story_sprite("questhint:"+str(e["id"]),"npc",spot,
-            str(info.get("story_npc","见证人")),str(e.get("branch","")))
+            str(hint_plan.get("label",info.get("story_npc","见证人"))),str(e.get("branch","")),"",str(e.get("kind","")))
         shown+=1
         if shown>=6:
             break
@@ -470,10 +477,11 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
             var point: Vector2i = binder.position_for(info,reachable,occupied,currently)
             if point.x>=0:
                 occupied.append(point)
-                var role: String = ["npc","evidence","notice"][clampi(currently,0,2)]
-                var speaker: String = str(info.get("story_npc","见证人"))
-                var name_text: String = speaker if role == "npc" else ("调查证物" if role == "evidence" else "事件记录")
-                _story_sprite("branchmap:"+str(chosen["id"])+":"+str(currently),role,point,name_text,str(chosen.get("branch","")))
+                var scene_plan: Dictionary = scene_director.stage(str(chosen.get("quest_id","")),chosen,currently)
+                var role: String = str(scene_plan.get("role",["npc","evidence","notice"][clampi(currently,0,2)]))
+                var name_text: String = str(scene_plan.get("label",info.get("story_npc","见证人")))
+                _story_sprite("branchmap:"+str(chosen["id"])+":"+str(currently),role,point,name_text,
+                    str(chosen.get("branch","")),str(scene_plan.get("prop","")),str(chosen.get("kind","")))
     return {"chosen":chosen,"local":local_branch,"original_here":original_here}
 
 func _resident_spot(target: Vector2i,used: Dictionary) -> Vector2i:

@@ -239,6 +239,14 @@ func _build_sites() -> void:
         nodes["interior_service"] = _add_sprite("beacon",Vector2i(29,17),false,true)
         nodes["interior_storage"] = _add_sprite("barrel",Vector2i(45,19),false,true)
         return
+    var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))
+    if archetype == "dungeon":
+        nodes["dungeon_switch_a"] = _add_sprite("beacon",Vector2i(19,14),false,true)
+        nodes["dungeon_switch_b"] = _add_sprite("sea_crystal",Vector2i(53,16),false,true)
+        nodes["dungeon_chest"] = _add_sprite("crate",Vector2i(54,36),false,true)
+    elif archetype in ["field","route","landmark"]:
+        nodes["wild_cache"] = _add_sprite("crate",Vector2i(60,35),false,true)
+        nodes["wild_camp"] = _add_sprite("star_lantern",Vector2i(24,14),false,true)
     for gate in terrain_layout.get("gates",[]):
         var id: String = str(gate.get("id",""))
         if not id.is_empty():

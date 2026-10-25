@@ -14,6 +14,7 @@ const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
+const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
 const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
     "冒险": ["任务","剧情后续","世界地图","地区探索","冒险履历"],
@@ -40,6 +41,7 @@ var section_tabs: HBoxContainer
 var branch_runtime
 var chapter_details
 var discovery_catalog = WorldDiscoveries.new()
+var dungeon_puzzle_catalog = WorldDungeonPuzzles.new()
 var world_router
 var game_events
 var slot_service
@@ -380,8 +382,19 @@ func render(section: String) -> void:
                     if bool(save_state.flags.get(discovery_catalog.flag(str(place),str(event.get("id",""))),false)):
                         acquired += 1
             _label("世界探索档案 · %d / 120 处" % acquired,true)
+            var solved_total: int = 0
+            for dungeon_id in dungeon_puzzle_catalog.maps.keys():
+                if bool(dungeon_puzzle_catalog.snapshot(save_state,str(dungeon_id)).get("claimed",false)):
+                    solved_total += 1
+            _label("独立地下城机关 · %d / 8" % solved_total)
             if world_router != null:
                 var location: String = world_router.current_map()
+                var dungeon_spec: Dictionary = dungeon_puzzle_catalog.config(location)
+                if not dungeon_spec.is_empty():
+                    var cleared: bool = bool(dungeon_puzzle_catalog.snapshot(save_state,location).get("claimed",false))
+                    _label(("✓ " if cleared else "◇ ")+str(dungeon_spec.get("title","古代机关"))+(" · 已解开" if cleared else " · 尚未解开"))
+                    if not cleared:
+                        _label(str(dungeon_spec.get("hint","")))
                 var local_events: Array = discovery_catalog.entries(location)
                 if not local_events.is_empty():
                     var done: int = 0

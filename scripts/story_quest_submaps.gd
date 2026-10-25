@@ -73,9 +73,12 @@ func _init() -> void:
         var building: String = str(room.get("building_id",""))
         var map_id: String = str(room.get("map_id",""))
         var room_path: String = LAYOUT_DIR+"%s__%s.json" % [map_id,building]
-        if id.is_empty() or type not in ["companion","regional"] or
-                entries.has(id) or life_entries.has(id) or other_entries.has(id) or
-                building!="quest__"+id or not FileAccess.file_exists(room_path):
+        var invalid_room: bool = (
+            id.is_empty() or type not in ["companion","regional"]
+            or entries.has(id) or life_entries.has(id) or other_entries.has(id)
+            or building!="quest__"+id or not FileAccess.file_exists(room_path)
+        )
+        if invalid_room:
             errors.append("invalid region/companion room "+id)
             continue
         other_entries[id]=room

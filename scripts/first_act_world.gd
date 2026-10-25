@@ -255,6 +255,11 @@ func _make_tiles() -> void:
 
 func _decorate() -> void:
     if not interior_building.is_empty():
+        if interior_building.begins_with("quest__"):
+            # Authored room props are still interactive floor objects. Wall
+            # furnishing and light overlays augment rather than erase them.
+            for feature in terrain_layout.get("features",[]):
+                _add_sprite(str(feature.get("kind","barrel")),feature.get("cell",Vector2i(35,20)),false,true)
         if not str(terrain_layout.get("art_profile","")).is_empty():
             var room_art := InteriorArt.new()
             root.add_child(room_art)
@@ -550,6 +555,21 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
             if nodes.has(stage_key):
                 nodes[stage_key].position = Vector2(location*TILE)+Vector2(16,16)
                 nodes[stage_key].visible = true
+                if quest_room.is_empty():
+                    var task_evidence: Dictionary = scene_director.dossier(original_id)
+                    var prop_kind: String = "sign" if stage!=1 else str(task_evidence.get("evidence_prop","sea_crystal"))
+                    var prop_path: String = "res://assets/art/props/coast/"+prop_kind+".png"
+                    if ResourceLoader.exists(prop_path):
+                        (nodes[stage_key] as Sprite2D).texture=load(prop_path)
+                        nodes[stage_key].set_meta("quest_evidence_type",prop_kind)
+                    var task_label := Label.new()
+                    task_label.name = "QuestSpecificLocation"
+                    task_label.text = str(task_evidence.get("evidence_label","调查证物") if stage==1 else task_evidence.get("witness_name","委托人")).left(17)
+                    task_label.position=Vector2(-75,-57)
+                    task_label.custom_minimum_size.x=150
+                    task_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+                    task_label.add_theme_font_size_override("font_size",12)
+                    nodes[stage_key].add_child(task_label)
                 occupied.append(location)
     # Show up to six other quest witnesses in this sector; the tracked event
     # receives three ordered interaction roles (person, evidence, notice).

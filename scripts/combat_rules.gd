@@ -81,3 +81,20 @@ func enemy_intent(round_number: int, phase_two: bool, is_boss: bool) -> Dictiona
     if phase_two and round_number % 2 == 0:
         return {"label":"狂暴追击","multiplier":1.35,"target":"random"}
     return {"label":"普通攻击","multiplier":1.0,"target":"random"}
+
+## 九种装备特性的数据驱动结算（兼容既有81把武器的trait字段）。
+func weapon_damage(base: int, trait: String, foe: Dictionary, tier: int) -> int:
+    var raw: int = maxi(1,base)
+    match trait:
+        "破甲": raw += mini(int(foe.get("def",0)),3+tier*2)
+        "破阵": raw = roundi(raw*1.08)
+        "突刺": raw += 2+tier
+        "贯穿": raw += mini(int(foe.get("def",0)),5+tier*3)
+        "术力": raw += 2+tier*2
+        "追击": raw = roundi(raw*1.15)
+        "火伤":
+            raw += 2+tier*2
+            if str(foe.get("weakness","")) == "火": raw = roundi(raw*1.3)
+        "护佑": raw += 1
+        "增幅": raw = roundi(raw*1.12)
+    return maxi(1,raw)

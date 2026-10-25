@@ -47,6 +47,10 @@
 
 12个航页场景已增加基于正典证据的三处调查与不同结论选择（错误可重试，正确记录V3档案）；12间独立室内各自设置日夜光色、已有SVG家具与碰撞，其他108条支线的现场证据标记加入任务专属名称和物件类型。仍缺全新精绘美术与108条完整独立建筑场景。详见[第19-5批交付报告](PHASE_19_BATCH05_ART_AND_PUZZLES.md)和[12个机关数据](data/phase19_lost_page_puzzles.json)。
 
+## 第19阶段第六批｜24条生活支线的真实场景（2026-10-25）
+
+已按正典地域将24条生活支线分为19处可进入室内与5处真实户外调查地点。19间独立V4关卡具备不同地形、家具、碰撞、昼夜灯光、三处调查点及原V3存档回访；12张航页独立关卡完整保留。48伙伴与36地区任务仍需继续场景制作。详见[第19-6批交付报告](PHASE_19_BATCH06_LIFE_SCENES_DELIVERY.md)、[24条生活支线地图合同](data/phase19_life_submaps.json)。
+
 ## 项目校验
 
 - 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`

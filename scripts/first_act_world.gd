@@ -538,7 +538,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
     var local_branch: bool = binder.matches(str(chosen.get("quest_id","")),region_map)
     if not quest_room.is_empty():
         local_branch = local_branch and str(chosen.get("quest_id",""))==quest_room
-    elif quest_submaps.entries.has(str(chosen.get("quest_id",""))):
+    elif not quest_submaps.detail(str(chosen.get("quest_id",""))).is_empty():
         local_branch = false
     var possible_keys := PackedStringArray()
     for candidate in available:
@@ -581,7 +581,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
             var original_points: Array = terrain_layout.get("quest_points",[])
             if original_points.size()==3:
                 location = original_points[[0,1,2,0,2][clampi(stage,0,4)]]
-        elif not quest_submaps.entries.has(original_id) and interior_building.is_empty():
+        elif quest_submaps.detail(original_id).is_empty() and interior_building.is_empty():
             location = binder.position_for(binder.site(original_id),reachable,occupied,0)
         if location.x>=0:
             var stage_key: String = "story_stage_%d" % stage
@@ -613,7 +613,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
         var e: Dictionary = item
         if str(e.get("id",""))==current_id or not binder.matches(str(e.get("quest_id","")),region_map):
             continue
-        if quest_submaps.entries.has(str(e.get("quest_id",""))):
+        if not quest_submaps.detail(str(e.get("quest_id",""))).is_empty():
             continue
         if not interior_building.is_empty() and interior_building.begins_with("quest__"):
             continue

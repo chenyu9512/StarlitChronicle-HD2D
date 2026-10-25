@@ -1,0 +1,1127 @@
+{
+  "schema": "starlit.story.chapter_npc_state.v1",
+  "status": "text_only_not_bound",
+  "authoring_note": "每章三个状态的候选NPC话术均引用现有主线对白，附源ID；12幕章末附加12句新写的地区后续对白。原脚本不修改，正式NPC绑定后再按地点/角色筛选。",
+  "chapters": [
+    {
+      "id": "ch025",
+      "title": "我们的第一艘船",
+      "location": "海歌港·旧船坞",
+      "npc_states": {
+        "before": {
+          "id": "ch025.npc.before",
+          "speaker": "港长",
+          "text": "那艘船不卖。旧债不清，船板就是抵押。",
+          "conditions": {
+            "required_flags": [
+              "ch025.started"
+            ],
+            "without_flags": [
+              "story.ch025.done"
+            ]
+          },
+          "source_dialogue_id": "ch025.opening.l01"
+        },
+        "investigating": {
+          "id": "ch025.npc.during",
+          "speaker": "朔弦",
+          "text": "船账写着已经清偿，后一页却多出一笔“失踪税”。",
+          "conditions": {
+            "required_flags": [
+              "ch025.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch025.investigate.l03"
+        },
+        "completed": {
+          "id": "ch025.npc.complete",
+          "speaker": "朔弦",
+          "text": "逐星号。就叫这个名字吧。",
+          "conditions": {
+            "required_flags": [
+              "story.ch025.done"
+            ]
+          },
+          "source_dialogue_id": "ch025.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch026",
+      "title": "不会归港的邮差",
+      "location": "晴汐小岛",
+      "npc_states": {
+        "before": {
+          "id": "ch026.npc.before",
+          "speaker": "邮差",
+          "text": "三封信，三个收件人，没有一个地址还在地图上。",
+          "conditions": {
+            "required_flags": [
+              "ch026.started"
+            ],
+            "without_flags": [
+              "story.ch026.done"
+            ]
+          },
+          "source_dialogue_id": "ch026.opening.l01"
+        },
+        "investigating": {
+          "id": "ch026.npc.during",
+          "speaker": "朔弦",
+          "text": "一座岛不该在同一天寄出十年的信。",
+          "conditions": {
+            "required_flags": [
+              "ch026.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch026.investigate.l02"
+        },
+        "completed": {
+          "id": "ch026.npc.complete",
+          "speaker": "邮差",
+          "text": "我把信送到了。至于要不要回信，留给他们自己决定。",
+          "conditions": {
+            "required_flags": [
+              "story.ch026.done"
+            ]
+          },
+          "source_dialogue_id": "ch026.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch027",
+      "title": "潮声下的古国",
+      "location": "青蓝海沟·沉城",
+      "npc_states": {
+        "before": {
+          "id": "ch027.npc.before",
+          "speaker": "陌生吟游者",
+          "text": "你们听见了吗？它不是海浪。",
+          "conditions": {
+            "required_flags": [
+              "ch027.started"
+            ],
+            "without_flags": [
+              "story.ch027.done"
+            ]
+          },
+          "source_dialogue_id": "ch027.opening.l02"
+        },
+        "investigating": {
+          "id": "ch027.npc.during",
+          "speaker": "伊泽",
+          "text": "这首歌里提过这座城市，只唱了离开的人。",
+          "conditions": {
+            "required_flags": [
+              "ch027.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch027.investigate.l02"
+        },
+        "completed": {
+          "id": "ch027.npc.complete",
+          "speaker": "伊泽",
+          "text": "我以前唱的故事，只记得英雄出海。",
+          "conditions": {
+            "required_flags": [
+              "story.ch027.done"
+            ]
+          },
+          "source_dialogue_id": "ch027.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch028",
+      "title": "唱给不存在之人的歌",
+      "location": "断歌礁",
+      "npc_states": {
+        "before": {
+          "id": "ch028.npc.before",
+          "speaker": "伊泽",
+          "text": "我的歌只剩三段，每段都像有人故意撕断。",
+          "conditions": {
+            "required_flags": [
+              "ch028.started"
+            ],
+            "without_flags": [
+              "story.ch028.done"
+            ]
+          },
+          "source_dialogue_id": "ch028.opening.l02"
+        },
+        "investigating": {
+          "id": "ch028.npc.during",
+          "speaker": "伊泽",
+          "text": "字迹不是一个人写的，最后一段却有相同的押韵。",
+          "conditions": {
+            "required_flags": [
+              "ch028.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch028.investigate.l02"
+        },
+        "completed": {
+          "id": "ch028.npc.complete",
+          "speaker": "伊泽",
+          "text": "我以为只要我一个人记住，秘密就不会伤害别人。",
+          "conditions": {
+            "required_flags": [
+              "story.ch028.done"
+            ]
+          },
+          "source_dialogue_id": "ch028.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch029",
+      "title": "无风海域",
+      "location": "静浪禁航区",
+      "npc_states": {
+        "before": {
+          "id": "ch029.npc.before",
+          "speaker": "朔弦",
+          "text": "这地方最危险的就是看起来没有危险。",
+          "conditions": {
+            "required_flags": [
+              "ch029.started"
+            ],
+            "without_flags": [
+              "story.ch029.done"
+            ]
+          },
+          "source_dialogue_id": "ch029.opening.l02"
+        },
+        "investigating": {
+          "id": "ch029.npc.during",
+          "speaker": "缇珐",
+          "text": "不是海没有风，是航标把船引进了停滞区。",
+          "conditions": {
+            "required_flags": [
+              "ch029.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch029.investigate.l02"
+        },
+        "completed": {
+          "id": "ch029.npc.complete",
+          "speaker": "商船长",
+          "text": "要不是你们，我们连求救声也传不出去。",
+          "conditions": {
+            "required_flags": [
+              "story.ch029.done"
+            ]
+          },
+          "source_dialogue_id": "ch029.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch030",
+      "title": "风航灯的约定",
+      "location": "风航群岛·云礁",
+      "npc_states": {
+        "before": {
+          "id": "ch030.npc.before",
+          "speaker": "伊泽",
+          "text": "这里的歌全是讲远行，听起来却像在给别人定规矩。",
+          "conditions": {
+            "required_flags": [
+              "ch030.started"
+            ],
+            "without_flags": [
+              "story.ch030.done"
+            ]
+          },
+          "source_dialogue_id": "ch030.opening.l02"
+        },
+        "investigating": {
+          "id": "ch030.npc.during",
+          "speaker": "朔弦",
+          "text": "以前这条路谁都能走，留下地图是为下一个船员活着回来。",
+          "conditions": {
+            "required_flags": [
+              "ch030.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch030.investigate.l02"
+        },
+        "completed": {
+          "id": "ch030.npc.complete",
+          "speaker": "船主甲",
+          "text": "新公约第一条：任何遇险船只均可求救。",
+          "conditions": {
+            "required_flags": [
+              "story.ch030.done"
+            ]
+          },
+          "source_dialogue_id": "ch030.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch030.npc.act_ending",
+        "speaker": "海岛邮差",
+        "text": "明天的船未必准时，但只要有人愿意接力，迟到的信就还有可能到岸。",
+        "conditions": {
+          "required_flags": [
+            "story.ch030.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    },
+    {
+      "id": "ch031",
+      "title": "永远晴朗的街道",
+      "location": "镜眠王都·日轮街",
+      "npc_states": {
+        "before": {
+          "id": "ch031.npc.before",
+          "speaker": "岚音",
+          "text": "我昨天见过那位卖花的老妇，她今天仍然在说“第一朵花刚开”。",
+          "conditions": {
+            "required_flags": [
+              "ch031.started"
+            ],
+            "without_flags": [
+              "story.ch031.done"
+            ]
+          },
+          "source_dialogue_id": "ch031.opening.l02"
+        },
+        "investigating": {
+          "id": "ch031.npc.during",
+          "speaker": "岚音",
+          "text": "这里的人不是一起说谎，他们的昨天确实无法连到今天。",
+          "conditions": {
+            "required_flags": [
+              "ch031.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch031.investigate.l02"
+        },
+        "completed": {
+          "id": "ch031.npc.complete",
+          "speaker": "花贩",
+          "text": "我女儿……是不是早已走了很远？",
+          "conditions": {
+            "required_flags": [
+              "story.ch031.done"
+            ]
+          },
+          "source_dialogue_id": "ch031.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch032",
+      "title": "镜子背后的人",
+      "location": "镜宫回廊",
+      "npc_states": {
+        "before": {
+          "id": "ch032.npc.before",
+          "speaker": "朔弦",
+          "text": "我刚才看见自己小时候的码头，门却没朝同一个方向开。",
+          "conditions": {
+            "required_flags": [
+              "ch032.started"
+            ],
+            "without_flags": [
+              "story.ch032.done"
+            ]
+          },
+          "source_dialogue_id": "ch032.opening.l02"
+        },
+        "investigating": {
+          "id": "ch032.npc.during",
+          "speaker": "孩子",
+          "text": "在这里爸爸每天都回家，也不会生病。",
+          "conditions": {
+            "required_flags": [
+              "ch032.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch032.investigate.l02"
+        },
+        "completed": {
+          "id": "ch032.npc.complete",
+          "speaker": "姨妈",
+          "text": "我不知道你这么想爸爸。我总怕提起会让你难过。",
+          "conditions": {
+            "required_flags": [
+              "story.ch032.done"
+            ]
+          },
+          "source_dialogue_id": "ch032.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch033",
+      "title": "另一种人生",
+      "location": "七重梦庭",
+      "npc_states": {
+        "before": {
+          "id": "ch033.npc.before",
+          "speaker": "雷索",
+          "text": "我看到自己仍是骑士团长。那个村庄却没有留下名字。",
+          "conditions": {
+            "required_flags": [
+              "ch033.started"
+            ],
+            "without_flags": [
+              "story.ch033.done"
+            ]
+          },
+          "source_dialogue_id": "ch033.opening.l02"
+        },
+        "investigating": {
+          "id": "ch033.npc.during",
+          "speaker": "岚音",
+          "text": "我看见自己告诉你全部真相的那一天，你转身离开了晨露村。",
+          "conditions": {
+            "required_flags": [
+              "ch033.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch033.investigate.l02"
+        },
+        "completed": {
+          "id": "ch033.npc.complete",
+          "speaker": "岚音",
+          "text": "关于那张病历，我不能再说这是为了你好。",
+          "conditions": {
+            "required_flags": [
+              "story.ch033.done"
+            ]
+          },
+          "source_dialogue_id": "ch033.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch034",
+      "title": "被创造的少女",
+      "location": "映世·无名剧场",
+      "npc_states": {
+        "before": {
+          "id": "ch034.npc.before",
+          "speaker": "玄璃",
+          "text": "他们把我放在这里，像放一件损坏的道具。",
+          "conditions": {
+            "required_flags": [
+              "ch034.started"
+            ],
+            "without_flags": [
+              "story.ch034.done"
+            ]
+          },
+          "source_dialogue_id": "ch034.opening.l02"
+        },
+        "investigating": {
+          "id": "ch034.npc.during",
+          "speaker": "玄璃",
+          "text": "我起初只会重复那些句子，后来开始想问为什么他们没有说。",
+          "conditions": {
+            "required_flags": [
+              "ch034.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch034.investigate.l02"
+        },
+        "completed": {
+          "id": "ch034.npc.complete",
+          "speaker": "玄璃",
+          "text": "玄璃。这两个字是我自己选的。",
+          "conditions": {
+            "required_flags": [
+              "story.ch034.done"
+            ]
+          },
+          "source_dialogue_id": "ch034.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch035",
+      "title": "醒来的人们",
+      "location": "镜眠王都·疗养院",
+      "npc_states": {
+        "before": {
+          "id": "ch035.npc.before",
+          "speaker": "岚音",
+          "text": "我们不能把醒来当成一剂万能药。",
+          "conditions": {
+            "required_flags": [
+              "ch035.started"
+            ],
+            "without_flags": [
+              "story.ch035.done"
+            ]
+          },
+          "source_dialogue_id": "ch035.opening.l02"
+        },
+        "investigating": {
+          "id": "ch035.npc.during",
+          "speaker": "老人",
+          "text": "在梦里，她还会提醒我茶太烫。",
+          "conditions": {
+            "required_flags": [
+              "ch035.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch035.investigate.l02"
+        },
+        "completed": {
+          "id": "ch035.npc.complete",
+          "speaker": "岚音",
+          "text": "真正的治疗不该用一条命令取代另一条命令。",
+          "conditions": {
+            "required_flags": [
+              "story.ch035.done"
+            ]
+          },
+          "source_dialogue_id": "ch035.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch036",
+      "title": "镜眠灯下的真相",
+      "location": "镜眠母灯深处",
+      "npc_states": {
+        "before": {
+          "id": "ch036.npc.before",
+          "speaker": "玄璃",
+          "text": "他们不是把梦送给了居民，而是把居民留在了梦里。",
+          "conditions": {
+            "required_flags": [
+              "ch036.started"
+            ],
+            "without_flags": [
+              "story.ch036.done"
+            ]
+          },
+          "source_dialogue_id": "ch036.opening.l02"
+        },
+        "investigating": {
+          "id": "ch036.npc.during",
+          "speaker": "玄璃",
+          "text": "这部分是旧时代的医疗协议，后来被人改成了永久停留。",
+          "conditions": {
+            "required_flags": [
+              "ch036.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch036.investigate.l02"
+        },
+        "completed": {
+          "id": "ch036.npc.complete",
+          "speaker": "玄璃",
+          "text": "看，影子走了。",
+          "conditions": {
+            "required_flags": [
+              "story.ch036.done"
+            ]
+          },
+          "source_dialogue_id": "ch036.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch036.npc.act_ending",
+        "speaker": "镜眠护理师",
+        "text": "并不是每位病人醒来都会微笑。我们现在会问他需要多长时间，而不是替他宣布痊愈。",
+        "conditions": {
+          "required_flags": [
+            "story.ch036.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    },
+    {
+      "id": "ch037",
+      "title": "地图上的空白",
+      "location": "旧洲外海·无名岛",
+      "npc_states": {
+        "before": {
+          "id": "ch037.npc.before",
+          "speaker": "朔弦",
+          "text": "就在这里。每次我梦见那棵树，潮水都是这个方向。",
+          "conditions": {
+            "required_flags": [
+              "ch037.started"
+            ],
+            "without_flags": [
+              "story.ch037.done"
+            ]
+          },
+          "source_dialogue_id": "ch037.opening.l02"
+        },
+        "investigating": {
+          "id": "ch037.npc.during",
+          "speaker": "朔弦",
+          "text": "你看，歪树！就在灯塔后面的斜坡上。",
+          "conditions": {
+            "required_flags": [
+              "ch037.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch037.investigate.l02"
+        },
+        "completed": {
+          "id": "ch037.npc.complete",
+          "speaker": "朔弦",
+          "text": "这根栏杆……我小时候在这里摔掉过一颗牙。",
+          "conditions": {
+            "required_flags": [
+              "story.ch037.done"
+            ]
+          },
+          "source_dialogue_id": "ch037.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch038",
+      "title": "一整座城的谎言",
+      "location": "旧洲·默契城",
+      "npc_states": {
+        "before": {
+          "id": "ch038.npc.before",
+          "speaker": "城中书记",
+          "text": "欢迎来到我们的古城。这里自古就没有发生过灾难。",
+          "conditions": {
+            "required_flags": [
+              "ch038.started"
+            ],
+            "without_flags": [
+              "story.ch038.done"
+            ]
+          },
+          "source_dialogue_id": "ch038.opening.l02"
+        },
+        "investigating": {
+          "id": "ch038.npc.during",
+          "speaker": "书记",
+          "text": "我们用同一个日期登记，是为了省去复杂手续。",
+          "conditions": {
+            "required_flags": [
+              "ch038.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch038.investigate.l02"
+        },
+        "completed": {
+          "id": "ch038.npc.complete",
+          "speaker": "书记",
+          "text": "今天有十户人家选择查询，另外二十户还不愿意。",
+          "conditions": {
+            "required_flags": [
+              "story.ch038.done"
+            ]
+          },
+          "source_dialogue_id": "ch038.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch039",
+      "title": "叫作诺依的孩子",
+      "location": "旧洲·裂谷村",
+      "npc_states": {
+        "before": {
+          "id": "ch039.npc.before",
+          "speaker": "岚音",
+          "text": "先按受伤程度安排救治，孩子和行动不便的人走前面。",
+          "conditions": {
+            "required_flags": [
+              "ch039.started"
+            ],
+            "without_flags": [
+              "story.ch039.done"
+            ]
+          },
+          "source_dialogue_id": "ch039.opening.l02"
+        },
+        "investigating": {
+          "id": "ch039.npc.during",
+          "speaker": "诺依",
+          "text": "我们说好今天去看海。这票是她攒了很久才买的。",
+          "conditions": {
+            "required_flags": [
+              "ch039.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch039.investigate.l02"
+        },
+        "completed": {
+          "id": "ch039.npc.complete",
+          "speaker": "诺依",
+          "text": "她真的没有回来吗？",
+          "conditions": {
+            "required_flags": [
+              "story.ch039.done"
+            ]
+          },
+          "source_dialogue_id": "ch039.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch040",
+      "title": "历史没有正确答案",
+      "location": "岁影回廊·灰烬年代",
+      "npc_states": {
+        "before": {
+          "id": "ch040.npc.before",
+          "speaker": "伊泽",
+          "text": "这段史书有两个标题：救国者与囚城者。",
+          "conditions": {
+            "required_flags": [
+              "ch040.started"
+            ],
+            "without_flags": [
+              "story.ch040.done"
+            ]
+          },
+          "source_dialogue_id": "ch040.opening.l02"
+        },
+        "investigating": {
+          "id": "ch040.npc.during",
+          "speaker": "外城证人",
+          "text": "没有那扇门，我们全会消失。",
+          "conditions": {
+            "required_flags": [
+              "ch040.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch040.investigate.l02"
+        },
+        "completed": {
+          "id": "ch040.npc.complete",
+          "speaker": "伊泽",
+          "text": "我终于知道该怎么写这首歌：不替任何一方唱完全部。",
+          "conditions": {
+            "required_flags": [
+              "story.ch040.done"
+            ]
+          },
+          "source_dialogue_id": "ch040.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch041",
+      "title": "根系之下",
+      "location": "旧洲·地脉树海",
+      "npc_states": {
+        "before": {
+          "id": "ch041.npc.before",
+          "speaker": "玄璃",
+          "text": "这里每条根都通向一种被排除的未来。",
+          "conditions": {
+            "required_flags": [
+              "ch041.started"
+            ],
+            "without_flags": [
+              "story.ch041.done"
+            ]
+          },
+          "source_dialogue_id": "ch041.opening.l02"
+        },
+        "investigating": {
+          "id": "ch041.npc.during",
+          "speaker": "玄璃",
+          "text": "第三扇门不是故障，它预留给尚未决定的明天。",
+          "conditions": {
+            "required_flags": [
+              "ch041.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch041.investigate.l02"
+        },
+        "completed": {
+          "id": "ch041.npc.complete",
+          "speaker": "缇珐",
+          "text": "图纸有了，但现在的城市还没有能力建完整网络。",
+          "conditions": {
+            "required_flags": [
+              "story.ch041.done"
+            ]
+          },
+          "source_dialogue_id": "ch041.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch042",
+      "title": "被世界记起的人们",
+      "location": "根忆母灯坛",
+      "npc_states": {
+        "before": {
+          "id": "ch042.npc.before",
+          "speaker": "伊泽",
+          "text": "请大家把愿意留下的名字告诉我们。",
+          "conditions": {
+            "required_flags": [
+              "ch042.started"
+            ],
+            "without_flags": [
+              "story.ch042.done"
+            ]
+          },
+          "source_dialogue_id": "ch042.opening.l02"
+        },
+        "investigating": {
+          "id": "ch042.npc.during",
+          "speaker": "伊泽",
+          "text": "一首歌里不必有所有人的名字，很多首歌却能让每个人都有位置。",
+          "conditions": {
+            "required_flags": [
+              "ch042.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch042.investigate.l02"
+        },
+        "completed": {
+          "id": "ch042.npc.complete",
+          "speaker": "旧族代表",
+          "text": "有些事情我们仍谈不拢。至少现在可以坐下来谈。",
+          "conditions": {
+            "required_flags": [
+              "story.ch042.done"
+            ]
+          },
+          "source_dialogue_id": "ch042.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch042.npc.act_ending",
+        "speaker": "旧洲书记员",
+        "text": "同一个人可能有两个名字，仍只有一个需要被好好对待的人。户籍册总算有地方容纳这件事。",
+        "conditions": {
+          "required_flags": [
+            "story.ch042.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    },
+    {
+      "id": "ch043",
+      "title": "六灯的代价",
+      "location": "三誓王都·星务署",
+      "npc_states": {
+        "before": {
+          "id": "ch043.npc.before",
+          "speaker": "缇珐",
+          "text": "不对，这些能量不该朝同一个地方走。",
+          "conditions": {
+            "required_flags": [
+              "ch043.started"
+            ],
+            "without_flags": [
+              "story.ch043.done"
+            ]
+          },
+          "source_dialogue_id": "ch043.opening.l02"
+        },
+        "investigating": {
+          "id": "ch043.npc.during",
+          "speaker": "缇珐",
+          "text": "我们修好的是灯，别人改掉的是输能方向。",
+          "conditions": {
+            "required_flags": [
+              "ch043.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch043.investigate.l02"
+        },
+        "completed": {
+          "id": "ch043.npc.complete",
+          "speaker": "缇珐",
+          "text": "我需要时间造分流器。现有线路不能直接拆。",
+          "conditions": {
+            "required_flags": [
+              "story.ch043.done"
+            ]
+          },
+          "source_dialogue_id": "ch043.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch044",
+      "title": "守灯者归来",
+      "location": "群灯广场",
+      "npc_states": {
+        "before": {
+          "id": "ch044.npc.before",
+          "speaker": "赫西安",
+          "text": "我见过你们做过的一切。你们救了很多人，也让另一些人重新知道自己失去了什么。",
+          "conditions": {
+            "required_flags": [
+              "ch044.started"
+            ],
+            "without_flags": [
+              "story.ch044.done"
+            ]
+          },
+          "source_dialogue_id": "ch044.opening.l02"
+        },
+        "investigating": {
+          "id": "ch044.npc.during",
+          "speaker": "赫西安",
+          "text": "想想那个病人。灯一亮，他记起了亲人，却再也无法见她。",
+          "conditions": {
+            "required_flags": [
+              "ch044.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch044.investigate.l01"
+        },
+        "completed": {
+          "id": "ch044.npc.complete",
+          "speaker": "朔弦",
+          "text": "有些人真的愿意接受他。",
+          "conditions": {
+            "required_flags": [
+              "story.ch044.done"
+            ]
+          },
+          "source_dialogue_id": "ch044.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch045",
+      "title": "选择安宁的人们",
+      "location": "赤炉城区·避难街",
+      "npc_states": {
+        "before": {
+          "id": "ch045.npc.before",
+          "speaker": "岚音",
+          "text": "先把受伤的人带出来。他们投了什么票不该影响救治。",
+          "conditions": {
+            "required_flags": [
+              "ch045.started"
+            ],
+            "without_flags": [
+              "story.ch045.done"
+            ]
+          },
+          "source_dialogue_id": "ch045.opening.l02"
+        },
+        "investigating": {
+          "id": "ch045.npc.during",
+          "speaker": "妇女",
+          "text": "我不是想害谁，我只是想再听丈夫叫我的名字。",
+          "conditions": {
+            "required_flags": [
+              "ch045.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch045.investigate.l02"
+        },
+        "completed": {
+          "id": "ch045.npc.complete",
+          "speaker": "诺依",
+          "text": "原来大人吵得那么凶，也可以一起排队领水。",
+          "conditions": {
+            "required_flags": [
+              "story.ch045.done"
+            ]
+          },
+          "source_dialogue_id": "ch045.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch046",
+      "title": "黑星升起",
+      "location": "天顶观测站",
+      "npc_states": {
+        "before": {
+          "id": "ch046.npc.before",
+          "speaker": "缇珐",
+          "text": "它不是从外面飞来的，天衡灯把时间折成一个点。",
+          "conditions": {
+            "required_flags": [
+              "ch046.started"
+            ],
+            "without_flags": [
+              "story.ch046.done"
+            ]
+          },
+          "source_dialogue_id": "ch046.opening.l02"
+        },
+        "investigating": {
+          "id": "ch046.npc.during",
+          "speaker": "缇珐",
+          "text": "这套控制台曾经可以分离供能，如今只留一个总开关。",
+          "conditions": {
+            "required_flags": [
+              "ch046.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch046.investigate.l02"
+        },
+        "completed": {
+          "id": "ch046.npc.complete",
+          "speaker": "朔弦",
+          "text": "那条街昨天还在，我们还在那里吃过饭。",
+          "conditions": {
+            "required_flags": [
+              "story.ch046.done"
+            ]
+          },
+          "source_dialogue_id": "ch046.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch047",
+      "title": "破碎的同行之誓",
+      "location": "三誓王都·撤离城门",
+      "npc_states": {
+        "before": {
+          "id": "ch047.npc.before",
+          "speaker": "雷索",
+          "text": "东门有伤员，南门是儿童，西门的道路快塌了。",
+          "conditions": {
+            "required_flags": [
+              "ch047.started"
+            ],
+            "without_flags": [
+              "story.ch047.done"
+            ]
+          },
+          "source_dialogue_id": "ch047.opening.l02"
+        },
+        "investigating": {
+          "id": "ch047.npc.during",
+          "speaker": "诺依",
+          "text": "为什么他们能先走？",
+          "conditions": {
+            "required_flags": [
+              "ch047.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch047.investigate.l02"
+        },
+        "completed": {
+          "id": "ch047.npc.complete",
+          "speaker": "雷索",
+          "text": "还有人没回来。我会继续找。",
+          "conditions": {
+            "required_flags": [
+              "story.ch047.done"
+            ]
+          },
+          "source_dialogue_id": "ch047.resolve.l03"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch048",
+      "title": "漫长的告别",
+      "location": "潮歌灯塔·黑星之夜",
+      "npc_states": {
+        "before": {
+          "id": "ch048.npc.before",
+          "speaker": "岚音",
+          "text": "还有孩子没有上船。",
+          "conditions": {
+            "required_flags": [
+              "ch048.started"
+            ],
+            "without_flags": [
+              "story.ch048.done"
+            ]
+          },
+          "source_dialogue_id": "ch048.opening.l02"
+        },
+        "investigating": {
+          "id": "ch048.npc.during",
+          "speaker": "赫西安残响",
+          "text": "你可以停下来。你已经见过尽力之后的失败。",
+          "conditions": {
+            "required_flags": [
+              "ch048.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch048.investigate.l02"
+        },
+        "completed": {
+          "id": "ch048.npc.complete",
+          "speaker": "雷索",
+          "text": "还有人在等救援，我们不能停。",
+          "conditions": {
+            "required_flags": [
+              "story.ch048.done"
+            ]
+          },
+          "source_dialogue_id": "ch048.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch048.npc.act_ending",
+        "speaker": "撤离车夫",
+        "text": "那夜车走了，灯也暗了；我留下名单，是因为有人得知道谁还没有回家。",
+        "conditions": {
+          "required_flags": [
+            "story.ch048.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    }
+  ]
+}

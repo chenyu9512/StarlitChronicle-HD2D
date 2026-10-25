@@ -628,6 +628,7 @@ func _finish_story_side(selected: Dictionary = {}) -> void:
         game_events.record("side_quest_completed",{"id":str(active_story_side.get("id",""))})
     var branch_dialogue: Array = selected.get("branch_dialogue", [])
     _save_progress()
+    _focus() # Re-position the next original stage at this quest's authored site.
     if not branch_dialogue.is_empty():
         pending = "story_side_branch"
         paused_for_dialogue = true

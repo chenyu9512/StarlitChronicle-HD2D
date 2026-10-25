@@ -7,11 +7,22 @@ const LEN: int = 432
 var state
 var decoded: Dictionary = {}
 var last_reveal: Dictionary = {}
+var extents: Dictionary = {}
+
+func configure(id: String, extent: Vector2i) -> void:
+    if id.is_empty():
+        return
+    extents[id] = Vector2i(maxi(W,extent.x),maxi(H,extent.y))
+    _bytes(id)
+
+func _extent(id: String) -> Vector2i:
+    return extents.get(id,Vector2i(W,H))
 
 func bind(progress) -> void:
     state = progress
     decoded.clear()
     last_reveal.clear()
+    extents.clear()
     if state == null:
         return
     if not state.rpg.get("world") is Dictionary:
@@ -29,17 +40,32 @@ func _bytes(id: String) -> PackedByteArray:
         var stored: String = str(layers.get(id,""))
         if not stored.is_empty():
             values = Marshalls.base64_to_raw(stored)
-    if values.size() != LEN:
-        values.resize(LEN)
-        values.fill(0)
+    var extent: Vector2i = _extent(id)
+    var needed: int = int(ceil(float(extent.x*extent.y)/8.0))
+    if values.size()!=needed:
+        var migrated := PackedByteArray()
+        migrated.resize(needed)
+        migrated.fill(0)
+        if values.size()==LEN and needed!=LEN:
+            # Convert previous 72-column maps without losing explored cells.
+            for y in range(H):
+                for x in range(W):
+                    var old_bit: int = y*W+x
+                    if (int(values[old_bit/8]) & (1<<(old_bit%8)))!=0:
+                        var new_bit: int = y*extent.x+x
+                        migrated[new_bit/8] = int(migrated[new_bit/8]) | (1<<(new_bit%8))
+        values = migrated
+        if state != null:
+            state.rpg["world"]["fog"][id] = Marshalls.raw_to_base64(values)
     decoded[id] = values
     return values
 
 func revealed(id: String, x: int, y: int) -> bool:
-    if id.is_empty() or x < 0 or y < 0 or x >= W or y >= H:
+    var extent: Vector2i = _extent(id)
+    if id.is_empty() or x < 0 or y < 0 or x >= extent.x or y >= extent.y:
         return false
     var values: PackedByteArray = _bytes(id)
-    var position: int = y*W+x
+    var position: int = y*extent.x+x
     return (int(values[position/8]) & (1<<(position%8))) != 0
 
 func reveal(id: String, center: Vector2i, radius: int = 4) -> bool:
@@ -49,6 +75,7 @@ func reveal(id: String, center: Vector2i, radius: int = 4) -> bool:
     if previous == center:
         return false
     last_reveal[id] = center
+    var extent: Vector2i = _extent(id)
     var bytes: PackedByteArray = _bytes(id)
     var dirty: bool = false
     for dy in range(-radius,radius+1):
@@ -57,9 +84,9 @@ func reveal(id: String, center: Vector2i, radius: int = 4) -> bool:
                 continue
             var x: int = center.x+dx
             var y: int = center.y+dy
-            if x<0 or y<0 or x>=W or y>=H:
+            if x<0 or y<0 or x>=extent.x or y>=extent.y:
                 continue
-            var offset: int = y*W+x
+            var offset: int = y*extent.x+x
             var chunk: int = int(offset/8)
             var mask: int = 1<<(offset%8)
             if (int(bytes[chunk]) & mask)==0:
@@ -82,4 +109,5 @@ func percent(id: String) -> int:
         while item!=0:
             item &= item-1
             bits += 1
-    return roundi(float(bits)*100.0/float(W*H))
+    var extent: Vector2i = _extent(id)
+    return roundi(float(bits)*100.0/float(extent.x*extent.y))

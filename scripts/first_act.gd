@@ -396,7 +396,11 @@ func _interact(target: String) -> void:
         if bool(conversation.get("first",false)):
             game_events.record("resident_met",{"id":citizen_id,"region_id":str(world.map_profile.get("region_id",""))})
             _save_progress()
-        ui.show_message(str(conversation.get("name","居民"))+"：\n"+str(conversation.get("text","")))
+        pending = "resident_talk"
+        busy = true
+        paused_for_dialogue = true
+        world.locked = true
+        ui.show_dialogue([{"speaker":str(conversation.get("name","居民")),"text":str(conversation.get("text",""))}])
         return
     if target.begins_with("optional_"):
         _optional_event_interact(target.trim_prefix("optional_"))
@@ -668,6 +672,8 @@ func _dialogue_ended() -> void:
             _crisis_choice_complete()
             return
         "ambient_npc":
+            pass
+        "resident_talk":
             pass
         "optional_inspect":
             if not active_optional_flag.is_empty():

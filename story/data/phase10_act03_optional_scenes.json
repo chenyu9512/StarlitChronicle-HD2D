@@ -1,0 +1,548 @@
+{
+  "schema": "starlit.story.phase10.act03.optional.v1",
+  "status": "text_only_not_runtime_bound",
+  "date": "2026-10-25",
+  "notes": "第13–18章每章两场生活／深入调查候选，仅文本。插入窗口需后续在Godot开放，跳过不影响原4段主线和奖励。",
+  "scenes": [
+    {
+      "id": "ch013.p10.town",
+      "chapter_id": "ch013",
+      "title": "工牌旁的午饭盒",
+      "kind": "town",
+      "insert_after_scene_id": "ch013.opening",
+      "required_flags": [
+        "ch013.started"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉联邦·七号矿坑",
+      "dialogue": [
+        {
+          "id": "ch013.p10.town.l01",
+          "speaker": "矿工妻子",
+          "text": "我给他带了两人份的饭，井口的人却说没这个人。"
+        },
+        {
+          "id": "ch013.p10.town.l02",
+          "speaker": "阿锤",
+          "text": "饭盒上还有他的名字。就算机器不认，我也记得他爱吃咸菜。"
+        },
+        {
+          "id": "ch013.p10.town.l03",
+          "speaker": "岚音",
+          "text": "先别拿饭盒当唯一的身份凭据，我们可以和班表及邻居证词交叉核对。"
+        },
+        {
+          "id": "ch013.p10.town.l04",
+          "speaker": "主角",
+          "text": "你愿意让我把饭盒底下的刻字拓一份吗？"
+        },
+        {
+          "id": "ch013.p10.town.l05",
+          "speaker": "矿工妻子",
+          "text": "可以，但原物我要带回家。孩子还认得这个盒子。"
+        },
+        {
+          "id": "ch013.p10.town.l06",
+          "speaker": "旁白",
+          "text": "饭盒旁多了一张写着“等待核实”的纸，没有任何人替矿工宣布下落。"
+        }
+      ]
+    },
+    {
+      "id": "ch013.p10.evidence",
+      "chapter_id": "ch013",
+      "title": "断电后的矿车纸带",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch013.investigate",
+      "required_flags": [
+        "ch013.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉联邦·七号矿坑",
+      "dialogue": [
+        {
+          "id": "ch013.p10.evidence.l01",
+          "speaker": "缇珐",
+          "text": "这张纸带在断电以后还跳过十七个刻度，不能算是普通误报。"
+        },
+        {
+          "id": "ch013.p10.evidence.l02",
+          "speaker": "阿锤",
+          "text": "那时候所有人都在宿舍，谁在井下拉车？"
+        },
+        {
+          "id": "ch013.p10.evidence.l03",
+          "speaker": "主角",
+          "text": "先标出机器停止的时刻，再核对班表和提升机的位置。"
+        },
+        {
+          "id": "ch013.p10.evidence.l04",
+          "speaker": "缇珐",
+          "text": "记忆回路可能模仿工作指令，但我们需要把样本送去独立复测。"
+        },
+        {
+          "id": "ch013.p10.evidence.l05",
+          "speaker": "岚音",
+          "text": "医师记录的失忆症状不能由工程师单方面决定原因。"
+        },
+        {
+          "id": "ch013.p10.evidence.l06",
+          "speaker": "旁白",
+          "text": "纸带被分成两份抄本，分别封进工会和家属的文件袋。"
+        }
+      ]
+    },
+    {
+      "id": "ch014.p10.town",
+      "chapter_id": "ch014",
+      "title": "烧凉的邻居晚饭",
+      "kind": "town",
+      "insert_after_scene_id": "ch014.opening",
+      "required_flags": [
+        "ch014.started"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉工坊·试验台",
+      "dialogue": [
+        {
+          "id": "ch014.p10.town.l01",
+          "speaker": "工坊邻居",
+          "text": "缇珐修好我家水壶，又忘了吃我带的面包。"
+        },
+        {
+          "id": "ch014.p10.town.l02",
+          "speaker": "朔弦",
+          "text": "我看见她用螺丝刀当勺子，差点把自己也修进机器里。"
+        },
+        {
+          "id": "ch014.p10.town.l03",
+          "speaker": "缇珐",
+          "text": "那是量温用的金属探针！"
+        },
+        {
+          "id": "ch014.p10.town.l04",
+          "speaker": "岚音",
+          "text": "总之先擦干净手再吃。下午要碰电路，别空着肚子。"
+        },
+        {
+          "id": "ch014.p10.town.l05",
+          "speaker": "主角",
+          "text": "我来整理工作台，把录音结晶装进能上锁的盒子。"
+        },
+        {
+          "id": "ch014.p10.town.l06",
+          "speaker": "旁白",
+          "text": "工坊里第一次响起的是水壶烧开的声音，而不是陌生人的记忆。"
+        }
+      ]
+    },
+    {
+      "id": "ch014.p10.evidence",
+      "chapter_id": "ch014",
+      "title": "底层图纸上的新接口",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch014.investigate",
+      "required_flags": [
+        "ch014.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉工坊·试验台",
+      "dialogue": [
+        {
+          "id": "ch014.p10.evidence.l01",
+          "speaker": "缇珐",
+          "text": "这是三年前的原图，记忆采集接口当时根本不存在。"
+        },
+        {
+          "id": "ch014.p10.evidence.l02",
+          "speaker": "主角",
+          "text": "能确认什么时候加上去的吗？"
+        },
+        {
+          "id": "ch014.p10.evidence.l03",
+          "speaker": "缇珐",
+          "text": "改造记录用了另一套图号，先查采购单和审批日期。"
+        },
+        {
+          "id": "ch014.p10.evidence.l04",
+          "speaker": "岚音",
+          "text": "孩子的声音只给当事家属听，不因为我们想证明罪行就公开播放。"
+        },
+        {
+          "id": "ch014.p10.evidence.l05",
+          "speaker": "工坊邻居",
+          "text": "我愿提供那天送来的零件单，但别说我亲眼看过里面装什么。"
+        },
+        {
+          "id": "ch014.p10.evidence.l06",
+          "speaker": "旁白",
+          "text": "缇珐把原始图和新图并排固定，所有无法核实的空栏仍然空着。"
+        }
+      ]
+    },
+    {
+      "id": "ch015.p10.town",
+      "chapter_id": "ch015",
+      "title": "没有行会印章的矿灯",
+      "kind": "town",
+      "insert_after_scene_id": "ch015.opening",
+      "required_flags": [
+        "ch015.started"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉联邦·百工塔",
+      "dialogue": [
+        {
+          "id": "ch015.p10.town.l01",
+          "speaker": "学徒",
+          "text": "这盏灯能在矿道里亮四小时，评审却说我没有行会推荐所以不能试。"
+        },
+        {
+          "id": "ch015.p10.town.l02",
+          "speaker": "缇珐",
+          "text": "先让安全员检查电池和绝缘层，没人应该跳过安全要求。"
+        },
+        {
+          "id": "ch015.p10.town.l03",
+          "speaker": "雷索",
+          "text": "评审若只看出身，那不是能力考核。"
+        },
+        {
+          "id": "ch015.p10.town.l04",
+          "speaker": "岚音",
+          "text": "你愿意让我看一下手上被电烫的地方吗？别隐瞒受伤。"
+        },
+        {
+          "id": "ch015.p10.town.l05",
+          "speaker": "学徒",
+          "text": "愿意。灯要是真不安全，我也想知道哪里错了。"
+        },
+        {
+          "id": "ch015.p10.town.l06",
+          "speaker": "旁白",
+          "text": "灯具被送往公开测试台，不必先交一份终身契约。"
+        }
+      ]
+    },
+    {
+      "id": "ch015.p10.evidence",
+      "chapter_id": "ch015",
+      "title": "八室共用的试炼台",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch015.investigate",
+      "required_flags": [
+        "ch015.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉联邦·百工塔",
+      "dialogue": [
+        {
+          "id": "ch015.p10.evidence.l01",
+          "speaker": "塔内看守",
+          "text": "八间教室以前共用训练工具，后来才按公会分开收钱。"
+        },
+        {
+          "id": "ch015.p10.evidence.l02",
+          "speaker": "主角",
+          "text": "先检查每扇门上的安全告示是否完整。"
+        },
+        {
+          "id": "ch015.p10.evidence.l03",
+          "speaker": "缇珐",
+          "text": "盾牌、治疗、机械和航路等试炼各有独立评审，不能一份证书包办所有能力。"
+        },
+        {
+          "id": "ch015.p10.evidence.l04",
+          "speaker": "雷索",
+          "text": "我会示范如何在防御测试中判断撤退，不让学徒拿受伤证明勇敢。"
+        },
+        {
+          "id": "ch015.p10.evidence.l05",
+          "speaker": "塔内看守",
+          "text": "我愿意公开旧评分表，但危险设备还需要现场监督。"
+        },
+        {
+          "id": "ch015.p10.evidence.l06",
+          "speaker": "旁白",
+          "text": "八张评审表重新挂回一处，旁边多了一栏“需要再次训练”。"
+        }
+      ]
+    },
+    {
+      "id": "ch016.p10.town",
+      "chapter_id": "ch016",
+      "title": "缝进袖口的名字",
+      "kind": "town",
+      "insert_after_scene_id": "ch016.opening",
+      "required_flags": [
+        "ch016.started"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "灰砂安置区",
+      "dialogue": [
+        {
+          "id": "ch016.p10.town.l01",
+          "speaker": "老妇",
+          "text": "每次有人来重登记，我都要把丈夫的名字从袖口拆下来给人看。"
+        },
+        {
+          "id": "ch016.p10.town.l02",
+          "speaker": "岚音",
+          "text": "你可以把资料交给可信的医师保存，不需要日日拆线。"
+        },
+        {
+          "id": "ch016.p10.town.l03",
+          "speaker": "安置区女孩",
+          "text": "如果外公忘了我们，我还能像以前一样叫他吗？"
+        },
+        {
+          "id": "ch016.p10.town.l04",
+          "speaker": "老妇",
+          "text": "能。但他不愿意时，我们也得停下来听。"
+        },
+        {
+          "id": "ch016.p10.town.l05",
+          "speaker": "主角",
+          "text": "我帮你把记录抄一份，公开版不放家庭住址。"
+        },
+        {
+          "id": "ch016.p10.town.l06",
+          "speaker": "旁白",
+          "text": "老妇终于把针线收起来，名字仍在布里，也在能够查到的档案中。"
+        }
+      ]
+    },
+    {
+      "id": "ch016.p10.evidence",
+      "chapter_id": "ch016",
+      "title": "双份名册上的缺号",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch016.investigate",
+      "required_flags": [
+        "ch016.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "灰砂安置区",
+      "dialogue": [
+        {
+          "id": "ch016.p10.evidence.l01",
+          "speaker": "档案员",
+          "text": "官方册少二十七个名字，居民册却也有人被写了两回。"
+        },
+        {
+          "id": "ch016.p10.evidence.l02",
+          "speaker": "雷索",
+          "text": "先不能直接把二十七个空位认作死亡人数。"
+        },
+        {
+          "id": "ch016.p10.evidence.l03",
+          "speaker": "岚音",
+          "text": "逐项标明核实、重复、搬迁和待确认，避免再伤害家属。"
+        },
+        {
+          "id": "ch016.p10.evidence.l04",
+          "speaker": "缇珐",
+          "text": "干扰设备已经停止，但之前的纸页也可能受影响。"
+        },
+        {
+          "id": "ch016.p10.evidence.l05",
+          "speaker": "主角",
+          "text": "允许本人补充或要求不公开，不能以调查为由夺走选择权。"
+        },
+        {
+          "id": "ch016.p10.evidence.l06",
+          "speaker": "旁白",
+          "text": "档案员把每份核对日期盖在不同页边，没有急着把所有空位填满。"
+        }
+      ]
+    },
+    {
+      "id": "ch017.p10.town",
+      "chapter_id": "ch017",
+      "title": "医院备用电池清单",
+      "kind": "town",
+      "insert_after_scene_id": "ch017.opening",
+      "required_flags": [
+        "ch017.started"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉主炉",
+      "dialogue": [
+        {
+          "id": "ch017.p10.town.l01",
+          "speaker": "城南医师",
+          "text": "这些电池只够部分设备使用，哪张床先接必须由医护判断。"
+        },
+        {
+          "id": "ch017.p10.town.l02",
+          "speaker": "岚音",
+          "text": "我来协助清点，但不能让不懂病人的工匠独自决定优先次序。"
+        },
+        {
+          "id": "ch017.p10.town.l03",
+          "speaker": "缇珐",
+          "text": "我负责核对输出功率和安全接口，不碰诊疗的决定。"
+        },
+        {
+          "id": "ch017.p10.town.l04",
+          "speaker": "主角",
+          "text": "把缺口写出来并告知居民，别承诺所有人都能照常用电。"
+        },
+        {
+          "id": "ch017.p10.town.l05",
+          "speaker": "城南医师",
+          "text": "如果电池迟到，我们还有手动方案，但需要值夜的人。"
+        },
+        {
+          "id": "ch017.p10.town.l06",
+          "speaker": "旁白",
+          "text": "应急栏贴上了两位当班医师的名字，没有写“绝对安全”。"
+        }
+      ]
+    },
+    {
+      "id": "ch017.p10.evidence",
+      "chapter_id": "ch017",
+      "title": "被新螺钉盖住的回流线",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch017.investigate",
+      "required_flags": [
+        "ch017.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "赤炉主炉",
+      "dialogue": [
+        {
+          "id": "ch017.p10.evidence.l01",
+          "speaker": "缇珐",
+          "text": "这里用了军方制式螺钉，原厂不会把医院回流线锁在炮口下面。"
+        },
+        {
+          "id": "ch017.p10.evidence.l02",
+          "speaker": "朔弦",
+          "text": "如果直接扯断，最先断的可能是救护设备的电。"
+        },
+        {
+          "id": "ch017.p10.evidence.l03",
+          "speaker": "雷索",
+          "text": "先让工人确认四个阀门的实际位置，我护住安全通道。"
+        },
+        {
+          "id": "ch017.p10.evidence.l04",
+          "speaker": "主角",
+          "text": "把能断开的线和仍不确定的部分用不同颜色标清。"
+        },
+        {
+          "id": "ch017.p10.evidence.l05",
+          "speaker": "城南医师",
+          "text": "我们会给出最低供电需求；超过这个阈值，必须停止实验。"
+        },
+        {
+          "id": "ch017.p10.evidence.l06",
+          "speaker": "旁白",
+          "text": "四条回路图首次与医院的真实设备清单并排贴在控制室。"
+        }
+      ]
+    },
+    {
+      "id": "ch018.p10.town",
+      "chapter_id": "ch018",
+      "title": "低功率社区灯排",
+      "kind": "town",
+      "insert_after_scene_id": "ch018.opening",
+      "required_flags": [
+        "ch018.started"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "炉心母灯室",
+      "dialogue": [
+        {
+          "id": "ch018.p10.town.l01",
+          "speaker": "学徒",
+          "text": "过去一台大炉控制全城。现在每家工坊都得学怎么停机。"
+        },
+        {
+          "id": "ch018.p10.town.l02",
+          "speaker": "矿工妻子",
+          "text": "我们愿意帮忙，但请别再让家人被叫作燃料。"
+        },
+        {
+          "id": "ch018.p10.town.l03",
+          "speaker": "缇珐",
+          "text": "每处共享线路都要有人能关掉它，也要有人能解释为什么要关。"
+        },
+        {
+          "id": "ch018.p10.town.l04",
+          "speaker": "岚音",
+          "text": "医院先用经测试的供电支路，不能为了点灯牺牲治疗。"
+        },
+        {
+          "id": "ch018.p10.town.l05",
+          "speaker": "主角",
+          "text": "今天谁贡献了设备都记录下来，明天坏了也能找到维修人。"
+        },
+        {
+          "id": "ch018.p10.town.l06",
+          "speaker": "旁白",
+          "text": "第一排街灯亮得不整齐，却都是人们自己确认过的线路。"
+        }
+      ]
+    },
+    {
+      "id": "ch018.p10.evidence",
+      "chapter_id": "ch018",
+      "title": "被替换的社区签名表",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch018.investigate",
+      "required_flags": [
+        "ch018.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "炉心母灯室",
+      "dialogue": [
+        {
+          "id": "ch018.p10.evidence.l01",
+          "speaker": "档案管理员",
+          "text": "最初设计里有许多社区签名，后来被一枚中央印章盖在上面。"
+        },
+        {
+          "id": "ch018.p10.evidence.l02",
+          "speaker": "缇珐",
+          "text": "我想把线路责任分给各地，但也要留下共同维修的约定。"
+        },
+        {
+          "id": "ch018.p10.evidence.l03",
+          "speaker": "矿工妻子",
+          "text": "我们的记忆被使用过，这些事不能只在技术会议里说完。"
+        },
+        {
+          "id": "ch018.p10.evidence.l04",
+          "speaker": "雷索",
+          "text": "请把补偿审查和设备审查分开，任何一边都不该替另一边销账。"
+        },
+        {
+          "id": "ch018.p10.evidence.l05",
+          "speaker": "主角",
+          "text": "原件妥善封存，公开版只写需由公众监督的部分。"
+        },
+        {
+          "id": "ch018.p10.evidence.l06",
+          "speaker": "旁白",
+          "text": "归档员在旧印章旁贴上一张说明，不再把“匿名”误写成“自愿”。"
+        }
+      ]
+    }
+  ]
+}

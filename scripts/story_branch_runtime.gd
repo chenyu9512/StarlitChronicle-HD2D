@@ -143,6 +143,8 @@ func bind(progress) -> void:
         storage["seen"] = {}
     if not (storage.get("active") is Dictionary):
         storage["active"] = {}
+    if not (storage.get("field_log") is Dictionary):
+        storage["field_log"] = {}
 
 func get_event(event_id: String) -> Dictionary:
     return events.get(event_id, {})
@@ -241,21 +243,52 @@ func advance() -> bool:
         return false
     var storage: Dictionary = _storage()
     var active: Dictionary = storage.get("active",{})
-    var next_index: int = int(active.get("line",0)) + 1
+    var old_active: Dictionary = active.duplicate(true)
+    var index: int = int(active.get("line",0))
+    var next_index: int = index + 1
+    var id: String = str(event["id"])
+    var is_field: bool = str(active.get("source","menu")) == "field"
+    var all_logs: Dictionary = storage.get("field_log",{})
+    var previous_logs: Array = (all_logs.get(id,[]) as Array).duplicate(true)
+    if is_field:
+        var records: Array = previous_logs.duplicate(true)
+        var dialogue: Array = event.get("dialogue",[])
+        records.append({
+            "step":index, "dialogue_id":str(dialogue[index].get("id","")),
+            "chapter":state.chapter, "region":str(event.get("region","")),
+            "event_id":id
+        })
+        all_logs[id] = records
     if next_index < (event.get("dialogue",[]) as Array).size():
         active["line"] = next_index
-        return state.save()
-    var id: String = str(event["id"])
+        if state.save():
+            return true
+        storage["active"] = old_active
+        if is_field:
+            if previous_logs.is_empty():
+                all_logs.erase(id)
+            else:
+                all_logs[id] = previous_logs
+        return false
     (storage["seen"] as Dictionary)[id] = true
-    # Dedicated seen key keeps the branch contract interoperable with flag consumers.
     state.flags[str(event["seen_flag"])] = true
     storage["active"] = {}
     if not state.save():
         (storage["seen"] as Dictionary).erase(id)
         state.flags.erase(str(event["seen_flag"]))
-        storage["active"] = active
+        storage["active"] = old_active
+        if is_field:
+            if previous_logs.is_empty():
+                all_logs.erase(id)
+            else:
+                all_logs[id] = previous_logs
         return false
     return true
+
+func field_evidence(event_id: String) -> Array:
+    if state == null:
+        return []
+    return (_storage().get("field_log",{}) as Dictionary).get(event_id,[]).duplicate(true)
 
 func cancel() -> bool:
     if state == null:

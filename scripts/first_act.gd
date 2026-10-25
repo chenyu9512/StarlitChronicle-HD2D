@@ -844,6 +844,7 @@ func _open_adventure_book() -> void:
     busy = true
     world.locked = true
     adventure_menu.show_menu(game_core, progress)
+    atlas.show_exploration(false)
 
 func _show_menu() -> void:
     if busy:

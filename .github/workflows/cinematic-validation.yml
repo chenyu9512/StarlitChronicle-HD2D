@@ -1,0 +1,44 @@
+name: Cinematic P0-P3 Gameplay Validation
+on:
+  push:
+    paths:
+      - "scripts/first_act.gd"
+      - "scripts/first_act_ui.gd"
+      - "scripts/cinematic_*.gd"
+      - "data/cinematics/**"
+      - "tools/smoke_cinematic_flow.gd"
+      - ".github/workflows/cinematic-validation.yml"
+  pull_request:
+    paths:
+      - "scripts/first_act.gd"
+      - "scripts/first_act_ui.gd"
+      - "scripts/cinematic_*.gd"
+      - "data/cinematics/**"
+      - "tools/smoke_cinematic_flow.gd"
+      - ".github/workflows/cinematic-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: starlit-cinematic-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  cinematic-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify canonical cinematic metadata
+        run: python tools/validate_cinematics.py
+      - name: Install Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Parse scenes and import game resources
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+      - name: Run nine-scene first-play cinematic and persistence gameplay
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_cinematic_flow.gd

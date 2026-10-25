@@ -146,6 +146,8 @@ func build(new_chapter: int, party_size: int) -> void:
     ambience.hero = hero
     ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")))
     root.add_child(ambience)
+    # Exterior rain, fog and sky grading are never projected inside houses.
+    ambience.visible = interior_building.is_empty()
     ambience.set_clock(calendar_day,clock_minutes)
     _make_focus_marker()
     focus_name = ""

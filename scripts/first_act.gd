@@ -406,7 +406,7 @@ func _focus() -> void:
                     # Only the one actually tracked original quest uses this map
                     # point, and it must outrank a separate chapter-local errand.
                     var original_quest_id: String = str(quest.get("id",""))
-                    if world.quest_submaps.entries.has(original_quest_id) and world.interior_building.is_empty():
+                    if not world.quest_submaps.detail(original_quest_id).is_empty() and world.interior_building.is_empty():
                         side_target = "questdoor:"+original_quest_id
                         extra = "【调查现场入口】%s · 进入专属调查地点" % str(quest.get("title","未命名委托"))
                     else:
@@ -425,9 +425,9 @@ func _focus() -> void:
     elif not tracked.is_empty() and branch_runtime.eligible(tracked):
         var destination: Dictionary = branch_runtime.get_event(tracked)
         var tracking_quest: String = str(destination.get("quest_id",""))
-        if world.quest_submaps.entries.has(tracking_quest) and world.interior_building.is_empty() and world.nodes.has("questdoor:"+tracking_quest):
+        if not world.quest_submaps.detail(tracking_quest).is_empty() and world.interior_building.is_empty() and world.nodes.has("questdoor:"+tracking_quest):
             side_target = "questdoor:"+tracking_quest
-            extra = "【航页后续调查】" + world.quest_submaps.room_name(tracking_quest)
+            extra = "【专属场景后续调查】" + world.quest_submaps.room_name(tracking_quest)
         else:
             extra = "【剧情路线】" + story_world_bindings.route_summary(tracking_quest,world_router)
     world.set_side_focus(side_target)

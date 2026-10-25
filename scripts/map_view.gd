@@ -209,6 +209,14 @@ func _draw_atlas(regional: bool) -> void:
             if id < dest and map_points.has(dest):
                 var known: bool = router.is_available(str(id)) and router.is_available(dest)
                 draw_line(origin,map_points[dest],Color("b4c4c5") if known else Color("496574"),3.0 if regional else 1.7,true)
+    if not selected_location.is_empty():
+        var highlighted_route: Array[String] = router.shortest_route(selected_location)
+        for step in range(highlighted_route.size()-1):
+            var first_stop: String = highlighted_route[step]
+            var second_stop: String = highlighted_route[step+1]
+            if map_points.has(first_stop) and map_points.has(second_stop):
+                draw_line(map_points[first_stop],map_points[second_stop],MAIN,5.0 if regional else 3.0,true)
+                draw_circle(map_points[second_stop],4.0,Color("fbe4a8"))
     var discovered: Array = router.state.rpg.get("world",{}).get("discovered",[])
     var visited: Array = router.state.rpg.get("world",{}).get("visited",[])
     for id in map_points.keys():

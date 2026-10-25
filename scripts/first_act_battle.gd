@@ -342,6 +342,7 @@ func _act(action: String) -> void:
     if action == "cancel_skill":
         _hide_skills()
         return
+    var explicit_enemy_selected: bool = false
     if "#" in action:
         var enemy_select: PackedStringArray = action.split("#",false,1)
         if enemy_select.size() != 2 or not formation.valid_target(int(enemy_select[1])):
@@ -349,6 +350,7 @@ func _act(action: String) -> void:
             return
         _select_enemy(int(enemy_select[1]))
         action = str(enemy_select[0])
+        explicit_enemy_selected = true
         _hide_skills()
     var chosen_skill: String = ""
     var target_index: int = hero_turn
@@ -365,7 +367,7 @@ func _act(action: String) -> void:
             if str(candidate.get("target","")) == "single_ally":
                 _choose_target(chosen_skill)
                 return
-            if str(candidate.get("target","")) == "single_enemy" and formation.alive_indices().size() > 1:
+            if str(candidate.get("target","")) == "single_enemy" and formation.alive_indices().size() > 1 and not explicit_enemy_selected:
                 _choose_enemy_target("skill:"+chosen_skill)
                 return
         action = "skill"

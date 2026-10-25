@@ -1,4 +1,4 @@
-# 《星灯纪行》v0.5 — 全篇游戏架构与接口契约
+# 《星灯纪行》v0.6 — 全篇游戏架构、策略战斗与家园
 
 **分支：`main` · Godot 4.7.2 · GDScript · 横屏 iPhone 优先**
 
@@ -21,12 +21,15 @@ project.godot
           ├── scripts/first_act_world.gd       [TileMapLayer、碰撞、人物与任务实体]
           ├── scripts/encounter_registry.gd    [63普通怪、66剧情Boss、12幕Boss]
           ├── scripts/first_act_battle.gd      [回合制战斗、手选技能、特殊胜利]
+          ├── scripts/combat_rules.gd          [元素、增益/护盾、敌意图、聚星/难度]
           ├── scripts/rpg_core.gd              [20职业、装备、背包、队伍与120支线]
           ├── scripts/game_events.gd           [事件账本、成就、游戏时间]
           ├── scripts/first_act_state.gd       [唯一权威状态/自动存档V3]
           ├── scripts/save_slots.gd            [3手动槽位、备份/读回]
+          ├── scripts/housing_service.gd       [地契、家具库、仓库、灶台、住宅升级]
+          ├── scripts/housing_room.gd          [10x7格室内布局、家园交互]
           ├── scripts/first_act_ui.gd          [地图HUD、对白、触屏、主菜单]
-          ├── scripts/rpg_menu.gd              [冒险手册16栏目]
+          ├── scripts/rpg_menu.gd              [冒险手册17栏目]
           └── scripts/cheat_panel.gd           [隐藏密码9169，仅开发辅助]
 ```
 
@@ -108,3 +111,21 @@ project.godot
 | `tools/smoke_legacy_ending.gd` | 旧通关存档迁移 |
 
 **未交付、仍必须制作：** 42张地图中的正式手工场景、地区过场动画、Boss专属动作与复杂AI、职业战斗数值平衡、完整音乐音效、HD-2D多层灯光表现、iPhone真实帧率/耗电/触控质量测试、App Store正式签名和商店提交。上述内容没有因为架构完成而自动完成。
+
+## 七、v0.6 实装接口补充
+
+### 职业熟练度（DQ7/DQ9养成思路的原创实现）
+`state.rpg.mastery[actor_id][job_id] = {"rank":1..8,"xp":nonnegative_int}`。基础职业直接解锁；高级职业需要第13章及两种基础职业3阶；终阶职业需要第49章及一种高级职业5阶。角色等级、职业熟练度分离，职业切换保留全部职业进度。胜利事件使用 `RPGCore.award_job_xp()`，按照出战伙伴分配职业经验，达阶给予基础攻防成长。
+
+### 战斗策略（DQ8蓄力与经典JRPG回合制思路的原创实现）
+`CombatRules` 统一计算弱点×1.5、抗性×0.7、难度系数(0.72/1/1.38)、持续战斗状态及敌方意图。玩家可以直接选技能、对治疗目标作选择，`聚星` 最多蓄3层，每层提升下次攻击35%伤害并在命中后清空。强化持续3轮，护盾持续2轮，防御与护盾可叠加。多目标技能依照原 `target` 数据表作用于全体队友；后续仍需制作完整多敌人编队与角色行动顺序UI。
+
+### 家园（吸收DQX在线版房屋的布置思路，按照单机离线玩法设计）
+- `HousingService` 绑定 `state.rpg.housing`，房屋购买仅限城镇，地契160G。
+- `HousingRoom` 提供10列×7行的独立室内，家具ID源自 `data/content/housing.json`，已有家具不能重叠，门口不可占用。
+- 住宅最多4级，最多20种家具；库存、布置、等级、墙/地配色永久存档。
+- 仓库容量由放置的储物柜及房屋等级决定；床恢复队伍HP/MP；星灯提升可视亮度；厨房按 `housing_recipes.json` 消耗物品与金币，产出原物品表的食品并可恢复HP/MP；星纹锻台调用原本武器锻造系统。
+- 家园只能从所属地区城镇进入，旧版存档的 `housing` 字段缺省自动初始化。
+- `tools/smoke_housing_and_combat.gd` 验证购置、布局、防止重叠/堵门、仓库存取/药草计数同步、装修、房屋升级、烹饪、技能选择、职业精通、聚星效果与存档恢复。
+
+系统设计参考并不代表直接复制《勇者斗恶龙》的角色、地图、术语、数值或美术。DQX离线版并不等同于线上版的联网住宅系统；本作的家园完全是自主单机设计。

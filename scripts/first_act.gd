@@ -182,6 +182,16 @@ func _enter_location() -> void:
     world.custom_region = str(world.map_profile.get("name",game_core.location_name(progress.chapter)))
     world.party_ids = progress.rpg.get("party", []).duplicate()
     world.build(progress.chapter, world.party_ids.size())
+    var saved_world: Dictionary = progress.rpg.get("world",{})
+    var indoor_id: String = str(saved_world.get("indoor_building",""))
+    if not indoor_id.is_empty():
+        if world.enter_building(indoor_id):
+            var outdoor: Array = saved_world.get("outdoor_return",[])
+            if outdoor.size()==2:
+                world.exterior_position=Vector2(float(outdoor[0]),float(outdoor[1]))
+        else:
+            saved_world.erase("indoor_building")
+            saved_world.erase("outdoor_return")
     world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
     world.locked = false
     busy = false
@@ -310,7 +320,28 @@ func _interact(target: String) -> void:
             ui.show_message("从野外补给箱发现了一株盐露草。")
         return
     if target == "wild_camp":
-        ui.show_message("这里是安全的野外休憩地点。可以查看地图并整理装备。")
+        var daily: Dictionary = progress.rpg.get("camp_last_day",{})
+        var region_id: String = world_router.current_map()
+        var calendar: Dictionary = progress.rpg.get("game_clock",{})
+        var today: int = int(calendar.get("day",1))
+        if int(daily.get(region_id,-1)) == today:
+            ui.show_message("今天已经在这处营地休息过了。还可以整理队伍与查看地图。")
+            return
+        daily[region_id] = today
+        progress.rpg["camp_last_day"] = daily
+        for i in range(progress.actors.size()):
+            var person: Dictionary = progress.actors[i]
+            if int(person.get("hp",0))>0:
+                person["hp"]=mini(int(person.get("max_hp",1)),int(person.get("hp",1))+maxi(12,roundi(float(person.get("max_hp",1))*0.38)))
+                person["mp"]=mini(int(person.get("max_mp",1)),int(person.get("mp",0))+maxi(6,roundi(float(person.get("max_mp",1))*0.30)))
+                progress.actors[i]=person
+        world.encounter_meter=-380.0
+        game_events.advance_time(120)
+        game_events.record("camp_rest",{"map":region_id})
+        world.sync_world_clock(int(progress.rpg["game_clock"].get("day",1)),int(progress.rpg["game_clock"].get("minutes",480)))
+        _save_progress()
+        _focus()
+        ui.show_message("队伍在安全营地整备两小时，恢复部分 HP / MP；附近的怪物暂时不会接近。")
         return
     if target.begins_with("exit:"):
         _travel_to(target.trim_prefix("exit:"))
@@ -318,11 +349,20 @@ func _interact(target: String) -> void:
     if target.begins_with("building:"):
         var building_id: String = target.trim_prefix("building:")
         if world.enter_building(building_id):
+            var current_world: Dictionary = progress.rpg.get("world",{})
+            current_world["indoor_building"] = building_id
+            current_world["outdoor_return"] = [world.exterior_position.x,world.exterior_position.y]
+            game_events.record("building_entered",{"building":building_id,"map":world_router.current_map()})
+            _save_progress()
             _focus()
-            ui.show_message("进入 " + world.region_name() + "。可在室内探索，寻找出口标记返回街道。")
+            ui.show_message("进入 " + world.region_name() + "。室内进度已自动保存。")
         return
     if target == "interior_exit":
         if world.leave_building():
+            var current_world: Dictionary = progress.rpg.get("world",{})
+            current_world.erase("indoor_building")
+            current_world.erase("outdoor_return")
+            _save_progress()
             _focus()
             ui.show_message("返回 " + world.region_name() + "。")
         return
@@ -849,6 +889,9 @@ func _travel_to(map_id: String) -> void:
     if not world_router.travel(map_id):
         ui.show_message("航路尚未解锁，请先沿主线探索相邻地区。")
         return
+    var current_world: Dictionary = progress.rpg.get("world",{})
+    current_world.erase("indoor_building")
+    current_world.erase("outdoor_return")
     game_events.advance_time(45)
     game_events.record("travel",{"map_id":map_id})
     adventure_menu.close_menu()

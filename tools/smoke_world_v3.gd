@@ -43,7 +43,14 @@ func _run() -> void:
         var current: Dictionary = geo.layout(str(id),3)
         var previous: Dictionary = geo.layout(str(id),61)
         verify(current.get("blocked",{})==previous.get("blocked",{}),"Layout changed on chapter reload: "+str(id))
-        verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],geo._anchors()),"Story quest routes disconnected: "+str(id))
+        var initial: Vector2i = current.get("spawn",Vector2i.ZERO)
+        if not geo.reachable(current,[initial],geo._anchors()):
+            var missing_stops: Array[String] = []
+            for stop in geo._anchors():
+                if not geo.reachable(current,[initial],[stop]):
+                    missing_stops.append(str(stop))
+            print("MAP LINK DIAGNOSTIC ",str(id)," missing=",missing_stops," spawn=",initial," blocked_spawn=",(current.get("blocked",{}) as Dictionary).has(initial))
+        verify(geo.reachable(current,[initial],geo._anchors()),"Story quest routes disconnected: "+str(id))
         for gate in current.get("gates",[]):
             verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],[gate.get("cell",Vector2i.ZERO)]),"Map gate inaccessible: "+str(id))
         if bool(zone.get("settlement",false)) or str(zone.get("archetype",""))=="dungeon":

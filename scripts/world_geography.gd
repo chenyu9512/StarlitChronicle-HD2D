@@ -246,6 +246,18 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     # accessible by short connections to their nearest authored road waypoint.
     if not dungeon and not village and not authored_level.is_empty():
         var route_nodes: Array[Vector2i] = authored.apply(authored_level,terrain,walls,features)
+        # Every hand-authored road family shares an actual junction, rather
+        # than joining quest targets to disconnected decorative polylines.
+        var junction: Vector2i = Vector2i(36,24)
+        _road(terrain,walls,start,junction,seed+79,1)
+        var road_index: int = 0
+        for authored_road in authored_level.get("roads",[]):
+            var stations: Array = authored_road.get("points",[])
+            if not stations.is_empty():
+                var first_station: Array = stations[0]
+                var terminus: Vector2i = Vector2i(int(first_station[0]),int(first_station[1]))
+                _road(terrain,walls,junction,terminus,seed+road_index+81,0)
+            road_index += 1
         for index in range(_anchors().size()):
             var anchor: Vector2i = _anchors()[index]
             var origin: Vector2i = authored.nearest_road(anchor,route_nodes)

@@ -6,6 +6,9 @@ signal encounter_requested()
 const Actor = preload("res://scripts/first_act_actor.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
+const TownLife = preload("res://scripts/world_town_life.gd")
+const NPCVisual = preload("res://scripts/world_npc_visual.gd")
+const Ambience = preload("res://scripts/world_ambience.gd")
 const TILE: int = 32
 const WIDTH: int = 72
 const HEIGHT: int = 48
@@ -34,6 +37,11 @@ var act01_layouts: Dictionary = {}
 var current_layout: Dictionary = {}
 var terrain_layout: Dictionary = {}
 var geography = Geography.new()
+var town_life = TownLife.new()
+var ambience
+var clock_minutes: int = 480
+var calendar_day: int = 1
+var npc_positions: Dictionary = {}
 var interior_building: String = ""
 var interior_kind: String = ""
 var exterior_position: Vector2 = Vector2.ZERO
@@ -88,6 +96,7 @@ func build(new_chapter: int, party_size: int) -> void:
     root.add_child(scenery)
     _decorate()
     _build_sites()
+    _spawn_residents()
     hero = Actor.new()
     hero.setup(_party_sprite(0, "leon"))
     var spawn: Vector2i = terrain_layout.get("spawn",Vector2i(10,23))
@@ -120,6 +129,12 @@ func build(new_chapter: int, party_size: int) -> void:
     camera.limit_bottom = HEIGHT * TILE
     hero.add_child(camera)
     camera.make_current()
+    ambience = Ambience.new()
+    ambience.z_index = 12
+    ambience.hero = hero
+    ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")))
+    root.add_child(ambience)
+    ambience.set_clock(calendar_day,clock_minutes)
     _make_focus_marker()
     focus_name = ""
     movement = Vector2.ZERO
@@ -293,6 +308,67 @@ func _build_sites() -> void:
         var prop: Sprite2D = _add_sprite("sign" if i == 0 else ("crate" if i % 2 else "sea_crystal"), site, false)
         nodes["story_stage_%d" % i] = prop
         prop.visible = chapter > 0
+
+func _resident_spot(target: Vector2i,used: Dictionary) -> Vector2i:
+    for radius in range(0,14):
+        for yy in range(-radius,radius+1):
+            for xx in range(-radius,radius+1):
+                if radius>0 and absi(xx)!=radius and absi(yy)!=radius:
+                    continue
+                var p: Vector2i = target+Vector2i(xx,yy)
+                if p.x<4 or p.y<4 or p.x>=WIDTH-4 or p.y>=HEIGHT-4 or blocked.has(p) or used.has(p):
+                    continue
+                var near_story: bool = false
+                for quest_id in ["key_npc","clue","witness","crisis","resolve"]:
+                    if nodes.has(quest_id):
+                        var node: Node2D = nodes[quest_id]
+                        if node.position.distance_to(Vector2(p*TILE)+Vector2(16,16))<62.0:
+                            near_story=true
+                            break
+                if near_story:
+                    continue
+                used[p]=true
+                return p
+    return Vector2i(35,24)
+
+func _spawn_residents() -> void:
+    npc_positions.clear()
+    if not interior_building.is_empty() or not bool(map_profile.get("settlement",false)):
+        return
+    var district: String = str(map_profile.get("region_id","region_coast"))
+    var hour: int = int(clock_minutes/60)
+    var used: Dictionary = {}
+    var residents: Array = town_life.residents(district)
+    for index in range(residents.size()):
+        var record: Dictionary = residents[index]
+        var point: Vector2i = _resident_spot(town_life.position_for(index,hour),used)
+        var citizen = NPCVisual.new()
+        citizen.setup(record)
+        citizen.position=Vector2(point*TILE)+Vector2(16,16)
+        citizen.z_index=3
+        scenery.add_child(citizen)
+        var key: String = "citizen:"+str(record.get("id",""))
+        nodes[key] = citizen
+        npc_positions[key] = point
+
+func sync_world_clock(day_number: int,minutes: int) -> void:
+    var old_period: bool = clock_minutes<360 or clock_minutes>=1200
+    calendar_day=maxi(1,day_number)
+    clock_minutes=posmod(minutes,1440)
+    var next_period: bool = clock_minutes<360 or clock_minutes>=1200
+    if ambience!=null and is_instance_valid(ambience):
+        ambience.set_clock(calendar_day,clock_minutes)
+    if old_period==next_period or interior_building.length()>0 or not bool(map_profile.get("settlement",false)):
+        return
+    var used: Dictionary = {}
+    var people: Array = town_life.residents(str(map_profile.get("region_id","region_coast")))
+    for i in range(people.size()):
+        var key: String = "citizen:"+str(people[i].get("id",""))
+        if not nodes.has(key):
+            continue
+        var point: Vector2i = _resident_spot(town_life.position_for(i,int(clock_minutes/60)),used)
+        nodes[key].position=Vector2(point*TILE)+Vector2(16,16)
+        npc_positions[key]=point
 
 func _make_focus_marker() -> void:
     focus_light = Sprite2D.new()

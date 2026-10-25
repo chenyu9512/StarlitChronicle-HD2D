@@ -11,6 +11,11 @@ on:
       - "scripts/world_interior_v4.gd"
       - "data/levels/v4/interiors/**"
       - "story/data/phase19_lost_page_submaps.json"
+      - "story/data/phase19_lost_page_puzzles.json"
+      - "scripts/story_evidence_puzzles.gd"
+      - "scripts/world_interior_art.gd"
+      - "tools/smoke_phase19_lost_page_puzzles.gd"
+      - "tools/validate_phase19_lost_page_puzzles.py"
       - "tools/validate_phase19_lost_page_rooms.py"
       - "tools/smoke_phase19_lost_page_rooms.gd"
       - "scripts/story_scene_director.gd"
@@ -42,6 +47,7 @@ jobs:
           python tools/validate_phase19_world_anchors.py
           python tools/validate_phase19_scene_dressing.py
           python tools/validate_phase19_lost_page_rooms.py
+          python tools/validate_phase19_lost_page_puzzles.py
       - name: Install Godot 4.7.2
         run: |
           curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
@@ -57,3 +63,5 @@ jobs:
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_story_world_phase19_2.gd
       - name: Twelve distinct lost-page interiors, walkability and persistence
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_phase19_lost_page_rooms.gd
+      - name: Twelve canonical evidence puzzles, wrong answers and persistent deduction
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_phase19_lost_page_puzzles.gd

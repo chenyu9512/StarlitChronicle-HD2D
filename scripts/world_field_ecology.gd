@@ -134,7 +134,7 @@ func interact(map_id: String,action: String,state,weather: String,minutes: int,d
             if bool(current.get("trial",false)):
                 return {"changed":false,"message":"地形路线已勘定，队伍记住了安全落脚点。"}
             var hazardous: bool = weather==str(challenge.get("danger_weather",""))
-            var cost: int = int(challenge.get("hp_cost",10)) if hazardous else maxi(1,int(challenge.get("hp_cost",10))/2)
+            var cost: int = int(challenge.get("hp_cost",10)) if hazardous else maxi(1,floori(float(challenge.get("hp_cost",10))*0.5))
             for index in range(state.actors.size()):
                 var member: Dictionary = state.actors[index]
                 var hp: int = int(member.get("hp",1))

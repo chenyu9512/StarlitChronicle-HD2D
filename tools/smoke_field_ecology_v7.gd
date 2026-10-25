@@ -5,6 +5,7 @@ const Geography = preload("res://scripts/world_geography.gd")
 const Registry = preload("res://scripts/world_registry.gd")
 const World = preload("res://scripts/first_act_world.gd")
 const State = preload("res://scripts/first_act_state.gd")
+const Game = preload("res://scripts/first_act.gd")
 var errors: Array[String] = []
 
 func check(ok: bool,why: String) -> void:
@@ -78,6 +79,39 @@ func _run() -> void:
         real_world.queue_free()
         await process_frame
     check(total==84,"Expected 84 new physical wilderness interactions, found "+str(total))
+    # Integration: trigger real game interaction handler, item inventory,
+    # movement teleport, one-time reward and saved RPG field flags.
+    var game=Game.new()
+    root.add_child(game)
+    game.ui.title_overlay.hide()
+    game._start(false)
+    game.progress.chapter=1
+    game.world_router.sync_chapter(1)
+    var world_state: Dictionary=game.progress.rpg.get("world",{})
+    world_state["current_map"]="map_coast_03"
+    world_state["bound_chapter"]=1
+    game.progress.rpg["world"]=world_state
+    game._enter_location()
+    game.busy=false
+    game.world.locked=false
+    check(game.world.nodes.has("field:trial"),"Actual game map does not instantiate the V7 field ecology")
+    var gold_before: int=game.progress.gold
+    var hp_before: int=int(game.progress.actors[0].get("hp",0))
+    game.progress.rpg["game_clock"]["minutes"]=19*60
+    game._interact("field:trial")
+    check(int(game.progress.actors[0].get("hp",0))<hp_before,"Real game interaction didn't apply terrain HP risk")
+    game._interact("field:gather")
+    var field_state: Dictionary=game.world.field_ecology.snapshot(game.progress,"map_coast_03")
+    check(bool(field_state.get("harvested",false)),"Harvest wasn't committed to the real save state")
+    game._interact("field:passage")
+    check(bool(game.world.field_ecology.snapshot(game.progress,"map_coast_03").get("passage",false)),"Real game couldn't open the evening passage")
+    check(game.world.hero.position.distance_to(game.world.nodes["field:cache"].position)<3.0,"Actual hidden passage didn't move the hero")
+    game._interact("field:cache")
+    check(game.progress.gold>gold_before,"Treasure didn't pay out in live RPG gold")
+    var first_payout: int=game.progress.gold
+    game._interact("field:cache")
+    check(game.progress.gold==first_payout,"Real game permitted double reward")
+    check(bool(game.progress.rpg.get("field_ecology_v7",{}).get("map_coast_03",{}).get("claimed",false)),"Actual game progress did not persist the secret")
     if errors.is_empty():
         print("PASS: 21 distinct fields, 84 reachable anchors, nonlethal terrain challenges, weather movement factors, daily harvesting, hidden routes, one-time treasure, backward-compatible save")
         quit(0)

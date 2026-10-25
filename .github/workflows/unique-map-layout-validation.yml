@@ -12,6 +12,7 @@ on:
       - "scripts/world_field_ecology.gd"
       - "data/levels/v7/field_ecology.json"
       - "tools/smoke_field_ecology_v7.gd"
+      - "tools/validate_field_ecology_v7.py"
       - "data/levels/v7/town_ecology.json"
       - "tools/smoke_town_ecology_v7.gd"
       - "data/levels/v7/dungeon_puzzles.json"
@@ -36,6 +37,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify map sidecars exactly mirror their canonical collection
         run: python3 tools/materialize_world_v3.py --verify
+      - name: Static-audit all 21 unique fields, catalogs and 336 art fixture coordinates
+        run: python3 tools/validate_field_ecology_v7.py
       - name: Install Godot 4.7.2
         run: |
           curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip

@@ -930,6 +930,8 @@ func _open_world_map_from_book() -> void:
     if is_instance_valid(battle):
         return
     adventure_menu.close_menu()
+    _return_to_world()
+    atlas.show_exploration(true)
     atlas.show_world_map()
 
 func _open_map_from_quick_menu() -> void:

@@ -6,6 +6,8 @@ const InteriorV4 = preload("res://scripts/world_interior_v4.gd")
 ## Authored spatial zone configuration is in world_atlas_v2.json; geometry is deterministic.
 const WIDTH: int = 72
 const HEIGHT: int = 48
+var map_width: int = WIDTH
+var map_height: int = HEIGHT
 const TILE: int = 32
 const ATLAS_PATH: String = "res://data/levels/world_atlas_v2.json"
 const START: Vector2i = Vector2i(10,23)
@@ -45,7 +47,7 @@ func old_to_new(pos: Vector2i) -> Vector2i:
     return Vector2i(clampi(roundi(float(pos.x)*float(WIDTH)/44.0),2,WIDTH-3),clampi(roundi(float(pos.y)*float(HEIGHT)/28.0),2,HEIGHT-3))
 
 func _paint(terrain: Dictionary, walls: Dictionary, cell: Vector2i, floor_atlas: Vector2i, blocked: bool) -> void:
-    if cell.x < 0 or cell.x >= WIDTH or cell.y < 0 or cell.y >= HEIGHT:
+    if cell.x < 0 or cell.x >= map_width or cell.y < 0 or cell.y >= map_height:
         return
     terrain[cell] = floor_atlas
     if blocked:
@@ -57,7 +59,7 @@ func _carve(terrain: Dictionary, walls: Dictionary, center: Vector2i, variant: i
     for yy in range(-thickness,thickness+1):
         for xx in range(-thickness,thickness+1):
             var pos: Vector2i = center+Vector2i(xx,yy)
-            if pos.x >= 2 and pos.y >= 2 and pos.x < WIDTH-2 and pos.y < HEIGHT-2:
+            if pos.x >= 2 and pos.y >= 2 and pos.x < map_width-2 and pos.y < map_height-2:
                 _paint(terrain,walls,pos,Vector2i((variant+xx+yy+32)%8,3),false)
 
 func _road(terrain: Dictionary, walls: Dictionary, a: Vector2i, b: Vector2i, seed: int, thickness: int = 1) -> void:
@@ -80,7 +82,7 @@ func _room(terrain: Dictionary,walls: Dictionary,center: Vector2i,size: Vector2i
     for y in range(center.y-size.y/2,center.y+size.y/2+1):
         for x in range(center.x-size.x/2,center.x+size.x/2+1):
             var pos: Vector2i = Vector2i(x,y)
-            if x < 2 or y < 2 or x >= WIDTH-2 or y >= HEIGHT-2:
+            if x < 2 or y < 2 or x >= map_width-2 or y >= map_height-2:
                 continue
             _paint(terrain,walls,pos,Vector2i(_hash(x,y,seed)%8,5),false)
 
@@ -112,6 +114,10 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var map_kind: String = str(spec.get("archetype","field"))
     var biome: String = str(spec.get("biome","coastal"))
     var seed: int = int(spec.get("seed",1729))
+    var authored_level: Dictionary = authored.level(map_id)
+    var extent: Array = authored_level.get("size",[WIDTH,HEIGHT])
+    map_width = int(extent[0]) if extent.size()==2 else WIDTH
+    map_height = int(extent[1]) if extent.size()==2 else HEIGHT
     var terrain: Dictionary = {}
     var walls: Dictionary = {}
     var features: Array[Dictionary] = []
@@ -119,13 +125,13 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var dungeon: bool = map_kind == "dungeon"
     var village: bool = bool(spec.get("settlement",false))
     var shoreline: bool = biome in ["coastal","archipelago"]
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
+    for y in range(map_height):
+        for x in range(map_width):
             var p: Vector2i = Vector2i(x,y)
             var random: int = _hash(x/3,y/3,seed)
             var detail: int = _hash(x,y,seed)
             var row: int = 0
-            var wall: bool = x <= 1 or y <= 1 or x >= WIDTH-2 or y >= HEIGHT-2
+            var wall: bool = x <= 1 or y <= 1 or x >= map_width-2 or y >= map_height-2
             if biome in ["coastal","archipelago"]:
                 row = 0 if detail%13<6 else 1
                 if not village and (y > 39+(random%3) or (biome=="archipelago" and x<4)):
@@ -159,7 +165,7 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
                 wall = true
                 row = 6
             _paint(terrain,walls,p,Vector2i(detail%8,row),wall)
-    var hub: Vector2i = Vector2i(WIDTH/2,HEIGHT/2)
+    var hub: Vector2i = Vector2i(map_width/2,map_height/2)
     var start: Vector2i = old_to_new(Vector2i(6,13))
     if dungeon:
         var chambers: Array[Vector2i] = []
@@ -230,15 +236,14 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             _road(terrain,walls,path_nodes[i],path_nodes[i+1],seed+i,2 if map_kind=="field" else 1)
         _road(terrain,walls,path_nodes[-1],hub,seed+27,1)
         for i in range(32):
-            var xx: int = 5 + _hash(i,12,seed)%(WIDTH-10)
-            var yy: int = 5 + _hash(42,i,seed)%(HEIGHT-10)
+            var xx: int = 5 + _hash(i,12,seed)%(map_width-10)
+            var yy: int = 5 + _hash(42,i,seed)%(map_height-10)
             var p: Vector2i = Vector2i(xx,yy)
             if not walls.has(p) and p.distance_to(hub)>10:
                 features.append({"kind":ICONS[_hash(i,24,seed)%ICONS.size()],"cell":p,"name":"探索景物"})
     # V3 wilderness is an editable per-zone layout, not the former global
     # star-shaped spawn-to-every-quest carve. All quest markers still remain
     # accessible by short connections to their nearest authored road waypoint.
-    var authored_level: Dictionary = authored.level(map_id)
     if not dungeon and not village and not authored_level.is_empty():
         var route_nodes: Array[Vector2i] = authored.apply(authored_level,terrain,walls,features)
         for index in range(_anchors().size()):
@@ -257,7 +262,7 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var names: Array = spec.get("neighbors",[])
     for i in range(names.size()):
         var destination: String = str(names[i])
-        var gate: Vector2i = Vector2i(4,24) if i%4==0 else (Vector2i(WIDTH-5,24) if i%4==1 else Vector2i(36,4))
+        var gate: Vector2i = Vector2i(4,24) if i%4==0 else (Vector2i(map_width-5,24) if i%4==1 else Vector2i(36,4))
         _road(terrain,walls,start,gate,seed+i,1)
         gates.append({"id":destination,"cell":gate})
     # A route may not be allowed across locked chapters; physical gate is still visible.
@@ -265,6 +270,21 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var district_plan: Dictionary = {}
     if village:
         district_plan = town_design.apply_town(map_id,terrain,walls,features)
+    # Distinct authored wings expand the map without moving historic quest anchors.
+    var wing_origin: Vector2i = Vector2i(65,35)
+    for extension in authored_level.get("expansion_nodes",[]):
+        if not extension is Dictionary:
+            continue
+        var coordinates: Array = extension.get("cell",[])
+        if coordinates.size()!=2:
+            continue
+        var site: Vector2i = Vector2i(int(coordinates[0]),int(coordinates[1]))
+        if site.x<3 or site.y<3 or site.x>=map_width-3 or site.y>=map_height-3:
+            continue
+        _room(terrain,walls,site,Vector2i(11,9) if dungeon else (Vector2i(13,11) if village else Vector2i(7,7)),seed+site.x)
+        _road(terrain,walls,wing_origin,site,seed+site.y,1)
+        features.append({"kind":str(extension.get("kind","beacon")),"cell":site,"name":str(extension.get("name","独立区域地标"))})
+        wing_origin=site
     # Manual cell edits are the LAST authority. The initial V3 apply happened
     # before automatic quest links and gates, which could erase editor changes.
     # A blocked quest marker or exit is deliberately caught by map QA rather
@@ -274,9 +294,11 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var wet: Dictionary = {}
     if not authored_level.is_empty():
         wet = authored.open_water_tiles(authored_level,walls)
-    return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"town_plan":district_plan,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
+    return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"town_plan":district_plan,"spawn":start,"zone":spec,"size":Vector2i(map_width,map_height)}
 
 func interior(building: String,building_kind: String,map_id: String = "") -> Dictionary:
+    map_width = WIDTH
+    map_height = HEIGHT
     var custom: Dictionary = InteriorV4.new().load_level(map_id,building,building_kind)
     if not custom.is_empty():
         return custom
@@ -377,6 +399,7 @@ func interior(building: String,building_kind: String,map_id: String = "") -> Dic
 
 func reachable(layout_data: Dictionary, origins: Array[Vector2i], targets: Array[Vector2i]) -> bool:
     var walls: Dictionary = layout_data.get("blocked",{})
+    var extent: Vector2i = layout_data.get("size",Vector2i(WIDTH,HEIGHT))
     var explored: Dictionary = {}
     var queue: Array[Vector2i] = origins.duplicate()
     for start in queue:
@@ -388,7 +411,7 @@ func reachable(layout_data: Dictionary, origins: Array[Vector2i], targets: Array
         index += 1
         for delta in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
             var n: Vector2i = cur+delta
-            if n.x<2 or n.y<2 or n.x>=WIDTH-2 or n.y>=HEIGHT-2 or explored.has(n) or walls.has(n):
+            if n.x<2 or n.y<2 or n.x>=extent.x-2 or n.y>=extent.y-2 or explored.has(n) or walls.has(n):
                 continue
             explored[n]=true
             queue.append(n)

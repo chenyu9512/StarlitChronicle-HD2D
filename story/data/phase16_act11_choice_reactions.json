@@ -1,0 +1,380 @@
+{
+  "schema": "starlit.story.phase16.act11.choice_reactions.v1",
+  "date": "2026-10-25",
+  "status": "text_only_not_runtime_bound",
+  "notes": "源选择的listen/act或hear/protect按实际各章选项ID触发，紧跟已有choice写入后播放一次。第66章仅打开终门，不宣布结局。",
+  "followups": [
+    {
+      "id": "ch061.p16.choice.hear",
+      "chapter_id": "ch061",
+      "after_choice_id": "ch061.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch061.approach": "return_station",
+        "world.ch061.approach": "return_station"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch061.p16.choice.hear.l01",
+          "speaker": "留守船员",
+          "text": "我们会先建回程星标，过了换班时间就换人。"
+        },
+        {
+          "id": "ch061.p16.choice.hear.l02",
+          "speaker": "朔弦",
+          "text": "任何伤船都能照着公开航图回来，不只我们的船。"
+        },
+        {
+          "id": "ch061.p16.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "救援站和升空船各留一份补给清单。"
+        }
+      ]
+    },
+    {
+      "id": "ch061.p16.choice.protect",
+      "chapter_id": "ch061",
+      "after_choice_id": "ch061.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch061.approach": "medical_ship",
+        "world.ch061.approach": "medical_ship"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch061.p16.choice.protect.l01",
+          "speaker": "岚音",
+          "text": "医护舱先做失压演练，再按安全载重出航。"
+        },
+        {
+          "id": "ch061.p16.choice.protect.l02",
+          "speaker": "缇珐",
+          "text": "修好星帆以后还要再校风向，不为抢时间跳过测试。"
+        },
+        {
+          "id": "ch061.p16.choice.protect.l03",
+          "speaker": "诺依",
+          "text": "地面补给站也会按约定等我们返航。"
+        }
+      ]
+    },
+    {
+      "id": "ch062.p16.choice.hear",
+      "chapter_id": "ch062",
+      "after_choice_id": "ch062.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch062.approach": "publish_report",
+        "world.ch062.approach": "publish_report"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch062.p16.choice.hear.l01",
+          "speaker": "维莎",
+          "text": "报告可以公开，私人病历须经过本人或合适代理人同意。"
+        },
+        {
+          "id": "ch062.p16.choice.hear.l02",
+          "speaker": "诺依",
+          "text": "把发现的不确定处一并写上，不要伪称全部弄清。"
+        },
+        {
+          "id": "ch062.p16.choice.hear.l03",
+          "speaker": "玄璃",
+          "text": "历史上的真实救助与后来的剥夺都应被看见。"
+        }
+      ]
+    },
+    {
+      "id": "ch062.p16.choice.protect",
+      "chapter_id": "ch062",
+      "after_choice_id": "ch062.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch062.approach": "protect_records",
+        "world.ch062.approach": "protect_records"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch062.p16.choice.protect.l01",
+          "speaker": "岚音",
+          "text": "优先保护受害者原始记录，再终止强制继续的命令。"
+        },
+        {
+          "id": "ch062.p16.choice.protect.l02",
+          "speaker": "缇珐",
+          "text": "停止自动实验不等于关闭还能救人的医疗装置。"
+        },
+        {
+          "id": "ch062.p16.choice.protect.l03",
+          "speaker": "主角",
+          "text": "留好可审核的停机过程，让后人检查我们有没有遗漏。"
+        }
+      ]
+    },
+    {
+      "id": "ch063.p16.choice.hear",
+      "chapter_id": "ch063",
+      "after_choice_id": "ch063.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch063.approach": "keep_blank",
+        "world.ch063.approach": "keep_blank"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch063.p16.choice.hear.l01",
+          "speaker": "主角",
+          "text": "我愿将澄舟研究的事实留下，但自己的明天不交给系统。"
+        },
+        {
+          "id": "ch063.p16.choice.hear.l02",
+          "speaker": "岚音",
+          "text": "这些年我也做过替你决定的事，愿意继续回答。"
+        },
+        {
+          "id": "ch063.p16.choice.hear.l03",
+          "speaker": "维莎",
+          "text": "档案上的未来一栏将保留空白，不被写作数据故障。"
+        }
+      ]
+    },
+    {
+      "id": "ch063.p16.choice.protect",
+      "chapter_id": "ch063",
+      "after_choice_id": "ch063.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch063.approach": "preserve_history",
+        "world.ch063.approach": "preserve_history"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch063.p16.choice.protect.l01",
+          "speaker": "诺依",
+          "text": "先整理他曾经做过的事，不编造他没留下的遗言。"
+        },
+        {
+          "id": "ch063.p16.choice.protect.l02",
+          "speaker": "玄璃",
+          "text": "知晓历史并不要求按它指定的方向生活。"
+        },
+        {
+          "id": "ch063.p16.choice.protect.l03",
+          "speaker": "主角",
+          "text": "等我愿意的时候，再决定怎样向晨露村的人讲述。"
+        }
+      ]
+    },
+    {
+      "id": "ch064.p16.choice.hear",
+      "chapter_id": "ch064",
+      "after_choice_id": "ch064.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch064.approach": "staged",
+        "world.ch064.approach": "staged"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch064.p16.choice.hear.l01",
+          "speaker": "维莎",
+          "text": "按地区逐步解除限制，每次都应有新的风险告知。"
+        },
+        {
+          "id": "ch064.p16.choice.hear.l02",
+          "speaker": "岚音",
+          "text": "疗养院要有醒转后的接应，不用开放速度衡量成功。"
+        },
+        {
+          "id": "ch064.p16.choice.hear.l03",
+          "speaker": "玄璃",
+          "text": "愿留在短眠的人也应该能自己选择何时醒来。"
+        }
+      ]
+    },
+    {
+      "id": "ch064.p16.choice.protect",
+      "chapter_id": "ch064",
+      "after_choice_id": "ch064.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch064.approach": "distributed",
+        "world.ch064.approach": "distributed"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch064.p16.choice.protect.l01",
+          "speaker": "缇珐",
+          "text": "本地控制权先交给能负责维护的人，中央不再一键锁住所有节点。"
+        },
+        {
+          "id": "ch064.p16.choice.protect.l02",
+          "speaker": "雷索",
+          "text": "每处需要独立求援与停机，不能只依靠主角回头救。"
+        },
+        {
+          "id": "ch064.p16.choice.protect.l03",
+          "speaker": "诺依",
+          "text": "任何居民都可以质问我们正在做的决定。"
+        }
+      ]
+    },
+    {
+      "id": "ch065.p16.choice.hear",
+      "chapter_id": "ch065",
+      "after_choice_id": "ch065.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch065.approach": "keep_all",
+        "world.ch065.approach": "keep_all"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch065.p16.choice.hear.l01",
+          "speaker": "伊泽",
+          "text": "七份见证可以并排传给后人，唱得不和谐也不该删。"
+        },
+        {
+          "id": "ch065.p16.choice.hear.l02",
+          "speaker": "雷索",
+          "text": "保留历史不代表免去伤害他人的责任。"
+        },
+        {
+          "id": "ch065.p16.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "把公开查证入口留下，让后来的人有机会再问。"
+        }
+      ]
+    },
+    {
+      "id": "ch065.p16.choice.protect",
+      "chapter_id": "ch065",
+      "after_choice_id": "ch065.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch065.approach": "annotate",
+        "world.ch065.approach": "annotate"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch065.p16.choice.protect.l01",
+          "speaker": "维莎",
+          "text": "每份争议附上证人来源、经手人和难以确认的部分。"
+        },
+        {
+          "id": "ch065.p16.choice.protect.l02",
+          "speaker": "岚音",
+          "text": "私人受害记录仍需分级保存，不以公开为名让他们再次受伤。"
+        },
+        {
+          "id": "ch065.p16.choice.protect.l03",
+          "speaker": "主角",
+          "text": "不同注释可以存在，原件不能被哪一席独占。"
+        }
+      ]
+    },
+    {
+      "id": "ch066.p16.choice.hear",
+      "chapter_id": "ch066",
+      "after_choice_id": "ch066.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch066.approach": "witness",
+        "world.ch066.approach": "witness"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch066.p16.choice.hear.l01",
+          "speaker": "群灯电工",
+          "text": "愿意供能的地区会继续接入，不参加的地方也能求救。"
+        },
+        {
+          "id": "ch066.p16.choice.hear.l02",
+          "speaker": "维莎",
+          "text": "七地的意见全部留下，不以人数少为由删去反对。"
+        },
+        {
+          "id": "ch066.p16.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "这份见证是终门的准备，不是由我们替永昼居民投票。"
+        }
+      ]
+    },
+    {
+      "id": "ch066.p16.choice.protect",
+      "chapter_id": "ch066",
+      "after_choice_id": "ch066.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch066.approach": "safe_entry",
+        "world.ch066.approach": "safe_entry"
+      },
+      "insertion": "after_choice_commit_before_encounter_or_resolve",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch066.p16.choice.protect.l01",
+          "speaker": "岚音",
+          "text": "先划定终门外的休息处和撤离通道。"
+        },
+        {
+          "id": "ch066.p16.choice.protect.l02",
+          "speaker": "玄璃",
+          "text": "想留下的人也要知道通往外面的路径，不被永久锁住。"
+        },
+        {
+          "id": "ch066.p16.choice.protect.l03",
+          "speaker": "主角",
+          "text": "门内的选择还没发生，我们不能提前宣布结局。"
+        }
+      ]
+    }
+  ]
+}

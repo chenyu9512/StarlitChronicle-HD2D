@@ -21,6 +21,7 @@ var map_info: Label
 var route_info: Label
 var route_button: Button
 var local_button: Button
+var region_button: Button
 var world_button: Button
 var selected_map: String = ""
 var shown_mode: String = "local"
@@ -113,9 +114,12 @@ func _build_full() -> void:
     full_heading.add_theme_font_size_override("font_size",25)
     full_heading.add_theme_color_override("font_color",GOLD)
     heading.add_child(full_heading)
-    local_button = _button("区域地图")
+    local_button = _button("当前地图")
     local_button.pressed.connect(func() -> void: _set_mode("local"))
     heading.add_child(local_button)
+    region_button = _button("地区分块")
+    region_button.pressed.connect(func() -> void: _set_mode("region"))
+    heading.add_child(region_button)
     world_button = _button("世界航路")
     world_button.pressed.connect(func() -> void: _set_mode("world"))
     heading.add_child(world_button)
@@ -156,7 +160,7 @@ func _build_full() -> void:
     route_button.pressed.connect(_try_travel)
     sidebar.add_child(route_button)
     var footer := Label.new()
-    footer.text = "◆ 当前位置     ✦ 主线目标     ◇ 支线任务     ● 已发现地点    · 方向键移动 / 轻触查看"
+    footer.text = "◆ 当前角色  ✦ 主线  ◇ 支线  ■ 城镇  ◆ 地牢  · 可触控地图及移动端横屏适配"
     footer.add_theme_color_override("font_color",Color("b6c8d5"))
     footer.add_theme_font_size_override("font_size",14)
     column.add_child(footer)
@@ -207,7 +211,8 @@ func close_map() -> void:
 func _set_mode(next_mode: String) -> void:
     shown_mode = next_mode
     full_view.display_mode(shown_mode)
-    full_heading.text = "✦ 航路地图 / " + ("世界" if shown_mode == "world" else "区域")
+    var name: String = "世界" if shown_mode=="world" else ("分区" if shown_mode=="region" else "当前区域")
+    full_heading.text = "✦ 星灯图志 / " + name
     _refresh_info()
 
 func _on_location_selected(map_id: String) -> void:
@@ -233,19 +238,23 @@ func _refresh_info() -> void:
     var hero_pos: Vector2i = Vector2i(-1,-1)
     if is_instance_valid(world.hero):
         hero_pos = Vector2i(world.hero.position / 32.0)
-    map_info.text = "%s\n\n地理坐标：%d，%d\n\n地图范围：44 × 28格" % [world_name,hero_pos.x,hero_pos.y]
-    if shown_mode == "world":
+    var area_class: String = "建筑内部" if not world.interior_building.is_empty() else str(world.map_profile.get("kind","field"))
+    map_info.text = "%s\n\n地理坐标：%d，%d\n地图区域：%d × %d格\n类型：%s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class]
+    if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)
         if info.is_empty():
-            route_info.text = "轻触地图节点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 42" % router.visited_count()
+            route_info.text = "轻触城镇、洞窟或野外地点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 42" % router.visited_count()
         else:
             var name: String = str(info.get("name",selected_map))
             var available: bool = router.can_travel(selected_map)
-            route_info.text = "选中：%s\n%s" % [name,"可经相邻道路前往" if available else "尚不能直接前往；需相邻且解锁"]
+            var selected_spec: Dictionary = router.geography.zone(selected_map)
+            var biome: String = str(selected_spec.get("biome",""))
+            var setting: String = str(selected_spec.get("layout",""))
+            route_info.text = "目的地：%s\n地貌：%s\n布局：%s\n\n%s" % [name,biome,setting,"可沿已解锁的相邻道路前往" if available else "未解锁或非当前地区的相邻道路"]
         route_button.visible = true
         route_button.disabled = not router.can_travel(selected_map)
     else:
-        route_info.text = "金色：主线目标\n浅蓝：支线委托\n绿色：休息或家园\n紫色：商店\n白金：自己\n\n区域地图与实际碰撞地形同步。"
+        route_info.text = "金色：主线目标\n浅蓝：支线委托\n绿色：建筑或旅馆\n棕色：出入口\n白金：自己\n\n与实际72×48地形同步。\n可从世界地图查看分区及解锁道路。"
         route_button.visible = false
         route_button.disabled = true
 

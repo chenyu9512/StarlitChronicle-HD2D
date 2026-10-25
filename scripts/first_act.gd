@@ -21,6 +21,7 @@ const OptionalDirector = preload("res://scripts/optional_director.gd")
 const StoryBranchRuntime = preload("res://scripts/story_branch_runtime.gd")
 const StoryWorldBindings = preload("res://scripts/story_world_bindings.gd")
 const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
+const CinematicDirector = preload("res://scripts/cinematic_director.gd")
 var progress
 var catalog
 var world
@@ -42,6 +43,11 @@ var optional_director
 var branch_runtime
 var story_world_bindings
 var service_menu
+var cinematic
+var cinematic_resume: String = ""
+var cinematic_force_play: bool = false
+var cinematic_prologue: Dictionary = {}
+var cinematic_chapters: Dictionary = {}
 var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
 var active_optional_flag: String = ""
@@ -131,6 +137,11 @@ func _ready() -> void:
     add_child(service_menu)
     service_menu.closed.connect(_return_to_world)
     service_menu.action_requested.connect(_service_action)
+    cinematic_prologue = JSON.parse_string(FileAccess.get_file_as_string("res://data/cinematics/prologue.json"))
+    cinematic_chapters = JSON.parse_string(FileAccess.get_file_as_string("res://data/cinematics/chapter_transitions.json"))
+    cinematic = CinematicDirector.new()
+    add_child(cinematic)
+    cinematic.finished.connect(_cinematic_finished)
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -171,7 +182,8 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func _start(continue_game: bool) -> void:
-    if not continue_game or not progress.load_saved():
+    var fresh_game: bool = not continue_game or not progress.load_saved()
+    if fresh_game:
         progress.new_game()
         progress.save()
     game_core.bind(progress)
@@ -192,11 +204,69 @@ func _start(continue_game: bool) -> void:
     if not resumed_branch.is_empty() and str(progress.rpg.get("branch_story",{}).get("active",{}).get("source","menu")) == "menu":
         _display_branch_event(resumed_branch)
         return
+    if fresh_game and progress.chapter == 0 and _play_story_cinematic("cold_open","explore"):
+        return
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete", false)):
         if str(progress.rpg.get("ending_id", "")).is_empty():
             _begin_ending_choice()
         else:
             _play_ending_scene()
+
+func _play_story_cinematic(cue_id: String,resume: String) -> bool:
+    # Headless game automation runs story logic without waiting for presentation.
+    # Explicit cinematic smoke tests opt in to the real on-screen state machine.
+    if DisplayServer.get_name() == "headless" and not cinematic_force_play:
+        return false
+    if bool(progress.flags.get("cinematic."+cue_id+".seen",false)):
+        return false
+    var cue: Dictionary = cinematic_prologue.get("beats",{}).get(cue_id,{})
+    if cue.is_empty() or not cinematic.start(cue_id,cue):
+        return false
+    cinematic_resume=resume
+    busy=true
+    paused_for_dialogue=true
+    world.locked=true
+    ui.set_play_visible(false)
+    atlas.show_exploration(false)
+    return true
+
+func _cinematic_finished(cue_id: String,skipped: bool) -> void:
+    # Completed and skipped scenes have identical canonical state effects.
+    # This is presentation-only: narrative effects remain in _dialogue_ended.
+    if cue_id.is_empty():
+        return
+    progress.flags["cinematic."+cue_id+".seen"]=true
+    var resume: String=cinematic_resume
+    cinematic_resume=""
+    paused_for_dialogue=false
+    _save_progress()
+    if resume=="dialogue":
+        busy=false
+        _present("prologue")
+    elif resume=="explore":
+        _return_to_world()
+
+func _chapter_card(chapter_no: int) -> void:
+    if chapter_no<1 or cinematic==null:
+        return
+    var all_chapters: Array = cinematic_chapters.get("chapters",[])
+    var chosen: Dictionary={}
+    for record in all_chapters:
+        if int(record.get("number",0))==chapter_no:
+            chosen=record
+            break
+    if chosen.is_empty():
+        return
+    var act_no: int=int(chosen.get("act",1))
+    var act_title: String=""
+    for record in cinematic_chapters.get("acts",[]):
+        if int(record.get("act",0))==act_no:
+            act_title=str(record.get("title",""))
+            break
+    var is_act_start: bool=(chapter_no-1)%6==0
+    var heading: String=("%s · %s" % ["第%d幕" % act_no,act_title]) if is_act_start else ("第%d章 · %s" % [chapter_no,str(chosen.get("title",""))])
+    var label_text: String=("第%d章 · %s" % [chapter_no,str(chosen.get("title",""))]) if is_act_start else str(chosen.get("location","洛维恩"))
+    cinematic.banner_card(heading,label_text,"mystery" if is_act_start else "hope")
 
 func _enter_location() -> void:
     game_core.register_chapter(progress.chapter)
@@ -686,6 +756,11 @@ func _present(on_complete: String) -> void:
     if scene.is_empty():
         ui.show_message("当前章节内容缺失，请检查剧情数据。")
         return
+    if on_complete == "prologue" and progress.chapter == 0:
+        if _play_story_cinematic("prologue_%d" % progress.scene_index,"dialogue"):
+            return
+    if on_complete == "crisis" and progress.chapter > 0:
+        cinematic.banner_card(str(scene.get("title","前方的危机")),"第%d章 · 事件转折" % progress.chapter,"danger")
     pending = on_complete
     busy = true
     paused_for_dialogue = true

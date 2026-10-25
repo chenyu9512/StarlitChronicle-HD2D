@@ -40,6 +40,13 @@ func _run() -> void:
         g._enter_location()
         if str(g.world.map_profile.get("id","")) != map_id:
             faults.append("Quest did not move to mapped sector "+map_id)
+        if not g.world.nodes.has("questdoor:"+id):
+            faults.append("Lost-page quest needs an accessible dedicated room portal")
+        else:
+            g.world.hero.position = g.world.nodes["questdoor:"+id].position
+            g.world.interact()
+            if g.world.interior_building != "quest__"+id:
+                faults.append("Quest portal failed to enter dedicated scene")
         if q.get("stages",[]).size() != 5:
             faults.append("Lost-page quest must have five stages")
         for index in range(5):

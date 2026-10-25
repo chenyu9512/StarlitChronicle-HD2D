@@ -32,7 +32,7 @@ func cue(mood: String) -> void:
         var time_value: float=float(sample)/float(rate)
         var index: int=mini(notes.size()-1,int(time_value/note_length))
         var local: float=fmod(time_value,note_length)
-        var envelope: float=mini(1.0,local*26.0)*minf(1.0,(note_length-local)*9.0)
+        var envelope: float=minf(1.0,local*26.0)*minf(1.0,(note_length-local)*9.0)
         var freq: float=notes[index]
         var wave: float=sin(TAU*freq*time_value)+0.19*sin(TAU*freq*2.0*time_value)
         pcm.encode_s16(sample*2,clampi(roundi(wave*envelope*8200.0),-32767,32767))

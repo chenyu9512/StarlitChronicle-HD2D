@@ -13,6 +13,7 @@ signal housing_open_requested()
 const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
+const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
     "冒险": ["任务","剧情后续","世界地图","地区探索","冒险履历"],
@@ -38,6 +39,7 @@ var active_group: String = "伙伴"
 var section_tabs: HBoxContainer
 var branch_runtime
 var chapter_details
+var discovery_catalog = WorldDiscoveries.new()
 var world_router
 var game_events
 var slot_service
@@ -372,6 +374,27 @@ func render(section: String) -> void:
                 _label("未制作独立场景的地点暂使用可运行的地区风格地图模板，并不会被标记为正式美术已完成。")
         "地区探索":
             _label("第%d章 · 场景调查与居民见证" % save_state.chapter,true)
+            var acquired: int = 0
+            for place in discovery_catalog.maps.keys():
+                for event in discovery_catalog.entries(str(place)):
+                    if bool(save_state.flags.get(discovery_catalog.flag(str(place),str(event.get("id",""))),false)):
+                        acquired += 1
+            _label("世界探索档案 · %d / 120 处" % acquired,true)
+            if world_router != null:
+                var location: String = world_router.current_map()
+                var local_events: Array = discovery_catalog.entries(location)
+                if not local_events.is_empty():
+                    var done: int = 0
+                    for event in local_events:
+                        var complete: bool = bool(save_state.flags.get(discovery_catalog.flag(location,str(event.get("id",""))),false))
+                        if complete:
+                            done += 1
+                        _label(("✓ " if complete else "◇ ") + str(event.get("name","地区线索")) + (" · 已记录" if complete else " · 尚未调查"))
+                        if complete:
+                            _label(str(event.get("text","")))
+                    var area_record: Dictionary = discovery_catalog.maps.get(location,{})
+                    _label("当前地区：%s · %d / %d" % [str(area_record.get("name",location)),done,local_events.size()])
+                    _button(content,"打开区域地图，寻找未调查地点",func() -> void: map_requested.emit(),15)
             if save_state.chapter < 1:
                 _label("童年序章结束后，每章开放两处独立调查物件及一段隐藏证言。")
             else:

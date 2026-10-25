@@ -39,6 +39,10 @@
 
 120条原任务拥有以正典调查对白为依据的独立证物/记录档案；第19-2地图节点已经升级为NPC交谈、证物核对、后续公告三个现场步骤，后两步须玩家确认，暂缓不会消耗事件。三条记录按原对白ID保存在`rpg.branch_story.field_log`，可在功能手册中查阅。地图子区域、全角色换装与复杂解谜仍需继续制作。详情：[第19-3批交付报告](PHASE_19_BATCH03_SCENE_DELIVERY.md)。
 
+## 第19阶段第四批｜失落航页12独立室内关卡（2026-10-25）
+
+12条失落航页已经各自拥有真实的V4室内碰撞布局与步行通路。玩家从对应世界分区的独立入口进入，在专属室内完成原五阶段任务与符合A/B条件的后续调查，查看三处线索陈列；进出、查看证物和中途读档沿用既有存档机制。已通过Godot专项12场景实地验收。当前使用原有环境美术，不等于12张全新精绘美术。详见 [第19-4批交付报告](PHASE_19_BATCH04_LOST_PAGE_INTERIORS_DELIVERY.md) 和 [12间场景索引](data/phase19_lost_page_submaps.json)。
+
 ## 项目校验
 
 - 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`

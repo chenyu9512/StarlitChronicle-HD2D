@@ -438,11 +438,11 @@ func _act(action: String) -> void:
         game_state.actors[hero_turn] = member
     if damage > 0:
         if game_core != null:
-            var trait: String = game_core.weapon_trait(str(member.get("id","")))
-            var tier: int = game_core.weapon_tier(str(member.get("id","")))
-            damage = combat_rules.weapon_damage(damage,trait,enemy,tier)
-            if not trait.is_empty():
-                message += " · 武器特性："+trait
+            var weapon_trait_id: String = str(game_core.weapon_trait(str(member.get("id",""))))
+            var weapon_tier_rank: int = int(game_core.weapon_tier(str(member.get("id",""))))
+            damage = combat_rules.weapon_damage(damage, weapon_trait_id, enemy, weapon_tier_rank)
+            if not weapon_trait_id.is_empty():
+                message += " · 武器特性：" + weapon_trait_id
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
         if boss and chapter == 5:
             # 古兽的剧情结局是卸下星锁，而不是杀死生命体。

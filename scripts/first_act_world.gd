@@ -369,7 +369,9 @@ func _build_sites() -> void:
                     title_tag.add_theme_font_size_override("font_size",12)
                     nodes["questcase:"+str(step)].add_child(title_tag)
                 for stage_index in range(5):
-                    var quest_stage: Sprite2D = _add_sprite("star_lantern" if stage_index==4 else "sign",spots[[0,1,2,0,2][stage_index]],false,true)
+                    var stage_spots: Array = terrain_layout.get("story_stage_points",[])
+                    var stage_cell: Vector2i = stage_spots[stage_index] if stage_spots.size()==5 else spots[[0,1,2,0,2][stage_index]]
+                    var quest_stage: Sprite2D = _add_sprite("star_lantern" if stage_index==4 else "sign",stage_cell,false,true)
                     nodes["story_stage_%d" % stage_index] = quest_stage
                     quest_stage.visible = false
             return
@@ -579,7 +581,10 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
         var location: Vector2i = Vector2i(-1,-1)
         if not quest_room.is_empty():
             var original_points: Array = terrain_layout.get("quest_points",[])
-            if original_points.size()==3:
+            var original_stages: Array = terrain_layout.get("story_stage_points",[])
+            if original_stages.size()==5:
+                location = original_stages[clampi(stage,0,4)]
+            elif original_points.size()==3:
                 location = original_points[[0,1,2,0,2][clampi(stage,0,4)]]
         elif quest_submaps.detail(original_id).is_empty() and interior_building.is_empty():
             location = binder.position_for(binder.site(original_id),reachable,occupied,0)
@@ -635,8 +640,11 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
         if (not quest_room.is_empty() and str(chosen.get("quest_id",""))==quest_room) or (quest_room.is_empty() and (interior_building.is_empty() or str(info.get("building_id","")) == interior_building)):
             var point: Vector2i = binder.position_for(info,reachable,occupied,currently)
             if not quest_room.is_empty():
+                var field_stages: Array = terrain_layout.get("branch_stage_points",[])
                 var current_points: Array = terrain_layout.get("quest_points",[])
-                if current_points.size()==3:
+                if field_stages.size()==3:
+                    point = field_stages[clampi(currently,0,2)]
+                elif current_points.size()==3:
                     point = current_points[clampi(currently,0,2)]
             if point.x>=0:
                 occupied.append(point)

@@ -491,6 +491,25 @@ func _interact(target: String) -> void:
         _save_progress()
         ui.show_message("【%s】\n%s%s" % [str(record.get("name","地标")),narrative,payout])
         return
+    if target.begins_with("puzzle:"):
+        if not world.interior_building.is_empty():
+            return
+        var region_id: String = world_router.current_map()
+        var device_id: String = target.trim_prefix("puzzle:")
+        var solved: Dictionary = world.dungeon_puzzles.interact(region_id,device_id,progress)
+        if bool(solved.get("changed",false)):
+            var payment: Dictionary = solved.get("reward",{})
+            if not payment.is_empty():
+                var gold: int = maxi(0,int(payment.get("gold",0)))
+                var item_id: String = str(payment.get("item_id",""))
+                var count: int = maxi(0,int(payment.get("amount",0)))
+                progress.gold += gold
+                if count>0 and not item_id.is_empty():
+                    game_core.add_item(item_id,count)
+                game_events.record("dungeon_puzzle_solved",{"map":region_id,"mode":str(world.dungeon_puzzles.config(region_id).get("mode",""))})
+            _save_progress()
+        ui.show_message(str(solved.get("message","这里没有可操作的机关。")))
+        return
     if target.begins_with("dungeon_switch_"):
         var key: String = "map.%s.%s" % [world_router.current_map(),target]
         if bool(progress.flags.get(key,false)):

@@ -1,6 +1,7 @@
 extends CanvasLayer
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
+const BattleFormation = preload("res://scripts/battle_formation.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -10,6 +11,8 @@ var game_state
 var game_core
 var encounter_registry
 var combat_rules
+var formation
+var active_target: int = 0
 var skill_picker: PanelContainer
 var encounter_data: Dictionary = {}
 var chapter: int = 1
@@ -68,6 +71,10 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         enemy = {"name":monster_names[monster_number], "hp":hp, "max_hp":hp, "atk":7+chapter*2+monster_number, "def":2+int(monster_number/2), "xp":20+chapter*8+monster_number*3, "gold":12+chapter*4+monster_number*2, "art":MONSTER_ART[monster_number]}
         chain_hp = 0
         enemy = encounter_registry.roll_monster(chapter)
+    formation = BattleFormation.new()
+    formation.start(encounter_registry,chapter,boss,enemy)
+    active_target = 0
+    enemy = formation.units[0]
     _build()
     _start_actor()
     _redraw("%s 出现在你们面前！" % str(enemy["name"]))
@@ -197,6 +204,37 @@ func _choose_skill() -> void:
         b.disabled = int(actor.get("mp",0)) < cost
     _button(list,"返回战斗","cancel_skill")
 
+func _select_enemy(index: int) -> void:
+    if formation == null or not formation.valid_target(index):
+        return
+    active_target = index
+    enemy = formation.units[index]
+    if is_instance_valid(portrait):
+        var art: String = str(enemy.get("art",""))
+        var path: String = "res://assets/art/monsters/coast/%s/battle.png" % art
+        if not ResourceLoader.exists(path):
+            path = "res://assets/enemies/boss.png"
+        portrait.texture = load(path)
+
+func _choose_enemy_target(command: String) -> void:
+    _hide_skills()
+    skill_picker = PanelContainer.new()
+    skill_picker.anchor_left = 0.20
+    skill_picker.anchor_right = 0.80
+    skill_picker.anchor_top = 0.22
+    skill_picker.anchor_bottom = 0.82
+    skill_picker.add_theme_stylebox_override("panel",_style(Color("091b31"),Color("e6c47d")))
+    root.add_child(skill_picker)
+    var layout := VBoxContainer.new()
+    skill_picker.add_child(layout)
+    var heading := Label.new()
+    heading.text = "选择敌方目标"
+    layout.add_child(heading)
+    for i in formation.alive_indices():
+        var record: Dictionary = formation.units[i]
+        _button(layout,"%s · HP %d/%d" % [str(record.get("name","敌人")),int(record.get("hp",0)),int(record.get("max_hp",1))],command+"#"+str(i))
+    _button(layout,"返回战斗","cancel_skill")
+
 func _get_skill(id: String) -> Dictionary:
     if game_core == null:
         return {}
@@ -252,14 +290,26 @@ func _start_actor() -> void:
 func _act(action: String) -> void:
     if win_locked or hero_turn >= game_state.actors.size():
         return
+    if action in ["attack","special"] and not boss and formation.alive_indices().size() > 1:
+        _choose_enemy_target(action)
+        return
     if action == "skill":
         _choose_skill()
         return
     if action == "cancel_skill":
         _hide_skills()
         return
+    if "#" in action:
+        var enemy_select: PackedStringArray = action.split("#",false,1)
+        if enemy_select.size() != 2 or not formation.valid_target(int(enemy_select[1])):
+            _redraw("该敌人已经被击败，请重新选择。")
+            return
+        _select_enemy(int(enemy_select[1]))
+        action = str(enemy_select[0])
+        _hide_skills()
     var chosen_skill: String = ""
     var target_index: int = hero_turn
+    var hit_all_enemies: bool = false
     if action.begins_with("skill:"):
         var token: String = action.trim_prefix("skill:")
         if "@" in token:
@@ -272,8 +322,12 @@ func _act(action: String) -> void:
             if str(candidate.get("target","")) == "single_ally":
                 _choose_target(chosen_skill)
                 return
+            if str(candidate.get("target","")) == "single_enemy" and formation.alive_indices().size() > 1:
+                _choose_enemy_target("skill:"+chosen_skill)
+                return
         action = "skill"
         _hide_skills()
+        hit_all_enemies = str(_get_skill(chosen_skill).get("target","")) == "all_enemies"
     var member: Dictionary = game_state.actors[hero_turn]
     var name: String = str(member["name"])
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
@@ -391,16 +445,25 @@ func _act(action: String) -> void:
                 _redraw(message + "星纹锁断裂！")
                 _finish(true)
                 return
+        elif hit_all_enemies:
+            for index in formation.alive_indices():
+                formation.apply_damage(index,damage)
+            enemy = formation.units[active_target]
         else:
-            enemy["hp"] = maxi(0, int(enemy["hp"]) - damage)
+            formation.apply_damage(active_target,damage)
+            enemy = formation.units[active_target]
     if not phase_two and boss and int(enemy["hp"]) <= int(enemy["max_hp"]) / 2:
         phase_two = true
         message += "  敌人进入第二阶段！"
         enemy["atk"] = int(enemy["atk"]) + 4
-    if int(enemy["hp"]) <= 0 and (not boss or chapter != 5):
+    if formation.complete() and (not boss or chapter != 5):
         _redraw(message)
         _finish(true)
         return
+    if not formation.valid_target(active_target):
+        var remaining: Array[int] = formation.alive_indices()
+        if not remaining.is_empty():
+            _select_enemy(remaining[0])
     hero_turn += 1
     _start_actor()
     if not win_locked:
@@ -409,6 +472,18 @@ func _act(action: String) -> void:
 func _enemy_turn() -> void:
     if win_locked:
         return
+    var original_target: int = active_target
+    for index in formation.alive_indices():
+        if win_locked:
+            break
+        enemy = formation.units[index]
+        _enemy_strike()
+    if formation.valid_target(original_target):
+        _select_enemy(original_target)
+    elif not formation.alive_indices().is_empty():
+        _select_enemy(formation.alive_indices()[0])
+
+func _enemy_strike() -> void:
     var living: Array[int] = []
     for i in range(game_state.actors.size()):
         if int(game_state.actors[i]["hp"]) > 0 and (game_core == null or game_core.is_active(str(game_state.actors[i].get("id","")))):
@@ -455,6 +530,13 @@ func _redraw(message: String) -> void:
     if phase_two:
         header += "  · 二阶段"
     header += " · 下一步：" + str(combat_rules.enemy_intent(current_round,phase_two,boss).get("label","攻击"))
+    if formation != null and formation.units.size() > 1:
+        var roster: Array[String] = []
+        for i in range(formation.units.size()):
+            var unit: Dictionary = formation.units[i]
+            if int(unit.get("hp",0)) > 0:
+                roster.append(("%d▶" % (i+1) if i == active_target else "%d" % (i+1))+" "+str(unit.get("name",""))+" "+str(unit.get("hp",0))+"HP")
+        header = " | ".join(roster)
     foe_info.text = header
     var lines: PackedStringArray = []
     for i in range(game_state.actors.size()):
@@ -478,4 +560,5 @@ func _finish(victory: bool) -> void:
         report.text = "胜利！%s" % ("古兽已经重获自由。" if boss and chapter == 5 else "战斗结束，大家平安归来。")
     else:
         report.text = "全队失去战斗力，准备在营地重新整备。"
-    completed.emit(victory, int(enemy["xp"]) if victory else 0, int(enemy["gold"]) if victory else 0)
+    var reward: Dictionary = formation.rewards() if formation != null else {"xp":int(enemy["xp"]),"gold":int(enemy["gold"])}
+    completed.emit(victory, int(reward["xp"]) if victory else 0, int(reward["gold"]) if victory else 0)

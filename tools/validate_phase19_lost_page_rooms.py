@@ -43,6 +43,17 @@ for entry in manifest["quests"]:
     for r in d.get("door_regions",[]):
         x0,y0,x1,y1=r["rect"]
         tile.update((x,y) for x in range(x0,x1+1) for y in range(y0,y1+1))
+    for blocked_furniture in d.get("art_collision_cells",[]):
+        tile.discard(tuple(blocked_furniture))
+    ck(d.get("art_profile")=="quest_research_v1" and len(d.get("visuals",[]))>=4,
+       "distinct authored environment art layers "+qid)
+    ck(len(d.get("room_day_tint",""))==6 and len(d.get("room_night_tint",""))==6,
+       "individual day/night ambience "+qid)
+    for visual in d.get("visuals",[]):
+        asset=visual.get("asset","")
+        exists=(ROOT / f"assets/art/interiors/morning_dew_inn/{asset}.svg").is_file() or (
+            ROOT / f"assets/art/interiors/coastal_district/{asset}.svg").is_file()
+        ck(exists,"actual installed art resource "+qid+":"+asset)
     marks=[d["points"][k] for k in ("spawn","exit","service","storage")]+d["quest_points"]
     ck(len(d["quest_points"])==3 and len({tuple(p) for p in d["quest_points"]})==3,
        "three distinct clue coordinates "+qid)

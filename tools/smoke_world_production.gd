@@ -79,6 +79,23 @@ func _run() -> void:
     verify(not world._blocked(world.hero.position),"Indoor spawn is not passable")
     verify(world.leave_building(),"Could not leave building interior")
     verify(world.hero.position == outside,"Exterior return position not restored")
+    var observed: Array[String] = []
+    world.interacted.connect(func(id: String) -> void: observed.append(id))
+    for id in geo.zones.keys():
+        var spec: Dictionary = geo.zone(str(id))
+        if not bool(spec.get("settlement",false)):
+            continue
+        world.map_profile = registry.profile(str(id))
+        world.build(1,2)
+        world.locked = false
+        world.set_focus("")
+        for story_id in ["key_npc","clue","witness","crisis","resolve"]:
+            observed.clear()
+            world.hero.position = world.nodes[story_id].position + Vector2(0,18)
+            world.interact()
+            verify(not observed.is_empty() and observed[-1] == story_id,"Town doorway overrode story interaction: "+str(id)+" / "+story_id)
+    world.map_profile = registry.profile()
+    world.build(1,2)
     var map = MapView.new()
     map.custom_minimum_size = Vector2(900,550)
     root.add_child(map)

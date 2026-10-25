@@ -27,7 +27,7 @@ static func signature(skill: Dictionary) -> Dictionary:
     return {
         "seed":seed, "tier":tier, "element":element,
         "color":Color(str(ELEMENT_COLORS.get(element,"ffe0b0"))),
-        "rays":5+seed%8, "rings":1+(seed/7)%3,
+        "rays":5+seed%8, "rings":1+int(float(seed)/7.0)%3,
         "spin":-1.0 if seed%2==0 else 1.0,
         "twist":float(seed%37)/37.0*TAU,
         "scope":clampf(0.76+float(tier)*0.09,0.8,1.45)

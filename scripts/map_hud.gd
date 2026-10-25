@@ -248,7 +248,10 @@ func _refresh_info() -> void:
     var time_label: String = "%02d:%02d" % [int(minutes/60),minutes%60]
     var weather_id: String = str(world.ambience.weather) if world.ambience!=null and is_instance_valid(world.ambience) else "clear"
     var weather_name: String = {"clear":"晴朗","rain":"阵雨","mist":"薄雾","ash":"浮灰"}.get(weather_id,"晴朗")
-    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,int(current_clock.get("day",1)),time_label,weather_name]
+    var fog_progress: String = "未知"
+    if world.fog != null:
+        fog_progress = "%d%%" % world.fog.percent(world.fog_key())
+    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n已探索：%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,fog_progress,int(current_clock.get("day",1)),time_label,weather_name]
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)
         if info.is_empty():

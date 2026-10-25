@@ -43,6 +43,10 @@
 
 12条失落航页已经各自拥有真实的V4室内碰撞布局与步行通路。玩家从对应世界分区的独立入口进入，在专属室内完成原五阶段任务与符合A/B条件的后续调查，查看三处线索陈列；进出、查看证物和中途读档沿用既有存档机制。已通过Godot专项12场景实地验收。当前使用原有环境美术，不等于12张全新精绘美术。详见 [第19-4批交付报告](PHASE_19_BATCH04_LOST_PAGE_INTERIORS_DELIVERY.md) 和 [12间场景索引](data/phase19_lost_page_submaps.json)。
 
+## 第19阶段第五批｜12个可玩证据推理与室内美术深化
+
+12个航页场景已增加基于正典证据的三处调查与不同结论选择（错误可重试，正确记录V3档案）；12间独立室内各自设置日夜光色、已有SVG家具与碰撞，其他108条支线的现场证据标记加入任务专属名称和物件类型。仍缺全新精绘美术与108条完整独立建筑场景。详见[第19-5批交付报告](PHASE_19_BATCH05_ART_AND_PUZZLES.md)和[12个机关数据](data/phase19_lost_page_puzzles.json)。
+
 ## 项目校验
 
 - 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`

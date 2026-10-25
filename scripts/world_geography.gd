@@ -1,4 +1,5 @@
 extends RefCounted
+const WorldLevelV3 = preload("res://scripts/world_level_v3.gd")
 ## 72x48 real-world sector architecture, shared by collision, renderer, minimap and tests.
 ## Authored spatial zone configuration is in world_atlas_v2.json; geometry is deterministic.
 const WIDTH: int = 72
@@ -10,6 +11,7 @@ const ICONS: Array[String] = ["palm_tree","rock","barrel","sea_crystal","star_la
 var zones: Dictionary = {}
 var regions: Dictionary = {}
 var faults: Array[String] = []
+var authored = WorldLevelV3.new()
 
 func _init() -> void:
     var document: Variant = JSON.parse_string(FileAccess.get_file_as_string(ATLAS_PATH))
@@ -24,6 +26,8 @@ func _init() -> void:
             zones[str(entry.get("id",""))] = entry
     if zones.size() != 42 or regions.size() != 8:
         faults.append("World atlas must define 42 sectors and 8 regions")
+    for reason in authored.problems:
+        faults.append(str(reason))
 
 func zone(id: String) -> Dictionary:
     return zones.get(id,{})
@@ -225,10 +229,19 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             var p: Vector2i = Vector2i(xx,yy)
             if not walls.has(p) and p.distance_to(hub)>10:
                 features.append({"kind":ICONS[_hash(i,24,seed)%ICONS.size()],"cell":p,"name":"探索景物"})
-    # Required physical event positions are reachable from the first spawn.
-    # The ground art can vary but these routes cannot be sealed by hills or buildings.
-    for index in range(_anchors().size()):
-        _road(terrain,walls,start,_anchors()[index],seed+index,1 if dungeon else 1)
+    # V3 wilderness is an editable per-zone layout, not the former global
+    # star-shaped spawn-to-every-quest carve. All quest markers still remain
+    # accessible by short connections to their nearest authored road waypoint.
+    var authored_level: Dictionary = authored.level(map_id)
+    if not dungeon and not village and not authored_level.is_empty():
+        var route_nodes: Array[Vector2i] = authored.apply(authored_level,terrain,walls,features)
+        for index in range(_anchors().size()):
+            var anchor: Vector2i = _anchors()[index]
+            var origin: Vector2i = authored.nearest_road(anchor,route_nodes)
+            _road(terrain,walls,origin,anchor,seed+index,0)
+    else:
+        for index in range(_anchors().size()):
+            _road(terrain,walls,start,_anchors()[index],seed+index,1)
     # Gate entrances sit inside passable terrain and connect existing registry neighbors.
     var gates: Array[Dictionary] = []
     var names: Array = spec.get("neighbors",[])

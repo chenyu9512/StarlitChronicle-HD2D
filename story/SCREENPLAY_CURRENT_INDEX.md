@@ -68,6 +68,12 @@
 - [第19-4批关卡交付报告](PHASE_19_BATCH04_LOST_PAGE_INTERIORS_DELIVERY.md)：连续五阶段原任务、A/B后续、证物档案与V3恢复。
 - 关卡验证：`tools/validate_phase19_lost_page_rooms.py`、`tools/smoke_phase19_lost_page_rooms.gd`、`tools/smoke_story_side_quests.gd`。12张都有独立几何布局，但专用绘制、表情和特制机关仍需后续制作。
 
+## 第19阶段第五批｜可玩调查机关与房间环境状态
+
+- [12个航页证据机关](data/phase19_lost_page_puzzles.json)：两处证物交叉核查、第三处作出结论，错误不阻止原任务，解谜进度独立存档。
+- [第19-5批交付报告](PHASE_19_BATCH05_ART_AND_PUZZLES.md)：12间不同室内SVG陈设、日夜灯光、108条现场识别标记和未完成的最终原画。
+- 自动测试：`tools/validate_phase19_lost_page_puzzles.py`、`tools/smoke_phase19_lost_page_puzzles.gd`；独立世界剧情专项CI已验证。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线结构及数据格式。

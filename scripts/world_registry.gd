@@ -5,7 +5,9 @@ const WORLD_MAPS: String = "res://data/content/maps.json"
 const WORLD_REGIONS: String = "res://data/content/regions.json"
 const WORLD_QUESTS: String = "res://data/content/quests.json"
 const INITIAL_MAP: String = "map_coast_01"
+const Geography = preload("res://scripts/world_geography.gd")
 var maps: Dictionary = {}
+var geography = Geography.new()
 var regions: Dictionary = {}
 var chapter_maps: Dictionary = {}
 var first_chapter: Dictionary = {}
@@ -48,6 +50,11 @@ func validate_catalog() -> Array[String]:
         issues.append("应有8个地区，实际%d个" % regions.size())
     if chapter_maps.size() != 72:
         issues.append("72章地图锚点缺失，现有%d章" % chapter_maps.size())
+    for error in geography.faults:
+        issues.append(str(error))
+    for id in maps.keys():
+        if geography.zone(str(id)).is_empty():
+            issues.append("地图在空间图集中缺失：%s" % str(id))
     for key in maps:
         var item: Dictionary = maps[key]
         if not regions.has(str(item.get("region_id",""))):
@@ -130,6 +137,10 @@ func profile(map_id: String = "") -> Dictionary:
         "region_id":region, "region_name":str(regions.get(region,{}).get("name",region)),
         "kind":str(info.get("type","field")), "color":theme.get(region,Color.WHITE),
         "seed":id.hash(), "authored_scene":authored,
+        "atlas_coordinates":geography.zone(id).get("atlas",[]),
+        "biome":geography.zone(id).get("biome","coastal"),
+        "settlement":geography.zone(id).get("settlement",false),
+        "spatial_sector":true,
         "chapter_anchor":int(first_chapter.get(id,0)),
         "neighbors":info.get("neighbors",[])
     }

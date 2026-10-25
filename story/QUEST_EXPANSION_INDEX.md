@@ -219,4 +219,4 @@
 - [新增地区任务目录](screenplay/regional/)
 - [跨时代回访](screenplay/legacy_followups.md)
 
-详细状态及限制：[第六阶段文本审计](PHASE_06_BRANCH_DIALOGUE_AUDIT.md)。
+详细状态及限制：[当前剧情制作约束](NARRATIVE_V21_INTEGRATION_CONTRACT.md)。

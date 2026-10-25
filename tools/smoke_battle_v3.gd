@@ -34,6 +34,11 @@ func _run() -> void:
     verify(stage.point(0).distance_to(stage.point(1)) > 60.0,"Enemies overlap on stage")
     stage.focus(2)
     verify(stage.active_index == 2,"Focus was not changed")
+    stage.attack(2)
+    verify(float(stage.slots[2].get("attack",0.0)) > 0.0,"Enemy attack windup missing")
+    stage._process(0.08)
+    var attacker_sprite: TextureRect = stage.slots[2]["node"]
+    verify(attacker_sprite.position.x < Vector2(stage.slots[2]["base"]).x,"Attacking foe did not lunge")
     stage.hit(1,true)
     for i in range(7):
         stage._process(0.1)

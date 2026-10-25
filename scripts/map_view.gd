@@ -52,13 +52,24 @@ func _draw() -> void:
 func _draw_local() -> void:
     if world == null or not is_instance_valid(world.layer):
         return
-    var cell: float = minf((size.x - 20.0) / float(W), (size.y - 20.0) / float(H))
+    # The compact map follows the hero through a 21 × 15-cell window.
+    # The expanded map always displays the whole authored 44 × 28 terrain.
+    var columns: int = 21 if compact else W
+    var rows: int = 15 if compact else H
+    var first_x: int = 0
+    var first_y: int = 0
+    if compact and is_instance_valid(world.hero):
+        var hero_tile: Vector2i = Vector2i(world.hero.position / TILE)
+        first_x = clampi(hero_tile.x - int(columns / 2),0,W - columns)
+        first_y = clampi(hero_tile.y - int(rows / 2),0,H - rows)
+    var cell: float = minf((size.x - 20.0) / float(columns), (size.y - 20.0) / float(rows))
     if cell <= 0.0:
         return
-    var origin: Vector2 = (size - Vector2(float(W), float(H)) * cell) * 0.5
-    draw_rect(Rect2(origin - Vector2(2, 2), Vector2(float(W), float(H)) * cell + Vector2(4, 4)), Color("8298a1"), false, 1.0)
-    for y in range(H):
-        for x in range(W):
+    var origin: Vector2 = (size - Vector2(float(columns), float(rows)) * cell) * 0.5
+    var map_rect: Rect2 = Rect2(origin, Vector2(float(columns),float(rows)) * cell)
+    draw_rect(map_rect.grow(2.0), Color("8298a1"), false, 1.0)
+    for y in range(first_y,first_y + rows):
+        for x in range(first_x,first_x + columns):
             var tile: Vector2i = Vector2i(x, y)
             var shade: Color = PASSABLE
             if world.blocked.has(tile):
@@ -69,11 +80,11 @@ func _draw_local() -> void:
                     shade = PATH
                 elif atlas.y == 5:
                     shade = Color("38575a")
-            draw_rect(Rect2(origin + Vector2(x, y) * cell, Vector2(cell + 0.08, cell + 0.08)), shade, true)
+            draw_rect(Rect2(origin + Vector2(x - first_x,y - first_y) * cell, Vector2(cell + 0.08,cell + 0.08)), shade, true)
     if not compact:
         for i in range(1, 4):
             var xx: float = origin.x + float(W) * cell * float(i) / 4.0
-            draw_line(Vector2(xx, origin.y), Vector2(xx, origin.y + float(H) * cell), Color(0.8,0.9,0.95,0.12), 1.0)
+            draw_line(Vector2(xx,origin.y), Vector2(xx,origin.y + float(H)*cell), Color(0.8,0.9,0.95,0.12), 1.0)
     for key in world.nodes.keys():
         var id: String = str(key)
         var node: Node2D = world.nodes[key]
@@ -90,14 +101,19 @@ func _draw_local() -> void:
             color = Color("a9b6ff")
         if color.a <= 0.0:
             continue
-        var pos: Vector2 = origin + node.position / TILE * cell
+        var pos: Vector2 = origin + (node.position / TILE - Vector2(first_x,first_y)) * cell
+        if compact and not map_rect.has_point(pos):
+            if id == main_target:
+                var edge: Vector2 = Vector2(clampf(pos.x,map_rect.position.x + 5.0,map_rect.end.x - 5.0),clampf(pos.y,map_rect.position.y + 5.0,map_rect.end.y - 5.0))
+                draw_circle(edge,4.0,MAIN)
+            continue
         var radius: float = 3.0 if compact else 5.2
         draw_circle(pos, radius + 1.2, Color("0a1b2b"))
         draw_circle(pos, radius, color)
         if id == main_target:
             draw_arc(pos, radius + 3.0, 0.0, TAU, 20, MAIN, 1.5)
     if is_instance_valid(world.hero):
-        var hero_pos: Vector2 = origin + world.hero.position / TILE * cell
+        var hero_pos: Vector2 = origin + (world.hero.position / TILE - Vector2(first_x,first_y)) * cell
         draw_circle(hero_pos, 5.5 if compact else 8.0, Color("132537"))
         draw_circle(hero_pos, 3.5 if compact else 5.5, HERO)
         draw_line(hero_pos, hero_pos + Vector2(0, -6.5 if compact else -10.0), HERO, 1.5)

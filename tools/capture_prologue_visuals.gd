@@ -46,6 +46,8 @@ func _capture() -> void:
     game._start(false)
     if game.cinematic.is_playing():
         game.cinematic.skip()
+    # The cinematic now fades out over 300ms; render only the actual world.
+    await create_timer(0.48).timeout
     game.ui.set_play_visible(false)
     game.atlas.show_exploration(false)
     if game.progress.chapter!=0:
@@ -61,6 +63,8 @@ func _capture() -> void:
         game.world.set_prologue_phase(int(item["index"]),0)
         if game.world.prologue_stage.stage!=str(item["phase"]):
             failures.append("World transition mismatch at "+str(item["name"]))
+        if str(item["phase"])=="falling":
+            await create_timer(3.0).timeout
         await _settle()
         _screenshot(str(item["name"]),str(item["phase"]),game)
     game.world.set_prologue_phase(5,0)
@@ -68,6 +72,7 @@ func _capture() -> void:
     if not game.cinematic.start("prologue_5",cue):
         failures.append("Full-screen black-star cutscene failed to open")
     else:
+        await create_timer(3.0).timeout
         await _settle()
         _screenshot("prologue_black_star_cinematic","screen_black_star",game)
         game.cinematic.skip()

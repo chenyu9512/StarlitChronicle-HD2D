@@ -251,7 +251,8 @@
       ],
       "production_status": "authored_ending_v2",
       "epilogue_revision": "full_distinct_v2",
-      "text_scope": "independent_postgame_epilogue_not_boss_during_combat"
+      "text_scope": "independent_postgame_epilogue_not_boss_during_combat",
+      "epilogue_play_order_contract": "只在ch072.ending中写入world.ending后播放对应ending_*_01至04；完结字幕在所选ending_*_04之后，ch072.resolve仍是抉择前共同场景。"
     },
     {
       "id": "B",
@@ -513,7 +514,8 @@
       ],
       "production_status": "authored_ending_v2",
       "epilogue_revision": "full_distinct_v2",
-      "text_scope": "independent_postgame_epilogue_not_boss_during_combat"
+      "text_scope": "independent_postgame_epilogue_not_boss_during_combat",
+      "epilogue_play_order_contract": "只在ch072.ending中写入world.ending后播放对应ending_*_01至04；完结字幕在所选ending_*_04之后，ch072.resolve仍是抉择前共同场景。"
     },
     {
       "id": "C",
@@ -786,7 +788,18 @@
       ],
       "production_status": "authored_ending_v2",
       "epilogue_revision": "full_distinct_v2",
-      "text_scope": "independent_postgame_epilogue_not_boss_during_combat"
+      "text_scope": "independent_postgame_epilogue_not_boss_during_combat",
+      "regional_cooperation_contract": {
+        "kind": "existing_world_flag_derivation",
+        "evidence_flags": [
+          "world.all_twelve_pages",
+          "world.distributed_network",
+          "world.seven_lanterns"
+        ],
+        "narrative_note": "本版必要协作在完成12航页见证及第60章分散灯网建设中体现，第66章负责七灯控制方式转变；当前没有逐地区新增强制旗标。任何新增要求必须先升级Godot的can_choose/旧存档测试。",
+        "not_additional_runtime_gate": true
+      },
+      "epilogue_play_order_contract": "只在ch072.ending中写入world.ending后播放对应ending_*_01至04；完结字幕在所选ending_*_04之后，ch072.resolve仍是抉择前共同场景。"
     }
   ],
   "validation_notes": [

@@ -34,10 +34,24 @@ func _run() -> void:
     check(not game.ui.hud.visible,"Main HUD obscures opening cinematic")
     check(game.cinematic.narration.text.length()>4,"Cold open lacks playable story text")
     var original_chapter: int=game.progress.chapter
+    var checkpoint_save=State.new()
+    check(checkpoint_save.load_saved(),"Cold-open checkpoint did not reach the save file")
+    check(str(checkpoint_save.rpg.get("cinematic_checkpoint",""))=="cold_open","Mid-cutscene save did not remember pending opening")
+    # A separate restarted game should resume the unfinished scene, not drop the
+    # player into the world or replay the canonical prologue from scene zero.
+    var resumed_game=Game.new()
+    resumed_game.cinematic_force_play=true
+    root.add_child(resumed_game)
+    resumed_game.ui.title_overlay.hide()
+    resumed_game._start(true)
+    check(resumed_game.cinematic.is_playing() and resumed_game.cinematic.active_id=="cold_open","Interrupted opening did not resume on actual continue")
+    resumed_game.cinematic.skip()
+    resumed_game.queue_free()
     game.cinematic.skip()
     check(not game.cinematic.is_playing(),"Cold open cannot be skipped")
     check(not game.busy and not game.world.locked,"Skipping cold open did not restore player control")
     check(bool(game.progress.flags.get("cinematic.cold_open.seen",false)),"Skipped cold open checkpoint was not saved")
+    check(not game.progress.rpg.has("cinematic_checkpoint"),"Completed cinematic left an obsolete active checkpoint")
     check(game.progress.chapter==original_chapter,"Skipping cinema changed actual story chapter")
     var seen: Dictionary={}
     for i in range(9):
@@ -71,6 +85,7 @@ func _run() -> void:
     check(game.progress.chapter==1,"Continue game unexpectedly restarted prologue")
     check(not game.cinematic.is_playing(),"Continue game erroneously replayed new-game cinematic")
     var transitions: Dictionary=game.cinematic_chapters
+    check((game.cinematic_scene_blocking.get("scenes",{}) as Dictionary).size()==289,"289 individual shooting-stage records are incomplete")
     check((transitions.get("chapters",[]) as Array).size()==72,"72 canonical chapter cards are incomplete")
     check((transitions.get("acts",[]) as Array).size()==12,"12 thematic act-title cards are incomplete")
     for number in range(1,73):

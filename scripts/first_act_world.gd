@@ -9,6 +9,7 @@ const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const SceneDirector = preload("res://scripts/story_scene_director.gd")
+const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
@@ -52,6 +53,7 @@ var story_marker_ids: Array[String] = []
 var story_marker_signature: String = ""
 var story_marker_positions: Dictionary = {}
 var scene_director = SceneDirector.new()
+var quest_submaps = QuestSubmaps.new()
 var interior_building: String = ""
 var interior_kind: String = ""
 var exterior_position: Vector2 = Vector2.ZERO
@@ -298,6 +300,27 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
 
 func _build_sites() -> void:
     if not interior_building.is_empty():
+        if interior_building.begins_with("quest__"):
+            var details: Dictionary = quest_submaps.detail(interior_building.trim_prefix("quest__"))
+            var spots: Array = terrain_layout.get("quest_points",[])
+            var quest_exit: Dictionary = terrain_layout.get("interact_cells",{})
+            nodes["interior_exit"] = _add_sprite("sign",quest_exit.get("exit",Vector2i(36,40)),false,true)
+            if spots.size()==3 and not details.is_empty():
+                for step in range(3):
+                    var art: String = ["crate","sea_crystal","sign"][step]
+                    nodes["questcase:"+str(step)] = _add_sprite(art,spots[step],false,true)
+                    var title_tag := Label.new()
+                    title_tag.text = str(details.get("displays",[])[step]).left(14)
+                    title_tag.position = Vector2(-65,-59)
+                    title_tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+                    title_tag.custom_minimum_size.x = 130
+                    title_tag.add_theme_font_size_override("font_size",12)
+                    nodes["questcase:"+str(step)].add_child(title_tag)
+                for stage_index in range(5):
+                    var quest_stage: Sprite2D = _add_sprite("star_lantern" if stage_index==4 else "sign",spots[[0,1,2,0,2][stage_index]],false,true)
+                    nodes["story_stage_%d" % stage_index] = quest_stage
+                    quest_stage.visible = false
+            return
         var markers: Dictionary = terrain_layout.get("interact_cells",{})
         nodes["interior_exit"] = _add_sprite("sign",markers.get("exit",Vector2i(35,34)),false,true)
         nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
@@ -737,6 +760,27 @@ func enter_building(building_id: String) -> bool:
     interior_building = building_id
     interior_kind = str(entry.get("name",building_id))
     build(chapter,last_party_size)
+    return true
+
+func enter_story_submap(quest_id: String, restore: bool = false) -> bool:
+    if not interior_building.is_empty() or not quest_submaps.matches(quest_id,str(map_profile.get("id","")),chapter):
+        return false
+    if not restore and not nodes.has("questdoor:"+quest_id):
+        return false
+    var detail: Dictionary = quest_submaps.detail(quest_id)
+    var layout_path: String = "res://data/levels/v4/interiors/%s__quest__%s.json" % [str(map_profile.get("id","")),quest_id]
+    if not FileAccess.file_exists(layout_path):
+        return false
+    exterior_position = hero.position
+    interior_building = "quest__"+quest_id
+    interior_kind = str(detail.get("interior_name","调查室"))
+    build(chapter,last_party_size)
+    if terrain_layout.get("quest_points",[]).size()!=3:
+        interior_building = ""
+        interior_kind = ""
+        build(chapter,last_party_size)
+        hero.position = exterior_position
+        return false
     return true
 
 func leave_building() -> bool:

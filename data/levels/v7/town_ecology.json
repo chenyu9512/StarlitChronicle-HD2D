@@ -1,0 +1,622 @@
+{
+  "schema": "starlit.town_ecology.v7",
+  "description": "11 original settlement routines in three neighborhood places with real clock windows, persistent volunteering and one-time completion rewards; separate from 120 side quests.",
+  "towns": {
+    "map_coast_01": {
+      "name": "晨露村",
+      "identity": "潮声与灯火",
+      "activity": "灯祭筹备",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "灯祭筹备 · 现场登记",
+          "district": "海风集市",
+          "cell": [
+            47,
+            25
+          ],
+          "icon": "fish_stall",
+          "open": 6,
+          "close": 13,
+          "text": "海风集市的早晨开始整理新鲜渔获。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "灯祭筹备 · 协作环节",
+          "district": "晨灯广场",
+          "cell": [
+            33,
+            25
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "核对盐露草与渔获价格，替村民准备灯祭物资。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "灯祭筹备 · 交接完成",
+          "district": "旧屋居住区",
+          "cell": [
+            19,
+            33
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "入夜后把补给交给守灯人，街口的灯重新亮了起来。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 42,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_coast_02": {
+      "name": "白砂港",
+      "identity": "白帆和航路",
+      "activity": "潮表与船队",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "潮表与船队 · 现场登记",
+          "district": "渔市水岸",
+          "cell": [
+            61,
+            26
+          ],
+          "icon": "pier_post",
+          "open": 6,
+          "close": 13,
+          "text": "白砂港的早潮留下船队出港记录。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "潮表与船队 · 协作环节",
+          "district": "港务广场",
+          "cell": [
+            31,
+            27
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "到港务广场核对潮表，排查被标错的礁道航线。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "潮表与船队 · 交接完成",
+          "district": "旅店与货栈",
+          "cell": [
+            22,
+            12
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "趁夜航灯升起，把修正的安全航路交给回港水手。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 51,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oaths_01": {
+      "name": "三誓门城",
+      "identity": "山门与誓约",
+      "activity": "三门守卫交接",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "三门守卫交接 · 现场登记",
+          "district": "誓约前庭",
+          "cell": [
+            38,
+            27
+          ],
+          "icon": "beacon",
+          "open": 6,
+          "close": 13,
+          "text": "卫戍军的晨间号令把三处关隘联在一起。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "三门守卫交接 · 协作环节",
+          "district": "卫戍营房",
+          "cell": [
+            55,
+            26
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "核对门城各岗哨的交班记录，补齐缺失的巡夜名单。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "三门守卫交接 · 交接完成",
+          "district": "山坡商街",
+          "cell": [
+            27,
+            15
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "晚钟响起时协助巡逻队登记城门情况。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 71,
+            "item_id": "item_ether_02",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_forge_01": {
+      "name": "熔炉港",
+      "identity": "赤炉与铁轨",
+      "activity": "炉火安全轮班",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "炉火安全轮班 · 现场登记",
+          "district": "主炉广场",
+          "cell": [
+            36,
+            26
+          ],
+          "icon": "barrel",
+          "open": 6,
+          "close": 13,
+          "text": "主炉第一声汽笛要求工匠检查冷却水阀。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "炉火安全轮班 · 协作环节",
+          "district": "矿车货场",
+          "cell": [
+            53,
+            37
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "沿工坊输送线记录异常温度，修正交班前的安全告示。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "炉火安全轮班 · 交接完成",
+          "district": "热锻市街",
+          "cell": [
+            48,
+            17
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "在夜班开始前将检查单送到工人休息处。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 91,
+            "item_id": "item_herb_03",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_isles_01": {
+      "name": "珊歌港",
+      "identity": "潮音与船歌",
+      "activity": "航歌与补给",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "航歌与补给 · 现场登记",
+          "district": "船歌圆场",
+          "cell": [
+            37,
+            27
+          ],
+          "icon": "rope_coil",
+          "open": 6,
+          "close": 13,
+          "text": "水手晨歌提醒港口检查救生浮环。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "航歌与补给 · 协作环节",
+          "district": "珊瑚集市",
+          "cell": [
+            49,
+            26
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "对照珊瑚集市货物清单分配远行补给。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "航歌与补给 · 交接完成",
+          "district": "栈桥泊位",
+          "cell": [
+            66,
+            27
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "夜里按泊位灯序回传航歌信号，送船队平安离港。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 111,
+            "item_id": "item_ether_04",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_mirror_01": {
+      "name": "镜湖都",
+      "identity": "湖光与倒影",
+      "activity": "镜庭匠展",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "镜庭匠展 · 现场登记",
+          "district": "静水镜庭",
+          "cell": [
+            37,
+            26
+          ],
+          "icon": "flowerpot",
+          "open": 6,
+          "close": 13,
+          "text": "晨雾中的静水镜庭开始收集不同方向的倒影。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "镜庭匠展 · 协作环节",
+          "district": "湖畔回廊",
+          "cell": [
+            51,
+            23
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "协助工艺市廊核对镜片和展品的折光刻度。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "镜庭匠展 · 交接完成",
+          "district": "工艺市廊",
+          "cell": [
+            46,
+            33
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "夕光落下时复原展厅展示用的最后一面镜片。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 131,
+            "item_id": "item_herb_05",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oldland_01": {
+      "name": "遗民营地",
+      "identity": "风沙与旧碑",
+      "activity": "遗民补给分发",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "遗民补给分发 · 现场登记",
+          "district": "旧碑水井",
+          "cell": [
+            35,
+            27
+          ],
+          "icon": "medicine_basket",
+          "open": 6,
+          "close": 13,
+          "text": "水井旁的早间名单记着刚抵达的迁徙家庭。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "遗民补给分发 · 协作环节",
+          "district": "遗物集市",
+          "cell": [
+            46,
+            23
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "在遗物集市核对补给包，避免重复领取或遗漏。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "遗民补给分发 · 交接完成",
+          "district": "护风帐街",
+          "cell": [
+            19,
+            28
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "傍晚将剩余药材送至护风帐街的临时照护点。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 151,
+            "item_id": "item_ether_06",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_sanctum_01": {
+      "name": "天轨前庭",
+      "identity": "星轨与祈光",
+      "activity": "长灯守望轮次",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "长灯守望轮次 · 现场登记",
+          "district": "星轨礼庭",
+          "cell": [
+            38,
+            27
+          ],
+          "icon": "star_lantern",
+          "open": 6,
+          "close": 13,
+          "text": "祈灯人清晨在星轨礼庭核对今日的灯位。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "长灯守望轮次 · 协作环节",
+          "district": "祈灯外环",
+          "cell": [
+            56,
+            24
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "沿祈灯外环确认漏记的巡礼时辰。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "长灯守望轮次 · 交接完成",
+          "district": "客旅长廊",
+          "cell": [
+            49,
+            31
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "夜钟响起时补上最后一盏守望灯的值守记录。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 171,
+            "item_id": "item_herb_07",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_01": {
+      "name": "群灯旧会馆",
+      "identity": "群灯议政",
+      "activity": "旧会馆再开放",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "旧会馆再开放 · 现场登记",
+          "district": "市政灯塔广场",
+          "cell": [
+            37,
+            26
+          ],
+          "icon": "sign",
+          "open": 6,
+          "close": 13,
+          "text": "清扫队在旧会馆前登记待修复的路灯。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "旧会馆再开放 · 协作环节",
+          "district": "商业主轴",
+          "cell": [
+            50,
+            24
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "与商业主轴商人协调白天的临时货车路线。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "旧会馆再开放 · 交接完成",
+          "district": "工匠街",
+          "cell": [
+            59,
+            34
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "夜晚按工匠街的修复清单逐盏验收灯火。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 191,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_02": {
+      "name": "自由议事厅",
+      "identity": "自由与契约",
+      "activity": "公开议事程序",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "公开议事程序 · 现场登记",
+          "district": "议事厅前庭",
+          "cell": [
+            38,
+            26
+          ],
+          "icon": "sign",
+          "open": 6,
+          "close": 13,
+          "text": "议事厅前庭贴出了今天的公开议程。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "公开议事程序 · 协作环节",
+          "district": "自由誓言步道",
+          "cell": [
+            54,
+            20
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "协助议员接待庭收集各街区的发言次序。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "公开议事程序 · 交接完成",
+          "district": "议员接待庭",
+          "cell": [
+            21,
+            18
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "晚间整理公开记录，让未能到场的人也能查阅决定。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 200,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_03": {
+      "name": "群灯居民街",
+      "identity": "万家与烟火",
+      "activity": "邻里互助日",
+      "events": [
+        {
+          "id": "prepare",
+          "title": "邻里互助日 · 现场登记",
+          "district": "居民公共水井",
+          "cell": [
+            37,
+            27
+          ],
+          "icon": "well",
+          "open": 6,
+          "close": 13,
+          "text": "居民公共水井的清晨签到簿记录独居长者需求。",
+          "need": "",
+          "reward": null
+        },
+        {
+          "id": "coordinate",
+          "title": "邻里互助日 · 协作环节",
+          "district": "邻里商街",
+          "cell": [
+            51,
+            25
+          ],
+          "icon": "beacon",
+          "open": 12,
+          "close": 20,
+          "text": "沿邻里商街分发物资并修复失效的联络灯。",
+          "need": "prepare",
+          "reward": null
+        },
+        {
+          "id": "handoff",
+          "title": "邻里互助日 · 交接完成",
+          "district": "庭院住区",
+          "cell": [
+            19,
+            32
+          ],
+          "icon": "star_lantern",
+          "open": 18,
+          "close": 24,
+          "text": "夜幕落下，居民在庭院互相确认家人已安全归来。",
+          "need": "coordinate",
+          "reward": {
+            "gold": 209,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    }
+  }
+}

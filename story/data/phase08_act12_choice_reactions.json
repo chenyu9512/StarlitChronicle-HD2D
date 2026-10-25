@@ -1,0 +1,454 @@
+{
+  "schema": "starlit.story.phase08.act12.reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "第67–72章的普通选择即时后续及第72章三结局选定后短句；不改变ending要求、不生成额外结局。",
+  "followups": [
+    {
+      "id": "ch067.crisis.p8.followup.hear",
+      "chapter_id": "ch067",
+      "after_choice_id": "ch067.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch067.approach": "public_choice",
+        "world.ch067.approach": "public_choice"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch067.crisis.p8.followup.hear.l01",
+          "speaker": "花园母亲",
+          "text": "我想先看完说明，再决定我和孩子是否离开。"
+        },
+        {
+          "id": "ch067.crisis.p8.followup.hear.l02",
+          "speaker": "玄璃",
+          "text": "它会写出能得到什么，也会写出可能失去什么。"
+        },
+        {
+          "id": "ch067.crisis.p8.followup.hear.l03",
+          "speaker": "诺依",
+          "text": "你可以问不止一次，不必因为第一次犹豫就失去资格。"
+        }
+      ]
+    },
+    {
+      "id": "ch067.crisis.p8.followup.protect",
+      "chapter_id": "ch067",
+      "after_choice_id": "ch067.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch067.approach": "family_support",
+        "world.ch067.approach": "family_support"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch067.crisis.p8.followup.protect.l01",
+          "speaker": "花园母亲",
+          "text": "我需要一点时间陪他做新歌，也想知道留下后的日子怎样。"
+        },
+        {
+          "id": "ch067.crisis.p8.followup.protect.l02",
+          "speaker": "岚音",
+          "text": "我们先照顾你的需要，再由你们各自决定未来。"
+        },
+        {
+          "id": "ch067.crisis.p8.followup.protect.l03",
+          "speaker": "花园孩子",
+          "text": "那我今天可以先把第一句写下来。"
+        }
+      ]
+    },
+    {
+      "id": "ch068.crisis.p8.followup.hear",
+      "chapter_id": "ch068",
+      "after_choice_id": "ch068.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch068.approach": "carry_memory",
+        "world.ch068.approach": "carry_memory"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch068.crisis.p8.followup.hear.l01",
+          "speaker": "主角",
+          "text": "这些回忆我会带走，但它们不替我决定明天。"
+        },
+        {
+          "id": "ch068.crisis.p8.followup.hear.l02",
+          "speaker": "岚音",
+          "text": "我也想念她。想念并不妨碍我继续做医生。"
+        },
+        {
+          "id": "ch068.crisis.p8.followup.hear.l03",
+          "speaker": "诺依",
+          "text": "等你们想讲的时候，我会认真听。"
+        }
+      ]
+    },
+    {
+      "id": "ch068.crisis.p8.followup.protect",
+      "chapter_id": "ch068",
+      "after_choice_id": "ch068.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch068.approach": "share_grief",
+        "world.ch068.approach": "share_grief"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch068.crisis.p8.followup.protect.l01",
+          "speaker": "雷索",
+          "text": "谁若还想多待一会儿，就让他先说出来。"
+        },
+        {
+          "id": "ch068.crisis.p8.followup.protect.l02",
+          "speaker": "朔弦",
+          "text": "我不想现在就走，可也不愿其他人一直陪我困在这里。"
+        },
+        {
+          "id": "ch068.crisis.p8.followup.protect.l03",
+          "speaker": "诺依",
+          "text": "那我们在出口留下集合信号，各自决定何时离开。"
+        }
+      ]
+    },
+    {
+      "id": "ch069.crisis.p8.followup.hear",
+      "chapter_id": "ch069",
+      "after_choice_id": "ch069.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch069.approach": "open_records",
+        "world.ch069.approach": "open_records"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch069.crisis.p8.followup.hear.l01",
+          "speaker": "城中教师",
+          "text": "我想让学生看见这些被删掉的作文，也得先问他们愿不愿公开。"
+        },
+        {
+          "id": "ch069.crisis.p8.followup.hear.l02",
+          "speaker": "维莎",
+          "text": "私人文字不会自动进入公示墙，只有本人同意的内容才能展示。"
+        },
+        {
+          "id": "ch069.crisis.p8.followup.hear.l03",
+          "speaker": "诺依",
+          "text": "公开真相也该尊重写下真相的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch069.crisis.p8.followup.protect",
+      "chapter_id": "ch069",
+      "after_choice_id": "ch069.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch069.approach": "both_paths",
+        "world.ch069.approach": "both_paths"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch069.crisis.p8.followup.protect.l01",
+          "speaker": "居民甲",
+          "text": "我想先留下，却不希望别人离开后再也进不来。"
+        },
+        {
+          "id": "ch069.crisis.p8.followup.protect.l02",
+          "speaker": "岚音",
+          "text": "我们会把医疗、住房和再选择的规则一起写清楚。"
+        },
+        {
+          "id": "ch069.crisis.p8.followup.protect.l03",
+          "speaker": "诺依",
+          "text": "两条路都值得有人维护，而不是让谁独自承担恐惧。"
+        }
+      ]
+    },
+    {
+      "id": "ch070.crisis.p8.followup.hear",
+      "chapter_id": "ch070",
+      "after_choice_id": "ch070.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch070.approach": "full_record",
+        "world.ch070.approach": "full_record"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch070.crisis.p8.followup.hear.l01",
+          "speaker": "伊泽",
+          "text": "我会把支持和反对的理由放在同一份记录里。"
+        },
+        {
+          "id": "ch070.crisis.p8.followup.hear.l02",
+          "speaker": "维莎",
+          "text": "没有一种未来可以靠删掉异议让自己显得正确。"
+        },
+        {
+          "id": "ch070.crisis.p8.followup.hear.l03",
+          "speaker": "主角",
+          "text": "让后来者知道，我们当时仍有许多问题没有答案。"
+        }
+      ]
+    },
+    {
+      "id": "ch070.crisis.p8.followup.protect",
+      "chapter_id": "ch070",
+      "after_choice_id": "ch070.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch070.approach": "accountability",
+        "world.ch070.approach": "accountability"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch070.crisis.p8.followup.protect.l01",
+          "speaker": "七地代表",
+          "text": "如果方案被选中，谁负责检查供能、照护和退出权？"
+        },
+        {
+          "id": "ch070.crisis.p8.followup.protect.l02",
+          "speaker": "维莎",
+          "text": "职责应当能交接，也能被居民质询。"
+        },
+        {
+          "id": "ch070.crisis.p8.followup.protect.l03",
+          "speaker": "诺依",
+          "text": "请把承诺写成具体工作，不是写成永不出错的誓言。"
+        }
+      ]
+    },
+    {
+      "id": "ch071.crisis.p8.followup.hear",
+      "chapter_id": "ch071",
+      "after_choice_id": "ch071.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch071.approach": "refuse_control",
+        "world.ch071.approach": "refuse_control"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch071.crisis.p8.followup.hear.l01",
+          "speaker": "赫西安",
+          "text": "你承认会有人痛苦，竟仍允许未来继续？"
+        },
+        {
+          "id": "ch071.crisis.p8.followup.hear.l02",
+          "speaker": "主角",
+          "text": "因为他人能否决定自己的人生，不是我能替他们拿走的。"
+        },
+        {
+          "id": "ch071.crisis.p8.followup.hear.l03",
+          "speaker": "诺依",
+          "text": "我们会尽力照顾失败后仍在求助的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch071.crisis.p8.followup.protect",
+      "chapter_id": "ch071",
+      "after_choice_id": "ch071.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch071.approach": "shared_responsibility",
+        "world.ch071.approach": "shared_responsibility"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch071.crisis.p8.followup.protect.l01",
+          "speaker": "维莎",
+          "text": "各地会有责任清单、公开复核与退出规则。"
+        },
+        {
+          "id": "ch071.crisis.p8.followup.protect.l02",
+          "speaker": "赫西安",
+          "text": "规则也可能被人破坏。"
+        },
+        {
+          "id": "ch071.crisis.p8.followup.protect.l03",
+          "speaker": "雷索",
+          "text": "所以才要允许普通人提出证据、修改规则，而不是永远听一人命令。"
+        }
+      ]
+    },
+    {
+      "id": "ch072.crisis.p8.followup.hear",
+      "chapter_id": "ch072",
+      "after_choice_id": "ch072.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch072.approach": "delegate",
+        "world.ch072.approach": "delegate"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch072.crisis.p8.followup.hear.l01",
+          "speaker": "七地代表",
+          "text": "我们听见你们愿意承担的部分，也想知道有谁负责检查。"
+        },
+        {
+          "id": "ch072.crisis.p8.followup.hear.l02",
+          "speaker": "诺依",
+          "text": "我会把各地的回访路线公开，不能只在终幕说几句漂亮的话。"
+        },
+        {
+          "id": "ch072.crisis.p8.followup.hear.l03",
+          "speaker": "主角",
+          "text": "请继续问。我们作出选择，也必须接受质询。"
+        }
+      ]
+    },
+    {
+      "id": "ch072.crisis.p8.followup.protect",
+      "chapter_id": "ch072",
+      "after_choice_id": "ch072.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch072.approach": "explain",
+        "world.ch072.approach": "explain"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_choice_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch072.crisis.p8.followup.protect.l01",
+          "speaker": "诺依",
+          "text": "我要把三个结局可能付出的代价一并写给后来的孩子。"
+        },
+        {
+          "id": "ch072.crisis.p8.followup.protect.l02",
+          "speaker": "岚音",
+          "text": "不要让他们以为哪一条路可以让所有病痛永远消失。"
+        },
+        {
+          "id": "ch072.crisis.p8.followup.protect.l03",
+          "speaker": "主角",
+          "text": "知道风险以后再选择，才是我们这一程真正想争取的东西。"
+        }
+      ]
+    },
+    {
+      "id": "ch072.ending.p8.followup.keep",
+      "chapter_id": "ch072",
+      "after_choice_id": "world.ending",
+      "choice_option_id": "keep",
+      "condition": {
+        "world.ending": "A"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_final_ending_selection_before_epilogue",
+      "dialogue": [
+        {
+          "id": "ch072.ending.p8.followup.keep.l01",
+          "speaker": "维莎",
+          "text": "守灯之世仍需公开监督，不能让旧制度以新的名字复活。"
+        },
+        {
+          "id": "ch072.ending.p8.followup.keep.l02",
+          "speaker": "雷索",
+          "text": "愿意守护的人要先学会允许别人质疑。"
+        },
+        {
+          "id": "ch072.ending.p8.followup.keep.l03",
+          "speaker": "主角",
+          "text": "就让第一份审查记录从今天开始。"
+        }
+      ]
+    },
+    {
+      "id": "ch072.ending.p8.followup.release",
+      "chapter_id": "ch072",
+      "after_choice_id": "world.ending",
+      "choice_option_id": "release",
+      "condition": {
+        "world.ending": "B"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_final_ending_selection_before_epilogue",
+      "dialogue": [
+        {
+          "id": "ch072.ending.p8.followup.release.l01",
+          "speaker": "缇珐",
+          "text": "无灯之晨不会自动带来安宁，失去集中保护的地方需要救援。"
+        },
+        {
+          "id": "ch072.ending.p8.followup.release.l02",
+          "speaker": "岚音",
+          "text": "医疗队会继续工作，遇到新的危险我们照样组织互助。"
+        },
+        {
+          "id": "ch072.ending.p8.followup.release.l03",
+          "speaker": "主角",
+          "text": "没有旧灯替我们承担，不代表谁可以独自被留下。"
+        }
+      ]
+    },
+    {
+      "id": "ch072.ending.p8.followup.share",
+      "chapter_id": "ch072",
+      "after_choice_id": "world.ending",
+      "choice_option_id": "share",
+      "condition": {
+        "world.ending": "C"
+      },
+      "optional": true,
+      "advances_new_route": false,
+      "insertion": "after_final_ending_selection_before_epilogue",
+      "dialogue": [
+        {
+          "id": "ch072.ending.p8.followup.share.l01",
+          "speaker": "玄璃",
+          "text": "万家星灯不该再问谁愿意献出自己的记忆来证明忠诚。"
+        },
+        {
+          "id": "ch072.ending.p8.followup.share.l02",
+          "speaker": "诺依",
+          "text": "我们保留每个地区的退出权，也给不同意的人留下救援。"
+        },
+        {
+          "id": "ch072.ending.p8.followup.share.l03",
+          "speaker": "主角",
+          "text": "把灯的使用权交回许多人手里，不把它变成新王座。"
+        }
+      ]
+    }
+  ]
+}

@@ -3,11 +3,13 @@ extends CanvasLayer
 ## The 9 canonical prologue scenes keep their original playable objective/dialogue.
 signal finished(cue_id: String, skipped: bool)
 const Audio = preload("res://scripts/cinematic_audio.gd")
+const SceneFX = preload("res://scripts/cinematic_scene_fx.gd")
 const COAST: String = "res://assets/art/backdrops/coast/tide_lighthouse.png"
 var sound
 var overlay: Control
 var backdrop: TextureRect
 var tint: ColorRect
+var scene_fx
 var kicker: Label
 var headline: Label
 var scene_location: Label
@@ -50,6 +52,9 @@ func _build_fullscreen() -> void:
     tint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     tint.mouse_filter=Control.MOUSE_FILTER_IGNORE
     overlay.add_child(tint)
+    scene_fx=SceneFX.new()
+    scene_fx.name="CinematicSceneFX"
+    overlay.add_child(scene_fx)
     for upper in [true,false]:
         var band := ColorRect.new()
         band.color=Color("061321")
@@ -196,6 +201,7 @@ func start(cue_id: String,data: Dictionary) -> bool:
     }
     tint.color=palettes.get(mode,Color(0.04,0.07,0.12,0.55))
     skip_button.visible=can_skip
+    scene_fx.play(str(data.get("effect","")))
     overlay.show()
     _render_beat()
     sound.cue(mode)
@@ -246,6 +252,7 @@ func _finish(skipped: bool) -> void:
     var completed: String=active_id
     active_id=""
     overlay.hide()
+    scene_fx.play("")
     sound.stop()
     finished.emit(completed,skipped)
 
@@ -268,6 +275,7 @@ func cancel_all() -> void:
     # Loading a slot cancels visual timelines without applying their effects.
     active_id=""
     overlay.hide()
+    scene_fx.play("")
     banner.hide()
     if transition_tween!=null and transition_tween.is_running():
         transition_tween.kill()

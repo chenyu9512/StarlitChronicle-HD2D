@@ -6,13 +6,21 @@ const CAST_ART: String = "res://assets/art/battle/a15/casting_sigil.svg"
 const ATTACK_DURATION: float = 0.36
 const CAST_DURATION: float = 0.50
 const HIT_DURATION: float = 0.34
+const ACTION_FRAME_SIZE: int = 96
+const ACTION_FRAMES: int = 6
+const MOTION_DIR: String = "res://assets/art/battle/a16/motion_"
 
 var reduced_motion: bool = false
 var avatars: Dictionary = {}
 var elapsed: float = 0.0
+var motion_sheets: Dictionary = {}
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_IGNORE
+    for pose in ["attack","guard","heal","hit"]:
+        var motion_file: String=MOTION_DIR+pose+"_6f.svg"
+        if ResourceLoader.exists(motion_file):
+            motion_sheets[pose]=load(motion_file) as Texture2D
     set_process(true)
 
 func _notification(what: int) -> void:
@@ -60,8 +68,20 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
         portrait.texture = load(art) as Texture2D if not art.is_empty() else null
         add_child(portrait)
+        var motion := Sprite2D.new()
+        motion.name="ActionFlipbook_%s" % id
+        motion.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+        var motion_atlas:=AtlasTexture.new()
+        if motion_sheets.has("attack"):
+            motion_atlas.atlas=motion_sheets["attack"]
+        motion_atlas.region=Rect2(0,0,ACTION_FRAME_SIZE,ACTION_FRAME_SIZE)
+        motion.texture=motion_atlas
+        motion.modulate.a=0.0
+        add_child(motion)
         avatars[id] = {
             "node":portrait,"footing":footing,"sigil":sigil,
+            "motion":motion,"motion_atlas":motion_atlas,
+            "motion_kind":"","motion_frame":-1,
             "index":index,"count":selected.size(),
             "base":Vector2.ZERO,"clock":0.0,"action":"idle","action_time":0.0,
             "hit_time":0.0,"victory_time":0.0,"fallen":int(member.get("hp",0)) <= 0
@@ -233,4 +253,34 @@ func _process(delta: float) -> void:
                 sigil.rotation+=dt*0.82
         else:
             sigil.modulate.a=0.0
+        # Real six-frame motion overlays, keyed to the existing animation
+        # timers. Portrait identities and battle commands stay untouched.
+        var motion_sprite: Sprite2D=entry["motion"]
+        var motion_atlas: AtlasTexture=entry["motion_atlas"]
+        var visual_kind: String=""
+        var remaining: float=0.0
+        var duration: float=0.0
+        if float(entry["hit_time"])>0.0:
+            visual_kind="hit"
+            remaining=float(entry["hit_time"])
+            duration=HIT_DURATION
+        elif not falling and float(entry["action_time"])>0.0:
+            var move_name: String=str(entry["action"])
+            visual_kind="guard" if move_name=="guard" else ("attack" if move_name in ["attack","special"] else "heal")
+            remaining=float(entry["action_time"])
+            duration=CAST_DURATION if move_name in ["skill","heal","charge","special"] else ATTACK_DURATION
+        if not visual_kind.is_empty() and motion_sheets.has(visual_kind):
+            var motion_frame: int=3 if reduced_motion else mini(int((1.0-clampf(remaining/duration,0.0,1.0))*float(ACTION_FRAMES)),ACTION_FRAMES-1)
+            if visual_kind!=str(entry["motion_kind"]):
+                motion_atlas.atlas=motion_sheets[visual_kind]
+                entry["motion_kind"]=visual_kind
+                entry["motion_frame"]=-1
+            if motion_frame!=int(entry["motion_frame"]):
+                motion_atlas.region=Rect2(motion_frame*ACTION_FRAME_SIZE,0,ACTION_FRAME_SIZE,ACTION_FRAME_SIZE)
+                entry["motion_frame"]=motion_frame
+            motion_sprite.position=sprite.position+Vector2(sprite.size.x*0.55,sprite.size.y*0.52)
+            motion_sprite.scale=Vector2.ONE*(sprite.size.x/105.0)
+            motion_sprite.modulate.a=0.48 if reduced_motion else 0.88
+        else:
+            motion_sprite.modulate.a=0.0
         avatars[id] = entry

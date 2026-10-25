@@ -64,6 +64,7 @@ var story_marker_signature: String = ""
 var story_marker_positions: Dictionary = {}
 var scene_director = SceneDirector.new()
 var quest_submaps = QuestSubmaps.new()
+var story_palette_flags: Dictionary = {}
 var evidence_puzzles = EvidencePuzzles.new()
 var interior_building: String = ""
 var interior_kind: String = ""
@@ -405,7 +406,7 @@ func _build_sites() -> void:
                     var stage_spots: Array = terrain_layout.get("story_stage_points",[])
                     var stage_cell: Vector2i = stage_spots[stage_index] if stage_spots.size()==5 else spots[[0,1,2,0,2][stage_index]]
                     var quest_stage: Sprite2D
-                    if stage_index==0 and not quest_submaps.entries.has(interior_building.trim_prefix("quest__")):
+                    if stage_index in [0,3,4] and not quest_submaps.entries.has(interior_building.trim_prefix("quest__")):
                         # An actual quest giver silhouette, with the existing
                         # overworld idle animation, replaces the generic sign.
                         var giver := NPCVisual.new()
@@ -571,6 +572,7 @@ func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String
     if kind == "npc":
         var npc = NPCVisual.new()
         npc.setup({"name":caption,"role":"quest"})
+        npc.apply_story_presentation(phase if not phase.is_empty() else "intro",branch,clock_minutes)
         npc.modulate = Color("9eebd4") if branch == "a" else (Color("efd09d") if branch == "b" else Color.WHITE)
         if phase == "revisit":
             npc.modulate = npc.modulate.lerp(Color("bdc4ff"),0.32)
@@ -763,6 +765,36 @@ func refresh_room_evidence(rpg: Dictionary) -> void:
         else:
             marker.modulate = Color("d9d9e9")
 
+func refresh_room_npcs(flags: Dictionary) -> void:
+    if not interior_building.begins_with("quest__"):
+        return
+    story_palette_flags = flags.duplicate()
+    var quest_id: String = interior_building.trim_prefix("quest__")
+    var route: String = str(flags.get("side."+quest_id+".approach",""))
+    var finished: bool = bool(flags.get("side."+quest_id+".done",false))
+    for stage_index in range(5):
+        var marker_id: String = "story_stage_%d" % stage_index
+        if not nodes.has(marker_id):
+            continue
+        var marker: Node2D = nodes[marker_id]
+        if marker is NPCVisual:
+            var phase: String = "intro"
+            if stage_index==3:
+                phase = "resolved" if finished else "investigate"
+            elif stage_index==4:
+                phase = "revisit"
+            (marker as NPCVisual).apply_story_presentation(phase,route,clock_minutes)
+    for event_id in story_marker_ids:
+        if not str(event_id).begins_with("branchmap:") or not nodes.has(event_id):
+            continue
+        var event_npc: Node2D = nodes[event_id]
+        if not (event_npc is NPCVisual):
+            continue
+        var phase: String = "revisit" if str(event_id).contains(".revisit") else (
+            "community" if str(event_id).contains(".community") else "investigate"
+        )
+        (event_npc as NPCVisual).apply_story_presentation(phase,route,clock_minutes)
+
 func _resident_spot(target: Vector2i,used: Dictionary) -> Vector2i:
     for radius in range(0,14):
         for yy in range(-radius,radius+1):
@@ -810,6 +842,8 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     var old_period: bool = clock_minutes<360 or clock_minutes>=1200
     calendar_day=maxi(1,day_number)
     clock_minutes=posmod(minutes,1440)
+    if not story_palette_flags.is_empty() and interior_building.begins_with("quest__"):
+        refresh_room_npcs(story_palette_flags)
     _refresh_town_event_lighting()
     var next_period: bool = clock_minutes<360 or clock_minutes>=1200
     if ambience!=null and is_instance_valid(ambience):

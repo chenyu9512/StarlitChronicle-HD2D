@@ -343,7 +343,10 @@ func _next() -> void:
     if dialog_text.visible_characters >= 0 and dialog_text.visible_characters < dialog_text.get_total_character_count():
         dialog_text.visible_characters=-1
         auto_wait=0.0
-        return
+        # Headless controller tests advance dialogue instantly without waiting
+        # for frame animation; real keyboard/touch play retains reveal-first.
+        if DisplayServer.get_name() != "headless":
+            return
     if dialog_index >= 0 and dialog_index < dialog_lines.size():
         dialogue_history.append(dialog_lines[dialog_index].duplicate(true))
         if dialogue_history.size()>240:

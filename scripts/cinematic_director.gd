@@ -27,6 +27,7 @@ var beat_index: int = 0
 var can_skip: bool = true
 var mode: String = ""
 var transition_tween: Tween
+var overlay_tween: Tween
 
 func _ready() -> void:
     layer=28
@@ -179,6 +180,9 @@ func _build_banner() -> void:
 func start(cue_id: String,data: Dictionary) -> bool:
     if not active_id.is_empty() or data.is_empty():
         return false
+    if overlay_tween!=null and overlay_tween.is_running():
+        overlay_tween.kill()
+    overlay.mouse_filter=Control.MOUSE_FILTER_STOP
     active_id=cue_id
     mode=str(data.get("tone","hope"))
     beats=data.get("lines",[]).duplicate(true)
@@ -206,9 +210,21 @@ func start(cue_id: String,data: Dictionary) -> bool:
     _render_beat()
     sound.cue(mode)
     overlay.modulate=Color(1,1,1,0)
-    var fade:=create_tween()
-    fade.tween_property(overlay,"modulate",Color.WHITE,0.28)
+    overlay_tween=create_tween()
+    overlay_tween.tween_property(overlay,"modulate",Color.WHITE,0.32)
     return true
+
+func _unhandled_input(event: InputEvent) -> void:
+    if active_id.is_empty() or not event is InputEventKey:
+        return
+    if not event.pressed or event.echo:
+        return
+    if event.keycode in [KEY_ENTER,KEY_SPACE,KEY_Z]:
+        advance()
+        get_viewport().set_input_as_handled()
+    elif event.keycode==KEY_ESCAPE and can_skip:
+        skip()
+        get_viewport().set_input_as_handled()
 
 func is_playing() -> bool:
     return not active_id.is_empty()
@@ -251,9 +267,18 @@ func _render_beat() -> void:
 func _finish(skipped: bool) -> void:
     var completed: String=active_id
     active_id=""
-    overlay.hide()
     scene_fx.play("")
     sound.stop()
+    overlay.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    if overlay_tween!=null and overlay_tween.is_running():
+        overlay_tween.kill()
+    overlay_tween=create_tween()
+    overlay_tween.tween_property(overlay,"modulate",Color(1,1,1,0),0.30)
+    overlay_tween.tween_callback(func() -> void:
+        if active_id.is_empty():
+            overlay.hide()
+            overlay.modulate=Color.WHITE
+    )
     finished.emit(completed,skipped)
 
 func banner_card(heading: String,subheading: String,tone: String="hope") -> void:
@@ -274,7 +299,11 @@ func banner_card(heading: String,subheading: String,tone: String="hope") -> void
 func cancel_all() -> void:
     # Loading a slot cancels visual timelines without applying their effects.
     active_id=""
+    if overlay_tween!=null and overlay_tween.is_running():
+        overlay_tween.kill()
     overlay.hide()
+    overlay.modulate=Color.WHITE
+    overlay.mouse_filter=Control.MOUSE_FILTER_STOP
     scene_fx.play("")
     banner.hide()
     if transition_tween!=null and transition_tween.is_running():

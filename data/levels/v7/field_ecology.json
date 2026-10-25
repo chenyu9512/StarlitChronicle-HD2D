@@ -1,0 +1,1455 @@
+{
+  "schema": "starlit.field_ecology.v7",
+  "description": "V7 batch 3: exactly 21 non-metropolitan wilderness sectors with unique terrain hazards, 24h resource respawn, weather/time secret routes and permanent one-off caches",
+  "maps": {
+    "map_coast_02": {
+      "name": "白砂港外滩",
+      "biome": "coastal",
+      "identity": "潮位回灌堤／白砂盐花／退潮礁隙",
+      "challenge": {
+        "title": "潮位回灌堤",
+        "danger_weather": "rain",
+        "hp_cost": 8,
+        "speed_pct": 88,
+        "text": "穿过「潮位回灌堤」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "白砂盐花",
+        "item_id": "item_herb_02",
+        "bonus_weather": "clear",
+        "text": "在「白砂盐花」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "退潮礁隙",
+        "opening_weather": "clear",
+        "opening_time": "dawn",
+        "text": "循着潮位回灌堤留下的地形线索，沿退潮礁隙绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "旧船的航海匣",
+        "gold": 75,
+        "item_id": "item_ether_02",
+        "amount": 1,
+        "text": "在旧船的航海匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "潮位回灌堤",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "白砂盐花",
+          "cell": [
+            40,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "退潮礁隙",
+          "cell": [
+            53,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "旧船的航海匣",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_coast_03": {
+      "name": "盐风古道",
+      "biome": "coastal",
+      "identity": "盐壳碎桥／岩盐苔／石桥下的盐风洞",
+      "challenge": {
+        "title": "盐壳碎桥",
+        "danger_weather": "rain",
+        "hp_cost": 10,
+        "speed_pct": 89,
+        "text": "穿过「盐壳碎桥」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "岩盐苔",
+        "item_id": "item_herb_01",
+        "bonus_weather": "mist",
+        "text": "在「岩盐苔」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "石桥下的盐风洞",
+        "opening_weather": "mist",
+        "opening_time": "dusk",
+        "text": "循着盐壳碎桥留下的地形线索，沿石桥下的盐风洞绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "驿道遗失的路引",
+        "gold": 92,
+        "item_id": "item_ether_03",
+        "amount": 1,
+        "text": "在驿道遗失的路引内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "盐壳碎桥",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "岩盐苔",
+          "cell": [
+            41,
+            39
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "石桥下的盐风洞",
+          "cell": [
+            54,
+            17
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "驿道遗失的路引",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_coast_05": {
+      "name": "潮歌灯塔",
+      "biome": "coastal",
+      "identity": "回声断崖／潮汐海葵／灯塔崖缝",
+      "challenge": {
+        "title": "回声断崖",
+        "danger_weather": "mist",
+        "hp_cost": 12,
+        "speed_pct": 90,
+        "text": "穿过「回声断崖」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "潮汐海葵",
+        "item_id": "item_ether_02",
+        "bonus_weather": "rain",
+        "text": "在「潮汐海葵」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "灯塔崖缝",
+        "opening_weather": "rain",
+        "opening_time": "night",
+        "text": "循着回声断崖留下的地形线索，沿灯塔崖缝绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "守灯人最后的记录",
+        "gold": 109,
+        "item_id": "item_herb_04",
+        "amount": 1,
+        "text": "在守灯人最后的记录内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "回声断崖",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "潮汐海葵",
+          "cell": [
+            42,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "灯塔崖缝",
+          "cell": [
+            55,
+            18
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "守灯人最后的记录",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_oaths_02": {
+      "name": "断誓山径",
+      "biome": "highland",
+      "identity": "悬崖落石坡／悬钟草／峡肩背风洞",
+      "challenge": {
+        "title": "悬崖落石坡",
+        "danger_weather": "rain",
+        "hp_cost": 14,
+        "speed_pct": 85,
+        "text": "穿过「悬崖落石坡」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "悬钟草",
+        "item_id": "item_herb_03",
+        "bonus_weather": "clear",
+        "text": "在「悬钟草」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "峡肩背风洞",
+        "opening_weather": "clear",
+        "opening_time": "day",
+        "text": "循着悬崖落石坡留下的地形线索，沿峡肩背风洞绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "山路巡防密函",
+        "gold": 126,
+        "item_id": "item_ether_03",
+        "amount": 1,
+        "text": "在山路巡防密函内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "悬崖落石坡",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "悬钟草",
+          "cell": [
+            43,
+            39
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "峡肩背风洞",
+          "cell": [
+            53,
+            19
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "山路巡防密函",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_oaths_03": {
+      "name": "银鹫要塞",
+      "biome": "highland",
+      "identity": "冷雾哨道／银羽苔／要塞排水暗渠",
+      "challenge": {
+        "title": "冷雾哨道",
+        "danger_weather": "mist",
+        "hp_cost": 16,
+        "speed_pct": 84,
+        "text": "穿过「冷雾哨道」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "银羽苔",
+        "item_id": "item_ether_03",
+        "bonus_weather": "rain",
+        "text": "在「银羽苔」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "要塞排水暗渠",
+        "opening_weather": "rain",
+        "opening_time": "dawn",
+        "text": "循着冷雾哨道留下的地形线索，沿要塞排水暗渠绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "旧哨兵的银匣",
+        "gold": 143,
+        "item_id": "item_herb_04",
+        "amount": 1,
+        "text": "在旧哨兵的银匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "冷雾哨道",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "银羽苔",
+          "cell": [
+            40,
+            38
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "要塞排水暗渠",
+          "cell": [
+            54,
+            16
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "旧哨兵的银匣",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_oaths_05": {
+      "name": "旧王谒见厅",
+      "biome": "highland",
+      "identity": "坍塌礼阶／誓石藤／王座背墙缝",
+      "challenge": {
+        "title": "坍塌礼阶",
+        "danger_weather": "rain",
+        "hp_cost": 18,
+        "speed_pct": 86,
+        "text": "穿过「坍塌礼阶」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "誓石藤",
+        "item_id": "item_herb_04",
+        "bonus_weather": "mist",
+        "text": "在「誓石藤」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "王座背墙缝",
+        "opening_weather": "mist",
+        "opening_time": "night",
+        "text": "循着坍塌礼阶留下的地形线索，沿王座背墙缝绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "誓约时代的宝匣",
+        "gold": 160,
+        "item_id": "item_ether_04",
+        "amount": 1,
+        "text": "在誓约时代的宝匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "坍塌礼阶",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "誓石藤",
+          "cell": [
+            41,
+            39
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "王座背墙缝",
+          "cell": [
+            55,
+            17
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "誓约时代的宝匣",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_forge_02": {
+      "name": "烟塔工坊",
+      "biome": "volcanic",
+      "identity": "熔渣散热道／烟塔煤晶／冷却管检修井",
+      "challenge": {
+        "title": "熔渣散热道",
+        "danger_weather": "ash",
+        "hp_cost": 18,
+        "speed_pct": 83,
+        "text": "穿过「熔渣散热道」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "烟塔煤晶",
+        "item_id": "item_ether_04",
+        "bonus_weather": "clear",
+        "text": "在「烟塔煤晶」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "冷却管检修井",
+        "opening_weather": "clear",
+        "opening_time": "dusk",
+        "text": "循着熔渣散热道留下的地形线索，沿冷却管检修井绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "工坊主的工具箱",
+        "gold": 177,
+        "item_id": "item_herb_04",
+        "amount": 1,
+        "text": "在工坊主的工具箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "熔渣散热道",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "烟塔煤晶",
+          "cell": [
+            42,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "冷却管检修井",
+          "cell": [
+            53,
+            18
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "工坊主的工具箱",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_forge_03": {
+      "name": "赤砂矿坑",
+      "biome": "volcanic",
+      "identity": "流沙矿坑坡／赤铁茸／矿脉侧向风洞",
+      "challenge": {
+        "title": "流沙矿坑坡",
+        "danger_weather": "ash",
+        "hp_cost": 20,
+        "speed_pct": 81,
+        "text": "穿过「流沙矿坑坡」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "赤铁茸",
+        "item_id": "item_herb_04",
+        "bonus_weather": "clear",
+        "text": "在「赤铁茸」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "矿脉侧向风洞",
+        "opening_weather": "clear",
+        "opening_time": "dawn",
+        "text": "循着流沙矿坑坡留下的地形线索，沿矿脉侧向风洞绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "矿工遗留的晶匣",
+        "gold": 194,
+        "item_id": "item_ether_05",
+        "amount": 1,
+        "text": "在矿工遗留的晶匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "流沙矿坑坡",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "赤铁茸",
+          "cell": [
+            43,
+            39
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "矿脉侧向风洞",
+          "cell": [
+            54,
+            19
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "矿工遗留的晶匣",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_forge_05": {
+      "name": "炉心禁区",
+      "biome": "volcanic",
+      "identity": "炉心灼流桥／凝火花／熔炉背压管",
+      "challenge": {
+        "title": "炉心灼流桥",
+        "danger_weather": "ash",
+        "hp_cost": 24,
+        "speed_pct": 78,
+        "text": "穿过「炉心灼流桥」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "凝火花",
+        "item_id": "item_ether_05",
+        "bonus_weather": "clear",
+        "text": "在「凝火花」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "熔炉背压管",
+        "opening_weather": "clear",
+        "opening_time": "night",
+        "text": "循着炉心灼流桥留下的地形线索，沿熔炉背压管绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "封炉工程的护送箱",
+        "gold": 211,
+        "item_id": "item_herb_06",
+        "amount": 1,
+        "text": "在封炉工程的护送箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "炉心灼流桥",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "凝火花",
+          "cell": [
+            40,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "熔炉背压管",
+          "cell": [
+            55,
+            16
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "封炉工程的护送箱",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_isles_02": {
+      "name": "五色环礁",
+      "biome": "archipelago",
+      "identity": "珊礁割裂滩／五色海珍珠／虹礁潮门",
+      "challenge": {
+        "title": "珊礁割裂滩",
+        "danger_weather": "rain",
+        "hp_cost": 12,
+        "speed_pct": 90,
+        "text": "穿过「珊礁割裂滩」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "五色海珍珠",
+        "item_id": "item_herb_05",
+        "bonus_weather": "clear",
+        "text": "在「五色海珍珠」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "虹礁潮门",
+        "opening_weather": "clear",
+        "opening_time": "day",
+        "text": "循着珊礁割裂滩留下的地形线索，沿虹礁潮门绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "旧珊民的航路箱",
+        "gold": 228,
+        "item_id": "item_ether_05",
+        "amount": 1,
+        "text": "在旧珊民的航路箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "珊礁割裂滩",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "五色海珍珠",
+          "cell": [
+            41,
+            39
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "虹礁潮门",
+          "cell": [
+            53,
+            17
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "旧珊民的航路箱",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_isles_03": {
+      "name": "风暴航道",
+      "biome": "archipelago",
+      "identity": "狂风断索桥／风暴银藻／被海风遮住的桅道",
+      "challenge": {
+        "title": "狂风断索桥",
+        "danger_weather": "rain",
+        "hp_cost": 18,
+        "speed_pct": 82,
+        "text": "穿过「狂风断索桥」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "风暴银藻",
+        "item_id": "item_ether_05",
+        "bonus_weather": "mist",
+        "text": "在「风暴银藻」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "被海风遮住的桅道",
+        "opening_weather": "mist",
+        "opening_time": "dusk",
+        "text": "循着狂风断索桥留下的地形线索，沿被海风遮住的桅道绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "迷航船长的补给箱",
+        "gold": 245,
+        "item_id": "item_herb_06",
+        "amount": 1,
+        "text": "在迷航船长的补给箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "狂风断索桥",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "风暴银藻",
+          "cell": [
+            42,
+            38
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "被海风遮住的桅道",
+          "cell": [
+            54,
+            18
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "迷航船长的补给箱",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_isles_05": {
+      "name": "沉没王座",
+      "biome": "archipelago",
+      "identity": "潮眼失落阶／王座海晶／海底侧门",
+      "challenge": {
+        "title": "潮眼失落阶",
+        "danger_weather": "mist",
+        "hp_cost": 20,
+        "speed_pct": 84,
+        "text": "穿过「潮眼失落阶」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "王座海晶",
+        "item_id": "item_herb_06",
+        "bonus_weather": "rain",
+        "text": "在「王座海晶」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "海底侧门",
+        "opening_weather": "rain",
+        "opening_time": "night",
+        "text": "循着潮眼失落阶留下的地形线索，沿海底侧门绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "沉没国王的潮纹匣",
+        "gold": 262,
+        "item_id": "item_ether_06",
+        "amount": 1,
+        "text": "在沉没国王的潮纹匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "潮眼失落阶",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "王座海晶",
+          "cell": [
+            43,
+            39
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "海底侧门",
+          "cell": [
+            55,
+            19
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "沉没国王的潮纹匣",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_mirror_02": {
+      "name": "夜镜森林",
+      "biome": "mistforest",
+      "identity": "雾影歧径／夜辉蕨／反影树洞",
+      "challenge": {
+        "title": "雾影歧径",
+        "danger_weather": "mist",
+        "hp_cost": 12,
+        "speed_pct": 86,
+        "text": "穿过「雾影歧径」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "夜辉蕨",
+        "item_id": "item_herb_06",
+        "bonus_weather": "clear",
+        "text": "在「夜辉蕨」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "反影树洞",
+        "opening_weather": "clear",
+        "opening_time": "night",
+        "text": "循着雾影歧径留下的地形线索，沿反影树洞绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "林中学者的镜箱",
+        "gold": 279,
+        "item_id": "item_ether_06",
+        "amount": 1,
+        "text": "在林中学者的镜箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "雾影歧径",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "夜辉蕨",
+          "cell": [
+            40,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "反影树洞",
+          "cell": [
+            53,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "林中学者的镜箱",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_mirror_03": {
+      "name": "忘梦庭院",
+      "biome": "mistforest",
+      "identity": "幻影回转廊／梦露兰／梦门的回声夹层",
+      "challenge": {
+        "title": "幻影回转廊",
+        "danger_weather": "mist",
+        "hp_cost": 14,
+        "speed_pct": 87,
+        "text": "穿过「幻影回转廊」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "梦露兰",
+        "item_id": "item_ether_06",
+        "bonus_weather": "rain",
+        "text": "在「梦露兰」找到可持续采集的当地素材；特殊天气时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "梦门的回声夹层",
+        "opening_weather": "rain",
+        "opening_time": "dawn",
+        "text": "循着幻影回转廊留下的地形线索，沿梦门的回声夹层绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "被遗忘的庭院秘盒",
+        "gold": 296,
+        "item_id": "item_herb_07",
+        "amount": 1,
+        "text": "在被遗忘的庭院秘盒内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "幻影回转廊",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "梦露兰",
+          "cell": [
+            41,
+            39
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "梦门的回声夹层",
+          "cell": [
+            54,
+            17
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "被遗忘的庭院秘盒",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_mirror_05": {
+      "name": "映世回廊",
+      "biome": "mistforest",
+      "identity": "碎镜光廊／银镜露／倒映后的幕墙",
+      "challenge": {
+        "title": "碎镜光廊",
+        "danger_weather": "mist",
+        "hp_cost": 16,
+        "speed_pct": 83,
+        "text": "穿过「碎镜光廊」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "银镜露",
+        "item_id": "item_herb_08",
+        "bonus_weather": "clear",
+        "text": "在「银镜露」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "倒映后的幕墙",
+        "opening_weather": "clear",
+        "opening_time": "dusk",
+        "text": "循着碎镜光廊留下的地形线索，沿倒映后的幕墙绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "织镜师的古镜匣",
+        "gold": 313,
+        "item_id": "item_ether_07",
+        "amount": 1,
+        "text": "在织镜师的古镜匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "碎镜光廊",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "银镜露",
+          "cell": [
+            42,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "倒映后的幕墙",
+          "cell": [
+            55,
+            18
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "织镜师的古镜匣",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_oldland_02": {
+      "name": "荒星平原",
+      "biome": "badlands",
+      "identity": "地裂尘暴带／星蚀矿／沉沙陷落井",
+      "challenge": {
+        "title": "地裂尘暴带",
+        "danger_weather": "ash",
+        "hp_cost": 18,
+        "speed_pct": 80,
+        "text": "穿过「地裂尘暴带」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "星蚀矿",
+        "item_id": "item_herb_07",
+        "bonus_weather": "clear",
+        "text": "在「星蚀矿」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "沉沙陷落井",
+        "opening_weather": "clear",
+        "opening_time": "dawn",
+        "text": "循着地裂尘暴带留下的地形线索，沿沉沙陷落井绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "遗民星盘箱",
+        "gold": 330,
+        "item_id": "item_ether_07",
+        "amount": 1,
+        "text": "在遗民星盘箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "地裂尘暴带",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "星蚀矿",
+          "cell": [
+            43,
+            39
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "沉沙陷落井",
+          "cell": [
+            53,
+            19
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "遗民星盘箱",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_oldland_03": {
+      "name": "时裂峡谷",
+      "biome": "badlands",
+      "identity": "错时裂隙／时砂晶／逆时石壁暗孔",
+      "challenge": {
+        "title": "错时裂隙",
+        "danger_weather": "ash",
+        "hp_cost": 21,
+        "speed_pct": 79,
+        "text": "穿过「错时裂隙」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "时砂晶",
+        "item_id": "item_ether_08",
+        "bonus_weather": "clear",
+        "text": "在「时砂晶」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "逆时石壁暗孔",
+        "opening_weather": "clear",
+        "opening_time": "dusk",
+        "text": "循着错时裂隙留下的地形线索，沿逆时石壁暗孔绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "探路者的旧日行囊",
+        "gold": 347,
+        "item_id": "item_herb_08",
+        "amount": 1,
+        "text": "在探路者的旧日行囊内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "错时裂隙",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "时砂晶",
+          "cell": [
+            40,
+            38
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "逆时石壁暗孔",
+          "cell": [
+            54,
+            16
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "探路者的旧日行囊",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_oldland_05": {
+      "name": "旧日灯枢",
+      "biome": "badlands",
+      "identity": "毁坏的能量导桥／遗灯芯片／失电的维护栈道",
+      "challenge": {
+        "title": "毁坏的能量导桥",
+        "danger_weather": "ash",
+        "hp_cost": 22,
+        "speed_pct": 77,
+        "text": "穿过「毁坏的能量导桥」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "遗灯芯片",
+        "item_id": "item_herb_09",
+        "bonus_weather": "clear",
+        "text": "在「遗灯芯片」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "失电的维护栈道",
+        "opening_weather": "clear",
+        "opening_time": "night",
+        "text": "循着毁坏的能量导桥留下的地形线索，沿失电的维护栈道绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "灯枢保管室封箱",
+        "gold": 364,
+        "item_id": "item_ether_08",
+        "amount": 1,
+        "text": "在灯枢保管室封箱内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "毁坏的能量导桥",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "遗灯芯片",
+          "cell": [
+            41,
+            39
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "失电的维护栈道",
+          "cell": [
+            55,
+            17
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "灯枢保管室封箱",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_sanctum_02": {
+      "name": "七灯环庭",
+      "biome": "celestial",
+      "identity": "星轨失重阶／星环草／第八道浮桥",
+      "challenge": {
+        "title": "星轨失重阶",
+        "danger_weather": "mist",
+        "hp_cost": 16,
+        "speed_pct": 89,
+        "text": "穿过「星轨失重阶」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "星环草",
+        "item_id": "item_herb_09",
+        "bonus_weather": "clear",
+        "text": "在「星环草」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "第八道浮桥",
+        "opening_weather": "clear",
+        "opening_time": "dawn",
+        "text": "循着星轨失重阶留下的地形线索，沿第八道浮桥绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "圣徒遗留的灯环匣",
+        "gold": 381,
+        "item_id": "item_ether_08",
+        "amount": 1,
+        "text": "在圣徒遗留的灯环匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "星轨失重阶",
+          "cell": [
+            24,
+            15
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "星环草",
+          "cell": [
+            42,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "第八道浮桥",
+          "cell": [
+            53,
+            18
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "cache",
+          "title": "圣徒遗留的灯环匣",
+          "cell": [
+            61,
+            35
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_sanctum_03": {
+      "name": "反转星穹",
+      "biome": "celestial",
+      "identity": "重力反转桥／天象灵露／星穹倒影门",
+      "challenge": {
+        "title": "重力反转桥",
+        "danger_weather": "mist",
+        "hp_cost": 20,
+        "speed_pct": 84,
+        "text": "穿过「重力反转桥」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "天象灵露",
+        "item_id": "item_ether_08",
+        "bonus_weather": "clear",
+        "text": "在「天象灵露」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "星穹倒影门",
+        "opening_weather": "clear",
+        "opening_time": "night",
+        "text": "循着重力反转桥留下的地形线索，沿星穹倒影门绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "观星者的密藏",
+        "gold": 398,
+        "item_id": "item_herb_09",
+        "amount": 1,
+        "text": "在观星者的密藏内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "重力反转桥",
+          "cell": [
+            25,
+            17
+          ],
+          "icon": "rock"
+        },
+        {
+          "id": "gather",
+          "title": "天象灵露",
+          "cell": [
+            43,
+            39
+          ],
+          "icon": "sea_crystal"
+        },
+        {
+          "id": "passage",
+          "title": "星穹倒影门",
+          "cell": [
+            54,
+            19
+          ],
+          "icon": "beacon"
+        },
+        {
+          "id": "cache",
+          "title": "观星者的密藏",
+          "cell": [
+            62,
+            36
+          ],
+          "icon": "crate"
+        }
+      ]
+    },
+    "map_sanctum_05": {
+      "name": "永昼祭坛",
+      "biome": "celestial",
+      "identity": "焚昼光阶／永昼羽／祭坛暗日阶",
+      "challenge": {
+        "title": "焚昼光阶",
+        "danger_weather": "mist",
+        "hp_cost": 22,
+        "speed_pct": 82,
+        "text": "穿过「焚昼光阶」时，队伍必须观察地貌、选择支撑点与安全落脚路线。恶劣天气下体力损耗更大。"
+      },
+      "gather": {
+        "title": "永昼羽",
+        "item_id": "item_herb_10",
+        "bonus_weather": "clear",
+        "text": "在「永昼羽」找到可持续采集的当地素材；晴朗时收获会增加，每个自然日仅采集一次。"
+      },
+      "secret": {
+        "title": "祭坛暗日阶",
+        "opening_weather": "clear",
+        "opening_time": "dusk",
+        "text": "循着焚昼光阶留下的地形线索，沿祭坛暗日阶绕过原路；若天候和时刻不利，可连续两日实地采样定位。"
+      },
+      "reward": {
+        "title": "守祭人的永昼圣匣",
+        "gold": 415,
+        "item_id": "item_ether_08",
+        "amount": 1,
+        "text": "在守祭人的永昼圣匣内发现一份有明确地区来历的旅途秘藏。"
+      },
+      "sites": [
+        {
+          "id": "trial",
+          "title": "焚昼光阶",
+          "cell": [
+            26,
+            16
+          ],
+          "icon": "sign"
+        },
+        {
+          "id": "gather",
+          "title": "永昼羽",
+          "cell": [
+            40,
+            38
+          ],
+          "icon": "flowerpot"
+        },
+        {
+          "id": "passage",
+          "title": "祭坛暗日阶",
+          "cell": [
+            55,
+            16
+          ],
+          "icon": "star_lantern"
+        },
+        {
+          "id": "cache",
+          "title": "守祭人的永昼圣匣",
+          "cell": [
+            63,
+            37
+          ],
+          "icon": "crate"
+        }
+      ]
+    }
+  }
+}

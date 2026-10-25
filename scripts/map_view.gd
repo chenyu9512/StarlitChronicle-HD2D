@@ -134,6 +134,8 @@ func _draw_local() -> void:
             color = Color("a9b6ff")
         elif id.begins_with("citizen:"):
             color = Color("aedce4")
+        elif id.begins_with("townlife:"):
+            color = Color("f2c980") if id=="townlife:handoff" else Color("8cddb5")
         elif id.begins_with("discovery:"):
             color = Color("a7d9bd")
         elif id.begins_with("puzzle:"):

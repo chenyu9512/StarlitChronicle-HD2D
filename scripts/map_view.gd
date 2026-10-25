@@ -15,6 +15,7 @@ const PASSABLE: Color = Color("345b62")
 const PATH: Color = Color("668079")
 const WALL: Color = Color("203546")
 const MAIN: Color = Color("f6d27e")
+const GOLD: Color = Color("f6d27e")
 const SIDE: Color = Color("7ad2e2")
 const HERO: Color = Color("fff4c4")
 var world

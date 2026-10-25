@@ -20,7 +20,7 @@ func _run() -> void:
     test(str(coast.get("region_id","")) == "region_coast","Coast encounter mapped to wrong region")
     test(not str(coast.get("monster_id","")).is_empty(),"Monster ID missing")
     var oaths: Dictionary = reg.roll_monster(15)
-    test(str(oaths.get("region_id","")) == "region_oaths","Chapter 15 did not select regional monsters")
+    test(str(oaths.get("region_id","")) == "region_forge","Chapter 15 did not select its quest-region monsters")
     var boss: Dictionary = reg.story_boss(2,{"enemy_id":"boss.ch002","display_name":"雾潮寄生体"},{"name":"old","hp":255,"max_hp":255,"atk":16,"def":7,"xp":300,"gold":150,"art":"tide_ghost"})
     test(str(boss.get("boss_id","")) == "boss.ch002","Canon chapter 2 boss ID was lost")
     test(int(boss.get("max_hp",0)) == 255,"First-act mechanic HP changed")

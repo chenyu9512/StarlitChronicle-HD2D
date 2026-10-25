@@ -771,10 +771,14 @@ func _present(on_complete: String) -> void:
     world.locked = true
     if world.nodes.has(_target()) and on_complete in ["prologue","opening","crisis","resolve"]:
         cinematic_camera.shot(world.camera,world.nodes[_target()].position,"reveal" if on_complete=="crisis" else "focus")
-    ui.show_dialogue(scene.get("dialogue", []))
+    ui.show_dialogue(scene.get("dialogue", []),bool(progress.flags.get("cinematic.dialogue."+str(scene.get("id",""))+".seen",false)))
 
 func _dialogue_ended() -> void:
     cinematic_camera.restore()
+    if pending in ["prologue","opening","clue","crisis","resolve"]:
+        var scene_id: String=str(_current_scene().get("id",""))
+        if not scene_id.is_empty():
+            progress.flags["cinematic.dialogue."+scene_id+".seen"]=true
     paused_for_dialogue = false
     match pending:
         "prologue":

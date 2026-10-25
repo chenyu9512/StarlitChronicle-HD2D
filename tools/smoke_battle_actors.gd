@@ -5,6 +5,7 @@ const FX = preload("res://scripts/battle_fx.gd")
 const Battle = preload("res://scripts/first_act_battle.gd")
 const State = preload("res://scripts/first_act_state.gd")
 const RPG = preload("res://scripts/rpg_core.gd")
+const BattleSFX = preload("res://scripts/battle_sfx.gd")
 
 var failures: Array[String] = []
 
@@ -60,6 +61,16 @@ func _verify() -> void:
             if str(effect.get("kind","")) == str(elements[element]):
                 found = true
         check(found,"Missing elemental motif for %s" % element)
+    var audio = BattleSFX.new()
+    canvas.add_child(audio)
+    check(audio.players.size() == 3,"Three audio voices were not configured")
+    audio.play_event("attack")
+    audio.play_event("cast","火")
+    audio.play_event("heal","水")
+    audio.play_event("phase")
+    check(audio.clips.size() == 4,"Audio stingers are not cached")
+    var clip: AudioStreamWAV = audio.clips.get("cast:火")
+    check(clip != null and clip.data.size() > 0,"Spell stinger contains no PCM audio")
     canvas.queue_free()
     var core = RPG.new()
     core.bind(state)
@@ -69,6 +80,7 @@ func _verify() -> void:
     battle.invincible = true
     battle.start(state,2,false)
     check(is_instance_valid(battle.actor_stage),"Active battle did not build actor stage")
+    check(is_instance_valid(battle.sfx),"Active battle did not construct an audio layer")
     if is_instance_valid(battle.actor_stage):
         check(battle.actor_stage.avatars.size() >= 2,"Battle actor portraits unavailable")
     var first_index: int = battle.hero_turn

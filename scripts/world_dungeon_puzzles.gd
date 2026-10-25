@@ -58,7 +58,12 @@ static func _write(state, map_id: String, status: Dictionary) -> void:
     state.rpg["dungeon_puzzles_v7"] = storage
 
 static func _matches(left: Array, right: Array) -> bool:
-    return left.size()==right.size() and left==right
+    if left.size()!=right.size():
+        return false
+    for index in range(left.size()):
+        if int(left[index])!=int(right[index]):
+            return false
+    return true
 
 func _ready_to_open(record: Dictionary, values: Dictionary) -> bool:
     var mode: String = str(record.get("mode",""))

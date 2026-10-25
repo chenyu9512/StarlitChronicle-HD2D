@@ -93,6 +93,9 @@ func _anchors() -> Array[Vector2i]:
         var result: Vector2i = old_to_new(point)
         if result not in mapped:
             mapped.append(result)
+    for landmark in [Vector2i(19,14),Vector2i(53,16),Vector2i(54,36),Vector2i(60,35),Vector2i(24,14)]:
+        if landmark not in mapped:
+            mapped.append(landmark)
     return mapped
 
 func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
@@ -149,14 +152,21 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var hub: Vector2i = Vector2i(WIDTH/2,HEIGHT/2)
     var start: Vector2i = old_to_new(Vector2i(6,13))
     if dungeon:
-        var chambers: Array[Vector2i] = [start,Vector2i(19,14),Vector2i(38,10),Vector2i(55,16),Vector2i(54,36),Vector2i(35,35),Vector2i(18,34)]
-        for center in chambers:
-            _room(terrain,walls,center,Vector2i(9+(seed%4),7+(seed%3)),seed)
+        var chambers: Array[Vector2i] = []
+        for chamber_data in spec.get("dungeon_chambers",[]):
+            if chamber_data is Array and chamber_data.size()>=2:
+                chambers.append(Vector2i(int(chamber_data[0]),int(chamber_data[1])))
+        if chambers.is_empty():
+            chambers = [start,Vector2i(19,14),Vector2i(38,10),Vector2i(55,16),Vector2i(54,36),Vector2i(35,35),Vector2i(18,34)]
         for i in range(chambers.size()):
-            _road(terrain,walls,chambers[i],chambers[(i+1)%chambers.size()],seed+i,1)
-        _road(terrain,walls,chambers[1],chambers[5],seed+21,1)
-        features.append({"kind":"sea_crystal","cell":Vector2i(55,16),"name":"洞窟水晶"})
-        features.append({"kind":"beacon","cell":Vector2i(38,10),"name":"古代封印"})
+            _room(terrain,walls,chambers[i],Vector2i(9+((seed+i*3)%5),7+((seed+i)%4)),seed)
+        for i in range(chambers.size()-1):
+            _road(terrain,walls,chambers[i],chambers[i+1],seed+i,1)
+        _road(terrain,walls,chambers[-1],chambers[0],seed+21,1)
+        if chambers.size()>=6:
+            _road(terrain,walls,chambers[1],chambers[chambers.size()-2],seed+27,1)
+        features.append({"kind":"sea_crystal","cell":chambers[mini(3,chambers.size()-1)],"name":"洞窟水晶"})
+        features.append({"kind":"beacon","cell":chambers[mini(2,chambers.size()-1)],"name":"古代封印"})
     elif village:
         var district: String = str(spec.get("layout","central_square"))
         match district:

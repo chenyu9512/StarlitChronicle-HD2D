@@ -110,3 +110,16 @@ func nearest_road(point: Vector2i,roadway: Array[Vector2i]) -> Vector2i:
             closest=candidate
             best=dist
     return closest
+
+func open_water_tiles(level_info: Dictionary, final_walls: Dictionary) -> Dictionary:
+    # Water is visually blue only while the cell still represents impassable water.
+    # Bridges and authored paths clear collision and therefore take priority.
+    var wet: Dictionary = {}
+    for channel in level_info.get("waterways",[]):
+        var temp_ground: Dictionary = {}
+        var temp_collision: Dictionary = {}
+        _draw_polyline(temp_ground,temp_collision,channel.get("points",[]),clampi(int(channel.get("width",2)),1,6),6,true)
+        for tile in temp_collision.keys():
+            if final_walls.has(tile):
+                wet[tile]=true
+    return wet

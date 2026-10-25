@@ -244,6 +244,7 @@ func _play_story_cinematic(cue_id: String,resume: String) -> bool:
     world.locked=true
     ui.set_play_visible(false)
     atlas.show_exploration(false)
+    _mix_world_for_cinematic(true)
     return true
 
 func _cinematic_finished(cue_id: String,_skipped: bool) -> void:
@@ -251,6 +252,7 @@ func _cinematic_finished(cue_id: String,_skipped: bool) -> void:
     # This is presentation-only: narrative effects remain in _dialogue_ended.
     if cue_id.is_empty():
         return
+    _mix_world_for_cinematic(false)
     progress.flags["cinematic."+cue_id+".seen"]=true
     progress.rpg.erase("cinematic_checkpoint")
     var resume: String=cinematic_resume
@@ -262,6 +264,23 @@ func _cinematic_finished(cue_id: String,_skipped: bool) -> void:
         _present("prologue")
     elif resume=="explore":
         _return_to_world()
+
+func _mix_world_for_cinematic(mute_ambience: bool) -> void:
+    if world==null or not is_instance_valid(world.coastal_audio):
+        return
+    var environment_player: AudioStreamPlayer=world.coastal_audio.player
+    if environment_player==null or not is_instance_valid(environment_player):
+        return
+    if not environment_player.has_meta("cinematic_original_db"):
+        environment_player.set_meta("cinematic_original_db",environment_player.volume_db)
+    var normal_db: float=float(environment_player.get_meta("cinematic_original_db",-30.0))
+    var destination: float=-44.0 if mute_ambience else normal_db
+    var active_fade: Variant=environment_player.get_meta("cinematic_fade",null)
+    if active_fade is Tween and active_fade.is_running():
+        active_fade.kill()
+    var fade: Tween=create_tween()
+    fade.tween_property(environment_player,"volume_db",destination,0.34)
+    environment_player.set_meta("cinematic_fade",fade)
 
 func _chapter_card(chapter_no: int) -> void:
     if chapter_no<1 or cinematic==null:

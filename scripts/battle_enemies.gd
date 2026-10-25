@@ -47,7 +47,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
                     sprite.texture = atlas
         add_child(sprite)
         slots[index] = {"node":sprite,"atlas":atlas,"base":Vector2.ZERO,
-            "hit":0.0,"dying":0.0,"dead":false,"frame":0,"phase":0.17*float(index)}
+            "hit":0.0,"attack":0.0,"dying":0.0,"dead":false,"frame":0,"phase":0.17*float(index)}
     _layout()
 
 func _layout() -> void:
@@ -83,6 +83,15 @@ func point(index: int) -> Vector2:
 func focus(index: int) -> void:
     active_index = index
 
+func attack(index: int) -> void:
+    if not slots.has(index):
+        return
+    var entry: Dictionary = slots[index]
+    if bool(entry["dead"]):
+        return
+    entry["attack"] = 0.27
+    slots[index] = entry
+
 func hit(index: int, defeated: bool = false) -> void:
     if not slots.has(index):
         return
@@ -112,6 +121,7 @@ func _process(delta: float) -> void:
         if not is_instance_valid(sprite):
             continue
         entry["hit"] = maxf(0.0,float(entry["hit"])-dt)
+        entry["attack"] = maxf(0.0,float(entry["attack"])-dt)
         if float(entry["dying"]) > 0.0:
             entry["dying"] = maxf(0.0,float(entry["dying"])-dt)
             if float(entry["dying"]) <= 0.0:
@@ -131,6 +141,8 @@ func _process(delta: float) -> void:
             sprite.position.y += 3.0*sin(elapsed*2.1+float(index))
             if float(entry["hit"]) > 0.0:
                 sprite.position.x += sin(float(entry["hit"])*85.0)*8.0
+            if float(entry["attack"]) > 0.0:
+                sprite.position.x -= 28.0*sin(PI*(1.0-float(entry["attack"])/0.27))
         var fade: float = minf(1.0,float(entry["dying"])/0.48) if float(entry["dying"]) > 0.0 else (0.0 if bool(entry["dead"]) else 1.0)
         if float(entry["hit"]) > 0.0:
             sprite.modulate = Color(1.0,0.58,0.58,fade)

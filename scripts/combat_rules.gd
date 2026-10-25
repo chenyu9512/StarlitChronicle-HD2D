@@ -190,3 +190,111 @@ func initiative_order(actors: Array, eligible_ids: Array = []) -> Array[int]:
     for scored_actor in scored:
         result.append(int(scored_actor["index"]))
     return result
+
+## Unified timeline: both teams are sorted in one deterministic queue.
+## Equal speed gives player actors priority, then keeps original side order.
+func turn_timeline(actors: Array, enemies: Array, eligible_ids: Array = []) -> Array[Dictionary]:
+    var order: Array[Dictionary] = []
+    for i in range(actors.size()):
+        var ally: Dictionary = actors[i]
+        var id: String = str(ally.get("id",""))
+        if int(ally.get("hp",0)) <= 0 or (not eligible_ids.is_empty() and id not in eligible_ids):
+            continue
+        var speed: int = maxi(1,int(ally.get("speed",10)))
+        if has_negative(id,"slow"):
+            speed = maxi(1,roundi(float(speed)*0.55))
+        order.append({"team":"ally","index":i,"speed":speed})
+    for i in range(enemies.size()):
+        var foe: Dictionary = enemies[i]
+        if int(foe.get("hp",0)) <= 0:
+            continue
+        var enemy_speed: int = maxi(1,int(foe.get("speed",maxi(5,int(foe.get("atk",10))/2))))
+        if has_enemy_negative(i,"slow"):
+            enemy_speed = maxi(1,roundi(float(enemy_speed)*0.55))
+        order.append({"team":"enemy","index":i,"speed":enemy_speed})
+    order.sort_custom(func(a: Dictionary,b: Dictionary) -> bool:
+        if int(a["speed"]) != int(b["speed"]):
+            return int(a["speed"]) > int(b["speed"])
+        if str(a["team"]) != str(b["team"]):
+            return str(a["team"]) == "ally"
+        return int(a["index"]) < int(b["index"])
+    )
+    return order
+
+## Enemy debuffs are indexed per individual formation member.  Boss and family
+## metadata may specify status_immunities and status_resistances explicitly.
+func enemy_immune(foe: Dictionary, kind: String) -> bool:
+    var immune: Array = foe.get("status_immunities",[])
+    if kind in immune:
+        return true
+    if bool(foe.get("is_boss",false)) and kind in ["sleep","stun","freeze"]:
+        return true
+    var resistance: Dictionary = foe.get("status_resistances",{})
+    return float(resistance.get(kind,0.0)) >= 1.0
+
+func enemy_status_chance(foe: Dictionary, kind: String, base_chance: float) -> float:
+    if not NEGATIVE_STATUS_LABELS.has(kind) or enemy_immune(foe,kind):
+        return 0.0
+    var resistances: Dictionary = foe.get("status_resistances",{})
+    return clampf(base_chance*(1.0-clampf(float(resistances.get(kind,0.0)),0.0,1.0)),0.0,1.0)
+
+func apply_enemy_negative(index: int, foe: Dictionary, kind: String, turns: int = 2) -> bool:
+    if index < 0 or not NEGATIVE_STATUS_LABELS.has(kind) or enemy_immune(foe,kind):
+        return false
+    var status: Dictionary = enemy_effects.get(index,{})
+    var negative: Dictionary = status.get("negative",{})
+    negative[kind] = maxi(int(negative.get(kind,0)),clampi(turns,1,8))
+    status["negative"] = negative
+    enemy_effects[index] = status
+    return true
+
+func has_enemy_negative(index: int, kind: String) -> bool:
+    var status: Dictionary = enemy_effects.get(index,{})
+    var negative: Dictionary = status.get("negative",{})
+    return int(negative.get(kind,0)) > 0
+
+func enemy_status_report(index: int) -> String:
+    var status: Dictionary = enemy_effects.get(index,{})
+    var negative: Dictionary = status.get("negative",{})
+    var labels: PackedStringArray = []
+    for kind in NEGATIVE_STATUS_LABELS.keys():
+        if int(negative.get(kind,0)) > 0:
+            labels.append(str(NEGATIVE_STATUS_LABELS[kind]))
+    return "、".join(labels)
+
+func resolve_enemy_turn(index: int, max_hp: int) -> Dictionary:
+    var status: Dictionary = enemy_effects.get(index,{})
+    var negative: Dictionary = status.get("negative",{})
+    var damage: int = 0
+    if int(negative.get("poison",0)) > 0:
+        damage += maxi(1,roundi(maxi(1,max_hp)*0.05))
+    if int(negative.get("burn",0)) > 0:
+        damage += maxi(1,roundi(maxi(1,max_hp)*0.07))
+    var skip: bool = false
+    for kind in ["stun","sleep","freeze"]:
+        if int(negative.get(kind,0)) > 0:
+            skip = true
+    for kind in negative.keys():
+        var left: int = int(negative[kind])-1
+        if left <= 0:
+            negative.erase(kind)
+        else:
+            negative[kind] = left
+    status["negative"] = negative
+    enemy_effects[index] = status
+    return {"damage":damage,"skip":skip}
+
+func enemy_strategy(foe: Dictionary, round_number: int, phase_two: bool, is_boss: bool, party: Array) -> Dictionary:
+    var directive: Dictionary = enemy_intent(round_number,phase_two,is_boss)
+    var personality: String = str(foe.get("ai_pattern",""))
+    var hp_ratio: float = float(foe.get("hp",1))/float(maxi(1,int(foe.get("max_hp",1))))
+    if is_boss and hp_ratio <= 0.25 and round_number % 2 == 0:
+        return {"label":"绝境反击","multiplier":1.42,"target":"lowest_hp"}
+    if not is_boss and personality.contains("蓄力") and round_number % 3 == 0:
+        return {"label":"蓄力猛击","multiplier":1.35,"target":"lowest_hp"}
+    if not is_boss and personality.contains("反击"):
+        directive["label"] = "守势反击"
+        directive["multiplier"] = 0.85
+    if not is_boss and personality.contains("优先") and not party.is_empty():
+        directive["target"] = "lowest_hp"
+    return directive

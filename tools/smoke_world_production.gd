@@ -21,6 +21,8 @@ func _run() -> void:
     var seen_positions: Dictionary = {}
     var settlement_count: int = 0
     var dungeon_count: int = 0
+    var dungeon_shapes: Dictionary = {}
+    var town_layouts: Dictionary = {}
     var playable_count: int = 0
     var all_checks: int = 0
     for key in geo.zones.keys():
@@ -46,6 +48,7 @@ func _run() -> void:
         verify(geo.layout(str(key),56).get("blocked",{})==layout.get("blocked",{}),"The same place regenerated different collisions on chapter change: "+str(key))
         if bool(spec.get("settlement",false)):
             settlement_count += 1
+            town_layouts[str(spec.get("layout",""))] = true
             var plots: Array = spec.get("buildings",[])
             verify(plots.size()>=5,"Town has insufficient distinguishable buildings: "+str(key))
             for plot in plots:
@@ -55,11 +58,17 @@ func _run() -> void:
                 verify(geo.reachable(layout,[spawn],[actual]),"Town building is inaccessible in "+str(key))
         if str(spec.get("archetype",""))=="dungeon":
             dungeon_count+=1
+            dungeon_shapes[str((layout.get("blocked",{}) as Dictionary).hash())] = true
             verify((layout.get("blocked",{}) as Dictionary).size()>1300,"Dungeon lacks meaningful walls: "+str(key))
+            verify((spec.get("dungeon_chambers",[]) as Array).size()>=7,"Missing authored chamber network: "+str(key))
+            var important: Array[Vector2i] = [Vector2i(19,14),Vector2i(53,16),Vector2i(54,36)]
+            verify(geo.reachable(layout,[spawn],important),"Rune switches or treasure are inaccessible in "+str(key))
         all_checks+=targets.size()
     verify(playable_count==40,"Exactly forty production zones excluding two prototypes")
     verify(settlement_count>=9,"World should have nine or more town/district sectors")
-    verify(dungeon_count>=7,"World should have seven major dungeons")
+    verify(dungeon_count==8,"World should contain eight distinct large dungeons")
+    verify(dungeon_shapes.size()==8,"Two dungeons accidentally share the same collision topology")
+    verify(town_layouts.size()==6,"Settlement geography must employ all six street archetypes")
     var state = State.new()
     var registry = Registry.new()
     registry.bind(state)

@@ -76,6 +76,29 @@ func _run() -> void:
     real_battle.game_core=core
     real_battle.invincible=true
     real_battle.start(state,2,true)
+    if is_instance_valid(real_battle.actor_stage) and real_battle.actor_stage.avatars.has("char_wayfarer"):
+        var party=real_battle.actor_stage
+        var test_member: Dictionary=party.avatars["char_wayfarer"]
+        var overlay: Sprite2D=test_member["motion"]
+        var strip: AtlasTexture=test_member["motion_atlas"]
+        check(strip.atlas is Texture2D,"Party six-frame motion atlas missing")
+        for kind in ["attack","guard","heal","skill","special"]:
+            party.play_action("char_wayfarer",kind)
+            party._process(0.10)
+            check(overlay.modulate.a>0.3,"Party animation not visible for "+kind)
+            check(int(strip.region.position.x)>0,"Party animation has no active frame for "+kind)
+        party.play_hit("char_wayfarer",false)
+        party._process(0.1)
+        check(str(party.avatars["char_wayfarer"].get("motion_kind",""))=="hit",
+            "Hit animation did not override player action")
+        party.reduced_motion=true
+        party.play_action("char_wayfarer","guard")
+        party._process(0.08)
+        # Hit has precedence until its timer expires, then guard can display.
+        for i in range(4):
+            party._process(0.08)
+        check(int(strip.region.position.x)==3*party.ACTION_FRAME_SIZE,
+            "Reduced-motion stance should remain on the third non-flashing frame")
     check(is_instance_valid(real_battle.boss_animation),"Boss animation not mounted in real combat")
     check(is_instance_valid(real_battle.vfx) and real_battle.vfx.elite_sequence is Texture2D,
         "Real combat lost elite-effect atlas")

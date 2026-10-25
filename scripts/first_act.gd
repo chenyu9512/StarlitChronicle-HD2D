@@ -204,6 +204,12 @@ func _start(continue_game: bool) -> void:
         progress.scene_index = 4
         progress.save()
     _enter_location()
+    var interrupted_cue: String = str(progress.rpg.get("cinematic_checkpoint",""))
+    if not fresh_game and not interrupted_cue.is_empty():
+        var desired_resume: String = "explore" if interrupted_cue=="cold_open" else "dialogue"
+        if _play_story_cinematic(interrupted_cue,desired_resume):
+            return
+        progress.rpg.erase("cinematic_checkpoint")
     var resumed_branch: Dictionary = branch_runtime.resume()
     if not resumed_branch.is_empty() and str(progress.rpg.get("branch_story",{}).get("active",{}).get("source","menu")) == "menu":
         _display_branch_event(resumed_branch)
@@ -227,6 +233,8 @@ func _play_story_cinematic(cue_id: String,resume: String) -> bool:
     if cue.is_empty() or not cinematic.start(cue_id,cue):
         return false
     cinematic_resume=resume
+    progress.rpg["cinematic_checkpoint"]=cue_id
+    _save_progress()
     busy=true
     paused_for_dialogue=true
     world.locked=true
@@ -240,6 +248,7 @@ func _cinematic_finished(cue_id: String,skipped: bool) -> void:
     if cue_id.is_empty():
         return
     progress.flags["cinematic."+cue_id+".seen"]=true
+    progress.rpg.erase("cinematic_checkpoint")
     var resume: String=cinematic_resume
     cinematic_resume=""
     paused_for_dialogue=false

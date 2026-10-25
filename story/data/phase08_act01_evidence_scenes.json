@@ -1,0 +1,331 @@
+{
+  "schema": "starlit.story.phase08.act01.optional.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "六章各新增一处调查深入场景；前置为该章主线证据取得标志，绑定时需避免先取得证据再调查的叙事循环。",
+  "scenes": [
+    {
+      "id": "ch001.p8.evidence",
+      "chapter_id": "ch001",
+      "title": "药房门前的蓝色试剂",
+      "insert_after_scene_id": "ch001.investigate",
+      "trigger_hint": "optional_evidence_investigation",
+      "required_flags": [
+        "ch001.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "dialogue": [
+        {
+          "id": "ch001.p8.evidence.l01",
+          "speaker": "药房学徒",
+          "text": "这瓶试剂遇普通海盐不会变色。你们从哪儿找到的银砂？"
+        },
+        {
+          "id": "ch001.p8.evidence.l02",
+          "speaker": "岚音",
+          "text": "从一封没寄出的信上。先戴手套，别直接碰。"
+        },
+        {
+          "id": "ch001.p8.evidence.l03",
+          "speaker": "药房学徒",
+          "text": "上月也有人问过这事，付了钱却没留下姓名。"
+        },
+        {
+          "id": "ch001.p8.evidence.l04",
+          "speaker": "主角",
+          "text": "那人买了多少试剂？"
+        },
+        {
+          "id": "ch001.p8.evidence.l05",
+          "speaker": "药房学徒",
+          "text": "只买一滴的量。他说自己不是来找宝藏，是想确定一张纸写得对不对。"
+        },
+        {
+          "id": "ch001.p8.evidence.l06",
+          "speaker": "旁白",
+          "text": "试纸边缘浮出淡蓝色星纹，随即被水晕散。"
+        },
+        {
+          "id": "ch001.p8.evidence.l07",
+          "speaker": "岚音",
+          "text": "反应太弱，不能光凭颜色判断产地。把瓶号和日期记下来。"
+        },
+        {
+          "id": "ch001.p8.evidence.l08",
+          "speaker": "主角",
+          "text": "至少还有人在查。我们不是唯一记得这件事的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch002.p8.evidence",
+      "chapter_id": "ch002",
+      "title": "药柜后的药品缺口",
+      "insert_after_scene_id": "ch002.investigate",
+      "trigger_hint": "optional_evidence_investigation",
+      "required_flags": [
+        "ch002.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "dialogue": [
+        {
+          "id": "ch002.p8.evidence.l01",
+          "speaker": "护士",
+          "text": "第三层药柜全空了。昨天的止痛药，是药房老板先赊给我们的。"
+        },
+        {
+          "id": "ch002.p8.evidence.l02",
+          "speaker": "岚音",
+          "text": "缺口必须登记，接班医师不能一直靠猜库存够不够。"
+        },
+        {
+          "id": "ch002.p8.evidence.l03",
+          "speaker": "医院主任",
+          "text": "写出来港务署会觉得我们没能力。船一停，连剩下的药都进不来。"
+        },
+        {
+          "id": "ch002.p8.evidence.l04",
+          "speaker": "主角",
+          "text": "那就把缺口和目前证据不足的传染说法一起写清楚。"
+        },
+        {
+          "id": "ch002.p8.evidence.l05",
+          "speaker": "水手",
+          "text": "我听不懂医书。可你们能别当着我的面，商量要不要关着我吗？"
+        },
+        {
+          "id": "ch002.p8.evidence.l06",
+          "speaker": "岚音",
+          "text": "是我们不对。你的病情应该先向你说清楚。"
+        },
+        {
+          "id": "ch002.p8.evidence.l07",
+          "speaker": "护士",
+          "text": "我去拿新木板，把当值医师的名字写在门外。"
+        },
+        {
+          "id": "ch002.p8.evidence.l08",
+          "speaker": "旁白",
+          "text": "新木板第一行不再写病人号码，只写着“今晚值班：两人”。"
+        }
+      ]
+    },
+    {
+      "id": "ch003.p8.evidence",
+      "chapter_id": "ch003",
+      "title": "桥柱上的撤离刻痕",
+      "insert_after_scene_id": "ch003.investigate",
+      "trigger_hint": "optional_evidence_investigation",
+      "required_flags": [
+        "ch003.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "dialogue": [
+        {
+          "id": "ch003.p8.evidence.l01",
+          "speaker": "旁白",
+          "text": "桥柱边有新旧两排刻痕。最浅一道与眼下水位齐平。"
+        },
+        {
+          "id": "ch003.p8.evidence.l02",
+          "speaker": "朔弦",
+          "text": "有人比我们早试过这条路，失败后留下了记号。"
+        },
+        {
+          "id": "ch003.p8.evidence.l03",
+          "speaker": "主角",
+          "text": "沿最低刻痕布绳，没到安全位置的人不碰下一台机关。"
+        },
+        {
+          "id": "ch003.p8.evidence.l04",
+          "speaker": "岚音",
+          "text": "石桥若断，先撤不会游水的人。工具丢了还能再找。"
+        },
+        {
+          "id": "ch003.p8.evidence.l05",
+          "speaker": "遗迹守卫残声",
+          "text": "回程方向……资料缺失……请归来者确认。"
+        },
+        {
+          "id": "ch003.p8.evidence.l06",
+          "speaker": "朔弦",
+          "text": "连回家的路都要我确认，你倒先给我看地图啊。"
+        },
+        {
+          "id": "ch003.p8.evidence.l07",
+          "speaker": "旁白",
+          "text": "灯光扫过磨平的石壁，露出“归来者不是罪人”几个旧字。"
+        },
+        {
+          "id": "ch003.p8.evidence.l08",
+          "speaker": "主角",
+          "text": "把这句记下。它可能比机关编号还重要。"
+        }
+      ]
+    },
+    {
+      "id": "ch004.p8.evidence",
+      "chapter_id": "ch004",
+      "title": "货单背面的旧船名",
+      "insert_after_scene_id": "ch004.investigate",
+      "trigger_hint": "optional_evidence_investigation",
+      "required_flags": [
+        "ch004.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "dialogue": [
+        {
+          "id": "ch004.p8.evidence.l01",
+          "speaker": "旁白",
+          "text": "酒桶底板有被烫黑的圆痕，恰好盖住船名末尾两字。"
+        },
+        {
+          "id": "ch004.p8.evidence.l02",
+          "speaker": "酒馆跑堂",
+          "text": "那天他们换了整只桶，还给我半月工钱，叫我别问。"
+        },
+        {
+          "id": "ch004.p8.evidence.l03",
+          "speaker": "朔弦",
+          "text": "是我换的。怕有人认出那条航线。"
+        },
+        {
+          "id": "ch004.p8.evidence.l04",
+          "speaker": "主角",
+          "text": "你现在能把原来的船名写出来吗？"
+        },
+        {
+          "id": "ch004.p8.evidence.l05",
+          "speaker": "朔弦",
+          "text": "能。我只是不知道写完以后，还有没有人会信我。"
+        },
+        {
+          "id": "ch004.p8.evidence.l06",
+          "speaker": "岚音",
+          "text": "信不信是他们的事。写不写清楚是你的事。"
+        },
+        {
+          "id": "ch004.p8.evidence.l07",
+          "speaker": "酒馆跑堂",
+          "text": "我的半月工钱也记上。别让谁再替我决定沉默值多少。"
+        },
+        {
+          "id": "ch004.p8.evidence.l08",
+          "speaker": "旁白",
+          "text": "朔弦磨尖木炭，在酒单背面写下三个港名，一个也没擦掉。"
+        }
+      ]
+    },
+    {
+      "id": "ch005.p8.evidence",
+      "chapter_id": "ch005",
+      "title": "锁链下的求救拍击",
+      "insert_after_scene_id": "ch005.investigate",
+      "trigger_hint": "optional_evidence_investigation",
+      "required_flags": [
+        "ch005.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "dialogue": [
+        {
+          "id": "ch005.p8.evidence.l01",
+          "speaker": "旁白",
+          "text": "巨兽浮出半边背脊，尾鳍在水面慢慢拍了三下。"
+        },
+        {
+          "id": "ch005.p8.evidence.l02",
+          "speaker": "朔弦",
+          "text": "船舱里有伤员时，水手也会拍三下提醒人别急着靠岸。"
+        },
+        {
+          "id": "ch005.p8.evidence.l03",
+          "speaker": "岚音",
+          "text": "也可能只是疼。别因为我们想听懂，就当它一定在回答。"
+        },
+        {
+          "id": "ch005.p8.evidence.l04",
+          "speaker": "主角",
+          "text": "用不载星矿的木筏靠近试试。看它是否还会追。"
+        },
+        {
+          "id": "ch005.p8.evidence.l05",
+          "speaker": "渔夫",
+          "text": "它若翻船，我先收绳，不会把你们留在外面。"
+        },
+        {
+          "id": "ch005.p8.evidence.l06",
+          "speaker": "旁白",
+          "text": "巨兽没有冲向木筏，只将划伤的背脊朝浅滩挪了些。"
+        },
+        {
+          "id": "ch005.p8.evidence.l07",
+          "speaker": "岚音",
+          "text": "我看见锁扣了。至少现在，它没有攻击。"
+        },
+        {
+          "id": "ch005.p8.evidence.l08",
+          "speaker": "朔弦",
+          "text": "那就别浪费这个机会。"
+        }
+      ]
+    },
+    {
+      "id": "ch006.p8.evidence",
+      "chapter_id": "ch006",
+      "title": "三块灯芯里的三种航向",
+      "insert_after_scene_id": "ch006.investigate",
+      "trigger_hint": "optional_evidence_investigation",
+      "required_flags": [
+        "ch006.evidence"
+      ],
+      "optional": true,
+      "advances_main_story": false,
+      "dialogue": [
+        {
+          "id": "ch006.p8.evidence.l01",
+          "speaker": "旁白",
+          "text": "大船航线照在墙上，一艘小渔舟却从另一方向驶进同一港湾。"
+        },
+        {
+          "id": "ch006.p8.evidence.l02",
+          "speaker": "朔弦",
+          "text": "两条路都能回白砂港，大船却走不了小船的浅道。"
+        },
+        {
+          "id": "ch006.p8.evidence.l03",
+          "speaker": "岚音",
+          "text": "旧灯芯为什么只记着一条回路？"
+        },
+        {
+          "id": "ch006.p8.evidence.l04",
+          "speaker": "灯塔看守",
+          "text": "祖辈说统一航线才不出错，风暴里却常让所有船一起迷路。"
+        },
+        {
+          "id": "ch006.p8.evidence.l05",
+          "speaker": "主角",
+          "text": "如果每条航路都有人愿意作证，就不必让整个港口只听一人的命令。"
+        },
+        {
+          "id": "ch006.p8.evidence.l06",
+          "speaker": "潮歌守门人残声",
+          "text": "多航向记录：不符合旧制。"
+        },
+        {
+          "id": "ch006.p8.evidence.l07",
+          "speaker": "朔弦",
+          "text": "旧制没给小船留路，不代表小船不配回家。"
+        },
+        {
+          "id": "ch006.p8.evidence.l08",
+          "speaker": "旁白",
+          "text": "三枚碎片同时亮起，亮度却各不相同。"
+        }
+      ]
+    }
+  ]
+}

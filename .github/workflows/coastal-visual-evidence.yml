@@ -17,7 +17,8 @@ permissions:
   contents: read
 concurrency:
   group: starlit-visual-evidence-${{ github.ref }}
-  cancel-in-progress: true
+  # Preserve in-flight GPU captures when unrelated developers push to main.
+  cancel-in-progress: false
 jobs:
   render-first-act:
     runs-on: ubuntu-latest

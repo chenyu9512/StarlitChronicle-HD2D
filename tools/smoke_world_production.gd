@@ -43,7 +43,7 @@ func _run() -> void:
             targets.append(gate.get("cell",Vector2i.ZERO))
         verify(geo.reachable(layout,[spawn],targets),"Unreachable world border gate in "+str(key))
         var cells: Dictionary = layout.get("tiles",{})
-        verify(cells.size() == 72*48,"Missing collision/ground cells: "+str(key))
+        verify(cells.size() == (layout["size"] as Vector2i).x*(layout["size"] as Vector2i).y,"Missing collision/ground cells: "+str(key))
         verify((layout.get("blocked",{}) as Dictionary).size() > 100,"No authored impassable terrain: "+str(key))
         verify(geo.layout(str(key),56).get("blocked",{})==layout.get("blocked",{}),"The same place regenerated different collisions on chapter change: "+str(key))
         if bool(spec.get("settlement",false)):
@@ -92,7 +92,7 @@ func _run() -> void:
     root.add_child(world)
     world.map_profile = registry.profile()
     world.build(1,2)
-    verify(world.layer.get_used_rect().size == Vector2i(72,48),"Runtime scene did not use the new playable 72x48 geography")
+    verify(world.layer.get_used_rect().size == world.terrain_layout.get("size",Vector2i(72,48)),"Runtime scene did not use the new playable 72x48 geography")
     verify(world.nodes.has("key_npc") and world.nodes.has("side_start"),"New world lost canonical quest interaction nodes")
     verify(world.nodes.has("exit:map_coast_02"),"Walkable inter-zone exit has not been created")
     verify(world.nodes.has("building:inn"),"Town is missing an enterable inn door")
@@ -140,7 +140,7 @@ func _run() -> void:
     await process_frame
     verify(map.map_points.size()==5,"Coast regional inset should show its five relevant map sectors")
     if failures.is_empty():
-        print("PASS: 8 geographic biomes; %d playable 72x48 zones, %d town districts, %d dungeons, %d navigable quest+gate anchors, physical town interiors and 3-tier map navigation" % [playable_count,settlement_count,dungeon_count,all_checks])
+        print("PASS: 8 geographic biomes; %d playable different-size zones, %d town districts, %d dungeons, %d navigable quest+gate anchors, physical town interiors and 3-tier map navigation" % [playable_count,settlement_count,dungeon_count,all_checks])
         quit(0)
     else:
         for failure in failures:

@@ -77,6 +77,7 @@ func _ready() -> void:
     ui.action_pressed.connect(func() -> void: world.interact())
     ui.menu_pressed.connect(_show_menu)
     ui.adventure_book_requested.connect(_open_adventure_book)
+    ui.atlas_requested.connect(_open_map_from_quick_menu)
     ui.menu_dismissed.connect(_return_to_world)
     ui.save_pressed.connect(_save)
     ui.potion_pressed.connect(_use_potion)
@@ -868,6 +869,12 @@ func _open_world_map_from_book() -> void:
         return
     adventure_menu.close_menu()
     atlas.show_world_map()
+
+func _open_map_from_quick_menu() -> void:
+    if is_instance_valid(battle):
+        return
+    ui.close_menu()
+    atlas.open_map()
 
 func _return_to_world() -> void:
     busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or cheat.shade.visible or atlas.is_open()

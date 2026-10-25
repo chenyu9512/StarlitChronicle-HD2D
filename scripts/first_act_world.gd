@@ -903,7 +903,16 @@ func set_focus(name: String) -> void:
         var anchor: Sprite2D = nodes[name]
         focus_light.position = anchor.position + Vector2(0, -45)
         focus_label.position = anchor.position + Vector2(-36, -86)
-        focus_label.text = "✦ 前往调查"
+        var prologue_prompts: Array[String] = [
+            "✦ 与澄舟交谈", "✦ 帮助岚音", "✦ 参加星灯祭",
+            "✦ 查看古老石碑", "✦ 前往潮风灯塔", "✦ 天空出现异象",
+            "✦ 跟随岚音撤离", "✦ 询问村长", "✦ 回到澄舟旧屋"
+        ]
+        if chapter==0 and name.begins_with("prologue_"):
+            var scene_no: int=int(name.trim_prefix("prologue_"))
+            focus_label.text=prologue_prompts[scene_no] if scene_no>=0 and scene_no<prologue_prompts.size() else "✦ 查看故事目标"
+        else:
+            focus_label.text = "✦ 前往调查"
 
 func set_side_focus(name: String) -> void:
     side_focus_name = name

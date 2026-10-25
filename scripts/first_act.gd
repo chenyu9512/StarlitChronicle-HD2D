@@ -1,5 +1,5 @@
 extends Node2D
-## 《星灯纪行》序章—第一幕六章：地图交互任务 / 剧情 / 战斗 / 存档总控制。
+## 《星灯纪行》72章全篇：地图、分支任务、三结局、战斗与存档协调器。
 const WorldScript = preload("res://scripts/first_act_world.gd")
 const UIScript = preload("res://scripts/first_act_ui.gd")
 const BattleScript = preload("res://scripts/first_act_battle.gd")
@@ -89,6 +89,12 @@ func _start(continue_game: bool) -> void:
         progress.new_game()
         progress.save()
     game_core.bind(progress)
+    if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
+        # v0.3旧版结算标记没有三结局记录：迁移到终局选择，保留装备、等级与支线。
+        progress.flags.erase("story.complete")
+        progress.flags["story.ch072.done"] = true
+        progress.scene_index = 4
+        progress.save()
     _enter_location()
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete", false)):
         if str(progress.rpg.get("ending_id", "")).is_empty():
@@ -421,7 +427,7 @@ func _dialogue_ended() -> void:
             var quest: Dictionary = side_quests.get(progress.chapter, {})
             var reward: Dictionary = quest.get("reward", {})
             progress.give_rewards(int(reward.get("xp", 0)), int(reward.get("gold", 0)))
-            progress.potions += int(reward.get("potions", 0))
+            game_core.add_item("item_herb_01",int(reward.get("potions",0)))
             ui.show_message("支线完成！获得经验、金币与药草奖励。")
         "resolve":
             _apply_effects(_current_scene())
@@ -647,11 +653,11 @@ func _replay_ending(id: String) -> void:
 
 func _save_progress() -> void:
     if not progress.save():
-        push_warning("第一幕存档写入失败")
+        push_warning("游戏主体存档写入失败")
 
 func _save() -> void:
     _save_progress()
-    ui.show_message("已保存第一幕进度。")
+    ui.show_message("旅途进度已保存。")
 
 func _open_adventure_book() -> void:
     if is_instance_valid(battle):
@@ -749,18 +755,20 @@ func _run_cheat(command: String) -> void:
             world.walk_speed = 141.0 if world.walk_speed > 141.0 else 240.0
             message = "移动速度：" + ("加速" if world.walk_speed > 141.0 else "正常")
         "next_chapter":
-            if progress.chapter < 6:
+            if progress.chapter < 72:
                 if progress.chapter == 0:
                     progress.flags["story.prologue_done"] = true
                 else:
                     progress.flags["story.ch%03d.done" % progress.chapter] = true
+                    if progress.chapter == 71:
+                        progress.flags["ch071.battle_won"] = true
                 progress.chapter += 1
                 progress.scene_index = 0
                 progress.task_index = 0
                 _save_progress()
                 _enter_location()
             else:
-                message = "已处于第一幕终章。"
+                message = "已处于第72章终章。请在命运灯坛选择结局。"
         "village":
             message = "剧情地图自动依据章节载入。"
         "ruins":

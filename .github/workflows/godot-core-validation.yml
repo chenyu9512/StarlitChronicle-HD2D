@@ -41,5 +41,7 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_endings.gd
       - name: Chapter NPC, evidence and 72 midpoint runtime regression
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_chapter_ambient.gd
+      - name: Legacy chapter-72 save migration
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_legacy_ending.gd
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20

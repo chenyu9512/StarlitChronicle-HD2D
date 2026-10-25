@@ -104,9 +104,13 @@ func _run() -> void:
     game.adventure_menu.render("剧情后续")
     var found_branch_button: bool = false
     for node in game.adventure_menu.content.get_children():
-        if node is Button and str(node.text).contains("家属拆信"):
-            found_branch_button = true
-            (node as Button).pressed.emit()
+        if node is HBoxContainer:
+            for control in node.get_children():
+                if control is Button and str(control.text) == "回顾对白":
+                    found_branch_button = true
+                    (control as Button).pressed.emit()
+                    break
+        if found_branch_button:
             break
     check(found_branch_button,"playable RPG menu actually lists unlocked branch")
     check(game.pending == "branch_event" and game.ui.dialog_layer.visible,

@@ -28,6 +28,13 @@ func _run() -> void:
         if world.coastal_audio!=null and world.coastal_audio.player!=null:
             verify(world.coastal_audio.player.stream.data.size()==16000,"Incorrect native PCM data: "+area)
         verify(not world._blocked(world.hero.position),"Scenery accidentally blocked spawn: "+area)
+        if area in ["map_coast_03","map_coast_04"]:
+            var floor_source: TileSetAtlasSource=world.layer.tile_set.get_source(0)
+            var suffix: String="saltwind_route_tileset.svg" if area=="map_coast_03" else "tide_cavern_tileset.svg"
+            verify(floor_source.texture.resource_path.ends_with(suffix),"Missing distinct terrain atlas: "+area)
+        if area=="map_coast_04":
+            verify(world.coastal_scene.cavern_grade!=null,"Cave still uses outdoor brightness")
+            verify(world.coastal_scene.cavern_lights.size()==3,"Boss chamber missing authored light sources")
         if area in ["map_coast_01","map_coast_02"]:
             var count: int=0
             var drawn: int=0

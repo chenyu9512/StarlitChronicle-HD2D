@@ -38,10 +38,17 @@ func _capture() -> void:
         world.map_profile=registry.profile(id)
         world.build(3,2)
         if world.coastal_scene!=null and not world.coastal_scene.authored_sprites.is_empty():
-            var first_key: String=str(world.coastal_scene.authored_sprites.keys()[0])
-            var subject: Sprite2D=world.coastal_scene.authored_sprites[first_key]
-            # Move camera subject to a genuine scenery feature, without saving.
-            world.hero.position=subject.position+Vector2(60,56)
+            var focus_keys: Dictionary={
+                "map_coast_01":"dew_nets",
+                "map_coast_02":"harbor_crane",
+                "map_coast_03":"path_ford",
+                "map_coast_04":"cave_boss_arena"
+            }
+            var wanted: String=str(focus_keys.get(id,""))
+            var subject: Sprite2D=world.coastal_scene.authored_sprites.get(wanted,null)
+            if subject!=null:
+                # Frame the player and art-directed feature together.
+                world.hero.position=subject.position+Vector2(42,48)
         world.camera.position_smoothing_enabled=false
         world.camera.reset_smoothing()
         for step in range(4):
@@ -53,7 +60,11 @@ func _capture() -> void:
     if not world.enter_building("inn"):
         errors.append("Cannot enter inn for interior evidence")
     else:
+        # The entrance is intentionally sparse; visual review must inspect the
+        # furnished central room, not a blank doorway and two actors.
+        world.hero.position=Vector2(36*32+16,25*32+16)
         world.camera.position_smoothing_enabled=false
+        world.camera.reset_smoothing()
         for step in range(4):
             await process_frame
         await RenderingServer.frame_post_draw

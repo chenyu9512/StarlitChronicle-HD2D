@@ -196,6 +196,15 @@ func _make_tiles() -> void:
     var chosen_atlas: String=str(terrain_layout.get("art_tileset",""))
     if chosen_atlas.is_empty() and str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
         chosen_atlas=INN_ATLAS
+    if interior_building.is_empty():
+        var outdoor_key: String=str(map_profile.get("id",""))
+        var outdoor_atlas: String=""
+        if outdoor_key=="map_coast_03":
+            outdoor_atlas="res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg"
+        elif outdoor_key=="map_coast_04":
+            outdoor_atlas="res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg"
+        if not outdoor_atlas.is_empty() and ResourceLoader.exists(outdoor_atlas):
+            chosen_atlas=outdoor_atlas
     var authored_art: bool = not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas)
     var tile_set := TileSet.new()
     tile_set.tile_size = Vector2i(TILE, TILE)

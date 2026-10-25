@@ -15,6 +15,8 @@ var tidal_sprites: Array[Sprite2D] = []
 var animated_phase: float = 0.0
 var water_count: int = 0
 var wave_timer: float = 0.0
+var cavern_grade: CanvasModulate
+var cavern_lights: Array[PointLight2D] = []
 
 func configure(map_key: String, layout: Dictionary) -> void:
     map_id = map_key
@@ -66,6 +68,29 @@ func configure(map_key: String, layout: Dictionary) -> void:
         tidal_sprites.append(wave)
         selected+=1
     water_count=selected
+    if map_id=="map_coast_04":
+        _make_cavern_lighting()
+
+func _make_cavern_lighting() -> void:
+    cavern_grade=CanvasModulate.new()
+    cavern_grade.name="TidalCavernBlueGrade"
+    cavern_grade.color=Color("74869e")
+    add_child(cavern_grade)
+    var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
+    if not ResourceLoader.exists(glow):
+        return
+    for entry in ["cave_relic","cave_boss_arena","cave_beacon"]:
+        if not authored_sprites.has(entry):
+            continue
+        var lamp:=PointLight2D.new()
+        lamp.name="CaveGlow_"+entry
+        lamp.texture=load(glow)
+        lamp.position=authored_sprites[entry].position
+        lamp.texture_scale=2.15
+        lamp.energy=1.05
+        lamp.color=Color("b6d9e5") if entry!="cave_boss_arena" else Color("e9c998")
+        add_child(lamp)
+        cavern_lights.append(lamp)
 
 func _sprite(asset: String,cell: Vector2i) -> Sprite2D:
     var file: String=ART+asset+".svg"

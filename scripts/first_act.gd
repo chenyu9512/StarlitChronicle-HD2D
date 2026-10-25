@@ -668,6 +668,10 @@ func _interact(target: String) -> void:
         var citizen_id: String = target.trim_prefix("citizen:")
         var clock: Dictionary = progress.rpg.get("game_clock",{})
         var conversation: Dictionary = world.town_life.talk(citizen_id,str(world.map_profile.get("region_id","region_coast")),clock,progress)
+        var map_id: String = world_router.current_map()
+        var neighborhood_gossip: String = world.town_ecology.resident_hint(map_id,progress,int(float(clock.get("minutes",480))/60.0))
+        if not neighborhood_gossip.is_empty():
+            conversation["text"]=str(conversation.get("text",""))+"\n"+neighborhood_gossip
         if bool(conversation.get("first",false)):
             game_events.record("resident_met",{"id":citizen_id,"region_id":str(world.map_profile.get("region_id",""))})
             _save_progress()

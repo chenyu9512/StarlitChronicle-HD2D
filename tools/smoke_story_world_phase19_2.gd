@@ -94,7 +94,8 @@ func _run() -> void:
         check(not game.world.blocked.has(cell),"interactive marker on walkable cell " + str(stage))
         position_history.append(cell)
         if stage==0:
-            check(point is Node2D and not (point is Sprite2D),"quest NPC uses NPCVisual scene node")
+            check(point is Sprite2D and point.get_script() == preload("res://scripts/world_npc_visual.gd"),
+                "quest NPC uses actual NPCVisual sprite instance")
         game.world.hero.position = point.position
         game.world.interact()
         check(game.pending=="branch_field","world interaction dispatch " + str(stage))

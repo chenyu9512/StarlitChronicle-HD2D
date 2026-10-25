@@ -6,6 +6,14 @@ var facing: int = 0  # down, left, up, right
 var idle_elapsed: float = 0.0
 var reacting: bool = false
 
+func _draw() -> void:
+    # Ground contact shadow underneath the untouched walking sprite.
+    var ellipse:=PackedVector2Array()
+    for i in range(16):
+        var angle: float=TAU*float(i)/16.0
+        ellipse.append(Vector2(cos(angle)*11.0,8.0+sin(angle)*4.0))
+    draw_colored_polygon(ellipse,Color(0.02,0.08,0.11,0.28))
+
 func setup(image: String) -> void:
     sprite = Sprite2D.new()
     sprite.texture = load(image)

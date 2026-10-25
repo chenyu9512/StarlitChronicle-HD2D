@@ -8,13 +8,16 @@ var biome: String = "coastal"
 var cells: Vector2i = Vector2i(8,6)
 var facade: Sprite2D
 var exterior_identity: String = ""
+var door_lamp: PointLight2D
+var visual_time_minutes: int = 660
 
-func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,map_key: String = "") -> void:
+func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,map_key: String = "",minutes: int = 660) -> void:
     purpose = kind
     title = building_name
     biome = area
     cells = dimensions
     exterior_identity=map_key+"#"+kind
+    visual_time_minutes=minutes
     # The original painter remains the compatibility fallback for other biomes.
     var file: String = "res://assets/art/exteriors/coast_final_pass/%s_%s.svg" % [map_key,kind]
     if ResourceLoader.exists(file):
@@ -25,7 +28,22 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
         facade.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
         facade.z_index=3
         add_child(facade)
+        var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
+        if ResourceLoader.exists(glow):
+            door_lamp=PointLight2D.new()
+            door_lamp.name="DoorLanternLight"
+            door_lamp.texture=load(glow)
+            door_lamp.texture_scale=0.58
+            door_lamp.position=Vector2(0,float(cells.y)*TILE*0.5-37.0)
+            door_lamp.color=Color("ffdea1")
+            add_child(door_lamp)
+            set_clock(visual_time_minutes)
     queue_redraw()
+
+func set_clock(minutes: int) -> void:
+    visual_time_minutes=posmod(minutes,1440)
+    if is_instance_valid(door_lamp):
+        door_lamp.energy=0.85 if visual_time_minutes>=1140 or visual_time_minutes<360 else 0.16
 
 func _palette() -> Dictionary:
     var wall: Color = Color("c5b093")

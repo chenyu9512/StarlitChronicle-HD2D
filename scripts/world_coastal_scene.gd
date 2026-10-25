@@ -17,6 +17,9 @@ var water_count: int = 0
 var wave_timer: float = 0.0
 var cavern_grade: CanvasModulate
 var cavern_lights: Array[PointLight2D] = []
+var surface_detail: TileMapLayer
+var detail_count: int = 0
+var shoreline_count: int = 0
 
 func configure(map_key: String, layout: Dictionary) -> void:
     map_id = map_key
@@ -68,13 +71,87 @@ func configure(map_key: String, layout: Dictionary) -> void:
         tidal_sprites.append(wave)
         selected+=1
     water_count=selected
+    _install_surface_detail(layout)
     if map_id=="map_coast_04":
         _make_cavern_lighting()
+
+func _install_surface_detail(layout: Dictionary) -> void:
+    # One atlas layer instead of hundreds of nodes. No collision writes.
+    var theme: String="coastal"
+    if map_id=="map_coast_02":
+        theme="harbor"
+    elif map_id=="map_coast_04":
+        theme="cavern"
+    var file: String=ART+theme+"_detail_atlas.svg"
+    if not ResourceLoader.exists(file):
+        return
+    var tiles:=TileSet.new()
+    tiles.tile_size=Vector2i(TILE,TILE)
+    var atlas:=TileSetAtlasSource.new()
+    atlas.texture=load(file)
+    atlas.texture_region_size=Vector2i(TILE,TILE)
+    for y in range(8):
+        for x in range(8):
+            atlas.create_tile(Vector2i(x,y))
+    tiles.add_source(atlas,0)
+    surface_detail=TileMapLayer.new()
+    surface_detail.name="ShorelineAndSurfaceDetails"
+    surface_detail.tile_set=tiles
+    surface_detail.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+    surface_detail.z_index=-4
+    add_child(surface_detail)
+    var ground: Dictionary=layout.get("tiles",{})
+    var water: Dictionary=layout.get("water_mask",{})
+    var collision: Dictionary=layout.get("blocked",{})
+    var seed: int=map_id.hash()
+    for raw in ground.keys():
+        var cell: Vector2i=raw
+        if water.has(cell):
+            continue
+        var shore: int=-1
+        if water.has(cell+Vector2i.LEFT):
+            shore=0
+        elif water.has(cell+Vector2i.RIGHT):
+            shore=1
+        elif water.has(cell+Vector2i.UP):
+            shore=2
+        elif water.has(cell+Vector2i.DOWN):
+            shore=3
+        if shore>=0:
+            surface_detail.set_cell(cell,0,Vector2i(shore,4))
+            shoreline_count+=1
+            detail_count+=1
+            continue
+        var variant: int=posmod(cell.x*37+cell.y*71+seed,100)
+        var ground_atlas: Vector2i=ground[cell]
+        var row: int=-1
+        if map_id=="map_coast_04":
+            if ground_atlas.y==3 and variant<28:
+                row=2
+            elif collision.has(cell) and variant<20:
+                row=3
+            elif variant<10:
+                row=5
+            elif variant<14:
+                row=6
+        elif ground_atlas.y==3 and variant<22:
+            row=2
+        elif ground_atlas.y==1 and variant<17:
+            row=1
+        elif ground_atlas.y==5 and variant<13:
+            row=0 if variant<7 else 1
+        elif collision.has(cell) and variant<13:
+            row=3
+        elif variant<4:
+            row=7
+        if row>=0:
+            surface_detail.set_cell(cell,0,Vector2i(posmod(cell.x*11+cell.y*7+seed,8),row))
+            detail_count+=1
 
 func _make_cavern_lighting() -> void:
     cavern_grade=CanvasModulate.new()
     cavern_grade.name="TidalCavernBlueGrade"
-    cavern_grade.color=Color("74869e")
+    cavern_grade.color=Color("a0b0bc")
     add_child(cavern_grade)
     var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
     if not ResourceLoader.exists(glow):

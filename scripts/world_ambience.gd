@@ -1,8 +1,7 @@
 extends Node2D
 ## Lightweight dynamic day/night/weather composition for the active map only.
 ## No external effects library; visuals are authored Godot primitives.
-const VIEW_W: float = 72.0*32.0
-const VIEW_H: float = 48.0*32.0
+var map_pixels: Vector2=Vector2(72.0*32.0,48.0*32.0)
 var day: int = 1
 var minutes: int = 480
 var climate: String = "coastal"
@@ -11,9 +10,10 @@ var weather: String = "clear"
 var phase: float = 0.0
 var hero: Node2D
 
-func configure(map_key: String,biome: String) -> void:
+func configure(map_key: String,biome: String,extent: Vector2i = Vector2i(72,48)) -> void:
     map_id=map_key
     climate=biome
+    map_pixels=Vector2(extent)*32.0
     _choose_weather()
     queue_redraw()
 
@@ -62,9 +62,9 @@ func _draw() -> void:
     elif hour>=16.0:
         tint=Color(0.46,0.23,0.13,0.06+(hour-16.0)*0.04)
     if tint.a>0.0:
-        draw_rect(Rect2(Vector2.ZERO,Vector2(VIEW_W,VIEW_H)),tint,true)
+        draw_rect(Rect2(Vector2.ZERO,map_pixels),tint,true)
     if weather=="mist":
-        draw_rect(Rect2(Vector2.ZERO,Vector2(VIEW_W,VIEW_H)),Color(0.59,0.7,0.77,0.09),true)
+        draw_rect(Rect2(Vector2.ZERO,map_pixels),Color(0.59,0.7,0.77,0.09),true)
     if hero==null or not is_instance_valid(hero):
         return
     if weather in ["rain","ash"]:

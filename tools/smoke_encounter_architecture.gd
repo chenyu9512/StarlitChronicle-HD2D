@@ -36,13 +36,20 @@ func _run() -> void:
     test(not str(battle.enemy.get("monster_id","")).is_empty(),"Battle did not load monster database")
     battle._act("skill")
     test(is_instance_valid(battle.skill_picker),"Skill picker did not open on the skill command")
-    var options: Array = core.skills("char_wayfarer")
-    if not options.is_empty():
-        battle._act("skill:"+str(options[0].get("id","")))
-        test(not is_instance_valid(battle.skill_picker),"Skill picker remained after skill was chosen")
-        test(int(battle.enemy.get("hp",0)) < int(battle.enemy.get("max_hp",1)) or battle.hero_turn > 0,"Selected skill did not resolve")
+    var active_id: String = str(state.actors[battle.hero_turn].get("id",""))
+    var options: Array = core.skills(active_id)
+    var usable: Dictionary = {}
+    for skill in options:
+        if str(skill.get("target","")) in ["single_enemy","all_enemies"]:
+            usable = skill
+            break
+    if not usable.is_empty():
+        var previous_actor: int = battle.hero_turn
+        battle._act("skill:"+str(usable.get("id","")))
+        test(not is_instance_valid(battle.skill_picker),"Enemy attack skill picker remained after choosing a target")
+        test(battle.hero_turn != previous_actor or battle.current_round > 1,"Selected combat skill did not advance the fighter")
     else:
-        errors.append("Hero has no playable skills")
+        errors.append("Current first-turn actor has no playable damage skill")
     battle.queue_free()
     var chapter_boss = Battle.new()
     root.add_child(chapter_boss)

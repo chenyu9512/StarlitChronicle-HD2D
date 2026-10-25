@@ -271,7 +271,9 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     if village:
         district_plan = town_design.apply_town(map_id,terrain,walls,features)
     # Distinct authored wings expand the map without moving historic quest anchors.
-    var wing_origin: Vector2i = Vector2i(65,35)
+    # Join wings from the northern passage, not across authored water/cliffs at 66,32–36.
+    var wing_origin: Vector2i = Vector2i(71,16)
+    _road(terrain,walls,Vector2i(53,16),wing_origin,seed+101,1)
     for extension in authored_level.get("expansion_nodes",[]):
         if not extension is Dictionary:
             continue
@@ -285,6 +287,12 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         _road(terrain,walls,wing_origin,site,seed+site.y,1)
         features.append({"kind":str(extension.get("kind","beacon")),"cell":site,"name":str(extension.get("name","独立区域地标"))})
         wing_origin=site
+    # Keep every legacy story marker reachable in formerly sealed dungeon rooms.
+    # Do this after wing carving but BEFORE the final artist collision overrides.
+    if dungeon:
+        for anchor in _anchors():
+            if not reachable({"blocked":walls,"size":Vector2i(map_width,map_height)},[start],[anchor]):
+                _road(terrain,walls,start,anchor,seed+anchor.x+anchor.y,0)
     # Manual cell edits are the LAST authority. The initial V3 apply happened
     # before automatic quest links and gates, which could erase editor changes.
     # A blocked quest marker or exit is deliberately caught by map QA rather

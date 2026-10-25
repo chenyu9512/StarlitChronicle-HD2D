@@ -1,4 +1,5 @@
 extends CanvasLayer
+const ArtAssets = preload("res://scripts/art_assets.gd")
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
@@ -132,11 +133,7 @@ func _build() -> void:
     foe_info.add_theme_font_size_override("font_size", 20)
     title_plate.add_child(foe_info)
     portrait = TextureRect.new()
-    var art: String = str(enemy["art"])
-    var art_path: String = "res://assets/art/monsters/coast/%s/battle.png" % art
-    if not ResourceLoader.exists(art_path):
-        art_path = "res://assets/enemies/boss.png"
-    portrait.texture = load(art_path)
+    portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
     portrait.anchor_left = 0.38
     portrait.anchor_right = 0.62
     portrait.anchor_top = 0.15
@@ -215,11 +212,7 @@ func _select_enemy(index: int) -> void:
     active_target = index
     enemy = formation.units[index]
     if is_instance_valid(portrait):
-        var art: String = str(enemy.get("art",""))
-        var path: String = "res://assets/art/monsters/coast/%s/battle.png" % art
-        if not ResourceLoader.exists(path):
-            path = "res://assets/enemies/boss.png"
-        portrait.texture = load(path)
+        portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
 
 func _choose_enemy_target(command: String) -> void:
     _hide_skills()

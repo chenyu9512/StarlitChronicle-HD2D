@@ -16,6 +16,7 @@ from tkinter import filedialog, messagebox, ttk
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/levels/world_levels_v3.json"
+SIDECARS = SOURCE.parent / "v3"
 PALETTE = {"coastal":"#688d73","highland":"#879a8e","volcanic":"#a07562",
            "archipelago":"#518795","mistforest":"#658a7e","badlands":"#a58d6c",
            "celestial":"#9898bb","metropolis":"#938b91"}
@@ -28,6 +29,10 @@ def parse(source: Path = SOURCE) -> dict:
     assert data["schema"] == "starlit.world_level_collection.v3"
     assert len(data["levels"]) == 40
     for key, level in data["levels"].items():
+        individual = SIDECARS / f"{key}.json"
+        if individual.is_file():
+            level = json.loads(individual.read_text(encoding="utf-8"))
+            data["levels"][key] = level
         assert key == level["map_id"] and level["size"] == [WIDTH, HEIGHT]
         for item in level["paint_overrides"] + level["collision_overrides"]:
             x,y = item["cell"]
@@ -165,9 +170,10 @@ def main() -> None:
         render()
     def save():
         end_polyline()
-        atomic_save(SOURCE,store)
+        for map_id, region in store["levels"].items():
+            atomic_save(SIDECARS / f"{map_id}.json",region)
         dirty["value"]=False
-        status.set("已保存：全部关卡 JSON；游戏将使用当前地图修正。")
+        status.set("已保存：40个独立地图文件；游戏直接加载所选地区的最新地形。")
     def export_one():
         end_polyline()
         path=filedialog.asksaveasfilename(defaultextension=".json",initialfile=selected.get()+".json")

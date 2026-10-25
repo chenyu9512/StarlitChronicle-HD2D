@@ -15,6 +15,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check pillow pyyaml
       - name: Validate maps, story and item catalog
         run: |
+          python tools/validate_delivery_matrix.py
           python tools/validate_project.py
           python tools/validate_story.py
           python tools/validate_story_progression.py
@@ -54,5 +55,7 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_encounter_architecture.gd
       - name: Housing and tactical combat integration
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_housing_and_combat.gd
+      - name: Optional story event and save regression
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_optional_events.gd
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20

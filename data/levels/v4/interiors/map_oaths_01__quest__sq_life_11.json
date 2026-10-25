@@ -1,0 +1,295 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_oaths_01",
+  "building_id": "quest__sq_life_11",
+  "name": "白夜祭失物招领处",
+  "status": "phase19_6_individual_walkable_life_quest_scene_existing_art",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        31,
+        9,
+        43,
+        41
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        15,
+        14,
+        35,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        39,
+        15,
+        57,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        22,
+        23,
+        51,
+        28
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        23,
+        30,
+        50,
+        38
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        24,
+        17,
+        48,
+        24
+      ],
+      "tile_row": 5
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        27,
+        17,
+        27,
+        19
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        47,
+        15,
+        47,
+        17
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        29,
+        28,
+        29,
+        30
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        48,
+        30,
+        49,
+        30
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        36,
+        38,
+        41
+      ],
+      "tile_row": 3
+    }
+  ],
+  "points": {
+    "spawn": [
+      36,
+      37
+    ],
+    "exit": [
+      36,
+      40
+    ],
+    "service": [
+      24,
+      18
+    ],
+    "storage": [
+      49,
+      19
+    ]
+  },
+  "quest_points": [
+    [
+      24,
+      20
+    ],
+    [
+      50,
+      23
+    ],
+    [
+      25,
+      34
+    ]
+  ],
+  "features": [
+    {
+      "kind": "crate",
+      "cell": [
+        23,
+        16
+      ],
+      "name": "证言：女童"
+    },
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        52,
+        22
+      ],
+      "name": "走失的红围巾的现场证据"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        33
+      ],
+      "name": "走失的红围巾的后续记录"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        13
+      ],
+      "name": "白夜祭失物招领处灯位"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        41,
+        32
+      ],
+      "name": "白夜祭失物招领处生活陈设"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        43,
+        34
+      ],
+      "name": "白夜祭失物招领处档案匣"
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "life_lamp_a",
+      "cell": [
+        36,
+        13
+      ],
+      "scale": 1.25,
+      "energy": 0.72
+    },
+    {
+      "id": "life_lamp_b",
+      "cell": [
+        36,
+        30
+      ],
+      "scale": 1.4,
+      "energy": 0.54
+    }
+  ],
+  "script_quest_id": "sq_life_11",
+  "scene_kind": "life_indoor",
+  "unique_scene_seed": 109,
+  "art_profile": "quest_research_v1",
+  "room_day_tint": "e9cebb",
+  "room_night_tint": "807a8c",
+  "art_collision_cells": [
+    [
+      26,
+      16
+    ],
+    [
+      44,
+      24
+    ]
+  ],
+  "visuals": [
+    {
+      "id": "life_furn_a_sq_life_11",
+      "asset": "guild_noticeboard",
+      "cell": [
+        26,
+        16
+      ],
+      "offset": [
+        0,
+        -45
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_furn_b_sq_life_11",
+      "asset": "home_hutch",
+      "cell": [
+        44,
+        24
+      ],
+      "offset": [
+        0,
+        -50
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_wall_c_sq_life_11",
+      "asset": "table",
+      "cell": [
+        36,
+        10
+      ],
+      "offset": [
+        0,
+        -44
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "life_rug_sq_life_11",
+      "asset": "rug",
+      "cell": [
+        36,
+        34
+      ],
+      "offset": [
+        0,
+        -10
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_direction": {
+    "location": "白夜祭·市集",
+    "theme": "走失的红围巾",
+    "source": "existing SVG artwork in unique region-correct V4 layout",
+    "final_handpainted": false
+  }
+}

@@ -92,11 +92,10 @@ func _run() -> void:
         check(str(party.avatars["char_wayfarer"].get("motion_kind",""))=="hit",
             "Hit animation did not override player action")
         party.reduced_motion=true
+        for i in range(4):
+            party._process(0.10)
         party.play_action("char_wayfarer","guard")
         party._process(0.08)
-        # Hit has precedence until its timer expires, then guard can display.
-        for i in range(4):
-            party._process(0.08)
         check(int(strip.region.position.x)==3*party.ACTION_FRAME_SIZE,
             "Reduced-motion stance should remain on the third non-flashing frame")
     check(is_instance_valid(real_battle.boss_animation),"Boss animation not mounted in real combat")

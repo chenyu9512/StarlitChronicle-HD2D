@@ -1,0 +1,355 @@
+{
+  "schema": "starlit.story.phase08.act01.choice_reaction.v1",
+  "status": "text_only_not_runtime_bound",
+  "note": "第一幕每章2种选项的即时反应，不自动改变现有选择旗标，也不构成A/B独立任务路线；将来引擎应在选项写入状态后、战斗开始前插入。",
+  "followups": [
+    {
+      "id": "ch001.p8.choice.listen",
+      "chapter_id": "ch001",
+      "after_choice_id": "ch001.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "world.ch001.method": "reason"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch001.p8.choice.listen.l01",
+          "speaker": "主角",
+          "text": "收据上的日期是在第一次钟响前，还是第二次以后？"
+        },
+        {
+          "id": "ch001.p8.choice.listen.l02",
+          "speaker": "村长",
+          "text": "之前。第二次钟响那晚，连码头的灯都熄了一瞬。"
+        },
+        {
+          "id": "ch001.p8.choice.listen.l03",
+          "speaker": "岚音",
+          "text": "我记下了。不必勉强再想，等明天我们带着日期重新核对。"
+        }
+      ]
+    },
+    {
+      "id": "ch001.p8.choice.act",
+      "chapter_id": "ch001",
+      "after_choice_id": "ch001.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "world.ch001.method": "comfort"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch001.p8.choice.act.l01",
+          "speaker": "主角",
+          "text": "您手一直在抖。坐下喝口水，想不起的部分不必硬说。"
+        },
+        {
+          "id": "ch001.p8.choice.act.l02",
+          "speaker": "村长",
+          "text": "我还以为你会怪我没救他。"
+        },
+        {
+          "id": "ch001.p8.choice.act.l03",
+          "speaker": "岚音",
+          "text": "您留下的证据已经很重要。等准备好，再谈下一段。"
+        }
+      ]
+    },
+    {
+      "id": "ch002.p8.choice.listen",
+      "chapter_id": "ch002",
+      "after_choice_id": "ch002.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "world.ch002.method": "public_anon"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch002.p8.choice.listen.l01",
+          "speaker": "岚音",
+          "text": "公告只写症状、船次和缺少的药，不写姓名与住址。"
+        },
+        {
+          "id": "ch002.p8.choice.listen.l02",
+          "speaker": "医院主任",
+          "text": "港务署若想要原件，先找我。我不会再拿患者的隐私挡问责。"
+        },
+        {
+          "id": "ch002.p8.choice.listen.l03",
+          "speaker": "水手",
+          "text": "如果需要我作证，请先问我愿不愿意。"
+        }
+      ]
+    },
+    {
+      "id": "ch002.p8.choice.act",
+      "chapter_id": "ch002",
+      "after_choice_id": "ch002.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "world.ch002.method": "private_inquiry"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch002.p8.choice.act.l01",
+          "speaker": "主角",
+          "text": "病例先封存，我们分头向家属和老船员核对航次。"
+        },
+        {
+          "id": "ch002.p8.choice.act.l02",
+          "speaker": "护士",
+          "text": "我负责保存同意书。谁不想说，我们就不追问。"
+        },
+        {
+          "id": "ch002.p8.choice.act.l03",
+          "speaker": "岚音",
+          "text": "证据慢一点也不要紧，不能让调查再伤到他们。"
+        }
+      ]
+    },
+    {
+      "id": "ch003.p8.choice.listen",
+      "chapter_id": "ch003",
+      "after_choice_id": "ch003.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "world.ch003.method": "disable"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch003.p8.choice.listen.l01",
+          "speaker": "主角",
+          "text": "桥快塌了，先关水门，再去找守卫留下的记录。"
+        },
+        {
+          "id": "ch003.p8.choice.listen.l02",
+          "speaker": "朔弦",
+          "text": "我守住右边石楔，那枚旧船徽先帮我收好。"
+        },
+        {
+          "id": "ch003.p8.choice.listen.l03",
+          "speaker": "岚音",
+          "text": "所有人先退到干地，再谈它把谁认成归来的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch003.p8.choice.act",
+      "chapter_id": "ch003",
+      "after_choice_id": "ch003.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "world.ch003.method": "verify"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch003.p8.choice.act.l01",
+          "speaker": "朔弦",
+          "text": "听清楚。一棵长歪的树，一面补过三次的帆。"
+        },
+        {
+          "id": "ch003.p8.choice.act.l02",
+          "speaker": "遗迹守卫",
+          "text": "残缺归来记录……与旧航线存在重合。"
+        },
+        {
+          "id": "ch003.p8.choice.act.l03",
+          "speaker": "主角",
+          "text": "先趁这段空隙撤人。不要把它的判断当成最后的答案。"
+        }
+      ]
+    },
+    {
+      "id": "ch004.p8.choice.listen",
+      "chapter_id": "ch004",
+      "after_choice_id": "ch004.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "world.ch004.method": "confess"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch004.p8.choice.listen.l01",
+          "speaker": "朔弦",
+          "text": "那些箱子是我运的，经过的港口全在这里，别再烧掉。"
+        },
+        {
+          "id": "ch004.p8.choice.listen.l02",
+          "speaker": "灰帷水手",
+          "text": "你以为坦白就会有人原谅你？"
+        },
+        {
+          "id": "ch004.p8.choice.listen.l03",
+          "speaker": "主角",
+          "text": "坦白不是求原谅，是终于让受害者能查证。"
+        }
+      ]
+    },
+    {
+      "id": "ch004.p8.choice.act",
+      "chapter_id": "ch004",
+      "after_choice_id": "ch004.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "world.ch004.method": "evacuate"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch004.p8.choice.act.l01",
+          "speaker": "岚音",
+          "text": "孩子和店员先从后厨走，我留到最后。"
+        },
+        {
+          "id": "ch004.p8.choice.act.l02",
+          "speaker": "朔弦",
+          "text": "我守楼梯。过去躲过的事，今天不让别人替我挡。"
+        },
+        {
+          "id": "ch004.p8.choice.act.l03",
+          "speaker": "酒馆老板",
+          "text": "人撤干净了。现在轮到这些不请自来的客人。"
+        }
+      ]
+    },
+    {
+      "id": "ch005.p8.choice.listen",
+      "chapter_id": "ch005",
+      "after_choice_id": "ch005.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "world.ch005.method": "unlock"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch005.p8.choice.listen.l01",
+          "speaker": "岚音",
+          "text": "星纹锁的缝隙看清了。拆扣之前先让海兽留在浅水。"
+        },
+        {
+          "id": "ch005.p8.choice.listen.l02",
+          "speaker": "朔弦",
+          "text": "我用船底敲两下，别急着敲第三下。"
+        },
+        {
+          "id": "ch005.p8.choice.listen.l03",
+          "speaker": "渔夫",
+          "text": "我在岸上看浪。锁亮了，你们就立刻退。"
+        }
+      ]
+    },
+    {
+      "id": "ch005.p8.choice.act",
+      "chapter_id": "ch005",
+      "after_choice_id": "ch005.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "world.ch005.method": "evacuate"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch005.p8.choice.act.l01",
+          "speaker": "主角",
+          "text": "渔船先往背风湾走，岸上的人都去高台。"
+        },
+        {
+          "id": "ch005.p8.choice.act.l02",
+          "speaker": "港务官",
+          "text": "好，我负责清点。少了一条船，我亲自去找。"
+        },
+        {
+          "id": "ch005.p8.choice.act.l03",
+          "speaker": "岚音",
+          "text": "等路清了，才有机会不伤害人地取下星锁。"
+        }
+      ]
+    },
+    {
+      "id": "ch006.p8.choice.listen",
+      "chapter_id": "ch006",
+      "after_choice_id": "ch006.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "world.ch006.method": "testimony"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch006.p8.choice.listen.l01",
+          "speaker": "岚音",
+          "text": "先问谁愿意把声音留给灯塔，没有人必须说自己的过去。"
+        },
+        {
+          "id": "ch006.p8.choice.listen.l02",
+          "speaker": "灯塔看守",
+          "text": "我摊开归航册，只念当事人准许的名字。"
+        },
+        {
+          "id": "ch006.p8.choice.listen.l03",
+          "speaker": "潮歌守门人",
+          "text": "自愿见证记录：正在建立。原供能规则待复核。"
+        }
+      ]
+    },
+    {
+      "id": "ch006.p8.choice.act",
+      "chapter_id": "ch006",
+      "after_choice_id": "ch006.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "world.ch006.method": "sailors"
+      },
+      "insertion": "after_choice_before_encounter",
+      "optional": true,
+      "has_independent_quest_route": false,
+      "dialogue": [
+        {
+          "id": "ch006.p8.choice.act.l01",
+          "speaker": "朔弦",
+          "text": "大船的深水道，小船的浅水湾，都该由走过的人画。"
+        },
+        {
+          "id": "ch006.p8.choice.act.l02",
+          "speaker": "灯塔看守",
+          "text": "原航线和每次修改的原因，我会一起留档。"
+        },
+        {
+          "id": "ch006.p8.choice.act.l03",
+          "speaker": "潮歌守门人",
+          "text": "多航向记录接收中。归航目标不再由单点判断。"
+        }
+      ]
+    }
+  ]
+}

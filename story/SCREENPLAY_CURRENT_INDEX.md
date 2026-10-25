@@ -56,6 +56,12 @@
 - `story/data/phase19_quest_world_anchors.json`：120任务与正式地图一一关联，检查器 `tools/validate_phase19_world_anchors.py`、真实Godot场景测试 `tools/smoke_story_world_phase19_2.gd`。
 - `tools/smoke_branch_story_phase19.gd`：运行时回归入口。**事件数据存在 ≠ 已经完成全部场景角色动作、地图细节与真机回归。**
 
+## 第19阶段第三批｜NPC现场线索与可查存档
+
+- [120条任务真实调查线索档案](data/phase19_scene_dressing.json)：每任务NPC、证物、处理记录与原剧本对应。
+- [第19-3批交付报告](PHASE_19_BATCH03_SCENE_DELIVERY.md)：NPC阶段外观、玩家检查/延期、场景记录与地图可玩边界。
+- Godot运行器：`scripts/story_scene_director.gd`、`scripts/story_branch_runtime.gd`；静态/动态验证：`tools/validate_phase19_scene_dressing.py`、`tools/smoke_story_world_phase19_2.gd`。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线结构及数据格式。

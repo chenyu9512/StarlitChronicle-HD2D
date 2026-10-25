@@ -55,6 +55,10 @@ func roll_monster(chapter: int) -> Dictionary:
         "monster_id":id, "region_id":region,
         "hp":maxi(1,int(source.get("hp",40))),"max_hp":maxi(1,int(source.get("hp",40))),
         "atk":maxi(1,int(source.get("attack",10))),"def":maxi(0,int(source.get("defense",3))),
+        "speed":maxi(1,int(source.get("speed",8))),
+        "ai_pattern":str(source.get("ai_pattern","基本攻击")),
+        "status_immunities":source.get("status_immunities",[]),
+        "status_resistances":source.get("status_resistances",{}),
         "xp":maxi(1,int(source.get("xp",10))),"gold":maxi(0,int(source.get("gold",5))),
         "element":str(source.get("element","")),"weakness":str(source.get("weakness","")),
         "art":art
@@ -72,6 +76,11 @@ func story_boss(chapter: int, encounter: Dictionary, fallback: Dictionary) -> Di
     var atk: int = int(fallback.get("atk",15)) if chapter <= 6 else maxi(int(fallback.get("atk",15)),int(template.get("attack",15))+chapter*2)
     var defense: int = int(fallback.get("def",5)) if chapter <= 6 else maxi(int(fallback.get("def",5)),int(template.get("defense",5))+int(chapter/2))
     var result: Dictionary = fallback.duplicate(true)
+    result["is_boss"] = true
+    result["speed"] = maxi(1,int(story.get("speed",min(18,7+int(chapter/4)))))
+    result["ai_pattern"] = str(story.get("ai_pattern","阶段压迫"))
+    result["status_immunities"] = story.get("status_immunities",["sleep","stun","freeze"])
+    result["status_resistances"] = story.get("status_resistances",{"poison":0.5,"burn":0.35,"slow":0.4})
     result["name"] = str(encounter.get("display_name",story.get("name",id)))
     result["boss_id"] = id
     result["chapter_id"] = str(story.get("chapter_id",""))

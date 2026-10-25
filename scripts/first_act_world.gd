@@ -390,6 +390,14 @@ func interact() -> void:
         if is_instance_valid(focus_node) and focus_node.visible and hero.position.distance_to(focus_node.position) <= 45.0:
             interacted.emit(focus_name)
             return
+    # Chapter interaction markers must never be shadowed by a newly placed
+    # building doorway, gate, camp or side treasure in their immediate radius.
+    for quest_id in ["key_npc","clue","witness","crisis","resolve"]:
+        if nodes.has(quest_id):
+            var quest_node: Node2D = nodes[quest_id]
+            if is_instance_valid(quest_node) and quest_node.visible and hero.position.distance_to(quest_node.position) <= 28.0:
+                interacted.emit(quest_id)
+                return
     var chosen := ""
     var best: float = 65.0
     for key in nodes.keys():

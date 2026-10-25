@@ -199,6 +199,9 @@ func _build_sites() -> void:
         var where: Vector2i = SITES[k]
         var sprite: Sprite2D = _add_sprite(str(icons[k]), where, false)
         nodes[k] = sprite
+    if str(map_profile.get("kind","")) == "town":
+        var door: Sprite2D = _add_sprite("cottage",Vector2i(12,9),false)
+        nodes["home_door"] = door
     for i in range(9):
         var offset := Vector2i(7 + (i % 3) * 12, 10 + int(i / 3) * 5)
         var point: Sprite2D = _add_sprite("star_lantern" if i % 2 == 0 else "sign", offset, false)

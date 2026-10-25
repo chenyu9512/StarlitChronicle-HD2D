@@ -1,5 +1,6 @@
 extends CanvasLayer
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
+const CombatRules = preload("res://scripts/combat_rules.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -8,6 +9,7 @@ const MONSTER_ART: Array[String] = ["salt_slime", "fog_crab", "shell_hermit", "t
 var game_state
 var game_core
 var encounter_registry
+var combat_rules
 var skill_picker: PanelContainer
 var encounter_data: Dictionary = {}
 var chapter: int = 1
@@ -37,6 +39,9 @@ func _ready() -> void:
 
 func start(save_state, chapter_no: int, is_boss: bool) -> void:
     game_state = save_state
+    if combat_rules == null:
+        combat_rules = CombatRules.new()
+    combat_rules.start(game_state.rpg.get("settings",{}))
     if encounter_registry == null:
         encounter_registry = EncounterRegistry.new()
     chapter = chapter_no
@@ -191,6 +196,39 @@ func _choose_skill() -> void:
         b.disabled = int(actor.get("mp",0)) < cost
     _button(list,"返回战斗","cancel_skill")
 
+func _get_skill(id: String) -> Dictionary:
+    if game_core == null:
+        return {}
+    var person: Dictionary = game_state.actors[hero_turn]
+    for item in game_core.skills(str(person.get("id",""))):
+        if str(item.get("id","")) == id:
+            return item
+    return {}
+
+func _choose_target(skill_id: String) -> void:
+    _hide_skills()
+    skill_picker = PanelContainer.new()
+    skill_picker.anchor_left = 0.19
+    skill_picker.anchor_right = 0.81
+    skill_picker.anchor_top = 0.26
+    skill_picker.anchor_bottom = 0.76
+    skill_picker.add_theme_stylebox_override("panel",_style(Color("091b31"),Color("e6c47d")))
+    root.add_child(skill_picker)
+    var body := VBoxContainer.new()
+    skill_picker.add_child(body)
+    var title := Label.new()
+    title.text = "选择队友目标"
+    body.add_child(title)
+    for i in range(game_state.actors.size()):
+        var index: int = i
+        var member: Dictionary = game_state.actors[i]
+        if int(member.get("hp",0)) <= 0:
+            continue
+        if game_core != null and not game_core.is_active(str(member.get("id",""))):
+            continue
+        _button(body,"%s  HP %d/%d" % [str(member.get("name","")),int(member.get("hp",0)),int(member.get("max_hp",0))],"skill:%s@%d" % [skill_id,index])
+    _button(body,"返回技能列表","skill")
+
 func _hide_skills() -> void:
     if is_instance_valid(skill_picker):
         skill_picker.queue_free()
@@ -201,6 +239,7 @@ func _start_actor() -> void:
         hero_turn += 1
     if hero_turn >= game_state.actors.size():
         _enemy_turn()
+        combat_rules.tick_round()
         hero_turn = 0
         defense.clear()
         current_round += 1
@@ -219,19 +258,31 @@ func _act(action: String) -> void:
         _hide_skills()
         return
     var chosen_skill: String = ""
+    var target_index: int = hero_turn
     if action.begins_with("skill:"):
-        chosen_skill = action.trim_prefix("skill:")
+        var token: String = action.trim_prefix("skill:")
+        if "@" in token:
+            var fields: PackedStringArray = token.split("@",false,1)
+            chosen_skill = str(fields[0])
+            target_index = int(fields[1])
+        else:
+            chosen_skill = token
+            var candidate: Dictionary = _get_skill(chosen_skill)
+            if str(candidate.get("target","")) == "single_ally":
+                _choose_target(chosen_skill)
+                return
         action = "skill"
         _hide_skills()
     var member: Dictionary = game_state.actors[hero_turn]
     var name: String = str(member["name"])
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
+    var combat_attack: int = int(stats.get("attack",member.get("attack",0))) + combat_rules.attack_bonus(str(member.get("id","")))
     var message: String = ""
     var damage: int = 0
     var healed_via_skill: bool = false
     match action:
         "attack":
-            damage = maxi(3, int(stats.get("attack", member["attack"])) + dice.randi_range(-5, 8) - int(enemy["def"]))
+            damage = maxi(3, combat_attack + dice.randi_range(-5, 8) - int(enemy["def"]))
             message = "%s 攻击造成 %d 伤害。" % [name, damage]
         "skill":
             var owned: Array = game_core.skills(str(member.get("id",""))) if game_core != null else []
@@ -248,28 +299,49 @@ func _act(action: String) -> void:
                 var effect: Dictionary = chosen.get("effect",{})
                 var kind: String = str(effect.get("kind","damage"))
                 var power: int = int(effect.get("power",0))
+                var target_type: String = str(chosen.get("target","single_enemy"))
+                var label: String = str(chosen.get("name","技能"))
                 if kind == "heal":
-                    var healed_index: int = hero_turn
-                    for idx in range(game_state.actors.size()):
-                        if game_core != null and not game_core.is_active(str(game_state.actors[idx].get("id",""))):
-                            continue
-                        var missing: int = int(game_state.actors[idx]["max_hp"]) - int(game_state.actors[idx]["hp"])
-                        var current_gap: int = int(game_state.actors[healed_index]["max_hp"]) - int(game_state.actors[healed_index]["hp"])
-                        if missing > current_gap:
-                            healed_index = idx
                     game_state.actors[hero_turn] = member
-                    game_state.heal_member(healed_index, maxi(20,power * 2))
+                    if target_type == "all_allies":
+                        for i in range(game_state.actors.size()):
+                            var person: Dictionary = game_state.actors[i]
+                            if int(person.get("hp",0)) > 0 and (game_core == null or game_core.is_active(str(person.get("id","")))):
+                                game_state.heal_member(i,maxi(10,power))
+                        message = "%s 施展%s，全队恢复体力。" % [name,label]
+                    else:
+                        if target_index >= 0 and target_index < game_state.actors.size():
+                            game_state.heal_member(target_index,maxi(20,power*2))
+                        message = "%s 施展%s，治疗%s。" % [name,label,str(game_state.actors[target_index].get("name",""))]
                     healed_via_skill = true
-                    message = "%s 发动%s，治疗%s。" % [name,str(chosen.get("name","技能")),str(game_state.actors[healed_index]["name"])]
                 elif kind == "shield":
-                    defense[hero_turn] = true
-                    message = "%s 施放%s，强化了本回合的防御。" % [name,str(chosen.get("name","守护"))]
+                    var targets: Array[int] = []
+                    if target_type == "all_allies":
+                        for i in range(game_state.actors.size()):
+                            if game_core == null or game_core.is_active(str(game_state.actors[i].get("id",""))):
+                                targets.append(i)
+                    else:
+                        targets.append(target_index)
+                    for i in targets:
+                        if i >= 0 and i < game_state.actors.size():
+                            combat_rules.shield(str(game_state.actors[i].get("id","")),2)
+                    message = "%s 施放%s，护盾持续两回合！" % [name,label]
                 elif kind == "buff":
-                    damage = maxi(8,int(stats.get("attack",0)) + power - int(enemy["def"]))
-                    message = "%s 以%s打破敌人架势，造成%d伤害！" % [name,str(chosen.get("name","技能")),damage]
+                    var targets: Array[int] = []
+                    if target_type == "all_allies":
+                        for i in range(game_state.actors.size()):
+                            if game_core == null or game_core.is_active(str(game_state.actors[i].get("id",""))):
+                                targets.append(i)
+                    else:
+                        targets.append(target_index)
+                    for i in targets:
+                        if i >= 0 and i < game_state.actors.size():
+                            combat_rules.buff(str(game_state.actors[i].get("id","")),maxi(2,int(power/4)),3)
+                    message = "%s 施展%s，强化战斗能力三回合。" % [name,label]
                 else:
-                    damage = maxi(8,int(stats.get("attack",0)) + power - int(enemy["def"]))
-                    message = "%s 发动%s，造成%d伤害！" % [name,str(chosen.get("name","技能")),damage]
+                    var base: int = maxi(3,combat_attack + power - int(enemy["def"]))
+                    damage = combat_rules.elemental_damage(base,str(chosen.get("element","")),str(enemy.get("weakness","")),str(enemy.get("element","")))
+                    message = "%s 发动%s，造成%d伤害%s" % [name,label,damage,"！ 触发弱点！" if str(chosen.get("element","")) == str(enemy.get("weakness","")) else "。"]
         "guard":
             defense[hero_turn] = true
             message = "%s 严阵以待，本回合受到的伤害降低。" % name
@@ -287,7 +359,7 @@ func _act(action: String) -> void:
             message = "%s 使用药草恢复生命。" % name
         "special":
             if boss and chapter == 5:
-                chain_hp = maxi(0, chain_hp - maxi(20, int(stats.get("attack", member["attack"])) + dice.randi_range(8, 20)))
+                chain_hp = maxi(0, chain_hp - maxi(20, combat_attack + dice.randi_range(8, 20)))
                 message = "%s 拆除星纹锁，剩余耐久 %d！" % [name, chain_hp]
                 if chain_hp == 0:
                     _redraw(message + "古兽摆脱了控制！")
@@ -302,7 +374,7 @@ func _act(action: String) -> void:
                     _finish(true)
                     return
             else:
-                damage = maxi(8, int(stats.get("attack", member["attack"])) + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
+                damage = maxi(8, combat_attack + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
     if not healed_via_skill:
         game_state.actors[hero_turn] = member
@@ -339,12 +411,16 @@ func _enemy_turn() -> void:
     if living.is_empty():
         _finish(false)
         return
+    var intent: Dictionary = combat_rules.enemy_intent(current_round,phase_two,boss)
     var target: int = living[dice.randi_range(0, living.size() - 1)]
+    if str(intent.get("target","")) == "lowest_hp":
+        for i in living:
+            if int(game_state.actors[i].get("hp",0)) < int(game_state.actors[target].get("hp",0)):
+                target = i
     var member: Dictionary = game_state.actors[target]
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
-    var damage: int = maxi(1, int(enemy["atk"]) + dice.randi_range(-3, 5) - int(stats.get("defense",member["defense"])))
-    if defense.has(target):
-        damage = maxi(1, int(float(damage) * 0.35))
+    var raw_damage: int = maxi(1, roundi((int(enemy["atk"]) + dice.randi_range(-3, 5) - int(stats.get("defense",member["defense"]))) * float(intent.get("multiplier",1.0))))
+    var damage: int = combat_rules.mitigated_damage(raw_damage,str(member.get("id","")),defense.has(target))
     if invincible:
         damage = 0
     member["hp"] = maxi(0, int(member["hp"]) - damage)
@@ -373,6 +449,7 @@ func _redraw(message: String) -> void:
         header += "   共鸣 %d/4" % resonance
     if phase_two:
         header += "  · 二阶段"
+    header += " · 下一步：" + str(combat_rules.enemy_intent(current_round,phase_two,boss).get("label","攻击"))
     foe_info.text = header
     var lines: PackedStringArray = []
     for i in range(game_state.actors.size()):
@@ -380,7 +457,9 @@ func _redraw(message: String) -> void:
         if game_core != null and not game_core.is_active(str(member.get("id",""))):
             continue
         var current: String = "[color=#f9d58b]▶ " if i == hero_turn else "[color=#c9e4eb]"
-        lines.append("%s%s  Lv.%d   HP %d/%d  MP %d/%d[/color]" % [current, str(member["name"]), int(member["level"]), int(member["hp"]), int(member["max_hp"]), int(member["mp"]), int(member["max_mp"])])
+        var status: Dictionary = combat_rules.actor_effects.get(str(member.get("id","")),{})
+        var buffs: String = (" ✦增强" if int(status.get("attack_turns",0)) > 0 else "") + (" ◈护盾" if int(status.get("shield_turns",0)) > 0 else "")
+        lines.append("%s%s  Lv.%d   HP %d/%d  MP %d/%d%s[/color]" % [current, str(member["name"]), int(member["level"]), int(member["hp"]), int(member["max_hp"]), int(member["mp"]), int(member["max_mp"]),buffs])
     party_info.text = "    ".join(lines)
 
 func _finish(victory: bool) -> void:

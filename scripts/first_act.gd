@@ -13,6 +13,8 @@ const ChapterAmbient = preload("res://scripts/chapter_ambient.gd")
 const WorldRegistry = preload("res://scripts/world_registry.gd")
 const GameEvents = preload("res://scripts/game_events.gd")
 const SaveSlots = preload("res://scripts/save_slots.gd")
+const HousingService = preload("res://scripts/housing_service.gd")
+const HousingRoom = preload("res://scripts/housing_room.gd")
 var progress
 var catalog
 var world
@@ -26,6 +28,8 @@ var chapter_ambient
 var world_router
 var game_events
 var save_slots
+var housing
+var housing_room
 var clock_tick: float = 0.0
 var active_optional_flag: String = ""
 var ending_replay_id: String = ""
@@ -48,6 +52,7 @@ func _ready() -> void:
     world_router = WorldRegistry.new()
     game_events = GameEvents.new()
     save_slots = SaveSlots.new()
+    housing = HousingService.new()
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -79,9 +84,16 @@ func _ready() -> void:
     adventure_menu.travel_requested.connect(_travel_to)
     adventure_menu.save_slot_requested.connect(_save_slot)
     adventure_menu.load_slot_requested.connect(_load_slot)
+    adventure_menu.housing_purchase_requested.connect(_purchase_house)
+    adventure_menu.housing_open_requested.connect(_open_house)
     adventure_menu.world_router = world_router
     adventure_menu.game_events = game_events
     adventure_menu.slot_service = save_slots
+    adventure_menu.housing = housing
+    housing_room = HousingRoom.new()
+    add_child(housing_room)
+    housing_room.closed.connect(_return_to_world)
+    housing_room.changed.connect(_housing_changed)
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -119,6 +131,7 @@ func _start(continue_game: bool) -> void:
     game_core.bind(progress)
     world_router.bind(progress)
     game_events.bind(progress)
+    housing.bind(progress)
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
         # v0.3旧版结算标记没有三结局记录：迁移到终局选择，保留装备、等级与支线。
         progress.flags.erase("story.complete")
@@ -224,6 +237,9 @@ func _focus() -> void:
 
 func _interact(target: String) -> void:
     if busy:
+        return
+    if target == "home_door":
+        _open_house()
         return
     if target == "inn":
         _rest()
@@ -702,6 +718,33 @@ func _travel_to(map_id: String) -> void:
     _save_progress()
     ui.show_message("已抵达：" + str(world_router.profile().get("name",map_id)))
 
+func _house_accessible() -> bool:
+    var info: Dictionary = world_router.profile()
+    return housing.owned() and housing.can_access(info) and str(info.get("region_id","")) == str(housing.data().get("region_id",""))
+
+func _purchase_house() -> void:
+    var message: String = housing.purchase(world_router.profile())
+    if housing.owned():
+        game_events.record("house_owned",{"region_id":str(housing.data().get("region_id",""))})
+    _save_progress()
+    adventure_menu.render("家园")
+    adventure_menu.footer.text = message
+
+func _open_house() -> void:
+    if not _house_accessible():
+        ui.show_message("需在家园所属地区的城镇进入房屋；没有地契可先在功能栏购买。")
+        return
+    if adventure_menu.root.visible:
+        adventure_menu.close_menu()
+    ui.close_menu()
+    busy = true
+    world.locked = true
+    housing_room.open_house(housing,progress)
+
+func _housing_changed(message: String) -> void:
+    game_events.record("home_activity",{"description":message})
+    _save_progress()
+
 func _save_slot(slot: int) -> void:
     var success: bool = save_slots.save_slot(progress,slot)
     adventure_menu.render("存档管理")
@@ -714,6 +757,7 @@ func _load_slot(slot: int) -> void:
     game_core.bind(progress)
     world_router.bind(progress)
     game_events.bind(progress)
+    housing.bind(progress)
     adventure_menu.close_menu()
     _enter_location()
     _save_progress()
@@ -748,7 +792,7 @@ func _show_menu() -> void:
     ui.show_menu(progress.actors, progress.gold, progress.potions)
 
 func _return_to_world() -> void:
-    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or cheat.shade.visible
+    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or cheat.shade.visible
     if not busy and world.party_ids != progress.rpg.get("party",[]):
         _enter_location()
         return

@@ -348,7 +348,16 @@ func render(section: String) -> void:
                         _button(content,"载入存档 %d" % n,func() -> void: load_slot_requested.emit(n))
                 _label("主游戏仍自动保存到原V3路径；手动档槽位拥有独立备份。")
         "设置":
-            _label("系统与存档",true)
+            _label("游戏难度与个人配置",true)
+            _label("当前难度："+str(save_state.rpg["settings"].get("difficulty","标准")))
+            for level in ["休闲","标准","挑战"]:
+                var value: String = level
+                _button(content,"战斗难度： "+value,func() -> void:
+                    save_state.rpg["settings"]["difficulty"] = value
+                    _apply("难度设为 "+value+"，下次进入战斗后生效。")
+                )
+            _label("休闲：敌方攻击72% · 标准：正常 · 挑战：敌方攻击138%。")
+            _label("全篇战斗与技能遵循同一数值规则；第5、6章剧情胜利条件不受难度变化影响。")
             _button(content,"立即保存",func() -> void: _apply("已写入存档。" if save_state.save() else "存档写入失败。"))
             _label("金手指入口：右上角星星连点5次，或PC按F10。密码9169。")
             _label("当前进度含：队伍、职业、武器防具、库存、任务、地图与章节。")

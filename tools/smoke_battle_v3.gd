@@ -110,7 +110,9 @@ func _run() -> void:
     boss_battle.invincible = true
     boss_battle.start(state,5,true)
     boss_battle.current_round = 3
-    boss_battle.turn_queue = [{"team":"ally","index":0},{"team":"enemy","index":0}]
+    boss_battle.turn_queue.clear()
+    boss_battle.turn_queue.append({"team":"ally","index":0})
+    boss_battle.turn_queue.append({"team":"enemy","index":0})
     boss_battle.turn_cursor = 0
     boss_battle.last_warning_round = 0
     boss_battle._telegraph_next_boss_action()

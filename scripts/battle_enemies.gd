@@ -31,7 +31,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
         footing.name="FoeFooting_%d" % index
         footing.texture=load(BOSS_ART if boss else GROUND_ART)
         footing.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
-        footing.z_index=-1
+        footing.z_index=0
         add_child(footing)
         var sprite := TextureRect.new()
         sprite.name = "Enemy_%d" % index

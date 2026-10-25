@@ -33,9 +33,15 @@ func _verify() -> void:
     var old_flags: Dictionary=game.progress.rpg.get("talked_to",{}).duplicate(true)
     game._interact(resident_id)
     check(game.progress.rpg.get("talked_to",{}).has("npc_coast_03"),"NPC conversation not saved in RPG state")
+    check(game.ui.dialog_layer.visible,"Resident dialogue portrait window must open")
+    check(game.ui.dialog_portrait.texture == null or game.ui.dialog_portrait.visible == false,"Unfinished coast NPC portrait must not impersonate B02 characters")
+    game.ui._next()  # Dismiss the one-line interaction before continuing.
+    check(not game.busy,"Resident dialogue must unlock exploration")
     var met: int=int(game.progress.rpg["event_counters"].get("resident_met",0))
     game._interact(resident_id)
     check(int(game.progress.rpg["event_counters"].get("resident_met",0))==met,"Repeat NPC conversations awarded duplicate first-visit event")
+    if game.ui.dialog_layer.visible:
+        game.ui._next()
     check(not old_flags.has("npc_coast_03"),"NPC first interaction was already marked")
     check(game.world.enter_building("shop"),"Village shop is not enterable")
     game._interact("interior_service")

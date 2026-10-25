@@ -300,7 +300,30 @@ func _decorate() -> void:
             architecture.position = Vector2(cell*TILE)+Vector2(16,16)
             scenery.add_child(architecture)
         else:
-            _add_sprite(kind,cell,false,true)
+            # Generic procedurally-selected props are not the visual identity of
+            # the 21 V7 wilderness scenes. Existing town furniture is preserved.
+            if field_ecology.config(str(map_profile.get("id",""))).is_empty() or bool(map_profile.get("settlement",false)):
+                _add_sprite(kind,cell,false,true)
+    # Each V7 wilderness scene receives its own 16-site art dressing pass,
+    # with biome-correct props, palette variation and authored placements.
+    var outdoor_art: Dictionary=field_ecology.config(str(map_profile.get("id","")))
+    if not outdoor_art.is_empty():
+        var color_grade: Color=Color(str(outdoor_art.get("art_tint","ffffff")))
+        for fixture in outdoor_art.get("scenery",[]):
+            if not fixture is Dictionary:
+                continue
+            var coords: Array=fixture.get("cell",[])
+            if coords.size()!=2:
+                continue
+            var point: Vector2i=Vector2i(int(coords[0]),int(coords[1]))
+            if point.x<3 or point.y<3 or point.x>=WIDTH-3 or point.y>=HEIGHT-3 or blocked.has(point):
+                continue
+            var decoration: Sprite2D=_add_sprite(str(fixture.get("kind","rock")),point,false,true)
+            decoration.scale=Vector2.ONE*clampf(float(fixture.get("scale",1.0)),0.7,1.3)
+            decoration.modulate=color_grade.lerp(Color.WHITE,0.56)
+            decoration.set_meta("field_art",true)
+        if not bool(map_profile.get("settlement",false)):
+            return
     # Towns now rely on separately art-directed districts and scene dressing.
     # Do not stamp the same generic palm trees, crates and stalls over each town.
     if bool(map_profile.get("settlement",false)):

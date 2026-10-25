@@ -40,6 +40,11 @@ func _run() -> void:
                 check(not (geo.get("blocked",{}) as Dictionary).has(location),"Field node overlaps a physical wall: "+id+"/"+key)
         check(geography.reachable(geo,[geo.get("spawn",Vector2i.ZERO)],actual),"Field sites cannot be reached by traversing real terrain: "+id)
         check(real_world.nodes.has("wild_camp") and real_world.nodes.has("wild_cache"),"New ecology overwrote legacy wilderness: "+id)
+        var art_count: int=0
+        for scene_prop in real_world.scenery.get_children():
+            if scene_prop.has_meta("field_art"):
+                art_count+=1
+        check(art_count>=5,"Field scenery still missing geographically appropriate art props: "+id+" ("+str(art_count)+")")
         var state=State.new()
         state.new_game()
         var denied: Dictionary=ecology.interact(id,"cache",state,"clear",480,1)

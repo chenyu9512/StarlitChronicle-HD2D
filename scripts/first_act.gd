@@ -15,6 +15,7 @@ const GameEvents = preload("res://scripts/game_events.gd")
 const SaveSlots = preload("res://scripts/save_slots.gd")
 const HousingService = preload("res://scripts/housing_service.gd")
 const HousingRoom = preload("res://scripts/housing_room.gd")
+const OptionalDirector = preload("res://scripts/optional_director.gd")
 var progress
 var catalog
 var world
@@ -30,6 +31,8 @@ var game_events
 var save_slots
 var housing
 var housing_room
+var optional_director
+var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
 var active_optional_flag: String = ""
 var ending_replay_id: String = ""
@@ -53,6 +56,7 @@ func _ready() -> void:
     game_events = GameEvents.new()
     save_slots = SaveSlots.new()
     housing = HousingService.new()
+    optional_director = OptionalDirector.new()
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -132,6 +136,7 @@ func _start(continue_game: bool) -> void:
     world_router.bind(progress)
     game_events.bind(progress)
     housing.bind(progress)
+    optional_director.bind(progress)
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
         # v0.3旧版结算标记没有三结局记录：迁移到终局选择，保留装备、等级与支线。
         progress.flags.erase("story.complete")
@@ -233,10 +238,17 @@ func _focus() -> void:
             extra = "【地区线索】" + "、".join(open_inspections)
         elif not chapter_ambient.midpoint(progress.chapter,progress.flags).is_empty():
             extra = "【地区事件】额外证言可在地图灯坛查看"
+    for slot in ["town","evidence"]:
+        var point: String = "optional_"+slot
+        if world.nodes.has(point):
+            world.nodes[point].visible = not optional_director.offered(progress.chapter,slot,progress.scene_index).is_empty()
     ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
 
 func _interact(target: String) -> void:
     if busy:
+        return
+    if target.begins_with("optional_"):
+        _optional_event_interact(target.trim_prefix("optional_"))
         return
     if target == "home_door":
         _open_house()
@@ -293,6 +305,18 @@ func _interact(target: String) -> void:
                 _present("crisis")
         3: _present("resolve")
         4: _present("ending_intro")
+
+func _optional_event_interact(slot: String) -> void:
+    var event: Dictionary = optional_director.offered(progress.chapter,slot,progress.scene_index)
+    if event.is_empty():
+        ui.show_message("这段可选见证尚未开放，或已记录在旅行日志。")
+        return
+    pending_optional = event
+    pending = "optional_event"
+    paused_for_dialogue = true
+    busy = true
+    world.locked = true
+    ui.show_dialogue(event.get("dialogue",[]))
 
 func _optional_inspection(target: String) -> void:
     var index: int = 0 if target == "inspect_1" else 1
@@ -454,6 +478,13 @@ func _dialogue_ended() -> void:
             return
         "story_side_branch":
             active_story_side = {}
+        "optional_event":
+            if optional_director.mark_seen(pending_optional):
+                game_events.record("optional_event",{"id":str(pending_optional.get("id",""))})
+            pending_optional = {}
+        "choice_reaction":
+            _crisis_choice_complete()
+            return
         "ambient_npc":
             pass
         "optional_inspect":
@@ -504,6 +535,11 @@ func _choice_picked(item: Dictionary) -> void:
     var scene: Dictionary = _current_scene()
     var choice: Dictionary = scene.get("choice", {})
     progress.flags[str(choice.get("id", "choice")) + ".chosen"] = true
+    var followup: Dictionary = optional_director.reaction(progress.chapter,item,progress.flags)
+    if not followup.is_empty() and optional_director.mark_seen(followup):
+        pending = "choice_reaction"
+        ui.show_dialogue(followup.get("dialogue",[]))
+        return
     _crisis_choice_complete()
 
 func _crisis_choice_complete() -> void:
@@ -761,6 +797,7 @@ func _load_slot(slot: int) -> void:
     world_router.bind(progress)
     game_events.bind(progress)
     housing.bind(progress)
+    optional_director.bind(progress)
     adventure_menu.close_menu()
     _enter_location()
     _save_progress()

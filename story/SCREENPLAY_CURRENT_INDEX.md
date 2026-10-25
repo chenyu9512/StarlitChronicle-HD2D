@@ -44,6 +44,13 @@
 - [36条地区支线A/B](screenplay/phase17_regional_all_branches.md)：72条路线、216场候选、648句新对白。完整触发及跨地区契约见 [phase17_regional_manifest.json](data/phase17_regional_manifest.json)。
 - 阶段17三批覆盖72/120条；其余48条伙伴支线进入阶段18。候选剧情不替换原任务JSON、不改变奖励，也不视为已绑定地图及运行器。
 
+## 第18阶段伙伴剧情当前阅读入口
+
+- [48条伙伴任务A/B完整稿](screenplay/phase18_companion_all_branches.md)：8名伙伴、96条独立长期分支、288场、864句新增中文对白。
+- [伙伴A/B/C结局尾声](screenplay/phase18_companion_endings.md)：8人×3种结局×末次个人任务2路线，共48场、144句新增对白，只能在相应结局原4场播放后显示。
+- [阶段18制作与静态验收报告](PHASE_18_COMPANION_DELIVERY.md)及 [事件/存档契约](data/phase18_companion_manifest.json)。
+- 伙伴原4阶段奖励、已有第7阶段前两批16条任务增补和三结局硬条件均保持。第18阶段是**编剧完成、运行未接入**；第19阶段负责地图、状态机、NPC和旧档迁移。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线骨架及数据格式。

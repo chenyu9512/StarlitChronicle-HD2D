@@ -685,13 +685,13 @@ func _enemy_action(index: int) -> void:
         _finish(true)
         return
     if int(enemy.get("hp",0)) > 0 and not bool(effect.get("skip",false)):
-        _enemy_strike()
+        _enemy_strike(index)
     if formation.valid_target(original_target):
         _select_enemy(original_target)
     elif not formation.alive_indices().is_empty():
         _select_enemy(formation.alive_indices()[0])
 
-func _enemy_strike() -> void:
+func _enemy_strike(attacker_index: int = -1) -> void:
     var living: Array[int] = []
     for i in range(game_state.actors.size()):
         if int(game_state.actors[i]["hp"]) > 0 and (game_core == null or game_core.is_active(str(game_state.actors[i].get("id","")))):
@@ -716,8 +716,10 @@ func _enemy_strike() -> void:
     game_state.actors[target] = member
     if is_instance_valid(actor_stage):
         actor_stage.play_hit(str(member.get("id","")),int(member["hp"]) <= 0)
+    if is_instance_valid(enemy_stage) and enemy_stage.visible:
+        enemy_stage.attack(attacker_index)
     if is_instance_valid(timeline):
-        timeline.queue_enemy(_vfx_foe_point(),_vfx_member_point(target),damage)
+        timeline.queue_enemy(_vfx_enemy_point(attacker_index),_vfx_member_point(target),damage)
     if damage > 0 and int(member["hp"]) > 0:
         var element: String = str(enemy.get("element",""))
         var ailment: String = ""

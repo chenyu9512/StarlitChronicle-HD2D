@@ -221,6 +221,11 @@ func _build_sites() -> void:
         var sprite: Sprite2D = _add_sprite(str(record[0]),record[1],false)
         sprite.visible = chapter > 0
         nodes[name] = sprite
+    # 可选小戏：仅开放对应章节与场景窗口。禁用不代表不允许主线推进。
+    nodes["optional_town"] = _add_sprite("sign",Vector2i(13,17),false)
+    nodes["optional_evidence"] = _add_sprite("sea_crystal",Vector2i(36,21),false)
+    for name in ["optional_town","optional_evidence"]:
+        nodes[name].visible = false
     # 编剧分支的36条支线：五阶段航页与普通三阶段委托均具有地图实体。
     for i in range(5):
         var site: Vector2i = Vector2i(10 + (i % 3) * 11, 5 + int(i / 3) * 18)

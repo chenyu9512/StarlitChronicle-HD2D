@@ -33,6 +33,17 @@ var dialog_speaker: Label
 var dialog_text: RichTextLabel
 var dialog_portrait: TextureRect
 var dialog_next: Button
+var dialog_auto_button: Button
+var dialog_history_button: Button
+var dialog_skip_button: Button
+var dialog_history_screen: Control
+var dialog_history_text: RichTextLabel
+var dialogue_auto: bool = false
+var dialogue_can_skip: bool = false
+var dialogue_count: float = 0.0
+var auto_wait: float = 0.0
+var dialogue_speed: float = 42.0
+var dialogue_history: Array[Dictionary] = []
 var choice_area: VBoxContainer
 var dialog_lines: Array = []
 var dialog_index: int = 0
@@ -53,6 +64,7 @@ func _ready() -> void:
     _build_dialog()
     _build_menu()
     _build_title()
+    _build_dialogue_history()
 
 func _panel_style(bg: Color = BLUE, border: Color = GOLD) -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
@@ -272,12 +284,31 @@ func _build_dialog() -> void:
     dialog_next.custom_minimum_size.x = 168
     dialog_next.size_flags_horizontal = Control.SIZE_SHRINK_END
     dialog_next.pressed.connect(_next)
-    content.add_child(dialog_next)
+    var footer_actions := HBoxContainer.new()
+    footer_actions.add_theme_constant_override("separation",7)
+    content.add_child(footer_actions)
+    footer_actions.add_child(dialog_next)
+    dialog_auto_button=_button("自动播放：关",15)
+    dialog_auto_button.pressed.connect(func() -> void:
+        dialogue_auto=not dialogue_auto
+        dialog_auto_button.text="自动播放：开" if dialogue_auto else "自动播放：关"
+    )
+    footer_actions.add_child(dialog_auto_button)
+    dialog_history_button=_button("对话回顾",15)
+    dialog_history_button.pressed.connect(_show_dialogue_history)
+    footer_actions.add_child(dialog_history_button)
+    dialog_skip_button=_button("跳过已读",15)
+    dialog_skip_button.pressed.connect(_skip_seen_dialogue)
+    footer_actions.add_child(dialog_skip_button)
     dialog_layer.hide()
 
-func show_dialogue(lines: Array) -> void:
+func show_dialogue(lines: Array, allow_seen_skip: bool = false) -> void:
     dialog_lines = lines.duplicate(true)
     dialog_index = 0
+    dialogue_can_skip=allow_seen_skip
+    dialog_skip_button.visible=allow_seen_skip
+    dialogue_count=0.0
+    auto_wait=0.0
     choosing = false
     choice_area.hide()
     dialog_next.show()
@@ -297,6 +328,9 @@ func _render_line() -> void:
     var speaker: String = str(item.get("speaker", "旁白"))
     dialog_speaker.text = speaker
     dialog_text.text = str(item.get("text", ""))
+    dialog_text.visible_characters=0
+    dialogue_count=0.0
+    auto_wait=0.0
     var path: String = _portrait_for(speaker)
     dialog_portrait.visible = speaker != "旁白" and ResourceLoader.exists(path)
     if dialog_portrait.visible:
@@ -306,6 +340,14 @@ func _render_line() -> void:
 func _next() -> void:
     if choosing:
         return
+    if dialog_text.visible_characters >= 0 and dialog_text.visible_characters < dialog_text.get_total_character_count():
+        dialog_text.visible_characters=-1
+        auto_wait=0.0
+        return
+    if dialog_index >= 0 and dialog_index < dialog_lines.size():
+        dialogue_history.append(dialog_lines[dialog_index].duplicate(true))
+        if dialogue_history.size()>240:
+            dialogue_history.pop_front()
     dialog_index += 1
     if dialog_index >= dialog_lines.size():
         dialog_layer.hide()
@@ -315,6 +357,7 @@ func _next() -> void:
 
 func show_choices(choice_data: Dictionary) -> void:
     choosing = true
+    dialog_text.visible_characters=-1
     dialog_layer.show()
     choice_area.show()
     dialog_next.hide()
@@ -337,6 +380,76 @@ func show_choices(choice_data: Dictionary) -> void:
             choice_picked.emit(item)
         )
         choice_area.add_child(button)
+
+func _process(delta: float) -> void:
+    if dialog_history_screen != null and dialog_history_screen.visible:
+        return
+    if dialog_layer == null or not dialog_layer.visible or choosing:
+        return
+    var count: int=dialog_text.get_total_character_count()
+    if dialog_text.visible_characters>=0 and dialog_text.visible_characters<count:
+        dialogue_count+=delta*dialogue_speed
+        dialog_text.visible_characters=mini(count,int(dialogue_count))
+        auto_wait=0.0
+    elif dialogue_auto:
+        auto_wait+=delta
+        if auto_wait>=1.7:
+            auto_wait=0.0
+            _next()
+
+func _unhandled_input(event: InputEvent) -> void:
+    if not event is InputEventKey or not event.pressed or event.echo:
+        return
+    if dialog_history_screen != null and dialog_history_screen.visible:
+        if event.keycode==KEY_ESCAPE:
+            dialog_history_screen.hide()
+            get_viewport().set_input_as_handled()
+        return
+    if dialog_layer!=null and dialog_layer.visible and not choosing and event.keycode in [KEY_SPACE,KEY_ENTER,KEY_Z]:
+        _next()
+        get_viewport().set_input_as_handled()
+
+func _skip_seen_dialogue() -> void:
+    if not dialogue_can_skip or choosing or not dialog_layer.visible:
+        return
+    # An already completed dialogue may be skipped, but its effects are still
+    # executed by the original story controller's completion handler.
+    dialog_layer.hide()
+    dialogue_finished.emit()
+
+func _build_dialogue_history() -> void:
+    dialog_history_screen=_full_screen("DialogueHistory",0.93)
+    var panel:=PanelContainer.new()
+    panel.anchor_left=0.14
+    panel.anchor_right=0.86
+    panel.anchor_top=0.08
+    panel.anchor_bottom=0.91
+    panel.add_theme_stylebox_override("panel",_panel_style())
+    dialog_history_screen.add_child(panel)
+    var column:=VBoxContainer.new()
+    column.add_theme_constant_override("separation",10)
+    panel.add_child(column)
+    var label:=Label.new()
+    label.text="星灯手记 · 对话回顾"
+    label.add_theme_font_size_override("font_size",26)
+    label.add_theme_color_override("font_color",GOLD)
+    column.add_child(label)
+    dialog_history_text=RichTextLabel.new()
+    dialog_history_text.bbcode_enabled=false
+    dialog_history_text.size_flags_vertical=Control.SIZE_EXPAND_FILL
+    dialog_history_text.add_theme_font_size_override("normal_font_size",18)
+    column.add_child(dialog_history_text)
+    var back:=_button("返回剧情",18)
+    back.pressed.connect(func() -> void: dialog_history_screen.hide())
+    column.add_child(back)
+    dialog_history_screen.hide()
+
+func _show_dialogue_history() -> void:
+    var readable: PackedStringArray=[]
+    for record in dialogue_history.slice(maxi(0,dialogue_history.size()-80)):
+        readable.append("%s：%s" % [str(record.get("speaker","旁白")),str(record.get("text",""))])
+    dialog_history_text.text="\\n\\n".join(readable) if not readable.is_empty() else "还没有已读的对白。"
+    dialog_history_screen.show()
 
 func _build_menu() -> void:
     menu_layer = _full_screen("CampMenu", 0.84)

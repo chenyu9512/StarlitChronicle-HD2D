@@ -38,6 +38,13 @@ func _run() -> void:
         for gate in current.get("gates",[]):
             verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],[gate.get("cell",Vector2i.ZERO)]),"Map gate inaccessible: "+str(id))
         if bool(zone.get("settlement",false)) or str(zone.get("archetype",""))=="dungeon":
+            var custom: Dictionary = authored.duplicate(true)
+            custom["paint_overrides"] = [{"cell":[26,27],"row":4,"blocked":true}]
+            geo.authored.levels[str(id)] = custom
+            var edited: Dictionary = geo.layout(str(id),3)
+            verify(edited.get("tiles",{}).get(Vector2i(26,27),Vector2i.ZERO).y==4,"Town/dungeon V3 tile edit did not reach active gameplay: "+str(id))
+            verify(edited.get("blocked",{}).has(Vector2i(26,27)),"Town/dungeon V3 collision edit did not reach active gameplay: "+str(id))
+            geo.authored.levels[str(id)] = authored
             continue
         overworld += 1
         var footprint: String = str((current.get("blocked",{}) as Dictionary).hash())

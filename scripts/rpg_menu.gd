@@ -3,6 +3,7 @@ extends CanvasLayer
 signal closed()
 signal replay_ending_requested(id: String)
 signal branch_event_requested(event_id: String)
+signal branch_navigation_requested(event_id: String)
 signal travel_requested(map_id: String)
 signal map_requested()
 signal save_slot_requested(slot: int)
@@ -282,7 +283,11 @@ func render(section: String) -> void:
                     var row: Dictionary = available[index]
                     var event_id: String = str(row.get("id",""))
                     var heading: String = "%s · %s" % [str(row.get("region","伙伴尾声")),str(row.get("title",""))]
-                    _button(content,heading,func() -> void: branch_event_requested.emit(event_id),14)
+                    _label(heading)
+                    var actions := HBoxContainer.new()
+                    content.add_child(actions)
+                    _button(actions,"地图追踪",func() -> void: branch_navigation_requested.emit(event_id),14)
+                    _button(actions,"回顾对白",func() -> void: branch_event_requested.emit(event_id),14)
                 var pagination := HBoxContainer.new()
                 content.add_child(pagination)
                 _button(pagination,"上一页",func() -> void: _branch_page(-1),14)

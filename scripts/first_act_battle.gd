@@ -45,6 +45,7 @@ var foe_info: Label
 var report: Label
 var commands: HBoxContainer
 var portrait: TextureRect
+var enemy_grounding: TextureRect
 var actor_stage
 var enemy_stage
 var vfx
@@ -135,6 +136,19 @@ func _build() -> void:
     dim.color = Color(0.015, 0.032, 0.060, 0.54)
     dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     root.add_child(dim)
+    # The single-foe and boss compositions use the same footing treatment as
+    # the multi-foe stage, without changing targeting or combat decisions.
+    enemy_grounding=TextureRect.new()
+    enemy_grounding.name="SingleFoeGrounding"
+    enemy_grounding.texture=load("res://assets/art/battle/a15/boss_footing.svg" if boss else "res://assets/art/battle/a15/enemy_footing.svg")
+    enemy_grounding.anchor_left=0.32
+    enemy_grounding.anchor_right=0.68
+    enemy_grounding.anchor_top=0.49
+    enemy_grounding.anchor_bottom=0.62
+    enemy_grounding.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+    enemy_grounding.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    enemy_grounding.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    root.add_child(enemy_grounding)
     var title_plate := PanelContainer.new()
     title_plate.anchor_left = 0.25
     title_plate.anchor_right = 0.75
@@ -163,6 +177,7 @@ func _build() -> void:
     var multi_foe: bool = formation.units.size() > 1
     enemy_stage.visible = multi_foe
     portrait.visible = not multi_foe
+    enemy_grounding.visible=not multi_foe
     var enemy_settings: Dictionary = game_state.rpg.get("settings",{})
     enemy_stage.reduced_motion = bool(enemy_settings.get("reduced_motion",false))
     if multi_foe:

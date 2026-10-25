@@ -1,6 +1,8 @@
 extends Control
 ## Presentation-only party actors. Real portraits, deterministic motion, no turn/HP writes.
 const MAX_VISIBLE: int = 4
+const GROUND_ART: String = "res://assets/art/battle/a15/actor_footing.svg"
+const CAST_ART: String = "res://assets/art/battle/a15/casting_sigil.svg"
 const ATTACK_DURATION: float = 0.36
 const CAST_DURATION: float = 0.50
 const HIT_DURATION: float = 0.34
@@ -37,6 +39,19 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         var member: Dictionary = selected[index]
         var id: String = str(member.get("id",""))
         var art: String = _resolve_art(id)
+        var footing := Sprite2D.new()
+        footing.name="GroundShadow_%s" % id
+        footing.texture=load(GROUND_ART)
+        footing.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+        footing.z_index=-1
+        add_child(footing)
+        var sigil := Sprite2D.new()
+        sigil.name="CastCircle_%s" % id
+        sigil.texture=load(CAST_ART)
+        sigil.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+        sigil.z_index=-1
+        sigil.modulate.a=0.0
+        add_child(sigil)
         var portrait := TextureRect.new()
         portrait.name = "Actor_%s" % id
         portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -46,7 +61,8 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         portrait.texture = load(art) as Texture2D if not art.is_empty() else null
         add_child(portrait)
         avatars[id] = {
-            "node":portrait,"index":index,"count":selected.size(),
+            "node":portrait,"footing":footing,"sigil":sigil,
+            "index":index,"count":selected.size(),
             "base":Vector2.ZERO,"clock":0.0,"action":"idle","action_time":0.0,
             "hit_time":0.0,"fallen":int(member.get("hp",0)) <= 0
         }
@@ -87,6 +103,12 @@ func _layout_actors() -> void:
         var xpos: float = canvas.x * 0.075 + float(index % 2) * width * 0.89
         var ypos: float = canvas.y * (0.33 if index < 2 else 0.40) + float(index % 2) * 15.0
         entry["base"] = Vector2(xpos,ypos)
+        var footing: Sprite2D=entry["footing"]
+        footing.position=Vector2(xpos+width*0.5,ypos+height*0.94)
+        footing.scale=Vector2(width*1.65/320.0,width*0.50/112.0)
+        var sigil: Sprite2D=entry["sigil"]
+        sigil.position=Vector2(xpos+width*0.5,ypos+height*0.67)
+        sigil.scale=Vector2.ONE*(width/115.0)
         avatars[id] = entry
 
 func actor_point(actor_id: String) -> Vector2:
@@ -166,4 +188,17 @@ func _process(delta: float) -> void:
             sprite.modulate = Color(1.0,0.58,0.57,1.0)
         else:
             sprite.modulate = Color.WHITE
+        var footing: Sprite2D=entry["footing"]
+        var sigil: Sprite2D=entry["sigil"]
+        footing.modulate.a=0.32 if falling else 0.84
+        var cast_left: float=float(entry["action_time"])
+        var casting: bool=not falling and cast_left>0.0 and str(entry["action"]) in ["skill","heal","charge","special"]
+        if casting:
+            var strength: float=clampf(cast_left/CAST_DURATION,0.0,1.0)
+            sigil.modulate=Color("9fe0d7") if str(entry["action"])=="heal" else Color("f5d6a2")
+            sigil.modulate.a=(0.22+0.56*sin(PI*(1.0-strength))) if not reduced_motion else 0.38
+            if not reduced_motion:
+                sigil.rotation+=dt*0.82
+        else:
+            sigil.modulate.a=0.0
         avatars[id] = entry

@@ -5,6 +5,8 @@ const FRAME_SIZE: int = 128
 const FRAME_COUNT: int = 4
 const FRAME_INTERVAL: float = 0.22
 const MAX_VISIBLE: int = 3
+const GROUND_ART: String = "res://assets/art/battle/a15/enemy_footing.svg"
+const BOSS_ART: String = "res://assets/art/battle/a15/boss_footing.svg"
 
 var slots: Dictionary = {}
 var elapsed: float = 0.0
@@ -25,6 +27,12 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
     active_index = 0
     for index in range(mini(units.size(),MAX_VISIBLE)):
         var enemy: Dictionary = units[index]
+        var footing := Sprite2D.new()
+        footing.name="FoeFooting_%d" % index
+        footing.texture=load(BOSS_ART if boss else GROUND_ART)
+        footing.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+        footing.z_index=-1
+        add_child(footing)
         var sprite := TextureRect.new()
         sprite.name = "Enemy_%d" % index
         sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -46,7 +54,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
                     atlas.region = Rect2(0,0,FRAME_SIZE,FRAME_SIZE)
                     sprite.texture = atlas
         add_child(sprite)
-        slots[index] = {"node":sprite,"atlas":atlas,"base":Vector2.ZERO,
+        slots[index] = {"node":sprite,"footing":footing,"atlas":atlas,"base":Vector2.ZERO,
             "hit":0.0,"attack":0.0,"dying":0.0,"dead":false,"frame":0,"phase":0.17*float(index)}
     _layout()
 
@@ -69,6 +77,9 @@ func _layout() -> void:
         sprite.size = Vector2(width,height)
         sprite.pivot_offset = sprite.size*0.5
         entry["base"] = Vector2(first_x+float(index)*span,canvas.y*0.235+(16.0 if index%2 == 1 else 0.0))
+        var footing: Sprite2D=entry["footing"]
+        footing.position=Vector2(entry["base"])+Vector2(width*0.5,height*0.93)
+        footing.scale=Vector2(width*1.35/320.0,width*0.53/116.0)
         slots[index] = entry
     _size_cached = canvas
 
@@ -148,4 +159,12 @@ func _process(delta: float) -> void:
             sprite.modulate = Color(1.0,0.58,0.58,fade)
         else:
             sprite.modulate = Color(1.0,1.0,1.0,fade if selected else fade*0.83)
+        var footing: Sprite2D=entry["footing"]
+        footing.modulate.a=fade*(0.92 if selected else 0.42)
+        if float(entry["attack"])>0.0:
+            footing.modulate=Color("ffb8a1") if not reduced_motion else Color.WHITE
+            footing.modulate.a=fade*0.75
+        else:
+            footing.modulate=Color.WHITE
+            footing.modulate.a=fade*(0.92 if selected else 0.42)
         slots[index] = entry

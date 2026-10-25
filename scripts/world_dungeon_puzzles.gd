@@ -122,7 +122,10 @@ func interact(map_id: String, button: String, state) -> Dictionary:
             for cell in turns:
                 lamps[int(cell)]=1-int(lamps[int(cell)])
             status["lamps"]=lamps
-            action_text="导电线依次显示：%s。" % " · ".join(lamps.map(func(v): return "亮" if int(v)==1 else "暗"))
+            var lit_labels: PackedStringArray = PackedStringArray()
+            for value in lamps:
+                lit_labels.append("亮" if int(value)==1 else "暗")
+            action_text="导电线依次显示：%s。" % " · ".join(lit_labels)
         "water_level":
             var wave: int = int(status.get("level",1))
             if button=="a":

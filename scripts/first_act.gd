@@ -267,6 +267,43 @@ func _focus() -> void:
 func _interact(target: String) -> void:
     if busy:
         return
+    if target.begins_with("dungeon_switch_"):
+        var key: String = "map.%s.%s" % [world_router.current_map(),target]
+        if bool(progress.flags.get(key,false)):
+            ui.show_message("符文机关已经启动。")
+        else:
+            progress.flags[key] = true
+            _save_progress()
+            var left_a: bool = bool(progress.flags.get("map.%s.dungeon_switch_a" % world_router.current_map(),false))
+            var left_b: bool = bool(progress.flags.get("map.%s.dungeon_switch_b" % world_router.current_map(),false))
+            ui.show_message("古代灯纹机关发出亮光！" + (" 两座机关同时激活，秘藏已解除封印。" if left_a and left_b else " 附近还有其他机关。"))
+        return
+    if target == "dungeon_chest":
+        var lock_prefix: String = "map.%s." % world_router.current_map()
+        if not bool(progress.flags.get(lock_prefix+"dungeon_switch_a",false)) or not bool(progress.flags.get(lock_prefix+"dungeon_switch_b",false)):
+            ui.show_message("宝箱受到两道灯纹封印。需要在地下城中找到两座机关。")
+        elif bool(progress.flags.get(lock_prefix+"chest_claimed",false)):
+            ui.show_message("秘藏宝箱已经打开。")
+        else:
+            progress.flags[lock_prefix+"chest_claimed"] = true
+            progress.gold += 60 + 8 * maxi(1,progress.chapter)
+            game_core.add_item("item_herb_01",2)
+            _save_progress()
+            ui.show_message("发现地下城秘藏！获得两株盐露草与旅行金币。")
+        return
+    if target == "wild_cache":
+        var cache_flag: String = "map.%s.wild_cache" % world_router.current_map()
+        if bool(progress.flags.get(cache_flag,false)):
+            ui.show_message("补给箱已被取走。")
+        else:
+            progress.flags[cache_flag] = true
+            game_core.add_item("item_herb_01",1)
+            _save_progress()
+            ui.show_message("从野外补给箱发现了一株盐露草。")
+        return
+    if target == "wild_camp":
+        ui.show_message("这里是安全的野外休憩地点。可以查看地图并整理装备。")
+        return
     if target.begins_with("exit:"):
         _travel_to(target.trim_prefix("exit:"))
         return

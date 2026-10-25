@@ -267,6 +267,26 @@ func _focus() -> void:
 func _interact(target: String) -> void:
     if busy:
         return
+    if target.begins_with("exit:"):
+        _travel_to(target.trim_prefix("exit:"))
+        return
+    if target.begins_with("building:"):
+        var building_id: String = target.trim_prefix("building:")
+        if world.enter_building(building_id):
+            _focus()
+            ui.show_message("进入 " + world.region_name() + "。可在室内探索，寻找出口标记返回街道。")
+        return
+    if target == "interior_exit":
+        if world.leave_building():
+            _focus()
+            ui.show_message("返回 " + world.region_name() + "。")
+        return
+    if target == "interior_service":
+        ui.show_message("室内设施已经可以调查。特殊商店、公会与NPC交易将按地区逐步开放。")
+        return
+    if target == "interior_storage":
+        ui.show_message("储物柜与家具已经布置。家园专用仓储请从自己的房屋进入。")
+        return
     if target.begins_with("optional_"):
         _optional_event_interact(target.trim_prefix("optional_"))
         return
@@ -768,6 +788,10 @@ func _replay_ending(id: String) -> void:
 func _travel_to(map_id: String) -> void:
     if progress.chapter < 1 or is_instance_valid(battle):
         return
+    if not world.interior_building.is_empty():
+        ui.show_message("请先从建筑出口返回街道，再前往其他区域。")
+        return
+    var previous_map: String = world_router.current_map()
     if not world_router.travel(map_id):
         ui.show_message("航路尚未解锁，请先沿主线探索相邻地区。")
         return
@@ -775,6 +799,7 @@ func _travel_to(map_id: String) -> void:
     game_events.record("travel",{"map_id":map_id})
     adventure_menu.close_menu()
     _enter_location()
+    world.spawn_from_exit(previous_map)
     _save_progress()
     ui.show_message("已抵达：" + str(world_router.profile().get("name",map_id)))
 

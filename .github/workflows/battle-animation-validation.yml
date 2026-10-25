@@ -26,6 +26,11 @@ on:
       - "data/content/skills.json"
       - ".github/workflows/battle-animation-validation.yml"
   workflow_dispatch:
+# Avoid wasting a private repository's hosted-runner quota when frequent
+# development commits supersede unverified battle previews.
+concurrency:
+  group: starlit-battle-validation-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

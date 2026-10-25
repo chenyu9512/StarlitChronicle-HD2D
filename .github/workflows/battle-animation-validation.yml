@@ -1,0 +1,33 @@
+name: Battle Animation and Audio Validation
+on:
+  push:
+    paths:
+      - "scripts/first_act_battle.gd"
+      - "scripts/battle_fx.gd"
+      - "scripts/battle_actors.gd"
+      - "scripts/battle_sfx.gd"
+      - "tools/smoke_battle_fx.gd"
+      - "tools/smoke_battle_actors.gd"
+      - ".github/workflows/battle-animation-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate-battle-presentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import resources and compile GDScript
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Verify four-frame monster idle and VFX cleanup
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_fx.gd
+      - name: Verify party motions, nine elements and battle audio
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_actors.gd
+      - name: Verify combat timing and status regressions
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_combat_turns.gd

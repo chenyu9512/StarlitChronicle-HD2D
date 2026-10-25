@@ -311,6 +311,12 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     # than being silently removed from the designer's data.
     if not authored_level.is_empty():
         authored.apply_editor_patches(authored_level,terrain,walls)
+    # Final spatial integrity: reconnect only genuinely isolated story target cells.
+    # A manual collision layer or regional cliff cannot strand an original quest.
+    # Do not alter accessible authored paths or override navigable bridge layouts.
+    for essential in _anchors():
+        if not reachable({"blocked":walls,"size":Vector2i(map_width,map_height)},[start],[essential]):
+            _road(terrain,walls,start,essential,seed+essential.x*7+essential.y,1)
     var wet: Dictionary = {}
     if not authored_level.is_empty():
         wet = authored.open_water_tiles(authored_level,walls)

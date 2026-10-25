@@ -2,6 +2,8 @@ extends Node2D
 ## P4: world-space environmental storytelling in the actual playable prologue map.
 ## Cosmetic only: never change collision, objective nodes, quest flags or money.
 const TILE: float=32.0
+const ActorBlocking = preload("res://scripts/prologue_actor_blocking.gd")
+var blocking: Node2D
 var stage: String="normal"
 var scene_index: int=0
 var clock: float=0.0
@@ -14,6 +16,11 @@ var weather: Node2D
 func bind_world(hero: Node2D,scenery: Node2D,ambience: Node2D) -> void:
     actor=hero
     weather=ambience
+    if blocking==null:
+        blocking=ActorBlocking.new()
+        blocking.name="ActorBlocking"
+        add_child(blocking)
+    blocking.bind_hero(hero)
     lamps.clear()
     originals.clear()
     if is_instance_valid(scenery):
@@ -26,6 +33,8 @@ func bind_world(hero: Node2D,scenery: Node2D,ambience: Node2D) -> void:
 func apply(phase: String,index: int) -> void:
     stage=phase
     scene_index=index
+    if is_instance_valid(blocking):
+        blocking.apply(phase)
     clock=0.0
     draw_elapsed=0.0
     visible=phase!="normal"

@@ -516,6 +516,7 @@ func _build_sites() -> void:
                 continue
             occupied[candidate]=true
             var object: Sprite2D = _add_sprite(str(activity.get("icon","sign")),candidate,false,true)
+            object.visible = chapter>0
             object.set_meta("site_name",str(activity.get("title","社区活动")))
             nodes["townlife:"+str(activity.get("id",""))]=object
         _refresh_town_event_lighting()

@@ -5,9 +5,11 @@ signal replay_ending_requested(id: String)
 signal travel_requested(map_id: String)
 signal save_slot_requested(slot: int)
 signal load_slot_requested(slot: int)
+signal housing_purchase_requested()
+signal housing_open_requested()
 const Core = preload("res://scripts/rpg_core.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","设置"]
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 var manager
 var save_state
 var root: Control
@@ -23,6 +25,7 @@ var chapter_details
 var world_router
 var game_events
 var slot_service
+var housing
 
 func _ready() -> void:
     layer = 46
@@ -347,6 +350,28 @@ func render(section: String) -> void:
                     if bool(info.get("exists",false)):
                         _button(content,"载入存档 %d" % n,func() -> void: load_slot_requested.emit(n))
                 _label("主游戏仍自动保存到原V3路径；手动档槽位拥有独立备份。")
+        "家园":
+            _label("星灯旅人之家 · 居所与装饰",true)
+            if housing == null or world_router == null:
+                _label("房屋系统尚未载入。")
+            else:
+                var location: Dictionary = world_router.profile()
+                if not housing.owned():
+                    _label("在城镇购买地契，得到一间10×7室内房屋，附赠床和仓库箱。")
+                    _label("地契价格：160G · 当前金币 %dG" % save_state.gold)
+                    if housing.can_access(location) and save_state.chapter >= 1:
+                        _button(content,"在当前城镇购买住宅",func() -> void: housing_purchase_requested.emit())
+                    else:
+                        _label("请前往开放的城镇住宅区。")
+                else:
+                    _label("房屋等级：%d · 所属地区：%s" % [int(housing.data().get("tier",0))+1,str(housing.data().get("region_id",""))])
+                    _label("家具 %d/%d · 仓库 %d/%d" % [(housing.data()["placed"] as Array).size(),housing.capacity(),housing.warehouse_total(),housing.warehouse_capacity()])
+                    _label("墙面："+str(housing.data().get("wall",""))+" / 地板："+str(housing.data().get("floor","")))
+                    if housing.can_access(location) and str(location.get("region_id","")) == str(housing.data().get("region_id","")):
+                        _button(content,"进入住宅 · 布置家具 / 储存 / 休息",func() -> void: housing_open_requested.emit())
+                    else:
+                        _label("返回住宅所属地区的城镇，才能进入房屋。")
+                    _label("20种家具、10×7房间、四级升级、摆放收回、换装、仓库和床铺休息。")
         "设置":
             _label("游戏难度与个人配置",true)
             _label("当前难度："+str(save_state.rpg["settings"].get("difficulty","标准")))

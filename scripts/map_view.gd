@@ -3,8 +3,8 @@ extends Control
 ## Map is read-only; selecting a map never grants discovery or bypasses travel rules.
 signal location_selected(map_id: String)
 
-const W: int = 44
-const H: int = 28
+const W: int = 72
+const H: int = 48
 const TILE: float = 32.0
 const REGIONS: Array[String] = [
     "region_coast", "region_oaths", "region_forge", "region_isles",
@@ -34,7 +34,7 @@ func setup(world_ref, router_ref, is_compact: bool = false) -> void:
     queue_redraw()
 
 func display_mode(value: String) -> void:
-    mode = value if value in ["local", "world"] else "local"
+    mode = value if value in ["local","region","world"] else "local"
     queue_redraw()
 
 func targets(primary: String, secondary: String = "") -> void:
@@ -45,7 +45,9 @@ func targets(primary: String, secondary: String = "") -> void:
 func _draw() -> void:
     draw_rect(Rect2(Vector2.ZERO, size), Color("0c1d30"), true)
     if mode == "world":
-        _draw_world()
+        _draw_atlas(false)
+    elif mode == "region":
+        _draw_atlas(true)
     else:
         _draw_local()
 
@@ -54,8 +56,8 @@ func _draw_local() -> void:
         return
     # The compact map follows the hero through a 21 × 15-cell window.
     # The expanded map always displays the whole authored 44 × 28 terrain.
-    var columns: int = 21 if compact else W
-    var rows: int = 15 if compact else H
+    var columns: int = 25 if compact else W
+    var rows: int = 17 if compact else H
     var first_x: int = 0
     var first_y: int = 0
     if compact and is_instance_valid(world.hero):
@@ -76,10 +78,16 @@ func _draw_local() -> void:
                 shade = WALL
             else:
                 var atlas: Vector2i = world.layer.get_cell_atlas_coords(tile)
-                if atlas.y == 3:
+                if world.layer.get_cell_source_id(tile) == 1:
+                    shade = Color("205c83")
+                elif atlas.y == 3:
                     shade = PATH
                 elif atlas.y == 5:
-                    shade = Color("38575a")
+                    shade = Color("7a7480")
+                elif atlas.y == 1:
+                    shade = Color("3a806d")
+                elif atlas.y == 4:
+                    shade = Color("ad7554")
             draw_rect(Rect2(origin + Vector2(x - first_x,y - first_y) * cell, Vector2(cell + 0.08,cell + 0.08)), shade, true)
     if not compact:
         for i in range(1, 4):
@@ -95,10 +103,12 @@ func _draw_local() -> void:
             color = MAIN
         elif id == side_target or id.begins_with("story_stage_") or id.begins_with("side_"):
             color = SIDE
-        elif id in ["inn", "home_door"]:
+        elif id in ["inn", "home_door"] or id.begins_with("building:"):
             color = Color("84d9a4")
         elif id == "shop":
             color = Color("a9b6ff")
+        elif id.begins_with("exit:") or id == "interior_exit":
+            color = Color("e9b783")
         if color.a <= 0.0:
             continue
         var pos: Vector2 = origin + (node.position / TILE - Vector2(first_x,first_y)) * cell
@@ -118,62 +128,113 @@ func _draw_local() -> void:
         draw_circle(hero_pos, 3.5 if compact else 5.5, HERO)
         draw_line(hero_pos, hero_pos + Vector2(0, -6.5 if compact else -10.0), HERO, 1.5)
 
-func _draw_world() -> void:
+func _map_xy(world_xy: Vector2, origin: Vector2, scale: Vector2) -> Vector2:
+    return origin + world_xy*scale
+
+func _region_color(region: String) -> Color:
+    if router == null:
+        return Color("4a8291")
+    var data: Dictionary = router.geography.regions.get(region,{})
+    return Color(str(data.get("color","#66899b")))
+
+func _draw_island(center: Vector2, axes: Vector2, color: Color, seed: int) -> void:
+    var vertices: PackedVector2Array = PackedVector2Array()
+    for k in range(24):
+        var angle: float = TAU*float(k)/24.0
+        var ripple: float = 0.88 + 0.1*sin(float(k*5+seed)*1.37)
+        vertices.append(center+Vector2(cos(angle)*axes.x,sin(angle)*axes.y)*ripple)
+    draw_colored_polygon(vertices,color)
+    for k in range(24):
+        draw_line(vertices[k],vertices[(k+1)%24],color.lightened(0.27),1.4,true)
+
+func _draw_atlas(regional: bool) -> void:
     map_points.clear()
     if router == null or router.state == null:
         return
     var font: Font = get_theme_default_font()
-    var left: float = 22.0
-    var top: float = 38.0
-    var body_width: float = maxf(60.0, size.x - 44.0)
-    var body_height: float = maxf(60.0, size.y - 58.0)
-    var columns: int = REGIONS.size()
-    var locations: Dictionary = {}
-    for region in REGIONS:
-        locations[region] = []
-    for key in router.maps.keys():
-        var id: String = str(key)
-        var region_id: String = str(router.maps[id].get("region_id",""))
-        if locations.has(region_id):
-            (locations[region_id] as Array).append(id)
-    for column in range(columns):
-        var rid: String = REGIONS[column]
-        var center_x: float = left + (float(column) + 0.5) * body_width / float(columns)
-        var region_name: String = str(router.regions.get(rid,{}).get("name", rid))
+    var pad: Vector2 = Vector2(24,26)
+    var available_size: Vector2 = Vector2(maxf(40.0,size.x-pad.x*2.0),maxf(40.0,size.y-pad.y*2.0))
+    var world_offset: Vector2 = Vector2.ZERO
+    var world_size: Vector2 = Vector2(1200,720)
+    var current_region: String = str(router.current_info().get("region_id","region_coast"))
+    if regional:
+        var region_spec: Dictionary = router.geography.regions.get(current_region,{})
+        var c: Array = region_spec.get("center",[600,360])
+        world_offset = Vector2(float(c[0])-165.0,float(c[1])-135.0)
+        world_size = Vector2(330,270)
+    var scale: Vector2 = available_size/world_size
+    for column in range(1,12):
+        var xx: float = float(column)*100.0
+        if xx < world_offset.x or xx > world_offset.x+world_size.x:
+            continue
+        var xpos: float = pad.x+(xx-world_offset.x)*scale.x
+        draw_line(Vector2(xpos,pad.y),Vector2(xpos,size.y-pad.y),Color(0.5,0.75,0.84,0.10),1.0)
+    for line in range(1,8):
+        var yy: float = float(line)*90.0
+        if yy < world_offset.y or yy > world_offset.y+world_size.y:
+            continue
+        var ypos: float = pad.y+(yy-world_offset.y)*scale.y
+        draw_line(Vector2(pad.x,ypos),Vector2(size.x-pad.x,ypos),Color(0.5,0.75,0.84,0.10),1.0)
+    for key in REGIONS:
+        if regional and key != current_region:
+            continue
+        var region_data: Dictionary = router.geography.regions.get(key,{})
+        var center_data: Array = region_data.get("center",[600,360])
+        var radius_data: Array = region_data.get("radius",[110,110])
+        var center: Vector2 = pad+(Vector2(float(center_data[0]),float(center_data[1]))-world_offset)*scale
+        var radii: Vector2 = Vector2(float(radius_data[0])*scale.x,float(radius_data[1])*scale.y)
+        var terrain_color: Color = _region_color(key)
+        _draw_island(center,radii,terrain_color.darkened(0.5),abs(key.hash())%61)
+        # Nested coast contours convey landmass instead of an abstract spreadsheet grid.
+        _draw_island(center,radii*0.78,terrain_color.darkened(0.37),abs(key.hash())%83)
         if font != null:
-            draw_string(font, Vector2(center_x - 48, 23), region_name.left(7), HORIZONTAL_ALIGNMENT_CENTER, 96.0, 12, MAIN)
-        var items: Array = locations[rid]
-        items.sort()
-        var count: int = items.size()
-        for i in range(count):
-            var y: float = top + (float(i) + 0.5) * body_height / float(maxi(1,count))
-            map_points[str(items[i])] = Vector2(center_x, y)
-    for key in map_points.keys():
-        var source_id: String = str(key)
-        var start: Vector2 = map_points[source_id]
-        for n in router.maps[source_id].get("neighbors",[]):
-            var neighbor_id: String = str(n)
-            if source_id < neighbor_id and map_points.has(neighbor_id):
-                var connected: bool = router.is_available(source_id) and router.is_available(neighbor_id)
-                draw_line(start, map_points[neighbor_id], Color("628a9d") if connected else Color("334858"), 1.5, true)
-    var visited: Array = router.state.rpg.get("world",{}).get("visited",[])
+            draw_string(font,center+Vector2(-70,-radii.y*0.68),str(router.regions.get(key,{}).get("name",key)),HORIZONTAL_ALIGNMENT_CENTER,140.0,16 if regional else 12,GOLD)
+    for id in router.maps.keys():
+        var map_id: String = str(id)
+        var entry: Dictionary = router.geography.zone(map_id)
+        if entry.is_empty() or not bool(entry.get("playable",false)):
+            continue
+        if regional and str(entry.get("region_id","")) != current_region:
+            continue
+        var p: Array = entry.get("atlas",[])
+        if p.size()<2:
+            continue
+        var point: Vector2 = pad+(Vector2(float(p[0]),float(p[1]))-world_offset)*scale
+        map_points[map_id] = point
+    for id in map_points.keys():
+        var origin: Vector2 = map_points[id]
+        for edge in router.maps[id].get("neighbors",[]):
+            var dest: String = str(edge)
+            if id < dest and map_points.has(dest):
+                var known: bool = router.is_available(str(id)) and router.is_available(dest)
+                draw_line(origin,map_points[dest],Color("b4c4c5") if known else Color("496574"),3.0 if regional else 1.7,true)
     var discovered: Array = router.state.rpg.get("world",{}).get("discovered",[])
-    for key in map_points.keys():
-        var id: String = str(key)
+    var visited: Array = router.state.rpg.get("world",{}).get("visited",[])
+    for id in map_points.keys():
+        var entry: Dictionary = router.geography.zone(str(id))
         var point: Vector2 = map_points[id]
-        var is_current: bool = id == router.current_map()
         var known: bool = id in discovered
-        var color: Color = MAIN if is_current else (SIDE if id in visited else (Color("aec1ca") if known else Color("415462")))
-        draw_circle(point, 7.6 if is_current else 5.0, Color("091727"))
-        draw_circle(point, 5.8 if is_current else 3.4, color)
+        var current: bool = id == router.current_map()
+        var typ: String = str(entry.get("type","field"))
+        var color: Color = MAIN if current else (SIDE if id in visited else (Color("cfced0") if known else Color("405868")))
+        var radius: float = 7.0 if regional else 4.2
+        if current:
+            draw_arc(point,radius+5.0,0,TAU,24,HERO,2.0)
+        if typ in ["town","residential","hall"]:
+            draw_rect(Rect2(point-Vector2(radius,radius),Vector2(radius*2,radius*2)),color,true)
+        elif typ=="dungeon":
+            draw_colored_polygon(PackedVector2Array([point+Vector2(0,-radius),point+Vector2(radius,0),point+Vector2(0,radius),point+Vector2(-radius,0)]),color)
+        else:
+            draw_circle(point,radius,color)
         if id == selected_location:
-            draw_arc(point, 10.0, 0.0, TAU, 28, HERO, 2.0)
-        if font != null:
-            var name: String = str(router.maps[id].get("name",id)).left(7) if known else "未探索"
-            draw_string(font, point + Vector2(-45, 22), name, HORIZONTAL_ALIGNMENT_CENTER, 90.0, 11, color)
+            draw_arc(point,radius+8.0,0.0,TAU,28,Color("fff3c0"),2.0)
+        if font != null and known:
+            var name: String = str(entry.get("name",id)).left(6 if not regional else 11)
+            var shift: Vector2 = Vector2(-51,22 if regional else 14)
+            draw_string(font,point+shift,name,HORIZONTAL_ALIGNMENT_CENTER,102.0,13 if regional else 10,Color("e6e0d0"))
 
 func _gui_input(event: InputEvent) -> void:
-    if mode != "world" or compact:
+    if mode == "local" or compact:
         return
     var location: Vector2
     if event is InputEventMouseButton:

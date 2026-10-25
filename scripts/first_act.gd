@@ -458,6 +458,39 @@ func _focus() -> void:
 func _interact(target: String) -> void:
     if busy:
         return
+    if target.begins_with("discovery:"):
+        if not world.interior_building.is_empty():
+            return
+        var map_id: String = world_router.current_map()
+        var event_id: String = target.trim_prefix("discovery:")
+        var record: Dictionary = world.discoveries.event(map_id,event_id)
+        if record.is_empty():
+            ui.show_message("这里尚没有可以调查的地图地标。")
+            return
+        var completion: String = world.discoveries.flag(map_id,event_id)
+        if bool(progress.flags.get(completion,false)):
+            ui.show_message("【%s】已完成调查，记录留存在旅途日志中。" % str(record.get("name","探索地点")))
+            return
+        var needed: String = str(record.get("require",""))
+        if not needed.is_empty() and not bool(progress.flags.get(world.discoveries.flag(map_id,needed),false)):
+            ui.show_message("【%s】附近还有未调查的线索，暂时无法解开此处的秘密。" % str(record.get("name","地标")))
+            return
+        progress.flags[completion] = true
+        var narrative: String = str(record.get("text",""))
+        var reward: Dictionary = record.get("reward",{}) if record.get("reward",{}) is Dictionary else {}
+        var payout: String = ""
+        if not reward.is_empty():
+            var amount: int = maxi(0,int(reward.get("gold",0)))
+            var item_id: String = str(reward.get("item_id",""))
+            var item_count: int = maxi(0,int(reward.get("amount",0)))
+            if not item_id.is_empty() and item_count>0:
+                game_core.add_item(item_id,item_count)
+            progress.gold += amount
+            payout = "\n获得 %d G 与地区补给 ×%d。" % [amount,item_count]
+        game_events.record("world_discovery",{"map":map_id,"site":event_id})
+        _save_progress()
+        ui.show_message("【%s】\n%s%s" % [str(record.get("name","地标")),narrative,payout])
+        return
     if target.begins_with("dungeon_switch_"):
         var key: String = "map.%s.%s" % [world_router.current_map(),target]
         if bool(progress.flags.get(key,false)):

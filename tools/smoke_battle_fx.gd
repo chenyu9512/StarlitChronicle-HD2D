@@ -26,7 +26,8 @@ func _check() -> void:
     viewport.add_child(fx)
     fx.bind_enemy(enemy,"salt_slime",false)
     _expect(enemy.texture is AtlasTexture,"Coast monster idle animation was not bound")
-    fx._process(0.27)
+    for frame_tick in range(3):
+        fx._process(0.1)
     if enemy.texture is AtlasTexture:
         var sheet: AtlasTexture = enemy.texture
         _expect(int(sheet.region.position.x) == 128,"Idle animation did not advance to frame 2")

@@ -124,6 +124,24 @@ func apply_editor_patches(level_info: Dictionary,ground: Dictionary,walls: Dicti
         else:
             walls.erase(cell)
 
+func apply_safe_paths(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary],dungeon: bool) -> void:
+    # Towns and dungeon chambers already have authored structure. Paint ONLY
+    # existing walkable corridors so road/surface art cannot erase buildings,
+    # boss-room walls, locked gates or the original quest design.
+    var desired_row: int = 5 if dungeon else 3
+    for road in level_info.get("roads",[]):
+        var scratch: Dictionary = {}
+        var scratch_walls: Dictionary = {}
+        _draw_polyline(scratch,scratch_walls,road.get("points",[]),clampi(int(road.get("width",1)),0,4),desired_row,false)
+        for cell in scratch.keys():
+            if ground.has(cell) and not walls.has(cell):
+                ground[cell] = scratch[cell]
+    for point in level_info.get("landmarks",[]):
+        var cell: Vector2i = _point(point.get("cell",[]))
+        if _valid(cell) and not walls.has(cell):
+            features.append({"kind":str(point.get("kind","rock")),"cell":cell,"name":str(point.get("id","landmark"))})
+    apply_editor_patches(level_info,ground,walls)
+
 func open_water_tiles(level_info: Dictionary, final_walls: Dictionary) -> Dictionary:
     # Water is visually blue only while the cell still represents impassable water.
     # Bridges and authored paths clear collision and therefore take priority.

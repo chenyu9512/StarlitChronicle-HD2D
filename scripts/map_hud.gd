@@ -277,6 +277,11 @@ func _refresh_info() -> void:
         if not current_dungeon.is_empty():
             var unlocked: bool = bool(world.dungeon_puzzles.snapshot(router.state,router.current_map()).get("claimed",false))
             discovery_line += "\n专属机关：" + ("已解开" if unlocked else "尚未解开")
+    if world.interior_building.is_empty() and world.town_ecology!=null:
+        var neighborhood: Dictionary = world.town_ecology.config(router.current_map())
+        if not neighborhood.is_empty():
+            var completed: int = world.town_ecology.completion_count(router.state,router.current_map())
+            discovery_line += "\n本地生活：%d / 3" % completed
     map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n已探索：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,fog_progress,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)
@@ -299,7 +304,7 @@ func _refresh_info() -> void:
         route_button.disabled = possible_route.size() <= 1
         route_button.text = "前往下一站（不越级）"
     else:
-        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
+        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n浅金：街区生活与夜间活动\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
         route_button.visible = false
         route_button.disabled = true
 

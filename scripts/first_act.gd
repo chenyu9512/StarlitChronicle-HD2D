@@ -327,6 +327,7 @@ func _enter_location() -> void:
             saved_world.erase("outdoor_return")
     world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
     world.set_prologue_phase(progress.scene_index,progress.chapter)
+    world.refresh_field_ecology(progress)
     world.locked = false
     busy = false
     pending = ""
@@ -459,6 +460,31 @@ func _focus() -> void:
 
 func _interact(target: String) -> void:
     if busy:
+        return
+    if target.begins_with("field:"):
+        if not world.interior_building.is_empty():
+            return
+        var field_map: String=world_router.current_map()
+        var field_action: String=target.trim_prefix("field:")
+        var field_clock: Dictionary=progress.rpg.get("game_clock",{})
+        var field_weather: String=str(world.ambience.weather) if world.ambience!=null else "clear"
+        var field_result: Dictionary=world.field_ecology.interact(field_map,field_action,progress,field_weather,int(field_clock.get("minutes",480)),int(field_clock.get("day",1)))
+        if bool(field_result.get("changed",false)):
+            var field_reward: Dictionary=field_result.get("reward",{})
+            if not field_reward.is_empty():
+                var field_gold: int=maxi(0,int(field_reward.get("gold",0)))
+                var field_item: String=str(field_reward.get("item_id",""))
+                var field_count: int=maxi(0,int(field_reward.get("amount",0)))
+                progress.gold+=field_gold
+                if not field_item.is_empty() and field_count>0:
+                    game_core.add_item(field_item,field_count)
+            game_events.record("field_ecology_v7",{"map":field_map,"event":field_action,"weather":field_weather})
+            _save_progress()
+            _focus()
+        world.refresh_field_ecology(progress)
+        if bool(field_result.get("teleport",false)):
+            world.teleport_field_secret()
+        ui.show_message(str(field_result.get("message","附近没有可以操作的地形。")))
         return
     if target.begins_with("townlife:"):
         if not world.interior_building.is_empty():

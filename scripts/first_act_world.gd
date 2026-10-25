@@ -10,6 +10,7 @@ const TownLife = preload("res://scripts/world_town_life.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
 const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
+const WorldFieldEcology = preload("res://scripts/world_field_ecology.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
@@ -55,6 +56,7 @@ var town_life = TownLife.new()
 var discoveries = WorldDiscoveries.new()
 var dungeon_puzzles = WorldDungeonPuzzles.new()
 var town_ecology = WorldTownEcology.new()
+var field_ecology = WorldFieldEcology.new()
 var ambience
 var clock_minutes: int = 480
 var calendar_day: int = 1
@@ -384,6 +386,43 @@ func _refresh_town_event_lighting() -> void:
         if is_instance_valid(sprite):
             sprite.modulate = Color.WHITE if town_ecology.is_open(event,clock_hour) else Color(0.44,0.52,0.61,0.70)
 
+func refresh_field_ecology(state) -> void:
+    if field_ecology==null or not interior_building.is_empty() or state==null:
+        return
+    var id: String = str(map_profile.get("id",""))
+    var current: Dictionary = field_ecology.snapshot(state,id)
+    if field_ecology.config(id).is_empty():
+        return
+    for site in field_ecology.sites(id):
+        var action: String = str(site.get("id",""))
+        var key: String = "field:"+action
+        if not nodes.has(key):
+            continue
+        var marker: Sprite2D = nodes[key]
+        marker.visible=chapter>0 and (action!="cache" or bool(current.get("passage",false)))
+        if action=="trial":
+            marker.modulate=Color("83d5b3") if bool(current.get("trial",false)) else Color("f1c087")
+        elif action=="gather":
+            marker.modulate=Color("b9dd93") if bool(current.get("harvested",false)) else Color.WHITE
+        elif action=="passage":
+            marker.modulate=Color("9ccdf0") if bool(current.get("passage",false)) else Color("d7cbf5")
+        elif action=="cache":
+            marker.modulate=Color("9aa8af") if bool(current.get("claimed",false)) else Color("f7d88c")
+
+func teleport_field_secret() -> bool:
+    if not interior_building.is_empty() or not nodes.has("field:cache") or not is_instance_valid(hero):
+        return false
+    var destination: Sprite2D=nodes["field:cache"]
+    hero.position=destination.position
+    companion.position=hero.position+Vector2(-28,20)
+    if is_instance_valid(third):
+        third.position=hero.position+Vector2(-53,27)
+    if is_instance_valid(fourth):
+        fourth.position=hero.position+Vector2(-78,40)
+    fog_last_cell=Vector2i(-100,-100)
+    _reveal_nearby()
+    return true
+
 func _build_sites() -> void:
     if not interior_building.is_empty():
         if interior_building.begins_with("quest__"):
@@ -523,6 +562,29 @@ func _build_sites() -> void:
             object.set_meta("site_name",str(activity.get("title","社区活动")))
             nodes["townlife:"+str(activity.get("id",""))]=object
         _refresh_town_event_lighting()
+    # The four dedicated wild sites occupy independent walkable cells, without
+    # displacing the legacy camp, treasure, V6 discoveries, gates, or town life.
+    var field_id: String = str(map_profile.get("id",""))
+    if interior_building.is_empty() and not field_ecology.config(field_id).is_empty():
+        var field_reserved: Dictionary = {}
+        for placed in nodes.values():
+            if is_instance_valid(placed):
+                field_reserved[Vector2i(placed.position/TILE)]=true
+        for field_site in field_ecology.sites(field_id):
+            var authored_cell: Array = field_site.get("cell",[])
+            if authored_cell.size()!=2:
+                continue
+            var preferred: Vector2i = Vector2i(int(authored_cell[0]),int(authored_cell[1]))
+            var walkable: Vector2i = _town_event_cell(preferred,field_reserved)
+            if walkable.x<0:
+                push_warning("Unreachable V7 field station: "+field_id+"/"+str(field_site.get("id","")))
+                continue
+            field_reserved[walkable]=true
+            var field_marker: Sprite2D = _add_sprite(str(field_site.get("icon","rock")),walkable,false,true)
+            var field_key: String = "field:"+str(field_site.get("id",""))
+            field_marker.visible = chapter>0 and field_key!="field:cache"
+            field_marker.set_meta("site_name",str(field_site.get("title","地形探查")))
+            nodes[field_key]=field_marker
     if str(map_profile.get("kind","")) == "town":
         var door: Sprite2D = _add_sprite("cottage",Vector2i(12,9),false)
         nodes["home_door"] = door
@@ -930,7 +992,10 @@ func _physics_process(delta: float) -> void:
         hero.set_motion(delta, Vector2.ZERO)
         return
     var direction: Vector2 = (Input.get_vector("move_left", "move_right", "move_up", "move_down") + movement).limit_length(1.0)
-    var step: Vector2 = direction * walk_speed * delta
+    var modifier: float = 1.0
+    if interior_building.is_empty() and ambience!=null and not field_ecology.config(str(map_profile.get("id",""))).is_empty():
+        modifier=field_ecology.movement_multiplier(str(map_profile.get("id","")),str(ambience.weather))
+    var step: Vector2 = direction * walk_speed * modifier * delta
     var before: Vector2 = hero.position
     var proposal: Vector2 = before + Vector2(step.x, 0)
     if not _blocked(proposal):
@@ -953,7 +1018,10 @@ func _physics_process(delta: float) -> void:
     # Towns/inns are safe areas; random encounters only occur on wilderness
     # and dungeon paths, and camps grant a short exploration reprieve.
     if interior_building.is_empty() and not bool(map_profile.get("settlement",false)) and chapter >= 2 and moved.length_squared() > 0.001:
-        encounter_meter += moved.length()
+        var encounter_factor: float = 1.0
+        if ambience!=null:
+            encounter_factor=field_ecology.encounter_multiplier(str(map_profile.get("id","")),str(ambience.weather))
+        encounter_meter += moved.length()*encounter_factor
         if encounter_meter > next_encounter:
             encounter_meter = 0.0
             next_encounter = rng.randf_range(490.0, 760.0)

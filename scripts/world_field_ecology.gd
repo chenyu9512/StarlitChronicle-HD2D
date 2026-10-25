@@ -112,7 +112,7 @@ func encounter_multiplier(map_id: String,weather: String) -> float:
     return 1.20 if movement_multiplier(map_id,weather)<1.0 else 1.0
 
 static func _time_window(window: String,minutes: int) -> bool:
-    var hour: int = posmod(minutes,1440)/60
+    var hour: int = floori(float(posmod(minutes,1440))/60.0)
     match window:
         "dawn": return hour>=5 and hour<9
         "day": return hour>=9 and hour<17

@@ -282,6 +282,14 @@ func _refresh_info() -> void:
         if not neighborhood.is_empty():
             var completed: int = world.town_ecology.completion_count(router.state,router.current_map())
             discovery_line += "\n本地生活：%d / 3" % completed
+    if world.interior_building.is_empty() and world.field_ecology!=null:
+        var field_spec: Dictionary=world.field_ecology.config(router.current_map())
+        if not field_spec.is_empty():
+            var steps_done: int=world.field_ecology.completed(router.state,router.current_map())
+            var weather_slow: float=world.field_ecology.movement_multiplier(router.current_map(),weather_id)
+            discovery_line+="\n野外生态：%d / 4 · %s" % [steps_done,str(field_spec.get("identity","地貌探查"))]
+            if weather_slow<1.0:
+                discovery_line+="\n气象风险：行进速度 %d%%" % roundi(weather_slow*100.0)
     map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n已探索：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,fog_progress,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)

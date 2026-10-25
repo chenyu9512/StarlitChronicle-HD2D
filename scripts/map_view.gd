@@ -134,6 +134,9 @@ func _draw_local() -> void:
             color = Color("a9b6ff")
         elif id.begins_with("citizen:"):
             color = Color("aedce4")
+        elif id.begins_with("field:"):
+            var field_action: String=id.trim_prefix("field:")
+            color = {"trial":Color("dc9579"),"gather":Color("8bd89a"),"passage":Color("8acbea"),"cache":Color("f1d082")}.get(field_action,Color("b2c7de"))
         elif id.begins_with("townlife:"):
             color = Color("f2c980") if id=="townlife:handoff" else Color("8cddb5")
         elif id.begins_with("discovery:"):

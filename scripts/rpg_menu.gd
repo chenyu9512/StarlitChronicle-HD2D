@@ -16,6 +16,7 @@ const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
 const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
+const WorldFieldEcology = preload("res://scripts/world_field_ecology.gd")
 const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
     "冒险": ["任务","剧情后续","世界地图","地区探索","冒险履历"],
@@ -44,6 +45,7 @@ var chapter_details
 var discovery_catalog = WorldDiscoveries.new()
 var dungeon_puzzle_catalog = WorldDungeonPuzzles.new()
 var town_ecology_catalog = WorldTownEcology.new()
+var field_ecology_catalog = WorldFieldEcology.new()
 var world_router
 var game_events
 var slot_service
@@ -394,6 +396,11 @@ func render(section: String) -> void:
                 if town_ecology_catalog.completion_count(save_state,str(town_id))==3:
                     finished_communities += 1
             _label("特色城镇生活 · %d / 11" % finished_communities)
+            var finished_fields: int=0
+            for field_id in field_ecology_catalog.maps.keys():
+                if field_ecology_catalog.completed(save_state,str(field_id))==4:
+                    finished_fields+=1
+            _label("21区独立野外生态 · %d / 21" % finished_fields)
             if world_router != null:
                 var location: String = world_router.current_map()
                 var dungeon_spec: Dictionary = dungeon_puzzle_catalog.config(location)
@@ -412,6 +419,15 @@ func render(section: String) -> void:
                         var completed: bool = bool(done_state.get(str(entry.get("id","")),false))
                         var available: bool = town_ecology_catalog.is_open(entry,hour)
                         _label(("✓ " if completed else "◇ ")+str(entry.get("district","街区"))+" · "+str(entry.get("title","社区活动"))+(" · 已记录" if completed else (" · 营业中" if available else " · 非活动时间")))
+                var field_spec: Dictionary=field_ecology_catalog.config(location)
+                if not field_spec.is_empty():
+                    _label("野外挑战 · "+str(field_spec.get("identity","地区探查"))+" · %d / 4" % field_ecology_catalog.completed(save_state,location),true)
+                    var field_progress: Dictionary=field_ecology_catalog.snapshot(save_state,location)
+                    for site in field_ecology_catalog.sites(location):
+                        var site_id: String=str(site.get("id",""))
+                        var cleared: bool=bool(field_progress.get({"trial":"trial","gather":"harvested","passage":"passage","cache":"claimed"}.get(site_id,""),false))
+                        _label(("✓ " if cleared else "◇ ")+str(site.get("title","野外地点"))+(" · 已记录" if cleared else " · 尚未发现"))
+                    _button(content,"打开野外地图，寻找环境线索",func() -> void: map_requested.emit(),15)
                 var local_events: Array = discovery_catalog.entries(location)
                 if not local_events.is_empty():
                     var done: int = 0

@@ -9,6 +9,9 @@ on:
       - "scripts/world_discoveries.gd"
       - "scripts/world_dungeon_puzzles.gd"
       - "scripts/world_town_ecology.gd"
+      - "scripts/world_field_ecology.gd"
+      - "data/levels/v7/field_ecology.json"
+      - "tools/smoke_field_ecology_v7.gd"
       - "data/levels/v7/town_ecology.json"
       - "tools/smoke_town_ecology_v7.gd"
       - "data/levels/v7/dungeon_puzzles.json"
@@ -48,5 +51,7 @@ jobs:
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_dungeon_puzzles_v7.gd
       - name: Check eleven live town ecologies, district stations and persistent community activities
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_ecology_v7.gd
+      - name: Check 21 physical wilderness sectors, weather, daily harvesting, secret portals and saves
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_field_ecology_v7.gd
       - name: Verify all 40 physical maps, city gates and building interiors
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

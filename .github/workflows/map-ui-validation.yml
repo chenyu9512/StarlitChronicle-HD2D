@@ -12,6 +12,9 @@ on:
       - "tools/smoke_world_story_interactions.gd"
       - "tools/smoke_world_checkpoints.gd"
       - "scripts/world_geography.gd"
+      - "scripts/world_level_v3.gd"
+      - "data/levels/world_levels_v3.json"
+      - "tools/smoke_world_v3.gd"
       - "scripts/world_town_life.gd"
       - "scripts/world_service_menu.gd"
       - "scripts/world_npc_visual.gd"
@@ -32,6 +35,9 @@ on:
       - "tools/smoke_world_story_interactions.gd"
       - "tools/smoke_world_checkpoints.gd"
       - "scripts/world_geography.gd"
+      - "scripts/world_level_v3.gd"
+      - "data/levels/world_levels_v3.json"
+      - "tools/smoke_world_v3.gd"
       - "scripts/world_town_life.gd"
       - "scripts/world_service_menu.gd"
       - "scripts/world_npc_visual.gd"
@@ -58,6 +64,8 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
       - name: Run minimap and world atlas gameplay regression
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+      - name: Validate editable V3 wilderness geometry and hand-painted collision rules
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
       - name: Validate world sector routing, terrain and interiors
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd
       - name: Validate story-safe world travel and physical dungeon treasure

@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Offline release gate (no external dependencies)
+        run: python3 tools/validate_release_gate.py
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

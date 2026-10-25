@@ -388,7 +388,8 @@ func _focus() -> void:
         var marker: String = "branchmap:"+str(branch_choice.get("id",""))+":"+str(step)
         if world.nodes.has(marker):
             side_target = marker
-            extra = "【剧情实地回访】%s · %s（%d/3）" % [str(branch_choice.get("title","")),["询问现场NPC","调查现场证物","确认记录与后果"][clampi(step,0,2)],step+1]
+            var scene_plan: Dictionary = world.scene_director.stage(str(branch_choice.get("quest_id","")),branch_choice,step)
+            extra = "【剧情实地回访】%s · %s（%d/3）" % [str(branch_choice.get("title","")),str(scene_plan.get("label","调查线索")),step+1]
     elif not tracked.is_empty() and branch_runtime.eligible(tracked):
         var destination: Dictionary = branch_runtime.get_event(tracked)
         extra = "【剧情路线】" + story_world_bindings.route_summary(str(destination.get("quest_id","")),world_router)
@@ -637,10 +638,24 @@ func _interact_world_branch(target: String) -> void:
     var line: Dictionary = branch_runtime.current_line()
     if line.is_empty():
         return
-    pending = "branch_field"
+    var stage_index: int = int(progress.rpg.get("branch_story",{}).get("active",{}).get("line",0))
+    var plan: Dictionary = world.scene_director.stage(str(resumed.get("quest_id",event_id.split(".")[0])),branch_runtime.get_event(event_id),stage_index)
     busy = true
     paused_for_dialogue = true
     world.locked = true
+    if stage_index > 0:
+        # The evidence and later notice require explicit player confirmation.
+        # Choosing to return leaves the same field event at its saved stage.
+        pending = "branch_field_review"
+        ui.show_choices({
+            "prompt":str(plan.get("prompt","请仔细核对现场证物。")),
+            "options":[
+                {"id":"confirm","label":str(plan.get("action_label","确认调查"))},
+                {"id":"defer","label":"暂时离开，稍后再查"}
+            ]
+        })
+        return
+    pending = "branch_field"
     ui.show_dialogue([line])
 
 func _optional_event_interact(slot: String) -> void:
@@ -903,6 +918,21 @@ func _dialogue_ended() -> void:
     _return_to_world()
 
 func _choice_picked(item: Dictionary) -> void:
+    if pending == "branch_field_review":
+        if str(item.get("id","")) != "confirm":
+            pending = ""
+            paused_for_dialogue = false
+            _return_to_world()
+            return
+        var current: Dictionary = branch_runtime.current_line()
+        if current.is_empty():
+            pending = ""
+            paused_for_dialogue = false
+            _return_to_world()
+            return
+        pending = "branch_field"
+        ui.show_dialogue([current])
+        return
     if pending == "ending_select":
         _choose_ending(item)
         return

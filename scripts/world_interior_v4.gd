@@ -68,6 +68,17 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         if cell.x<2 or cell.x>=WIDTH-2 or cell.y<2 or cell.y>=HEIGHT-2 or walls.has(cell):
             return {}
         points[key]=cell
+    var quest_points: Array[Vector2i] = []
+    if building_id.begins_with("quest__"):
+        if str(data.get("script_quest_id",""))!=building_id.trim_prefix("quest__"):
+            return {}
+        for raw_point in data.get("quest_points",[]):
+            var quest_cell: Vector2i = _point(raw_point)
+            if quest_cell.x<2 or quest_cell.x>=WIDTH-2 or quest_cell.y<2 or quest_cell.y>=HEIGHT-2 or walls.has(quest_cell):
+                return {}
+            quest_points.append(quest_cell)
+        if quest_points.size()!=3:
+            return {}
     var features: Array[Dictionary]=[]
     for prop in data.get("features",[]):
         if not prop is Dictionary:
@@ -79,6 +90,7 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "gates":[],"spawn":points["spawn"],"size":Vector2i(WIDTH,HEIGHT),
         "interior":kind,"interact_cells":points,"authored_source":"v4",
         "layout_id":map_id+"#"+building_id,
+        "quest_points":quest_points,
         "art_profile":str(data.get("art_profile","")),
         "art_tileset":str(data.get("art_tileset","")),
         "visuals":data.get("visuals",[]),

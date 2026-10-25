@@ -20,7 +20,9 @@ var boss: bool = false
 var enemy: Dictionary = {}
 var hero_turn: int = 0
 var party_order: Array[int] = []
+var turn_queue: Array[Dictionary] = []
 var turn_cursor: int = 0
+var last_enemy_action: String = ""
 var current_round: int = 1
 var phase_two: bool = false
 var chain_hp: int = 0
@@ -284,19 +286,20 @@ func _begin_round() -> void:
             if game_core.is_active(actor_id):
                 eligible.append(actor_id)
     party_order = combat_rules.initiative_order(game_state.actors,eligible)
+    turn_queue = combat_rules.turn_timeline(game_state.actors,formation.units,eligible)
     turn_cursor = 0
     hero_turn = party_order[0] if not party_order.is_empty() else game_state.actors.size()
 
 func _start_actor() -> void:
-    # An incapacitated turn advances automatically; damage is applied once only.
-    # The safety cap avoids an infinite loop if externally corrupted battle data appears.
+    # Advance through enemy and ally actions in one round without duplicate turns.
+    # Enemies whose HP reached zero before their scheduled turn simply lose it.
     var attempts: int = 0
     while not win_locked and attempts < 128:
         attempts += 1
-        if turn_cursor >= party_order.size():
-            _enemy_turn()
-            if win_locked:
-                return
+        if _all_fallen():
+            _finish(false)
+            return
+        if turn_cursor >= turn_queue.size():
             combat_rules.tick_round()
             defense.clear()
             current_round += 1
@@ -304,7 +307,17 @@ func _start_actor() -> void:
             if party_order.is_empty():
                 _finish(false)
                 return
-        hero_turn = party_order[turn_cursor]
+        var action_entry: Dictionary = turn_queue[turn_cursor]
+        var index: int = int(action_entry.get("index",-1))
+        if str(action_entry.get("team","")) == "enemy":
+            turn_cursor += 1
+            if formation.valid_target(index):
+                _enemy_action(index)
+            continue
+        if index < 0 or index >= game_state.actors.size():
+            turn_cursor += 1
+            continue
+        hero_turn = index
         var member: Dictionary = game_state.actors[hero_turn]
         var actor_id: String = str(member.get("id",""))
         if int(member.get("hp",0)) <= 0 or (game_core != null and not game_core.is_active(actor_id)):
@@ -320,7 +333,7 @@ func _start_actor() -> void:
             continue
         return
     if not win_locked:
-        push_warning("Battle turn scheduler reached its safety cap")
+        push_warning("Mixed combat timeline exceeded the 128-action safety cap")
         _finish(false)
 
 func _act(action: String) -> void:
@@ -489,6 +502,25 @@ func _act(action: String) -> void:
             if not weapon_trait_id.is_empty():
                 message += " · 武器特性：" + weapon_trait_id
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
+        if not boss or chapter != 5:
+            var status_kind: String = ""
+            var status_rate: float = 0.0
+            if action == "skill":
+                var active_skill: Dictionary = _get_skill(chosen_skill)
+                var skill_effect: Dictionary = active_skill.get("effect",{})
+                status_kind = str(skill_effect.get("status",skill_effect.get("ailment","")))
+                status_rate = clampf(float(skill_effect.get("status_chance",0.45)),0.0,1.0)
+            elif game_core != null and str(game_core.weapon_trait(str(member.get("id","")))) == "火伤":
+                status_kind = "burn"
+                status_rate = 0.22
+            if not status_kind.is_empty():
+                var possible_targets: Array[int] = formation.alive_indices() if hit_all_enemies else [active_target]
+                for foe_index in possible_targets:
+                    if formation.valid_target(foe_index):
+                        var foe_profile: Dictionary = formation.units[foe_index]
+                        if dice.randf() < combat_rules.enemy_status_chance(foe_profile,status_kind,status_rate):
+                            if combat_rules.apply_enemy_negative(foe_index,foe_profile,status_kind,2):
+                                message += " · " + str(foe_profile.get("name","目标")) + "陷入" + str(CombatRules.NEGATIVE_STATUS_LABELS.get(status_kind,status_kind))
         if boss and chapter == 5:
             # 古兽的剧情结局是卸下星锁，而不是杀死生命体。
             chain_hp = maxi(0, chain_hp - maxi(4, int(float(damage) * 0.45)))
@@ -521,13 +553,26 @@ func _act(action: String) -> void:
         _redraw(message)
 
 func _enemy_turn() -> void:
-    if win_locked:
-        return
-    var original_target: int = active_target
+    # Compatibility hook for older scripted tests; runtime uses _enemy_action.
     for index in formation.alive_indices():
         if win_locked:
             break
+        _enemy_action(index)
+
+func _enemy_action(index: int) -> void:
+    if win_locked or not formation.valid_target(index):
+        return
+    var original_target: int = active_target
+    enemy = formation.units[index]
+    var effect: Dictionary = combat_rules.resolve_enemy_turn(index,int(enemy.get("max_hp",1)))
+    var damage_over_time: int = int(effect.get("damage",0))
+    if damage_over_time > 0:
+        formation.apply_damage(index,damage_over_time)
         enemy = formation.units[index]
+    if formation.complete() and (not boss or chapter != 5):
+        _finish(true)
+        return
+    if int(enemy.get("hp",0)) > 0 and not bool(effect.get("skip",false)):
         _enemy_strike()
     if formation.valid_target(original_target):
         _select_enemy(original_target)
@@ -542,7 +587,8 @@ func _enemy_strike() -> void:
     if living.is_empty():
         _finish(false)
         return
-    var intent: Dictionary = combat_rules.enemy_intent(current_round,phase_two,boss)
+    var intent: Dictionary = combat_rules.enemy_strategy(enemy,current_round,phase_two,boss,game_state.actors)
+    last_enemy_action = str(enemy.get("name","敌人")) + " · " + str(intent.get("label","攻击"))
     var target: int = living[dice.randi_range(0, living.size() - 1)]
     if str(intent.get("target","")) == "lowest_hp":
         for i in living:
@@ -568,7 +614,10 @@ func _enemy_strike() -> void:
         elif boss and current_round % 4 == 0 and dice.randf() < 0.12:
             ailment = "stun"
         if not ailment.is_empty():
-            combat_rules.apply_negative(str(member.get("id","")),ailment,2 if ailment in ["poison","burn"] else 1)
+            var immunity: Array = member.get("status_immunities",[])
+            var gear_immunity: Array = stats.get("status_immunities",[])
+            if ailment not in immunity and ailment not in gear_immunity:
+                combat_rules.apply_negative(str(member.get("id","")),ailment,2 if ailment in ["poison","burn"] else 1)
     if boss and chapter == 6:
         countdown -= 1
         if countdown <= 0:
@@ -593,7 +642,7 @@ func _redraw(message: String) -> void:
         header += "   共鸣 %d/4" % resonance
     if phase_two:
         header += "  · 二阶段"
-    header += " · 下一步：" + str(combat_rules.enemy_intent(current_round,phase_two,boss).get("label","攻击"))
+    header += " · 意图：" + str(combat_rules.enemy_strategy(enemy,current_round,phase_two,boss,game_state.actors).get("label","攻击"))
     if formation != null and formation.units.size() > 1:
         var roster: Array[String] = []
         for i in range(formation.units.size()):
@@ -601,6 +650,9 @@ func _redraw(message: String) -> void:
             if int(unit.get("hp",0)) > 0:
                 roster.append(("%d▶" % (i+1) if i == active_target else "%d" % (i+1))+" "+str(unit.get("name",""))+" "+str(unit.get("hp",0))+"HP")
         header = " | ".join(roster)
+    var foe_ailments: String = combat_rules.enemy_status_report(active_target)
+    if not foe_ailments.is_empty():
+        header += "  ⚠" + foe_ailments
     foe_info.text = header
     var lines: PackedStringArray = []
     for i in range(game_state.actors.size()):

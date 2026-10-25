@@ -1,0 +1,366 @@
+{
+  "schema": "starlit.story.phase12.act05.reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "followups": [
+    {
+      "id": "ch025.p12.choice.listen",
+      "chapter_id": "ch025",
+      "after_choice_id": "ch025.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch025.approach": "audit",
+        "world.ch025.approach": "audit"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch025.p12.choice.listen.l01",
+          "speaker": "船工",
+          "text": "今晚先领到应得工钱，明天才能安心修船。"
+        },
+        {
+          "id": "ch025.p12.choice.listen.l02",
+          "speaker": "缇珐",
+          "text": "船体检测和工资都不能省略。"
+        },
+        {
+          "id": "ch025.p12.choice.listen.l03",
+          "speaker": "朔弦",
+          "text": "旧债真假仍会继续查，不拿欠薪换沉默。"
+        }
+      ]
+    },
+    {
+      "id": "ch025.p12.choice.act",
+      "chapter_id": "ch025",
+      "after_choice_id": "ch025.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch025.approach": "wages",
+        "world.ch025.approach": "wages"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch025.p12.choice.act.l01",
+          "speaker": "船工",
+          "text": "旧债该公开复核，劳动报酬也该单独结算。"
+        },
+        {
+          "id": "ch025.p12.choice.act.l02",
+          "speaker": "朔弦",
+          "text": "我会请每位船员看清雇佣合同。"
+        },
+        {
+          "id": "ch025.p12.choice.act.l03",
+          "speaker": "主角",
+          "text": "审账结果会交给船坞与工人共同保存。"
+        }
+      ]
+    },
+    {
+      "id": "ch026.p12.choice.listen",
+      "chapter_id": "ch026",
+      "after_choice_id": "ch026.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch026.approach": "respect",
+        "world.ch026.approach": "respect"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch026.p12.choice.listen.l01",
+          "speaker": "邮差",
+          "text": "先查寄件人的航海记录，再送达见证。"
+        },
+        {
+          "id": "ch026.p12.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "收件人的隐私必须得到保护。"
+        },
+        {
+          "id": "ch026.p12.choice.listen.l03",
+          "speaker": "主角",
+          "text": "旧信不是自动获得航页的凭据。"
+        }
+      ]
+    },
+    {
+      "id": "ch026.p12.choice.act",
+      "chapter_id": "ch026",
+      "after_choice_id": "ch026.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch026.approach": "investigate",
+        "world.ch026.approach": "investigate"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch026.p12.choice.act.l01",
+          "speaker": "岛民",
+          "text": "信先由我保管，何时打开由我决定。"
+        },
+        {
+          "id": "ch026.p12.choice.act.l02",
+          "speaker": "邮差",
+          "text": "我会留下领信记录，不催促你回信。"
+        },
+        {
+          "id": "ch026.p12.choice.act.l03",
+          "speaker": "朔弦",
+          "text": "航路另行调查，不向你索取私人的回忆。"
+        }
+      ]
+    },
+    {
+      "id": "ch027.p12.choice.listen",
+      "chapter_id": "ch027",
+      "after_choice_id": "ch027.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch027.approach": "both",
+        "world.ch027.approach": "both"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch027.p12.choice.listen.l01",
+          "speaker": "沉城守碑者",
+          "text": "我要先问族人，再决定公开哪些名字。"
+        },
+        {
+          "id": "ch027.p12.choice.listen.l02",
+          "speaker": "伊泽",
+          "text": "歌谱可以作为线索，但不能代替证词。"
+        },
+        {
+          "id": "ch027.p12.choice.listen.l03",
+          "speaker": "主角",
+          "text": "证据妥善封存，尊重后裔意见。"
+        }
+      ]
+    },
+    {
+      "id": "ch027.p12.choice.act",
+      "chapter_id": "ch027",
+      "after_choice_id": "ch027.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch027.approach": "descendants",
+        "world.ch027.approach": "descendants"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch027.p12.choice.act.l01",
+          "speaker": "伊泽",
+          "text": "离城与留城的人都应在历史中有名字。"
+        },
+        {
+          "id": "ch027.p12.choice.act.l02",
+          "speaker": "沉城守碑者",
+          "text": "我想先核对祖辈的称呼。"
+        },
+        {
+          "id": "ch027.p12.choice.act.l03",
+          "speaker": "岚音",
+          "text": "查不到的姓名不能凭空补造。"
+        }
+      ]
+    },
+    {
+      "id": "ch028.p12.choice.listen",
+      "chapter_id": "ch028",
+      "after_choice_id": "ch028.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch028.approach": "protect",
+        "world.ch028.approach": "protect"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch028.p12.choice.listen.l01",
+          "speaker": "伊泽",
+          "text": "我们按事先分配的段落尝试传唱。"
+        },
+        {
+          "id": "ch028.p12.choice.listen.l02",
+          "speaker": "缇珐",
+          "text": "我会监测灯塔共振，有异常便停止。"
+        },
+        {
+          "id": "ch028.p12.choice.listen.l03",
+          "speaker": "主角",
+          "text": "所有参与者都有退出的权利。"
+        }
+      ]
+    },
+    {
+      "id": "ch028.p12.choice.act",
+      "chapter_id": "ch028",
+      "after_choice_id": "ch028.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch028.approach": "shared_song",
+        "world.ch028.approach": "shared_song"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch028.p12.choice.act.l01",
+          "speaker": "岚音",
+          "text": "先告知海边居民疏散路径。"
+        },
+        {
+          "id": "ch028.p12.choice.act.l02",
+          "speaker": "伊泽",
+          "text": "完整的歌可以再等一夜。"
+        },
+        {
+          "id": "ch028.p12.choice.act.l03",
+          "speaker": "朔弦",
+          "text": "逐星号留在背风处接应。"
+        }
+      ]
+    },
+    {
+      "id": "ch029.p12.choice.listen",
+      "chapter_id": "ch029",
+      "after_choice_id": "ch029.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch029.approach": "water",
+        "world.ch029.approach": "water"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch029.p12.choice.listen.l01",
+          "speaker": "缇珐",
+          "text": "先连接最低限度的安全风路。"
+        },
+        {
+          "id": "ch029.p12.choice.listen.l02",
+          "speaker": "商船长",
+          "text": "供水仍按时进行。"
+        },
+        {
+          "id": "ch029.p12.choice.listen.l03",
+          "speaker": "伊泽",
+          "text": "我用船钟确认各船是否准备好。"
+        }
+      ]
+    },
+    {
+      "id": "ch029.p12.choice.act",
+      "chapter_id": "ch029",
+      "after_choice_id": "ch029.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch029.approach": "fleet_route",
+        "world.ch029.approach": "fleet_route"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch029.p12.choice.act.l01",
+          "speaker": "岚音",
+          "text": "首批饮水给已经脱水的船员。"
+        },
+        {
+          "id": "ch029.p12.choice.act.l02",
+          "speaker": "商船长",
+          "text": "我会公布补给分配记录。"
+        },
+        {
+          "id": "ch029.p12.choice.act.l03",
+          "speaker": "朔弦",
+          "text": "同时准备修复航标，不把人留在这里。"
+        }
+      ]
+    },
+    {
+      "id": "ch030.p12.choice.listen",
+      "chapter_id": "ch030",
+      "after_choice_id": "ch030.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch030.approach": "safe_passage",
+        "world.ch030.approach": "safe_passage"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch030.p12.choice.listen.l01",
+          "speaker": "船主甲",
+          "text": "我愿把风暴维修记录交给所有船主。"
+        },
+        {
+          "id": "ch030.p12.choice.listen.l02",
+          "speaker": "缇珐",
+          "text": "谁发现线路危险都可以要求停机。"
+        },
+        {
+          "id": "ch030.p12.choice.listen.l03",
+          "speaker": "主角",
+          "text": "维护规则必须允许居民复核和修改。"
+        }
+      ]
+    },
+    {
+      "id": "ch030.p12.choice.act",
+      "chapter_id": "ch030",
+      "after_choice_id": "ch030.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch030.approach": "shared_maintenance",
+        "world.ch030.approach": "shared_maintenance"
+      },
+      "insertion": "after_choice_commit_before_boss_or_next_scene",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch030.p12.choice.act.l01",
+          "speaker": "小船女船主",
+          "text": "遇险求救不收费，我愿参加夜间瞭望。"
+        },
+        {
+          "id": "ch030.p12.choice.act.l02",
+          "speaker": "朔弦",
+          "text": "维修责任与轮班记录同样要公开。"
+        },
+        {
+          "id": "ch030.p12.choice.act.l03",
+          "speaker": "伊泽",
+          "text": "岸上的人也应该知道怎样求救。"
+        }
+      ]
+    }
+  ]
+}

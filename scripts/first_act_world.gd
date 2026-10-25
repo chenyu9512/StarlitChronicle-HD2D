@@ -406,7 +406,7 @@ func _build_sites() -> void:
                     var stage_spots: Array = terrain_layout.get("story_stage_points",[])
                     var stage_cell: Vector2i = stage_spots[stage_index] if stage_spots.size()==5 else spots[[0,1,2,0,2][stage_index]]
                     var quest_stage: Sprite2D
-                    if stage_index in [0,3,4] and not quest_submaps.entries.has(interior_building.trim_prefix("quest__")):
+                    if stage_index in [0,3,4]:
                         # An actual quest giver silhouette, with the existing
                         # overworld idle animation, replaces the generic sign.
                         var giver := NPCVisual.new()

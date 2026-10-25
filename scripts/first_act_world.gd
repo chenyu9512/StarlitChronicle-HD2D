@@ -9,6 +9,7 @@ const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
+const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
@@ -53,6 +54,7 @@ var fog_last_cell: Vector2i = Vector2i(-100,-100)
 var town_life = TownLife.new()
 var discoveries = WorldDiscoveries.new()
 var dungeon_puzzles = WorldDungeonPuzzles.new()
+var town_ecology = WorldTownEcology.new()
 var ambience
 var clock_minutes: int = 480
 var calendar_day: int = 1
@@ -352,6 +354,33 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
         blocked[place] = true
     return sprite
 
+func _town_event_cell(anchor: Vector2i,reserved: Dictionary) -> Vector2i:
+    var origin: Vector2i = terrain_layout.get("spawn",Vector2i(10,23))
+    for radius in range(0,10):
+        for dx in range(-radius,radius+1):
+            for dy in range(-radius,radius+1):
+                if absi(dx)+absi(dy)!=radius:
+                    continue
+                var site: Vector2i = anchor+Vector2i(dx,dy)
+                if site.x<4 or site.y<4 or site.x>=WIDTH-4 or site.y>=HEIGHT-4 or blocked.has(site) or reserved.has(site):
+                    continue
+                if geography.reachable(terrain_layout,[origin],[site]):
+                    return site
+    return Vector2i(-1,-1)
+
+func _refresh_town_event_lighting() -> void:
+    if town_ecology==null or not interior_building.is_empty():
+        return
+    var clock_hour: int = int(clock_minutes / 60)
+    var map_id: String = str(map_profile.get("id",""))
+    for event in town_ecology.entries(map_id):
+        var key: String = "townlife:"+str(event.get("id",""))
+        if not nodes.has(key):
+            continue
+        var sprite: Node2D = nodes[key]
+        if is_instance_valid(sprite):
+            sprite.modulate = Color.WHITE if town_ecology.is_open(event,clock_hour) else Color(0.44,0.52,0.61,0.70)
+
 func _build_sites() -> void:
     if not interior_building.is_empty():
         if interior_building.begins_with("quest__"):
@@ -470,6 +499,26 @@ func _build_sites() -> void:
         var where: Vector2i = SITES[k]
         var sprite: Sprite2D = _add_sprite(str(icons[k]), where, false)
         nodes[k] = sprite
+    # V7 neighborhood identity: three real, named district stations in each of
+    # the eleven town plans. Placed only on connected walkable cells.
+    if interior_building.is_empty() and bool(map_profile.get("settlement",false)):
+        var occupied: Dictionary = {}
+        for existing in nodes.values():
+            if is_instance_valid(existing):
+                occupied[Vector2i(existing.position/TILE)]=true
+        for activity in town_ecology.entries(str(map_profile.get("id",""))):
+            var coordinates: Array = activity.get("cell",[])
+            if coordinates.size()!=2:
+                continue
+            var candidate: Vector2i = _town_event_cell(Vector2i(int(coordinates[0]),int(coordinates[1])),occupied)
+            if candidate.x<0:
+                push_warning("Town ecology location unreachable: "+str(map_profile.get("id",""))+" / "+str(activity.get("id","")))
+                continue
+            occupied[candidate]=true
+            var object: Sprite2D = _add_sprite(str(activity.get("icon","sign")),candidate,false,true)
+            object.set_meta("site_name",str(activity.get("title","社区活动")))
+            nodes["townlife:"+str(activity.get("id",""))]=object
+        _refresh_town_event_lighting()
     if str(map_profile.get("kind","")) == "town":
         var door: Sprite2D = _add_sprite("cottage",Vector2i(12,9),false)
         nodes["home_door"] = door
@@ -758,6 +807,7 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     var old_period: bool = clock_minutes<360 or clock_minutes>=1200
     calendar_day=maxi(1,day_number)
     clock_minutes=posmod(minutes,1440)
+    _refresh_town_event_lighting()
     var next_period: bool = clock_minutes<360 or clock_minutes>=1200
     if ambience!=null and is_instance_valid(ambience):
         ambience.set_clock(calendar_day,clock_minutes)

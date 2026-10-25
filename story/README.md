@@ -1,98 +1,48 @@
-# 星灯纪行｜叙事内容包（正典基线 V2.1）
+# 星灯纪行｜剧情正典与开发入口
 
-> **当前正典（V2.1）**：[正式中文剧本索引](SCREENPLAY_CURRENT_INDEX.md) · [结局与场景条件](NARRATIVE_DESIGN.md) · [人物时间线](CAST_BIBLE.md)。此前V1阶段统计为历史快照；请以当前JSON及V2.1验收报告为准。
+> 本页保留**目前有效的目录和制作约束**，不再堆积每批交付流水账。过往阶段文档已归入 Git 提交历史。统计仅表示内容记录与工程接入范围，不等于全篇实机商业级验收。
 
-> 正式企划：洛维恩世界 / 十二幕七十二章 / 七座母灯 / 现世、映世、岁影回廊。作者原创，吸收经典JRPG的通用设计思想，不复制现成作品专有剧情、咒文、敌人、角色或音乐。
+## 权威资料与阅读顺序
 
-## 最新推进（2026-10-25）
+| 用途 | 文件 | 说明 |
+|---|---|---|
+| 运行时主线 | [campaign/](campaign/) | 序章 + 12幕72章；章节ID、选择、奖励及剧情旗标的最终依据 |
+| 当前完整中文阅读稿 | [SCREENPLAY_CURRENT_INDEX.md](SCREENPLAY_CURRENT_INDEX.md) | 每幕唯一推荐正式阅读版本 |
+| 世界设定 | [WORLD_BIBLE.md](WORLD_BIBLE.md) | 七灯、映世、岁影回廊、地区与时代 |
+| 核心人物与时间线 | [CAST_BIBLE.md](CAST_BIBLE.md) | 角色关系、初见与入队时点 |
+| 正典选择与结局 | [NARRATIVE_DESIGN.md](NARRATIVE_DESIGN.md) | A/B/C结局与关键条件 |
+| V2.1正式基线 | [NARRATIVE_BASELINE_V21.md](NARRATIVE_BASELINE_V21.md) | P0/P1纠错及准入检查 |
+| 运行时与事件契约 | [NARRATIVE_V21_INTEGRATION_CONTRACT.md](NARRATIVE_V21_INTEGRATION_CONTRACT.md) | 稳定ID、可选戏、状态与旧档约束 |
+| 全支线总索引 | [QUEST_EXPANSION_INDEX.md](QUEST_EXPANSION_INDEX.md) | 各类委托的导航 |
+| 剧情质量差距 | [COMMERCIAL_NARRATIVE_AUDIT_2026-10-25.md](COMMERCIAL_NARRATIVE_AUDIT_2026-10-25.md) | 历史基线审计，数值与当前正文不应混用 |
 
-第9阶段已经在 `main` 完成第7–12章120句正文扩写，并新增12场生活／调查文本候选和12组选项回应；第1–12章共24场可选事件与24种选择反应已有制作行为表。主线现为2,797句，已进行同级文本深化的章节为30/72。当前阶段详情参见 [第9阶段交付报告](PHASE_09_OPENING_01_12_DELIVERY.md)，当前阅读入口请以 [V2.1剧本索引](SCREENPLAY_CURRENT_INDEX.md) 为准。新增可选事件尚未注册地图与运行器；脚本和Godot运行需要CI及正式回放确认。
+**注意**：阅读稿是供编剧和制作审稿使用的 Markdown；游戏运行的剧情条件、文本和事件仍以对应 JSON 与 GDScript 的实际代码为准。旧版 `screenplay/act_XX.md` 是历史稿，正式推荐版本由阅读索引逐幕指定，不能因为名称较短而覆盖新版。
 
-## 第10阶段更新（2026-10-25）
+## 主线与支线现存内容
 
-已在 `main` 扩写第13–18章《赤炉联邦》主线120句，另新增12场独立工业/生活调查场景72句、12组选项即时回应36句，并写入8类基础职业试炼和四组主炉阀门制作规格。当前72章主线为2,917句、36章经过第8–10阶段同级深化；可选事件和机关均为文本制作方案，未注册至运行器。正式稿参见 [第三幕完整阅读稿](screenplay/act_03_phase10_full.md)，详情见 [第10阶段交付报告](PHASE_10_RED_FURNACE_DELIVERY.md)。
+- **主线**：9场序章、12幕72章；主线文字与可选事件经过第8–16阶段扩写，当前以 `story/campaign/` 和正式阅读稿逐章核对。
+- **任务**：原有36条（失落航页12、生活24）+ 地区任务36 + 伙伴任务48，合计120条独立支线任务。
+- **第17阶段**：失落航页24条A/B后续路线、生活任务48条路线、地区任务72条路线，正文、阶段触发与条件保存在 `story/data/phase17_*.json` 及对应 `screenplay/` 阅读稿。
+- **第18阶段**：8名伙伴共48条任务，96条A/B后续路线，包含288场候选互动、48场结局条件化尾声，详见 `story/data/phase18_*.json` 与伙伴专属阅读稿。
+- **第19阶段**：`scripts/story_branch_runtime.gd` 负责可选剧情状态、顺序和存档恢复；`story/data/phase19_quest_world_anchors.json` 提供世界事件制作锚点。运行器记录与“全部地图上的NPC动作、调查物件均已完美实玩”是两种不同验收范围。
 
-## 第11阶段更新（2026-10-25）
+## 不得破坏的关键正典
 
-已在 `main` 深化第19–24章《失落回忆与白夜祭》主线120句，补充12场独立生活／档案证物戏72句、12组选项回应36句，明确第19章十年前雷索、第20章七年前朔弦与第21章少年岚音的历史可操作视角，并修正第21章选择前必须回到现世的演出过渡。全72章现有3,037句主线、42章已进行同级文字深化。详情见 [第11阶段交付报告](PHASE_11_MEMORIES_DELIVERY.md) 与 [第四幕310句全量阅读稿](screenplay/act_04_phase11_full.md)。可选场景仍未进入Godot地图事件，CI实际运行及游戏回放仍需验证。
+1. 第22章不能让伊泽提前以正式身份登场；第27章初见，第28章正式入队。
+2. 第26章航路证据不能无条件替代第一张失落航页。
+3. 分散灯网在第60章建立，七灯旗标在第66章结算；第72章才做最终A/B/C抉择。
+4. 结局C不添加未经数据迁移和策划确认的隐藏第四条件；旧存档与稳定事件ID必须保持兼容。
+5. `text_only_not_runtime_bound` 是实际制作边界；有文本不意味着可直接在地图互动、播放动画或触发完整任务。
+6. 分支剧情需核实：完成原任务、原A/B选项、章节解锁、后续回访顺序、一次性奖励、存档恢复和不重复触发。
 
-## 第12阶段更新（2026-10-25）
+## 项目校验
 
-第五幕《海歌群岛》（第25–30章）已新增120句正式主线与108句独立候选文本，主线现为3,157句，48/72章完成同级深化。核心守卫：第26章航路证据不自动授予失落航页；伊泽第27章作为向导相识、第28章正式入队。第29章六座航标、潜水钟及残谱行动仍为制作设计，非可玩系统。详细内容见 [第12阶段交付报告](PHASE_12_ARCHIPELAGO_DELIVERY.md) 和 [第五幕288句完整阅读稿](screenplay/act_05_phase12_full.md)。
+- 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`
+- 地区与伙伴任务：`tools/validate_phase17_*.py`、`tools/validate_phase18_companions.py`、`tools/validate_phase19_world_anchors.py`
+- Godot 环节：`tools/smoke_branch_story_phase19.gd` 以及核心游戏/世界/存档回归测试；以实际 GitHub Actions 结果为准。
 
-## 第13阶段更新（2026-10-25）
+## 文档维护纪律
 
-第31–36章《镜眠王国》已新增120句主线和108句可选文本，现有全72章主线3,277句，54/72章完成同级深化。玄璃第32章以自主意识初登场、第34章正式加入；映世不能复活真实死者。六项映世机关和生活/调查事件均为制作设计，尚未接入Godot；本轮静态跨版本核对通过，Python/CI实际执行结果尚未确认。详见 [第13阶段交付报告](PHASE_13_MIRROR_KINGDOM_DELIVERY.md)、[第六幕296句完整阅读稿](screenplay/act_06_phase13_full.md) 与 [镜眠关卡制作规格](data/phase13_act06_production_plan.json)。
-
-## 第14阶段更新（2026-10-25）
-
-第七幕第37–42章《失落旧洲》已完成同级文本深化：六章主线新增120句，独立生活／调查戏12场72句，A/B即时回应12组36句；72章现有主线合计3,397句、已同级深化60/72章。关键设定：诺依第39章仍是受照护儿童，母亲旧车票与围裙证据维持同一来源；第41章仅发现分散灯网图纸，第60章才真正建立网络。制作规划尚未接入Godot，Python/CI实际执行待验证。参见 [第14阶段交付报告](PHASE_14_LOST_CONTINENT_DELIVERY.md) 与 [第七幕全量阅读稿](screenplay/act_07_phase14_full.md)。
-
-第15阶段《群灯之城》已完成第55–60章主线扩写120句、12场可选戏72句与12组选项回应36句。当前72章共3,517句，66章已同级深化。具体见 [阶段15报告](PHASE_15_CITY_DELIVERY.md)；第60章才正式建立分散灯网，新事件暂未绑定Godot。
-
-## 第16阶段｜72章主线同级深化完成（2026-10-25）
-
-第61–66章《天轨圣域》正式增加120句主线、12场候选戏72句、12组选项回应36句。全剧12幕72章、289场主线、3,637句正式对白，72/72章完成本轮主线同级文案深化；并不表示候选事件、地图或Boss演出已实装。澄舟不复活，七灯最终旗标只在第66章结算，A/B/C仍在第72章决定。详见 [第16阶段交付报告](PHASE_16_SANCTUM_DELIVERY.md) 与 [第十一幕288句完整稿](screenplay/act_11_phase16_full.md)。第16阶段专项校验及核心Godot自动化检查已在 [Actions #40168166639](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40168166639) 成功通过；新增独立事件尚未接入运行器。下一步转为120条支线、48条伙伴任务的分支深化及运行器落地。
-
-## 第17阶段第一批｜失落航页A/B长期后果（2026-10-25）
-
-已完成12条失落航页的24条不同A/B后续线（72场候选场景、216句新对白），另建立每场具体调查操作与跨章节回访条件。**当前120条支线任务的真实构成是：原支线36＋地区36＋伙伴48，伙伴任务已经包含在120条之中**。原任务五阶段、12航页奖励、结局C必要条件均未改变；新增后续路线尚未注册Godot。详见 [阶段17第一批交付与验收报告](PHASE_17_BATCH01_LOST_PAGES_DELIVERY.md) 和 [72场完整分支契约](data/phase17_lost_pages_manifest.json)。
-
-## 第17阶段第二批｜24条生活支线A/B长期后果（2026-10-25）
-
-已完成 `sq_life_01..24` 的48条独立A/B后续路线，共144场未注册的候选事件、432句原创对白、144条具体玩家操作。第一批12条航页＋第二批24条生活任务合计36/120条任务拥有本轮深度的后续分支文本；地区36条和伙伴48条仍待下一轮。原五阶段任务及XP/金币、结局C条件不变。详见 [第二批交付报告](PHASE_17_BATCH02_LIFE_DELIVERY.md)、[生活支线全量阅读稿](screenplay/phase17_life_all_branches.md) 与 [全部路线制作表](data/phase17_life_manifest.json)。
-
-## 第17阶段第三批｜36条地区支线A/B长期后果（2026-10-25）
-
-已完成 `rq_001..rq_036` 的72条互异A/B后续线，共216场未注册的候选事件和648句原创中文对白。全部具备玩家操作目标、跨地区影响及章节回访条件，原四阶段任务和A/B旗标未改。阶段17三批累计已完成72/120条任务的深度长期路线文本；剩余48条伙伴任务将在第18阶段处理。详情：[第三批交付报告](PHASE_17_BATCH03_REGIONAL_DELIVERY.md) · [全部地区支线中文阅读稿](screenplay/phase17_regional_all_branches.md) · [事件和旧档契约](data/phase17_regional_manifest.json)。尚未接入Godot运行器。
-
-## 第18阶段｜48条伙伴任务A/B深度收束（2026-10-25）
-
-已为8名伙伴各6条个人任务写出A/B路线，合计48条任务、96条独立后续、288场候选互动、864句新增对白；另写出A/B/C三结局下结合末次个人任务路线的48场条件化尾声（144句）。全部候选场景仍未注册运行器，不覆盖原4阶段任务、旧存档和结局解锁规则。第17与18阶段累计120/120条支线都有长期A/B补充文本。详见 [第18阶段交付报告](PHASE_18_COMPANION_DELIVERY.md)、[伙伴A/B全量阅读稿](screenplay/phase18_companion_all_branches.md)、[伙伴结局专属尾声](screenplay/phase18_companion_endings.md) 和 [事件契约](data/phase18_companion_manifest.json)。下一步进入第19阶段实装剧情与地图事件。
-
-## 第19阶段第一批｜剧情状态机与存档实装（2026-10-25）
-
-已将第17–18阶段120条任务共720场A/B后续剧情与48场伙伴尾声接入 `scripts/story_branch_runtime.gd`，提供选择锁、跨章顺序、看过标记、中断恢复、旧V3存档兼容；主游戏内可通过「功能手册 → 剧情后续」临时入口触发真正的对白演出。**剧情状态机可运行不等于地图完成**：下一批仍需为NPC/交互物件注册真实位置、场景行动、天气与时间窗口。验收详情见 [第19-1批交付报告](PHASE_19_BATCH01_RUNTIME_DELIVERY.md)，核心测试入口为 `tools/smoke_branch_story_phase19.gd`。
-
-## 仓库中的实际状态
-- `story/campaign/act_01.json` 至 `act_12.json`：72章、每章四个基本场景（开场/调查/冲突/收束），最终章额外结局节点，共289个场景。每一章都有对白ID、NPC发言人、任务目标、条件、完成标志、奖励；Boss章节含战斗触发元数据。
-- `story/campaign/prologue.json`：童年星灯祭九场可编排事件，建立澄舟失踪及主角未被记录的秘密。
-- `story/data/`：角色、地理、支线、系统UI、职业、怪物等叙事关联素材，供后续地图、事件、战斗系统引用。
-- `scripts/story_catalog.gd`：Godot独立读取、检索与条件检查接口，不依赖任何在线服务。
-- `scenes/story_preview.tscn`：剧情数据预览场景，供编剧与开发者逐句查阅，不替换当前主游戏。
-- `tools/validate_story.py`：从仓库根目录运行数据检查。
-
-## 严格说明
-此内容包是**覆盖完整剧情架构的生产级第一轮叙事蓝图与可消费的文本数据**，并非90-120小时终版全部配音稿；章节剧情已按可实施事件拆解，但演出资产、对应新地图、事件坐标、Boss AI、时长/难度调校、成百条支线的逐句终稿仍需要继续深化。带有 `production_status: scripted_blocking_v1` 的章节即表示“已有可用文本与分场，但未达到文本锁定”。
-
-## 与当前 v0.1.1 原型的关系
-原型：晨露村、星落遗迹、黎昂/澪、守灯人找星核；新正典：玩家主角（可自定义名）、岚音、养父澄舟、星灯祭与七灯冒险。
-为确保旧存档可读，本次**不修改** `scripts/game.gd` / `scripts/game_state.gd` / `data/village.json`。把原版“黎昂”解释为默认主角名候选，把“澪”设为可重命名的原型同伴占位，正式上线统一更换为岚音；“星落遗迹”保留为第一幕地下遗迹之一，“守灯人带回星核”改写为年轻时的预兆任务。详见 `story/CANON_MIGRATION.md`。
-
-## 数据约定
-- 章节：`id=ch001..ch072`、`act`、`required_flags`、`scenes[]`
-- 场景：`trigger`, `dialogue[{id,speaker,text}]`, `objectives[]`, `effects[]`
-- 条件：`story.ch001.done` / `world.*` / `party.*` 为稳定key
-- 战斗：`encounter.enemy_id` 不直接表示敌人已实现，获胜须写入 `win_flag`
-- 决策：`choice.options[].sets` 为决策状态变化；封闭场景须由游戏控制器检查必需标志
-- 变量：角色称呼在文本里使用“主角”，正式对话器可替换为自定义名称
-
-## 运行与校验
-1. Windows在仓库根目录运行 `python tools/validate_story.py`。
-2. Godot导入本仓库，点击“场景 > 打开”选择 `scenes/story_preview.tscn` 并运行当前场景（F6）。
-3. 预览器按“上一章 / 下一章 / 下一句”浏览剧情；读取的是游戏工程内实际JSON。
-4. `StoryCatalog`可用`load_all()`, `get_chapter(id)`, `get_scene(chapter_id,scene_id)`, `requirements_met(data,flags)`。
-5. 正式地图触发器仍需在游戏事件系统中注册场景target与地图坐标，这一步不由JSON自动完成。
-
-## 内容制作用途
-文档针对开发者：`WORLD_BIBLE.md`、`CAST_BIBLE.md`、`NARRATIVE_DESIGN.md`、`CANON_MIGRATION.md`。
-文本针对引擎：`campaign/*.json`、`data/*.json`。
-避免直接将这份草稿当作终版配音送审，最终本地化/过场/配音需要单独锁版。
-
-## 2026-10-24｜第三阶段：纯剧情与文本精修
-
-本次**不修改Godot运行代码或存档协议**。第二幕（第7–12章）186条、第三幕（第13–18章）197条、第四幕（第19–24章）190条独立对白已按各章人物矛盾重写；第一幕保留178条精修对白。以上四幕的Markdown阅读版已与剧情JSON重新同步。
-
-新增 `story/data/ambient_dialogues.json`（36段选项后续反应、23场营地对白）、`story/data/lore_texts.json`（27份世界阅读物），并把 `story/data/npc_barks.json` 扩为69句。第7–24章任务日志与16个Boss剧情模板也已对应更新。
-
-**注意**：新扩展的ambient/lore文本仍是文本资源，不意味着已接入场景；第五至十二幕仍处于首轮草稿状态。完整统计、人物登场时间线和待办请看 `story/PHASE_03_TEXT_AUDIT.md`。
+- 新剧情改动优先修改**运行 JSON、正式阅读稿及其索引**；不要再为每一次小阶段创建一个仅重复进度的 `PHASE_XX_DELIVERY.md`。
+- 工程问题写到 `docs/RELEASE_STATUS_2026_10_25.md` 或对应制作规范；版本影响写到根目录 `CHANGELOG.md`。
+- 历史阶段报告已通过 Git 历史保留，如需追溯可查看旧提交；不要把旧阶段快照当作当前可玩进度。

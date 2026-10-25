@@ -1,0 +1,2457 @@
+{
+  "schema": "starlit.town_director.v1",
+  "design_principles": [
+    "入口先见地标，再识别服务建筑",
+    "短而清晰的公共动线，不打断关键剧情点",
+    "生产方式、地貌与陈设相关，避免均匀随机散布",
+    "居民与其生活区、工作区建立空间关系",
+    "留白不等于空旷；道具必须构成生活场景"
+  ],
+  "towns": {
+    "map_coast_01": {
+      "name": "晨露村",
+      "identity": "潮声与灯火",
+      "urban_form": "海岸聚落",
+      "paving": "盐白石径",
+      "entrance_view": "看见海风灯柱就能找到中央广场",
+      "focal_point": [
+        35,
+        24
+      ],
+      "plaza": {
+        "center": [
+          35,
+          24
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "海风集市",
+          "kind": "market",
+          "center": [
+            45,
+            22
+          ],
+          "radius": [
+            9,
+            6
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "晨灯广场",
+          "kind": "square",
+          "center": [
+            35,
+            23
+          ],
+          "radius": [
+            10,
+            7
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "旧屋居住区",
+          "kind": "residential",
+          "center": [
+            16,
+            35
+          ],
+          "radius": [
+            11,
+            7
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "码头前街",
+          "kind": "dock",
+          "center": [
+            59,
+            29
+          ],
+          "radius": [
+            8,
+            7
+          ],
+          "roles": [
+            "rumor",
+            "shop"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "well",
+          "cell": [
+            35,
+            23
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "star_lantern",
+          "cell": [
+            30,
+            22
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "star_lantern",
+          "cell": [
+            40,
+            22
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "fish_stall",
+          "cell": [
+            47,
+            20
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "barrel",
+          "cell": [
+            49,
+            24
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "medicine_basket",
+          "cell": [
+            43,
+            26
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "palm_tree",
+          "cell": [
+            8,
+            30
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "palm_tree",
+          "cell": [
+            14,
+            40
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "flowerpot",
+          "cell": [
+            23,
+            17
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "flowerpot",
+          "cell": [
+            25,
+            17
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "crate",
+          "cell": [
+            57,
+            29
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "pier_post",
+          "cell": [
+            64,
+            33
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "rope_coil",
+          "cell": [
+            61,
+            35
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "sign",
+          "cell": [
+            35,
+            18
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "fishing_net",
+          "cell": [
+            63,
+            29
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "beacon",
+          "cell": [
+            36,
+            38
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_coast_02": {
+      "name": "白砂港",
+      "identity": "白帆和航路",
+      "urban_form": "海港市镇",
+      "paving": "堤岸木栈道",
+      "entrance_view": "顺着灯塔和横贯港区的木栈道可找到船工公会",
+      "focal_point": [
+        33,
+        25
+      ],
+      "plaza": {
+        "center": [
+          33,
+          25
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "渔市水岸",
+          "kind": "dock",
+          "center": [
+            59,
+            23
+          ],
+          "radius": [
+            9,
+            12
+          ],
+          "roles": [
+            "rumor",
+            "shop"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "港务广场",
+          "kind": "square",
+          "center": [
+            33,
+            25
+          ],
+          "radius": [
+            11,
+            6
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "旅店与货栈",
+          "kind": "market",
+          "center": [
+            19,
+            14
+          ],
+          "radius": [
+            10,
+            8
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "水手街",
+          "kind": "residential",
+          "center": [
+            16,
+            35
+          ],
+          "radius": [
+            9,
+            8
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "dock_boat",
+          "cell": [
+            64,
+            19
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "fishing_net",
+          "cell": [
+            62,
+            26
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "pier_post",
+          "cell": [
+            61,
+            14
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "pier_post",
+          "cell": [
+            64,
+            32
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "rope_coil",
+          "cell": [
+            57,
+            27
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "anchor",
+          "cell": [
+            58,
+            35
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "barrel",
+          "cell": [
+            47,
+            25
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "crate",
+          "cell": [
+            51,
+            27
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "fish_stall",
+          "cell": [
+            38,
+            23
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "fish_stall",
+          "cell": [
+            42,
+            22
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "star_lantern",
+          "cell": [
+            29,
+            25
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "star_lantern",
+          "cell": [
+            37,
+            25
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "sign",
+          "cell": [
+            32,
+            19
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "flowerpot",
+          "cell": [
+            16,
+            22
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "palm_tree",
+          "cell": [
+            8,
+            40
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "beacon",
+          "cell": [
+            65,
+            8
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_oaths_01": {
+      "name": "三誓门城",
+      "identity": "山门与誓约",
+      "urban_form": "山地关隘",
+      "paving": "灰青石阶",
+      "entrance_view": "沿山门主轴上行，钟塔和城墙引导前往誓约广场",
+      "focal_point": [
+        36,
+        24
+      ],
+      "plaza": {
+        "center": [
+          36,
+          24
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "誓约前庭",
+          "kind": "square",
+          "center": [
+            36,
+            24
+          ],
+          "radius": [
+            10,
+            6
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "卫戍营房",
+          "kind": "barracks",
+          "center": [
+            57,
+            24
+          ],
+          "radius": [
+            11,
+            6
+          ],
+          "roles": [
+            "quest"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "山坡商街",
+          "kind": "market",
+          "center": [
+            24,
+            17
+          ],
+          "radius": [
+            9,
+            7
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "民居台地",
+          "kind": "residential",
+          "center": [
+            14,
+            36
+          ],
+          "radius": [
+            9,
+            6
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "beacon",
+          "cell": [
+            36,
+            19
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "rock",
+          "cell": [
+            7,
+            9
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "rock",
+          "cell": [
+            13,
+            7
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "rock",
+          "cell": [
+            65,
+            9
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "star_lantern",
+          "cell": [
+            28,
+            24
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "star_lantern",
+          "cell": [
+            43,
+            24
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "sign",
+          "cell": [
+            24,
+            24
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "barrel",
+          "cell": [
+            55,
+            24
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "crate",
+          "cell": [
+            59,
+            24
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "flowerpot",
+          "cell": [
+            19,
+            22
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "flowerpot",
+          "cell": [
+            21,
+            22
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "well",
+          "cell": [
+            34,
+            37
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "sea_crystal",
+          "cell": [
+            64,
+            26
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "rock",
+          "cell": [
+            6,
+            39
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "sign",
+          "cell": [
+            49,
+            39
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "beacon",
+          "cell": [
+            36,
+            7
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_forge_01": {
+      "name": "熔炉港",
+      "identity": "赤炉与铁轨",
+      "urban_form": "火山工坊城市",
+      "paving": "炉灰砖路",
+      "entrance_view": "远处的高炉红光、铁轨和货箱共同指向工坊区",
+      "focal_point": [
+        34,
+        23
+      ],
+      "plaza": {
+        "center": [
+          34,
+          23
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "主炉广场",
+          "kind": "square",
+          "center": [
+            34,
+            23
+          ],
+          "radius": [
+            10,
+            7
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "矿车货场",
+          "kind": "industry",
+          "center": [
+            55,
+            35
+          ],
+          "radius": [
+            11,
+            7
+          ],
+          "roles": [
+            "craft"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "热锻市街",
+          "kind": "market",
+          "center": [
+            45,
+            19
+          ],
+          "radius": [
+            9,
+            6
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "工人住区",
+          "kind": "residential",
+          "center": [
+            15,
+            35
+          ],
+          "radius": [
+            10,
+            8
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "beacon",
+          "cell": [
+            35,
+            22
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "barrel",
+          "cell": [
+            53,
+            25
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "barrel",
+          "cell": [
+            56,
+            25
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "crate",
+          "cell": [
+            57,
+            29
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "crate",
+          "cell": [
+            62,
+            33
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "rock",
+          "cell": [
+            62,
+            40
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "rock",
+          "cell": [
+            49,
+            41
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "sign",
+          "cell": [
+            41,
+            22
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "star_lantern",
+          "cell": [
+            28,
+            21
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "star_lantern",
+          "cell": [
+            41,
+            21
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "sea_crystal",
+          "cell": [
+            63,
+            13
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "medicine_basket",
+          "cell": [
+            45,
+            26
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "barrel",
+          "cell": [
+            12,
+            25
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "flowerpot",
+          "cell": [
+            18,
+            25
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "crate",
+          "cell": [
+            34,
+            38
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "well",
+          "cell": [
+            24,
+            39
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_isles_01": {
+      "name": "珊歌港",
+      "identity": "潮音与船歌",
+      "urban_form": "岛屿街镇",
+      "paving": "贝壳白石",
+      "entrance_view": "桥头海风雕塑是中心，环形小路串起市集与民居",
+      "focal_point": [
+        35,
+        24
+      ],
+      "plaza": {
+        "center": [
+          35,
+          24
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "船歌圆场",
+          "kind": "square",
+          "center": [
+            35,
+            24
+          ],
+          "radius": [
+            12,
+            9
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "珊瑚集市",
+          "kind": "market",
+          "center": [
+            51,
+            24
+          ],
+          "radius": [
+            9,
+            7
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "栈桥泊位",
+          "kind": "dock",
+          "center": [
+            63,
+            29
+          ],
+          "radius": [
+            7,
+            9
+          ],
+          "roles": [
+            "rumor",
+            "shop"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "居民庭园",
+          "kind": "residential",
+          "center": [
+            16,
+            28
+          ],
+          "radius": [
+            9,
+            7
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "anchor",
+          "cell": [
+            35,
+            22
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "sea_crystal",
+          "cell": [
+            35,
+            20
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "dock_boat",
+          "cell": [
+            64,
+            38
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "pier_post",
+          "cell": [
+            64,
+            24
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "pier_post",
+          "cell": [
+            65,
+            33
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "rope_coil",
+          "cell": [
+            59,
+            38
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "shell",
+          "cell": [
+            54,
+            22
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "shell",
+          "cell": [
+            50,
+            28
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "palm_tree",
+          "cell": [
+            10,
+            19
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "palm_tree",
+          "cell": [
+            14,
+            37
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "flowerpot",
+          "cell": [
+            25,
+            26
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "flowerpot",
+          "cell": [
+            28,
+            26
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "fish_stall",
+          "cell": [
+            48,
+            22
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "star_lantern",
+          "cell": [
+            36,
+            33
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "sign",
+          "cell": [
+            32,
+            16
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "well",
+          "cell": [
+            19,
+            19
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_mirror_01": {
+      "name": "镜湖都",
+      "identity": "湖光与倒影",
+      "urban_form": "湖畔王城",
+      "paving": "云母浅纹石",
+      "entrance_view": "以静水庭园组织内城主轴，回廊通向镜湖圣所",
+      "focal_point": [
+        35,
+        23
+      ],
+      "plaza": {
+        "center": [
+          35,
+          23
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "静水镜庭",
+          "kind": "square",
+          "center": [
+            35,
+            23
+          ],
+          "radius": [
+            10,
+            8
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "湖畔回廊",
+          "kind": "garden",
+          "center": [
+            53,
+            21
+          ],
+          "radius": [
+            10,
+            8
+          ],
+          "roles": [
+            "lore"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "工艺市廊",
+          "kind": "market",
+          "center": [
+            43,
+            35
+          ],
+          "radius": [
+            9,
+            8
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "镜湖居民苑",
+          "kind": "residential",
+          "center": [
+            16,
+            34
+          ],
+          "radius": [
+            11,
+            8
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "sea_crystal",
+          "cell": [
+            35,
+            21
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "sea_crystal",
+          "cell": [
+            59,
+            25
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "flowerpot",
+          "cell": [
+            26,
+            23
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "flowerpot",
+          "cell": [
+            28,
+            23
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "flowerpot",
+          "cell": [
+            44,
+            23
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "flowerpot",
+          "cell": [
+            46,
+            23
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "star_lantern",
+          "cell": [
+            35,
+            32
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "star_lantern",
+          "cell": [
+            41,
+            18
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "well",
+          "cell": [
+            56,
+            20
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "sign",
+          "cell": [
+            33,
+            17
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "palm_tree",
+          "cell": [
+            9,
+            24
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "palm_tree",
+          "cell": [
+            65,
+            37
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "shell",
+          "cell": [
+            19,
+            23
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "rock",
+          "cell": [
+            62,
+            34
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "medicine_basket",
+          "cell": [
+            49,
+            34
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "beacon",
+          "cell": [
+            60,
+            29
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_oldland_01": {
+      "name": "遗民营地",
+      "identity": "风沙与旧碑",
+      "urban_form": "荒原遗民聚落",
+      "paving": "遗迹砂岩",
+      "entrance_view": "旧碑环绕公共水井，工房和补给点沿防风墙内布置",
+      "focal_point": [
+        33,
+        24
+      ],
+      "plaza": {
+        "center": [
+          33,
+          24
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "旧碑水井",
+          "kind": "square",
+          "center": [
+            33,
+            24
+          ],
+          "radius": [
+            11,
+            7
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "遗物集市",
+          "kind": "market",
+          "center": [
+            48,
+            21
+          ],
+          "radius": [
+            9,
+            6
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "护风帐街",
+          "kind": "residential",
+          "center": [
+            16,
+            30
+          ],
+          "radius": [
+            11,
+            9
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "测绘前哨",
+          "kind": "barracks",
+          "center": [
+            58,
+            36
+          ],
+          "radius": [
+            9,
+            6
+          ],
+          "roles": [
+            "quest"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "rock",
+          "cell": [
+            32,
+            19
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "beacon",
+          "cell": [
+            35,
+            22
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "well",
+          "cell": [
+            34,
+            24
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "rock",
+          "cell": [
+            40,
+            24
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "crate",
+          "cell": [
+            42,
+            28
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "barrel",
+          "cell": [
+            53,
+            23
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "barrel",
+          "cell": [
+            55,
+            23
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "medicine_basket",
+          "cell": [
+            45,
+            18
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "star_lantern",
+          "cell": [
+            25,
+            24
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "star_lantern",
+          "cell": [
+            42,
+            24
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "sign",
+          "cell": [
+            37,
+            17
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "rock",
+          "cell": [
+            9,
+            11
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "rock",
+          "cell": [
+            65,
+            36
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "crate",
+          "cell": [
+            14,
+            40
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "flowerpot",
+          "cell": [
+            14,
+            20
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "sea_crystal",
+          "cell": [
+            61,
+            39
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_sanctum_01": {
+      "name": "天轨前庭",
+      "identity": "星轨与祈光",
+      "urban_form": "高空圣殿聚落",
+      "paving": "星纹礼仪石",
+      "entrance_view": "环形祈灯庭以灯塔为焦点，两翼环廊控制视觉秩序",
+      "focal_point": [
+        36,
+        24
+      ],
+      "plaza": {
+        "center": [
+          36,
+          24
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "星轨礼庭",
+          "kind": "square",
+          "center": [
+            36,
+            24
+          ],
+          "radius": [
+            13,
+            9
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "祈灯外环",
+          "kind": "shrine",
+          "center": [
+            58,
+            22
+          ],
+          "radius": [
+            8,
+            8
+          ],
+          "roles": [
+            "quest"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "客旅长廊",
+          "kind": "market",
+          "center": [
+            46,
+            33
+          ],
+          "radius": [
+            8,
+            7
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "守灯住所",
+          "kind": "residential",
+          "center": [
+            16,
+            33
+          ],
+          "radius": [
+            10,
+            7
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "beacon",
+          "cell": [
+            36,
+            22
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "sea_crystal",
+          "cell": [
+            35,
+            18
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "sea_crystal",
+          "cell": [
+            37,
+            18
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "star_lantern",
+          "cell": [
+            29,
+            24
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "star_lantern",
+          "cell": [
+            43,
+            24
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "star_lantern",
+          "cell": [
+            36,
+            34
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "flowerpot",
+          "cell": [
+            24,
+            24
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "flowerpot",
+          "cell": [
+            48,
+            24
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "well",
+          "cell": [
+            16,
+            21
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "sign",
+          "cell": [
+            36,
+            15
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "rock",
+          "cell": [
+            10,
+            39
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "rock",
+          "cell": [
+            62,
+            38
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "sea_crystal",
+          "cell": [
+            59,
+            33
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "shell",
+          "cell": [
+            63,
+            22
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "beacon",
+          "cell": [
+            62,
+            9
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "flowerpot",
+          "cell": [
+            51,
+            30
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_city_01": {
+      "name": "群灯旧会馆",
+      "identity": "群灯议政",
+      "urban_form": "王都中枢",
+      "paving": "深蓝灰砌石",
+      "entrance_view": "主轴从城门延伸至灯塔广场，市政与商区形成两条明确支路",
+      "focal_point": [
+        35,
+        23
+      ],
+      "plaza": {
+        "center": [
+          35,
+          23
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "市政灯塔广场",
+          "kind": "square",
+          "center": [
+            35,
+            23
+          ],
+          "radius": [
+            13,
+            9
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "商业主轴",
+          "kind": "market",
+          "center": [
+            52,
+            22
+          ],
+          "radius": [
+            12,
+            8
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "工匠街",
+          "kind": "industry",
+          "center": [
+            56,
+            36
+          ],
+          "radius": [
+            11,
+            7
+          ],
+          "roles": [
+            "craft"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "旧会馆居民巷",
+          "kind": "residential",
+          "center": [
+            15,
+            35
+          ],
+          "radius": [
+            11,
+            8
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "beacon",
+          "cell": [
+            35,
+            20
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "beacon",
+          "cell": [
+            35,
+            27
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "star_lantern",
+          "cell": [
+            27,
+            20
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "star_lantern",
+          "cell": [
+            44,
+            20
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "star_lantern",
+          "cell": [
+            27,
+            27
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "star_lantern",
+          "cell": [
+            44,
+            27
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "flowerpot",
+          "cell": [
+            24,
+            23
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "flowerpot",
+          "cell": [
+            47,
+            23
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "fish_stall",
+          "cell": [
+            52,
+            22
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "fish_stall",
+          "cell": [
+            56,
+            22
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "sign",
+          "cell": [
+            35,
+            15
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "well",
+          "cell": [
+            17,
+            20
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "crate",
+          "cell": [
+            62,
+            30
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "barrel",
+          "cell": [
+            59,
+            40
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "rock",
+          "cell": [
+            7,
+            10
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "sea_crystal",
+          "cell": [
+            63,
+            9
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_city_02": {
+      "name": "自由议事厅",
+      "identity": "自由与契约",
+      "urban_form": "王都公共议厅",
+      "paving": "庄重议事石",
+      "entrance_view": "从入口正轴望见会堂前庭，行政步道须清晰、肃静",
+      "focal_point": [
+        36,
+        23
+      ],
+      "plaza": {
+        "center": [
+          36,
+          23
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "议事厅前庭",
+          "kind": "square",
+          "center": [
+            36,
+            23
+          ],
+          "radius": [
+            12,
+            8
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "自由誓言步道",
+          "kind": "garden",
+          "center": [
+            56,
+            18
+          ],
+          "radius": [
+            9,
+            7
+          ],
+          "roles": [
+            "lore"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "议员接待庭",
+          "kind": "market",
+          "center": [
+            18,
+            20
+          ],
+          "radius": [
+            10,
+            8
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "市民休憩庭",
+          "kind": "residential",
+          "center": [
+            17,
+            36
+          ],
+          "radius": [
+            9,
+            7
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "beacon",
+          "cell": [
+            36,
+            18
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "sea_crystal",
+          "cell": [
+            36,
+            22
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "star_lantern",
+          "cell": [
+            28,
+            20
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "star_lantern",
+          "cell": [
+            44,
+            20
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "star_lantern",
+          "cell": [
+            28,
+            28
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "star_lantern",
+          "cell": [
+            44,
+            28
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "flowerpot",
+          "cell": [
+            25,
+            25
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "flowerpot",
+          "cell": [
+            47,
+            25
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "flowerpot",
+          "cell": [
+            53,
+            20
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "flowerpot",
+          "cell": [
+            58,
+            20
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "sign",
+          "cell": [
+            36,
+            14
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "sign",
+          "cell": [
+            17,
+            24
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "well",
+          "cell": [
+            15,
+            18
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "rock",
+          "cell": [
+            62,
+            33
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "beacon",
+          "cell": [
+            60,
+            39
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "sea_crystal",
+          "cell": [
+            9,
+            12
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    },
+    "map_city_03": {
+      "name": "群灯居民街",
+      "identity": "万家与烟火",
+      "urban_form": "王都生活街区",
+      "paving": "老城区石板",
+      "entrance_view": "围绕公共水井与民居短巷组织，休息与交易距离都不超过两条街",
+      "focal_point": [
+        35,
+        24
+      ],
+      "plaza": {
+        "center": [
+          35,
+          24
+        ],
+        "radius": [
+          9,
+          6
+        ]
+      },
+      "districts": [
+        {
+          "id": "district_1",
+          "name": "居民公共水井",
+          "kind": "square",
+          "center": [
+            35,
+            24
+          ],
+          "radius": [
+            10,
+            6
+          ],
+          "roles": [
+            "quest",
+            "lore"
+          ]
+        },
+        {
+          "id": "district_2",
+          "name": "邻里商街",
+          "kind": "market",
+          "center": [
+            53,
+            23
+          ],
+          "radius": [
+            9,
+            8
+          ],
+          "roles": [
+            "shop",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_3",
+          "name": "庭院住区",
+          "kind": "residential",
+          "center": [
+            16,
+            34
+          ],
+          "radius": [
+            11,
+            9
+          ],
+          "roles": [
+            "lore",
+            "rumor"
+          ]
+        },
+        {
+          "id": "district_4",
+          "name": "城墙侧巷",
+          "kind": "barracks",
+          "center": [
+            61,
+            39
+          ],
+          "radius": [
+            8,
+            7
+          ],
+          "roles": [
+            "quest"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "id": "set_01",
+          "kind": "well",
+          "cell": [
+            35,
+            22
+          ]
+        },
+        {
+          "id": "set_02",
+          "kind": "flowerpot",
+          "cell": [
+            29,
+            22
+          ]
+        },
+        {
+          "id": "set_03",
+          "kind": "flowerpot",
+          "cell": [
+            41,
+            22
+          ]
+        },
+        {
+          "id": "set_04",
+          "kind": "star_lantern",
+          "cell": [
+            35,
+            30
+          ]
+        },
+        {
+          "id": "set_05",
+          "kind": "fish_stall",
+          "cell": [
+            52,
+            22
+          ]
+        },
+        {
+          "id": "set_06",
+          "kind": "barrel",
+          "cell": [
+            50,
+            27
+          ]
+        },
+        {
+          "id": "set_07",
+          "kind": "crate",
+          "cell": [
+            58,
+            27
+          ]
+        },
+        {
+          "id": "set_08",
+          "kind": "sign",
+          "cell": [
+            36,
+            18
+          ]
+        },
+        {
+          "id": "set_09",
+          "kind": "flowerpot",
+          "cell": [
+            10,
+            25
+          ]
+        },
+        {
+          "id": "set_10",
+          "kind": "flowerpot",
+          "cell": [
+            11,
+            27
+          ]
+        },
+        {
+          "id": "set_11",
+          "kind": "flowerpot",
+          "cell": [
+            20,
+            38
+          ]
+        },
+        {
+          "id": "set_12",
+          "kind": "medicine_basket",
+          "cell": [
+            16,
+            23
+          ]
+        },
+        {
+          "id": "set_13",
+          "kind": "palm_tree",
+          "cell": [
+            61,
+            10
+          ]
+        },
+        {
+          "id": "set_14",
+          "kind": "rock",
+          "cell": [
+            65,
+            35
+          ]
+        },
+        {
+          "id": "set_15",
+          "kind": "star_lantern",
+          "cell": [
+            44,
+            35
+          ]
+        },
+        {
+          "id": "set_16",
+          "kind": "well",
+          "cell": [
+            62,
+            40
+          ]
+        }
+      ],
+      "foot_traffic": "入口 → 广场 → 商区／客栈 → 分区支路；主线优先",
+      "author_revision": 1
+    }
+  }
+}

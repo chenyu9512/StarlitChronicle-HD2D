@@ -92,6 +92,7 @@ func _run() -> void:
     if problems.is_empty():
         print("PASS: 12 V4 rooms, collision routes, real outdoor portals, questcase props, indoor resume and exit.")
         quit(0)
+        return
     for issue in problems:
         push_error(issue)
     quit(1)

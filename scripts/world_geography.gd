@@ -1,5 +1,6 @@
 extends RefCounted
 const WorldLevelV3 = preload("res://scripts/world_level_v3.gd")
+const TownDirector = preload("res://scripts/town_director.gd")
 const InteriorV4 = preload("res://scripts/world_interior_v4.gd")
 ## 72x48 real-world sector architecture, shared by collision, renderer, minimap and tests.
 ## Authored spatial zone configuration is in world_atlas_v2.json; geometry is deterministic.
@@ -13,6 +14,7 @@ var zones: Dictionary = {}
 var regions: Dictionary = {}
 var faults: Array[String] = []
 var authored = WorldLevelV3.new()
+var town_design = TownDirector.new()
 
 func _init() -> void:
     var document: Variant = JSON.parse_string(FileAccess.get_file_as_string(ATLAS_PATH))
@@ -28,6 +30,8 @@ func _init() -> void:
     if zones.size() != 42 or regions.size() != 8:
         faults.append("World atlas must define 42 sectors and 8 regions")
     for reason in authored.problems:
+        faults.append(str(reason))
+    for reason in town_design.problems:
         faults.append(str(reason))
 
 func zone(id: String) -> Dictionary:
@@ -111,7 +115,8 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var terrain: Dictionary = {}
     var walls: Dictionary = {}
     var features: Array[Dictionary] = []
-    var dungeon: bool = map_kind in ["dungeon","hall"]
+    # A civic hall is a populated settlement, not a cave or boss dungeon.
+    var dungeon: bool = map_kind == "dungeon"
     var village: bool = bool(spec.get("settlement",false))
     var shoreline: bool = biome in ["coastal","archipelago"]
     for y in range(HEIGHT):
@@ -256,6 +261,10 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         _road(terrain,walls,start,gate,seed+i,1)
         gates.append({"id":destination,"cell":gate})
     # A route may not be allowed across locked chapters; physical gate is still visible.
+    # Deliberate urban composition respects original pathing and buildings.
+    var district_plan: Dictionary = {}
+    if village:
+        district_plan = town_design.apply_town(map_id,terrain,walls,features)
     # Manual cell edits are the LAST authority. The initial V3 apply happened
     # before automatic quest links and gates, which could erase editor changes.
     # A blocked quest marker or exit is deliberately caught by map QA rather
@@ -265,7 +274,7 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var wet: Dictionary = {}
     if not authored_level.is_empty():
         wet = authored.open_water_tiles(authored_level,walls)
-    return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
+    return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"town_plan":district_plan,"spawn":start,"zone":spec,"size":Vector2i(WIDTH,HEIGHT)}
 
 func interior(building: String,building_kind: String,map_id: String = "") -> Dictionary:
     var custom: Dictionary = InteriorV4.new().load_level(map_id,building,building_kind)

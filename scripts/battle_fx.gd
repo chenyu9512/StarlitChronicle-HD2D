@@ -87,7 +87,9 @@ func _element_color(element: String) -> Color:
         "雷", "光", "thunder": return Color("f9df80")
         "风", "wind": return Color("8be5cc")
         "水", "water": return Color("78baff")
-        "暗", "dark": return Color("bf9bff")
+        "暗", "影", "dark": return Color("bf9bff")
+        "自然", "nature": return Color("9ddc8b")
+        "圣", "holy": return Color("fff3bb")
         "土", "earth": return Color("d7ad75")
         _: return Color("ffe3a4")
 
@@ -104,6 +106,40 @@ func play_spell(origin: Vector2, target: Vector2, element: String, damage: int, 
     _emit("burst",target,color,0.54 if area else 0.42)
     _emit("text",target + Vector2(0,-50),color,0.78,str(damage))
     _hit_timer = 0.22
+
+## 63 skills reuse nine distinct elemental motifs plus job signature and tier accents.
+## Presentation dispatch is data-driven from each skill's element/job_id/fx_key/tier.
+func play_skill(origin: Vector2, target: Vector2, skill: Dictionary, damage: int = 0, area: bool = false) -> void:
+    var element: String = str(skill.get("element","光"))
+    var job: String = str(skill.get("job_id",""))
+    var tier: int = clampi(int(skill.get("tier",1)),1,7)
+    var color: Color = _element_color(element)
+    var motif: String = "star"
+    match element:
+        "火": motif = "flame"
+        "冰": motif = "frost"
+        "雷": motif = "lightning"
+        "水": motif = "tide"
+        "风": motif = "gust"
+        "影", "暗": motif = "shadow"
+        "自然": motif = "leaf"
+        "圣": motif = "halo"
+        "光": motif = "star"
+    _emit("rune",origin,color,0.32 + 0.035 * float(tier))
+    _emit(motif,target,color,0.42 + 0.042 * float(tier))
+    if job in ["wayfarer","seeker","vanguard"]:
+        _emit("slash",target,color,0.30)
+    elif job in ["tidecaller","navigator","mirrorweaver"]:
+        _emit("rune",target,color,0.44)
+    elif job in ["smith","alchemist","cantor"]:
+        _emit("sparks",target,color,0.45)
+    if area:
+        _emit("shockwave",target,color,0.55)
+    if tier >= 5:
+        _emit("sparkle",target,color,0.65)
+    if damage > 0:
+        _emit("text",target + Vector2(0,-50),color,0.75,str(damage))
+        _hit_timer = 0.22
 
 func play_heal(target: Vector2, name: String = "恢复") -> void:
     _emit("rune",target,Color("76efb7"),0.58)
@@ -180,6 +216,53 @@ func _draw() -> void:
             "shockwave":
                 draw_arc(center,radius*1.5,0.0,TAU,56,ink,6.0*opacity+0.5,true)
                 draw_arc(center,radius*1.1,0.0,TAU,48,ink,2.0*opacity+0.5,true)
+            "flame":
+                for i in range(6):
+                    var dx: float = float(i - 3) * 15.0
+                    var base: Vector2 = center + Vector2(dx,20.0 * life)
+                    draw_line(base+Vector2(0,16),base+Vector2(6,-radius * (1.15 if i % 2 == 0 else 0.8)),ink,7.0*opacity+0.7,true)
+                    draw_circle(base+Vector2(6,-radius * 0.7),maxf(1.0,5.0*opacity),ink)
+            "frost":
+                for i in range(6):
+                    var angle: float = float(i)*TAU/6.0
+                    var dir: Vector2 = Vector2(cos(angle),sin(angle))
+                    draw_line(center,center+dir*radius,ink,3.0*opacity+0.5,true)
+                    var tip: Vector2 = center+dir*radius*0.68
+                    draw_line(tip,tip+dir.rotated(0.72)*radius*0.24,ink,2.0*opacity+0.5,true)
+                    draw_line(tip,tip+dir.rotated(-0.72)*radius*0.24,ink,2.0*opacity+0.5,true)
+            "lightning":
+                for i in range(3):
+                    var x: float = (float(i)-1.0)*25.0
+                    var points: PackedVector2Array = PackedVector2Array([
+                        center+Vector2(x-20,-radius),center+Vector2(x+14,-radius*0.28),
+                        center+Vector2(x-9,radius*0.05),center+Vector2(x+22,radius)
+                    ])
+                    draw_polyline(points,ink,4.0*opacity+0.7,true)
+            "tide":
+                for i in range(3):
+                    var wave_y: float = float(i-1)*20.0
+                    draw_arc(center+Vector2(0,wave_y),radius*0.8,PI*0.05,PI*0.96,32,ink,3.5*opacity+0.5,true)
+                    draw_arc(center+Vector2(0,wave_y),radius*0.8,PI*1.05,PI*1.96,32,ink,2.1*opacity+0.4,true)
+            "gust":
+                for i in range(4):
+                    var shift: float = float(i-2)*16.0
+                    draw_arc(center+Vector2(shift,0),radius*0.8,PI*0.95,PI*1.92,30,ink,3.0*opacity+0.5,true)
+            "shadow":
+                draw_circle(center,radius*0.62,Color(0.26,0.14,0.38,0.32*opacity))
+                draw_arc(center,radius,PI*0.25,TAU*0.91,40,ink,5.0*opacity+0.4,true)
+            "leaf":
+                for i in range(8):
+                    var angle: float = float(i)*TAU/8.0+life*1.2
+                    var pos: Vector2 = center+Vector2(cos(angle),sin(angle))*radius*0.83
+                    draw_line(pos-Vector2(8,5),pos+Vector2(8,-5),ink,4.0*opacity+0.6,true)
+            "halo":
+                draw_arc(center,radius,0,TAU,48,ink,5.0*opacity+0.8,true)
+                draw_arc(center,radius*0.58,0,TAU,48,ink,2.0*opacity+0.4,true)
+            "star":
+                for i in range(10):
+                    var angle: float = TAU*float(i)/10.0
+                    var dir: Vector2 = Vector2(cos(angle),sin(angle))
+                    draw_line(center+dir*radius*0.30,center+dir*radius*(1.15 if i%2 == 0 else 0.75),ink,3.0*opacity+0.4,true)
             "text":
                 var font: Font = ThemeDB.fallback_font
                 var label: String = str(effect.get("label",""))

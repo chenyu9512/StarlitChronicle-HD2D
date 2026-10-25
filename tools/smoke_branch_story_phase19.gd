@@ -100,9 +100,17 @@ func _run() -> void:
     game.progress.flags["side.sq_page_01.done"] = true
     game.progress.flags["side.sq_page_01.approach"] = "a"
     check(game.branch_runtime.eligible(a),"game save can trigger optional branch")
-    game._start_branch_event(a)
+    game._open_adventure_book()
+    game.adventure_menu.render("剧情后续")
+    var found_branch_button: bool = false
+    for node in game.adventure_menu.content.get_children():
+        if node is Button and str(node.text).contains("家属拆信"):
+            found_branch_button = true
+            (node as Button).pressed.emit()
+            break
+    check(found_branch_button,"playable RPG menu actually lists unlocked branch")
     check(game.pending == "branch_event" and game.ui.dialog_layer.visible,
-        "main game opens authored dialogue")
+        "menu selection opens authored dialogue")
     for step in range(3):
         game.ui._next()
     check(game.branch_runtime.is_seen(a),"dialogue completion persisted in game")

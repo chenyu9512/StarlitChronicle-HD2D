@@ -263,7 +263,16 @@ func _refresh_info() -> void:
     var fog_progress: String = "未知"
     if world.fog != null:
         fog_progress = "%d%%" % world.fog.percent(world.fog_key())
-    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n已探索：%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,fog_progress,int(current_clock.get("day",1)),time_label,weather_name]
+    var discovery_line: String = ""
+    if world.interior_building.is_empty() and world.discoveries!=null:
+        var entries: Array = world.discoveries.entries(router.current_map())
+        if not entries.is_empty():
+            var finished: int = 0
+            for record in entries:
+                if bool(router.state.flags.get(world.discoveries.flag(router.current_map(),str(record.get("id",""))),false)):
+                    finished += 1
+            discovery_line = "\n地图调查：%d / %d" % [finished,entries.size()]
+    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n已探索：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,fog_progress,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)
         if info.is_empty():
@@ -285,7 +294,7 @@ func _refresh_info() -> void:
         route_button.disabled = possible_route.size() <= 1
         route_button.text = "前往下一站（不越级）"
     else:
-        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
+        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
         route_button.visible = false
         route_button.disabled = true
 

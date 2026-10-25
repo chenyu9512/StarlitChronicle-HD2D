@@ -86,6 +86,12 @@
 - [第19-7批开发交付报告](PHASE_19_BATCH07_COMPANION_REGIONAL_ROOMS_DELIVERY.md)：世界位置、NPC与证物、11个不重叠可达格、A/B剧情及V3兼容。
 - 新校验：`tools/validate_phase19_companion_regional_rooms.py`、`tools/smoke_phase19_companion_regional_rooms.gd`；最新CI执行情况需独立确认，不因旧绿色验收推断新文件已全通过。
 
+## 第19-8批｜85处关卡验收与剧情人物状态
+
+- [第19-8批验收报告](PHASE_19_BATCH08_RUNTIME_AUDIT.md)：54个伙伴/地区新地图静态BFS检查，85间现有内景NPC状态、GitHub Actions无法启动作业的真实边界。
+- `scripts/world_npc_visual.gd`/`scripts/first_act_world.gd`：原NPC按照初遇、调查、社区、回访与原A/B存档状态变化衣饰标记及表情。
+- `tools/run_phase19_acceptance.py`：Windows或其他系统可指定Godot 4.7.2路径执行完整本地回归；支持仅静态模式但不将其标记成引擎PASS。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线结构及数据格式。

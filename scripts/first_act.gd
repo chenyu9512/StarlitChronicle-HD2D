@@ -284,16 +284,18 @@ func _focus() -> void:
             2:
                 side_target = "side_return"
                 extra = "【支线委托】%s · 交还物品" % str(side["name"])
-    if side_target.is_empty() and progress.chapter > 0:
+    if progress.chapter > 0:
         var quest: Dictionary = game_core.available_story_side(progress.chapter)
         if not quest.is_empty():
             var stage: int = game_core.story_side_stage(str(quest.get("id","")))
             var stages: Array = quest.get("stages",[])
             if stage < stages.size():
                 if story_world_bindings.matches(str(quest.get("id","")),world_router.current_map()):
+                    # Only the one actually tracked original quest uses this map
+                    # point, and it must outrank a separate chapter-local errand.
                     side_target = "story_stage_%d" % stage
                     extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
-                else:
+                elif side_target.is_empty():
                     extra = "【世界支线导航】" + story_world_bindings.route_summary(str(quest.get("id","")),world_router)
     var branch_choice: Dictionary = branch_world.get("chosen",{})
     if bool(branch_world.get("local",false)) and not branch_choice.is_empty():

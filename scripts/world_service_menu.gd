@@ -126,7 +126,7 @@ func refresh(state,core,life,message: String = "") -> void:
             subtitle.text="地区补给 · 价格由正式道具表计算。购买将直接写入背包。"
             var goods: Array[String] = life.town_shop_ids(current_region,core)
             var special: String = ecology.specialty_item(current_map,core)
-            if not special.is_empty() and special not in goods:
+            if not special.is_empty() and not goods.has(special):
                 goods.append(special)
                 subtitle.text="本地特色物资 · "+str(ecology.config(current_map).get("activity","市场协作"))+"。采用正式道具表价格。"
             for item_id in goods:

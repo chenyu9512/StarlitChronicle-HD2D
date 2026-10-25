@@ -61,6 +61,8 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
       - name: Interactive minimap and 42-location world atlas regression
         run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+      - name: Validate editable V3 wilderness geometry and hand-painted collision rules
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
       - name: All forty world sectors, city plots, dungeons and walkable interiors
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd
       - name: Regional NPCs, commerce and daily-world persistence

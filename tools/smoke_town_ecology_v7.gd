@@ -4,6 +4,7 @@ const TownEcology = preload("res://scripts/world_town_ecology.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const TownDirector = preload("res://scripts/town_director.gd")
 const World = preload("res://scripts/first_act_world.gd")
+const Registry = preload("res://scripts/world_registry.gd")
 const State = preload("res://scripts/first_act_state.gd")
 const Game = preload("res://scripts/first_act.gd")
 var errors: Array[String] = []
@@ -33,7 +34,8 @@ func _run() -> void:
         var layout: Dictionary = geo.layout(id,5)
         var town_scene = World.new()
         root.add_child(town_scene)
-        town_scene.map_profile = {"id":id,"region_id":"region_"+id.split("_")[1],"kind":"town","settlement":true}
+        var town_registry = Registry.new()
+        town_scene.map_profile = town_registry.profile(id)
         town_scene.build(5,3)
         var targets: Array[Vector2i] = []
         for event in towns.entries(id):

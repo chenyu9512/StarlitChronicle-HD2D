@@ -1,4 +1,5 @@
 extends CanvasLayer
+const ArtAssets = preload("res://scripts/art_assets.gd")
 ## iPhone横屏优先的游戏界面：主标题 / 任务追踪 / 触屏移动 / 对白与选项 / 队伍菜单。
 signal started(continue_game: bool)
 signal move_changed(direction: Vector2)
@@ -285,15 +286,7 @@ func show_dialogue(lines: Array) -> void:
     _render_line()
 
 func _portrait_for(speaker: String) -> String:
-    if speaker.contains("岚音"):
-        return "res://assets/art/characters/lanyin/dialogue.png"
-    if speaker.contains("朔弦"):
-        return "res://assets/art/characters/shuoxian/dialogue.png"
-    if speaker.contains("澄舟"):
-        return "res://assets/art/characters/chengzhou/dialogue.png"
-    if speaker.contains("黎昂") or speaker.contains("主角"):
-        return "res://assets/art/characters/leon/dialogue.png"
-    return "res://assets/art/characters/chengzhou/dialogue.png"
+    return ArtAssets.dialogue_portrait(speaker)
 
 func _render_line() -> void:
     if dialog_lines.is_empty():

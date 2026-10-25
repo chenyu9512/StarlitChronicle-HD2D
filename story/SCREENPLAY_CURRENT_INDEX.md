@@ -1,0 +1,37 @@
+# 《星灯纪行》正式中文剧本阅读入口｜V2.1
+
+> 本页是唯一推荐的**当前阅读稿索引**。所有可运行剧情事实、stable ID、触发、奖励与条件，仍以 `story/campaign/*.json` 为最终准据；旧版Markdown仅作历史审校记录。
+
+## 当前各幕首选文稿
+
+| 幕 | 章节 | 当前批准阅读稿 | 基准内容 |
+|---|---|---|---|
+| 1 | 1–6 | [act_01_phase08_full.md](screenplay/act_01_phase08_full.md) | [act_01.json](campaign/act_01.json) |
+| 2 | 7–12 | [act_02.md](screenplay/act_02.md) | [act_02.json](campaign/act_02.json) |
+| 3 | 13–18 | [act_03.md](screenplay/act_03.md) | [act_03.json](campaign/act_03.json) |
+| 4 | 19–24 | [act_04.md](screenplay/act_04.md) | [act_04.json](campaign/act_04.json) |
+| 5 | 25–30 | [act_05.md](screenplay/act_05.md) | [act_05.json](campaign/act_05.json) |
+| 6 | 31–36 | [act_06.md](screenplay/act_06.md) | [act_06.json](campaign/act_06.json) |
+| 7 | 37–42 | [act_07.md](screenplay/act_07.md) | [act_07.json](campaign/act_07.json) |
+| 8 | 43–48 | [act_08_phase08_full.md](screenplay/act_08_phase08_full.md) | [act_08.json](campaign/act_08.json) |
+| 9 | 49–54 | [act_09_phase08_full.md](screenplay/act_09_phase08_full.md) | [act_09.json](campaign/act_09.json) |
+| 10 | 55–60 | [act_10.md](screenplay/act_10.md) | [act_10.json](campaign/act_10.json) |
+| 11 | 61–66 | [act_11.md](screenplay/act_11.md) | [act_11.json](campaign/act_11.json) |
+| 12 | 67–72 | [act_12_phase08_full.md](screenplay/act_12_phase08_full.md) | [act_12.json](campaign/act_12.json) |
+
+## 编剧阅读规则
+
+1. 第1、8、9、12幕采用第8阶段全量稿；其余八幕目前仍采用各自原有阅读稿，等待深化。
+2. 第22章匿名宫廷乐师不是伊泽；第26章取得的是航路证据，不能计作无条件获得`world.page_01`。
+3. 第72章`resolve`是选择前的共同交接，`ending`才是A/B/C最终选择；选项写入后必须播放对应`data/endings.json`的四场，之后再宣布正篇完结。
+4. A/B/C的条件以`data/endings.json`为准，C必备的地区协作由12航页见证与第60章分散灯网建设代表，暂不添加隐藏第四条件。
+5. `story/data/stage07_*.json`、`story/data/phase08_*.json`、`v21_ch026_page_reactions.json`是独立文本候选，尚未绑定原有主线运行器。不得按已经可操作的地图事件、可播互动或全量A/B路线验收。
+6. 历史文稿`screenplay/act_01.md`、`act_08.md`、`act_09.md`、`act_12.md`保留为旧版；第1幕`act_01_phase08_expansion.md`是差异附录，**不是**全文阅读稿。
+7. 归档交付每批必须同时更新JSON、正式阅读稿、此索引与静态测试；禁止在版本号不明时只引用旧Markdown内容。
+
+## 校验入口
+
+- `python tools/validate_story.py`：主线骨架及数据格式。
+- `python tools/validate_story_progression.py`：离线剧情通关及12张航页、三结局静态条件。
+- `python tools/validate_narrative_v21.py`：全文对白ID、正典P0守卫、120支线、第7/8阶段引用/插入锚点及终章契约。
+- Godot运行中必须另测分支重放、旧存档加载、结局选后尾声播放与地图坐标绑定，不能以离线静态PASS代替。

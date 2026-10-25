@@ -45,6 +45,9 @@ var ambience
 var clock_minutes: int = 480
 var calendar_day: int = 1
 var npc_positions: Dictionary = {}
+var story_marker_ids: Array[String] = []
+var story_marker_signature: String = ""
+var story_marker_positions: Dictionary = {}
 var interior_building: String = ""
 var interior_kind: String = ""
 var exterior_position: Vector2 = Vector2.ZERO
@@ -90,6 +93,9 @@ func build(new_chapter: int, party_size: int) -> void:
         root.free()
     blocked.clear()
     nodes.clear()
+    story_marker_ids.clear()
+    story_marker_positions.clear()
+    story_marker_signature = ""
     root = Node2D.new()
     root.name = "FirstActLocation"
     add_child(root)
@@ -328,6 +334,122 @@ func _build_sites() -> void:
         var prop: Sprite2D = _add_sprite("sign" if i == 0 else ("crate" if i % 2 else "sea_crystal"), site, false)
         nodes["story_stage_%d" % i] = prop
         prop.visible = chapter > 0
+
+func _clear_story_world_markers() -> void:
+    for id in story_marker_ids:
+        if nodes.has(id):
+            var marker: Node2D = nodes[id]
+            nodes.erase(id)
+            if is_instance_valid(marker):
+                marker.queue_free()
+    story_marker_ids.clear()
+    story_marker_positions.clear()
+
+func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String,branch: String = "") -> void:
+    var marker: Node2D
+    if kind == "npc":
+        var npc = NPCVisual.new()
+        npc.setup({"name":caption,"role":"quest"})
+        npc.modulate = Color("9eebd4") if branch == "a" else (Color("efd09d") if branch == "b" else Color.WHITE)
+        marker = npc
+        marker.z_index = 5
+        marker.position = Vector2(cell*TILE)+Vector2(16,16)
+        scenery.add_child(marker)
+    else:
+        var art: String = "sea_crystal" if kind == "evidence" else "sign"
+        var obj: Sprite2D = _add_sprite(art,cell,false,true)
+        obj.modulate = Color("a2e8f1") if kind == "evidence" else Color("f2d79a")
+        marker = obj
+        var title_tag := Label.new()
+        title_tag.text = caption.left(11)
+        title_tag.position = Vector2(-62,-58)
+        title_tag.custom_minimum_size.x = 124
+        title_tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        title_tag.add_theme_font_size_override("font_size",12)
+        title_tag.add_theme_color_override("font_color",Color("f0edd8"))
+        marker.add_child(title_tag)
+    nodes[target_id] = marker
+    story_marker_ids.append(target_id)
+    story_marker_positions[target_id] = cell
+
+func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Dictionary:
+    var region_map: String = str(map_profile.get("id",""))
+    var active: Dictionary = runtime.resume()
+    var available: Array = runtime.eligible_events(1000)
+    var chosen: Dictionary = {}
+    if not active.is_empty():
+        chosen = active
+    elif not tracked_id.is_empty() and runtime.eligible(tracked_id):
+        chosen = runtime.get_event(tracked_id)
+    else:
+        for item in available:
+            var event: Dictionary = item
+            if binder.matches(str(event.get("quest_id","")),region_map):
+                chosen = event
+                break
+    var original: Dictionary = core.available_story_side(chapter) if chapter > 0 else {}
+    var original_id: String = str(original.get("id",""))
+    var original_here: bool = binder.matches(original_id,region_map) and not original.is_empty()
+    var stage: int = core.story_side_stage(original_id) if original_here else -1
+    var currently: int = int(runtime.state.rpg.get("branch_story",{}).get("active",{}).get("line",0))
+    var current_id: String = str(chosen.get("id",""))
+    var local_branch: bool = binder.matches(str(chosen.get("quest_id","")),region_map)
+    var signature: String = "%s|%s|%s|%s|%d|%d|%s" % [
+        region_map,interior_building,original_id,current_id,stage,currently,
+        ",".join(available.map(func(item): return str(item.get("id",""))))]
+    if signature == story_marker_signature:
+        return {"chosen":chosen,"local":local_branch,"original_here":original_here}
+    story_marker_signature = signature
+    _clear_story_world_markers()
+    var occupied: Array[Vector2i] = []
+    var reachable: Dictionary = binder.find_reachable(self)
+    if reachable.is_empty():
+        return {"chosen":chosen,"local":false,"original_here":false}
+    # Existing original story markers now live next to the selected quest's
+    # canonical location rather than five reused arbitrary world positions.
+    for step in range(5):
+        var key: String = "story_stage_%d" % step
+        if nodes.has(key):
+            nodes[key].visible = false
+    if original_here and interior_building.is_empty():
+        var base: Dictionary = binder.site(original_id)
+        var p: Vector2i = binder.position_for(base,reachable,occupied,0)
+        if p.x>=0:
+            var key: String = "story_stage_%d" % stage
+            if nodes.has(key):
+                nodes[key].position = Vector2(p*TILE)+Vector2(16,16)
+                nodes[key].visible = true
+                occupied.append(p)
+    # Show up to six other quest witnesses in this sector; the tracked event
+    # receives three ordered interaction roles (person, evidence, notice).
+    var shown: int = 0
+    for item in available:
+        var e: Dictionary = item
+        if str(e.get("id",""))==current_id or not binder.matches(str(e.get("quest_id","")),region_map):
+            continue
+        var info: Dictionary = binder.site(str(e.get("quest_id","")))
+        if not interior_building.is_empty() and str(info.get("building_id",""))!=interior_building:
+            continue
+        var spot: Vector2i = binder.position_for(info,reachable,occupied,0)
+        if spot.x<0:
+            continue
+        occupied.append(spot)
+        _story_sprite("questhint:"+str(e["id"]),"npc",spot,
+            str(info.get("story_npc","见证人")),str(e.get("branch","")))
+        shown+=1
+        if shown>=6:
+            break
+    if local_branch:
+        var info: Dictionary = binder.site(str(chosen.get("quest_id","")))
+        if interior_building.is_empty() or str(info.get("building_id","")) == interior_building:
+            var point: Vector2i = binder.position_for(info,reachable,occupied,currently)
+            if point.x>=0:
+                occupied.append(point)
+                var role: String = ["npc","evidence","notice"][clampi(currently,0,2)]
+                var speaker: String = str(info.get("story_npc","见证人"))
+                var name_text: String = speaker if role == "npc" else ("调查证物" if role == "evidence" else "事件记录")
+                _story_sprite("branchmap:"+str(chosen["id"])+":"+str(currently),role,point,name_text,str(chosen.get("branch","")))
+    return {"chosen":chosen,"local":local_branch,"original_here":original_here}
 
 func _resident_spot(target: Vector2i,used: Dictionary) -> Vector2i:
     for radius in range(0,14):

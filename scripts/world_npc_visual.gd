@@ -8,13 +8,25 @@ var base_hour: int = 8
 var label: Label
 var artwork: Sprite2D
 var idle_elapsed: float = 0.0
+var gesture_clock: float = 0.0
+var blink_phase: float = 0.0
+var animation_redraws: int = 0
 var base_art_offset: float = -21.0
 
 func _process(delta: float) -> void:
     idle_elapsed+=delta
+    blink_phase=fposmod(idle_elapsed+float(posmod(role.hash(),7))*0.37,3.9)
     if is_instance_valid(artwork):
-        # Distinct but small idle motion keeps authored still portraits legible.
+        # Still portrait identities stay intact: only subtle vertical breathing.
         artwork.position.y=base_art_offset+0.8*sin(idle_elapsed*1.6+float(role.hash()%8))
+    else:
+        # Regulate CPU and redraw rate; only original fallback silhouettes need
+        # procedural hand/work/blink posing. No per-frame texture allocations.
+        gesture_clock+=delta
+        if gesture_clock>=0.12:
+            gesture_clock=fmod(gesture_clock,0.12)
+            animation_redraws+=1
+            queue_redraw()
 
 func setup(info: Dictionary) -> void:
     role=str(info.get("role","lore"))
@@ -60,11 +72,26 @@ func _draw() -> void:
     draw_rect(Rect2(-7,-7,6,17),tone.darkened(0.35),true)
     draw_rect(Rect2(1,-7,6,17),tone.darkened(0.36),true)
     draw_colored_polygon(PackedVector2Array([Vector2(-12,-20),Vector2(12,-20),Vector2(10,-5),Vector2(-10,-5)]),tone)
-    draw_line(Vector2(-12,-17),Vector2(-16,-7),tone.lightened(0.11),5)
-    draw_line(Vector2(12,-17),Vector2(16,-7),tone.lightened(0.11),5)
+    var working: float=sin(idle_elapsed*2.6+float(posmod(role.hash(),6)))
+    var lift: float=working*6.5 if role in ["craft","shop"] else working*2.0
+    draw_line(Vector2(-12,-17),Vector2(-16,-7-lift),tone.lightened(0.11),5)
+    draw_line(Vector2(12,-17),Vector2(16,-7+lift*0.55),tone.lightened(0.11),5)
+    if role=="craft":
+        # Forging hammer follows the work arm, and never changes NPC position.
+        var tool_tip:=Vector2(-18,-17-lift)
+        draw_line(Vector2(-16,-8-lift),tool_tip,Color("8b6f62"),3)
+        draw_line(tool_tip+Vector2(-6,-2),tool_tip+Vector2(6,-2),Color("c3c8bf"),4)
+    elif role=="shop":
+        var wave_hand:=Vector2(-16,-7-lift)
+        draw_circle(wave_hand,3.0,Color("efc7a0"))
     draw_circle(Vector2(0,-26),9.0,Color("e5b796"))
     draw_rect(Rect2(-9,-36,18,6),Color("3d4b57"),true)
-    draw_circle(Vector2(-3,-27),1.0,Color("253747"))
-    draw_circle(Vector2(3,-27),1.0,Color("253747"))
+    if blink_phase>0.14:
+        draw_circle(Vector2(-3,-27),1.0,Color("253747"))
+        draw_circle(Vector2(3,-27),1.0,Color("253747"))
+    else:
+        draw_line(Vector2(-5,-27),Vector2(-2,-27),Color("253747"),1)
+        draw_line(Vector2(2,-27),Vector2(5,-27),Color("253747"),1)
     if role=="quest":
-        draw_colored_polygon(PackedVector2Array([Vector2(-6,-48),Vector2(0,-54),Vector2(6,-48),Vector2(0,-42)]),Color("ffe38f"))
+        var pulse: float=0.76+0.22*(0.5+0.5*sin(idle_elapsed*3.0))
+        draw_colored_polygon(PackedVector2Array([Vector2(-6,-48),Vector2(0,-54),Vector2(6,-48),Vector2(0,-42)]),Color(1.0,0.90,0.55,pulse))

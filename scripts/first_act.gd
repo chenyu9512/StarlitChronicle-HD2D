@@ -322,6 +322,13 @@ func _focus() -> void:
             world.nodes[point].visible = not optional_director.offered(progress.chapter,slot,progress.scene_index).is_empty()
     ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
     atlas.set_targets(world.focus_name,side_target)
+    var nav_event: Dictionary = branch_runtime.get_event(tracked)
+    if not nav_event.is_empty() and not branch_runtime.is_seen(tracked):
+        var quest_id: String = str(nav_event.get("quest_id",""))
+        atlas.set_story_route(story_world_bindings.map_for(quest_id),
+            story_world_bindings.route_summary(quest_id,world_router))
+    else:
+        atlas.set_story_route("","")
 
 func _interact(target: String) -> void:
     if busy:

@@ -17,6 +17,7 @@ const SaveSlots = preload("res://scripts/save_slots.gd")
 const HousingService = preload("res://scripts/housing_service.gd")
 const HousingRoom = preload("res://scripts/housing_room.gd")
 const OptionalDirector = preload("res://scripts/optional_director.gd")
+const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
 var progress
 var catalog
 var world
@@ -34,6 +35,7 @@ var save_slots
 var housing
 var housing_room
 var optional_director
+var service_menu
 var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
 var active_optional_flag: String = ""
@@ -108,6 +110,10 @@ func _ready() -> void:
     add_child(housing_room)
     housing_room.closed.connect(_return_to_world)
     housing_room.changed.connect(_housing_changed)
+    service_menu = RegionalServiceMenu.new()
+    add_child(service_menu)
+    service_menu.closed.connect(_return_to_world)
+    service_menu.action_requested.connect(_service_action)
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -129,6 +135,7 @@ func _process(delta: float) -> void:
         var elapsed: int = int(clock_tick / 8.0)
         clock_tick = fmod(clock_tick,8.0)
         game_events.advance_time(elapsed)
+        world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventKey and event.pressed and not event.echo:
@@ -175,6 +182,7 @@ func _enter_location() -> void:
     world.custom_region = str(world.map_profile.get("name",game_core.location_name(progress.chapter)))
     world.party_ids = progress.rpg.get("party", []).duplicate()
     world.build(progress.chapter, world.party_ids.size())
+    world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
     world.locked = false
     busy = false
     pending = ""
@@ -319,10 +327,19 @@ func _interact(target: String) -> void:
             ui.show_message("返回 " + world.region_name() + "。")
         return
     if target == "interior_service":
-        ui.show_message("室内设施已经可以调查。特殊商店、公会与NPC交易将按地区逐步开放。")
+        _open_regional_service()
         return
     if target == "interior_storage":
         ui.show_message("储物柜与家具已经布置。家园专用仓储请从自己的房屋进入。")
+        return
+    if target.begins_with("citizen:"):
+        var citizen_id: String = target.trim_prefix("citizen:")
+        var clock: Dictionary = progress.rpg.get("game_clock",{})
+        var conversation: Dictionary = world.town_life.talk(citizen_id,str(world.map_profile.get("region_id","region_coast")),clock,progress)
+        if bool(conversation.get("first",false)):
+            game_events.record("resident_met",{"id":citizen_id,"region_id":str(world.map_profile.get("region_id",""))})
+            _save_progress()
+        ui.show_message(str(conversation.get("name","居民"))+"：\n"+str(conversation.get("text","")))
         return
     if target.begins_with("optional_"):
         _optional_event_interact(target.trim_prefix("optional_"))
@@ -840,6 +857,62 @@ func _travel_to(map_id: String) -> void:
     _save_progress()
     ui.show_message("已抵达：" + str(world_router.profile().get("name",map_id)))
 
+func _open_regional_service() -> void:
+    if world.interior_building.is_empty() or is_instance_valid(battle):
+        return
+    var kind: String = world.interior_building
+    var region_id: String = str(world.map_profile.get("region_id","region_coast"))
+    busy = true
+    world.locked = true
+    ui.clear_movement()
+    ui.set_play_visible(false)
+    atlas.show_exploration(false)
+    service_menu.open_service(kind,region_id,world.interior_kind,progress,game_core,world.town_life)
+
+func _service_action(action: String) -> void:
+    var message: String = ""
+    var region_id: String = str(world.map_profile.get("region_id","region_coast"))
+    if action.begins_with("buy:"):
+        message = game_core.buy(action.trim_prefix("buy:"))
+        if message.begins_with("购买了 "):
+            game_events.record("shop_purchase",{"region":region_id,"item":action.trim_prefix("buy:")})
+    elif action.begins_with("sell:"):
+        message = game_core.sell(action.trim_prefix("sell:"))
+    elif action.begins_with("forge:"):
+        message = game_core.forge(action.trim_prefix("forge:"))
+        if message.begins_with("锻造成品"):
+            game_events.record("forge_success",{"region":region_id})
+    elif action == "rest":
+        if progress.gold < 30:
+            message = "金币不足，无法入住。"
+        else:
+            progress.gold -= 30
+            game_events.advance_time(480)
+            progress.heal_all()
+            world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
+            game_events.record("inn_rest",{"region":region_id})
+            message = "在客栈安睡一晚，队伍 HP / MP 已全部恢复。"
+    elif action == "blessing":
+        if progress.gold < 20:
+            message = "祝福需要 20 G。"
+        else:
+            progress.gold -= 20
+            progress.heal_all()
+            game_events.advance_time(35)
+            game_events.record("shrine_blessing",{"region":region_id})
+            message = "祈灯仪式完成，队伍 HP / MP 全部恢复。"
+    elif action == "guild":
+        message = world.town_life.guild_action(region_id,progress)
+        game_events.record("guild_visit",{"region":region_id})
+    elif action == "home":
+        service_menu.close_service()
+        _open_house()
+        return
+    else:
+        message = "这里目前没有可执行的指令。"
+    _save_progress()
+    service_menu.refresh(progress,game_core,world.town_life,message)
+
 func _house_accessible() -> bool:
     var info: Dictionary = world_router.profile()
     return housing.owned() and housing.can_access(info) and str(info.get("region_id","")) == str(housing.data().get("region_id",""))
@@ -941,7 +1014,7 @@ func _open_map_from_quick_menu() -> void:
     atlas.open_map()
 
 func _return_to_world() -> void:
-    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or cheat.shade.visible or atlas.is_open()
+    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or service_menu.is_open() or cheat.shade.visible or atlas.is_open()
     if not busy and world.party_ids != progress.rpg.get("party",[]):
         _enter_location()
         return

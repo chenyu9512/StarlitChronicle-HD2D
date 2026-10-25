@@ -4,9 +4,10 @@ signal interacted(target: String)
 signal encounter_requested()
 
 const Actor = preload("res://scripts/first_act_actor.gd")
+const Geography = preload("res://scripts/world_geography.gd")
 const TILE: int = 32
-const WIDTH: int = 44
-const HEIGHT: int = 28
+const WIDTH: int = 72
+const HEIGHT: int = 48
 const GROUND: String = "res://assets/art/tilesets/coast_ground.png"
 const WATER: String = "res://assets/art/tilesets/coast_water.png"
 const REGION_NAMES: Array[String] = ["晨露村 · 十年前的星灯祭", "晨露村 · 澄舟旧屋", "白砂港 · 收容所", "断桅海蚀洞", "白砂港 · 黑帆酒馆", "鲸骨浅滩", "潮歌灯塔"]
@@ -30,6 +31,12 @@ var custom_region: String = ""
 var map_profile: Dictionary = {}
 var act01_layouts: Dictionary = {}
 var current_layout: Dictionary = {}
+var terrain_layout: Dictionary = {}
+var geography = Geography.new()
+var interior_building: String = ""
+var interior_kind: String = ""
+var exterior_position: Vector2 = Vector2.ZERO
+var last_party_size: int = 2
 var root: Node2D
 var scenery: Node2D
 var layer: TileMapLayer
@@ -64,6 +71,7 @@ func _ready() -> void:
 
 func build(new_chapter: int, party_size: int) -> void:
     chapter = maxi(0, new_chapter)
+    last_party_size = party_size
     current_layout = act01_layouts.get(chapter,{})
     if is_instance_valid(root):
         remove_child(root)
@@ -81,7 +89,8 @@ func build(new_chapter: int, party_size: int) -> void:
     _build_sites()
     hero = Actor.new()
     hero.setup(_party_sprite(0, "leon"))
-    hero.position = Vector2(6 * TILE + 16, 13 * TILE + 16)
+    var spawn: Vector2i = terrain_layout.get("spawn",Vector2i(10,23))
+    hero.position = Vector2(spawn*TILE)+Vector2(16,16)
     hero.z_index = 3
     scenery.add_child(hero)
     companion = Actor.new()
@@ -148,28 +157,31 @@ func _make_tiles() -> void:
     if not map_profile.is_empty():
         layer.modulate = map_profile.get("color",Color.WHITE)
     root.add_child(layer)
-    var map_type: String = str(map_profile.get("kind","field"))
-    var map_seed: int = absi(int(map_profile.get("seed",chapter)))
-    var coast: bool = map_type in ["field","landmark","route"] or chapter in [2, 5, 6]
-    var dungeon: bool = map_type in ["dungeon","hall","worksite"] or chapter == 3
-    var local_palette: int = int(current_layout.get("palette",0))
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
-            var sea_edge: bool = coast and (x <= 2 or y >= HEIGHT - 3 or (chapter == 5 and y >= 23 and x > 23))
-            var blocked_edge: bool = x < 2 or x > WIDTH - 3 or y < 2 or y > HEIGHT - 3
-            if blocked_edge or sea_edge:
-                blocked[Vector2i(x, y)] = true
-                layer.set_cell(Vector2i(x, y), 1 if sea_edge else 0, Vector2i((x + y) % 4, 2 if sea_edge else 6))
-            else:
-                var path: bool = x >= 5 and x <= 38 and (abs(y - 14) <= 2 or abs(x - 22) <= 2)
-                var ax: int = 1 if path else (x + y + map_seed % 4 + local_palette) % 4
-                var ay: int = 3 if path else (5 if dungeon else (1 if coast else 0))
-                layer.set_cell(Vector2i(x, y), 0, Vector2i(ax, ay))
-    for y in range(11, 18):
-        for x in range(5, 39):
-            blocked.erase(Vector2i(x, y))
+    if not interior_building.is_empty():
+        terrain_layout = geography.interior(interior_building,interior_kind)
+    else:
+        terrain_layout = geography.layout(str(map_profile.get("id","map_coast_01")),chapter)
+    blocked = terrain_layout.get("blocked",{}).duplicate()
+    var all_tiles: Dictionary = terrain_layout.get("tiles",{})
+    for tile in all_tiles.keys():
+        var atlas: Vector2i = all_tiles[tile]
+        var source_id: int = 0
+        if interior_building.is_empty() and str(map_profile.get("region_id","")) in ["region_coast","region_isles"] and atlas.y==6 and tile.y>=HEIGHT-7:
+            source_id = 1
+            atlas = Vector2i(atlas.x,2)
+        layer.set_cell(tile,source_id,atlas)
 
 func _decorate() -> void:
+    if not interior_building.is_empty():
+        for feature in terrain_layout.get("features",[]):
+            _add_sprite(str(feature.get("kind","barrel")),feature.get("cell",Vector2i(35,20)),false,true)
+        return
+    for feature in terrain_layout.get("features",[]):
+        var cell: Vector2i = feature.get("cell",Vector2i.ZERO)
+        var kind: String = str(feature.get("kind","rock"))
+        if feature.has("building"):
+            kind = "cottage" if kind not in ["inn","shop","guild","smith","shrine"] else ("fish_stall" if kind=="shop" else ("beacon" if kind=="shrine" else "cottage"))
+        _add_sprite(kind,cell,false,true)
     var objects: Array = [
         ["palm_tree", 7, 5], ["palm_tree", 38, 6], ["cottage", 11, 6], ["cottage", 34, 6],
         ["barrel", 24, 7], ["fish_stall", 19, 20], ["rock", 6, 21], ["rock", 39, 19],
@@ -193,21 +205,36 @@ func _decorate() -> void:
         var pos := Vector2i(int(entry[1]), int(entry[2]))
         _add_sprite(str(entry[0]), pos, false)
 
-func _add_sprite(kind: String, tile: Vector2i, solid: bool) -> Sprite2D:
+func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind
     if not ResourceLoader.exists(path):
         path = "res://assets/art/props/coast/rock.png"
     var sprite := Sprite2D.new()
     sprite.texture = load(path)
-    sprite.position = Vector2(tile.x * TILE + 16, tile.y * TILE + 16)
+    var place: Vector2i = tile if authored else geography.old_to_new(tile)
+    sprite.position = Vector2(place*TILE)+Vector2(16,16)
     sprite.offset = Vector2(0, -20)
     sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     scenery.add_child(sprite)
     if solid:
-        blocked[tile] = true
+        blocked[place] = true
     return sprite
 
 func _build_sites() -> void:
+    if not interior_building.is_empty():
+        var exit: Sprite2D = _add_sprite("sign",Vector2i(35,34),false,true)
+        nodes["interior_exit"] = exit
+        nodes["interior_service"] = _add_sprite("beacon",Vector2i(29,17),false,true)
+        nodes["interior_storage"] = _add_sprite("barrel",Vector2i(45,19),false,true)
+        return
+    for gate in terrain_layout.get("gates",[]):
+        var id: String = str(gate.get("id",""))
+        if not id.is_empty():
+            nodes["exit:"+id] = _add_sprite("beacon",gate.get("cell",Vector2i(4,24)),false,true)
+    for feature in terrain_layout.get("features",[]):
+        if feature.has("building"):
+            var door: Vector2i = feature.get("door",Vector2i.ZERO)
+            nodes["building:"+str(feature.get("building",""))] = _add_sprite("sign",door,false,true)
     var icons := {"key_npc": "beacon", "clue": "crate", "witness": "medicine_basket", "crisis": "sea_crystal", "resolve": "star_lantern", "inn": "well", "shop": "fish_stall", "side_start": "sign", "side_item": "crate", "side_return": "beacon"}
     for k in SITES.keys():
         var where: Vector2i = SITES[k]
@@ -316,7 +343,7 @@ func _physics_process(delta: float) -> void:
     if is_instance_valid(fourth):
         fourth.position = fourth.position.lerp(hero.position + Vector2(-78,40),minf(1.0,delta*2.8))
         fourth.set_motion(delta,moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
-    if chapter >= 2 and moved.length_squared() > 0.001:
+    if interior_building.is_empty() and chapter >= 2 and moved.length_squared() > 0.001:
         encounter_meter += moved.length()
         if encounter_meter > next_encounter:
             encounter_meter = 0.0
@@ -356,4 +383,41 @@ func interact() -> void:
         interacted.emit(chosen)
 
 func region_name() -> String:
-    return str(map_profile.get("name",custom_region)) if not map_profile.is_empty() else (REGION_NAMES[chapter] if chapter < REGION_NAMES.size() else custom_region)
+    var area: String = str(map_profile.get("name",custom_region)) if not map_profile.is_empty() else (REGION_NAMES[chapter] if chapter < REGION_NAMES.size() else custom_region)
+    if not interior_building.is_empty():
+        return area + " · " + interior_kind
+    return area
+
+func enter_building(building_id: String) -> bool:
+    if not interior_building.is_empty():
+        return false
+    var entry: Dictionary = {}
+    for feature in terrain_layout.get("features",[]):
+        if str(feature.get("building","")) == building_id:
+            entry = feature
+            break
+    if entry.is_empty():
+        return false
+    exterior_position = hero.position
+    interior_building = building_id
+    interior_kind = str(entry.get("name",building_id))
+    build(chapter,last_party_size)
+    return true
+
+func leave_building() -> bool:
+    if interior_building.is_empty():
+        return false
+    interior_building = ""
+    interior_kind = ""
+    build(chapter,last_party_size)
+    hero.position = exterior_position
+    return true
+
+func spawn_from_exit(previous_map: String) -> void:
+    var gate_id: String = "exit:"+previous_map
+    if nodes.has(gate_id):
+        var landmark: Node2D = nodes[gate_id]
+        hero.position = landmark.position + Vector2(0,46)
+        if _blocked(hero.position):
+            hero.position = landmark.position + Vector2(46,0)
+

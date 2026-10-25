@@ -20,12 +20,12 @@ def run(verify: bool = False) -> int:
         raise RuntimeError(f"Expected 40 map definitions, received {len(levels)}")
     created = 0
     for map_id,record in sorted(levels.items()):
-        if not map_id.startswith("map_") or map_id != record["map_id"] or record["size"] != [72,48]:
+        if not map_id.startswith("map_") or map_id != record["map_id"] or not (72<=int(record["size"][0])<=112 and 48<=int(record["size"][1])<=78):
             raise RuntimeError(f"Invalid sector layout: {map_id}")
         path = OUTPUT / f"{map_id}.json"
         if path.is_file():
             existing = json.loads(path.read_text(encoding="utf-8"))
-            if existing.get("map_id")!=map_id or existing.get("size")!=[72,48]:
+            if existing!=record:
                 raise RuntimeError(f"Broken independent map file {path}")
             continue
         if verify:

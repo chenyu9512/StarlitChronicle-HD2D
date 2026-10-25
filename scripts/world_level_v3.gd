@@ -4,6 +4,13 @@ extends RefCounted
 const SOURCE: String = "res://data/levels/world_levels_v3.json"
 const WIDTH: int = 72
 const HEIGHT: int = 48
+var active_width: int = WIDTH
+var active_height: int = HEIGHT
+
+func _use_size(info: Dictionary) -> void:
+    var d: Array = info.get("size",[WIDTH,HEIGHT])
+    active_width = int(d[0]) if d.size()==2 else WIDTH
+    active_height = int(d[1]) if d.size()==2 else HEIGHT
 var levels: Dictionary = {}
 var problems: Array[String] = []
 
@@ -28,7 +35,7 @@ func _init() -> void:
     for id in levels.keys():
         var entry: Dictionary = levels[id]
         var dimensions: Array = entry.get("size",[])
-        if str(entry.get("map_id","")) != str(id) or dimensions.size()!=2 or int(dimensions[0])!=WIDTH or int(dimensions[1])!=HEIGHT:
+        if str(entry.get("map_id","")) != str(id) or dimensions.size()!=2 or int(dimensions[0])<WIDTH or int(dimensions[0])>112 or int(dimensions[1])<HEIGHT or int(dimensions[1])>78:
             problems.append("Broken V3 level identity or dimensions: "+str(id))
         if not entry.get("roads",[]) is Array or entry.get("roads",[]).is_empty():
             problems.append("No authored primary roads: "+str(id))
@@ -37,7 +44,7 @@ func level(id: String) -> Dictionary:
     return levels.get(id,{})
 
 func _valid(p: Vector2i) -> bool:
-    return p.x >= 2 and p.y >= 2 and p.x < WIDTH-2 and p.y < HEIGHT-2
+    return p.x >= 2 and p.y >= 2 and p.x < active_width-2 and p.y < active_height-2
 
 func _point(value: Variant) -> Vector2i:
     if value is Array and value.size() >= 2:
@@ -71,6 +78,7 @@ func _draw_polyline(ground: Dictionary,walls: Dictionary,points: Array,thickness
             _stamp(ground,walls,p,thickness,row,solid)
 
 func apply_authored_barriers(level_info: Dictionary,ground: Dictionary,walls: Dictionary) -> void:
+    _use_size(level_info)
     # The same authored water/obstacles affect collision and rendering in every
     # sector type. Doors, quest-critical corridors and bridges are reviewed by
     # reachability tests; collision_overrides explicitly define author bridges.
@@ -80,6 +88,7 @@ func apply_authored_barriers(level_info: Dictionary,ground: Dictionary,walls: Di
             _draw_polyline(ground,walls,record.get("points",[]),thickness,clampi(int(record.get("tile_row",6)),0,7),true)
 
 func apply(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary]) -> Array[Vector2i]:
+    _use_size(level_info)
     var roadway: Array[Vector2i] = []
     if level_info.is_empty():
         return roadway
@@ -116,6 +125,7 @@ func nearest_road(point: Vector2i,roadway: Array[Vector2i]) -> Vector2i:
     return closest
 
 func apply_editor_patches(level_info: Dictionary,ground: Dictionary,walls: Dictionary) -> void:
+    _use_size(level_info)
     for override in level_info.get("paint_overrides",[]):
         var cell: Vector2i = _point(override.get("cell",[]))
         if not _valid(cell):
@@ -131,6 +141,7 @@ func apply_editor_patches(level_info: Dictionary,ground: Dictionary,walls: Dicti
             walls.erase(cell)
 
 func apply_safe_paths(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary],dungeon: bool) -> void:
+    _use_size(level_info)
     # Towns and dungeon chambers already have authored structure. Paint ONLY
     # existing walkable corridors so road/surface art cannot erase buildings,
     # boss-room walls, locked gates or the original quest design.
@@ -154,6 +165,7 @@ func apply_safe_paths(level_info: Dictionary,ground: Dictionary,walls: Dictionar
             features.append({"kind":str(point.get("kind","rock")),"cell":cell,"name":str(point.get("id","landmark"))})
 
 func open_water_tiles(level_info: Dictionary, final_walls: Dictionary) -> Dictionary:
+    _use_size(level_info)
     # Water is visually blue only while the cell still represents impassable water.
     # Bridges and authored paths clear collision and therefore take priority.
     var wet: Dictionary = {}

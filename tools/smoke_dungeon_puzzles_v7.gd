@@ -66,6 +66,7 @@ func _run() -> void:
     if errors.is_empty():
         print("PASS: eight distinct dungeon mechanisms, 32 reachable spatial devices, incorrect-sequence reset, one-time reward and save restore")
         quit(0)
+        return
     for issue in errors:
         push_error(issue)
     quit(1)

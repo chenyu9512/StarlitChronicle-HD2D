@@ -65,6 +65,8 @@ func _run() -> void:
             else:
                 var button: Button = buttons[0] as Button
                 button.pressed.emit()
+                if game.pending == "choice_reaction":
+                    _dialog()
         if chapter > 1:
             var count := 0
             while game.battle != null and count < 100:

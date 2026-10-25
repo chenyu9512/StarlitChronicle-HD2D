@@ -7,6 +7,7 @@ on:
       - "scripts/cinematic_*.gd"
       - "data/cinematics/**"
       - "tools/smoke_cinematic_flow.gd"
+      - "tools/validate_cinematics.py"
       - ".github/workflows/cinematic-validation.yml"
   pull_request:
     paths:
@@ -15,6 +16,7 @@ on:
       - "scripts/cinematic_*.gd"
       - "data/cinematics/**"
       - "tools/smoke_cinematic_flow.gd"
+      - "tools/validate_cinematics.py"
       - ".github/workflows/cinematic-validation.yml"
   workflow_dispatch:
 permissions:

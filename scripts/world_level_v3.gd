@@ -17,7 +17,8 @@ func _init() -> void:
         problems.append("Expected 40 individually editable production map definitions")
     for id in levels.keys():
         var entry: Dictionary = levels[id]
-        if str(entry.get("map_id","")) != str(id) or entry.get("size",[]) != [WIDTH,HEIGHT]:
+        var dimensions: Array = entry.get("size",[])
+        if str(entry.get("map_id","")) != str(id) or dimensions.size()!=2 or int(dimensions[0])!=WIDTH or int(dimensions[1])!=HEIGHT:
             problems.append("Broken V3 level identity or dimensions: "+str(id))
         if not entry.get("roads",[]) is Array or entry.get("roads",[]).is_empty():
             problems.append("No authored primary roads: "+str(id))

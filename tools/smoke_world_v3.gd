@@ -28,7 +28,8 @@ func _run() -> void:
         examined += 1
         var authored: Dictionary = source.level(str(id))
         verify(not authored.is_empty(),"No editable V3 record for "+str(id))
-        verify(authored.get("size",[])==[72,48],"Invalid authored V3 map dimensions: "+str(id))
+        var dimensions: Array = authored.get("size",[])
+        verify(dimensions.size()==2 and int(dimensions[0])==72 and int(dimensions[1])==48,"Invalid authored V3 map dimensions: "+str(id))
         verify(authored.get("roads",[]).size()>=2,"Missing independent authored road network: "+str(id))
         var current: Dictionary = geo.layout(str(id),3)
         var previous: Dictionary = geo.layout(str(id),61)
@@ -55,7 +56,7 @@ func _run() -> void:
         verify(current.get("tiles",{}).size()==72*48,"Terrain has missing cells: "+str(id))
         changed += 1
     verify(examined==40,"Missing forty playable V3 datasets")
-    verify(overworld==25,"Expected 25 wilderness/route/landmark regions")
+    verify(overworld==21,"Expected 21 wilderness/route/landmark regions after eleven towns and eight dungeons")
     if errors.is_empty():
         print("PASS: %d standalone authorable V3 definitions, %d distinct wilderness collision layouts, all quest/gate paths, independent editor collision patches" % [examined,overworld])
         quit(0)

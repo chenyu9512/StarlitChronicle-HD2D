@@ -7,6 +7,9 @@ on:
       - "scripts/cinematic_*.gd"
       - "data/cinematics/**"
       - "tools/smoke_cinematic_flow.gd"
+      - "tools/smoke_prologue_world_fx.gd"
+      - "scripts/prologue_world_stage.gd"
+      - "scripts/cinematic_scene_fx.gd"
       - "tools/validate_cinematics.py"
       - ".github/workflows/cinematic-validation.yml"
   pull_request:
@@ -16,6 +19,9 @@ on:
       - "scripts/cinematic_*.gd"
       - "data/cinematics/**"
       - "tools/smoke_cinematic_flow.gd"
+      - "tools/smoke_prologue_world_fx.gd"
+      - "scripts/prologue_world_stage.gd"
+      - "scripts/cinematic_scene_fx.gd"
       - "tools/validate_cinematics.py"
       - ".github/workflows/cinematic-validation.yml"
   workflow_dispatch:
@@ -44,3 +50,5 @@ jobs:
         run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
       - name: Run nine-scene first-play cinematic and persistence gameplay
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_cinematic_flow.gd
+      - name: Prologue P4 real-world starfall, blackout and decade staging
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_prologue_world_fx.gd

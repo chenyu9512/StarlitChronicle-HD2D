@@ -35,6 +35,8 @@ jobs:
           chmod +x Godot_v4.7.2-stable_linux.x86_64
       - name: Headless project import and GDScript check
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Interactive minimap and 42-location world atlas regression
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
       - name: First Act integrated runtime and combat smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act.gd
       - name: Prologue and six-chapter end-to-end flow

@@ -10,6 +10,7 @@ on:
       - "assets/art/exteriors/coast_final_pass/**"
       - "data/levels/v4/coastal_scenery.json"
       - "tools/capture_coastal_visuals.gd"
+      - "tools/smoke_coastal_exterior.gd"
       - ".github/workflows/coastal-visual-evidence.yml"
   workflow_dispatch:
 permissions:
@@ -34,6 +35,8 @@ jobs:
           chmod +x Godot_v4.7.2-stable_linux.x86_64
       - name: Import official art and scene textures
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Verify outdoor facades, route/cave art, PCM and actor response
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_coastal_exterior.gd
       - name: Render five real gameplay visual QA frames
         shell: bash
         run: |

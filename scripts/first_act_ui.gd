@@ -21,6 +21,8 @@ var hud: PanelContainer
 var name_label: Label
 var tracker: RichTextLabel
 var party_line: Label
+var status_frame: PanelContainer
+var status_rows: RichTextLabel
 var dpad: Control
 var act_button: Button
 var menu_button: Button
@@ -117,6 +119,21 @@ func _build_hud() -> void:
     party_line.add_theme_font_size_override("font_size", 15)
     party_line.mouse_filter = Control.MOUSE_FILTER_IGNORE
     row.add_child(party_line)
+    # Readable HP/MP command window, distinct from the quest tracker and minimap.
+    status_frame = PanelContainer.new()
+    status_frame.anchor_left = 0.795
+    status_frame.anchor_right = 0.985
+    status_frame.anchor_top = 0.345
+    status_frame.anchor_bottom = 0.595
+    status_frame.add_theme_stylebox_override("panel",_panel_style(Color("0b2033"),Color("ac935d")))
+    status_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(status_frame)
+    status_rows = RichTextLabel.new()
+    status_rows.bbcode_enabled = true
+    status_rows.scroll_active = false
+    status_rows.add_theme_font_size_override("normal_font_size",16)
+    status_rows.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    status_frame.add_child(status_rows)
 
 func _build_controls() -> void:
     dpad = Control.new()
@@ -198,7 +215,13 @@ func set_hud(chapter: int, location: String, objective: String, actors: Array[Di
     for member in actors:
         values.append("%s %d/%d" % [str(member.get("name","")),int(member.get("hp",0)),int(member.get("max_hp",1))])
     party_line.text = "队伍 · %d人\n%d G  ·  药草 %d" % [values.size(), gold, potions]
-    party_line.tooltip_text = "HP / " + "  ".join(values)
+    var detailed := PackedStringArray()
+    for member in actors:
+        var hp: int = int(member.get("hp",0))
+        var cap: int = maxi(1,int(member.get("max_hp",1)))
+        var color: String = "#f6a4a4" if hp * 4 <= cap else "#d7eaf1"
+        detailed.append("[color=%s]%s Lv%d[/color]  HP%d/%d  MP%d" % [color,str(member.get("name","")).left(4),int(member.get("level",1)),hp,cap,int(member.get("mp",0))])
+    status_rows.text = "\n".join(detailed)
 
 func show_message(text_value: String) -> void:
     toast.text = text_value
@@ -433,6 +456,7 @@ func show_title(has_save: bool) -> void:
 
 func set_play_visible(value: bool) -> void:
     hud.visible = value
+    status_frame.visible = value
     dpad.visible = value
     act_button.visible = value
     menu_button.visible = value

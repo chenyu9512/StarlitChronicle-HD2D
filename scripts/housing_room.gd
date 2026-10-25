@@ -5,6 +5,7 @@ signal changed(message: String)
 var housing
 var progress
 var root: Control
+var backdrop_panel: PanelContainer
 var tiles: GridContainer
 var list: VBoxContainer
 var info: Label
@@ -21,6 +22,7 @@ func _ready() -> void:
     shade.color = Color(0.015,0.03,0.06,0.97)
     root.add_child(shade)
     var frame := PanelContainer.new()
+    backdrop_panel = frame
     frame.anchor_left = 0.02
     frame.anchor_right = 0.98
     frame.anchor_top = 0.03
@@ -136,9 +138,15 @@ func render() -> void:
         child.queue_free()
         tiles.remove_child(child)
     var wall: String = str(housing.data().get("wall","海砂白"))
+    var wall_colors: Dictionary = {"海砂白":Color("243747"),"星夜蓝":Color("152846"),"银镜灰":Color("343b43"),"森林青":Color("1b3b38")}
+    var room_style: StyleBoxFlat = backdrop_panel.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
+    room_style.bg_color = wall_colors.get(wall,Color("243747"))
+    backdrop_panel.add_theme_stylebox_override("panel",room_style)
     var floor: String = str(housing.data().get("floor","橡木棕"))
     var palette: Dictionary = {"橡木棕":Color("836c54"),"海盐灰":Color("7a8187"),"赤炉红":Color("9f6455"),"天轨紫":Color("74749b")}
     var base: Color = palette.get(floor,Color("836c54"))
+    if housing.has_effect("light"):
+        base = base.lightened(0.15)
     for y in range(housing.HEIGHT):
         for x in range(housing.WIDTH):
             var xx: int = x

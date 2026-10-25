@@ -121,7 +121,13 @@ func capacity() -> int:
     return 12 + int(data().get("tier",0)) * 6
 
 func warehouse_capacity() -> int:
-    return 20 + int(data().get("tier",0)) * 20
+    var chests: int = 0
+    for record in data()["placed"]:
+        if str(goods.get(str(record.get("id","")),{}).get("effect","")) == "storage":
+            chests += 1
+    if chests == 0:
+        return 0
+    return chests * 20 + int(data().get("tier",0)) * 20
 
 func warehouse_total() -> int:
     var sum: int = 0
@@ -130,7 +136,9 @@ func warehouse_total() -> int:
     return sum
 
 func deposit(id: String, quantity: int = 1) -> String:
-    if not owned() or quantity < 1 or not progress.inventory.has(id):
+    if not owned() or not has_effect("storage"):
+        return "需要先摆放储物柜才能使用仓库。"
+    if quantity < 1 or not progress.inventory.has(id):
         return "背包没有这件物品。"
     if int(progress.inventory[id]) < quantity:
         return "背包物品数量不足。"
@@ -145,6 +153,8 @@ func deposit(id: String, quantity: int = 1) -> String:
     return "已经存入：" + id
 
 func withdraw(id: String, quantity: int = 1) -> String:
+    if not owned() or not has_effect("storage"):
+        return "需要先摆放储物柜才能取出物品。"
     var store: Dictionary = data()["warehouse"]
     if not owned() or quantity < 1 or int(store.get(id,0)) < quantity:
         return "住宅仓库库存不足。"

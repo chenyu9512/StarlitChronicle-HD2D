@@ -191,6 +191,17 @@ func use_item(id: String, actor_id: String) -> String:
     var record: Dictionary = entry("items",id)
     var effect: Dictionary = record.get("effect",{})
     var actor: Dictionary = state.actors[i]
+    if str(effect.get("kind","")) == "food":
+        var tier: int = maxi(1,int(record.get("tier",1)))
+        var hp_gain: int = 25 + tier * 15
+        var mp_gain: int = 8 + tier * 6
+        if int(actor.get("hp",0)) >= int(actor.get("max_hp",0)) and int(actor.get("mp",0)) >= int(actor.get("max_mp",0)):
+            return "体力和魔力已满。"
+        actor["hp"] = mini(int(actor.get("max_hp",1)),int(actor.get("hp",0))+hp_gain)
+        actor["mp"] = mini(int(actor.get("max_mp",0)),int(actor.get("mp",0))+mp_gain)
+        state.actors[i] = actor
+        take_item(id,1)
+        return "享用了 " + display_name(id) + "，恢复HP与MP。"
     var field: String = ""
     match str(effect.get("kind","")):
         "heal_hp": field = "hp"

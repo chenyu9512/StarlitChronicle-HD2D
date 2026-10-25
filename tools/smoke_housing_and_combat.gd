@@ -84,6 +84,19 @@ func _run() -> void:
     require(is_instance_valid(battle.skill_picker),"Skill menu cannot open")
     battle._act("cancel_skill")
     require(not is_instance_valid(battle.skill_picker),"Skill menu cannot close")
+    state.actors[0]["hp"] = 15
+    battle.hero_turn = 1
+    var learned_healing: String = ""
+    for skill in core.skills("char_tidecaller"):
+        if str(skill.get("target","")) == "single_ally" and str((skill.get("effect",{}) as Dictionary).get("kind","")) == "heal":
+            learned_healing = str(skill.get("id",""))
+            break
+    require(not learned_healing.is_empty(),"Healer has no targeted healing skill")
+    if not learned_healing.is_empty():
+        battle._act("skill:"+learned_healing)
+        require(is_instance_valid(battle.skill_picker),"Selecting a healing skill did not open ally target chooser")
+        battle._act("skill:"+learned_healing+"@0")
+        require(int(state.actors[0]["hp"]) > 15,"Chosen ally did not receive healing")
     battle.queue_free()
     require(state.save(),"Housing save failed")
     var new_state = State.new()

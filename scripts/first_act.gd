@@ -18,6 +18,7 @@ const SaveSlots = preload("res://scripts/save_slots.gd")
 const HousingService = preload("res://scripts/housing_service.gd")
 const HousingRoom = preload("res://scripts/housing_room.gd")
 const OptionalDirector = preload("res://scripts/optional_director.gd")
+const StoryBranchRuntime = preload("res://scripts/story_branch_runtime.gd")
 const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
 var progress
 var catalog
@@ -37,6 +38,7 @@ var save_slots
 var housing
 var housing_room
 var optional_director
+var branch_runtime
 var service_menu
 var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
@@ -63,6 +65,9 @@ func _ready() -> void:
     save_slots = SaveSlots.new()
     housing = HousingService.new()
     optional_director = OptionalDirector.new()
+    branch_runtime = StoryBranchRuntime.new()
+    if not branch_runtime.load_all():
+        push_error("阶段19剧情扩展读取失败：" + "；".join(branch_runtime.errors))
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -100,6 +105,8 @@ func _ready() -> void:
     add_child(adventure_menu)
     adventure_menu.closed.connect(_return_to_world)
     adventure_menu.replay_ending_requested.connect(_replay_ending)
+    adventure_menu.branch_runtime = branch_runtime
+    adventure_menu.branch_event_requested.connect(_start_branch_event)
     adventure_menu.travel_requested.connect(_travel_to)
     adventure_menu.map_requested.connect(_open_world_map_from_book)
     adventure_menu.save_slot_requested.connect(_save_slot)
@@ -167,6 +174,7 @@ func _start(continue_game: bool) -> void:
     game_events.bind(progress)
     housing.bind(progress)
     optional_director.bind(progress)
+    branch_runtime.bind(progress)
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
         # v0.3旧版结算标记没有三结局记录：迁移到终局选择，保留装备、等级与支线。
         progress.flags.erase("story.complete")
@@ -174,6 +182,10 @@ func _start(continue_game: bool) -> void:
         progress.scene_index = 4
         progress.save()
     _enter_location()
+    var resumed_branch: Dictionary = branch_runtime.resume()
+    if not resumed_branch.is_empty():
+        _display_branch_event(resumed_branch)
+        return
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete", false)):
         if str(progress.rpg.get("ending_id", "")).is_empty():
             _begin_ending_choice()
@@ -445,6 +457,27 @@ func _interact(target: String) -> void:
         3: _present("resolve")
         4: _present("ending_intro")
 
+func _start_branch_event(event_id: String) -> void:
+    if branch_runtime == null or not branch_runtime.begin(event_id):
+        ui.show_message("该支线后续尚未开放，或已经完成。")
+        return
+    adventure_menu.close_menu()
+    _display_branch_event(branch_runtime.get_event(event_id))
+
+func _display_branch_event(event: Dictionary) -> void:
+    if event.is_empty():
+        return
+    var stored: Dictionary = progress.rpg.get("branch_story",{}).get("active",{})
+    var current_line_index: int = maxi(0,int(stored.get("line",0)))
+    var lines: Array = event.get("dialogue",[])
+    if current_line_index >= lines.size():
+        return
+    pending = "branch_event"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue(lines.slice(current_line_index))
+
 func _optional_event_interact(slot: String) -> void:
     var event: Dictionary = optional_director.offered(progress.chapter,slot,progress.scene_index)
     if event.is_empty():
@@ -617,6 +650,16 @@ func _dialogue_ended() -> void:
             return
         "story_side_branch":
             active_story_side = {}
+        "branch_event":
+            var active_branch: Dictionary = branch_runtime.resume()
+            if not active_branch.is_empty():
+                var current_index: int = int(progress.rpg.get("branch_story",{}).get("active",{}).get("line",0))
+                var total_lines: int = (active_branch.get("dialogue",[]) as Array).size()
+                for _step in range(current_index,total_lines):
+                    if not branch_runtime.advance():
+                        ui.show_message("支线后续存档失败，请重新保存。")
+                        return
+                game_events.record("branch_story_completed",{"id":str(active_branch.get("id",""))})
         "optional_event":
             if optional_director.mark_seen(pending_optional):
                 game_events.record("optional_event",{"id":str(pending_optional.get("id",""))})

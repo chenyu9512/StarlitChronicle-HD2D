@@ -10,7 +10,7 @@
 | 2 | 7–12 | [act_02_phase09_full.md](screenplay/act_02_phase09_full.md) | [act_02.json](campaign/act_02.json) |
 | 3 | 13–18 | [act_03_phase10_full.md](screenplay/act_03_phase10_full.md) | [act_03.json](campaign/act_03.json) |
 | 4 | 19–24 | [act_04_phase11_full.md](screenplay/act_04_phase11_full.md) | [act_04.json](campaign/act_04.json) |
-| 5 | 25–30 | [act_05.md](screenplay/act_05.md) | [act_05.json](campaign/act_05.json) |
+| 5 | 25–30 | [act_05_phase12_full.md](screenplay/act_05_phase12_full.md) | [act_05.json](campaign/act_05.json) |
 | 6 | 31–36 | [act_06.md](screenplay/act_06.md) | [act_06.json](campaign/act_06.json) |
 | 7 | 37–42 | [act_07.md](screenplay/act_07.md) | [act_07.json](campaign/act_07.json) |
 | 8 | 43–48 | [act_08_phase08_full.md](screenplay/act_08_phase08_full.md) | [act_08.json](campaign/act_08.json) |
@@ -21,7 +21,7 @@
 
 ## 编剧阅读规则
 
-1. 第1、8、9、12幕采用第8阶段全量稿；第2幕采用第9阶段306句全量稿；第3幕采用第10阶段317句全量稿；第4幕采用第11阶段310句全量稿；其余五幕当前保留原阅读稿，等待深化。
+1. 第1、8、9、12幕采用第8阶段全量稿；第2幕采用第9阶段306句全量稿；第3幕采用第10阶段317句全量稿；第4幕采用第11阶段310句全量稿；第5幕采用第12阶段288句全量稿；其余四幕当前保留原阅读稿，等待深化。
 2. 第22章匿名宫廷乐师不是伊泽；第26章取得的是航路证据，不能计作无条件获得`world.page_01`。
 3. 第72章`resolve`是选择前的共同交接，`ending`才是A/B/C最终选择；选项写入后必须播放对应`data/endings.json`的四场，之后再宣布正篇完结。
 4. A/B/C的条件以`data/endings.json`为准，C必备的地区协作由12航页见证与第60章分散灯网建设代表，暂不添加隐藏第四条件。
@@ -30,7 +30,8 @@
 7. 第9阶段第1–12章的玩家可操作事件设计见 `data/phase09_opening_event_plan.json`；它是制作方案而非地图/运行器实装。第2幕旧 `screenplay/act_02.md` 成为历史稿。
 8. 第10阶段第13–18章的八基础职业试炼、四阀门及12场独立事件设计见 `data/phase10_act03_production_plan.json`；这是制作候选，不能当作运行器已实装。
 9. 第11阶段第19–24章的三个回忆可操作年代、现世选择前转换、白夜祭潜入和档案机关设计见 `data/phase11_act04_production_plan.json`；并非运行器已实装。
-10. 归档交付每批必须同时更新JSON、正式阅读稿、此索引与静态测试；禁止在版本号不明时只引用旧Markdown内容。
+10. 第12阶段第25–30章的船籍、潜水钟、三段残谱和六座航标设计见 `data/phase12_act05_production_plan.json`；不是已实装关卡，且第26章航路证据不代表取得支线航页。
+11. 归档交付每批必须同时更新JSON、正式阅读稿、此索引与静态测试；禁止在版本号不明时只引用旧Markdown内容。
 
 ## 校验入口
 

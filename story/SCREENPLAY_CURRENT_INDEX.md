@@ -37,6 +37,13 @@
 14. 第16阶段第61–66章星帆往返、七份实验报告、澄舟影像与空白未来、天衡退出协议、七守门者与终末天桥制作规格参见 `data/phase16_act11_production_plan.json`；仅第66章resolve设置七灯总旗标，最终A/B/C仍于第72章选择。
 15. 归档交付每批必须同时更新JSON、正式阅读稿、此索引与静态测试；禁止在版本号不明时只引用旧Markdown内容。
 
+## 支线当前阅读稿｜第17阶段长期A/B
+
+- [12条失落航页A/B](PHASE_17_BATCH01_LOST_PAGES_DELIVERY.md)：24条路线、72场候选、216句新对白（查看交付与制作表）。
+- [24条生活支线A/B](screenplay/phase17_life_all_branches.md)：48条路线、144场候选、432句新对白。
+- [36条地区支线A/B](screenplay/phase17_regional_all_branches.md)：72条路线、216场候选、648句新对白。完整触发及跨地区契约见 [phase17_regional_manifest.json](data/phase17_regional_manifest.json)。
+- 阶段17三批覆盖72/120条；其余48条伙伴支线进入阶段18。候选剧情不替换原任务JSON、不改变奖励，也不视为已绑定地图及运行器。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线骨架及数据格式。

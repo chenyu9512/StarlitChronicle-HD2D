@@ -61,8 +61,25 @@ func _run() -> void:
     battle._act("skill")
     check(not is_instance_valid(battle.skill_picker),"Silenced fighter must not open skill selection")
     battle.queue_free()
+    var targeting = Battle.new()
+    root.add_child(targeting)
+    targeting.game_core = core
+    targeting.invincible = true
+    targeting.start(state,4,false)
+    if targeting.formation.alive_indices().size() < 2:
+        var extra_enemy: Dictionary = targeting.formation.units[0].duplicate(true)
+        extra_enemy["name"] = "测试敌人二号"
+        targeting.formation.units.append(extra_enemy)
+    targeting.hero_turn = 0
+    var target_hp_before: int = int(targeting.formation.units[1].get("hp",0))
+    targeting._act("skill:skill_wayfarer_01")
+    check(is_instance_valid(targeting.skill_picker),"Multi-enemy single-target skill must open the target chooser")
+    targeting._act("skill:skill_wayfarer_01#1")
+    check(not is_instance_valid(targeting.skill_picker),"Skill target picker reopened after selecting the second enemy")
+    check(int(targeting.formation.units[1].get("hp",0)) < target_hp_before,"Manual skill did not affect selected enemy")
+    targeting.queue_free()
     if failures.is_empty():
-        print("PASS: seven ailments, DOT, stun, silence, cure, slow, deterministic initiative and live round rotation")
+        print("PASS: seven ailments, DOT, stun, silence, cure, slow, initiative, live round rotation and multi-foe spell targeting")
         quit(0)
     else:
         for message in failures:

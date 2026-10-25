@@ -14,6 +14,7 @@ const WIDTH: int = 72
 const HEIGHT: int = 48
 const GROUND: String = "res://assets/art/tilesets/coast_ground.png"
 const WATER: String = "res://assets/art/tilesets/coast_water.png"
+const REGION_TILE_DIR: String = "res://assets/art/tilesets/regions/"
 const REGION_NAMES: Array[String] = ["晨露村 · 十年前的星灯祭", "晨露村 · 澄舟旧屋", "白砂港 · 收容所", "断桅海蚀洞", "白砂港 · 黑帆酒馆", "鲸骨浅滩", "潮歌灯塔"]
 const SCENE_LABELS: Array[String] = ["", "", "", "", "", "", ""]
 const NPC_NAMES: Array[String] = ["澄舟", "村长", "港务员", "朔弦", "酒馆老板", "港务官", "守灯工匠"]
@@ -153,17 +154,21 @@ func _party_sprite(position: int, fallback: String) -> String:
     return name if ResourceLoader.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
 
 func _make_tiles() -> void:
+    var region: String = str(map_profile.get("region_id", "region_coast"))
+    var land_path: String = REGION_TILE_DIR + region + "_ground.png"
+    var water_path: String = REGION_TILE_DIR + region + "_water.png"
+    var regional_art: bool = ResourceLoader.exists(land_path) and ResourceLoader.exists(water_path)
     var tile_set := TileSet.new()
     tile_set.tile_size = Vector2i(TILE, TILE)
     var land := TileSetAtlasSource.new()
-    land.texture = load(GROUND)
+    land.texture = load(land_path if regional_art else GROUND)
     land.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
             land.create_tile(Vector2i(x, y))
     tile_set.add_source(land, 0)
     var sea := TileSetAtlasSource.new()
-    sea.texture = load(WATER)
+    sea.texture = load(water_path if regional_art else WATER)
     sea.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
@@ -175,7 +180,7 @@ func _make_tiles() -> void:
     layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     layer.z_index = -5
     if not map_profile.is_empty():
-        layer.modulate = map_profile.get("color",Color.WHITE)
+        layer.modulate = Color.WHITE if regional_art else map_profile.get("color",Color.WHITE)
     root.add_child(layer)
     if not interior_building.is_empty():
         terrain_layout = geography.interior(interior_building,interior_kind)

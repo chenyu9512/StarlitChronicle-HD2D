@@ -6,6 +6,7 @@ signal location_selected(map_id: String)
 const W: int = 72
 const H: int = 48
 const TILE: float = 32.0
+const WORLD_ART: String = "res://assets/art/worldmaps/world_navigation_v4.png"
 const REGIONS: Array[String] = [
     "region_coast", "region_oaths", "region_forge", "region_isles",
     "region_mirror", "region_oldland", "region_sanctum", "region_city"
@@ -177,7 +178,12 @@ func _draw_atlas(regional: bool) -> void:
         var c: Array = region_spec.get("center",[600,360])
         world_offset = Vector2(float(c[0])-165.0,float(c[1])-135.0)
         world_size = Vector2(330,270)
+        world_offset.x = clampf(world_offset.x,0.0,1200.0-world_size.x)
+        world_offset.y = clampf(world_offset.y,0.0,720.0-world_size.y)
     var scale: Vector2 = available_size/world_size
+    var atlas_art: Texture2D = load(WORLD_ART) if ResourceLoader.exists(WORLD_ART) else null
+    if atlas_art != null:
+        draw_texture_rect_region(atlas_art,Rect2(pad,available_size),Rect2(world_offset,world_size))
     for column in range(1,12):
         var xx: float = float(column)*100.0
         if xx < world_offset.x or xx > world_offset.x+world_size.x:
@@ -199,9 +205,9 @@ func _draw_atlas(regional: bool) -> void:
         var center: Vector2 = pad+(Vector2(float(center_data[0]),float(center_data[1]))-world_offset)*scale
         var radii: Vector2 = Vector2(float(radius_data[0])*scale.x,float(radius_data[1])*scale.y)
         var terrain_color: Color = _region_color(key)
-        _draw_island(center,radii,terrain_color.darkened(0.5),abs(key.hash())%61)
-        # Nested coast contours convey landmass instead of an abstract spreadsheet grid.
-        _draw_island(center,radii*0.78,terrain_color.darkened(0.37),abs(key.hash())%83)
+        if atlas_art == null:
+            _draw_island(center,radii,terrain_color.darkened(0.5),abs(key.hash())%61)
+            _draw_island(center,radii*0.78,terrain_color.darkened(0.37),abs(key.hash())%83)
         if font != null:
             draw_string(font,center+Vector2(-70,-radii.y*0.68),str(router.regions.get(key,{}).get("name",key)),HORIZONTAL_ALIGNMENT_CENTER,140.0,16 if regional else 12,GOLD)
     for id in router.maps.keys():

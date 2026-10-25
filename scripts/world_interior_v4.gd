@@ -55,6 +55,12 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         _fill(tiles,walls,partition,6,true)
     for doorway in data.get("door_regions",[]):
         _fill(tiles,walls,doorway,3,false)
+    # Authored furniture collision is merged before marker validation; other
+    # interiors have no art_collision_cells and retain their exact behavior.
+    for raw_cell in data.get("art_collision_cells",[]):
+        var occupied: Vector2i = _point(raw_cell)
+        if occupied.x>=2 and occupied.x<WIDTH-2 and occupied.y>=2 and occupied.y<HEIGHT-2:
+            walls[occupied] = true
     var authored_points: Dictionary=data.get("points",{})
     var points: Dictionary={}
     for key in ["spawn","exit","service","storage"]:
@@ -72,4 +78,7 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
     return {"tiles":tiles,"blocked":walls,"features":features,
         "gates":[],"spawn":points["spawn"],"size":Vector2i(WIDTH,HEIGHT),
         "interior":kind,"interact_cells":points,"authored_source":"v4",
-        "layout_id":map_id+"#"+building_id}
+        "layout_id":map_id+"#"+building_id,
+        "art_profile":str(data.get("art_profile","")),
+        "visuals":data.get("visuals",[]),
+        "light_sources":data.get("light_sources",[])}

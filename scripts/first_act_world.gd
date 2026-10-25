@@ -9,6 +9,8 @@ const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
+const InteriorArt = preload("res://scripts/world_interior_art.gd")
+const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
 const TILE: int = 32
 const WIDTH: int = 72
 const HEIGHT: int = 48
@@ -165,10 +167,17 @@ func _make_tiles() -> void:
     var land_path: String = REGION_TILE_DIR + region + "_ground.png"
     var water_path: String = REGION_TILE_DIR + region + "_water.png"
     var regional_art: bool = ResourceLoader.exists(land_path) and ResourceLoader.exists(water_path)
+    # Determine the physical room before selecting the render texture; V4 art
+    # and the authoritative terrain now share a single cell coordinate grid.
+    if not interior_building.is_empty():
+        terrain_layout = geography.interior(interior_building,interior_kind,str(map_profile.get("id","")))
+    else:
+        terrain_layout = geography.layout(str(map_profile.get("id","map_coast_01")),chapter)
+    var inn_art: bool = str(terrain_layout.get("art_profile",""))=="coast_inn_v1" and ResourceLoader.exists(INN_ATLAS)
     var tile_set := TileSet.new()
     tile_set.tile_size = Vector2i(TILE, TILE)
     var land := TileSetAtlasSource.new()
-    land.texture = load(land_path if regional_art else GROUND)
+    land.texture = load(INN_ATLAS if inn_art else (land_path if regional_art else GROUND))
     land.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
@@ -187,12 +196,8 @@ func _make_tiles() -> void:
     layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     layer.z_index = -5
     if not map_profile.is_empty():
-        layer.modulate = Color.WHITE if regional_art else map_profile.get("color",Color.WHITE)
+        layer.modulate = Color.WHITE if inn_art or regional_art else map_profile.get("color",Color.WHITE)
     root.add_child(layer)
-    if not interior_building.is_empty():
-        terrain_layout = geography.interior(interior_building,interior_kind,str(map_profile.get("id","")))
-    else:
-        terrain_layout = geography.layout(str(map_profile.get("id","map_coast_01")),chapter)
     blocked = terrain_layout.get("blocked",{}).duplicate()
     var all_tiles: Dictionary = terrain_layout.get("tiles",{})
     var water_mask: Dictionary = terrain_layout.get("water_mask",{})
@@ -209,6 +214,11 @@ func _make_tiles() -> void:
 
 func _decorate() -> void:
     if not interior_building.is_empty():
+        if str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
+            var room_art := InteriorArt.new()
+            root.add_child(room_art)
+            room_art.install(scenery,terrain_layout,clock_minutes)
+            return
         for feature in terrain_layout.get("features",[]):
             _add_sprite(str(feature.get("kind","barrel")),feature.get("cell",Vector2i(35,20)),false,true)
         return
@@ -280,6 +290,11 @@ func _build_sites() -> void:
         nodes["interior_exit"] = _add_sprite("sign",markers.get("exit",Vector2i(35,34)),false,true)
         nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
         nodes["interior_storage"] = _add_sprite("barrel",markers.get("storage",Vector2i(45,19)),false,true)
+        if str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
+            # Keep node visible for input and minimap; custom counter/art
+            # replaces its old beacon/barrel pictogram at the same anchor.
+            nodes["interior_service"].modulate.a = 0.0
+            nodes["interior_storage"].modulate.a = 0.0
         return
     var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))
     if archetype == "dungeon":

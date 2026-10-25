@@ -89,6 +89,8 @@ func _draw_local() -> void:
                     shade = Color("3a806d")
                 elif atlas.y == 4:
                     shade = Color("ad7554")
+            if world.fog != null and not world.fog.revealed(world.fog_key(),x,y):
+                shade = Color("101b2c")
             draw_rect(Rect2(origin + Vector2(x - first_x,y - first_y) * cell, Vector2(cell + 0.08,cell + 0.08)), shade, true)
     if not compact:
         for i in range(1, 4):
@@ -121,6 +123,10 @@ func _draw_local() -> void:
         if color.a <= 0.0:
             continue
         var pos: Vector2 = origin + (node.position / TILE - Vector2(first_x,first_y)) * cell
+        var objective: bool = id == main_target or id == side_target
+        var mark: Vector2i = Vector2i(node.position / TILE)
+        if world.fog != null and not world.fog.revealed(world.fog_key(),mark.x,mark.y) and not objective:
+            continue
         if compact and not map_rect.has_point(pos):
             if id == main_target:
                 var edge: Vector2 = Vector2(clampf(pos.x,map_rect.position.x + 5.0,map_rect.end.x - 5.0),clampf(pos.y,map_rect.position.y + 5.0,map_rect.end.y - 5.0))

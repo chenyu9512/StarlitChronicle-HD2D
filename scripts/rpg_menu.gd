@@ -11,6 +11,14 @@ signal housing_open_requested()
 const Core = preload("res://scripts/rpg_core.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
+const NAV_GROUPS: Dictionary = {
+    "冒险": ["任务","世界地图","地区探索","冒险履历"],
+    "伙伴": ["队伍","职业","技能"],
+    "装备": ["背包","武器","防具","商店","锻造"],
+    "收藏": ["图鉴","结局档案"],
+    "生活": ["家园"],
+    "系统": ["存档管理","设置"]
+}
 var manager
 var save_state
 var root: Control
@@ -22,6 +30,8 @@ var member: String = ""
 var encyclopedia: String = "monsters"
 var quest_filter: String = "全部"
 var quest_page: int = 0
+var active_group: String = "伙伴"
+var section_tabs: HBoxContainer
 var chapter_details
 var world_router
 var game_events
@@ -64,16 +74,21 @@ func _ready() -> void:
     title.add_theme_color_override("font_color",Color("e6c47d"))
     headline.add_child(title)
     _button(headline,"退出",func() -> void: close_menu())
+    var groups := HBoxContainer.new()
+    groups.add_theme_constant_override("separation",7)
+    body.add_child(groups)
+    for key in NAV_GROUPS.keys():
+        var group_id: String = str(key)
+        _button(groups,"◆ " + group_id,func() -> void: _select_group(group_id),14)
     var tab_scroll := ScrollContainer.new()
     tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
     tab_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-    tab_scroll.custom_minimum_size.y = 55
+    tab_scroll.custom_minimum_size.y = 52
     body.add_child(tab_scroll)
-    var tabs := HBoxContainer.new()
-    tab_scroll.add_child(tabs)
-    for section in SECTIONS:
-        var s: String = section
-        _button(tabs,s,func() -> void: render(s),14)
+    section_tabs = HBoxContainer.new()
+    section_tabs.add_theme_constant_override("separation",7)
+    tab_scroll.add_child(section_tabs)
+    _select_group(active_group)
     var scroller := ScrollContainer.new()
     scroller.size_flags_vertical = Control.SIZE_EXPAND_FILL
     body.add_child(scroller)
@@ -95,6 +110,19 @@ func _button(where: Node, caption: String, callback: Callable, size: int = 17) -
     b.add_theme_font_size_override("font_size",size)
     where.add_child(b)
     b.pressed.connect(callback)
+
+func _select_group(group_id: String) -> void:
+    if not NAV_GROUPS.has(group_id):
+        return
+    active_group = group_id
+    for existing in section_tabs.get_children():
+        section_tabs.remove_child(existing)
+        existing.queue_free()
+    for entry in NAV_GROUPS[group_id]:
+        var section: String = str(entry)
+        _button(section_tabs,section,func() -> void: render(section),15)
+    if manager != null and save_state != null:
+        render(str(NAV_GROUPS[group_id][0]))
 
 func _label(text_value: String, bigger: bool = false) -> void:
     var l := Label.new()
@@ -152,7 +180,7 @@ func render(section: String) -> void:
     if manager == null or save_state == null:
         return
     current = section
-    title.text = "✦ 星灯纪行 / " + section
+    title.text = "✦ 星灯纪行 · " + active_group + " / " + section
     for child in content.get_children():
         content.remove_child(child)
         child.queue_free()

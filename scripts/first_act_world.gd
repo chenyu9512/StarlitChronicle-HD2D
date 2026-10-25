@@ -924,13 +924,21 @@ func interact() -> void:
                 return
     # A dedicated quest-room entrance must outrank the generic shop/guild
     # doorway when the two share a canonical building door or nearby paving.
+    var nearest_quest_door: String = ""
+    var nearest_door_distance: float = 38.0
     for marker_id in story_marker_ids:
         if not marker_id.begins_with("questdoor:") or not nodes.has(marker_id):
             continue
         var quest_door: Node2D = nodes[marker_id]
-        if is_instance_valid(quest_door) and quest_door.visible and hero.position.distance_to(quest_door.position)<=38.0:
-            interacted.emit(marker_id)
-            return
+        if not is_instance_valid(quest_door) or not quest_door.visible:
+            continue
+        var distance_to_door: float = hero.position.distance_to(quest_door.position)
+        if distance_to_door < nearest_door_distance:
+            nearest_door_distance = distance_to_door
+            nearest_quest_door = marker_id
+    if not nearest_quest_door.is_empty():
+        interacted.emit(nearest_quest_door)
+        return
     var chosen := ""
     var best: float = 65.0
     for key in nodes.keys():

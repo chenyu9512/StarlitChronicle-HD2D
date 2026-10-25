@@ -405,6 +405,10 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
     story_marker_signature = signature
     _clear_story_world_markers()
     var occupied: Array[Vector2i] = []
+    for landmark_id in ["key_npc","clue","witness","crisis","resolve","interior_exit","interior_service"]:
+        if nodes.has(landmark_id):
+            var landmark: Node2D = nodes[landmark_id]
+            occupied.append(Vector2i(landmark.position/TILE))
     var reachable: Dictionary = binder.find_reachable(self)
     if reachable.is_empty():
         return {"chosen":chosen,"local":false,"original_here":false}

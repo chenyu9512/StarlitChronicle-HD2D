@@ -10,7 +10,6 @@ const BattleEnemies = preload("res://scripts/battle_enemies.gd")
 const BattleTimeline = preload("res://scripts/battle_timeline.gd")
 const BattleCamera = preload("res://scripts/battle_camera.gd")
 const BattleHud = preload("res://scripts/battle_hud.gd")
-const BattleArtDirection = preload("res://scripts/battle_art_direction.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}

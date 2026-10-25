@@ -439,7 +439,9 @@ func _physics_process(delta: float) -> void:
     if is_instance_valid(fourth):
         fourth.position = fourth.position.lerp(hero.position + Vector2(-78,40),minf(1.0,delta*2.8))
         fourth.set_motion(delta,moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
-    if interior_building.is_empty() and chapter >= 2 and moved.length_squared() > 0.001:
+    # Towns/inns are safe areas; random encounters only occur on wilderness
+    # and dungeon paths, and camps grant a short exploration reprieve.
+    if interior_building.is_empty() and not bool(map_profile.get("settlement",false)) and chapter >= 2 and moved.length_squared() > 0.001:
         encounter_meter += moved.length()
         if encounter_meter > next_encounter:
             encounter_meter = 0.0

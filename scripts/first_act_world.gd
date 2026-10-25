@@ -394,9 +394,12 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
     var currently: int = int(runtime.state.rpg.get("branch_story",{}).get("active",{}).get("line",0))
     var current_id: String = str(chosen.get("id",""))
     var local_branch: bool = binder.matches(str(chosen.get("quest_id","")),region_map)
+    var possible_keys := PackedStringArray()
+    for candidate in available:
+        possible_keys.append(str(candidate.get("id","")))
     var signature: String = "%s|%s|%s|%s|%d|%d|%s" % [
         region_map,interior_building,original_id,current_id,stage,currently,
-        ",".join(available.map(func(item): return str(item.get("id",""))))]
+        ",".join(possible_keys)]
     if signature == story_marker_signature:
         return {"chosen":chosen,"local":local_branch,"original_here":original_here}
     story_marker_signature = signature

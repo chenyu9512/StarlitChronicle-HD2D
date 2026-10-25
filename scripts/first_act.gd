@@ -19,6 +19,7 @@ const HousingService = preload("res://scripts/housing_service.gd")
 const HousingRoom = preload("res://scripts/housing_room.gd")
 const OptionalDirector = preload("res://scripts/optional_director.gd")
 const StoryBranchRuntime = preload("res://scripts/story_branch_runtime.gd")
+const StoryWorldBindings = preload("res://scripts/story_world_bindings.gd")
 const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
 var progress
 var catalog
@@ -39,6 +40,7 @@ var housing
 var housing_room
 var optional_director
 var branch_runtime
+var story_world_bindings
 var service_menu
 var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
@@ -66,6 +68,9 @@ func _ready() -> void:
     housing = HousingService.new()
     optional_director = OptionalDirector.new()
     branch_runtime = StoryBranchRuntime.new()
+    story_world_bindings = StoryWorldBindings.new()
+    if not story_world_bindings.errors.is_empty():
+        push_error("地图任务定位数据错误：" + "；".join(story_world_bindings.errors))
     if not branch_runtime.load_all():
         push_error("阶段19剧情扩展读取失败：" + "；".join(branch_runtime.errors))
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
@@ -107,6 +112,7 @@ func _ready() -> void:
     adventure_menu.replay_ending_requested.connect(_replay_ending)
     adventure_menu.branch_runtime = branch_runtime
     adventure_menu.branch_event_requested.connect(_start_branch_event)
+    adventure_menu.branch_navigation_requested.connect(_track_branch_event)
     adventure_menu.travel_requested.connect(_travel_to)
     adventure_menu.map_requested.connect(_open_world_map_from_book)
     adventure_menu.save_slot_requested.connect(_save_slot)
@@ -183,7 +189,7 @@ func _start(continue_game: bool) -> void:
         progress.save()
     _enter_location()
     var resumed_branch: Dictionary = branch_runtime.resume()
-    if not resumed_branch.is_empty():
+    if not resumed_branch.is_empty() and str(progress.rpg.get("branch_story",{}).get("active",{}).get("source","menu")) == "menu":
         _display_branch_event(resumed_branch)
         return
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete", false)):
@@ -257,6 +263,11 @@ func _objective() -> String:
     return "探索旅途中的秘密"
 
 func _focus() -> void:
+    # Refresh sector NPC/evidence/notice props against actual reachable terrain,
+    # after each decision, loading a slot, changing map or finishing an event.
+    var tracked: String = str(progress.rpg.get("tracked_branch_event",""))
+    var branch_world: Dictionary = world.sync_story_world_markers(
+        story_world_bindings,game_core,branch_runtime,tracked)
     world.set_focus(_target() if not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else "")
     var side_step: int = _side_step()
     var extra: String = ""
@@ -279,8 +290,21 @@ func _focus() -> void:
             var stage: int = game_core.story_side_stage(str(quest.get("id","")))
             var stages: Array = quest.get("stages",[])
             if stage < stages.size():
-                side_target = "story_stage_%d" % stage
-                extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
+                if story_world_bindings.matches(str(quest.get("id","")),world_router.current_map()):
+                    side_target = "story_stage_%d" % stage
+                    extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
+                else:
+                    extra = "【世界支线导航】" + story_world_bindings.route_summary(str(quest.get("id","")),world_router)
+    var branch_choice: Dictionary = branch_world.get("chosen",{})
+    if bool(branch_world.get("local",false)) and not branch_choice.is_empty():
+        var step: int = int(progress.rpg.get("branch_story",{}).get("active",{}).get("line",0))
+        var marker: String = "branchmap:"+str(branch_choice.get("id",""))+":"+str(step)
+        if world.nodes.has(marker):
+            side_target = marker
+            extra = "【剧情实地回访】%s · %s（%d/3）" % [str(branch_choice.get("title","")),["询问现场NPC","调查现场证物","确认记录与后果"][clampi(step,0,2)],step+1]
+    elif not tracked.is_empty() and branch_runtime.eligible(tracked):
+        var destination: Dictionary = branch_runtime.get_event(tracked)
+        extra = "【剧情路线】" + story_world_bindings.route_summary(str(destination.get("quest_id","")),world_router)
     world.set_side_focus(side_target)
     if extra.is_empty() and progress.chapter > 0:
         var open_inspections: Array[String] = []
@@ -389,6 +413,9 @@ func _interact(target: String) -> void:
     if target == "interior_storage":
         ui.show_message("储物柜与家具已经布置。家园专用仓储请从自己的房屋进入。")
         return
+    if target.begins_with("branchmap:") or target.begins_with("questhint:"):
+        _interact_world_branch(target)
+        return
     if target.begins_with("citizen:"):
         var citizen_id: String = target.trim_prefix("citizen:")
         var clock: Dictionary = progress.rpg.get("game_clock",{})
@@ -481,6 +508,46 @@ func _display_branch_event(event: Dictionary) -> void:
     paused_for_dialogue = true
     world.locked = true
     ui.show_dialogue(lines.slice(current_line_index))
+
+func _track_branch_event(event_id: String) -> void:
+    if not branch_runtime.eligible(event_id):
+        ui.show_message("后续剧情尚未开放，或所需伙伴未加入当前队伍。")
+        return
+    progress.rpg["tracked_branch_event"] = event_id
+    _save_progress()
+    adventure_menu.close_menu()
+    _return_to_world()
+    _focus()
+    var event: Dictionary = branch_runtime.get_event(event_id)
+    ui.show_message(story_world_bindings.route_summary(str(event.get("quest_id","")),world_router))
+
+func _interact_world_branch(target: String) -> void:
+    var event_id: String = ""
+    if target.begins_with("questhint:"):
+        event_id = target.trim_prefix("questhint:")
+    elif target.begins_with("branchmap:"):
+        var suffix: String = target.trim_prefix("branchmap:")
+        event_id = suffix.substr(0,suffix.rfind(":"))
+    if event_id.is_empty():
+        return
+    var resumed: Dictionary = branch_runtime.resume()
+    if resumed.is_empty():
+        if not branch_runtime.begin(event_id,"field"):
+            ui.show_message("此事件需要完成原任务、选择对应分支或等待后期章节。")
+            return
+    elif str(resumed.get("id","")) != event_id:
+        ui.show_message("请先继续已经开始的调查。")
+        return
+    progress.rpg["tracked_branch_event"] = event_id
+    _focus()
+    var line: Dictionary = branch_runtime.current_line()
+    if line.is_empty():
+        return
+    pending = "branch_field"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue([line])
 
 func _optional_event_interact(slot: String) -> void:
     var event: Dictionary = optional_director.offered(progress.chapter,slot,progress.scene_index)
@@ -654,6 +721,16 @@ func _dialogue_ended() -> void:
             return
         "story_side_branch":
             active_story_side = {}
+        "branch_field":
+            var field_event: Dictionary = branch_runtime.resume()
+            if not field_event.is_empty():
+                if not branch_runtime.advance():
+                    ui.show_message("实地调查状态未能写入存档。")
+                    return
+                if branch_runtime.is_seen(str(field_event.get("id",""))):
+                    game_events.record("branch_world_completed",{"id":str(field_event.get("id",""))})
+                    progress.rpg["tracked_branch_event"] = ""
+            _focus()
         "branch_event":
             var active_branch: Dictionary = branch_runtime.resume()
             if not active_branch.is_empty():
@@ -1052,6 +1129,7 @@ func _load_slot(slot: int) -> void:
     game_events.bind(progress)
     housing.bind(progress)
     optional_director.bind(progress)
+    branch_runtime.bind(progress)
     adventure_menu.close_menu()
     _enter_location()
     _save_progress()

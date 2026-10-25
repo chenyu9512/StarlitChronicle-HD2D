@@ -29,6 +29,8 @@ var update_clock: float = 0.0
 var in_world: bool = false
 var primary_target: String = ""
 var secondary_target: String = ""
+var quest_destination: String = ""
+var quest_summary: String = ""
 
 func _ready() -> void:
     layer = 14
@@ -178,6 +180,16 @@ func set_targets(main_id: String, side_id: String = "") -> void:
     small_view.targets(primary_target,secondary_target)
     full_view.targets(primary_target,secondary_target)
 
+func set_story_route(map_id: String,description: String = "") -> void:
+    quest_destination = map_id
+    quest_summary = description
+    if small_view != null:
+        small_view.quest_destination = map_id
+        small_view.queue_redraw()
+    if full_view != null:
+        full_view.quest_destination = map_id
+        full_view.queue_redraw()
+
 func show_exploration(value: bool) -> void:
     in_world = value
     small_frame.visible = in_world and not overlay.visible
@@ -273,7 +285,7 @@ func _refresh_info() -> void:
         route_button.disabled = possible_route.size() <= 1
         route_button.text = "前往下一站（不越级）"
     else:
-        route_info.text = "金色：主线目标\n浅蓝：委托及居民\n绿色：客栈/建筑/营地\n紫色：符文机关与室内服务\n琥珀：藏宝与地区路口\n白金：自己\n\n区域地形与角色位置同步，地图会显示实际时间和天气。"
+        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
         route_button.visible = false
         route_button.disabled = true
 

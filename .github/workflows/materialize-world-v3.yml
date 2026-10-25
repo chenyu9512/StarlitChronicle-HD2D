@@ -1,0 +1,50 @@
+name: Materialize V3 Independent Maps
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/materialize_world_v3.py"
+      - ".github/workflows/materialize-world-v3.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: starlit-v3-materialize
+  cancel-in-progress: false
+jobs:
+  write-levels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Create only missing independently editable V3 maps
+        run: |
+          python tools/materialize_world_v3.py
+          python tools/materialize_world_v3.py --verify
+      - name: Commit independent maps to existing main branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/levels/v3/*.json
+          if git diff --cached --quiet; then
+            echo "All forty independent maps already exist."
+            exit 0
+          fi
+          git commit -m "feat(map-v3): publish forty independent author-editable region level files"
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:refs/heads/main; then
+              echo "PASS: V3 region files are published on original main branch"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo "Could not fast-forward main after four attempts" >&2
+          exit 1

@@ -135,6 +135,19 @@ func _run() -> void:
     check(not game.branch_runtime.eligible(a),"completed branch cannot repeat")
     check(game.branch_runtime.next_for_quest(source).get("id","")==
         source+".p17.a.community","next phase now unlocked")
+    game.adventure_menu.show_menu(game.game_core,game.progress)
+    game.adventure_menu.render("剧情后续")
+    var journal_label: bool = false
+    var saved_clue: bool = false
+    for view in game.adventure_menu.content.get_children():
+        if view is Label:
+            var message: String = str((view as Label).text)
+            if message.contains("现场调查档案"):
+                journal_label = true
+            if message.contains("证物"):
+                saved_clue = true
+    check(journal_label and saved_clue,"player can inspect preserved evidence in quest journal")
+    game.adventure_menu.close_menu()
     check(game.progress.save(),"V3 auto save accepted map story progress")
     var loaded = State.new()
     check(loaded.load_saved(),"world branch progress load")

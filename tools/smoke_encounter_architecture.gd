@@ -38,18 +38,24 @@ func _run() -> void:
     test(is_instance_valid(battle.skill_picker),"Skill picker did not open on the skill command")
     var active_id: String = str(state.actors[battle.hero_turn].get("id",""))
     var options: Array = core.skills(active_id)
-    var usable: Dictionary = {}
-    for skill in options:
-        if str(skill.get("target","")) in ["single_enemy","all_enemies"]:
-            usable = skill
-            break
-    if not usable.is_empty():
+    if not options.is_empty():
+        var chosen: Dictionary = options[0]
+        var target: String = str(chosen.get("target",""))
+        var id: String = str(chosen.get("id",""))
         var previous_actor: int = battle.hero_turn
-        battle._act("skill:"+str(usable.get("id","")))
-        test(not is_instance_valid(battle.skill_picker),"Enemy attack skill picker remained after choosing a target")
-        test(battle.hero_turn != previous_actor or battle.current_round > 1,"Selected combat skill did not advance the fighter")
+        if target == "single_ally":
+            state.actors[0]["hp"] = maxi(1,int(state.actors[0]["max_hp"])-40)
+            var prior_hp: int = int(state.actors[0]["hp"])
+            battle._act("skill:"+id)
+            test(is_instance_valid(battle.skill_picker),"Healing skill did not display ally target selection")
+            battle._act("skill:"+id+"@0")
+            test(int(state.actors[0]["hp"]) > prior_hp,"Manual healing skill failed on the chosen ally")
+        else:
+            battle._act("skill:"+id)
+        test(not is_instance_valid(battle.skill_picker),"Skill picker remained after a valid skill and target")
+        test(battle.hero_turn != previous_actor or battle.current_round > 1,"Selected skill did not advance the fighter")
     else:
-        errors.append("Current first-turn actor has no playable damage skill")
+        errors.append("Current first-turn actor has no playable skills")
     battle.queue_free()
     var chapter_boss = Battle.new()
     root.add_child(chapter_boss)

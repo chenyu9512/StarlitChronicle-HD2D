@@ -222,9 +222,16 @@ func skip() -> void:
     _finish(true)
 
 func _render_beat() -> void:
-    var record: Dictionary=beats[beat_index] if beat_index<beats.size() else {}
-    speaker.text=str(record.get("speaker","旁白"))
-    narration.text=str(record.get("text","……"))
+    var record: Variant=beats[beat_index] if beat_index<beats.size() else {}
+    if record is Array and record.size()>=2:
+        speaker.text=str(record[0])
+        narration.text=str(record[1])
+    elif record is Dictionary:
+        speaker.text=str(record.get("speaker","旁白"))
+        narration.text=str(record.get("text","……"))
+    else:
+        speaker.text="旁白"
+        narration.text="……"
     var portrait_path: String=""
     match speaker.text:
         "澄舟":portrait_path="res://assets/art/characters/chengzhou/dialogue.png"

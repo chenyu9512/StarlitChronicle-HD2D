@@ -179,10 +179,14 @@ func _make_tiles() -> void:
         terrain_layout = geography.layout(str(map_profile.get("id","map_coast_01")),chapter)
     blocked = terrain_layout.get("blocked",{}).duplicate()
     var all_tiles: Dictionary = terrain_layout.get("tiles",{})
+    var water_mask: Dictionary = terrain_layout.get("water_mask",{})
     for tile in all_tiles.keys():
         var atlas: Vector2i = all_tiles[tile]
         var source_id: int = 0
-        if interior_building.is_empty() and str(map_profile.get("region_id","")) in ["region_coast","region_isles"] and atlas.y==6 and tile.y>=HEIGHT-7:
+        if water_mask.has(tile):
+            source_id = 1
+            atlas = Vector2i(atlas.x,2)
+        elif interior_building.is_empty() and str(map_profile.get("region_id","")) in ["region_coast","region_isles"] and atlas.y==6 and tile.y>=HEIGHT-7:
             source_id = 1
             atlas = Vector2i(atlas.x,2)
         layer.set_cell(tile,source_id,atlas)

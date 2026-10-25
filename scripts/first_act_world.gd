@@ -8,6 +8,7 @@ const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
+const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
@@ -51,6 +52,7 @@ var fog
 var fog_last_cell: Vector2i = Vector2i(-100,-100)
 var town_life = TownLife.new()
 var discoveries = WorldDiscoveries.new()
+var dungeon_puzzles = WorldDungeonPuzzles.new()
 var ambience
 var clock_minutes: int = 480
 var calendar_day: int = 1
@@ -393,6 +395,32 @@ func _build_sites() -> void:
     elif archetype in ["field","route","landmark"]:
         nodes["wild_cache"] = _add_sprite("crate",Vector2i(60,35),false,true)
         nodes["wild_camp"] = _add_sprite("star_lantern",Vector2i(24,14),false,true)
+    # V7 independent physical puzzle devices. The original two-switch treasure
+    # stays intact, preserving existing chapter puzzles, flags, and old saves.
+    var puzzle_id: String = str(map_profile.get("id",""))
+    var puzzle_catalog: Dictionary = dungeon_puzzles.config(puzzle_id)
+    if archetype=="dungeon" and not puzzle_catalog.is_empty():
+        for mechanism in dungeon_puzzles.devices(puzzle_id):
+            var point_data: Array = mechanism.get("cell",[])
+            if point_data.size()!=2:
+                continue
+            var point: Vector2i = Vector2i(int(point_data[0]),int(point_data[1]))
+            if blocked.has(point):
+                # Do not let new devices occupy hand-authored walls or doors.
+                var found: bool = false
+                for distance in range(1,7):
+                    if found:
+                        break
+                    for vector in [Vector2i(distance,0),Vector2i(-distance,0),Vector2i(0,distance),Vector2i(0,-distance)]:
+                        var candidate: Vector2i = point+vector
+                        if not blocked.has(candidate) and candidate.x>2 and candidate.y>2 and candidate.x<WIDTH-3 and candidate.y<HEIGHT-3:
+                            point=candidate
+                            found=true
+                            break
+            var device_id: String = "puzzle:"+str(mechanism.get("id",""))
+            var object: Sprite2D = _add_sprite(str(mechanism.get("icon","beacon")),point,false,true)
+            object.set_meta("site_name",str(mechanism.get("name","机关")))
+            nodes[device_id]=object
     # New exploratory sites are authentic outdoor interactions in the expanded sector,
     # not replacements for existing chapter, house or side-quest markers.
     var current_map_id: String = str(map_profile.get("id",""))

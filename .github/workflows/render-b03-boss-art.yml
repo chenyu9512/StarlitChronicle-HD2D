@@ -1,0 +1,65 @@
+name: Render B03 Boss Art PNGs
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/render_b03_boss_art.py"
+      - ".github/workflows/render-b03-boss-art.yml"
+      - "assets/art/b03/boss_battle_concepts/*.svg"
+      - "assets/art/b03/boss_battle_concepts/manifest.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: starlit-b03-art-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deterministic image rendering tools
+        run: python -m pip install --disable-pip-version-check cairosvg pillow
+      - name: Export only missing transparent artwork and review thumbnails
+        run: |
+          python tools/render_b03_boss_art.py
+          python tools/render_b03_boss_art.py --check-only
+      - name: Provide review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: b03-boss-five-png-preview
+          path: |
+            assets/art/b03/boss_battle_concepts/*.png
+          retention-days: 30
+      - name: Commit new B03 PNGs to existing main without force
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/art/b03/boss_battle_concepts/*.png
+          if git diff --cached --quiet; then
+            echo "All exports already tracked; no duplicate commit."
+            exit 0
+          fi
+          git commit -m "art(b03): export five transparent boss concept masters and review sheet"
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:refs/heads/main; then
+              echo "Safely pushed B03 PNGs to main."
+              exit 0
+            fi
+            echo "Remote main advanced; updating commit before retry ${attempt}."
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo "Cannot fast-forward main after four attempts."
+          exit 1

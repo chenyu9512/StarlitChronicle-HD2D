@@ -12,6 +12,7 @@ on:
       - "tools/capture_coastal_visuals.gd"
       - "tools/capture_prologue_visuals.gd"
       - "scripts/prologue_world_stage.gd"
+      - "scripts/prologue_actor_blocking.gd"
       - "scripts/cinematic_scene_fx.gd"
       - "data/cinematics/prologue.json"
       - "tools/smoke_coastal_exterior.gd"
@@ -65,6 +66,14 @@ jobs:
           test -s build/art-qa/prologue_ten_years.png
           test -s build/art-qa/prologue_black_star_cinematic.png
           test -s build/art-qa/prologue_manifest.json
+          test -s build/art-qa/p5_star_arrival_000.png
+          test -s build/art-qa/p5_chengzhou_intercept_018.png
+          test -s build/art-qa/p5_lanyin_moves_033.png
+          test -s build/art-qa/p5_rear_guard_000.png
+          test -s build/art-qa/p5_escape_025.png
+          test -s build/art-qa/p5_escape_040.png
+          test -s build/art-qa/p5_ash_morning.png
+          test -s build/art-qa/p5_ten_year_match.png
       - name: Upload visual QA evidence and contract
         if: always()
         uses: actions/upload-artifact@v4

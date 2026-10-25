@@ -1,0 +1,1127 @@
+{
+  "schema": "starlit.story.chapter_npc_state.v1",
+  "status": "text_only_not_bound",
+  "authoring_note": "每章三个状态的候选NPC话术均引用现有主线对白，附源ID；12幕章末附加12句新写的地区后续对白。原脚本不修改，正式NPC绑定后再按地点/角色筛选。",
+  "chapters": [
+    {
+      "id": "ch001",
+      "title": "不曾寄出的信",
+      "location": "晨露村·澄舟旧屋",
+      "npc_states": {
+        "before": {
+          "id": "ch001.npc.before",
+          "speaker": "岚音",
+          "text": "你真的打算把旧箱子再翻一遍？我昨天已经替你收拾过了。",
+          "conditions": {
+            "required_flags": [
+              "ch001.started"
+            ],
+            "without_flags": [
+              "story.ch001.done"
+            ]
+          },
+          "source_dialogue_id": "ch001.opening.l02"
+        },
+        "investigating": {
+          "id": "ch001.npc.during",
+          "speaker": "岚音",
+          "text": "背面这层盐，不像普通海盐。药房的试剂会把它染成蓝色。",
+          "conditions": {
+            "required_flags": [
+              "ch001.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch001.investigate.l03"
+        },
+        "completed": {
+          "id": "ch001.npc.complete",
+          "speaker": "村长",
+          "text": "我不能保证明天还能记住今天。把这些带走。",
+          "conditions": {
+            "required_flags": [
+              "story.ch001.done"
+            ]
+          },
+          "source_dialogue_id": "ch001.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch002",
+      "title": "失去名字的归人",
+      "location": "白砂港·收容所",
+      "npc_states": {
+        "before": {
+          "id": "ch002.npc.before",
+          "speaker": "港务员",
+          "text": "想搭船就去别处。今天没有人愿意出海。",
+          "conditions": {
+            "required_flags": [
+              "ch002.started"
+            ],
+            "without_flags": [
+              "story.ch002.done"
+            ]
+          },
+          "source_dialogue_id": "ch002.opening.l02"
+        },
+        "investigating": {
+          "id": "ch002.npc.during",
+          "speaker": "水手",
+          "text": "我记得我有个女儿。她会把贝壳塞进我的鞋里。可她叫什么？",
+          "conditions": {
+            "required_flags": [
+              "ch002.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch002.investigate.l02"
+        },
+        "completed": {
+          "id": "ch002.npc.complete",
+          "speaker": "护士",
+          "text": "我会把每位病人的姓名写在两处，不让他们再轻易消失。",
+          "conditions": {
+            "required_flags": [
+              "story.ch002.done"
+            ]
+          },
+          "source_dialogue_id": "ch002.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch003",
+      "title": "海雾中的遗迹",
+      "location": "断桅海蚀洞",
+      "npc_states": {
+        "before": {
+          "id": "ch003.npc.before",
+          "speaker": "岚音",
+          "text": "潮汐表写着这里该退潮了。为什么水反而越涨越高？",
+          "conditions": {
+            "required_flags": [
+              "ch003.started"
+            ],
+            "without_flags": [
+              "story.ch003.done"
+            ]
+          },
+          "source_dialogue_id": "ch003.opening.l02"
+        },
+        "investigating": {
+          "id": "ch003.npc.during",
+          "speaker": "朔弦",
+          "text": "第三条路不是路，它画的是潮水倒流时才能露出的台阶。",
+          "conditions": {
+            "required_flags": [
+              "ch003.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch003.investigate.l02"
+        },
+        "completed": {
+          "id": "ch003.npc.complete",
+          "speaker": "岚音",
+          "text": "你看墙上……那个人是澄舟。比我记忆里的还年轻。",
+          "conditions": {
+            "required_flags": [
+              "story.ch003.done"
+            ]
+          },
+          "source_dialogue_id": "ch003.resolve.l03"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch004",
+      "title": "第三位同行者",
+      "location": "白砂港·黑帆酒馆",
+      "npc_states": {
+        "before": {
+          "id": "ch004.npc.before",
+          "speaker": "朔弦",
+          "text": "先说好，我请你们喝水，不代表我有钱请你们喝酒。",
+          "conditions": {
+            "required_flags": [
+              "ch004.started"
+            ],
+            "without_flags": [
+              "story.ch004.done"
+            ]
+          },
+          "source_dialogue_id": "ch004.opening.l02"
+        },
+        "investigating": {
+          "id": "ch004.npc.during",
+          "speaker": "岚音",
+          "text": "这十二包加起来，够给整座城腌鱼了。",
+          "conditions": {
+            "required_flags": [
+              "ch004.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch004.investigate.l02"
+        },
+        "completed": {
+          "id": "ch004.npc.complete",
+          "speaker": "朔弦",
+          "text": "我知道你们现在有理由不信我。",
+          "conditions": {
+            "required_flags": [
+              "story.ch004.done"
+            ]
+          },
+          "source_dialogue_id": "ch004.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch005",
+      "title": "潮底巨影",
+      "location": "鲸骨浅滩",
+      "npc_states": {
+        "before": {
+          "id": "ch005.npc.before",
+          "speaker": "港务官",
+          "text": "就是那头海兽！已经撞翻了三艘小船。谁杀了它，谁就领赏金。",
+          "conditions": {
+            "required_flags": [
+              "ch005.started"
+            ],
+            "without_flags": [
+              "story.ch005.done"
+            ]
+          },
+          "source_dialogue_id": "ch005.opening.l02"
+        },
+        "investigating": {
+          "id": "ch005.npc.during",
+          "speaker": "渔夫",
+          "text": "它撞过来时，我看见它背上有一条铁链，一直往肉里钻。",
+          "conditions": {
+            "required_flags": [
+              "ch005.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch005.investigate.l01"
+        },
+        "completed": {
+          "id": "ch005.npc.complete",
+          "speaker": "岚音",
+          "text": "伤口很深，不过已经不再流血了。",
+          "conditions": {
+            "required_flags": [
+              "story.ch005.done"
+            ]
+          },
+          "source_dialogue_id": "ch005.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch006",
+      "title": "归航灯重燃",
+      "location": "潮歌灯塔",
+      "npc_states": {
+        "before": {
+          "id": "ch006.npc.before",
+          "speaker": "岚音",
+          "text": "如果灯重新亮起来，十年前消失的人也会回来吗？",
+          "conditions": {
+            "required_flags": [
+              "ch006.started"
+            ],
+            "without_flags": [
+              "story.ch006.done"
+            ]
+          },
+          "source_dialogue_id": "ch006.opening.l02"
+        },
+        "investigating": {
+          "id": "ch006.npc.during",
+          "speaker": "归航者的声音",
+          "text": "我回来了。今天的海太冷，给我留一碗热汤。",
+          "conditions": {
+            "required_flags": [
+              "ch006.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch006.investigate.l02"
+        },
+        "completed": {
+          "id": "ch006.npc.complete",
+          "speaker": "潮歌守门人",
+          "text": "检测到新供能路径：自愿的共同见证。",
+          "conditions": {
+            "required_flags": [
+              "story.ch006.done"
+            ]
+          },
+          "source_dialogue_id": "ch006.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch006.npc.act_ending",
+        "speaker": "港口老船长",
+        "text": "三声钟原来可以说清谁需要归来。往后遇到陌生求救船，我会先把灯打开。",
+        "conditions": {
+          "required_flags": [
+            "story.ch006.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    },
+    {
+      "id": "ch007",
+      "title": "被拒绝的使者",
+      "location": "三誓王都·外廷",
+      "npc_states": {
+        "before": {
+          "id": "ch007.npc.before",
+          "speaker": "岚音",
+          "text": "这些都是需要治疗的人，为什么连病例也得先分国籍？",
+          "conditions": {
+            "required_flags": [
+              "ch007.started"
+            ],
+            "without_flags": [
+              "story.ch007.done"
+            ]
+          },
+          "source_dialogue_id": "ch007.opening.l02"
+        },
+        "investigating": {
+          "id": "ch007.npc.during",
+          "speaker": "雷索",
+          "text": "三国公文不会共用一枚印章。",
+          "conditions": {
+            "required_flags": [
+              "ch007.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch007.investigate.l02"
+        },
+        "completed": {
+          "id": "ch007.npc.complete",
+          "speaker": "救济官",
+          "text": "外廷未必会承认，但他们再不能说这份名单不存在。",
+          "conditions": {
+            "required_flags": [
+              "story.ch007.done"
+            ]
+          },
+          "source_dialogue_id": "ch007.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch008",
+      "title": "断绝的商路",
+      "location": "灰鹰商道",
+      "npc_states": {
+        "before": {
+          "id": "ch008.npc.before",
+          "speaker": "车队长",
+          "text": "今晚要是到不了村里，粮食再多也没有用。",
+          "conditions": {
+            "required_flags": [
+              "ch008.started"
+            ],
+            "without_flags": [
+              "story.ch008.done"
+            ]
+          },
+          "source_dialogue_id": "ch008.opening.l02"
+        },
+        "investigating": {
+          "id": "ch008.npc.during",
+          "speaker": "雷索",
+          "text": "是王都军械库编号。那种箭不会卖给平民。",
+          "conditions": {
+            "required_flags": [
+              "ch008.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch008.investigate.l02"
+        },
+        "completed": {
+          "id": "ch008.npc.complete",
+          "speaker": "对岸村长",
+          "text": "我们也丢了粮。我以为是你们烧的。",
+          "conditions": {
+            "required_flags": [
+              "story.ch008.done"
+            ]
+          },
+          "source_dialogue_id": "ch008.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch009",
+      "title": "无罪者的审判",
+      "location": "三誓王都·审判厅",
+      "npc_states": {
+        "before": {
+          "id": "ch009.npc.before",
+          "speaker": "雷索",
+          "text": "我确实违抗过命令。今天我来说明为什么。",
+          "conditions": {
+            "required_flags": [
+              "ch009.started"
+            ],
+            "without_flags": [
+              "story.ch009.done"
+            ]
+          },
+          "source_dialogue_id": "ch009.opening.l02"
+        },
+        "investigating": {
+          "id": "ch009.npc.during",
+          "speaker": "岚音",
+          "text": "这里连敌人是谁都没有写。",
+          "conditions": {
+            "required_flags": [
+              "ch009.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch009.investigate.l02"
+        },
+        "completed": {
+          "id": "ch009.npc.complete",
+          "speaker": "法官",
+          "text": "王国愿意恢复你的军籍与爵位。",
+          "conditions": {
+            "required_flags": [
+              "story.ch009.done"
+            ]
+          },
+          "source_dialogue_id": "ch009.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch010",
+      "title": "三面旗帜",
+      "location": "三国边境议事站",
+      "npc_states": {
+        "before": {
+          "id": "ch010.npc.before",
+          "speaker": "岚音",
+          "text": "他们都说自己受了伤，却没有谁愿意听见对方也在痛。",
+          "conditions": {
+            "required_flags": [
+              "ch010.started"
+            ],
+            "without_flags": [
+              "story.ch010.done"
+            ]
+          },
+          "source_dialogue_id": "ch010.opening.l02"
+        },
+        "investigating": {
+          "id": "ch010.npc.during",
+          "speaker": "岚音",
+          "text": "普通木灰不会这样。火似乎从粮袋里面开始。",
+          "conditions": {
+            "required_flags": [
+              "ch010.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch010.investigate.l02"
+        },
+        "completed": {
+          "id": "ch010.npc.complete",
+          "speaker": "使者甲",
+          "text": "我原以为他们会偷走粮袋。",
+          "conditions": {
+            "required_flags": [
+              "story.ch010.done"
+            ]
+          },
+          "source_dialogue_id": "ch010.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch011",
+      "title": "最后的盟约",
+      "location": "旧盟约桥",
+      "npc_states": {
+        "before": {
+          "id": "ch011.npc.before",
+          "speaker": "雷索",
+          "text": "当年我站在这里，拿的是剑，不是协议。",
+          "conditions": {
+            "required_flags": [
+              "ch011.started"
+            ],
+            "without_flags": [
+              "story.ch011.done"
+            ]
+          },
+          "source_dialogue_id": "ch011.opening.l02"
+        },
+        "investigating": {
+          "id": "ch011.npc.during",
+          "speaker": "朔弦",
+          "text": "设计这东西的人，想让每个国家都以为是对方先动手。",
+          "conditions": {
+            "required_flags": [
+              "ch011.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch011.investigate.l02"
+        },
+        "completed": {
+          "id": "ch011.npc.complete",
+          "speaker": "使节",
+          "text": "原来我们都收到过同样的命令。",
+          "conditions": {
+            "required_flags": [
+              "story.ch011.done"
+            ]
+          },
+          "source_dialogue_id": "ch011.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch012",
+      "title": "王冠不等于信任",
+      "location": "律序母灯坛",
+      "npc_states": {
+        "before": {
+          "id": "ch012.npc.before",
+          "speaker": "雷索",
+          "text": "我曾以为这里只准国王站。",
+          "conditions": {
+            "required_flags": [
+              "ch012.started"
+            ],
+            "without_flags": [
+              "story.ch012.done"
+            ]
+          },
+          "source_dialogue_id": "ch012.opening.l02"
+        },
+        "investigating": {
+          "id": "ch012.npc.during",
+          "speaker": "平民代表",
+          "text": "邻居死了，我还是每年替他剪枝。",
+          "conditions": {
+            "required_flags": [
+              "ch012.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch012.investigate.l02"
+        },
+        "completed": {
+          "id": "ch012.npc.complete",
+          "speaker": "平民代表",
+          "text": "若你们违约，我们会把它写出来。",
+          "conditions": {
+            "required_flags": [
+              "story.ch012.done"
+            ]
+          },
+          "source_dialogue_id": "ch012.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch012.npc.act_ending",
+        "speaker": "三国边境旗手",
+        "text": "三面旗还在风里，但现在我们也会在桥上写下对方需要的粮食与药。",
+        "conditions": {
+          "required_flags": [
+            "story.ch012.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    },
+    {
+      "id": "ch013",
+      "title": "矿坑里的第二个太阳",
+      "location": "赤炉联邦·七号矿坑",
+      "npc_states": {
+        "before": {
+          "id": "ch013.npc.before",
+          "speaker": "矿工阿锤",
+          "text": "昨天矿里停工了。账上却写着我们挖了一百箱矿。",
+          "conditions": {
+            "required_flags": [
+              "ch013.started"
+            ],
+            "without_flags": [
+              "story.ch013.done"
+            ]
+          },
+          "source_dialogue_id": "ch013.opening.l02"
+        },
+        "investigating": {
+          "id": "ch013.npc.during",
+          "speaker": "缇珐",
+          "text": "设备明明停止了，齿轮却还在照常转。",
+          "conditions": {
+            "required_flags": [
+              "ch013.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch013.investigate.l02"
+        },
+        "completed": {
+          "id": "ch013.npc.complete",
+          "speaker": "矿工妻子",
+          "text": "你还认得我吗？",
+          "conditions": {
+            "required_flags": [
+              "story.ch013.done"
+            ]
+          },
+          "source_dialogue_id": "ch013.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch014",
+      "title": "不说谎的机器",
+      "location": "赤炉工坊·试验台",
+      "npc_states": {
+        "before": {
+          "id": "ch014.npc.before",
+          "speaker": "机械音",
+          "text": "小石头……小石头……别忘了围巾……",
+          "conditions": {
+            "required_flags": [
+              "ch014.started"
+            ],
+            "without_flags": [
+              "story.ch014.done"
+            ]
+          },
+          "source_dialogue_id": "ch014.opening.l02"
+        },
+        "investigating": {
+          "id": "ch014.npc.during",
+          "speaker": "矿工录音",
+          "text": "等发了工资，给小石头买一件蓝围巾。",
+          "conditions": {
+            "required_flags": [
+              "ch014.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch014.investigate.l02"
+        },
+        "completed": {
+          "id": "ch014.npc.complete",
+          "speaker": "孩子",
+          "text": "爸爸真的答应过我去海边吗？",
+          "conditions": {
+            "required_flags": [
+              "story.ch014.done"
+            ]
+          },
+          "source_dialogue_id": "ch014.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch015",
+      "title": "百工试炼",
+      "location": "赤炉联邦·百工塔",
+      "npc_states": {
+        "before": {
+          "id": "ch015.npc.before",
+          "speaker": "缇珐",
+          "text": "这行字不是建塔时刻的。漆还没有风吹日晒过。",
+          "conditions": {
+            "required_flags": [
+              "ch015.started"
+            ],
+            "without_flags": [
+              "story.ch015.done"
+            ]
+          },
+          "source_dialogue_id": "ch015.opening.l02"
+        },
+        "investigating": {
+          "id": "ch015.npc.during",
+          "speaker": "缇珐",
+          "text": "这才是初代塔主留下的真话。",
+          "conditions": {
+            "required_flags": [
+              "ch015.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch015.investigate.l02"
+        },
+        "completed": {
+          "id": "ch015.npc.complete",
+          "speaker": "学徒",
+          "text": "原来盾牌试炼不需要贵族推荐。",
+          "conditions": {
+            "required_flags": [
+              "story.ch015.done"
+            ]
+          },
+          "source_dialogue_id": "ch015.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch016",
+      "title": "被遗忘的矿工",
+      "location": "灰砂安置区",
+      "npc_states": {
+        "before": {
+          "id": "ch016.npc.before",
+          "speaker": "老妇",
+          "text": "他们说没有这个人领过药。可药盒是我丈夫天天带回家的。",
+          "conditions": {
+            "required_flags": [
+              "ch016.started"
+            ],
+            "without_flags": [
+              "story.ch016.done"
+            ]
+          },
+          "source_dialogue_id": "ch016.opening.l02"
+        },
+        "investigating": {
+          "id": "ch016.npc.during",
+          "speaker": "岚音",
+          "text": "两份比起来，少了二十七个人。",
+          "conditions": {
+            "required_flags": [
+              "ch016.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch016.investigate.l02"
+        },
+        "completed": {
+          "id": "ch016.npc.complete",
+          "speaker": "老妇",
+          "text": "他的名字写回去了。我不必再把它藏在袖口。",
+          "conditions": {
+            "required_flags": [
+              "story.ch016.done"
+            ]
+          },
+          "source_dialogue_id": "ch016.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch017",
+      "title": "熔炉暴走",
+      "location": "赤炉主炉",
+      "npc_states": {
+        "before": {
+          "id": "ch017.npc.before",
+          "speaker": "缇珐",
+          "text": "那套引擎最早是为了让贫民区不断电，我亲手画过第一张图。",
+          "conditions": {
+            "required_flags": [
+              "ch017.started"
+            ],
+            "without_flags": [
+              "story.ch017.done"
+            ]
+          },
+          "source_dialogue_id": "ch017.opening.l02"
+        },
+        "investigating": {
+          "id": "ch017.npc.during",
+          "speaker": "缇珐",
+          "text": "军方把医疗供电也并进了武器回路，真敢做。",
+          "conditions": {
+            "required_flags": [
+              "ch017.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch017.investigate.l02"
+        },
+        "completed": {
+          "id": "ch017.npc.complete",
+          "speaker": "缇珐",
+          "text": "它没有开火……医院也还有电。",
+          "conditions": {
+            "required_flags": [
+              "story.ch017.done"
+            ]
+          },
+          "source_dialogue_id": "ch017.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch018",
+      "title": "真正的炉火",
+      "location": "炉心母灯室",
+      "npc_states": {
+        "before": {
+          "id": "ch018.npc.before",
+          "speaker": "缇珐",
+          "text": "那不是矿石编号，是被提取过记忆的人。",
+          "conditions": {
+            "required_flags": [
+              "ch018.started"
+            ],
+            "without_flags": [
+              "story.ch018.done"
+            ]
+          },
+          "source_dialogue_id": "ch018.opening.l02"
+        },
+        "investigating": {
+          "id": "ch018.npc.during",
+          "speaker": "缇珐",
+          "text": "原来它根本不需要夺走记忆。那只是后来有人为求效率加上的捷径。",
+          "conditions": {
+            "required_flags": [
+              "ch018.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch018.investigate.l02"
+        },
+        "completed": {
+          "id": "ch018.npc.complete",
+          "speaker": "学徒",
+          "text": "第一组稳定了！第二组也亮了！",
+          "conditions": {
+            "required_flags": [
+              "story.ch018.done"
+            ]
+          },
+          "source_dialogue_id": "ch018.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch018.npc.act_ending",
+        "speaker": "赤炉工匠",
+        "text": "炉城不再靠一个人失去记忆来点亮工厂。灯偶尔暗一点，我们也会把真正代价讲清。",
+        "conditions": {
+          "required_flags": [
+            "story.ch018.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    },
+    {
+      "id": "ch019",
+      "title": "骑士最后的命令",
+      "location": "十年前·肃清边村",
+      "npc_states": {
+        "before": {
+          "id": "ch019.npc.before",
+          "speaker": "年轻雷索",
+          "text": "先让部队驻扎在村外，别踩坏他们的田。",
+          "conditions": {
+            "required_flags": [
+              "ch019.started"
+            ],
+            "without_flags": [
+              "story.ch019.done"
+            ]
+          },
+          "source_dialogue_id": "ch019.opening.l02"
+        },
+        "investigating": {
+          "id": "ch019.npc.during",
+          "speaker": "年轻雷索",
+          "text": "有谁见过拿武器的外乡人？",
+          "conditions": {
+            "required_flags": [
+              "ch019.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch019.investigate.l02"
+        },
+        "completed": {
+          "id": "ch019.npc.complete",
+          "speaker": "主官",
+          "text": "自今日起，你不再属于骑士团。",
+          "conditions": {
+            "required_flags": [
+              "story.ch019.done"
+            ]
+          },
+          "source_dialogue_id": "ch019.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch020",
+      "title": "没有目的地的船",
+      "location": "七年前·无名海",
+      "npc_states": {
+        "before": {
+          "id": "ch020.npc.before",
+          "speaker": "年轻朔弦",
+          "text": "昨晚我们经过的那座岛呢？码头上还有棵歪树。",
+          "conditions": {
+            "required_flags": [
+              "ch020.started"
+            ],
+            "without_flags": [
+              "story.ch020.done"
+            ]
+          },
+          "source_dialogue_id": "ch020.opening.l02"
+        },
+        "investigating": {
+          "id": "ch020.npc.during",
+          "speaker": "年轻朔弦",
+          "text": "不是没人画，是有人故意擦掉了。",
+          "conditions": {
+            "required_flags": [
+              "ch020.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch020.investigate.l02"
+        },
+        "completed": {
+          "id": "ch020.npc.complete",
+          "speaker": "年轻朔弦",
+          "text": "喂，你叫我别做梦，可我的船总该由我掌舵。",
+          "conditions": {
+            "required_flags": [
+              "story.ch020.done"
+            ]
+          },
+          "source_dialogue_id": "ch020.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch021",
+      "title": "药师的谎言",
+      "location": "十年前·晨露药房",
+      "npc_states": {
+        "before": {
+          "id": "ch021.npc.before",
+          "speaker": "少年岚音",
+          "text": "昨晚那位帮忙修灯的叔叔呢？他不是叫澄舟吗？",
+          "conditions": {
+            "required_flags": [
+              "ch021.started"
+            ],
+            "without_flags": [
+              "story.ch021.done"
+            ]
+          },
+          "source_dialogue_id": "ch021.opening.l02"
+        },
+        "investigating": {
+          "id": "ch021.npc.during",
+          "speaker": "影像·澄舟",
+          "text": "若那孩子问起我，别急着带他去灯塔。",
+          "conditions": {
+            "required_flags": [
+              "ch021.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch021.investigate.l02"
+        },
+        "completed": {
+          "id": "ch021.npc.complete",
+          "speaker": "岚音",
+          "text": "我每次看到你翻旧箱子，就觉得自己又瞒了你一次。",
+          "conditions": {
+            "required_flags": [
+              "story.ch021.done"
+            ]
+          },
+          "source_dialogue_id": "ch021.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch022",
+      "title": "白夜祭",
+      "location": "三誓王都·灯会",
+      "npc_states": {
+        "before": {
+          "id": "ch022.npc.before",
+          "speaker": "朔弦",
+          "text": "我订好了酒馆艺人的通行牌。你会弹琴吗？",
+          "conditions": {
+            "required_flags": [
+              "ch022.started"
+            ],
+            "without_flags": [
+              "story.ch022.done"
+            ]
+          },
+          "source_dialogue_id": "ch022.opening.l02"
+        },
+        "investigating": {
+          "id": "ch022.npc.during",
+          "speaker": "宫廷乐师",
+          "text": "今夜拍卖的并非宝石，而是人们不愿记得的往事。",
+          "conditions": {
+            "required_flags": [
+              "ch022.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch022.investigate.l02"
+        },
+        "completed": {
+          "id": "ch022.npc.complete",
+          "speaker": "宫廷乐师",
+          "text": "我愿把拍卖册交给公开档案馆，但请保护所有被迫出售的人。",
+          "conditions": {
+            "required_flags": [
+              "story.ch022.done"
+            ]
+          },
+          "source_dialogue_id": "ch022.resolve.l02"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch023",
+      "title": "被修改的记录",
+      "location": "王城地下档案室",
+      "npc_states": {
+        "before": {
+          "id": "ch023.npc.before",
+          "speaker": "雷索",
+          "text": "这里比王宫军械库还严密。",
+          "conditions": {
+            "required_flags": [
+              "ch023.started"
+            ],
+            "without_flags": [
+              "story.ch023.done"
+            ]
+          },
+          "source_dialogue_id": "ch023.opening.l02"
+        },
+        "investigating": {
+          "id": "ch023.npc.during",
+          "speaker": "岚音",
+          "text": "这里写着“自愿”，却没有任何人的签名。",
+          "conditions": {
+            "required_flags": [
+              "ch023.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch023.investigate.l02"
+        },
+        "completed": {
+          "id": "ch023.npc.complete",
+          "speaker": "雷索",
+          "text": "这份记录有太多人参与修改，不能说只有一名坏人。",
+          "conditions": {
+            "required_flags": [
+              "story.ch023.done"
+            ]
+          },
+          "source_dialogue_id": "ch023.resolve.l03"
+        }
+      },
+      "act_end_extra": null
+    },
+    {
+      "id": "ch024",
+      "title": "守灯者的罪",
+      "location": "断层议会遗迹",
+      "npc_states": {
+        "before": {
+          "id": "ch024.npc.before",
+          "speaker": "议会投影甲",
+          "text": "若不立刻建立母灯，寂潮将吞噬所有城市。",
+          "conditions": {
+            "required_flags": [
+              "ch024.started"
+            ],
+            "without_flags": [
+              "story.ch024.done"
+            ]
+          },
+          "source_dialogue_id": "ch024.opening.l02"
+        },
+        "investigating": {
+          "id": "ch024.npc.during",
+          "speaker": "投影·年轻议员",
+          "text": "临时措施只维持一个月，之后必须重新征求居民意见。",
+          "conditions": {
+            "required_flags": [
+              "ch024.started"
+            ],
+            "stage": "investigate"
+          },
+          "source_dialogue_id": "ch024.investigate.l02"
+        },
+        "completed": {
+          "id": "ch024.npc.complete",
+          "speaker": "使者",
+          "text": "我以为他们会先烧掉档案馆，结果却有人留下守夜。",
+          "conditions": {
+            "required_flags": [
+              "story.ch024.done"
+            ]
+          },
+          "source_dialogue_id": "ch024.resolve.l02"
+        }
+      },
+      "act_end_extra": {
+        "id": "ch024.npc.act_ending",
+        "speaker": "旧王都档案员",
+        "text": "王宫仍有写错的名字。现在我学会了先保存证词，再决定怎样更正。",
+        "conditions": {
+          "required_flags": [
+            "story.ch024.done"
+          ]
+        },
+        "original_new_text": true
+      }
+    }
+  ]
+}

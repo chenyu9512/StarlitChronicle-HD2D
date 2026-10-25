@@ -373,7 +373,17 @@ func _build_sites() -> void:
                 for stage_index in range(5):
                     var stage_spots: Array = terrain_layout.get("story_stage_points",[])
                     var stage_cell: Vector2i = stage_spots[stage_index] if stage_spots.size()==5 else spots[[0,1,2,0,2][stage_index]]
-                    var quest_stage: Sprite2D = _add_sprite("star_lantern" if stage_index==4 else "sign",stage_cell,false,true)
+                    var quest_stage: Sprite2D
+                    if stage_index==0 and not quest_submaps.life_entries.get(interior_building.trim_prefix("quest__"),{}).is_empty():
+                        # An actual quest giver silhouette, with the existing
+                        # overworld idle animation, replaces the generic sign.
+                        var giver := NPCVisual.new()
+                        giver.setup({"id":"", "role":"quest", "name":str(details.get("original_npc","委托人"))})
+                        giver.position = Vector2(stage_cell*TILE)+Vector2(16,16)
+                        scenery.add_child(giver)
+                        quest_stage = giver
+                    else:
+                        quest_stage = _add_sprite("star_lantern" if stage_index==4 else "sign",stage_cell,false,true)
                     nodes["story_stage_%d" % stage_index] = quest_stage
                     quest_stage.visible = false
             return

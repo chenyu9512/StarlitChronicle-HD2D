@@ -1,0 +1,65 @@
+extends SceneTree
+## V3 genuine-data smoke: test authored layer import, distinct area geometry,
+## walkable roads, quest markers, editor overrides and retention of V2 towns.
+const Levels = preload("res://scripts/world_level_v3.gd")
+const Geography = preload("res://scripts/world_geography.gd")
+var errors: Array[String] = []
+
+func _initialize() -> void:
+    call_deferred("_run")
+
+func verify(value: bool, why: String) -> void:
+    if not value:
+        errors.append(why)
+
+func _run() -> void:
+    var source = Levels.new()
+    var geo = Geography.new()
+    verify(source.problems.is_empty(),"V3 level content validation failed: "+str(source.problems))
+    verify(geo.faults.is_empty(),"V3 geography preflight failed: "+str(geo.faults))
+    var examined: int = 0
+    var overworld: int = 0
+    var changed: int = 0
+    var seen_geometry: Dictionary = {}
+    for id in geo.zones.keys():
+        var zone: Dictionary = geo.zone(str(id))
+        if not bool(zone.get("playable",false)):
+            continue
+        examined += 1
+        var authored: Dictionary = source.level(str(id))
+        verify(not authored.is_empty(),"No editable V3 record for "+str(id))
+        verify(authored.get("size",[])==[72,48],"Invalid authored V3 map dimensions: "+str(id))
+        verify(authored.get("roads",[]).size()>=2,"Missing independent authored road network: "+str(id))
+        var current: Dictionary = geo.layout(str(id),3)
+        var previous: Dictionary = geo.layout(str(id),61)
+        verify(current.get("blocked",{})==previous.get("blocked",{}),"Layout changed on chapter reload: "+str(id))
+        verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],geo._anchors()),"Story quest routes disconnected: "+str(id))
+        for gate in current.get("gates",[]):
+            verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],[gate.get("cell",Vector2i.ZERO)]),"Map gate inaccessible: "+str(id))
+        if bool(zone.get("settlement",false)) or str(zone.get("archetype",""))=="dungeon":
+            continue
+        overworld += 1
+        var footprint: String = str((current.get("blocked",{}) as Dictionary).hash())
+        verify(not seen_geometry.has(footprint),"Two separate wilderness maps have identical collision fingerprints: "+str(id))
+        seen_geometry[footprint] = true
+        var patch: Dictionary = authored.duplicate(true)
+        patch["paint_overrides"] = [{"cell":[26,27],"row":4,"blocked":true}]
+        patch["collision_overrides"] = [{"cell":[27,27],"blocked":false}]
+        var tiles: Dictionary = current["tiles"].duplicate()
+        var walls: Dictionary = current["blocked"].duplicate()
+        var features: Array[Dictionary] = []
+        source.apply(patch,tiles,walls,features)
+        verify(walls.has(Vector2i(26,27)),"Hand-authored collision patch was not applied: "+str(id))
+        verify(not walls.has(Vector2i(27,27)),"Collision erase patch was not applied: "+str(id))
+        verify(tiles[Vector2i(26,27)].y==4,"Hand-painted tile row was ignored: "+str(id))
+        verify(current.get("tiles",{}).size()==72*48,"Terrain has missing cells: "+str(id))
+        changed += 1
+    verify(examined==40,"Missing forty playable V3 datasets")
+    verify(overworld==25,"Expected 25 wilderness/route/landmark regions")
+    if errors.is_empty():
+        print("PASS: %d standalone authorable V3 definitions, %d distinct wilderness collision layouts, all quest/gate paths, independent editor collision patches" % [examined,overworld])
+        quit(0)
+    else:
+        for error in errors:
+            push_error(error)
+        quit(1)

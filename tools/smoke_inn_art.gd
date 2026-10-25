@@ -77,7 +77,10 @@ func _run() -> void:
     verify(world.hero.position==street,"Saved exterior return location changed")
     verify(world.ambience.visible,"Overworld weather failed to return after leaving inn")
     verify(world.enter_building("shop"),"Neighbor shop no longer accessible")
-    verify(world.root.get_node_or_null("InteriorArt")==null,"Inn artwork spilled into unrelated buildings")
+    verify(str(world.terrain_layout.get("art_profile",""))=="coast_district_shop_v1","Coastal shop art profile missing")
+    var shop_art = world.root.get_node_or_null("InteriorArt")
+    verify(shop_art!=null and shop_art.prop_nodes.has("service_counter"),"Coastal shop has no furniture art")
+    verify(not shop_art.prop_nodes.has("north_fireplace"),"Inn-only fireplace leaked into coastal shop")
     verify(world.leave_building(),"Shop roundtrip failed")
     if failures.is_empty():
         print("PASS: live authored inn floor/walls/furniture/lights, player collision, original interaction IDs and building roundtrip")

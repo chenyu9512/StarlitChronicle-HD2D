@@ -80,6 +80,7 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "interior":kind,"interact_cells":points,"authored_source":"v4",
         "layout_id":map_id+"#"+building_id,
         "art_profile":str(data.get("art_profile","")),
+        "art_tileset":str(data.get("art_tileset","")),
         "visuals":data.get("visuals",[]),
         "light_sources":data.get("light_sources",[]),
         "solid_regions":data.get("solid_regions",[])}

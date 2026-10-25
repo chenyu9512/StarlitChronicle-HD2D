@@ -182,11 +182,14 @@ func _make_tiles() -> void:
     HEIGHT = extent.y
     if fog != null:
         fog.configure(fog_key(),extent)
-    var inn_art: bool = str(terrain_layout.get("art_profile",""))=="coast_inn_v1" and ResourceLoader.exists(INN_ATLAS)
+    var chosen_atlas: String=str(terrain_layout.get("art_tileset",""))
+    if chosen_atlas.is_empty() and str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
+        chosen_atlas=INN_ATLAS
+    var authored_art: bool = not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas)
     var tile_set := TileSet.new()
     tile_set.tile_size = Vector2i(TILE, TILE)
     var land := TileSetAtlasSource.new()
-    land.texture = load(INN_ATLAS if inn_art else (land_path if regional_art else GROUND))
+    land.texture = load(chosen_atlas if authored_art else (land_path if regional_art else GROUND))
     land.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
@@ -205,7 +208,7 @@ func _make_tiles() -> void:
     layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     layer.z_index = -5
     if not map_profile.is_empty():
-        layer.modulate = Color.WHITE if inn_art or regional_art else map_profile.get("color",Color.WHITE)
+        layer.modulate = Color.WHITE if authored_art or regional_art else map_profile.get("color",Color.WHITE)
     root.add_child(layer)
     blocked = terrain_layout.get("blocked",{}).duplicate()
     var all_tiles: Dictionary = terrain_layout.get("tiles",{})
@@ -223,7 +226,7 @@ func _make_tiles() -> void:
 
 func _decorate() -> void:
     if not interior_building.is_empty():
-        if str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
+        if not str(terrain_layout.get("art_profile","")).is_empty():
             var room_art := InteriorArt.new()
             root.add_child(room_art)
             room_art.install(scenery,terrain_layout,clock_minutes)
@@ -299,7 +302,7 @@ func _build_sites() -> void:
         nodes["interior_exit"] = _add_sprite("sign",markers.get("exit",Vector2i(35,34)),false,true)
         nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
         nodes["interior_storage"] = _add_sprite("barrel",markers.get("storage",Vector2i(45,19)),false,true)
-        if str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
+        if not str(terrain_layout.get("art_profile","")).is_empty():
             # Keep node visible for input and minimap; custom counter/art
             # replaces its old beacon/barrel pictogram at the same anchor.
             nodes["interior_service"].modulate.a = 0.0

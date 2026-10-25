@@ -34,6 +34,8 @@ on:
       - "data/levels/v4/interiors/**"
       - "assets/art/interiors/morning_dew_inn/**"
       - "tools/smoke_inn_art.gd"
+      - "tools/smoke_coastal_interiors.gd"
+      - "assets/art/interiors/coastal_district/**"
       - "data/levels/world_atlas_v2.json"
       - ".github/workflows/map-ui-validation.yml"
   pull_request:
@@ -70,6 +72,8 @@ on:
       - "data/levels/v4/interiors/**"
       - "assets/art/interiors/morning_dew_inn/**"
       - "tools/smoke_inn_art.gd"
+      - "tools/smoke_coastal_interiors.gd"
+      - "assets/art/interiors/coastal_district/**"
       - "data/levels/world_atlas_v2.json"
       - ".github/workflows/map-ui-validation.yml"
 concurrency:
@@ -100,6 +104,8 @@ jobs:
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_direction_v4.gd
       - name: Validate Morning Dew Inn real room art and existing gameplay
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_inn_art.gd
+      - name: Validate all 12 coastal interior art scenes in live gameplay
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_coastal_interiors.gd
       - name: Validate world sector routing, terrain and interiors
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd
       - name: Validate story-safe world travel and physical dungeon treasure

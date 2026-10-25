@@ -3,12 +3,18 @@ extends Node2D
 ## never an unplayable fullscreen illustration or a replacement game world.
 const ART_DIR: String = "res://assets/art/interiors/morning_dew_inn/"
 const PROFILE: String = "coast_inn_v1"
+const DISTRICT_ART: String = "res://assets/art/interiors/coastal_district/"
+var theme_atlas: String = ART_DIR+"inn_tileset.svg"
 const TILE: int = 32
 const ALLOWED: Array[String] = [
     "counter", "bed", "fireplace", "bookshelf", "table",
     "window", "lantern", "rug", "curtain", "barrels",
     "window_sunshafts", "saltgrass_planter", "tideway_chart",
-    "travelers_shelf", "bread_basket"
+    "travelers_shelf", "bread_basket",
+    "provisions_shelves", "merchant_counter", "guild_noticeboard",
+    "guild_emblem", "smith_anvil", "smith_forge", "smith_toolwall",
+    "home_hutch", "shrine_starseal", "shrine_altar",
+    "shrine_incense", "harbor_guest_bed"
 ]
 var prop_nodes: Dictionary = {}
 var detail_layer: TileMapLayer
@@ -44,8 +50,12 @@ func set_clock(minutes: int) -> void:
         lamp.color = Color("fff0cd") if night else Color("ffe2b0")
 
 func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
-    if str(layout.get("art_profile",""))!=PROFILE:
+    var profile_id: String=str(layout.get("art_profile",""))
+    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_"):
         return
+    var chosen_atlas: String=str(layout.get("art_tileset",""))
+    if not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas):
+        theme_atlas=chosen_atlas
     name = "InteriorArt"
     _build_wall_edging(layout)
     for value in layout.get("visuals",[]):
@@ -54,6 +64,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         var record: Dictionary = value
         var art_id: String = str(record.get("asset",""))
         var path: String = ART_DIR+art_id+".svg"
+        if not ResourceLoader.exists(path):
+            path=DISTRICT_ART+art_id+".svg"
         var place: Array = record.get("cell",[])
         if art_id not in ALLOWED or place.size()!=2 or not ResourceLoader.exists(path):
             continue
@@ -121,11 +133,13 @@ func _install_fire_animation(stage: Node2D,layout: Dictionary) -> void:
         tile.atlas=sheet
         tile.region=Rect2(index*64,0,64,64)
         frames.add_frame("hearth",tile)
-    var foot: Array=[38,16]
+    var foot: Array=[]
     for entry in layout.get("visuals",[]):
-        if entry is Dictionary and str(entry.get("id",""))=="north_fireplace":
-            foot=entry.get("cell",foot)
+        if entry is Dictionary and str(entry.get("id","")) in ["north_fireplace","forge_hearth"]:
+            foot=entry.get("cell",[])
             break
+    if foot.size()!=2:
+        return
     animated_fire=AnimatedSprite2D.new()
     animated_fire.name="HearthFireAnimation"
     animated_fire.sprite_frames=frames
@@ -163,12 +177,12 @@ func _build_occluders(layout: Dictionary) -> void:
         occluder_count+=1
 
 func _build_wall_edging(layout: Dictionary) -> void:
-    if not ResourceLoader.exists(ART_DIR+"inn_tileset.svg"):
+    if not ResourceLoader.exists(theme_atlas):
         return
     var tiles := TileSet.new()
     tiles.tile_size=Vector2i(TILE,TILE)
     var source := TileSetAtlasSource.new()
-    source.texture=load(ART_DIR+"inn_tileset.svg")
+    source.texture=load(theme_atlas)
     source.texture_region_size=Vector2i(TILE,TILE)
     for x in range(8):
         source.create_tile(Vector2i(x,7))

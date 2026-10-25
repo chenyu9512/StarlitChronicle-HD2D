@@ -91,6 +91,18 @@ func _capture() -> void:
                 "position":[snappedf(performer.position.x,0.01),snappedf(performer.position.y,0.01)]}
         evidence[evidence.size()-1]["timecode_seconds"]=shot["time"]
         evidence[evidence.size()-1]["cast"]=cast_data
+    # Gate P5 on spatial evidence, not only screenshots being different.
+    var intercept: Dictionary=evidence[6].get("cast",{}).get("chengzhou",{})
+    var arrival: Dictionary=evidence[5].get("cast",{}).get("chengzhou",{})
+    var escape_early: Dictionary=evidence[9].get("cast",{}).get("lanyin",{})
+    var escape_late: Dictionary=evidence[10].get("cast",{}).get("lanyin",{})
+    if intercept.is_empty() or arrival.is_empty() or escape_early.is_empty() or escape_late.is_empty():
+        failures.append("P5 missing required cast evidence")
+    else:
+        if arrival["position"]==intercept["position"]:
+            failures.append("Chengzhou has no visible intercept displacement")
+        if escape_early["position"]==escape_late["position"]:
+            failures.append("Lanyin has no visible escape displacement")
     blocking.apply("normal")
     game.world.set_prologue_phase(5,0)
     var cue: Dictionary=game.cinematic_prologue.get("beats",{}).get("prologue_5",{})

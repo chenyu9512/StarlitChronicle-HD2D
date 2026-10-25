@@ -100,7 +100,7 @@ func apply_town(id: String,ground: Dictionary,walls: Dictionary,features: Array[
         })
     return design
 
-func resident_anchor(id: String,role: String,index: int,hour: int) -> Vector2i:
+func resident_anchor(id: String,role: String,index: int,hour: int, buildings: Array = []) -> Vector2i:
     var design: Dictionary = plan(id)
     if design.is_empty():
         return Vector2i(35,24)
@@ -124,6 +124,20 @@ func resident_anchor(id: String,role: String,index: int,hour: int) -> Vector2i:
     var center: Vector2i=_cell(selected.get("center",[35,24]))
     var near: Array[Vector2i]=[Vector2i(-3,-2),Vector2i(3,1),Vector2i(-3,3),Vector2i(4,-3),Vector2i(2,4)]
     var at: Vector2i=center+near[index%near.size()]
+    var work_place: String = ""
+    match role:
+        "shop": work_place = "shop"
+        "craft": work_place = "smith"
+        "quest": work_place = "guild"
+        "rumor": work_place = "inn"
+        "lore": work_place = "house"
+    if not work_place.is_empty():
+        for workplace in buildings:
+            if str(workplace.get("id","")) == work_place:
+                # Citizen stands outside their workplace, NOT on a generic
+                # plaza marker or underneath the impassable roof.
+                at=_cell(workplace.get("door",[]))+Vector2i(0,4)+near[index%near.size()]
+                break
     if hour<6 or hour>=20:
         if role in ["rumor","lore"]:
             for district in design.get("districts",[]):

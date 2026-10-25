@@ -12,6 +12,8 @@ const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
+const CoastalScene = preload("res://scripts/world_coastal_scene.gd")
+const CoastalAudio = preload("res://scripts/world_coastal_audio.gd")
 const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
 const TILE: int = 32
 var WIDTH: int = 72
@@ -60,6 +62,8 @@ var exterior_position: Vector2 = Vector2.ZERO
 var last_party_size: int = 2
 var root: Node2D
 var scenery: Node2D
+var coastal_scene
+var coastal_audio
 var layer: TileMapLayer
 var blocked: Dictionary = {}
 var nodes: Dictionary = {}
@@ -111,6 +115,7 @@ func build(new_chapter: int, party_size: int) -> void:
     scenery.y_sort_enabled = true
     root.add_child(scenery)
     _decorate()
+    _install_coastal_scenery()
     _build_sites()
     _spawn_residents()
     hero = Actor.new()
@@ -150,6 +155,10 @@ func build(new_chapter: int, party_size: int) -> void:
     ambience.hero = hero
     ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")))
     root.add_child(ambience)
+    coastal_audio=CoastalAudio.new()
+    coastal_audio.name="CoastalAudio"
+    root.add_child(coastal_audio)
+    coastal_audio.configure(str(map_profile.get("id","")),not interior_building.is_empty())
     # Exterior rain, fog and sky grading are never projected inside houses.
     ambience.visible = interior_building.is_empty()
     ambience.set_clock(calendar_day,clock_minutes)
@@ -248,7 +257,7 @@ func _decorate() -> void:
                     var size_data: Array = record.get("size",[8,6])
                     width_data = Vector2i(int(size_data[0]),int(size_data[1]))
                     break
-            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region)
+            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region,str(map_profile.get("id","")))
             architecture.position = Vector2(cell*TILE)+Vector2(16,16)
             scenery.add_child(architecture)
         else:
@@ -282,6 +291,18 @@ func _decorate() -> void:
     for entry in objects:
         var pos := Vector2i(int(entry[1]), int(entry[2]))
         _add_sprite(str(entry[0]), pos, false)
+
+func _install_coastal_scenery() -> void:
+    coastal_scene = null
+    if not interior_building.is_empty():
+        return
+    var map_id: String=str(map_profile.get("id",""))
+    if map_id not in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04"]:
+        return
+    coastal_scene=CoastalScene.new()
+    coastal_scene.name="CoastalScene"
+    scenery.add_child(coastal_scene)
+    coastal_scene.configure(map_id,terrain_layout)
 
 func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind
@@ -726,6 +747,7 @@ func _blocked(point: Vector2) -> bool:
 func interact() -> void:
     if locked or not is_instance_valid(hero):
         return
+    hero.react()
     # Authoritative main objective has priority when the player stands at its marker.
     # Without this, a nearby town door could hijack a chapter-critical interaction.
     if not focus_name.is_empty() and nodes.has(focus_name):

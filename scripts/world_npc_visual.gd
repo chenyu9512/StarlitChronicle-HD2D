@@ -7,6 +7,14 @@ var tone: Color = Color("749eab")
 var base_hour: int = 8
 var label: Label
 var artwork: Sprite2D
+var idle_elapsed: float = 0.0
+var base_art_offset: float = -21.0
+
+func _process(delta: float) -> void:
+    idle_elapsed+=delta
+    if is_instance_valid(artwork):
+        # Distinct but small idle motion keeps authored still portraits legible.
+        artwork.position.y=base_art_offset+0.8*sin(idle_elapsed*1.6+float(role.hash()%8))
 
 func setup(info: Dictionary) -> void:
     role=str(info.get("role","lore"))

@@ -6,12 +6,25 @@ var purpose: String = "house"
 var title: String = ""
 var biome: String = "coastal"
 var cells: Vector2i = Vector2i(8,6)
+var facade: Sprite2D
+var exterior_identity: String = ""
 
-func setup(kind: String,building_name: String,dimensions: Vector2i,area: String) -> void:
+func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,map_key: String = "") -> void:
     purpose = kind
     title = building_name
     biome = area
     cells = dimensions
+    exterior_identity=map_key+"#"+kind
+    # The original painter remains the compatibility fallback for other biomes.
+    var file: String = "res://assets/art/exteriors/coast_final_pass/%s_%s.svg" % [map_key,kind]
+    if ResourceLoader.exists(file):
+        facade=Sprite2D.new()
+        facade.name="AuthoredFacade"
+        facade.texture=load(file)
+        facade.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+        facade.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
+        facade.z_index=3
+        add_child(facade)
     queue_redraw()
 
 func _palette() -> Dictionary:
@@ -51,6 +64,8 @@ func _palette() -> Dictionary:
     return {"wall":wall,"roof":roof,"trim":trim}
 
 func _draw() -> void:
+    if is_instance_valid(facade):
+        return
     var palette: Dictionary = _palette()
     var w: float = float(cells.x)*TILE
     var h: float = float(cells.y)*TILE

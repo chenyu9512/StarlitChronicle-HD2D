@@ -43,13 +43,13 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         footing.name="GroundShadow_%s" % id
         footing.texture=load(GROUND_ART)
         footing.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
-        footing.z_index=-1
+        footing.z_index=0
         add_child(footing)
         var sigil := Sprite2D.new()
         sigil.name="CastCircle_%s" % id
         sigil.texture=load(CAST_ART)
         sigil.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
-        sigil.z_index=-1
+        sigil.z_index=0
         sigil.modulate.a=0.0
         add_child(sigil)
         var portrait := TextureRect.new()

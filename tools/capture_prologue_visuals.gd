@@ -67,6 +67,31 @@ func _capture() -> void:
             await create_timer(3.0).timeout
         await _settle()
         _screenshot(str(item["name"]),str(item["phase"]),game)
+    # P5: deterministic authored blocking timecodes, captured from the real renderer.
+    # A screenshot alone cannot prove action, so the manifest includes cast positions.
+    var blocking = game.world.prologue_stage.blocking
+    for shot in [
+        {"id":"p5_star_arrival_000","index":5,"time":0.0},
+        {"id":"p5_chengzhou_intercept_018","index":5,"time":1.8},
+        {"id":"p5_lanyin_moves_033","index":5,"time":3.3},
+        {"id":"p5_rear_guard_000","index":6,"time":0.0},
+        {"id":"p5_escape_025","index":6,"time":2.5},
+        {"id":"p5_escape_040","index":6,"time":4.0},
+        {"id":"p5_ash_morning","index":7,"time":0.0},
+        {"id":"p5_ten_year_match","index":8,"time":0.0}
+    ]:
+        game.world.set_prologue_phase(int(shot["index"]),0)
+        blocking.seek(float(shot["time"]))
+        await _settle()
+        _screenshot(str(shot["id"]),"actor_blocking",game)
+        var cast_data: Dictionary={}
+        for who in blocking.cast.keys():
+            var performer=blocking.cast[who]
+            cast_data[str(who)]={"visible":performer.visible,
+                "position":[snappedf(performer.position.x,0.01),snappedf(performer.position.y,0.01)]}
+        evidence[evidence.size()-1]["timecode_seconds"]=shot["time"]
+        evidence[evidence.size()-1]["cast"]=cast_data
+    blocking.apply("normal")
     game.world.set_prologue_phase(5,0)
     var cue: Dictionary=game.cinematic_prologue.get("beats",{}).get("prologue_5",{})
     if not game.cinematic.start("prologue_5",cue):
@@ -82,13 +107,13 @@ func _capture() -> void:
     if unique.size()<4:
         failures.append("Scene states generated visually identical frames; check stage compositor")
     var report: Dictionary={
-        "schema":"starlit.prologue.visual-qa.v1",
+        "schema":"starlit.prologue.visual-qa.v2",
         "engine":"Godot 4.7.2",
         "real_renderer":"Xvfb GL Compatibility",
         "resolution":[1152,648],
         "evidence":evidence,
         "unique_frame_count":unique.size(),
-        "passes":failures.is_empty() and evidence.size()==5,
+        "passes":failures.is_empty() and evidence.size()==13,
         "manual_director_review":false,
         "iphone_real_device_review":false,
         "notes":"Rendered visuals are art-direction evidence, not evidence of commercial final-paint quality."
@@ -100,7 +125,7 @@ func _capture() -> void:
         handle.store_string(JSON.stringify(report,"  ")+"\n")
         handle.close()
     if failures.is_empty() and evidence.size()==5:
-        print("PASS P4: 5 distinct actual Godot gameplay/cinematic frames captured; human visual review still required")
+        print("PASS P4: 13 actual Godot gameplay/cinematic frames captured; human visual review still required")
         quit(0)
         return
     for problem in failures:

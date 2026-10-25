@@ -134,6 +134,8 @@ func _draw_local() -> void:
             color = Color("a9b6ff")
         elif id.begins_with("citizen:"):
             color = Color("aedce4")
+        elif id.begins_with("discovery:"):
+            color = Color("a7d9bd")
         elif id.begins_with("dungeon_switch_"):
             color = Color("f4a9e5")
         elif id in ["dungeon_chest","wild_cache"]:

@@ -1,0 +1,379 @@
+{
+  "schema": "starlit.story.phase11.act04.reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "第19、20章选择发生回忆中；第21章在回忆画面退去后，由现世主角决定是否原谅岚音；第22–24章为现世选择。即时回应不新增独立长期路线。",
+  "followups": [
+    {
+      "id": "ch019.p11.choice.listen",
+      "chapter_id": "ch019",
+      "after_choice_id": "ch019.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch019.approach": "villagers",
+        "world.ch019.approach": "villagers"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "ten_years_ago",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch019.p11.choice.listen.l01",
+          "speaker": "村妇",
+          "text": "原件我保管，但只让有关调查的人知道孩子去了哪里。"
+        },
+        {
+          "id": "ch019.p11.choice.listen.l02",
+          "speaker": "年轻雷索",
+          "text": "我会给你一份原封印说明，避免以后有人说这是我伪造。"
+        },
+        {
+          "id": "ch019.p11.choice.listen.l03",
+          "speaker": "军士",
+          "text": "我愿意写下亲眼看到的撤离经过，不替没到场的人作证。"
+        }
+      ]
+    },
+    {
+      "id": "ch019.p11.choice.act",
+      "chapter_id": "ch019",
+      "after_choice_id": "ch019.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch019.approach": "witness_soldier",
+        "world.ch019.approach": "witness_soldier"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "ten_years_ago",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch019.p11.choice.act.l01",
+          "speaker": "军士",
+          "text": "我和另一位值守人各写一份，不用你替整队说谎。"
+        },
+        {
+          "id": "ch019.p11.choice.act.l02",
+          "speaker": "年轻雷索",
+          "text": "把未执行的命令也保留。有人追问时，至少知道我们拒绝了什么。"
+        },
+        {
+          "id": "ch019.p11.choice.act.l03",
+          "speaker": "村妇",
+          "text": "我会记住是谁让我走的，也不会替任何军官抹去没救到的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch020.p11.choice.listen",
+      "chapter_id": "ch020",
+      "after_choice_id": "ch020.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch020.approach": "keep_log",
+        "world.ch020.approach": "keep_log"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "seven_years_ago",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch020.p11.choice.listen.l01",
+          "speaker": "年轻朔弦",
+          "text": "完整日志在我手里，灰帷会会追得更紧，但那些被抹去的页码不能再丢。"
+        },
+        {
+          "id": "ch020.p11.choice.listen.l02",
+          "speaker": "小水手",
+          "text": "我会告诉后来的人，你拿走的是本来就该交回证人的航图。"
+        },
+        {
+          "id": "ch020.p11.choice.listen.l03",
+          "speaker": "年轻朔弦",
+          "text": "别替我冒险，先照顾好自己。"
+        }
+      ]
+    },
+    {
+      "id": "ch020.p11.choice.act",
+      "chapter_id": "ch020",
+      "after_choice_id": "ch020.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch020.approach": "stars_first",
+        "world.ch020.approach": "stars_first"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "seven_years_ago",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch020.p11.choice.act.l01",
+          "speaker": "年轻朔弦",
+          "text": "我先记星位和海流，日志落在哪儿以后还能再追。"
+        },
+        {
+          "id": "ch020.p11.choice.act.l02",
+          "speaker": "小水手",
+          "text": "这串绳结谁也不会替你擦掉。"
+        },
+        {
+          "id": "ch020.p11.choice.act.l03",
+          "speaker": "年轻朔弦",
+          "text": "那我们约好，将来若重逢，把今天各自记得的拼起来。"
+        }
+      ]
+    },
+    {
+      "id": "ch021.p11.choice.listen",
+      "chapter_id": "ch021",
+      "after_choice_id": "ch021.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch021.approach": "need_time",
+        "world.ch021.approach": "need_time"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch021.p11.choice.listen.l01",
+          "speaker": "主角",
+          "text": "我还不能立刻接受你瞒了我这些年。今晚先让我一个人把病历看完。"
+        },
+        {
+          "id": "ch021.p11.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "可以。我不会要求你替我解释那时候的害怕。"
+        },
+        {
+          "id": "ch021.p11.choice.listen.l03",
+          "speaker": "雷索",
+          "text": "明天需要继续调查时，再由你们自己决定怎么同行。"
+        }
+      ]
+    },
+    {
+      "id": "ch021.p11.choice.act",
+      "chapter_id": "ch021",
+      "after_choice_id": "ch021.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch021.approach": "read_together",
+        "world.ch021.approach": "read_together"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch021.p11.choice.act.l01",
+          "speaker": "主角",
+          "text": "请把你记录过的事实和澄舟留下的预测分开，我们一起核对。"
+        },
+        {
+          "id": "ch021.p11.choice.act.l02",
+          "speaker": "岚音",
+          "text": "我愿意。所有原件都交出来，也接受你对每次隐瞒的疑问。"
+        },
+        {
+          "id": "ch021.p11.choice.act.l03",
+          "speaker": "朔弦",
+          "text": "我先去找纸和灯，不在这时候插嘴。"
+        }
+      ]
+    },
+    {
+      "id": "ch022.p11.choice.listen",
+      "chapter_id": "ch022",
+      "after_choice_id": "ch022.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch022.approach": "anonymous_release",
+        "world.ch022.approach": "anonymous_release"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch022.p11.choice.listen.l01",
+          "speaker": "宫廷乐师",
+          "text": "交易和经手人的名字可以公开，但哭声主人的住址必须删掉。"
+        },
+        {
+          "id": "ch022.p11.choice.listen.l02",
+          "speaker": "雷索",
+          "text": "我会核对匿名抄本与原件一致，不让权贵借保密再改一次账。"
+        },
+        {
+          "id": "ch022.p11.choice.listen.l03",
+          "speaker": "岚音",
+          "text": "受害者有权决定是否继续听见自己的录音。"
+        }
+      ]
+    },
+    {
+      "id": "ch022.p11.choice.act",
+      "chapter_id": "ch022",
+      "after_choice_id": "ch022.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch022.approach": "safe_archive",
+        "world.ch022.approach": "safe_archive"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch022.p11.choice.act.l01",
+          "speaker": "宫廷乐师",
+          "text": "我陪证人先走幕后通道，原件让两名独立见证人封存。"
+        },
+        {
+          "id": "ch022.p11.choice.act.l02",
+          "speaker": "朔弦",
+          "text": "我去拦搬运箱子的车，不让档案在路上丢失。"
+        },
+        {
+          "id": "ch022.p11.choice.act.l03",
+          "speaker": "主角",
+          "text": "先保证人安全，再公开他们同意公开的部分。"
+        }
+      ]
+    },
+    {
+      "id": "ch023.p11.choice.listen",
+      "chapter_id": "ch023",
+      "after_choice_id": "ch023.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch023.approach": "protect_names",
+        "world.ch023.approach": "protect_names"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch023.p11.choice.listen.l01",
+          "speaker": "雷索",
+          "text": "先确认活着的访客和证人，档案不能替任何人宣布不存在。"
+        },
+        {
+          "id": "ch023.p11.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "被忘记的人可以自己说希望怎样被称呼，原名单留作核对。"
+        },
+        {
+          "id": "ch023.p11.choice.listen.l03",
+          "speaker": "主角",
+          "text": "我们不会为了保护一页纸让同伴被机关吞掉。"
+        }
+      ]
+    },
+    {
+      "id": "ch023.p11.choice.act",
+      "chapter_id": "ch023",
+      "after_choice_id": "ch023.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch023.approach": "save_original",
+        "world.ch023.approach": "save_original"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch023.p11.choice.act.l01",
+          "speaker": "朔弦",
+          "text": "旧预算和删改账先封起来，至少留下能追究来源的原件。"
+        },
+        {
+          "id": "ch023.p11.choice.act.l02",
+          "speaker": "岚音",
+          "text": "保存不等于自动公开私人身份，需分级查阅。"
+        },
+        {
+          "id": "ch023.p11.choice.act.l03",
+          "speaker": "主角",
+          "text": "另一队持续喊出彼此名字，记录不能以牺牲人作为代价。"
+        }
+      ]
+    },
+    {
+      "id": "ch024.p11.choice.listen",
+      "chapter_id": "ch024",
+      "after_choice_id": "ch024.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch024.approach": "public_hearing",
+        "world.ch024.approach": "public_hearing"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch024.p11.choice.listen.l01",
+          "speaker": "三国使者",
+          "text": "我会安排平民听证，让反对的人也拿得到原文和译本。"
+        },
+        {
+          "id": "ch024.p11.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "先公布与公共制度相关的内容，私人病历及记忆由本人决定。"
+        },
+        {
+          "id": "ch024.p11.choice.listen.l03",
+          "speaker": "雷索",
+          "text": "请留下每次质询与修订日期，不能只登记同意的声音。"
+        }
+      ]
+    },
+    {
+      "id": "ch024.p11.choice.act",
+      "chapter_id": "ch024",
+      "after_choice_id": "ch024.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch024.approach": "families_first",
+        "world.ch024.approach": "families_first"
+      },
+      "insertion": "after_original_choice_commit_before_encounter_or_resolution",
+      "time_layer": "present_day",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch024.p11.choice.act.l01",
+          "speaker": "三国使者",
+          "text": "先通知受害者家属，给他们准备时间和私密咨询渠道。"
+        },
+        {
+          "id": "ch024.p11.choice.act.l02",
+          "speaker": "朔弦",
+          "text": "各国会同步收到经核对的公共证据，不让某座城先偷偷改稿。"
+        },
+        {
+          "id": "ch024.p11.choice.act.l03",
+          "speaker": "主角",
+          "text": "这不是拖延公开，通知的截止日和负责人都要写清楚。"
+        }
+      ]
+    }
+  ]
+}

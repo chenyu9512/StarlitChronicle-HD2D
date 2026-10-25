@@ -51,6 +51,13 @@
 - [阶段18制作与静态验收报告](PHASE_18_COMPANION_DELIVERY.md)及 [事件/存档契约](data/phase18_companion_manifest.json)。
 - 伙伴原4阶段奖励、已有第7阶段前两批16条任务增补和三结局硬条件均保持。第18阶段是**编剧完成、运行未接入**；第19阶段负责地图、状态机、NPC和旧档迁移。
 
+## 第19阶段第一批｜剧本运行器接入说明
+
+- [第19-1批运行与存档交付](PHASE_19_BATCH01_RUNTIME_DELIVERY.md)：覆盖此前120条任务的720场后续事件与48场伙伴尾声。
+- 运行器 `scripts/story_branch_runtime.gd`、主游戏 `scripts/first_act.gd` 及「功能手册 → 剧情后续」已连接，可在符合原选择与章节条件时播放，并写入 `rpg.branch_story`。
+- 地图NPC、证物坐标、交互目标和每条任务真实行动仍属**第19-2批待实现**。原静态制作表中 `runtime_registered=false` 尚指未完成地图注册。
+- Godot端到端校验：`tools/smoke_branch_story_phase19.gd`。原版章节/支线结算、伙伴羁绊和三结局前置条件没有修改。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线骨架及数据格式。

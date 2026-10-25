@@ -24,7 +24,7 @@
 - **任务**：原有36条（失落航页12、生活24）+ 地区任务36 + 伙伴任务48，合计120条独立支线任务。
 - **第17阶段**：失落航页24条A/B后续路线、生活任务48条路线、地区任务72条路线，正文、阶段触发与条件保存在 `story/data/phase17_*.json` 及对应 `screenplay/` 阅读稿。
 - **第18阶段**：8名伙伴共48条任务，96条A/B后续路线，包含288场候选互动、48场结局条件化尾声，详见 `story/data/phase18_*.json` 与伙伴专属阅读稿。
-- **第19阶段**：`scripts/story_branch_runtime.gd` 负责可选剧情状态、顺序和存档恢复；`story/data/phase19_quest_world_anchors.json` 提供世界事件制作锚点。运行器记录与“全部地图上的NPC动作、调查物件均已完美实玩”是两种不同验收范围。
+- **第19阶段**：第19-1批将720场A/B任务后续和48场条件化尾声接入可存档的事件状态机；第19-2批把120条任务映射到30个已有正式地图分块，接入NPC→证物→告示板的3步实地交互、小地图与世界地图路线导航。**正式子地图、NPC终版素材、独立调查谜题仍未全面完成**。详见[第19-2批地图事件交付](PHASE_19_BATCH02_WORLD_EVENTS_DELIVERY.md)与独立[阶段19实机验收](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/workflows/phase19-world-validation.yml)。
 
 ## 不得破坏的关键正典
 

@@ -34,6 +34,12 @@ func _run() -> void:
         faults.append("No available story side quest at chapter 5")
     else:
         var id: String = str(q.get("id",""))
+        var map_id: String = g.story_world_bindings.map_for(id)
+        g.progress.rpg["world"]["current_map"] = map_id
+        g.progress.rpg["world"]["bound_chapter"] = g.progress.chapter
+        g._enter_location()
+        if str(g.world.map_profile.get("id","")) != map_id:
+            faults.append("Quest did not move to mapped sector "+map_id)
         if q.get("stages",[]).size() != 5:
             faults.append("Lost-page quest must have five stages")
         for index in range(5):

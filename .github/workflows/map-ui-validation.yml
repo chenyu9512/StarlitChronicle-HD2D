@@ -8,6 +8,11 @@ on:
       - "scripts/first_act_ui.gd"
       - "scripts/rpg_menu.gd"
       - "tools/smoke_map_ui.gd"
+      - "tools/smoke_world_production.gd"
+      - "scripts/world_geography.gd"
+      - "scripts/world_registry.gd"
+      - "scripts/first_act_world.gd"
+      - "data/levels/world_atlas_v2.json"
       - ".github/workflows/map-ui-validation.yml"
   pull_request:
     paths:
@@ -17,6 +22,11 @@ on:
       - "scripts/first_act_ui.gd"
       - "scripts/rpg_menu.gd"
       - "tools/smoke_map_ui.gd"
+      - "tools/smoke_world_production.gd"
+      - "scripts/world_geography.gd"
+      - "scripts/world_registry.gd"
+      - "scripts/first_act_world.gd"
+      - "data/levels/world_atlas_v2.json"
       - ".github/workflows/map-ui-validation.yml"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,4 +45,6 @@ jobs:
       - name: Import map and UI dependencies
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
       - name: Run minimap and world atlas gameplay regression
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+      - name: Validate world sector routing, terrain and interiors
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

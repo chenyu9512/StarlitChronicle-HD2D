@@ -22,7 +22,7 @@ func apply_story_presentation(phase: String, route: String, minutes: int) -> voi
         return
     story_phase = phase if phase in ["intro","investigate","community","revisit","resolved"] else "intro"
     story_route = route if route in ["a","b"] else ""
-    story_hour = posmod(minutes / 60,24)
+    story_hour = posmod(floori(float(minutes) / 60.0),24)
     match story_phase:
         "intro": tone = Color("b9a482")
         "investigate": tone = Color("789da6")

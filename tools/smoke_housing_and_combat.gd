@@ -5,6 +5,7 @@ const Housing = preload("res://scripts/housing_service.gd")
 const Room = preload("res://scripts/housing_room.gd")
 const Combat = preload("res://scripts/combat_rules.gd")
 const Battle = preload("res://scripts/first_act_battle.gd")
+const Game = preload("res://scripts/first_act.gd")
 const RPG = preload("res://scripts/rpg_core.gd")
 var failures: Array[String] = []
 
@@ -133,6 +134,20 @@ func _run() -> void:
     require(not restored.at(3,3).is_empty(),"Furniture layout lost on reload")
     require(str(restored.data().get("wall",""))=="星夜蓝","Decoration lost on reload")
     require(int(restored.data().get("tier",0))==1,"Upgrade lost on reload")
+    var playable = Game.new()
+    root.add_child(playable)
+    playable.ui.title_overlay.hide()
+    playable._start(false)
+    playable.progress.chapter = 1
+    playable.progress.gold = 500
+    playable._enter_location()
+    require(playable.world.nodes.has("home_door"),"Town has no in-world housing doorway")
+    playable._purchase_house()
+    require(playable.housing.owned(),"Housing menu purchase signal did not update live game")
+    playable._interact("home_door")
+    require(playable.housing_room.root.visible,"Walking to the doorway did not open the room")
+    playable.housing_room.close_house()
+    require(not playable.housing_room.root.visible,"Room exit failed")
     if failures.is_empty():
         print("PASS: housing deed, 20 furniture, 70-cell interior, placement, storage, resting, remodeling, 4 tiers, save, combat elements/buffs/guard/intent/difficulty")
         quit(0)

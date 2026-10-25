@@ -7,6 +7,9 @@ on:
       - "scripts/battle_fx.gd"
       - "scripts/battle_hud.gd"
       - "scripts/battle_art_direction.gd"
+      - "scripts/battle_boss_awakening.gd"
+      - "tools/smoke_a16_keyframes.gd"
+      - "assets/art/battle/a16/**"
       - "scripts/battle_actors.gd"
       - "scripts/battle_sfx.gd"
       - "scripts/battle_enemies.gd"
@@ -46,6 +49,8 @@ jobs:
         run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_v3.gd
       - name: Verify A15 visual depth, casting and NPC gestures
         run: timeout 80s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_a15_visual.gd
+      - name: Verify A16 real boss flipbook, elite skill frames and reduced-motion access
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_a16_keyframes.gd
       - name: Verify 63 skill signatures, five bosses and cinematic results
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_commercial.gd
       - name: Verify combat timing and status regressions
@@ -65,6 +70,7 @@ jobs:
           test -s build/art-qa/a15_boss_idle.png
           test -s build/art-qa/a15_skill_cast.png
           test -s build/art-qa/a15_enemy_impact.png
+          test -s build/art-qa/a16_boss_phase.png
           test -s build/art-qa/a15_battle_manifest.json
       - name: Upload A15 actual boss and skill visual evidence
         if: always()

@@ -50,6 +50,16 @@ func _capture() -> void:
     for n in range(4):
         await process_frame
     evidence.append(await _save("a15_enemy_impact",battle))
+    # Boss phase frame evidence is triggered directly on the same live
+    # first_act_battle, without invoking the combat damage handler.
+    if is_instance_valid(battle.boss_animation):
+        battle.boss_animation.awaken()
+        battle.vfx.play_boss_cue(foe_point,2,true)
+        for n in range(16):
+            await process_frame
+        evidence.append(await _save("a16_boss_phase",battle))
+    else:
+        errors.append("Live Boss missing six-frame awakening stage")
     var manifest: Dictionary={"schema":"starlit.a15.battle-visual.v1","engine":"Godot 4.7.2",
         "size":[1152,648],"captures":evidence,"passes":errors.is_empty(),
         "source":"actual first_act_battle.gd CanvasLayer",
@@ -62,8 +72,8 @@ func _capture() -> void:
         file.store_string(JSON.stringify(manifest,"  ")+"\n")
         file.close()
     battle.queue_free()
-    if errors.is_empty() and evidence.size()==3:
-        print("PASS A15: three actual Godot boss idle/elemental skill/hit screenshots")
+    if errors.is_empty() and evidence.size()==4:
+        print("PASS A16: four actual Godot boss idle/elemental spell/hit/phase screenshots")
         quit(0)
     else:
         for issue in errors:

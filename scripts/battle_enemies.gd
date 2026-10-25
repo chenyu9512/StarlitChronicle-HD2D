@@ -155,6 +155,9 @@ func _process(delta: float) -> void:
             if float(entry["attack"]) > 0.0:
                 sprite.position.x -= 28.0*sin(PI*(1.0-float(entry["attack"])/0.27))
         var fade: float = minf(1.0,float(entry["dying"])/0.48) if float(entry["dying"]) > 0.0 else (0.0 if bool(entry["dead"]) else 1.0)
+        if float(entry["dying"]) > 0.0 and not reduced_motion:
+            sprite.position.y -= 18.0*(1.0-fade)
+            sprite.scale *= Vector2(1.0+0.06*(1.0-fade),1.0-0.14*(1.0-fade))
         if float(entry["hit"]) > 0.0:
             sprite.modulate = Color(1.0,0.58,0.58,fade)
         else:

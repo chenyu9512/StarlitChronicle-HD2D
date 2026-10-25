@@ -64,7 +64,7 @@ func configure(actors: Array, active_ids: Array = []) -> void:
             "node":portrait,"footing":footing,"sigil":sigil,
             "index":index,"count":selected.size(),
             "base":Vector2.ZERO,"clock":0.0,"action":"idle","action_time":0.0,
-            "hit_time":0.0,"fallen":int(member.get("hp",0)) <= 0
+            "hit_time":0.0,"victory_time":0.0,"fallen":int(member.get("hp",0)) <= 0
         }
     _layout_actors()
 
@@ -130,6 +130,26 @@ func play_action(actor_id: String, action: String) -> void:
     entry["action_time"] = CAST_DURATION if action in ["skill","heal","charge","special"] else ATTACK_DURATION
     avatars[actor_id] = entry
 
+func play_victory() -> void:
+    for id in avatars.keys():
+        var entry: Dictionary = avatars[id]
+        if not bool(entry.get("fallen",false)):
+            entry["victory_time"] = 1.0
+            entry["action"] = "victory"
+            avatars[id] = entry
+
+func _draw() -> void:
+    for id in avatars.keys():
+        var entry: Dictionary = avatars[id]
+        var sprite: TextureRect = entry["node"]
+        if not is_instance_valid(sprite):
+            continue
+        var center: Vector2 = Vector2(entry["base"])+Vector2(sprite.size.x*0.5,sprite.size.y+7)
+        var opacity: float = 0.20 if bool(entry["fallen"]) else 0.40
+        draw_set_transform(center,0.0,Vector2(1.6,0.28))
+        draw_circle(Vector2.ZERO,24.0,Color(0.0,0.025,0.08,opacity))
+        draw_set_transform(Vector2.ZERO)
+
 func play_hit(actor_id: String, fallen: bool = false) -> void:
     if not avatars.has(actor_id):
         return
@@ -160,6 +180,7 @@ func _process(delta: float) -> void:
         entry["clock"] = float(entry["clock"]) + dt
         entry["action_time"] = maxf(0.0,float(entry["action_time"]) - dt)
         entry["hit_time"] = maxf(0.0,float(entry["hit_time"]) - dt)
+        entry["victory_time"] = maxf(0.0,float(entry.get("victory_time",0.0)) - dt)
         var offset := Vector2.ZERO
         var sizing: float = 1.0
         var falling: bool = bool(entry["fallen"])
@@ -177,11 +198,22 @@ func _process(delta: float) -> void:
                     sizing += 0.075 * intensity
                 elif str(entry["action"]) == "guard":
                     offset.x -= 7.0 * intensity
+                    sizing -= 0.06*intensity
+            if float(entry.get("victory_time",0.0)) > 0.0:
+                var cheer: float = sin(float(entry["victory_time"])*TAU*2.0)
+                offset.y -= absf(cheer)*16.0
+                sizing += 0.035*absf(cheer)
             if float(entry["hit_time"]) > 0.0:
                 offset.x += 8.0 * sin(float(entry["hit_time"]) * 80.0)
         sprite.position = Vector2(entry["base"]) + offset
         sprite.scale = Vector2(sizing,sizing)
-        sprite.rotation = 0.12 if falling and not reduced_motion else 0.0
+        var lean: float = 0.0
+        if falling and not reduced_motion:
+            lean = 0.15
+        elif not reduced_motion and float(entry["action_time"]) > 0.0 and str(entry["action"]) in ["attack","special"]:
+            var action_duration: float = CAST_DURATION if str(entry["action"])=="special" else ATTACK_DURATION
+            lean = -0.16*sin(PI*(1.0-float(entry["action_time"])/action_duration))
+        sprite.rotation = lean
         if falling:
             sprite.modulate = Color(0.54,0.59,0.73,0.65)
         elif float(entry["hit_time"]) > 0.0:

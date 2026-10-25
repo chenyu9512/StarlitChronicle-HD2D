@@ -9,6 +9,8 @@ const BattleSFX = preload("res://scripts/battle_sfx.gd")
 const BattleEnemies = preload("res://scripts/battle_enemies.gd")
 const BattleTimeline = preload("res://scripts/battle_timeline.gd")
 const BattleCamera = preload("res://scripts/battle_camera.gd")
+const BattleHud = preload("res://scripts/battle_hud.gd")
+const BattleArtDirection = preload("res://scripts/battle_art_direction.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -52,6 +54,8 @@ var vfx
 var sfx
 var timeline
 var camera_motion
+var battle_hud
+var last_warning_text: String = ""
 var last_warning_round: int = 0
 var special_button: Button
 
@@ -76,6 +80,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     defense.clear()
     win_locked = false
     last_warning_round = 0
+    last_warning_text = ""
     if boss:
         var hp: int = 145 + chapter * 55
         var dmg: int = 12 + chapter * 2
@@ -242,6 +247,12 @@ func _build() -> void:
     timeline.reduced_motion = bool(settings.get("reduced_motion",false))
     root.add_child(timeline)
     timeline.bind_layers(vfx,sfx,camera_motion)
+    battle_hud = BattleHud.new()
+    battle_hud.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    battle_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(battle_hud)
+    battle_hud.configure(enemy_stage,actor_stage,boss,chapter,settings)
+    battle_hud.sync(formation.units,game_state.actors,active_target,phase_two)
 
 func _choose_skill() -> void:
     if is_instance_valid(skill_picker):
@@ -271,7 +282,10 @@ func _choose_skill() -> void:
     for record in learned:
         var id: String = str(record.get("id",""))
         var cost: int = int(record.get("mp_cost",0))
-        var title: String = "%s · MP %d · %s" % [str(record.get("name",id)),cost,str(record.get("description",""))]
+        var element: String = str(record.get("element","光"))
+        var tier: int = int(record.get("tier",1))
+        var title: String = "✦ %s  · %s  · Ⅰ–Ⅶ %d  · MP %d  | %s" % [
+            str(record.get("name",id)),element,tier,cost,str(record.get("description",""))]
         var b: Button = _button(list,title,"skill:"+id)
         b.disabled = int(actor.get("mp",0)) < cost
     _button(list,"返回战斗","cancel_skill")
@@ -283,7 +297,7 @@ func _select_enemy(index: int) -> void:
     enemy = formation.units[index]
     if is_instance_valid(enemy_stage):
         enemy_stage.focus(index)
-    if is_instance_valid(portrait):
+    if is_instance_valid(portrait) and portrait.visible:
         portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
         if is_instance_valid(vfx):
             vfx.bind_enemy(portrait,str(enemy.get("art","")),boss)
@@ -658,6 +672,7 @@ func _act(action: String) -> void:
         enemy["atk"] = int(enemy["atk"]) + 4
         if is_instance_valid(vfx):
             vfx.play_phase(_vfx_foe_point())
+            vfx.play_boss_cue(_vfx_foe_point(),chapter,true)
         if is_instance_valid(camera_motion):
             camera_motion.impulse(7.0)
         if is_instance_valid(sfx):
@@ -798,10 +813,11 @@ func _telegraph_next_boss_action() -> void:
     if name in ["","普通攻击"]:
         return
     last_warning_round = current_round
+    last_warning_text = name
     vfx.play_warning(_vfx_foe_point(),name)
+    if is_instance_valid(battle_hud):
+        battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,last_warning_text)
     if is_instance_valid(sfx):
-        sfx.play_event("charge")
-
 func _all_fallen() -> bool:
     for member in game_state.actors:
         if int(member["hp"]) > 0 and (game_core == null or game_core.is_active(str(member.get("id","")))):
@@ -809,6 +825,9 @@ func _all_fallen() -> bool:
     return true
 
 func _redraw(message: String) -> void:
+    if is_instance_valid(battle_hud):
+        battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,
+            last_warning_text if last_warning_round == current_round else "")
     if is_instance_valid(actor_stage):
         actor_stage.update_party(game_state.actors)
     if is_instance_valid(enemy_stage) and enemy_stage.visible:
@@ -857,10 +876,14 @@ func _finish(victory: bool) -> void:
     if victory:
         if is_instance_valid(vfx):
             vfx.play_victory(_vfx_foe_point())
+        if is_instance_valid(actor_stage):
+            actor_stage.play_victory()
         if is_instance_valid(sfx):
             sfx.play_event("victory")
         report.text = "胜利！%s" % ("古兽已经重获自由。" if boss and chapter == 5 else "战斗结束，大家平安归来。")
     else:
         report.text = "全队失去战斗力，准备在营地重新整备。"
     var reward: Dictionary = formation.rewards() if formation != null else {"xp":int(enemy["xp"]),"gold":int(enemy["gold"])}
+    if is_instance_valid(battle_hud):
+        battle_hud.show_result(victory,int(reward["xp"]) if victory else 0,int(reward["gold"]) if victory else 0)
     completed.emit(victory, int(reward["xp"]) if victory else 0, int(reward["gold"]) if victory else 0)

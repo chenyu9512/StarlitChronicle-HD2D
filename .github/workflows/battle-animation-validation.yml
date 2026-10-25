@@ -5,6 +5,8 @@ on:
       - "scripts/first_act_battle.gd"
       - "scripts/first_act.gd"
       - "scripts/battle_fx.gd"
+      - "scripts/battle_hud.gd"
+      - "scripts/battle_art_direction.gd"
       - "scripts/battle_actors.gd"
       - "scripts/battle_sfx.gd"
       - "scripts/battle_enemies.gd"
@@ -17,6 +19,8 @@ on:
       - "scripts/world_npc_visual.gd"
       - "assets/art/battle/a15/**"
       - "tools/smoke_battle_v3.gd"
+      - "tools/smoke_battle_commercial.gd"
+      - "data/content/skills.json"
       - ".github/workflows/battle-animation-validation.yml"
   workflow_dispatch:
 permissions:
@@ -42,6 +46,8 @@ jobs:
         run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_v3.gd
       - name: Verify A15 visual depth, casting and NPC gestures
         run: timeout 80s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_a15_visual.gd
+      - name: Verify 63 skill signatures, five bosses and cinematic results
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_commercial.gd
       - name: Verify combat timing and status regressions
         run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_combat_turns.gd
       - name: Verify six-chapter playable flow and instant reward settlement

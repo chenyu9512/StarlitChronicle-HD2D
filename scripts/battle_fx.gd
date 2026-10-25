@@ -1,4 +1,5 @@
 extends Control
+const BattleArtDirection = preload("res://scripts/battle_art_direction.gd")
 ## Lightweight 2D battle presentation. Visual-only: never changes HP, turns or rewards.
 ## Works in the GL Compatibility renderer without shaders, particles or new textures.
 const IDLE_FRAME_SIZE: int = 128
@@ -67,6 +68,8 @@ func _process(delta: float) -> void:
             _enemy_sprite.rotation = 0.008 * sin(_idle_clock * 1.7) + (0.043 * sin(_hit_timer * 85.0) if _hit_timer > 0.0 else 0.0)
         _enemy_sprite.modulate = Color(1.0, 0.67, 0.67, 1.0) if _hit_timer > 0.0 else Color.WHITE
     if effects.is_empty():
+        if _screen_flash > 0.0:
+            queue_redraw()
         return
     for i in range(effects.size() - 1, -1, -1):
         var effect: Dictionary = effects[i]
@@ -148,6 +151,10 @@ func play_skill(origin: Vector2, target: Vector2, skill: Dictionary, damage: int
         "自然": motif = "leaf"
         "圣": motif = "halo"
         "光": motif = "star"
+    var signature: Dictionary = BattleArtDirection.signature(skill)
+    if not reduced_motion:
+        _emit_signature(origin,signature,0.45+0.04*float(tier))
+        _emit_signature(target,signature,0.52+0.04*float(tier))
     _emit("rune",origin,color,0.32 + 0.035 * float(tier))
     _emit(motif,target,color,0.42 + 0.042 * float(tier))
     if job in ["wayfarer","seeker","vanguard"]:
@@ -163,6 +170,26 @@ func play_skill(origin: Vector2, target: Vector2, skill: Dictionary, damage: int
     if damage > 0:
         _emit("text",target + Vector2(0,-50),color,0.75,str(damage))
         _hit_timer = 0.22
+
+func _emit_signature(at: Vector2, signature: Dictionary, duration: float) -> void:
+    if effects.size() >= MAX_EFFECTS:
+        effects.remove_at(0)
+    effects.append({"kind":"signature","position":at,"color":signature.get("color",Color.WHITE),
+        "age":0.0,"duration":duration,"signature":signature})
+    queue_redraw()
+
+func play_boss_cue(target: Vector2, chapter: int, phase_change: bool = false) -> void:
+    var profile: Dictionary = BattleArtDirection.boss_style(chapter)
+    var ink: Color = Color(str(profile.get("color","edbc8c")))
+    _emit("shockwave",target,ink,0.88)
+    _emit("rune",target,ink,0.92)
+    var label: String = str(profile.get("theme","星影觉醒"))
+    _emit("text",target+Vector2(0,-84),ink,1.08,
+        label if phase_change else str(profile.get("title","守卫")))
+    if not reduced_motion:
+        var style_sig: Dictionary = {"rays":7+chapter,"rings":2,"twist":float(chapter)*0.52,
+            "spin":1.0,"scope":1.23,"color":ink}
+        _emit_signature(target,style_sig,0.97)
 
 func play_heal(target: Vector2, name: String = "恢复") -> void:
     _emit("rune",target,Color("76efb7"),0.58)
@@ -288,6 +315,21 @@ func _draw() -> void:
                     var angle: float = TAU*float(i)/10.0
                     var dir: Vector2 = Vector2(cos(angle),sin(angle))
                     draw_line(center+dir*radius*0.30,center+dir*radius*(1.15 if i%2 == 0 else 0.75),ink,3.0*opacity+0.4,true)
+            "signature":
+                var profile: Dictionary = effect.get("signature",{})
+                var spokes: int = clampi(int(profile.get("rays",7)),4,16)
+                var ring_count: int = clampi(int(profile.get("rings",2)),1,3)
+                var phase: float = float(profile.get("twist",0.0))+life*float(profile.get("spin",1.0))*1.8
+                var scope: float = clampf(float(profile.get("scope",1.0)),0.6,1.5)
+                for ring_index in range(ring_count):
+                    var size_radius: float = radius*scope*(0.58+float(ring_index)*0.25)
+                    draw_arc(center,size_radius,phase+float(ring_index)*0.3,
+                        TAU+phase+float(ring_index)*0.3,spokes*6,ink,1.7*opacity+0.3,true)
+                    for spoke in range(spokes):
+                        var angle: float = phase+TAU*float(spoke)/float(spokes)+float(ring_index)*0.24
+                        var ray: Vector2 = Vector2(cos(angle),sin(angle))
+                        var pivot: Vector2 = center+ray*size_radius
+                        draw_line(pivot-ray*7.0,pivot+ray*(8.0+float(ring_index)*3.0),ink,2.0*opacity+0.3,true)
             "warning":
                 var oscillation: float = 0.85 + 0.15*sin(life*TAU*7.0)
                 draw_arc(center,radius*1.40,0.0,TAU,60,ink,5.0*oscillation*opacity+0.8,true)

@@ -1,0 +1,36 @@
+name: Unique 40-Map Layout Acceptance
+on:
+  push:
+    paths:
+      - "data/levels/v3/**"
+      - "data/levels/world_levels_v3.json"
+      - "scripts/world_geography.gd"
+      - "scripts/world_level_v3.gd"
+      - "scripts/first_act_world.gd"
+      - "scripts/map_view.gd"
+      - "scripts/world_fog_v3.gd"
+      - "tools/smoke_world_v3.gd"
+      - "tools/smoke_world_production.gd"
+      - ".github/workflows/unique-map-layout-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unique-maps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify map sidecars exactly mirror their canonical collection
+        run: python3 tools/materialize_world_v3.py --verify
+      - name: Install Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import scenes and resources
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+      - name: Require independent map sizes, layouts, quest reachability and authored bridges
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
+      - name: Verify all 40 physical maps, city gates and building interiors
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

@@ -48,8 +48,13 @@ for entry in m["quests"]:
         for pt in ((x+1,y),(x-1,y),(x,y+1),(x,y-1)):
             if pt not in reached and pt in tiles:
                 reached.add(pt);queue.append(pt)
-    for p in list(data["points"].values())+data["quest_points"]:
+    for p in list(data["points"].values())+data["quest_points"]+data.get("story_stage_points",[])+data.get("branch_stage_points",[]):
         ck(tuple(p) in reached,"unreachable room objective "+qid+" "+str(p))
+    ck(len(data.get("story_stage_points",[]))==5 and len(data.get("branch_stage_points",[]))==3,"five separate story stages and three branch investigations "+qid)
+    original_sites={tuple(p) for p in data.get("story_stage_points",[])}
+    followup_sites={tuple(p) for p in data.get("branch_stage_points",[])}
+    exhibits={tuple(p) for p in data["quest_points"]}
+    ck(not original_sites.intersection(exhibits) and not followup_sites.intersection(exhibits),"original/branch marker cannot cover free exhibit "+qid)
     ck(len(reached)>=370,"room too small "+qid)
     sig=json.dumps([data["floor_regions"],data["solid_regions"],data["door_regions"]],sort_keys=True)
     ck(sig not in signatures,"identical room geometry "+qid)

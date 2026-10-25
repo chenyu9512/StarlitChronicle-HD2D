@@ -421,7 +421,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
     story_marker_signature = signature
     _clear_story_world_markers()
     var occupied: Array[Vector2i] = []
-    for landmark_id in ["key_npc","clue","witness","crisis","resolve","interior_exit","interior_service"]:
+    for landmark_id in ["key_npc","clue","witness","crisis","resolve","side_start","side_item","side_return","interior_exit","interior_service"]:
         if nodes.has(landmark_id):
             var landmark: Node2D = nodes[landmark_id]
             occupied.append(Vector2i(landmark.position/TILE))
@@ -658,6 +658,16 @@ func interact() -> void:
         if is_instance_valid(tracked_node) and tracked_node.visible and hero.position.distance_to(tracked_node.position)<=38.0:
             interacted.emit(side_focus_name)
             return
+    # All five original narrative quest stage props are explicit walkable
+    # interactions. A neighbouring doorway, generic field prop or chapter
+    # errand must not consume the action intended for the selected quest.
+    for index in range(5):
+        var stage_id: String = "story_stage_%d" % index
+        if nodes.has(stage_id):
+            var stage_node: Node2D = nodes[stage_id]
+            if is_instance_valid(stage_node) and stage_node.visible and hero.position.distance_to(stage_node.position) <= 34.0:
+                interacted.emit(stage_id)
+                return
     # Chapter interaction markers must never be shadowed by a newly placed
     # building doorway, gate, camp or side treasure in their immediate radius.
     for quest_id in ["key_npc","clue","witness","crisis","resolve"]:

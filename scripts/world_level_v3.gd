@@ -13,6 +13,16 @@ func _init() -> void:
         problems.append("V3 map dataset is absent or invalid")
         return
     levels = parsed.get("levels",{})
+    # Artists edit map_id.json independently; collection is a read-only fallback
+    # for old repository snapshots that predate physical V3 sidecar files.
+    for map_key in levels.keys():
+        var file_path: String = "res://data/levels/v3/%s.json" % str(map_key)
+        if FileAccess.file_exists(file_path):
+            var per_map: Variant = JSON.parse_string(FileAccess.get_file_as_string(file_path))
+            if per_map is Dictionary and str(per_map.get("map_id","")) == str(map_key):
+                levels[map_key] = per_map
+            else:
+                problems.append("Invalid independent V3 map file: "+str(map_key))
     if levels.size() != 40:
         problems.append("Expected 40 individually editable production map definitions")
     for id in levels.keys():

@@ -22,6 +22,7 @@ func _run() -> void:
     var saved: Dictionary=game.progress.rpg.get("world",{})
     check(str(saved.get("indoor_building",""))=="shop","Indoor checkpoint not persisted")
     check(game.progress.save(),"Indoor save failed")
+    check(game.progress.load_saved(),"Could not reload real indoor save from disk")
     game._enter_location()
     check(game.world.interior_building=="shop","Saved indoor location did not restore")
     game._interact("interior_exit")

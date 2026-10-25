@@ -15,6 +15,7 @@ const ArtAssets = preload("res://scripts/art_assets.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
+const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
 const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
     "冒险": ["任务","剧情后续","世界地图","地区探索","冒险履历"],
@@ -42,6 +43,7 @@ var branch_runtime
 var chapter_details
 var discovery_catalog = WorldDiscoveries.new()
 var dungeon_puzzle_catalog = WorldDungeonPuzzles.new()
+var town_ecology_catalog = WorldTownEcology.new()
 var world_router
 var game_events
 var slot_service
@@ -387,6 +389,11 @@ func render(section: String) -> void:
                 if bool(dungeon_puzzle_catalog.snapshot(save_state,str(dungeon_id)).get("claimed",false)):
                     solved_total += 1
             _label("独立地下城机关 · %d / 8" % solved_total)
+            var finished_communities: int = 0
+            for town_id in town_ecology_catalog.towns.keys():
+                if town_ecology_catalog.completion_count(save_state,str(town_id))==3:
+                    finished_communities += 1
+            _label("特色城镇生活 · %d / 11" % finished_communities)
             if world_router != null:
                 var location: String = world_router.current_map()
                 var dungeon_spec: Dictionary = dungeon_puzzle_catalog.config(location)
@@ -395,6 +402,16 @@ func render(section: String) -> void:
                     _label(("✓ " if cleared else "◇ ")+str(dungeon_spec.get("title","古代机关"))+(" · 已解开" if cleared else " · 尚未解开"))
                     if not cleared:
                         _label(str(dungeon_spec.get("hint","")))
+                var neighborhood: Dictionary = town_ecology_catalog.config(location)
+                if not neighborhood.is_empty():
+                    var progress_count: int = town_ecology_catalog.completion_count(save_state,location)
+                    _label("本地社区 · "+str(neighborhood.get("activity","街区活动"))+" · %d/3" % progress_count,true)
+                    var hour: int = int(save_state.rpg.get("game_clock",{}).get("minutes",480)) / 60
+                    var done_state: Dictionary = town_ecology_catalog.progress(save_state,location)
+                    for entry in town_ecology_catalog.entries(location):
+                        var completed: bool = bool(done_state.get(str(entry.get("id","")),false))
+                        var available: bool = town_ecology_catalog.is_open(entry,hour)
+                        _label(("✓ " if completed else "◇ ")+str(entry.get("district","街区"))+" · "+str(entry.get("title","社区活动"))+(" · 已记录" if completed else (" · 营业中" if available else " · 非活动时间")))
                 var local_events: Array = discovery_catalog.entries(location)
                 if not local_events.is_empty():
                     var done: int = 0

@@ -383,6 +383,13 @@ func _blocked(point: Vector2) -> bool:
 func interact() -> void:
     if locked or not is_instance_valid(hero):
         return
+    # Authoritative main objective has priority when the player stands at its marker.
+    # Without this, a nearby town door could hijack a chapter-critical interaction.
+    if not focus_name.is_empty() and nodes.has(focus_name):
+        var focus_node: Node2D = nodes[focus_name]
+        if is_instance_valid(focus_node) and focus_node.visible and hero.position.distance_to(focus_node.position) <= 45.0:
+            interacted.emit(focus_name)
+            return
     var chosen := ""
     var best: float = 65.0
     for key in nodes.keys():

@@ -272,6 +272,11 @@ func _refresh_info() -> void:
                 if bool(router.state.flags.get(world.discoveries.flag(router.current_map(),str(record.get("id",""))),false)):
                     finished += 1
             discovery_line = "\n地图调查：%d / %d" % [finished,entries.size()]
+    if world.interior_building.is_empty() and world.dungeon_puzzles!=null:
+        var current_dungeon: Dictionary = world.dungeon_puzzles.config(router.current_map())
+        if not current_dungeon.is_empty():
+            var unlocked: bool = bool(world.dungeon_puzzles.snapshot(router.state,router.current_map()).get("claimed",false))
+            discovery_line += "\n专属机关：" + ("已解开" if unlocked else "尚未解开")
     map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s\n已探索：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,fog_progress,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)

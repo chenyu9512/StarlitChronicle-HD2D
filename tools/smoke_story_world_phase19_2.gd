@@ -98,7 +98,18 @@ func _run() -> void:
                 "quest NPC uses actual NPCVisual sprite instance")
         game.world.hero.position = point.position
         game.world.interact()
-        check(game.pending=="branch_field","world interaction dispatch " + str(stage))
+        if stage>0:
+            check(game.pending=="branch_field_review","evidence and notice require player review " + str(stage))
+            check(game.ui.dialog_layer.visible and game.ui.choosing,"review choices visible " + str(stage))
+            if stage==1:
+                var current_step: int = int(game.progress.rpg["branch_story"]["active"]["line"])
+                (game.ui.choice_area.get_child(1) as Button).pressed.emit()
+                check(game.pending=="" and int(game.progress.rpg["branch_story"]["active"]["line"])==current_step,
+                    "defer preserves evidence stage without consuming it")
+                game.world.interact()
+                check(game.pending=="branch_field_review","deferred evidence remains interactable")
+            (game.ui.choice_area.get_child(0) as Button).pressed.emit()
+        check(game.pending=="branch_field","world dialogue begins only after action " + str(stage))
         check(game.ui.dialog_layer.visible,"branch dialog visible " + str(stage))
         game.ui.dialog_text.visible_characters = -1
         game.ui._next()

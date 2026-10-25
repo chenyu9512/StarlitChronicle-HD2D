@@ -81,4 +81,5 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "layout_id":map_id+"#"+building_id,
         "art_profile":str(data.get("art_profile","")),
         "visuals":data.get("visuals",[]),
-        "light_sources":data.get("light_sources",[])}
+        "light_sources":data.get("light_sources",[]),
+        "solid_regions":data.get("solid_regions",[])}

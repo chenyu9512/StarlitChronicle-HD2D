@@ -524,6 +524,10 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     var next_period: bool = clock_minutes<360 or clock_minutes>=1200
     if ambience!=null and is_instance_valid(ambience):
         ambience.set_clock(calendar_day,clock_minutes)
+    if is_instance_valid(root) and not interior_building.is_empty():
+        var indoor_art: Node = root.get_node_or_null("InteriorArt")
+        if indoor_art!=null:
+            indoor_art.set_clock(clock_minutes)
     if old_period==next_period or interior_building.length()>0 or not bool(map_profile.get("settlement",false)):
         return
     var used: Dictionary = {}

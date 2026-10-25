@@ -35,6 +35,13 @@ func _run() -> void:
         verify(art.detail_layer!=null and art.detail_layer.get_used_cells().size()>0,"Missing authored wall decoration layer")
         verify(art.prop_nodes.size()>=12,"Individual furniture textures not integrated")
         verify(art.active_lights.size()>=3,"Indoor point lights not integrated")
+        verify(art.occluder_count>=3,"Existing architectural partitions lack light occluders")
+        var day_grade: Color = art.color_grade.color
+        world.sync_world_clock(2,1320)
+        verify(art.color_grade.color!=day_grade,"World clock did not update indoor day/night grade")
+        var night_grade: Color = art.color_grade.color
+        world.sync_world_clock(2,660)
+        verify(art.color_grade.color!=night_grade,"World clock did not restore daytime light color")
         for id in art.prop_nodes.keys():
             verify(art.prop_nodes[id].texture!=null,"Furniture texture missing: "+str(id))
     var floor_atlas: TileSetAtlasSource=world.layer.tile_set.get_source(0)

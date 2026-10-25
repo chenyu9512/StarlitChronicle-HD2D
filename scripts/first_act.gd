@@ -2,6 +2,7 @@ extends Node2D
 ## 《星灯纪行》72章全篇：地图、分支任务、三结局、战斗与存档协调器。
 const WorldScript = preload("res://scripts/first_act_world.gd")
 const UIScript = preload("res://scripts/first_act_ui.gd")
+const MapScript = preload("res://scripts/map_hud.gd")
 const BattleScript = preload("res://scripts/first_act_battle.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
@@ -20,6 +21,7 @@ var progress
 var catalog
 var world
 var ui
+var atlas
 var battle
 var cheat
 var game_core
@@ -81,11 +83,18 @@ func _ready() -> void:
     ui.rest_pressed.connect(_rest)
     ui.dialogue_finished.connect(_dialogue_ended)
     ui.choice_picked.connect(_choice_picked)
+    atlas = MapScript.new()
+    add_child(atlas)
+    atlas.bind_world(world, world_router)
+    atlas.opened.connect(_map_opened)
+    atlas.closed.connect(_return_to_world)
+    atlas.travel_requested.connect(_travel_to)
     adventure_menu = RPGMenu.new()
     add_child(adventure_menu)
     adventure_menu.closed.connect(_return_to_world)
     adventure_menu.replay_ending_requested.connect(_replay_ending)
     adventure_menu.travel_requested.connect(_travel_to)
+    adventure_menu.map_requested.connect(_open_world_map_from_book)
     adventure_menu.save_slot_requested.connect(_save_slot)
     adventure_menu.load_slot_requested.connect(_load_slot)
     adventure_menu.housing_purchase_requested.connect(_purchase_house)
@@ -121,6 +130,14 @@ func _process(delta: float) -> void:
         game_events.advance_time(elapsed)
 
 func _unhandled_input(event: InputEvent) -> void:
+    if event is InputEventKey and event.pressed and not event.echo:
+        if event.keycode in [KEY_TAB, KEY_P] or (event.keycode == KEY_ESCAPE and atlas.is_open()):
+            if atlas.is_open():
+                atlas.close_map()
+            elif not busy:
+                atlas.open_map()
+            get_viewport().set_input_as_handled()
+            return
     if event.is_action_pressed("interact") and not busy:
         world.interact()
         get_viewport().set_input_as_handled()
@@ -161,6 +178,7 @@ func _enter_location() -> void:
     busy = false
     pending = ""
     ui.set_play_visible(true)
+    atlas.show_exploration(true)
     _focus()
 
 func _current_scene() -> Dictionary:
@@ -243,6 +261,7 @@ func _focus() -> void:
         if world.nodes.has(point):
             world.nodes[point].visible = not optional_director.offered(progress.chapter,slot,progress.scene_index).is_empty()
     ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
+    atlas.set_targets(world.focus_name,side_target)
 
 func _interact(target: String) -> void:
     if busy:
@@ -569,6 +588,7 @@ func _start_battle(is_boss: bool) -> void:
     world.locked = true
     busy = true
     ui.set_play_visible(false)
+    atlas.show_exploration(false)
     battle = BattleScript.new()
     add_child(battle)
     battle.completed.connect(_battle_finished)
@@ -819,6 +839,7 @@ func _save() -> void:
 func _open_adventure_book() -> void:
     if is_instance_valid(battle):
         return
+    atlas.show_exploration(false)
     ui.close_menu()
     busy = true
     world.locked = true
@@ -827,17 +848,34 @@ func _open_adventure_book() -> void:
 func _show_menu() -> void:
     if busy:
         return
+    atlas.show_exploration(false)
     busy = true
     world.locked = true
     ui.show_menu(progress.actors, progress.gold, progress.potions)
 
+func _map_opened() -> void:
+    if busy or is_instance_valid(battle):
+        atlas.close_map()
+        return
+    ui.clear_movement()
+    busy = true
+    world.locked = true
+    ui.set_play_visible(false)
+
+func _open_world_map_from_book() -> void:
+    if is_instance_valid(battle):
+        return
+    adventure_menu.close_menu()
+    atlas.show_world_map()
+
 func _return_to_world() -> void:
-    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or cheat.shade.visible
+    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or cheat.shade.visible or atlas.is_open()
     if not busy and world.party_ids != progress.rpg.get("party",[]):
         _enter_location()
         return
     world.locked = busy
-    ui.set_play_visible(not is_instance_valid(battle))
+    ui.set_play_visible(not is_instance_valid(battle) and not atlas.is_open())
+    atlas.show_exploration(not busy)
     _focus()
 
 func _use_potion() -> void:

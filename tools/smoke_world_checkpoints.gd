@@ -52,6 +52,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS: saved indoor checkpoints, return spawn, persistent one-rest-per-day wilderness recovery and safe encounter grace")
         quit(0)
+        return
     for error in failures:
         push_error(error)
     quit(1)

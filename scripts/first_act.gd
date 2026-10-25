@@ -19,6 +19,7 @@ const HousingService = preload("res://scripts/housing_service.gd")
 const HousingRoom = preload("res://scripts/housing_room.gd")
 const OptionalDirector = preload("res://scripts/optional_director.gd")
 const StoryBranchRuntime = preload("res://scripts/story_branch_runtime.gd")
+const EvidencePuzzles = preload("res://scripts/story_evidence_puzzles.gd")
 const StoryWorldBindings = preload("res://scripts/story_world_bindings.gd")
 const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
 const CinematicDirector = preload("res://scripts/cinematic_director.gd")
@@ -42,6 +43,8 @@ var housing
 var housing_room
 var optional_director
 var branch_runtime
+var evidence_puzzles = EvidencePuzzles.new()
+var active_puzzle_quest: String = ""
 var story_world_bindings
 var service_menu
 var cinematic
@@ -566,6 +569,17 @@ func _interact(target: String) -> void:
             _save_progress()
             var dossier: Dictionary = world.scene_director.dossier(quest_id)
             var note: String = str(dossier.get("observation","")) if step==1 else (str(dossier.get("later_record","")) if step==2 else str(details.get("original_location","")))
+            if step==2 and evidence_puzzles.can_attempt(progress.rpg,quest_id):
+                var puzzle: Dictionary = evidence_puzzles.entry(quest_id)
+                active_puzzle_quest = quest_id
+                pending = "quest_puzzle_choice"
+                busy = true
+                paused_for_dialogue = true
+                world.locked = true
+                ui.show_choices({"prompt":"【%s】%s" % [str(puzzle.get("mechanic","线索比对")),str(puzzle.get("prompt",""))],
+                    "options":puzzle.get("options",[])})
+                return
+            _focus()
             ui.show_message("【调查档案 %d/3】%s。%s" % [step+1,str(titles[step]),note])
         return
     if target.begins_with("branchmap:") or target.begins_with("questhint:"):
@@ -979,6 +993,20 @@ func _dialogue_ended() -> void:
     _return_to_world()
 
 func _choice_picked(item: Dictionary) -> void:
+    if pending == "quest_puzzle_choice":
+        var case_id: String = active_puzzle_quest
+        active_puzzle_quest = ""
+        var outcome: Dictionary = evidence_puzzles.result(progress.rpg,case_id,str(item.get("id","")),progress.chapter)
+        if bool(outcome.get("accepted",false)):
+            _save_progress()
+            if bool(outcome.get("solved",false)):
+                game_events.record("lost_page_evidence_solved",{"quest_id":case_id})
+        pending = ""
+        paused_for_dialogue = false
+        _focus()
+        _return_to_world()
+        ui.show_message(str(outcome.get("message","线索仍需继续核对。")))
+        return
     if pending == "branch_field_review":
         if str(item.get("id","")) != "confirm":
             pending = ""

@@ -7,6 +7,7 @@ var title: String = ""
 var biome: String = "coastal"
 var cells: Vector2i = Vector2i(8,6)
 var facade: Sprite2D
+var ground_shadow: Sprite2D
 var exterior_identity: String = ""
 var door_lamp: PointLight2D
 var visual_time_minutes: int = 660
@@ -18,6 +19,10 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
     cells = dimensions
     exterior_identity=map_key+"#"+kind
     visual_time_minutes=minutes
+    # The façade and actor share the exact y-sorted z layer. Our node position
+    # remains its architectural floor contact; large roofs overlap characters
+    # correctly as they move behind/forward across the doorway.
+    z_index=3
     # The original painter remains the compatibility fallback for other biomes.
     var file: String = "res://assets/art/exteriors/coast_final_pass/%s_%s.svg" % [map_key,kind]
     if ResourceLoader.exists(file):
@@ -26,8 +31,18 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
         facade.texture=load(file)
         facade.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
         facade.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
-        facade.z_index=3
+        facade.z_index=0
         add_child(facade)
+        var shadow_file: String="res://assets/art/exteriors/coast_final_pass/building_ground_shadow.svg"
+        if ResourceLoader.exists(shadow_file):
+            ground_shadow=Sprite2D.new()
+            ground_shadow.name="FootprintContactShadow"
+            ground_shadow.texture=load(shadow_file)
+            ground_shadow.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+            ground_shadow.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
+            ground_shadow.position=Vector2(0,float(cells.y)*TILE*0.5-22.0)
+            ground_shadow.z_index=-1
+            add_child(ground_shadow)
         var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
         if ResourceLoader.exists(glow):
             door_lamp=PointLight2D.new()

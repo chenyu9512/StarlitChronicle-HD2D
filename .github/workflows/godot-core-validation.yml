@@ -40,31 +40,33 @@ jobs:
       - name: Headless project import and GDScript check
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
       - name: Interactive minimap and 42-location world atlas regression
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+      - name: Combat and controller script load gate
+        run: timeout 30s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/check_combat_load.gd
       - name: First Act integrated runtime and combat smoke test
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act.gd
       - name: Prologue and six-chapter end-to-end flow
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act_flow.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act_flow.gd
       - name: All twelve acts and 72 chapters controller regression
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_campaign_72.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_campaign_72.gd
       - name: RPG gameplay systems and complete functional menu
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_rpg_core.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_rpg_core.gd
       - name: Five-stage side quest and lost page story scenario
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_story_side_quests.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_story_side_quests.gd
       - name: Canon endings and epilogue replay regression
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_endings.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_endings.gd
       - name: Chapter NPC, evidence and 72 midpoint runtime regression
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_chapter_ambient.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_chapter_ambient.gd
       - name: Legacy chapter-72 save migration
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_legacy_ending.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_legacy_ending.gd
       - name: Game architecture world routing and persistence integration
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_architecture.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_architecture.gd
       - name: Regional monster and canon boss battle systems
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_encounter_architecture.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_encounter_architecture.gd
       - name: Housing and tactical combat integration
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_housing_and_combat.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_housing_and_combat.gd
       - name: Optional story event and save regression
-        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_optional_events.gd
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_optional_events.gd
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20
 

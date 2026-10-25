@@ -4,7 +4,23 @@ concurrency:
   cancel-in-progress: true
 on:
   push:
+    paths:
+      - "scripts/**"
+      - "tools/**"
+      - "scenes/**"
+      - "data/**"
+      - "assets/**"
+      - "project.godot"
+      - ".github/workflows/godot-core-validation.yml"
   pull_request:
+    paths:
+      - "scripts/**"
+      - "tools/**"
+      - "scenes/**"
+      - "data/**"
+      - "assets/**"
+      - "project.godot"
+      - ".github/workflows/godot-core-validation.yml"
 jobs:
   validate:
     runs-on: ubuntu-latest

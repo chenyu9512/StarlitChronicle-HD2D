@@ -14,6 +14,7 @@ const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const CoastalScene = preload("res://scripts/world_coastal_scene.gd")
 const CoastalAudio = preload("res://scripts/world_coastal_audio.gd")
+const PrologueStage = preload("res://scripts/prologue_world_stage.gd")
 const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
 const TILE: int = 32
 var WIDTH: int = 72
@@ -64,6 +65,7 @@ var root: Node2D
 var scenery: Node2D
 var coastal_scene
 var coastal_audio
+var prologue_stage
 var layer: TileMapLayer
 var blocked: Dictionary = {}
 var nodes: Dictionary = {}
@@ -159,6 +161,11 @@ func build(new_chapter: int, party_size: int) -> void:
     coastal_audio.name="CoastalAudio"
     root.add_child(coastal_audio)
     coastal_audio.configure(str(map_profile.get("id","")),not interior_building.is_empty())
+    prologue_stage = PrologueStage.new()
+    prologue_stage.name="PrologueWorldStage"
+    prologue_stage.z_index=13
+    root.add_child(prologue_stage)
+    prologue_stage.bind_world(hero,scenery,ambience)
     # Exterior rain, fog and sky grading are never projected inside houses.
     ambience.visible = interior_building.is_empty()
     ambience.set_clock(calendar_day,clock_minutes)
@@ -319,6 +326,7 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
         path = "res://assets/art/props/coast/rock.png"
     var sprite := Sprite2D.new()
     sprite.texture = load(path)
+    sprite.set_meta("prop_kind",kind)
     var place: Vector2i = tile if authored else geography.old_to_new(tile)
     sprite.position = Vector2(place*TILE)+Vector2(16,16)
     sprite.offset = Vector2(0, -20)
@@ -816,6 +824,26 @@ func interact() -> void:
         interacted.emit("none")
     else:
         interacted.emit(chosen)
+
+func set_prologue_phase(scene_no: int, story_chapter: int) -> void:
+    if prologue_stage==null:
+        return
+    var map_id: String=str(map_profile.get("id",""))
+    if story_chapter!=0 or map_id!="map_coast_01" or not interior_building.is_empty():
+        prologue_stage.apply("normal",scene_no)
+        return
+    var phase: String="normal"
+    if scene_no in [2,3,4]:
+        phase="festival"
+    elif scene_no==5:
+        phase="falling"
+    elif scene_no==6:
+        phase="fallen"
+    elif scene_no==7:
+        phase="forgotten"
+    elif scene_no>=8:
+        phase="ten_years"
+    prologue_stage.apply(phase,scene_no)
 
 func region_name() -> String:
     var area: String = str(map_profile.get("name",custom_region)) if not map_profile.is_empty() else (REGION_NAMES[chapter] if chapter < REGION_NAMES.size() else custom_region)

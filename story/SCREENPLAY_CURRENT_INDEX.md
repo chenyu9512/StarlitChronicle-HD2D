@@ -39,28 +39,25 @@
 
 ## 支线当前阅读稿｜第17阶段长期A/B
 
-- [12条失落航页A/B](PHASE_17_BATCH01_LOST_PAGES_DELIVERY.md)：24条路线、72场候选、216句新对白（查看交付与制作表）。
-- [24条生活支线A/B](screenplay/phase17_life_all_branches.md)：48条路线、144场候选、432句新对白。
-- [36条地区支线A/B](screenplay/phase17_regional_all_branches.md)：72条路线、216场候选、648句新对白。完整触发及跨地区契约见 [phase17_regional_manifest.json](data/phase17_regional_manifest.json)。
-- 阶段17三批覆盖72/120条；其余48条伙伴支线进入阶段18。候选剧情不替换原任务JSON、不改变奖励，也不视为已绑定地图及运行器。
+- **12张失落航页**：24条A/B路线、72场候选、216句新增对白。以 [航页阶段与分支清单](data/phase17_lost_pages_manifest.json) 和 `data/phase17_lost_pages_*.json` 为准，原支线阅读稿在 `screenplay/sidequests/lost_pages_01_12.md`。
+- **24条生活支线**：[完整A/B阅读稿](screenplay/phase17_life_all_branches.md)，48条路线、144场候选、432句新对白；[制作表](data/phase17_life_manifest.json)。
+- **36条地区支线**：[完整A/B阅读稿](screenplay/phase17_regional_all_branches.md)，72条路线、216场候选、648句新对白；[地区制作表](data/phase17_regional_manifest.json)。
 
-## 第18阶段伙伴剧情当前阅读入口
+## 伙伴剧情｜第18阶段
 
-- [48条伙伴任务A/B完整稿](screenplay/phase18_companion_all_branches.md)：8名伙伴、96条独立长期分支、288场、864句新增中文对白。
-- [伙伴A/B/C结局尾声](screenplay/phase18_companion_endings.md)：8人×3种结局×末次个人任务2路线，共48场、144句新增对白，只能在相应结局原4场播放后显示。
-- [阶段18制作与静态验收报告](PHASE_18_COMPANION_DELIVERY.md)及 [事件/存档契约](data/phase18_companion_manifest.json)。
-- 伙伴原4阶段奖励、已有第7阶段前两批16条任务增补和三结局硬条件均保持。第18阶段是**编剧完成、运行未接入**；第19阶段负责地图、状态机、NPC和旧档迁移。
+- [48条伙伴任务A/B完整稿](screenplay/phase18_companion_all_branches.md)：8名伙伴、96条独立路线、288场、864句新增中文对白。
+- [伙伴结局尾声](screenplay/phase18_companion_endings.md)：8人 × 3种结局 × 最终个人选择2路线，共48场、144句新增对白；不能在结局原场景之前播出。
+- [伙伴触发/存档契约](data/phase18_companion_manifest.json) 保持原任务奖励与结局条件不变。
 
-## 第19阶段第一批｜剧本运行器接入说明
+## 剧情实装｜第19阶段
 
-- [第19-1批运行与存档交付](PHASE_19_BATCH01_RUNTIME_DELIVERY.md)：覆盖此前120条任务的720场后续事件与48场伙伴尾声。
-- 运行器 `scripts/story_branch_runtime.gd`、主游戏 `scripts/first_act.gd` 及「功能手册 → 剧情后续」已连接，可在符合原选择与章节条件时播放，并写入 `rpg.branch_story`。
-- 地图NPC、证物坐标、交互目标和每条任务真实行动仍属**第19-2批待实现**。原静态制作表中 `runtime_registered=false` 尚指未完成地图注册。
-- Godot端到端校验：`tools/smoke_branch_story_phase19.gd`。原版章节/支线结算、伙伴羁绊和三结局前置条件没有修改。
+- `scripts/story_branch_runtime.gd`：将第17–18阶段的分支候选纳入任务后续播放、顺序、已阅状态与存档管理。
+- `story/data/phase19_quest_world_anchors.json`：实体地图关联数据；对应检查器 `tools/validate_phase19_world_anchors.py`。
+- `tools/smoke_branch_story_phase19.gd`：运行时回归入口。**事件数据存在 ≠ 已经完成全部场景角色动作、地图细节与真机回归。**
 
 ## 校验入口
 
-- `python tools/validate_story.py`：主线骨架及数据格式。
-- `python tools/validate_story_progression.py`：离线剧情通关及12张航页、三结局静态条件。
-- `python tools/validate_narrative_v21.py`：全文对白ID、正典P0守卫、120支线、第7/8阶段引用/插入锚点及终章契约。
-- Godot运行中必须另测分支重放、旧存档加载、结局选后尾声播放与地图坐标绑定，不能以离线静态PASS代替。
+- `python tools/validate_story.py`：主线结构及数据格式。
+- `python tools/validate_story_progression.py`：离线剧情、失落航页与三结局的静态条件。
+- `python tools/validate_narrative_v21.py`：对白ID、正典P0守卫、120条支线及插入锚点。
+- Godot测试还需检查实际分支播放、旧档加载、地图交互、结局选择及尾声，不得以静态通过替代。

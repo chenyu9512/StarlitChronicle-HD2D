@@ -1,0 +1,295 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_oldland_01",
+  "building_id": "quest__sq_life_19",
+  "name": "旧洲默契城登记室",
+  "status": "phase19_6_individual_walkable_life_quest_scene_existing_art",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        31,
+        9,
+        43,
+        41
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        17,
+        14,
+        35,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        39,
+        15,
+        55,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        24,
+        23,
+        49,
+        28
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        25,
+        30,
+        48,
+        38
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        24,
+        17,
+        48,
+        24
+      ],
+      "tile_row": 5
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        29,
+        17,
+        29,
+        19
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        47,
+        15,
+        47,
+        17
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        31,
+        28,
+        31,
+        30
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        46,
+        30,
+        47,
+        30
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        36,
+        38,
+        41
+      ],
+      "tile_row": 3
+    }
+  ],
+  "points": {
+    "spawn": [
+      36,
+      37
+    ],
+    "exit": [
+      36,
+      40
+    ],
+    "service": [
+      24,
+      18
+    ],
+    "storage": [
+      49,
+      19
+    ]
+  },
+  "quest_points": [
+    [
+      24,
+      20
+    ],
+    [
+      48,
+      23
+    ],
+    [
+      27,
+      34
+    ]
+  ],
+  "features": [
+    {
+      "kind": "crate",
+      "cell": [
+        23,
+        16
+      ],
+      "name": "证言：书记员"
+    },
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        50,
+        22
+      ],
+      "name": "写错的名字的现场证据"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        26,
+        33
+      ],
+      "name": "写错的名字的后续记录"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        13
+      ],
+      "name": "旧洲默契城登记室灯位"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        41,
+        32
+      ],
+      "name": "旧洲默契城登记室生活陈设"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        43,
+        34
+      ],
+      "name": "旧洲默契城登记室档案匣"
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "life_lamp_a",
+      "cell": [
+        36,
+        13
+      ],
+      "scale": 1.25,
+      "energy": 0.72
+    },
+    {
+      "id": "life_lamp_b",
+      "cell": [
+        36,
+        30
+      ],
+      "scale": 1.4,
+      "energy": 0.54
+    }
+  ],
+  "script_quest_id": "sq_life_19",
+  "scene_kind": "life_indoor",
+  "unique_scene_seed": 115,
+  "art_profile": "quest_research_v1",
+  "room_day_tint": "d3c7ad",
+  "room_night_tint": "807a8c",
+  "art_collision_cells": [
+    [
+      26,
+      16
+    ],
+    [
+      44,
+      24
+    ]
+  ],
+  "visuals": [
+    {
+      "id": "life_furn_a_sq_life_19",
+      "asset": "bookshelf",
+      "cell": [
+        26,
+        16
+      ],
+      "offset": [
+        0,
+        -45
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_furn_b_sq_life_19",
+      "asset": "counter",
+      "cell": [
+        44,
+        24
+      ],
+      "offset": [
+        0,
+        -50
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_wall_c_sq_life_19",
+      "asset": "home_hutch",
+      "cell": [
+        36,
+        10
+      ],
+      "offset": [
+        0,
+        -44
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "life_rug_sq_life_19",
+      "asset": "rug",
+      "cell": [
+        36,
+        34
+      ],
+      "offset": [
+        0,
+        -10
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_direction": {
+    "location": "旧洲·默契城",
+    "theme": "写错的名字",
+    "source": "existing SVG artwork in unique region-correct V4 layout",
+    "final_handpainted": false
+  }
+}

@@ -10,6 +10,7 @@ const BattleEnemies = preload("res://scripts/battle_enemies.gd")
 const BattleTimeline = preload("res://scripts/battle_timeline.gd")
 const BattleCamera = preload("res://scripts/battle_camera.gd")
 const BattleHud = preload("res://scripts/battle_hud.gd")
+const BossAwakening = preload("res://scripts/battle_boss_awakening.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -54,6 +55,7 @@ var sfx
 var timeline
 var camera_motion
 var battle_hud
+var boss_animation
 var last_warning_text: String = ""
 var last_warning_round: int = 0
 var special_button: Button
@@ -174,6 +176,12 @@ func _build() -> void:
     portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     root.add_child(portrait)
+    if boss:
+        boss_animation=BossAwakening.new()
+        boss_animation.name="BossSixFrameAwakening"
+        root.add_child(boss_animation)
+        boss_animation.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+        boss_animation.configure(portrait,chapter,bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
     enemy_stage = BattleEnemies.new()
     enemy_stage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     enemy_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -672,6 +680,8 @@ func _act(action: String) -> void:
         if is_instance_valid(vfx):
             vfx.play_phase(_vfx_foe_point())
             vfx.play_boss_cue(_vfx_foe_point(),chapter,true)
+        if is_instance_valid(boss_animation):
+            boss_animation.awaken()
         if is_instance_valid(camera_motion):
             camera_motion.impulse(7.0)
         if is_instance_valid(sfx):

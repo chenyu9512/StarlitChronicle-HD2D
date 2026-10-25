@@ -2,6 +2,8 @@ extends Control
 const BattleArtDirection = preload("res://scripts/battle_art_direction.gd")
 ## Lightweight 2D battle presentation. Visual-only: never changes HP, turns or rewards.
 ## Works in the GL Compatibility renderer without shaders, particles or new textures.
+const ELITE_ART: String = "res://assets/art/battle/a16/high_tier_magic_4f.svg"
+const ELITE_FRAME_SIZE: int = 128
 const IDLE_FRAME_SIZE: int = 128
 const IDLE_FRAME_COUNT: int = 4
 const MAX_EFFECTS: int = 48
@@ -16,9 +18,12 @@ var _idle_frame: int = -1
 var _hit_timer: float = 0.0
 var _visual_hit_stop: float = 0.0
 var _screen_flash: float = 0.0
+var elite_sequence: Texture2D
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_IGNORE
+    if ResourceLoader.exists(ELITE_ART):
+        elite_sequence=load(ELITE_ART) as Texture2D
     set_process(true)
 
 func bind_enemy(sprite: TextureRect, art: String, is_boss: bool) -> void:
@@ -166,6 +171,9 @@ func play_skill(origin: Vector2, target: Vector2, skill: Dictionary, damage: int
     if area:
         _emit("shockwave",target,color,0.55)
     if tier >= 5:
+        # Four real authored animation frames, tinted to the skill element;
+        # never affects skill damage, target selection or action duration.
+        _emit("elite_frames",target,color,0.64)
         _emit("sparkle",target,color,0.65)
     if damage > 0:
         _emit("text",target + Vector2(0,-50),color,0.75,str(damage))
@@ -239,6 +247,15 @@ func _draw() -> void:
         ink.a *= opacity
         var radius: float = 24.0 + 56.0 * life
         match str(effect["kind"]):
+            "elite_frames":
+                if elite_sequence != null:
+                    var stage_frame: int=mini(int(life*4.0),3)
+                    var region: Rect2=Rect2(float(stage_frame*ELITE_FRAME_SIZE),0.0,
+                        float(ELITE_FRAME_SIZE),float(ELITE_FRAME_SIZE))
+                    var k: float=1.0+0.30*life
+                    var wh: float=96.0*k
+                    draw_texture_rect_region(elite_sequence,
+                        Rect2(center-Vector2(wh*0.5,wh*0.5),Vector2(wh,wh)),region,ink)
             "slash":
                 draw_line(center + Vector2(-53,32) * (0.55 + life), center + Vector2(53,-32) * (0.55 + life),ink,7.0 * opacity + 1.0,true)
                 draw_line(center + Vector2(-28,-35) * (0.55 + life),center + Vector2(28,35) * (0.55 + life),ink,3.0 * opacity + 1.0,true)

@@ -46,6 +46,10 @@
 
 已完成 `rq_001..rq_036` 的72条互异A/B后续线，共216场未注册的候选事件和648句原创中文对白。全部具备玩家操作目标、跨地区影响及章节回访条件，原四阶段任务和A/B旗标未改。阶段17三批累计已完成72/120条任务的深度长期路线文本；剩余48条伙伴任务将在第18阶段处理。详情：[第三批交付报告](PHASE_17_BATCH03_REGIONAL_DELIVERY.md) · [全部地区支线中文阅读稿](screenplay/phase17_regional_all_branches.md) · [事件和旧档契约](data/phase17_regional_manifest.json)。尚未接入Godot运行器。
 
+## 第18阶段｜48条伙伴任务A/B深度收束（2026-10-25）
+
+已为8名伙伴各6条个人任务写出A/B路线，合计48条任务、96条独立后续、288场候选互动、864句新增对白；另写出A/B/C三结局下结合末次个人任务路线的48场条件化尾声（144句）。全部候选场景仍未注册运行器，不覆盖原4阶段任务、旧存档和结局解锁规则。第17与18阶段累计120/120条支线都有长期A/B补充文本。详见 [第18阶段交付报告](PHASE_18_COMPANION_DELIVERY.md)、[伙伴A/B全量阅读稿](screenplay/phase18_companion_all_branches.md)、[伙伴结局专属尾声](screenplay/phase18_companion_endings.md) 和 [事件契约](data/phase18_companion_manifest.json)。下一步进入第19阶段实装剧情与地图事件。
+
 ## 仓库中的实际状态
 - `story/campaign/act_01.json` 至 `act_12.json`：72章、每章四个基本场景（开场/调查/冲突/收束），最终章额外结局节点，共289个场景。每一章都有对白ID、NPC发言人、任务目标、条件、完成标志、奖励；Boss章节含战斗触发元数据。
 - `story/campaign/prologue.json`：童年星灯祭九场可编排事件，建立澄舟失踪及主角未被记录的秘密。

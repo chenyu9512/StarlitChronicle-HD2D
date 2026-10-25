@@ -1,0 +1,5862 @@
+{
+  "schema": "starlit.world_level_collection.v3",
+  "version": 3,
+  "grid": [
+    72,
+    48
+  ],
+  "notes": "Each map_id owns independent editable roads, obstacles, waters, clearings and collision overrides; tools/map_v3_editor.py reads and edits individual entries or exports them independently. Runtime loads this collection in WorldLevelV3.",
+  "levels": {
+    "map_coast_01": {
+      "schema_version": 3,
+      "map_id": "map_coast_01",
+      "title": "晨露村（正式版规划）",
+      "biome": "coastal",
+      "category": "town",
+      "design_intent": "潮滩沙丘与林间海风道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              13
+            ],
+            [
+              39,
+              22
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              38
+            ],
+            [
+              42,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              39,
+              22
+            ],
+            [
+              39,
+              9
+            ],
+            [
+              54,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_coast_02": {
+      "schema_version": 3,
+      "map_id": "map_coast_02",
+      "title": "白砂港",
+      "biome": "coastal",
+      "category": "field",
+      "design_intent": "潮滩沙丘与林间海风道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              14
+            ],
+            [
+              35,
+              23
+            ],
+            [
+              55,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              34
+            ],
+            [
+              38,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              23
+            ],
+            [
+              40,
+              10
+            ],
+            [
+              55,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_coast_03": {
+      "schema_version": 3,
+      "map_id": "map_coast_03",
+      "title": "盐风古道",
+      "biome": "coastal",
+      "category": "route",
+      "design_intent": "潮滩沙丘与林间海风道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              15
+            ],
+            [
+              36,
+              24
+            ],
+            [
+              56,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              35
+            ],
+            [
+              39,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              24
+            ],
+            [
+              38,
+              11
+            ],
+            [
+              56,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              7
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              41
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 2,
+          "points": [
+            [
+              67,
+              7
+            ],
+            [
+              61,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_coast_04": {
+      "schema_version": 3,
+      "map_id": "map_coast_04",
+      "title": "潮声洞窟",
+      "biome": "coastal",
+      "category": "dungeon",
+      "design_intent": "潮滩沙丘与林间海风道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              16
+            ],
+            [
+              37,
+              21
+            ],
+            [
+              57,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              21
+            ],
+            [
+              39,
+              12
+            ],
+            [
+              57,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_coast_05": {
+      "schema_version": 3,
+      "map_id": "map_coast_05",
+      "title": "潮歌灯塔",
+      "biome": "coastal",
+      "category": "landmark",
+      "design_intent": "潮滩沙丘与林间海风道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              38,
+              22
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              37
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              22
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              54,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              7
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              41
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 2,
+          "points": [
+            [
+              67,
+              9
+            ],
+            [
+              63,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oaths_01": {
+      "schema_version": 3,
+      "map_id": "map_oaths_01",
+      "title": "三誓门城",
+      "biome": "highland",
+      "category": "town",
+      "design_intent": "誓约山脊和隐秘山径",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              13
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              34
+            ],
+            [
+              38,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              22
+            ],
+            [
+              38,
+              9
+            ],
+            [
+              54,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oaths_02": {
+      "schema_version": 3,
+      "map_id": "map_oaths_02",
+      "title": "断誓山径",
+      "biome": "highland",
+      "category": "field",
+      "design_intent": "誓约山脊和隐秘山径",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              14
+            ],
+            [
+              36,
+              23
+            ],
+            [
+              55,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              35
+            ],
+            [
+              39,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              23
+            ],
+            [
+              39,
+              10
+            ],
+            [
+              55,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 2,
+          "points": [
+            [
+              4,
+              7
+            ],
+            [
+              33,
+              6
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              64,
+              41
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oaths_03": {
+      "schema_version": 3,
+      "map_id": "map_oaths_03",
+      "title": "银鹫要塞",
+      "biome": "highland",
+      "category": "route",
+      "design_intent": "誓约山脊和隐秘山径",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              15
+            ],
+            [
+              37,
+              24
+            ],
+            [
+              56,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              40,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              24
+            ],
+            [
+              40,
+              11
+            ],
+            [
+              56,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              8
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              42
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oaths_04": {
+      "schema_version": 3,
+      "map_id": "map_oaths_04",
+      "title": "誓石神殿",
+      "biome": "highland",
+      "category": "dungeon",
+      "design_intent": "誓约山脊和隐秘山径",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              16
+            ],
+            [
+              38,
+              21
+            ],
+            [
+              57,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              37
+            ],
+            [
+              41,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              21
+            ],
+            [
+              38,
+              12
+            ],
+            [
+              57,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oaths_05": {
+      "schema_version": 3,
+      "map_id": "map_oaths_05",
+      "title": "旧王谒见厅",
+      "biome": "highland",
+      "category": "landmark",
+      "design_intent": "誓约山脊和隐秘山径",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              39,
+              22
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              38
+            ],
+            [
+              42,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              39,
+              22
+            ],
+            [
+              39,
+              8
+            ],
+            [
+              54,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              8
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              42
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_forge_01": {
+      "schema_version": 3,
+      "map_id": "map_forge_01",
+      "title": "熔炉港",
+      "biome": "volcanic",
+      "category": "town",
+      "design_intent": "火山灰台地与古代矿道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              55,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              34
+            ],
+            [
+              38,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              22
+            ],
+            [
+              40,
+              9
+            ],
+            [
+              55,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_forge_02": {
+      "schema_version": 3,
+      "map_id": "map_forge_02",
+      "title": "烟塔工坊",
+      "biome": "volcanic",
+      "category": "field",
+      "design_intent": "火山灰台地与古代矿道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              14
+            ],
+            [
+              36,
+              23
+            ],
+            [
+              56,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              35
+            ],
+            [
+              39,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              23
+            ],
+            [
+              38,
+              10
+            ],
+            [
+              56,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 2,
+          "points": [
+            [
+              4,
+              7
+            ],
+            [
+              33,
+              6
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              64,
+              41
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_forge_03": {
+      "schema_version": 3,
+      "map_id": "map_forge_03",
+      "title": "赤砂矿坑",
+      "biome": "volcanic",
+      "category": "route",
+      "design_intent": "火山灰台地与古代矿道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              15
+            ],
+            [
+              37,
+              24
+            ],
+            [
+              57,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              40,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              24
+            ],
+            [
+              39,
+              11
+            ],
+            [
+              57,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              8
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              42
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_forge_04": {
+      "schema_version": 3,
+      "map_id": "map_forge_04",
+      "title": "灰烬铁路",
+      "biome": "volcanic",
+      "category": "dungeon",
+      "design_intent": "火山灰台地与古代矿道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              16
+            ],
+            [
+              38,
+              21
+            ],
+            [
+              54,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              37
+            ],
+            [
+              41,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              21
+            ],
+            [
+              40,
+              12
+            ],
+            [
+              54,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_forge_05": {
+      "schema_version": 3,
+      "map_id": "map_forge_05",
+      "title": "炉心禁区",
+      "biome": "volcanic",
+      "category": "landmark",
+      "design_intent": "火山灰台地与古代矿道",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              38,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              22
+            ],
+            [
+              38,
+              8
+            ],
+            [
+              54,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              4
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              38
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_isles_01": {
+      "schema_version": 3,
+      "map_id": "map_isles_01",
+      "title": "珊歌港",
+      "biome": "archipelago",
+      "category": "town",
+      "design_intent": "群岛水路与石桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              13
+            ],
+            [
+              36,
+              22
+            ],
+            [
+              55,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              35
+            ],
+            [
+              39,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              22
+            ],
+            [
+              39,
+              9
+            ],
+            [
+              55,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_isles_02": {
+      "schema_version": 3,
+      "map_id": "map_isles_02",
+      "title": "五色环礁",
+      "biome": "archipelago",
+      "category": "field",
+      "design_intent": "群岛水路与石桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              14
+            ],
+            [
+              37,
+              23
+            ],
+            [
+              56,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              36
+            ],
+            [
+              40,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              23
+            ],
+            [
+              40,
+              10
+            ],
+            [
+              56,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 2,
+          "points": [
+            [
+              4,
+              7
+            ],
+            [
+              33,
+              7
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              40
+            ],
+            [
+              64,
+              41
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 4,
+          "points": [
+            [
+              67,
+              6
+            ],
+            [
+              61,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_isles_03": {
+      "schema_version": 3,
+      "map_id": "map_isles_03",
+      "title": "风暴航道",
+      "biome": "archipelago",
+      "category": "route",
+      "design_intent": "群岛水路与石桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              15
+            ],
+            [
+              38,
+              24
+            ],
+            [
+              57,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              37
+            ],
+            [
+              41,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              24
+            ],
+            [
+              38,
+              11
+            ],
+            [
+              57,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              9
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              43
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 4,
+          "points": [
+            [
+              67,
+              7
+            ],
+            [
+              60,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_isles_04": {
+      "schema_version": 3,
+      "map_id": "map_isles_04",
+      "title": "深潮神庙",
+      "biome": "archipelago",
+      "category": "dungeon",
+      "design_intent": "群岛水路与石桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              16
+            ],
+            [
+              39,
+              21
+            ],
+            [
+              54,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              38
+            ],
+            [
+              42,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              39,
+              21
+            ],
+            [
+              39,
+              12
+            ],
+            [
+              54,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_isles_05": {
+      "schema_version": 3,
+      "map_id": "map_isles_05",
+      "title": "沉没王座",
+      "biome": "archipelago",
+      "category": "landmark",
+      "design_intent": "群岛水路与石桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              12
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              55,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              34
+            ],
+            [
+              38,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              22
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              55,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              4
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              38
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 4,
+          "points": [
+            [
+              67,
+              9
+            ],
+            [
+              62,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_mirror_01": {
+      "schema_version": 3,
+      "map_id": "map_mirror_01",
+      "title": "镜湖都",
+      "biome": "mistforest",
+      "category": "town",
+      "design_intent": "镜湖湿地与迷雾森林",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              13
+            ],
+            [
+              37,
+              22
+            ],
+            [
+              57,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              36
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              22
+            ],
+            [
+              39,
+              9
+            ],
+            [
+              57,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_mirror_02": {
+      "schema_version": 3,
+      "map_id": "map_mirror_02",
+      "title": "夜镜森林",
+      "biome": "mistforest",
+      "category": "field",
+      "design_intent": "镜湖湿地与迷雾森林",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              14
+            ],
+            [
+              38,
+              23
+            ],
+            [
+              54,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              37
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              23
+            ],
+            [
+              40,
+              10
+            ],
+            [
+              54,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 2,
+          "points": [
+            [
+              4,
+              7
+            ],
+            [
+              33,
+              8
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              41
+            ],
+            [
+              64,
+              41
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 2,
+          "points": [
+            [
+              67,
+              6
+            ],
+            [
+              63,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_mirror_03": {
+      "schema_version": 3,
+      "map_id": "map_mirror_03",
+      "title": "忘梦庭院",
+      "biome": "mistforest",
+      "category": "route",
+      "design_intent": "镜湖湿地与迷雾森林",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              15
+            ],
+            [
+              35,
+              24
+            ],
+            [
+              54,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              34
+            ],
+            [
+              38,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              24
+            ],
+            [
+              38,
+              11
+            ],
+            [
+              54,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              6
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              40
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 2,
+          "points": [
+            [
+              67,
+              7
+            ],
+            [
+              63,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_mirror_04": {
+      "schema_version": 3,
+      "map_id": "map_mirror_04",
+      "title": "银玻璃塔",
+      "biome": "mistforest",
+      "category": "dungeon",
+      "design_intent": "镜湖湿地与迷雾森林",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              16
+            ],
+            [
+              36,
+              21
+            ],
+            [
+              55,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              35
+            ],
+            [
+              39,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              21
+            ],
+            [
+              39,
+              12
+            ],
+            [
+              55,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_mirror_05": {
+      "schema_version": 3,
+      "map_id": "map_mirror_05",
+      "title": "映世回廊",
+      "biome": "mistforest",
+      "category": "landmark",
+      "design_intent": "镜湖湿地与迷雾森林",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              12
+            ],
+            [
+              37,
+              22
+            ],
+            [
+              56,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              36
+            ],
+            [
+              40,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              22
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              56,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              6
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              40
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [
+        {
+          "id": "tidal-channel",
+          "width": 2,
+          "points": [
+            [
+              67,
+              9
+            ],
+            [
+              61,
+              16
+            ],
+            [
+              67,
+              31
+            ],
+            [
+              66,
+              43
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oldland_01": {
+      "schema_version": 3,
+      "map_id": "map_oldland_01",
+      "title": "遗民营地",
+      "biome": "badlands",
+      "category": "town",
+      "design_intent": "旧洲风蚀峡谷",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              13
+            ],
+            [
+              39,
+              22
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              38
+            ],
+            [
+              42,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              39,
+              22
+            ],
+            [
+              39,
+              9
+            ],
+            [
+              54,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oldland_02": {
+      "schema_version": 3,
+      "map_id": "map_oldland_02",
+      "title": "荒星平原",
+      "biome": "badlands",
+      "category": "field",
+      "design_intent": "旧洲风蚀峡谷",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              14
+            ],
+            [
+              35,
+              23
+            ],
+            [
+              55,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              34
+            ],
+            [
+              38,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              23
+            ],
+            [
+              40,
+              10
+            ],
+            [
+              55,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 2,
+          "points": [
+            [
+              4,
+              7
+            ],
+            [
+              33,
+              5
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              38
+            ],
+            [
+              64,
+              41
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oldland_03": {
+      "schema_version": 3,
+      "map_id": "map_oldland_03",
+      "title": "时裂峡谷",
+      "biome": "badlands",
+      "category": "route",
+      "design_intent": "旧洲风蚀峡谷",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              15
+            ],
+            [
+              36,
+              24
+            ],
+            [
+              56,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              35
+            ],
+            [
+              39,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              24
+            ],
+            [
+              38,
+              11
+            ],
+            [
+              56,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              7
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              41
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oldland_04": {
+      "schema_version": 3,
+      "map_id": "map_oldland_04",
+      "title": "星墓秘殿",
+      "biome": "badlands",
+      "category": "dungeon",
+      "design_intent": "旧洲风蚀峡谷",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              16
+            ],
+            [
+              37,
+              21
+            ],
+            [
+              57,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              21
+            ],
+            [
+              39,
+              12
+            ],
+            [
+              57,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_oldland_05": {
+      "schema_version": 3,
+      "map_id": "map_oldland_05",
+      "title": "旧日灯枢",
+      "biome": "badlands",
+      "category": "landmark",
+      "design_intent": "旧洲风蚀峡谷",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              38,
+              22
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              37
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              22
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              54,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              7
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              41
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_sanctum_01": {
+      "schema_version": 3,
+      "map_id": "map_sanctum_01",
+      "title": "天轨前庭",
+      "biome": "celestial",
+      "category": "town",
+      "design_intent": "浮空星轨和断桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              13
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              34
+            ],
+            [
+              38,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              22
+            ],
+            [
+              38,
+              9
+            ],
+            [
+              54,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_sanctum_02": {
+      "schema_version": 3,
+      "map_id": "map_sanctum_02",
+      "title": "七灯环庭",
+      "biome": "celestial",
+      "category": "field",
+      "design_intent": "浮空星轨和断桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              14
+            ],
+            [
+              36,
+              23
+            ],
+            [
+              55,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              35
+            ],
+            [
+              39,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              23
+            ],
+            [
+              39,
+              10
+            ],
+            [
+              55,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 2,
+          "points": [
+            [
+              4,
+              7
+            ],
+            [
+              33,
+              6
+            ],
+            [
+              64,
+              8
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              64,
+              41
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_sanctum_03": {
+      "schema_version": 3,
+      "map_id": "map_sanctum_03",
+      "title": "反转星穹",
+      "biome": "celestial",
+      "category": "route",
+      "design_intent": "浮空星轨和断桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              15
+            ],
+            [
+              37,
+              24
+            ],
+            [
+              56,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              40,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              24
+            ],
+            [
+              40,
+              11
+            ],
+            [
+              56,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              8
+            ],
+            [
+              33,
+              8
+            ],
+            [
+              64,
+              10
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              42
+            ],
+            [
+              35,
+              42
+            ],
+            [
+              64,
+              44
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_sanctum_04": {
+      "schema_version": 3,
+      "map_id": "map_sanctum_04",
+      "title": "岁影尽头",
+      "biome": "celestial",
+      "category": "dungeon",
+      "design_intent": "浮空星轨和断桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              16
+            ],
+            [
+              38,
+              21
+            ],
+            [
+              57,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              37
+            ],
+            [
+              41,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              21
+            ],
+            [
+              38,
+              12
+            ],
+            [
+              57,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_sanctum_05": {
+      "schema_version": 3,
+      "map_id": "map_sanctum_05",
+      "title": "永昼祭坛",
+      "biome": "celestial",
+      "category": "landmark",
+      "design_intent": "浮空星轨和断桥",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              39,
+              22
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              38
+            ],
+            [
+              42,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              39,
+              22
+            ],
+            [
+              39,
+              8
+            ],
+            [
+              54,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              8
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              42
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_city_01": {
+      "schema_version": 3,
+      "map_id": "map_city_01",
+      "title": "群灯旧会馆",
+      "biome": "metropolis",
+      "category": "town",
+      "design_intent": "王都高墙与轨道运输",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              13
+            ],
+            [
+              39,
+              22
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              16,
+              38
+            ],
+            [
+              42,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              39,
+              22
+            ],
+            [
+              39,
+              9
+            ],
+            [
+              54,
+              14
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            12
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_city_02": {
+      "schema_version": 3,
+      "map_id": "map_city_02",
+      "title": "自由议事厅",
+      "biome": "metropolis",
+      "category": "town",
+      "design_intent": "王都高墙与轨道运输",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              21,
+              14
+            ],
+            [
+              35,
+              23
+            ],
+            [
+              55,
+              15
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              17,
+              34
+            ],
+            [
+              38,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              35,
+              23
+            ],
+            [
+              40,
+              10
+            ],
+            [
+              55,
+              15
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            13
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            19,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_city_03": {
+      "schema_version": 3,
+      "map_id": "map_city_03",
+      "title": "群灯居民街",
+      "biome": "metropolis",
+      "category": "town",
+      "design_intent": "王都高墙与轨道运输",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 2,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              22,
+              15
+            ],
+            [
+              36,
+              24
+            ],
+            [
+              56,
+              16
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              18,
+              35
+            ],
+            [
+              39,
+              37
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              36,
+              24
+            ],
+            [
+              38,
+              11
+            ],
+            [
+              56,
+              16
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            55,
+            14
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            20,
+            35
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_city_04": {
+      "schema_version": 3,
+      "map_id": "map_city_04",
+      "title": "星灯中枢",
+      "biome": "metropolis",
+      "category": "dungeon",
+      "design_intent": "王都高墙与轨道运输",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              23,
+              16
+            ],
+            [
+              37,
+              21
+            ],
+            [
+              57,
+              17
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              37,
+              21
+            ],
+            [
+              39,
+              12
+            ],
+            [
+              57,
+              17
+            ]
+          ]
+        }
+      ],
+      "obstacles": [],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            56,
+            15
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            17,
+            34
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    },
+    "map_city_05": {
+      "schema_version": 3,
+      "map_id": "map_city_05",
+      "title": "西区修复工地",
+      "biome": "metropolis",
+      "category": "route",
+      "design_intent": "王都高墙与轨道运输",
+      "size": [
+        72,
+        48
+      ],
+      "roads": [
+        {
+          "id": "route-primary",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              38,
+              22
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-ridge",
+          "width": 1,
+          "points": [
+            [
+              10,
+              23
+            ],
+            [
+              20,
+              37
+            ],
+            [
+              41,
+              39
+            ],
+            [
+              60,
+              35
+            ]
+          ]
+        },
+        {
+          "id": "route-secret",
+          "width": 1,
+          "points": [
+            [
+              38,
+              22
+            ],
+            [
+              40,
+              8
+            ],
+            [
+              54,
+              18
+            ]
+          ]
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "north-ridge",
+          "width": 3,
+          "points": [
+            [
+              4,
+              6
+            ],
+            [
+              33,
+              7
+            ],
+            [
+              64,
+              6
+            ]
+          ],
+          "tile_row": 6
+        },
+        {
+          "id": "southern-cliff",
+          "width": 2,
+          "points": [
+            [
+              8,
+              40
+            ],
+            [
+              35,
+              41
+            ],
+            [
+              64,
+              40
+            ]
+          ],
+          "tile_row": 6
+        }
+      ],
+      "waterways": [],
+      "clearings": [
+        {
+          "id": "safe-camp",
+          "center": [
+            24,
+            14
+          ],
+          "radius": 3
+        },
+        {
+          "id": "scenic-lane",
+          "center": [
+            60,
+            35
+          ],
+          "radius": 3
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "landscape-view",
+          "cell": [
+            57,
+            16
+          ],
+          "kind": "beacon"
+        },
+        {
+          "id": "old-waystone",
+          "cell": [
+            18,
+            33
+          ],
+          "kind": "rock"
+        }
+      ],
+      "paint_overrides": [],
+      "collision_overrides": [],
+      "revision": 1
+    }
+  }
+}

@@ -293,7 +293,8 @@ func _enter_location() -> void:
     var saved_world: Dictionary = progress.rpg.get("world",{})
     var indoor_id: String = str(saved_world.get("indoor_building",""))
     if not indoor_id.is_empty():
-        if world.enter_building(indoor_id):
+        var restored_room: bool = world.enter_story_submap(indoor_id.trim_prefix("quest__"),true) if indoor_id.begins_with("quest__") else world.enter_building(indoor_id)
+        if restored_room:
             var outdoor: Array = saved_world.get("outdoor_return",[])
             if outdoor.size()==2:
                 world.exterior_position=Vector2(float(outdoor[0]),float(outdoor[1]))
@@ -378,8 +379,13 @@ func _focus() -> void:
                 if story_world_bindings.matches(str(quest.get("id","")),world_router.current_map()):
                     # Only the one actually tracked original quest uses this map
                     # point, and it must outrank a separate chapter-local errand.
-                    side_target = "story_stage_%d" % stage
-                    extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
+                    var original_quest_id: String = str(quest.get("id",""))
+                    if world.quest_submaps.entries.has(original_quest_id) and world.interior_building.is_empty():
+                        side_target = "questdoor:"+original_quest_id
+                        extra = "【调查现场入口】%s · 进入专属调查地点" % str(quest.get("title","未命名委托"))
+                    else:
+                        side_target = "story_stage_%d" % stage
+                        extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
                 elif side_target.is_empty():
                     extra = "【世界支线导航】" + story_world_bindings.route_summary(str(quest.get("id","")),world_router)
     var branch_choice: Dictionary = branch_world.get("chosen",{})
@@ -392,7 +398,12 @@ func _focus() -> void:
             extra = "【剧情实地回访】%s · %s（%d/3）" % [str(branch_choice.get("title","")),str(scene_plan.get("label","调查线索")),step+1]
     elif not tracked.is_empty() and branch_runtime.eligible(tracked):
         var destination: Dictionary = branch_runtime.get_event(tracked)
-        extra = "【剧情路线】" + story_world_bindings.route_summary(str(destination.get("quest_id","")),world_router)
+        var tracking_quest: String = str(destination.get("quest_id",""))
+        if world.quest_submaps.entries.has(tracking_quest) and world.interior_building.is_empty() and world.nodes.has("questdoor:"+tracking_quest):
+            side_target = "questdoor:"+tracking_quest
+            extra = "【航页后续调查】" + world.quest_submaps.room_name(tracking_quest)
+        else:
+            extra = "【剧情路线】" + story_world_bindings.route_summary(tracking_quest,world_router)
     world.set_side_focus(side_target)
     if extra.is_empty() and progress.chapter > 0:
         var open_inspections: Array[String] = []
@@ -482,6 +493,17 @@ func _interact(target: String) -> void:
     if target.begins_with("exit:"):
         _travel_to(target.trim_prefix("exit:"))
         return
+    if target.begins_with("questdoor:"):
+        var lost_page_id: String = target.trim_prefix("questdoor:")
+        if world.enter_story_submap(lost_page_id):
+            var current_world: Dictionary = progress.rpg.get("world",{})
+            current_world["indoor_building"] = world.interior_building
+            current_world["outdoor_return"] = [world.exterior_position.x,world.exterior_position.y]
+            game_events.record("lost_page_scene_entered",{"quest_id":lost_page_id,"map":world_router.current_map()})
+            _save_progress()
+            _focus()
+            ui.show_message("进入"+world.quest_submaps.room_name(lost_page_id)+"。现场调查、证物与离开进度均可保存。")
+        return
     if target.begins_with("building:"):
         var building_id: String = target.trim_prefix("building:")
         if world.enter_building(building_id):
@@ -507,6 +529,22 @@ func _interact(target: String) -> void:
         return
     if target == "interior_storage":
         ui.show_message("储物柜与家具已经布置。家园专用仓储请从自己的房屋进入。")
+        return
+    if target.begins_with("questcase:") and world.interior_building.begins_with("quest__"):
+        var quest_id: String = world.interior_building.trim_prefix("quest__")
+        var step: int = int(target.trim_prefix("questcase:"))
+        var details: Dictionary = world.quest_submaps.detail(quest_id)
+        var titles: Array = details.get("displays",[])
+        if step>=0 and step<titles.size():
+            var gallery: Dictionary = progress.rpg.get("quest_gallery",{})
+            var room_log: Dictionary = gallery.get(quest_id,{})
+            room_log[str(step)] = true
+            gallery[quest_id] = room_log
+            progress.rpg["quest_gallery"] = gallery
+            _save_progress()
+            var dossier: Dictionary = world.scene_director.dossier(quest_id)
+            var note: String = str(dossier.get("observation","")) if step==1 else (str(dossier.get("later_record","")) if step==2 else str(details.get("original_location","")))
+            ui.show_message("【调查档案 %d/3】%s。%s" % [step+1,str(titles[step]),note])
         return
     if target.begins_with("branchmap:") or target.begins_with("questhint:"):
         _interact_world_branch(target)

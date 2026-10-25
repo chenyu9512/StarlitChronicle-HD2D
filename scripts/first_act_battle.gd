@@ -3,6 +3,7 @@ const ArtAssets = preload("res://scripts/art_assets.gd")
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
+const BattleFX = preload("res://scripts/battle_fx.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -39,6 +40,7 @@ var foe_info: Label
 var report: Label
 var commands: HBoxContainer
 var portrait: TextureRect
+var vfx
 var special_button: Button
 
 func _ready() -> void:
@@ -172,6 +174,13 @@ func _build() -> void:
     _button(commands, "✚ 药草", "potion")
     var special_name: String = "✦ 拆除星锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else "✦ 识破弱点")
     special_button = _button(commands, special_name, "special")
+    vfx = BattleFX.new()
+    vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    vfx.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(vfx)
+    var settings: Dictionary = game_state.rpg.get("settings", {})
+    vfx.reduced_motion = bool(settings.get("reduced_motion",false))
+    vfx.bind_enemy(portrait,str(enemy.get("art","")),boss)
 
 func _choose_skill() -> void:
     if is_instance_valid(skill_picker):
@@ -213,6 +222,8 @@ func _select_enemy(index: int) -> void:
     enemy = formation.units[index]
     if is_instance_valid(portrait):
         portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
+        if is_instance_valid(vfx):
+            vfx.bind_enemy(portrait,str(enemy.get("art","")),boss)
 
 func _choose_enemy_target(command: String) -> void:
     _hide_skills()
@@ -420,6 +431,8 @@ func _act(action: String) -> void:
                             game_state.heal_member(target_index,maxi(20,power*2))
                         message = "%s 施展%s，治疗%s。" % [name,label,str(game_state.actors[target_index].get("name",""))]
                     healed_via_skill = true
+                    if is_instance_valid(vfx):
+                        vfx.play_heal(_vfx_ally_point(),label)
                 elif kind == "shield":
                     var targets: Array[int] = []
                     if target_type == "all_allies":
@@ -432,6 +445,8 @@ func _act(action: String) -> void:
                         if i >= 0 and i < game_state.actors.size():
                             combat_rules.shield(str(game_state.actors[i].get("id","")),2)
                     message = "%s 施放%s，护盾持续两回合！" % [name,label]
+                    if is_instance_valid(vfx):
+                        vfx.play_guard(_vfx_ally_point())
                 elif kind == "buff":
                     var targets: Array[int] = []
                     if target_type == "all_allies":
@@ -444,6 +459,8 @@ func _act(action: String) -> void:
                         if i >= 0 and i < game_state.actors.size():
                             combat_rules.buff(str(game_state.actors[i].get("id","")),maxi(2,int(power/4)),3)
                     message = "%s 施展%s，强化战斗能力三回合。" % [name,label]
+                    if is_instance_valid(vfx):
+                        vfx.play_charge(_vfx_ally_point())
                 else:
                     var base: int = maxi(3,combat_attack + power - int(enemy["def"]))
                     damage = combat_rules.elemental_damage(base,str(chosen.get("element","")),str(enemy.get("weakness","")),str(enemy.get("element","")))
@@ -451,9 +468,13 @@ func _act(action: String) -> void:
         "charge":
             var stack: int = combat_rules.charge(str(member.get("id","")))
             message = "%s 凝聚星辉（%d/3），下一次攻击威力提高！" % [name,stack]
+            if is_instance_valid(vfx):
+                vfx.play_charge(_vfx_ally_point())
         "guard":
             defense[hero_turn] = true
             message = "%s 严阵以待，本回合受到的伤害降低。" % name
+            if is_instance_valid(vfx):
+                vfx.play_guard(_vfx_ally_point())
         "potion":
             if game_state.potions <= 0:
                 _redraw("药草已经用完。")
@@ -466,10 +487,14 @@ func _act(action: String) -> void:
             else:
                 game_state.potions -= 1
             message = "%s 使用药草恢复生命。" % name
+            if is_instance_valid(vfx):
+                vfx.play_heal(_vfx_ally_point(),"药草")
         "special":
             if boss and chapter == 5:
                 chain_hp = maxi(0, chain_hp - maxi(20, combat_attack + dice.randi_range(8, 20)))
                 message = "%s 拆除星纹锁，剩余耐久 %d！" % [name, chain_hp]
+                if is_instance_valid(vfx):
+                    vfx.play_special(_vfx_foe_point())
                 if chain_hp == 0:
                     _redraw(message + "古兽摆脱了控制！")
                     _finish(true)
@@ -478,6 +503,8 @@ func _act(action: String) -> void:
                 resonance += 1
                 countdown = mini(8, countdown + 1)
                 message = "%s 汇入一段归航见证（%d/4）。" % [name, resonance]
+                if is_instance_valid(vfx):
+                    vfx.play_charge(_vfx_ally_point())
                 if resonance >= 4:
                     _redraw(message + "共同见证替代献祭，灯塔重新点亮！")
                     _finish(true)
@@ -495,6 +522,13 @@ func _act(action: String) -> void:
             if not weapon_trait_id.is_empty():
                 message += " · 武器特性：" + weapon_trait_id
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
+        if is_instance_valid(vfx):
+            if action == "skill":
+                vfx.play_spell(_vfx_ally_point(),_vfx_foe_point(),str(_get_skill(chosen_skill).get("element","")),damage,hit_all_enemies)
+            elif action == "special":
+                vfx.play_special(_vfx_foe_point(),damage)
+            else:
+                vfx.play_attack(_vfx_foe_point(),damage)
         if not boss or chapter != 5:
             var status_kind: String = ""
             var status_rate: float = 0.0
@@ -532,6 +566,8 @@ func _act(action: String) -> void:
         phase_two = true
         message += "  敌人进入第二阶段！"
         enemy["atk"] = int(enemy["atk"]) + 4
+        if is_instance_valid(vfx):
+            vfx.play_phase(_vfx_foe_point())
     if formation.complete() and (not boss or chapter != 5):
         _redraw(message)
         _finish(true)
@@ -562,6 +598,8 @@ func _enemy_action(index: int) -> void:
     if damage_over_time > 0:
         formation.apply_damage(index,damage_over_time)
         enemy = formation.units[index]
+        if is_instance_valid(vfx):
+            vfx.play_status(_vfx_foe_point(),damage_over_time)
     if formation.complete() and (not boss or chapter != 5):
         _finish(true)
         return
@@ -595,6 +633,8 @@ func _enemy_strike() -> void:
         damage = 0
     member["hp"] = maxi(0, int(member["hp"]) - damage)
     game_state.actors[target] = member
+    if is_instance_valid(vfx):
+        vfx.play_enemy_attack(_vfx_foe_point(),_vfx_ally_point(),damage)
     if damage > 0 and int(member["hp"]) > 0:
         var element: String = str(enemy.get("element",""))
         var ailment: String = ""
@@ -619,6 +659,14 @@ func _enemy_strike() -> void:
             resonance = maxi(0, resonance - 1)
     if _all_fallen():
         _finish(false)
+
+func _vfx_foe_point() -> Vector2:
+    if is_instance_valid(portrait):
+        return portrait.position + portrait.size * 0.5
+    return Vector2(root.size.x*0.5,root.size.y*0.38) if is_instance_valid(root) else Vector2(576,246)
+
+func _vfx_ally_point() -> Vector2:
+    return Vector2(root.size.x*0.37,root.size.y*0.72) if is_instance_valid(root) else Vector2(426,466)
 
 func _all_fallen() -> bool:
     for member in game_state.actors:
@@ -669,6 +717,8 @@ func _finish(victory: bool) -> void:
         if item is Button:
             item.disabled = true
     if victory:
+        if is_instance_valid(vfx):
+            vfx.play_victory(_vfx_foe_point())
         report.text = "胜利！%s" % ("古兽已经重获自由。" if boss and chapter == 5 else "战斗结束，大家平安归来。")
     else:
         report.text = "全队失去战斗力，准备在营地重新整备。"

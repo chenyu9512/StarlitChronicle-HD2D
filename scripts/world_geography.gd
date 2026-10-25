@@ -158,10 +158,41 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         features.append({"kind":"sea_crystal","cell":Vector2i(55,16),"name":"洞窟水晶"})
         features.append({"kind":"beacon","cell":Vector2i(38,10),"name":"古代封印"})
     elif village:
-        for x in range(3,WIDTH-3):
-            _carve(terrain,walls,Vector2i(x,24),seed,2)
-        for y in range(4,HEIGHT-4):
-            _carve(terrain,walls,Vector2i(35,y),seed,2)
+        var district: String = str(spec.get("layout","central_square"))
+        match district:
+            "terraced_streets":
+                for street_y in [14,25,36]:
+                    _road(terrain,walls,Vector2i(4,street_y),Vector2i(67,street_y),seed+street_y,2)
+                for street_x in [23,45]:
+                    _road(terrain,walls,Vector2i(street_x,4),Vector2i(street_x,43),seed+street_x,1)
+            "waterfront_docks":
+                for street_y in [16,32,39]:
+                    _road(terrain,walls,Vector2i(4,street_y),Vector2i(67,street_y),seed+street_y,2 if street_y==32 else 1)
+                for street_x in [16,35,54]:
+                    _road(terrain,walls,Vector2i(street_x,4),Vector2i(street_x,43),seed+street_x,1)
+            "circular_market":
+                for ring_step in range(80):
+                    var angle: float = float(ring_step)*TAU/80.0
+                    var arc: Vector2i = hub+Vector2i(roundi(24.0*cos(angle)),roundi(15.0*sin(angle)))
+                    _carve(terrain,walls,arc,seed,2)
+                _road(terrain,walls,Vector2i(4,24),Vector2i(67,24),seed,1)
+                _road(terrain,walls,Vector2i(35,4),Vector2i(35,43),seed+3,1)
+            "fortified_quarters":
+                for street_y in [10,24,38]:
+                    _road(terrain,walls,Vector2i(5,street_y),Vector2i(66,street_y),seed+street_y,1)
+                for street_x in [12,35,60]:
+                    _road(terrain,walls,Vector2i(street_x,5),Vector2i(street_x,42),seed+street_x,1)
+            "canal_neighborhood":
+                for canal_y in range(5,42):
+                    for canal_x in range(28,32):
+                        _paint(terrain,walls,Vector2i(canal_x,canal_y),Vector2i((canal_x+canal_y)%8,6),true)
+                for street_y in [15,24,34]:
+                    _road(terrain,walls,Vector2i(4,street_y),Vector2i(67,street_y),seed+street_y,2)
+                for street_x in [16,44,60]:
+                    _road(terrain,walls,Vector2i(street_x,5),Vector2i(street_x,42),seed+street_x,1)
+            _:
+                _road(terrain,walls,Vector2i(4,24),Vector2i(67,24),seed,2)
+                _road(terrain,walls,Vector2i(35,4),Vector2i(35,43),seed,2)
         _room(terrain,walls,hub,Vector2i(18,12),seed)
         for building in spec.get("buildings",[]):
             var body: Vector2i = Vector2i(int(building["pos"][0]),int(building["pos"][1]))

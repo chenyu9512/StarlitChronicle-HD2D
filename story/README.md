@@ -35,6 +35,10 @@
 5. `text_only_not_runtime_bound` 是实际制作边界；有文本不意味着可直接在地图互动、播放动画或触发完整任务。
 6. 分支剧情需核实：完成原任务、原A/B选项、章节解锁、后续回访顺序、一次性奖励、存档恢复和不重复触发。
 
+## 第19阶段第三批｜现场调查与证据记录（2026-10-25）
+
+120条原任务拥有以正典调查对白为依据的独立证物/记录档案；第19-2地图节点已经升级为NPC交谈、证物核对、后续公告三个现场步骤，后两步须玩家确认，暂缓不会消耗事件。三条记录按原对白ID保存在`rpg.branch_story.field_log`，可在功能手册中查阅。地图子区域、全角色换装与复杂解谜仍需继续制作。详情：[第19-3批交付报告](PHASE_19_BATCH03_SCENE_DELIVERY.md)。
+
 ## 项目校验
 
 - 静态主线与文本校验：`python tools/validate_story.py`、`python tools/validate_story_progression.py`、`python tools/validate_narrative_v21.py`

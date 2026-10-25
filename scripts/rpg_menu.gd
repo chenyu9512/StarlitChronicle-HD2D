@@ -406,7 +406,7 @@ func render(section: String) -> void:
                 if not neighborhood.is_empty():
                     var progress_count: int = town_ecology_catalog.completion_count(save_state,location)
                     _label("本地社区 · "+str(neighborhood.get("activity","街区活动"))+" · %d/3" % progress_count,true)
-                    var hour: int = int(save_state.rpg.get("game_clock",{}).get("minutes",480)) / 60
+                    var hour: int = int(float(save_state.rpg.get("game_clock",{}).get("minutes",480))/60.0)
                     var done_state: Dictionary = town_ecology_catalog.progress(save_state,location)
                     for entry in town_ecology_catalog.entries(location):
                         var completed: bool = bool(done_state.get(str(entry.get("id","")),false))

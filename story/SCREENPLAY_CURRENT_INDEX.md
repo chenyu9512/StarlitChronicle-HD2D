@@ -52,7 +52,8 @@
 ## 剧情实装｜第19阶段
 
 - `scripts/story_branch_runtime.gd`：将第17–18阶段的分支候选纳入任务后续播放、顺序、已阅状态与存档管理。
-- `story/data/phase19_quest_world_anchors.json`：实体地图关联数据；对应检查器 `tools/validate_phase19_world_anchors.py`。
+- [第19-2A～F批地图交互交付](PHASE_19_BATCH02_WORLD_EVENTS_DELIVERY.md)：120条任务落在已解锁的30个正式分块及真实建筑入口/区域节点，三段独立实地互动、NPC/物件状态、小地图与回访导航已经运行时接入；复合地名尚需独立子地图美术。
+- `story/data/phase19_quest_world_anchors.json`：120任务与正式地图一一关联，检查器 `tools/validate_phase19_world_anchors.py`、真实Godot场景测试 `tools/smoke_story_world_phase19_2.gd`。
 - `tools/smoke_branch_story_phase19.gd`：运行时回归入口。**事件数据存在 ≠ 已经完成全部场景角色动作、地图细节与真机回归。**
 
 ## 校验入口

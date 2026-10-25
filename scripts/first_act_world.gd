@@ -442,13 +442,26 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
             if binder.matches(str(event.get("quest_id","")),region_map):
                 chosen = event
                 break
+    var quest_room: String = interior_building.trim_prefix("quest__") if interior_building.begins_with("quest__") else ""
+    if not quest_room.is_empty() and str(chosen.get("quest_id","")) != quest_room:
+        chosen = {}
+        for item in available:
+            if str(item.get("quest_id","")) == quest_room:
+                chosen = item
+                break
     var original: Dictionary = core.available_story_side(chapter) if chapter > 0 else {}
     var original_id: String = str(original.get("id",""))
     var original_here: bool = binder.matches(original_id,region_map) and not original.is_empty()
+    if not quest_room.is_empty():
+        original_here = original_here and original_id == quest_room
     var stage: int = core.story_side_stage(original_id) if original_here else -1
     var currently: int = int(runtime.state.rpg.get("branch_story",{}).get("active",{}).get("line",0))
     var current_id: String = str(chosen.get("id",""))
     var local_branch: bool = binder.matches(str(chosen.get("quest_id","")),region_map)
+    if not quest_room.is_empty():
+        local_branch = local_branch and str(chosen.get("quest_id",""))==quest_room
+    elif quest_submaps.entries.has(str(chosen.get("quest_id",""))):
+        local_branch = false
     var possible_keys := PackedStringArray()
     for candidate in available:
         possible_keys.append(str(candidate.get("id","")))
@@ -473,21 +486,41 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
         var key: String = "story_stage_%d" % step
         if nodes.has(key):
             nodes[key].visible = false
-    if original_here and interior_building.is_empty():
-        var base: Dictionary = binder.site(original_id)
-        var p: Vector2i = binder.position_for(base,reachable,occupied,0)
-        if p.x>=0:
-            var key: String = "story_stage_%d" % stage
-            if nodes.has(key):
-                nodes[key].position = Vector2(p*TILE)+Vector2(16,16)
-                nodes[key].visible = true
-                occupied.append(p)
+    # A lost-page story stage belongs inside its authored quest interior,
+    # not on the generic sector sign used by other 108 world quests.
+    if interior_building.is_empty():
+        for room in quest_submaps.local(region_map,chapter):
+            var room_id: String = str(room.get("quest_id",""))
+            var room_site: Dictionary = binder.site(room_id)
+            var door: Vector2i = binder.position_for(room_site,reachable,occupied,0)
+            if door.x<0:
+                continue
+            _story_sprite("questdoor:"+room_id,"notice",door,str(room.get("interior_name","调查室")),"","sign")
+            occupied.append(door)
+    if original_here and stage>=0:
+        var location: Vector2i = Vector2i(-1,-1)
+        if not quest_room.is_empty():
+            var original_points: Array = terrain_layout.get("quest_points",[])
+            if original_points.size()==3:
+                location = original_points[[0,1,2,0,2][clampi(stage,0,4)]]
+        elif not quest_submaps.entries.has(original_id) and interior_building.is_empty():
+            location = binder.position_for(binder.site(original_id),reachable,occupied,0)
+        if location.x>=0:
+            var stage_key: String = "story_stage_%d" % stage
+            if nodes.has(stage_key):
+                nodes[stage_key].position = Vector2(location*TILE)+Vector2(16,16)
+                nodes[stage_key].visible = true
+                occupied.append(location)
     # Show up to six other quest witnesses in this sector; the tracked event
     # receives three ordered interaction roles (person, evidence, notice).
     var shown: int = 0
     for item in available:
         var e: Dictionary = item
         if str(e.get("id",""))==current_id or not binder.matches(str(e.get("quest_id","")),region_map):
+            continue
+        if quest_submaps.entries.has(str(e.get("quest_id",""))):
+            continue
+        if not interior_building.is_empty() and interior_building.begins_with("quest__"):
             continue
         var info: Dictionary = binder.site(str(e.get("quest_id","")))
         if not interior_building.is_empty() and str(info.get("building_id",""))!=interior_building:
@@ -504,8 +537,12 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
             break
     if local_branch:
         var info: Dictionary = binder.site(str(chosen.get("quest_id","")))
-        if interior_building.is_empty() or str(info.get("building_id","")) == interior_building:
+        if (not quest_room.is_empty() and str(chosen.get("quest_id",""))==quest_room) or (quest_room.is_empty() and (interior_building.is_empty() or str(info.get("building_id","")) == interior_building)):
             var point: Vector2i = binder.position_for(info,reachable,occupied,currently)
+            if not quest_room.is_empty():
+                var current_points: Array = terrain_layout.get("quest_points",[])
+                if current_points.size()==3:
+                    point = current_points[clampi(currently,0,2)]
             if point.x>=0:
                 occupied.append(point)
                 var scene_plan: Dictionary = scene_director.stage(str(chosen.get("quest_id","")),chosen,currently)

@@ -458,6 +458,32 @@ func _focus() -> void:
 func _interact(target: String) -> void:
     if busy:
         return
+    if target.begins_with("townlife:"):
+        if not world.interior_building.is_empty():
+            return
+        var town_id: String = world_router.current_map()
+        var task_id: String = target.trim_prefix("townlife:")
+        var hour: int = int(progress.rpg.get("game_clock",{}).get("minutes",480)/60)
+        var result: Dictionary = world.town_ecology.interact(town_id,task_id,progress,hour)
+        if bool(result.get("changed",false)):
+            var reward: Dictionary = result.get("reward",{})
+            var message: String = str(result.get("message",""))
+            if not reward.is_empty():
+                var amount: int = maxi(0,int(reward.get("gold",0)))
+                var item_id: String = str(reward.get("item_id",""))
+                var item_count: int = maxi(0,int(reward.get("amount",0)))
+                progress.gold += amount
+                if item_count>0 and not item_id.is_empty():
+                    game_core.add_item(item_id,item_count)
+                message += "\n社区酬谢：%d G 与补给 ×%d。" % [amount,item_count]
+                game_events.record("town_ecology_completed",{"map":town_id,"activity":task_id})
+            else:
+                game_events.record("town_ecology_activity",{"map":town_id,"activity":task_id})
+            _save_progress()
+            ui.show_message(message)
+        else:
+            ui.show_message(str(result.get("message","街区活动暂时无法办理。")))
+        return
     if target.begins_with("discovery:"):
         if not world.interior_building.is_empty():
             return

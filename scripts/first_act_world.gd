@@ -74,6 +74,7 @@ var scenery: Node2D
 var coastal_scene
 var coastal_audio
 var prologue_stage
+var prologue_cast: Dictionary = {}
 var layer: TileMapLayer
 var blocked: Dictionary = {}
 var nodes: Dictionary = {}
@@ -114,6 +115,7 @@ func build(new_chapter: int, party_size: int) -> void:
         root.free()
     blocked.clear()
     nodes.clear()
+    prologue_cast.clear()
     story_marker_ids.clear()
     story_marker_positions.clear()
     story_marker_signature = ""
@@ -1008,6 +1010,35 @@ func interact() -> void:
         interacted.emit("none")
     else:
         interacted.emit(chosen)
+
+func sync_prologue_markers(active_index: int, story_chapter: int) -> void:
+    # Treat a playable opening as an actual unfolding event, not nine
+    # simultaneously glowing developer markers scattered around the village.
+    var portraits: Dictionary={
+        0:"chengzhou",1:"lanyin",4:"chengzhou",6:"lanyin",8:"lanyin"
+    }
+    for index in range(9):
+        var marker_id: String="prologue_%d" % index
+        if not nodes.has(marker_id):
+            continue
+        var marker: Sprite2D=nodes[marker_id]
+        var active: bool=story_chapter==0 and index==active_index and interior_building.is_empty()
+        marker.visible=active
+        marker.modulate.a=0.30 if portraits.has(index) else 1.0
+        if portraits.has(index) and not prologue_cast.has(index):
+            var sprite_path: String="res://assets/art/characters/%s/walk_4dir_3frames.png" % str(portraits[index])
+            if ResourceLoader.exists(sprite_path):
+                var performer=Actor.new()
+                performer.name="PrologueCast_%d" % index
+                performer.setup(sprite_path)
+                performer.position=marker.position+Vector2(0,12)
+                performer.z_index=4
+                scenery.add_child(performer)
+                prologue_cast[index]=performer
+        if prologue_cast.has(index):
+            var performer_node: Node2D=prologue_cast[index]
+            performer_node.visible=active
+    # No narrative indices, task records, or collision cells are modified.
 
 func set_prologue_phase(scene_no: int, story_chapter: int) -> void:
     if prologue_stage==null:

@@ -75,13 +75,13 @@ func _draw_local() -> void:
         for x in range(first_x,first_x + columns):
             var tile: Vector2i = Vector2i(x, y)
             var shade: Color = PASSABLE
-            if world.blocked.has(tile):
+            if world.layer.get_cell_source_id(tile) == 1:
+                shade = Color("205c83")
+            elif world.blocked.has(tile):
                 shade = WALL
             else:
                 var atlas: Vector2i = world.layer.get_cell_atlas_coords(tile)
-                if world.layer.get_cell_source_id(tile) == 1:
-                    shade = Color("205c83")
-                elif atlas.y == 3:
+                if atlas.y == 3:
                     shade = PATH
                 elif atlas.y == 5:
                     shade = Color("7a7480")

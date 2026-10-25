@@ -22,12 +22,22 @@ func bind(progress) -> void:
     for job in pack.get("jobs", []):
         if job is Dictionary:
             jobs[str(job.get("id",""))] = job
-    narrative_side_quests = _read("res://story/data/side_quests.json").get("quests", [])
+    narrative_side_quests = []
+    var quest_ids: Dictionary = {}
+    for source in ["side_quests", "companion_quests", "regional_quests_v2"]:
+        for quest in _read("res://story/data/%s.json" % source).get("quests", []):
+            if quest is Dictionary:
+                var id: String = str(quest.get("id", ""))
+                if not id.is_empty() and not quest_ids.has(id):
+                    narrative_side_quests.append(quest)
+                    quest_ids[id] = true
     if not (state.rpg is Dictionary):
         state.rpg = {}
     for key in ["equipment","jobs","quests","regions","discovered","settings","narrative_side"]:
         if not (state.rpg.get(key) is Dictionary):
             state.rpg[key] = {}
+    if not (state.rpg.get("selected_story_quest") is String):
+        state.rpg["selected_story_quest"] = ""
     if not (state.rpg.get("party") is Array):
         state.rpg["party"] = []
     for actor in state.actors:
@@ -317,16 +327,42 @@ func recruit_from_story(chapter: int) -> String:
         return n + "加入了队伍。"
     return ""
 
-func available_story_side(chapter: int) -> Dictionary:
+func available_story_side_list(chapter: int) -> Array:
+    var available: Array = []
     for quest in narrative_side_quests:
-        var required: String = str(quest.get("required_chapter","ch001"))
-        var value: int = int(required.trim_prefix("ch"))
-        if chapter < value:
+        if not quest is Dictionary:
+            continue
+        var needed: String = str(quest.get("required_chapter","ch001"))
+        if chapter < int(needed.trim_prefix("ch")):
             continue
         var id: String = str(quest.get("id",""))
-        if not state.rpg["narrative_side"].has(id + ".done"):
+        if bool(state.rpg["narrative_side"].get(id + ".done",false)):
+            continue
+        var ready: bool = true
+        for flag in quest.get("required_flags", []):
+            if not bool(state.flags.get(str(flag),false)):
+                ready = false
+        if ready:
+            available.append(quest)
+    return available
+
+func available_story_side(chapter: int) -> Dictionary:
+    var available: Array = available_story_side_list(chapter)
+    var selected: String = str(state.rpg.get("selected_story_quest",""))
+    for quest in available:
+        if str(quest.get("id","")) == selected:
             return quest
+    if not available.is_empty():
+        return available[0]
     return {}
+
+func select_story_side(id: String) -> String:
+    for quest in available_story_side_list(state.chapter):
+        if str(quest.get("id","")) == id:
+            state.rpg["selected_story_quest"] = id
+            return "已追踪委托：" + str(quest.get("title",id))
+    return "该任务尚未开放。"
+
 
 func story_side_stage(id: String) -> int:
     return maxi(0,int(state.rpg["narrative_side"].get(id,0)))

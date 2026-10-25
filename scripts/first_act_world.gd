@@ -195,6 +195,18 @@ func _build_sites() -> void:
     for i in range(9):
         var key: String = "prologue_%d" % i
         nodes[key].visible = chapter == 0
+    # 每章两处命名线索、阶段NPC和可选中段对白，使用相同交互距离规则。
+    var optional_markers: Dictionary = {
+        "inspect_1": ["crate", Vector2i(8, 8)],
+        "inspect_2": ["sea_crystal", Vector2i(36, 12)],
+        "ambient_npc": ["sign", Vector2i(23, 8)],
+        "midpoint": ["star_lantern", Vector2i(25, 22)]
+    }
+    for name in optional_markers:
+        var record: Array = optional_markers[name]
+        var sprite: Sprite2D = _add_sprite(str(record[0]),record[1],false)
+        sprite.visible = chapter > 0
+        nodes[name] = sprite
     # 编剧分支的36条支线：五阶段航页与普通三阶段委托均具有地图实体。
     for i in range(5):
         var site: Vector2i = Vector2i(10 + (i % 3) * 11, 5 + int(i / 3) * 18)

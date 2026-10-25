@@ -3,7 +3,8 @@ extends CanvasLayer
 signal closed()
 signal replay_ending_requested(id: String)
 const Core = preload("res://scripts/rpg_core.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","图鉴","商店","锻造","结局档案","设置"]
+const Ambient = preload("res://scripts/chapter_ambient.gd")
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","地区探索","图鉴","商店","锻造","结局档案","设置"]
 var manager
 var save_state
 var root: Control
@@ -13,9 +14,13 @@ var title: Label
 var current: String = "队伍"
 var member: String = ""
 var encyclopedia: String = "monsters"
+var quest_filter: String = "全部"
+var quest_page: int = 0
+var chapter_details
 
 func _ready() -> void:
     layer = 46
+    chapter_details = Ambient.new()
     root = Control.new()
     root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     root.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -124,6 +129,15 @@ func _select_actor() -> void:
         var pid: String = str(actor.get("id",""))
         _button(h,("▶ " if pid == member else "") + str(actor.get("name",pid)),func() -> void: _choose(pid),14)
 
+func _filter_quest(value: String) -> void:
+    quest_filter = value
+    quest_page = 0
+    render("任务")
+
+func _page_quest(delta: int) -> void:
+    quest_page = maxi(0, quest_page + delta)
+    render("任务")
+
 func render(section: String) -> void:
     if manager == null or save_state == null:
         return
@@ -193,6 +207,30 @@ func render(section: String) -> void:
                 var total: int = current_side.get("stages",[]).size()
                 _label("【世界支线】%s · 阶段 %d/%d" % [str(current_side.get("title","")),count + 1,total])
                 _label("请前往地图蓝色标记互动，完成实地调查。")
+            _label("世界委托选择：失落航页12条、同伴48条、地区36条，共96条分类型委托；另有24条人生支线。")
+            var filters := HBoxContainer.new()
+            content.add_child(filters)
+            for category in ["全部","航页","同伴","地区","人生"]:
+                var group: String = category
+                _button(filters,group,func() -> void: _filter_quest(group),13)
+            var selectable: Array = []
+            for quest in manager.available_story_side_list(save_state.chapter):
+                var kind: String = str(quest.get("type",""))
+                var type_label: String = "航页" if kind == "lost_page" else ("同伴" if kind == "companion" else ("地区" if kind == "regional_v2" else "人生"))
+                if quest_filter == "全部" or quest_filter == type_label:
+                    selectable.append(quest)
+            var start_at: int = quest_page * 10
+            var end_at: int = mini(start_at + 10,selectable.size())
+            _label("筛选：%s · 可接取 %d 条 · 第%d页" % [quest_filter,selectable.size(),quest_page+1])
+            for n in range(start_at,end_at):
+                var task: Dictionary = selectable[n]
+                var task_id: String = str(task.get("id",""))
+                var stage_no: int = manager.story_side_stage(task_id)
+                _button(content,("▶ " if str(save_state.rpg.get("selected_story_quest","")) == task_id else "◇ ") + str(task.get("title","")) + " · %d/%d" % [stage_no + 1,(task.get("stages",[]) as Array).size()],func() -> void: _apply(manager.select_story_side(task_id)),14)
+            if quest_page > 0:
+                _button(content,"◀ 上一页",func() -> void: _page_quest(-1))
+            if end_at < selectable.size():
+                _button(content,"下一页 ▶",func() -> void: _page_quest(1))
             var shown: int = 0
             for quest in manager.records("quests"):
                 if int(quest.get("chapter",99)) > save_state.chapter:
@@ -206,6 +244,22 @@ func render(section: String) -> void:
             for region in save_state.rpg["regions"].keys():
                 _label("◆ "+str(region))
             _label("全游戏包含 %d 项地图设计数据；新地区随剧情解锁。" % manager.records("maps").size())
+        "地区探索":
+            _label("第%d章 · 场景调查与居民见证" % save_state.chapter,true)
+            if save_state.chapter < 1:
+                _label("童年序章结束后，每章开放两处独立调查物件及一段隐藏证言。")
+            else:
+                for item in chapter_details.objects(save_state.chapter):
+                    var flag: String = str(item.get("investigation_flag",""))
+                    var completed: bool = bool(save_state.flags.get(flag,false))
+                    _label(("✓ " if completed else "◇ ")+str(item.get("name","区域物件"))+" · "+("已记录" if completed else "可到地图现场调查"))
+                    if completed:
+                        _label(str(item.get("description","")))
+                var midpoint_flag: String = "explore.ch%03d.midpoint" % save_state.chapter
+                _label(("✓ " if bool(save_state.flags.get(midpoint_flag,false)) else "◇ ")+"中段证言：需先记录两处物件")
+                var npc: Dictionary = chapter_details.npc_state(save_state.chapter,2,save_state.flags)
+                if not npc.is_empty():
+                    _label("在地居民：" + str(npc.get("speaker","")) + " · " + str(npc.get("text","")))
         "图鉴":
             _label("图鉴 · "+encyclopedia,true)
             var bar := HBoxContainer.new()

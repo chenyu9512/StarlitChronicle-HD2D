@@ -1,5 +1,5 @@
 extends SceneTree
-## 核心系统动态回归：背包、装备、职业、技能、出战、锻造、商店和12栏目UI。
+## 核心系统动态回归：背包、装备、职业、技能、出战、锻造、商店和扩展栏目UI。
 const State = preload("res://scripts/first_act_state.gd")
 const Core = preload("res://scripts/rpg_core.gd")
 const Menu = preload("res://scripts/rpg_menu.gd")
@@ -51,12 +51,23 @@ func _run() -> void:
     _check(state.save(), "Full progression save failed")
     _check(state.load_saved(), "Full progression reload failed")
     _check(state.rpg.get("test_key",{}).get("checkpoint","") == "OK" and state.gold == old_gold, "RPG fields did not persist")
+    _check(core.narrative_side_quests.size() >= 120, "Expected 120 chapter, companion and region story quests")
+    state.chapter = 72
+    state.flags["story.ch003.done"] = true
+    var companion_available: bool = false
+    for task in core.available_story_side_list(72):
+        if str(task.get("type","")) == "companion":
+            companion_available = true
+            _check(core.select_story_side(str(task.get("id",""))).begins_with("已追踪"),"Selecting companion quest failed")
+            break
+    _check(companion_available,"Unlocked companion quests missing")
+    _check(Menu.SECTIONS.size() >= 14, "Expanded gameplay menu missing panels")
     var menu = Menu.new()
     root.add_child(menu)
     menu.show_menu(core,state)
     for section in Menu.SECTIONS:
         menu.render(section)
-    _check(menu.root.visible, "The twelve-section menu did not open")
+    _check(menu.root.visible, "The expanded menu did not open")
     menu.close_menu()
     _check(not menu.root.visible, "The menu did not close")
     if not failures.is_empty():
@@ -64,5 +75,5 @@ func _run() -> void:
             push_error(error)
         quit(1)
     else:
-        print("PASS: 81 weapons, 54 armor, 63 skills, 20 jobs, equipment stats, bag, shop, jobs, 4-party, consumables, save and 12 menu sections")
+        print("PASS: 81 weapons, 54 armor, 63 skills, 20 jobs, equipment stats, bag, shop, jobs, 4-party, consumables, save and expanded menu sections")
         quit(0)

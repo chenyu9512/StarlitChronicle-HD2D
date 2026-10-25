@@ -9,6 +9,7 @@ const CheatScript = preload("res://scripts/cheat_panel.gd")
 const RPGCore = preload("res://scripts/rpg_core.gd")
 const RPGMenu = preload("res://scripts/rpg_menu.gd")
 const EndingDirector = preload("res://scripts/ending_director.gd")
+const ChapterAmbient = preload("res://scripts/chapter_ambient.gd")
 var progress
 var catalog
 var world
@@ -18,6 +19,8 @@ var cheat
 var game_core
 var adventure_menu
 var ending_director
+var chapter_ambient
+var active_optional_flag: String = ""
 var ending_replay_id: String = ""
 var ending_replay_scene: int = 0
 var busy: bool = true
@@ -34,6 +37,7 @@ func _ready() -> void:
     progress = StateScript.new()
     game_core = RPGCore.new()
     ending_director = EndingDirector.new()
+    chapter_ambient = ChapterAmbient.new()
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -168,6 +172,16 @@ func _focus() -> void:
                 side_target = "story_stage_%d" % stage
                 extra = "【世界支线】%s · %s" % [str(quest.get("title","未命名委托")),str(stages[stage].get("objective","前往支线地点"))]
     world.set_side_focus(side_target)
+    if extra.is_empty() and progress.chapter > 0:
+        var open_inspections: Array[String] = []
+        for index in range(2):
+            var item: Dictionary = chapter_ambient.inspection(progress.chapter,index,progress.flags)
+            if not item.is_empty():
+                open_inspections.append(str(item.get("name","区域线索")))
+        if not open_inspections.is_empty():
+            extra = "【地区线索】" + "、".join(open_inspections)
+        elif not chapter_ambient.midpoint(progress.chapter,progress.flags).is_empty():
+            extra = "【地区事件】额外证言可在地图灯坛查看"
     ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
 
 func _interact(target: String) -> void:
@@ -191,6 +205,15 @@ func _interact(target: String) -> void:
         return
     if target.begins_with("story_stage_"):
         _story_side_interact(target)
+        return
+    if target.begins_with("inspect_"):
+        _optional_inspection(target)
+        return
+    if target == "ambient_npc":
+        _ambient_npc_interact()
+        return
+    if target == "midpoint":
+        _ambient_midpoint()
         return
     if progress.chapter == 72 and bool(progress.flags.get("story.complete", false)):
         ui.show_message("结局已经完成。可从「功能手册 → 结局档案」回看后日谈。")
@@ -216,6 +239,41 @@ func _interact(target: String) -> void:
                 _present("crisis")
         3: _present("resolve")
         4: _present("ending_intro")
+
+func _optional_inspection(target: String) -> void:
+    var index: int = 0 if target == "inspect_1" else 1
+    var item: Dictionary = chapter_ambient.inspection(progress.chapter,index,progress.flags)
+    if item.is_empty():
+        ui.show_message("这里的线索尚未开放，或已经记录在旅行手册。")
+        return
+    active_optional_flag = str(item.get("investigation_flag",""))
+    pending = "optional_inspect"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue(chapter_ambient.inspection_lines(item))
+
+func _ambient_npc_interact() -> void:
+    var record: Dictionary = chapter_ambient.npc_state(progress.chapter,progress.scene_index,progress.flags)
+    if record.is_empty():
+        ui.show_message("这里的居民暂时没有新的消息。")
+        return
+    pending = "ambient_npc"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue([{"speaker":str(record.get("speaker","旅人")),"text":str(record.get("text",""))}])
+
+func _ambient_midpoint() -> void:
+    var record: Dictionary = chapter_ambient.midpoint(progress.chapter,progress.flags)
+    if record.is_empty():
+        ui.show_message("尚需记录两份现场证据，或者这一段见证已经完成。")
+        return
+    pending = "ambient_midpoint"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_dialogue(record.get("dialogue",[]))
 
 func _story_side_interact(target: String) -> void:
     var quest: Dictionary = game_core.available_story_side(progress.chapter)
@@ -340,6 +398,14 @@ func _dialogue_ended() -> void:
             return
         "story_side_branch":
             active_story_side = {}
+        "ambient_npc":
+            pass
+        "optional_inspect":
+            if not active_optional_flag.is_empty():
+                progress.flags[active_optional_flag] = true
+            active_optional_flag = ""
+        "ambient_midpoint":
+            progress.flags["explore.ch%03d.midpoint" % progress.chapter] = true
         "ending_intro":
             _begin_ending_choice()
             return

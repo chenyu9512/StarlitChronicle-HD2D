@@ -68,7 +68,7 @@ for act in range(1, 13):
         scenes = ch.get("scenes", [])
         if len(scenes) != (5 if index == 72 else 4):
             errors.append(f"Scene count mismatch: {cid}")
-        if ch.get("production_status") != "scripted_blocking_v1":
+        if ch.get("production_status") not in {"scripted_blocking_v1", "scripted_blocking_v2_phase8_sample"}:
             errors.append(f"Unrecognized content stage: {cid}")
         ids = [sc.get("id") for sc in scenes]
         if len(set(ids)) != len(ids):

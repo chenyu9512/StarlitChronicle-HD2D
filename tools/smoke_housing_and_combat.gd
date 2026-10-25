@@ -112,6 +112,7 @@ func _run() -> void:
     battle._act("cancel_skill")
     require(not is_instance_valid(battle.skill_picker),"Skill menu cannot close")
     state.actors[0]["hp"] = 15
+    battle.invincible = true # 测试治疗效果时隔离敌方随机伤害
     battle.hero_turn = 1
     var learned_healing: String = ""
     for skill in core.skills("char_tidecaller"):

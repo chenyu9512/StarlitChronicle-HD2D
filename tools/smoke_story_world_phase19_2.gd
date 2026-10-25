@@ -123,6 +123,13 @@ func _run() -> void:
         check(position_history[1].distance_to(position_history[2])>=3.0,
             "evidence and notice must be physically separate")
     check(game.branch_runtime.is_seen(a),"all three world interactions mark scene seen")
+    var proof: Array = game.branch_runtime.field_evidence(a)
+    check(proof.size()==3,"three player-confirmed field steps persisted")
+    for index in range(proof.size()):
+        check(int(proof[index].get("step",-1))==index,
+            "evidence log maintains chronological step order " + str(index))
+        check(str(proof[index].get("dialogue_id",""))==a+".l0"+str(index+1),
+            "evidence log references canonical authored dialogue " + str(index))
     check(game.progress.gold==original_gold and int(game.progress.actors[0]["level"])==original_level,
         "no gold or EXP granted from old A/B postscript")
     check(not game.branch_runtime.eligible(a),"completed branch cannot repeat")
@@ -133,6 +140,8 @@ func _run() -> void:
     check(loaded.load_saved(),"world branch progress load")
     check(bool(loaded.rpg.get("branch_story",{}).get("seen",{}).get(a,false)),
         "saved world event durable after reload")
+    check(loaded.rpg.get("branch_story",{}).get("field_log",{}).get(a,[]).size()==3,
+        "all three real inspection records survive loading from disk")
     check(str(loaded.flags.get("side."+source+".approach",""))=="a",
         "original branch choice never overwritten")
     check(game.world.nodes.get("branchmap:"+a+":0",null)==null,

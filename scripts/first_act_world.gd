@@ -5,6 +5,7 @@ signal encounter_requested()
 
 const Actor = preload("res://scripts/first_act_actor.gd")
 const Geography = preload("res://scripts/world_geography.gd")
+const WorldStructure = preload("res://scripts/world_structure.gd")
 const TILE: int = 32
 const WIDTH: int = 72
 const HEIGHT: int = 48
@@ -180,8 +181,19 @@ func _decorate() -> void:
         var cell: Vector2i = feature.get("cell",Vector2i.ZERO)
         var kind: String = str(feature.get("kind","rock"))
         if feature.has("building"):
-            kind = "cottage" if kind not in ["inn","shop","guild","smith","shrine"] else ("fish_stall" if kind=="shop" else ("beacon" if kind=="shrine" else "cottage"))
-        _add_sprite(kind,cell,false,true)
+            var architecture = WorldStructure.new()
+            var region: String = str(terrain_layout.get("zone",{}).get("biome","coastal"))
+            var width_data: Vector2i = Vector2i(8,6)
+            for record in terrain_layout.get("zone",{}).get("buildings",[]):
+                if str(record.get("id","")) == str(feature.get("building","")):
+                    var size_data: Array = record.get("size",[8,6])
+                    width_data = Vector2i(int(size_data[0]),int(size_data[1]))
+                    break
+            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region)
+            architecture.position = Vector2(cell*TILE)+Vector2(16,16)
+            scenery.add_child(architecture)
+        else:
+            _add_sprite(kind,cell,false,true)
     var objects: Array = [
         ["palm_tree", 7, 5], ["palm_tree", 38, 6], ["cottage", 11, 6], ["cottage", 34, 6],
         ["barrel", 24, 7], ["fish_stall", 19, 20], ["rock", 6, 21], ["rock", 39, 19],

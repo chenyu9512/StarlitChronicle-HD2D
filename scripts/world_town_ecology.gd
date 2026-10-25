@@ -117,6 +117,20 @@ func interact(map_id: String,event_id: String,state,hour: int) -> Dictionary:
         message+="\n社区感谢你协助完成整日的工作。"
     return {"changed":true,"message":message,"reward":reward,"complete":not reward.is_empty()}
 
+func resident_hint(map_id: String,state,hour: int) -> String:
+    var neighborhood: Dictionary = config(map_id)
+    if neighborhood.is_empty() or state==null:
+        return ""
+    var status: Dictionary = _state(state,map_id)
+    for record in entries(map_id):
+        if bool(status.get(str(record.get("id","")),false)):
+            continue
+        var district: String = str(record.get("district","街区"))
+        if is_open(record,hour):
+            return "现在「%s」正在%s进行。%s" % [str(neighborhood.get("activity","社区活动")),district,str(record.get("text",""))]
+        return "「%s」下一处工作在%s，活动时间是%02d:00到%02d:00。" % [str(neighborhood.get("activity","社区活动")),district,int(record.get("open",0)),int(record.get("close",24))]
+    return "多亏街坊相互帮忙，「%s」已经顺利完成。下次来还可以看看大家。" % str(neighborhood.get("activity","社区活动"))
+
 func completion_count(state,map_id: String) -> int:
     var status: Dictionary = _state(state,map_id)
     var count: int = 0

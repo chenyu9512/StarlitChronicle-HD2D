@@ -28,6 +28,8 @@ const SITES: Dictionary = {
 var chapter: int = 0
 var custom_region: String = ""
 var map_profile: Dictionary = {}
+var act01_layouts: Dictionary = {}
+var current_layout: Dictionary = {}
 var root: Node2D
 var scenery: Node2D
 var layer: TileMapLayer
@@ -52,9 +54,17 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
     rng.randomize()
+    var path: String = "res://data/levels/act01_layouts.json"
+    if FileAccess.file_exists(path):
+        var json: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+        if json is Dictionary:
+            for entry in json.get("chapters",[]):
+                if entry is Dictionary:
+                    act01_layouts[int(entry.get("chapter",-1))] = entry
 
 func build(new_chapter: int, party_size: int) -> void:
     chapter = maxi(0, new_chapter)
+    current_layout = act01_layouts.get(chapter,{})
     if is_instance_valid(root):
         remove_child(root)
         root.free()
@@ -142,6 +152,7 @@ func _make_tiles() -> void:
     var map_seed: int = absi(int(map_profile.get("seed",chapter)))
     var coast: bool = map_type in ["field","landmark","route"] or chapter in [2, 5, 6]
     var dungeon: bool = map_type in ["dungeon","hall","worksite"] or chapter == 3
+    var local_palette: int = int(current_layout.get("palette",0))
     for y in range(HEIGHT):
         for x in range(WIDTH):
             var sea_edge: bool = coast and (x <= 2 or y >= HEIGHT - 3 or (chapter == 5 and y >= 23 and x > 23))
@@ -151,7 +162,7 @@ func _make_tiles() -> void:
                 layer.set_cell(Vector2i(x, y), 1 if sea_edge else 0, Vector2i((x + y) % 4, 2 if sea_edge else 6))
             else:
                 var path: bool = x >= 5 and x <= 38 and (abs(y - 14) <= 2 or abs(x - 22) <= 2)
-                var ax: int = 1 if path else (x + y + map_seed % 4) % 4
+                var ax: int = 1 if path else (x + y + map_seed % 4 + local_palette) % 4
                 var ay: int = 3 if path else (5 if dungeon else (1 if coast else 0))
                 layer.set_cell(Vector2i(x, y), 0, Vector2i(ax, ay))
     for y in range(11, 18):
@@ -175,6 +186,9 @@ func _decorate() -> void:
             var xx: int = 5 + int((map_seed + k * 23) % 34)
             var yy: int = 4 if k % 2 == 0 else 23
             objects.append([PROPS[(map_seed + k) % PROPS.size()],xx,yy])
+    for entry in current_layout.get("objects",[]):
+        if entry is Array and entry.size() >= 3:
+            objects.append(entry)
     for entry in objects:
         var pos := Vector2i(int(entry[1]), int(entry[2]))
         _add_sprite(str(entry[0]), pos, false)

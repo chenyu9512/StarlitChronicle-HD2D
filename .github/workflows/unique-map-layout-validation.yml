@@ -6,6 +6,9 @@ on:
       - "data/levels/world_levels_v3.json"
       - "scripts/world_geography.gd"
       - "scripts/world_level_v3.gd"
+      - "scripts/world_discoveries.gd"
+      - "data/levels/v5/world_discoveries.json"
+      - "tools/smoke_world_discoveries.gd"
       - "scripts/first_act_world.gd"
       - "scripts/map_view.gd"
       - "scripts/world_fog_v3.gd"
@@ -32,5 +35,7 @@ jobs:
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
       - name: Require independent map sizes, layouts, quest reachability and authored bridges
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
+      - name: Verify all 120 map discoveries, sequential prerequisites, item rewards and save restoration
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_discoveries.gd
       - name: Verify all 40 physical maps, city gates and building interiors
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

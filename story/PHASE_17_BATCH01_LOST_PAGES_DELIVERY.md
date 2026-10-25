@@ -72,7 +72,11 @@
 
 已通过连接GitHub读取实际JSON开展跨资源结构核对：120个唯一任务ID；本批12页对应24条A/B路线、72场、216句；Manifest中场景ID及源对白ID一致，未发现重复或条件漂移。原 `side_quests.json` 没有修改，所以既有奖励和存档字段维持。
 
-新增专项Python脚本已写入CI。只有在取得实际成功运行日志后，才能将其标记为**CI已通过**。即便CI静态通过，新增72场目前仍未注册地图和Godot，不视为可玩支线分流。
+**第17阶段专项脚本已在GitHub Actions真实执行并通过。** [Godot Core Validation #40169131103](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40169131103) 的任务日志明确输出：`Phase17 originals=36 regional=36 companions=48 total=120 page_quests=12 branches=24 extra_stages=72 new_lines=216 issues=0`。
+
+**注意：同一轮核心CI整体失败，尚不可标记全工程通过。** 故障发生在随后的 `All twelve acts and 72 chapters controller regression`，日志指出 `Missing map node: resolve`、`Chapter 25 completion flag missing`，以及连带的故事完成旗标、终章状态错误。第17阶段新增资源和验证器只涉及任务文本/静态检查，不改动该控制器与第25章地图，但仍须由游戏运行开发阶段单独回归定位。该结果不应与阶段17静态校验失败混淆。另有新的CI运行正在进行，未得到明确结果前不声称已修复。
+
+即使文本静态校验通过，新增72场目前仍未注册地图和Godot，不视为可玩支线分流。
 
 **后续推进次序：**
 

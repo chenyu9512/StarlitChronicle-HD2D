@@ -116,6 +116,10 @@ func _run() -> void:
     check(game.pending == "branch_event" and game.ui.dialog_layer.visible,
         "menu selection opens authored dialogue")
     for step in range(3):
+        # The current UI types text progressively. A player's first tap may
+        # reveal the line; the second advances it. Explicitly finish the type
+        # animation before each simulated input.
+        game.ui.dialog_text.visible_characters = -1
         game.ui._next()
     check(game.branch_runtime.is_seen(a),"dialogue completion persisted in game")
     check(game.pending == "","world unlock after optional scene")

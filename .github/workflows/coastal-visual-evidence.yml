@@ -10,6 +10,10 @@ on:
       - "assets/art/exteriors/coast_final_pass/**"
       - "data/levels/v4/coastal_scenery.json"
       - "tools/capture_coastal_visuals.gd"
+      - "tools/capture_prologue_visuals.gd"
+      - "scripts/prologue_world_stage.gd"
+      - "scripts/cinematic_scene_fx.gd"
+      - "data/cinematics/prologue.json"
       - "tools/smoke_coastal_exterior.gd"
       - ".github/workflows/coastal-visual-evidence.yml"
   workflow_dispatch:
@@ -49,10 +53,20 @@ jobs:
           test -s build/art-qa/map_coast_04.png
           test -s build/art-qa/morning_dew_inn.png
           test -s build/art-qa/manifest.json
+      - name: Capture P4 prologue in-world festival, meteor, blackout and time-jump frames
+        shell: bash
+        run: |
+          timeout 180s xvfb-run -a -s "-screen 0 1280x720x24" ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_prologue_visuals.gd
+          test -s build/art-qa/prologue_festival.png
+          test -s build/art-qa/prologue_black_star_world.png
+          test -s build/art-qa/prologue_blackout.png
+          test -s build/art-qa/prologue_ten_years.png
+          test -s build/art-qa/prologue_black_star_cinematic.png
+          test -s build/art-qa/prologue_manifest.json
       - name: Upload visual QA evidence and contract
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Starlit-A7-A12-FirstAct-Visual-QA
+          name: Starlit-FirstAct-and-Prologue-P4-Visual-QA
           path: build/art-qa/
           retention-days: 14

@@ -84,8 +84,10 @@ for idx, chapter in enumerate(chapters, 1):
 
 lost_page_quests = [q for q in side["quests"] if q.get("type") == "lost_page"]
 require(len(lost_page_quests) == 12, "Wrong page quest count")
+require({quest.get("page_number") for quest in lost_page_quests} == set(range(1, 13)), "Missing or duplicated lost-page numbers")
+require(len({quest.get("id") for quest in lost_page_quests}) == 12, "Lost-page quest IDs are not unique")
 for quest in lost_page_quests:
-    require(len(quest.get("stages", [])) == 3, "Incomplete side quest: " + quest["id"])
+    require(len(quest.get("stages", [])) == 5, "Page quest stage contract mismatch (expected 5): " + quest["id"])
     chapter = quest["required_chapter"]
     require(flags.get("story." + chapter + ".done", False), "Side quest unlocked too early: " + quest["id"])
     flags[f"world.page_{quest['page_number']:02d}"] = True
@@ -93,6 +95,8 @@ for quest in lost_page_quests:
 flags["world.all_twelve_pages"] = all(flags.get(f"world.page_{i:02d}", False) for i in range(1,13))
 
 require(flags.get("world.years_passed") == 12, "Time skip should total 12 years")
+require(all(flags.get(k) for k in endings["endings"][2]["requirements"]), "C should unlock after all 12 page quest completions and world milestones")
+require(next(e for e in endings["endings"] if e["id"] == "C")["requirements"][-3:] == ["world.all_twelve_pages", "world.distributed_network", "world.seven_lanterns"], "C canonical requirement contract changed")
 require(len(lines) == len(set(lines)), "Dialogue IDs are not unique")
 require(len(journal["chapters"]) == 72, "Quest journal does not cover all chapters")
 require(len(jobs["jobs"]) == 20, "Jobs data out of sync")

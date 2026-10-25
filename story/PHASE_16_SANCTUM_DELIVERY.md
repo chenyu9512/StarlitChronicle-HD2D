@@ -55,7 +55,7 @@
 
 ### 尚未完成的验证
 
-本轮的跨资源校验是连接GitHub后对源数据做静态比对，**未实际运行新增Python脚本或取得GitHub Actions真实成功日志**。未在Godot实际验证镜头/事件播出、旧存档、Boss状态、场景导航和选项后候选对话。新增事件和关卡规格的 `runtime_registered` 全为 `false`，不能按商业成品的实际可玩性验收。
+**GitHub Actions已实际通过：** [Godot 4.7.2 Core Validation 运行 #40168166639](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40168166639) 于2026-10-25成功完成（测试提交 `77bd1e05697e6c74be6fd723969ac37baccea436`）。已读取真实任务日志：`python tools/validate_phase16_sanctum.py` 执行并输出 `Stage16 main=288 optional=108 chapters=6 errors=0`、`PASS: static source contract only, not Godot runtime`。该次CI中的Godot无界面项目导入及GDScript检查、72章控制器回归、战斗/菜单/存档迁移/既有可选剧情事件等自动测试步骤均成功。**但CI通过不代表本阶段新写12场可选戏、12组选择反馈和六类新关卡机关已经实际注册或被游玩测试。**它们的 `runtime_registered` 仍为 `false`；尚须开展实际地图接入、旧存档实机复测、完整流程和人工体验验收。
 
 ## 五、接下来不应继续同模式堆加主线对白
 

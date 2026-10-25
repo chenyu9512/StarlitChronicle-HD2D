@@ -15,13 +15,13 @@
 | 7 | 37–42 | [act_07_phase14_full.md](screenplay/act_07_phase14_full.md) | [act_07.json](campaign/act_07.json) |
 | 8 | 43–48 | [act_08_phase08_full.md](screenplay/act_08_phase08_full.md) | [act_08.json](campaign/act_08.json) |
 | 9 | 49–54 | [act_09_phase08_full.md](screenplay/act_09_phase08_full.md) | [act_09.json](campaign/act_09.json) |
-| 10 | 55–60 | [act_10.md](screenplay/act_10.md) | [act_10.json](campaign/act_10.json) |
+| 10 | 55–60 | [act_10_phase15_full.md](screenplay/act_10_phase15_full.md) | [act_10.json](campaign/act_10.json) |
 | 11 | 61–66 | [act_11.md](screenplay/act_11.md) | [act_11.json](campaign/act_11.json) |
 | 12 | 67–72 | [act_12_phase08_full.md](screenplay/act_12_phase08_full.md) | [act_12.json](campaign/act_12.json) |
 
 ## 编剧阅读规则
 
-1. 第1、8、9、12幕采用第8阶段全量稿；第2幕采用第9阶段306句全量稿；第3幕采用第10阶段317句全量稿；第4幕采用第11阶段310句全量稿；第5幕采用第12阶段288句全量稿；第6幕采用第13阶段296句全量稿；第7幕采用第14阶段全量稿；其余第10、11幕尚待同级深化。
+1. 第1、8、9、12幕采用第8阶段全量稿；第2幕采用第9阶段306句全量稿；第3幕采用第10阶段317句全量稿；第4幕采用第11阶段310句全量稿；第5幕采用第12阶段288句全量稿；第6幕采用第13阶段296句全量稿；第7幕采用第14阶段全量稿；第10幕采用第15阶段全量稿；仅第11幕尚待同级深化。
 2. 第22章匿名宫廷乐师不是伊泽；第26章取得的是航路证据，不能计作无条件获得`world.page_01`。
 3. 第72章`resolve`是选择前的共同交接，`ending`才是A/B/C最终选择；选项写入后必须播放对应`data/endings.json`的四场，之后再宣布正篇完结。
 4. A/B/C的条件以`data/endings.json`为准，C必备的地区协作由12航页见证与第60章分散灯网建设代表，暂不添加隐藏第四条件。
@@ -33,7 +33,8 @@
 10. 第12阶段第25–30章的船籍、潜水钟、三段残谱和六座航标设计见 `data/phase12_act05_production_plan.json`；不是已实装关卡，且第26章航路证据不代表取得支线航页。
 11. 第13阶段第31–36章的重复日期调查、镜面退出机关、七重梦庭、玄璃自主身份与疗养院分批醒转设计见 `data/phase13_act06_production_plan.json`；内容仍未接入地图与运行器。
 12. 第14阶段第37–42章的返乡、诺依救援、历史双证词、根系空门和根忆灯见证规范见 `data/phase14_act07_production_plan.json`；尚未注册地图事件。
-13. 归档交付每批必须同时更新JSON、正式阅读稿、此索引与静态测试；禁止在版本号不明时只引用旧Markdown内容。
+13. 第15阶段第55–60章城镇重建、公会委托、维莎听证、志愿防卫和12社区灯网节点制作规格参见 `data/phase15_act10_production_plan.json`；只有 `ch060.resolve` 正式设置 `world.distributed_network`，不得据此自动解锁结局C。
+14. 归档交付每批必须同时更新JSON、正式阅读稿、此索引与静态测试；禁止在版本号不明时只引用旧Markdown内容。
 
 ## 校验入口
 

@@ -1,0 +1,295 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_oaths_01",
+  "building_id": "quest__sq_life_04",
+  "name": "三誓旗语观察室",
+  "status": "phase19_6_individual_walkable_life_quest_scene_existing_art",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        31,
+        9,
+        43,
+        41
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        18,
+        12,
+        35,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        39,
+        13,
+        54,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        25,
+        23,
+        48,
+        28
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        26,
+        30,
+        47,
+        38
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        24,
+        17,
+        48,
+        24
+      ],
+      "tile_row": 5
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        30,
+        17,
+        30,
+        19
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        45,
+        15,
+        45,
+        17
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        32,
+        28,
+        32,
+        30
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        45,
+        30,
+        46,
+        30
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        36,
+        38,
+        41
+      ],
+      "tile_row": 3
+    }
+  ],
+  "points": {
+    "spawn": [
+      36,
+      37
+    ],
+    "exit": [
+      36,
+      40
+    ],
+    "service": [
+      24,
+      18
+    ],
+    "storage": [
+      49,
+      19
+    ]
+  },
+  "quest_points": [
+    [
+      24,
+      20
+    ],
+    [
+      47,
+      23
+    ],
+    [
+      28,
+      34
+    ]
+  ],
+  "features": [
+    {
+      "kind": "beacon",
+      "cell": [
+        23,
+        16
+      ],
+      "name": "证言：旗手"
+    },
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        49,
+        22
+      ],
+      "name": "被误读的旗语的现场证据"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        27,
+        33
+      ],
+      "name": "被误读的旗语的后续记录"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        13
+      ],
+      "name": "三誓旗语观察室灯位"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        41,
+        32
+      ],
+      "name": "三誓旗语观察室生活陈设"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        43,
+        34
+      ],
+      "name": "三誓旗语观察室档案匣"
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "life_lamp_a",
+      "cell": [
+        36,
+        13
+      ],
+      "scale": 1.25,
+      "energy": 0.72
+    },
+    {
+      "id": "life_lamp_b",
+      "cell": [
+        36,
+        30
+      ],
+      "scale": 1.4,
+      "energy": 0.54
+    }
+  ],
+  "script_quest_id": "sq_life_04",
+  "scene_kind": "life_indoor",
+  "unique_scene_seed": 104,
+  "art_profile": "quest_research_v1",
+  "room_day_tint": "d0d2e0",
+  "room_night_tint": "807a8c",
+  "art_collision_cells": [
+    [
+      26,
+      16
+    ],
+    [
+      44,
+      24
+    ]
+  ],
+  "visuals": [
+    {
+      "id": "life_furn_a_sq_life_04",
+      "asset": "guild_noticeboard",
+      "cell": [
+        26,
+        16
+      ],
+      "offset": [
+        0,
+        -45
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_furn_b_sq_life_04",
+      "asset": "tideway_chart",
+      "cell": [
+        44,
+        24
+      ],
+      "offset": [
+        0,
+        -50
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_wall_c_sq_life_04",
+      "asset": "bookshelf",
+      "cell": [
+        36,
+        10
+      ],
+      "offset": [
+        0,
+        -44
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "life_rug_sq_life_04",
+      "asset": "rug",
+      "cell": [
+        36,
+        34
+      ],
+      "offset": [
+        0,
+        -10
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_direction": {
+    "location": "三誓关卡",
+    "theme": "被误读的旗语",
+    "source": "existing SVG artwork in unique region-correct V4 layout",
+    "final_handpainted": false
+  }
+}

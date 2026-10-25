@@ -80,8 +80,8 @@ func _run() -> void:
     game.progress.rpg["world"]["bound_chapter"] = 5
     game._enter_location()
     check(game.world.map_profile.get("id","")=="map_coast_02","travel to authored port sector")
-    check(game.world.nodes.has("story_stage_0") and game.world.nodes["story_stage_0"].visible,
-        "original quest now appears at assigned map")
+    check(game.world.nodes.has("questdoor:sq_page_01"),
+        "canonical quest is represented by a physical independent room entrance")
     var source: String = "sq_page_01"
     var a: String = source + ".p17.a.followup"
     game.progress.flags["side."+source+".done"] = true
@@ -93,6 +93,13 @@ func _run() -> void:
     check(game.atlas.small_view.quest_destination=="map_coast_02","minimap destination bound")
     check(game.branch_runtime.eligible(a),"authored A path eligible on coast sector")
     check(not game.branch_runtime.eligible(source+".p17.b.followup"),"B route locked")
+    if game.world.nodes.has("questdoor:"+source):
+        game.world.hero.position = game.world.nodes["questdoor:"+source].position
+        game.world.interact()
+    check(game.world.interior_building=="quest__"+source,
+        "tracked branch requires entry into its own authored research room")
+    check(game.world.terrain_layout.get("quest_points",[]).size()==3,
+        "interior preserves three authored physical investigation locations")
 
     var position_history: Array[Vector2i] = []
     var original_gold: int = game.progress.gold

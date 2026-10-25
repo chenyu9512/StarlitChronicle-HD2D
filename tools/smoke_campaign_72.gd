@@ -58,6 +58,19 @@ func _run() -> void:
         if chapter == 72:
             _touch("resolve")
             _dialog()
+            if game.ui.choosing:
+                var ending_buttons: Array[Node] = game.ui.choice_area.get_children()
+                if ending_buttons.is_empty():
+                    failures.append("No ending choice in final scene.")
+                else:
+                    var ending_choice: Button = ending_buttons[0] as Button
+                    if ending_choice.disabled:
+                        failures.append("Standard A ending is incorrectly locked.")
+                    else:
+                        ending_choice.pressed.emit()
+                        _dialog()
+            else:
+                failures.append("Final A/B/C choice never opened.")
         if not bool(game.progress.flags.get("story.ch%03d.done" % chapter,false)):
             failures.append("Chapter %d completion flag missing." % chapter)
             break

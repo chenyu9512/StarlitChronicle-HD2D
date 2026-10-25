@@ -308,6 +308,8 @@ func show_choices(choice_data: Dictionary) -> void:
             continue
         var item: Dictionary = option
         var button := _button(str(item.get("label", "继续")), 18)
+        button.disabled = bool(item.get("locked", false))
+        button.tooltip_text = str(item.get("locked_reason", ""))
         button.pressed.connect(func() -> void:
             choosing = false
             choice_area.hide()

@@ -8,6 +8,7 @@ const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
 const RPGCore = preload("res://scripts/rpg_core.gd")
 const RPGMenu = preload("res://scripts/rpg_menu.gd")
+const EndingDirector = preload("res://scripts/ending_director.gd")
 var progress
 var catalog
 var world
@@ -16,6 +17,9 @@ var battle
 var cheat
 var game_core
 var adventure_menu
+var ending_director
+var ending_replay_id: String = ""
+var ending_replay_scene: int = 0
 var busy: bool = true
 var paused_for_dialogue: bool = false
 var pending: String = ""
@@ -29,6 +33,7 @@ var active_story_side: Dictionary = {}
 func _ready() -> void:
     progress = StateScript.new()
     game_core = RPGCore.new()
+    ending_director = EndingDirector.new()
     var side_file: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/first_act_side_quests.json"))
     if side_file is Dictionary:
         for row in side_file.get("quests", []):
@@ -56,6 +61,7 @@ func _ready() -> void:
     adventure_menu = RPGMenu.new()
     add_child(adventure_menu)
     adventure_menu.closed.connect(_return_to_world)
+    adventure_menu.replay_ending_requested.connect(_replay_ending)
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -80,6 +86,11 @@ func _start(continue_game: bool) -> void:
         progress.save()
     game_core.bind(progress)
     _enter_location()
+    if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete", false)):
+        if str(progress.rpg.get("ending_id", "")).is_empty():
+            _begin_ending_choice()
+        else:
+            _play_ending_scene()
 
 func _enter_location() -> void:
     game_core.register_chapter(progress.chapter)
@@ -127,6 +138,8 @@ func _objective() -> String:
         1: return prefix + (" · 调查线索" if progress.task_index == 0 else " · 询问目击者")
         2: return prefix + (" · 迎战敌人" if progress.task_index == 1 else " · 前往冲突现场")
         3: return prefix + " · 返回归航点，完成本章"
+    if progress.chapter == 72 and progress.scene_index == 4:
+        return "最后的抉择 · 前往归航灯坛，见证世界的未来"
     return "探索旅途中的秘密"
 
 func _focus() -> void:
@@ -180,7 +193,7 @@ func _interact(target: String) -> void:
         _story_side_interact(target)
         return
     if progress.chapter == 72 and bool(progress.flags.get("story.complete", false)):
-        ui.show_message("第一幕已结束。潮歌灯仍照亮着归航之路。")
+        ui.show_message("结局已经完成。可从「功能手册 → 结局档案」回看后日谈。")
         return
     if target != _target():
         ui.show_message("当前目标：" + _objective())
@@ -202,7 +215,7 @@ func _interact(target: String) -> void:
             else:
                 _present("crisis")
         3: _present("resolve")
-        4: _present("resolve")
+        4: _present("ending_intro")
 
 func _story_side_interact(target: String) -> void:
     var quest: Dictionary = game_core.available_story_side(progress.chapter)
@@ -327,6 +340,12 @@ func _dialogue_ended() -> void:
             return
         "story_side_branch":
             active_story_side = {}
+        "ending_intro":
+            _begin_ending_choice()
+            return
+        "ending_epilogue":
+            _finish_ending_scene()
+            return
         "side_accept":
             progress.flags[_side_flag("accepted")] = true
         "side_found":
@@ -351,6 +370,9 @@ func _dialogue_ended() -> void:
     _return_to_world()
 
 func _choice_picked(item: Dictionary) -> void:
+    if pending == "ending_select":
+        _choose_ending(item)
+        return
     if pending == "story_side_choice":
         _finish_story_side(item)
         return
@@ -454,10 +476,7 @@ func _complete_chapter() -> void:
     if last == 6:
         progress.flags["world.seven_lanterns.first"] = true
     if last == 72:
-        progress.flags["story.complete"] = true
-        _save_progress()
-        _enter_location()
-        ui.show_message("终章已完成！星灯的故事在此落幕。")
+        _begin_ending_choice()
         return
     progress.chapter += 1
     progress.scene_index = 0
@@ -470,6 +489,95 @@ func _complete_chapter() -> void:
         ui.show_message(newcomer)
     var next_chapter: Dictionary = catalog.get_chapter("ch%03d" % progress.chapter)
     ui.show_message("第%d章 · %s" % [progress.chapter, str(next_chapter.get("title", "新的旅程"))])
+
+func _begin_ending_choice() -> void:
+    if progress.chapter != 72:
+        return
+    var final_scene: Dictionary = _current_scene()
+    var raw_choice: Dictionary = final_scene.get("choice", {})
+    if raw_choice.is_empty():
+        push_error("第72章命运抉择数据缺失")
+        return
+    var choices: Dictionary = ending_director.choices(raw_choice, progress.flags)
+    pending = "ending_select"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_choices(choices)
+
+func _choose_ending(option: Dictionary) -> void:
+    var id: String = str((option.get("sets", {}) as Dictionary).get("world.ending", ""))
+    if not ending_director.can_choose(id, progress.flags):
+        _begin_ending_choice()
+        return
+    progress.flags["world.ending"] = id
+    progress.rpg["ending_id"] = id
+    progress.rpg["ending_scene_index"] = 0
+    progress.rpg["ending_complete"] = false
+    var quests: Dictionary = progress.rpg.get("quests", {})
+    quests["quest_main_072"] = true
+    progress.rpg["quests"] = quests
+    _save_progress()
+    _play_ending_scene()
+
+func _play_ending_scene() -> void:
+    var id: String = ending_replay_id if not ending_replay_id.is_empty() else str(progress.rpg.get("ending_id", ""))
+    var index: int = ending_replay_scene if not ending_replay_id.is_empty() else int(progress.rpg.get("ending_scene_index", 0))
+    var scene: Dictionary = ending_director.scene(id, index)
+    if scene.is_empty():
+        if ending_replay_id.is_empty():
+            _finalize_ending()
+        else:
+            ending_replay_id = ""
+            ending_replay_scene = 0
+            pending = ""
+            paused_for_dialogue = false
+            _return_to_world()
+            ui.show_message("结局回放完毕。")
+        return
+    pending = "ending_epilogue"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    var lines: Array = scene.get("dialogue", [])
+    ui.show_dialogue(lines)
+
+func _finish_ending_scene() -> void:
+    if not ending_replay_id.is_empty():
+        ending_replay_scene += 1
+        _play_ending_scene()
+        return
+    progress.rpg["ending_scene_index"] = int(progress.rpg.get("ending_scene_index", 0)) + 1
+    _save_progress()
+    _play_ending_scene()
+
+func _finalize_ending() -> void:
+    var id: String = str(progress.rpg.get("ending_id", ""))
+    if ending_director.details(id).is_empty():
+        push_error("不能保存无效结局：" + id)
+        return
+    progress.flags["story.ch072.done"] = true
+    progress.flags["story.complete"] = true
+    progress.rpg["ending_complete"] = true
+    var archive: Dictionary = progress.rpg.get("ending_archive", {})
+    archive[id] = true
+    progress.rpg["ending_archive"] = archive
+    progress.scene_index = 5
+    progress.task_index = 0
+    pending = ""
+    paused_for_dialogue = false
+    _save_progress()
+    _enter_location()
+    ui.show_message("《%s》完成！结局已经记录于「功能手册 → 结局档案」。" % ending_director.title(id))
+
+func _replay_ending(id: String) -> void:
+    var archive: Dictionary = progress.rpg.get("ending_archive", {})
+    if not bool(archive.get(id, false)) or ending_director.details(id).is_empty():
+        return
+    adventure_menu.close_menu()
+    ending_replay_id = id
+    ending_replay_scene = 0
+    _play_ending_scene()
 
 func _save_progress() -> void:
     if not progress.save():

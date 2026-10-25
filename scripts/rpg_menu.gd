@@ -1,8 +1,9 @@
 extends CanvasLayer
 ## 手机和桌面通用的大功能栏：十二个栏目均提供有用的数据或操作。
 signal closed()
+signal replay_ending_requested(id: String)
 const Core = preload("res://scripts/rpg_core.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","图鉴","商店","锻造","设置"]
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","世界地图","图鉴","商店","锻造","结局档案","设置"]
 var manager
 var save_state
 var root: Control
@@ -241,6 +242,17 @@ func render(section: String) -> void:
                     _button(content,"锻造 "+str(entry.get("name",id)),func() -> void: _apply(manager.forge(id)))
             if not possible:
                 _label("收集两把相同武器后，这里会显示可操作配方。")
+        "结局档案":
+            _label("命运之书 · 已解锁结局",true)
+            var archive: Dictionary = save_state.rpg.get("ending_archive", {})
+            for ending_id in ["A","B","C"]:
+                var eid: String = str(ending_id)
+                var ending_name: String = {"A":"守灯之世","B":"无灯之晨","C":"万家星灯"}[eid]
+                if bool(archive.get(eid, false)):
+                    _button(content,"▶ 回放 %s · %s" % [eid,ending_name],func() -> void: replay_ending_requested.emit(eid))
+                else:
+                    _label("🔒 %s · %s（未解锁）" % [eid,ending_name])
+            _label("结局的四段完整后日谈会在第72章的最终抉择后保存，可在此回放。")
         "设置":
             _label("系统与存档",true)
             _button(content,"立即保存",func() -> void: _apply("已写入存档。" if save_state.save() else "存档写入失败。"))

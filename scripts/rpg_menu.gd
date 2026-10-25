@@ -202,11 +202,18 @@ func render(section: String) -> void:
         "职业":
             _label("二十职业转职（保留经验/装备）",true)
             _select_actor()
-            _label("当前职业："+manager.job_name(str(save_state.rpg["jobs"].get(member,""))))
+            var current_job: String = str(save_state.rpg["jobs"].get(member,"swordsman"))
+            var current_rank: Dictionary = manager.job_record(member,current_job)
+            _label("当前职业："+manager.job_name(current_job)+" · 熟练 %d阶 / 8阶 · %d职业经验" % [int(current_rank.get("rank",1)),int(current_rank.get("xp",0))])
+            _label("基础职业随时可转；第13章起通过熟练度解锁高级职业，第49章起可解锁终阶职业。")
             for job in manager.jobs.keys():
                 var job_id: String = str(job)
                 var row: Dictionary = manager.jobs[job]
-                _button(content,str(row.get("name",job_id))+"  /  "+str(row.get("role","")),func() -> void: _apply(manager.change_job(member,job_id)),15)
+                var reason: String = manager.job_unlock_reason(member,job_id)
+                if reason.is_empty():
+                    _button(content,"%s / 熟练%d阶 / %s" % [str(row.get("name",job_id)),manager.job_rank(member,job_id),str(row.get("role",""))],func() -> void: _apply(manager.change_job(member,job_id)),15)
+                else:
+                    _label("🔒 "+str(row.get("name",job_id))+" · "+reason)
         "任务":
             _label("主线 · 第%d章 %s" % [save_state.chapter,manager.chapter_name(save_state.chapter)],true)
             _label("任务进度按对话、线索和战斗实体事件写入，不接受无条件直接领取奖励。")

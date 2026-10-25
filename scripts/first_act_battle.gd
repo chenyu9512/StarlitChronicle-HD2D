@@ -159,6 +159,7 @@ func _build() -> void:
     _button(commands, "⚔ 攻击", "attack")
     _button(commands, "✧ 技能", "skill")
     _button(commands, "◇ 防御", "guard")
+    _button(commands, "✦ 聚星", "charge")
     _button(commands, "✚ 药草", "potion")
     var special_name: String = "✦ 拆除星锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else "✦ 识破弱点")
     special_button = _button(commands, special_name, "special")
@@ -342,6 +343,9 @@ func _act(action: String) -> void:
                     var base: int = maxi(3,combat_attack + power - int(enemy["def"]))
                     damage = combat_rules.elemental_damage(base,str(chosen.get("element","")),str(enemy.get("weakness","")),str(enemy.get("element","")))
                     message = "%s 发动%s，造成%d伤害%s" % [name,label,damage,"！ 触发弱点！" if str(chosen.get("element","")) == str(enemy.get("weakness","")) else "。"]
+        "charge":
+            var stack: int = combat_rules.charge(str(member.get("id","")))
+            message = "%s 凝聚星辉（%d/3），下一次攻击威力提高！" % [name,stack]
         "guard":
             defense[hero_turn] = true
             message = "%s 严阵以待，本回合受到的伤害降低。" % name
@@ -379,6 +383,7 @@ func _act(action: String) -> void:
     if not healed_via_skill:
         game_state.actors[hero_turn] = member
     if damage > 0:
+        damage = combat_rules.release_charge(str(member.get("id","")),damage)
         if boss and chapter == 5:
             # 古兽的剧情结局是卸下星锁，而不是杀死生命体。
             chain_hp = maxi(0, chain_hp - maxi(4, int(float(damage) * 0.45)))
@@ -458,7 +463,7 @@ func _redraw(message: String) -> void:
             continue
         var current: String = "[color=#f9d58b]▶ " if i == hero_turn else "[color=#c9e4eb]"
         var status: Dictionary = combat_rules.actor_effects.get(str(member.get("id","")),{})
-        var buffs: String = (" ✦增强" if int(status.get("attack_turns",0)) > 0 else "") + (" ◈护盾" if int(status.get("shield_turns",0)) > 0 else "")
+        var buffs: String = (" ✦增强" if int(status.get("attack_turns",0)) > 0 else "") + (" ◈护盾" if int(status.get("shield_turns",0)) > 0 else "") + (" ★聚星%d" % int(status.get("star_charge",0)) if int(status.get("star_charge",0)) > 0 else "")
         lines.append("%s%s  Lv.%d   HP %d/%d  MP %d/%d%s[/color]" % [current, str(member["name"]), int(member["level"]), int(member["hp"]), int(member["max_hp"]), int(member["mp"]), int(member["max_mp"]),buffs])
     party_info.text = "    ".join(lines)
 

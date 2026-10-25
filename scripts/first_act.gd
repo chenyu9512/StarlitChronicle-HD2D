@@ -555,13 +555,16 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         battle = null
     if won:
         var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
+        var job_levels: Array[String] = game_core.award_job_xp(maxi(5,int(xp / 5)),battle_is_boss)
         game_events.record("battle_victory",{"boss":battle_is_boss,"xp":xp,"gold":money})
         var loot: Array[String] = game_core.roll_monster_loot(defeated_monster)
         if battle_is_boss:
             progress.flags["ch%03d.battle_won" % progress.chapter] = true
             _advance_scene()
+            if not job_levels.is_empty():
+                ui.show_message("职业提升：" + "；".join(job_levels))
         else:
-            ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s%s" % [xp * (5 if five_xp else 1), money, "，".join(levels), (" 掉落："+ "、".join(loot) if not loot.is_empty() else "")])
+            ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s%s" % [xp * (5 if five_xp else 1), money, "，".join(levels)+"；".join(job_levels), (" 掉落："+ "、".join(loot) if not loot.is_empty() else "")])
     else:
         progress.gold = maxi(0, progress.gold - 15)
         progress.heal_all()

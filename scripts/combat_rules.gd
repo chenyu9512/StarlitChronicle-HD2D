@@ -34,6 +34,24 @@ func shield(id: String, turns: int = 2) -> void:
     status["shield_turns"] = maxi(int(status.get("shield_turns",0)),turns)
     actor_effects[id] = status
 
+func charge(id: String) -> int:
+    var status: Dictionary = actor_effects.get(id,{})
+    status["star_charge"] = mini(3,int(status.get("star_charge",0))+1)
+    actor_effects[id] = status
+    return int(status["star_charge"])
+
+func charge_level(id: String) -> int:
+    return int((actor_effects.get(id,{}) as Dictionary).get("star_charge",0))
+
+func release_charge(id: String, raw: int) -> int:
+    var status: Dictionary = actor_effects.get(id,{})
+    var stacks: int = int(status.get("star_charge",0))
+    if stacks > 0 and raw > 0:
+        status["star_charge"] = 0
+        actor_effects[id] = status
+        return roundi(raw*(1.0+0.35*stacks))
+    return raw
+
 func attack_bonus(id: String) -> int:
     var status: Dictionary = actor_effects.get(id,{})
     return int(status.get("attack_bonus",0)) if int(status.get("attack_turns",0)) > 0 else 0

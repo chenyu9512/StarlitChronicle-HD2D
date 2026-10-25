@@ -33,7 +33,7 @@ func bind(progress) -> void:
                     quest_ids[id] = true
     if not (state.rpg is Dictionary):
         state.rpg = {}
-    for key in ["equipment","jobs","quests","regions","discovered","settings","narrative_side"]:
+    for key in ["equipment","jobs","quests","regions","discovered","settings","narrative_side","mastery"]:
         if not (state.rpg.get(key) is Dictionary):
             state.rpg[key] = {}
     if not (state.rpg.get("selected_story_quest") is String):
@@ -64,6 +64,12 @@ func register_actor(id: String) -> void:
         state.rpg["equipment"][id] = {}
     if not state.rpg["jobs"].has(id):
         state.rpg["jobs"][id] = "healer" if id == "char_tidecaller" else ("ranger" if id == "char_seeker" else "swordsman")
+    var mastery: Dictionary = state.rpg["mastery"]
+    if not mastery.get(id) is Dictionary:
+        mastery[id] = {}
+    var current_job: String = str(state.rpg["jobs"][id])
+    if not (mastery[id] as Dictionary).get(current_job) is Dictionary:
+        mastery[id][current_job] = {"rank":1,"xp":0}
     var party: Array = state.rpg["party"]
     if id not in party and party.size() < 4:
         party.append(id)
@@ -109,6 +115,10 @@ func gear_stats(id: String) -> Dictionary:
     var actor: Dictionary = state.actors[idx]
     var result: Dictionary = {"attack":int(actor.get("attack",0)),"defense":int(actor.get("defense",0)),"magic":0,"speed":int(actor.get("speed",0)),"max_hp":int(actor.get("max_hp",0)),"max_mp":int(actor.get("max_mp",0))}
     var slots: Dictionary = state.rpg["equipment"].get(id,{})
+    var current_job: String = str(state.rpg["jobs"].get(id,"swordsman"))
+    var mastery_rank: int = job_rank(id,current_job)
+    result["attack"] += maxi(0,mastery_rank-1)*2
+    result["defense"] += maxi(0,mastery_rank-1)
     for slot in slots:
         var object: Dictionary = entry("weapons",str(slots[slot])) if str(slot) == "weapon" else entry("armor",str(slots[slot]))
         for stat in ["attack","defense","magic"]:
@@ -215,11 +225,73 @@ func use_item(id: String, actor_id: String) -> String:
     take_item(id,1)
     return "使用了 " + display_name(id)
 
+func job_record(id: String, job: String) -> Dictionary:
+    var actor_jobs: Dictionary = state.rpg["mastery"].get(id,{})
+    return actor_jobs.get(job,{"rank":1,"xp":0})
+
+func job_rank(id: String, job: String) -> int:
+    return int(job_record(id,job).get("rank",1))
+
+func job_unlock_reason(id: String, job: String) -> String:
+    if not jobs.has(job):
+        return "未知职业"
+    var tier: String = str(jobs[job].get("tier","basic"))
+    if tier == "basic":
+        return ""
+    var record: Dictionary = state.rpg["mastery"].get(id,{})
+    if tier == "advanced":
+        if state.chapter < 13:
+            return "第13章后开放"
+        var mastered: int = 0
+        for current in record:
+            if str(jobs.get(current,{}).get("tier","")) == "basic" and int(record[current].get("rank",1)) >= 3:
+                mastered += 1
+        return "" if mastered >= 2 else "需两个基础职业达到3阶"
+    if tier == "ultimate":
+        if state.chapter < 49:
+            return "第49章后开放"
+        for current in record:
+            if str(jobs.get(current,{}).get("tier","")) == "advanced" and int(record[current].get("rank",1)) >= 5:
+                return ""
+        return "需一个高级职业达到5阶"
+    return ""
+
 func change_job(id: String, job: String) -> String:
     if actor_index(id) < 0 or not jobs.has(job):
         return "职业不可用。"
+    var reason: String = job_unlock_reason(id,job)
+    if not reason.is_empty():
+        return "尚未解锁：" + reason
     state.rpg["jobs"][id] = job
+    var roster: Dictionary = state.rpg["mastery"].get(id,{})
+    if not roster.has(job):
+        roster[job] = {"rank":1,"xp":0}
+    state.rpg["mastery"][id] = roster
     return "已转职：" + str(jobs[job].get("name",job))
+
+func award_job_xp(points: int, boss_victory: bool = false) -> Array[String]:
+    var levels: Array[String] = []
+    if points <= 0:
+        return levels
+    for actor in state.actors:
+        var id: String = str(actor.get("id",""))
+        if id not in state.rpg["party"] or int(actor.get("hp",0)) <= 0:
+            continue
+        var job: String = str(state.rpg["jobs"].get(id,"swordsman"))
+        var roster: Dictionary = state.rpg["mastery"].get(id,{})
+        var rank: Dictionary = roster.get(job,{"rank":1,"xp":0})
+        rank["xp"] = int(rank.get("xp",0)) + points + (25 if boss_victory else 0)
+        while int(rank.get("rank",1)) < 8:
+            var needed: int = 20 + int(rank["rank"])*int(rank["rank"])*15
+            if int(rank["xp"]) < needed:
+                break
+            rank["xp"] = int(rank["xp"]) - needed
+            rank["rank"] = int(rank["rank"]) + 1
+            levels.append(str(actor.get("name",""))+"的"+job_name(job)+"熟练度升至"+str(rank["rank"])+"阶")
+        roster[job] = rank
+        state.rpg["mastery"][id] = roster
+    return levels
+
 
 func job_name(id: String) -> String:
     return str((jobs.get(id,{}) as Dictionary).get("name",id))

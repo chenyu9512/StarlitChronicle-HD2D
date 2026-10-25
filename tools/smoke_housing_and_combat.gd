@@ -72,8 +72,22 @@ func _run() -> void:
     rules.tick_round()
     require(rules.attack_bonus("hero") == 0,"Buff did not expire")
     require(rules.enemy_intent(3,false,true).get("label","") == "蓄力重击","Boss intent cycle missing")
+    require(rules.charge("hero") == 1 and rules.charge("hero") == 2,"Star-charge did not accumulate")
+    require(rules.release_charge("hero",100) == 170,"Two-stack star-charge damage incorrect")
+    require(rules.charge_level("hero") == 0,"Star-charge did not clear after attack")
     var core = RPG.new()
     core.bind(state)
+    var hero_id: String = "char_wayfarer"
+    require(not core.job_unlock_reason(hero_id,"star_knight").is_empty(),"Advanced career unlocked without prerequisites")
+    require(core.change_job(hero_id,"guardian").begins_with("已转职"),"Basic job change broken")
+    core.award_job_xp(500,true)
+    require(core.job_rank(hero_id,"guardian") >= 3,"Job mastery did not rank up from victory")
+    require(core.change_job(hero_id,"swordsman").begins_with("已转职"),"Returning to base job failed")
+    core.award_job_xp(500,true)
+    state.chapter = 13
+    require(core.job_unlock_reason(hero_id,"star_knight").is_empty(),"Advanced job prerequisites did not unlock")
+    require(core.change_job(hero_id,"star_knight").begins_with("已转职"),"Unlocked advanced job cannot be selected")
+    require(not core.job_unlock_reason(hero_id,"oath_keeper").is_empty(),"Ultimate career unlocked too early")
     var battle = Battle.new()
     root.add_child(battle)
     battle.game_core = core

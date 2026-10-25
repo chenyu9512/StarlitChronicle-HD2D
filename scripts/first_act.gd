@@ -1142,8 +1142,19 @@ func _random_encounter() -> void:
 func _battle_finished(won: bool, xp: int, money: int) -> void:
     var defeated_monster: String = str(battle.enemy.get("monster_id","")) if is_instance_valid(battle) else ""
     if is_instance_valid(battle):
-        battle.queue_free()
+        # Keep the final hit and victory glow visible; battle rules/rewards still settle now.
+        # The old battle has locked all commands and blocks world input until its outro ends.
+        var departing_battle: Node = battle
         battle = null
+        var setting_rows: Dictionary = progress.rpg.get("settings",{})
+        var outro_seconds: float = clampf(float(setting_rows.get("battle_outro_seconds",0.72)),0.0,1.5)
+        if outro_seconds <= 0.0:
+            departing_battle.queue_free()
+        else:
+            get_tree().create_timer(outro_seconds).timeout.connect(func() -> void:
+                if is_instance_valid(departing_battle):
+                    departing_battle.queue_free()
+            )
     if won and battle_is_boss:
         cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
     if won:

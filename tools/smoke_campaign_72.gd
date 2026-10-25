@@ -51,6 +51,8 @@ func _run() -> void:
                 break
             var b: Button = buttons[0] as Button
             b.pressed.emit()
+            if game.pending == "choice_reaction":
+                _dialog()
         if game.battle != null:
             game.battle._finish(true)
         _touch("resolve")

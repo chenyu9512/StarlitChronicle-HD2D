@@ -235,6 +235,8 @@ func _play_story_cinematic(cue_id: String,resume: String) -> bool:
     if cue.is_empty() or not cinematic.start(cue_id,cue):
         return false
     cinematic_resume=resume
+    if progress.chapter==0 and cue_id.begins_with("prologue_"):
+        world.set_prologue_phase(progress.scene_index,progress.chapter)
     progress.rpg["cinematic_checkpoint"]=cue_id
     _save_progress()
     busy=true
@@ -302,6 +304,7 @@ func _enter_location() -> void:
             saved_world.erase("indoor_building")
             saved_world.erase("outdoor_return")
     world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
+    world.set_prologue_phase(progress.scene_index,progress.chapter)
     world.locked = false
     busy = false
     pending = ""
@@ -854,6 +857,7 @@ func _dialogue_ended() -> void:
         "prologue":
             _apply_effects(_current_scene())
             progress.scene_index += 1
+            world.set_prologue_phase(progress.scene_index,progress.chapter)
             if progress.scene_index >= 9:
                 progress.chapter = 1
                 progress.scene_index = 0

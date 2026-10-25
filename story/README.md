@@ -50,6 +50,10 @@
 
 已为8名伙伴各6条个人任务写出A/B路线，合计48条任务、96条独立后续、288场候选互动、864句新增对白；另写出A/B/C三结局下结合末次个人任务路线的48场条件化尾声（144句）。全部候选场景仍未注册运行器，不覆盖原4阶段任务、旧存档和结局解锁规则。第17与18阶段累计120/120条支线都有长期A/B补充文本。详见 [第18阶段交付报告](PHASE_18_COMPANION_DELIVERY.md)、[伙伴A/B全量阅读稿](screenplay/phase18_companion_all_branches.md)、[伙伴结局专属尾声](screenplay/phase18_companion_endings.md) 和 [事件契约](data/phase18_companion_manifest.json)。下一步进入第19阶段实装剧情与地图事件。
 
+## 第19阶段第一批｜剧情状态机与存档实装（2026-10-25）
+
+已将第17–18阶段120条任务共720场A/B后续剧情与48场伙伴尾声接入 `scripts/story_branch_runtime.gd`，提供选择锁、跨章顺序、看过标记、中断恢复、旧V3存档兼容；主游戏内可通过「功能手册 → 剧情后续」临时入口触发真正的对白演出。**剧情状态机可运行不等于地图完成**：下一批仍需为NPC/交互物件注册真实位置、场景行动、天气与时间窗口。验收详情见 [第19-1批交付报告](PHASE_19_BATCH01_RUNTIME_DELIVERY.md)，核心测试入口为 `tools/smoke_branch_story_phase19.gd`。
+
 ## 仓库中的实际状态
 - `story/campaign/act_01.json` 至 `act_12.json`：72章、每章四个基本场景（开场/调查/冲突/收束），最终章额外结局节点，共289个场景。每一章都有对白ID、NPC发言人、任务目标、条件、完成标志、奖励；Boss章节含战斗触发元数据。
 - `story/campaign/prologue.json`：童年星灯祭九场可编排事件，建立澄舟失踪及主角未被记录的秘密。

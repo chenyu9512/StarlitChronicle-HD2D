@@ -13,6 +13,8 @@ var _idle_atlas: AtlasTexture
 var _idle_clock: float = 0.0
 var _idle_frame: int = -1
 var _hit_timer: float = 0.0
+var _visual_hit_stop: float = 0.0
+var _screen_flash: float = 0.0
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -47,7 +49,10 @@ func _set_idle_frame(index: int) -> void:
 
 func _process(delta: float) -> void:
     var step: float = minf(delta, 0.1)
-    _idle_clock += step
+    _visual_hit_stop = maxf(0.0,_visual_hit_stop-step)
+    if _visual_hit_stop <= 0.0:
+        _idle_clock += step
+    _screen_flash = maxf(0.0,_screen_flash-step)
     _hit_timer = maxf(0.0, _hit_timer - step)
     if is_instance_valid(_enemy_sprite):
         _enemy_sprite.pivot_offset = _enemy_sprite.size * 0.5
@@ -92,6 +97,24 @@ func _element_color(element: String) -> Color:
         "圣", "holy": return Color("fff3bb")
         "土", "earth": return Color("d7ad75")
         _: return Color("ffe3a4")
+
+func play_windup(origin: Vector2, element: String = "") -> void:
+    _emit("rune",origin,_element_color(element),0.24)
+
+func play_warning(target: Vector2, label: String) -> void:
+    _emit("warning",target,Color("ff9f73"),1.45)
+    _emit("text",target+Vector2(0,-86),Color("ffe1ad"),1.35,"预警·"+label)
+
+func play_hit_marker(target: Vector2, damage: int, element: String = "") -> void:
+    _emit("burst",target,_element_color(element),0.36)
+    _emit("text",target+Vector2(0,-36),Color("ffefc8"),0.66,str(damage))
+
+func play_impact_feedback(intensity: float = 0.4) -> void:
+    if reduced_motion:
+        return
+    _visual_hit_stop = maxf(_visual_hit_stop,0.050+0.025*clampf(intensity,0.0,1.0))
+    _screen_flash = maxf(_screen_flash,0.09*clampf(intensity,0.0,1.0))
+    queue_redraw()
 
 func play_attack(target: Vector2, damage: int) -> void:
     _hit_timer = 0.23
@@ -179,6 +202,8 @@ func play_victory(target: Vector2) -> void:
     _emit("shockwave",target,Color("ffebb3"),0.76)
 
 func _draw() -> void:
+    if _screen_flash > 0.0 and not reduced_motion:
+        draw_rect(Rect2(Vector2.ZERO,size),Color(1.0,0.96,0.85,clampf(_screen_flash*1.4,0.0,0.15)))
     for effect in effects:
         var life: float = clampf(float(effect["age"]) / float(effect["duration"]),0.0,1.0)
         var opacity: float = 1.0 - life
@@ -263,6 +288,13 @@ func _draw() -> void:
                     var angle: float = TAU*float(i)/10.0
                     var dir: Vector2 = Vector2(cos(angle),sin(angle))
                     draw_line(center+dir*radius*0.30,center+dir*radius*(1.15 if i%2 == 0 else 0.75),ink,3.0*opacity+0.4,true)
+            "warning":
+                var oscillation: float = 0.85 + 0.15*sin(life*TAU*7.0)
+                draw_arc(center,radius*1.40,0.0,TAU,60,ink,5.0*oscillation*opacity+0.8,true)
+                for i in range(4):
+                    var angle: float = TAU*float(i)/4.0+PI/4.0
+                    var axis: Vector2 = Vector2(cos(angle),sin(angle))
+                    draw_line(center+axis*radius*0.75,center+axis*radius*1.7,ink,3.0*opacity+0.5,true)
             "text":
                 var font: Font = ThemeDB.fallback_font
                 var label: String = str(effect.get("label",""))

@@ -10,6 +10,7 @@ const TownLife = preload("res://scripts/world_town_life.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
 const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
+const EvidencePuzzles = preload("res://scripts/story_evidence_puzzles.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const CoastalScene = preload("res://scripts/world_coastal_scene.gd")
@@ -57,6 +58,7 @@ var story_marker_signature: String = ""
 var story_marker_positions: Dictionary = {}
 var scene_director = SceneDirector.new()
 var quest_submaps = QuestSubmaps.new()
+var evidence_puzzles = EvidencePuzzles.new()
 var interior_building: String = ""
 var interior_kind: String = ""
 var exterior_position: Vector2 = Vector2.ZERO
@@ -589,6 +591,24 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
                 _story_sprite("branchmap:"+str(chosen["id"])+":"+str(currently),role,point,name_text,
                     str(chosen.get("branch","")),str(scene_plan.get("prop","")),str(chosen.get("kind","")))
     return {"chosen":chosen,"local":local_branch,"original_here":original_here}
+
+func refresh_room_evidence(rpg: Dictionary) -> void:
+    if not interior_building.begins_with("quest__"):
+        return
+    var id: String = interior_building.trim_prefix("quest__")
+    var observed: Dictionary = rpg.get("quest_gallery",{}).get(id,{})
+    var complete: bool = evidence_puzzles.solved(rpg,id)
+    for index in range(3):
+        var marker_id: String = "questcase:"+str(index)
+        if not nodes.has(marker_id):
+            continue
+        var marker: Sprite2D = nodes[marker_id]
+        if complete and index==2:
+            marker.modulate = Color("7cecc4")
+        elif bool(observed.get(str(index),false)):
+            marker.modulate = Color("f2d68c")
+        else:
+            marker.modulate = Color("d9d9e9")
 
 func _resident_spot(target: Vector2i,used: Dictionary) -> Vector2i:
     for radius in range(0,14):

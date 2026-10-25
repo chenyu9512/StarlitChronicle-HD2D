@@ -74,6 +74,12 @@
 - [第19-5批交付报告](PHASE_19_BATCH05_ART_AND_PUZZLES.md)：12间不同室内SVG陈设、日夜灯光、108条现场识别标记和未完成的最终原画。
 - 自动测试：`tools/validate_phase19_lost_page_puzzles.py`、`tools/smoke_phase19_lost_page_puzzles.gd`；独立世界剧情专项CI已验证。
 
+## 第19阶段第六批｜19张生活场景与五处户外探索
+
+- [24条生活任务地图状态表](data/phase19_life_submaps.json)明确19张独立室内与5处保留原有自然野外事件。
+- [第19-6阶段交付报告](PHASE_19_BATCH06_LIFE_SCENES_DELIVERY.md)列出V4场景、NPC/线索、A/B运行合同及仍待制作的84条地区/伙伴实体化。
+- 实际校验脚本：`tools/validate_phase19_life_rooms.py`和`tools/smoke_phase19_life_rooms.gd`。
+
 ## 校验入口
 
 - `python tools/validate_story.py`：主线结构及数据格式。

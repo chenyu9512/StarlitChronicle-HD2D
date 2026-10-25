@@ -2,6 +2,7 @@ extends CanvasLayer
 ## Contextual town facility command panel; works with mouse, gamepad and touch.
 signal action_requested(action: String)
 signal closed()
+const TownEcology = preload("res://scripts/world_town_ecology.gd")
 const PANEL_BLUE: Color = Color("0c2137")
 const WARM_GOLD: Color = Color("e8c67c")
 var root: Control
@@ -13,6 +14,8 @@ var choices: VBoxContainer
 var feedback: Label
 var current_kind: String = ""
 var current_region: String = ""
+var current_map: String = ""
+var ecology = TownEcology.new()
 var current_title: String = ""
 
 func _ready() -> void:
@@ -102,9 +105,10 @@ func _add_note(text_value: String) -> void:
     note.add_theme_font_size_override("font_size",16)
     choices.add_child(note)
 
-func open_service(kind: String, region_id: String, title: String, state,core,life) -> void:
+func open_service(kind: String, region_id: String, title: String, state,core,life,map_id: String = "") -> void:
     current_kind=kind
     current_region=region_id
+    current_map=map_id
     current_title=title
     feedback.text=""
     root.show()
@@ -120,7 +124,12 @@ func refresh(state,core,life,message: String = "") -> void:
     match current_kind:
         "shop":
             subtitle.text="地区补给 · 价格由正式道具表计算。购买将直接写入背包。"
-            for item_id in life.town_shop_ids(current_region,core):
+            var goods: Array[String] = life.town_shop_ids(current_region,core)
+            var special: String = ecology.specialty_item(current_map,core)
+            if not special.is_empty() and special not in goods:
+                goods.append(special)
+                subtitle.text="本地特色物资 · "+str(ecology.config(current_map).get("activity","市场协作"))+"。采用正式道具表价格。"
+            for item_id in goods:
                 var info: Dictionary = core.entry("items",item_id)
                 if info.is_empty():
                     info=core.entry("weapons",item_id)

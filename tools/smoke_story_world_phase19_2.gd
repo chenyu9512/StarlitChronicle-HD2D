@@ -3,6 +3,7 @@ extends SceneTree
 ## real walkable interaction cells, branch NPC/prop/board sequence, UI and save.
 const Geo = preload("res://scripts/world_geography.gd")
 const Binder = preload("res://scripts/story_world_bindings.gd")
+const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const Game = preload("res://scripts/first_act.gd")
 const State = preload("res://scripts/first_act_state.gd")
 var errors: Array[String] = []
@@ -32,6 +33,9 @@ func reachable(layout: Dictionary) -> Dictionary:
 
 func _run() -> void:
     var binding = Binder.new()
+    var director = SceneDirector.new()
+    check(director.errors.is_empty() and director.dossiers.size()==120,
+        "all 120 quest-specific evidence/notice dossiers load")
     check(binding.errors.is_empty(),"120 quest location schema " + " / ".join(binding.errors))
     check(binding.locations.size()==120,"120 quest to sector mappings")
     var geo = Geo.new()
@@ -40,6 +44,15 @@ func _run() -> void:
     var placed: int = 0
     for id in binding.locations.keys():
         var entry: Dictionary = binding.site(str(id))
+        var authored: Dictionary = director.dossier(str(id))
+        check(str(authored.get("map_id",""))==str(entry.get("map_id","")) and
+            str(authored.get("witness_name",""))==str(entry.get("story_npc","")),
+            "evidence dossier uses the canon location and NPC: "+str(id))
+        var preview_event: Dictionary = {"title":"实地调查","branch":"a","kind":"followup","player_action":"核对现场"}
+        for dossier_step in range(3):
+            var plan: Dictionary = director.stage(str(id),preview_event,dossier_step)
+            check(not str(plan.get("label","")).is_empty() and not str(plan.get("prompt","")).is_empty(),
+                "every quest has meaningful step description "+str(id)+"#"+str(dossier_step))
         var mid: String = str(entry.get("map_id",""))
         check(not mid.begins_with("map_legacy"),"no prototype area " + str(id))
         if not cache.has(mid):

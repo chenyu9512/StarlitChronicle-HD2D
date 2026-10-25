@@ -99,6 +99,7 @@ func _run() -> void:
         game.world.interact()
         check(game.pending=="branch_field","world interaction dispatch " + str(stage))
         check(game.ui.dialog_layer.visible,"branch dialog visible " + str(stage))
+        game.ui.dialog_text.visible_characters = -1
         game.ui._next()
         if stage<2:
             check(int(game.progress.rpg["branch_story"]["active"]["line"])==stage+1,

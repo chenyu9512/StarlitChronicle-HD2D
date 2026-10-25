@@ -3,6 +3,7 @@ extends Node2D
 const WorldScript = preload("res://scripts/first_act_world.gd")
 const UIScript = preload("res://scripts/first_act_ui.gd")
 const MapScript = preload("res://scripts/map_hud.gd")
+const WorldFogV3 = preload("res://scripts/world_fog_v3.gd")
 const BattleScript = preload("res://scripts/first_act_battle.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
@@ -23,6 +24,7 @@ var catalog
 var world
 var ui
 var atlas
+var map_fog
 var battle
 var cheat
 var game_core
@@ -69,6 +71,8 @@ func _ready() -> void:
     catalog = CatalogScript.new()
     var loaded: bool = catalog.load_all()
     world = WorldScript.new()
+    map_fog = WorldFogV3.new()
+    world.fog = map_fog
     add_child(world)
     world.interacted.connect(_interact)
     world.encounter_requested.connect(_random_encounter)
@@ -159,6 +163,7 @@ func _start(continue_game: bool) -> void:
         progress.save()
     game_core.bind(progress)
     world_router.bind(progress)
+    map_fog.bind(progress)
     game_events.bind(progress)
     housing.bind(progress)
     optional_director.bind(progress)
@@ -994,6 +999,7 @@ func _load_slot(slot: int) -> void:
         return
     game_core.bind(progress)
     world_router.bind(progress)
+    map_fog.bind(progress)
     game_events.bind(progress)
     housing.bind(progress)
     optional_director.bind(progress)

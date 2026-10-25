@@ -4,6 +4,7 @@ signal closed()
 signal changed(message: String)
 var housing
 var progress
+var rpg_core
 var root: Control
 var backdrop_panel: PanelContainer
 var tiles: GridContainer
@@ -83,9 +84,10 @@ func _button(where: Node, title: String, callback: Callable) -> Button:
     b.pressed.connect(callback)
     return b
 
-func open_house(service, state) -> void:
+func open_house(service, state, core = null) -> void:
     housing = service
     progress = state
+    rpg_core = core
     selected = ""
     mode = "摆放"
     root.show()
@@ -193,6 +195,23 @@ func render() -> void:
             continue
         var key: String = str(id)
         _button(list,"%s  %dG" % [str(entry.get("name",key)),int(entry.get("price",0))],func() -> void: _result(housing.buy_furniture(key)))
+    if housing.has_effect("craft") and rpg_core != null:
+        var smith := Label.new()
+        smith.text = "星纹锻台 / 同阶武器进阶"
+        list.add_child(smith)
+        for weapon_id in progress.inventory.keys():
+            var weapon: String = str(weapon_id)
+            if rpg_core.count(weapon) >= 2 and not rpg_core.entry("weapons",weapon).is_empty():
+                _button(list,"锻造 "+rpg_core.display_name(weapon),func() -> void: _result(rpg_core.forge(weapon)))
+    if housing.has_effect("cook"):
+        var cooking := Label.new()
+        cooking.text = "星灯厨房 / 烹饪食谱"
+        list.add_child(cooking)
+        for formula in housing.recipes:
+            var fid: String = str(formula.get("id",""))
+            var recipe_name: String = str(formula.get("name",""))
+            var price: int = int(formula.get("gold",0))
+            _button(list,"%s · 制作费 %dG" % [recipe_name,price],func() -> void: _result(housing.cook(fid)))
     var storage := Label.new()
     storage.text = "住宅仓库 / 存入一件"
     list.add_child(storage)

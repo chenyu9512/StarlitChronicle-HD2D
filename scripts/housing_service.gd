@@ -5,11 +5,15 @@ const HEIGHT: int = 7
 const LAND_PRICE: int = 160
 var catalog: Dictionary = {}
 var goods: Dictionary = {}
+var recipes: Array = []
 var progress
 
 func _init() -> void:
     var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/content/housing.json"))
     catalog = parsed if parsed is Dictionary else {}
+    var cooking: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/content/housing_recipes.json"))
+    if cooking is Dictionary:
+        recipes = cooking.get("recipes",[])
     for item in catalog.get("furniture",[]):
         if item is Dictionary:
             goods[str(item.get("id",""))] = item
@@ -212,3 +216,29 @@ func valid_layout() -> bool:
             return false
         seen[key] = true
     return true
+
+func cook(recipe_id: String) -> String:
+    if not owned() or not has_effect("cook"):
+        return "请先在房间布置灶台。"
+    for formula in recipes:
+        if str(formula.get("id","")) != recipe_id:
+            continue
+        var ingredients: Dictionary = formula.get("ingredients",{})
+        for ingredient in ingredients:
+            if int(progress.inventory.get(ingredient,0)) < int(ingredients[ingredient]):
+                return "食材不足：" + str(ingredient)
+        var cost: int = int(formula.get("gold",0))
+        if progress.gold < cost:
+            return "烹饪金币不足。"
+        var food: String = str(formula.get("output",""))
+        if food.is_empty():
+            return "烹饪配方无效。"
+        for ingredient in ingredients:
+            progress.inventory[ingredient] = int(progress.inventory.get(ingredient,0)) - int(ingredients[ingredient])
+            if int(progress.inventory[ingredient]) <= 0:
+                progress.inventory.erase(ingredient)
+        progress.gold -= cost
+        progress.inventory[food] = int(progress.inventory.get(food,0)) + 1
+        _sync_herbs()
+        return "制作成功：" + str(formula.get("name",food))
+    return "未找到这份食谱。"

@@ -46,6 +46,18 @@ func _run() -> void:
     require(house.recolor("wall","星夜蓝").begins_with("已更换"),"Wall recolor failed")
     require(house.upgrade().begins_with("升级成功"),"House tier upgrade failed")
     require(house.valid_layout(),"Layout invalid after upgrade")
+    require(house.recipes.size() == 6,"Six cooking recipes missing")
+    require(house.buy_furniture("kitchen_stove").begins_with("购入"),"Kitchen purchase failed")
+    require(house.place("kitchen_stove",6,4).begins_with("已布置"),"Kitchen furnishing failed")
+    state.inventory["item_flora_01"] = 2
+    require(house.cook("recipe_bread").begins_with("制作成功"),"Cooking did not consume real ingredients")
+    require(int(state.inventory.get("item_food_01",0)) == 1,"Cooked food not added to inventory")
+    state.actors[0]["hp"] = 15
+    state.actors[0]["mp"] = 5
+    var food_core = RPG.new()
+    food_core.bind(state)
+    require(food_core.use_item("item_food_01","char_wayfarer").begins_with("享用了"),"Cooked food cannot be consumed")
+    require(int(state.actors[0]["hp"]) > 15 and int(state.actors[0]["mp"]) > 5,"Food did not restore HP and MP")
     var room = Room.new()
     root.add_child(room)
     room.open_house(house,state)

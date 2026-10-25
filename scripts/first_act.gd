@@ -742,7 +742,7 @@ func _open_house() -> void:
     ui.close_menu()
     busy = true
     world.locked = true
-    housing_room.open_house(housing,progress)
+    housing_room.open_house(housing,progress,game_core)
 
 func _housing_changed(message: String) -> void:
     game_events.record("home_activity",{"description":message})

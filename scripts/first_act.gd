@@ -22,6 +22,7 @@ const StoryBranchRuntime = preload("res://scripts/story_branch_runtime.gd")
 const StoryWorldBindings = preload("res://scripts/story_world_bindings.gd")
 const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
 const CinematicDirector = preload("res://scripts/cinematic_director.gd")
+const CinematicCamera = preload("res://scripts/cinematic_camera.gd")
 var progress
 var catalog
 var world
@@ -44,6 +45,7 @@ var branch_runtime
 var story_world_bindings
 var service_menu
 var cinematic
+var cinematic_camera
 var cinematic_resume: String = ""
 var cinematic_force_play: bool = false
 var cinematic_prologue: Dictionary = {}
@@ -142,6 +144,8 @@ func _ready() -> void:
     cinematic = CinematicDirector.new()
     add_child(cinematic)
     cinematic.finished.connect(_cinematic_finished)
+    cinematic_camera = CinematicCamera.new()
+    add_child(cinematic_camera)
     cheat = CheatScript.new()
     add_child(cheat)
     cheat.opened.connect(_on_cheat_opened)
@@ -765,9 +769,12 @@ func _present(on_complete: String) -> void:
     busy = true
     paused_for_dialogue = true
     world.locked = true
+    if world.nodes.has(_target()) and on_complete in ["prologue","opening","crisis","resolve"]:
+        cinematic_camera.shot(world.camera,world.nodes[_target()].position,"reveal" if on_complete=="crisis" else "focus")
     ui.show_dialogue(scene.get("dialogue", []))
 
 func _dialogue_ended() -> void:
+    cinematic_camera.restore()
     paused_for_dialogue = false
     match pending:
         "prologue":
@@ -779,6 +786,7 @@ func _dialogue_ended() -> void:
                 progress.flags["story.prologue_done"] = true
                 _save_progress()
                 _enter_location()
+                _chapter_card(1)
                 ui.show_message("序章完成 · 第一章《不曾寄出的信》")
                 return
         "opening":
@@ -916,6 +924,9 @@ func _start_battle(is_boss: bool) -> void:
     if progress.chapter < 1:
         return
     battle_is_boss = is_boss
+    cinematic_camera.battle_pulse(world.camera)
+    if is_boss:
+        cinematic.banner_card("命运的交锋","第%d章 · 强敌登场" % progress.chapter,"danger")
     world.locked = true
     busy = true
     ui.set_play_visible(false)
@@ -940,6 +951,8 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
     if is_instance_valid(battle):
         battle.queue_free()
         battle = null
+    if won and battle_is_boss:
+        cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
     if won:
         var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
         var job_levels: Array[String] = game_core.award_job_xp(maxi(5,int(xp / 5)),battle_is_boss)
@@ -1000,6 +1013,7 @@ func _complete_chapter() -> void:
     progress.heal_all()
     _save_progress()
     _enter_location()
+    _chapter_card(progress.chapter)
     if not newcomer.is_empty():
         ui.show_message(newcomer)
     var next_chapter: Dictionary = catalog.get_chapter("ch%03d" % progress.chapter)
@@ -1033,6 +1047,7 @@ func _choose_ending(option: Dictionary) -> void:
     quests["quest_main_072"] = true
     progress.rpg["quests"] = quests
     _save_progress()
+    cinematic.banner_card("命运的抉择","七灯的未来 · 结局 "+id,"mystery")
     _play_ending_scene()
 
 func _play_ending_scene() -> void:
@@ -1114,6 +1129,7 @@ func _travel_to(map_id: String) -> void:
     _enter_location()
     world.spawn_from_exit(previous_map)
     _save_progress()
+    cinematic.banner_card(str(world_router.profile().get("name",map_id)),"远方的灯火 · 区域抵达","hope")
     ui.show_message("已抵达：" + str(world_router.profile().get("name",map_id)))
 
 func _open_regional_service() -> void:
@@ -1216,6 +1232,9 @@ func _load_slot(slot: int) -> void:
     optional_director.bind(progress)
     branch_runtime.bind(progress)
     adventure_menu.close_menu()
+    cinematic.cancel_all()
+    cinematic_camera.restore()
+    cinematic_resume=""
     _enter_location()
     _save_progress()
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete",false)):
@@ -1275,7 +1294,7 @@ func _open_map_from_quick_menu() -> void:
     atlas.open_map()
 
 func _return_to_world() -> void:
-    busy = paused_for_dialogue or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or service_menu.is_open() or cheat.shade.visible or atlas.is_open()
+    busy = paused_for_dialogue or (cinematic != null and cinematic.is_playing()) or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or service_menu.is_open() or cheat.shade.visible or atlas.is_open()
     if not busy and world.party_ids != progress.rpg.get("party",[]):
         _enter_location()
         return

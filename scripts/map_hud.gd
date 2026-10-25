@@ -220,10 +220,14 @@ func _on_location_selected(map_id: String) -> void:
     _refresh_info()
 
 func _try_travel() -> void:
-    if router == null or not router.can_travel(selected_map):
+    if router == null:
+        return
+    var steps: Array[String] = router.shortest_route(selected_map)
+    if steps.size() <= 1 or not router.can_travel(steps[1]):
         _refresh_info()
         return
-    var target: String = selected_map
+    # Perform exactly one permitted adjacent leg, never bypassing story locks.
+    var target: String = steps[1]
     close_map()
     travel_requested.emit(target)
 
@@ -246,13 +250,20 @@ func _refresh_info() -> void:
             route_info.text = "轻触城镇、洞窟或野外地点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 42" % router.visited_count()
         else:
             var name: String = str(info.get("name",selected_map))
-            var available: bool = router.can_travel(selected_map)
+            var steps: Array[String] = router.shortest_route(selected_map)
+            var available: bool = steps.size() > 1 and router.can_travel(steps[1])
             var selected_spec: Dictionary = router.geography.zone(selected_map)
             var biome: String = str(selected_spec.get("biome",""))
             var setting: String = str(selected_spec.get("layout",""))
-            route_info.text = "目的地：%s\n地貌：%s\n布局：%s\n\n%s" % [name,biome,setting,"可沿已解锁的相邻道路前往" if available else "未解锁或非当前地区的相邻道路"]
+            var directions: PackedStringArray = []
+            for stop in steps:
+                directions.append(str(router.map_info(stop).get("name",stop)).left(8))
+            var instructions: String = " → ".join(directions) if available else "尚未探索出可到达该地点的连续航路"
+            route_info.text = "目的地：%s\n地貌：%s\n布局：%s\n\n路线：%s" % [name,biome,setting,instructions]
         route_button.visible = true
-        route_button.disabled = not router.can_travel(selected_map)
+        var possible_route: Array[String] = router.shortest_route(selected_map)
+        route_button.disabled = possible_route.size() <= 1
+        route_button.text = "前往下一站（不越级）"
     else:
         route_info.text = "金色：主线目标\n浅蓝：支线委托\n绿色：建筑或旅馆\n棕色：出入口\n白金：自己\n\n与实际72×48地形同步。\n可从世界地图查看分区及解锁道路。"
         route_button.visible = false

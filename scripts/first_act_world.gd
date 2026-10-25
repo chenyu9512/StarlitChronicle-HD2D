@@ -222,6 +222,13 @@ func _decorate() -> void:
             scenery.add_child(architecture)
         else:
             _add_sprite(kind,cell,false,true)
+    # Towns now rely on separately art-directed districts and scene dressing.
+    # Do not stamp the same generic palm trees, crates and stalls over each town.
+    if bool(map_profile.get("settlement",false)):
+        for entry in current_layout.get("objects",[]):
+            if entry is Array and entry.size()>=3:
+                _add_sprite(str(entry[0]),Vector2i(int(entry[1]),int(entry[2])),false)
+        return
     var objects: Array = [
         ["palm_tree", 7, 5], ["palm_tree", 38, 6], ["cottage", 11, 6], ["cottage", 34, 6],
         ["barrel", 24, 7], ["fish_stall", 19, 20], ["rock", 6, 21], ["rock", 39, 19],
@@ -354,7 +361,8 @@ func _spawn_residents() -> void:
     var residents: Array = town_life.residents(district)
     for index in range(residents.size()):
         var record: Dictionary = residents[index]
-        var point: Vector2i = _resident_spot(town_life.position_for(index,hour),used)
+        var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(record.get("role","lore")),index,hour)
+        var point: Vector2i = _resident_spot(authored_spot,used)
         var citizen = NPCVisual.new()
         citizen.setup(record)
         citizen.position=Vector2(point*TILE)+Vector2(16,16)
@@ -379,7 +387,8 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
         var key: String = "citizen:"+str(people[i].get("id",""))
         if not nodes.has(key):
             continue
-        var point: Vector2i = _resident_spot(town_life.position_for(i,int(clock_minutes/60)),used)
+        var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(people[i].get("role","lore")),i,int(clock_minutes/60))
+        var point: Vector2i = _resident_spot(authored_spot,used)
         nodes[key].position=Vector2(point*TILE)+Vector2(16,16)
         npc_positions[key]=point
 

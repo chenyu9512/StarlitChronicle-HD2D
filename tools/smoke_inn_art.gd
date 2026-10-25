@@ -32,7 +32,9 @@ func _run() -> void:
     var destinations: Array[Vector2i]=[]
     for anchor in ["exit","service","storage"]:
         destinations.append(world.terrain_layout.get("interact_cells",{}).get(anchor,Vector2i.ZERO))
-    verify(world.geography.reachable(world.terrain_layout,[world.terrain_layout.get("spawn",Vector2i.ZERO)],destinations),"Decorations disconnected interactive service/exit areas")
+    var origins: Array[Vector2i] = []
+    origins.append(world.terrain_layout.get("spawn",Vector2i.ZERO))
+    verify(world.geography.reachable(world.terrain_layout,origins,destinations),"Decorations disconnected interactive service/exit areas")
     verify(not world.blocked.has(Vector2i(35,32)),"Art blocked the player spawn")
     var art = world.root.get_node_or_null("InteriorArt")
     verify(art!=null,"Playable room scene has no InteriorArt")

@@ -10,6 +10,7 @@ on:
       - "tools/smoke_map_ui.gd"
       - "tools/smoke_world_production.gd"
       - "tools/smoke_world_story_interactions.gd"
+      - "tools/smoke_world_checkpoints.gd"
       - "scripts/world_geography.gd"
       - "scripts/world_town_life.gd"
       - "scripts/world_service_menu.gd"
@@ -29,6 +30,7 @@ on:
       - "tools/smoke_map_ui.gd"
       - "tools/smoke_world_production.gd"
       - "tools/smoke_world_story_interactions.gd"
+      - "tools/smoke_world_checkpoints.gd"
       - "scripts/world_geography.gd"
       - "scripts/world_town_life.gd"
       - "scripts/world_service_menu.gd"
@@ -62,3 +64,5 @@ jobs:
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_story_interactions.gd
       - name: Validate regional inhabitants and real services
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_life.gd
+      - name: Validate dungeon and house checkpoint plus field-camp saving
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_checkpoints.gd

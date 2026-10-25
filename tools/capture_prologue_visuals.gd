@@ -92,10 +92,10 @@ func _capture() -> void:
         evidence[evidence.size()-1]["timecode_seconds"]=shot["time"]
         evidence[evidence.size()-1]["cast"]=cast_data
     # Gate P5 on spatial evidence, not only screenshots being different.
-    var intercept: Dictionary=evidence[6].get("cast",{}).get("chengzhou",{})
-    var arrival: Dictionary=evidence[5].get("cast",{}).get("chengzhou",{})
-    var escape_early: Dictionary=evidence[9].get("cast",{}).get("lanyin",{})
-    var escape_late: Dictionary=evidence[10].get("cast",{}).get("lanyin",{})
+    var intercept: Dictionary=evidence[5].get("cast",{}).get("chengzhou",{})
+    var arrival: Dictionary=evidence[4].get("cast",{}).get("chengzhou",{})
+    var escape_early: Dictionary=evidence[8].get("cast",{}).get("lanyin",{})
+    var escape_late: Dictionary=evidence[9].get("cast",{}).get("lanyin",{})
     if intercept.is_empty() or arrival.is_empty() or escape_early.is_empty() or escape_late.is_empty():
         failures.append("P5 missing required cast evidence")
     else:

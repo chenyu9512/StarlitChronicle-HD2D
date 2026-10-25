@@ -278,6 +278,21 @@ func render(section: String) -> void:
             else:
                 var available: Array = branch_runtime.eligible_events(1000)
                 _label("目前可触发 %d 场；翻页不会跳过剧情顺序。" % available.size())
+                var field_archive: Dictionary = save_state.rpg.get("branch_story",{}).get("field_log",{})
+                if not field_archive.is_empty():
+                    _label("现场调查档案 · 已记录 %d 场（只保存实际完成的步骤）" % field_archive.size(),true)
+                    var recent: Array = field_archive.keys()
+                    recent.reverse()
+                    for journal_index in range(mini(4,recent.size())):
+                        var journal_id: String = str(recent[journal_index])
+                        var journal_event: Dictionary = branch_runtime.get_event(journal_id)
+                        var journal_lines: Array = journal_event.get("dialogue",[])
+                        var notes: Array = field_archive[journal_id]
+                        _label("%s · %d/3线索" % [str(journal_event.get("title",journal_id)),notes.size()])
+                        for note in notes:
+                            var index: int = int(note.get("step",-1))
+                            if index>=0 and index<journal_lines.size():
+                                _label("  %s · %s" % [["证言","证物","记录"][clampi(index,0,2)],str(journal_lines[index].get("text","")).left(48)])
                 branch_page = clampi(branch_page,0,maxi(0,(available.size()-1)/8))
                 for index in range(branch_page*8,mini(available.size(),(branch_page+1)*8)):
                     var row: Dictionary = available[index]

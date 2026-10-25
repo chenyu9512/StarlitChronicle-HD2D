@@ -21,6 +21,25 @@ func _run() -> void:
     check(fx.lamps.size()>0,"Village has no actual staged lamps to extinguish")
     var safe_nodes: int=game.world.nodes.size()
     var safe_collision: Dictionary=game.world.blocked.duplicate()
+    # The opening is not a field of nine identical developer beacons.
+    var marker_count: int=0
+    for i in range(9):
+        if game.world.nodes["prologue_%d" % i].visible:
+            marker_count+=1
+            check(i==0,"A future prologue scene is visible before its turn")
+    check(marker_count==1,"Exactly one playable prologue encounter must be visible")
+    game.world.sync_prologue_markers(6,0)
+    check(game.world.nodes["prologue_6"].visible,"Blackout escape destination did not surface")
+    check(not game.world.nodes["prologue_0"].visible,"Completed scene marker remained visible")
+    game.world.sync_prologue_markers(8,0)
+    check(game.world.nodes["prologue_8"].visible,"Ten-year scene destination isn't staged")
+    game.world.sync_prologue_markers(0,1)
+    for i in range(9):
+        check(not game.world.nodes["prologue_%d" % i].visible,"Childhood objective leaked into first act")
+    game.world.sync_prologue_markers(0,0)
+    for i in [0,1,4,6,8]:
+        check(game.world.prologue_cast.has(i),"Missing character performance art for prologue beat "+str(i))
+    check(game.world.nodes.size()==safe_nodes,"Staging actors changed the interactive quest node contract")
     var original_colors: Dictionary={}
     for lamp in fx.lamps:
         original_colors[lamp.get_instance_id()]=lamp.modulate

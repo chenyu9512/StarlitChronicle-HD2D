@@ -6,6 +6,9 @@ const BattleFormation = preload("res://scripts/battle_formation.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
 const BattleActors = preload("res://scripts/battle_actors.gd")
 const BattleSFX = preload("res://scripts/battle_sfx.gd")
+const BattleEnemies = preload("res://scripts/battle_enemies.gd")
+const BattleTimeline = preload("res://scripts/battle_timeline.gd")
+const BattleCamera = preload("res://scripts/battle_camera.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -43,8 +46,12 @@ var report: Label
 var commands: HBoxContainer
 var portrait: TextureRect
 var actor_stage
+var enemy_stage
 var vfx
 var sfx
+var timeline
+var camera_motion
+var last_warning_round: int = 0
 var special_button: Button
 
 func _ready() -> void:
@@ -67,6 +74,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     countdown = 8
     defense.clear()
     win_locked = false
+    last_warning_round = 0
     if boss:
         var hp: int = 145 + chapter * 55
         var dmg: int = 12 + chapter * 2
@@ -148,6 +156,17 @@ func _build() -> void:
     portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     root.add_child(portrait)
+    enemy_stage = BattleEnemies.new()
+    enemy_stage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    enemy_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(enemy_stage)
+    var multi_foe: bool = formation.units.size() > 1
+    enemy_stage.visible = multi_foe
+    portrait.visible = not multi_foe
+    var enemy_settings: Dictionary = game_state.rpg.get("settings",{})
+    enemy_stage.reduced_motion = bool(enemy_settings.get("reduced_motion",false))
+    if multi_foe:
+        enemy_stage.configure(formation.units,chapter,boss)
     actor_stage = BattleActors.new()
     actor_stage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     actor_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -200,6 +219,14 @@ func _build() -> void:
     sfx = BattleSFX.new()
     sfx.enabled = bool(settings.get("battle_sfx_enabled",true))
     root.add_child(sfx)
+    camera_motion = BattleCamera.new()
+    camera_motion.reduced_motion = bool(settings.get("reduced_motion",false))
+    root.add_child(camera_motion)
+    camera_motion.bind_targets([backdrop,portrait,enemy_stage,actor_stage])
+    timeline = BattleTimeline.new()
+    timeline.reduced_motion = bool(settings.get("reduced_motion",false))
+    root.add_child(timeline)
+    timeline.bind_layers(vfx,sfx,camera_motion)
 
 func _choose_skill() -> void:
     if is_instance_valid(skill_picker):
@@ -239,6 +266,8 @@ func _select_enemy(index: int) -> void:
         return
     active_target = index
     enemy = formation.units[index]
+    if is_instance_valid(enemy_stage):
+        enemy_stage.focus(index)
     if is_instance_valid(portrait):
         portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
         if is_instance_valid(vfx):
@@ -356,6 +385,7 @@ func _start_actor() -> void:
         if int(member.get("hp",0)) <= 0 or bool(effect.get("skip",false)):
             turn_cursor += 1
             continue
+        _telegraph_next_boss_action()
         return
     if not win_locked:
         push_warning("Mixed combat timeline exceeded the 128-action safety cap")
@@ -566,15 +596,8 @@ func _act(action: String) -> void:
             if not weapon_trait_id.is_empty():
                 message += " · 武器特性：" + weapon_trait_id
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
-        if is_instance_valid(sfx):
-            sfx.play_event("hit")
-        if is_instance_valid(vfx):
-            if action == "skill":
-                vfx.play_skill(_vfx_ally_point(),_vfx_foe_point(),_get_skill(chosen_skill),damage,hit_all_enemies)
-            elif action == "special":
-                vfx.play_special(_vfx_foe_point(),damage)
-            else:
-                vfx.play_attack(_vfx_foe_point(),damage)
+        if is_instance_valid(timeline):
+            timeline.queue_actor(action,_vfx_ally_point(),_vfx_foe_point(),damage,_get_skill(chosen_skill) if action == "skill" else {},hit_all_enemies)
         if not boss or chapter != 5:
             var status_kind: String = ""
             var status_rate: float = 0.0
@@ -604,16 +627,24 @@ func _act(action: String) -> void:
         elif hit_all_enemies:
             for index in formation.alive_indices():
                 formation.apply_damage(index,damage)
+                if is_instance_valid(enemy_stage):
+                    enemy_stage.hit(index,int(formation.units[index].get("hp",0)) <= 0)
+                if is_instance_valid(vfx) and is_instance_valid(enemy_stage) and enemy_stage.visible and index != active_target:
+                    vfx.play_hit_marker(enemy_stage.point(index),damage,str(_get_skill(chosen_skill).get("element","")))
             enemy = formation.units[active_target]
         else:
             formation.apply_damage(active_target,damage)
             enemy = formation.units[active_target]
+            if is_instance_valid(enemy_stage):
+                enemy_stage.hit(active_target,int(enemy.get("hp",0)) <= 0)
     if not phase_two and boss and int(enemy["hp"]) <= int(enemy["max_hp"]) / 2:
         phase_two = true
         message += "  敌人进入第二阶段！"
         enemy["atk"] = int(enemy["atk"]) + 4
         if is_instance_valid(vfx):
             vfx.play_phase(_vfx_foe_point())
+        if is_instance_valid(camera_motion):
+            camera_motion.impulse(7.0)
         if is_instance_valid(sfx):
             sfx.play_event("phase")
     if formation.complete() and (not boss or chapter != 5):
@@ -646,8 +677,10 @@ func _enemy_action(index: int) -> void:
     if damage_over_time > 0:
         formation.apply_damage(index,damage_over_time)
         enemy = formation.units[index]
+        if is_instance_valid(enemy_stage):
+            enemy_stage.hit(index,int(enemy.get("hp",0)) <= 0)
         if is_instance_valid(vfx):
-            vfx.play_status(_vfx_foe_point(),damage_over_time)
+            vfx.play_status(_vfx_enemy_point(index),damage_over_time)
     if formation.complete() and (not boss or chapter != 5):
         _finish(true)
         return
@@ -683,10 +716,8 @@ func _enemy_strike() -> void:
     game_state.actors[target] = member
     if is_instance_valid(actor_stage):
         actor_stage.play_hit(str(member.get("id","")),int(member["hp"]) <= 0)
-    if is_instance_valid(vfx):
-        vfx.play_enemy_attack(_vfx_foe_point(),_vfx_member_point(target),damage)
-    if is_instance_valid(sfx):
-        sfx.play_event("enemy_hit")
+    if is_instance_valid(timeline):
+        timeline.queue_enemy(_vfx_foe_point(),_vfx_member_point(target),damage)
     if damage > 0 and int(member["hp"]) > 0:
         var element: String = str(enemy.get("element",""))
         var ailment: String = ""
@@ -712,7 +743,17 @@ func _enemy_strike() -> void:
     if _all_fallen():
         _finish(false)
 
+func _vfx_enemy_point(index: int) -> Vector2:
+    if is_instance_valid(enemy_stage) and enemy_stage.visible:
+        return enemy_stage.point(index)
+    if is_instance_valid(portrait):
+        return portrait.position+portrait.size*0.5
+    return Vector2(576,245)
+
 func _vfx_foe_point() -> Vector2:
+    return _vfx_enemy_point(active_target)
+
+func _legacy_portrait_point() -> Vector2:
     if is_instance_valid(portrait):
         return portrait.position + portrait.size * 0.5
     return Vector2(root.size.x*0.5,root.size.y*0.38) if is_instance_valid(root) else Vector2(576,246)
@@ -725,6 +766,25 @@ func _vfx_member_point(index: int) -> Vector2:
 func _vfx_ally_point() -> Vector2:
     return _vfx_member_point(hero_turn)
 
+func _telegraph_next_boss_action() -> void:
+    if not boss or last_warning_round == current_round or not is_instance_valid(vfx):
+        return
+    var has_future_enemy: bool = false
+    for i in range(turn_cursor+1,turn_queue.size()):
+        if str(turn_queue[i].get("team","")) == "enemy":
+            has_future_enemy = true
+            break
+    if not has_future_enemy:
+        return
+    var intent: Dictionary = combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors)
+    var name: String = str(intent.get("label",""))
+    if name in ["","普通攻击"]:
+        return
+    last_warning_round = current_round
+    vfx.play_warning(_vfx_foe_point(),name)
+    if is_instance_valid(sfx):
+        sfx.play_event("charge")
+
 func _all_fallen() -> bool:
     for member in game_state.actors:
         if int(member["hp"]) > 0 and (game_core == null or game_core.is_active(str(member.get("id","")))):
@@ -734,6 +794,8 @@ func _all_fallen() -> bool:
 func _redraw(message: String) -> void:
     if is_instance_valid(actor_stage):
         actor_stage.update_party(game_state.actors)
+    if is_instance_valid(enemy_stage) and enemy_stage.visible:
+        enemy_stage.sync(formation.units)
     report.text = message
     var header: String = "%s   HP %d/%d" % [str(enemy["name"]), int(enemy["hp"]), int(enemy["max_hp"])]
     if chapter == 5 and boss:

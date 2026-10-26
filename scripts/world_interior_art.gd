@@ -12,12 +12,26 @@ var theme_atlas: String = ART_DIR+"inn_tileset.svg"
 var soundscape
 var presentation_fx
 var reduced_motion: bool = false
+var visual_quality: int = 1
 var light_tick: float = 0.0
 
 func set_reduced_motion(value: bool) -> void:
     reduced_motion = value
     if is_instance_valid(animated_fire):
         animated_fire.speed_scale = 0.5 if value else 1.0
+
+func set_visual_quality(level: int) -> void:
+    visual_quality = clampi(level,0,2)
+    set_reduced_motion(visual_quality == 0)
+    # Lighting is purely visual. Keep one shadowless lamp on low; medium
+    # offers two lights, high up to four with a limited shadow budget.
+    var lamp_cap: int = 1 if visual_quality==0 else (2 if visual_quality==1 else 4)
+    for index in range(active_lights.size()):
+        var lamp: PointLight2D = active_lights[index]
+        lamp.visible = index < lamp_cap
+        lamp.shadow_enabled = visual_quality == 2 and index < 2
+    set_process(visual_quality > 0)
+
 
 ## Called by D/B integration after authoritative interactions; does not open chests or doors in game state.
 func play_prop_action(prop_id: String, action: String) -> bool:
@@ -171,6 +185,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         active_lights.append(lamp)
         light_energy.append(lamp.energy)
     set_clock(minutes)
+    set_visual_quality(visual_quality)
 
 func _install_fire_animation(stage: Node2D,layout: Dictionary) -> void:
     # Six separately hand-authored RGBA frames; this is an actual sprite-sheet

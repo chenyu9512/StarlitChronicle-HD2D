@@ -113,7 +113,9 @@ func _auto_prepare_world_handoff() -> void:
         "no_encounters":bool(controller.get("no_encounters")),
         "clock":game_state.rpg.get("game_clock",{}),
         "weather":str(environment.get("weather")) if environment != null else "",
-        "audio_cue":str(profile.get("id",""))
+        "audio_cue":str(profile.get("id","")),
+        "width_tiles":maxi(8,int(current_world.get("WIDTH"))),
+        "height_tiles":maxi(8,int(current_world.get("HEIGHT")))
     }
     # The controller locks the world before constructing Battle. That lock
     # is not itself a player dialogue/cinematic guard at this stage.

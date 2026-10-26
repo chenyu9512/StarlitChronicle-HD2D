@@ -6,6 +6,7 @@ const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleBossMechanics = preload("res://scripts/battle_boss_mechanics.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
 const BattleWorldHandoff = preload("res://scripts/battle_world_handoff.gd")
+const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
 const BattleActors = preload("res://scripts/battle_actors.gd")
 const BattleSFX = preload("res://scripts/battle_sfx.gd")
@@ -27,6 +28,8 @@ var boss_mechanics
 var last_boss_settlement: String = ""
 var world_handoff
 var last_world_handoff_result: Dictionary = {}
+## Immutable for one combat instance; D-line uses it to deduplicate the complete reward/save transaction.
+var reward_transaction_id: String = ""
 var formation
 var active_target: int = 0
 var skill_picker: PanelContainer
@@ -153,6 +156,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     last_warning_text = ""
     last_boss_settlement = ""
     last_world_handoff_result.clear()
+    reward_transaction_id = ""
     _auto_prepare_world_handoff()
     boss_mechanics = null
     if boss:
@@ -174,6 +178,14 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         enemy = encounter_registry.roll_monster(chapter)
     formation = BattleFormation.new()
     formation.start(encounter_registry,chapter,boss,enemy)
+    var stable_boss_id: String = ""
+    if boss:
+        stable_boss_id = str(encounter_data.get("enemy_id",""))
+        if not formation.units.is_empty():
+            stable_boss_id = str(formation.units[0].get("boss_id",stable_boss_id))
+        if stable_boss_id.is_empty():
+            stable_boss_id = "boss.ch%03d/crisis" % chapter
+    reward_transaction_id = BattleRewardTransaction.make_id(boss,chapter,stable_boss_id)
     active_target = 0
     enemy = formation.units[0]
     _begin_round()
@@ -1094,4 +1106,7 @@ func _finish(victory: bool) -> void:
                 # Restore before completed.emit, so the existing controller's
                 # defeat/save/UI flow sees the safe coordinates and grace.
                 last_world_handoff_result = world_handoff.restore(current_world)
+    # Keep completed(victory,xp,gold) unchanged for older D-line hosts.
+    # Ledger mutation belongs to the D-line owner of all reward and save side effects.
+    last_world_handoff_result["reward_transaction_id"] = reward_transaction_id
     completed.emit(victory, int(reward["xp"]) if victory else 0, int(reward["gold"]) if victory else 0)

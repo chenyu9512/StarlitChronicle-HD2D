@@ -159,7 +159,18 @@ func restore(world: Node) -> Dictionary:
             if safe_found:
                 destination = verified["position"]
                 relocated = true
-    if safe_found and relocated:
+    if not safe_found:
+        # Failed recovery must remain retryable after a blocking collision is removed.
+        # Never finalize the handoff or mutate world cooldown/position on this path.
+        var failure: Dictionary = result_data.duplicate(true)
+        failure["ok"] = false
+        failure["reason"] = "no_safe_spawn"
+        failure["restored"] = false
+        failure["resume_world"] = false
+        failure["save_required"] = false
+        failure["same_map"] = same_map
+        return failure
+    if relocated:
         avatar.position = destination
         if not won:
             _reset_party_followers(world,destination)
@@ -175,16 +186,13 @@ func restore(world: Node) -> Dictionary:
     finished = true
     active = false
     var answer: Dictionary = result_data.duplicate(true)
-    answer["restored"] = safe_found
+    answer["restored"] = true
     answer["same_map"] = same_map
     answer["relocated"] = relocated
     answer["cooldown_distance"] = cooldown
     answer["audio_cue"] = str(checkpoint_data.get("audio_cue",""))
-    answer["resume_world"] = safe_found
+    answer["resume_world"] = true
     answer["save_required"] = true
-    if not safe_found:
-        answer["ok"] = false
-        answer["reason"] = "no_safe_spawn"
     result_data = answer.duplicate(true)
     return answer
 

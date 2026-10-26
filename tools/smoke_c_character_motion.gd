@@ -28,6 +28,26 @@ func _run() -> void:
     expect(states.state in ["stop", "turn", "idle"], "Stop state missing")
     states.start_talking(Vector2.UP)
     expect(states.state == "talk" and states.heading8 == 4, "Talk face missing")
+    for character_id in ["leon", "lanyin", "shuoxian", "chengzhou"]:
+        var source: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % character_id
+        var sample := Actor.new()
+        root.add_child(sample)
+        sample.setup(source)
+        expect(sample.sprite.texture != null, character_id + ": missing imported atlas")
+        if sample.sprite.texture != null:
+            expect(sample.sprite.texture.get_size() == Vector2(96, 192), character_id + ": wrong atlas dimensions")
+            if str(sample.sprite.get_meta("c21_walk_source", "")) != "":
+                var frame_image: Image = sample.sprite.texture.get_image()
+                expect(frame_image != null, character_id + ": SVG image unreadable")
+                if frame_image != null and frame_image.get_size() == Vector2i(96, 192):
+                    var front: PackedByteArray = frame_image.get_region(Rect2i(32, 0, 32, 48)).get_data()
+                    for direction in range(1, 4):
+                        var facing_image: PackedByteArray = frame_image.get_region(Rect2i(32, direction * 48, 32, 48)).get_data()
+                        expect(front != facing_image, character_id + ": identical directional art")
+                    var step0: PackedByteArray = frame_image.get_region(Rect2i(0, 0, 32, 48)).get_data()
+                    var step2: PackedByteArray = frame_image.get_region(Rect2i(64, 0, 32, 48)).get_data()
+                    expect(step0 != step2, character_id + ": missing real walking frame change")
+        sample.queue_free()
     var actor := Actor.new()
     root.add_child(actor)
     actor.setup("res://assets/art/characters/leon/walk_4dir_3frames.png")

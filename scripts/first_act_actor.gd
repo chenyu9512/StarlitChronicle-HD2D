@@ -27,7 +27,15 @@ func setup(image: String) -> void:
     if is_instance_valid(sprite):
         sprite.queue_free()
     sprite = Sprite2D.new()
-    if ResourceLoader.exists(image):
+    # Use the authored C2.1 four-facing atlas only when no local PNG override exists.
+    # Existing 96x192 PNG remains the safe fallback, unchanged on disk.
+    var authored: String = image.get_basename() + "_c21.svg" if image.ends_with("/walk_4dir_3frames.png") else ""
+    if not authored.is_empty() and not ArtOverrides.has_override(image) and ResourceLoader.exists(authored):
+        var upgrade: Texture2D = ArtOverrides.texture(authored)
+        if upgrade != null and upgrade.get_size() == Vector2(96, 192):
+            sprite.texture = upgrade
+            sprite.set_meta("c21_walk_source", authored)
+    if sprite.texture == null and ResourceLoader.exists(image):
         sprite.texture = ArtOverrides.texture(image)
     sprite.hframes = 3
     sprite.vframes = 4

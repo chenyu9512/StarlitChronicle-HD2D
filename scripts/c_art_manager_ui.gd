@@ -170,7 +170,7 @@ func _build() -> void:
     var active := VBoxContainer.new()
     active.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     images.add_child(active)
-    active.add_child(_text("当前生效"))
+    active.add_child(_text("本机当前图"))
     active_preview = _preview()
     active.add_child(active_preview)
     selection_label = _text("请选择图片", 15)
@@ -310,7 +310,10 @@ func _show_detail() -> void:
     dimensions_label.text = "分类：%s · 原尺寸：%d×%d · %s" % [str(entry.get("category", "")), roundi(dims.x), roundi(dims.y), "需要完全一致" if bool(entry.get("atlas", false)) else "保持长宽比"]
     var tier_key: String = str(entry.get("curation_tier", ""))
     var tier_text: String = {"primary": "晨露村优先资源", "reserve_core": "核心备用", "reserve_external": "外部候选未绑定"}.get(tier_key, "尚未分类")
-    status_label.text = "分组：" + tier_text + "\n状态：" + str(entry.get("status", "未验收")) + ("\n正在使用本机替换图" if Overrides.has_override(current_path) else "\n正在使用游戏原图")
+    var state_text: String = "已设置本机替换" if Overrides.has_override(current_path) else "未设置本机替换"
+    status_label.text = "分组：" + tier_text + "\n状态：" + str(entry.get("status", "未验收")) + "\n" + state_text
+    if tier_key == "reserve_external":
+        status_label.text += "\n外部候选尚未绑定场景；替换这里的图片不会自动替换游戏角色或地图。"
     note_edit.text = Overrides.user_note(current_path)
 
 func _save_note() -> void:

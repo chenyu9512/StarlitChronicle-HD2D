@@ -1,8 +1,6 @@
 extends Control
 ## Development-only art review. Run scenes/art_gallery.tscn (F6) in Godot.
-const DB_PATH := "res://assets/art/art_manifest.json"
-const B02_PATH := "res://assets/art/b02/MANIFEST.json"
-const B03_PATH := "res://assets/art/b03/boss_final_render/manifest.json"
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 var art_list: Array = []
 var options: OptionButton
 var scroll: ScrollContainer
@@ -26,11 +24,11 @@ func _ready() -> void:
     var flow := VBoxContainer.new()
     wrap.add_child(flow)
     heading = Label.new()
-    heading.text = "星灯纪行 · 已接入美术资产画廊"
+    heading.text = "星灯纪行 · 统一美术目录预览"
     heading.add_theme_font_size_override("font_size", 24)
     flow.add_child(heading)
     var note := Label.new()
-    note.text = "已接入的角色肖像与Boss静态战斗图；角色全身稿并不等于行走动画。"
+    note.text = "与首页读取同一份目录；入库不代表正式场景已绑定，静态图不代表行走动画。"
     flow.add_child(note)
     options = OptionButton.new()
     for name in FILTERS:
@@ -44,30 +42,8 @@ func _ready() -> void:
     tiles.add_theme_constant_override("h_separation", 16)
     tiles.add_theme_constant_override("v_separation", 14)
     scroll.add_child(tiles)
-    if FileAccess.file_exists(DB_PATH):
-        var f: FileAccess = FileAccess.open(DB_PATH, FileAccess.READ)
-        var parsed: Variant = JSON.parse_string(f.get_as_text())
-        f.close()
-        if parsed is Dictionary and parsed.get("assets", []) is Array:
-            art_list = parsed["assets"]
-    if FileAccess.file_exists(B02_PATH):
-        var b02: Variant = JSON.parse_string(FileAccess.get_file_as_string(B02_PATH))
-        if b02 is Dictionary:
-            for character in b02.get("records", []):
-                if not character is Dictionary:
-                    continue
-                var group: String = "main" if str(character.get("group", "")) == "main" else "npc"
-                var file_path: String = "assets/art/b02/characters/%s/%s/portrait_320x400.png" % [group, str(character.get("id", ""))]
-                art_list.append({"path":file_path, "kind":"b02_" + group, "name":str(character.get("name", ""))})
-    if FileAccess.file_exists(B03_PATH):
-        var b03: Variant = JSON.parse_string(FileAccess.get_file_as_string(B03_PATH))
-        if b03 is Dictionary:
-            for boss in b03.get("assets", []):
-                if not boss is Dictionary:
-                    continue
-                var files: Dictionary = boss.get("files", {})
-                var file_path: String = "assets/art/b03/boss_final_render/" + str(files.get("battle", ""))
-                art_list.append({"path":file_path, "kind":"b03_boss", "name":str(boss.get("name", ""))})
+    # Developer gallery reuses the same canonical catalog as the home manager.
+    art_list = ArtOverrides.list_assets()
     options.item_selected.connect(_render)
     _render(0)
 
@@ -79,29 +55,27 @@ func _render(index: int) -> void:
     for item in art_list:
         if not (item is Dictionary):
             continue
-        var path: String = str(item.get("path", ""))
-        var kind: String = str(item.get("kind", ""))
-        if current == "B02 Main" and kind != "b02_main":
+        var resource_path: String = str(item.get("path", ""))
+        var path: String = resource_path.trim_prefix("res://")
+        var category: String = str(item.get("category", ""))
+        if current == "B02 Main" and not path.begins_with("assets/art/b02/characters/main/"):
             continue
-        if current == "B02 NPC" and kind != "b02_npc":
+        if current == "B02 NPC" and not path.begins_with("assets/art/b02/characters/npc/"):
             continue
-        if current == "B03 Boss" and kind != "b03_boss":
+        if current == "B03 Boss" and not path.begins_with("assets/art/b03/"):
             continue
-        if current == "Characters" and not (kind == "portrait" or kind == "battle"):
+        if current == "Characters" and category not in ["角色与动画", "主角与队友"]:
 
             continue
         if current == "Coast Backdrops" and not path.contains("/backdrops/"):
             continue
-        if current == "Monsters" and not (path.contains("/monsters/") and kind == "bestiary"):
+        if current == "Monsters" and category != "怪物":
             continue
         if current == "Tilesets" and not path.contains("/tilesets/"):
             continue
         if current == "Props" and not path.contains("/props/"):
             continue
-        var png: String = "res://" + (path if path.ends_with(".png") else path.trim_suffix(".svg") + ".png")
-        if not ResourceLoader.exists(png):
-            continue
-        var tex: Texture2D = load(png) as Texture2D
+        var tex: Texture2D = ArtOverrides.texture(resource_path)
         if tex == null:
             continue
         var column := VBoxContainer.new()

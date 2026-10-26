@@ -19,6 +19,7 @@ var original_preview: TextureRect
 var active_preview: TextureRect
 var selection_label: Label
 var dimensions_label: Label
+var usage_label: Label
 var status_label: Label
 var note_edit: LineEdit
 var restore_button: Button
@@ -168,6 +169,8 @@ func _build() -> void:
     selection_label = _text("请选择图片", 15)
     selection_label.add_theme_color_override("font_color", GOLD)
     details.add_child(selection_label)
+    usage_label = _text("", 12)
+    details.add_child(usage_label)
     dimensions_label = _text("", 13)
     details.add_child(dimensions_label)
     status_label = _text("", 13)
@@ -279,6 +282,7 @@ func _show_detail() -> void:
     note_edit.editable = valid
     if not valid:
         selection_label.text = "没有匹配的资源"
+        usage_label.text = ""
         dimensions_label.text = ""
         status_label.text = ""
         original_preview.texture = null
@@ -290,6 +294,7 @@ func _show_detail() -> void:
     original_preview.texture = original
     active_preview.texture = active
     selection_label.text = str(entry.get("name", "")) + "\n" + current_path.trim_prefix("res://")
+    usage_label.text = str(entry.get("description", ""))
     var dims: Vector2 = original.get_size() if original != null else Vector2.ZERO
     dimensions_label.text = "分类：%s · 原尺寸：%d×%d · %s" % [str(entry.get("category", "")), roundi(dims.x), roundi(dims.y), "需要完全一致" if bool(entry.get("atlas", false)) else "保持长宽比"]
     status_label.text = "状态：" + str(entry.get("status", "未验收")) + ("\n正在使用本机替换图" if Overrides.has_override(current_path) else "\n正在使用游戏原图")

@@ -5,6 +5,34 @@ extends RefCounted
 const BUCKET: String = "d_reward_receipts_v1"
 const MAX_EVENT_ID: int = 160
 
+## V3 JSON roundtrips turn integer receipts into floats (e.g. 11 -> 11.0).
+## Compare saved intents structurally with numeric equivalence only, retaining
+## strict key/value checks against changed or maliciously reused event IDs.
+static func _same_persisted_value(left: Variant, right: Variant) -> bool:
+    if left is Dictionary and right is Dictionary:
+        var a: Dictionary = left
+        var b: Dictionary = right
+        if a.size() != b.size():
+            return false
+        for key in a.keys():
+            if not b.has(key) or not _same_persisted_value(a[key],b[key]):
+                return false
+        return true
+    if left is Array and right is Array:
+        var a: Array = left
+        var b: Array = right
+        if a.size()!=b.size():
+            return false
+        for index in range(a.size()):
+            if not _same_persisted_value(a[index],b[index]):
+                return false
+        return true
+    if typeof(left) in [TYPE_INT,TYPE_FLOAT] and typeof(right) in [TYPE_INT,TYPE_FLOAT]:
+        var av: float = float(left)
+        var bv: float = float(right)
+        return not is_nan(av) and not is_nan(bv) and not is_inf(av) and not is_inf(bv) and av == bv
+    return left == right
+
 static func settle(progress: Object, event_id: String, intent: Dictionary, mutator: Callable) -> Dictionary:
     if progress == null or not progress.has_method("_pack") or not progress.has_method("restore_snapshot") or not progress.has_method("save"):
         return {"ok": false, "applied": false, "reason": "invalid_progress"}
@@ -30,7 +58,7 @@ static func settle(progress: Object, event_id: String, intent: Dictionary, mutat
     var consumed: Dictionary = consumed_value
     if consumed.has(event_id):
         var receipt_value: Variant = consumed[event_id]
-        if not (receipt_value is Dictionary) or receipt_value.get("intent", {}) != intent:
+        if not (receipt_value is Dictionary) or not _same_persisted_value(receipt_value.get("intent", {}),intent):
             return {"ok": false, "applied": false, "reason": "event_id_collision"}
         return {"ok": true, "applied": false, "repeated": true, "receipt": receipt_value.duplicate(true)}
 

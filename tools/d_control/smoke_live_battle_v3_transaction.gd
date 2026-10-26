@@ -47,8 +47,8 @@ class FakeProgress:
 
 class FakeCore:
     extends RefCounted
-    var progress: FakeProgress
-    func _init(p: FakeProgress) -> void:
+    var progress
+    func _init(p) -> void:
         progress = p
     func record_enemy_resolution(kind: String, id: String) -> void:
         var seen: Dictionary = progress.rpg.get("resolved",{})
@@ -80,7 +80,9 @@ func _run() -> void:
     check(p.xp==100 and p.gold==50 and p.scene_index==3, "Boss effects incorrect")
     check(p.on_disk.get("scene_index",-1)==3, "Boss scene not durable")
     check(AReceipt.already_applied(p.rpg,id), "A receipt missing")
-    check(p.rpg.get(V3Ledger.BUCKET,{}).get("consumed",{}).has(id), "D receipt missing")
+    var saved_journal: Dictionary = p.rpg.get(V3Ledger.BUCKET,{})
+    var saved_receipts: Dictionary = saved_journal.get("consumed",{})
+    check(saved_receipts.has(id), "D receipt missing")
     var snapshot: Dictionary = p._pack().duplicate(true)
     var duplicate: Dictionary = Settlement.settle_victory(p,core,id,3,true,enemies,"qa_monster",100,30)
     check(bool(duplicate.get("repeated",false)) and p._pack()==snapshot, "Duplicate Boss replayed effects")

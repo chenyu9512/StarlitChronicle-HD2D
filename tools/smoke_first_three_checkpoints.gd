@@ -79,25 +79,40 @@ func _run() -> void:
     game.progress.task_index = 1
     game._enter_location()
     game.progress.gold = 120
-    game.progress.actors[0]["hp"] = 0
     var spawn_cell: Vector2i = game.world.terrain_layout.get("spawn", Vector2i(10, 23))
     var spawn_point := Vector2(spawn_cell * 32) + Vector2(16, 16)
     game.world.hero.position = find_safe_position(game, spawn_point)
     var chapter_before_defeat: int = game.progress.chapter
     var scene_before_defeat: int = game.progress.scene_index
-    game.battle_is_boss = true
-    game._battle_finished(false, 0, 0)
-    ck(game.world.hero.position.distance_to(spawn_point) < 1.0,
-        "Defeat did not return the player to a safe regional entry")
-    ck(game.world.encounter_meter < 0.0,
-        "Defeat retry has no grace period against random encounters")
-    ck(game.progress.gold == 105, "Defeat penalty applied incorrectly")
-    ck(int(game.progress.actors[0]["hp"]) > 0, "Defeat did not restore the party")
-    ck(game.progress.chapter == chapter_before_defeat and
-        game.progress.scene_index == scene_before_defeat,
-        "Defeat incorrectly advanced the main story")
-    ck(not bool(game.progress.flags.get("ch002.battle_won", false)),
-        "Defeat set a false Boss victory flag")
+    # Exercise the ACTUAL A→D completed signal and world handoff. Calling
+    # _battle_finished directly with no battle instance is an invalid fixture.
+    game._start_battle(true)
+    ck(is_instance_valid(game.battle), "Cannot start real boss fight for defeat recovery")
+    if is_instance_valid(game.battle):
+        var first_defeat_nonce: String = game.battle_defeat_id
+        ck(not first_defeat_nonce.is_empty(), "D defeat nonce missing from active fight")
+        game.progress.actors[0]["hp"] = 0
+        game.battle._finish(false)
+        ck(game.world.hero.position.distance_to(spawn_point) < 1.0,
+            "Defeat did not return the player to a safe regional entry")
+        ck(game.world.encounter_meter < 0.0,
+            "Defeat retry has no grace period against random encounters")
+        ck(game.progress.gold == 105, "Defeat penalty applied incorrectly")
+        ck(int(game.progress.actors[0]["hp"]) > 0, "Defeat did not restore the party")
+        ck(game.progress.chapter == chapter_before_defeat and
+            game.progress.scene_index == scene_before_defeat,
+            "Defeat incorrectly advanced the main story")
+        ck(not bool(game.progress.flags.get("ch002.battle_won", false)),
+            "Defeat set a false Boss victory flag")
+        # A second attempt at the same boss must have its own defeat receipt.
+        # A stable Boss VICTORY nonce may not suppress the new loss penalty.
+        game._start_battle(true)
+        ck(is_instance_valid(game.battle), "Cannot retry real boss after a defeat")
+        if is_instance_valid(game.battle):
+            ck(game.battle_defeat_id != first_defeat_nonce,
+                "Second boss attempt reused first defeat nonce")
+            game.battle._finish(false)
+            ck(game.progress.gold == 90, "New failed boss attempt failed to deduct second penalty")
 
     # Corrupting BOTH copies and selecting Continue must not overwrite either.
     var damaged_main := "{broken-main"

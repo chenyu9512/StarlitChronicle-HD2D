@@ -1,0 +1,42 @@
+name: B World Batch B0-B3 Validation
+# Manual batch-only. Does not consume CI on every main commit.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: b-world-manual-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit all maps, entrances, NPCs, quests and boss source links
+        run: |
+          python3 tools/audit_b_world_source_matrix.py --output /tmp/starlit-b-world-source-matrix.json
+          python3 tools/validate_b_npc_home.py
+          python3 tools/validate_b_line_delivery.py
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Headless import and GDScript compile gate
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Check 66 entrances and building walk paths
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_entrances.gd
+      - name: Check roof-safe pathfinding and no ghost doors
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_roof_pathfinding.gd
+      - name: Check 40 NPC dialogues and 12 interior furniture setups
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_home_v1.gd
+      - name: Verify 40 read-only NPC dialogue previews
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_dialogue_preview.gd
+      - name: Verify eight guild states, no UI read side effects and no duplicate claims
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_town_guild_readonly.gd
+      - name: Validate 40 physical maps, eight dungeon geometries and indoor travel
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

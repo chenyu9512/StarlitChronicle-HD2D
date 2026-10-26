@@ -1,4 +1,5 @@
 extends Node2D
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TownAudio = preload("res://scripts/c_town_soundscape.gd")
 ## Native drawn roof/building painter. No third-party franchise assets.
 ## Each town shares the same doorway and collision footprint from WorldGeography.
@@ -115,7 +116,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
     if ResourceLoader.exists(file):
         facade=Sprite2D.new()
         facade.name="AuthoredFacade"
-        facade.texture=load(file)
+        facade.texture=ArtOverrides.texture(file)
         facade.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
         facade.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
         facade.z_index=0
@@ -124,7 +125,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
         if ResourceLoader.exists(shadow_file):
             ground_shadow=Sprite2D.new()
             ground_shadow.name="FootprintContactShadow"
-            ground_shadow.texture=load(shadow_file)
+            ground_shadow.texture=ArtOverrides.texture(shadow_file)
             ground_shadow.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
             ground_shadow.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
             ground_shadow.position=Vector2(0,float(cells.y)*TILE*0.5-22.0)
@@ -134,7 +135,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
         if ResourceLoader.exists(glow):
             door_lamp=PointLight2D.new()
             door_lamp.name="DoorLanternLight"
-            door_lamp.texture=load(glow)
+            door_lamp.texture=ArtOverrides.texture(glow)
             door_lamp.texture_scale=0.58
             door_lamp.position=Vector2(0,float(cells.y)*TILE*0.5-37.0)
             door_lamp.color=Color("ffdea1")

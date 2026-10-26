@@ -1,6 +1,7 @@
 extends Sprite2D
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## Small original top-down citizen silhouette; role palette conveys information.
 var motion = CharacterMotion.new()
 var reduced_motion: bool = false
@@ -137,7 +138,7 @@ func setup(info: Dictionary) -> void:
     var art_path: String = ArtAssets.npc_fullbody(str(info.get("id", "")))
     if not art_path.is_empty() and ResourceLoader.exists(art_path):
         artwork = Sprite2D.new()
-        artwork.texture = load(art_path)
+        artwork.texture = ArtOverrides.texture(art_path)
         var dimensions: Vector2 = artwork.texture.get_size()
         var factor: float = minf(56.0 / maxf(dimensions.y, 1.0), 38.0 / maxf(dimensions.x, 1.0))
         artwork.scale = Vector2(factor, factor)

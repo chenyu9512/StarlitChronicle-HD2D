@@ -1,5 +1,7 @@
 extends CanvasLayer
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const ArtManagerUI = preload("res://scripts/c_art_manager_ui.gd")
 ## iPhone横屏优先的游戏界面：主标题 / 任务追踪 / 触屏移动 / 对白与选项 / 队伍菜单。
 signal started(continue_game: bool)
 signal move_changed(direction: Vector2)
@@ -17,6 +19,8 @@ const BLUE: Color = Color("0b1c32")
 const GOLD: Color = Color("e6c47d")
 var root: Control
 var title_overlay: Control
+var art_manager: Control
+var title_illustration: TextureRect
 var title_continue: Button
 var title_status: Label
 var hud: PanelContainer
@@ -333,9 +337,9 @@ func _render_line() -> void:
     dialogue_count=0.0
     auto_wait=0.0
     var path: String = _portrait_for(speaker)
-    dialog_portrait.visible = speaker != "旁白" and ResourceLoader.exists(path)
+    dialog_portrait.visible = speaker != "旁白" and ArtOverrides.exists(path)
     if dialog_portrait.visible:
-        dialog_portrait.texture = load(path)
+        dialog_portrait.texture = ArtOverrides.texture(path)
     dialog_next.text = "结束  ▸" if dialog_index == dialog_lines.size() - 1 else "继续  ▸"
 
 func _next() -> void:
@@ -515,7 +519,8 @@ func close_menu() -> void:
 func _build_title() -> void:
     title_overlay = _full_screen("TitleScreen", 0.34)
     var illustration := TextureRect.new()
-    illustration.texture = load("res://assets/art/backdrops/coast/tide_lighthouse.png")
+    illustration.texture = ArtOverrides.texture("res://assets/art/backdrops/coast/tide_lighthouse.png")
+    title_illustration = illustration
     illustration.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     illustration.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     illustration.stretch_mode = TextureRect.STRETCH_SCALE
@@ -555,6 +560,9 @@ func _build_title() -> void:
         started.emit(false)
     )
     center.add_child(new_game)
+    var art_button := _button("▣ 美术资源管理 / 图片替换", 18)
+    art_button.pressed.connect(func() -> void: art_manager.open_manager())
+    center.add_child(art_button)
     title_status = Label.new()
     title_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     title_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -566,6 +574,13 @@ func _build_title() -> void:
     foot.text = "原创剧情 · 离线存档 · iPhone横屏"
     foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     center.add_child(foot)
+    art_manager = ArtManagerUI.new()
+    art_manager.name = "CArtManager"
+    root.add_child(art_manager)
+    art_manager.asset_changed.connect(func(path: String) -> void:
+        if path == "res://assets/art/backdrops/coast/tide_lighthouse.png":
+            title_illustration.texture = ArtOverrides.texture(path)
+    )
 
 func show_title(has_save: bool, status: String = "") -> void:
     title_continue.disabled = not has_save

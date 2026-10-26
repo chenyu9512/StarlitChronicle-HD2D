@@ -1,4 +1,5 @@
 extends Node2D
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## A7-A9: per-map authored art, animation, nonblocking exploration props.
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
@@ -99,7 +100,7 @@ func _install_water_reflections(mask: Dictionary) -> void:
     var file: String=ART+"sea_glimmer_4f.svg"
     if not ResourceLoader.exists(file):
         return
-    var atlas_texture: Texture2D=load(file)
+    var atlas_texture: Texture2D=ArtOverrides.texture(file)
     if atlas_texture==null:
         return
     for frame in range(4):
@@ -138,7 +139,7 @@ func _install_surface_detail(layout: Dictionary) -> void:
     var tiles:=TileSet.new()
     tiles.tile_size=Vector2i(TILE,TILE)
     var atlas:=TileSetAtlasSource.new()
-    atlas.texture=load(file)
+    atlas.texture=ArtOverrides.texture(file)
     atlas.texture_region_size=Vector2i(TILE,TILE)
     for y in range(8):
         for x in range(8):
@@ -211,7 +212,7 @@ func _make_cavern_lighting() -> void:
             continue
         var lamp:=PointLight2D.new()
         lamp.name="CaveGlow_"+entry
-        lamp.texture=load(glow)
+        lamp.texture=ArtOverrides.texture(glow)
         lamp.position=authored_sprites[entry].position
         lamp.texture_scale=2.15
         lamp.energy=1.05
@@ -224,7 +225,7 @@ func _sprite(asset: String,cell: Vector2i) -> Sprite2D:
     if not ResourceLoader.exists(file):
         return null
     var sprite:=Sprite2D.new()
-    sprite.texture=load(file)
+    sprite.texture=ArtOverrides.texture(file)
     sprite.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
     sprite.position=Vector2(float(cell.x)*TILE+16.0,float(cell.y)*TILE+16.0)
     return sprite

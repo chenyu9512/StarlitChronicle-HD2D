@@ -1,4 +1,5 @@
 extends Node2D
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const InteractionFX = preload("res://scripts/c_interaction_fx.gd")
 const TownSoundscape = preload("res://scripts/c_town_soundscape.gd")
 ## First commercial-art vertical slice: live art is driven by the V4 room,
@@ -126,7 +127,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
             continue
         var prop := Sprite2D.new()
         prop.name = str(record.get("id",art_id))
-        prop.texture = load(path)
+        prop.texture = ArtOverrides.texture(path)
         prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
         # Y-sort uses the *floor contact point*, not the image offset. The
         # player and furniture must share z=3 so tables can hide/cover legs.
@@ -160,7 +161,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
             continue
         var lamp := PointLight2D.new()
         lamp.name = str(raw_light.get("id","IndoorLamp"))
-        lamp.texture = load(ART_DIR+"light_pool.svg")
+        lamp.texture = ArtOverrides.texture(ART_DIR+"light_pool.svg")
         lamp.position = Vector2(float(cell[0])*TILE+16.0,float(cell[1])*TILE+16.0)
         lamp.texture_scale = clampf(float(raw_light.get("scale",2.0)),0.5,4.0)
         lamp.energy = clampf(float(raw_light.get("energy",0.7)),0.1,1.5)
@@ -176,7 +177,7 @@ func _install_fire_animation(stage: Node2D,layout: Dictionary) -> void:
     var sheet_path: String=ART_DIR+"hearth_flames_6f.svg"
     if not ResourceLoader.exists(sheet_path):
         return
-    var sheet: Texture2D=load(sheet_path)
+    var sheet: Texture2D=ArtOverrides.texture(sheet_path)
     if sheet==null:
         return
     var frames:=SpriteFrames.new()
@@ -237,7 +238,7 @@ func _build_wall_edging(layout: Dictionary) -> void:
     var tiles := TileSet.new()
     tiles.tile_size=Vector2i(TILE,TILE)
     var source := TileSetAtlasSource.new()
-    source.texture=load(theme_atlas)
+    source.texture=ArtOverrides.texture(theme_atlas)
     source.texture_region_size=Vector2i(TILE,TILE)
     for x in range(8):
         source.create_tile(Vector2i(x,7))

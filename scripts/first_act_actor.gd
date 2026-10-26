@@ -1,4 +1,5 @@
 extends Node2D
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## C-line actor: eight logical headings with honest four-direction sprite atlas fallback.
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
 const AudioBusRuntime = preload("res://scripts/audio_bus_runtime.gd")
@@ -27,7 +28,7 @@ func setup(image: String) -> void:
         sprite.queue_free()
     sprite = Sprite2D.new()
     if ResourceLoader.exists(image):
-        sprite.texture = load(image) as Texture2D
+        sprite.texture = ArtOverrides.texture(image)
     sprite.hframes = 3
     sprite.vframes = 4
     sprite.frame_coords = Vector2i(1, 0)

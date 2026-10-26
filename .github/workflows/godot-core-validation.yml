@@ -172,13 +172,13 @@ jobs:
               echo "Already absent: ${branch}"
             fi
           done <<'BRANCHES'
-content/full-story-v1 ddbc7abe5455ef0e1c97f1c0166c7458b9f24453
-feature/content-foundation-v0-2 faaa29b42e9b6955def8cb3794fa57a2835cc0c6
-fix/p0-save-integrity-20261026 edc7917322039c7d02d23a6337578bbef9ed7268
-chore/actions-history-audit-20261026 71a7c1b32c0a3568373dc5a125675204c6cdfb75
-fix/ci-prologue-visual-qa-20261026 405bdd68daaae11ec19c0659210c4b82d0bedb51
-fix/ci-phase19-npc-night-presentation-20261026 2cf147a689533ddfa256fc56e91726b13896c099
-BRANCHES
+          content/full-story-v1 ddbc7abe5455ef0e1c97f1c0166c7458b9f24453
+          feature/content-foundation-v0-2 faaa29b42e9b6955def8cb3794fa57a2835cc0c6
+          fix/p0-save-integrity-20261026 edc7917322039c7d02d23a6337578bbef9ed7268
+          chore/actions-history-audit-20261026 71a7c1b32c0a3568373dc5a125675204c6cdfb75
+          fix/ci-prologue-visual-qa-20261026 405bdd68daaae11ec19c0659210c4b82d0bedb51
+          fix/ci-phase19-npc-night-presentation-20261026 2cf147a689533ddfa256fc56e91726b13896c099
+          BRANCHES
           for pr in 1 2 3; do
             state="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.state')"
             if [ "${state}" = "open" ]; then

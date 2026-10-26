@@ -120,10 +120,10 @@ func record_action(action: String, skill: Dictionary, actor_id: String, round_nu
     elif action == "guard" and str(spec.get("goal","")) == "survive":
         gain = 1
     elif action == "skill":
-        var kind: String = str((skill.get("effect",{}) as Dictionary).get("kind",""))
-        if kind in ["heal","shield"] and str(spec.get("goal","")) == "survive":
+        var effect_kind: String = str((skill.get("effect",{}) as Dictionary).get("kind",""))
+        if effect_kind in ["heal","shield"] and str(spec.get("goal","")) == "survive":
             gain = 1
-        if kind == "damage" and str(skill.get("element","")) == str(spec.get("phase_two_element","")) and phase_two:
+        if effect_kind == "damage" and str(skill.get("element","")) == str(spec.get("phase_two_element","")) and phase_two:
             ward = maxi(0,ward-1)
     progress = mini(99,progress+gain)
     var message: String = ""

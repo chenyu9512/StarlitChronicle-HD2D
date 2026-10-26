@@ -187,7 +187,7 @@
 
 ## 静态数值结果与限制
 
-72章 × 休闲/标准/挑战 = 216种静态包络；估算Boss击败轮次6–9回合。理论未防御总HP生存轮次：休闲10–15、标准7–11、挑战5–8。数据读取、Boss ID交叉匹配、职业武器档位、技能治疗目标、基本商店买卖价格和怪物掉落率静态一致性检查通过。未模拟单人被集火、真实异常/治疗、职业组队、敌人双击、存档恢复等；**不可当作Godot通过**。
+72章 × 休闲/标准/挑战 = 216种静态包络；新增216组可复现的真实普通遭遇命令回归，以及66场Boss × 三难度真实战斗回放，实际通过状态仍待Godot验收；估算Boss击败轮次6–9回合。理论未防御总HP生存轮次：休闲10–15、标准7–11、挑战5–8。数据读取、Boss ID交叉匹配、职业武器档位、技能治疗目标、基本商店买卖价格和怪物掉落率静态一致性检查通过。未模拟单人被集火、真实异常/治疗、职业组队、敌人双击、存档恢复等；**不可当作Godot通过**。
 
 ## A线修改清单
 
@@ -197,7 +197,7 @@
 - `scripts/battle_boss_mechanics.gd`（新）：Boss共享战术状态机。
 - `data/gameplay/{boss_mechanics,combat_progression,vocation_profiles}.json`：66场/72章/20职业数据。
 - `data/content/{monsters,skills,weapons}.json`：怪物掉落；2项错误敌方群疗修复；81把武器职业许可。
-- `tools/{smoke_a_line_contracts.gd,smoke_a_line_live_bosses.gd,validate_a_combat_balance.py}`（新）：严格回归与静态检查。
+- `tools/{smoke_a_line_contracts.gd,smoke_a_line_live_bosses.gd,smoke_a_line_chapter_encounters.gd,validate_a_combat_balance.py}`（新）：严格回归与静态检查。
 
 ## 共享接口待统一整合（未修改受保护文件）
 
@@ -222,4 +222,9 @@ var a_settlement: String = str(battle.last_boss_settlement) if is_instance_valid
 python3 tools/validate_a_combat_balance.py
 godot --headless --path . --script res://tools/smoke_a_line_contracts.gd
 godot --headless --path . --script res://tools/smoke_a_line_live_bosses.gd
+godot --headless --path . --script res://tools/smoke_a_line_chapter_encounters.gd
 ```
+
+## 新增可复现的战斗编队回放
+
+`BattleFormation.start()`现在复用`EncounterRegistry.rng`，使测试可固定种子而生产环境仍会在注册器初始化时随机化。`smoke_a_line_live_bosses.gd`循环20个职业；`smoke_a_line_chapter_encounters.gd`逐章三难度执行真实普通怪物战斗（216组），进行合法目标选择和真实HP扣减，禁止跳战、设置敌HP=0或开启无敌。验收尚未运行。

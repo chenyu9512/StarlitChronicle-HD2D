@@ -1,0 +1,33 @@
+name: Audit Historical Action Failures
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/audit_actions_failures.py"
+      - ".github/workflows/actions-failure-audit.yml"
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: actions-history-audit-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit every historic failed run and its failed steps
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/audit_actions_failures.py --repository "${{ github.repository }}" --output-dir build/actions-audit
+      - name: Upload per-run CSV and Markdown report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Actions-Failure-History-Audit
+          path: build/actions-audit/
+          retention-days: 30

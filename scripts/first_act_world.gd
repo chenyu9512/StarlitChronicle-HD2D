@@ -51,8 +51,6 @@ var act01_layouts: Dictionary = {}
 var current_layout: Dictionary = {}
 var terrain_layout: Dictionary = {}
 var geography = Geography.new()
-var fog
-var fog_last_cell: Vector2i = Vector2i(-100,-100)
 var town_life = TownLife.new()
 var discoveries = WorldDiscoveries.new()
 var dungeon_puzzles = WorldDungeonPuzzles.new()
@@ -191,8 +189,6 @@ func build(new_chapter: int, party_size: int) -> void:
     movement = Vector2.ZERO
     encounter_meter = 0.0
     next_encounter = rng.randf_range(350.0, 500.0)
-    fog_last_cell = Vector2i(-100,-100)
-    _reveal_nearby()
 
 func _party_sprite(position: int, fallback: String) -> String:
     var characters: Dictionary = {"char_wayfarer":"leon","char_tidecaller":"lanyin","char_seeker":"shuoxian","char_chengzhou":"chengzhou"}
@@ -215,8 +211,6 @@ func _make_tiles() -> void:
     var extent: Vector2i = terrain_layout.get("size",Vector2i(72,48))
     WIDTH = extent.x
     HEIGHT = extent.y
-    if fog != null:
-        fog.configure(fog_key(),extent)
     var chosen_atlas: String=str(terrain_layout.get("art_tileset",""))
     if chosen_atlas.is_empty() and str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
         chosen_atlas=INN_ATLAS
@@ -582,8 +576,6 @@ func teleport_field_secret() -> bool:
         third.position=hero.position+Vector2(-53,27)
     if is_instance_valid(fourth):
         fourth.position=hero.position+Vector2(-78,40)
-    fog_last_cell=Vector2i(-100,-100)
-    _reveal_nearby()
     return true
 
 func _build_sites() -> void:
@@ -1211,8 +1203,6 @@ func _physics_process(delta: float) -> void:
     if not _blocked(proposal):
         hero.position.y = proposal.y
     var moved: Vector2 = hero.position - before
-    if moved.length_squared() > 0.001:
-        _reveal_nearby()
     hero.set_motion(delta, moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
     companion.position = companion.position.lerp(hero.position + Vector2(-28, 20), minf(1.0, delta * 3.8))
     companion.set_motion(delta, moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
@@ -1236,19 +1226,6 @@ func _physics_process(delta: float) -> void:
             encounter_requested.emit()
     if focus_light.visible:
         focus_light.modulate.a = 0.58 + 0.18 * sin(Time.get_ticks_msec() * 0.005)
-
-func fog_key() -> String:
-    var level_name: String = str(map_profile.get("id","map_coast_01"))
-    return level_name if interior_building.is_empty() else level_name+"#"+interior_building
-
-func _reveal_nearby() -> void:
-    if fog == null or not is_instance_valid(hero):
-        return
-    var cell: Vector2i = Vector2i(hero.position/TILE)
-    if cell == fog_last_cell:
-        return
-    fog_last_cell = cell
-    fog.reveal(fog_key(),cell,5)
 
 func _blocked(point: Vector2) -> bool:
     for offset in [Vector2(-9, -6), Vector2(9, -6), Vector2(-9, 6), Vector2(9, 6)]:

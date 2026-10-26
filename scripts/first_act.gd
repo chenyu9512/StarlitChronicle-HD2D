@@ -9,6 +9,7 @@ const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction
 const BattleV3Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
 const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_settlement.gd")
 const V3ProgressTransition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
+const WorldObjectSettlement = preload("res://scripts/d_world_interaction/world_object_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
@@ -560,20 +561,17 @@ func _interact(target: String) -> void:
         if not needed.is_empty() and not bool(progress.flags.get(world.discoveries.flag(map_id,needed),false)):
             ui.show_message("【%s】附近还有未调查的线索，暂时无法解开此处的秘密。" % str(record.get("name","地标")))
             return
-        progress.flags[completion] = true
         var narrative: String = str(record.get("text",""))
         var reward: Dictionary = record.get("reward",{}) if record.get("reward",{}) is Dictionary else {}
+        _capture_world_position()
+        var discovery_tx: Dictionary = WorldObjectSettlement.claim(progress,game_core,completion,reward)
+        if not bool(discovery_tx.get("ok",false)):
+            ui.show_message("调查进度尚未保存，物品和奖励已回滚。请检查存储空间后重试。")
+            return
         var payout: String = ""
         if not reward.is_empty():
-            var amount: int = maxi(0,int(reward.get("gold",0)))
-            var item_id: String = str(reward.get("item_id",""))
-            var item_count: int = maxi(0,int(reward.get("amount",0)))
-            if not item_id.is_empty() and item_count>0:
-                game_core.add_item(item_id,item_count)
-            progress.gold += amount
-            payout = "\n获得 %d G 与地区补给 ×%d。" % [amount,item_count]
+            payout = "\n获得 %d G 与地区补给 ×%d。" % [int(reward.get("gold",0)),int(reward.get("amount",0))]
         game_events.record("world_discovery",{"map":map_id,"site":event_id})
-        _save_progress()
         ui.show_message("【%s】\n%s%s" % [str(record.get("name","地标")),narrative,payout])
         return
     if target.begins_with("puzzle:"):
@@ -581,18 +579,14 @@ func _interact(target: String) -> void:
             return
         var region_id: String = world_router.current_map()
         var device_id: String = target.trim_prefix("puzzle:")
-        var solved: Dictionary = world.dungeon_puzzles.interact(region_id,device_id,progress)
-        if bool(solved.get("changed",false)):
-            var payment: Dictionary = solved.get("reward",{})
-            if not payment.is_empty():
-                var gold: int = maxi(0,int(payment.get("gold",0)))
-                var item_id: String = str(payment.get("item_id",""))
-                var count: int = maxi(0,int(payment.get("amount",0)))
-                progress.gold += gold
-                if count>0 and not item_id.is_empty():
-                    game_core.add_item(item_id,count)
-                game_events.record("dungeon_puzzle_solved",{"map":region_id,"mode":str(world.dungeon_puzzles.config(region_id).get("mode",""))})
-            _save_progress()
+        _capture_world_position()
+        var puzzle_tx: Dictionary = WorldObjectSettlement.puzzle(progress,game_core,world.dungeon_puzzles,region_id,device_id)
+        if not bool(puzzle_tx.get("ok",false)):
+            ui.show_message("机关状态或秘藏奖励未能保存，已恢复操作前状态。请重新尝试。")
+            return
+        var solved: Dictionary = (puzzle_tx.get("outcome",{}) as Dictionary).get("result",{})
+        if bool(puzzle_tx.get("changed",false)) and bool(solved.get("completed",false)):
+            game_events.record("dungeon_puzzle_solved",{"map":region_id,"mode":str(world.dungeon_puzzles.config(region_id).get("mode",""))})
         ui.show_message(str(solved.get("message","这里没有可操作的机关。")))
         return
     if target.begins_with("dungeon_switch_"):
@@ -600,8 +594,11 @@ func _interact(target: String) -> void:
         if bool(progress.flags.get(key,false)):
             ui.show_message("符文机关已经启动。")
         else:
-            progress.flags[key] = true
-            _save_progress()
+            _capture_world_position()
+            var switch_tx: Dictionary = WorldObjectSettlement.claim(progress,game_core,key)
+            if not bool(switch_tx.get("ok",false)):
+                ui.show_message("机关开启状态保存失败，已回滚。请重试。")
+                return
             var left_a: bool = bool(progress.flags.get("map.%s.dungeon_switch_a" % world_router.current_map(),false))
             var left_b: bool = bool(progress.flags.get("map.%s.dungeon_switch_b" % world_router.current_map(),false))
             ui.show_message("古代灯纹机关发出亮光！" + (" 两座机关同时激活，秘藏已解除封印。" if left_a and left_b else " 附近还有其他机关。"))
@@ -613,10 +610,12 @@ func _interact(target: String) -> void:
         elif bool(progress.flags.get(lock_prefix+"chest_claimed",false)):
             ui.show_message("秘藏宝箱已经打开。")
         else:
-            progress.flags[lock_prefix+"chest_claimed"] = true
-            progress.gold += 60 + 8 * maxi(1,progress.chapter)
-            game_core.add_item("item_herb_01",2)
-            _save_progress()
+            _capture_world_position()
+            var chest_tx: Dictionary = WorldObjectSettlement.claim(progress,game_core,
+                lock_prefix+"chest_claimed",{"gold":60+8*maxi(1,progress.chapter),"item_id":"item_herb_01","amount":2})
+            if not bool(chest_tx.get("ok",false)):
+                ui.show_message("宝箱奖励保存失败，已回滚。请重试。")
+                return
             ui.show_message("发现地下城秘藏！获得两株盐露草与旅行金币。")
         return
     if target == "wild_cache":
@@ -624,9 +623,12 @@ func _interact(target: String) -> void:
         if bool(progress.flags.get(cache_flag,false)):
             ui.show_message("补给箱已被取走。")
         else:
-            progress.flags[cache_flag] = true
-            game_core.add_item("item_herb_01",1)
-            _save_progress()
+            _capture_world_position()
+            var cache_tx: Dictionary = WorldObjectSettlement.claim(progress,game_core,
+                cache_flag,{"item_id":"item_herb_01","amount":1})
+            if not bool(cache_tx.get("ok",false)):
+                ui.show_message("补给箱领取记录保存失败，物品已回滚。请重试。")
+                return
             ui.show_message("从野外补给箱发现了一株盐露草。")
         return
     if target == "wild_camp":

@@ -22,6 +22,11 @@ func setup_battle() -> Dictionary:
     healer["speed"] = 140
     healer["mp"] = 40
     state.actors[1] = healer
+    # Keep the other ally ahead of enemies so a normal enemy hit cannot
+    # obscure the exact after-potion HP assertion before the next input.
+    var fighter: Dictionary = state.actors[0]
+    fighter["speed"] = 80
+    state.actors[0] = fighter
     var core = Core.new()
     core.bind(state)
     var battle = Battle.new()
@@ -66,6 +71,11 @@ func _run() -> void:
     var initial_mp: int = int(state.actors[1]["mp"])
     var initial_inventory: Dictionary = state.inventory.duplicate(true)
     var initial_cursor: int = battle.turn_cursor
+    for enemy_token in ["hello","-1"]:
+        battle._act("attack#"+enemy_token)
+        check(battle.turn_cursor==initial_cursor and battle.hero_turn==1
+            and int(battle.formation.units[0]["hp"])>0,
+            "Malformed enemy token spent a player turn: "+enemy_token)
     for invalid_token in ["999","-1","hello"]:
         battle._act("skill:skill_tidecaller_01@"+invalid_token)
         check(battle.turn_cursor==initial_cursor and battle.hero_turn==1,

@@ -33,7 +33,7 @@ func _run() -> void:
             records[id]=true
             check(not str(npc.get("occupation","")).is_empty(),"occupation "+id)
             check((npc.get("daily_routine",[]) as Array).size()==5,"routine "+id)
-            check((npc.get("dialogue_states",{}) as Dictionary).size()==5,"dialogue states "+id)
+            check((npc.get("dialogue_states",{}) as Dictionary).size()==6,"dialogue states "+id)
             var player=State.new()
             player.new_game()
             player.chapter=2
@@ -45,6 +45,13 @@ func _run() -> void:
             check(player.rpg.get("talked_to",{}).has(id),"missing legacy talked flag "+id)
             var night: Dictionary=life.talk(id,region_id,{"day":1,"minutes":1320},player)
             check(str(night.get("dialogue_phase",""))=="night","night talk "+id)
+            var town_map: String=str(npc.get("map_id",""))
+            var done: Dictionary={}
+            done[town_map]={"prepare":true,"coordinate":true,"handoff":true}
+            player.rpg["town_ecology_v7"]=done
+            var aftermath: Dictionary=life.talk(id,region_id,{"day":1,"minutes":720},player)
+            check(str(aftermath.get("dialogue_phase",""))=="after_quest",
+                "Town completion not reflected "+id)
             check(not motion.schedule(id,1320).is_empty(),"night schedule "+id)
     check(records.size()==40,"Expected 40 canonical NPC identities")
     var block: Dictionary={Vector2i(10,10):true}

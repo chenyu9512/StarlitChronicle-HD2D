@@ -71,8 +71,11 @@ func talk(npc_id: String, region_id: String, clock: Dictionary, state) -> Dictio
     var current_chapter: int = int(state.chapter)
     var context: String = "first" if first else "repeat"
     var completed: bool = bool(state.flags.get("story.ch%03d.done" % maxi(1,current_chapter-1),false))
+    var community: Dictionary = state.rpg.get("town_ecology_v7",{}).get(str(person.get("map_id","")),{})
     if not first and (hour>=20 or hour<6):
         context = "night"
+    elif not first and bool(community.get("handoff",false)):
+        context = "after_quest"
     elif not first and completed:
         context = "after_chapter"
     var dialogues: Dictionary = person.get("dialogue_states",{})

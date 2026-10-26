@@ -11,6 +11,7 @@ var cells: Vector2i = Vector2i(8,6)
 var facade: Sprite2D
 var ground_shadow: Sprite2D
 var exterior_identity: String = ""
+var entrance_local: Vector2 = Vector2.ZERO
 var door_lamp: PointLight2D
 var visual_time_minutes: int = 660
 var motion_seconds: float = 0.0
@@ -66,7 +67,7 @@ func _player_near_entrance() -> bool:
     var stage: Node = get_parent()
     if stage == null:
         return false
-    var entrance: Vector2 = to_global(Vector2(0, float(cells.y) * TILE * 0.5 - 35.0))
+    var entrance: Vector2 = to_global(entrance_local)
     for sibling in stage.get_children():
         if sibling == self or not sibling is Node2D:
             continue
@@ -78,7 +79,7 @@ func _player_near_entrance() -> bool:
     return false
 
 func _draw_scene_motion() -> void:
-    var foot_y: float = float(cells.y) * TILE * 0.5 - 35.0
+    var foot_y: float = entrance_local.y - 8.0
     var width: float = 23.0 * (1.0 - door_progress * 0.75)
     # Door feedback overlays the existing facade; collision/building footprint untouched.
     if door_progress > 0.02:
@@ -100,11 +101,16 @@ func _draw_scene_motion() -> void:
             draw_circle(chimney + Vector2(drift * 0.5, -drift - 8.0), 2.0 + drift * 0.09, Color(0.62, 0.59, 0.56, 0.21 * (1.0 - drift / 23.0)))
 
 
-func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,map_key: String = "",minutes: int = 660) -> void:
+func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,map_key: String = "",minutes: int = 660,entrance_delta: Vector2i = Vector2i(-999,-999)) -> void:
     purpose = kind
     title = building_name
     biome = area
     cells = dimensions
+    # Explicit door-relative position shared with the map's interaction tile.
+    # Old callers use the south-facing central threshold as a safe fallback.
+    entrance_local = Vector2(0.0,float(cells.y)*TILE*0.5)
+    if entrance_delta.x != -999:
+        entrance_local = Vector2(entrance_delta*TILE)
     exterior_identity=map_key+"#"+kind
     visual_time_minutes=minutes
     # The façade and actor share the exact y-sorted z layer. Our node position
@@ -137,7 +143,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
             door_lamp.name="DoorLanternLight"
             door_lamp.texture=ArtOverrides.texture(glow)
             door_lamp.texture_scale=0.58
-            door_lamp.position=Vector2(0,float(cells.y)*TILE*0.5-37.0)
+            door_lamp.position=entrance_local+Vector2(0,-37)
             door_lamp.color=Color("ffdea1")
             add_child(door_lamp)
             set_clock(visual_time_minutes)

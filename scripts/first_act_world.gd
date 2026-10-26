@@ -133,6 +133,7 @@ func build(new_chapter: int, party_size: int) -> void:
     _decorate()
     _install_coastal_scenery()
     _build_sites()
+    _reconcile_interaction_markers()
     _spawn_residents()
     hero = Actor.new()
     hero.setup(_party_sprite(0, "leon"))
@@ -297,14 +298,16 @@ func _decorate() -> void:
                     var size_data: Array = record.get("size",[8,6])
                     width_data = Vector2i(int(size_data[0]),int(size_data[1]))
                     break
-            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region,str(map_profile.get("id","")),clock_minutes)
+            var entry_cell: Vector2i=feature.get("door",cell+Vector2i(0,width_data.y/2))
+            architecture.setup(str(feature.get("building","house")),str(feature.get("name","建筑")),width_data,region,str(map_profile.get("id","")),clock_minutes,entry_cell-cell)
             architecture.position = Vector2(cell*TILE)+Vector2(16,16)
             scenery.add_child(architecture)
         else:
             # Generic procedurally-selected props are not the visual identity of
             # the 21 V7 wilderness scenes. Existing town furniture is preserved.
             if field_ecology.config(str(map_profile.get("id",""))).is_empty() or bool(map_profile.get("settlement",false)):
-                _add_sprite(kind,cell,false,true)
+                if not bool(map_profile.get("settlement",false)) or _town_prop_clear(kind,cell):
+                    _add_sprite(kind,cell,false,true)
     # Each V7 wilderness scene receives its own 16-site art dressing pass,
     # with biome-correct props, palette variation and authored placements.
     var outdoor_art: Dictionary=field_ecology.config(str(map_profile.get("id","")))
@@ -330,7 +333,14 @@ func _decorate() -> void:
     if bool(map_profile.get("settlement",false)):
         for entry in current_layout.get("objects",[]):
             if entry is Array and entry.size()>=3:
-                _add_sprite(str(entry[0]),Vector2i(int(entry[1]),int(entry[2])),false)
+                var kind: String=str(entry[0])
+                # Historic act-I cottages were decorative sprites without
+                # building IDs, collision or interiors: do not draw fake houses.
+                if kind=="cottage":
+                    continue
+                var site: Vector2i=geography.old_to_new(Vector2i(int(entry[1]),int(entry[2])))
+                if _town_prop_clear(kind,site):
+                    _add_sprite(kind,site,false,true)
         return
     var objects: Array = [
         ["palm_tree", 7, 5], ["palm_tree", 38, 6], ["cottage", 11, 6], ["cottage", 34, 6],
@@ -377,11 +387,69 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
     var place: Vector2i = tile if authored else geography.old_to_new(tile)
     sprite.position = Vector2(place*TILE)+Vector2(16,16)
     sprite.offset = Vector2(0, -20)
+    if kind in ["palm_tree","saltwind_oak","sea_wind_pine"]:
+        # A canopy sorts against the actor by trunk/ground contact, not its top.
+        sprite.z_index=3
+        if sprite.texture!=null:
+            sprite.offset=Vector2(0,-sprite.texture.get_height()*0.5+14.0)
     sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     scenery.add_child(sprite)
     if solid:
         blocked[place] = true
     return sprite
+
+## Town dressing is cosmetic, never an extra fake doorway and never laid
+## over a house, a sidewalk threshold, a quest anchor or the main route.
+func _town_prop_clear(kind: String,site: Vector2i) -> bool:
+    if kind=="cottage" or site.x<3 or site.y<3 or site.x>=WIDTH-3 or site.y>=HEIGHT-3 or blocked.has(site):
+        return false
+    var floor: Vector2i=terrain_layout.get("tiles",{}).get(site,Vector2i.ZERO)
+    if floor.y==3:
+        return false
+    var start: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
+    if site.distance_squared_to(start)<16:
+        return false
+    for building in terrain_layout.get("features",[]):
+        if not building.has("building"):
+            continue
+        var door: Vector2i=building.get("door",Vector2i.ZERO)
+        if site.distance_squared_to(door+Vector2i.DOWN)<13:
+            return false
+    for essential in geography._anchors():
+        if site.distance_squared_to(essential)<4:
+            return false
+    return true
+
+func _safe_site_cell(anchor: Vector2i) -> Vector2i:
+    if not interior_building.is_empty():
+        return anchor
+    var start: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
+    for radius in range(13):
+        for y in range(-radius,radius+1):
+            for x in range(-radius,radius+1):
+                if absi(x)+absi(y)!=radius:
+                    continue
+                var point: Vector2i=anchor+Vector2i(x,y)
+                if point.x<3 or point.y<3 or point.x>=WIDTH-3 or point.y>=HEIGHT-3 or blocked.has(point):
+                    continue
+                if geography.reachable({"blocked":blocked,"size":Vector2i(WIDTH,HEIGHT)},[start],[point]):
+                    return point
+    push_warning("No reachable marker tile near "+str(anchor))
+    return anchor
+
+func _reconcile_interaction_markers() -> void:
+    if not interior_building.is_empty():
+        return
+    for key in nodes.keys():
+        if str(key).begins_with("building:") or not is_instance_valid(nodes[key]):
+            continue
+        var node: Node2D=nodes[key]
+        var position_cell:=Vector2i(floori(node.position.x/TILE),floori(node.position.y/TILE))
+        if not blocked.has(position_cell):
+            continue
+        var safe: Vector2i=_safe_site_cell(position_cell)
+        if safe!=position_cell:
+            node.position=Vector2(safe*TILE)+Vector2(16,16)
 
 func _town_event_cell(anchor: Vector2i,reserved: Dictionary) -> Vector2i:
     var origin: Vector2i = terrain_layout.get("spawn",Vector2i(10,23))
@@ -559,7 +627,14 @@ func _build_sites() -> void:
     for feature in terrain_layout.get("features",[]):
         if feature.has("building"):
             var door: Vector2i = feature.get("door",Vector2i.ZERO)
-            nodes["building:"+str(feature.get("building",""))] = _add_sprite("sign",door,false,true)
+            # Doorway itself is part of the solid house: the actionable
+            # threshold stands one tile south, on the visible front step.
+            var front: Vector2i = door+Vector2i.DOWN
+            var marker: Sprite2D=_add_sprite("sign",front,false,true)
+            marker.scale=Vector2(0.72,0.72)
+            marker.modulate=Color("f4dda7")
+            marker.set_meta("door_cell",door)
+            nodes["building:"+str(feature.get("building",""))] = marker
     var icons := {"key_npc": "beacon", "clue": "crate", "witness": "medicine_basket", "crisis": "sea_crystal", "resolve": "star_lantern", "inn": "well", "shop": "fish_stall", "side_start": "sign", "side_item": "crate", "side_return": "beacon"}
     for k in SITES.keys():
         var where: Vector2i = SITES[k]
@@ -663,11 +738,11 @@ func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String
         npc.apply_story_presentation(phase if not phase.is_empty() else "intro",branch,clock_minutes)
         marker = npc
         marker.z_index = 5
-        marker.position = Vector2(cell*TILE)+Vector2(16,16)
+        marker.position = Vector2(_safe_site_cell(cell)*TILE)+Vector2(16,16)
         scenery.add_child(marker)
     else:
         var art: String = art_override if not art_override.is_empty() else ("sea_crystal" if kind == "evidence" else "sign")
-        var obj: Sprite2D = _add_sprite(art,cell,false,true)
+        var obj: Sprite2D = _add_sprite(art,_safe_site_cell(cell),false,true)
         obj.modulate = Color("a2e8f1") if kind == "evidence" else Color("f2d79a")
         marker = obj
         var title_tag := Label.new()
@@ -680,7 +755,7 @@ func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String
         marker.add_child(title_tag)
     nodes[target_id] = marker
     story_marker_ids.append(target_id)
-    story_marker_positions[target_id] = cell
+    story_marker_positions[target_id] = Vector2i(marker.position/TILE)
 
 func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Dictionary:
     var region_map: String = str(map_profile.get("id",""))
@@ -1153,6 +1228,24 @@ func interact() -> void:
             nearest_quest_door = marker_id
     if not nearest_quest_door.is_empty():
         interacted.emit(nearest_quest_door)
+        return
+    # Explicit threshold interaction wins over unrelated decor/NPC markers.
+    # Only the front side is usable; roofs and side walls remain impassable.
+    var nearest_building: String = ""
+    var nearest_building_distance: float = 53.0
+    for key in nodes.keys():
+        if not str(key).begins_with("building:") or not is_instance_valid(nodes[key]):
+            continue
+        var door_marker: Node2D=nodes[key]
+        var offset: Vector2=hero.position-door_marker.position
+        if absf(offset.x)>42.0 or offset.y< -26.0:
+            continue
+        var d: float=offset.length()
+        if d<nearest_building_distance:
+            nearest_building_distance=d
+            nearest_building=str(key)
+    if not nearest_building.is_empty():
+        interacted.emit(nearest_building)
         return
     var chosen := ""
     var best: float = 65.0

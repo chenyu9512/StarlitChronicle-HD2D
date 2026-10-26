@@ -127,6 +127,10 @@ func set_visual_quality(level: int) -> void:
         reflection.visible=q>0
     for wave in tidal_sprites:
         wave.visible=q>0
+    # Keep a readable cavern on low settings while limiting costly local
+    # illumination. Existing three authored light nodes retain their positions.
+    for index in range(cavern_lights.size()):
+        cavern_lights[index].visible=index < (1 if q==0 else (2 if q==1 else 3))
     set_process(q>0)
 
 func _safe_vegetation_cell(wanted: Vector2i,layout: Dictionary) -> Vector2i:

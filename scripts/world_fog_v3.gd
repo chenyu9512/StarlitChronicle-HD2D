@@ -12,7 +12,31 @@ var extents: Dictionary = {}
 func configure(id: String, extent: Vector2i) -> void:
     if id.is_empty():
         return
-    extents[id] = Vector2i(maxi(W,extent.x),maxi(H,extent.y))
+    var next_extent: Vector2i = Vector2i(maxi(W,extent.x),maxi(H,extent.y))
+    var old_extent: Vector2i = _extent(id)
+    if decoded.has(id) and old_extent != next_extent:
+        # The map view may read fog before the physical map dimensions arrive.
+        # Remap existing explored cells to the new row stride, not only resize.
+        var previous: PackedByteArray = decoded[id]
+        var resized := PackedByteArray()
+        resized.resize(int(ceil(float(next_extent.x*next_extent.y)/8.0)))
+        resized.fill(0)
+        for y in range(mini(old_extent.y,next_extent.y)):
+            for x in range(mini(old_extent.x,next_extent.x)):
+                var from_bit: int = y*old_extent.x+x
+                var to_bit: int = y*next_extent.x+x
+                var source_index: int = int(from_bit/8)
+                if source_index < previous.size() and (int(previous[source_index]) & (1<<(from_bit%8))) != 0:
+                    var dest_index: int = int(to_bit/8)
+                    resized[dest_index] = int(resized[dest_index]) | (1<<(to_bit%8))
+        decoded[id] = resized
+        if state != null:
+            var world: Dictionary = state.rpg.get("world",{})
+            var layers: Dictionary = world.get("fog",{})
+            layers[id] = Marshalls.raw_to_base64(resized)
+            world["fog"] = layers
+            state.rpg["world"] = world
+    extents[id] = next_extent
     _bytes(id)
 
 func _extent(id: String) -> Vector2i:
@@ -33,7 +57,13 @@ func bind(progress) -> void:
 
 func _bytes(id: String) -> PackedByteArray:
     if decoded.has(id):
-        return decoded[id]
+        var existing: PackedByteArray = decoded[id]
+        var old_extent: Vector2i = _extent(id)
+        var required: int = int(ceil(float(old_extent.x*old_extent.y)/8.0))
+        if existing.size() == required:
+            return existing
+        # Repair stale/truncated cached arrays rather than indexing beyond end.
+        decoded.erase(id)
     var values := PackedByteArray()
     if state != null:
         var layers: Dictionary = state.rpg.get("world",{}).get("fog",{})
@@ -66,7 +96,10 @@ func revealed(id: String, x: int, y: int) -> bool:
         return false
     var values: PackedByteArray = _bytes(id)
     var position: int = y*extent.x+x
-    return (int(values[position/8]) & (1<<(position%8))) != 0
+    var index: int = int(position/8)
+    if index < 0 or index >= values.size():
+        return false
+    return (int(values[index]) & (1<<(position%8))) != 0
 
 func reveal(id: String, center: Vector2i, radius: int = 4) -> bool:
     if state == null or id.is_empty():
@@ -88,6 +121,8 @@ func reveal(id: String, center: Vector2i, radius: int = 4) -> bool:
                 continue
             var offset: int = y*extent.x+x
             var chunk: int = int(offset/8)
+            if chunk < 0 or chunk >= bytes.size():
+                continue
             var mask: int = 1<<(offset%8)
             if (int(bytes[chunk]) & mask)==0:
                 bytes[chunk] = int(bytes[chunk]) | mask

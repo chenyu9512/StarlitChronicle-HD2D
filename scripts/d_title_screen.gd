@@ -161,6 +161,7 @@ func _build_heading() -> void:
 func _build_prompt() -> void:
     prompt = Control.new()
     prompt.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    prompt.gui_input.connect(_on_splash_gui)
     add_child(prompt)
     var lines := VBoxContainer.new()
     lines.anchor_left = 0.095
@@ -313,6 +314,8 @@ func configure(has_save: bool, status: String = "") -> void:
     status_label.visible = not status.is_empty()
     if not status.is_empty():
         _reveal_menu()
+        if audio_enabled and soundscape != null and is_instance_valid(soundscape):
+            soundscape.call("configure","map_coast_01","street",false,0.40)
     if menu_open:
         _set_page("archive")
 
@@ -403,23 +406,38 @@ func _toggle_audio() -> void:
     _refresh_preference_labels()
     _save_preferences()
 
+
+func _on_splash_gui(event: InputEvent) -> void:
+    if menu_open:
+        return
+    if event is InputEventMouseButton:
+        var click: InputEventMouseButton = event as InputEventMouseButton
+        if click.pressed and click.button_index == MOUSE_BUTTON_LEFT:
+            _reveal_menu()
+            accept_event()
+    elif event is InputEventScreenTouch:
+        var tap: InputEventScreenTouch = event as InputEventScreenTouch
+        if tap.pressed:
+            _reveal_menu()
+            accept_event()
+
 func _unhandled_input(event: InputEvent) -> void:
     if not visible:
         return
     if not menu_open:
         if event is InputEventKey:
-            var key: InputEventKey = event
+            var key: InputEventKey = event as InputEventKey
             if key.pressed and not key.echo:
                 _reveal_menu()
                 get_viewport().set_input_as_handled()
         elif event is InputEventJoypadButton:
-            var joy: InputEventJoypadButton = event
+            var joy: InputEventJoypadButton = event as InputEventJoypadButton
             if joy.pressed:
                 _reveal_menu()
                 get_viewport().set_input_as_handled()
         return
     if event is InputEventKey:
-        var key: InputEventKey = event
+        var key: InputEventKey = event as InputEventKey
         if key.pressed and key.keycode == KEY_ESCAPE and confirmation.visible:
             confirmation.hide()
             get_viewport().set_input_as_handled()

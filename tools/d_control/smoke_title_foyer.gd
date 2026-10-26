@@ -29,8 +29,11 @@ func _run() -> void:
     verify(ui.title_continue.disabled,"Continue active with no local save")
     verify(ui.title_illustration!=null,"original replaceable backdrop lost")
     verify(ui.art_manager!=null,"C-line art manager not preserved")
-    screen.call("_reveal_menu")
-    verify(screen.get("menu_open") and screen.get("menu_left").visible and screen.get("menu_right").visible,
+    var touch := InputEventScreenTouch.new()
+    touch.pressed = true
+    screen.call("_on_splash_gui",touch)
+    verify(screen.get("menu_open") and screen.get("menu_left").visible and screen.get("menu_right").visible
+        and not screen.get("prompt").visible,
         "title portal does not expose adventure lobby")
     screen.call("_set_page","controls")
     verify("WASD" in str(screen.get("detail_body").text),"help page lacks real controls")

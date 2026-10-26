@@ -1,6 +1,7 @@
 extends Node2D
 ## Authored C-line coastal dressing. Read-only view of world collision and map IDs.
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const ART: String = "res://assets/art/exteriors/coast_final_pass/"
 const TILE: int = 32
 const ATLASES: Dictionary = {"map_coast_01":"dew_ground_glaze.svg","map_coast_02":"harbor_ground_glaze.svg"}
@@ -52,15 +53,10 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
     var texture: Texture2D=ArtOverrides.texture(path)
     if texture==null or texture.get_width()<256 or texture.get_height()<256:
         return
-    var tile_set:=TileSet.new()
-    tile_set.tile_size=Vector2i(TILE,TILE)
-    var atlas:=TileSetAtlasSource.new()
-    atlas.texture=texture
-    atlas.texture_region_size=Vector2i(TILE,TILE)
-    for row in range(8):
-        for column in range(8):
-            atlas.create_tile(Vector2i(column,row))
-    tile_set.add_source(atlas,0)
+    var tile_paths: Array[String]=[path]
+    var tile_set: TileSet=TilePool.shared(tile_paths)
+    if tile_set==null:
+        return
     accent_layer=TileMapLayer.new()
     accent_layer.name="OriginalCoastalInk"
     accent_layer.tile_set=tile_set
@@ -127,15 +123,10 @@ func _install_dew_road_material(ground: Dictionary, blocked: Dictionary, water: 
     var texture: Texture2D = ArtOverrides.texture(path)
     if texture == null or texture.get_width() != 256 or texture.get_height() != 256:
         return
-    var road_set := TileSet.new()
-    road_set.tile_size = Vector2i(TILE, TILE)
-    var atlas := TileSetAtlasSource.new()
-    atlas.texture = texture
-    atlas.texture_region_size = Vector2i(TILE, TILE)
-    for y in range(8):
-        for x in range(8):
-            atlas.create_tile(Vector2i(x, y))
-    road_set.add_source(atlas, 0)
+    var road_paths: Array[String]=[path]
+    var road_set: TileSet=TilePool.shared(road_paths)
+    if road_set==null:
+        return
     road_layer = TileMapLayer.new()
     road_layer.name = "OriginalDewRoadStone"
     road_layer.tile_set = road_set

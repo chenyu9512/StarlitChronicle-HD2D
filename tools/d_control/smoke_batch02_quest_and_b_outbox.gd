@@ -39,6 +39,24 @@ func _run() -> void:
     var local: Dictionary = {}
     if catalog is Dictionary:
         local = (catalog.get("quests",[]) as Array)[0]
+    var start_snapshot: Dictionary = state._pack().duplicate(true)
+    state.save_path = sandbox + "/missing/v3.json"
+    var accept_failed: Dictionary = QuestTx.settle_local_stage(state,1,local,"accepted")
+    check(str(accept_failed.get("reason",""))=="save_failed" and state._pack()==start_snapshot,
+        "Local accepted flag did not rollback")
+    state.save_path = sandbox + "/v3.json"
+    var accepted: Dictionary = QuestTx.settle_local_stage(state,1,local,"accepted")
+    check(bool(accepted.get("applied",false)), "Local acceptance not durable")
+    var acceptance_repeat: Dictionary = QuestTx.settle_local_stage(state,1,local,"accepted")
+    check(bool(acceptance_repeat.get("repeated",false)), "Acceptance callback not idempotent")
+    var before_find: Dictionary = state._pack().duplicate(true)
+    state.save_path = sandbox + "/missing/v3.json"
+    var find_failed: Dictionary = QuestTx.settle_local_stage(state,1,local,"found")
+    check(str(find_failed.get("reason",""))=="save_failed" and state._pack()==before_find,
+        "Local found flag did not rollback")
+    state.save_path = sandbox + "/v3.json"
+    check(bool(QuestTx.settle_local_stage(state,1,local,"found").get("applied",false)),
+        "Found stage was not durable")
     var before: Dictionary = state._pack().duplicate(true)
     state.save_path = sandbox + "/missing/v3.json"
     var failed_local: Dictionary = QuestTx.settle_local(state,core,1,local)

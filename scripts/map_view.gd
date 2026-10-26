@@ -6,6 +6,7 @@ signal location_selected(map_id: String)
 const W: int = 72
 const H: int = 48
 const TILE: float = 32.0
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const WORLD_ART: String = "res://assets/art/worldmaps/world_navigation_v4.png"
 const REGIONS: Array[String] = [
     "region_coast", "region_oaths", "region_forge", "region_isles",
@@ -211,7 +212,7 @@ func _draw_atlas(regional: bool) -> void:
         world_offset.x = clampf(world_offset.x,0.0,1200.0-world_size.x)
         world_offset.y = clampf(world_offset.y,0.0,720.0-world_size.y)
     var scale: Vector2 = available_size/world_size
-    var atlas_art: Texture2D = load(WORLD_ART) if ResourceLoader.exists(WORLD_ART) else null
+    var atlas_art: Texture2D = CArtOverrides.texture(WORLD_ART)
     if atlas_art != null:
         draw_texture_rect_region(atlas_art,Rect2(pad,available_size),Rect2(world_offset,world_size))
     for column in range(1,12):

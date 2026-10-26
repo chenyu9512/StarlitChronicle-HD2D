@@ -1,6 +1,7 @@
 extends Control
 ## Presentation-only party actors. Real portraits, deterministic motion, no turn/HP writes.
 const MAX_VISIBLE: int = 4
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const GROUND_ART: String = "res://assets/art/battle/a15/actor_footing.svg"
 const CAST_ART: String = "res://assets/art/battle/a15/casting_sigil.svg"
 const ATTACK_DURATION: float = 0.36
@@ -20,7 +21,7 @@ func _ready() -> void:
     for pose in ["attack","guard","heal","hit"]:
         var motion_file: String=MOTION_DIR+pose+"_6f.svg"
         if ResourceLoader.exists(motion_file):
-            motion_sheets[pose]=load(motion_file) as Texture2D
+            motion_sheets[pose]=CArtOverrides.texture(motion_file)
     set_process(true)
 
 func _notification(what: int) -> void:
@@ -49,13 +50,13 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         var art: String = _resolve_art(id)
         var footing := Sprite2D.new()
         footing.name="GroundShadow_%s" % id
-        footing.texture=load(GROUND_ART)
+        footing.texture=CArtOverrides.texture(GROUND_ART)
         footing.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
         footing.z_index=0
         add_child(footing)
         var sigil := Sprite2D.new()
         sigil.name="CastCircle_%s" % id
-        sigil.texture=load(CAST_ART)
+        sigil.texture=CArtOverrides.texture(CAST_ART)
         sigil.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
         sigil.z_index=0
         sigil.modulate.a=0.0
@@ -66,7 +67,7 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
         portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
         portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-        portrait.texture = load(art) as Texture2D if not art.is_empty() else null
+        portrait.texture = CArtOverrides.texture(art) if not art.is_empty() else null
         add_child(portrait)
         var motion := Sprite2D.new()
         motion.name="ActionFlipbook_%s" % id

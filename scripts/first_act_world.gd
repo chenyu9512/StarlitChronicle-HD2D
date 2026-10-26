@@ -4,6 +4,7 @@ signal interacted(target: String)
 signal encounter_requested()
 
 const Actor = preload("res://scripts/first_act_actor.gd")
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
@@ -229,7 +230,7 @@ func _make_tiles() -> void:
     var tile_set := TileSet.new()
     tile_set.tile_size = Vector2i(TILE, TILE)
     var land := TileSetAtlasSource.new()
-    land.texture = load(chosen_atlas if authored_art else (land_path if regional_art else GROUND))
+    land.texture = CArtOverrides.texture(chosen_atlas if authored_art else (land_path if regional_art else GROUND))
     land.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
@@ -241,7 +242,7 @@ func _make_tiles() -> void:
         var cavern_water: String="res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg"
         if ResourceLoader.exists(cavern_water):
             selected_water=cavern_water
-    sea.texture = load(selected_water)
+    sea.texture = CArtOverrides.texture(selected_water)
     sea.texture_region_size = Vector2i(TILE, TILE)
     for y in range(8):
         for x in range(8):
@@ -371,7 +372,7 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
     if not ResourceLoader.exists(path):
         path = "res://assets/art/props/coast/rock.png"
     var sprite := Sprite2D.new()
-    sprite.texture = load(path)
+    sprite.texture = CArtOverrides.texture(path)
     sprite.set_meta("prop_kind",kind)
     var place: Vector2i = tile if authored else geography.old_to_new(tile)
     sprite.position = Vector2(place*TILE)+Vector2(16,16)

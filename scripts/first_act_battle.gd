@@ -1,5 +1,6 @@
 extends CanvasLayer
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleBossMechanics = preload("res://scripts/battle_boss_mechanics.gd")
@@ -201,7 +202,7 @@ func _build() -> void:
     root.mouse_filter = Control.MOUSE_FILTER_STOP
     add_child(root)
     var backdrop := TextureRect.new()
-    backdrop.texture = load("res://assets/art/backdrops/coast/tide_lighthouse.png" if chapter >= 5 else "res://assets/art/backdrops/coast/white_sand_port.png")
+    backdrop.texture = CArtOverrides.texture("res://assets/art/backdrops/coast/tide_lighthouse.png" if chapter >= 5 else "res://assets/art/backdrops/coast/white_sand_port.png")
     backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     backdrop.stretch_mode = TextureRect.STRETCH_SCALE
@@ -214,7 +215,7 @@ func _build() -> void:
     # the multi-foe stage, without changing targeting or combat decisions.
     enemy_grounding=TextureRect.new()
     enemy_grounding.name="SingleFoeGrounding"
-    enemy_grounding.texture=load("res://assets/art/battle/a15/boss_footing.svg" if boss else "res://assets/art/battle/a15/enemy_footing.svg")
+    enemy_grounding.texture=CArtOverrides.texture("res://assets/art/battle/a15/boss_footing.svg" if boss else "res://assets/art/battle/a15/enemy_footing.svg")
     enemy_grounding.anchor_left=0.32
     enemy_grounding.anchor_right=0.68
     enemy_grounding.anchor_top=0.49
@@ -235,7 +236,7 @@ func _build() -> void:
     foe_info.add_theme_font_size_override("font_size", 20)
     title_plate.add_child(foe_info)
     portrait = TextureRect.new()
-    portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
+    portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
     portrait.anchor_left = 0.38
     portrait.anchor_right = 0.62
     portrait.anchor_top = 0.15
@@ -373,7 +374,7 @@ func _select_enemy(index: int) -> void:
     if is_instance_valid(enemy_stage):
         enemy_stage.focus(index)
     if is_instance_valid(portrait) and portrait.visible:
-        portrait.texture = load(ArtAssets.battle_image(enemy, boss, chapter))
+        portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
         if is_instance_valid(vfx):
             vfx.bind_enemy(portrait,str(enemy.get("art","")),boss)
 

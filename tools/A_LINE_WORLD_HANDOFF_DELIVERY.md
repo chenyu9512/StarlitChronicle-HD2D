@@ -29,7 +29,7 @@
 
 开战前（**world.locked被随机遇敌信号置为true不是busy条件**）：
 
-\`\`\`gdscript
+```gdscript
 var ctx: Dictionary = {
     "chapter": progress.chapter,
     "already_battling": is_instance_valid(battle),
@@ -49,13 +49,13 @@ if not bool(check.get("ok",false)):
     if not is_boss:
         world.locked = false
     return
-\`\`\`
+```
 
 此准入检查应位于scripts/first_act.gd::_start_battle状态切换之前；随机遭遇信号已将world.locked设true，要在拒绝后按照控制器busy状态恢复锁。对于剧情Boss，只允许通过有效剧情触发ID进入；其他UI事件不能伪造Boss模式。不要将已完成Boss旗标当作所有Boss的全局唯一键——大型章节存在同章多Boss，须由D线核对实际encounter_id及正典剧情旗标。
 
 Battle显式接口（如D线使用自己的控制器）：
 
-\`\`\`gdscript
+```gdscript
 var prepared: Dictionary = battle.prepare_world_handoff(world,ctx,is_boss)
 # 在battle.start(progress,chapter,is_boss)之前调用；准备失败不得开始战斗。
 # 对现有FirstAct宿主，Battle.start()在未配置显式交接时自动捕获。
@@ -63,11 +63,11 @@ var prepared: Dictionary = battle.prepare_world_handoff(world,ctx,is_boss)
 var snapshot: Dictionary = battle.world_handoff.checkpoint()
 # 若有必要持久化战前位置，由D线在世界存档中保存snapshot；
 # 完成回调成功后再移除临时battle checkpoint。
-\`\`\`
+```
 
 恢复结果：
 
-\`\`\`gdscript
+```gdscript
 # 在 _battle_finished 开头，battle=null之前：
 var handoff_result: Dictionary = battle.last_world_handoff_result.duplicate(true)
 var settlement: String = battle.last_boss_settlement
@@ -76,16 +76,16 @@ var settlement: String = battle.last_boss_settlement
 # 若 restored=true 且 !won，禁止再把角色强制放回被阻挡的spawn点；
 # 若 restored=false，保持控制锁并提供已验证安全据点的地图回退。
 # 将boss_settlement记录到GameEvents，以便B线非致命剧情分支消费。
-\`\`\`
+```
 
 场景切换保护：
 
-\`\`\`gdscript
+```gdscript
 # 在world.leave_building()成功、world.enter_building()成功，
 # _enter_location()完成，以及_travel_to()的world.spawn_from_exit()之后：
 BattleWorldHandoff.grant_exploration_grace(world,520.0)
 # 重要：必须在world.build()之后调用，因为build会清零计量。
-\`\`\`
+```
 
 输入/音乐：恢复坐标后，仍由D线调用现有_return_to_world()统一计算busy、world.locked、ui和atlas；C线音频桥使用handoff_result.audio_cue与地图/室内状态重新同步，不能由A线绕过控制器强制启用输入。
 
@@ -101,14 +101,14 @@ BattleWorldHandoff.grant_exploration_grace(world,520.0)
 
 ## 5. 一次性联合验收命令
 
-\`\`\`sh
+```sh
 godot --headless --path . --script res://tools/smoke_a_line_world_handoff.gd
 godot --headless --path . --script res://tools/smoke_encounter_architecture.gd
 godot --headless --path . --script res://tools/smoke_first_act_flow.gd
 godot --headless --path . --script res://tools/smoke_a_line_contracts.gd
 godot --headless --path . --script res://tools/smoke_a_line_live_bosses.gd
 godot --headless --path . --script res://tools/smoke_a_line_chapter_encounters.gd
-\`\`\`
+```
 
 测试矩阵还应覆盖：连续两次encounter_requested、Boss胜利后再摸事件、门内暂停、菜单打开、过场转场、四人队伍、同章双Boss、所有地图出生点被占、旧存档恢复、退出建筑后8秒内不重复遇敌、真实完整音频恢复。
 

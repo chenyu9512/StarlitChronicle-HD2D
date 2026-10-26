@@ -5,6 +5,7 @@ signal art_manager_requested
 
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const Soundscape = preload("res://scripts/c_town_soundscape.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 const BACKDROP: String = "res://assets/art/backdrops/coast/tide_lighthouse.png"
 const PREFS: String = "user://starlit_title_preferences.cfg"
 const GOLD: Color = Color("e6c47d")
@@ -70,13 +71,7 @@ func _ready() -> void:
     _set_page("story")
 
 func _panel(bg: Color, border: Color = Color("89764f")) -> StyleBoxFlat:
-    var style := StyleBoxFlat.new()
-    style.bg_color = bg
-    style.border_color = border
-    style.set_border_width_all(1)
-    style.set_corner_radius_all(13)
-    style.set_content_margin_all(16)
-    return style
+    return CVisual.frame(bg, border, 13, 16)
 
 func _label(message: String, font_size: int, color: Color = CREAM) -> Label:
     var output := Label.new()
@@ -101,6 +96,7 @@ func _button(message: String, primary: bool = false) -> Button:
     b.add_theme_stylebox_override("hover",_panel(Color("2e5060"),GOLD))
     b.add_theme_stylebox_override("pressed",_panel(Color("253e46"),GOLD))
     b.add_theme_stylebox_override("focus",_panel(Color(0,0,0,0),GOLD))
+    CVisual.style_button(b,primary)
     return b
 
 func _build_background() -> void:

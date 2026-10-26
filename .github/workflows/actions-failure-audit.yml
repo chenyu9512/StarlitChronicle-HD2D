@@ -1,10 +1,7 @@
 name: Audit Historical Action Failures
+# Audit runs only on demand in main-only development mode.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tools/audit_actions_failures.py"
-      - ".github/workflows/actions-failure-audit.yml"
 permissions:
   contents: read
   actions: read

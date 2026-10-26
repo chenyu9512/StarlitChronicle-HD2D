@@ -1,17 +1,8 @@
 name: Desktop Playable Preview
 
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "export_presets.cfg"
-      - ".github/workflows/desktop-preview.yml"
-      - "scripts/**"
-      - "scenes/**"
-      - "data/levels/world_levels_v3.json"
-      - "data/levels/v3/**"
-      - "assets/art/tilesets/**"
   workflow_dispatch:
-
 permissions:
   contents: read
 

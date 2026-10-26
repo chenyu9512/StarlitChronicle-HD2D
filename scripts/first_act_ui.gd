@@ -18,6 +18,7 @@ const GOLD: Color = Color("e6c47d")
 var root: Control
 var title_overlay: Control
 var title_continue: Button
+var title_status: Label
 var hud: PanelContainer
 var name_label: Label
 var tracker: RichTextLabel
@@ -554,13 +555,22 @@ func _build_title() -> void:
         started.emit(false)
     )
     center.add_child(new_game)
+    title_status = Label.new()
+    title_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    title_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    title_status.add_theme_color_override("font_color", Color("f6a4a4"))
+    title_status.add_theme_font_size_override("font_size", 16)
+    title_status.visible = false
+    center.add_child(title_status)
     var foot := Label.new()
     foot.text = "原创剧情 · 离线存档 · iPhone横屏"
     foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     center.add_child(foot)
 
-func show_title(has_save: bool) -> void:
+func show_title(has_save: bool, status: String = "") -> void:
     title_continue.disabled = not has_save
+    title_status.text = status
+    title_status.visible = not status.is_empty()
     title_overlay.show()
 
 func set_play_visible(value: bool) -> void:

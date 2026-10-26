@@ -1,12 +1,7 @@
 name: Render Coastal Monster Idle Animation
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "tools/animate_coast_monsters.py"
-      - ".github/workflows/render-coast-idles.yml"
   workflow_dispatch:
-
 permissions:
   contents: write
 

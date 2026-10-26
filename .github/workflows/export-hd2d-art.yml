@@ -1,15 +1,6 @@
 name: Export HD-2D PNG Assets
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    branches:
-      - feature/content-foundation-v0-2
-    paths:
-      - "assets/art/**/*.svg"
-      - "assets/art/art_manifest.json"
-      - "tools/export_hd2d_svg.py"
-      - "tools/validate_hd2d_art.py"
-      - "tools/make_art_contact_sheet.py"
-      - ".github/workflows/export-hd2d-art.yml"
   workflow_dispatch:
 permissions:
   contents: write

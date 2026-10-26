@@ -1,31 +1,6 @@
 name: Unique 40-Map Layout Acceptance
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "data/levels/v3/**"
-      - "data/levels/world_levels_v3.json"
-      - "scripts/world_geography.gd"
-      - "scripts/world_level_v3.gd"
-      - "scripts/world_discoveries.gd"
-      - "scripts/world_dungeon_puzzles.gd"
-      - "scripts/world_town_ecology.gd"
-      - "scripts/world_field_ecology.gd"
-      - "data/levels/v7/field_ecology.json"
-      - "tools/smoke_field_ecology_v7.gd"
-      - "tools/validate_field_ecology_v7.py"
-      - "data/levels/v7/town_ecology.json"
-      - "tools/smoke_town_ecology_v7.gd"
-      - "data/levels/v7/dungeon_puzzles.json"
-      - "tools/smoke_dungeon_puzzles_v7.gd"
-      - "scripts/first_act.gd"
-      - "data/levels/v5/world_discoveries.json"
-      - "tools/smoke_world_discoveries.gd"
-      - "scripts/first_act_world.gd"
-      - "scripts/map_view.gd"
-      - "scripts/world_fog_v3.gd"
-      - "tools/smoke_world_v3.gd"
-      - "tools/smoke_world_production.gd"
-      - ".github/workflows/unique-map-layout-validation.yml"
   workflow_dispatch:
 permissions:
   contents: read

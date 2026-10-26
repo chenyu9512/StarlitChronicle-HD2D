@@ -1,15 +1,7 @@
 name: Validate Starlit Content
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "data/content/**"
-      - "tools/validate_content.py"
-      - ".github/workflows/content-validation.yml"
-  pull_request:
-    paths:
-      - "data/content/**"
-      - "tools/validate_content.py"
-      - ".github/workflows/content-validation.yml"
+  workflow_dispatch:
 jobs:
   validate-catalog:
     runs-on: ubuntu-latest

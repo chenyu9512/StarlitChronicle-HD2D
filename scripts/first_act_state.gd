@@ -3,6 +3,9 @@ extends RefCounted
 const SAVE_PATH: String = "user://first_act_v3.json"
 const BACKUP_PATH: String = "user://first_act_v3.backup.json"
 const VERSION: int = 3
+# Runtime defaults remain the V3 save contract; tests redirect to isolated paths.
+var save_path: String = SAVE_PATH
+var backup_path: String = BACKUP_PATH
 var chapter: int = 0
 var scene_index: int = 0
 var task_index: int = 0
@@ -84,24 +87,43 @@ func _pack() -> Dictionary:
     return {"version": VERSION, "chapter": chapter, "scene": scene_index, "task": task_index, "dialogue_seen": dialogue_seen, "gold": gold, "potions": potions, "actors": actors, "flags": flags, "inventory": inventory, "rpg": rpg, "play_seconds": play_seconds}
 
 func save() -> bool:
-    var payload: String = JSON.stringify(_pack())
-    # 写入新存档之前，将上一份有效的存档备份。
-    if FileAccess.file_exists(SAVE_PATH):
-        var previous: String = FileAccess.get_file_as_string(SAVE_PATH)
-        if _valid_payload(JSON.parse_string(previous)):
-            var backup: FileAccess = FileAccess.open(BACKUP_PATH, FileAccess.WRITE)
-            if backup != null:
-                backup.store_string(previous)
-                backup.close()
-    var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+    var snapshot: Dictionary = _pack()
+    if not _valid_payload(snapshot):
+        return false
+    var payload: String = JSON.stringify(snapshot)
+    var temp_path: String = save_path + ".tmp"
+    var file: FileAccess = FileAccess.open(temp_path, FileAccess.WRITE)
     if file == null:
         return false
     file.store_string(payload)
+    file.flush()
     file.close()
-    return true
+    # Never replace the last good snapshot with an unparseable or incomplete write.
+    if not _valid_payload(JSON.parse_string(FileAccess.get_file_as_string(temp_path))):
+        return false
+    # Keep a previous valid snapshot recoverable even if the final rename fails.
+    if FileAccess.file_exists(save_path):
+        var previous: String = FileAccess.get_file_as_string(save_path)
+        if _valid_payload(JSON.parse_string(previous)):
+            var backup_temp: String = backup_path + ".tmp"
+            var backup: FileAccess = FileAccess.open(backup_temp, FileAccess.WRITE)
+            if backup == null:
+                return false
+            backup.store_string(previous)
+            backup.flush()
+            backup.close()
+            if not _valid_payload(JSON.parse_string(FileAccess.get_file_as_string(backup_temp))):
+                return false
+            if DirAccess.rename_absolute(
+                    ProjectSettings.globalize_path(backup_temp),
+                    ProjectSettings.globalize_path(backup_path)) != OK:
+                return false
+    return DirAccess.rename_absolute(
+            ProjectSettings.globalize_path(temp_path),
+            ProjectSettings.globalize_path(save_path)) == OK
 
 func load_saved() -> bool:
-    for path in [SAVE_PATH, BACKUP_PATH]:
+    for path in [save_path, backup_path]:
         if not FileAccess.file_exists(path):
             continue
         var payload: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -132,7 +154,20 @@ func _valid_payload(value: Variant) -> bool:
     if not (value is Dictionary):
         return false
     var obj: Dictionary = value
-    if int(obj.get("version", -1)) != VERSION:
+    if not obj.has("version") or typeof(obj["version"]) not in [TYPE_INT, TYPE_FLOAT]:
+        return false
+    if int(obj["version"]) != VERSION:
+        return false
+    # Legacy V3 payloads may omit rpg, but any supplied rpg must be a map.
+    # Reject absent or nonnumeric fields before restore_snapshot accesses them.
+    for key in ["version", "chapter", "scene", "task", "gold", "potions"]:
+        if not obj.has(key) or typeof(obj[key]) not in [TYPE_INT, TYPE_FLOAT]:
+            return false
+    if not (obj.get("dialogue_seen") is bool):
+        return false
+    if not (obj.get("rpg", {}) is Dictionary):
+        return false
+    if int(obj["gold"]) < 0 or int(obj["potions"]) < 0:
         return false
     if not (obj.get("actors") is Array) or not (obj.get("flags") is Dictionary) or not (obj.get("inventory") is Dictionary):
         return false

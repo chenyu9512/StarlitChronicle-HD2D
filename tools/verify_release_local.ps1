@@ -57,6 +57,8 @@ if (-not $enginePresent) { $failures.Add("godot_executable_not_found");Write-War
 if ($staticOK -and $enginePresent) {
     $runtime=@(
         @{Name="godot_import";Script=""}
+        @{Name="save_integrity";Script="smoke_save_integrity.gd"}
+        @{Name="first_three_checkpoints";Script="smoke_first_three_checkpoints.gd"}
         @{Name="combat_turns";Script="smoke_combat_turns.gd"}
         @{Name="live_boss_matrix";Script="smoke_live_boss_matrix.gd"}
         @{Name="battle_commercial";Script="smoke_battle_commercial.gd"}
@@ -65,7 +67,7 @@ if ($staticOK -and $enginePresent) {
         @{Name="quest_120_world_interactions";Script="smoke_story_world_phase19_2.gd"}
         @{Name="save_and_interiors";Script="smoke_world_checkpoints.gd"}
     )
-    if ($Quick) { $runtime=$runtime[0..3] }
+    if ($Quick) { $runtime=$runtime[0..5] }
     foreach ($item in $runtime) {
         $engineArgs=@("--headless","--path",$root)
         if ($item.Script -eq "") { $engineArgs+=@("--editor","--quit") }

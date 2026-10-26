@@ -31,6 +31,11 @@ var primary_target: String = ""
 var secondary_target: String = ""
 var quest_destination: String = ""
 var quest_summary: String = ""
+var zoom_out_button: Button
+var zoom_in_button: Button
+var recenter_button: Button
+var zoom_status: Label
+var displayed_context: String = ""
 
 func _ready() -> void:
     layer = 14
@@ -128,6 +133,26 @@ func _build_full() -> void:
     var exit_button := _button("返回探索  ×")
     exit_button.pressed.connect(close_map)
     heading.add_child(exit_button)
+    # Separate toolbar so local controls remain usable on landscape phones.
+    var tools := HBoxContainer.new()
+    tools.add_theme_constant_override("separation",9)
+    column.add_child(tools)
+    zoom_out_button = _button("－ 缩小")
+    zoom_out_button.pressed.connect(func() -> void: _zoom_local(0.8))
+    tools.add_child(zoom_out_button)
+    zoom_in_button = _button("＋ 放大")
+    zoom_in_button.pressed.connect(func() -> void: _zoom_local(1.25))
+    tools.add_child(zoom_in_button)
+    recenter_button = _button("◎ 定位角色")
+    recenter_button.pressed.connect(func() -> void: _recenter_local())
+    tools.add_child(recenter_button)
+    zoom_status = Label.new()
+    zoom_status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    zoom_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    zoom_status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    zoom_status.add_theme_font_size_override("font_size",14)
+    zoom_status.add_theme_color_override("font_color",Color("cfdeec"))
+    tools.add_child(zoom_status)
     var columns := HBoxContainer.new()
     columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
     columns.add_theme_constant_override("separation",15)
@@ -162,7 +187,7 @@ func _build_full() -> void:
     route_button.pressed.connect(_try_travel)
     sidebar.add_child(route_button)
     var footer := Label.new()
-    footer.text = "◆ 当前角色  ✦ 主线  ◇ 支线  ■ 城镇  ◆ 地牢  · 可触控地图及移动端横屏适配"
+    footer.text = "◆ 角色朝向  ✦ 主线  ◇ 支线  ■ 建筑  ◆ 地牢  · 触摸拖动/滚轮缩放 · 探索迷雾按存档恢复"
     footer.add_theme_color_override("font_color",Color("b6c8d5"))
     footer.add_theme_font_size_override("font_size",14)
     column.add_child(footer)
@@ -172,6 +197,7 @@ func bind_world(world_ref, router_ref) -> void:
     router = router_ref
     small_view.setup(world,router,true)
     full_view.setup(world,router,false)
+    displayed_context = ""
     _refresh_info()
 
 func set_targets(main_id: String, side_id: String = "") -> void:
@@ -203,6 +229,7 @@ func open_map() -> void:
     shown_mode = "local"
     selected_map = ""
     full_view.selected_location = ""
+    full_view.reset_local_view()
     _set_mode("local")
     overlay.show()
     small_frame.hide()
@@ -223,9 +250,33 @@ func close_map() -> void:
 func _set_mode(next_mode: String) -> void:
     shown_mode = next_mode
     full_view.display_mode(shown_mode)
+    _refresh_zoom_toolbar()
     var name: String = "世界" if shown_mode=="world" else ("分区" if shown_mode=="region" else "当前区域")
     full_heading.text = "✦ 星灯图志 / " + name
     _refresh_info()
+
+func _zoom_local(factor: float) -> void:
+    if shown_mode != "local":
+        return
+    full_view.zoom_local(factor)
+    _refresh_zoom_toolbar()
+
+func _recenter_local() -> void:
+    if shown_mode != "local":
+        return
+    full_view.recenter_local()
+    _refresh_zoom_toolbar()
+
+func _refresh_zoom_toolbar() -> void:
+    if zoom_in_button == null:
+        return
+    var local: bool = shown_mode == "local"
+    zoom_in_button.visible = local
+    zoom_out_button.visible = local
+    recenter_button.visible = local
+    zoom_in_button.disabled = full_view.local_zoom >= full_view.MAX_LOCAL_ZOOM
+    zoom_out_button.disabled = full_view.local_zoom <= full_view.MIN_LOCAL_ZOOM
+    zoom_status.text = ("缩放 %d%% · 拖动查看地图" % roundi(full_view.local_zoom * 100.0)) if local else "轻触地点查看路线"
 
 func _on_location_selected(map_id: String) -> void:
     selected_map = map_id
@@ -251,6 +302,9 @@ func _refresh_info() -> void:
         route_button.disabled = true
         return
     var world_name: String = str(world.region_name())
+    if small_header != null:
+        small_header.text = "◇ " + str(world.map_profile.get("name","地图")).left(6) + " / TAB"
+        small_header.tooltip_text = world_name + " · 点击查看区域、世界航路"
     var hero_pos: Vector2i = Vector2i(-1,-1)
     if is_instance_valid(world.hero):
         hero_pos = Vector2i(world.hero.position / 32.0)
@@ -294,7 +348,7 @@ func _refresh_info() -> void:
     if shown_mode in ["world","region"]:
         var info: Dictionary = router.map_info(selected_map)
         if info.is_empty():
-            route_info.text = "轻触城镇、洞窟或野外地点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 42" % router.visited_count()
+            route_info.text = "轻触城镇、洞窟或野外地点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 40" % router.visited_count()
         else:
             var name: String = str(info.get("name",selected_map))
             var steps: Array[String] = router.shortest_route(selected_map)
@@ -309,7 +363,7 @@ func _refresh_info() -> void:
             route_info.text = "目的地：%s\n地貌：%s\n布局：%s\n\n路线：%s" % [name,biome,setting,instructions]
         route_button.visible = true
         var possible_route: Array[String] = router.shortest_route(selected_map)
-        route_button.disabled = possible_route.size() <= 1
+        route_button.disabled = possible_route.size() <= 1 or not router.can_travel(possible_route[1])
         route_button.text = "前往下一站（不越级）"
     else:
         route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n浅金：街区生活与夜间活动\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
@@ -319,6 +373,16 @@ func _refresh_info() -> void:
 func _process(delta: float) -> void:
     if not small_frame.visible and not overlay.visible:
         return
+    # A new outdoor map or interior gets a fresh camera framing; fog stays
+    # keyed by the real world map/room and is NEVER revealed by opening the UI.
+    if world != null and is_instance_valid(world.layer):
+        var context: String = world.fog_key()
+        if displayed_context != context:
+            displayed_context = context
+            small_view.reset_local_view()
+            full_view.reset_local_view()
+            _refresh_zoom_toolbar()
+            _refresh_info()
     update_clock += delta
     if update_clock < 0.16:
         return

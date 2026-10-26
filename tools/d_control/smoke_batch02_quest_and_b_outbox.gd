@@ -166,6 +166,10 @@ func _run() -> void:
     restarted_core.bind(restarted)
     b.save_path = sandbox + "/story.json"
     var replay: Dictionary = BConsumer.consume_one(b,restarted,restarted_core,payload)
+    if not bool(replay.get("ok",false)) or not bool(replay.get("repeated",false)):
+        print("D_B_V3_REPLAY_DIAGNOSTIC response=",replay,
+            " persisted_journal=",restarted.rpg.get("d_reward_receipts_v1",{}),
+            " queued=",b.pending_reward_receipts().get(eid,{}))
     check(bool(replay.get("ok",false)) and bool(replay.get("repeated",false)),
         "B replay did not use durable V3 receipt")
     check(bool(replay.get("acknowledged",false)) and restarted.gold == once_gold,

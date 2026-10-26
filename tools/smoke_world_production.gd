@@ -131,16 +131,16 @@ func _run() -> void:
     root.add_child(map)
     map.setup(world,registry,false)
     map.display_mode("world")
-    map.size = Vector2(900,550)
     map.queue_redraw()
     await process_frame
-    verify(map.map_points.size()==40,"World drawing must show forty explorable geographic pins (not prototypes)")
-    map.display_mode("region")
-    map.queue_redraw()
-    await process_frame
-    verify(map.map_points.size()==5,"Coast regional inset should show its five relevant map sectors")
+    verify(map.mode == "local","Deprecated world atlas mode must be unavailable")
+    var local: Dictionary = map.local_frame()
+    verify(not local.is_empty(),"Live current-area chart failed to initialize")
+    verify(int(local.get("width",0))==world.WIDTH and int(local.get("height",0))==world.HEIGHT,
+        "Local map dimensions do not match actual terrain")
+    verify(not world.map_profile.is_empty(),"Local map must be linked to real game geography")
     if failures.is_empty():
-        print("PASS: 8 geographic biomes; %d playable different-size zones, %d town districts, %d dungeons, %d navigable quest+gate anchors, physical town interiors and 3-tier map navigation" % [playable_count,settlement_count,dungeon_count,all_checks])
+        print("PASS: 8 geographic biomes; %d playable different-size zones, %d town districts, %d dungeons, %d navigable quest+gate anchors, physical town interiors and fog-free local map navigation" % [playable_count,settlement_count,dungeon_count,all_checks])
         quit(0)
     else:
         for failure in failures:

@@ -59,7 +59,7 @@ static func shared(paths: Array[String], columns: int = 8,
             return null
     _sync_revision()
     var key: String = "%d:%d:%d:%d:%s" % [
-        _revision, columns, row_start, row_count, "|".join(paths)]
+        _revision, columns, row_start, row_count, JSON.stringify(paths)]
     if _sets.has(key):
         _hits += 1
         _mark_used(key)

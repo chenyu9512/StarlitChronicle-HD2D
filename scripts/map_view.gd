@@ -29,17 +29,73 @@ var side_target: String = ""
 var selected_location: String = ""
 var quest_destination: String = ""
 var map_points: Dictionary = {}
+## The same tile renderer works for all 40 production maps and authored interiors.
+## Compact view follows the player; expanded view supports zoom and touch/mouse panning.
+var local_zoom: float = 1.0
+var local_pan: Vector2 = Vector2.ZERO
+var local_context: String = ""
+const MIN_LOCAL_ZOOM: float = 1.0
+const MAX_LOCAL_ZOOM: float = 4.0
+
 
 func setup(world_ref, router_ref, is_compact: bool = false) -> void:
     world = world_ref
     router = router_ref
     compact = is_compact
+    clip_contents = true
     mouse_filter = Control.MOUSE_FILTER_STOP if not compact else Control.MOUSE_FILTER_IGNORE
     queue_redraw()
 
 func display_mode(value: String) -> void:
     mode = value if value in ["local","region","world"] else "local"
     queue_redraw()
+
+
+func reset_local_view() -> void:
+    local_zoom = 1.0
+    local_pan = Vector2.ZERO
+    queue_redraw()
+
+func zoom_local(multiplier: float) -> void:
+    if compact or multiplier <= 0.0:
+        return
+    local_zoom = clampf(local_zoom * multiplier, MIN_LOCAL_ZOOM, MAX_LOCAL_ZOOM)
+    if is_equal_approx(local_zoom, MIN_LOCAL_ZOOM):
+        local_pan = Vector2.ZERO
+    queue_redraw()
+
+func recenter_local() -> void:
+    local_pan = Vector2.ZERO
+    queue_redraw()
+
+## Exposed to deterministic QA: the viewport is always clamped to authored terrain,
+## even when maps expand beyond the legacy 72x48 grid.
+func local_frame() -> Dictionary:
+    if world == null or not is_instance_valid(world.layer):
+        return {}
+    var extent: Vector2i = world.terrain_layout.get("size", Vector2i(W,H))
+    var actual_w: int = maxi(1,extent.x)
+    var actual_h: int = maxi(1,extent.y)
+    var columns: int = mini(actual_w,25) if compact else clampi(ceili(float(actual_w)/local_zoom),1,actual_w)
+    var rows: int = mini(actual_h,17) if compact else clampi(ceili(float(actual_h)/local_zoom),1,actual_h)
+    var hero_tile: Vector2i = Vector2i(actual_w/2,actual_h/2)
+    if is_instance_valid(world.hero):
+        hero_tile = Vector2i(floori(world.hero.position.x/TILE),floori(world.hero.position.y/TILE))
+    var pan: Vector2 = Vector2.ZERO if compact else local_pan
+    var first_x: int = clampi(hero_tile.x-int(columns/2)+roundi(pan.x),0,maxi(0,actual_w-columns))
+    var first_y: int = clampi(hero_tile.y-int(rows/2)+roundi(pan.y),0,maxi(0,actual_h-rows))
+    if not compact and local_zoom <= MIN_LOCAL_ZOOM:
+        first_x=0
+        first_y=0
+    var cell: float = minf(maxf(1.0,size.x-20.0)/float(columns),
+        maxf(1.0,size.y-20.0)/float(rows))
+    if cell <= 0.0:
+        return {}
+    var origin: Vector2 = (size-Vector2(float(columns),float(rows))*cell)*0.5
+    var bounds: Rect2 = Rect2(origin,Vector2(float(columns),float(rows))*cell)
+    return {"width":actual_w,"height":actual_h,"columns":columns,"rows":rows,
+        "first_x":first_x,"first_y":first_y,"cell":cell,"origin":origin,
+        "rect":bounds}
 
 func targets(primary: String, secondary: String = "") -> void:
     main_target = primary
@@ -56,55 +112,46 @@ func _draw() -> void:
         _draw_local()
 
 func _draw_local() -> void:
-    if world == null or not is_instance_valid(world.layer):
+    var frame: Dictionary = local_frame()
+    if frame.is_empty():
         return
-    # The compact map follows the hero through a 21 × 15-cell window.
-    # The expanded map always displays the whole authored 44 × 28 terrain.
-    var map_extent: Vector2i = world.terrain_layout.get("size",Vector2i(W,H))
-    var actual_w: int = map_extent.x
-    var actual_h: int = map_extent.y
-    var columns: int = 25 if compact else actual_w
-    var rows: int = 17 if compact else actual_h
-    var first_x: int = 0
-    var first_y: int = 0
-    if compact and is_instance_valid(world.hero):
-        var hero_tile: Vector2i = Vector2i(world.hero.position / TILE)
-        first_x = clampi(hero_tile.x - int(columns / 2),0,actual_w - columns)
-        first_y = clampi(hero_tile.y - int(rows / 2),0,actual_h - rows)
-    var cell: float = minf((size.x - 20.0) / float(columns), (size.y - 20.0) / float(rows))
-    if cell <= 0.0:
-        return
-    var origin: Vector2 = (size - Vector2(float(columns), float(rows)) * cell) * 0.5
-    var map_rect: Rect2 = Rect2(origin, Vector2(float(columns),float(rows)) * cell)
-    draw_rect(map_rect.grow(2.0), Color("8298a1"), false, 1.0)
-    for y in range(first_y,first_y + rows):
-        for x in range(first_x,first_x + columns):
-            var tile: Vector2i = Vector2i(x, y)
+    var actual_w: int = int(frame["width"])
+    var actual_h: int = int(frame["height"])
+    var columns: int = int(frame["columns"])
+    var rows: int = int(frame["rows"])
+    var first_x: int = int(frame["first_x"])
+    var first_y: int = int(frame["first_y"])
+    var cell: float = float(frame["cell"])
+    var origin: Vector2 = frame["origin"]
+    var map_rect: Rect2 = frame["rect"]
+    draw_rect(map_rect.grow(2.0),Color("8298a1"),false,1.0)
+    var fog_key: String = world.fog_key() if world.fog != null else ""
+    for y in range(first_y,first_y+rows):
+        for x in range(first_x,first_x+columns):
+            var tile: Vector2i = Vector2i(x,y)
             var shade: Color = PASSABLE
-            if world.layer.get_cell_source_id(tile) == 1:
-                shade = Color("205c83")
+            if world.layer.get_cell_source_id(tile)==1:
+                shade=Color("205c83")
             elif world.blocked.has(tile):
-                shade = WALL
+                shade=WALL
             else:
-                var atlas: Vector2i = world.layer.get_cell_atlas_coords(tile)
-                if atlas.y == 3:
-                    shade = PATH
-                elif atlas.y == 5:
-                    shade = Color("7a7480")
-                elif atlas.y == 1:
-                    shade = Color("3a806d")
-                elif atlas.y == 4:
-                    shade = Color("ad7554")
-            if world.fog != null and not world.fog.revealed(world.fog_key(),x,y):
-                shade = Color("101b2c")
-            draw_rect(Rect2(origin + Vector2(x - first_x,y - first_y) * cell, Vector2(cell + 0.08,cell + 0.08)), shade, true)
+                var terrain: Vector2i = world.layer.get_cell_atlas_coords(tile)
+                match terrain.y:
+                    3: shade=PATH
+                    5: shade=Color("7a7480")
+                    1: shade=Color("3a806d")
+                    4: shade=Color("ad7554")
+                    6: shade=Color("344352")
+                    7: shade=Color("4e5971")
+            if world.fog != null and not world.fog.revealed(fog_key,x,y):
+                shade=Color("101b2c")
+            var pos: Vector2 = origin+Vector2(x-first_x,y-first_y)*cell
+            draw_rect(Rect2(pos,Vector2(cell+0.08,cell+0.08)),shade,true)
     if not compact:
-        for i in range(1, 4):
-            var xx: float = origin.x + float(actual_w) * cell * float(i) / 4.0
-            draw_line(Vector2(xx,origin.y), Vector2(xx,origin.y + float(actual_h)*cell), Color(0.8,0.9,0.95,0.12), 1.0)
-    # The full town map describes districts, rather than reducing a lived-in
-    # settlement to anonymous dots. Mini map stays uncluttered for navigation.
-    if not compact:
+        for i in range(1,4):
+            var xx: float = origin.x+float(columns)*cell*float(i)/4.0
+            draw_line(Vector2(xx,origin.y),Vector2(xx,origin.y+float(rows)*cell),
+                Color(0.8,0.9,0.95,0.12),1.0)
         var town_plan: Dictionary = world.terrain_layout.get("town_plan",{})
         if not town_plan.is_empty():
             var town_font: Font = get_theme_default_font()
@@ -112,13 +159,16 @@ func _draw_local() -> void:
                 var center_data: Array = district.get("center",[])
                 if center_data.size()<2:
                     continue
-                var location: Vector2i = Vector2i(int(center_data[0]),int(center_data[1]))
-                if world.fog != null and not world.fog.revealed(world.fog_key(),location.x,location.y):
+                var loc: Vector2i = Vector2i(int(center_data[0]),int(center_data[1]))
+                if loc.x<first_x or loc.x>=first_x+columns or loc.y<first_y or loc.y>=first_y+rows:
                     continue
-                var label_pos: Vector2 = origin + Vector2(float(location.x-first_x),float(location.y-first_y))*cell
-                draw_line(label_pos+Vector2(-18,6),label_pos+Vector2(18,6),Color("dfc18d",0.45),1.2,true)
-                if town_font != null:
-                    draw_string(town_font,label_pos+Vector2(-42,-8),str(district.get("name","街区")),HORIZONTAL_ALIGNMENT_CENTER,84.0,11,Color("f2e4c8"))
+                if world.fog != null and not world.fog.revealed(fog_key,loc.x,loc.y):
+                    continue
+                var label_pos: Vector2 = origin+Vector2(float(loc.x-first_x),float(loc.y-first_y))*cell
+                if cell>=4.0 and town_font != null:
+                    draw_string(town_font,label_pos+Vector2(-42,-6),
+                        str(district.get("name","街区")),HORIZONTAL_ALIGNMENT_CENTER,
+                        84.0,11,Color("f2e4c8"))
     for key in world.nodes.keys():
         var id: String = str(key)
         var node: Node2D = world.nodes[key]
@@ -126,54 +176,59 @@ func _draw_local() -> void:
             continue
         var color: Color = Color.TRANSPARENT
         if id == main_target:
-            color = MAIN
-        elif id == side_target or id.begins_with("branchmap:") or id.begins_with("questhint:") or id.begins_with("story_stage_") or id.begins_with("side_"):
-            color = SIDE
+            color=MAIN
+        elif id == side_target or id.begins_with("branchmap:") or id.begins_with("questhint:") or id.begins_with("story_stage_") or id.begins_with("side_") or id.begins_with("questcase:"):
+            color=SIDE
         elif id in ["inn","home_door"] or id.begins_with("building:"):
-            color = Color("84d9a4")
-        elif id == "shop" or id == "interior_service":
-            color = Color("a9b6ff")
+            color=Color("84d9a4")
+        elif id in ["shop","interior_service","interior_storage"]:
+            color=Color("a9b6ff")
         elif id.begins_with("citizen:"):
-            color = Color("aedce4")
+            color=Color("aedce4")
         elif id.begins_with("field:"):
-            var field_action: String=id.trim_prefix("field:")
-            color = {"trial":Color("dc9579"),"gather":Color("8bd89a"),"passage":Color("8acbea"),"cache":Color("f1d082")}.get(field_action,Color("b2c7de"))
+            var action: String=id.trim_prefix("field:")
+            color={"trial":Color("dc9579"),"gather":Color("8bd89a"),"passage":Color("8acbea"),"cache":Color("f1d082")}.get(action,Color("b2c7de"))
         elif id.begins_with("townlife:"):
-            color = Color("f2c980") if id=="townlife:handoff" else Color("8cddb5")
+            color=Color("f2c980") if id=="townlife:handoff" else Color("8cddb5")
         elif id.begins_with("discovery:"):
-            color = Color("a7d9bd")
-        elif id.begins_with("puzzle:"):
-            color = Color("e69ae5") if id != "puzzle:seal" else Color("ffd18a")
-        elif id.begins_with("dungeon_switch_"):
-            color = Color("f4a9e5")
+            color=Color("a7d9bd")
+        elif id.begins_with("puzzle:") or id.begins_with("dungeon_switch_"):
+            color=Color("e69ae5")
         elif id in ["dungeon_chest","wild_cache"]:
-            color = Color("f2bd73")
-        elif id == "wild_camp":
-            color = Color("a8de9a")
-        elif id.begins_with("exit:") or id == "interior_exit":
-            color = Color("e9b783")
+            color=Color("f2bd73")
+        elif id=="wild_camp":
+            color=Color("a8de9a")
+        elif id.begins_with("exit:") or id=="interior_exit":
+            color=Color("e9b783")
         if color.a <= 0.0:
             continue
-        var pos: Vector2 = origin + (node.position / TILE - Vector2(first_x,first_y)) * cell
-        var objective: bool = id == main_target or id == side_target
-        var mark: Vector2i = Vector2i(node.position / TILE)
-        if world.fog != null and not world.fog.revealed(world.fog_key(),mark.x,mark.y) and not objective:
+        var mark: Vector2i = Vector2i(floori(node.position.x/TILE),floori(node.position.y/TILE))
+        if mark.x<0 or mark.y<0 or mark.x>=actual_w or mark.y>=actual_h:
             continue
-        if compact and not map_rect.has_point(pos):
-            if id == main_target or id == side_target:
-                var edge: Vector2 = Vector2(clampf(pos.x,map_rect.position.x + 5.0,map_rect.end.x - 5.0),clampf(pos.y,map_rect.position.y + 5.0,map_rect.end.y - 5.0))
-                draw_circle(edge,4.0,MAIN)
+        var objective: bool = id==main_target or id==side_target
+        if world.fog != null and not world.fog.revealed(fog_key,mark.x,mark.y) and not objective:
+            continue
+        var pos: Vector2 = origin+(node.position/TILE-Vector2(first_x,first_y))*cell
+        if not map_rect.has_point(pos):
+            if compact and objective:
+                var edge: Vector2 = Vector2(clampf(pos.x,map_rect.position.x+5.0,map_rect.end.x-5.0),
+                    clampf(pos.y,map_rect.position.y+5.0,map_rect.end.y-5.0))
+                draw_circle(edge,4.0,MAIN if id==main_target else SIDE)
             continue
         var radius: float = 3.0 if compact else 5.2
-        draw_circle(pos, radius + 1.2, Color("0a1b2b"))
-        draw_circle(pos, radius, color)
-        if id == main_target:
-            draw_arc(pos, radius + 3.0, 0.0, TAU, 20, MAIN, 1.5)
+        draw_circle(pos,radius+1.2,Color("0a1b2b"))
+        draw_circle(pos,radius,color)
+        if id==main_target:
+            draw_arc(pos,radius+3.0,0.0,TAU,20,MAIN,1.5)
     if is_instance_valid(world.hero):
-        var hero_pos: Vector2 = origin + (world.hero.position / TILE - Vector2(first_x,first_y)) * cell
-        draw_circle(hero_pos, 5.5 if compact else 8.0, Color("132537"))
-        draw_circle(hero_pos, 3.5 if compact else 5.5, HERO)
-        draw_line(hero_pos, hero_pos + Vector2(0, -6.5 if compact else -10.0), HERO, 1.5)
+        var hero_pos: Vector2 = origin+(world.hero.position/TILE-Vector2(first_x,first_y))*cell
+        if map_rect.has_point(hero_pos):
+            var hero_radius: float = 5.5 if compact else 8.0
+            draw_circle(hero_pos,hero_radius,Color("132537"))
+            draw_circle(hero_pos,hero_radius-2.1,HERO)
+            var directions: Array[Vector2] = [Vector2.DOWN,Vector2.LEFT,Vector2.UP,Vector2.RIGHT]
+            var heading: int = clampi(int(world.hero.facing),0,3)
+            draw_line(hero_pos,hero_pos+directions[heading]*(hero_radius+3.0),HERO,2.0)
 
 func _map_xy(world_xy: Vector2, origin: Vector2, scale: Vector2) -> Vector2:
     return origin + world_xy*scale
@@ -302,23 +357,60 @@ func _draw_atlas(regional: bool) -> void:
             draw_string(font,point+shift,name,HORIZONTAL_ALIGNMENT_CENTER,102.0,13 if regional else 10,Color("e6e0d0"))
 
 func _gui_input(event: InputEvent) -> void:
-    if mode == "local" or compact:
+    if compact:
+        return
+    if mode=="local":
+        if event is InputEventMouseButton:
+            var mouse: InputEventMouseButton = event as InputEventMouseButton
+            if mouse.pressed and mouse.button_index==MOUSE_BUTTON_WHEEL_UP:
+                zoom_local(1.25)
+                accept_event()
+            elif mouse.pressed and mouse.button_index==MOUSE_BUTTON_WHEEL_DOWN:
+                zoom_local(0.8)
+                accept_event()
+        elif event is InputEventMagnifyGesture:
+            var gesture: InputEventMagnifyGesture = event as InputEventMagnifyGesture
+            zoom_local(gesture.factor)
+            accept_event()
+        elif event is InputEventMouseMotion:
+            var motion: InputEventMouseMotion = event as InputEventMouseMotion
+            if (motion.button_mask & MOUSE_BUTTON_MASK_LEFT)!=0 and local_zoom>MIN_LOCAL_ZOOM:
+                var frame: Dictionary = local_frame()
+                if not frame.is_empty():
+                    local_pan -= motion.relative / float(frame["cell"])
+                    queue_redraw()
+                    accept_event()
+        elif event is InputEventScreenDrag and local_zoom>MIN_LOCAL_ZOOM:
+            var touch: InputEventScreenDrag = event as InputEventScreenDrag
+            var frame: Dictionary = local_frame()
+            if not frame.is_empty():
+                local_pan -= touch.relative / float(frame["cell"])
+                queue_redraw()
+                accept_event()
         return
     var location: Vector2
     if event is InputEventMouseButton:
-        if not event.pressed or event.button_index != MOUSE_BUTTON_LEFT:
+        var mouse: InputEventMouseButton = event as InputEventMouseButton
+        if not mouse.pressed or mouse.button_index != MOUSE_BUTTON_LEFT:
             return
-        location = event.position
+        location = mouse.position
     elif event is InputEventScreenTouch:
-        if not event.pressed:
+        var touch: InputEventScreenTouch = event as InputEventScreenTouch
+        if not touch.pressed:
             return
-        location = event.position
+        location = touch.position
     else:
         return
+    var best_id: String = ""
+    var best_distance: float = 19.0
     for key in map_points.keys():
-        if location.distance_to(map_points[key]) <= 19.0:
-            selected_location = str(key)
-            location_selected.emit(selected_location)
-            queue_redraw()
-            accept_event()
-            return
+        var distance: float = location.distance_to(map_points[key])
+        if distance < best_distance:
+            best_id = str(key)
+            best_distance = distance
+    if not best_id.is_empty():
+        selected_location = best_id
+        location_selected.emit(selected_location)
+        queue_redraw()
+        accept_event()
+

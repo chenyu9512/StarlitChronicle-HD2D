@@ -15,6 +15,8 @@ const SET_PIECES: Dictionary = {
         ["harbor_watch_lantern","dew_street_lantern.svg",Vector2i(36,20)]]
 }
 var accent_layer: TileMapLayer
+var road_layer: TileMapLayer
+var road_count: int = 0
 var placements: Dictionary = {}
 var active_lights: Array[PointLight2D] = []
 var accent_count: int = 0
@@ -83,6 +85,8 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
             art_row=2 if variation%2==0 else 4
         accent_layer.set_cell(cell,0,Vector2i(posmod(cell.x*7+cell.y*11+seed,8),art_row))
         accent_count+=1
+    if map_id == "map_coast_01":
+        _install_dew_road_material(ground, blocked, water)
     if sorted_stage!=null:
         var used: Dictionary={}
         for entry in SET_PIECES.get(map_id,[]):
@@ -111,6 +115,48 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
                 _add_lamp(sprite.position)
     set_visual_quality(quality)
     set_clock(clock_minutes)
+
+
+## Batch C2.1: independent, authored 32px coastal cobble/grit artwork.
+## Only paints existing passable road cells (terrain atlas row 3).
+## Does not edit navigation, doors, building placement or collision dictionaries.
+func _install_dew_road_material(ground: Dictionary, blocked: Dictionary, water: Dictionary) -> void:
+    var path: String = ART + "dew_road_material_8x8.svg"
+    if not ResourceLoader.exists(path):
+        return
+    var texture: Texture2D = ArtOverrides.texture(path)
+    if texture == null or texture.get_width() != 256 or texture.get_height() != 256:
+        return
+    var road_set := TileSet.new()
+    road_set.tile_size = Vector2i(TILE, TILE)
+    var atlas := TileSetAtlasSource.new()
+    atlas.texture = texture
+    atlas.texture_region_size = Vector2i(TILE, TILE)
+    for y in range(8):
+        for x in range(8):
+            atlas.create_tile(Vector2i(x, y))
+    road_set.add_source(atlas, 0)
+    road_layer = TileMapLayer.new()
+    road_layer.name = "OriginalDewRoadStone"
+    road_layer.tile_set = road_set
+    road_layer.z_index = -4
+    road_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    add_child(road_layer)
+    for raw in ground.keys():
+        var cell: Vector2i = raw
+        if blocked.has(cell) or water.has(cell):
+            continue
+        var tile: Vector2i = ground[cell]
+        if tile.y != 3:
+            continue
+        # Semi-transparent pigment and weathering; leave natural exposed gaps.
+        var variation: int = posmod(cell.x * 59 + cell.y * 83 + cell.x * cell.y * 7 + 2021, 100)
+        if variation < 13:
+            continue
+        var column: int = posmod(cell.x * 11 + cell.y * 17 + 5, 8)
+        var row: int = posmod(cell.x * 3 + cell.y * 7 + 2, 8)
+        road_layer.set_cell(cell, 0, Vector2i(column, row))
+        road_count += 1
 
 func _find_verge(desired: Vector2i,layout: Dictionary,used: Dictionary) -> Vector2i:
     var size: Vector2i=layout.get("size",Vector2i(72,48))

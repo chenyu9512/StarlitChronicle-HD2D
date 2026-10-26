@@ -31,6 +31,17 @@ func _run() -> void:
             var painter: Node2D=scene.illustrated_dressing
             check(painter.accent_layer is TileMapLayer,map_id+": real TileMapLayer missing")
             check(painter.accent_count>25,map_id+": no illustrated ground cells")
+            if map_id == "map_coast_01":
+                check(painter.road_layer is TileMapLayer, "Morning Dew independent road atlas layer missing")
+                check(painter.road_count > 25, "Morning Dew road material not applied to enough cells")
+                if painter.road_layer != null:
+                    check(painter.road_layer.get_used_cells().size() == painter.road_count, "Road atlas count mismatch")
+                    for road_cell in painter.road_layer.get_used_cells():
+                        check(not blocked_before.has(road_cell), "Road detail painted on blocked cell")
+                        check(not water_before.has(road_cell), "Road detail painted on water")
+                        check(layout.get("tiles",{}).get(road_cell,Vector2i(-1,-1)).y == 3, "Road detail painted off the existing road")
+            else:
+                check(painter.road_layer == null, "Morning Dew road atlas leaked into harbor")
             check(painter.placements.size()>=2,map_id+": authored set pieces not visible")
             check(painter.active_lights.size()>=1,map_id+": street lantern light missing")
             for sprite in painter.placements.values():

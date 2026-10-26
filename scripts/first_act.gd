@@ -278,7 +278,7 @@ func _mix_world_for_cinematic(mute_ambience: bool) -> void:
         environment_player.set_meta("cinematic_original_db",environment_player.volume_db)
     var normal_db: float=float(environment_player.get_meta("cinematic_original_db",-30.0))
     var destination: float=-44.0 if mute_ambience else normal_db
-    var active_fade: Variant=environment_player.get_meta("cinematic_fade",null)
+    var active_fade: Variant=environment_player.get_meta("cinematic_fade") if environment_player.has_meta("cinematic_fade") else null
     if active_fade is Tween and active_fade.is_running():
         active_fade.kill()
     var fade: Tween=create_tween()

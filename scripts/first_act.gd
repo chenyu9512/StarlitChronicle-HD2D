@@ -194,15 +194,13 @@ func _start(continue_game: bool) -> void:
     # A failed Continue must NEVER start a new game and overwrite unreadable saves.
     # Keep both original files for recovery or inspection.
     if continue_game and not progress.load_saved():
-        ui.show_title(false)
-        ui.show_message("原存档与备份均无法读取。旧文件已保留，请先备份文件再尝试新游戏。")
+        ui.show_title(false, "存档与备份均无法读取，已保留原文件。请先备份文件再开始新游戏。")
         return
     var fresh_game: bool = not continue_game
     if fresh_game:
         progress.new_game()
         if not progress.save():
-            ui.show_title(false)
-            ui.show_message("无法初始化新游戏存档，请检查设备空间与存储权限。")
+            ui.show_title(false, "新游戏无法创建存档，请检查设备空间与存储权限。")
             return
     game_core.bind(progress)
     world_router.bind(progress)

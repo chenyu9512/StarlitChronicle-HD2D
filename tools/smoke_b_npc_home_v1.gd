@@ -101,7 +101,9 @@ func _run() -> void:
         var daytime: String=ecology.social_feedback(str(map_id),saved,11)
         var nighttime: String=ecology.social_feedback(str(map_id),saved,22)
         check(not daytime.is_empty() and daytime!=nighttime,"Town lacks changing neighborhood testimony "+str(map_id))
-        saved.rpg["town_ecology_v7"]={map_id:{"prepare":true,"coordinate":true,"handoff":true}}
+        var finished_communities: Dictionary={}
+        finished_communities[str(map_id)]={"prepare":true,"coordinate":true,"handoff":true}
+        saved.rpg["town_ecology_v7"]=finished_communities
         var after: String=ecology.social_feedback(str(map_id),saved,11)
         check(after!=daytime,"Community didn't react to project "+str(map_id))
     if errors.is_empty():

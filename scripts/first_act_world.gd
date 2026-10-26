@@ -927,7 +927,10 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     var old_period: bool = clock_minutes<360 or clock_minutes>=1200
     calendar_day=maxi(1,day_number)
     clock_minutes=posmod(minutes,1440)
-    if not story_palette_flags.is_empty() and interior_building.begins_with("quest__"):
+    # Always update quest-room NPC lighting, even before any choice flag exists.
+    # The default/empty route is a valid first-visit state, not a reason to
+    # suppress day/night presentation updates.
+    if interior_building.begins_with("quest__"):
         refresh_room_npcs(story_palette_flags)
     _refresh_town_event_lighting()
     var next_period: bool = clock_minutes<360 or clock_minutes>=1200

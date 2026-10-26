@@ -103,10 +103,27 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         var cell: Vector2i=_point(prop.get("cell",[]))
         if cell.x>=2 and cell.x<WIDTH-2 and cell.y>=2 and cell.y<HEIGHT-2 and not walls.has(cell):
             features.append({"kind":str(prop.get("kind","barrel")),"cell":cell,"name":str(prop.get("name","室内陈设"))})
+    var inspections: Array[Dictionary] = []
+    var used_inspections: Dictionary = {}
+    for authored in data.get("investigations",[]):
+        if not (authored is Dictionary):
+            continue
+        var id: String = str(authored.get("id",""))
+        var cell: Vector2i = _point(authored.get("cell",[]))
+        if id.is_empty() or used_inspections.has(id) or cell.x<2 or cell.y<2 or cell.x>=WIDTH-2 or cell.y>=HEIGHT-2 or walls.has(cell):
+            push_warning("Interior inspection has invalid identity or blocked cell: "+map_id+"/"+building_id+"/"+id)
+            continue
+        used_inspections[id]=true
+        var item: Dictionary = authored.duplicate(true)
+        item["cell"]=cell
+        inspections.append(item)
     return {"tiles":tiles,"blocked":walls,"features":features,
         "gates":[],"spawn":points["spawn"],"size":Vector2i(WIDTH,HEIGHT),
         "interior":kind,"interact_cells":points,"authored_source":"v4",
         "layout_id":map_id+"#"+building_id,
+        "investigations":inspections,
+        "interior_owner_id":str(data.get("interior_owner_id","")),
+        "interior_interactions_runtime":"pending_D_binding",
         "quest_points":quest_points,
         "story_stage_points":story_stage_points,
         "branch_stage_points":branch_stage_points,

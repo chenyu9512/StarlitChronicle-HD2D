@@ -261,5 +261,86 @@
       "scale": 1.6,
       "energy": 0.55
     }
-  ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_shrine_altar",
+      "source_visual_id": "stage_0_shrine_altar",
+      "kind": "shrine_altar",
+      "name": "船灯祈愿台",
+      "cell": [
+        40,
+        12
+      ],
+      "first_text": "祭坛上刻着船号而非人名，因为船长曾请求为整船人祈福。",
+      "repeat_text": "供桌擦得很干净。",
+      "after_text": "最新归港日期写到了石座旁，旅人可以知道谁已经回来。",
+      "owner_absent_text": "供物还需守祠人统一登记。",
+      "owner_present_text": "屋主同意你仔细查看「船灯祈愿台」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_shrine_starseal",
+      "source_visual_id": "stage_1_shrine_starseal",
+      "kind": "shrine_starseal",
+      "name": "海面星印",
+      "cell": [
+        48,
+        24
+      ],
+      "first_text": "星印指向旧航道，旁边有一条被磨平的海流记号。",
+      "repeat_text": "石印中央有几粒白砂。",
+      "after_text": "修订说明承认旧星印并不总是准确。",
+      "owner_absent_text": "星印脆弱，不宜摩擦。",
+      "owner_present_text": "屋主同意你仔细查看「海面星印」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_shrine_incense",
+      "source_visual_id": "stage_2_shrine_incense",
+      "kind": "shrine_incense",
+      "name": "潮香小炉",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "香灰里混有海藻干粉，渔民说能让旅人想起家。",
+      "repeat_text": "炉中只剩一丝暖意。",
+      "after_text": "新的祈愿簿里写着船工们对灯塔的感谢。",
+      "owner_absent_text": "别随意添加香粉。",
+      "owner_present_text": "屋主同意你仔细查看「潮香小炉」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_4_guild_emblem",
+      "source_visual_id": "stage_4_guild_emblem",
+      "kind": "guild_emblem",
+      "name": "港民共守灯徽",
+      "cell": [
+        51,
+        20
+      ],
+      "first_text": "徽章的底座用了三种颜色的绳索，来自三条互助救援船。",
+      "repeat_text": "徽章上的绳结非常牢固。",
+      "after_text": "多了一枚刻着儿童姓名的小徽章，感谢夜里引航的人。",
+      "owner_absent_text": "这枚纪念徽归全港居民共同保管。",
+      "owner_present_text": "屋主同意你仔细查看「港民共守灯徽」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
 }

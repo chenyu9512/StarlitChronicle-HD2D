@@ -269,5 +269,86 @@
       "scale": 1.6,
       "energy": 0.55
     }
-  ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_shrine_altar",
+      "source_visual_id": "stage_0_shrine_altar",
+      "kind": "shrine_altar",
+      "name": "六灯祭坛",
+      "cell": [
+        39,
+        12
+      ],
+      "first_text": "祭坛只为六盏灯留了凹槽，左侧却有一处被磨平的旧石痕。",
+      "repeat_text": "烛油结成细小的白点。",
+      "after_text": "祭坛外缘多了一盏旅人带来的小灯，愿望不再只有一种。",
+      "owner_absent_text": "祈愿可以，但别触碰祭司保存的供物。",
+      "owner_present_text": "屋主同意你仔细查看「六灯祭坛」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_shrine_starseal",
+      "source_visual_id": "stage_1_shrine_starseal",
+      "kind": "shrine_starseal",
+      "name": "褪色星纹",
+      "cell": [
+        44,
+        22
+      ],
+      "first_text": "看似破裂的星纹在灯光下分成七段，最后一段朝着海面。",
+      "repeat_text": "石纹的边缘微微反光。",
+      "after_text": "星纹边贴上解读说明，也注明仍有未经确认的地方。",
+      "owner_absent_text": "石壁脆弱，只用目光观察。",
+      "owner_present_text": "屋主同意你仔细查看「褪色星纹」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_shrine_incense",
+      "source_visual_id": "stage_2_shrine_incense",
+      "kind": "shrine_incense",
+      "name": "旧香炉",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "香灰下面埋着一枚小石珠，祭司说这是给远航人的安稳祝福。",
+      "repeat_text": "香炉温度已降下。",
+      "after_text": "多了一本可自行署名的平安簿，远行家属会来这里写下愿望。",
+      "owner_absent_text": "香料要由守祠人添加。",
+      "owner_present_text": "屋主同意你仔细查看「旧香炉」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_3_lantern",
+      "source_visual_id": "stage_3_lantern",
+      "kind": "lantern",
+      "name": "长明小灯",
+      "cell": [
+        37,
+        17
+      ],
+      "first_text": "灯座刻着旧日修灯人的姓名，有一道刻痕还未写完。",
+      "repeat_text": "灯罩内积了点灰。",
+      "after_text": "小灯旁留下新的署名，不再遮掩那段无人说起的往事。",
+      "owner_absent_text": "灯火由守祠人照看，切勿随意挪动。",
+      "owner_present_text": "屋主同意你仔细查看「长明小灯」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "npc_coast_01",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
 }

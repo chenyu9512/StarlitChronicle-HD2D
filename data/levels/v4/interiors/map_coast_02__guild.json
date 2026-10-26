@@ -261,5 +261,86 @@
       "scale": 1.6,
       "energy": 0.55
     }
-  ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_guild_noticeboard",
+      "source_visual_id": "stage_0_guild_noticeboard",
+      "kind": "guild_noticeboard",
+      "name": "船员寻人榜",
+      "cell": [
+        29,
+        16
+      ],
+      "first_text": "纸上除了船名，还写着失踪者擅长做的菜和爱说的口头禅。",
+      "repeat_text": "公告栏夹了一层新的防潮纸。",
+      "after_text": "寻回的人名旁贴上小小的回信，有些人终于能告诉家属平安。",
+      "owner_absent_text": "寻人资料需要尊重家属意愿。",
+      "owner_present_text": "屋主同意你仔细查看「船员寻人榜」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_guild_emblem",
+      "source_visual_id": "stage_1_guild_emblem",
+      "kind": "guild_emblem",
+      "name": "救援铜徽",
+      "cell": [
+        46,
+        21
+      ],
+      "first_text": "徽章边缘缺了一角，是早年风暴里被礁石撞掉的。",
+      "repeat_text": "铜徽被擦得很亮。",
+      "after_text": "港务公会把救援流程画给了新来的学徒看。",
+      "owner_absent_text": "徽章属于公会纪念，不能带走。",
+      "owner_present_text": "屋主同意你仔细查看「救援铜徽」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_3_bookshelf",
+      "source_visual_id": "stage_3_bookshelf",
+      "kind": "bookshelf",
+      "name": "航路事故卷宗",
+      "cell": [
+        25,
+        23
+      ],
+      "first_text": "同一条浅礁三年内出了四次事故，而修订过的航图迟迟未发。",
+      "repeat_text": "旧卷宗仍保留原封条。",
+      "after_text": "事故报告旁终于添上有日期的修订记录。",
+      "owner_absent_text": "涉及伤者的部分只能申请借阅。",
+      "owner_present_text": "屋主同意你仔细查看「航路事故卷宗」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_4_tideway_chart",
+      "source_visual_id": "stage_4_tideway_chart",
+      "kind": "tideway_chart",
+      "name": "出海安全图",
+      "cell": [
+        49,
+        17
+      ],
+      "first_text": "画图者特意留出空白，供返航船长标注新发现的流向。",
+      "repeat_text": "红线标识禁航礁区。",
+      "after_text": "地图上多了几笔不同笔迹的安全提示。",
+      "owner_absent_text": "公示航图欢迎旅客查看。",
+      "owner_present_text": "屋主同意你仔细查看「出海安全图」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
 }

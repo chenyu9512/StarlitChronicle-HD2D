@@ -269,5 +269,86 @@
       "scale": 1.6,
       "energy": 0.55
     }
-  ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_forge_hearth",
+      "source_visual_id": "forge_hearth",
+      "kind": "smith_forge",
+      "name": "低温锻炉",
+      "cell": [
+        30,
+        17
+      ],
+      "first_text": "炉墙上留下旧年淬火的斑纹，工匠怕火星飘到村里的干草堆。",
+      "repeat_text": "炉中只剩细小的红光。",
+      "after_text": "炉口装了新的挡风板，能少用些木炭。",
+      "owner_absent_text": "炉火危险，主人不在请勿加柴。",
+      "owner_present_text": "屋主同意你仔细查看「低温锻炉」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_smith_anvil",
+      "source_visual_id": "stage_1_smith_anvil",
+      "kind": "smith_anvil",
+      "name": "补网铁砧",
+      "cell": [
+        46,
+        19
+      ],
+      "first_text": "铁砧一侧磨出细槽，专门给渔船修钩，而不是打造兵器。",
+      "repeat_text": "铁砧旁仍摆着半截旧铁钩。",
+      "after_text": "工坊开始替村民免费修理旧灯柱的铁圈。",
+      "owner_absent_text": "锋利工具暂时不能擅自操作。",
+      "owner_present_text": "屋主同意你仔细查看「补网铁砧」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_smith_toolwall",
+      "source_visual_id": "stage_2_smith_toolwall",
+      "kind": "smith_toolwall",
+      "name": "工具墙",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "钳子从大到小摆成弧形，最短的一把握柄缠了麻绳。",
+      "repeat_text": "工具上都有主人的烙印。",
+      "after_text": "新添的木牌写明借用者姓名，工具再不会随便丢失。",
+      "owner_absent_text": "工匠不在，先看清工具说明。",
+      "owner_present_text": "屋主同意你仔细查看「工具墙」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_3_barrels",
+      "source_visual_id": "stage_3_barrels",
+      "kind": "barrels",
+      "name": "淬火水桶",
+      "cell": [
+        26,
+        24
+      ],
+      "first_text": "桶边结着一层盐霜，村里工匠用井水和海水分别处理不同铁器。",
+      "repeat_text": "水面很平静。",
+      "after_text": "桶旁立起小牌：废水不得倒进菜地。",
+      "owner_absent_text": "水桶只供工坊使用，不要往里添东西。",
+      "owner_present_text": "屋主同意你仔细查看「淬火水桶」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "npc_coast_03",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
 }

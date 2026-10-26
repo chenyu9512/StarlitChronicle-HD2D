@@ -17,6 +17,8 @@ class MockWorld:
     var third: Node2D
     var fourth: Node2D
     var chapter: int = 8
+    var WIDTH: int = 72
+    var HEIGHT: int = 48
     var map_profile: Dictionary = {"id":"map_coast_01","settlement":false}
     var interior_building: String = ""
     var terrain_layout: Dictionary = {"spawn":Vector2i(10,23)}

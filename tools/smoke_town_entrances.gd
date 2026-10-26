@@ -66,6 +66,12 @@ func _run() -> void:
     root.add_child(world)
     world.build(1,2)
     world.interacted.connect(_on_interaction)
+    check(world.nodes.has("home_door"),"Housing service sign is missing")
+    if world.nodes.has("home_door"):
+        check(str(world.nodes["home_door"].get_meta("prop_kind",""))=="sign","Housing service still displays a fake cottage")
+    for decoration in world.scenery.get_children():
+        if decoration is Sprite2D:
+            check(str(decoration.get_meta("prop_kind",""))!="cottage","Unbound false-entrance cottage still rendered")
     if world.coastal_scene!=null:
         for tree in world.coastal_scene.wind_sway_sprites:
             if not is_instance_valid(tree) or str(tree.get_meta("art_kind","")) not in ["saltwind_oak","sea_wind_pine"]:

@@ -154,7 +154,9 @@ func _valid_payload(value: Variant) -> bool:
     if not (value is Dictionary):
         return false
     var obj: Dictionary = value
-    if int(obj.get("version", -1)) != VERSION:
+    if not obj.has("version") or typeof(obj["version"]) not in [TYPE_INT, TYPE_FLOAT]:
+        return false
+    if int(obj["version"]) != VERSION:
         return false
     # Legacy V3 payloads may omit rpg, but any supplied rpg must be a map.
     # Reject absent or nonnumeric fields before restore_snapshot accesses them.

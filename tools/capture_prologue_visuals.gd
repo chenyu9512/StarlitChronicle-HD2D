@@ -136,7 +136,7 @@ func _capture() -> void:
     else:
         handle.store_string(JSON.stringify(report,"  ")+"\n")
         handle.close()
-    if failures.is_empty() and evidence.size()==5:
+    if failures.is_empty() and evidence.size()==13:
         print("PASS P4: 13 actual Godot gameplay/cinematic frames captured; human visual review still required")
         quit(0)
         return

@@ -155,7 +155,9 @@ func _run() -> void:
     check(bool(session.get("ok",false)),"battle rejected valid handoff")
     battle.encounter_data={"enemy_id":"boss.ch002","display_name":"雾潮寄生体"}
     battle.start(state,2,true)
+    check(battle.reward_transaction_id.begins_with("boss:"),"battle omitted stable boss reward receipt")
     battle._finish(true)
+    check(str(battle.last_world_handoff_result.get("reward_transaction_id",""))==battle.reward_transaction_id,"handoff result lost receipt")
     check(bool(battle.last_world_handoff_result.get("ok",false)),"battle did not settle world handoff")
     check(not bool(battle.world_handoff.mark_result(true).get("ok",true)),"battle settlement counted twice")
     check(bool(battle.handoff_to_world(world).get("ok",false)),"battle world restore failed")
@@ -209,7 +211,9 @@ func _run() -> void:
     auto_world.hero.facing=1
     automatic.completed.connect(parent._battle_finished)
     automatic._finish(true)
+    automatic._finish(true)
     check(parent.finish_calls==1,"host completion was not called exactly once")
+    check(str(automatic.last_world_handoff_result.get("reward_transaction_id",""))==automatic.reward_transaction_id,"automatic handoff lost reward receipt")
     check(auto_world.hero.position==Vector2(512,512),"automatic integration did not restore position before completion")
     check(auto_world.hero.facing==3,"automatic integration did not restore facing")
     check(bool(automatic.last_world_handoff_result.get("ok",false)),"automatic integration did not finalize handoff")

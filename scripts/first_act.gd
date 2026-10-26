@@ -1222,6 +1222,16 @@ func _start_battle(is_boss: bool) -> void:
     var battle_event: Variant = _current_scene().get("encounter", {}) if is_boss else {}
     battle.encounter_data = battle_event if battle_event is Dictionary else {}
     battle.start(progress, progress.chapter, is_boss)
+    # A single discovery hook covers all 63 regional monsters and 66 story
+    # bosses, regardless of which of the 72 chapters spawned the fight.
+    if battle.formation != null:
+        for foe in battle.formation.units:
+            var monster_id: String = str(foe.get("monster_id",""))
+            var boss_id: String = str(foe.get("boss_id",""))
+            if not monster_id.is_empty():
+                game_core.record_enemy_seen("monsters",monster_id)
+            if not boss_id.is_empty():
+                game_core.record_enemy_seen("story_bosses",boss_id)
 
 func _random_encounter() -> void:
     if no_encounters:
@@ -1231,6 +1241,7 @@ func _random_encounter() -> void:
 
 func _battle_finished(won: bool, xp: int, money: int) -> void:
     var defeated_monster: String = str(battle.enemy.get("monster_id","")) if is_instance_valid(battle) else ""
+    var defeated_group: Array = battle.formation.units.duplicate(true) if is_instance_valid(battle) and battle.formation != null else []
     if is_instance_valid(battle):
         # Keep the final hit and victory glow visible; battle rules/rewards still settle now.
         # The old battle has locked all commands and blocks world input until its outro ends.
@@ -1248,6 +1259,14 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
     if won and battle_is_boss:
         cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
     if won:
+        # Story resolutions can be nonlethal: record "resolved", not "killed".
+        for foe in defeated_group:
+            var monster_id: String = str(foe.get("monster_id",""))
+            var boss_id: String = str(foe.get("boss_id",""))
+            if not monster_id.is_empty():
+                game_core.record_enemy_resolution("monsters",monster_id)
+            if not boss_id.is_empty():
+                game_core.record_enemy_resolution("story_bosses",boss_id)
         var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
         var job_levels: Array[String] = game_core.award_job_xp(maxi(5,int(float(xp) / 5.0)),battle_is_boss)
         game_events.record("battle_victory",{"boss":battle_is_boss,"xp":xp,"gold":money})

@@ -259,17 +259,19 @@ func render(section: String) -> void:
                 var slot: String = "weapon" if table == "weapons" else str(object.get("slot",""))
                 _button(content,"装备 "+str(object.get("name",item_id))+"  [库存 %d]" % manager.count(item_id),func() -> void: _apply(manager.equip(member,slot,item_id)))
         "技能":
-            _label("等级和职业解锁技能",true)
+            _label("职业技能 · 专精8阶可继承该职业的初阶技",true)
             _select_actor()
             for record in manager.skills(member):
                 _label("◆ %s  MP %d  %s" % [str(record.get("name","")),int(record.get("mp_cost",0)),str(record.get("description",""))])
         "职业":
-            _label("二十职业转职（保留经验/装备）",true)
+            _label("二十职业转职 · 保留经验、熟练度与已继承技能",true)
             _select_actor()
             var current_job: String = str(save_state.rpg["jobs"].get(member,"swordsman"))
             var current_rank: Dictionary = manager.job_record(member,current_job)
             _label("当前职业："+manager.job_name(current_job)+" · 熟练 %d阶 / 8阶 · %d职业经验" % [int(current_rank.get("rank",1)),int(current_rank.get("xp",0))])
             _label("基础职业随时可转；第13章起通过熟练度解锁高级职业，第49章起可解锁终阶职业。")
+            _label("角色定位：" + str(manager.jobs.get(current_job,{}).get("role","冒险")) + " · 职业增益随熟练度阶段成长。")
+            _label("熟练8阶后永久保留该职业的1～3阶技能；受角色等级限制。不适用武器会自动归还背包。")
             for job in manager.jobs.keys():
                 var job_id: String = str(job)
                 var row: Dictionary = manager.jobs[job]
@@ -459,14 +461,27 @@ func render(section: String) -> void:
             _label("图鉴 · "+encyclopedia,true)
             var bar := HBoxContainer.new()
             content.add_child(bar)
-            for category in ["characters","monsters","bosses","items","weapons","armor","regions"]:
+            for category in ["characters","monsters","story_bosses","bosses","items","weapons","armor","regions"]:
                 var cat: String = category
                 _button(bar,cat,func() -> void:
                     encyclopedia = cat
                     render("图鉴")
                 ,13)
+            var secret: bool = encyclopedia in ["monsters","story_bosses"]
+            var unlocked: int = 0
             for row in manager.records(encyclopedia):
-                _label("◇ "+str(row.get("name",""))+" / "+str(row.get("id","")))
+                var item_id: String = str(row.get("id",""))
+                if secret:
+                    var seen: Dictionary = manager.codex_record(encyclopedia,item_id)
+                    if not bool(seen.get("seen",false)):
+                        _label("◇ ？？？ · 尚未遭遇")
+                        continue
+                    unlocked += 1
+                    _label("◆ %s · 已解决%d次" % [str(row.get("name",item_id)),int(seen.get("resolved",0))])
+                else:
+                    _label("◇ "+str(row.get("name",""))+" / "+item_id)
+            if secret:
+                _label("已发现 %d/%d 种；亲自遭遇后才解锁档案。" % [unlocked,manager.records(encyclopedia).size()])
         "商店":
             _label("商店：购买 / 出售",true)
             for cat in ["items","weapons","armor"]:

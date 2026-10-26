@@ -378,8 +378,16 @@ func _begin_round() -> void:
             var actor_id: String = str(member.get("id",""))
             if game_core.is_active(actor_id):
                 eligible.append(actor_id)
-    party_order = combat_rules.initiative_order(game_state.actors,eligible)
-    turn_queue = combat_rules.turn_timeline(game_state.actors,formation.units,eligible)
+    # Apply shared vocation and weapon speed to the turn timeline without
+    # changing permanently saved actor base stats.
+    var initiative_actors: Array = game_state.actors.duplicate(true)
+    if game_core != null:
+        for i in range(initiative_actors.size()):
+            var id: String = str(initiative_actors[i].get("id",""))
+            var derived: Dictionary = game_core.gear_stats(id)
+            initiative_actors[i]["speed"] = maxi(1,int(derived.get("speed",initiative_actors[i].get("speed",10))))
+    party_order = combat_rules.initiative_order(initiative_actors,eligible)
+    turn_queue = combat_rules.turn_timeline(initiative_actors,formation.units,eligible)
     turn_cursor = 0
     hero_turn = party_order[0] if not party_order.is_empty() else game_state.actors.size()
 
@@ -508,6 +516,9 @@ func _act(action: String) -> void:
                 var effect: Dictionary = chosen.get("effect",{})
                 var kind: String = str(effect.get("kind","damage"))
                 var power: int = int(effect.get("power",0))
+                # The shared magic equipment/job stat was previously displayed
+                # but ignored by restorative skills in actual fights.
+                var magic_bonus: int = maxi(0,int(stats.get("magic",0))) if str(effect.get("scaling","")) == "magic" else 0
                 var target_type: String = str(chosen.get("target","single_enemy"))
                 var label: String = str(chosen.get("name","技能"))
                 if kind == "heal":
@@ -516,11 +527,11 @@ func _act(action: String) -> void:
                         for i in range(game_state.actors.size()):
                             var person: Dictionary = game_state.actors[i]
                             if int(person.get("hp",0)) > 0 and (game_core == null or game_core.is_active(str(person.get("id","")))):
-                                game_state.heal_member(i,maxi(10,power))
+                                game_state.heal_member(i,maxi(10,power + magic_bonus))
                         message = "%s 施展%s，全队恢复体力。" % [name,label]
                     else:
                         if target_index >= 0 and target_index < game_state.actors.size():
-                            game_state.heal_member(target_index,maxi(20,power*2))
+                            game_state.heal_member(target_index,maxi(20,power*2 + magic_bonus))
                         message = "%s 施展%s，治疗%s。" % [name,label,str(game_state.actors[target_index].get("name",""))]
                     healed_via_skill = true
                     if is_instance_valid(vfx):

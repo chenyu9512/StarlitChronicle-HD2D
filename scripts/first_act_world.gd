@@ -364,6 +364,9 @@ func _decorate() -> void:
         if entry is Array and entry.size() >= 3:
             objects.append(entry)
     for entry in objects:
+        # Unbound cottages have no interiors or collision.
+        if str(entry[0])=="cottage":
+            continue
         var pos := Vector2i(int(entry[1]), int(entry[2]))
         _add_sprite(str(entry[0]), pos, false)
 
@@ -752,8 +755,16 @@ func _build_sites() -> void:
             field_marker.set_meta("site_name",str(field_site.get("title","地形探查")))
             nodes[field_key]=field_marker
     if str(map_profile.get("kind","")) == "town":
-        var door: Sprite2D = _add_sprite("cottage",Vector2i(12,9),false)
-        nodes["home_door"] = door
+        # Housing services use a notice near the real residence, not a fake house.
+        for feature in terrain_layout.get("features",[]):
+            if str(feature.get("building",""))!="house":
+                continue
+            var house_step: Vector2i=feature.get("door",Vector2i.ZERO)+Vector2i.DOWN
+            var service_cell: Vector2i=_safe_site_cell(house_step+Vector2i(4,2))
+            var notice: Sprite2D=_add_sprite("sign",service_cell,false,true)
+            notice.set_meta("site_name","家园服务")
+            nodes["home_door"] = notice
+            break
     for i in range(9):
         var offset := Vector2i(7 + (i % 3) * 12, 10 + int(i / 3) * 5)
         var point: Sprite2D = _add_sprite("star_lantern" if i % 2 == 0 else "sign", offset, false)

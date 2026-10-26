@@ -1,6 +1,12 @@
 extends Sprite2D
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const CharacterMotion = preload("res://scripts/c_character_motion.gd")
 ## Small original top-down citizen silhouette; role palette conveys information.
+var motion = CharacterMotion.new()
+var reduced_motion: bool = false
+var life_action: String = "observe"
+var life_timer: float = 0.0
+var talking: bool = false
 var role: String = "lore"
 var citizen_name: String = ""
 var tone: Color = Color("749eab")
@@ -37,19 +43,60 @@ func apply_story_presentation(phase: String, route: String, minutes: int) -> voi
     queue_redraw()
 
 func _process(delta: float) -> void:
-    idle_elapsed+=delta
+    motion.reduced_motion = reduced_motion
+    motion.advance(delta, Vector2.ZERO)
+    idle_elapsed += delta
+    life_timer += delta
+    if life_timer >= 4.2 and not talking:
+        life_timer = fmod(life_timer, 4.2)
+        var cycle: int = posmod(int(idle_elapsed / 4.2) + citizen_name.hash(), 4)
+        match role:
+            "shop": life_action = ["sort_goods", "wave", "observe", "rest"][cycle]
+            "craft": life_action = ["work", "rest", "observe", "work"][cycle]
+            "quest": life_action = ["observe", "wave", "rest", "observe"][cycle]
+            _: life_action = ["observe", "rest", "look_around", "observe"][cycle]
     blink_phase=fposmod(idle_elapsed+float(posmod(role.hash(),7))*0.37,3.9)
     if is_instance_valid(artwork):
         # Still portrait identities stay intact: only subtle vertical breathing.
-        artwork.position.y=base_art_offset+0.8*sin(idle_elapsed*1.6+float(role.hash()%8))
+        artwork.position.y = base_art_offset if reduced_motion else base_art_offset + 0.8 * sin(idle_elapsed * 1.6 + float(posmod(role.hash(), 8)))
+        artwork.position.x = motion.visual_offset().x
     else:
         # Regulate CPU and redraw rate; only original fallback silhouettes need
         # procedural hand/work/blink posing. No per-frame texture allocations.
         gesture_clock+=delta
-        if gesture_clock>=0.12:
-            gesture_clock=fmod(gesture_clock,0.12)
+        if gesture_clock >= (0.28 if reduced_motion else 0.12):
+            gesture_clock = 0.0
             animation_redraws+=1
             queue_redraw()
+
+## Presentation calls only. Resident positions, quest flags and dialogue text never change.
+func set_reduced_motion(value: bool) -> void:
+    reduced_motion = value
+    motion.reduced_motion = value
+
+func set_motion(delta: float, direction: Vector2) -> void:
+    motion.advance(delta, direction)
+    queue_redraw()
+
+func face_player(world_point: Vector2) -> void:
+    talking = true
+    motion.start_talking(to_local(world_point))
+    life_action = "talk"
+    life_timer = 0.0
+    queue_redraw()
+
+func end_conversation() -> void:
+    talking = false
+    life_action = "observe"
+    queue_redraw()
+
+func perform_life_action(action: String) -> void:
+    if action not in ["sort_goods", "wave", "observe", "work", "sweep", "rest", "look_around", "talk"]:
+        return
+    life_action = action
+    life_timer = 0.0
+    motion.gesture()
+    queue_redraw()
 
 func setup(info: Dictionary) -> void:
     role=str(info.get("role","lore"))
@@ -89,14 +136,15 @@ func setup(info: Dictionary) -> void:
 func _draw() -> void:
     draw_circle(Vector2(0,8),10.0,Color(0.01,0.03,0.05,0.35))
     if artwork != null:
+        _draw_activity_mark()
         if role == "quest":
             draw_colored_polygon(PackedVector2Array([Vector2(-6,-51),Vector2(0,-57),Vector2(6,-51),Vector2(0,-45)]),Color("ffe38f"))
         return
     draw_rect(Rect2(-7,-7,6,17),tone.darkened(0.35),true)
     draw_rect(Rect2(1,-7,6,17),tone.darkened(0.36),true)
     draw_colored_polygon(PackedVector2Array([Vector2(-12,-20),Vector2(12,-20),Vector2(10,-5),Vector2(-10,-5)]),tone)
-    var working: float=sin(idle_elapsed*2.6+float(posmod(role.hash(),6)))
-    var lift: float=working*6.5 if role in ["craft","shop"] else working*2.0
+    var working: float = 0.0 if reduced_motion else sin(idle_elapsed * 2.6 + float(posmod(role.hash(), 6)))
+    var lift: float = working * 6.5 if life_action in ["work", "sort_goods", "wave", "sweep"] else working * 2.0
     draw_line(Vector2(-12,-17),Vector2(-16,-7-lift),tone.lightened(0.11),5)
     draw_line(Vector2(12,-17),Vector2(16,-7+lift*0.55),tone.lightened(0.11),5)
     if role=="craft":
@@ -115,6 +163,7 @@ func _draw() -> void:
     else:
         draw_line(Vector2(-5,-27),Vector2(-2,-27),Color("253747"),1)
         draw_line(Vector2(2,-27),Vector2(5,-27),Color("253747"),1)
+    _draw_activity_mark()
     if role=="quest":
         # A small sash/eye variation reflects chapter and A/B state, not a
         # claim to bespoke costumes or hand-authored animation frames.
@@ -129,3 +178,18 @@ func _draw() -> void:
             draw_circle(Vector2(11,-34),3.0,Color("b4a4ff"))
         var pulse: float=0.76+0.22*(0.5+0.5*sin(idle_elapsed*3.0))
         draw_colored_polygon(PackedVector2Array([Vector2(-6,-48),Vector2(0,-54),Vector2(6,-48),Vector2(0,-42)]),Color(1.0,0.90,0.55,pulse))
+
+func _draw_activity_mark() -> void:
+    ## Tiny original drawn prop gestures; static B02 portraits are NOT relabeled as sprites.
+    var rhythm: float = 0.0 if reduced_motion else sin(idle_elapsed * 3.0) * 3.0
+    if life_action in ["sort_goods", "work"]:
+        draw_rect(Rect2(Vector2(-19, -6 + rhythm), Vector2(7, 5)), Color("d7bd85"))
+        draw_line(Vector2(-19, -4 + rhythm), Vector2(-12, -4 + rhythm), Color("87684f"), 1.0)
+    elif life_action == "wave":
+        draw_line(Vector2(12, -15), Vector2(16 + rhythm, -28), Color("efc6a0"), 2.0)
+    elif life_action == "sweep":
+        draw_line(Vector2(15, -9), Vector2(22 + rhythm, 12), Color("a07c58"), 2.0)
+    elif life_action == "rest":
+        draw_circle(Vector2(18, -27), 2.2, Color("e9d7b9", 0.65))
+    elif life_action == "talk":
+        draw_arc(Vector2(15, -43), 4.0, -PI * 0.8, PI * 0.8, 10, Color("e9d7ac"), 1.5)

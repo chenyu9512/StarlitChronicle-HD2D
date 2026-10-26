@@ -57,16 +57,16 @@ func residents_for_map(map_id: String) -> Array:
             matching.append(npc.duplicate(true))
     return matching
 
-func talk(npc_id: String, region_id: String, clock: Dictionary, state) -> Dictionary:
+## Read-only dialogue preview: D can persist the first-contact marker in the same
+## authoritative V3 transaction as the NPC event before showing the conversation.
+## This does not mutate flags, game clock, player gold or talked_to.
+func preview_talk(npc_id: String, region_id: String, clock: Dictionary, state) -> Dictionary:
     var person: Dictionary = citizen(npc_id)
     if person.is_empty() or str(person.get("region_id",""))!=region_id or state==null:
         return {"text":"这里没有人回应。","first":false}
-    # Retain the existing first-contact flag and V3 save contract.
-    if not state.rpg.get("talked_to") is Dictionary:
-        state.rpg["talked_to"] = {}
-    var talked: Dictionary = state.rpg["talked_to"]
-    var first: bool = not talked.has(npc_id)
-    talked[npc_id] = true
+    var existing: Variant=state.rpg.get("talked_to",{})
+    var talked: Dictionary=existing if existing is Dictionary else {}
+    var first: bool=not talked.has(npc_id)
     var hour: int = posmod(int(clock.get("minutes",480))/60,24)
     var current_chapter: int = int(state.chapter)
     var context: String = "first" if first else "repeat"
@@ -92,8 +92,21 @@ func talk(npc_id: String, region_id: String, clock: Dictionary, state) -> Dictio
     return {"name":str(person.get("name",npc_id)),"text":text_line,
         "first":first,"npc_id":npc_id,"dialogue_phase":context,
         "occupation":activity,"relation_ids":person.get("relationships",[]),
-        "choice_event_id":str(reflection.get("event_id",""))}
+        "choice_event_id":str(reflection.get("event_id","")),
+        "requires_save":first,
+        "event_id":"b.npc.first."+npc_id if first else ""}
 
+
+func talk(npc_id: String, region_id: String, clock: Dictionary, state) -> Dictionary:
+    # Compatibility entrypoint for current first_act.gd. D should consume
+    # preview_talk and commit first contact atomically before presenting it.
+    var outcome: Dictionary=preview_talk(npc_id,region_id,clock,state)
+    if state!=null and bool(outcome.get("first",false)) and str(outcome.get("npc_id",""))==npc_id:
+        var all_talked: Variant=state.rpg.get("talked_to",{})
+        var talked: Dictionary=(all_talked as Dictionary).duplicate(true) if all_talked is Dictionary else {}
+        talked[npc_id]=true
+        state.rpg["talked_to"]=talked
+    return outcome
 
 func town_shop_ids(region_id: String,core) -> Array[String]:
     var tier: int = maxi(0,REGIONS.find(region_id))

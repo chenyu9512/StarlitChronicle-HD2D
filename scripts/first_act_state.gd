@@ -83,25 +83,49 @@ func _next_level_xp(lvl: int) -> int:
 func _pack() -> Dictionary:
     return {"version": VERSION, "chapter": chapter, "scene": scene_index, "task": task_index, "dialogue_seen": dialogue_seen, "gold": gold, "potions": potions, "actors": actors, "flags": flags, "inventory": inventory, "rpg": rpg, "play_seconds": play_seconds}
 
+# Runtime defaults remain the V3 save contract. Tests can redirect these paths
+# to a sandbox so validation never overwrites a player's existing saves.
+var save_path: String = SAVE_PATH
+var backup_path: String = BACKUP_PATH
+
 func save() -> bool:
-    var payload: String = JSON.stringify(_pack())
-    # 写入新存档之前，将上一份有效的存档备份。
-    if FileAccess.file_exists(SAVE_PATH):
-        var previous: String = FileAccess.get_file_as_string(SAVE_PATH)
-        if _valid_payload(JSON.parse_string(previous)):
-            var backup: FileAccess = FileAccess.open(BACKUP_PATH, FileAccess.WRITE)
-            if backup != null:
-                backup.store_string(previous)
-                backup.close()
-    var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+    var snapshot: Dictionary = _pack()
+    if not _valid_payload(snapshot):
+        return false
+    var payload: String = JSON.stringify(snapshot)
+    var temp_path: String = save_path + ".tmp"
+    var file: FileAccess = FileAccess.open(temp_path, FileAccess.WRITE)
     if file == null:
         return false
     file.store_string(payload)
+    file.flush()
     file.close()
-    return true
+    # Never replace the last good snapshot with an unparseable or incomplete write.
+    if not _valid_payload(JSON.parse_string(FileAccess.get_file_as_string(temp_path))):
+        return false
+    # Keep a previous valid snapshot recoverable even if the final rename fails.
+    if FileAccess.file_exists(save_path):
+        var previous: String = FileAccess.get_file_as_string(save_path)
+        if _valid_payload(JSON.parse_string(previous)):
+            var backup_temp: String = backup_path + ".tmp"
+            var backup: FileAccess = FileAccess.open(backup_temp, FileAccess.WRITE)
+            if backup == null:
+                return false
+            backup.store_string(previous)
+            backup.flush()
+            backup.close()
+            if not _valid_payload(JSON.parse_string(FileAccess.get_file_as_string(backup_temp))):
+                return false
+            if DirAccess.rename_absolute(
+                    ProjectSettings.globalize_path(backup_temp),
+                    ProjectSettings.globalize_path(backup_path)) != OK:
+                return false
+    return DirAccess.rename_absolute(
+            ProjectSettings.globalize_path(temp_path),
+            ProjectSettings.globalize_path(save_path)) == OK
 
 func load_saved() -> bool:
-    for path in [SAVE_PATH, BACKUP_PATH]:
+    for path in [save_path, backup_path]:
         if not FileAccess.file_exists(path):
             continue
         var payload: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -133,6 +157,15 @@ func _valid_payload(value: Variant) -> bool:
         return false
     var obj: Dictionary = value
     if int(obj.get("version", -1)) != VERSION:
+        return false
+    # Legacy V3 payloads may omit rpg, but any supplied rpg must be a map.
+    # These fields are accessed directly by restore_snapshot and cannot be absent.
+    for key in ["chapter", "scene", "task", "dialogue_seen", "gold", "potions"]:
+        if not obj.has(key):
+            return false
+    if not (obj.get("rpg", {}) is Dictionary):
+        return false
+    if int(obj["gold"]) < 0 or int(obj["potions"]) < 0:
         return false
     if not (obj.get("actors") is Array) or not (obj.get("flags") is Dictionary) or not (obj.get("inventory") is Dictionary):
         return false

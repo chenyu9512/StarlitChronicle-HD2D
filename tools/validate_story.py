@@ -99,6 +99,8 @@ for num, chapter in enumerate(chapters, 1):
         errors.append(f"Expected two options in {scene_id}")
     pair = replies.get(scene_id, {})
     bodies = []
+    first_appearance = {"岚音": 1, "朔弦": 3, "雷索": 7, "缇珐": 13,
+                        "伊泽": 27, "玄璃": 32, "诺依": 39, "维莎": 58}
     for route in ("a", "b"):
         lines = pair.get(route, [])
         if len(lines) != 2:
@@ -111,6 +113,9 @@ for num, chapter in enumerate(chapters, 1):
                 errors.append(f"Invalid/duplicate authored response ID {expected}")
             if not line.get("speaker") or len(line.get("text", "").strip()) < 8:
                 errors.append(f"Empty authored response {expected}")
+            speaker = line.get("speaker", "")
+            if speaker in first_appearance and num < first_appearance[speaker]:
+                errors.append(f"Speaker {speaker} before canon debut in {scene_id}")
             seen_replies.add(expected)
     if len(bodies) == 2 and bodies[0] == bodies[1]:
         errors.append(f"Identical A and B responses for {scene_id}")

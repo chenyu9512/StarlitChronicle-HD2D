@@ -52,6 +52,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS: AV ID routes, bus creation, procedural fallbacks and coastal lifecycle")
         quit(0)
+        return
     for reason in failures:
         push_error(reason)
     quit(1)

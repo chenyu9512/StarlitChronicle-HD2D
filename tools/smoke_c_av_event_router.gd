@@ -61,6 +61,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS C AV: region/music IDs, skill/mood/weather IDs, silent missing assets, no abandoned channels")
         quit(0)
+        return
     for failure in failures:
         push_error(failure)
     quit(1)

@@ -76,8 +76,12 @@ func local_frame() -> Dictionary:
     var extent: Vector2i = world.terrain_layout.get("size", Vector2i(W,H))
     var actual_w: int = maxi(1,extent.x)
     var actual_h: int = maxi(1,extent.y)
-    var columns: int = mini(actual_w,25) if compact else clampi(ceili(float(actual_w)/local_zoom),1,actual_w)
-    var rows: int = mini(actual_h,17) if compact else clampi(ceili(float(actual_h)/local_zoom),1,actual_h)
+    # Guarantee legible cells on narrow landscape devices instead of shrinking a
+    # fixed 25x17 window into unreadable 3-pixel squares.
+    var compact_columns: int = clampi(floori(maxf(1.0,size.x-20.0)/7.5),13,25)
+    var compact_rows: int = clampi(floori(maxf(1.0,size.y-20.0)/7.5),9,17)
+    var columns: int = mini(actual_w,compact_columns) if compact else clampi(ceili(float(actual_w)/local_zoom),1,actual_w)
+    var rows: int = mini(actual_h,compact_rows) if compact else clampi(ceili(float(actual_h)/local_zoom),1,actual_h)
     var hero_tile: Vector2i = Vector2i(actual_w/2,actual_h/2)
     if is_instance_valid(world.hero):
         hero_tile = Vector2i(floori(world.hero.position.x/TILE),floori(world.hero.position.y/TILE))

@@ -1,0 +1,5723 @@
+{
+  "schema": "starlit.av.production.v1",
+  "generated_from": "main canonical catalog and B02/B03 production manifests",
+  "audit_date": "2026-10-26",
+  "acceptance": "Inventory only; no QA or commercial finality implied",
+  "visual_contract": {
+    "tile_pixels": 32,
+    "legacy_character_frame": [
+      32,
+      48
+    ],
+    "legacy_character_walk": {
+      "directions": 4,
+      "frames_per_direction": 3
+    },
+    "sprite_sampling": "nearest_for_pixel_assets",
+    "effects": "procedural current FX are not individual skill animation",
+    "reduced_motion": "retain existing presentation toggle",
+    "required_character_states": [
+      "walk_down",
+      "walk_left",
+      "walk_up",
+      "walk_right",
+      "interact",
+      "talk",
+      "expression",
+      "attack",
+      "cast",
+      "hit",
+      "guard",
+      "down",
+      "victory"
+    ],
+    "required_enemy_states": [
+      "idle",
+      "attack",
+      "hit",
+      "status",
+      "down"
+    ],
+    "color_space": "sRGB",
+    "export_review": [
+      "iPhone landscape",
+      "alpha fringes",
+      "motion readability",
+      "lighting/foreground separation",
+      "frame pacing"
+    ]
+  },
+  "regions": [
+    {
+      "id": "region_coast",
+      "name": "白砂海岸",
+      "order": 1,
+      "map_count": 5,
+      "style": {
+        "motif": "潮湿石灰岩、盐雾、浅滩潮痕",
+        "palette": [
+          "#83B9C4",
+          "#D7C59D",
+          "#386A82"
+        ],
+        "ambience": "sea_wind"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "res://assets/art/tilesets/regions/region_coast_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_coast",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_oaths",
+      "name": "三誓诸国",
+      "order": 2,
+      "map_count": 5,
+      "style": {
+        "motif": "誓约纹章、层叠旗帜、旧石城墙",
+        "palette": [
+          "#B69D83",
+          "#4F5B78",
+          "#C4AD66"
+        ],
+        "ambience": "city_bells"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_oaths_ground.png",
+        "res://assets/art/tilesets/regions/region_oaths_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_oaths",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_forge",
+      "name": "赤炉联邦",
+      "order": 3,
+      "map_count": 5,
+      "style": {
+        "motif": "氧化铜、焦铁、赤炉余烬",
+        "palette": [
+          "#BA603C",
+          "#403C46",
+          "#F3B86B"
+        ],
+        "ambience": "furnace"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_forge_ground.png",
+        "res://assets/art/tilesets/regions/region_forge_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_forge",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_isles",
+      "name": "海歌群岛",
+      "order": 4,
+      "map_count": 5,
+      "style": {
+        "motif": "船帆、远洋光斑、海风织物",
+        "palette": [
+          "#4F9EA4",
+          "#E4D7AF",
+          "#6C7FA9"
+        ],
+        "ambience": "ocean_gulls"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_isles_ground.png",
+        "res://assets/art/tilesets/regions/region_isles_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_isles",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_mirror",
+      "name": "镜眠王国",
+      "order": 5,
+      "map_count": 5,
+      "style": {
+        "motif": "镜裂、垂纱、倒影与冷光",
+        "palette": [
+          "#94B8C7",
+          "#5B608B",
+          "#D8CCE6"
+        ],
+        "ambience": "glass_wind"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_mirror_ground.png",
+        "res://assets/art/tilesets/regions/region_mirror_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_mirror",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_oldland",
+      "name": "失落旧洲",
+      "order": 6,
+      "map_count": 5,
+      "style": {
+        "motif": "根系、风化石碑、苔藓金属",
+        "palette": [
+          "#6D8461",
+          "#9B886F",
+          "#474B54"
+        ],
+        "ambience": "ruins_wind"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_oldland_ground.png",
+        "res://assets/art/tilesets/regions/region_oldland_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_oldland",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_sanctum",
+      "name": "天轨圣域",
+      "order": 7,
+      "map_count": 5,
+      "style": {
+        "motif": "环形天轨、圣所玻璃、星灯反射",
+        "palette": [
+          "#D9C79C",
+          "#718FB5",
+          "#E8E3DC"
+        ],
+        "ambience": "high_air"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_sanctum_ground.png",
+        "res://assets/art/tilesets/regions/region_sanctum_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_sanctum",
+      "completion": "not_accepted"
+    },
+    {
+      "id": "region_city",
+      "name": "群灯之城",
+      "order": 8,
+      "map_count": 5,
+      "style": {
+        "motif": "多文化街市、暖窗、共享灯网",
+        "palette": [
+          "#C48D6B",
+          "#536B75",
+          "#F0C77F"
+        ],
+        "ambience": "market"
+      },
+      "existing_tiles": [
+        "res://assets/art/tilesets/regions/region_city_ground.png",
+        "res://assets/art/tilesets/regions/region_city_water.png"
+      ],
+      "tiles_state": "prototype_files_present_not_scene_quality_approved",
+      "required_packs": [
+        "architecture",
+        "props",
+        "interiors",
+        "dungeon",
+        "lighting",
+        "weather",
+        "UI accents"
+      ],
+      "audio_event": "bgm.region.region_city",
+      "completion": "not_accepted"
+    }
+  ],
+  "characters": [
+    {
+      "id": "char_wayfarer",
+      "name": "黎昂",
+      "portrait_path": "res://assets/art/b02/characters/main/char_wayfarer/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_wayfarer/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "res://assets/art/characters/leon/walk_4dir_3frames.png",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_tidecaller",
+      "name": "岚音",
+      "portrait_path": "res://assets/art/b02/characters/main/char_tidecaller/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_tidecaller/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_vanguard",
+      "name": "雷索",
+      "portrait_path": "res://assets/art/b02/characters/main/char_vanguard/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_vanguard/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_seeker",
+      "name": "朔弦",
+      "portrait_path": "res://assets/art/b02/characters/main/char_seeker/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_seeker/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_smith",
+      "name": "缇珐",
+      "portrait_path": "res://assets/art/b02/characters/main/char_smith/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_smith/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_navigator",
+      "name": "伊泽",
+      "portrait_path": "res://assets/art/b02/characters/main/char_navigator/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_navigator/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_mirrorweaver",
+      "name": "玄璃",
+      "portrait_path": "res://assets/art/b02/characters/main/char_mirrorweaver/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_mirrorweaver/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_alchemist",
+      "name": "诺依",
+      "portrait_path": "res://assets/art/b02/characters/main/char_alchemist/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_alchemist/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_cantor",
+      "name": "维莎",
+      "portrait_path": "res://assets/art/b02/characters/main/char_cantor/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_cantor/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_chengzhou",
+      "name": "澄舟",
+      "portrait_path": "res://assets/art/b02/characters/main/char_chengzhou/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_chengzhou/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_hessian",
+      "name": "赫西安",
+      "portrait_path": "res://assets/art/b02/characters/main/char_hessian/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_hessian/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "char_kuro",
+      "name": "库洛萨",
+      "portrait_path": "res://assets/art/b02/characters/main/char_kuro/portrait_320x400.png",
+      "fullbody_path": "res://assets/art/b02/characters/main/char_kuro/fullbody_rgba.png",
+      "portrait_state": "b02_static_produced_not_animation",
+      "existing_legacy_walk_path": "",
+      "missing_states": [
+        "interact",
+        "talk",
+        "expressions",
+        "unique_battle_actions"
+      ],
+      "animation_review": "not_accepted"
+    }
+  ],
+  "monsters": [
+    {
+      "id": "mon_coast_01",
+      "name": "盐泥团",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_02",
+      "name": "雾壳蟹",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_03",
+      "name": "砂灯蜥",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_04",
+      "name": "潮泡幽灵",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_05",
+      "name": "白礁鸟",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_06",
+      "name": "空贝寄居",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_07",
+      "name": "盐纹狼",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_08",
+      "name": "星涡鳐",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_coast_09",
+      "name": "潮底看守",
+      "region_id": "region_coast",
+      "canonical_sprite_key": "sprite_mon_coast_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_coast_09",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_01",
+      "name": "誓林鹿影",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_02",
+      "name": "高原铁蜂",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_03",
+      "name": "断旗亡兵",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_04",
+      "name": "岩纹哨鹰",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_05",
+      "name": "壁垒石犬",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_06",
+      "name": "空誓骑魂",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_07",
+      "name": "誓印巨蜥",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_08",
+      "name": "三钟巡者",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oaths_09",
+      "name": "无面判官",
+      "region_id": "region_oaths",
+      "canonical_sprite_key": "sprite_mon_oaths_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oaths_09",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_01",
+      "name": "煤灰蚁",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_02",
+      "name": "炉火蝠",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_03",
+      "name": "铁砂傀儡",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_04",
+      "name": "烟尾鼠",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_05",
+      "name": "熔渣甲虫",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_06",
+      "name": "铜齿机械",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_07",
+      "name": "裂炉熔兽",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_08",
+      "name": "赤芯猎犬",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_forge_09",
+      "name": "禁炉执刑者",
+      "region_id": "region_forge",
+      "canonical_sprite_key": "sprite_mon_forge_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_forge_09",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_01",
+      "name": "蓝珊海蛇",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_02",
+      "name": "礁影水母",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_03",
+      "name": "泡鸣鱼群",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_04",
+      "name": "海歌羽灵",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_05",
+      "name": "潮穴刺螯",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_06",
+      "name": "深海潜客",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_07",
+      "name": "断桅海妖",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_08",
+      "name": "黑潮巨鳗",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_isles_09",
+      "name": "深渊引歌者",
+      "region_id": "region_isles",
+      "canonical_sprite_key": "sprite_mon_isles_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_isles_09",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_01",
+      "name": "眠砂蝶",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_02",
+      "name": "倒影狸",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_03",
+      "name": "银玻璃人偶",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_04",
+      "name": "迷梦菇",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_05",
+      "name": "破镜蛛",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_06",
+      "name": "无面镜骑",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_07",
+      "name": "寝钟侍者",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_08",
+      "name": "双影魔女",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_mirror_09",
+      "name": "遗忘裁缝",
+      "region_id": "region_mirror",
+      "canonical_sprite_key": "sprite_mon_mirror_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_mirror_09",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_01",
+      "name": "时砂蚁狮",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_02",
+      "name": "腐钟幽兵",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_03",
+      "name": "旧星螳螂",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_04",
+      "name": "断轨机兵",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_05",
+      "name": "碎碑看守",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_06",
+      "name": "荒城残影",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_07",
+      "name": "岁影捕食者",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_08",
+      "name": "空心灯卫",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_oldland_09",
+      "name": "古代星孽",
+      "region_id": "region_oldland",
+      "canonical_sprite_key": "sprite_mon_oldland_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_oldland_09",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_01",
+      "name": "虚空灯蛾",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_1",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_01",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_02",
+      "name": "天轨眼球",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_2",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_02",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_03",
+      "name": "寂潮游魂",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_3",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_03",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_04",
+      "name": "暮刻守卫",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_4",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_04",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_05",
+      "name": "七灯残音",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_5",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_05",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_06",
+      "name": "永昼空壳",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_6",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_06",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_07",
+      "name": "星链执事",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_7",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_07",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_08",
+      "name": "终夜巡者",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_8",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_08",
+      "animation_review": "not_accepted"
+    },
+    {
+      "id": "mon_sanctum_09",
+      "name": "逆星幻兽",
+      "region_id": "region_sanctum",
+      "canonical_sprite_key": "sprite_mon_sanctum_9",
+      "runtime_path": "",
+      "visual_status": "not_verified_for_canonical_id",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down"
+      ],
+      "audio_event": "sfx.monster.mon_sanctum_09",
+      "animation_review": "not_accepted"
+    }
+  ],
+  "legacy_monster_prototypes": [
+    {
+      "id": "legacy.coast.fog_crab",
+      "battle_path": "res://assets/art/monsters/coast/fog_crab/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/fog_crab/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.salt_slime",
+      "battle_path": "res://assets/art/monsters/coast/salt_slime/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/salt_slime/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.salt_wolf",
+      "battle_path": "res://assets/art/monsters/coast/salt_wolf/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/salt_wolf/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.sand_lizard",
+      "battle_path": "res://assets/art/monsters/coast/sand_lizard/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/sand_lizard/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.shell_hermit",
+      "battle_path": "res://assets/art/monsters/coast/shell_hermit/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/shell_hermit/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.star_ray",
+      "battle_path": "res://assets/art/monsters/coast/star_ray/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/star_ray/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.tide_ghost",
+      "battle_path": "res://assets/art/monsters/coast/tide_ghost/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/tide_ghost/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.tide_guardian",
+      "battle_path": "res://assets/art/monsters/coast/tide_guardian/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/tide_guardian/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    },
+    {
+      "id": "legacy.coast.white_seabird",
+      "battle_path": "res://assets/art/monsters/coast/white_seabird/battle.png",
+      "idle_path": "res://assets/art/monsters/coast/white_seabird/idle_4frames.png",
+      "status": "legacy_runtime_sample_not_canonical_id_verified"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "boss_ch002",
+      "name": "雾潮寄生体",
+      "act": 1,
+      "runtime_id": "boss.ch002",
+      "static_battle_path": "res://assets/art/b03/boss_final_render/ch002_fog_tide_parasite_battle_768.png",
+      "static_status": "produced_static_not_animated",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch003",
+      "name": "潮痕守卫",
+      "act": 1,
+      "runtime_id": "boss.ch003",
+      "static_battle_path": "res://assets/art/b03/boss_final_render/ch003_tidemark_sentinel_battle_768.png",
+      "static_status": "produced_static_not_animated",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch004",
+      "name": "灰帷水手",
+      "act": 1,
+      "runtime_id": "boss.ch004",
+      "static_battle_path": "res://assets/art/b03/boss_final_render/ch004_ashveil_sailor_battle_768.png",
+      "static_status": "produced_static_not_animated",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch005",
+      "name": "缚潮古兽",
+      "act": 1,
+      "runtime_id": "boss.ch005",
+      "static_battle_path": "res://assets/art/b03/boss_final_render/ch005_bound_tide_beast_battle_768.png",
+      "static_status": "produced_static_not_animated",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch006",
+      "name": "潮歌守门人",
+      "act": 1,
+      "runtime_id": "boss.ch006",
+      "static_battle_path": "res://assets/art/b03/boss_final_render/ch006_tidesong_gatekeeper_battle_768.png",
+      "static_status": "produced_static_not_animated",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch008",
+      "name": "伪装边防队",
+      "act": 2,
+      "runtime_id": "boss.ch008",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch009",
+      "name": "王城禁卫",
+      "act": 2,
+      "runtime_id": "boss.ch009",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch010",
+      "name": "灰帷纵火者",
+      "act": 2,
+      "runtime_id": "boss.ch010",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch011",
+      "name": "伪誓顾问",
+      "act": 2,
+      "runtime_id": "boss.ch011",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch012",
+      "name": "律序执剑者",
+      "act": 2,
+      "runtime_id": "boss.ch012",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch013",
+      "name": "噬忆矿螳",
+      "act": 3,
+      "runtime_id": "boss.ch013",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch014",
+      "name": "失控采矿机",
+      "act": 3,
+      "runtime_id": "boss.ch014",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch015",
+      "name": "百工机关偶",
+      "act": 3,
+      "runtime_id": "boss.ch015",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch016",
+      "name": "记忆收割机",
+      "act": 3,
+      "runtime_id": "boss.ch016",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch017",
+      "name": "赤炉巨机",
+      "act": 3,
+      "runtime_id": "boss.ch017",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch018",
+      "name": "炉心监察者",
+      "act": 3,
+      "runtime_id": "boss.ch018",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch019",
+      "name": "肃清队长",
+      "act": 4,
+      "runtime_id": "boss.ch019",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch020",
+      "name": "灰帷猎手",
+      "act": 4,
+      "runtime_id": "boss.ch020",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch022",
+      "name": "白夜傀儡",
+      "act": 4,
+      "runtime_id": "boss.ch022",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch023",
+      "name": "记录监守者",
+      "act": 4,
+      "runtime_id": "boss.ch023",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch024",
+      "name": "古议会之影",
+      "act": 4,
+      "runtime_id": "boss.ch024",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch026",
+      "name": "海信怨灵",
+      "act": 5,
+      "runtime_id": "boss.ch026",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch027",
+      "name": "深海钟卫",
+      "act": 5,
+      "runtime_id": "boss.ch027",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch028",
+      "name": "无声海妖",
+      "act": 5,
+      "runtime_id": "boss.ch028",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch029",
+      "name": "静海巨蛸",
+      "act": 5,
+      "runtime_id": "boss.ch029",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch030",
+      "name": "逆风海魁",
+      "act": 5,
+      "runtime_id": "boss.ch030",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch031",
+      "name": "笑颜面偶",
+      "act": 6,
+      "runtime_id": "boss.ch031",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch032",
+      "name": "镜面行者",
+      "act": 6,
+      "runtime_id": "boss.ch032",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch033",
+      "name": "愿景残响",
+      "act": 6,
+      "runtime_id": "boss.ch033",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch034",
+      "name": "梦核回收者",
+      "act": 6,
+      "runtime_id": "boss.ch034",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch035",
+      "name": "眠潮蔓藤",
+      "act": 6,
+      "runtime_id": "boss.ch035",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch036",
+      "name": "梦境王座",
+      "act": 6,
+      "runtime_id": "boss.ch036",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch037",
+      "name": "遮航迷雾",
+      "act": 7,
+      "runtime_id": "boss.ch037",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch038",
+      "name": "伪忆群影",
+      "act": 7,
+      "runtime_id": "boss.ch038",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch039",
+      "name": "谷地岩蛇",
+      "act": 7,
+      "runtime_id": "boss.ch039",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch040",
+      "name": "旧日裁决者",
+      "act": 7,
+      "runtime_id": "boss.ch040",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch041",
+      "name": "地脉缠根王",
+      "act": 7,
+      "runtime_id": "boss.ch041",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch042",
+      "name": "根忆哀歌",
+      "act": 7,
+      "runtime_id": "boss.ch042",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch043",
+      "name": "高压星阵",
+      "act": 8,
+      "runtime_id": "boss.ch043",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch044",
+      "name": "赫西安幻身",
+      "act": 8,
+      "runtime_id": "boss.ch044",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch045",
+      "name": "暴走民兵",
+      "act": 8,
+      "runtime_id": "boss.ch045",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch046",
+      "name": "赤烬战舰",
+      "act": 8,
+      "runtime_id": "boss.ch046",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch047",
+      "name": "赤烬将军库洛萨",
+      "act": 8,
+      "runtime_id": "boss.ch047",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch048",
+      "name": "黑星化身",
+      "act": 8,
+      "runtime_id": "boss.ch048",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch049",
+      "name": "荒原窃光兽",
+      "act": 9,
+      "runtime_id": "boss.ch049",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch050",
+      "name": "门卫机关",
+      "act": 9,
+      "runtime_id": "boss.ch050",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch051",
+      "name": "岭间魔狼",
+      "act": 9,
+      "runtime_id": "boss.ch051",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch052",
+      "name": "落灯盗团",
+      "act": 9,
+      "runtime_id": "boss.ch052",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch053",
+      "name": "旧潮遗骸",
+      "act": 9,
+      "runtime_id": "boss.ch053",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch054",
+      "name": "群星考验者",
+      "act": 9,
+      "runtime_id": "boss.ch054",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch055",
+      "name": "废铁搬运偶",
+      "act": 10,
+      "runtime_id": "boss.ch055",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch056",
+      "name": "佣兵试探队",
+      "act": 10,
+      "runtime_id": "boss.ch056",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch058",
+      "name": "议会追猎者",
+      "act": 10,
+      "runtime_id": "boss.ch058",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch059",
+      "name": "强硬派机兵",
+      "act": 10,
+      "runtime_id": "boss.ch059",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch060",
+      "name": "赤烬主力机",
+      "act": 10,
+      "runtime_id": "boss.ch060",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch061",
+      "name": "天轨巡游兽",
+      "act": 11,
+      "runtime_id": "boss.ch061",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch062",
+      "name": "原初算偶",
+      "act": 11,
+      "runtime_id": "boss.ch062",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch063",
+      "name": "记忆监察者",
+      "act": 11,
+      "runtime_id": "boss.ch063",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch064",
+      "name": "天衡审判者",
+      "act": 11,
+      "runtime_id": "boss.ch064",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch065",
+      "name": "七灯议会合议体",
+      "act": 11,
+      "runtime_id": "boss.ch065",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch066",
+      "name": "定时星蛇",
+      "act": 11,
+      "runtime_id": "boss.ch066",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch067",
+      "name": "永昼园丁",
+      "act": 12,
+      "runtime_id": "boss.ch067",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch068",
+      "name": "愿望之影",
+      "act": 12,
+      "runtime_id": "boss.ch068",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch069",
+      "name": "静日守门人",
+      "act": 12,
+      "runtime_id": "boss.ch069",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch070",
+      "name": "七灯意志",
+      "act": 12,
+      "runtime_id": "boss.ch070",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    },
+    {
+      "id": "boss_ch071",
+      "name": "终幕司录者赫西安",
+      "act": 12,
+      "runtime_id": "boss.ch071",
+      "static_battle_path": "",
+      "static_status": "not_produced",
+      "required_states": [
+        "idle",
+        "attack",
+        "hit",
+        "status",
+        "down",
+        "phase_change"
+      ],
+      "animation_status": "not_verified",
+      "license_status": "requires_release_review"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "wpn_sword_01",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_02",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_03",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_04",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_05",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_06",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_07",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_08",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_sword_09",
+      "icon_key": "icon_weapon_sword",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_01",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_02",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_03",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_04",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_05",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_06",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_07",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_08",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_greatblade_09",
+      "icon_key": "icon_weapon_greatblade",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_01",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_02",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_03",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_04",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_05",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_06",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_07",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_08",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_spear_09",
+      "icon_key": "icon_weapon_spear",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_01",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_02",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_03",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_04",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_05",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_06",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_07",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_08",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_bow_09",
+      "icon_key": "icon_weapon_bow",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_01",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_02",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_03",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_04",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_05",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_06",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_07",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_08",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_staff_09",
+      "icon_key": "icon_weapon_staff",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_01",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_02",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_03",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_04",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_05",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_06",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_07",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_08",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_dagger_09",
+      "icon_key": "icon_weapon_dagger",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_01",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_02",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_03",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_04",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_05",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_06",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_07",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_08",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_hammer_09",
+      "icon_key": "icon_weapon_hammer",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_01",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_02",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_03",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_04",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_05",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_06",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_07",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_08",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_instrument_09",
+      "icon_key": "icon_weapon_instrument",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_01",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_02",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_03",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_04",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_05",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_06",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_07",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_08",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    },
+    {
+      "id": "wpn_vial_09",
+      "icon_key": "icon_weapon_vial",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview",
+        "impact_signature"
+      ]
+    }
+  ],
+  "armor": [
+    {
+      "id": "arm_head_01",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_02",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_03",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_04",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_05",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_06",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_07",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_08",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_head_09",
+      "icon_key": "icon_armor_head",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_01",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_02",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_03",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_04",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_05",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_06",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_07",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_08",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_body_09",
+      "icon_key": "icon_armor_body",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_01",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_02",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_03",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_04",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_05",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_06",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_07",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_08",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_hands_09",
+      "icon_key": "icon_armor_hands",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_01",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_02",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_03",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_04",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_05",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_06",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_07",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_08",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_feet_09",
+      "icon_key": "icon_armor_feet",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_01",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_02",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_03",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_04",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_05",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_06",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_07",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_08",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_shield_09",
+      "icon_key": "icon_armor_shield",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_01",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_02",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_03",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_04",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_05",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_06",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_07",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_08",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    },
+    {
+      "id": "arm_charm_09",
+      "icon_key": "icon_armor_charm",
+      "icon_path": "",
+      "visual_status": "not_produced_or_bound",
+      "required": [
+        "inventory_icon",
+        "equip_preview"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_wayfarer_01",
+      "fx_key": "fx_wayfarer_1",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_wayfarer_02",
+      "fx_key": "fx_wayfarer_2",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_wayfarer_03",
+      "fx_key": "fx_wayfarer_3",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_wayfarer_04",
+      "fx_key": "fx_wayfarer_4",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_wayfarer_05",
+      "fx_key": "fx_wayfarer_5",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_wayfarer_06",
+      "fx_key": "fx_wayfarer_6",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_wayfarer_07",
+      "fx_key": "fx_wayfarer_7",
+      "element": "光",
+      "job_id": "wayfarer",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_01",
+      "fx_key": "fx_tidecaller_1",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_02",
+      "fx_key": "fx_tidecaller_2",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_03",
+      "fx_key": "fx_tidecaller_3",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_04",
+      "fx_key": "fx_tidecaller_4",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_05",
+      "fx_key": "fx_tidecaller_5",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_06",
+      "fx_key": "fx_tidecaller_6",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_tidecaller_07",
+      "fx_key": "fx_tidecaller_7",
+      "element": "水",
+      "job_id": "tidecaller",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_01",
+      "fx_key": "fx_vanguard_1",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_02",
+      "fx_key": "fx_vanguard_2",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_03",
+      "fx_key": "fx_vanguard_3",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_04",
+      "fx_key": "fx_vanguard_4",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_05",
+      "fx_key": "fx_vanguard_5",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_06",
+      "fx_key": "fx_vanguard_6",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_vanguard_07",
+      "fx_key": "fx_vanguard_7",
+      "element": "雷",
+      "job_id": "vanguard",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_01",
+      "fx_key": "fx_seeker_1",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_02",
+      "fx_key": "fx_seeker_2",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_03",
+      "fx_key": "fx_seeker_3",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_04",
+      "fx_key": "fx_seeker_4",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_05",
+      "fx_key": "fx_seeker_5",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_06",
+      "fx_key": "fx_seeker_6",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_seeker_07",
+      "fx_key": "fx_seeker_7",
+      "element": "影",
+      "job_id": "seeker",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_01",
+      "fx_key": "fx_smith_1",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_02",
+      "fx_key": "fx_smith_2",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_03",
+      "fx_key": "fx_smith_3",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_04",
+      "fx_key": "fx_smith_4",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_05",
+      "fx_key": "fx_smith_5",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_06",
+      "fx_key": "fx_smith_6",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_smith_07",
+      "fx_key": "fx_smith_7",
+      "element": "火",
+      "job_id": "smith",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_01",
+      "fx_key": "fx_navigator_1",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_02",
+      "fx_key": "fx_navigator_2",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_03",
+      "fx_key": "fx_navigator_3",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_04",
+      "fx_key": "fx_navigator_4",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_05",
+      "fx_key": "fx_navigator_5",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_06",
+      "fx_key": "fx_navigator_6",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_navigator_07",
+      "fx_key": "fx_navigator_7",
+      "element": "风",
+      "job_id": "navigator",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_01",
+      "fx_key": "fx_mirrorweaver_1",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_02",
+      "fx_key": "fx_mirrorweaver_2",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_03",
+      "fx_key": "fx_mirrorweaver_3",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_04",
+      "fx_key": "fx_mirrorweaver_4",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_05",
+      "fx_key": "fx_mirrorweaver_5",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_06",
+      "fx_key": "fx_mirrorweaver_6",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_mirrorweaver_07",
+      "fx_key": "fx_mirrorweaver_7",
+      "element": "冰",
+      "job_id": "mirrorweaver",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_01",
+      "fx_key": "fx_alchemist_1",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_02",
+      "fx_key": "fx_alchemist_2",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_03",
+      "fx_key": "fx_alchemist_3",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_04",
+      "fx_key": "fx_alchemist_4",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_05",
+      "fx_key": "fx_alchemist_5",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_06",
+      "fx_key": "fx_alchemist_6",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_alchemist_07",
+      "fx_key": "fx_alchemist_7",
+      "element": "自然",
+      "job_id": "alchemist",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_01",
+      "fx_key": "fx_cantor_1",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_02",
+      "fx_key": "fx_cantor_2",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_03",
+      "fx_key": "fx_cantor_3",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_04",
+      "fx_key": "fx_cantor_4",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_05",
+      "fx_key": "fx_cantor_5",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_06",
+      "fx_key": "fx_cantor_6",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    },
+    {
+      "id": "skill_cantor_07",
+      "fx_key": "fx_cantor_7",
+      "element": "圣",
+      "job_id": "cantor",
+      "icon_path": "",
+      "fx_path": "",
+      "visual_status": "procedural_generic_fx_only",
+      "required": [
+        "individual_icon",
+        "cast",
+        "projectile_or_area",
+        "impact",
+        "status_feedback"
+      ]
+    }
+  ],
+  "audio_events": [
+    {
+      "id": "bgm.region.region_coast",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_oaths",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_forge",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_isles",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_mirror",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_oldland",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_sanctum",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.region.region_city",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.town",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.dungeon",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.battle",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.boss",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.story",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "bgm.victory",
+      "category": "bgm",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "sfx.combat.attack",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.hit",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.enemy_hit",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.cast",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.heal",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.guard",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.charge",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.phase",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.combat.victory",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "cue.story.danger",
+      "category": "cue",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "cue.story.grief",
+      "category": "cue",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "cue.story.mystery",
+      "category": "cue",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "cue.story.festival",
+      "category": "cue",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "cue.story.victory",
+      "category": "cue",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "cue.story.warm",
+      "category": "cue",
+      "asset_path": "",
+      "status": "procedural_fallback_only",
+      "fallback": "existing_original_procedural",
+      "loop": false,
+      "license_status": "source_code_provenance_not_file_license"
+    },
+    {
+      "id": "sfx.ui.confirm",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "sfx.ui.cancel",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "sfx.ui.cursor",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "sfx.ui.error",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "sfx.ui.quest_accept",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "sfx.ui.quest_complete",
+      "category": "sfx",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": false,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "ambience.rain",
+      "category": "ambience",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "ambience.wind",
+      "category": "ambience",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "ambience.waves",
+      "category": "ambience",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "ambience.crowd",
+      "category": "ambience",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "ambience.forge",
+      "category": "ambience",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    },
+    {
+      "id": "ambience.night",
+      "category": "ambience",
+      "asset_path": "",
+      "status": "not_produced",
+      "fallback": "silence",
+      "loop": true,
+      "license_status": "no_file_to_review"
+    }
+  ],
+  "event_bridge": {
+    "schema": "starlit.av.event-bridge.v1",
+    "integration_owner": "three-line merge",
+    "mappings": [
+      {
+        "event": "combat.attack",
+        "audio_id": "sfx.combat.attack",
+        "visual_id": "fx.combat.slash",
+        "producer": "A",
+        "consumer": "C"
+      },
+      {
+        "event": "combat.hit",
+        "audio_id": "sfx.combat.hit",
+        "visual_id": "fx.combat.impact",
+        "producer": "A",
+        "consumer": "C"
+      },
+      {
+        "event": "combat.boss_phase",
+        "audio_id": "sfx.combat.phase",
+        "visual_id": "fx.boss.phase",
+        "producer": "A",
+        "consumer": "C"
+      },
+      {
+        "event": "combat.cast",
+        "audio_id": "sfx.combat.cast",
+        "visual_id": "fx.skill.by_id",
+        "producer": "A",
+        "consumer": "C"
+      },
+      {
+        "event": "story.mood",
+        "audio_id": "cue.story.by_mood",
+        "visual_id": "fx.story.by_mood",
+        "producer": "B",
+        "consumer": "C"
+      },
+      {
+        "event": "world.region_enter",
+        "audio_id": "bgm.region.by_id",
+        "visual_id": "fx.world.by_region",
+        "producer": "B",
+        "consumer": "C"
+      },
+      {
+        "event": "world.ambient_changed",
+        "audio_id": "ambience.by_weather",
+        "visual_id": "fx.weather.by_weather",
+        "producer": "B",
+        "consumer": "C"
+      },
+      {
+        "event": "ui.confirm",
+        "audio_id": "sfx.ui.confirm",
+        "visual_id": "ui.feedback.confirm",
+        "producer": "integration",
+        "consumer": "C"
+      }
+    ]
+  },
+  "licensing": {
+    "release_rule": "Every real imported media file must have a reviewed source record and commercial redistribution permission; no license assumed from generation.",
+    "records": [],
+    "status": "no_audio_files_imported",
+    "contract_fields": [
+      "asset_id",
+      "source_type",
+      "author",
+      "source_url_or_internal_production_record",
+      "commercial_terms",
+      "attribution",
+      "verification_date",
+      "proof_reference",
+      "sha256",
+      "reviewer"
+    ]
+  },
+  "production_rules": {
+    "do_not_count": [
+      "concepts",
+      "static_portraits_as_animation",
+      "silhouettes",
+      "generic_procedural_fx_as_individual_skill_art",
+      "catalog_entries_as_files"
+    ],
+    "audio_formats": [
+      "ogg",
+      "wav",
+      "mp3"
+    ],
+    "visual_formats": [
+      "png",
+      "svg",
+      "webp"
+    ],
+    "qa_stages": [
+      "file_signature",
+      "path_existence",
+      "engine_import",
+      "runtime_binding",
+      "visual_audio_review",
+      "device_performance"
+    ]
+  }
+}

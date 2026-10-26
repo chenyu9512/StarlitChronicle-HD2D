@@ -94,35 +94,44 @@ func _auto_prepare_world_handoff() -> void:
     if world_handoff != null and world_handoff.active:
         return
     var controller: Node = get_parent()
-    if controller == null or not controller.has_method("_battle_finished"):
+    if controller == null:
+        return
+    if not controller.has_method("_battle_finished"):
         return
     var current_world: Node = controller.get("world") as Node
     if not is_instance_valid(current_world):
         return
+
+    # Build context one property at a time. No nested conditional expression
+    # is needed inside a multiline Dictionary literal.
     var profile: Dictionary = current_world.get("map_profile")
     var actor: Node2D = current_world.get("hero") as Node2D
-    var trigger: String = str(encounter_data.get("enemy_id",""))
-    if trigger.is_empty() and boss:
-        trigger = "boss.ch%03d/crisis" % chapter
+    var trigger_id: String = str(encounter_data.get("enemy_id", ""))
+    if trigger_id.is_empty() and boss:
+        trigger_id = "boss.ch%03d/crisis" % chapter
+
+    var context: Dictionary = {}
+    context["chapter"] = chapter
+    context["trigger_id"] = trigger_id
+    context["player_valid"] = is_instance_valid(actor)
+    context["settlement"] = bool(profile.get("settlement", false))
+    context["interior_building"] = str(current_world.get("interior_building"))
+    context["no_encounters"] = bool(controller.get("no_encounters"))
+    context["clock"] = game_state.rpg.get("game_clock", {})
+    context["audio_cue"] = str(profile.get("id", ""))
+    context["width_tiles"] = maxi(8, int(current_world.get("WIDTH")))
+    context["height_tiles"] = maxi(8, int(current_world.get("HEIGHT")))
+
     var environment: Object = current_world.get("ambience") as Object
-    var context: Dictionary = {
-        "chapter":chapter,
-        "trigger_id":trigger,
-        "player_valid":is_instance_valid(actor),
-        "settlement":bool(profile.get("settlement",false)),
-        "interior_building":str(current_world.get("interior_building")),
-        "no_encounters":bool(controller.get("no_encounters")),
-        "clock":game_state.rpg.get("game_clock",{}),
-        "weather":str(environment.get("weather")) if environment != null else "",
-        "audio_cue":str(profile.get("id","")),
-        "width_tiles":maxi(8,int(current_world.get("WIDTH"))),
-        "height_tiles":maxi(8,int(current_world.get("HEIGHT")))
-    }
-    # The controller locks the world before constructing Battle. That lock
-    # is not itself a player dialogue/cinematic guard at this stage.
-    var prepared: Dictionary = prepare_world_handoff(current_world,context,boss)
-    if not bool(prepared.get("ok",false)):
-        push_warning("A-line battle/world snapshot unavailable: "+str(prepared.get("reason","unknown")))
+    context["weather"] = ""
+    if is_instance_valid(environment):
+        context["weather"] = str(environment.get("weather"))
+
+    # FirstAct locks the world before creating Battle; this lock alone
+    # must not count as an active dialogue or an interrupted transition.
+    var prepared: Dictionary = prepare_world_handoff(current_world, context, boss)
+    if not bool(prepared.get("ok", false)):
+        push_warning("A-line battle/world snapshot unavailable: " + str(prepared.get("reason", "unknown")))
 
 func start(save_state, chapter_no: int, is_boss: bool) -> void:
     game_state = save_state

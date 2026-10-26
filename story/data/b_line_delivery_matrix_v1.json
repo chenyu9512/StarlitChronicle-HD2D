@@ -1,0 +1,3532 @@
+{
+  "schema": "starlit.bline.delivery_matrix.v1",
+  "audited_base_main_sha": "32de8eee9807f0b161c34462a9a66727d74bcc55",
+  "review_status": "source_inventory_complete_runtime_full_godot_acceptance_pending",
+  "godot_integration_passed": false,
+  "art_animation_complete": false,
+  "counts": {
+    "canonical_maps": 42,
+    "playable_maps": 40,
+    "prototypes": 2,
+    "regions": 8,
+    "chapters": 72,
+    "side_quests": 120,
+    "dungeon_puzzle_types": 8
+  },
+  "definitions": {
+    "complete": "validated end-to-end in Godot",
+    "partial": "implemented data/code exists, but full player-path/runtime acceptance or final art is pending",
+    "designed": "planning only",
+    "missing": "no complete playable implementation proven"
+  },
+  "maps": [
+    {
+      "id": "map_coast_01",
+      "name": "晨露村（正式版规划）",
+      "region_id": "region_coast",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_coast_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_coast_02",
+      "name": "白砂港",
+      "region_id": "region_coast",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_coast_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_coast_03",
+      "name": "盐风古道",
+      "region_id": "region_coast",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_coast_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_coast_04",
+      "name": "潮声洞窟",
+      "region_id": "region_coast",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_coast_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_coast_05",
+      "name": "潮歌灯塔",
+      "region_id": "region_coast",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_coast_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oaths_01",
+      "name": "三誓门城",
+      "region_id": "region_oaths",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_oaths_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oaths_02",
+      "name": "断誓山径",
+      "region_id": "region_oaths",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_oaths_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oaths_03",
+      "name": "银鹫要塞",
+      "region_id": "region_oaths",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_oaths_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oaths_04",
+      "name": "誓石神殿",
+      "region_id": "region_oaths",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_oaths_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oaths_05",
+      "name": "旧王谒见厅",
+      "region_id": "region_oaths",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_oaths_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_forge_01",
+      "name": "熔炉港",
+      "region_id": "region_forge",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_forge_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_forge_02",
+      "name": "烟塔工坊",
+      "region_id": "region_forge",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_forge_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_forge_03",
+      "name": "赤砂矿坑",
+      "region_id": "region_forge",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_forge_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_forge_04",
+      "name": "灰烬铁路",
+      "region_id": "region_forge",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_forge_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_forge_05",
+      "name": "炉心禁区",
+      "region_id": "region_forge",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_forge_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_isles_01",
+      "name": "珊歌港",
+      "region_id": "region_isles",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_isles_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_isles_02",
+      "name": "五色环礁",
+      "region_id": "region_isles",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_isles_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_isles_03",
+      "name": "风暴航道",
+      "region_id": "region_isles",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_isles_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_isles_04",
+      "name": "深潮神庙",
+      "region_id": "region_isles",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_isles_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_isles_05",
+      "name": "沉没王座",
+      "region_id": "region_isles",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_isles_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_mirror_01",
+      "name": "镜湖都",
+      "region_id": "region_mirror",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_mirror_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_mirror_02",
+      "name": "夜镜森林",
+      "region_id": "region_mirror",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_mirror_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_mirror_03",
+      "name": "忘梦庭院",
+      "region_id": "region_mirror",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_mirror_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_mirror_04",
+      "name": "银玻璃塔",
+      "region_id": "region_mirror",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_mirror_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_mirror_05",
+      "name": "映世回廊",
+      "region_id": "region_mirror",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_mirror_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oldland_01",
+      "name": "遗民营地",
+      "region_id": "region_oldland",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_oldland_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oldland_02",
+      "name": "荒星平原",
+      "region_id": "region_oldland",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_oldland_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oldland_03",
+      "name": "时裂峡谷",
+      "region_id": "region_oldland",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_oldland_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oldland_04",
+      "name": "星墓秘殿",
+      "region_id": "region_oldland",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_oldland_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_oldland_05",
+      "name": "旧日灯枢",
+      "region_id": "region_oldland",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_oldland_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_sanctum_01",
+      "name": "天轨前庭",
+      "region_id": "region_sanctum",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_sanctum_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_sanctum_02",
+      "name": "七灯环庭",
+      "region_id": "region_sanctum",
+      "kind": "field",
+      "layout_source": "res://data/levels/v3/map_sanctum_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_sanctum_03",
+      "name": "反转星穹",
+      "region_id": "region_sanctum",
+      "kind": "route",
+      "layout_source": "res://data/levels/v3/map_sanctum_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_sanctum_04",
+      "name": "岁影尽头",
+      "region_id": "region_sanctum",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_sanctum_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_sanctum_05",
+      "name": "永昼祭坛",
+      "region_id": "region_sanctum",
+      "kind": "landmark",
+      "layout_source": "res://data/levels/v3/map_sanctum_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_legacy_village",
+      "name": "晨露村（旧版试玩）",
+      "region_id": "region_coast",
+      "kind": "prototype",
+      "layout_source": null,
+      "claimed_runtime_status": "prototype",
+      "claimed_implementation": "playable",
+      "audit_state": "仅设计",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_legacy_ruins",
+      "name": "星落遗迹（旧版试玩）",
+      "region_id": "region_coast",
+      "kind": "prototype",
+      "layout_source": null,
+      "claimed_runtime_status": "prototype",
+      "claimed_implementation": "playable",
+      "audit_state": "仅设计",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_city_01",
+      "name": "群灯旧会馆",
+      "region_id": "region_city",
+      "kind": "town",
+      "layout_source": "res://data/levels/v3/map_city_01.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_city_02",
+      "name": "自由议事厅",
+      "region_id": "region_city",
+      "kind": "hall",
+      "layout_source": "res://data/levels/v3/map_city_02.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_city_03",
+      "name": "群灯居民街",
+      "region_id": "region_city",
+      "kind": "residential",
+      "layout_source": "res://data/levels/v3/map_city_03.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_city_04",
+      "name": "星灯中枢",
+      "region_id": "region_city",
+      "kind": "dungeon",
+      "layout_source": "res://data/levels/v3/map_city_04.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    },
+    {
+      "id": "map_city_05",
+      "name": "西区修复工地",
+      "region_id": "region_city",
+      "kind": "worksite",
+      "layout_source": "res://data/levels/v3/map_city_05.json",
+      "claimed_runtime_status": "layout_playable_art_pending",
+      "claimed_implementation": "runtime_independent_layout_v5",
+      "audit_state": "部分实现",
+      "physical_nav_test": "pending unified Godot test",
+      "final_map_art": "未完成",
+      "working_entrances_exits": "not independently certified"
+    }
+  ],
+  "regions": [
+    {
+      "region_id": "region_coast",
+      "name": "白砂海岸",
+      "design_targets": "潮汐、航路、灯塔",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_coast_04",
+        "mode": "sequence",
+        "title": "潮痕石阀"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_oaths",
+      "name": "三誓诸国",
+      "design_targets": "誓约、证据、政治机关",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_oaths_04",
+        "mode": "balance",
+        "title": "守誓天平"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_forge",
+      "name": "赤炉联邦",
+      "design_targets": "工业能源、阀门、机械机关",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_forge_04",
+        "mode": "circuit",
+        "title": "矿轨通电板"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_isles",
+      "name": "海歌群岛",
+      "design_targets": "航海、海流、沉没遗迹",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_isles_04",
+        "mode": "water_level",
+        "title": "潮汐蓄水室"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_mirror",
+      "name": "镜眠王国",
+      "design_targets": "记忆、镜像、时间顺序",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_mirror_04",
+        "mode": "mirror",
+        "title": "逆像折光厅"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_oldland",
+      "name": "失落旧洲",
+      "design_targets": "古代遗迹、历史重现",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_oldland_04",
+        "mode": "time_phase",
+        "title": "失序钟盘"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_sanctum",
+      "name": "天轨圣域",
+      "design_targets": "星轨、重力与综合试炼",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_sanctum_04",
+        "mode": "rhythm",
+        "title": "七灯星钟"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    },
+    {
+      "region_id": "region_city",
+      "name": "群灯之城",
+      "design_targets": "城市建设、社区协作与社会反馈",
+      "existing_dungeon_mechanism": {
+        "map_id": "map_city_04",
+        "mode": "dial",
+        "title": "灯网继电台"
+      },
+      "mechanics_status": "部分实现",
+      "feature_complete": false,
+      "visuals_final": false,
+      "combat_audio_interface": "pending centralized integration"
+    }
+  ],
+  "side_quests": [
+    {
+      "quest_id": "sq_page_01",
+      "category": "lost_page",
+      "map_id": "map_coast_02",
+      "canonical_location": "白砂港·旧邮仓",
+      "anchor_hint": [
+        43,
+        17
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch005",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_02",
+      "category": "lost_page",
+      "map_id": "map_oaths_02",
+      "canonical_location": "三誓边村·麦田",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch010",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_03",
+      "category": "lost_page",
+      "map_id": "map_forge_03",
+      "canonical_location": "赤炉矿区·小学校",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch015",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_04",
+      "category": "lost_page",
+      "map_id": "map_oaths_03",
+      "canonical_location": "肃清边村·废哨所",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch019",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_05",
+      "category": "lost_page",
+      "map_id": "map_isles_02",
+      "canonical_location": "晴汐小岛·观潮台",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch026",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_06",
+      "category": "lost_page",
+      "map_id": "map_isles_02",
+      "canonical_location": "青蓝海沟·王国大厅",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch027",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_07",
+      "category": "lost_page",
+      "map_id": "map_mirror_03",
+      "canonical_location": "镜眠王都·镜庭",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch033",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_08",
+      "category": "lost_page",
+      "map_id": "map_oldland_01",
+      "canonical_location": "默契城·户籍馆",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch038",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_09",
+      "category": "lost_page",
+      "map_id": "map_oldland_03",
+      "canonical_location": "旧洲·废礼堂",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch040",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_10",
+      "category": "lost_page",
+      "map_id": "map_oldland_01",
+      "canonical_location": "灾后王都·公用厨房",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch050",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_11",
+      "category": "lost_page",
+      "map_id": "map_city_03",
+      "canonical_location": "群灯之城·居民广场",
+      "anchor_hint": [
+        31,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch057",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_page_12",
+      "category": "lost_page",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "天轨圣域·旧阅览室",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch065",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_01",
+      "category": "life",
+      "map_id": "map_coast_01",
+      "canonical_location": "晨露村·黄昏街",
+      "anchor_hint": [
+        15,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch002",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_02",
+      "category": "life",
+      "map_id": "map_coast_01",
+      "canonical_location": "晨露药房",
+      "anchor_hint": [
+        60,
+        19
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch002",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_03",
+      "category": "life",
+      "map_id": "map_coast_02",
+      "canonical_location": "白砂港·厨房",
+      "anchor_hint": [
+        43,
+        17
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch005",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_04",
+      "category": "life",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三誓关卡",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch008",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_05",
+      "category": "life",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三誓王都·旧裁缝铺",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch011",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_06",
+      "category": "life",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三国边界·教堂",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch012",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_07",
+      "category": "life",
+      "map_id": "map_forge_01",
+      "canonical_location": "赤炉工厂·休息间",
+      "anchor_hint": [
+        56,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch016",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_08",
+      "category": "life",
+      "map_id": "map_forge_02",
+      "canonical_location": "赤炉试炼塔",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch018",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_09",
+      "category": "life",
+      "map_id": "map_forge_01",
+      "canonical_location": "赤炉旧街",
+      "anchor_hint": [
+        56,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch018",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_10",
+      "category": "life",
+      "map_id": "map_oaths_02",
+      "canonical_location": "三誓边村",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch020",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_11",
+      "category": "life",
+      "map_id": "map_oaths_01",
+      "canonical_location": "白夜祭·市集",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch022",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_12",
+      "category": "life",
+      "map_id": "map_oaths_01",
+      "canonical_location": "白夜祭·后台",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch023",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_13",
+      "category": "life",
+      "map_id": "map_isles_01",
+      "canonical_location": "逐星号·船员室",
+      "anchor_hint": [
+        50,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch026",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_14",
+      "category": "life",
+      "map_id": "map_isles_01",
+      "canonical_location": "海歌群岛·偏港",
+      "anchor_hint": [
+        50,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch029",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_15",
+      "category": "life",
+      "map_id": "map_isles_02",
+      "canonical_location": "鲸背水道",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch030",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_16",
+      "category": "life",
+      "map_id": "map_mirror_01",
+      "canonical_location": "镜眠王国·钟表铺",
+      "anchor_hint": [
+        29,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch034",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_17",
+      "category": "life",
+      "map_id": "map_mirror_01",
+      "canonical_location": "镜眠王都·档案局",
+      "anchor_hint": [
+        29,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch035",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_18",
+      "category": "life",
+      "map_id": "map_mirror_03",
+      "canonical_location": "映世·花庭",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch036",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_19",
+      "category": "life",
+      "map_id": "map_oldland_01",
+      "canonical_location": "旧洲·默契城",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch038",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_20",
+      "category": "life",
+      "map_id": "map_oldland_01",
+      "canonical_location": "旧洲·难民营",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch041",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_21",
+      "category": "life",
+      "map_id": "map_coast_01",
+      "canonical_location": "晨露村·旧屋",
+      "anchor_hint": [
+        35,
+        29
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch053",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_22",
+      "category": "life",
+      "map_id": "map_oldland_03",
+      "canonical_location": "暮林古道·驿站",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch052",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_23",
+      "category": "life",
+      "map_id": "map_city_03",
+      "canonical_location": "群灯城·建造区",
+      "anchor_hint": [
+        31,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch057",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "sq_life_24",
+      "category": "life",
+      "map_id": "map_city_01",
+      "canonical_location": "群灯之城·广场",
+      "anchor_hint": [
+        33,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch059",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_lanyin_01",
+      "category": "companion",
+      "map_id": "map_coast_02",
+      "canonical_location": "白砂港临时医务室",
+      "anchor_hint": [
+        60,
+        13
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch003",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_lanyin_02",
+      "category": "companion",
+      "map_id": "map_forge_01",
+      "canonical_location": "赤炉工坊医务所",
+      "anchor_hint": [
+        61,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch014",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_lanyin_03",
+      "category": "companion",
+      "map_id": "map_coast_01",
+      "canonical_location": "晨露村药房后屋",
+      "anchor_hint": [
+        60,
+        19
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch021",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_lanyin_04",
+      "category": "companion",
+      "map_id": "map_mirror_01",
+      "canonical_location": "镜眠王都疗养院",
+      "anchor_hint": [
+        29,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch035",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_lanyin_05",
+      "category": "companion",
+      "map_id": "map_coast_01",
+      "canonical_location": "晨露村旧码头",
+      "anchor_hint": [
+        35,
+        29
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch053",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_lanyin_06",
+      "category": "companion",
+      "map_id": "map_city_03",
+      "canonical_location": "群灯城联合医馆",
+      "anchor_hint": [
+        61,
+        20
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch060",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_leiso_01",
+      "category": "companion",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三誓王都旧巡逻线",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch009",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_leiso_02",
+      "category": "companion",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三国边境小学",
+      "anchor_hint": [
+        13,
+        37
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch012",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_leiso_03",
+      "category": "companion",
+      "map_id": "map_oaths_05",
+      "canonical_location": "断层遗迹军政档案室",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch024",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_leiso_04",
+      "category": "companion",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三誓王都东门",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch047",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_leiso_05",
+      "category": "companion",
+      "map_id": "map_oldland_01",
+      "canonical_location": "北境救护站",
+      "anchor_hint": [
+        60,
+        21
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch052",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_leiso_06",
+      "category": "companion",
+      "map_id": "map_city_02",
+      "canonical_location": "群灯城志愿议事厅",
+      "anchor_hint": [
+        35,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch059",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_shouxian_01",
+      "category": "companion",
+      "map_id": "map_coast_02",
+      "canonical_location": "白砂港旧酒馆",
+      "anchor_hint": [
+        43,
+        17
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch005",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_shouxian_02",
+      "category": "companion",
+      "map_id": "map_coast_02",
+      "canonical_location": "海歌港旧船坞",
+      "anchor_hint": [
+        43,
+        17
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch020",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_shouxian_03",
+      "category": "companion",
+      "map_id": "map_isles_02",
+      "canonical_location": "晴汐小岛码头",
+      "anchor_hint": [
+        24,
+        32
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch026",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_shouxian_04",
+      "category": "companion",
+      "map_id": "map_isles_01",
+      "canonical_location": "无名岛旧码头",
+      "anchor_hint": [
+        50,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch037",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_shouxian_05",
+      "category": "companion",
+      "map_id": "map_oldland_01",
+      "canonical_location": "灾后海歌港",
+      "anchor_hint": [
+        49,
+        13
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch052",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_shouxian_06",
+      "category": "companion",
+      "map_id": "map_city_01",
+      "canonical_location": "群灯之城新港",
+      "anchor_hint": [
+        48,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch060",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_tifa_01",
+      "category": "companion",
+      "map_id": "map_forge_02",
+      "canonical_location": "赤炉工坊学徒舍",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch014",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_tifa_02",
+      "category": "companion",
+      "map_id": "map_forge_05",
+      "canonical_location": "赤炉主炉维修层",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch017",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_tifa_03",
+      "category": "companion",
+      "map_id": "map_forge_02",
+      "canonical_location": "赤炉百工塔",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch018",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_tifa_04",
+      "category": "companion",
+      "map_id": "map_oldland_02",
+      "canonical_location": "旧洲地脉林场",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch041",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_tifa_05",
+      "category": "companion",
+      "map_id": "map_city_01",
+      "canonical_location": "群灯城西区",
+      "anchor_hint": [
+        33,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch055",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_tifa_06",
+      "category": "companion",
+      "map_id": "map_city_02",
+      "canonical_location": "群灯城能源议事厅",
+      "anchor_hint": [
+        35,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch060",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_ize_01",
+      "category": "companion",
+      "map_id": "map_isles_03",
+      "canonical_location": "断歌礁旧乐棚",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch028",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_ize_02",
+      "category": "companion",
+      "map_id": "map_isles_01",
+      "canonical_location": "风航灯旧锚台",
+      "anchor_hint": [
+        35,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch030",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_ize_03",
+      "category": "companion",
+      "map_id": "map_oldland_04",
+      "canonical_location": "岁影回廊旧剧院",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch040",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_ize_04",
+      "category": "companion",
+      "map_id": "map_oldland_05",
+      "canonical_location": "旧洲根忆灯坛",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch042",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_ize_05",
+      "category": "companion",
+      "map_id": "map_oldland_03",
+      "canonical_location": "暮林驿站后台",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch052",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_ize_06",
+      "category": "companion",
+      "map_id": "map_sanctum_05",
+      "canonical_location": "永昼花园",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch067",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_xuanli_01",
+      "category": "companion",
+      "map_id": "map_mirror_01",
+      "canonical_location": "镜眠王都档案局",
+      "anchor_hint": [
+        29,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch034",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_xuanli_02",
+      "category": "companion",
+      "map_id": "map_mirror_03",
+      "canonical_location": "镜眠王都城外花园",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch036",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_xuanli_03",
+      "category": "companion",
+      "map_id": "map_oldland_02",
+      "canonical_location": "旧洲根系树海",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch041",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_xuanli_04",
+      "category": "companion",
+      "map_id": "map_oldland_01",
+      "canonical_location": "旧洲新生救援营",
+      "anchor_hint": [
+        60,
+        21
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch054",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_xuanli_05",
+      "category": "companion",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "天轨原初实验室",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch062",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_xuanli_06",
+      "category": "companion",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "七灯评议庭侧厅",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch070",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_nuoyi_01",
+      "category": "companion",
+      "map_id": "map_oldland_01",
+      "canonical_location": "荒原邮站",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch049",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_nuoyi_02",
+      "category": "companion",
+      "map_id": "map_oldland_01",
+      "canonical_location": "灾后王都东墙",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch050",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_nuoyi_03",
+      "category": "companion",
+      "map_id": "map_oldland_02",
+      "canonical_location": "雾岭农庄",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch051",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_nuoyi_04",
+      "category": "companion",
+      "map_id": "map_oldland_01",
+      "canonical_location": "新生救援营",
+      "anchor_hint": [
+        60,
+        21
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch054",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_nuoyi_05",
+      "category": "companion",
+      "map_id": "map_city_03",
+      "canonical_location": "群灯城儿童学堂",
+      "anchor_hint": [
+        14,
+        38
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch059",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_nuoyi_06",
+      "category": "companion",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "终幕殿前救援营",
+      "anchor_hint": [
+        61,
+        19
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch071",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_weisha_01",
+      "category": "companion",
+      "map_id": "map_city_02",
+      "canonical_location": "群灯城听证厅",
+      "anchor_hint": [
+        35,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch058",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_weisha_02",
+      "category": "companion",
+      "map_id": "map_city_03",
+      "canonical_location": "群灯城救助仓库",
+      "anchor_hint": [
+        61,
+        20
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch059",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_weisha_03",
+      "category": "companion",
+      "map_id": "map_city_02",
+      "canonical_location": "群灯城灯网议事厅",
+      "anchor_hint": [
+        35,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch060",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_weisha_04",
+      "category": "companion",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "天轨原初实验室",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch062",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_weisha_05",
+      "category": "companion",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "天轨议会档案厅",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch065",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "cq_weisha_06",
+      "category": "companion",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "七灯评议庭",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch070",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_001",
+      "category": "regional",
+      "map_id": "map_coast_02",
+      "canonical_location": "白砂港渔村",
+      "anchor_hint": [
+        43,
+        17
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch002",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_002",
+      "category": "regional",
+      "map_id": "map_coast_05",
+      "canonical_location": "鲸骨浅滩",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch005",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_003",
+      "category": "regional",
+      "map_id": "map_coast_05",
+      "canonical_location": "潮歌灯塔",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch006",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_004",
+      "category": "regional",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三誓王都外廷",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch007",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_005",
+      "category": "regional",
+      "map_id": "map_oaths_02",
+      "canonical_location": "三国边境议事站",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch010",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_006",
+      "category": "regional",
+      "map_id": "map_oaths_01",
+      "canonical_location": "旧盟约桥",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch012",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_007",
+      "category": "regional",
+      "map_id": "map_forge_01",
+      "canonical_location": "赤炉七号矿井",
+      "anchor_hint": [
+        56,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch013",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_008",
+      "category": "regional",
+      "map_id": "map_forge_01",
+      "canonical_location": "灰砂安置区",
+      "anchor_hint": [
+        32,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch016",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_009",
+      "category": "regional",
+      "map_id": "map_forge_04",
+      "canonical_location": "赤炉工人街",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch018",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_010",
+      "category": "regional",
+      "map_id": "map_oaths_02",
+      "canonical_location": "灰石边村旧麦田",
+      "anchor_hint": [
+        24,
+        32
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch019",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_011",
+      "category": "regional",
+      "map_id": "map_oaths_01",
+      "canonical_location": "王都白夜祭",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch022",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_012",
+      "category": "regional",
+      "map_id": "map_oaths_05",
+      "canonical_location": "断层议会遗迹",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch024",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_013",
+      "category": "regional",
+      "map_id": "map_isles_01",
+      "canonical_location": "海歌港旧船坞",
+      "anchor_hint": [
+        50,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch025",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_014",
+      "category": "regional",
+      "map_id": "map_isles_02",
+      "canonical_location": "青蓝海沟沉城",
+      "anchor_hint": [
+        44,
+        34
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch027",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_015",
+      "category": "regional",
+      "map_id": "map_isles_01",
+      "canonical_location": "风航群岛偏港",
+      "anchor_hint": [
+        50,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch030",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_016",
+      "category": "regional",
+      "map_id": "map_mirror_01",
+      "canonical_location": "镜眠王都日轮街",
+      "anchor_hint": [
+        29,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch031",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_017",
+      "category": "regional",
+      "map_id": "map_mirror_01",
+      "canonical_location": "镜眠王都档案局",
+      "anchor_hint": [
+        29,
+        36
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch034",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_018",
+      "category": "regional",
+      "map_id": "map_mirror_02",
+      "canonical_location": "镜眠王国郊外果园",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch036",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_019",
+      "category": "regional",
+      "map_id": "map_isles_01",
+      "canonical_location": "无名岛码头",
+      "anchor_hint": [
+        50,
+        15
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch037",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_020",
+      "category": "regional",
+      "map_id": "map_oldland_03",
+      "canonical_location": "旧洲裂谷村",
+      "anchor_hint": [
+        24,
+        32
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch039",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_021",
+      "category": "regional",
+      "map_id": "map_oldland_02",
+      "canonical_location": "旧洲边境药田",
+      "anchor_hint": [
+        24,
+        32
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch042",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_022",
+      "category": "regional",
+      "map_id": "map_oldland_05",
+      "canonical_location": "天轨观测站外城",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch043",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_023",
+      "category": "regional",
+      "map_id": "map_oaths_01",
+      "canonical_location": "灾后王都避难街",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch045",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_024",
+      "category": "regional",
+      "map_id": "map_oaths_01",
+      "canonical_location": "三誓王都撤离站",
+      "anchor_hint": [
+        27,
+        32
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch047",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_025",
+      "category": "regional",
+      "map_id": "map_oldland_01",
+      "canonical_location": "荒原旧驿站",
+      "anchor_hint": [
+        33,
+        34
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch049",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_026",
+      "category": "regional",
+      "map_id": "map_oldland_03",
+      "canonical_location": "暮林旧道",
+      "anchor_hint": [
+        44,
+        34
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch052",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_027",
+      "category": "regional",
+      "map_id": "map_oldland_01",
+      "canonical_location": "新生救援营",
+      "anchor_hint": [
+        60,
+        21
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch054",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_028",
+      "category": "regional",
+      "map_id": "map_city_01",
+      "canonical_location": "群灯城重建西区",
+      "anchor_hint": [
+        33,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch055",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_029",
+      "category": "regional",
+      "map_id": "map_city_01",
+      "canonical_location": "群灯城自由广场",
+      "anchor_hint": [
+        33,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch057",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_030",
+      "category": "regional",
+      "map_id": "map_city_03",
+      "canonical_location": "群灯城居民街",
+      "anchor_hint": [
+        14,
+        38
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch060",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_031",
+      "category": "regional",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "星帆补给船",
+      "anchor_hint": [
+        48,
+        13
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch061",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_032",
+      "category": "regional",
+      "map_id": "map_sanctum_02",
+      "canonical_location": "天轨旧工作室",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch063",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_033",
+      "category": "regional",
+      "map_id": "map_sanctum_03",
+      "canonical_location": "天轨外缘星帆站",
+      "anchor_hint": [
+        20,
+        14
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch066",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_034",
+      "category": "regional",
+      "map_id": "map_sanctum_05",
+      "canonical_location": "永昼花园学堂",
+      "anchor_hint": [
+        36,
+        24
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch067",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_035",
+      "category": "regional",
+      "map_id": "map_sanctum_05",
+      "canonical_location": "永昼国度西门",
+      "anchor_hint": [
+        53,
+        16
+      ],
+      "spatial_precision": "sector_scene_hub_pending_dedicated_submap",
+      "required_chapter": "ch069",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    },
+    {
+      "quest_id": "rq_036",
+      "category": "regional",
+      "map_id": "map_sanctum_01",
+      "canonical_location": "终幕殿外公开议台",
+      "anchor_hint": [
+        34,
+        33
+      ],
+      "spatial_precision": "existing_building_door_plus_reachable_nearby_cells",
+      "required_chapter": "ch071",
+      "progression_status": "部分实现：已接入世界锚点与剧情记录，运行态未逐条Godot实走",
+      "runtime_smoke": "pending",
+      "final_room_art": "未完成或未验收"
+    }
+  ],
+  "chapters": [
+    {
+      "chapter_id": "ch001",
+      "chapter": 1,
+      "act": 1,
+      "map_id": "map_coast_01",
+      "story_source": "story/campaign/act_01.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch001.done",
+      "decision_event_prefix": "b.choice.ch001",
+      "persistent_echo_flag": "ch001.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch002",
+      "chapter": 2,
+      "act": 1,
+      "map_id": "map_coast_02",
+      "story_source": "story/campaign/act_01.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch002.done",
+      "decision_event_prefix": "b.choice.ch002",
+      "persistent_echo_flag": "ch002.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch003",
+      "chapter": 3,
+      "act": 1,
+      "map_id": "map_coast_03",
+      "story_source": "story/campaign/act_01.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch003.done",
+      "decision_event_prefix": "b.choice.ch003",
+      "persistent_echo_flag": "ch003.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch004",
+      "chapter": 4,
+      "act": 1,
+      "map_id": "map_coast_04",
+      "story_source": "story/campaign/act_01.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch004.done",
+      "decision_event_prefix": "b.choice.ch004",
+      "persistent_echo_flag": "ch004.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch005",
+      "chapter": 5,
+      "act": 1,
+      "map_id": "map_coast_05",
+      "story_source": "story/campaign/act_01.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch005.done",
+      "decision_event_prefix": "b.choice.ch005",
+      "persistent_echo_flag": "ch005.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch006",
+      "chapter": 6,
+      "act": 1,
+      "map_id": "map_coast_01",
+      "story_source": "story/campaign/act_01.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch006.done",
+      "decision_event_prefix": "b.choice.ch006",
+      "persistent_echo_flag": "ch006.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch007",
+      "chapter": 7,
+      "act": 2,
+      "map_id": "map_oaths_01",
+      "story_source": "story/campaign/act_02.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch007.done",
+      "decision_event_prefix": "b.choice.ch007",
+      "persistent_echo_flag": "ch007.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch008",
+      "chapter": 8,
+      "act": 2,
+      "map_id": "map_oaths_02",
+      "story_source": "story/campaign/act_02.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch008.done",
+      "decision_event_prefix": "b.choice.ch008",
+      "persistent_echo_flag": "ch008.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch009",
+      "chapter": 9,
+      "act": 2,
+      "map_id": "map_oaths_03",
+      "story_source": "story/campaign/act_02.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch009.done",
+      "decision_event_prefix": "b.choice.ch009",
+      "persistent_echo_flag": "ch009.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch010",
+      "chapter": 10,
+      "act": 2,
+      "map_id": "map_oaths_04",
+      "story_source": "story/campaign/act_02.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch010.done",
+      "decision_event_prefix": "b.choice.ch010",
+      "persistent_echo_flag": "ch010.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch011",
+      "chapter": 11,
+      "act": 2,
+      "map_id": "map_oaths_05",
+      "story_source": "story/campaign/act_02.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch011.done",
+      "decision_event_prefix": "b.choice.ch011",
+      "persistent_echo_flag": "ch011.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch012",
+      "chapter": 12,
+      "act": 2,
+      "map_id": "map_oaths_01",
+      "story_source": "story/campaign/act_02.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch012.done",
+      "decision_event_prefix": "b.choice.ch012",
+      "persistent_echo_flag": "ch012.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch013",
+      "chapter": 13,
+      "act": 3,
+      "map_id": "map_forge_01",
+      "story_source": "story/campaign/act_03.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch013.done",
+      "decision_event_prefix": "b.choice.ch013",
+      "persistent_echo_flag": "ch013.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch014",
+      "chapter": 14,
+      "act": 3,
+      "map_id": "map_forge_02",
+      "story_source": "story/campaign/act_03.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch014.done",
+      "decision_event_prefix": "b.choice.ch014",
+      "persistent_echo_flag": "ch014.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch015",
+      "chapter": 15,
+      "act": 3,
+      "map_id": "map_forge_03",
+      "story_source": "story/campaign/act_03.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch015.done",
+      "decision_event_prefix": "b.choice.ch015",
+      "persistent_echo_flag": "ch015.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch016",
+      "chapter": 16,
+      "act": 3,
+      "map_id": "map_forge_04",
+      "story_source": "story/campaign/act_03.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch016.done",
+      "decision_event_prefix": "b.choice.ch016",
+      "persistent_echo_flag": "ch016.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch017",
+      "chapter": 17,
+      "act": 3,
+      "map_id": "map_forge_05",
+      "story_source": "story/campaign/act_03.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch017.done",
+      "decision_event_prefix": "b.choice.ch017",
+      "persistent_echo_flag": "ch017.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch018",
+      "chapter": 18,
+      "act": 3,
+      "map_id": "map_forge_01",
+      "story_source": "story/campaign/act_03.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch018.done",
+      "decision_event_prefix": "b.choice.ch018",
+      "persistent_echo_flag": "ch018.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch019",
+      "chapter": 19,
+      "act": 4,
+      "map_id": "map_oaths_01",
+      "story_source": "story/campaign/act_04.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch019.done",
+      "decision_event_prefix": "b.choice.ch019",
+      "persistent_echo_flag": "ch019.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch020",
+      "chapter": 20,
+      "act": 4,
+      "map_id": "map_oaths_02",
+      "story_source": "story/campaign/act_04.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch020.done",
+      "decision_event_prefix": "b.choice.ch020",
+      "persistent_echo_flag": "ch020.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch021",
+      "chapter": 21,
+      "act": 4,
+      "map_id": "map_oaths_03",
+      "story_source": "story/campaign/act_04.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch021.done",
+      "decision_event_prefix": "b.choice.ch021",
+      "persistent_echo_flag": "ch021.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch022",
+      "chapter": 22,
+      "act": 4,
+      "map_id": "map_oaths_04",
+      "story_source": "story/campaign/act_04.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch022.done",
+      "decision_event_prefix": "b.choice.ch022",
+      "persistent_echo_flag": "ch022.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch023",
+      "chapter": 23,
+      "act": 4,
+      "map_id": "map_oaths_05",
+      "story_source": "story/campaign/act_04.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch023.done",
+      "decision_event_prefix": "b.choice.ch023",
+      "persistent_echo_flag": "ch023.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch024",
+      "chapter": 24,
+      "act": 4,
+      "map_id": "map_oaths_01",
+      "story_source": "story/campaign/act_04.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch024.done",
+      "decision_event_prefix": "b.choice.ch024",
+      "persistent_echo_flag": "ch024.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch025",
+      "chapter": 25,
+      "act": 5,
+      "map_id": "map_isles_01",
+      "story_source": "story/campaign/act_05.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch025.done",
+      "decision_event_prefix": "b.choice.ch025",
+      "persistent_echo_flag": "ch025.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch026",
+      "chapter": 26,
+      "act": 5,
+      "map_id": "map_isles_02",
+      "story_source": "story/campaign/act_05.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch026.done",
+      "decision_event_prefix": "b.choice.ch026",
+      "persistent_echo_flag": "ch026.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch027",
+      "chapter": 27,
+      "act": 5,
+      "map_id": "map_isles_03",
+      "story_source": "story/campaign/act_05.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch027.done",
+      "decision_event_prefix": "b.choice.ch027",
+      "persistent_echo_flag": "ch027.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch028",
+      "chapter": 28,
+      "act": 5,
+      "map_id": "map_isles_04",
+      "story_source": "story/campaign/act_05.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch028.done",
+      "decision_event_prefix": "b.choice.ch028",
+      "persistent_echo_flag": "ch028.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch029",
+      "chapter": 29,
+      "act": 5,
+      "map_id": "map_isles_05",
+      "story_source": "story/campaign/act_05.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch029.done",
+      "decision_event_prefix": "b.choice.ch029",
+      "persistent_echo_flag": "ch029.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch030",
+      "chapter": 30,
+      "act": 5,
+      "map_id": "map_isles_01",
+      "story_source": "story/campaign/act_05.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch030.done",
+      "decision_event_prefix": "b.choice.ch030",
+      "persistent_echo_flag": "ch030.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch031",
+      "chapter": 31,
+      "act": 6,
+      "map_id": "map_mirror_01",
+      "story_source": "story/campaign/act_06.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch031.done",
+      "decision_event_prefix": "b.choice.ch031",
+      "persistent_echo_flag": "ch031.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch032",
+      "chapter": 32,
+      "act": 6,
+      "map_id": "map_mirror_02",
+      "story_source": "story/campaign/act_06.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch032.done",
+      "decision_event_prefix": "b.choice.ch032",
+      "persistent_echo_flag": "ch032.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch033",
+      "chapter": 33,
+      "act": 6,
+      "map_id": "map_mirror_03",
+      "story_source": "story/campaign/act_06.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch033.done",
+      "decision_event_prefix": "b.choice.ch033",
+      "persistent_echo_flag": "ch033.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch034",
+      "chapter": 34,
+      "act": 6,
+      "map_id": "map_mirror_04",
+      "story_source": "story/campaign/act_06.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch034.done",
+      "decision_event_prefix": "b.choice.ch034",
+      "persistent_echo_flag": "ch034.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch035",
+      "chapter": 35,
+      "act": 6,
+      "map_id": "map_mirror_05",
+      "story_source": "story/campaign/act_06.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch035.done",
+      "decision_event_prefix": "b.choice.ch035",
+      "persistent_echo_flag": "ch035.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch036",
+      "chapter": 36,
+      "act": 6,
+      "map_id": "map_mirror_01",
+      "story_source": "story/campaign/act_06.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch036.done",
+      "decision_event_prefix": "b.choice.ch036",
+      "persistent_echo_flag": "ch036.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch037",
+      "chapter": 37,
+      "act": 7,
+      "map_id": "map_oldland_01",
+      "story_source": "story/campaign/act_07.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch037.done",
+      "decision_event_prefix": "b.choice.ch037",
+      "persistent_echo_flag": "ch037.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch038",
+      "chapter": 38,
+      "act": 7,
+      "map_id": "map_oldland_02",
+      "story_source": "story/campaign/act_07.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch038.done",
+      "decision_event_prefix": "b.choice.ch038",
+      "persistent_echo_flag": "ch038.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch039",
+      "chapter": 39,
+      "act": 7,
+      "map_id": "map_oldland_03",
+      "story_source": "story/campaign/act_07.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch039.done",
+      "decision_event_prefix": "b.choice.ch039",
+      "persistent_echo_flag": "ch039.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch040",
+      "chapter": 40,
+      "act": 7,
+      "map_id": "map_oldland_04",
+      "story_source": "story/campaign/act_07.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch040.done",
+      "decision_event_prefix": "b.choice.ch040",
+      "persistent_echo_flag": "ch040.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch041",
+      "chapter": 41,
+      "act": 7,
+      "map_id": "map_oldland_05",
+      "story_source": "story/campaign/act_07.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch041.done",
+      "decision_event_prefix": "b.choice.ch041",
+      "persistent_echo_flag": "ch041.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch042",
+      "chapter": 42,
+      "act": 7,
+      "map_id": "map_oldland_01",
+      "story_source": "story/campaign/act_07.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch042.done",
+      "decision_event_prefix": "b.choice.ch042",
+      "persistent_echo_flag": "ch042.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch043",
+      "chapter": 43,
+      "act": 8,
+      "map_id": "map_oaths_01",
+      "story_source": "story/campaign/act_08.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch043.done",
+      "decision_event_prefix": "b.choice.ch043",
+      "persistent_echo_flag": "ch043.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch044",
+      "chapter": 44,
+      "act": 8,
+      "map_id": "map_oaths_02",
+      "story_source": "story/campaign/act_08.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch044.done",
+      "decision_event_prefix": "b.choice.ch044",
+      "persistent_echo_flag": "ch044.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch045",
+      "chapter": 45,
+      "act": 8,
+      "map_id": "map_oaths_03",
+      "story_source": "story/campaign/act_08.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch045.done",
+      "decision_event_prefix": "b.choice.ch045",
+      "persistent_echo_flag": "ch045.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch046",
+      "chapter": 46,
+      "act": 8,
+      "map_id": "map_oaths_04",
+      "story_source": "story/campaign/act_08.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch046.done",
+      "decision_event_prefix": "b.choice.ch046",
+      "persistent_echo_flag": "ch046.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch047",
+      "chapter": 47,
+      "act": 8,
+      "map_id": "map_oaths_05",
+      "story_source": "story/campaign/act_08.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch047.done",
+      "decision_event_prefix": "b.choice.ch047",
+      "persistent_echo_flag": "ch047.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch048",
+      "chapter": 48,
+      "act": 8,
+      "map_id": "map_oaths_01",
+      "story_source": "story/campaign/act_08.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch048.done",
+      "decision_event_prefix": "b.choice.ch048",
+      "persistent_echo_flag": "ch048.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch049",
+      "chapter": 49,
+      "act": 9,
+      "map_id": "map_oldland_01",
+      "story_source": "story/campaign/act_09.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch049.done",
+      "decision_event_prefix": "b.choice.ch049",
+      "persistent_echo_flag": "ch049.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch050",
+      "chapter": 50,
+      "act": 9,
+      "map_id": "map_oldland_02",
+      "story_source": "story/campaign/act_09.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch050.done",
+      "decision_event_prefix": "b.choice.ch050",
+      "persistent_echo_flag": "ch050.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch051",
+      "chapter": 51,
+      "act": 9,
+      "map_id": "map_oldland_03",
+      "story_source": "story/campaign/act_09.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch051.done",
+      "decision_event_prefix": "b.choice.ch051",
+      "persistent_echo_flag": "ch051.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch052",
+      "chapter": 52,
+      "act": 9,
+      "map_id": "map_oldland_04",
+      "story_source": "story/campaign/act_09.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch052.done",
+      "decision_event_prefix": "b.choice.ch052",
+      "persistent_echo_flag": "ch052.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch053",
+      "chapter": 53,
+      "act": 9,
+      "map_id": "map_oldland_05",
+      "story_source": "story/campaign/act_09.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch053.done",
+      "decision_event_prefix": "b.choice.ch053",
+      "persistent_echo_flag": "ch053.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch054",
+      "chapter": 54,
+      "act": 9,
+      "map_id": "map_oldland_01",
+      "story_source": "story/campaign/act_09.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch054.done",
+      "decision_event_prefix": "b.choice.ch054",
+      "persistent_echo_flag": "ch054.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch055",
+      "chapter": 55,
+      "act": 10,
+      "map_id": "map_city_01",
+      "story_source": "story/campaign/act_10.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch055.done",
+      "decision_event_prefix": "b.choice.ch055",
+      "persistent_echo_flag": "ch055.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch056",
+      "chapter": 56,
+      "act": 10,
+      "map_id": "map_city_02",
+      "story_source": "story/campaign/act_10.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch056.done",
+      "decision_event_prefix": "b.choice.ch056",
+      "persistent_echo_flag": "ch056.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch057",
+      "chapter": 57,
+      "act": 10,
+      "map_id": "map_city_03",
+      "story_source": "story/campaign/act_10.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch057.done",
+      "decision_event_prefix": "b.choice.ch057",
+      "persistent_echo_flag": "ch057.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch058",
+      "chapter": 58,
+      "act": 10,
+      "map_id": "map_city_04",
+      "story_source": "story/campaign/act_10.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch058.done",
+      "decision_event_prefix": "b.choice.ch058",
+      "persistent_echo_flag": "ch058.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch059",
+      "chapter": 59,
+      "act": 10,
+      "map_id": "map_city_05",
+      "story_source": "story/campaign/act_10.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch059.done",
+      "decision_event_prefix": "b.choice.ch059",
+      "persistent_echo_flag": "ch059.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch060",
+      "chapter": 60,
+      "act": 10,
+      "map_id": "map_city_01",
+      "story_source": "story/campaign/act_10.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch060.done",
+      "decision_event_prefix": "b.choice.ch060",
+      "persistent_echo_flag": "ch060.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch061",
+      "chapter": 61,
+      "act": 11,
+      "map_id": "map_sanctum_01",
+      "story_source": "story/campaign/act_11.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch061.done",
+      "decision_event_prefix": "b.choice.ch061",
+      "persistent_echo_flag": "ch061.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch062",
+      "chapter": 62,
+      "act": 11,
+      "map_id": "map_sanctum_02",
+      "story_source": "story/campaign/act_11.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch062.done",
+      "decision_event_prefix": "b.choice.ch062",
+      "persistent_echo_flag": "ch062.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch063",
+      "chapter": 63,
+      "act": 11,
+      "map_id": "map_sanctum_03",
+      "story_source": "story/campaign/act_11.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch063.done",
+      "decision_event_prefix": "b.choice.ch063",
+      "persistent_echo_flag": "ch063.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch064",
+      "chapter": 64,
+      "act": 11,
+      "map_id": "map_sanctum_04",
+      "story_source": "story/campaign/act_11.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch064.done",
+      "decision_event_prefix": "b.choice.ch064",
+      "persistent_echo_flag": "ch064.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch065",
+      "chapter": 65,
+      "act": 11,
+      "map_id": "map_sanctum_05",
+      "story_source": "story/campaign/act_11.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch065.done",
+      "decision_event_prefix": "b.choice.ch065",
+      "persistent_echo_flag": "ch065.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch066",
+      "chapter": 66,
+      "act": 11,
+      "map_id": "map_sanctum_01",
+      "story_source": "story/campaign/act_11.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch066.done",
+      "decision_event_prefix": "b.choice.ch066",
+      "persistent_echo_flag": "ch066.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch067",
+      "chapter": 67,
+      "act": 12,
+      "map_id": "map_sanctum_01",
+      "story_source": "story/campaign/act_12.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch067.done",
+      "decision_event_prefix": "b.choice.ch067",
+      "persistent_echo_flag": "ch067.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch068",
+      "chapter": 68,
+      "act": 12,
+      "map_id": "map_sanctum_02",
+      "story_source": "story/campaign/act_12.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch068.done",
+      "decision_event_prefix": "b.choice.ch068",
+      "persistent_echo_flag": "ch068.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch069",
+      "chapter": 69,
+      "act": 12,
+      "map_id": "map_sanctum_03",
+      "story_source": "story/campaign/act_12.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch069.done",
+      "decision_event_prefix": "b.choice.ch069",
+      "persistent_echo_flag": "ch069.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch070",
+      "chapter": 70,
+      "act": 12,
+      "map_id": "map_sanctum_04",
+      "story_source": "story/campaign/act_12.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch070.done",
+      "decision_event_prefix": "b.choice.ch070",
+      "persistent_echo_flag": "ch070.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch071",
+      "chapter": 71,
+      "act": 12,
+      "map_id": "map_sanctum_05",
+      "story_source": "story/campaign/act_12.json",
+      "scene_count": 4,
+      "canonical_completion_flag": "story.ch071.done",
+      "decision_event_prefix": "b.choice.ch071",
+      "persistent_echo_flag": "ch071.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    },
+    {
+      "chapter_id": "ch072",
+      "chapter": 72,
+      "act": 12,
+      "map_id": "map_sanctum_01",
+      "story_source": "story/campaign/act_12.json",
+      "scene_count": 5,
+      "canonical_completion_flag": "story.ch072.done",
+      "decision_event_prefix": "b.choice.ch072",
+      "persistent_echo_flag": "ch072.approach",
+      "progress": "部分实现：已有4场景数据及地图章节锚点，B线选择回响现可接入地图和后续NPC",
+      "full_interaction_state_machine_test": "pending unified Godot test",
+      "full_actor_animation": "未完成或未验收"
+    }
+  ],
+  "interfaces": [
+    {
+      "event_id_format": "b.choice.chNNN.{canonical_option_id}",
+      "source": "original chapter choice + canonical V3 saved flags",
+      "consumer": "story_scene_director / first_act_world / chapter_ambient",
+      "notes": "read-only state projection; no completion or battle reward writes"
+    },
+    {
+      "event_id_format": "dungeon_puzzle_solved",
+      "source": "world_dungeon_puzzles",
+      "consumer": "existing game_events",
+      "notes": "existing completion event retained"
+    },
+    {
+      "event_id_format": "chapter_completed",
+      "source": "mainline chapter flow",
+      "consumer": "existing game_events",
+      "notes": "unchanged; no forced progression"
+    }
+  ],
+  "acceptance": {
+    "tools": [
+      "tools/smoke_b_line_integrity.gd",
+      "tools/smoke_world_production.gd",
+      "tools/smoke_campaign_72.gd",
+      "tools/smoke_dungeon_puzzles_v7.gd",
+      "tools/smoke_story_world_phase19_2.gd"
+    ],
+    "latest_run": "not_executed_in_this_session",
+    "limitations": [
+      "Only static repository inspection has been performed",
+      "No Godot binary available in execution environment",
+      "Hand-painted 40-map art, fully authored cutscene animation, and all 8 comprehensive regional mechanics are not certified complete",
+      "No quest-completion flags, battle wins or teleport bypasses were written to validate progression"
+    ]
+  }
+}

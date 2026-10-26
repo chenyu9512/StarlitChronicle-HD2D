@@ -3,6 +3,7 @@ extends RefCounted
 ## save-compatible per-phase inspection state. D owns input and actor ownership.
 const ROOT: String = "res://data/levels/v4/interiors/"
 const SAVE_BUCKET: String = "home_investigations_v1"
+const InteriorGeometry = preload("res://scripts/world_interior_v4.gd")
 var issues: Array[String] = []
 var room_cache: Dictionary = {}
 var index_cache: Dictionary = {}
@@ -35,6 +36,15 @@ func dossier(map_id: String,building_id: String) -> Dictionary:
             str(record.get("map_id",""))!=map_id or str(record.get("building_id",""))!=building_id:
         issues.append("Room identity mismatch: "+key)
         return {}
+    # Match the SAME V4 loader used by the real room scene. D must never
+    # advertise a furniture hotspot which has been dropped by its collision
+    # validator (e.g. a painting moved onto a blocked wall after an art update).
+    var physical: Dictionary=InteriorGeometry.new().load_level(map_id,building_id,
+        str(record.get("name",building_id)))
+    var allowed: Dictionary={}
+    for visible in physical.get("investigations",[]):
+        if visible is Dictionary:
+            allowed[str(visible.get("id",""))]=true
     var lookup: Dictionary={}
     var cells: Dictionary={}
     for object in record.get("investigations",[]):
@@ -45,6 +55,9 @@ func dossier(map_id: String,building_id: String) -> Dictionary:
         var cell: Array=object.get("cell",[])
         if not _valid_part(id) or lookup.has(id) or cell.size()!=2:
             issues.append("Invalid/duplicate investigation: "+key+"/"+id)
+            continue
+        if not allowed.has(id):
+            issues.append("Investigation not live on passable V4 room terrain: "+key+"/"+id)
             continue
         var pos: Vector2i=Vector2i(int(cell[0]),int(cell[1]))
         if cells.has(pos):
@@ -58,8 +71,15 @@ func dossier(map_id: String,building_id: String) -> Dictionary:
 
 func objects(map_id: String,building_id: String) -> Array:
     var source: Dictionary=dossier(map_id,building_id)
-    var items: Variant=source.get("investigations",[])
-    return items.duplicate(true) if items is Array else []
+    if source.is_empty():
+        return []
+    var key: String=_room_key(map_id,building_id)
+    var approved: Dictionary=(index_cache.get(key,{}) as Dictionary).get("ids",{})
+    var result: Array=[]
+    for candidate in source.get("investigations",[]):
+        if candidate is Dictionary and approved.has(str(candidate.get("id",""))):
+            result.append(candidate.duplicate(true))
+    return result
 
 func _lookup(map_id: String,building_id: String,object_id: String) -> Dictionary:
     if not _valid_part(object_id):

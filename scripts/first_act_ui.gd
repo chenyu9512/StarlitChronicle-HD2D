@@ -19,7 +19,7 @@ const BLUE: Color = Color("0b1c32")
 const GOLD: Color = Color("e6c47d")
 var root: Control
 var title_overlay: Control
-var art_manager: Control
+var art_manager: ArtManagerUI
 var title_illustration: TextureRect
 var title_continue: Button
 var title_status: Label

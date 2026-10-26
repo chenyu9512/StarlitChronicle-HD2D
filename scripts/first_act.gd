@@ -1357,7 +1357,8 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
                 return
             world.hero.position = safe_spot
             world.encounter_meter = minf(0.0,world.encounter_meter)-900.0
-                elif world._blocked(world.hero.position):
+            world._reveal_nearby()
+        elif world._blocked(world.hero.position):
             _hold_battle_settlement(won,xp,money,"当前位置不可通行，暂停结算。")
             return
         # A failed V3 write must not repeatedly relocate the party on retry.

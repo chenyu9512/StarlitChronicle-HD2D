@@ -3,6 +3,9 @@ extends RefCounted
 const SAVE_PATH: String = "user://first_act_v3.json"
 const BACKUP_PATH: String = "user://first_act_v3.backup.json"
 const VERSION: int = 3
+# Runtime defaults remain the V3 save contract; tests redirect to isolated paths.
+var save_path: String = SAVE_PATH
+var backup_path: String = BACKUP_PATH
 var chapter: int = 0
 var scene_index: int = 0
 var task_index: int = 0
@@ -83,11 +86,6 @@ func _next_level_xp(lvl: int) -> int:
 func _pack() -> Dictionary:
     return {"version": VERSION, "chapter": chapter, "scene": scene_index, "task": task_index, "dialogue_seen": dialogue_seen, "gold": gold, "potions": potions, "actors": actors, "flags": flags, "inventory": inventory, "rpg": rpg, "play_seconds": play_seconds}
 
-# Runtime defaults remain the V3 save contract. Tests can redirect these paths
-# to a sandbox so validation never overwrites a player's existing saves.
-var save_path: String = SAVE_PATH
-var backup_path: String = BACKUP_PATH
-
 func save() -> bool:
     var snapshot: Dictionary = _pack()
     if not _valid_payload(snapshot):
@@ -159,10 +157,12 @@ func _valid_payload(value: Variant) -> bool:
     if int(obj.get("version", -1)) != VERSION:
         return false
     # Legacy V3 payloads may omit rpg, but any supplied rpg must be a map.
-    # These fields are accessed directly by restore_snapshot and cannot be absent.
-    for key in ["chapter", "scene", "task", "dialogue_seen", "gold", "potions"]:
-        if not obj.has(key):
+    # Reject absent or nonnumeric fields before restore_snapshot accesses them.
+    for key in ["version", "chapter", "scene", "task", "gold", "potions"]:
+        if not obj.has(key) or typeof(obj[key]) not in [TYPE_INT, TYPE_FLOAT]:
             return false
+    if not (obj.get("dialogue_seen") is bool):
+        return false
     if not (obj.get("rpg", {}) is Dictionary):
         return false
     if int(obj["gold"]) < 0 or int(obj["potions"]) < 0:

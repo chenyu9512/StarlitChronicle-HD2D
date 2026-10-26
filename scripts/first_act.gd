@@ -3,7 +3,6 @@ extends Node2D
 const WorldScript = preload("res://scripts/first_act_world.gd")
 const UIScript = preload("res://scripts/first_act_ui.gd")
 const MapScript = preload("res://scripts/map_hud.gd")
-const WorldFogV3 = preload("res://scripts/world_fog_v3.gd")
 const BattleScript = preload("res://scripts/first_act_battle.gd")
 const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
 const BattleV3Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
@@ -34,7 +33,6 @@ var catalog
 var world
 var ui
 var atlas
-var map_fog
 var battle
 var cheat
 var game_core
@@ -98,8 +96,6 @@ func _ready() -> void:
     catalog = CatalogScript.new()
     var loaded: bool = catalog.load_all()
     world = WorldScript.new()
-    map_fog = WorldFogV3.new()
-    world.fog = map_fog
     add_child(world)
     world.interacted.connect(_interact)
     world.encounter_requested.connect(_random_encounter)
@@ -122,7 +118,6 @@ func _ready() -> void:
     atlas.bind_world(world, world_router)
     atlas.opened.connect(_map_opened)
     atlas.closed.connect(_return_to_world)
-    atlas.travel_requested.connect(_travel_to)
     adventure_menu = RPGMenu.new()
     add_child(adventure_menu)
     adventure_menu.closed.connect(_return_to_world)
@@ -131,7 +126,6 @@ func _ready() -> void:
     adventure_menu.branch_event_requested.connect(_start_branch_event)
     adventure_menu.branch_navigation_requested.connect(_track_branch_event)
     adventure_menu.travel_requested.connect(_travel_to)
-    adventure_menu.map_requested.connect(_open_world_map_from_book)
     adventure_menu.save_slot_requested.connect(_save_slot)
     adventure_menu.load_slot_requested.connect(_load_slot)
     adventure_menu.housing_purchase_requested.connect(_purchase_house)
@@ -209,7 +203,6 @@ func _start(continue_game: bool) -> void:
             return
     game_core.bind(progress)
     world_router.bind(progress)
-    map_fog.bind(progress)
     game_events.bind(progress)
     housing.bind(progress)
     optional_director.bind(progress)
@@ -1348,8 +1341,7 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
                 return
             world.hero.position = safe_spot
             world.encounter_meter = minf(0.0,world.encounter_meter)-900.0
-            world._reveal_nearby()
-        elif world._blocked(world.hero.position):
+                elif world._blocked(world.hero.position):
             _hold_battle_settlement(won,xp,money,"当前位置不可通行，暂停结算。")
             return
         # A failed V3 write must not repeatedly relocate the party on retry.
@@ -1745,7 +1737,6 @@ func _load_slot(slot: int) -> void:
         return
     game_core.bind(progress)
     world_router.bind(progress)
-    map_fog.bind(progress)
     game_events.bind(progress)
     housing.bind(progress)
     optional_director.bind(progress)
@@ -1799,7 +1790,6 @@ func _restore_world_position() -> void:
     if world._blocked(p):
         return
     world.hero.position = p
-    world._reveal_nearby()
 
 func _save_progress() -> bool:
     _capture_world_position()
@@ -1838,14 +1828,6 @@ func _map_opened() -> void:
     busy = true
     world.locked = true
     ui.set_play_visible(false)
-
-func _open_world_map_from_book() -> void:
-    if is_instance_valid(battle):
-        return
-    adventure_menu.close_menu()
-    _return_to_world()
-    atlas.show_exploration(true)
-    atlas.show_world_map()
 
 func _open_map_from_quick_menu() -> void:
     if is_instance_valid(battle):

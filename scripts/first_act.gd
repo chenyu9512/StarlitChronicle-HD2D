@@ -1240,7 +1240,17 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
     else:
         progress.gold = maxi(0, progress.gold - 15)
         progress.heal_all()
-        ui.show_message("队伍在营地苏醒，遗失了至多15 G。可再次挑战。")
+        # A lost battle must not resume the party at the defeated Boss marker
+        # or immediately roll another field encounter on the next movement.
+        if world != null and is_instance_valid(world.hero):
+            var start_cell: Vector2i = world.terrain_layout.get("spawn", Vector2i(10, 23))
+            var safe_spot := Vector2(start_cell * WorldScript.TILE) + Vector2(16, 16)
+            if not world._blocked(safe_spot):
+                world.hero.position = safe_spot
+                world._reveal_nearby()
+            world.encounter_meter = -380.0
+        game_events.record("battle_defeat", {"chapter": progress.chapter, "boss": battle_is_boss})
+        ui.show_message("队伍在本区域的安全入口重新整备，遗失了至多15 G。可再次挑战。")
     _save_progress()
     ui.set_play_visible(true)
     _return_to_world()

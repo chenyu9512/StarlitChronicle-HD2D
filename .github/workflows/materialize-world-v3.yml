@@ -1,10 +1,6 @@
 name: Materialize V3 Independent Maps
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "tools/materialize_world_v3.py"
-      - ".github/workflows/materialize-world-v3.yml"
   workflow_dispatch:
 permissions:
   contents: write

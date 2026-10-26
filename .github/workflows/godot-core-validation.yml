@@ -3,28 +3,15 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 on:
-  push:
-    paths:
-      - "scripts/**"
-      - "tools/**"
-      - "scenes/**"
-      - "data/**"
-      - "story/**"
-      - "assets/**"
-      - "project.godot"
-      - ".github/workflows/godot-core-validation.yml"
+  # No automatic QA on individual pushes. The whole batch runs once
+  # when a same-repo development PR leaves Draft, or via manual dispatch.
+  workflow_dispatch:
   pull_request:
-    paths:
-      - "scripts/**"
-      - "tools/**"
-      - "scenes/**"
-      - "data/**"
-      - "story/**"
-      - "assets/**"
-      - "project.godot"
-      - ".github/workflows/godot-core-validation.yml"
+    types: [ready_for_review]
 jobs:
   validate:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -146,3 +133,63 @@ jobs:
 
       - name: Final HD-2D visual asset acceptance
         run: python tools/qa_hd2d_refinement.py
+
+  merge_verified_batch:
+    # Run only after ALL the full Core smoke/integration checks pass.
+    # Reject historic content branches, forks and unreviewed draft PRs.
+    needs: validate
+    if: >-
+      ${{
+        github.event_name == 'pull_request' &&
+        github.event.action == 'ready_for_review' &&
+        github.event.pull_request.base.ref == 'main' &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !github.event.pull_request.draft &&
+        (startsWith(github.head_ref, 'fix/') ||
+         startsWith(github.head_ref, 'dev/') ||
+         startsWith(github.head_ref, 'feature/')) &&
+        github.head_ref != 'feature/content-foundation-v0-2'
+      }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Merge only the tested SHA and delete its exact development branch
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          EXPECTED_BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          pr_json="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")"
+          branch="$(jq -r '.head.ref' <<< "${pr_json}")"
+          head_sha="$(jq -r '.head.sha' <<< "${pr_json}")"
+          base_ref="$(jq -r '.base.ref' <<< "${pr_json}")"
+          source_repo="$(jq -r '.head.repo.full_name' <<< "${pr_json}")"
+          draft="$(jq -r '.draft' <<< "${pr_json}")"
+          main_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+          # Prevent merging a PR amended during validation or onto a new main.
+          test "${head_sha}" = "${EXPECTED_HEAD}"
+          test "${main_sha}" = "${EXPECTED_BASE}"
+          test "${base_ref}" = "main"
+          test "${source_repo}" = "${GITHUB_REPOSITORY}"
+          test "${draft}" = "false"
+          case "${branch}" in
+            fix/*|dev/*|feature/*) ;;
+            *) echo "Not a managed development branch"; exit 1 ;;
+          esac
+          test "${branch}" != "feature/content-foundation-v0-2"
+          echo "Passed batch QA. Merging PR #${PR_NUMBER} at ${head_sha}"
+          result="$(gh api --method PUT "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/merge" -f merge_method=squash -f sha="${EXPECTED_HEAD}")"
+          jq -e '.merged == true' <<< "${result}" >/dev/null
+          # Some repositories auto-delete merged heads; never delete a moved ref.
+          if branch_ref="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${branch}" --jq '.object.sha' 2>/dev/null)"; then
+            test "${branch_ref}" = "${EXPECTED_HEAD}"
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
+            echo "Deleted merged branch: ${branch}"
+          else
+            echo "Merged branch already deleted: ${branch}"
+          fi

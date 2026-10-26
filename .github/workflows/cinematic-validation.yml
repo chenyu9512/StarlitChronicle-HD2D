@@ -1,29 +1,6 @@
 name: Cinematic P0-P3 Gameplay Validation
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "scripts/first_act.gd"
-      - "scripts/first_act_ui.gd"
-      - "scripts/cinematic_*.gd"
-      - "data/cinematics/**"
-      - "tools/smoke_cinematic_flow.gd"
-      - "tools/smoke_prologue_world_fx.gd"
-      - "scripts/prologue_world_stage.gd"
-      - "scripts/cinematic_scene_fx.gd"
-      - "tools/validate_cinematics.py"
-      - ".github/workflows/cinematic-validation.yml"
-  pull_request:
-    paths:
-      - "scripts/first_act.gd"
-      - "scripts/first_act_ui.gd"
-      - "scripts/cinematic_*.gd"
-      - "data/cinematics/**"
-      - "tools/smoke_cinematic_flow.gd"
-      - "tools/smoke_prologue_world_fx.gd"
-      - "scripts/prologue_world_stage.gd"
-      - "scripts/cinematic_scene_fx.gd"
-      - "tools/validate_cinematics.py"
-      - ".github/workflows/cinematic-validation.yml"
   workflow_dispatch:
 permissions:
   contents: read

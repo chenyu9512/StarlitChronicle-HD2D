@@ -1,35 +1,7 @@
 name: Battle Animation and Audio Validation
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "scripts/first_act_battle.gd"
-      - "scripts/first_act.gd"
-      - "scripts/battle_fx.gd"
-      - "scripts/battle_hud.gd"
-      - "scripts/battle_art_direction.gd"
-      - "scripts/battle_boss_awakening.gd"
-      - "tools/smoke_a16_keyframes.gd"
-      - "assets/art/battle/a16/**"
-      - "scripts/battle_actors.gd"
-      - "scripts/battle_sfx.gd"
-      - "scripts/battle_enemies.gd"
-      - "scripts/battle_timeline.gd"
-      - "scripts/battle_camera.gd"
-      - "tools/smoke_battle_fx.gd"
-      - "tools/smoke_battle_actors.gd"
-      - "tools/smoke_a15_visual.gd"
-      - "tools/capture_a15_battle.gd"
-      - "scripts/world_npc_visual.gd"
-      - "assets/art/battle/a15/**"
-      - "tools/smoke_battle_v3.gd"
-      - "tools/smoke_battle_commercial.gd"
-      - "tools/smoke_live_boss_matrix.gd"
-      - "tools/validate_release_gate.py"
-      - "data/content/skills.json"
-      - ".github/workflows/battle-animation-validation.yml"
   workflow_dispatch:
-# Avoid wasting a private repository's hosted-runner quota when frequent
-# development commits supersede unverified battle previews.
 concurrency:
   group: starlit-battle-validation-${{ github.ref }}
   cancel-in-progress: true

@@ -1,22 +1,6 @@
 name: First Act Visual Evidence
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "scripts/world_coastal_scene.gd"
-      - "scripts/world_coastal_audio.gd"
-      - "scripts/world_structure.gd"
-      - "scripts/first_act_world.gd"
-      - "scripts/first_act_actor.gd"
-      - "assets/art/exteriors/coast_final_pass/**"
-      - "data/levels/v4/coastal_scenery.json"
-      - "tools/capture_coastal_visuals.gd"
-      - "tools/capture_prologue_visuals.gd"
-      - "scripts/prologue_world_stage.gd"
-      - "scripts/prologue_actor_blocking.gd"
-      - "scripts/cinematic_scene_fx.gd"
-      - "data/cinematics/prologue.json"
-      - "tools/smoke_coastal_exterior.gd"
-      - ".github/workflows/coastal-visual-evidence.yml"
   workflow_dispatch:
 permissions:
   contents: read

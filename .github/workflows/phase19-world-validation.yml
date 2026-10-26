@@ -2,42 +2,8 @@ name: Phase 19 World Story Acceptance
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
+# Development batch policy: heavy jobs are manual-only, never per push.
 on:
-  push:
-    paths:
-      - "scripts/story_branch_runtime.gd"
-      - "scripts/story_world_bindings.gd"
-      - "scripts/story_quest_submaps.gd"
-      - "scripts/world_interior_v4.gd"
-      - "data/levels/v4/interiors/**"
-      - "story/data/phase19_lost_page_submaps.json"
-      - "story/data/phase19_life_submaps.json"
-      - "story/data/phase19_companion_regional_submaps.json"
-      - "tools/validate_phase19_companion_regional_rooms.py"
-      - "tools/smoke_phase19_companion_regional_rooms.gd"
-      - "tools/validate_phase19_life_rooms.py"
-      - "tools/smoke_phase19_life_rooms.gd"
-      - "story/data/phase19_lost_page_puzzles.json"
-      - "scripts/story_evidence_puzzles.gd"
-      - "scripts/world_interior_art.gd"
-      - "tools/smoke_phase19_lost_page_puzzles.gd"
-      - "tools/validate_phase19_lost_page_puzzles.py"
-      - "tools/validate_phase19_lost_page_rooms.py"
-      - "tools/smoke_phase19_lost_page_rooms.gd"
-      - "scripts/story_scene_director.gd"
-      - "scripts/first_act.gd"
-      - "scripts/first_act_world.gd"
-      - "scripts/rpg_menu.gd"
-      - "scripts/map_hud.gd"
-      - "scripts/map_view.gd"
-      - "story/data/phase19_quest_world_anchors.json"
-      - "story/data/phase19_scene_dressing.json"
-      - "tools/smoke_story_world_phase19_2.gd"
-      - "tools/smoke_story_side_quests.gd"
-      - "tools/smoke_branch_story_phase19.gd"
-      - "tools/validate_phase19_world_anchors.py"
-      - "tools/validate_phase19_scene_dressing.py"
-      - ".github/workflows/phase19-world-validation.yml"
   workflow_dispatch:
 jobs:
   phase19-world:

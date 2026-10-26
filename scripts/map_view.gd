@@ -217,7 +217,7 @@ func _draw_local() -> void:
             color=MAIN
         elif id == side_target or id.begins_with("branchmap:") or id.begins_with("questhint:") or id.begins_with("story_stage_") or id.begins_with("side_") or id.begins_with("questcase:"):
             color=SIDE
-        elif id in ["inn","home_door"] or id.begins_with("building:"):
+        elif id in ["inn","home_door"] or id.begins_with("building:") or id.begins_with("questdoor:"):
             color=Color("84d9a4")
         elif id in ["shop","interior_service","interior_storage"]:
             color=Color("a9b6ff")

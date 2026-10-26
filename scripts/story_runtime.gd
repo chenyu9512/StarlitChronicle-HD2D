@@ -31,6 +31,8 @@ var objective_progress: Dictionary = {}
 var side_quest_progress: Dictionary = {}
 # Persisted B-line rewards awaiting consumer acknowledgement. A/D must ledger event_id.
 var reward_outbox: Dictionary = {}
+# Override only in isolated tests; normal gameplay uses the historic story save path.
+var save_path: String = STORY_SAVE_PATH
 
 
 func _checkpoint() -> Dictionary:
@@ -74,7 +76,7 @@ func _queue_reward(event_id: String, reward: Dictionary) -> void:
     tagged["receipt_required"] = true
     reward_outbox[event_id] = tagged
 
-func _emit_queued(ids: Array[String]) -> void:
+func _emit_queued(ids: Array) -> void:
     for event_id in ids:
         if reward_outbox.has(event_id):
             reward_granted.emit((reward_outbox[event_id] as Dictionary).duplicate(true))
@@ -454,7 +456,7 @@ func save_story() -> bool:
         "reward_outbox": reward_outbox,
         "flags": flags
     }
-    if not AtomicStorySave.write_verified(STORY_SAVE_PATH, data):
+    if not AtomicStorySave.write_verified(save_path, data):
         story_error.emit("剧情存档失败：已保留此前的完整存档。")
         return false
     return true
@@ -462,7 +464,7 @@ func save_story() -> bool:
 func load_story() -> bool:
     if not loaded:
         return false
-    var value: Variant = AtomicStorySave.read_verified(STORY_SAVE_PATH)
+    var value: Variant = AtomicStorySave.read_verified(save_path)
     if not (value is Dictionary):
         return false
     var data: Dictionary = value

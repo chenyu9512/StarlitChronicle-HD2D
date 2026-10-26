@@ -28,6 +28,10 @@ func _expand(value: String, context: Dictionary) -> String:
         return value
     var field: String = value.substr(marker + 4)
     var payload_key: String = str(DYNAMIC_FIELDS.get(field, field))
+    # The legacy registry uses "bgm.region.by_id" but world events carry region_id,
+    # not skill_id. Keep that canonical ID stable for A/B/D producers.
+    if field == "id" and value.begins_with("bgm.region."):
+        payload_key = "region_id"
     var suffix: String = str(context.get(payload_key, ""))
     if suffix.is_empty() or "/" in suffix or "\\" in suffix or ".." in suffix:
         return ""

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "data/assets/av_registry.json"
 EXPECTED = {"regions": 8, "characters": 12, "monsters": 63, "bosses": 66, "weapons": 81, "armor": 54, "skills": 63}
 ALLOWED_STATUSES = {"not_produced", "procedural_fallback_only", "runtime_bound", "imported", "license_reviewed", "qa_passed"}
-SIGS = {".png": b"\\x89PNG\\r\\n\\x1a\\n", ".ogg": b"OggS", ".wav": b"RIFF"}
+SIGS = {".png": b"\x89PNG\r\n\x1a\n", ".ogg": b"OggS", ".wav": b"RIFF"}
 
 def resolved(path: str) -> Path:
     if not path.startswith("res://") or ".." in Path(path[6:]).parts:

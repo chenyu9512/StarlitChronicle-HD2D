@@ -1,4 +1,6 @@
 extends Node
+const AVRegistry = preload("res://scripts/av_asset_registry.gd")
+const AudioBusRuntime = preload("res://scripts/audio_bus_runtime.gd")
 ## Tiny cached procedural battle stingers; no licensed audio, no runtime downloads.
 const SAMPLE_RATE: int = 22050
 const CHANNELS: int = 3
@@ -9,9 +11,10 @@ var clips: Dictionary = {}
 var cursor: int = 0
 
 func _ready() -> void:
+    AudioBusRuntime.restore_mix()
     for i in range(CHANNELS):
         var player := AudioStreamPlayer.new()
-        player.bus = "Master"
+        player.bus = "SFX"
         player.volume_db = volume_db
         add_child(player)
         players.append(player)
@@ -21,12 +24,29 @@ func play_event(kind: String, element: String = "") -> void:
         return
     var key: String = kind + ":" + element
     if not clips.has(key):
-        clips[key] = _synthesize(kind,element)
+        var authored: AudioStream = AVRegistry.audio_stream("sfx.combat." + kind)
+        clips[key] = authored if authored != null else _synthesize(kind,element)
     var player: AudioStreamPlayer = players[cursor % players.size()]
     cursor += 1
     player.stop()
     player.volume_db = volume_db
     player.stream = clips[key]
+    player.play()
+
+## For future standard integration events: missing cues are safely silent unless a fallback is requested.
+func play_asset_id(audio_id: String, fallback_kind: String = "") -> void:
+    if not enabled or players.is_empty():
+        return
+    var authored: AudioStream = AVRegistry.audio_stream(audio_id)
+    if authored == null:
+        if not fallback_kind.is_empty():
+            play_event(fallback_kind)
+        return
+    var player: AudioStreamPlayer = players[cursor % players.size()]
+    cursor += 1
+    player.stop()
+    player.stream = authored
+    player.volume_db = volume_db
     player.play()
 
 func _synthesize(kind: String, element: String) -> AudioStreamWAV:

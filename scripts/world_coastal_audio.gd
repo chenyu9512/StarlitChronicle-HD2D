@@ -1,4 +1,6 @@
 extends Node
+const AudioBusRuntime = preload("res://scripts/audio_bus_runtime.gd")
+const AVRegistry = preload("res://scripts/av_asset_registry.gd")
 ## A11: original, deterministic generated 16-bit coastal atmosphere.
 ## No external copyrighted music, engine-global bus edits or network services.
 var player: AudioStreamPlayer
@@ -8,7 +10,21 @@ var sample_rate: int = 8000
 
 func configure(map_key: String,indoors: bool=false) -> void:
     environment_id=map_key
+    if player != null and is_instance_valid(player):
+        player.stop()
     if indoors or not map_key in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04"]:
+        return
+    AudioBusRuntime.restore_mix()
+    var authored: AudioStream = AVRegistry.audio_stream("ambience.waves")
+    if authored != null:
+        if player == null or not is_instance_valid(player):
+            player = AudioStreamPlayer.new()
+            player.name = "CoastalEnvironmentPlayer"
+            add_child(player)
+        player.bus = "Ambience"
+        player.volume_db = -30.0
+        player.stream = authored
+        player.play()
         return
     var wav := AudioStreamWAV.new()
     wav.format = AudioStreamWAV.FORMAT_16_BITS
@@ -37,9 +53,11 @@ func configure(map_key: String,indoors: bool=false) -> void:
         content[i*2]=value&255
         content[i*2+1]=(value>>8)&255
     wav.data=content
-    player=AudioStreamPlayer.new()
-    player.name="CoastalEnvironmentPlayer"
-    player.stream=wav
-    player.volume_db=-30.0
-    add_child(player)
+    if player == null or not is_instance_valid(player):
+        player = AudioStreamPlayer.new()
+        player.name = "CoastalEnvironmentPlayer"
+        add_child(player)
+    player.bus = "Ambience"
+    player.stream = wav
+    player.volume_db = -30.0
     player.play()

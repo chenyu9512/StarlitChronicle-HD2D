@@ -1,18 +1,30 @@
 extends Node
+const AVRegistry = preload("res://scripts/av_asset_registry.gd")
+const AudioBusRuntime = preload("res://scripts/audio_bus_runtime.gd")
 ## Small original procedural leitmotifs and transition stingers.
 ## No external music licenses or network streams required.
 var player: AudioStreamPlayer
 var enabled: bool = true
 var volume_db: float = -14.0
+var transition: Tween
 
 func _ready() -> void:
+    AudioBusRuntime.restore_mix()
     player = AudioStreamPlayer.new()
-    player.bus = "Master"
+    player.bus = "Music"
     player.volume_db=volume_db
     add_child(player)
 
 func cue(mood: String) -> void:
     if not enabled or player==null:
+        return
+    _cancel_transition()
+    var authored: AudioStream = AVRegistry.audio_stream("cue.story." + mood)
+    if authored != null:
+        player.stop()
+        player.stream = authored
+        player.volume_db = volume_db
+        player.play()
         return
     var notes: Array[float] = []
     match mood:
@@ -42,9 +54,36 @@ func cue(mood: String) -> void:
     stream.stereo=false
     stream.data=pcm
     player.stop()
+    player.volume_db = volume_db
     player.stream=stream
     player.play()
 
+## Use for shared integration later; missing media fades to silence (no crash).
+func transition_to(audio_id: String, fade_seconds: float = 0.35) -> void:
+    if player == null or not enabled:
+        return
+    _cancel_transition()
+    var target: AudioStream = AVRegistry.audio_stream(audio_id)
+    var half: float = maxf(0.01, fade_seconds * 0.5)
+    transition = create_tween()
+    transition.tween_property(player, "volume_db", -60.0, half)
+    transition.tween_callback(func() -> void:
+        if not is_instance_valid(player):
+            return
+        player.stop()
+        player.stream = target
+        if target != null:
+            player.volume_db = -60.0
+            player.play()
+    )
+    if target != null:
+        transition.tween_property(player, "volume_db", volume_db, half)
+
+func _cancel_transition() -> void:
+    if transition != null and transition.is_running():
+        transition.kill()
+
 func stop() -> void:
+    _cancel_transition()
     if player!=null:
         player.stop()

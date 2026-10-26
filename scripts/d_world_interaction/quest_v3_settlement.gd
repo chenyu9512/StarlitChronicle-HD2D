@@ -83,3 +83,52 @@ static func advance_story_side(progress: Object, quest: Dictionary, choice: Dict
             return {"ok":false,"reason":"stage_rejected"}
         return {"ok":true,"message":result}
     return Ledger.settle(progress,"d.quest.story."+quest_id+".stage."+str(stage),intent,mutation)
+
+## Main-story effects use the same V3 idempotency contract as quest payouts.
+## The caller must not move the scene index when this save fails.
+static func settle_scene_effects(progress: Object, scene: Dictionary) -> Dictionary:
+    if progress == null:
+        return {"ok":false,"reason":"invalid_progress"}
+    var scene_id: String = str(scene.get("id",""))
+    if scene_id.is_empty():
+        return {"ok":false,"reason":"missing_scene_id"}
+    var effects_value: Variant = scene.get("effects",[])
+    if not (effects_value is Array):
+        return {"ok":false,"reason":"invalid_scene_effects"}
+    var effects: Array = effects_value
+    if effects.is_empty():
+        return {"ok":true,"applied":false,"empty":true}
+    for raw in effects:
+        if not (raw is Dictionary):
+            return {"ok":false,"reason":"invalid_scene_effect"}
+        var effect: Dictionary = raw
+        var kind: String = str(effect.get("type",""))
+        if kind == "set_flag":
+            if str(effect.get("key","")).is_empty():
+                return {"ok":false,"reason":"invalid_flag_effect"}
+        elif kind == "grant":
+            for key in ["xp","gold"]:
+                var number: Variant = effect.get(key,0)
+                if typeof(number) not in [TYPE_INT,TYPE_FLOAT] or float(number) < 0.0 or float(number) > 10000000.0:
+                    return {"ok":false,"reason":"invalid_grant_amount"}
+        elif kind not in ["time_skip","finish_chapter"]:
+            return {"ok":false,"reason":"unsupported_scene_effect"}
+    var event_id: String = "d.story.scene." + scene_id + ".effects"
+    var intent: Dictionary = {"source":"main_story_effects","scene_id":scene_id,
+        "effects":effects.duplicate(true)}
+    var mutation: Callable = func() -> Dictionary:
+        var levels: Array[String] = []
+        for raw in effects:
+            var effect: Dictionary = raw
+            match str(effect.get("type","")):
+                "set_flag":
+                    progress.flags[str(effect["key"])] = effect.get("value",true)
+                "grant":
+                    levels.append_array(progress.give_rewards(
+                        maxi(0,int(effect.get("xp",0))),maxi(0,int(effect.get("gold",0)))))
+                "time_skip":
+                    progress.flags["world.years_passed"] = true
+                "finish_chapter":
+                    pass
+        return {"ok":true,"levels":levels}
+    return Ledger.settle(progress,event_id,intent,mutation)

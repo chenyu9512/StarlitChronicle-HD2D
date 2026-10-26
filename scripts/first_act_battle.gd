@@ -87,6 +87,39 @@ func handoff_to_world(world_node: Node) -> Dictionary:
         return {"ok":false,"reason":"handoff_not_configured"}
     return world_handoff.restore(world_node)
 
+## Existing FirstAct hosts have no D-line wiring yet. Snapshot transparently,
+## while preserving explicit prepare_world_handoff() for a future strict guard.
+func _auto_prepare_world_handoff() -> void:
+    if world_handoff != null and world_handoff.active:
+        return
+    var controller: Node = get_parent()
+    if controller == null or not controller.has_method("_battle_finished"):
+        return
+    var current_world: Node = controller.get("world") as Node
+    if not is_instance_valid(current_world):
+        return
+    var profile: Dictionary = current_world.get("map_profile")
+    var actor: Node2D = current_world.get("hero") as Node2D
+    var trigger: String = str(encounter_data.get("enemy_id",""))
+    if trigger.is_empty() and boss:
+        trigger = "boss.ch%03d/crisis" % chapter
+    var context: Dictionary = {
+        "chapter":chapter,
+        "trigger_id":trigger,
+        "player_valid":is_instance_valid(actor),
+        "settlement":bool(profile.get("settlement",false)),
+        "interior_building":str(current_world.get("interior_building")),
+        "no_encounters":bool(controller.get("no_encounters")),
+        "clock":game_state.rpg.get("game_clock",{}),
+        "weather":str(current_world.ambience.weather) if current_world.ambience != null else "",
+        "audio_cue":str(profile.get("id",""))
+    }
+    # The controller locks the world before constructing Battle. That lock
+    # is not itself a player dialogue/cinematic guard at this stage.
+    var prepared: Dictionary = prepare_world_handoff(current_world,context,boss)
+    if not bool(prepared.get("ok",false)):
+        push_warning("A-line battle/world snapshot unavailable: "+str(prepared.get("reason","unknown")))
+
 func start(save_state, chapter_no: int, is_boss: bool) -> void:
     game_state = save_state
     if combat_rules == null:
@@ -107,6 +140,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     last_warning_text = ""
     last_boss_settlement = ""
     last_world_handoff_result.clear()
+    _auto_prepare_world_handoff()
     boss_mechanics = null
     if boss:
         var hp: int = 145 + chapter * 55
@@ -1040,4 +1074,11 @@ func _finish(victory: bool) -> void:
         battle_hud.show_result(victory,int(reward["xp"]) if victory else 0,int(reward["gold"]) if victory else 0)
     if world_handoff != null and world_handoff.active:
         last_world_handoff_result = world_handoff.mark_result(victory,last_boss_settlement)
+        var controller: Node = get_parent()
+        if controller != null and controller.has_method("_battle_finished"):
+            var current_world: Node = controller.get("world") as Node
+            if is_instance_valid(current_world):
+                # Restore before completed.emit, so the existing controller's
+                # defeat/save/UI flow sees the safe coordinates and grace.
+                last_world_handoff_result = world_handoff.restore(current_world)
     completed.emit(victory, int(reward["xp"]) if victory else 0, int(reward["gold"]) if victory else 0)

@@ -33,6 +33,14 @@ class MockWorld:
     func _reveal_nearby() -> void:
         reveals+=1
 
+class MockController:
+    extends Node
+    var world: MockWorld
+    var no_encounters: bool = false
+    var finish_calls: int = 0
+    func _battle_finished(_won: bool, _xp: int, _gold: int) -> void:
+        finish_calls+=1
+
 var failures: Array[String] = []
 
 func _initialize() -> void:
@@ -150,6 +158,32 @@ func _run() -> void:
     check(bool(battle.handoff_to_world(world).get("ok",false)),"battle world restore failed")
     check(not bool(battle.handoff_to_world(world).get("ok",true)),"battle world restore counted twice")
     check(state.gold==80,"handoff changed player economy")
+    var parent := MockController.new()
+    root.add_child(parent)
+    var auto_world := MockWorld.new()
+    parent.add_child(auto_world)
+    parent.world=auto_world
+    auto_world.hero=Hero.new()
+    auto_world.add_child(auto_world.hero)
+    auto_world.hero.position=Vector2(512,512)
+    auto_world.hero.facing=3
+    auto_world.companion=Node2D.new()
+    auto_world.add_child(auto_world.companion)
+    var automatic := Battle.new()
+    parent.add_child(automatic)
+    automatic.game_core=rpg
+    automatic.encounter_registry=reg
+    automatic.encounter_data={"enemy_id":"boss.ch002","display_name":"雾潮寄生体"}
+    automatic.start(state,2,true)
+    check(automatic.world_handoff!=null and automatic.world_handoff.active,"automatic host snapshot was not taken")
+    auto_world.hero.position=Vector2(700,600)
+    auto_world.hero.facing=1
+    automatic.completed.connect(parent._battle_finished)
+    automatic._finish(true)
+    check(parent.finish_calls==1,"host completion was not called exactly once")
+    check(auto_world.hero.position==Vector2(512,512),"automatic integration did not restore position before completion")
+    check(auto_world.hero.facing==3,"automatic integration did not restore facing")
+    check(bool(automatic.last_world_handoff_result.get("ok",false)),"automatic integration did not finalize handoff")
     if failures.is_empty():
         print("PASS: battle/world eligibility, snapshot, idempotency, spawn fallback, cooldown, map change, boss settlement")
         quit(0)

@@ -214,11 +214,17 @@ func _start(continue_game: bool) -> void:
     optional_director.bind(progress)
     branch_runtime.bind(progress)
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
-        # v0.3旧版结算标记没有三结局记录：迁移到终局选择，保留装备、等级与支线。
-        progress.flags.erase("story.complete")
-        progress.flags["story.ch072.done"] = true
-        progress.scene_index = 4
-        progress.save()
+        # Legacy V3 ending flag has no authored ending ID. Migrate only after
+        # confirmed V3 disk commit; never advance world on failed migration.
+        var migrate: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+            progress.flags.erase("story.complete")
+            progress.flags["story.ch072.done"] = true
+            progress.scene_index = 4
+            return {"ok":true}
+        )
+        if not bool(migrate.get("ok",false)):
+            ui.show_title(false,"旧结局存档迁移失败，原文件已保留。请检查设备存储空间。")
+            return
     _enter_location()
     var interrupted_cue: String = str(progress.rpg.get("cinematic_checkpoint",""))
     if not fresh_game and not interrupted_cue.is_empty():
@@ -1516,14 +1522,21 @@ func _choose_ending(option: Dictionary) -> void:
     if not ending_director.can_choose(id, progress.flags):
         _begin_ending_choice()
         return
-    progress.flags["world.ending"] = id
-    progress.rpg["ending_id"] = id
-    progress.rpg["ending_scene_index"] = 0
-    progress.rpg["ending_complete"] = false
-    var quests: Dictionary = progress.rpg.get("quests", {})
-    quests["quest_main_072"] = true
-    progress.rpg["quests"] = quests
-    _save_progress()
+    _capture_world_position()
+    var choice_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        progress.flags["world.ending"] = id
+        progress.rpg["ending_id"] = id
+        progress.rpg["ending_scene_index"] = 0
+        progress.rpg["ending_complete"] = false
+        var quests: Dictionary = progress.rpg.get("quests",{})
+        quests["quest_main_072"] = true
+        progress.rpg["quests"] = quests
+        return {"ok":true}
+    )
+    if not bool(choice_tx.get("ok",false)):
+        ui.show_message("结局选择未能保存，进度已回滚；请重新选择。")
+        _begin_ending_choice()
+        return
     cinematic.banner_card("命运的抉择","七灯的未来 · 结局 "+id,"mystery")
     _play_ending_scene()
 
@@ -1554,27 +1567,43 @@ func _finish_ending_scene() -> void:
         ending_replay_scene += 1
         _play_ending_scene()
         return
-    progress.rpg["ending_scene_index"] = int(progress.rpg.get("ending_scene_index", 0)) + 1
-    _save_progress()
+    _capture_world_position()
+    var epilogue_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        progress.rpg["ending_scene_index"] = int(progress.rpg.get("ending_scene_index",0)) + 1
+        return {"ok":true}
+    )
+    if not bool(epilogue_tx.get("ok",false)):
+        ui.show_message("后日谈未保存，已恢复上一段；请检查存储空间并重试。")
+        _play_ending_scene()
+        return
     _play_ending_scene()
 
 func _finalize_ending() -> void:
-    var id: String = str(progress.rpg.get("ending_id", ""))
+    var id: String = str(progress.rpg.get("ending_id",""))
     if ending_director.details(id).is_empty():
         push_error("不能保存无效结局：" + id)
         return
-    progress.flags["story.ch072.done"] = true
-    progress.flags["story.complete"] = true
-    game_events.record("chapter_completed",{"chapter":72,"ending":id})
-    progress.rpg["ending_complete"] = true
-    var archive: Dictionary = progress.rpg.get("ending_archive", {})
-    archive[id] = true
-    progress.rpg["ending_archive"] = archive
-    progress.scene_index = 5
-    progress.task_index = 0
+    _capture_world_position()
+    var finish_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        progress.flags["story.ch072.done"] = true
+        progress.flags["story.complete"] = true
+        progress.rpg["ending_complete"] = true
+        var archive: Dictionary = progress.rpg.get("ending_archive",{})
+        archive[id] = true
+        progress.rpg["ending_archive"] = archive
+        progress.scene_index = 5
+        progress.task_index = 0
+        return {"ok":true}
+    )
+    if not bool(finish_tx.get("ok",false)):
+        pending = ""
+        paused_for_dialogue = false
+        _return_to_world()
+        ui.show_message("结局档案保存失败，尚未标记通关；请检查存储空间后继续。")
+        return
     pending = ""
     paused_for_dialogue = false
-    _save_progress()
+    game_events.record("chapter_completed",{"chapter":72,"ending":id})
     _enter_location()
     ui.show_message("《%s》完成！结局已经记录于「功能手册 → 结局档案」。" % ending_director.title(id))
 

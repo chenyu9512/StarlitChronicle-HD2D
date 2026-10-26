@@ -22,6 +22,7 @@ func _draw() -> void:
     draw_colored_polygon(ellipse, Color(0.02, 0.08, 0.11, 0.29))
 
 func setup(image: String) -> void:
+    add_to_group("c_visual_actor")
     if is_instance_valid(sprite):
         sprite.queue_free()
     sprite = Sprite2D.new()

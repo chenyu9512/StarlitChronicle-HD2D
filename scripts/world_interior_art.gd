@@ -7,8 +7,8 @@ const ART_DIR: String = "res://assets/art/interiors/morning_dew_inn/"
 const PROFILE: String = "coast_inn_v1"
 const DISTRICT_ART: String = "res://assets/art/interiors/coastal_district/"
 var theme_atlas: String = ART_DIR+"inn_tileset.svg"
-var soundscape: Node
-var presentation_fx: Node2D
+var soundscape
+var presentation_fx
 var reduced_motion: bool = false
 var light_tick: float = 0.0
 

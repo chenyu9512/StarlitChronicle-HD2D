@@ -91,7 +91,7 @@ func _draw_scene_motion() -> void:
         draw_colored_polygon(PackedVector2Array([
             Vector2(x, high_y - 11), Vector2(x + 20 + phase * 2.0, high_y - 5),
             Vector2(x + 17 + phase * 2.5, high_y + 8), Vector2(x, high_y + 5)
-        ]), Color("b99c71", 0.88))
+        ]), Color(0.73, 0.61, 0.44, 0.88))
     if purpose == "smith":
         var chimney: Vector2 = Vector2(float(cells.x) * TILE * 0.25, high_y + 18.0)
         for i in range(3):

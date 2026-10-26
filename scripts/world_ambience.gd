@@ -8,6 +8,13 @@ var climate: String = "coastal"
 var map_id: String = ""
 var weather: String = "clear"
 var phase: float = 0.0
+var reduced_motion: bool = false
+var animation_step: float = 0.15
+
+func set_reduced_motion(value: bool) -> void:
+    reduced_motion = value
+    animation_step = 0.40 if value else 0.15
+    queue_redraw()
 var hero: Node2D
 
 func configure(map_key: String,biome: String,extent: Vector2i = Vector2i(72,48)) -> void:
@@ -46,8 +53,8 @@ func _choose_weather() -> void:
 func _process(delta: float) -> void:
     if weather in ["rain","ash"]:
         phase+=delta
-        if phase>=0.15:
-            phase=fmod(phase,0.15)
+        if phase >= animation_step:
+            phase = fmod(phase, animation_step)
             queue_redraw()
 
 func _draw() -> void:

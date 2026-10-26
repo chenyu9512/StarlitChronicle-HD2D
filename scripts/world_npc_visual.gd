@@ -6,6 +6,7 @@ var motion = CharacterMotion.new()
 var reduced_motion: bool = false
 var life_action: String = "observe"
 var life_timer: float = 0.0
+var gaze_tick: float = 0.0
 var talking: bool = false
 var role: String = "lore"
 var citizen_name: String = ""
@@ -47,6 +48,18 @@ func _process(delta: float) -> void:
     motion.advance(delta, Vector2.ZERO)
     idle_elapsed += delta
     life_timer += delta
+    gaze_tick += delta
+    if gaze_tick >= (0.52 if reduced_motion else 0.28) and not talking:
+        gaze_tick = 0.0
+        # No authoritative NPC location change; visual head tracks nearby actors.
+        for visitor in get_tree().get_nodes_in_group("c_visual_actor"):
+            if not visitor is Node2D or not is_instance_valid(visitor):
+                continue
+            var distance: Vector2 = (visitor as Node2D).global_position - global_position
+            if distance.length_squared() <= 62.0 * 62.0:
+                motion.face_vector(distance)
+                queue_redraw()
+                break
     if life_timer >= 4.2 and not talking:
         life_timer = fmod(life_timer, 4.2)
         var cycle: int = posmod(int(idle_elapsed / 4.2) + citizen_name.hash(), 4)
@@ -190,6 +203,6 @@ func _draw_activity_mark() -> void:
     elif life_action == "sweep":
         draw_line(Vector2(15, -9), Vector2(22 + rhythm, 12), Color("a07c58"), 2.0)
     elif life_action == "rest":
-        draw_circle(Vector2(18, -27), 2.2, Color("e9d7b9", 0.65))
+        draw_circle(Vector2(18, -27), 2.2, Color(0.91, 0.84, 0.73, 0.65))
     elif life_action == "talk":
         draw_arc(Vector2(15, -43), 4.0, -PI * 0.8, PI * 0.8, 10, Color("e9d7ac"), 1.5)

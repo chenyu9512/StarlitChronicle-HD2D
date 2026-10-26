@@ -2,6 +2,7 @@ extends CanvasLayer
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const ArtManagerUI = preload("res://scripts/c_art_manager_ui.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 const DTitleScreen = preload("res://scripts/d_title_screen.gd")
 ## iPhone横屏优先的游戏界面：主标题 / 任务追踪 / 触屏移动 / 对白与选项 / 队伍菜单。
 signal started(continue_game: bool)
@@ -73,13 +74,7 @@ func _ready() -> void:
     _build_dialogue_history()
 
 func _panel_style(bg: Color = BLUE, border: Color = GOLD) -> StyleBoxFlat:
-    var style := StyleBoxFlat.new()
-    style.bg_color = bg
-    style.border_color = border
-    style.set_border_width_all(2)
-    style.set_corner_radius_all(13)
-    style.set_content_margin_all(14)
-    return style
+    return CVisual.frame(bg, border, 13, 14)
 
 func _button(label_text: String, size: int = 20) -> Button:
     var button := Button.new()
@@ -90,6 +85,7 @@ func _button(label_text: String, size: int = 20) -> Button:
     button.add_theme_stylebox_override("normal", _panel_style(Color("12283e"), Color("6889a0")))
     button.add_theme_stylebox_override("hover", _panel_style(Color("24506a"), GOLD))
     button.add_theme_stylebox_override("pressed", _panel_style(Color("1a4258"), GOLD))
+    CVisual.style_button(button)
     button.focus_mode = Control.FOCUS_NONE
     return button
 
@@ -122,7 +118,7 @@ func _build_hud() -> void:
     name_label = Label.new()
     name_label.custom_minimum_size.x = 203
     name_label.add_theme_font_size_override("font_size", 19)
-    name_label.add_theme_color_override("font_color", GOLD)
+    name_label.add_theme_color_override("font_color", CVisual.GOLD)
     name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
     name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     row.add_child(name_label)
@@ -275,7 +271,7 @@ func _build_dialog() -> void:
     row.add_child(content)
     dialog_speaker = Label.new()
     dialog_speaker.add_theme_font_size_override("font_size", 23)
-    dialog_speaker.add_theme_color_override("font_color", GOLD)
+    dialog_speaker.add_theme_color_override("font_color", CVisual.GOLD)
     content.add_child(dialog_speaker)
     dialog_text = RichTextLabel.new()
     dialog_text.bbcode_enabled = false
@@ -478,7 +474,7 @@ func _build_menu() -> void:
     var title := Label.new()
     title.text = "✦ 灯行者 · 旅途指令"
     title.add_theme_font_size_override("font_size", 27)
-    title.add_theme_color_override("font_color", GOLD)
+    title.add_theme_color_override("font_color", CVisual.GOLD)
     flow.add_child(title)
     menu_summary = RichTextLabel.new()
     menu_summary.bbcode_enabled = true

@@ -2,6 +2,7 @@ extends Control
 ## Integrated battle art HUD: smooth HP, target focus, boss phases and victory card.
 ## Entire surface ignores mouse input; underlying command UI remains authoritative.
 const ArtDirection = preload("res://scripts/battle_art_direction.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 const MAX_MONSTERS: int = 3
 var enemy_stage
 var actor_stage
@@ -85,11 +86,12 @@ func _font() -> Font:
     return ThemeDB.fallback_font
 
 func _bar(rect: Rect2, fraction: float, value: float, total: int, accent: Color) -> void:
-    draw_rect(Rect2(rect.position-Vector2(2,2),rect.size+Vector2(4,4)),Color(0.80,0.69,0.49,0.52))
-    draw_rect(rect,Color(0.035,0.065,0.11,0.94))
-    draw_rect(Rect2(rect.position,Vector2(rect.size.x*clampf(fraction,0.0,1.0),rect.size.y)),accent)
+    draw_rect(Rect2(rect.position-Vector2(2,2),rect.size+Vector2(4,4)), CVisual.RIM)
+    draw_rect(rect,CVisual.INK)
+    var smoothed: float = clampf(fraction,0.0,1.0)
+    draw_rect(Rect2(rect.position,Vector2(rect.size.x*smoothed,rect.size.y)),accent)
     var actual: float = clampf(value/float(maxi(total,1)),0.0,1.0)
-    draw_rect(Rect2(rect.position,Vector2(rect.size.x*actual,rect.size.y*0.30)),Color(1,1,1,0.19))
+    draw_rect(Rect2(rect.position,Vector2(rect.size.x*actual,rect.size.y*0.27)),Color(1,1,1,0.19))
 
 func _draw() -> void:
     var canvas: Vector2 = size
@@ -152,7 +154,8 @@ func _draw() -> void:
         var center: Vector2 = canvas*0.5
         var height: float = 124
         var origin: Vector2 = center-Vector2(box_width*0.5,height*0.5)
-        draw_rect(Rect2(origin,Vector2(box_width,height)),Color(0.028,0.060,0.11,0.95))
+        draw_rect(Rect2(origin-Vector2(2,2),Vector2(box_width+4,height+4)),CVisual.RIM)
+        draw_rect(Rect2(origin,Vector2(box_width,height)),CVisual.INK)
         draw_rect(Rect2(origin,Vector2(box_width,3)),Color("f6cd85"))
         draw_rect(Rect2(origin+Vector2(0,height-3),Vector2(box_width,3)),Color("b89558"))
         draw_string(font,center+Vector2(0,-11),banner,HORIZONTAL_ALIGNMENT_CENTER,int(box_width)-24,30,

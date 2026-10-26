@@ -61,6 +61,22 @@ func _run() -> void:
     check(bool(reload_repeat.get("repeated",false)) and reload.gold==paid_gold,
         "Local quest repaid after restart")
 
+    # Authored scene grants use a durable receipt independent of scene UI retries.
+    var authored_scene: Dictionary = {"id":"d_qa_scene",
+        "effects":[{"type":"set_flag","key":"d.qa.scene.done","value":true},
+                   {"type":"grant","xp":14,"gold":9}]}
+    var scene_before: Dictionary = reload._pack().duplicate(true)
+    reload.save_path = sandbox + "/missing/scene.json"
+    var scene_failed: Dictionary = QuestTx.settle_scene_effects(reload,authored_scene)
+    check(str(scene_failed.get("reason",""))=="save_failed", "Scene grant accepted failed save")
+    check(reload._pack()==scene_before, "Failed scene effect leaked flags or gold")
+    reload.save_path = sandbox + "/v3.json"
+    var scene_ok: Dictionary = QuestTx.settle_scene_effects(reload,authored_scene)
+    check(bool(scene_ok.get("applied",false)), "Scene reward not persisted")
+    var scene_gold: int = reload.gold
+    var scene_replay: Dictionary = QuestTx.settle_scene_effects(reload,authored_scene)
+    check(bool(scene_replay.get("repeated",false)) and reload.gold==scene_gold,
+        "Duplicate scene callback paid twice")
     var original: Dictionary = reload._pack().duplicate(true)
     reload.save_path = sandbox + "/missing/catalog.json"
     var failed_catalog: String = reload_core.record_quest("quest_main_001")

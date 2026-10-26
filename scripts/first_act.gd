@@ -373,6 +373,16 @@ func _objective() -> String:
     var prefix: String = str(scene.get("title", "探索周围"))
     if progress.chapter == 0:
         return "前往 ✦ 光点：" + prefix
+    if progress.chapter <= 3:
+        var steps: Array[String] = ["与%s交谈" % WorldScript.NPC_NAMES[progress.chapter], "调查线索" if progress.task_index == 0 else "向目击者核实线索", "再次调查冲突点，开始战斗" if progress.task_index == 1 else "调查冲突点", "返回归航点，完成本章"]
+        if progress.scene_index >= 0 and progress.scene_index < steps.size():
+            var instruction: String = steps[progress.scene_index]
+            if not world.interior_building.is_empty():
+                instruction = "先从出口返回室外"
+            var advice: String = "地图查看主线标记，靠近后调查"
+            if progress.scene_index == 2 and progress.chapter > 1:
+                advice = "可先补给；重击防御，喘息回复"
+            return "【主线 %d/4】%s\n%s" % [progress.scene_index+1,instruction,advice]
     match progress.scene_index:
         0: return prefix + " · 找到" + (WorldScript.NPC_NAMES[progress.chapter] if progress.chapter < WorldScript.NPC_NAMES.size() else "关键人物")
         1: return prefix + (" · 调查线索" if progress.task_index == 0 else " · 询问目击者")
@@ -456,7 +466,10 @@ func _focus() -> void:
         var point: String = "optional_"+slot
         if world.nodes.has(point):
             world.nodes[point].visible = not optional_director.offered(progress.chapter,slot,progress.scene_index).is_empty()
-    ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if not extra.is_empty() else ""), progress.actors, progress.gold, progress.potions)
+    # The opening tracker prioritizes the main route. Optional markers remain
+    # on the atlas; stacking their prose here clips the fixed-height mobile HUD.
+    var show_extra: bool = progress.chapter > 3 and not extra.is_empty()
+    ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if show_extra else ""), progress.actors, progress.gold, progress.potions)
     atlas.set_targets(world.focus_name,side_target)
     var nav_event: Dictionary = branch_runtime.get_event(tracked)
     if not nav_event.is_empty() and not branch_runtime.is_seen(tracked):
@@ -1175,6 +1188,12 @@ func _crisis_choice_complete() -> void:
         return
     progress.task_index = 1
     _save_progress()
+    if progress.chapter in [2,3]:
+        # Persist the choice once, then allow supplies and saving before combat.
+        # Returning to the crisis marker retries without replaying choice effects.
+        _return_to_world()
+        ui.show_message("强敌就在前方。可先补给、保存；准备好后再次调查主线冲突点。")
+        return
     _start_battle(true)
 
 func _start_battle(is_boss: bool) -> void:

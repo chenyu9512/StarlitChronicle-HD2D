@@ -61,6 +61,8 @@ if ($staticOK -and $enginePresent) {
         @{Name="first_three_checkpoints";Script="smoke_first_three_checkpoints.gd"}
         @{Name="combat_turns";Script="smoke_combat_turns.gd"}
         @{Name="live_boss_matrix";Script="smoke_live_boss_matrix.gd"}
+        @{Name="opening_balance";Script="smoke_opening_balance.gd"}
+        @{Name="first_three_playable";Script="smoke_first_three_playable.gd"}
         @{Name="battle_commercial";Script="smoke_battle_commercial.gd"}
         @{Name="campaign_72_progression";Script="smoke_campaign_72.gd"}
         @{Name="world_40_layouts";Script="smoke_world_v3.gd"}

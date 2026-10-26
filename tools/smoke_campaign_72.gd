@@ -53,6 +53,8 @@ func _run() -> void:
             b.pressed.emit()
             if game.pending == "choice_reaction":
                 _dialog()
+        if chapter in [2,3] and game.battle == null and game.progress.task_index == 1:
+            _touch("crisis")
         if game.battle != null:
             game.battle._finish(true)
         _touch("resolve")

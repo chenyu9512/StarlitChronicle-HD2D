@@ -26,6 +26,7 @@ var skill_picker: PanelContainer
 var encounter_data: Dictionary = {}
 var chapter: int = 1
 var boss: bool = false
+var round_boss_intent: Dictionary = {}
 var enemy: Dictionary = {}
 var hero_turn: int = 0
 var party_order: Array[int] = []
@@ -367,6 +368,10 @@ func _hide_skills() -> void:
         skill_picker = null
 
 func _begin_round() -> void:
+    # Freeze the announced action: crossing half HP during player turns must
+    # not silently replace it with a different phase/low-health attack.
+    round_boss_intent = combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors).duplicate(true) if boss else {}
+    last_warning_text = ""
     var eligible: Array = []
     if game_core != null:
         for member in game_state.actors:
@@ -738,7 +743,7 @@ func _enemy_strike(attacker_index: int = -1) -> void:
     if living.is_empty():
         _finish(false)
         return
-    var intent: Dictionary = combat_rules.enemy_strategy(enemy,current_round,phase_two,boss,game_state.actors)
+    var intent: Dictionary = round_boss_intent if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors)
     last_enemy_action = str(enemy.get("name","敌人")) + " · " + str(intent.get("label","攻击"))
     var target: int = living[dice.randi_range(0, living.size() - 1)]
     if str(intent.get("target","")) == "lowest_hp":
@@ -817,7 +822,7 @@ func _telegraph_next_boss_action() -> void:
             break
     if not has_future_enemy:
         return
-    var intent: Dictionary = combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors)
+    var intent: Dictionary = round_boss_intent
     var name: String = str(intent.get("label",""))
     if name in ["","普通攻击"]:
         return

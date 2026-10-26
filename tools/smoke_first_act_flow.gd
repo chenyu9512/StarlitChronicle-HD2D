@@ -68,6 +68,8 @@ func _run() -> void:
                 if game.pending == "choice_reaction":
                     _dialog()
         if chapter > 1:
+            if chapter in [2,3] and game.battle == null and game.progress.task_index == 1:
+                _touch("crisis")
             var count := 0
             while game.battle != null and count < 100:
                 game.battle._act("special")

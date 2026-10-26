@@ -285,6 +285,15 @@ func resolve_enemy_turn(index: int, max_hp: int) -> Dictionary:
     return {"damage":damage,"skip":skip}
 
 func enemy_strategy(foe: Dictionary, round_number: int, phase_two: bool, is_boss: bool, party: Array) -> Dictionary:
+    # Opening bosses teach readable cycles before later phase-dependent fights.
+    var opening_boss: String = str(foe.get("boss_id",""))
+    if is_boss and opening_boss in ["boss.ch002","boss.ch003"]:
+        var beat: int = (round_number - 1) % 3
+        if beat == 1:
+            return {"label":"潮雾蓄力 · 本回合防御" if opening_boss == "boss.ch002" else "守卫重击 · 本回合防御", "multiplier":1.65, "target":"lowest_hp"}
+        if beat == 2:
+            return {"label":"退潮喘息 · 趁机回复或进攻", "multiplier":0.45, "target":"random"}
+        return {"label":"试探攻击", "multiplier":1.0, "target":"random"}
     var directive: Dictionary = enemy_intent(round_number,phase_two,is_boss)
     var personality: String = str(foe.get("ai_pattern",""))
     var hp_ratio: float = float(foe.get("hp",1))/float(maxi(1,int(foe.get("max_hp",1))))

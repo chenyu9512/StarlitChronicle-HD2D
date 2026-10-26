@@ -354,8 +354,12 @@ func _path_around_roofs(start: Vector2i,goal: Vector2i,roofs: Dictionary,walls: 
     if roofs.has(start) or roofs.has(goal):
         return []
     var frontier: Array[Vector2i]=[start]
-    var distances: Dictionary={start:0}
-    var parents: Dictionary={start:start}
+    # GDScript dictionary literals use identifier strings for named keys;
+    # indexed assignments are required for Vector2i pathfinding keys.
+    var distances: Dictionary={}
+    var parents: Dictionary={}
+    distances[start]=0
+    parents[start]=start
     var steps: Array[Vector2i]=[Vector2i.UP,Vector2i.LEFT,Vector2i.RIGHT,Vector2i.DOWN]
     while not frontier.is_empty():
         var current: Vector2i=frontier.pop_front()

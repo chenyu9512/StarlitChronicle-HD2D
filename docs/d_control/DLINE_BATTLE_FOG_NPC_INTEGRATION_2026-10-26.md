@@ -26,3 +26,13 @@
 - `game_events.record`在NPC首次接触V3提交后执行，事件历史可能需要下一次保存才稳定落盘（P1）。
 
 **集成质量门槛：Batch 0仍FAIL。** 当前无零P0的证据，暂不进入Batch 1。
+
+## 最终跨线架构修订：旧探索迷雾已退役
+
+在首次D地图边界修复之后，地图线正式执行了用户指定的「**取消探索迷雾和全球地图，仅保留当前局部地图**」新规范（见 `docs/MAP_LOCAL_ONLY_NO_FOG_2026_10_26.md`）。
+
+- `scripts/world_fog_v3.gd` 后来被地图线从正式main删除。此前D修复的迷雾越界逻辑仅属于**历史提交，已不再是现行玩家路径**；本报告其它段落对该旧模块的陈述只能作为历史记录，不代表当前版本仍启用探索迷雾。
+- D线也随之删除了过时的 `tools/d_control/smoke_fog_extent_reconfigure.gd`：不能因为测试引用已经退役的脚本产生Parse Error，就阻止无雾本地地图上线。这不是隐瞒缺陷，新的地图功能由 `tools/smoke_no_fog_local_map.gd` 和当前 `tools/smoke_all_maps_minimap.gd` 验证。
+- 本轮后续完整QA测试SHA `43acfa54117244d96920d8ff34a8eb0bafd0e3de` 实际执行81项：**70 PASS / 11 FAIL**；其中一项失败仅因D过时雾测试预加载已删除模块，已在main主动移除此用例；剩余10项须按各线修复。
+- 已确认核心D集成真实PASS：`smoke_first_three_checkpoints.gd`、`smoke_npc_contact_v3.gd`、`smoke_all_maps_minimap.gd`。其它10项未通过的运行日志：https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40326934762 。
+- **主线/世界接口以当前 `project.godot` 和地图线无雾设计为权威**。不得为通过过时D测试而恢复探索迷雾或世界地图。

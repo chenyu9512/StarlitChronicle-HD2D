@@ -5691,6 +5691,24 @@
       "proof_reference",
       "sha256",
       "reviewer"
+    ],
+    "existing_visual_provenance": [
+      {
+        "asset_group": "B02",
+        "source_manifest": "res://assets/art/b02/MANIFEST.json",
+        "resource_scope": "12 main + 35 NPC; multiple derivative crops per source sheet",
+        "authoring_note": "AI-assisted illustrated source sheets, cropped and alpha-matted; not individually hand-painted animation",
+        "license_state": "internal_provenance_documented_not_commercial_quality_accepted",
+        "approved_for_release": false
+      },
+      {
+        "asset_group": "B03",
+        "source_manifest": "res://assets/art/b03/boss_final_render/manifest.json",
+        "resource_scope": "5 independent chapter Boss static renders",
+        "authoring_note": "Original individually generated transparent still art; no animation",
+        "license_state": "internal_provenance_documented_not_commercial_quality_accepted",
+        "approved_for_release": false
+      }
     ]
   },
   "production_rules": {
@@ -5719,5 +5737,572 @@
       "visual_audio_review",
       "device_performance"
     ]
-  }
+  },
+  "npcs": [
+    {
+      "id": "npc_oaths_01",
+      "name": "白垒队长",
+      "region_id": "region_oaths",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oaths_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oaths_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oaths_02",
+      "name": "誓约抄写官",
+      "region_id": "region_oaths",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oaths_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oaths_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oaths_03",
+      "name": "驿路医师",
+      "region_id": "region_oaths",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oaths_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oaths_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oaths_04",
+      "name": "银鹫骑手",
+      "region_id": "region_oaths",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oaths_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oaths_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oaths_05",
+      "name": "遗誓修女",
+      "region_id": "region_oaths",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oaths_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oaths_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_forge_01",
+      "name": "炉心技师",
+      "region_id": "region_forge",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_forge_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_forge_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_forge_02",
+      "name": "熔铜商人",
+      "region_id": "region_forge",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_forge_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_forge_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_forge_03",
+      "name": "灰原矿工",
+      "region_id": "region_forge",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_forge_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_forge_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_forge_04",
+      "name": "烟塔书记",
+      "region_id": "region_forge",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_forge_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_forge_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_forge_05",
+      "name": "旧炉守卫",
+      "region_id": "region_forge",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_forge_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_forge_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_isles_01",
+      "name": "礁歌船长",
+      "region_id": "region_isles",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_isles_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_isles_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_isles_02",
+      "name": "珊瑚药师",
+      "region_id": "region_isles",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_isles_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_isles_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_isles_03",
+      "name": "航图师",
+      "region_id": "region_isles",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_isles_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_isles_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_isles_04",
+      "name": "潮祭歌者",
+      "region_id": "region_isles",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_isles_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_isles_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_isles_05",
+      "name": "暗礁守望人",
+      "region_id": "region_isles",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_isles_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_isles_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_mirror_01",
+      "name": "镜庭侍女",
+      "region_id": "region_mirror",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_mirror_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_mirror_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_mirror_02",
+      "name": "银湖诗人",
+      "region_id": "region_mirror",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_mirror_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_mirror_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_mirror_03",
+      "name": "梦疫医师",
+      "region_id": "region_mirror",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_mirror_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_mirror_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_mirror_04",
+      "name": "失忆画匠",
+      "region_id": "region_mirror",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_mirror_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_mirror_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_mirror_05",
+      "name": "王库看守",
+      "region_id": "region_mirror",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_mirror_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_mirror_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oldland_01",
+      "name": "断碑学者",
+      "region_id": "region_oldland",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oldland_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oldland_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oldland_02",
+      "name": "星墓测绘员",
+      "region_id": "region_oldland",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oldland_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oldland_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oldland_03",
+      "name": "旧洲拾荒者",
+      "region_id": "region_oldland",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oldland_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oldland_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oldland_04",
+      "name": "时砂守卫",
+      "region_id": "region_oldland",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oldland_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oldland_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_oldland_05",
+      "name": "遗民守灯人",
+      "region_id": "region_oldland",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_oldland_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_oldland_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_sanctum_01",
+      "name": "天轨引渡人",
+      "region_id": "region_sanctum",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_sanctum_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_sanctum_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_sanctum_02",
+      "name": "星环守卫",
+      "region_id": "region_sanctum",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_sanctum_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_sanctum_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_sanctum_03",
+      "name": "母灯观测者",
+      "region_id": "region_sanctum",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_sanctum_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_sanctum_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_sanctum_04",
+      "name": "岁影记录者",
+      "region_id": "region_sanctum",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_sanctum_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_sanctum_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_sanctum_05",
+      "name": "终夜见证者",
+      "region_id": "region_sanctum",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_sanctum_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_sanctum_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_city_01",
+      "name": "群灯总务书记",
+      "region_id": "region_city",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_city_01/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_city_01/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_city_02",
+      "name": "修灯义工",
+      "region_id": "region_city",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_city_02/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_city_02/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_city_03",
+      "name": "难民厨师",
+      "region_id": "region_city",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_city_03/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_city_03/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_city_04",
+      "name": "城建工程师",
+      "region_id": "region_city",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_city_04/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_city_04/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    },
+    {
+      "id": "npc_city_05",
+      "name": "议事厅记录员",
+      "region_id": "region_city",
+      "portrait_path": "res://assets/art/b02/characters/npc/npc_city_05/dialogue_192x240.png",
+      "fullbody_path": "res://assets/art/b02/characters/npc/npc_city_05/fullbody_rgba.png",
+      "status": "static_only",
+      "animation_status": "not_produced",
+      "required": [
+        "walk_4dir",
+        "interact",
+        "talk",
+        "expression",
+        "context_action"
+      ]
+    }
+  ],
+  "audit_notes": [
+    "NPC inventory records 35 static B02 visual identities; not accepted as motion.",
+    "B02/B03 source declarations are not standalone proof of third-party or model-input license clearance.",
+    "No final all-game audio masters imported."
+  ]
 }

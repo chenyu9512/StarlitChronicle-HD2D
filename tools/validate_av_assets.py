@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "data/assets/av_registry.json"
-EXPECTED = {"regions": 8, "characters": 12, "monsters": 63, "bosses": 66, "weapons": 81, "armor": 54, "skills": 63}
+EXPECTED = {"regions": 8, "characters": 12, "npcs": 35, "monsters": 63, "bosses": 66, "weapons": 81, "armor": 54, "skills": 63}
 ALLOWED_STATUSES = {"not_produced", "procedural_fallback_only", "runtime_bound", "imported", "license_reviewed", "qa_passed"}
 SIGS = {".png": b"\x89PNG\r\n\x1a\n", ".ogg": b"OggS", ".wav": b"RIFF"}
 
@@ -72,6 +72,13 @@ def audit() -> tuple[dict, list[str]]:
         check(c["portrait_path"])
         check(c["fullbody_path"])
         check(c["existing_legacy_walk_path"])
+    b02 = json.loads((ROOT / "assets/art/b02/MANIFEST.json").read_text(encoding="utf-8"))
+    canonical_npc_ids = {item["id"] for item in b02["records"] if item["group"] != "main"}
+    if canonical_npc_ids != {x["id"] for x in reg["npcs"]}:
+        issues.append("B02_NPC_ID_MISMATCH")
+    for npc in reg["npcs"]:
+        check(npc["portrait_path"])
+        check(npc["fullbody_path"])
     for b in reg["bosses"]:
         check(b["static_battle_path"])
     for m in reg["legacy_monster_prototypes"]:

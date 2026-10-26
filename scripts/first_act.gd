@@ -1031,7 +1031,9 @@ func _dialogue_ended() -> void:
     paused_for_dialogue = false
     match pending:
         "prologue":
-            _apply_effects(_current_scene())
+            if not _apply_effects(_current_scene()):
+                _scene_effect_save_failed()
+                return
             progress.scene_index += 1
             world.set_prologue_phase(progress.scene_index,progress.chapter)
             if progress.scene_index >= 9:
@@ -1044,10 +1046,14 @@ func _dialogue_ended() -> void:
                 ui.show_message("序章完成 · 第一章《不曾寄出的信》")
                 return
         "opening":
-            _apply_effects(_current_scene())
+            if not _apply_effects(_current_scene()):
+                _scene_effect_save_failed()
+                return
             _advance_scene()
         "clue":
-            _apply_effects(_current_scene())
+            if not _apply_effects(_current_scene()):
+                _scene_effect_save_failed()
+                return
             progress.task_index = 1
         "crisis":
             var choice: Dictionary = _current_scene().get("choice", {})
@@ -1135,7 +1141,9 @@ func _dialogue_ended() -> void:
             _return_to_world()
             return
         "resolve":
-            _apply_effects(_current_scene())
+            if not _apply_effects(_current_scene()):
+                _scene_effect_save_failed()
+                return
             if progress.chapter == 72 and progress.scene_index == 3:
                 _advance_scene()
                 _return_to_world()
@@ -1200,7 +1208,9 @@ func _choice_picked(item: Dictionary) -> void:
     _crisis_choice_complete()
 
 func _crisis_choice_complete() -> void:
-    _apply_effects(_current_scene())
+    if not _apply_effects(_current_scene()):
+        _scene_effect_save_failed()
+        return
     if progress.chapter == 1:
         _advance_scene()
         _save_progress()
@@ -1383,18 +1393,21 @@ func _retry_battle_settlement(won: bool, xp: int, money: int) -> void:
     if is_instance_valid(battle):
         _battle_finished(won,xp,money)
 
-func _apply_effects(scene: Dictionary) -> void:
-    for value in scene.get("effects", []):
-        if not value is Dictionary:
-            continue
-        var effect: Dictionary = value
-        var kind: String = str(effect.get("type", ""))
-        if kind == "set_flag":
-            progress.flags[str(effect.get("key", ""))] = effect.get("value", true)
-        elif kind == "grant":
-            progress.give_rewards(int(effect.get("xp", 0)), int(effect.get("gold", 0)))
-        elif kind == "time_skip":
-            progress.flags["world.years_passed"] = true
+func _apply_effects(scene: Dictionary) -> bool:
+    # The authored scene, flags and every grant share one durable V3 receipt.
+    # A failed write never allows the caller to advance its scene.
+    _capture_world_position()
+    var tx: Dictionary = QuestV3Settlement.settle_scene_effects(progress,scene)
+    if not bool(tx.get("ok",false)):
+        push_warning("剧情效果存档失败：" + str(tx.get("reason","unknown")))
+        return false
+    return true
+
+func _scene_effect_save_failed() -> void:
+    pending = ""
+    paused_for_dialogue = false
+    ui.show_message("剧情奖励与进度未能保存，已回滚。请检查存储空间后重新调查。")
+    _return_to_world()
 
 func _advance_scene() -> void:
     progress.scene_index += 1

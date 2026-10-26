@@ -5,6 +5,7 @@ signal encounter_requested()
 
 const Actor = preload("res://scripts/first_act_actor.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
@@ -224,27 +225,19 @@ func _make_tiles() -> void:
         if not outdoor_atlas.is_empty() and ResourceLoader.exists(outdoor_atlas):
             chosen_atlas=outdoor_atlas
     var authored_art: bool = not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas)
-    var tile_set := TileSet.new()
-    tile_set.tile_size = Vector2i(TILE, TILE)
-    var land := TileSetAtlasSource.new()
-    land.texture = CArtOverrides.texture(chosen_atlas if authored_art else (land_path if regional_art else GROUND))
-    land.texture_region_size = Vector2i(TILE, TILE)
-    for y in range(8):
-        for x in range(8):
-            land.create_tile(Vector2i(x, y))
-    tile_set.add_source(land, 0)
-    var sea := TileSetAtlasSource.new()
-    var selected_water: String=water_path if regional_art else WATER
+    # A map owns its cell positions; only the immutable tile atlas is reused.
+    # Preserve source IDs 0=ground and 1=water and the 8x8/32px source grid.
+    var ground_texture: String = chosen_atlas if authored_art else (land_path if regional_art else GROUND)
+    var selected_water: String = water_path if regional_art else WATER
     if interior_building.is_empty() and str(map_profile.get("id",""))=="map_coast_04":
         var cavern_water: String="res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg"
         if ResourceLoader.exists(cavern_water):
             selected_water=cavern_water
-    sea.texture = CArtOverrides.texture(selected_water)
-    sea.texture_region_size = Vector2i(TILE, TILE)
-    for y in range(8):
-        for x in range(8):
-            sea.create_tile(Vector2i(x, y))
-    tile_set.add_source(sea, 1)
+    var atlas_sources: Array[String]=[ground_texture,selected_water]
+    var tile_set: TileSet=TilePool.shared(atlas_sources)
+    if tile_set == null:
+        push_error("Cannot build playable 32px atlas for "+str(map_profile.get("id","")))
+        return
     layer = TileMapLayer.new()
     layer.name = "PlayableGround"
     layer.tile_set = tile_set

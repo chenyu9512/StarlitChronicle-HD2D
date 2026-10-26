@@ -135,7 +135,7 @@ func refresh(state,core,life,message: String = "") -> void:
                     info=core.entry("weapons",item_id)
                 var price: int = int(info.get("buy_price",info.get("price",0)))
                 var label: String = "%s  ·  %d G" % [str(info.get("name",item_id)),price]
-                _add_action(label,"buy:"+item_id,price>0 and state.gold>=price)
+                _add_action(label,"buy:"+item_id,price>0 and state.gold>=price and core.shop_available(info))
             if core.count("item_herb_01")>0:
                 _add_action("出售盐露草  ·  回收 4 G","sell:item_herb_01")
         "inn":

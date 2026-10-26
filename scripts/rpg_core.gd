@@ -199,12 +199,22 @@ func unequip(id: String, slot: String) -> String:
     add_item(old,1)
     return "装备已放回背包。"
 
+# The tier gate is tied to narrative progress, never player gold.
+# Tier 1 remains accessible in the prologue; tier 10 opens in chapter 72.
+func market_tier() -> int:
+    return clampi(1 + floori(float(maxi(0,state.chapter-1))*9.0/71.0),1,10)
+
+func shop_available(info: Dictionary) -> bool:
+    return not info.is_empty() and maxi(1,int(info.get("tier",1))) <= market_tier()
+
 func buy(id: String) -> String:
     var info: Dictionary = {}
     for cat in ["items","weapons","armor"]:
         info = entry(cat,id)
         if not info.is_empty():
             break
+    if not shop_available(info):
+        return "尚未解锁此档次的货物，请继续主线冒险。"
     var cost: int = int(info.get("buy_price",info.get("price",0)))
     if cost < 1 or state.gold < cost:
         return "金币不足或无法购买。"

@@ -484,11 +484,12 @@ func render(section: String) -> void:
                 _label("已发现 %d/%d 种；亲自遭遇后才解锁档案。" % [unlocked,manager.records(encyclopedia).size()])
         "商店":
             _label("商店：购买 / 出售",true)
+            _label("第%d章商品档次：1～%d阶（最高10阶随主线开放）" % [save_state.chapter,manager.market_tier()])
             for cat in ["items","weapons","armor"]:
                 for entry in manager.records(cat):
                     var key: String = str(entry.get("id",""))
                     var price: int = int(entry.get("buy_price",entry.get("price",0)))
-                    if price <= 0:
+                    if price <= 0 or not manager.shop_available(entry):
                         continue
                     _button(content,"买 "+str(entry.get("name",""))+"  "+str(price)+"G",func() -> void: _apply(manager.buy(key)),14)
             _label("出售背包",true)

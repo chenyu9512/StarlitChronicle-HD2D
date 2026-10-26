@@ -25,6 +25,9 @@ const DIALOGUE: Dictionary = {
     "region_city":["新城市的每盏灯都要有人维护。","居民街欢迎来自世界各地的人。","自由议事厅里人人都有发表意见的权利。"]
 }
 var citizens: Dictionary = {}
+var by_id: Dictionary = {}
+const ChoiceEchoes = preload("res://scripts/story_choice_echoes.gd")
+var echoes = ChoiceEchoes.new()
 
 func _init() -> void:
     var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(NPCS_PATH))
@@ -35,6 +38,7 @@ func _init() -> void:
                 if not citizens.has(region):
                     citizens[region] = []
                 (citizens[region] as Array).append(record)
+                by_id[str(record.get("id",""))] = record
 
 func residents(region_id: String) -> Array:
     return citizens.get(region_id,[]).duplicate()
@@ -43,36 +47,50 @@ func position_for(index: int, hour: int) -> Vector2i:
     var candidates: Array[Vector2i] = CITIZEN_NIGHT if hour < 6 or hour >= 20 else CITIZEN_DAY
     return candidates[index % candidates.size()]
 
+func citizen(npc_id: String) -> Dictionary:
+    return (by_id.get(npc_id,{}) as Dictionary).duplicate(true)
+
+func residents_for_map(map_id: String) -> Array:
+    var matching: Array = []
+    for npc in by_id.values():
+        if str(npc.get("map_id","")) == map_id:
+            matching.append(npc.duplicate(true))
+    return matching
+
 func talk(npc_id: String, region_id: String, clock: Dictionary, state) -> Dictionary:
-    var citizen: Dictionary = {}
-    for entry in residents(region_id):
-        if str(entry.get("id","")) == npc_id:
-            citizen = entry
-            break
-    if citizen.is_empty():
+    var person: Dictionary = citizen(npc_id)
+    if person.is_empty() or str(person.get("region_id",""))!=region_id or state==null:
         return {"text":"这里没有人回应。","first":false}
+    # Retain the existing first-contact flag and V3 save contract.
     if not state.rpg.get("talked_to") is Dictionary:
         state.rpg["talked_to"] = {}
     var talked: Dictionary = state.rpg["talked_to"]
     var first: bool = not talked.has(npc_id)
     talked[npc_id] = true
-    var day: int = int(clock.get("day",1))
-    var rotation: int = abs(npc_id.hash()+day) % 3
-    var lines: Array = DIALOGUE.get(region_id,["旅行时注意安全。"])
-    var quote: String = str(lines[rotation % lines.size()])
-    var occupation: String = str(citizen.get("role","lore"))
-    var suffix: String = ""
-    match occupation:
-        "shop": suffix = "若需要补给，可以去商店。"
-        "craft": suffix = "工房里也许有你需要的技艺。"
-        "quest": suffix = "冒险者公会会记录这片地区的委托。"
-        "rumor": suffix = "这片地方每天都有新的消息。"
-        _: suffix = "旅途上的故事值得被记住。"
-    return {
-        "name":str(citizen.get("name",npc_id)),
-        "text":"%s\n%s" % [quote,suffix],
-        "first":first
-    }
+    var hour: int = posmod(int(clock.get("minutes",480))/60,24)
+    var current_chapter: int = int(state.chapter)
+    var context: String = "first" if first else "repeat"
+    var completed: bool = bool(state.flags.get("story.ch%03d.done" % maxi(1,current_chapter-1),false))
+    if not first and (hour>=20 or hour<6):
+        context = "night"
+    elif not first and completed:
+        context = "after_chapter"
+    var dialogues: Dictionary = person.get("dialogue_states",{})
+    var text_line: String = str(dialogues.get(context,""))
+    if text_line.is_empty():
+        var original: Array = person.get("dialogue",[])
+        text_line = str(original[0]) if not original.is_empty() else "今晚的灯火很安静。"
+    var reflection: Dictionary = echoes.latest_prior_choice(current_chapter,state.flags)
+    if not reflection.is_empty() and context=="after_chapter":
+        # The NPC-specific response interprets existing completed decisions;
+        # it does not invent a new quest flag or give extra items.
+        text_line += "\n" + str(dialogues.get("choice_reflection",""))
+    var activity: String = str(person.get("occupation",""))
+    return {"name":str(person.get("name",npc_id)),"text":text_line,
+        "first":first,"npc_id":npc_id,"dialogue_phase":context,
+        "occupation":activity,"relation_ids":person.get("relationships",[]),
+        "choice_event_id":str(reflection.get("event_id",""))}
+
 
 func town_shop_ids(region_id: String,core) -> Array[String]:
     var tier: int = maxi(0,REGIONS.find(region_id))

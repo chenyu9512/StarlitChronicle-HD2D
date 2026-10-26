@@ -66,6 +66,14 @@ func _run() -> void:
     root.add_child(world)
     world.build(1,2)
     world.interacted.connect(_on_interaction)
+    if world.coastal_scene!=null:
+        for tree in world.coastal_scene.wind_sway_sprites:
+            if not is_instance_valid(tree) or str(tree.get_meta("art_kind","")) not in ["saltwind_oak","sea_wind_pine"]:
+                continue
+            var base:=Vector2i(floori(tree.position.x/32.0),floori(tree.position.y/32.0))
+            check(not geo._inside_town_building(base,geo.zone("map_coast_01")),"A coastal tree root overlaps house: "+str(base))
+            var row: Vector2i=world.terrain_layout.get("tiles",{}).get(base,Vector2i.ZERO)
+            check(row.y!=3,"A coastal tree root occupies a paved roadway: "+str(base))
     for building in geo.zone("map_coast_01").get("buildings",[]):
         var id: String=str(building["id"])
         var d: Array=building["door"]

@@ -11,11 +11,18 @@ var weather: String = "clear"
 var phase: float = 0.0
 var reduced_motion: bool = false
 var animation_step: float = 0.15
+var visual_quality: int = 1
 
 func set_reduced_motion(value: bool) -> void:
     reduced_motion = value
     animation_step = 0.40 if value else 0.15
     queue_redraw()
+
+func set_visual_quality(level: int) -> void:
+    # Weather identity never changes with graphics quality; only drawing cost.
+    visual_quality = clampi(level,0,2)
+    set_reduced_motion(visual_quality == 0)
+
 var hero: Node2D
 
 func configure(map_key: String,biome: String,extent: Vector2i = Vector2i(72,48)) -> void:
@@ -78,7 +85,8 @@ func _draw() -> void:
     if weather in ["rain","ash"]:
         var center: Vector2=hero.position
         var speed: float=phase*43.0
-        for index in range(62):
+        var particle_budget: int = 16 if visual_quality==0 else (36 if visual_quality==1 else 62)
+        for index in range(particle_budget):
             var code: int=abs((index*7321+day*917+map_id.hash())%65535)
             var origin: Vector2=center+Vector2(float(code%760)-380.0,float((code/97)%540)-270.0)+Vector2(-speed,speed)
             if weather=="rain":

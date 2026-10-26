@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate all forty authorable level files
         run: python3 tools/materialize_world_v3.py --verify
+      - name: Check all 40 map/atlas grids and 97 interior views
+        run: python3 tools/validate_all_map_display.py
       - name: Download Godot 4.7.2
         run: |
           curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
@@ -22,6 +24,8 @@ jobs:
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
       - name: Run minimap and world atlas gameplay regression
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+      - name: Draw all 40 real world sectors, adaptive minimaps and indoor/outdoor map
+        run: timeout 240s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_all_maps_minimap.gd
       - name: Validate editable V3 wilderness geometry and hand-painted collision rules
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
       - name: Discoverable local map and persistent indoor fog

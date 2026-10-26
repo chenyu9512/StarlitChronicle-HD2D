@@ -427,10 +427,18 @@ func reachable(layout_data: Dictionary, origins: Array[Vector2i], targets: Array
     var walls: Dictionary = layout_data.get("blocked",{})
     var extent: Vector2i = layout_data.get("size",Vector2i(WIDTH,HEIGHT))
     var explored: Dictionary = {}
-    var queue: Array[Vector2i] = origins.duplicate()
-    for start in queue:
-        if not walls.has(start):
-            explored[start]=true
+    var queue: Array[Vector2i] = []
+    # Never traverse a blocked or out-of-map origin. The old queue leaked
+    # through blocked starting cells and reported false-positive reachability.
+    for start in origins:
+        if start.x<2 or start.y<2 or start.x>=extent.x-2 or start.y>=extent.y-2:
+            continue
+        if walls.has(start) or explored.has(start):
+            continue
+        explored[start]=true
+        queue.append(start)
+    if queue.is_empty():
+        return false
     var index: int = 0
     while index<queue.size():
         var cur: Vector2i = queue[index]

@@ -1,5 +1,7 @@
 extends RefCounted
 ## 72章场景调查与NPC状态，按编剧分支stage07 ID绑定而不复制台词。
+const ChoiceEchoes = preload("res://scripts/story_choice_echoes.gd")
+var choice_echoes = ChoiceEchoes.new()
 var objects_by_chapter: Dictionary = {}
 var npc_by_chapter: Dictionary = {}
 var midpoint_by_chapter: Dictionary = {}
@@ -46,6 +48,9 @@ func inspection_lines(item: Dictionary) -> Array:
             lines.append(entry)
     return lines
 
+func latest_prior_choice(chapter: int,flags: Dictionary) -> Dictionary:
+    return choice_echoes.latest_prior_choice(chapter,flags)
+
 func npc_state(chapter: int, scene_index: int, flags: Dictionary) -> Dictionary:
     var pack: Dictionary = npc_by_chapter.get(_key(chapter),{})
     var states: Dictionary = pack.get("npc_states",{})
@@ -54,7 +59,16 @@ func npc_state(chapter: int, scene_index: int, flags: Dictionary) -> Dictionary:
         phase = "completed"
     elif scene_index >= 1:
         phase = "investigating"
-    return states.get(phase,{})
+    var original: Dictionary = states.get(phase,{})
+    if original.is_empty():
+        return {}
+    var echo: Dictionary = latest_prior_choice(chapter,flags)
+    if echo.is_empty():
+        return original
+    var updated: Dictionary = original.duplicate(true)
+    updated["text"] = str(original.get("text",""))+"\n旅途传来的后续消息："+str(echo.get("observation",""))
+    updated["world_echo_event_id"] = str(echo.get("event_id",""))
+    return updated
 
 func midpoint(chapter: int, flags: Dictionary) -> Dictionary:
     if chapter < 1 or bool(flags.get("explore.ch%03d.midpoint" % chapter,false)):

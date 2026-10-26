@@ -847,10 +847,38 @@ func refresh_room_evidence(rpg: Dictionary) -> void:
         else:
             marker.modulate = Color("d9d9e9")
 
-func refresh_room_npcs(flags: Dictionary) -> void:
-    if not interior_building.begins_with("quest__"):
+func _refresh_world_choice_echo(flags: Dictionary) -> void:
+    if not interior_building.is_empty() or not nodes.has("ambient_npc"):
         return
+    var marker: Sprite2D = nodes["ambient_npc"]
+    var echo: Dictionary = scene_director.latest_world_echo(str(map_profile.get("id","")),flags)
+    var label: Label = marker.get_node_or_null("ChoiceWorldEcho") as Label
+    if echo.is_empty():
+        marker.modulate = Color.WHITE
+        if marker.has_meta("story_choice_event_id"):
+            marker.remove_meta("story_choice_event_id")
+        if label != null:
+            label.visible = false
+        return
+    marker.set_meta("story_choice_event_id",str(echo.get("event_id","")))
+    marker.set_meta("story_choice_observation",str(echo.get("observation","")))
+    marker.modulate=Color("8bd4f5") if str(echo.get("route",""))=="listen" else Color("efcd8a")
+    if label == null:
+        label=Label.new()
+        label.name="ChoiceWorldEcho"
+        label.position=Vector2(-83,-60)
+        label.custom_minimum_size.x=166
+        label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+        label.add_theme_font_size_override("font_size",11)
+        marker.add_child(label)
+    label.text="旧事回响 · "+str(echo.get("label","")).left(11)
+    label.visible=true
+
+func refresh_room_npcs(flags: Dictionary) -> void:
     story_palette_flags = flags.duplicate()
+    if not interior_building.begins_with("quest__"):
+        _refresh_world_choice_echo(flags)
+        return
     var quest_id: String = interior_building.trim_prefix("quest__")
     var route: String = str(flags.get("side."+quest_id+".approach",""))
     var finished: bool = bool(flags.get("side."+quest_id+".done",false))

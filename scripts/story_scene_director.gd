@@ -2,10 +2,12 @@ extends RefCounted
 ## Stage19-3: canonical evidence dressing for 120 authored quest locations.
 ## Never changes original quest rewards or converts a sector hub into a fabricated submap.
 const SOURCE: String = "res://story/data/phase19_scene_dressing.json"
+const ChoiceEchoes = preload("res://scripts/story_choice_echoes.gd")
 const VALID_PROPS: Array[String] = [
     "crate","sea_crystal","star_lantern","barrel","medicine_basket","flowerpot"
 ]
 var dossiers: Dictionary = {}
+var choice_echoes = ChoiceEchoes.new()
 var errors: Array[String] = []
 
 func _init() -> void:
@@ -33,6 +35,11 @@ func _init() -> void:
         dossiers[id] = entry
     if dossiers.size() != 120:
         errors.append("120 separate original quest dossiers required")
+    for issue in choice_echoes.errors:
+        errors.append(issue)
+
+func latest_world_echo(map_id: String,flags: Dictionary) -> Dictionary:
+    return choice_echoes.latest_world_echo(map_id,flags)
 
 func dossier(quest_id: String) -> Dictionary:
     return dossiers.get(quest_id,{})

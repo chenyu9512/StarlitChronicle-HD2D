@@ -95,6 +95,14 @@ func abort() -> bool:
     finished = true
     return true
 
+## Call after an interior exit / map transition to prevent instant re-encounters.
+static func grant_exploration_grace(world: Node, distance_px: float = 520.0) -> bool:
+    if not is_instance_valid(world) or distance_px <= 0.0:
+        return false
+    world.set("encounter_meter",minf(float(world.get("encounter_meter")),0.0)-distance_px)
+    world.set("next_encounter",maxf(float(world.get("next_encounter")),350.0))
+    return true
+
 func checkpoint() -> Dictionary:
     return checkpoint_data.duplicate(true)
 

@@ -1,6 +1,7 @@
 extends RefCounted
 ## B: schedule/pathfinding; C: visual motion/turn/life action. D: occupancy arbiter.
 const Daily = preload("res://scripts/world_npc_daily.gd")
+const Router = preload("res://scripts/d_world_interaction/interaction_router.gd")
 const TILE: float = 32.0
 var schedule = Daily.new()
 var occupant_cells: Dictionary = {}
@@ -61,10 +62,12 @@ func update(npc_id: String, map_id: String, minutes: int, current: Vector2,
 static func safe_follower_position(current: Vector2, wanted: Vector2,
         blocked: Dictionary, protected: Dictionary, extent: Vector2i,
         delta: float, speed: float = 90.0) -> Vector2:
-    var proposed: Vector2=current.move_toward(wanted,maxf(0.0,delta)*speed)
+    var proposed: Vector2=current.move_toward(wanted,minf(maxf(0.0,delta),0.10)*speed)
     var cell: Vector2i=Vector2i(floori(proposed.x/TILE),floori(proposed.y/TILE))
     if cell.x<2 or cell.y<2 or cell.x>=extent.x-2 or cell.y>=extent.y-2:
         return current
     if blocked.has(cell) or protected.has(cell):
+        return current
+    if not Router.clear_path(current,proposed,blocked) or not Router.clear_path(current,proposed,protected):
         return current
     return proposed

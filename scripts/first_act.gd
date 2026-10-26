@@ -1308,13 +1308,13 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         game_events.record("battle_victory",{"boss":is_boss,"xp":xp,"gold":money})
         if is_boss:
             cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
-            var job_levels: Array = details.get("job_levels",[])
+            var job_levels: PackedStringArray = PackedStringArray(details.get("job_levels",[]))
             if not job_levels.is_empty():
                 ui.show_message("职业提升：" + "；".join(job_levels))
         else:
-            var level_text: Array = details.get("levels",[])
-            var jobs_text: Array = details.get("job_levels",[])
-            var loot_text: Array = details.get("loot",[])
+            var level_text: PackedStringArray = PackedStringArray(details.get("levels",[]))
+            var jobs_text: PackedStringArray = PackedStringArray(details.get("job_levels",[]))
+            var loot_text: PackedStringArray = PackedStringArray(details.get("loot",[]))
             ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s%s" % [
                 int(details.get("xp",0)),int(details.get("gold",0)),
                 "，".join(level_text) + "；".join(jobs_text),

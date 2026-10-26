@@ -63,7 +63,8 @@ func mitigated_damage(raw: int, id: String, guarded: bool = false) -> int:
         multiplier *= 0.35
     if int(status.get("shield_turns",0)) > 0:
         multiplier *= 0.65
-    return maxi(0,roundi(raw*multiplier))
+    # Cap hostile damage before conversion to prevent overflow from malformed save/data.
+    return clampi(roundi(float(clampi(raw,0,1000000))*multiplier),0,1500000)
 
 func tick_round() -> void:
     for id in actor_effects:
@@ -331,8 +332,6 @@ func vocation_damage(raw: int, passive: String, action: String, foe: Dictionary,
             if action == "skill": amount = roundi(float(amount)*1.08)
         "breaker":
             if action == "special": amount += mini(25,int(foe.get("def",0))/4)
-        "shadow_blade":
-            pass
         "execute":
             if ratio <= 0.35: amount = roundi(float(amount)*1.22)
         "affinity":

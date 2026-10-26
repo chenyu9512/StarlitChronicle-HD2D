@@ -22,14 +22,14 @@ jobs:
           chmod +x Godot_v4.7.2-stable_linux.x86_64
       - name: Import map and UI dependencies
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
-      - name: Run minimap and world atlas gameplay regression
+      - name: Run local/minimap only UI regression
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
       - name: Draw all 40 real world sectors, adaptive minimaps and indoor/outdoor map
         run: timeout 240s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_all_maps_minimap.gd
       - name: Validate editable V3 wilderness geometry and hand-painted collision rules
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
-      - name: Discoverable local map and persistent indoor fog
-        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_fog_v3.gd
+      - name: All-visible local map without global atlas or fog
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_no_fog_local_map.gd
       - name: DQ-inspired authored town staging, service routes and interior design
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_direction_v4.gd
       - name: Validate Morning Dew Inn real room art and existing gameplay

@@ -10,6 +10,7 @@ signal save_slot_requested(slot: int)
 signal load_slot_requested(slot: int)
 signal housing_purchase_requested()
 signal housing_open_requested()
+signal visual_quality_changed(level: int)
 const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
@@ -168,6 +169,26 @@ func _apply(message: String) -> void:
     save_state.save()
     render(current)
     footer.text = message
+
+func _apply_visual_quality(level: int) -> void:
+    # Save first; never show a quality setting as persisted when its write fails.
+    var setting: Dictionary = save_state.rpg.get("settings",{})
+    var previous: Variant = setting.get("visual_quality",1)
+    var was_defined: bool = setting.has("visual_quality")
+    var requested: int = clampi(level,0,2)
+    setting["visual_quality"] = requested
+    save_state.rpg["settings"] = setting
+    if not save_state.save():
+        if was_defined:
+            setting["visual_quality"] = previous
+        else:
+            setting.erase("visual_quality")
+        footer.text = "画质设置保存失败，已保留原配置。"
+        return
+    visual_quality_changed.emit(requested)
+    render("设置")
+    footer.text = "画质已更新并保存。切换地图时仍沿用这一档位。"
+
 
 func _choose(pid: String) -> void:
     member = pid
@@ -557,6 +578,13 @@ func render(section: String) -> void:
                     save_state.rpg["settings"]["difficulty"] = value
                     _apply("难度设为 "+value+"，下次进入战斗后生效。")
                 )
+            _label("当前画质："+["省电","标准","高清"][clampi(int(save_state.rpg["settings"].get("visual_quality",1)),0,2)],true)
+            for quality in range(3):
+                var q: int=quality
+                _button(content,"画质： "+["省电","标准","高清"][q],func() -> void:
+                    _apply_visual_quality(q)
+                )
+            _label("省电：减少天气和水面动画，简化室内灯光；标准：平衡性能；高清：完整动态光影。")
             _label("休闲：敌方攻击72% · 标准：正常 · 挑战：敌方攻击138%。")
             _label("全篇战斗与技能遵循同一数值规则；第5、6章剧情胜利条件不受难度变化影响。")
             _button(content,"立即保存",func() -> void: _apply("已写入存档。" if save_state.save() else "存档写入失败。"))

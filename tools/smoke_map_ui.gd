@@ -1,5 +1,5 @@
 extends SceneTree
-## Real-engine map regression: playable cells, modal navigation, world node graph and travel permissions.
+## Real-engine map regression: fog-free current area, compact minimap, no global atlas.
 const World = preload("res://scripts/first_act_world.gd")
 const Atlas = preload("res://scripts/map_hud.gd")
 const State = preload("res://scripts/first_act_state.gd")
@@ -36,22 +36,26 @@ func _run() -> void:
     _expect(atlas.full_view.mode == "local","Expanded view must open on local terrain")
     atlas._set_mode("world")
     await process_frame
-    _expect(atlas.full_view.mode == "world","World atlas must be selectable")
-    _expect(atlas.full_view.map_points.size() == 40,"World atlas must show 40 explorable locations; legacy prototypes remain excluded")
-    _expect(not router.can_travel("unknown_map"),"Unknown nodes must never permit travel")
+    _expect(atlas.full_view.mode == "local","Deprecated world chart must fall back to current area")
+    _expect(atlas.full_view.local_frame().get("columns",0) == world.WIDTH,
+        "Current area map must display the entire actual terrain without fog")
+    _expect(atlas.small_view.local_frame().get("width",0) == world.WIDTH,
+        "Compact minimap must track the actual playable world dimensions")
+    _expect(not router.can_travel("unknown_map"),"Map UI must not unlock travel")
     var flags_before: Dictionary = state.flags.duplicate(true)
     var world_before: Dictionary = state.rpg.get("world",{}).duplicate(true)
-    atlas._on_location_selected(router.current_map())
-    atlas._try_travel()
-    _expect(state.flags == flags_before,"Map selection must not change story flags")
-    _expect(state.rpg.get("world",{}) == world_before,"Map selection must not travel without permission")
+    atlas.full_view.zoom_local(2.0)
+    _expect(atlas.full_view.local_zoom > 1.0,"Current area map zoom must remain usable")
+    atlas.full_view.reset_local_view()
+    _expect(state.flags == flags_before and state.rpg.get("world",{}) == world_before,
+        "Reading and zooming map must not mutate world state")
     atlas.close_map()
     _expect(not atlas.is_open(),"Closing map should remove modal")
     _expect(atlas.small_frame.visible,"Closing map should restore the minimap")
     atlas.show_exploration(false)
     _expect(not atlas.small_frame.visible,"Battle/story/menu must hide minimap")
     if errors.is_empty():
-        print("PASS: minimap, local atlas, 40 geographic gameplay sectors plus two excluded prototypes, objectives, gated travel and modal closure")
+        print("PASS: fog-free minimap, full local terrain, no world atlas, retained objectives and modal closure")
         quit(0)
     else:
         for error in errors:

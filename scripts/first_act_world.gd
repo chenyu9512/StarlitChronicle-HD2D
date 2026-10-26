@@ -309,7 +309,7 @@ func _decorate() -> void:
             # the 21 V7 wilderness scenes. Existing town furniture is preserved.
             if field_ecology.config(str(map_profile.get("id",""))).is_empty() or bool(map_profile.get("settlement",false)):
                 if not bool(map_profile.get("settlement",false)) or _town_prop_clear(kind,cell):
-                    _add_sprite(kind,cell,false,true)
+                    _add_sprite(kind,cell,_reserve_tree_trunk(cell) if bool(map_profile.get("settlement",false)) and kind=="palm_tree" else false,true)
     # Each V7 wilderness scene receives its own 16-site art dressing pass,
     # with biome-correct props, palette variation and authored placements.
     var outdoor_art: Dictionary=field_ecology.config(str(map_profile.get("id","")))
@@ -342,7 +342,7 @@ func _decorate() -> void:
                     continue
                 var site: Vector2i=geography.old_to_new(Vector2i(int(entry[1]),int(entry[2])))
                 if _town_prop_clear(kind,site):
-                    _add_sprite(kind,site,false,true)
+                    _add_sprite(kind,site,_reserve_tree_trunk(site) if kind=="palm_tree" else false,true)
         return
     var objects: Array = [
         ["palm_tree", 7, 5], ["palm_tree", 38, 6], ["cottage", 11, 6], ["cottage", 34, 6],
@@ -378,6 +378,13 @@ func _install_coastal_scenery() -> void:
     coastal_scene.name="CoastalScene"
     scenery.add_child(coastal_scene)
     coastal_scene.configure(map_id,terrain_layout,scenery)
+    # Tall coastal tree roots are solid only when this does not cut a required
+    # route. Bushes and canopy art remain walk-through visual layers.
+    for tree in coastal_scene.wind_sway_sprites:
+        if not is_instance_valid(tree) or not str(tree.get_meta("art_kind","")) in ["saltwind_oak","sea_wind_pine"]:
+            continue
+        var trunk: Vector2i=Vector2i(floori(tree.position.x/TILE),floori(tree.position.y/TILE))
+        _reserve_tree_trunk(trunk)
 
 func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind
@@ -402,6 +409,42 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
 
 ## Town dressing is cosmetic, never an extra fake doorway and never laid
 ## over a house, a sidewalk threshold, a quest anchor or the main route.
+## A tree occupies one foot tile, never its full canopy. Refuse the blocker
+## unless the player's accessible network (quests, doors, exits) stays intact.
+func _reserve_tree_trunk(cell: Vector2i) -> bool:
+    if not interior_building.is_empty() or blocked.has(cell) or cell.x<3 or cell.y<3 or cell.x>=WIDTH-3 or cell.y>=HEIGHT-3:
+        return false
+    var from: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
+    var connected: Dictionary=_walkable_tiles()
+    if not connected.has(cell):
+        return false
+    var must_reach: Array[Vector2i]=[]
+    for landmark in geography._anchors():
+        if connected.has(landmark):
+            must_reach.append(landmark)
+    for feature in terrain_layout.get("features",[]):
+        if not feature.has("building"):
+            continue
+        var entrance: Vector2i=feature.get("door",Vector2i.ZERO)+Vector2i.DOWN
+        if cell.distance_squared_to(entrance)<13:
+            return false
+        if connected.has(entrance):
+            must_reach.append(entrance)
+    for gate in terrain_layout.get("gates",[]):
+        var exit: Vector2i=gate.get("cell",Vector2i.ZERO)
+        if connected.has(exit):
+            must_reach.append(exit)
+    var candidate: Dictionary=blocked.duplicate()
+    candidate[cell]=true
+    if not geography.reachable({"blocked":candidate,"size":Vector2i(WIDTH,HEIGHT)},[from],must_reach):
+        return false
+    blocked[cell]=true
+    var authoritative: Dictionary=terrain_layout.get("blocked",{})
+    authoritative[cell]=true
+    terrain_layout["blocked"]=authoritative
+    reachable_tiles.clear()
+    return true
+
 func _town_prop_clear(kind: String,site: Vector2i) -> bool:
     if kind=="cottage" or site.x<3 or site.y<3 or site.x>=WIDTH-3 or site.y>=HEIGHT-3 or blocked.has(site):
         return false

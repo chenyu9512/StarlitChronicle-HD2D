@@ -171,12 +171,14 @@ func _run() -> void:
     for yy in range(11,36):
         for xx in range(0,23):
             sealed.walls[Vector2i(xx,yy)] = true
+    sealed.hero.position=Vector2(1408,800)  # Keep the existing fallback position walkable.
     var old_sealed_position: Vector2=sealed.hero.position
     check(bool(sealed_handoff.mark_result(false).get("ok",false)),"sealed room settlement")
     var sealed_result: Dictionary = sealed_handoff.restore(sealed)
     check(not bool(sealed_result.get("resume_world",true)),"no-safe-spawn incorrectly resumed input")
     check(not bool(sealed_result.get("ok",true)),"no-safe-spawn reported success")
-    check(sealed.hero.position==old_sealed_position,"no-safe-spawn teleported hero into wall")
+    check(sealed.hero.position==old_sealed_position,"no-safe-spawn moved the hero without a valid destination")
+    check(not sealed._blocked(sealed.hero.position),"no-safe-spawn left player inside authored walls")
     var parent := MockController.new()
     root.add_child(parent)
     var auto_world := MockWorld.new()

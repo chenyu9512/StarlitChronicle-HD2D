@@ -359,6 +359,8 @@ func _path_around_roofs(start: Vector2i,goal: Vector2i,roofs: Dictionary,walls: 
     var steps: Array[Vector2i]=[Vector2i.UP,Vector2i.LEFT,Vector2i.RIGHT,Vector2i.DOWN]
     while not frontier.is_empty():
         var current: Vector2i=frontier.pop_front()
+        if current==goal:
+            break
         var current_cost: int=int(distances[current])
         for offset in steps:
             var next: Vector2i=current+offset

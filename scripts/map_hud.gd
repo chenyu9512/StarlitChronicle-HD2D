@@ -274,8 +274,8 @@ func _refresh_zoom_toolbar() -> void:
     zoom_in_button.visible = local
     zoom_out_button.visible = local
     recenter_button.visible = local
-    zoom_in_button.disabled = full_view.local_zoom >= full_view.MAX_LOCAL_ZOOM
-    zoom_out_button.disabled = full_view.local_zoom <= full_view.MIN_LOCAL_ZOOM
+    zoom_in_button.disabled = full_view.local_zoom >= View.MAX_LOCAL_ZOOM
+    zoom_out_button.disabled = full_view.local_zoom <= View.MIN_LOCAL_ZOOM
     zoom_status.text = ("缩放 %d%% · 拖动查看地图" % roundi(full_view.local_zoom * 100.0)) if local else "轻触地点查看路线"
 
 func _on_location_selected(map_id: String) -> void:

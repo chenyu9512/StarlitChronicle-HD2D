@@ -49,7 +49,7 @@ for row in curve:
         effective_hp = row["player_hp"]*party
         survival_rounds = math.ceil(effective_hp/max(1,incoming))
         assert 1 <= estimated_turns <= 20, (chapter,difficulty,"time-to-defeat envelope",estimated_turns)
-        assert survival_rounds >= 2, (chapter,difficulty,"unsurvivable envelope")
+        assert 4 <= survival_rounds <= 25, (chapter,difficulty,"unsafe/unthreatening envelope",survival_rounds)
         samples.append((chapter,difficulty,estimated_turns,survival_rounds))
     previous = row
 print(f"DATA PASS: chapters={len(curve)}, Bosses={len(bosses)}, vocations={len(profiles)}, "

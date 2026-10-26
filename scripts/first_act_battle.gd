@@ -377,6 +377,17 @@ func _hide_skills() -> void:
 func _begin_round() -> void:
     # Freeze the announced action: crossing half HP during player turns must
     # not silently replace it with a different phase/low-health attack.
+    if boss and boss_mechanics != null and boss_mechanics.enabled():
+        var environment: Dictionary = boss_mechanics.round_effects(current_round)
+        var restoration: int = roundi(float(enemy.get("max_hp",1))*float(environment.get("heal_ratio",0.0)))
+        if restoration > 0:
+            enemy["hp"] = mini(int(enemy.get("max_hp",1)),int(enemy.get("hp",0))+restoration)
+        if not str(environment.get("weakness","")).is_empty():
+            enemy["weakness"] = str(environment.get("weakness",""))
+        enemy["speed"] = maxi(1,int(enemy.get("base_speed",enemy.get("speed",8)))+int(environment.get("speed_bonus",0)))
+        if not enemy.has("base_speed"):
+            enemy["base_speed"] = int(enemy.get("speed",8))-int(environment.get("speed_bonus",0))
+        formation.units[0] = enemy
     round_boss_intent = (boss_mechanics.intent(current_round) if boss_mechanics != null and boss_mechanics.enabled() else combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors)).duplicate(true) if boss else {}
     last_warning_text = ""
     var eligible: Array = []
@@ -796,6 +807,8 @@ func _enemy_action(index: int) -> void:
     var effect: Dictionary = combat_rules.resolve_enemy_turn(index,int(enemy.get("max_hp",1)))
     var damage_over_time: int = int(effect.get("damage",0))
     if damage_over_time > 0:
+        if boss and boss_mechanics != null and boss_mechanics.protect_from_lethal():
+            damage_over_time = mini(damage_over_time,maxi(0,int(enemy.get("hp",1))-1))
         formation.apply_damage(index,damage_over_time)
         enemy = formation.units[index]
         if is_instance_valid(enemy_stage):
@@ -807,6 +820,9 @@ func _enemy_action(index: int) -> void:
         return
     if int(enemy.get("hp",0)) > 0 and not bool(effect.get("skip",false)):
         _enemy_strike(index)
+        if boss and boss_mechanics != null and boss_mechanics.enabled() and not win_locked:
+            if str(boss_mechanics.spec.get("archetype","")) == "multi_hit" and boss_mechanics.phase_two and current_round % maxi(2,int(boss_mechanics.spec.get("cadence",3))) == 0:
+                _enemy_strike(index)
     if formation.valid_target(original_target):
         _select_enemy(original_target)
     elif not formation.alive_indices().is_empty():
@@ -823,9 +839,14 @@ func _enemy_strike(attacker_index: int = -1) -> void:
     var intent: Dictionary = round_boss_intent if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors)
     last_enemy_action = str(enemy.get("name","敌人")) + " · " + str(intent.get("label","攻击"))
     var target: int = living[dice.randi_range(0, living.size() - 1)]
-    if str(intent.get("target","")) == "lowest_hp":
+    var targeting: String = str(intent.get("target",""))
+    if targeting in ["lowest_hp","highest_hp","lowest_mp"]:
         for i in living:
-            if int(game_state.actors[i].get("hp",0)) < int(game_state.actors[target].get("hp",0)):
+            if targeting == "lowest_hp" and int(game_state.actors[i].get("hp",0)) < int(game_state.actors[target].get("hp",0)):
+                target = i
+            elif targeting == "highest_hp" and int(game_state.actors[i].get("hp",0)) > int(game_state.actors[target].get("hp",0)):
+                target = i
+            elif targeting == "lowest_mp" and int(game_state.actors[i].get("mp",0)) < int(game_state.actors[target].get("mp",0)):
                 target = i
     var member: Dictionary = game_state.actors[target]
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member

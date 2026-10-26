@@ -49,6 +49,12 @@ func _run() -> void:
     missing_field.erase("dialogue_seen")
     check(not reader._valid_payload(missing_field), "Missing dialogue field passed V3 validation")
     missing_field = reader._pack()
+    missing_field["gold"] = "not a number"
+    check(not reader._valid_payload(missing_field), "Nonnumeric gold passed V3 validation")
+    missing_field = reader._pack()
+    missing_field["version"] = {"wrong": "type"}
+    check(not reader._valid_payload(missing_field), "Malformed save version passed V3 validation")
+    missing_field = reader._pack()
     missing_field["rpg"] = "bad nested state"
     check(not reader._valid_payload(missing_field), "Invalid rpg state passed V3 validation")
     var prior_gold: int = reader.gold

@@ -3,6 +3,9 @@ extends Node
 
 const SAVE_PATH := "user://starlit_save_v1.json"
 const SAVE_VERSION := 1
+# Mutable only for isolated test paths; legacy release default remains unchanged.
+var save_path: String = SAVE_PATH
+var backup_path: String = SAVE_PATH + ".bak"
 
 var map_id := "village"
 var spawn_tile := Vector2i(12, 17)
@@ -65,23 +68,90 @@ func save_game() -> bool:
         "story_flags": story_flags,
         "story_ending": story_ending
     }
-    var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-    if file == null:
-        push_warning("保存失败：" + str(FileAccess.get_open_error()))
+    if not _valid_legacy_payload(payload):
         return false
-    file.store_string(JSON.stringify(payload, "  "))
+    var temp: String = save_path + ".tmp"
+    var file: FileAccess = FileAccess.open(temp,FileAccess.WRITE)
+    if file == null:
+        push_warning("V1存档临时写入失败：" + str(FileAccess.get_open_error()))
+        return false
+    file.store_string(JSON.stringify(payload,"  "))
+    file.flush()
     file.close()
+    if not _valid_legacy_payload(_read_legacy_payload(temp)):
+        return false
+    # Never destroy the previous good V1 save when temp write or verification fails.
+    if FileAccess.file_exists(save_path):
+        var old: Variant = _read_legacy_payload(save_path)
+        if _valid_legacy_payload(old):
+            var backup_temp: String = backup_path + ".tmp"
+            var out: FileAccess = FileAccess.open(backup_temp,FileAccess.WRITE)
+            if out == null:
+                return false
+            out.store_string(JSON.stringify(old,"  "))
+            out.flush()
+            out.close()
+            if not _valid_legacy_payload(_read_legacy_payload(backup_temp)):
+                return false
+            if DirAccess.rename_absolute(
+                    ProjectSettings.globalize_path(backup_temp),
+                    ProjectSettings.globalize_path(backup_path)) != OK:
+                return false
+    return DirAccess.rename_absolute(
+        ProjectSettings.globalize_path(temp),
+        ProjectSettings.globalize_path(save_path)) == OK
+
+func _read_legacy_payload(path: String) -> Variant:
+    if not FileAccess.file_exists(path):
+        return null
+    return JSON.parse_string(FileAccess.get_file_as_string(path))
+
+func _valid_legacy_payload(candidate: Variant) -> bool:
+    if not (candidate is Dictionary):
+        return false
+    var data: Dictionary = candidate
+    if typeof(data.get("version",-1)) not in [TYPE_INT,TYPE_FLOAT] or int(data["version"]) != SAVE_VERSION:
+        return false
+    var map_name: String = str(data.get("map_id",""))
+    if map_name not in ["village","ruins"]:
+        return false
+    var coords: Variant = data.get("spawn_tile",null)
+    if not (coords is Array) or coords.size()!=2:
+        return false
+    for v in coords:
+        if typeof(v) not in [TYPE_INT,TYPE_FLOAT]:
+            return false
+    for field in ["quest_stage","gold","potions","story_chapter","story_scene"]:
+        if data.has(field) and typeof(data[field]) not in [TYPE_INT,TYPE_FLOAT]:
+            return false
+    if int(data.get("gold",35))<0 or int(data.get("potions",3))<0:
+        return false
+    if not (data.get("party",null) is Array) or (data["party"] as Array).size()!=2:
+        return false
+    for person in data["party"]:
+        if not (person is Dictionary):
+            return false
+        for field in ["name","hp","max_hp","mp","max_mp","level","xp"]:
+            if not person.has(field):
+                return false
+        for field in ["hp","max_hp","mp","max_mp","level","xp"]:
+            if typeof(person[field]) not in [TYPE_INT,TYPE_FLOAT]:
+                return false
+    if not (data.get("opened_chests",[]) is Array):
+        return false
+    if not (data.get("story_flags",{}) is Dictionary):
+        return false
     return true
 
 func load_game() -> bool:
-    if not FileAccess.file_exists(SAVE_PATH):
-        return false
-    var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-    if file == null:
-        return false
-    var parsed: Variant = JSON.parse_string(file.get_as_text())
-    file.close()
-    if not (parsed is Dictionary) or int(parsed.get("version", -1)) != SAVE_VERSION:
+    # V1 remains separate from V3; try the last known good backup before failing.
+    var parsed: Variant = null
+    for path in [save_path,backup_path]:
+        var candidate: Variant = _read_legacy_payload(path)
+        if _valid_legacy_payload(candidate):
+            parsed = candidate
+            break
+    if not (parsed is Dictionary):
         return false
     var loaded: Dictionary = parsed
     var coords: Array = loaded.get("spawn_tile", [12, 17])

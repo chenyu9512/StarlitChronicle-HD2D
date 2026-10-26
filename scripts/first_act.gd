@@ -1118,10 +1118,17 @@ func _dialogue_ended() -> void:
         "ending_epilogue":
             _finish_ending_scene()
             return
-        "side_accept":
-            progress.flags[_side_flag("accepted")] = true
-        "side_found":
-            progress.flags[_side_flag("found")] = true
+        "side_accept", "side_found":
+            var stage: String = "accepted" if pending == "side_accept" else "found"
+            var local_quest: Dictionary = side_quests.get(progress.chapter,{})
+            _capture_world_position()
+            var stage_result: Dictionary = QuestV3Settlement.settle_local_stage(
+                progress,progress.chapter,local_quest,stage)
+            pending = ""
+            if not bool(stage_result.get("ok",false)):
+                ui.show_message("支线阶段未保存，进度已回滚，请重新调查。")
+            _return_to_world()
+            return
         "side_complete":
             var quest: Dictionary = side_quests.get(progress.chapter, {})
             _capture_world_position()

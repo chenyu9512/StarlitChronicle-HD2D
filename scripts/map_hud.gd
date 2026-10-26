@@ -5,6 +5,7 @@ signal opened()
 signal closed()
 
 const View = preload("res://scripts/map_view.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 const INK: Color = Color("0b1c32")
 const GOLD: Color = Color("e6c47d")
 var world
@@ -44,13 +45,7 @@ func _ready() -> void:
     set_process(true)
 
 func _frame_style() -> StyleBoxFlat:
-    var style := StyleBoxFlat.new()
-    style.bg_color = Color("0c2237")
-    style.border_color = GOLD
-    style.set_border_width_all(2)
-    style.set_corner_radius_all(9)
-    style.set_content_margin_all(9)
-    return style
+    return CVisual.frame(CVisual.NAVY, CVisual.RIM, 10, 9)
 
 func _button(title: String) -> Button:
     var btn := Button.new()
@@ -59,6 +54,7 @@ func _button(title: String) -> Button:
     btn.add_theme_font_size_override("font_size", 17)
     btn.add_theme_color_override("font_color", Color("f8e9c6"))
     btn.add_theme_stylebox_override("normal", _frame_style())
+    CVisual.style_button(btn)
     return btn
 
 func _build_small() -> void:

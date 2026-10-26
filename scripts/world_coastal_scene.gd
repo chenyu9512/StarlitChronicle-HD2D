@@ -61,6 +61,7 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
         if sprite==null:
             continue
         sprite.name=id
+        sprite.set_meta("art_kind",asset)
         var depth_sorted: bool=layer in ["vegetation","foreground"] and is_instance_valid(depth_stage)
         # For depth props, the scene root is y-sorted with the hero. Do not
         # move the footpoint when adding a tall canopy: use Sprite2D.offset.

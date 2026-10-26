@@ -42,8 +42,15 @@ func configure(map_id: String, location: String = "street", indoors: bool = fals
     var authored: AudioStream = AssetRegistry.audio_stream(id)
     var stream: AudioStream = authored if authored != null else _original_loop(key)
     if transition != null and transition.is_running():
+        # Interrupted fades must not leave an abandoned channel playing.
         transition.kill()
+        for slot in range(ambient_players.size()):
+            if slot != current_slot:
+                ambient_players[slot].stop()
     if active_key.is_empty():
+        # A pending stop_scene fade may have been cancelled by this new scene.
+        for player in ambient_players:
+            player.stop()
         ambient_players[0].stream = stream
         ambient_players[0].volume_db = -37.0 if indoors else -42.0
         ambient_players[0].play()
@@ -68,6 +75,12 @@ func stop_scene(seconds: float = 0.25) -> void:
         transition.kill()
     if ambient_players.is_empty():
         return
+    # A crossfade can have two active sources; only the current source may fade.
+    for slot in range(ambient_players.size()):
+        if slot != current_slot:
+            ambient_players[slot].stop()
+    if is_instance_valid(cue_player):
+        cue_player.stop()
     var current: AudioStreamPlayer = ambient_players[current_slot]
     transition = create_tween()
     transition.tween_property(current, "volume_db", -60.0, maxf(0.05, seconds))

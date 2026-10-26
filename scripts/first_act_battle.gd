@@ -2,6 +2,7 @@ extends CanvasLayer
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
+const BattleBossMechanics = preload("res://scripts/battle_boss_mechanics.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
 const BattleActors = preload("res://scripts/battle_actors.gd")
@@ -20,6 +21,8 @@ var game_state
 var game_core
 var encounter_registry
 var combat_rules
+var boss_mechanics
+var last_boss_settlement: String = ""
 var formation
 var active_target: int = 0
 var skill_picker: PanelContainer
@@ -83,6 +86,8 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     win_locked = false
     last_warning_round = 0
     last_warning_text = ""
+    last_boss_settlement = ""
+    boss_mechanics = null
     if boss:
         var hp: int = 145 + chapter * 55
         var dmg: int = 12 + chapter * 2
@@ -90,6 +95,8 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         if not encounter_data.is_empty():
             enemy["name"] = str(encounter_data.get("display_name", enemy["name"]))
         enemy = encounter_registry.story_boss(chapter,encounter_data,enemy)
+        boss_mechanics = BattleBossMechanics.new()
+        boss_mechanics.start(enemy.get("boss_mechanics",{}))
         chain_hp = 125 if chapter == 5 else 0
     else:
         var monster_number: int = dice.randi_range(0, mini(8, chapter + 2))
@@ -235,7 +242,7 @@ func _build() -> void:
     _button(commands, "◇ 防御", "guard")
     _button(commands, "✦ 聚星", "charge")
     _button(commands, "✚ 药草", "potion")
-    var special_name: String = "✦ 拆除星锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else "✦ 识破弱点")
+    var special_name: String = "✦ 拆除星锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else ("✦ 破解机制" if boss and boss_mechanics != null and boss_mechanics.enabled() else "✦ 识破弱点"))
     special_button = _button(commands, special_name, "special")
     vfx = BattleFX.new()
     vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -370,7 +377,7 @@ func _hide_skills() -> void:
 func _begin_round() -> void:
     # Freeze the announced action: crossing half HP during player turns must
     # not silently replace it with a different phase/low-health attack.
-    round_boss_intent = combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors).duplicate(true) if boss else {}
+    round_boss_intent = (boss_mechanics.intent(current_round) if boss_mechanics != null and boss_mechanics.enabled() else combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors)).duplicate(true) if boss else {}
     last_warning_text = ""
     var eligible: Array = []
     if game_core != null:
@@ -615,6 +622,20 @@ func _act(action: String) -> void:
             else:
                 damage = maxi(8, combat_attack + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
+    if boss and boss_mechanics != null and boss_mechanics.enabled():
+        var actor_job: String = str(game_state.rpg.get("jobs",{}).get(str(member.get("id","")),"swordsman"))
+        var vocation: Dictionary = game_core.vocation_profiles.get(actor_job,{}) if game_core != null else {}
+        var passive: String = str(vocation.get("passive",""))
+        var selected_profile: Dictionary = _get_skill(chosen_skill) if action == "skill" else {}
+        var boss_action: Dictionary = boss_mechanics.record_action(action,selected_profile,str(member.get("id","")),current_round,passive)
+        var boss_notice: String = str(boss_action.get("notice",""))
+        if not boss_notice.is_empty():
+            message += " · " + boss_notice
+        if bool(boss_action.get("victory",false)):
+            last_boss_settlement = str(boss_mechanics.spec.get("settlement","nonlethal"))
+            _redraw(message + "战术目标达成。")
+            _finish(true)
+            return
     if is_instance_valid(sfx):
         var sound_key: String = action
         var sound_element: String = ""
@@ -648,6 +669,10 @@ func _act(action: String) -> void:
             if not weapon_trait_id.is_empty():
                 message += " · 武器特性：" + weapon_trait_id
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
+        if boss and boss_mechanics != null and boss_mechanics.enabled():
+            damage = maxi(1,roundi(float(damage)*boss_mechanics.damage_factor(_get_skill(chosen_skill) if action == "skill" else {})))
+            if boss_mechanics.protect_from_lethal():
+                damage = mini(damage,maxi(0,int(enemy.get("hp",1))-1))
         if is_instance_valid(timeline):
             timeline.queue_actor(action,_vfx_ally_point(),_vfx_foe_point(),damage,_get_skill(chosen_skill) if action == "skill" else {},hit_all_enemies)
         if not boss or chapter != 5:
@@ -691,6 +716,10 @@ func _act(action: String) -> void:
                 enemy_stage.hit(active_target,int(enemy.get("hp",0)) <= 0)
     if not phase_two and boss and int(enemy["hp"]) <= int(enemy["max_hp"]) / 2:
         phase_two = true
+        if boss_mechanics != null and boss_mechanics.enabled():
+            boss_mechanics.set_phase_two()
+            enemy["weakness"] = str(boss_mechanics.spec.get("phase_two_element",enemy.get("weakness","")))
+            message += " · " + boss_mechanics.phase_hint()
         message += "  敌人进入第二阶段！"
         enemy["atk"] = int(enemy["atk"]) + 4
         if is_instance_valid(vfx):
@@ -786,6 +815,8 @@ func _enemy_strike(attacker_index: int = -1) -> void:
             ailment = "freeze"
         elif boss and current_round % 4 == 0 and dice.randf() < 0.12:
             ailment = "stun"
+        if boss and not str(intent.get("status","")).is_empty() and dice.randf() < float(intent.get("status_chance",0.0)):
+            ailment = str(intent.get("status",""))
         if not ailment.is_empty():
             var immunity: Array = member.get("status_immunities",[])
             var gear_immunity: Array = stats.get("status_immunities",[])
@@ -867,7 +898,13 @@ func _redraw(message: String) -> void:
         header += "   共鸣 %d/4" % resonance
     if phase_two:
         header += "  · 二阶段"
-    header += " · 意图：" + str(combat_rules.enemy_strategy(enemy,current_round,phase_two,boss,game_state.actors).get("label","攻击"))
+    header += " · 意图：" + str(round_boss_intent.get("label","攻击") if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors).get("label","攻击"))
+    if boss_mechanics != null and boss_mechanics.enabled():
+        var state: Dictionary = boss_mechanics.report()
+        header += " · 目标：" + boss_mechanics.objective_label()
+        if int(state.get("required",0)) > 0:
+            header += " %d/%d" % [int(state.get("progress",0)),int(state.get("required",0))]
+        header += " · 防护 %d" % int(state.get("ward",0))
     if formation != null and formation.units.size() > 1:
         var roster: Array[String] = []
         for i in range(formation.units.size()):
@@ -901,13 +938,16 @@ func _finish(victory: bool) -> void:
         if item is Button:
             item.disabled = true
     if victory:
+        if boss and boss_mechanics != null and boss_mechanics.enabled() and last_boss_settlement.is_empty():
+            last_boss_settlement = str(boss_mechanics.spec.get("settlement","defeated"))
         if is_instance_valid(vfx):
             vfx.play_victory(_vfx_foe_point())
         if is_instance_valid(actor_stage):
             actor_stage.play_victory()
         if is_instance_valid(sfx):
             sfx.play_event("victory")
-        report.text = "胜利！%s" % ("古兽已经重获自由。" if boss and chapter == 5 else "战斗结束，大家平安归来。")
+        var settlement_text: String = "战术目标达成，相关人员已安全撤离。" if last_boss_settlement == "rescued" else ("已解除敌方控制，避免了不必要的伤亡。" if last_boss_settlement == "nonlethal" else "战斗结束，大家平安归来。")
+        report.text = "胜利！%s" % ("古兽已经重获自由。" if boss and chapter == 5 else settlement_text)
     else:
         report.text = "全队失去战斗力，准备在营地重新整备。"
     var reward: Dictionary = formation.rewards() if formation != null else {"xp":int(enemy["xp"]),"gold":int(enemy["gold"])}

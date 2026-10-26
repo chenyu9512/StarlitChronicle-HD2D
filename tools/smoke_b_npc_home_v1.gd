@@ -64,6 +64,21 @@ func _run() -> void:
     var moved: Dictionary=motion.step("npc_coast_01","map_coast_01",600,start,0.1,block,Vector2i(96,56))
     check((moved.get("position",Vector2.ZERO) as Vector2).distance_to(start)<=8.0,
         "NPC improperly teleported when resuming")
+    var queries: int=motion.path_queries
+    for tick in range(6):
+        var iterated: Dictionary=motion.step("npc_coast_01","map_coast_01",600,start,0.016,block,Vector2i(96,56))
+        check((iterated.get("position",Vector2.ZERO) as Vector2).distance_to(start)<3.0,
+            "Motion contract skipped a movement frame")
+    check(motion.path_queries==queries,"Pathfinder reran for identical NPC tile/goal")
+    var incorrect: Dictionary=motion.step("npc_coast_01","map_city_01",600,start,0.1,block,Vector2i(96,56))
+    check(not bool(incorrect.get("moving",true)),"NPC moved on incorrect map")
+    check(motion.destination("npc_coast_01","map_city_01",600)==Vector2i(-1,-1),
+        "NPC home map restriction missing")
+    motion.reset_route("npc_coast_01")
+    var boxed: Dictionary={Vector2i(16,16):true}
+    var unsafe: Dictionary=motion.step("npc_coast_01","map_coast_01",600,start,0.1,boxed,Vector2i(96,56))
+    check(str(unsafe.get("state",""))=="blocked" and not bool(unsafe.get("moving",true)),
+        "NPC escaped blocked origin")
     var all_rooms: int=0
     var total: int=0
     for map_id in ["map_coast_01","map_coast_02"]:

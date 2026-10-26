@@ -108,6 +108,9 @@ func _run() -> void:
     game._start(true)
     ck(game.progress.chapter == before_chapter, "Failed Continue started a new journey")
     ck(game.ui.title_overlay.visible, "Failed Continue did not return to title")
+    ck(game.ui.title_continue.disabled, "Failed Continue still lets the player retry broken files")
+    ck(game.ui.title_status.visible and not game.ui.title_status.text.is_empty(),
+        "Continue failure message is missing from the title screen")
     ck(FileAccess.get_file_as_string(game.progress.save_path) == damaged_main,
         "Failed Continue overwrote damaged main save")
     ck(FileAccess.get_file_as_string(game.progress.backup_path) == damaged_backup,

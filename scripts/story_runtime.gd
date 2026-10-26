@@ -25,6 +25,7 @@ var line_index: int = 0
 var dialogue_ended: bool = false
 var waiting_battle: bool = false
 var choice_made: bool = false
+var pending_branch_dialogue: Array = []
 var objective_progress: Dictionary = {}
 var side_quest_progress: Dictionary = {}
 
@@ -82,6 +83,7 @@ func _open_scene() -> void:
     dialogue_ended = false
     waiting_battle = false
     choice_made = false
+    pending_branch_dialogue.clear()
     objective_progress.clear()
     save_story()
     var lines: Array = scene.get("dialogue", [])
@@ -95,7 +97,7 @@ func advance_dialogue() -> void:
     if dialogue_ended or waiting_battle or _get_scene().is_empty():
         return
     var scene: Dictionary = _get_scene()
-    var lines: Array = scene.get("dialogue", [])
+    var lines: Array = pending_branch_dialogue if not pending_branch_dialogue.is_empty() else scene.get("dialogue", [])
     if line_index + 1 < lines.size():
         line_index += 1
         var next_line: Dictionary = lines[line_index]
@@ -105,6 +107,16 @@ func advance_dialogue() -> void:
         _on_dialogue_end()
 
 func _on_dialogue_end() -> void:
+    if not pending_branch_dialogue.is_empty():
+        pending_branch_dialogue.clear()
+        dialogue_ended = true
+        save_story()
+        var after_reply: Dictionary = _get_scene()
+        if after_reply.has("encounter"):
+            _request_battle()
+        else:
+            _request_next_objective_or_finish()
+        return
     dialogue_ended = true
     save_story()
     var scene: Dictionary = _get_scene()
@@ -177,6 +189,14 @@ func choose_option(option_id: String) -> bool:
             flags[str(key)] = sets[key]
         choice_made = true
         objective_progress[str(choice.get("id", ""))] = true
+        var reply: Array = option.get("branch_dialogue", [])
+        if not reply.is_empty():
+            pending_branch_dialogue = reply.duplicate(true)
+            line_index = 0
+            dialogue_ended = false
+            save_story()
+            dialogue_opened.emit(pending_branch_dialogue[0])
+            return true
         save_story()
         if scene.has("encounter"):
             _request_battle()
@@ -329,6 +349,7 @@ func save_story() -> bool:
         "dialogue_ended": dialogue_ended,
         "waiting_battle": waiting_battle,
         "choice_made": choice_made,
+        "pending_branch_dialogue": pending_branch_dialogue,
         "objective_progress": objective_progress,
         "side_quest_progress": side_quest_progress,
         "flags": flags
@@ -373,6 +394,9 @@ func load_story() -> bool:
     if version == 1:
         _open_scene()
         return true
+    pending_branch_dialogue = data.get("pending_branch_dialogue", []) if data.get("pending_branch_dialogue", []) is Array else []
+    if not pending_branch_dialogue.is_empty():
+        lines = pending_branch_dialogue
     line_index = clampi(int(data.get("line_index", 0)), 0, maxi(lines.size()-1, 0))
     dialogue_ended = bool(data.get("dialogue_ended", false))
     waiting_battle = bool(data.get("waiting_battle", false))

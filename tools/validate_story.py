@@ -86,6 +86,37 @@ if len(chapters) != 72:
     errors.append(f"Expected 72 chapters, got {len(chapters)}")
 if total_scenes != 298:  # 289 main + 9 prologue
     errors.append(f"Expected 298 scenes, got {total_scenes}")
+# All canon crisis A/B responses have distinct authored, stable-ID payloads.
+supplement = load("data/choice_response_lock26.json")
+replies = supplement.get("replies", {})
+if len(replies) != 72:
+    errors.append(f"Expected 72 chapters with A/B responses, got {len(replies)}")
+seen_replies = set()
+for num, chapter in enumerate(chapters, 1):
+    scene_id = f"ch{num:03d}.crisis"
+    scene = next((s for s in chapter.get("scenes", []) if s.get("id") == scene_id), {})
+    if len(scene.get("choice", {}).get("options", [])) != 2:
+        errors.append(f"Expected two options in {scene_id}")
+    pair = replies.get(scene_id, {})
+    bodies = []
+    for route in ("a", "b"):
+        lines = pair.get(route, [])
+        if len(lines) != 2:
+            errors.append(f"Two authored lines required for {scene_id}/{route}")
+            continue
+        bodies.append("".join(line.get("text", "") for line in lines))
+        for k, line in enumerate(lines, 1):
+            expected = f"{scene_id}.lock26.{route}.l{k:02d}"
+            if line.get("id") != expected or expected in dialogue_ids or expected in seen_replies:
+                errors.append(f"Invalid/duplicate authored response ID {expected}")
+            if not line.get("speaker") or len(line.get("text", "").strip()) < 8:
+                errors.append(f"Empty authored response {expected}")
+            seen_replies.add(expected)
+    if len(bodies) == 2 and bodies[0] == bodies[1]:
+        errors.append(f"Identical A and B responses for {scene_id}")
+if len(seen_replies) != 288:
+    errors.append(f"Expected 288 A/B response IDs, got {len(seen_replies)}")
+
 
 side = load("data/side_quests.json")
 quests = side.get("quests", [])

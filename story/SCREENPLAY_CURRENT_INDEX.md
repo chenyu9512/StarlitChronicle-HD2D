@@ -98,3 +98,9 @@
 - `python tools/validate_story_progression.py`：离线剧情、失落航页与三结局的静态条件。
 - `python tools/validate_narrative_v21.py`：对白ID、正典P0守卫、120条支线及插入锚点。
 - Godot测试还需检查实际分支播放、旧档加载、地图交互、结局选择及尾声，不得以静态通过替代。
+
+## 2026-10-26：72章A/B独立即时回应（商业锁稿候选）
+
+`story/data/choice_response_lock26.json` 为72章的144条危机选择路线各撰写两句独立响应（共288句）。`scripts/story_catalog.gd` 将其按原ID附加到正典危机场景：正式游戏显示选择后的现场结果，剧情测试运行器也支持进行中的回应存档与恢复。所有原始章节、Boss、120任务和A/B/C解锁合同保持不变。
+
+**这不是最终商业锁稿签名。** 120任务的全量文学润色、全部跨章长期路线差异、人物语气人工审阅、分镜与实玩仍需要有签核记录；见 `story/COMMERCIAL_LOCK_READINESS_2026_10_26.md`。

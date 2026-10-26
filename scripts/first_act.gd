@@ -1165,10 +1165,15 @@ func _choice_picked(item: Dictionary) -> void:
     var scene: Dictionary = _current_scene()
     var choice: Dictionary = scene.get("choice", {})
     progress.flags[str(choice.get("id", "choice")) + ".chosen"] = true
+    # The chosen A/B route immediately changes the conversation, while
+    # existing optional reactions remain additive, not overwritten.
+    var response_lines: Array = item.get("branch_dialogue", []).duplicate(true)
     var followup: Dictionary = optional_director.reaction(progress.chapter,item,progress.flags)
     if not followup.is_empty() and optional_director.mark_seen(followup):
+        response_lines.append_array(followup.get("dialogue", []))
+    if not response_lines.is_empty():
         pending = "choice_reaction"
-        ui.show_dialogue(followup.get("dialogue",[]))
+        ui.show_dialogue(response_lines)
         return
     _crisis_choice_complete()
 

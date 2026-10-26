@@ -44,6 +44,34 @@ func load_all() -> bool:
     interface_copy = _read_json(STORY_ROOT + "data/ui_zh_CN.json")
     npc_barks = _read_json(STORY_ROOT + "data/npc_barks.json")
     endings = _read_json(STORY_ROOT + "data/endings.json")
+    # Attach canon-accurate immediate consequences; never modify existing IDs,
+    # encounters, rewards or world/ending flags.
+    var authored_pack: Dictionary = _read_json(STORY_ROOT + "data/choice_response_lock26.json")
+    var replies: Dictionary = authored_pack.get("replies", {})
+    if replies.size() != 72:
+        errors.append("Expected 72 authored chapter choice responses")
+    for chapter_id in chapters:
+        var chapter: Dictionary = chapters[chapter_id]
+        for entry in chapter.get("scenes", []):
+            if not (entry is Dictionary):
+                continue
+            var scene: Dictionary = entry
+            var sid: String = str(scene.get("id", ""))
+            if not sid.ends_with(".crisis"):
+                continue
+            var authored: Dictionary = replies.get(sid, {})
+            var opts: Array = scene.get("choice", {}).get("options", [])
+            if authored.is_empty() or opts.size() != 2:
+                errors.append("Missing two crisis choices/replies for " + sid)
+                continue
+            for i in range(2):
+                var route: String = "a" if i == 0 else "b"
+                var response: Array = authored.get(route, [])
+                if response.size() != 2 or not (opts[i] is Dictionary):
+                    errors.append("Invalid authored reply " + sid + "/" + route)
+                    continue
+                var chosen: Dictionary = opts[i]
+                chosen["branch_dialogue"] = response.duplicate(true)
     if chapters.size() != 72:
         errors.append("Expected 72 chapters, got %d" % chapters.size())
     return errors.is_empty()

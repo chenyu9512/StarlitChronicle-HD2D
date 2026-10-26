@@ -133,8 +133,11 @@ func record_action(action: String, skill: Dictionary, actor_id: String, round_nu
         message = "敌人的防护已被瓦解。"
     var goal: String = str(spec.get("goal","defeat"))
     var completed: bool = goal in ["pacify","survive"] and progress >= int(spec.get("required",999))
-    if goal == "survive":
-        completed = completed and round_number >= int(spec.get("minimum_round",6))
+    if goal in ["pacify","survive"]:
+        # An objective can be charged quickly by several party members, but an
+        # authored minimum keeps tutorial fights from finishing before the
+        # promised attack/defend/recovery rhythm is demonstrated.
+        completed = completed and round_number >= int(spec.get("minimum_round",6 if goal == "survive" else 1))
     return {"notice":message,"victory":completed}
 
 func protect_from_lethal() -> bool:

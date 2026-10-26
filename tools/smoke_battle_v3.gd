@@ -115,6 +115,9 @@ func _run() -> void:
     boss_battle.invincible = true
     boss_battle.start(state,5,true)
     boss_battle.current_round = 3
+    # Set up this round's real, frozen intent before asserting its warning.
+    # Changing current_round alone leaves round_boss_intent at the opening beat.
+    boss_battle._begin_round()
     boss_battle.turn_queue.clear()
     boss_battle.turn_queue.append({"team":"ally","index":0})
     boss_battle.turn_queue.append({"team":"enemy","index":0})

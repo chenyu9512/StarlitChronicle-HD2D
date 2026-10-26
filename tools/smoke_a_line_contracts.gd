@@ -100,6 +100,22 @@ func _verify() -> void:
             ck(mech.protect_from_lethal(),"Nonlethal Boss can be killed before its objective: "+id)
     ck(type_count.get("defeat",0) > 0 and type_count.get("pacify",0) > 0 and type_count.get("survive",0) == 1,
         "Boss outcomes lost their diversity")
+    # Opening two Boss fights must demonstrate their readable mechanics:
+    # a 2-member team cannot pacify before the scripted fourth round.
+    for opening_id in ["boss.ch002","boss.ch003"]:
+        var opening_spec: Dictionary = encounters.boss_profile(opening_id)
+        ck(int(opening_spec.get("minimum_round",0)) >= 4,
+            "Opening Boss minimum-round budget missing: "+opening_id)
+        var opening = BossMechanics.new()
+        opening.start(opening_spec)
+        for round_number in range(1,4):
+            for actor_id in ["char_wayfarer","char_tidecaller"]:
+                var action_result: Dictionary = opening.record_action("special",{},actor_id,round_number)
+                ck(not bool(action_result.get("victory",false)),
+                    "Opening Boss pacified before players learn counterplay: "+opening_id)
+        var fourth: Dictionary = opening.record_action("special",{},"char_wayfarer",4)
+        ck(bool(fourth.get("victory",false)),
+            "Opening Boss remains locked after authored minimum: "+opening_id)
     var rules = Rules.new()
     for difficulty in ["休闲","标准","挑战"]:
         rules.start({"difficulty":difficulty})

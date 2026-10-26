@@ -55,8 +55,14 @@ func _run() -> void:
             failures.append("Chapter 5 star chains were not removed by real actions")
         elif chapter == 6 and int(battle.resonance) < 4:
             failures.append("Chapter 6 resonance was not completed by real actions")
-        elif chapter > 6 and initial_max_hp > 0 and int(battle.enemy.get("hp",0)) > 0:
-            failures.append("Chapter %d Boss HP remained after declared victory" % chapter)
+        elif chapter > 6 and initial_max_hp > 0:
+            var remaining: int = int(battle.enemy.get("hp",0))
+            if battle.last_boss_settlement in ["nonlethal","rescued"]:
+                # Pacification is a true victory with the enemy deliberately alive.
+                if remaining <= 0:
+                    failures.append("Chapter %d nonlethal Boss was killed" % chapter)
+            elif remaining > 0:
+                failures.append("Chapter %d lethal Boss HP remained after declared victory" % chapter)
         battle.free()
     if not failures.is_empty():
         for fault in failures:

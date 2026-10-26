@@ -1,6 +1,6 @@
 {
   "schema": "starlit.gameplay.combat-progression.v1",
-  "note": "Updated threat envelope: boss damage assumes one resolved enemy action per round (before phases/extra-hit archetype); real AI and guard testing deferred.",
+  "note": "Chapter encounter/Boss targets; equipment_price is the actual average of currently unlocked authored weapon and armor tier, not a fictional shop quote. Rare drop chance is approximated by monster-level loot tables.",
   "chapters": [
     {
       "chapter": 1,
@@ -18,7 +18,7 @@
       "boss_xp": 193,
       "normal_gold": 11,
       "boss_gold": 90,
-      "equipment_price": 78,
+      "equipment_price": 42,
       "rare_drop_chance": 0.1388
     },
     {
@@ -37,7 +37,7 @@
       "boss_xp": 231,
       "normal_gold": 14,
       "boss_gold": 104,
-      "equipment_price": 86,
+      "equipment_price": 42,
       "rare_drop_chance": 0.1375
     },
     {
@@ -56,7 +56,7 @@
       "boss_xp": 269,
       "normal_gold": 16,
       "boss_gold": 119,
-      "equipment_price": 100,
+      "equipment_price": 42,
       "rare_drop_chance": 0.1363
     },
     {
@@ -75,7 +75,7 @@
       "boss_xp": 307,
       "normal_gold": 19,
       "boss_gold": 133,
-      "equipment_price": 119,
+      "equipment_price": 42,
       "rare_drop_chance": 0.135
     },
     {
@@ -94,7 +94,7 @@
       "boss_xp": 345,
       "normal_gold": 21,
       "boss_gold": 148,
-      "equipment_price": 144,
+      "equipment_price": 42,
       "rare_drop_chance": 0.1338
     },
     {
@@ -113,7 +113,7 @@
       "boss_xp": 421,
       "normal_gold": 26,
       "boss_gold": 177,
-      "equipment_price": 210,
+      "equipment_price": 42,
       "rare_drop_chance": 0.1325
     },
     {
@@ -132,7 +132,7 @@
       "boss_xp": 459,
       "normal_gold": 29,
       "boss_gold": 191,
-      "equipment_price": 251,
+      "equipment_price": 42,
       "rare_drop_chance": 0.1313
     },
     {
@@ -151,7 +151,7 @@
       "boss_xp": 497,
       "normal_gold": 31,
       "boss_gold": 206,
-      "equipment_price": 298,
+      "equipment_price": 42,
       "rare_drop_chance": 0.13
     },
     {
@@ -170,7 +170,7 @@
       "boss_xp": 535,
       "normal_gold": 34,
       "boss_gold": 220,
-      "equipment_price": 350,
+      "equipment_price": 168,
       "rare_drop_chance": 0.1288
     },
     {
@@ -189,7 +189,7 @@
       "boss_xp": 611,
       "normal_gold": 38,
       "boss_gold": 249,
-      "equipment_price": 471,
+      "equipment_price": 168,
       "rare_drop_chance": 0.1275
     },
     {
@@ -208,7 +208,7 @@
       "boss_xp": 649,
       "normal_gold": 41,
       "boss_gold": 264,
-      "equipment_price": 540,
+      "equipment_price": 168,
       "rare_drop_chance": 0.1263
     },
     {
@@ -227,7 +227,7 @@
       "boss_xp": 687,
       "normal_gold": 43,
       "boss_gold": 278,
-      "equipment_price": 614,
+      "equipment_price": 168,
       "rare_drop_chance": 0.125
     },
     {
@@ -246,7 +246,7 @@
       "boss_xp": 725,
       "normal_gold": 46,
       "boss_gold": 293,
-      "equipment_price": 694,
+      "equipment_price": 168,
       "rare_drop_chance": 0.1238
     },
     {
@@ -265,7 +265,7 @@
       "boss_xp": 763,
       "normal_gold": 48,
       "boss_gold": 307,
-      "equipment_price": 779,
+      "equipment_price": 168,
       "rare_drop_chance": 0.1225
     },
     {
@@ -284,7 +284,7 @@
       "boss_xp": 839,
       "normal_gold": 53,
       "boss_gold": 336,
-      "equipment_price": 966,
+      "equipment_price": 168,
       "rare_drop_chance": 0.1213
     },
     {
@@ -303,7 +303,7 @@
       "boss_xp": 877,
       "normal_gold": 56,
       "boss_gold": 351,
-      "equipment_price": 1068,
+      "equipment_price": 168,
       "rare_drop_chance": 0.12
     },
     {
@@ -322,7 +322,7 @@
       "boss_xp": 915,
       "normal_gold": 58,
       "boss_gold": 365,
-      "equipment_price": 1175,
+      "equipment_price": 378,
       "rare_drop_chance": 0.1188
     },
     {
@@ -341,7 +341,7 @@
       "boss_xp": 953,
       "normal_gold": 60,
       "boss_gold": 380,
-      "equipment_price": 1288,
+      "equipment_price": 378,
       "rare_drop_chance": 0.1175
     },
     {
@@ -360,7 +360,7 @@
       "boss_xp": 1029,
       "normal_gold": 65,
       "boss_gold": 409,
-      "equipment_price": 1530,
+      "equipment_price": 378,
       "rare_drop_chance": 0.1163
     },
     {
@@ -379,7 +379,7 @@
       "boss_xp": 1067,
       "normal_gold": 68,
       "boss_gold": 423,
-      "equipment_price": 1659,
+      "equipment_price": 378,
       "rare_drop_chance": 0.115
     },
     {
@@ -398,7 +398,7 @@
       "boss_xp": 1105,
       "normal_gold": 70,
       "boss_gold": 438,
-      "equipment_price": 1794,
+      "equipment_price": 378,
       "rare_drop_chance": 0.1138
     },
     {
@@ -417,7 +417,7 @@
       "boss_xp": 1143,
       "normal_gold": 73,
       "boss_gold": 452,
-      "equipment_price": 1934,
+      "equipment_price": 378,
       "rare_drop_chance": 0.1125
     },
     {
@@ -436,7 +436,7 @@
       "boss_xp": 1219,
       "normal_gold": 78,
       "boss_gold": 481,
-      "equipment_price": 2231,
+      "equipment_price": 378,
       "rare_drop_chance": 0.1113
     },
     {
@@ -455,7 +455,7 @@
       "boss_xp": 1257,
       "normal_gold": 80,
       "boss_gold": 496,
-      "equipment_price": 2388,
+      "equipment_price": 378,
       "rare_drop_chance": 0.11
     },
     {
@@ -474,7 +474,7 @@
       "boss_xp": 1295,
       "normal_gold": 83,
       "boss_gold": 510,
-      "equipment_price": 2550,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1088
     },
     {
@@ -493,7 +493,7 @@
       "boss_xp": 1333,
       "normal_gold": 85,
       "boss_gold": 525,
-      "equipment_price": 2718,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1075
     },
     {
@@ -512,7 +512,7 @@
       "boss_xp": 1371,
       "normal_gold": 87,
       "boss_gold": 539,
-      "equipment_price": 2891,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1063
     },
     {
@@ -531,7 +531,7 @@
       "boss_xp": 1447,
       "normal_gold": 92,
       "boss_gold": 568,
-      "equipment_price": 3254,
+      "equipment_price": 672,
       "rare_drop_chance": 0.105
     },
     {
@@ -550,7 +550,7 @@
       "boss_xp": 1485,
       "normal_gold": 95,
       "boss_gold": 583,
-      "equipment_price": 3444,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1038
     },
     {
@@ -569,7 +569,7 @@
       "boss_xp": 1523,
       "normal_gold": 97,
       "boss_gold": 597,
-      "equipment_price": 3639,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1025
     },
     {
@@ -588,7 +588,7 @@
       "boss_xp": 1561,
       "normal_gold": 100,
       "boss_gold": 612,
-      "equipment_price": 3840,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1013
     },
     {
@@ -607,7 +607,7 @@
       "boss_xp": 1637,
       "normal_gold": 105,
       "boss_gold": 641,
-      "equipment_price": 4258,
+      "equipment_price": 672,
       "rare_drop_chance": 0.1
     },
     {
@@ -626,7 +626,7 @@
       "boss_xp": 1675,
       "normal_gold": 107,
       "boss_gold": 655,
-      "equipment_price": 4475,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.0988
     },
     {
@@ -645,7 +645,7 @@
       "boss_xp": 1713,
       "normal_gold": 109,
       "boss_gold": 670,
-      "equipment_price": 4698,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.0975
     },
     {
@@ -664,7 +664,7 @@
       "boss_xp": 1751,
       "normal_gold": 112,
       "boss_gold": 684,
-      "equipment_price": 4926,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.0963
     },
     {
@@ -683,7 +683,7 @@
       "boss_xp": 1827,
       "normal_gold": 117,
       "boss_gold": 713,
-      "equipment_price": 5399,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.095
     },
     {
@@ -702,7 +702,7 @@
       "boss_xp": 1865,
       "normal_gold": 119,
       "boss_gold": 728,
-      "equipment_price": 5644,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.0938
     },
     {
@@ -721,7 +721,7 @@
       "boss_xp": 1903,
       "normal_gold": 122,
       "boss_gold": 742,
-      "equipment_price": 5894,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.0925
     },
     {
@@ -740,7 +740,7 @@
       "boss_xp": 1941,
       "normal_gold": 124,
       "boss_gold": 757,
-      "equipment_price": 6150,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.0913
     },
     {
@@ -759,7 +759,7 @@
       "boss_xp": 1979,
       "normal_gold": 127,
       "boss_gold": 771,
-      "equipment_price": 6411,
+      "equipment_price": 1050,
       "rare_drop_chance": 0.09
     },
     {
@@ -778,7 +778,7 @@
       "boss_xp": 2055,
       "normal_gold": 132,
       "boss_gold": 800,
-      "equipment_price": 6950,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.0888
     },
     {
@@ -797,7 +797,7 @@
       "boss_xp": 2093,
       "normal_gold": 134,
       "boss_gold": 815,
-      "equipment_price": 7228,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.0875
     },
     {
@@ -816,7 +816,7 @@
       "boss_xp": 2131,
       "normal_gold": 136,
       "boss_gold": 829,
-      "equipment_price": 7511,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.0863
     },
     {
@@ -835,7 +835,7 @@
       "boss_xp": 2169,
       "normal_gold": 139,
       "boss_gold": 844,
-      "equipment_price": 7800,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.085
     },
     {
@@ -854,7 +854,7 @@
       "boss_xp": 2245,
       "normal_gold": 144,
       "boss_gold": 873,
-      "equipment_price": 8394,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.0838
     },
     {
@@ -873,7 +873,7 @@
       "boss_xp": 2283,
       "normal_gold": 146,
       "boss_gold": 887,
-      "equipment_price": 8699,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.0825
     },
     {
@@ -892,7 +892,7 @@
       "boss_xp": 2321,
       "normal_gold": 149,
       "boss_gold": 902,
-      "equipment_price": 9010,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.0813
     },
     {
@@ -911,7 +911,7 @@
       "boss_xp": 2359,
       "normal_gold": 151,
       "boss_gold": 916,
-      "equipment_price": 9326,
+      "equipment_price": 1512,
       "rare_drop_chance": 0.08
     },
     {
@@ -930,7 +930,7 @@
       "boss_xp": 2435,
       "normal_gold": 156,
       "boss_gold": 945,
-      "equipment_price": 9975,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.0788
     },
     {
@@ -949,7 +949,7 @@
       "boss_xp": 2473,
       "normal_gold": 158,
       "boss_gold": 960,
-      "equipment_price": 10308,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.0775
     },
     {
@@ -968,7 +968,7 @@
       "boss_xp": 2511,
       "normal_gold": 161,
       "boss_gold": 974,
-      "equipment_price": 10646,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.0763
     },
     {
@@ -987,7 +987,7 @@
       "boss_xp": 2549,
       "normal_gold": 163,
       "boss_gold": 989,
-      "equipment_price": 10990,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.075
     },
     {
@@ -1006,7 +1006,7 @@
       "boss_xp": 2587,
       "normal_gold": 166,
       "boss_gold": 1003,
-      "equipment_price": 11339,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.0738
     },
     {
@@ -1025,7 +1025,7 @@
       "boss_xp": 2663,
       "normal_gold": 171,
       "boss_gold": 1032,
-      "equipment_price": 12054,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.0725
     },
     {
@@ -1044,7 +1044,7 @@
       "boss_xp": 2701,
       "normal_gold": 173,
       "boss_gold": 1047,
-      "equipment_price": 12420,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.0713
     },
     {
@@ -1063,7 +1063,7 @@
       "boss_xp": 2739,
       "normal_gold": 176,
       "boss_gold": 1061,
-      "equipment_price": 12791,
+      "equipment_price": 2058,
       "rare_drop_chance": 0.07
     },
     {
@@ -1082,7 +1082,7 @@
       "boss_xp": 2777,
       "normal_gold": 178,
       "boss_gold": 1076,
-      "equipment_price": 13168,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.0688
     },
     {
@@ -1101,7 +1101,7 @@
       "boss_xp": 2853,
       "normal_gold": 183,
       "boss_gold": 1105,
-      "equipment_price": 13938,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.0675
     },
     {
@@ -1120,7 +1120,7 @@
       "boss_xp": 2891,
       "normal_gold": 185,
       "boss_gold": 1119,
-      "equipment_price": 14331,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.0663
     },
     {
@@ -1139,7 +1139,7 @@
       "boss_xp": 2929,
       "normal_gold": 188,
       "boss_gold": 1134,
-      "equipment_price": 14730,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.065
     },
     {
@@ -1158,7 +1158,7 @@
       "boss_xp": 2967,
       "normal_gold": 190,
       "boss_gold": 1148,
-      "equipment_price": 15134,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.0638
     },
     {
@@ -1177,7 +1177,7 @@
       "boss_xp": 3043,
       "normal_gold": 195,
       "boss_gold": 1177,
-      "equipment_price": 15959,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.0625
     },
     {
@@ -1196,7 +1196,7 @@
       "boss_xp": 3081,
       "normal_gold": 198,
       "boss_gold": 1192,
-      "equipment_price": 16380,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.0613
     },
     {
@@ -1215,7 +1215,7 @@
       "boss_xp": 3119,
       "normal_gold": 200,
       "boss_gold": 1206,
-      "equipment_price": 16806,
+      "equipment_price": 2688,
       "rare_drop_chance": 0.06
     },
     {
@@ -1234,7 +1234,7 @@
       "boss_xp": 3157,
       "normal_gold": 203,
       "boss_gold": 1221,
-      "equipment_price": 17238,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.0588
     },
     {
@@ -1253,7 +1253,7 @@
       "boss_xp": 3195,
       "normal_gold": 205,
       "boss_gold": 1235,
-      "equipment_price": 17675,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.0575
     },
     {
@@ -1272,7 +1272,7 @@
       "boss_xp": 3271,
       "normal_gold": 210,
       "boss_gold": 1264,
-      "equipment_price": 18566,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.0563
     },
     {
@@ -1291,7 +1291,7 @@
       "boss_xp": 3309,
       "normal_gold": 212,
       "boss_gold": 1279,
-      "equipment_price": 19020,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.055
     },
     {
@@ -1310,7 +1310,7 @@
       "boss_xp": 3347,
       "normal_gold": 215,
       "boss_gold": 1293,
-      "equipment_price": 19479,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.0538
     },
     {
@@ -1329,7 +1329,7 @@
       "boss_xp": 3385,
       "normal_gold": 217,
       "boss_gold": 1308,
-      "equipment_price": 19944,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.0525
     },
     {
@@ -1348,7 +1348,7 @@
       "boss_xp": 3461,
       "normal_gold": 222,
       "boss_gold": 1337,
-      "equipment_price": 20890,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.0513
     },
     {
@@ -1367,7 +1367,7 @@
       "boss_xp": 3499,
       "normal_gold": 225,
       "boss_gold": 1351,
-      "equipment_price": 21371,
+      "equipment_price": 3402,
       "rare_drop_chance": 0.05
     }
   ]

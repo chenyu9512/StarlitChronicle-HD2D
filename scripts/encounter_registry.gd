@@ -58,6 +58,14 @@ func roll_monster(chapter: int) -> Dictionary:
     if pool.is_empty():
         return {}
     var source: Dictionary = pool[rng.randi_range(0,pool.size()-1)]
+    var growth: Dictionary = progression(chapter)
+    var recommended: int = maxi(1,int(growth.get("recommended_level",chapter)))
+    var enemy_level: int = maxi(1,int(source.get("level",recommended)))
+    var level_weight: float = clampf(float(enemy_level+8)/float(recommended+8),0.80,1.20)
+    var scaled_hp: int = maxi(1,roundi(float(growth.get("monster_hp",source.get("hp",40)))*level_weight))
+    var scaled_attack: int = maxi(1,roundi(float(growth.get("monster_attack",source.get("attack",10)))*level_weight))
+    var scaled_xp: int = maxi(1,roundi(float(growth.get("normal_xp",source.get("xp",10)))*level_weight))
+    var scaled_gold: int = maxi(0,roundi(float(growth.get("normal_gold",source.get("gold",5)))*level_weight))
     var id: String = str(source.get("id",""))
     var art: String = ""
     if id.begins_with("mon_coast_"):
@@ -67,13 +75,13 @@ func roll_monster(chapter: int) -> Dictionary:
     return {
         "name":str(source.get("name",id)),
         "monster_id":id, "region_id":region,
-        "hp":maxi(1,int(source.get("hp",40))),"max_hp":maxi(1,int(source.get("hp",40))),
-        "atk":maxi(1,int(source.get("attack",10))),"def":maxi(0,int(source.get("defense",3))),
+        "hp":scaled_hp,"max_hp":scaled_hp,
+        "atk":scaled_attack,"def":maxi(0,int(source.get("defense",3))),
         "speed":maxi(1,int(source.get("speed",8))),
         "ai_pattern":str(source.get("ai_pattern","基本攻击")),
         "status_immunities":source.get("status_immunities",[]),
         "status_resistances":source.get("status_resistances",{}),
-        "xp":maxi(1,int(source.get("xp",10))),"gold":maxi(0,int(source.get("gold",5))),
+        "xp":scaled_xp,"gold":scaled_gold,
         "element":str(source.get("element","")),"weakness":str(source.get("weakness","")),
         "art":art
     }

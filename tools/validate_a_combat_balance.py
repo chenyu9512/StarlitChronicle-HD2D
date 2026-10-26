@@ -29,6 +29,11 @@ for category in ("items","armor","weapons"):
         assert price <= 0 or resale <= price, (category,item["id"],"buy/sell arbitrage")
         assert item["id"] not in seen, ("duplicate item",item["id"])
         seen.add(item["id"])
+gear = load("data/content/weapons.json")["entries"] + load("data/content/armor.json")["entries"]
+for chapter_target in curve:
+    market_tier = min(9,1+(chapter_target["chapter"]-1)*9//71)
+    prices = [int(x.get("buy_price",x.get("price",0))) for x in gear if int(x.get("tier",0)) == market_tier]
+    assert prices and chapter_target["equipment_price"] == round(sum(prices)/len(prices)), ("real shop mismatch",chapter_target["chapter"])
 for row in load("data/content/monsters.json")["entries"]:
     for drop in row.get("loot",[]):
         assert 0 <= float(drop["chance"]) <= 1, ("invalid drop rate",row["id"])

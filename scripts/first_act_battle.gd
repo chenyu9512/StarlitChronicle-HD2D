@@ -112,7 +112,10 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     _begin_round()
     _build()
     _start_actor()
-    _redraw("%s 出现在你们面前！" % str(enemy["name"]))
+    var introduction: String = "%s 出现在你们面前！" % str(enemy["name"])
+    if boss_mechanics != null and boss_mechanics.enabled():
+        introduction += " · 目标：" + boss_mechanics.objective_label() + " · 提示：" + boss_mechanics.hint()
+    _redraw(introduction)
 
 func _style(bg: Color, outline: Color) -> StyleBoxFlat:
     var s := StyleBoxFlat.new()

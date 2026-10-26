@@ -51,6 +51,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS C character: eight logical directions, 4x3 visual fallback, interactions, NPC life states")
         quit(0)
+        return
     for failure in failures:
         push_error(failure)
     quit(1)

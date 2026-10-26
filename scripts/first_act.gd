@@ -7,6 +7,7 @@ const BattleScript = preload("res://scripts/first_act_battle.gd")
 const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
 const BattleV3Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
 const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_settlement.gd")
+const NPCV3Contact = preload("res://scripts/d_world_interaction/npc_v3_contact.gd")
 const V3ProgressTransition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
 const WorldObjectSettlement = preload("res://scripts/d_world_interaction/world_object_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
@@ -724,14 +725,20 @@ func _interact(target: String) -> void:
     if target.begins_with("citizen:"):
         var citizen_id: String = target.trim_prefix("citizen:")
         var clock: Dictionary = progress.rpg.get("game_clock",{})
-        var conversation: Dictionary = world.town_life.talk(citizen_id,str(world.map_profile.get("region_id","region_coast")),clock,progress)
         var map_id: String = world_router.current_map()
+        var region_id: String = str(world.map_profile.get("region_id","region_coast"))
+        _capture_world_position()
+        var contact: Dictionary = NPCV3Contact.converse(
+            progress,world.town_life,citizen_id,region_id,map_id,clock)
+        if not bool(contact.get("ok",false)):
+            ui.show_message("居民对话状态未能保存，请检查存储空间后重新交谈。")
+            return
+        var conversation: Dictionary = contact.get("preview",{})
         var neighborhood_gossip: String = world.town_ecology.resident_hint(map_id,progress,int(float(clock.get("minutes",480))/60.0))
         if not neighborhood_gossip.is_empty():
             conversation["text"]=str(conversation.get("text",""))+"\n"+neighborhood_gossip
-        if bool(conversation.get("first",false)):
-            game_events.record("resident_met",{"id":citizen_id,"region_id":str(world.map_profile.get("region_id",""))})
-            _save_progress()
+        if bool(contact.get("applied",false)):
+            game_events.record("resident_met",{"id":citizen_id,"region_id":region_id})
         pending = "resident_talk"
         busy = true
         paused_for_dialogue = true

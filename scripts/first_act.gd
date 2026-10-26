@@ -1506,13 +1506,15 @@ func _load_slot(slot: int) -> void:
             _play_ending_scene()
     ui.show_message("已载入手动存档 %d。" % slot)
 
-func _save_progress() -> void:
-    if not progress.save():
+func _save_progress() -> bool:
+    var success: bool = progress.save()
+    if not success:
         push_warning("游戏主体存档写入失败")
+    return success
 
 func _save() -> void:
-    _save_progress()
-    ui.show_message("旅途进度已保存。")
+    var success: bool = _save_progress()
+    ui.show_message("旅途进度已保存。" if success else "保存失败，请检查设备剩余空间及存储权限。")
 
 func _open_adventure_book() -> void:
     if is_instance_valid(battle):

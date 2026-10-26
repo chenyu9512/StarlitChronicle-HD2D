@@ -5,6 +5,8 @@ const UIScript = preload("res://scripts/first_act_ui.gd")
 const MapScript = preload("res://scripts/map_hud.gd")
 const WorldFogV3 = preload("res://scripts/world_fog_v3.gd")
 const BattleScript = preload("res://scripts/first_act_battle.gd")
+const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
+const BattleV3Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
@@ -1206,6 +1208,10 @@ func _start_battle(is_boss: bool) -> void:
         return
     if progress.chapter < 1:
         return
+    # Older V3 saves may already have a Boss victory flag without a nonce.
+    if is_boss and bool(progress.flags.get("ch%03d.battle_won" % progress.chapter,false)):
+        ui.show_message("本章强敌已经解决，无需重复挑战。")
+        return
     battle_is_boss = is_boss
     cinematic_camera.battle_pulse(world.camera)
     if is_boss:
@@ -1240,61 +1246,118 @@ func _random_encounter() -> void:
     _start_battle(false)
 
 func _battle_finished(won: bool, xp: int, money: int) -> void:
-    var defeated_monster: String = str(battle.enemy.get("monster_id","")) if is_instance_valid(battle) else ""
-    var defeated_group: Array = battle.formation.units.duplicate(true) if is_instance_valid(battle) and battle.formation != null else []
-    if is_instance_valid(battle):
-        # Keep the final hit and victory glow visible; battle rules/rewards still settle now.
-        # The old battle has locked all commands and blocks world input until its outro ends.
-        var departing_battle: Node = battle
-        battle = null
-        var setting_rows: Dictionary = progress.rpg.get("settings",{})
-        var outro_seconds: float = clampf(float(setting_rows.get("battle_outro_seconds",0.72)),0.0,1.5)
-        if outro_seconds <= 0.0:
-            departing_battle.queue_free()
-        else:
-            get_tree().create_timer(outro_seconds).timeout.connect(func() -> void:
-                if is_instance_valid(departing_battle):
-                    departing_battle.queue_free()
-            )
-    if won and battle_is_boss:
-        cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
+    # Keep the original battle alive until its V3 reward and receipts are saved.
+    if not is_instance_valid(battle):
+        return
+    var active_battle: Node = battle
+    var transaction_id: String = str(battle.reward_transaction_id)
+    if not BattleRewardTransaction.valid_id(transaction_id):
+        _hold_battle_settlement(won,xp,money,"战斗回执ID无效，暂停结算。")
+        return
+    # A-line tries to restore world before completed.emit. Do not unlock an
+    # unsafe handoff; it stays retryable until the collision clears.
+    var handoff: Dictionary = battle.last_world_handoff_result.duplicate(true)
+    if handoff.has("resume_world") and not bool(handoff.get("resume_world",false)):
+        handoff = battle.handoff_to_world(world)
+        if not bool(handoff.get("resume_world",false)):
+            _hold_battle_settlement(won,xp,money,"安全返回位置被阻挡，请重试。")
+            return
+    elif not handoff.has("resume_world"):
+        if world == null or not is_instance_valid(world.hero):
+            _hold_battle_settlement(won,xp,money,"玩家或地图缺失，暂停结算。")
+            return
+        if not won:
+            var spawn_cell: Vector2i = world.terrain_layout.get("spawn",Vector2i(10,23))
+            var safe_spot: Vector2 = Vector2(spawn_cell * WorldScript.TILE) + Vector2(16,16)
+            if world._blocked(safe_spot):
+                _hold_battle_settlement(won,xp,money,"安全出生点被阻挡，暂停结算。")
+                return
+            world.hero.position = safe_spot
+            world.encounter_meter = minf(0.0,world.encounter_meter)-900.0
+            world._reveal_nearby()
+        elif world._blocked(world.hero.position):
+            _hold_battle_settlement(won,xp,money,"当前位置不可通行，暂停结算。")
+            return
+
+    var chapter_at_fight: int = int(battle.chapter)
+    var is_boss: bool = bool(battle_is_boss)
+    var defeated_monster: String = str(battle.enemy.get("monster_id",""))
+    var defeated_group: Array = battle.formation.units.duplicate(true) if battle.formation != null else []
+    _capture_world_position()
+    var settlement: Dictionary
     if won:
-        # Story resolutions can be nonlethal: record "resolved", not "killed".
-        for foe in defeated_group:
-            var monster_id: String = str(foe.get("monster_id",""))
-            var boss_id: String = str(foe.get("boss_id",""))
-            if not monster_id.is_empty():
-                game_core.record_enemy_resolution("monsters",monster_id)
-            if not boss_id.is_empty():
-                game_core.record_enemy_resolution("story_bosses",boss_id)
-        var levels: Array[String] = progress.give_rewards(xp * (5 if five_xp else 1), money)
-        var job_levels: Array[String] = game_core.award_job_xp(maxi(5,int(float(xp) / 5.0)),battle_is_boss)
-        game_events.record("battle_victory",{"boss":battle_is_boss,"xp":xp,"gold":money})
-        var loot: Array[String] = game_core.roll_monster_loot(defeated_monster)
-        if battle_is_boss:
-            progress.flags["ch%03d.battle_won" % progress.chapter] = true
-            _advance_scene()
+        settlement = BattleV3Settlement.settle_victory(
+            progress,game_core,transaction_id,chapter_at_fight,is_boss,
+            defeated_group,defeated_monster,xp,money,5 if five_xp else 1)
+    else:
+        settlement = BattleV3Settlement.settle_defeat(
+            progress,transaction_id,chapter_at_fight,is_boss)
+    if not bool(settlement.get("ok",false)):
+        _hold_battle_settlement(won,xp,money,
+            "结算保存失败（%s），奖励及进度已回滚，可重试。" % str(settlement.get("reason","unknown")))
+        return
+
+    if bool(settlement.get("repeated",false)):
+        ui.show_message("该战斗已结算，不会重复领取奖励或推进章节。")
+    elif won:
+        var details: Dictionary = settlement.get("mutation",{})
+        game_events.record("battle_victory",{"boss":is_boss,"xp":xp,"gold":money})
+        if is_boss:
+            cinematic.banner_card("星光未灭","强敌已倒下 · 继续调查","victory")
+            var job_levels: Array = details.get("job_levels",[])
             if not job_levels.is_empty():
                 ui.show_message("职业提升：" + "；".join(job_levels))
         else:
-            ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s%s" % [xp * (5 if five_xp else 1), money, "，".join(levels)+"；".join(job_levels), (" 掉落："+ "、".join(loot) if not loot.is_empty() else "")])
+            var level_text: Array = details.get("levels",[])
+            var jobs_text: Array = details.get("job_levels",[])
+            var loot_text: Array = details.get("loot",[])
+            ui.show_message("战斗胜利，获得 %d 经验、%d 金币。%s%s" % [
+                int(details.get("xp",0)),int(details.get("gold",0)),
+                "，".join(level_text) + "；".join(jobs_text),
+                (" 掉落：" + "、".join(loot_text) if not loot_text.is_empty() else "")])
     else:
-        progress.gold = maxi(0, progress.gold - 15)
-        progress.heal_all()
-        # A lost battle must not resume the party at the defeated Boss marker
-        # or immediately roll another field encounter on the next movement.
-        if world != null and is_instance_valid(world.hero):
-            var start_cell: Vector2i = world.terrain_layout.get("spawn", Vector2i(10, 23))
-            var safe_spot := Vector2(start_cell * WorldScript.TILE) + Vector2(16, 16)
-            if not world._blocked(safe_spot):
-                world.hero.position = safe_spot
-                world._reveal_nearby()
-            world.encounter_meter = -380.0
-        game_events.record("battle_defeat", {"chapter": progress.chapter, "boss": battle_is_boss})
-        ui.show_message("队伍在本区域的安全入口重新整备，遗失了至多15 G。可再次挑战。")
-    _save_progress()
+        game_events.record("battle_defeat",{"chapter":chapter_at_fight,"boss":is_boss})
+        ui.show_message("队伍已在安全位置整备，遗失了至多15 G，可再次挑战。")
+
+    # No earlier _advance_scene() save or premature battle queue_free.
+    battle = null
+    var settings: Dictionary = progress.rpg.get("settings",{})
+    var outro: float = clampf(float(settings.get("battle_outro_seconds",0.72)),0.0,1.5)
+    if outro <= 0.0:
+        active_battle.queue_free()
+    else:
+        get_tree().create_timer(outro).timeout.connect(func() -> void:
+            if is_instance_valid(active_battle):
+                active_battle.queue_free()
+        )
     ui.set_play_visible(true)
     _return_to_world()
+
+func _hold_battle_settlement(won: bool, xp: int, money: int, explanation: String) -> void:
+    # Preserve nonce and lock; retry uses the same result and cannot pay twice.
+    busy = true
+    world.locked = true
+    ui.set_play_visible(false)
+    atlas.show_exploration(false)
+    push_warning(explanation)
+    if not is_instance_valid(battle):
+        return
+    if is_instance_valid(battle.report):
+        battle.report.text = explanation
+    if not is_instance_valid(battle.commands):
+        return
+    for child in battle.commands.get_children():
+        if child is Button and child.name == "DSettlementRetry":
+            return
+    var retry: Button = Button.new()
+    retry.name = "DSettlementRetry"
+    retry.text = "重试结算/安全返回"
+    battle.commands.add_child(retry)
+    retry.pressed.connect(_retry_battle_settlement.bind(won,xp,money))
+
+func _retry_battle_settlement(won: bool, xp: int, money: int) -> void:
+    if is_instance_valid(battle):
+        _battle_finished(won,xp,money)
 
 func _apply_effects(scene: Dictionary) -> void:
     for value in scene.get("effects", []):

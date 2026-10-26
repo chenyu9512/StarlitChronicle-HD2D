@@ -381,6 +381,7 @@ func _install_coastal_scenery() -> void:
     coastal_scene.name="CoastalScene"
     scenery.add_child(coastal_scene)
     coastal_scene.configure(map_id,terrain_layout,scenery)
+    coastal_scene.set_clock(clock_minutes)
     # Tall coastal tree roots are solid only when this does not cut a required
     # route. Bushes and canopy art remain walk-through visual layers.
     for tree in coastal_scene.wind_sway_sprites:
@@ -1114,6 +1115,8 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     var next_period: bool = clock_minutes<360 or clock_minutes>=1200
     if ambience!=null and is_instance_valid(ambience):
         ambience.set_clock(calendar_day,clock_minutes)
+    if is_instance_valid(coastal_scene):
+        coastal_scene.set_clock(clock_minutes)
     if is_instance_valid(root) and not interior_building.is_empty():
         var indoor_art: Node = root.get_node_or_null("InteriorArt")
         if indoor_art!=null:

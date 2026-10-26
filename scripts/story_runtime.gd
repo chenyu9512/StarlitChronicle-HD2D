@@ -483,6 +483,16 @@ func load_story() -> bool:
     var chapter: Dictionary = catalog.prologue if chapter_id == "prologue" else catalog.get_chapter(chapter_id)
     if chapter.is_empty():
         return false
+    # Reject corrupt out-of-range chapter positions BEFORE applying any saved flags.
+    var scenes: Array = chapter.get("scenes", [])
+    var saved_index: int = int(data.get("current_scene_index", 0))
+    if scenes.is_empty() or saved_index < 0 or saved_index > scenes.size():
+        return false
+    if saved_index == scenes.size():
+        var final_scene: Dictionary = scenes.back()
+        var final_id: String = str(final_scene.get("id", ""))
+        if final_id.is_empty() or not bool((data["flags"] as Dictionary).get(_scene_completed_key(final_id), false)):
+            return false
     # 所有字段通过校验后一次应用；坏档不会清空现有运行状态。
     flags = (data["flags"] as Dictionary).duplicate(true)
     _apply_milestones()
@@ -490,16 +500,14 @@ func load_story() -> bool:
     reward_outbox = (data.get("reward_outbox", {}) as Dictionary).duplicate(true)
     current_chapter_id = chapter_id
     current_chapter = chapter
-    var scenes: Array = chapter.get("scenes", [])
-    current_scene_index = clampi(int(data.get("current_scene_index", 0)), 0, scenes.size())
+    current_scene_index = saved_index
     if current_scene_index >= scenes.size():
         return true # 章节完成哨兵，UI可引导进入下一章。
     var scene: Dictionary = _get_scene()
     var lines: Array = scene.get("dialogue", [])
     # 旧版存档缺少进行中字段：保守地从场景开头恢复。
     if version == 1:
-        _open_scene()
-        return true
+        return _open_scene()
     pending_branch_dialogue = data.get("pending_branch_dialogue", []) if data.get("pending_branch_dialogue", []) is Array else []
     if not pending_branch_dialogue.is_empty():
         lines = pending_branch_dialogue

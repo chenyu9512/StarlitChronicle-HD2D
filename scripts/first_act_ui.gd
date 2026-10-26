@@ -2,6 +2,7 @@ extends CanvasLayer
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const ArtManagerUI = preload("res://scripts/c_art_manager_ui.gd")
+const DTitleScreen = preload("res://scripts/d_title_screen.gd")
 ## iPhone横屏优先的游戏界面：主标题 / 任务追踪 / 触屏移动 / 对白与选项 / 队伍菜单。
 signal started(continue_game: bool)
 signal move_changed(direction: Vector2)
@@ -517,75 +518,31 @@ func close_menu() -> void:
     menu_dismissed.emit()
 
 func _build_title() -> void:
-    title_overlay = _full_screen("TitleScreen", 0.34)
-    var illustration := TextureRect.new()
-    illustration.texture = ArtOverrides.texture("res://assets/art/backdrops/coast/tide_lighthouse.png")
-    title_illustration = illustration
-    illustration.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    illustration.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    illustration.stretch_mode = TextureRect.STRETCH_SCALE
-    title_overlay.add_child(illustration)
-    var veil := ColorRect.new()
-    veil.color = Color(0.02, 0.06, 0.10, 0.58)
-    veil.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    title_overlay.add_child(veil)
-    var center := VBoxContainer.new()
-    center.anchor_left = 0.29
-    center.anchor_right = 0.71
-    center.anchor_top = 0.23
-    center.anchor_bottom = 0.83
-    center.alignment = BoxContainer.ALIGNMENT_CENTER
-    center.add_theme_constant_override("separation", 15)
-    title_overlay.add_child(center)
-    var title := Label.new()
-    title.text = "星 灯 纪 行"
-    title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    title.add_theme_font_size_override("font_size", 51)
-    title.add_theme_color_override("font_color", GOLD)
-    center.add_child(title)
-    var sub := Label.new()
-    sub.text = "ST★RLIT CHRONICLE   ·   十二幕七十二章  /  星空航路"
-    sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    sub.add_theme_font_size_override("font_size", 17)
-    center.add_child(sub)
-    title_continue = _button("继续旅程", 21)
-    title_continue.pressed.connect(func() -> void:
+    # D-owned cinematic title foyer. The C art manager remains unchanged.
+    var foyer = DTitleScreen.new()
+    foyer.name = "TitleScreen"
+    title_overlay = foyer
+    root.add_child(foyer)
+    title_illustration = foyer.illustration
+    title_continue = foyer.continue_button
+    title_status = foyer.status_label
+    foyer.launch_requested.connect(func(continue_game: bool) -> void:
         title_overlay.hide()
-        started.emit(true)
+        started.emit(continue_game)
     )
-    center.add_child(title_continue)
-    var new_game := _button("新的旅程", 21)
-    new_game.pressed.connect(func() -> void:
-        title_overlay.hide()
-        started.emit(false)
+    foyer.art_manager_requested.connect(func() -> void:
+        art_manager.open_manager()
     )
-    center.add_child(new_game)
-    var art_button := _button("▣ 美术资源管理 / 图片替换", 18)
-    art_button.pressed.connect(func() -> void: art_manager.open_manager())
-    center.add_child(art_button)
-    title_status = Label.new()
-    title_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    title_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    title_status.add_theme_color_override("font_color", Color("f6a4a4"))
-    title_status.add_theme_font_size_override("font_size", 16)
-    title_status.visible = false
-    center.add_child(title_status)
-    var foot := Label.new()
-    foot.text = "原创剧情 · 离线存档 · iPhone横屏"
-    foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    center.add_child(foot)
     art_manager = ArtManagerUI.new()
     art_manager.name = "CArtManager"
     root.add_child(art_manager)
     art_manager.asset_changed.connect(func(path: String) -> void:
-        if path == "res://assets/art/backdrops/coast/tide_lighthouse.png":
-            title_illustration.texture = ArtOverrides.texture(path)
+        foyer.refresh_illustration(path)
     )
 
 func show_title(has_save: bool, status: String = "") -> void:
-    title_continue.disabled = not has_save
-    title_status.text = status
-    title_status.visible = not status.is_empty()
+    # Preserve failed-Continue behavior: the caller retains corrupted files.
+    title_overlay.call("configure",has_save,status)
     title_overlay.show()
 
 func set_play_visible(value: bool) -> void:

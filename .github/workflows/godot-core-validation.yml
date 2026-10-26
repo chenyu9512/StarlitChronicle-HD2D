@@ -59,6 +59,19 @@ jobs:
           chmod +x Godot_v4.7.2-stable_linux.x86_64
       - name: Headless project import and GDScript check
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: D Batch 0.1-0.3 atomic reward, cross-save recovery and A/B integration
+        run: |
+          set -euo pipefail
+          GODOT="./Godot_v4.7.2-stable_linux.x86_64"
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_v3_reward_ledger.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_live_battle_v3_transaction.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_batch02_quest_and_b_outbox.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_batch03_legacy_and_checkpoint_recovery.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/smoke_a_line_reward_transactions.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/smoke_a_line_world_handoff.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/smoke_b_story_transactions.gd
+      - name: All forty maps and mini-map current-display coverage
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_all_maps_minimap.gd
       - name: B02/B03 static art runtime resource binding and safe fallback
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_art_assets.gd
       - name: Interactive minimap and 42-location world atlas regression

@@ -4,6 +4,7 @@ const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
 const BattleBossMechanics = preload("res://scripts/battle_boss_mechanics.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
+const BattleWorldHandoff = preload("res://scripts/battle_world_handoff.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
 const BattleActors = preload("res://scripts/battle_actors.gd")
 const BattleSFX = preload("res://scripts/battle_sfx.gd")
@@ -23,6 +24,8 @@ var encounter_registry
 var combat_rules
 var boss_mechanics
 var last_boss_settlement: String = ""
+var world_handoff
+var last_world_handoff_result: Dictionary = {}
 var formation
 var active_target: int = 0
 var skill_picker: PanelContainer
@@ -68,6 +71,22 @@ func _ready() -> void:
     layer = 40
     dice.randomize()
 
+## Optional D-line integration: call before start() while the world is still visible.
+func prepare_world_handoff(world_node: Node, context: Dictionary, is_boss: bool) -> Dictionary:
+    if world_handoff != null and world_handoff.active:
+        return {"ok":false,"reason":"handoff_already_active"}
+    var fresh = BattleWorldHandoff.new()
+    var result: Dictionary = fresh.begin(world_node,"boss" if is_boss else "random",context)
+    if bool(result.get("ok",false)):
+        world_handoff = fresh
+    return result
+
+## Optional D-line integration: restore after completed, before UI input unlock.
+func handoff_to_world(world_node: Node) -> Dictionary:
+    if world_handoff == null:
+        return {"ok":false,"reason":"handoff_not_configured"}
+    return world_handoff.restore(world_node)
+
 func start(save_state, chapter_no: int, is_boss: bool) -> void:
     game_state = save_state
     if combat_rules == null:
@@ -87,6 +106,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     last_warning_round = 0
     last_warning_text = ""
     last_boss_settlement = ""
+    last_world_handoff_result.clear()
     boss_mechanics = null
     if boss:
         var hp: int = 145 + chapter * 55
@@ -1018,4 +1038,6 @@ func _finish(victory: bool) -> void:
     var reward: Dictionary = formation.rewards() if formation != null else {"xp":int(enemy["xp"]),"gold":int(enemy["gold"])}
     if is_instance_valid(battle_hud):
         battle_hud.show_result(victory,int(reward["xp"]) if victory else 0,int(reward["gold"]) if victory else 0)
+    if world_handoff != null and world_handoff.active:
+        last_world_handoff_result = world_handoff.mark_result(victory,last_boss_settlement)
     completed.emit(victory, int(reward["xp"]) if victory else 0, int(reward["gold"]) if victory else 0)

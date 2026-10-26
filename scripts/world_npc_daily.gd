@@ -164,6 +164,7 @@ func step(npc_id: String,map_id: String,minutes: int,current: Vector2,
     if not _within(at,extent) or walls.has(at):
         reset_route(npc_id)
         return {"position":current,"state":"blocked","moving":false}
+    var searches_before: int=path_queries
     var next: Vector2i=_waypoint(npc_id,map_id,at,goal,walls,extent)
     var center: Vector2=Vector2(at)*TILE+Vector2.ONE*(TILE*0.5)
     # Stop at the center before rounding a corner: diagonal interpolation from
@@ -175,4 +176,4 @@ func step(npc_id: String,map_id: String,minutes: int,current: Vector2,
     var direction: Vector2=(moved-current).normalized()
     return {"position":moved,"state":str(task.get("action","idle")),
         "moving":not moved.is_equal_approx(current),"facing":direction,
-        "goal":goal,"path_cached":path_queries>0}
+        "goal":goal,"path_cached":path_queries==searches_before}

@@ -17,9 +17,9 @@ const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
 const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
 const WorldFieldEcology = preload("res://scripts/world_field_ecology.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","世界地图","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
-    "冒险": ["任务","剧情后续","世界地图","地区探索","冒险履历"],
+    "冒险": ["任务","剧情后续","地区探索","冒险履历"],
     "伙伴": ["队伍","职业","技能"],
     "装备": ["背包","武器","防具","商店","锻造"],
     "收藏": ["图鉴","结局档案"],
@@ -364,22 +364,6 @@ func render(section: String) -> void:
                 shown += 1
                 if shown >= 30:
                     break
-        "世界地图":
-            _label("世界航路 / 42地图 · 8大地区",true)
-            _button(content,"◇ 展开图形世界地图（可触控地区、查看道路）",func() -> void: map_requested.emit(),17)
-            if world_router == null:
-                _label("地图服务暂未加载。")
-            else:
-                var current_map: Dictionary = world_router.profile()
-                _label("当前位置：" + str(current_map.get("region_name","")) + " / " + str(current_map.get("name","")),true)
-                _label("已到访 %d/42 处（含2个旧版地图规划记录）；此页面只允许通过已解锁的相邻出口。" % world_router.visited_count())
-                for entry in world_router.neighbors():
-                    var target: String = str(entry.get("id",""))
-                    if bool(entry.get("unlocked",false)):
-                        _button(content,"前往 ◇ "+str(entry.get("name",target)),func() -> void: travel_requested.emit(target),15)
-                    else:
-                        _label("🔒 尚未解锁 · "+str(entry.get("name",target))+"（需推进该区域剧情）")
-                _label("未制作独立场景的地点暂使用可运行的地区风格地图模板，并不会被标记为正式美术已完成。")
         "地区探索":
             _label("第%d章 · 场景调查与居民见证" % save_state.chapter,true)
             var acquired: int = 0
@@ -429,7 +413,7 @@ func render(section: String) -> void:
                         var site_id: String=str(site.get("id",""))
                         var cleared: bool=bool(field_progress.get({"trial":"trial","gather":"harvested","passage":"passage","cache":"claimed"}.get(site_id,""),false))
                         _label(("✓ " if cleared else "◇ ")+str(site.get("title","野外地点"))+(" · 已记录" if cleared else " · 尚未发现"))
-                    _button(content,"打开野外地图，寻找环境线索",func() -> void: map_requested.emit(),15)
+                    _button(content,"打开当前区域地图，寻找环境线索",func() -> void: map_requested.emit(),15)
                 var local_events: Array = discovery_catalog.entries(location)
                 if not local_events.is_empty():
                     var done: int = 0
@@ -442,7 +426,7 @@ func render(section: String) -> void:
                             _label(str(event.get("text","")))
                     var area_record: Dictionary = discovery_catalog.maps.get(location,{})
                     _label("当前地区：%s · %d / %d" % [str(area_record.get("name",location)),done,local_events.size()])
-                    _button(content,"打开区域地图，寻找未调查地点",func() -> void: map_requested.emit(),15)
+                    _button(content,"打开当前区域地图，寻找未调查地点",func() -> void: map_requested.emit(),15)
             if save_state.chapter < 1:
                 _label("童年序章结束后，每章开放两处独立调查物件及一段隐藏证言。")
             else:

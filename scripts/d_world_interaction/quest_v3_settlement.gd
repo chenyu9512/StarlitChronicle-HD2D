@@ -3,6 +3,26 @@ extends RefCounted
 ## Event IDs and all economic effects share a single V3 snapshot. Fail closed.
 const Ledger = preload("res://scripts/d_world_interaction/v3_reward_ledger.gd")
 
+static func settle_local_stage(progress: Object, chapter: int,
+        quest: Dictionary, stage: String) -> Dictionary:
+    var quest_id: String = str(quest.get("id",""))
+    if progress == null or quest_id.is_empty() or chapter != int(progress.get("chapter")):
+        return {"ok":false,"reason":"invalid_local_stage"}
+    if stage not in ["accepted","found"]:
+        return {"ok":false,"reason":"invalid_stage"}
+    var previous: String = "side." + quest_id + ".accepted"
+    var key: String = "side." + quest_id + "." + stage
+    if bool(progress.flags.get("side."+quest_id+".done",false)) or bool(progress.flags.get(key,false)):
+        return {"ok":true,"applied":false,"repeated":true}
+    if stage == "found" and not bool(progress.flags.get(previous,false)):
+        return {"ok":false,"reason":"missing_acceptance"}
+    var intent: Dictionary = {"source":"local_side_stage","quest_id":quest_id,
+        "chapter":chapter,"stage":stage}
+    var mutation: Callable = func() -> Dictionary:
+        progress.flags[key] = true
+        return {"ok":true,"stage":stage}
+    return Ledger.settle(progress,"d.quest.local."+quest_id+"."+stage,intent,mutation)
+
 static func settle_local(progress: Object, core: Object, chapter: int, quest: Dictionary) -> Dictionary:
     var quest_id: String = str(quest.get("id",""))
     if progress == null or core == null or quest_id.is_empty() or int(progress.get("chapter")) != chapter:

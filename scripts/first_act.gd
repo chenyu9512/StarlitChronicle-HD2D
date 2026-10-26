@@ -1262,6 +1262,7 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         if not bool(handoff.get("resume_world",false)):
             _hold_battle_settlement(won,xp,money,"安全返回位置被阻挡，请重试。")
             return
+        battle.last_world_handoff_result = handoff.duplicate(true)
     elif not handoff.has("resume_world"):
         if world == null or not is_instance_valid(world.hero):
             _hold_battle_settlement(won,xp,money,"玩家或地图缺失，暂停结算。")
@@ -1278,6 +1279,9 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         elif world._blocked(world.hero.position):
             _hold_battle_settlement(won,xp,money,"当前位置不可通行，暂停结算。")
             return
+        # A failed V3 write must not repeatedly relocate the party on retry.
+        battle.last_world_handoff_result = {"ok":true,"resume_world":true,
+            "fallback":true,"reward_transaction_id":transaction_id}
 
     var chapter_at_fight: int = int(battle.chapter)
     var is_boss: bool = bool(battle_is_boss)

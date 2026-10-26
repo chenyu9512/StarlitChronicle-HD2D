@@ -7,6 +7,7 @@ const WorldFogV3 = preload("res://scripts/world_fog_v3.gd")
 const BattleScript = preload("res://scripts/first_act_battle.gd")
 const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
 const BattleV3Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
+const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
@@ -933,11 +934,19 @@ func _story_side_interact(target: String) -> void:
     ui.show_dialogue(entry.get("dialogue", []))
 
 func _finish_story_side(selected: Dictionary = {}) -> void:
+    # RPGCore.advance_story_side commits the stage, choices, rewards and nonce.
+    # Do not separately save or display "completed" on a failed V3 commit.
     var result: String = game_core.advance_story_side(active_story_side, selected)
+    if result.begins_with("委托存档失败") or result.begins_with("委托状态无效"):
+        pending = ""
+        active_story_side = {}
+        paused_for_dialogue = false
+        ui.show_message(result)
+        _return_to_world()
+        return
     if result.begins_with("委托完成"):
         game_events.record("side_quest_completed",{"id":str(active_story_side.get("id",""))})
     var branch_dialogue: Array = selected.get("branch_dialogue", [])
-    _save_progress()
     _focus() # Re-position the next original stage at this quest's authored site.
     if not branch_dialogue.is_empty():
         pending = "story_side_branch"
@@ -1108,12 +1117,23 @@ func _dialogue_ended() -> void:
         "side_found":
             progress.flags[_side_flag("found")] = true
         "side_complete":
-            progress.flags[_side_flag("done")] = true
             var quest: Dictionary = side_quests.get(progress.chapter, {})
-            var reward: Dictionary = quest.get("reward", {})
-            progress.give_rewards(int(reward.get("xp", 0)), int(reward.get("gold", 0)))
-            game_core.add_item("item_herb_01",int(reward.get("potions",0)))
-            ui.show_message("支线完成！获得经验、金币与药草奖励。")
+            _capture_world_position()
+            var settlement: Dictionary = QuestV3Settlement.settle_local(
+                progress,game_core,progress.chapter,quest)
+            if not bool(settlement.get("ok",false)):
+                # The physical completion marker remains reachable for retry.
+                pending = ""
+                ui.show_message("支线奖励未保存，进度已恢复，请重新与委托人交谈。")
+                _return_to_world()
+                return
+            pending = ""
+            if bool(settlement.get("repeated",false)):
+                ui.show_message("该委托已经完成，奖励不会重复领取。")
+            else:
+                ui.show_message("支线完成！经验、金币与药草已保存。")
+            _return_to_world()
+            return
         "resolve":
             _apply_effects(_current_scene())
             if progress.chapter == 72 and progress.scene_index == 3:

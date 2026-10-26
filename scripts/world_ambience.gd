@@ -1,4 +1,5 @@
 extends Node2D
+const CVisual = preload("res://scripts/c_visual_design.gd")
 ## Lightweight dynamic day/night/weather composition for the active map only.
 ## No external effects library; visuals are authored Godot primitives.
 var map_pixels: Vector2=Vector2(72.0*32.0,48.0*32.0)
@@ -59,7 +60,7 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
     var hour: float=float(minutes)/60.0
-    var tint: Color=Color(0.04,0.09,0.19,0.0)
+    var tint: Color=Color(CVisual.INK.r,CVisual.INK.g,CVisual.INK.b,0.0)
     if hour>=20.0 or hour<5.0:
         tint.a=0.45
     elif hour>=18.0:
@@ -67,7 +68,7 @@ func _draw() -> void:
     elif hour<7.0:
         tint.a=0.33-(hour-5.0)*0.16
     elif hour>=16.0:
-        tint=Color(0.46,0.23,0.13,0.06+(hour-16.0)*0.04)
+        tint=Color(0.48,0.28,0.14,0.055+(hour-16.0)*0.045)
     if tint.a>0.0:
         draw_rect(Rect2(Vector2.ZERO,map_pixels),tint,true)
     if weather=="mist":

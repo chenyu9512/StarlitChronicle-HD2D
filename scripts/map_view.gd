@@ -115,6 +115,39 @@ func _draw() -> void:
     else:
         _draw_local()
 
+## Distinct cartographic palettes for the eight authored regions and room floors.
+## Only the UI is tinted; playable tiles, collision and story flags stay unchanged.
+func _map_palette() -> Dictionary:
+    if world != null and not world.interior_building.is_empty():
+        return {"ground":Color("696778"),"road":Color("b3a38b"),
+            "wall":Color("30354a"),"floor":Color("a58d77"),"water":Color("416f9b")}
+    var biome: String = str(world.map_profile.get("biome","coastal"))
+    match biome:
+        "highland":
+            return {"ground":Color("637f68"),"road":Color("b4a784"),
+                "wall":Color("3d5353"),"floor":Color("809081"),"water":Color("40748f")}
+        "volcanic":
+            return {"ground":Color("826153"),"road":Color("b89172"),
+                "wall":Color("4c3337"),"floor":Color("995c4d"),"water":Color("bb674a")}
+        "archipelago":
+            return {"ground":Color("438a7c"),"road":Color("c1b88d"),
+                "wall":Color("31606c"),"floor":Color("8ba28c"),"water":Color("2869a0")}
+        "mistforest":
+            return {"ground":Color("476f66"),"road":Color("9b9d79"),
+                "wall":Color("2b5154"),"floor":Color("668c77"),"water":Color("497d8c")}
+        "badlands":
+            return {"ground":Color("947561"),"road":Color("c0a17b"),
+                "wall":Color("5d514d"),"floor":Color("b58e70"),"water":Color("647c94")}
+        "celestial":
+            return {"ground":Color("757b9e"),"road":Color("c2b9bd"),
+                "wall":Color("4d4e79"),"floor":Color("938cac"),"water":Color("6c83be")}
+        "metropolis":
+            return {"ground":Color("6e7f88"),"road":Color("aaa798"),
+                "wall":Color("404f62"),"floor":Color("948e93"),"water":Color("477a9a")}
+        _:
+            return {"ground":Color("517f6f"),"road":Color("b7a78a"),
+                "wall":Color("334d59"),"floor":Color("a18d78"),"water":Color("377c9c")}
+
 func _draw_local() -> void:
     var frame: Dictionary = local_frame()
     if frame.is_empty():
@@ -130,23 +163,24 @@ func _draw_local() -> void:
     var map_rect: Rect2 = frame["rect"]
     draw_rect(map_rect.grow(2.0),Color("8298a1"),false,1.0)
     var fog_key: String = world.fog_key() if world.fog != null else ""
+    var palette: Dictionary = _map_palette()
     for y in range(first_y,first_y+rows):
         for x in range(first_x,first_x+columns):
             var tile: Vector2i = Vector2i(x,y)
-            var shade: Color = PASSABLE
+            var shade: Color = palette["ground"]
             if world.layer.get_cell_source_id(tile)==1:
-                shade=Color("205c83")
+                shade=palette["water"]
             elif world.blocked.has(tile):
-                shade=WALL
+                shade=palette["wall"]
             else:
                 var terrain: Vector2i = world.layer.get_cell_atlas_coords(tile)
                 match terrain.y:
-                    3: shade=PATH
-                    5: shade=Color("7a7480")
-                    1: shade=Color("3a806d")
-                    4: shade=Color("ad7554")
-                    6: shade=Color("344352")
-                    7: shade=Color("4e5971")
+                    3: shade=palette["road"]
+                    5: shade=palette["floor"]
+                    1: shade=(palette["ground"] as Color).lightened(0.15)
+                    4: shade=(palette["floor"] as Color).darkened(0.12)
+                    6: shade=palette["wall"]
+                    7: shade=(palette["ground"] as Color).lightened(0.10)
             if world.fog != null and not world.fog.revealed(fog_key,x,y):
                 shade=Color("101b2c")
             var pos: Vector2 = origin+Vector2(x-first_x,y-first_y)*cell

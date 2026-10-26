@@ -5,7 +5,7 @@ extends RefCounted
 const AReceipt = preload("res://scripts/battle_reward_transaction.gd")
 const V3Ledger = preload("res://scripts/d_world_interaction/v3_reward_ledger.gd")
 
-static func settle_victory(progress: Object, core: Object, transaction_id: String, chapter: int,
+static func settle_victory(progress: Variant, core: Variant, transaction_id: String, chapter: int,
         is_boss: bool, enemies: Array, monster_id: String, xp: int, gold: int,
         xp_multiplier: int = 1) -> Dictionary:
     if progress == null or core == null or not AReceipt.valid_id(transaction_id):
@@ -16,7 +16,11 @@ static func settle_victory(progress: Object, core: Object, transaction_id: Strin
     if not (rpg_value is Dictionary):
         return {"ok":false,"applied":false,"reason":"invalid_rpg_state"}
     var rpg: Dictionary = rpg_value
-    if is_boss and bool(progress.get("flags").get("ch%03d.battle_won" % chapter, false)):
+    var flags_value: Variant = progress.get("flags")
+    if not (flags_value is Dictionary):
+        return {"ok":false,"applied":false,"reason":"invalid_flags"}
+    var flags: Dictionary = flags_value
+    if is_boss and bool(flags.get("ch%03d.battle_won" % chapter, false)):
         return {"ok":true,"applied":false,"repeated":true,"reason":"legacy_or_settled_boss"}
     if AReceipt.already_applied(rpg, transaction_id):
         return {"ok":true,"applied":false,"repeated":true,"reason":"a_receipt_exists"}
@@ -50,7 +54,7 @@ static func settle_victory(progress: Object, core: Object, transaction_id: Strin
             "xp":awarded_xp,"gold":awarded_gold}
     return V3Ledger.settle(progress,transaction_id,intent,mutation)
 
-static func settle_defeat(progress: Object, transaction_id: String, chapter: int,
+static func settle_defeat(progress: Variant, transaction_id: String, chapter: int,
         is_boss: bool) -> Dictionary:
     if progress == null or not AReceipt.valid_id(transaction_id):
         return {"ok":false,"applied":false,"reason":"invalid_battle_transaction"}

@@ -384,7 +384,7 @@ func _process(delta: float) -> void:
             _refresh_zoom_toolbar()
             _refresh_info()
     update_clock += delta
-    if update_clock < 0.16:
+    if update_clock < (0.10 if small_frame.visible else 0.16):
         return
     update_clock = 0.0
     if small_frame.visible:

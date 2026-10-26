@@ -8,6 +8,8 @@ class FixtureCatalog:
     var prologue: Dictionary = {"scenes":[]}
     func get_chapter(_id: String) -> Dictionary:
         return {}
+    func requirements_met(_required: Array, _flags: Dictionary) -> bool:
+        return true
     func get_quest(id: String) -> Dictionary:
         if id == "b_qa_quest":
             return {"id":id,"completion_flag":"b.qa.quest.done",

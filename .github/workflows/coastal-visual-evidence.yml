@@ -14,6 +14,7 @@ on:
       - "scripts/prologue_world_stage.gd"
       - "scripts/prologue_actor_blocking.gd"
       - "scripts/cinematic_scene_fx.gd"
+      - "scripts/first_act.gd"
       - "data/cinematics/prologue.json"
       - "tools/smoke_coastal_exterior.gd"
       - ".github/workflows/coastal-visual-evidence.yml"
@@ -74,6 +75,7 @@ jobs:
           test -s build/art-qa/p5_escape_040.png
           test -s build/art-qa/p5_ash_morning.png
           test -s build/art-qa/p5_ten_year_match.png
+          python3 -c 'import json; m=json.load(open("build/art-qa/prologue_manifest.json")); assert m.get("passes") is True and len(m.get("evidence", [])) == 13, "Prologue visual manifest does not contain 13 passing captures"'
       - name: Upload visual QA evidence and contract
         if: always()
         uses: actions/upload-artifact@v4

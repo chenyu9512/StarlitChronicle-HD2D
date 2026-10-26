@@ -191,10 +191,19 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func _start(continue_game: bool) -> void:
-    var fresh_game: bool = not continue_game or not progress.load_saved()
+    # A failed Continue must NEVER start a new game and overwrite unreadable saves.
+    # Keep both original files for recovery or inspection.
+    if continue_game and not progress.load_saved():
+        ui.show_title(false)
+        ui.show_message("原存档与备份均无法读取。旧文件已保留，请先备份文件再尝试新游戏。")
+        return
+    var fresh_game: bool = not continue_game
     if fresh_game:
         progress.new_game()
-        progress.save()
+        if not progress.save():
+            ui.show_title(false)
+            ui.show_message("无法初始化新游戏存档，请检查设备空间与存储权限。")
+            return
     game_core.bind(progress)
     world_router.bind(progress)
     map_fog.bind(progress)
@@ -326,6 +335,7 @@ func _enter_location() -> void:
             saved_world.erase("indoor_building")
             saved_world.erase("outdoor_return")
     world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
+    _restore_world_position()
     world.set_prologue_phase(progress.scene_index,progress.chapter)
     world.refresh_field_ecology(progress)
     world.locked = false
@@ -724,7 +734,7 @@ func _interact(target: String) -> void:
         else:
             progress.gold -= 16
             game_core.add_item("item_herb_01",1)
-            progress.save()
+            _save_progress()
             ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
         _focus()
         return
@@ -1478,6 +1488,7 @@ func _housing_changed(message: String) -> void:
     _save_progress()
 
 func _save_slot(slot: int) -> void:
+    _capture_world_position()
     var success: bool = save_slots.save_slot(progress,slot)
     adventure_menu.render("存档管理")
     adventure_menu.footer.text = "槽位 %d %s" % [slot,"已保存" if success else "保存失败"]
@@ -1506,7 +1517,47 @@ func _load_slot(slot: int) -> void:
             _play_ending_scene()
     ui.show_message("已载入手动存档 %d。" % slot)
 
+func _capture_world_position() -> void:
+    if progress == null or world == null or not is_instance_valid(world.hero) or world_router == null:
+        return
+    var snapshot: Dictionary = progress.rpg.get("world", {})
+    snapshot["player_checkpoint"] = {
+        "map_id": world_router.current_map(),
+        "chapter": world.chapter,
+        "indoor_building": world.interior_building,
+        "xy": [world.hero.position.x, world.hero.position.y]
+    }
+    progress.rpg["world"] = snapshot
+
+func _restore_world_position() -> void:
+    if progress == null or world == null or not is_instance_valid(world.hero) or world_router == null:
+        return
+    var saved: Variant = progress.rpg.get("world", {}).get("player_checkpoint", {})
+    if not (saved is Dictionary):
+        return
+    if str(saved.get("map_id", "")) != world_router.current_map():
+        return
+    if int(saved.get("chapter", -1)) != progress.chapter:
+        return
+    if str(saved.get("indoor_building", "")) != world.interior_building:
+        return
+    var xy: Variant = saved.get("xy", [])
+    if not (xy is Array) or xy.size() != 2:
+        return
+    if typeof(xy[0]) not in [TYPE_FLOAT, TYPE_INT] or typeof(xy[1]) not in [TYPE_FLOAT, TYPE_INT]:
+        return
+    var p := Vector2(float(xy[0]), float(xy[1]))
+    if not is_finite(p.x) or not is_finite(p.y):
+        return
+    if p.x < 16.0 or p.y < 16.0 or p.x > float(world.WIDTH * world.TILE) - 16.0 or p.y > float(world.HEIGHT * world.TILE) - 16.0:
+        return
+    if world._blocked(p):
+        return
+    world.hero.position = p
+    world._reveal_nearby()
+
 func _save_progress() -> bool:
+    _capture_world_position()
     var success: bool = progress.save()
     if not success:
         push_warning("游戏主体存档写入失败")

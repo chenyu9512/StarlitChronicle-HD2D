@@ -102,10 +102,23 @@ func _run() -> void:
             var player=State.new()
             player.new_game()
             var first_id: String=str(inspected[0].get("id",""))
-            var first: Dictionary=homes.inspect(map_id,room_id,first_id,player,false)
+            var target_raw: Array=inspected[0].get("cell",[])
+            var target: Vector2i=Vector2i(int(target_raw[0]),int(target_raw[1]))
+            check(str(homes.object_at(map_id,room_id,target).get("id",""))==first_id,
+                "Furniture target cannot resolve by cell "+first_id)
+            check(bool(homes.preview(map_id,room_id,first_id,player).get("available",false)),
+                "Furniture preview missing "+first_id)
+            check(not bool(homes.preview(map_id,room_id,first_id,player).get("seen",true)),
+                "Furniture state unexpectedly already inspected "+first_id)
+            var first: Dictionary=homes.inspect_at(map_id,room_id,target,player,false)
             var repeat: Dictionary=homes.inspect(map_id,room_id,first_id,player,false)
             check(bool(first.get("changed",false)),"First inspection failed "+first_id)
             check(not bool(repeat.get("changed",true)),"Repeat inspection awarded "+first_id)
+            check(bool(homes.preview(map_id,room_id,first_id,player).get("seen",false)),
+                "First inspection did not persist "+first_id)
+            var invalid_probe: Dictionary=homes.inspect(map_id,"../private",first_id,player,false)
+            check(not bool(invalid_probe.get("changed",true)),"Untrusted path escaped room registry")
+            check((homes.dossier(map_id,"../private") as Dictionary).is_empty(),"Traversal bypassed validation")
             player.flags[str(inspected[0].get("after_flag",""))]=true
             var after: Dictionary=homes.inspect(map_id,room_id,first_id,player,true)
             check(bool(after.get("changed",false)),"Post-chapter furniture did not change "+first_id)
@@ -128,6 +141,7 @@ func _run() -> void:
         saved.rpg["town_ecology_v7"]=finished_communities
         var after: String=ecology.social_feedback(str(map_id),saved,11)
         check(after!=daytime,"Community didn't react to project "+str(map_id))
+    check(homes.issues.is_empty(),"Furniture registry has malformed records")
     if errors.is_empty():
         print("PASS B NPC/home code: 40 distinct NPCs, 11 community cycles, 12 rooms and 52 stateful furniture nodes")
         quit(0)

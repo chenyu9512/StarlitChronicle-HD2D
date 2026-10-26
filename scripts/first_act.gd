@@ -130,6 +130,7 @@ func _ready() -> void:
     adventure_menu.branch_navigation_requested.connect(_track_branch_event)
     adventure_menu.travel_requested.connect(_travel_to)
     adventure_menu.map_requested.connect(_open_local_map_from_book)
+    adventure_menu.visual_quality_changed.connect(_change_visual_quality)
     adventure_menu.save_slot_requested.connect(_save_slot)
     adventure_menu.load_slot_requested.connect(_load_slot)
     adventure_menu.housing_purchase_requested.connect(_purchase_house)
@@ -211,6 +212,7 @@ func _start(continue_game: bool) -> void:
     housing.bind(progress)
     optional_director.bind(progress)
     branch_runtime.bind(progress)
+    world.set_visual_quality(int(progress.rpg.get("settings",{}).get("visual_quality",1)))
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
         # Legacy V3 ending flag has no authored ending ID. Migrate only after
         # confirmed V3 disk commit; never advance world on failed migration.
@@ -1759,6 +1761,7 @@ func _load_slot(slot: int) -> void:
     housing.bind(progress)
     optional_director.bind(progress)
     branch_runtime.bind(progress)
+    world.set_visual_quality(int(progress.rpg.get("settings",{}).get("visual_quality",1)))
     adventure_menu.close_menu()
     cinematic.cancel_all()
     cinematic_camera.restore()
@@ -1854,6 +1857,9 @@ func _open_local_map_from_book() -> void:
     _return_to_world()
     atlas.show_exploration(true)
     atlas.open_map()
+
+func _change_visual_quality(level: int) -> void:
+    world.set_visual_quality(level)
 
 func _open_map_from_quick_menu() -> void:
     if is_instance_valid(battle):

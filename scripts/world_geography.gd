@@ -315,12 +315,108 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     # A manual collision layer or regional cliff cannot strand an original quest.
     # Do not alter accessible authored paths or override navigable bridge layouts.
     for essential in _anchors():
+        if village and _inside_town_building(essential,spec):
+            # Legacy quest positions can fall under the now-solid roof. The
+            # interaction layer relocates those markers to reachable pavement.
+            continue
         if not reachable({"blocked":walls,"size":Vector2i(map_width,map_height)},[start],[essential]):
             _road(terrain,walls,start,essential,seed+essential.x*7+essential.y,1)
+    if village:
+        # LAST physical authority: roads, quests, gates and expansion passes
+        # must never drill invisible holes through a house facade.
+        _seal_town_buildings(terrain,walls,spec,start)
     var wet: Dictionary = {}
     if not authored_level.is_empty():
         wet = authored.open_water_tiles(authored_level,walls)
     return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"town_plan":district_plan,"spawn":start,"zone":spec,"size":Vector2i(map_width,map_height)}
+
+## One footprint / one entrance rule for every settlement. The map artist
+## owns the shape and the D interaction layer owns whether the door can open.
+func _building_box(building: Dictionary) -> Rect2i:
+    var center: Array = building.get("pos",[])
+    var dimensions: Array = building.get("size",[])
+    if center.size()!=2 or dimensions.size()!=2:
+        return Rect2i()
+    var body := Vector2i(int(center[0]),int(center[1]))
+    var size := Vector2i(int(dimensions[0]),int(dimensions[1]))
+    var half := Vector2i(size.x / 2,size.y / 2)
+    return Rect2i(body-half,half*2+Vector2i.ONE)
+
+func _inside_town_building(cell: Vector2i,spec: Dictionary) -> bool:
+    for raw in spec.get("buildings",[]):
+        if raw is Dictionary and _building_box(raw).has_point(cell):
+            return true
+    return false
+
+func _path_around_roofs(start: Vector2i,goal: Vector2i,roofs: Dictionary) -> Array[Vector2i]:
+    # Sparse 4-neighbour routing. Only invoked for a disconnected front door;
+    # never erases roof blockers or teleports the player into the interior.
+    if roofs.has(start) or roofs.has(goal):
+        return []
+    var frontier: Array[Vector2i] = [start]
+    var parents: Dictionary = {start:start}
+    var index: int = 0
+    var steps: Array[Vector2i] = [Vector2i.UP,Vector2i.LEFT,Vector2i.RIGHT,Vector2i.DOWN]
+    while index<frontier.size():
+        var current: Vector2i=frontier[index]
+        index+=1
+        if current==goal:
+            var result: Array[Vector2i]=[]
+            while current!=start:
+                result.append(current)
+                current=parents[current]
+            result.append(start)
+            result.reverse()
+            return result
+        for offset in steps:
+            var next: Vector2i=current+offset
+            if next.x<2 or next.y<2 or next.x>=map_width-2 or next.y>=map_height-2 or roofs.has(next) or parents.has(next):
+                continue
+            parents[next]=current
+            frontier.append(next)
+    return []
+
+func _seal_town_buildings(ground: Dictionary,walls: Dictionary,spec: Dictionary,spawn: Vector2i) -> void:
+    var roofs: Dictionary={}
+    var entrances: Array[Vector2i]=[]
+    for raw in spec.get("buildings",[]):
+        if not raw is Dictionary:
+            continue
+        var box: Rect2i=_building_box(raw)
+        if box.size.x==0 or box.size.y==0:
+            continue
+        for y in range(box.position.y,box.end.y):
+            for x in range(box.position.x,box.end.x):
+                var cell:=Vector2i(x,y)
+                if cell.x>=2 and cell.y>=2 and cell.x<map_width-2 and cell.y<map_height-2:
+                    roofs[cell]=true
+        var door: Array=raw.get("door",[])
+        if door.size()==2:
+            entrances.append(Vector2i(int(door[0]),int(door[1]))+Vector2i.DOWN)
+    for cell in roofs.keys():
+        # Preserve the original grid/blocker representation used by collision,
+        # path tests and the editor; the building scene draws the actual roof.
+        _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),6),true)
+    var layout_size:=Vector2i(map_width,map_height)
+    for entrance in entrances:
+        if roofs.has(entrance):
+            push_warning("Town entrance overlaps another building: "+str(entrance))
+            continue
+        # Solid doorway tile remains inside the footprint; stand one tile in
+        # front of it and press interact, just like a classic tile JRPG.
+        for distance in [1,2]:
+            var apron: Vector2i=entrance+Vector2i(0,distance-1)
+            if not roofs.has(apron):
+                _paint(ground,walls,apron,Vector2i(posmod(apron.x+apron.y,8),3),false)
+        if reachable({"blocked":walls,"size":layout_size},[spawn],[entrance]):
+            continue
+        var link: Array[Vector2i]=_path_around_roofs(entrance,spawn,roofs)
+        if link.is_empty():
+            push_warning("Town entrance has no non-roof route: "+str(entrance))
+            continue
+        for cell in link:
+            if not roofs.has(cell):
+                _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),3),false)
 
 func interior(building: String,building_kind: String,map_id: String = "") -> Dictionary:
     map_width = WIDTH

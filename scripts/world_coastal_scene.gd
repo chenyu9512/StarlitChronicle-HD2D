@@ -50,11 +50,17 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
         var point: Array = item.get("cell",[])
         if id.is_empty() or authored_sprites.has(id) or asset not in ACCEPTED or point.size()!=2:
             continue
-        var sprite := _sprite(asset,Vector2i(int(point[0]),int(point[1])))
+        var layer: String=str(item.get("layer","furniture"))
+        var cell: Vector2i=Vector2i(int(point[0]),int(point[1]))
+        if layer=="vegetation":
+            cell=_safe_vegetation_cell(cell,layout)
+            if cell.x<0:
+                push_warning("Coastal tree omitted: no clear verge for "+id)
+                continue
+        var sprite := _sprite(asset,cell)
         if sprite==null:
             continue
         sprite.name=id
-        var layer: String=str(item.get("layer","furniture"))
         var depth_sorted: bool=layer in ["vegetation","foreground"] and is_instance_valid(depth_stage)
         # For depth props, the scene root is y-sorted with the hero. Do not
         # move the footpoint when adding a tall canopy: use Sprite2D.offset.
@@ -95,6 +101,47 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
     _install_surface_detail(layout)
     if map_id=="map_coast_04":
         _make_cavern_lighting()
+
+## Keep a tree trunk outside houses, door approaches and painted road.
+## The canopy can overlap scenery behind it through Y sorting, but its root
+## never appears in the middle of a shop, quest path or indoor doorway.
+func _safe_vegetation_cell(wanted: Vector2i,layout: Dictionary) -> Vector2i:
+    var extent: Vector2i=layout.get("size",Vector2i(72,48))
+    var blocks: Dictionary=layout.get("blocked",{})
+    var ground: Dictionary=layout.get("tiles",{})
+    var buildings: Array=layout.get("zone",{}).get("buildings",[])
+    for radius in range(10):
+        for dy in range(-radius,radius+1):
+            for dx in range(-radius,radius+1):
+                if absi(dx)+absi(dy)!=radius:
+                    continue
+                var p: Vector2i=wanted+Vector2i(dx,dy)
+                if p.x<3 or p.y<3 or p.x>=extent.x-3 or p.y>=extent.y-3 or blocks.has(p):
+                    continue
+                var paint: Vector2i=ground.get(p,Vector2i.ZERO)
+                if paint.y==3:
+                    continue
+                var beside_house: bool=false
+                for raw in buildings:
+                    if not raw is Dictionary:
+                        continue
+                    var pos: Array=raw.get("pos",[])
+                    var size: Array=raw.get("size",[])
+                    var door: Array=raw.get("door",[])
+                    if pos.size()!=2 or size.size()!=2:
+                        continue
+                    var center: Vector2i=Vector2i(int(pos[0]),int(pos[1]))
+                    var half: Vector2i=Vector2i(int(size[0])/2,int(size[1])/2)
+                    if abs(p.x-center.x)<=half.x+1 and abs(p.y-center.y)<=half.y+1:
+                        beside_house=true
+                        break
+                    if door.size()==2 and p.distance_squared_to(Vector2i(int(door[0]),int(door[1]))+Vector2i.DOWN)<16:
+                        beside_house=true
+                        break
+                if beside_house:
+                    continue
+                return p
+    return Vector2i(-1,-1)
 
 func _install_water_reflections(mask: Dictionary) -> void:
     var file: String=ART+"sea_glimmer_4f.svg"

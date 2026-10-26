@@ -307,3 +307,49 @@ func enemy_strategy(foe: Dictionary, round_number: int, phase_two: bool, is_boss
     if not is_boss and personality.contains("优先") and not party.is_empty():
         directive["target"] = "lowest_hp"
     return directive
+
+## Career techniques share the deterministic action path instead of cloning 63 skills.
+## Only battle-local combat choices are changed; saved actor base attributes stay intact.
+func vocation_skill_power(power: int, passive: String, kind: String) -> int:
+    if kind == "heal" and passive in ["mercy","sanctuary"]:
+        return roundi(float(power) * (1.20 if passive == "mercy" else 1.12))
+    if kind == "buff" and passive in ["chorus","anthem"]:
+        return roundi(float(power) * 1.25)
+    if kind == "damage" and passive == "arcana":
+        return roundi(float(power) * 1.18)
+    return power
+
+func vocation_damage(raw: int, passive: String, action: String, foe: Dictionary, living_allies: int) -> int:
+    var amount: int = maxi(0,raw)
+    var ratio: float = float(foe.get("hp",1))/float(maxi(1,int(foe.get("max_hp",1))))
+    match passive:
+        "duelist":
+            if bool(foe.get("is_boss",false)): amount = roundi(float(amount)*1.12)
+        "hunter":
+            if ratio <= 0.5: amount = roundi(float(amount)*1.13)
+        "arcana":
+            if action == "skill": amount = roundi(float(amount)*1.08)
+        "breaker":
+            if action == "special": amount += mini(25,int(foe.get("def",0))/4)
+        "shadow_blade":
+            pass
+        "execute":
+            if ratio <= 0.35: amount = roundi(float(amount)*1.22)
+        "affinity":
+            if action == "skill" and ratio <= 0.6: amount = roundi(float(amount)*1.13)
+        "pack":
+            if living_allies >= 2: amount = roundi(float(amount)*1.10)
+        "pierce":
+            amount += mini(55,roundi(float(foe.get("def",0))*0.32))
+        "navigation":
+            if bool(foe.get("is_boss",false)) and ratio <= 0.5: amount = roundi(float(amount)*1.16)
+        "starlight":
+            if action == "special": amount = roundi(float(amount)*1.07)
+    return maxi(0,amount)
+
+func vocation_mitigation(raw: int, passive: String, hp_ratio: float) -> int:
+    if passive == "vow":
+        return maxi(0,roundi(float(raw)*(0.72 if hp_ratio <= 0.35 else 0.87)))
+    if passive == "aegis":
+        return maxi(0,roundi(float(raw)*0.95))
+    return maxi(0,raw)

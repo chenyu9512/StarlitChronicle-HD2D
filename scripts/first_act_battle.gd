@@ -501,6 +501,9 @@ func _act(action: String) -> void:
     var name: String = str(member["name"])
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
     var combat_attack: int = int(stats.get("attack",member.get("attack",0))) + combat_rules.attack_bonus(str(member.get("id","")))
+    var actor_job: String = str(game_state.rpg.get("jobs",{}).get(str(member.get("id","")),"swordsman"))
+    var vocation: Dictionary = game_core.vocation_profiles.get(actor_job,{}) if game_core != null else {}
+    var passive: String = str(vocation.get("passive",""))
     var message: String = ""
     var damage: int = 0
     var healed_via_skill: bool = false
@@ -522,7 +525,7 @@ func _act(action: String) -> void:
                 member["mp"] = int(member["mp"]) - int(chosen.get("mp_cost",0))
                 var effect: Dictionary = chosen.get("effect",{})
                 var kind: String = str(effect.get("kind","damage"))
-                var power: int = int(effect.get("power",0))
+                var power: int = combat_rules.vocation_skill_power(int(effect.get("power",0)),passive,kind)
                 # The shared magic equipment/job stat was previously displayed
                 # but ignored by restorative skills in actual fights.
                 var magic_bonus: int = maxi(0,int(stats.get("magic",0))) if str(effect.get("scaling","")) == "magic" else 0
@@ -541,6 +544,12 @@ func _act(action: String) -> void:
                             game_state.heal_member(target_index,maxi(20,power*2 + magic_bonus))
                         message = "%s 施展%s，治疗%s。" % [name,label,str(game_state.actors[target_index].get("name",""))]
                     healed_via_skill = true
+                    if passive in ["mercy","sanctuary"]:
+                        if target_type == "all_allies":
+                            for ally in game_state.actors:
+                                combat_rules.cure_negative(str(ally.get("id","")),"" if passive == "sanctuary" else "poison")
+                        elif target_index >= 0 and target_index < game_state.actors.size():
+                            combat_rules.cure_negative(str(game_state.actors[target_index].get("id","")),"" if passive == "sanctuary" else "poison")
                     if is_instance_valid(vfx):
                         vfx.play_heal(_vfx_member_point(target_index),label)
                 elif kind == "shield":
@@ -583,6 +592,24 @@ func _act(action: String) -> void:
         "guard":
             defense[hero_turn] = true
             message = "%s 严阵以待，本回合受到的伤害降低。" % name
+            match passive:
+                "aegis":
+                    combat_rules.shield(str(member.get("id","")),3)
+                    message += " · 壁垒护盾。"
+                "momentum":
+                    combat_rules.charge(str(member.get("id","")))
+                    message += " · 连势聚星。"
+                "fortify":
+                    for ally in game_state.actors:
+                        if int(ally.get("hp",0)) > 0:
+                            combat_rules.shield(str(ally.get("id","")),2)
+                    message += " · 铸阵全体护盾。"
+                "anthem":
+                    combat_rules.buff(str(member.get("id","")),5,2)
+                    message += " · 号令战歌。"
+                "synthesis":
+                    member["mp"] = mini(int(member.get("max_mp",0)),int(member.get("mp",0))+8)
+                    message += " · 炼造恢复8点魔力。"
             if is_instance_valid(vfx):
                 vfx.play_guard(_vfx_ally_point())
         "potion":
@@ -623,9 +650,6 @@ func _act(action: String) -> void:
                 damage = maxi(8, combat_attack + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
     if boss and boss_mechanics != null and boss_mechanics.enabled():
-        var actor_job: String = str(game_state.rpg.get("jobs",{}).get(str(member.get("id","")),"swordsman"))
-        var vocation: Dictionary = game_core.vocation_profiles.get(actor_job,{}) if game_core != null else {}
-        var passive: String = str(vocation.get("passive",""))
         var selected_profile: Dictionary = _get_skill(chosen_skill) if action == "skill" else {}
         var boss_action: Dictionary = boss_mechanics.record_action(action,selected_profile,str(member.get("id","")),current_round,passive)
         var boss_notice: String = str(boss_action.get("notice",""))
@@ -636,6 +660,11 @@ func _act(action: String) -> void:
             _redraw(message + "战术目标达成。")
             _finish(true)
             return
+    if action == "special" and passive in ["starlight","tempo"]:
+        if passive == "starlight":
+            combat_rules.shield(str(member.get("id","")),2)
+        elif formation.valid_target(active_target):
+            combat_rules.apply_enemy_negative(active_target,enemy,"slow",2)
     if is_instance_valid(sfx):
         var sound_key: String = action
         var sound_element: String = ""
@@ -668,6 +697,11 @@ func _act(action: String) -> void:
             damage = combat_rules.weapon_damage(damage, weapon_trait_id, enemy, weapon_tier_rank)
             if not weapon_trait_id.is_empty():
                 message += " · 武器特性：" + weapon_trait_id
+        var living_party: int = 0
+        for ally in game_state.actors:
+            if int(ally.get("hp",0)) > 0 and (game_core == null or game_core.is_active(str(ally.get("id","")))):
+                living_party += 1
+        damage = combat_rules.vocation_damage(damage,passive,action,enemy,living_party)
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
         if boss and boss_mechanics != null and boss_mechanics.enabled():
             damage = maxi(1,roundi(float(damage)*boss_mechanics.damage_factor(_get_skill(chosen_skill) if action == "skill" else {})))
@@ -684,6 +718,9 @@ func _act(action: String) -> void:
                 status_kind = str(skill_effect.get("status",skill_effect.get("ailment","")))
                 status_rate = clampf(float(skill_effect.get("status_chance",0.45)),0.0,1.0)
             elif game_core != null and str(game_core.weapon_trait(str(member.get("id","")))) == "火伤":
+                status_kind = "burn"
+                status_rate = 0.22
+            if action == "skill" and passive == "arcana" and status_kind.is_empty():
                 status_kind = "burn"
                 status_rate = 0.22
             if not status_kind.is_empty():
@@ -794,6 +831,10 @@ func _enemy_strike(attacker_index: int = -1) -> void:
     var stats: Dictionary = game_core.gear_stats(str(member.get("id",""))) if game_core != null else member
     var raw_damage: int = maxi(1, roundi((int(enemy["atk"]) + dice.randi_range(-3, 5) - int(stats.get("defense",member["defense"]))) * float(intent.get("multiplier",1.0))))
     var damage: int = combat_rules.mitigated_damage(raw_damage,str(member.get("id","")),defense.has(target))
+    if game_core != null:
+        var defender_job: String = str(game_state.rpg.get("jobs",{}).get(str(member.get("id","")),"swordsman"))
+        var defender_role: String = str(game_core.vocation_profiles.get(defender_job,{}).get("passive",""))
+        damage = combat_rules.vocation_mitigation(damage,defender_role,float(member.get("hp",0))/float(maxi(1,int(member.get("max_hp",1)))))
     if invincible:
         damage = 0
     member["hp"] = maxi(0, int(member["hp"]) - damage)

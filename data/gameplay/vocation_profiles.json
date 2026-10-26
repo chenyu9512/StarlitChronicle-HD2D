@@ -1,126 +1,186 @@
 {
-  "schema": "starlit.gameplay.vocation-profiles.v1",
-  "description": "Twenty original vocational roles, additive stats scaled at mastery ranks 1/4/7. Inherited rank-8 basic techniques use the existing 63-skill catalog.",
+  "schema": "starlit.gameplay.vocation-profiles.v2",
+  "description": "Twenty base-compatible stat profiles with distinct live-battle passive techniques; retained skills still follow rank-8 rules.",
   "jobs": {
     "swordsman": {
       "attack": 2,
       "defense": 1,
       "magic": 0,
-      "speed": 0
+      "speed": 0,
+      "passive": "duelist",
+      "passive_description": "决斗：对Boss伤害提高12%",
+      "combat_role": "frontline"
     },
     "guardian": {
       "attack": 0,
       "defense": 4,
       "magic": 0,
-      "speed": -1
+      "speed": -1,
+      "passive": "aegis",
+      "passive_description": "壁垒：防御后生成额外护盾",
+      "combat_role": "tank"
     },
     "monk": {
       "attack": 2,
       "defense": 0,
       "magic": 0,
-      "speed": 3
+      "speed": 3,
+      "passive": "momentum",
+      "passive_description": "连势：防御获得聚星层数",
+      "combat_role": "striker"
     },
     "ranger": {
       "attack": 1,
       "defense": 1,
       "magic": 0,
-      "speed": 2
+      "speed": 2,
+      "passive": "hunter",
+      "passive_description": "猎标：对半血目标追加伤害",
+      "combat_role": "scout"
     },
     "healer": {
       "attack": 0,
       "defense": 1,
       "magic": 3,
-      "speed": 1
+      "speed": 1,
+      "passive": "mercy",
+      "passive_description": "仁心：治疗强化并解除毒伤",
+      "combat_role": "healer"
     },
     "mage": {
       "attack": 0,
       "defense": 0,
       "magic": 4,
-      "speed": 0
+      "speed": 0,
+      "passive": "arcana",
+      "passive_description": "奥术：攻击技能威力提升、附加灼伤",
+      "combat_role": "caster"
     },
     "engineer": {
       "attack": 1,
       "defense": 2,
       "magic": 1,
-      "speed": 0
+      "speed": 0,
+      "passive": "breaker",
+      "passive_description": "破构：破解Boss战术进度与破防效率提升",
+      "combat_role": "utility"
     },
     "bard": {
       "attack": 0,
       "defense": 1,
       "magic": 2,
-      "speed": 2
+      "speed": 2,
+      "passive": "chorus",
+      "passive_description": "合奏：强化技能增益提升",
+      "combat_role": "support"
     },
     "star_knight": {
       "attack": 3,
       "defense": 3,
       "magic": 1,
-      "speed": -1
+      "speed": -1,
+      "passive": "starlight",
+      "passive_description": "星誓：战术特攻同时生成护盾",
+      "combat_role": "hybrid"
     },
     "shadow_blade": {
       "attack": 3,
       "defense": 0,
       "magic": 0,
-      "speed": 3
+      "speed": 3,
+      "passive": "execute",
+      "passive_description": "追影：对濒危目标额外伤害",
+      "combat_role": "assassin"
     },
     "high_priest": {
       "attack": 0,
       "defense": 3,
       "magic": 4,
-      "speed": 0
+      "speed": 0,
+      "passive": "sanctuary",
+      "passive_description": "净域：治疗后清除全部异常",
+      "combat_role": "healer"
     },
     "element_archmage": {
       "attack": 0,
       "defense": 0,
       "magic": 5,
-      "speed": 1
+      "speed": 1,
+      "passive": "affinity",
+      "passive_description": "共振：克制属性伤害进一步提升",
+      "combat_role": "caster"
     },
     "beast_keeper": {
       "attack": 2,
       "defense": 2,
       "magic": 0,
-      "speed": 2
+      "speed": 2,
+      "passive": "pack",
+      "passive_description": "协猎：同伴存活时提高攻势",
+      "combat_role": "summoner"
     },
     "arc_gunner": {
       "attack": 3,
       "defense": 0,
       "magic": 1,
-      "speed": 2
+      "speed": 2,
+      "passive": "pierce",
+      "passive_description": "穿阵：追加护甲穿透伤害",
+      "combat_role": "ranged"
     },
     "war_singer": {
       "attack": 2,
       "defense": 2,
       "magic": 2,
-      "speed": 1
+      "speed": 1,
+      "passive": "anthem",
+      "passive_description": "战歌：防御也给予自身攻击增益",
+      "combat_role": "buffer"
     },
     "star_smith": {
       "attack": 2,
       "defense": 4,
       "magic": 1,
-      "speed": -1
+      "speed": -1,
+      "passive": "fortify",
+      "passive_description": "铸阵：防御为全队赋予短时护盾",
+      "combat_role": "support"
     },
     "oath_keeper": {
       "attack": 3,
       "defense": 5,
       "magic": 1,
-      "speed": 0
+      "speed": 0,
+      "passive": "vow",
+      "passive_description": "守誓：减少本职业所受伤害",
+      "combat_role": "tank"
     },
     "time_scholar": {
       "attack": 0,
       "defense": 2,
       "magic": 5,
-      "speed": 3
+      "speed": 3,
+      "passive": "tempo",
+      "passive_description": "时序：战术特攻压低敌人速度",
+      "combat_role": "control"
     },
     "celestial_sailor": {
       "attack": 2,
       "defense": 2,
       "magic": 3,
-      "speed": 3
+      "speed": 3,
+      "passive": "navigation",
+      "passive_description": "星航：Boss二阶段的特攻更有效",
+      "combat_role": "hybrid"
     },
     "allmaker": {
       "attack": 3,
       "defense": 3,
       "magic": 4,
-      "speed": 1
+      "speed": 1,
+      "passive": "synthesis",
+      "passive_description": "炼造：防御时恢复有限魔力",
+      "combat_role": "utility"
     }
   }
 }

@@ -8,8 +8,9 @@ func start(encounter, chapter: int, boss: bool, primary: Dictionary) -> void:
     if boss:
         return
     var number: int = 1 + int(chapter >= 4) + int(chapter >= 19)
-    var rng := RandomNumberGenerator.new()
-    rng.randomize()
+    # Use the encounter registry RNG: production randomizes at startup;
+    # QA can seed one stream for a reproducible party/monster formation.
+    var rng: RandomNumberGenerator = encounter.rng
     number = rng.randi_range(1, mini(3,number))
     for i in range(1,number):
         var monster: Dictionary = encounter.roll_monster(chapter)

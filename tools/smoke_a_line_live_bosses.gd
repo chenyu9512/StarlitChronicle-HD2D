@@ -8,6 +8,13 @@ const Save = preload("res://scripts/first_act_state.gd")
 const Encounters = preload("res://scripts/encounter_registry.gd")
 const MAX_ACTIONS: int = 160
 var errors: Array[String] = []
+var class_coverage: Dictionary = {}
+const JOBS: Array[String] = [
+    "swordsman","guardian","monk","ranger","healer","mage","engineer","bard",
+    "star_knight","shadow_blade","high_priest","element_archmage","beast_keeper",
+    "arc_gunner","war_singer","star_smith","oath_keeper","time_scholar",
+    "celestial_sailor","allmaker"
+]
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -17,7 +24,8 @@ func _run() -> void:
     for spec in _read("res://data/gameplay/boss_mechanics.json").get("entries",[]):
         var chapter: int = int(spec.get("chapter",0))
         var target: Dictionary = encounters.progression(chapter)
-        for difficulty in ["休闲","标准","挑战"]:
+        for difficulty_index in range(3):
+            var difficulty: String = ["休闲","标准","挑战"][difficulty_index]
             var state = Save.new()
             state.chapter = chapter
             state.rpg["settings"] = {"difficulty":difficulty}
@@ -39,10 +47,19 @@ func _run() -> void:
                 state.actors[i] = actor
             var core = Core.new()
             core.bind(state)
+            # Rotate all 20 vocations through live turns, without changing their unlock rules
+            # in the production core; assignments here are isolated encounter fixtures.
+            for i in range(state.actors.size()):
+                var id: String = str(state.actors[i].get("id",""))
+                var job: String = JOBS[(chapter*5+difficulty_index*7+i*3)%JOBS.size()]
+                state.rpg["jobs"][id] = job
+                class_coverage[job] = true
             var battle = Battle.new()
             root.add_child(battle)
             battle.game_core = core
-            battle.dice.seed = 11000+chapter*3
+            battle.encounter_registry = encounters
+            encounters.rng.seed = 22000+chapter*3+difficulty_index
+            battle.dice.seed = 11000+chapter*3+difficulty_index
             var settled: Dictionary = {"done":false,"victory":false,"calls":0}
             battle.completed.connect(func(won: bool,_xp: int,_gold: int) -> void:
                 settled["done"] = true
@@ -71,8 +88,10 @@ func _run() -> void:
             elif str(spec.get("goal","")) == "pacify" and battle.last_boss_settlement != "nonlethal":
                 errors.append("Nonlethal ending lost: "+str(spec.get("boss_id","")))
             battle.free()
+    if class_coverage.size() != JOBS.size():
+        errors.append("Not every vocation entered a real Boss encounter: "+str(class_coverage.size()))
     if errors.is_empty():
-        print("PASS: live no-cheat Boss encounters with difficulty and party-size coverage")
+        print("PASS: live no-cheat Boss encounters, 20 rotating jobs, all difficulties and party sizes")
         quit(0)
     else:
         for item in errors:

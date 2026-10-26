@@ -3,6 +3,8 @@ extends Control
 signal closed
 signal asset_changed(path: String)
 const Overrides = preload("res://scripts/c_art_overrides.gd")
+const Visual = preload("res://scripts/c_visual_design.gd")
+const VisualPrompts = preload("res://scripts/c_visual_prompts.gd")
 const PAGE_SIZE: int = 18
 const INK: Color = Color("0b1c32")
 const GOLD: Color = Color("e6c47d")
@@ -27,6 +29,9 @@ var restore_button: Button
 var import_button: Button
 var file_picker: FileDialog
 var last_status: Label
+var prompt_button: Button
+var prompt_panel: PanelContainer
+var prompt_text: TextEdit
 
 func _ready() -> void:
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -40,6 +45,7 @@ func _button(label_text: String) -> Button:
     b.text = label_text
     b.custom_minimum_size.y = 39
     b.add_theme_font_size_override("font_size", 15)
+    Visual.style_button(b)
     return b
 
 func _text(content: String, size: int = 14) -> Label:
@@ -60,7 +66,7 @@ func _preview() -> TextureRect:
 
 func _build() -> void:
     var cover := ColorRect.new()
-    cover.color = Color(0.02, 0.055, 0.10, 0.98)
+    cover.color = Color(0.014, 0.038, 0.071, 0.98)
     cover.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     cover.mouse_filter = Control.MOUSE_FILTER_STOP
     add_child(cover)
@@ -148,12 +154,7 @@ func _build() -> void:
     var sidebar := PanelContainer.new()
     sidebar.custom_minimum_size.x = 348
     main.add_child(sidebar)
-    var panel_style := StyleBoxFlat.new()
-    panel_style.bg_color = Color("10243a")
-    panel_style.border_color = Color("a28c60")
-    panel_style.set_border_width_all(1)
-    panel_style.set_corner_radius_all(9)
-    panel_style.set_content_margin_all(13)
+    var panel_style: StyleBoxFlat = Visual.frame(Visual.NAVY, Visual.RIM, 12, 13)
     sidebar.add_theme_stylebox_override("panel", panel_style)
     var details := VBoxContainer.new()
     details.add_theme_constant_override("separation", 9)
@@ -190,6 +191,9 @@ func _build() -> void:
     var save_note := _button("保存备注")
     save_note.pressed.connect(_save_note)
     details.add_child(save_note)
+    prompt_button = _button("✦ 生成这张素材的美化提示词")
+    prompt_button.pressed.connect(_open_prompt)
+    details.add_child(prompt_button)
     import_button = _button("导入图片并替换")
     import_button.pressed.connect(_choose_file)
     details.add_child(import_button)
@@ -206,6 +210,7 @@ func _build() -> void:
     file_picker.filters = PackedStringArray(["*.png ; PNG 图片", "*.jpg, *.jpeg ; JPEG 图片", "*.webp ; WebP 图片"])
     file_picker.file_selected.connect(_file_chosen)
     add_child(file_picker)
+    _build_prompt_overlay()
     _refilter()
 
 func open_manager() -> void:
@@ -214,6 +219,8 @@ func open_manager() -> void:
     grab_focus()
 
 func close_manager() -> void:
+    if is_instance_valid(prompt_panel):
+        prompt_panel.hide()
     hide()
     closed.emit()
 
@@ -257,6 +264,7 @@ func _render_page() -> void:
         var entry: Dictionary = filtered[idx]
         var target: String = str(entry.get("path", ""))
         var card := Button.new()
+        Visual.style_button(card)
         card.custom_minimum_size = Vector2(154, 115)
         card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         card.tooltip_text = target
@@ -289,6 +297,7 @@ func _show_detail() -> void:
     var entry: Dictionary = Overrides.info(current_path)
     var valid: bool = not entry.is_empty()
     import_button.disabled = not valid
+    prompt_button.disabled = not valid
     restore_button.disabled = not valid or not Overrides.has_override(current_path)
     note_edit.editable = valid
     if not valid:
@@ -346,3 +355,53 @@ func _restore() -> void:
         asset_changed.emit(current_path)
         _render_page()
         _show_detail()
+
+
+func _build_prompt_overlay() -> void:
+    prompt_panel = PanelContainer.new()
+    prompt_panel.name = "CArtPromptOverlay"
+    prompt_panel.anchor_left = 0.13
+    prompt_panel.anchor_right = 0.87
+    prompt_panel.anchor_top = 0.08
+    prompt_panel.anchor_bottom = 0.92
+    prompt_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+    prompt_panel.add_theme_stylebox_override("panel", Visual.frame(Visual.INK, Visual.GOLD, 12, 16))
+    add_child(prompt_panel)
+    var column := VBoxContainer.new()
+    column.add_theme_constant_override("separation", 10)
+    prompt_panel.add_child(column)
+    var heading := _text("✦ 原创高清2D美术 · 当前素材制作提示词", 20)
+    heading.add_theme_color_override("font_color", Visual.GOLD)
+    column.add_child(heading)
+    var explanation := _text("根据素材真实用途与尺寸生成。这里只展示与复制提示词，不自动替换原图。", 13)
+    column.add_child(explanation)
+    prompt_text = TextEdit.new()
+    prompt_text.editable = false
+    prompt_text.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+    prompt_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    prompt_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    prompt_text.add_theme_color_override("font_color", Visual.PAPER)
+    column.add_child(prompt_text)
+    var controls := HBoxContainer.new()
+    column.add_child(controls)
+    var copy := _button("复制提示词")
+    copy.pressed.connect(_copy_prompt)
+    controls.add_child(copy)
+    var close := _button("返回素材浏览")
+    close.pressed.connect(func() -> void: prompt_panel.hide())
+    controls.add_child(close)
+    prompt_panel.hide()
+
+func _open_prompt() -> void:
+    var entry: Dictionary = Overrides.info(current_path)
+    if entry.is_empty():
+        return
+    prompt_text.text = VisualPrompts.for_asset(entry)
+    prompt_panel.show()
+    prompt_text.scroll_vertical = 0
+
+func _copy_prompt() -> void:
+    if not is_instance_valid(prompt_text) or prompt_text.text.is_empty():
+        return
+    DisplayServer.clipboard_set(prompt_text.text)
+    last_status.text = "美化提示词已复制；请先制作和验收，再通过导入按钮替换。"

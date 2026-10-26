@@ -36,6 +36,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS: A/B event envelopes expand to C audiovisual IDs")
         quit(0)
+        return
     for reason in failures:
         push_error(reason)
     quit(1)

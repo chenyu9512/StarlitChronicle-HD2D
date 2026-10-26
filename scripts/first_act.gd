@@ -1722,14 +1722,24 @@ func _housing_changed(message: String) -> void:
     _save_progress()
 
 func _save_slot(slot: int) -> void:
+    var before: Dictionary = progress._pack().duplicate(true)
     _capture_world_position()
     var success: bool = save_slots.save_slot(progress,slot)
+    if not success:
+        progress.restore_snapshot(before)
     adventure_menu.render("存档管理")
     adventure_menu.footer.text = "槽位 %d %s" % [slot,"已保存" if success else "保存失败"]
 
 func _load_slot(slot: int) -> void:
+    # A manual-slot load changes the running party AND becomes the new
+    # autosave. Do not destroy the running session if that V3 write fails.
+    var before: Dictionary = progress._pack().duplicate(true)
     if not save_slots.load_slot(progress,slot):
         adventure_menu.footer.text = "槽位文件损坏或读取失败。"
+        return
+    if not progress.save():
+        progress.restore_snapshot(before)
+        adventure_menu.footer.text = "槽位可读取，但主进度保存失败；已恢复载入前状态。"
         return
     game_core.bind(progress)
     world_router.bind(progress)
@@ -1743,7 +1753,6 @@ func _load_slot(slot: int) -> void:
     cinematic_camera.restore()
     cinematic_resume=""
     _enter_location()
-    _save_progress()
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete",false)):
         if str(progress.rpg.get("ending_id","")).is_empty():
             _begin_ending_choice()

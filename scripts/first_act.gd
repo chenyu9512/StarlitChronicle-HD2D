@@ -128,6 +128,7 @@ func _ready() -> void:
     adventure_menu.branch_event_requested.connect(_start_branch_event)
     adventure_menu.branch_navigation_requested.connect(_track_branch_event)
     adventure_menu.travel_requested.connect(_travel_to)
+    adventure_menu.map_requested.connect(_open_local_map_from_book)
     adventure_menu.save_slot_requested.connect(_save_slot)
     adventure_menu.load_slot_requested.connect(_load_slot)
     adventure_menu.housing_purchase_requested.connect(_purchase_house)
@@ -1837,6 +1838,14 @@ func _map_opened() -> void:
     busy = true
     world.locked = true
     ui.set_play_visible(false)
+
+func _open_local_map_from_book() -> void:
+    if is_instance_valid(battle):
+        return
+    adventure_menu.close_menu()
+    _return_to_world()
+    atlas.show_exploration(true)
+    atlas.open_map()
 
 func _open_map_from_quick_menu() -> void:
     if is_instance_valid(battle):

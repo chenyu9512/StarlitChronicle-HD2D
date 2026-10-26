@@ -103,6 +103,7 @@ func _auto_prepare_world_handoff() -> void:
     var trigger: String = str(encounter_data.get("enemy_id",""))
     if trigger.is_empty() and boss:
         trigger = "boss.ch%03d/crisis" % chapter
+    var environment: Object = current_world.get("ambience") as Object
     var context: Dictionary = {
         "chapter":chapter,
         "trigger_id":trigger,
@@ -111,7 +112,7 @@ func _auto_prepare_world_handoff() -> void:
         "interior_building":str(current_world.get("interior_building")),
         "no_encounters":bool(controller.get("no_encounters")),
         "clock":game_state.rpg.get("game_clock",{}),
-        "weather":str(current_world.ambience.weather) if current_world.ambience != null else "",
+        "weather":str(environment.get("weather")) if environment != null else "",
         "audio_cue":str(profile.get("id",""))
     }
     # The controller locks the world before constructing Battle. That lock

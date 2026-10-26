@@ -24,6 +24,7 @@ class MockWorld:
     var encounter_meter: float = 300.0
     var next_encounter: float = 500.0
     var locked: bool = true
+    var ambience: Node
     var walls: Dictionary = {}
     var reveals: int = 0
 

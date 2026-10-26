@@ -5,6 +5,7 @@ const SLOTS: Array[String] = ["weapon","head","body","hand","legs","accessory"]
 const RETAINED_MASTERY_RANK: int = 8
 const RETAINED_SKILL_MAX_TIER: int = 3
 const VOCATION_PROFILES_PATH: String = "res://data/gameplay/vocation_profiles.json"
+const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_settlement.gd")
 var state
 var tables: Dictionary = {}
 var indices: Dictionary = {}
@@ -476,11 +477,11 @@ func record_quest(id: String) -> String:
     var q: Dictionary = entry("quests",id)
     if q.is_empty():
         return "没有对应任务。"
-    if state.rpg["quests"].has(id):
+    var tx: Dictionary = QuestV3Settlement.settle_catalog(state,q)
+    if not bool(tx.get("ok",false)):
+        return "任务奖励未保存，状态已回滚：" + str(tx.get("reason","unknown"))
+    if bool(tx.get("repeated",false)):
         return "奖励已经领取。"
-    state.rpg["quests"][id] = true
-    var rewards: Dictionary = q.get("rewards",{})
-    state.give_rewards(int(rewards.get("xp",0)),int(rewards.get("gold",0)))
     return "已记录任务完成：" + str(q.get("name",id))
 
 func recruit_from_story(chapter: int) -> String:
@@ -550,6 +551,17 @@ func story_stage_record(quest: Dictionary) -> Dictionary:
     return stages[position]
 
 func advance_story_side(quest: Dictionary, choice: Dictionary = {}) -> String:
+    var tx: Dictionary = QuestV3Settlement.advance_story_side(
+        state,quest,choice,Callable(self,"_advance_story_side_uncommitted"))
+    if not bool(tx.get("ok",false)):
+        return "委托存档失败，状态已回滚：" + str(tx.get("reason","unknown"))
+    if bool(tx.get("repeated",false)):
+        return "委托已经完成。"
+    var changed: Dictionary = tx.get("mutation",{})
+    return str(changed.get("message","任务阶段已保存。"))
+
+# Internal logic is called only within the V3 ledger's rollback-protected mutation.
+func _advance_story_side_uncommitted(quest: Dictionary, choice: Dictionary = {}) -> String:
     var id: String = str(quest.get("id",""))
     if id.is_empty() or bool(state.rpg["narrative_side"].get(id+".done",false)):
         return "委托已经完成。"

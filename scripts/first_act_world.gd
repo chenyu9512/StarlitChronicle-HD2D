@@ -251,7 +251,14 @@ func _make_tiles() -> void:
     var atlas_sources: Array[String]=[ground_texture,selected_water]
     var tile_set: TileSet=TilePool.shared(atlas_sources)
     if tile_set == null:
-        push_error("Cannot build playable 32px atlas for "+str(map_profile.get("id","")))
+        # Optional regional or local replacement art may be damaged.
+        # Preserve walkable geometry and the original 0/1 source identifiers
+        # by falling back to the verified built-in coast tileset pair.
+        push_warning("Falling back to core atlas for "+str(map_profile.get("id","")))
+        var core_paths: Array[String]=[GROUND,WATER]
+        tile_set=TilePool.shared(core_paths)
+    if tile_set == null:
+        push_error("Core 32px atlas missing: playable world cannot be drawn")
         return
     layer = TileMapLayer.new()
     layer.name = "PlayableGround"

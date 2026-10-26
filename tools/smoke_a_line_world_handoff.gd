@@ -220,6 +220,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS: battle/world eligibility, snapshot, idempotency, spawn fallback, cooldown, map change, boss settlement")
         quit(0)
+        return
     for problem in failures:
         push_error(problem)
     quit(1)

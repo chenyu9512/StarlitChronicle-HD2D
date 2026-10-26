@@ -1,5 +1,6 @@
 extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const InteractionFX = preload("res://scripts/c_interaction_fx.gd")
 const TownSoundscape = preload("res://scripts/c_town_soundscape.gd")
 ## First commercial-art vertical slice: live art is driven by the V4 room,
@@ -235,14 +236,10 @@ func _build_occluders(layout: Dictionary) -> void:
 func _build_wall_edging(layout: Dictionary) -> void:
     if not ResourceLoader.exists(theme_atlas):
         return
-    var tiles := TileSet.new()
-    tiles.tile_size=Vector2i(TILE,TILE)
-    var source := TileSetAtlasSource.new()
-    source.texture=ArtOverrides.texture(theme_atlas)
-    source.texture_region_size=Vector2i(TILE,TILE)
-    for x in range(8):
-        source.create_tile(Vector2i(x,7))
-    tiles.add_source(source,0)
+    var atlas_paths: Array[String]=[theme_atlas]
+    var tiles: TileSet=TilePool.shared(atlas_paths,8,7,1)
+    if tiles==null:
+        return
     detail_layer=TileMapLayer.new()
     detail_layer.name="WallEdgeTiles"
     detail_layer.tile_set=tiles

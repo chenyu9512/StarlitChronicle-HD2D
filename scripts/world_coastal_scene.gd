@@ -1,5 +1,6 @@
 extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const CoastPainter = preload("res://scripts/c_coastal_painter.gd")
 ## A7-A9: per-map authored art, animation, nonblocking exploration props.
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
@@ -21,6 +22,8 @@ var wave_timer: float = 0.0
 var cavern_grade: CanvasModulate
 var cavern_lights: Array[PointLight2D] = []
 var surface_detail: TileMapLayer
+var illustrated_dressing: Node2D
+var reflection_material: ShaderMaterial
 var detail_count: int = 0
 var shoreline_count: int = 0
 var depth_stage: Node2D
@@ -100,12 +103,31 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
     water_count=selected
     _install_water_reflections(mask)
     _install_surface_detail(layout)
+    if map_id in ["map_coast_01","map_coast_02"]:
+        illustrated_dressing = CoastPainter.new()
+        illustrated_dressing.name = "OriginalCoastalDressing"
+        add_child(illustrated_dressing)
+        illustrated_dressing.configure(map_id, layout, depth_stage)
     if map_id=="map_coast_04":
         _make_cavern_lighting()
 
 ## Keep a tree trunk outside houses, door approaches and painted road.
 ## The canopy can overlap scenery behind it through Y sorting, but its root
 ## never appears in the middle of a shop, quest path or indoor doorway.
+func set_clock(minutes: int) -> void:
+    if is_instance_valid(illustrated_dressing):
+        illustrated_dressing.set_clock(minutes)
+
+func set_visual_quality(level: int) -> void:
+    var q: int=clampi(level,0,2)
+    if is_instance_valid(illustrated_dressing):
+        illustrated_dressing.set_visual_quality(q)
+    for reflection in reflections:
+        reflection.visible=q>0
+    for wave in tidal_sprites:
+        wave.visible=q>0
+    set_process(q>0)
+
 func _safe_vegetation_cell(wanted: Vector2i,layout: Dictionary) -> Vector2i:
     var extent: Vector2i=layout.get("size",Vector2i(72,48))
     var blocks: Dictionary=layout.get("blocked",{})
@@ -165,7 +187,14 @@ func _install_water_reflections(mask: Dictionary) -> void:
         var reflection:=Sprite2D.new()
         reflection.name="WaterReflection_%d" % reflection_count
         reflection.texture=reflection_frames[reflection_count%4]
-        reflection.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+        reflection.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+        if reflection_material == null:
+            var shader_file: String="res://assets/shaders/coastal_reflection.gdshader"
+            if ResourceLoader.exists(shader_file):
+                reflection_material=ShaderMaterial.new()
+                reflection_material.shader=load(shader_file)
+        if reflection_material != null:
+            reflection.material=reflection_material
         reflection.position=Vector2(float(cell.x)*TILE+16.0,float(cell.y)*TILE+16.0)
         reflection.scale=Vector2(0.58,0.67)
         reflection.z_index=-3

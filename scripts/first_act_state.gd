@@ -169,14 +169,34 @@ func _valid_payload(value: Variant) -> bool:
         return false
     if int(obj["gold"]) < 0 or int(obj["potions"]) < 0:
         return false
+    # A wrong numeric type or impossible checkpoint must fall back to the
+    # last good backup, NOT reach gameplay as a plausible but corrupt save.
+    if int(obj["chapter"]) < 0 or int(obj["chapter"]) > 72:
+        return false
+    if int(obj["scene"]) < 0 or int(obj["scene"]) > 9 or int(obj["task"]) < 0 or int(obj["task"]) > 9:
+        return false
     if not (obj.get("actors") is Array) or not (obj.get("flags") is Dictionary) or not (obj.get("inventory") is Dictionary):
         return false
+    var inventory_data: Dictionary = obj["inventory"]
+    for item_id in inventory_data:
+        var amount: Variant = inventory_data[item_id]
+        if typeof(amount) not in [TYPE_INT,TYPE_FLOAT] or float(amount) < 0.0:
+            return false
     if obj["actors"].size() < 2 or obj["actors"].size() > 12:
         return false
     for entry in obj["actors"]:
         if not (entry is Dictionary):
             return false
-        for key in ["name", "hp", "max_hp", "mp", "max_mp", "attack", "defense", "level", "xp", "skill"]:
+        for key in ["name","hp","max_hp","mp","max_mp","attack","defense","level","xp","skill"]:
             if not entry.has(key):
                 return false
-    return int(obj.get("chapter", -1)) >= 0 and int(obj.get("chapter", 99)) <= 72 and int(obj.get("scene", -1)) >= 0 and int(obj.get("task", -1)) >= 0
+        if not (entry["name"] is String) or not (entry["skill"] is String):
+            return false
+        for key in ["hp","max_hp","mp","max_mp","attack","defense","level","xp"]:
+            if typeof(entry[key]) not in [TYPE_INT,TYPE_FLOAT]:
+                return false
+            if is_nan(float(entry[key])) or is_inf(float(entry[key])):
+                return false
+        if int(entry["level"]) < 1 or int(entry["max_hp"]) <= 0 or int(entry["max_mp"]) < 0:
+            return false
+    return true

@@ -21,6 +21,14 @@ func _verify() -> void:
     var passives: Dictionary = {}
     ck(careers.size() == 20,"Expected 20 career profiles")
     ck(skills.size() == 63,"Canonical 63-skill catalog changed")
+    var weapons: Array = _read("res://data/content/weapons.json").get("entries",[])
+    for job in careers:
+        var available_tiers: Dictionary = {}
+        for weapon in weapons:
+            if str(job) in weapon.get("job_tags",[]):
+                available_tiers[int(weapon.get("tier",0))] = true
+        for tier in range(1,10):
+            ck(available_tiers.has(tier),"Career "+str(job)+" has no legal weapon at tier "+str(tier))
     for key in careers:
         var passive: String = str(careers[key].get("passive",""))
         ck(not passive.is_empty(),"Missing career passive: "+str(key))

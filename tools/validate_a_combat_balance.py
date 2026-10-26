@@ -16,6 +16,10 @@ assert len(curve) == 72 and [c["chapter"] for c in curve] == list(range(1, 73))
 assert len(bosses) == 66 and len({b["boss_id"] for b in bosses}) == 66
 assert len(profiles) == 20 and len({p["passive"] for p in profiles.values()}) == 20
 assert len(skills) == 63
+weapons = load("data/content/weapons.json")["entries"]
+for job in profiles:
+    tiers = {int(weapon.get("tier",0)) for weapon in weapons if job in weapon.get("job_tags",[])}
+    assert set(range(1,10)).issubset(tiers), ("class cannot legally equip weapons",job,tiers)
 assert all(s["target"] not in ("single_enemy", "all_enemies") for s in skills if s["effect"]["kind"] == "heal")
 seen = set()
 for category in ("items","armor","weapons"):

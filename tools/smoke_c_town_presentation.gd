@@ -53,6 +53,7 @@ func _run() -> void:
     if issues.is_empty():
         print("PASS C town: door state, interior art pulse, room crossfade, original foley, safe missing paths")
         quit(0)
+        return
     for reason in issues:
         push_error(reason)
     quit(1)

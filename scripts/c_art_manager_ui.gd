@@ -11,6 +11,7 @@ var filtered: Array = []
 var current_path: String = ""
 var page: int = 0
 var category_filter: OptionButton
+var tier_filter: OptionButton
 var search_box: LineEdit
 var cards: GridContainer
 var count_label: Label
@@ -94,6 +95,12 @@ func _build() -> void:
         category_filter.add_item(str(category))
     category_filter.item_selected.connect(func(_index: int) -> void: _refilter())
     filters.add_child(category_filter)
+    tier_filter = OptionButton.new()
+    tier_filter.custom_minimum_size.x = 166
+    for label in ["全部用途", "晨露村优先", "核心备用", "外部候选"]:
+        tier_filter.add_item(label)
+    tier_filter.item_selected.connect(func(_index: int) -> void: _refilter())
+    filters.add_child(tier_filter)
     search_box = LineEdit.new()
     search_box.placeholder_text = "搜索名称、路径、资源ID或备注"
     search_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -213,12 +220,16 @@ func close_manager() -> void:
 func _refilter() -> void:
     filtered.clear()
     var category: String = category_filter.get_item_text(category_filter.selected) if category_filter.selected > 0 else ""
+    var tier_names: Array[String] = ["", "primary", "reserve_core", "reserve_external"]
+    var required_tier: String = tier_names[clampi(tier_filter.selected, 0, 3)]
     var term: String = search_box.text.strip_edges().to_lower()
     for raw in all_assets:
         if not raw is Dictionary:
             continue
         var entry: Dictionary = raw
         if not category.is_empty() and str(entry.get("category", "")) != category:
+            continue
+        if not required_tier.is_empty() and str(entry.get("curation_tier", "")) != required_tier:
             continue
         var path: String = str(entry.get("path", ""))
         var haystack: String = str(entry.get("name", "")) + " " + path + " " + str(entry.get("entry_id", "")) + " " + Overrides.user_note(path)
@@ -297,7 +308,9 @@ func _show_detail() -> void:
     usage_label.text = str(entry.get("description", ""))
     var dims: Vector2 = original.get_size() if original != null else Vector2.ZERO
     dimensions_label.text = "分类：%s · 原尺寸：%d×%d · %s" % [str(entry.get("category", "")), roundi(dims.x), roundi(dims.y), "需要完全一致" if bool(entry.get("atlas", false)) else "保持长宽比"]
-    status_label.text = "状态：" + str(entry.get("status", "未验收")) + ("\n正在使用本机替换图" if Overrides.has_override(current_path) else "\n正在使用游戏原图")
+    var tier_key: String = str(entry.get("curation_tier", ""))
+    var tier_text: String = {"primary": "晨露村优先资源", "reserve_core": "核心备用", "reserve_external": "外部候选未绑定"}.get(tier_key, "尚未分类")
+    status_label.text = "分组：" + tier_text + "\n状态：" + str(entry.get("status", "未验收")) + ("\n正在使用本机替换图" if Overrides.has_override(current_path) else "\n正在使用游戏原图")
     note_edit.text = Overrides.user_note(current_path)
 
 func _save_note() -> void:

@@ -2,10 +2,14 @@ extends RefCounted
 ## 全游戏共用的装备、背包、职业、技能、任务、图鉴和商店引擎。
 const CATEGORIES: Array[String] = ["characters","npcs","regions","maps","monsters","bosses","weapons","armor","items","skills","quests"]
 const SLOTS: Array[String] = ["weapon","head","body","hand","legs","accessory"]
+const RETAINED_MASTERY_RANK: int = 8
+const RETAINED_SKILL_MAX_TIER: int = 3
+const VOCATION_PROFILES_PATH: String = "res://data/gameplay/vocation_profiles.json"
 var state
 var tables: Dictionary = {}
 var indices: Dictionary = {}
 var jobs: Dictionary = {}
+var vocation_profiles: Dictionary = {}
 var narrative_side_quests: Array = []
 
 func bind(progress) -> void:
@@ -22,6 +26,14 @@ func bind(progress) -> void:
     for job in pack.get("jobs", []):
         if job is Dictionary:
             jobs[str(job.get("id",""))] = job
+    vocation_profiles = _read(VOCATION_PROFILES_PATH).get("jobs",{})
+    # The 66 story Bosses are separate from the 12 act template entries.
+    tables["story_bosses"] = _read("res://story/data/bosses.json").get("bosses",[])
+    var bosses: Dictionary = {}
+    for record in tables["story_bosses"]:
+        if record is Dictionary:
+            bosses[str(record.get("id",""))] = record
+    indices["story_bosses"] = bosses
     narrative_side_quests = []
     var quest_ids: Dictionary = {}
     for source in ["side_quests", "companion_quests", "regional_quests_v2"]:
@@ -33,7 +45,7 @@ func bind(progress) -> void:
                     quest_ids[id] = true
     if not (state.rpg is Dictionary):
         state.rpg = {}
-    for key in ["equipment","jobs","quests","regions","discovered","settings","narrative_side","mastery"]:
+    for key in ["equipment","jobs","quests","regions","discovered","settings","narrative_side","mastery","codex"]:
         if not (state.rpg.get(key) is Dictionary):
             state.rpg[key] = {}
     if not (state.rpg.get("selected_story_quest") is String):
@@ -119,6 +131,12 @@ func gear_stats(id: String) -> Dictionary:
     var mastery_rank: int = job_rank(id,current_job)
     result["attack"] += maxi(0,mastery_rank-1)*2
     result["defense"] += maxi(0,mastery_rank-1)
+    # Additive bonuses are calculated, not written to permanent base attributes.
+    # Every chapter and every job uses the same shared stat formula.
+    var profile: Dictionary = vocation_profiles.get(current_job,{})
+    var stage: int = 1 + floori(float(maxi(0,mastery_rank-1)) / 3.0)
+    for stat in ["attack","defense","magic","speed"]:
+        result[stat] += int(profile.get(stat,0)) * stage
     for slot in slots:
         var object: Dictionary = entry("weapons",str(slots[slot])) if str(slot) == "weapon" else entry("armor",str(slots[slot]))
         for stat in ["attack","defense","magic"]:
@@ -147,6 +165,10 @@ func weapon_tier(actor_id: String) -> int:
     var slots: Dictionary = state.rpg.get("equipment",{}).get(actor_id,{})
     return maxi(0,int(entry("weapons",str(slots.get("weapon",""))).get("tier",0)))
 
+func _weapon_allowed_for_job(info: Dictionary, job: String) -> bool:
+    var tags: Array = info.get("job_tags",[])
+    return tags.is_empty() or job in tags or (job == "swordsman" and "wayfarer" in tags)
+
 func equip(id: String, slot: String, item_id: String) -> String:
     if actor_index(id) < 0 or slot not in SLOTS or count(item_id) < 1:
         return "目标或装备库存无效。"
@@ -155,11 +177,8 @@ func equip(id: String, slot: String, item_id: String) -> String:
         return "这件物品不属于该装备类型。"
     if slot != "weapon" and str(info.get("slot","")) != slot:
         return "不适合这个装备槽位。"
-    if slot == "weapon":
-        var tags: Array = info.get("job_tags",[])
-        var job: String = str(state.rpg["jobs"].get(id,"swordsman"))
-        if not tags.is_empty() and job not in tags and not (job == "swordsman" and "wayfarer" in tags):
-            return "当前职业不能使用此武器。"
+    if slot == "weapon" and not _weapon_allowed_for_job(info,str(state.rpg["jobs"].get(id,"swordsman"))):
+        return "当前职业不能使用此武器。"
     var slots: Dictionary = state.rpg["equipment"].get(id,{})
     var old: String = str(slots.get(slot,""))
     if not take_item(item_id,1):
@@ -276,12 +295,21 @@ func change_job(id: String, job: String) -> String:
     var reason: String = job_unlock_reason(id,job)
     if not reason.is_empty():
         return "尚未解锁：" + reason
+    # Changing vocation must obey the same weapon rules as manual equip.
+    var slots: Dictionary = state.rpg["equipment"].get(id,{})
+    var weapon_id: String = str(slots.get("weapon",""))
+    var returned: String = ""
+    if not weapon_id.is_empty() and not _weapon_allowed_for_job(entry("weapons",weapon_id),job):
+        slots.erase("weapon")
+        state.rpg["equipment"][id] = slots
+        add_item(weapon_id,1)
+        returned = "；不适用的武器已归还背包"
     state.rpg["jobs"][id] = job
     var roster: Dictionary = state.rpg["mastery"].get(id,{})
     if not roster.has(job):
         roster[job] = {"rank":1,"xp":0}
     state.rpg["mastery"][id] = roster
-    return "已转职：" + str(jobs[job].get("name",job))
+    return "已转职：" + str(jobs[job].get("name",job)) + returned
 
 func award_job_xp(points: int, boss_victory: bool = false) -> Array[String]:
     var levels: Array[String] = []
@@ -329,12 +357,52 @@ func skills(id: String) -> Array:
     var i: int = actor_index(id)
     if i < 0:
         return result
-    var job: String = _skill_track(str(state.rpg["jobs"].get(id,"swordsman")))
+    var active_job: String = str(state.rpg["jobs"].get(id,"swordsman"))
+    var active_track: String = _skill_track(active_job)
     var level: int = int(state.actors[i].get("level",1))
+    var mastery: Dictionary = state.rpg.get("mastery",{}).get(id,{})
+    var retained: Dictionary = {}
+    for known in mastery.keys():
+        var previous: String = str(known)
+        if previous == active_job or not jobs.has(previous):
+            continue
+        var info: Variant = mastery[previous]
+        if info is Dictionary and int(info.get("rank",1)) >= RETAINED_MASTERY_RANK:
+            retained[_skill_track(previous)] = true
     for skill in records("skills"):
-        if str(skill.get("job_id","")) == job and level >= int(skill.get("unlock_level",999)):
+        var track: String = str(skill.get("job_id",""))
+        if level < int(skill.get("unlock_level",999)):
+            continue
+        if track == active_track or (retained.has(track) and int(skill.get("tier",99)) <= RETAINED_SKILL_MAX_TIER):
             result.append(skill)
     return result
+
+func codex_record(category: String, id: String) -> Dictionary:
+    var collection: Dictionary = state.rpg.get("codex",{}).get(category,{})
+    var record: Variant = collection.get(id,{})
+    return record if record is Dictionary else {}
+
+func record_enemy_seen(category: String, id: String) -> void:
+    if category not in ["monsters","story_bosses"] or entry(category,id).is_empty():
+        return
+    var codex: Dictionary = state.rpg.get("codex",{})
+    var collection: Dictionary = codex.get(category,{})
+    var record: Dictionary = collection.get(id,{"seen":false,"resolved":0})
+    record["seen"] = true
+    collection[id] = record
+    codex[category] = collection
+    state.rpg["codex"] = codex
+
+func record_enemy_resolution(category: String, id: String) -> void:
+    if category not in ["monsters","story_bosses"] or entry(category,id).is_empty():
+        return
+    record_enemy_seen(category,id)
+    var codex: Dictionary = state.rpg["codex"]
+    var collection: Dictionary = codex[category]
+    var record: Dictionary = collection[id]
+    record["resolved"] = maxi(0,int(record.get("resolved",0))) + 1
+    collection[id] = record
+    codex[category] = collection
 
 func toggle_party(id: String) -> String:
     if actor_index(id) < 0:

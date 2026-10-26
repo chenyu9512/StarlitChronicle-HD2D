@@ -119,10 +119,12 @@ func town_shop_ids(region_id: String,core) -> Array[String]:
         stock.append(weapon_id)
     return stock
 
+## UI may call this every refresh: observation MUST NOT silently mutate saves.
 func guild_progress(region_id: String,state) -> Dictionary:
-    if not state.rpg.get("guild_contracts") is Dictionary:
-        state.rpg["guild_contracts"] = {}
-    var contracts: Dictionary = state.rpg["guild_contracts"]
+    if state==null or region_id not in REGIONS:
+        return {"state":"unavailable","needed":3,"progress":0}
+    var saved: Variant=state.rpg.get("guild_contracts",{})
+    var contracts: Dictionary=saved if saved is Dictionary else {}
     var record: Dictionary = contracts.get(region_id,{})
     if record.is_empty():
         return {"state":"available","needed":3,"progress":0}
@@ -133,7 +135,10 @@ func guild_progress(region_id: String,state) -> Dictionary:
     return {"state":"ready" if progress>=3 else "active","progress":progress,"needed":3}
 
 func guild_action(region_id: String,state) -> String:
-    var records: Dictionary = state.rpg.get("guild_contracts",{})
+    if state==null or region_id not in REGIONS:
+        return "该地区尚未开放公会委托。"
+    var saved: Variant=state.rpg.get("guild_contracts",{})
+    var records: Dictionary=(saved as Dictionary).duplicate(true) if saved is Dictionary else {}
     var current: Dictionary = guild_progress(region_id,state)
     match str(current.get("state","")):
         "available":

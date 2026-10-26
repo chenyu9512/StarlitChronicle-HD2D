@@ -96,6 +96,8 @@ var side_light: Sprite2D
 var movement: Vector2 = Vector2.ZERO
 var locked: bool = false
 var walk_speed: float = 141.0
+var visual_quality: int = 1
+var interior_art
 var encounter_meter: float = 0.0
 var next_encounter: float = 420.0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -114,6 +116,7 @@ func build(new_chapter: int, party_size: int) -> void:
     chapter = maxi(0, new_chapter)
     last_party_size = party_size
     current_layout = act01_layouts.get(chapter,{})
+    interior_art = null
     if is_instance_valid(root):
         remove_child(root)
         root.free()
@@ -172,6 +175,7 @@ func build(new_chapter: int, party_size: int) -> void:
     ambience.z_index = 12
     ambience.hero = hero
     ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")),Vector2i(WIDTH,HEIGHT))
+    ambience.set_visual_quality(visual_quality)
     root.add_child(ambience)
     coastal_audio=CoastalAudio.new()
     coastal_audio.name="CoastalAudio"
@@ -190,6 +194,17 @@ func build(new_chapter: int, party_size: int) -> void:
     movement = Vector2.ZERO
     encounter_meter = 0.0
     next_encounter = rng.randf_range(350.0, 500.0)
+
+## Presentation-only settings. Call when creating a game, loading a save or
+## changing options; map coordinates, weather identity and game state do not change.
+func set_visual_quality(level: int) -> void:
+    visual_quality = clampi(level,0,2)
+    if is_instance_valid(ambience):
+        ambience.set_visual_quality(visual_quality)
+    if is_instance_valid(coastal_scene):
+        coastal_scene.set_visual_quality(visual_quality)
+    if is_instance_valid(interior_art):
+        interior_art.set_visual_quality(visual_quality)
 
 func _party_sprite(position: int, fallback: String) -> String:
     var characters: Dictionary = {"char_wayfarer":"leon","char_tidecaller":"lanyin","char_seeker":"shuoxian","char_chengzhou":"chengzhou"}
@@ -269,6 +284,8 @@ func _decorate() -> void:
                 _add_sprite(str(feature.get("kind","barrel")),feature.get("cell",Vector2i(35,20)),false,true)
         if not str(terrain_layout.get("art_profile","")).is_empty():
             var room_art := InteriorArt.new()
+            interior_art = room_art
+            room_art.set_visual_quality(visual_quality)
             root.add_child(room_art)
             room_art.install(scenery,terrain_layout,clock_minutes)
             return
@@ -366,9 +383,11 @@ func _install_coastal_scenery() -> void:
         return
     coastal_scene=CoastalScene.new()
     coastal_scene.name="CoastalScene"
+    coastal_scene.set_visual_quality(visual_quality)
     scenery.add_child(coastal_scene)
     coastal_scene.configure(map_id,terrain_layout,scenery)
     coastal_scene.set_clock(clock_minutes)
+    coastal_scene.set_visual_quality(visual_quality)
     # Tall coastal tree roots are solid only when this does not cut a required
     # route. Bushes and canopy art remain walk-through visual layers.
     for tree in coastal_scene.wind_sway_sprites:

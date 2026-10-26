@@ -8,6 +8,7 @@ const BattleScript = preload("res://scripts/first_act_battle.gd")
 const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
 const BattleV3Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
 const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_settlement.gd")
+const V3ProgressTransition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
@@ -782,8 +783,10 @@ func _interact(target: String) -> void:
             if progress.task_index == 0:
                 _present("clue")
             else:
-                _advance_scene()
-                ui.show_message("线索已经齐备，新的事件正在发生。")
+                if _advance_scene():
+                    ui.show_message("线索已经齐备，新的事件正在发生。")
+                else:
+                    ui.show_message("场景进度未保存，请重新调查线索。")
         2:
             if progress.task_index == 1:
                 _start_battle(true)
@@ -1034,13 +1037,20 @@ func _dialogue_ended() -> void:
             if not _apply_effects(_current_scene()):
                 _scene_effect_save_failed()
                 return
-            progress.scene_index += 1
+            _capture_world_position()
+            var prologue_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+                progress.scene_index += 1
+                if progress.scene_index >= 9:
+                    progress.chapter = 1
+                    progress.scene_index = 0
+                    progress.flags["story.prologue_done"] = true
+                return {"ok":true}
+            )
+            if not bool(prologue_tx.get("ok",false)):
+                _scene_effect_save_failed()
+                return
             world.set_prologue_phase(progress.scene_index,progress.chapter)
-            if progress.scene_index >= 9:
-                progress.chapter = 1
-                progress.scene_index = 0
-                progress.flags["story.prologue_done"] = true
-                _save_progress()
+            if progress.chapter == 1:
                 _enter_location()
                 _chapter_card(1)
                 ui.show_message("序章完成 · 第一章《不曾寄出的信》")
@@ -1049,12 +1059,20 @@ func _dialogue_ended() -> void:
             if not _apply_effects(_current_scene()):
                 _scene_effect_save_failed()
                 return
-            _advance_scene()
+            if not _advance_scene():
+                _scene_effect_save_failed()
+                return
         "clue":
             if not _apply_effects(_current_scene()):
                 _scene_effect_save_failed()
                 return
-            progress.task_index = 1
+            _capture_world_position()
+            if not bool(V3ProgressTransition.commit(progress,func() -> Dictionary:
+                progress.task_index = 1
+                return {"ok":true}
+            ).get("ok",false)):
+                _scene_effect_save_failed()
+                return
         "crisis":
             var choice: Dictionary = _current_scene().get("choice", {})
             if not choice.is_empty():
@@ -1152,10 +1170,13 @@ func _dialogue_ended() -> void:
                 _scene_effect_save_failed()
                 return
             if progress.chapter == 72 and progress.scene_index == 3:
-                _advance_scene()
+                if not _advance_scene():
+                    _scene_effect_save_failed()
+                    return
                 _return_to_world()
                 return
-            _complete_chapter()
+            if not _complete_chapter():
+                _scene_effect_save_failed()
             return
     pending = ""
     _save_progress()
@@ -1219,19 +1240,26 @@ func _crisis_choice_complete() -> void:
         _scene_effect_save_failed()
         return
     if progress.chapter == 1:
-        _advance_scene()
-        _save_progress()
+        if not _advance_scene():
+            _scene_effect_save_failed()
+            return
         _return_to_world()
         return
     var encounter_value: Variant = _current_scene().get("encounter", {})
     var fight: Dictionary = encounter_value if encounter_value is Dictionary else {}
     if fight.is_empty():
-        _advance_scene()
-        _save_progress()
+        if not _advance_scene():
+            _scene_effect_save_failed()
+            return
         _return_to_world()
         return
-    progress.task_index = 1
-    _save_progress()
+    _capture_world_position()
+    if not bool(V3ProgressTransition.commit(progress,func() -> Dictionary:
+        progress.task_index = 1
+        return {"ok":true}
+    ).get("ok",false)):
+        _scene_effect_save_failed()
+        return
     if progress.chapter in [2,3]:
         # Persist the choice once, then allow supplies and saving before combat.
         # Returning to the crisis marker retries without replaying choice effects.
@@ -1413,41 +1441,60 @@ func _apply_effects(scene: Dictionary) -> bool:
 func _scene_effect_save_failed() -> void:
     pending = ""
     paused_for_dialogue = false
-    ui.show_message("剧情奖励与进度未能保存，已回滚。请检查存储空间后重新调查。")
+    ui.show_message("剧情奖励或章节进度未能保存，已回滚。请检查存储空间后重新调查。")
     _return_to_world()
 
-func _advance_scene() -> void:
-    progress.scene_index += 1
-    progress.task_index = 0
-    progress.dialogue_seen = false
-    _save_progress()
+func _advance_scene() -> bool:
+    _capture_world_position()
+    var result: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        progress.scene_index += 1
+        progress.task_index = 0
+        progress.dialogue_seen = false
+        return {"ok":true}
+    )
+    return bool(result.get("ok",false))
 
-func _complete_chapter() -> void:
+func _complete_chapter() -> bool:
     var last: int = progress.chapter
-    progress.flags["story.ch%03d.done" % last] = true
     var quest_key: String = "quest_main_%03d" % last
-    if not game_core.entry("quests",quest_key).is_empty():
-        progress.rpg["quests"][quest_key] = true
-    if last == 4:
-        progress.recruit_sailor()
-    if last == 6:
-        progress.flags["world.seven_lanterns.first"] = true
+    _capture_world_position()
+    var result: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        progress.flags["story.ch%03d.done" % last] = true
+        if not game_core.entry("quests",quest_key).is_empty():
+            var quests: Dictionary = progress.rpg.get("quests",{})
+            quests[quest_key] = true
+            progress.rpg["quests"] = quests
+        if last == 4:
+            progress.recruit_sailor()
+        if last == 6:
+            progress.flags["world.seven_lanterns.first"] = true
+        if last == 72:
+            return {"ok":true,"newcomer":""}
+        progress.chapter += 1
+        progress.scene_index = 0
+        progress.task_index = 0
+        progress.dialogue_seen = false
+        var newcomer: String = game_core.recruit_from_story(progress.chapter)
+        progress.heal_all()
+        return {"ok":true,"newcomer":newcomer}
+    )
+    if not bool(result.get("ok",false)):
+        return false
+    # Never send UI events or rebuild the world until the new chapter
+    # checkpoint (including party recruit / healing) is durable.
     if last == 72:
         _begin_ending_choice()
-        return
+        return true
     game_events.record("chapter_completed",{"chapter":last})
-    progress.chapter += 1
-    progress.scene_index = 0
-    progress.task_index = 0
-    var newcomer: String = game_core.recruit_from_story(progress.chapter)
-    progress.heal_all()
-    _save_progress()
     _enter_location()
     _chapter_card(progress.chapter)
+    var changes: Dictionary = result.get("mutation",{})
+    var newcomer: String = str(changes.get("newcomer",""))
     if not newcomer.is_empty():
         ui.show_message(newcomer)
     var next_chapter: Dictionary = catalog.get_chapter("ch%03d" % progress.chapter)
-    ui.show_message("第%d章 · %s" % [progress.chapter, str(next_chapter.get("title", "新的旅程"))])
+    ui.show_message("第%d章 · %s" % [progress.chapter,str(next_chapter.get("title","新的旅程"))])
+    return true
 
 func _begin_ending_choice() -> void:
     if progress.chapter != 72:

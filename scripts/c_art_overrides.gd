@@ -23,7 +23,7 @@ static func _load() -> void:
     var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(CATALOG_PATH))
     _catalog = raw if raw is Dictionary else {}
     for value in _catalog.get("assets", []):
-        if value is Dictionary and str(value.get("path", "")).begins_with("res://assets/art/"):
+        if value is Dictionary and str(value.get("path", "")).begins_with("res://assets/"):
             _entries[str(value["path"])] = value
 
 static func list_assets() -> Array:

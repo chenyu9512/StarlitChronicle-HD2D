@@ -7,6 +7,7 @@ signal encounter_requested()
 
 const TILE := 32
 const ActorScript = preload("res://scripts/actor.gd")
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 
 var map_id := "village"
 var map_width := 44
@@ -50,7 +51,7 @@ func load_map(id: String, entry_tile: Vector2i) -> void:
     var ground := Sprite2D.new()
     ground.name = "Ground"
     ground.centered = false
-    ground.texture = load("res://assets/maps/%s.png" % id)
+    ground.texture = CArtOverrides.texture("res://assets/maps/%s.png" % id)
     ground.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     ground.z_index = -10
     add_child(ground)
@@ -109,7 +110,7 @@ func _add_prop(item: Dictionary) -> void:
     var kind := str(item["kind"])
     var sprite := Sprite2D.new()
     sprite.name = str(item.get("id", kind))
-    sprite.texture = load("res://assets/props/%s.png" % kind)
+    sprite.texture = CArtOverrides.texture("res://assets/props/%s.png" % kind)
     sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     sprite.position = tile_to_world(Vector2i(int(item["x"]), int(item["y"])))
     if sprite.texture != null:
@@ -126,7 +127,7 @@ func _add_prop(item: Dictionary) -> void:
         interactables.append(inter)
     if kind in ["lamp", "crystal", "altar", "portal"]:
         var light_sprite := Sprite2D.new()
-        light_sprite.texture = load("res://assets/fx/glow.png")
+        light_sprite.texture = CArtOverrides.texture("res://assets/fx/glow.png")
         light_sprite.position = sprite.position + Vector2(0, -33)
         light_sprite.z_index = 6
         light_sprite.modulate = Color(1.0, 0.69, 0.24, 0.30) if kind in ["lamp", "portal"] else Color(0.33, 0.75, 1.0, 0.29)

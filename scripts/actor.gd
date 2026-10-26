@@ -1,4 +1,5 @@
 extends Node2D
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## One Y-sorted world actor with a 3-column × 4-direction sprite sheet.
 
 var character_id := "hero"
@@ -9,7 +10,7 @@ var sprite: Sprite2D
 func setup(id: String) -> void:
     character_id = id
     sprite = Sprite2D.new()
-    sprite.texture = load("res://assets/characters/%s.png" % id)
+    sprite.texture = CArtOverrides.texture("res://assets/characters/%s.png" % id)
     sprite.hframes = 3
     sprite.vframes = 4
     sprite.centered = true

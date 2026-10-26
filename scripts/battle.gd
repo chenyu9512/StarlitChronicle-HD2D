@@ -1,4 +1,5 @@
 extends CanvasLayer
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## Playable two-character command battle: attack, special, defend, potion.
 ## Rewards and party HP/MP are passed back to the campaign coordinator.
 
@@ -27,7 +28,7 @@ func _ready() -> void:
     root.mouse_filter = Control.MOUSE_FILTER_STOP
     add_child(root)
     var bg := TextureRect.new()
-    bg.texture = load("res://assets/maps/battle_ruins.png")
+    bg.texture = CArtOverrides.texture("res://assets/maps/battle_ruins.png")
     bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     bg.stretch_mode = TextureRect.STRETCH_SCALE
@@ -176,7 +177,7 @@ func _refresh() -> void:
         if i < enemies.size():
             var sprite_path: String = str(enemies[i].get("sprite_path", "res://assets/enemies/%s.png" % str(enemies[i]["id"])))
             if ResourceLoader.exists(sprite_path):
-                portrait.texture = load(sprite_path)
+                portrait.texture = CArtOverrides.texture(sprite_path)
     var stats := ""
     for person in State.party:
         stats += "%s  HP %s/%s  MP %s/%s       " % [person["name"], person["hp"], person["max_hp"], person["mp"], person["max_mp"]]

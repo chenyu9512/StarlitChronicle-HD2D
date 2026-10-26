@@ -1078,10 +1078,10 @@ func _spawn_residents() -> void:
     npc_positions.clear()
     if not interior_building.is_empty() or not bool(map_profile.get("settlement",false)):
         return
-    var district: String = str(map_profile.get("region_id","region_coast"))
     var hour: int = int(clock_minutes/60)
     var used: Dictionary = {}
-    var residents: Array = town_life.residents(district)
+    # B residents belong to the exact map, not just a shared region.
+    var residents: Array = town_life.residents_for_map(str(map_profile.get("id","")))
     for index in range(residents.size()):
         var record: Dictionary = residents[index]
         var authored_spot: Vector2i = geography.town_design.resident_anchor(str(map_profile.get("id","")),str(record.get("role","lore")),index,hour,geography.zone(str(map_profile.get("id",""))).get("buildings",[]))
@@ -1120,7 +1120,7 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     if old_period==next_period or interior_building.length()>0 or not bool(map_profile.get("settlement",false)):
         return
     var used: Dictionary = {}
-    var people: Array = town_life.residents(str(map_profile.get("region_id","region_coast")))
+    var people: Array = town_life.residents_for_map(str(map_profile.get("id","")))
     for i in range(people.size()):
         var key: String = "citizen:"+str(people[i].get("id",""))
         if not nodes.has(key):

@@ -5,6 +5,7 @@ const V3 = preload("res://scripts/first_act_state.gd")
 const Legacy = preload("res://scripts/game_state.gd")
 const BStory = preload("res://scripts/story_runtime.gd")
 const Transition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
+const Slots = preload("res://scripts/save_slots.gd")
 
 class TinyCatalog:
     extends RefCounted
@@ -112,6 +113,21 @@ func _run() -> void:
     check(not no_v1.save_game(), "V1 save accepted an inaccessible directory")
     check(FileAccess.file_exists(legacy.backup_path), "V1 failure destroyed old backup")
 
+    # Manual slots are independent V3 checkpoints with primary + backup.
+    var slots = Slots.new()
+    slots.folder = sandbox + "/slots"
+    var slot_player = V3.new()
+    slot_player.gold = 101
+    check(slots.save_slot(slot_player,1), "Manual slot initial save failed")
+    slot_player.gold = 202
+    check(slots.save_slot(slot_player,1), "Manual slot update failed")
+    var slot_path: String = slots.folder + "/slot_01.json"
+    check(write_text(slot_path,"{damaged-slot"), "Manual slot corruption injection failed")
+    var loaded_slot = V3.new()
+    check(slots.load_slot(loaded_slot,1) and loaded_slot.gold == 101,
+        "Manual slot did not restore last valid backup")
+    check(not slots.load_slot(loaded_slot,4), "Invalid manual slot index accepted")
+
     # V2 B story files and historical V1 B story files have their own contract.
     var story = BStory.new()
     story.catalog = TinyCatalog.new()
@@ -150,6 +166,12 @@ func _run() -> void:
         var path: String = sandbox+"/"+filename
         if FileAccess.file_exists(path):
             DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+    for filename in ["slot_01.json","slot_01.json.tmp","slot_01.json.bak",
+        "slot_01.json.bak.tmp"]:
+        var path: String = slots.folder + "/" + filename
+        if FileAccess.file_exists(path):
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(slots.folder))
     DirAccess.remove_absolute(ProjectSettings.globalize_path(sandbox))
     if failures.is_empty():
         print("PASS: V1/V2/V3 isolated recovery, corrupt payload, transaction rollback, retry and restart")

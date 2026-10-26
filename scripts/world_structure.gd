@@ -1,4 +1,5 @@
 extends Node2D
+const TownAudio = preload("res://scripts/c_town_soundscape.gd")
 ## Native drawn roof/building painter. No third-party franchise assets.
 ## Each town shares the same doorway and collision footprint from WorldGeography.
 const TILE: float = 32.0
@@ -11,6 +12,92 @@ var ground_shadow: Sprite2D
 var exterior_identity: String = ""
 var door_lamp: PointLight2D
 var visual_time_minutes: int = 660
+var motion_seconds: float = 0.0
+var motion_tick: float = 0.0
+var door_progress: float = 0.0
+var door_target: float = 0.0
+var reduced_motion: bool = false
+var door_cue: AudioStreamPlayer2D
+var _door_cooldown: float = 0.0
+var _proximity_elapsed: float = 0.0
+
+func _ready() -> void:
+    if not is_instance_valid(door_cue):
+        door_cue = AudioStreamPlayer2D.new()
+        door_cue.name = "OriginalDoorFoley"
+        door_cue.bus = "SFX" if AudioServer.get_bus_index("SFX") >= 0 else "Master"
+        door_cue.volume_db = -26.0
+        door_cue.max_distance = 180.0
+        door_cue.stream = TownAudio.make_foley("door_open")
+        add_child(door_cue)
+    set_process(true)
+
+func set_reduced_motion(value: bool) -> void:
+    reduced_motion = value
+    queue_redraw()
+
+func play_door(opened: bool) -> void:
+    var target: float = 1.0 if opened else 0.0
+    if is_equal_approx(door_target, target):
+        return
+    door_target = target
+    if _door_cooldown <= 0.0 and is_instance_valid(door_cue):
+        door_cue.stream = TownAudio.make_foley("door_open" if opened else "door_close")
+        door_cue.play()
+        _door_cooldown = 0.25
+    queue_redraw()
+
+func _process(delta: float) -> void:
+    var dt: float = minf(delta, 0.1)
+    motion_seconds += dt
+    _door_cooldown = maxf(0.0, _door_cooldown - dt)
+    _proximity_elapsed += dt
+    if _proximity_elapsed >= 0.14:
+        _proximity_elapsed = 0.0
+        play_door(_player_near_entrance())
+    door_progress = move_toward(door_progress, door_target, dt * (8.0 if reduced_motion else 4.6))
+    motion_tick += dt
+    if motion_tick >= (0.33 if reduced_motion else 0.10) or not is_equal_approx(door_progress, door_target):
+        motion_tick = 0.0
+        queue_redraw()
+
+func _player_near_entrance() -> bool:
+    var stage: Node = get_parent()
+    if stage == null:
+        return false
+    var entrance: Vector2 = to_global(Vector2(0, float(cells.y) * TILE * 0.5 - 35.0))
+    for sibling in stage.get_children():
+        if sibling == self or not sibling is Node2D:
+            continue
+        var script: Script = sibling.get_script() as Script
+        if script == null or script.resource_path != "res://scripts/first_act_actor.gd":
+            continue
+        if (sibling as Node2D).global_position.distance_squared_to(entrance) < 52.0 * 52.0:
+            return true
+    return false
+
+func _draw_scene_motion() -> void:
+    var foot_y: float = float(cells.y) * TILE * 0.5 - 35.0
+    var width: float = 23.0 * (1.0 - door_progress * 0.75)
+    # Door feedback overlays the existing facade; collision/building footprint untouched.
+    if door_progress > 0.02:
+        draw_rect(Rect2(-13.0, foot_y - 22.0, 25.0, 35.0), Color(0.08, 0.10, 0.12, 0.47 * door_progress))
+        draw_rect(Rect2(-12.0, foot_y - 21.0, width, 33.0), Color(0.47, 0.28, 0.17, 0.85))
+    var phase: float = 0.0 if reduced_motion else sin(motion_seconds * 2.1)
+    var high_y: float = -float(cells.y) * TILE * 0.5 + 4.0
+    if purpose in ["inn", "shop", "guild"]:
+        var x: float = float(cells.x) * TILE * 0.34
+        draw_line(Vector2(x, high_y - 14), Vector2(x, high_y + 23), Color("765a42"), 2.0)
+        draw_colored_polygon(PackedVector2Array([
+            Vector2(x, high_y - 11), Vector2(x + 20 + phase * 2.0, high_y - 5),
+            Vector2(x + 17 + phase * 2.5, high_y + 8), Vector2(x, high_y + 5)
+        ]), Color("b99c71", 0.88))
+    if purpose == "smith":
+        var chimney: Vector2 = Vector2(float(cells.x) * TILE * 0.25, high_y + 18.0)
+        for i in range(3):
+            var drift: float = fposmod(motion_seconds * 10.0 + float(i) * 7.0, 23.0)
+            draw_circle(chimney + Vector2(drift * 0.5, -drift - 8.0), 2.0 + drift * 0.09, Color(0.62, 0.59, 0.56, 0.21 * (1.0 - drift / 23.0)))
+
 
 func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,map_key: String = "",minutes: int = 660) -> void:
     purpose = kind
@@ -98,6 +185,7 @@ func _palette() -> Dictionary:
 
 func _draw() -> void:
     if is_instance_valid(facade):
+        _draw_scene_motion()
         return
     var palette: Dictionary = _palette()
     var w: float = float(cells.x)*TILE
@@ -163,3 +251,4 @@ func _draw() -> void:
                 draw_line(sigil_pos+Vector2(cos(a),sin(a))*10.0,sigil_pos+Vector2(cos(a),sin(a))*16.0,Color.WHITE,2.2)
         _:
             draw_colored_polygon(PackedVector2Array([sigil_pos+Vector2(0,-12),sigil_pos+Vector2(12,0),sigil_pos+Vector2(0,12),sigil_pos+Vector2(-12,0)]),trim)
+    _draw_scene_motion()

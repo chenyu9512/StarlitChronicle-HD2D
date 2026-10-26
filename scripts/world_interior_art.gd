@@ -1,10 +1,46 @@
 extends Node2D
+const InteractionFX = preload("res://scripts/c_interaction_fx.gd")
+const TownSoundscape = preload("res://scripts/c_town_soundscape.gd")
 ## First commercial-art vertical slice: live art is driven by the V4 room,
 ## never an unplayable fullscreen illustration or a replacement game world.
 const ART_DIR: String = "res://assets/art/interiors/morning_dew_inn/"
 const PROFILE: String = "coast_inn_v1"
 const DISTRICT_ART: String = "res://assets/art/interiors/coastal_district/"
 var theme_atlas: String = ART_DIR+"inn_tileset.svg"
+var soundscape: Node
+var presentation_fx: Node2D
+var reduced_motion: bool = false
+var light_tick: float = 0.0
+
+func set_reduced_motion(value: bool) -> void:
+    reduced_motion = value
+    if is_instance_valid(animated_fire):
+        animated_fire.speed_scale = 0.5 if value else 1.0
+
+## Called by D/B integration after authoritative interactions; does not open chests or doors in game state.
+func play_prop_action(prop_id: String, action: String) -> bool:
+    if action not in ["inspect", "open", "close", "light", "chest"]:
+        return false
+    if not prop_nodes.has(prop_id):
+        return false
+    var prop: Sprite2D = prop_nodes[prop_id] as Sprite2D
+    if not is_instance_valid(prop):
+        return false
+    var pulse := create_tween()
+    pulse.tween_property(prop, "modulate", Color(1.0, 0.88, 0.58), 0.11)
+    pulse.tween_property(prop, "modulate", Color.WHITE, 0.18)
+    if is_instance_valid(presentation_fx):
+        var fx_kind: String = {"inspect":"inspect", "open":"door_open", "close":"door_close", "light":"lantern_on", "chest":"chest_open"}[action]
+        presentation_fx.trigger(fx_kind, prop.position, reduced_motion)
+    if is_instance_valid(soundscape):
+        soundscape.play_foley({"open":"door_open", "close":"door_close", "chest":"chest_open", "light":"lantern_on", "inspect":"inspect"}[action])
+    return true
+
+func show_interaction(event_name: String, position_in_room: Vector2) -> bool:
+    if not is_instance_valid(presentation_fx):
+        return false
+    return presentation_fx.trigger(event_name, position_in_room, reduced_motion)
+
 const TILE: int = 32
 const ALLOWED: Array[String] = [
     "counter", "bed", "fireplace", "bookshelf", "table",
@@ -31,7 +67,11 @@ var room_night_tint: Color = Color("b4ada7")
 
 func _process(delta: float) -> void:
     # Soft asymmetric fire and lamp breathing, without any global time/timer.
-    flicker_elapsed+=delta
+    flicker_elapsed += delta
+    light_tick += delta
+    if light_tick < (0.28 if reduced_motion else 0.085):
+        return
+    light_tick = 0.0
     for i in range(active_lights.size()):
         var wav: float = sin(flicker_elapsed*(4.9 if i==0 else 1.2)+float(i)*1.7)
         var variation: float = (0.065 if i==0 else 0.025)*wav
@@ -62,6 +102,16 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
     if not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas):
         theme_atlas=chosen_atlas
     name = "InteriorArt"
+    if not is_instance_valid(soundscape):
+        soundscape = TownSoundscape.new()
+        soundscape.name = "IndoorSoundscape"
+        add_child(soundscape)
+    soundscape.configure(str(layout.get("map_id", "map_coast_01")), str(layout.get("building_id", "inn")), true)
+    if not is_instance_valid(presentation_fx):
+        presentation_fx = InteractionFX.new()
+        presentation_fx.name = "InteriorInteractionFX"
+        presentation_fx.z_index = 5
+        add_child(presentation_fx)
     _build_wall_edging(layout)
     for value in layout.get("visuals",[]):
         if not value is Dictionary:

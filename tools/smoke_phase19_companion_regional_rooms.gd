@@ -89,8 +89,17 @@ func _run() -> void:
             game.progress.flags.erase("side."+id+".approach")
             game.world.refresh_room_npcs(game.progress.flags)
             ck(str(npc.get("story_route"))=="","missing route is never guessed "+id)
+            # Unstarted quests have no route flags but must still follow the clock.
+            # Refreshing the empty palette exercises the no-flags regression.
+            game.world.refresh_room_npcs({})
+            var stationary_position: Vector2 = npc.position
             game.world.sync_world_clock(2,1320)
             ck(int(npc.get("story_hour"))==22,"NPC respects evening tint without moving collision "+id)
+            ck(npc.modulate==Color("b9c0dc"),"NPC receives night palette "+id)
+            ck(npc.position==stationary_position,"day/night palette never moves NPC collision "+id)
+            game.world.sync_world_clock(3,720)
+            ck(int(npc.get("story_hour"))==12 and npc.modulate==Color.WHITE,
+                "NPC returns to daylight palette "+id)
         ck(game.world.terrain_layout.get("quest_points",[]).size()==3,
             "three physical evidence sites "+id)
         var clue: String = "questcase:1"

@@ -1,6 +1,7 @@
 extends RefCounted
 ## 72章遭遇层：63种地区怪物、66场剧情Boss与12幕基础Boss数值模板。
 ## 没有特制动作的Boss保留美术回退，但敌人ID、数值、掉落都来自统一目录。
+const BattleWorldHandoff = preload("res://scripts/battle_world_handoff.gd")
 const COAST_ART: Array[String] = ["salt_slime","fog_crab","shell_hermit","tide_ghost","sand_lizard","salt_wolf","white_seabird","star_ray","tide_guardian"]
 var monsters: Array = []
 var story_bosses: Dictionary = {}
@@ -42,6 +43,10 @@ func boss_profile(id: String) -> Dictionary:
 
 func region_for(chapter: int) -> String:
     return str(regions.get(chapter,"region_coast"))
+
+## Read-only world encounter gate for D-line controller integration.
+func world_encounter_gate(mode: String, context: Dictionary) -> Dictionary:
+    return BattleWorldHandoff.eligible(mode,context)
 
 func roll_monster(chapter: int) -> Dictionary:
     var region: String = region_for(chapter)

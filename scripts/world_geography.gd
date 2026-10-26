@@ -348,33 +348,42 @@ func _inside_town_building(cell: Vector2i,spec: Dictionary) -> bool:
             return true
     return false
 
-func _path_around_roofs(start: Vector2i,goal: Vector2i,roofs: Dictionary) -> Array[Vector2i]:
-    # Sparse 4-neighbour routing. Only invoked for a disconnected front door;
-    # never erases roof blockers or teleports the player into the interior.
+func _path_around_roofs(start: Vector2i,goal: Vector2i,roofs: Dictionary,walls: Dictionary) -> Array[Vector2i]:
+    # 0-1 BFS minimises newly cut terrain. Prefer existing walkable town
+    # streets, then carve only essential connecting tiles around solid roofs.
     if roofs.has(start) or roofs.has(goal):
         return []
-    var frontier: Array[Vector2i] = [start]
-    var parents: Dictionary = {start:start}
-    var index: int = 0
-    var steps: Array[Vector2i] = [Vector2i.UP,Vector2i.LEFT,Vector2i.RIGHT,Vector2i.DOWN]
-    while index<frontier.size():
-        var current: Vector2i=frontier[index]
-        index+=1
-        if current==goal:
-            var result: Array[Vector2i]=[]
-            while current!=start:
-                result.append(current)
-                current=parents[current]
-            result.append(start)
-            result.reverse()
-            return result
+    var frontier: Array[Vector2i]=[start]
+    var distances: Dictionary={start:0}
+    var parents: Dictionary={start:start}
+    var steps: Array[Vector2i]=[Vector2i.UP,Vector2i.LEFT,Vector2i.RIGHT,Vector2i.DOWN]
+    while not frontier.is_empty():
+        var current: Vector2i=frontier.pop_front()
+        var current_cost: int=int(distances[current])
         for offset in steps:
             var next: Vector2i=current+offset
-            if next.x<2 or next.y<2 or next.x>=map_width-2 or next.y>=map_height-2 or roofs.has(next) or parents.has(next):
+            if next.x<2 or next.y<2 or next.x>=map_width-2 or next.y>=map_height-2 or roofs.has(next):
                 continue
+            var cost: int=1 if walls.has(next) else 0
+            var total: int=current_cost+cost
+            if distances.has(next) and int(distances[next])<=total:
+                continue
+            distances[next]=total
             parents[next]=current
-            frontier.append(next)
-    return []
+            if cost==0:
+                frontier.push_front(next)
+            else:
+                frontier.push_back(next)
+    if not parents.has(goal):
+        return []
+    var result: Array[Vector2i]=[]
+    var current: Vector2i=goal
+    while current!=start:
+        result.append(current)
+        current=parents[current]
+    result.append(start)
+    result.reverse()
+    return result
 
 func _seal_town_buildings(ground: Dictionary,walls: Dictionary,spec: Dictionary,spawn: Vector2i) -> void:
     var roofs: Dictionary={}
@@ -410,7 +419,7 @@ func _seal_town_buildings(ground: Dictionary,walls: Dictionary,spec: Dictionary,
                 _paint(ground,walls,apron,Vector2i(posmod(apron.x+apron.y,8),3),false)
         if reachable({"blocked":walls,"size":layout_size},[spawn],[entrance]):
             continue
-        var link: Array[Vector2i]=_path_around_roofs(entrance,spawn,roofs)
+        var link: Array[Vector2i]=_path_around_roofs(entrance,spawn,roofs,walls)
         if link.is_empty():
             push_warning("Town entrance has no non-roof route: "+str(entrance))
             continue

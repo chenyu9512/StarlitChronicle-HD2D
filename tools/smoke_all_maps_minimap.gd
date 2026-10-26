@@ -1,11 +1,10 @@
 extends SceneTree
-## B map-display regression: actual TileMapLayer + both map views for 40 sectors,
-## followed by public building interiors. No save writes, quest flags or cheat travel.
+## B map-display regression: full fog-free local maps and compact minimaps
+## for all 40 sectors and real interiors. No story flag or cheat travel mutations.
 const World = preload("res://scripts/first_act_world.gd")
 const State = preload("res://scripts/first_act_state.gd")
 const Registry = preload("res://scripts/world_registry.gd")
 const Atlas = preload("res://scripts/map_hud.gd")
-const Fog = preload("res://scripts/world_fog_v3.gd")
 const Levels = preload("res://scripts/world_level_v3.gd")
 var failures: Array[String] = []
 
@@ -21,10 +20,7 @@ func _run() -> void:
     state.chapter = 1
     var router = Registry.new()
     router.bind(state)
-    var fog = Fog.new()
-    fog.bind(state)
     var world = World.new()
-    world.fog = fog
     root.add_child(world)
     var atlas = Atlas.new()
     root.add_child(atlas)
@@ -75,8 +71,8 @@ func _run() -> void:
         completed += 1
     check(completed==40,"Expected all 40 live production TileMapLayers to render")
 
-    # A real house transition changes the local-map key and the tile grid, but
-    # must preserve the geographic world map and never advance story progress.
+    # A real house transition updates the current-area map, without fog or
+    # revealing anything in the save and without advancing story progress.
     state.rpg["world"]["current_map"]="map_coast_01"
     world.map_profile=router.profile("map_coast_01")
     world.build(1,2)
@@ -84,7 +80,7 @@ func _run() -> void:
     var chapter_before: int=state.chapter
     var flags_before: Dictionary=state.flags.duplicate(true)
     check(world.enter_building("inn"),"Morning Dew inn entry failed")
-    check(world.fog_key()=="map_coast_01#inn","Interior fog key is not isolated")
+    check(world.interior_building=="inn","Interior map not selected")
     var indoor: Dictionary=atlas.small_view.local_frame()
     check(int(indoor.get("width",0))==72 and int(indoor.get("height",0))==48,
         "Minimap not resized to interior")
@@ -96,16 +92,18 @@ func _run() -> void:
         "Map or indoor view changed story flags")
 
     atlas.show_exploration(true)
-    atlas.show_world_map()
+    atlas.open_map()
     await process_frame
-    check(atlas.full_view.mode=="world","World atlas not visible")
-    check(atlas.full_view.map_points.size()==40,
-        "World atlas must draw all 40 production pins, not two prototypes")
+    check(atlas.full_view.mode=="local","Expanded map must remain local only")
+    atlas._set_mode("world")
+    check(atlas.full_view.mode=="local","Deprecated global map mode must not be available")
+    check(not state.rpg.get("world",{}).has("fog"),
+        "Viewing maps must not create persistent fog data")
     check(not router.can_travel("unknown_map"),"Viewing map unlocked forbidden travel")
     atlas.close_map()
     check(atlas.small_frame.visible,"Closing map should recover minimap")
     if failures.is_empty():
-        print("PASS: all 40 live TileMapLayers, per-map dimensions, local/mini zoom, inn interior/outdoor restore and 40-pin atlas")
+        print("PASS: all 40 real map sizes, fog-free local/minimap, zoom, and physical inn round-trip")
         quit(0)
     else:
         for problem in failures:

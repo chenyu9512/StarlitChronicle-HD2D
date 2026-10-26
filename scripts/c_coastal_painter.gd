@@ -50,18 +50,18 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
     var texture: Texture2D=ArtOverrides.texture(path)
     if texture==null or texture.get_width()<256 or texture.get_height()<256:
         return
-    var set:=TileSet.new()
-    set.tile_size=Vector2i(TILE,TILE)
+    var tile_set:=TileSet.new()
+    tile_set.tile_size=Vector2i(TILE,TILE)
     var atlas:=TileSetAtlasSource.new()
     atlas.texture=texture
     atlas.texture_region_size=Vector2i(TILE,TILE)
     for row in range(8):
         for column in range(8):
             atlas.create_tile(Vector2i(column,row))
-    set.add_source(atlas,0)
+    tile_set.add_source(atlas,0)
     accent_layer=TileMapLayer.new()
     accent_layer.name="OriginalCoastalInk"
-    accent_layer.tile_set=set
+    accent_layer.tile_set=tile_set
     accent_layer.z_index=-4
     accent_layer.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
     add_child(accent_layer)
@@ -173,7 +173,14 @@ func _process(delta: float) -> void:
     elapsed+=delta
     if elapsed<0.14:
         return
+    var base: float=0.0
+    if clock_minutes>=1140 or clock_minutes<330:
+        base=0.62
+    elif clock_minutes>=1020:
+        base=0.62*float(clock_minutes-1020)/120.0
+    elif clock_minutes<420:
+        base=0.62*float(420-clock_minutes)/90.0
     for index in range(active_lights.size()):
         var l: PointLight2D=active_lights[index]
         if l.visible:
-            l.energy*=0.985+0.015*sin(elapsed*2.3+float(index)*1.7)
+            l.energy=base*(0.985+0.015*sin(elapsed*2.3+float(index)*1.7))

@@ -657,12 +657,9 @@ func _story_sprite(target_id: String,kind: String,cell: Vector2i,caption: String
     if kind == "npc":
         var npc = NPCVisual.new()
         npc.setup({"name":caption,"role":"quest"})
+        # apply_story_presentation owns both phase/route colors and daylight tint.
+        # Overriding modulate here would erase the night palette on room entry.
         npc.apply_story_presentation(phase if not phase.is_empty() else "intro",branch,clock_minutes)
-        npc.modulate = Color("9eebd4") if branch == "a" else (Color("efd09d") if branch == "b" else Color.WHITE)
-        if phase == "revisit":
-            npc.modulate = npc.modulate.lerp(Color("bdc4ff"),0.32)
-        elif phase == "community":
-            npc.modulate = npc.modulate.lerp(Color("ffe5a8"),0.19)
         marker = npc
         marker.z_index = 5
         marker.position = Vector2(cell*TILE)+Vector2(16,16)
@@ -927,7 +924,9 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
     var old_period: bool = clock_minutes<360 or clock_minutes>=1200
     calendar_day=maxi(1,day_number)
     clock_minutes=posmod(minutes,1440)
-    if not story_palette_flags.is_empty() and interior_building.begins_with("quest__"):
+    # An empty flag dictionary is a valid quest state, not a signal to skip
+    # the day/night appearance update of existing room NPCs.
+    if interior_building.begins_with("quest__"):
         refresh_room_npcs(story_palette_flags)
     _refresh_town_event_lighting()
     var next_period: bool = clock_minutes<360 or clock_minutes>=1200

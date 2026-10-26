@@ -5,6 +5,7 @@ const V3 = preload("res://scripts/first_act_state.gd")
 const Legacy = preload("res://scripts/game_state.gd")
 const BStory = preload("res://scripts/story_runtime.gd")
 const Transition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
+const Ledger = preload("res://scripts/d_world_interaction/v3_reward_ledger.gd")
 const Slots = preload("res://scripts/save_slots.gd")
 
 class TinyCatalog:
@@ -49,7 +50,7 @@ func _run() -> void:
     loaded.save_path = state.save_path
     loaded.backup_path = state.backup_path
     check(loaded.load_saved(), "Damaged V3 did not use backup")
-    check(loaded._pack() == first_checkpoint, "V3 backup produced different state")
+    check(Ledger._same_persisted_value(loaded._pack(),first_checkpoint), "V3 backup produced different state")
 
     var good: Dictionary = loaded._pack().duplicate(true)
     var malformed: Dictionary = good.duplicate(true)

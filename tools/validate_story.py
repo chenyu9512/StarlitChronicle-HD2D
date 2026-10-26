@@ -146,6 +146,7 @@ for key in ("buttons", "battle", "system", "tutorial"):
 load("data/npc_barks.json")
 
 print(f"Chapters: {len(chapters)} | Acts: 12 | Scenes: {total_scenes} | Dialogue IDs: {len(dialogue_ids)}")
+print(f"Authored crisis A/B reply lines: {len(seen_replies)} | Routes: {len(seen_replies) // 2}")
 print(f"Side quests: {len(quests)} | Lost pages: {len(pages)} | Jobs: {len(jobs)} | Endings: {len(ends)}")
 if errors:
     print("FAILED with", len(errors), "issues:")

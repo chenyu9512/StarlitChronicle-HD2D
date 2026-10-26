@@ -81,6 +81,7 @@ var prologue_stage
 var prologue_cast: Dictionary = {}
 var layer: TileMapLayer
 var blocked: Dictionary = {}
+var reachable_tiles: Dictionary = {}
 var nodes: Dictionary = {}
 var hero
 var companion
@@ -118,6 +119,7 @@ func build(new_chapter: int, party_size: int) -> void:
         remove_child(root)
         root.free()
     blocked.clear()
+    reachable_tiles.clear()
     nodes.clear()
     prologue_cast.clear()
     story_marker_ids.clear()
@@ -420,10 +422,31 @@ func _town_prop_clear(kind: String,site: Vector2i) -> bool:
             return false
     return true
 
+func _walkable_tiles() -> Dictionary:
+    if not reachable_tiles.is_empty():
+        return reachable_tiles
+    var spawn: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
+    if blocked.has(spawn):
+        return reachable_tiles
+    var visited: Dictionary={spawn:true}
+    var frontier: Array[Vector2i]=[spawn]
+    var index: int=0
+    while index<frontier.size():
+        var p: Vector2i=frontier[index]
+        index+=1
+        for shift in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+            var next: Vector2i=p+shift
+            if next.x<2 or next.y<2 or next.x>=WIDTH-2 or next.y>=HEIGHT-2 or blocked.has(next) or visited.has(next):
+                continue
+            visited[next]=true
+            frontier.append(next)
+    reachable_tiles=visited
+    return reachable_tiles
+
 func _safe_site_cell(anchor: Vector2i) -> Vector2i:
     if not interior_building.is_empty():
         return anchor
-    var start: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
+    var reachable: Dictionary=_walkable_tiles()
     for radius in range(13):
         for y in range(-radius,radius+1):
             for x in range(-radius,radius+1):
@@ -432,7 +455,7 @@ func _safe_site_cell(anchor: Vector2i) -> Vector2i:
                 var point: Vector2i=anchor+Vector2i(x,y)
                 if point.x<3 or point.y<3 or point.x>=WIDTH-3 or point.y>=HEIGHT-3 or blocked.has(point):
                     continue
-                if geography.reachable({"blocked":blocked,"size":Vector2i(WIDTH,HEIGHT)},[start],[point]):
+                if reachable.has(point):
                     return point
     push_warning("No reachable marker tile near "+str(anchor))
     return anchor
@@ -440,12 +463,13 @@ func _safe_site_cell(anchor: Vector2i) -> Vector2i:
 func _reconcile_interaction_markers() -> void:
     if not interior_building.is_empty():
         return
+    var reachable: Dictionary=_walkable_tiles()
     for key in nodes.keys():
         if str(key).begins_with("building:") or not is_instance_valid(nodes[key]):
             continue
         var node: Node2D=nodes[key]
         var position_cell:=Vector2i(floori(node.position.x/TILE),floori(node.position.y/TILE))
-        if not blocked.has(position_cell):
+        if reachable.has(position_cell):
             continue
         var safe: Vector2i=_safe_site_cell(position_cell)
         if safe!=position_cell:
@@ -461,7 +485,7 @@ func _town_event_cell(anchor: Vector2i,reserved: Dictionary) -> Vector2i:
                 var site: Vector2i = anchor+Vector2i(dx,dy)
                 if site.x<4 or site.y<4 or site.x>=WIDTH-4 or site.y>=HEIGHT-4 or blocked.has(site) or reserved.has(site):
                     continue
-                if geography.reachable(terrain_layout,[origin],[site]):
+                if _walkable_tiles().has(site):
                     return site
     return Vector2i(-1,-1)
 
@@ -988,7 +1012,7 @@ func _resident_spot(target: Vector2i,used: Dictionary) -> Vector2i:
                 if radius>0 and absi(xx)!=radius and absi(yy)!=radius:
                     continue
                 var p: Vector2i = target+Vector2i(xx,yy)
-                if p.x<4 or p.y<4 or p.x>=WIDTH-4 or p.y>=HEIGHT-4 or blocked.has(p) or used.has(p):
+                if p.x<4 or p.y<4 or p.x>=WIDTH-4 or p.y>=HEIGHT-4 or blocked.has(p) or used.has(p) or not _walkable_tiles().has(p):
                     continue
                 var near_story: bool = false
                 for quest_id in ["key_npc","clue","witness","crisis","resolve"]:

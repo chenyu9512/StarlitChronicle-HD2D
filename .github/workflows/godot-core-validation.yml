@@ -119,6 +119,8 @@ jobs:
         run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_architecture.gd
       - name: Regional monster and canon boss battle systems
         run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_encounter_architecture.gd
+      - name: All-chapter vocational mastery, battle catalog, shop tiers and bestiary regression
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_global_rpg_reuse.gd
       - name: Housing and tactical combat integration
         run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_housing_and_combat.gd
       - name: Optional story event and save regression

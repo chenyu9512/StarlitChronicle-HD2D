@@ -66,6 +66,8 @@ var busy: bool = true
 var paused_for_dialogue: bool = false
 var pending: String = ""
 var battle_is_boss: bool = false
+# Per-attempt nonce for the defeat penalty. Boss victory keeps its stable story ID.
+var battle_defeat_id: String = ""
 var invincible: bool = false
 var no_encounters: bool = false
 var five_xp: bool = false
@@ -1279,6 +1281,9 @@ func _start_battle(is_boss: bool) -> void:
         ui.show_message("本章强敌已经解决，无需重复挑战。")
         return
     battle_is_boss = is_boss
+    # Different attempts against the SAME boss must pay their own defeat
+    # penalty. A duplicate completion callback for one attempt stays idempotent.
+    battle_defeat_id = BattleRewardTransaction.make_id(false,progress.chapter)
     cinematic_camera.battle_pulse(world.camera)
     if is_boss:
         cinematic.banner_card("命运的交锋","第%d章 · 强敌登场" % progress.chapter,"danger")
@@ -1317,6 +1322,9 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         return
     var active_battle: Node = battle
     var transaction_id: String = str(battle.reward_transaction_id)
+    if not won and not BattleRewardTransaction.valid_id(battle_defeat_id):
+        _hold_battle_settlement(won,xp,money,"战败回执ID无效，暂停结算。")
+        return
     if not BattleRewardTransaction.valid_id(transaction_id):
         _hold_battle_settlement(won,xp,money,"战斗回执ID无效，暂停结算。")
         return
@@ -1360,7 +1368,7 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
             defeated_group,defeated_monster,xp,money,5 if five_xp else 1)
     else:
         settlement = BattleV3Settlement.settle_defeat(
-            progress,transaction_id,chapter_at_fight,is_boss)
+            progress,battle_defeat_id,chapter_at_fight,is_boss)
     if not bool(settlement.get("ok",false)):
         _hold_battle_settlement(won,xp,money,
             "结算保存失败（%s），奖励及进度已回滚，可重试。" % str(settlement.get("reason","unknown")))
@@ -1390,6 +1398,7 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
 
     # No earlier _advance_scene() save or premature battle queue_free.
     battle = null
+    battle_defeat_id = ""
     var settings: Dictionary = progress.rpg.get("settings",{})
     var outro: float = clampf(float(settings.get("battle_outro_seconds",0.72)),0.0,1.5)
     if outro <= 0.0:

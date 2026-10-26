@@ -562,8 +562,8 @@ func _act(action: String) -> void:
     var explicit_enemy_selected: bool = false
     if "#" in action:
         var enemy_select: PackedStringArray = action.split("#",false,1)
-        if enemy_select.size() != 2 or not formation.valid_target(int(enemy_select[1])):
-            _redraw("该敌人已经被击败，请重新选择。")
+        if enemy_select.size() != 2 or not str(enemy_select[1]).is_valid_int() or not formation.valid_target(int(enemy_select[1])):
+            _redraw("敌方目标已失效，请重新选择。")
             return
         _select_enemy(int(enemy_select[1]))
         action = str(enemy_select[0])
@@ -576,8 +576,19 @@ func _act(action: String) -> void:
         var token: String = action.trim_prefix("skill:")
         if "@" in token:
             var fields: PackedStringArray = token.split("@",false,1)
+            if fields.size() != 2 or not str(fields[1]).is_valid_int():
+                _redraw("队友目标无效，请重新选择。")
+                return
             chosen_skill = str(fields[0])
             target_index = int(fields[1])
+            var selected_skill: Dictionary = _get_skill(chosen_skill)
+            if str(selected_skill.get("target","")) != "single_ally" or target_index < 0 or target_index >= game_state.actors.size():
+                _redraw("队友目标已经失效，请重新选择。")
+                return
+            var chosen_ally: Dictionary = game_state.actors[target_index]
+            if int(chosen_ally.get("hp",0)) <= 0 or (game_core != null and not game_core.is_active(str(chosen_ally.get("id","")))):
+                _redraw("当前队友无法成为该技能的目标。")
+                return
         else:
             chosen_skill = token
             var candidate: Dictionary = _get_skill(chosen_skill)
@@ -716,6 +727,9 @@ func _act(action: String) -> void:
                 game_core.take_item("item_herb_01", 1)
             else:
                 game_state.potions -= 1
+            # heal_member() updated the authoritative actor entry. The local
+            # 'member' still has PRE-heal HP; never copy it back at action end.
+            healed_via_skill = true
             message = "%s 使用药草恢复生命。" % name
             if is_instance_valid(vfx):
                 vfx.play_heal(_vfx_ally_point(),"药草")

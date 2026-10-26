@@ -1,5 +1,6 @@
 extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const CoastPainter = preload("res://scripts/c_coastal_painter.gd")
 ## A7-A9: per-map authored art, animation, nonblocking exploration props.
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
@@ -213,15 +214,10 @@ func _install_surface_detail(layout: Dictionary) -> void:
     var file: String=ART+theme+"_detail_atlas.svg"
     if not ResourceLoader.exists(file):
         return
-    var tiles:=TileSet.new()
-    tiles.tile_size=Vector2i(TILE,TILE)
-    var atlas:=TileSetAtlasSource.new()
-    atlas.texture=ArtOverrides.texture(file)
-    atlas.texture_region_size=Vector2i(TILE,TILE)
-    for y in range(8):
-        for x in range(8):
-            atlas.create_tile(Vector2i(x,y))
-    tiles.add_source(atlas,0)
+    var atlas_paths: Array[String]=[file]
+    var tiles: TileSet=TilePool.shared(atlas_paths)
+    if tiles==null:
+        return
     surface_detail=TileMapLayer.new()
     surface_detail.name="ShorelineAndSurfaceDetails"
     surface_detail.tile_set=tiles

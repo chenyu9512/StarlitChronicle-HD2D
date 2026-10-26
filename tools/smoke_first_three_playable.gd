@@ -81,6 +81,8 @@ func _run() -> void:
                 _touch("crisis")
                 if game.battle != null:
                     game.battle.dice.seed = 731 + chapter
+            # Capture the actual A-line nonce BEFORE real battle commands finish.
+            var actual_battle_id: String = str(game.battle.reward_transaction_id) if game.battle != null else ""
             var count := 0
             while game.battle != null and count < 100:
                 var b = game.battle
@@ -96,6 +98,14 @@ func _run() -> void:
                 failures.append("Boss fight in chapter %d cannot finish" % chapter)
             if not bool(game.progress.flags.get("ch%03d.battle_won" % chapter, false)):
                 failures.append("Chapter %d victory flag missing" % chapter)
+            if actual_battle_id.is_empty():
+                failures.append("Chapter %d had no A-line battle nonce" % chapter)
+            else:
+                var a_receipts: Dictionary = game.progress.rpg.get("battle_reward_transactions",{})
+                var d_journal: Dictionary = game.progress.rpg.get("d_reward_receipts_v1",{})
+                var d_receipts: Dictionary = d_journal.get("consumed",{})
+                if not a_receipts.has(actual_battle_id) or not d_receipts.has(actual_battle_id):
+                    failures.append("Chapter %d real-command victory did not persist both receipts" % chapter)
         _touch("resolve")
         _dialog()
         if not bool(game.progress.flags.get("story.ch%03d.done" % chapter, false)):

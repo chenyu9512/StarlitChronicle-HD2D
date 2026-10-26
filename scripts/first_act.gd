@@ -1547,9 +1547,9 @@ func _restore_world_position() -> void:
     if typeof(xy[0]) not in [TYPE_FLOAT, TYPE_INT] or typeof(xy[1]) not in [TYPE_FLOAT, TYPE_INT]:
         return
     var p := Vector2(float(xy[0]), float(xy[1]))
-    if not is_finite(p.x) or not is_finite(p.y):
+    if is_nan(p.x) or is_nan(p.y) or is_inf(p.x) or is_inf(p.y):
         return
-    if p.x < 16.0 or p.y < 16.0 or p.x > float(world.WIDTH * world.TILE) - 16.0 or p.y > float(world.HEIGHT * world.TILE) - 16.0:
+    if p.x < 16.0 or p.y < 16.0 or p.x > float(world.WIDTH * WorldScript.TILE) - 16.0 or p.y > float(world.HEIGHT * WorldScript.TILE) - 16.0:
         return
     if world._blocked(p):
         return

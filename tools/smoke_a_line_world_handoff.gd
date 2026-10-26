@@ -159,6 +159,24 @@ func _run() -> void:
     check(bool(battle.handoff_to_world(world).get("ok",false)),"battle world restore failed")
     check(not bool(battle.handoff_to_world(world).get("ok",true)),"battle world restore counted twice")
     check(state.gold==80,"handoff changed player economy")
+    check(not bool(reg.world_encounter_gate("random",{"chapter":8,"settlement":true}).get("ok",true)),"registry allowed town encounter")
+    check(bool(reg.world_encounter_gate("random",safe).get("ok",false)),"registry refused eligible field encounter")
+    var doorway := mock()
+    doorway.encounter_meter=0.0
+    check(Handoff.grant_exploration_grace(doorway,560.0),"doorway grace rejected")
+    check(doorway.encounter_meter<=-560.0,"doorway grace was not applied")
+    var sealed := mock()
+    var sealed_handoff := Handoff.new()
+    check(bool(sealed_handoff.begin(sealed,"boss",context(sealed)).get("ok",false)),"sealed room handoff begin")
+    for yy in range(11,36):
+        for xx in range(0,23):
+            sealed.walls[Vector2i(xx,yy)] = true
+    var old_sealed_position: Vector2=sealed.hero.position
+    check(bool(sealed_handoff.mark_result(false).get("ok",false)),"sealed room settlement")
+    var sealed_result: Dictionary = sealed_handoff.restore(sealed)
+    check(not bool(sealed_result.get("resume_world",true)),"no-safe-spawn incorrectly resumed input")
+    check(not bool(sealed_result.get("ok",true)),"no-safe-spawn reported success")
+    check(sealed.hero.position==old_sealed_position,"no-safe-spawn teleported hero into wall")
     var parent := MockController.new()
     root.add_child(parent)
     var auto_world := MockWorld.new()

@@ -30,7 +30,7 @@ def git_blob_id(path: Path) -> str:
 
 
 def source_inputs(root: Path):
-    for group in ("scripts", "scenes", "data/levels", "story"):
+    for group in ("scripts", "scenes", "data/levels", "data/assets", "story"):
         base = root / group
         if not base.exists():
             continue
@@ -38,6 +38,18 @@ def source_inputs(root: Path):
             if not path.is_file() or path.suffix.lower() not in {".gd", ".tscn", ".tres", ".json"}:
                 continue
             if ".godot" in path.parts:
+                continue
+            # All-assets inventories are not live drawings. Keep runtime
+            # manifests, DLC slots, map and scene bindings in the scan.
+            if group == "data/assets" and path.name in {
+                "c_art_catalog.json",
+                "c_art_selection.json",
+                "c_art_source_originals.json",
+                "c_art_allocation_v5.json",
+                "c_art_allocation_v6.json",
+                "c_act01_archive_triage_v10.json",
+                "c_uploaded_only_full_audit_2026_10_27.json",
+            }:
                 continue
             yield path
     project = root / "project.godot"
@@ -138,6 +150,7 @@ def audit(root: Path, verify_blobs: bool = False) -> dict:
             if not(m["target_exists"] and m["source_exists"] and m["from_uploaded_set"])
         ],
         "legacy_total": len(legacy),
+        "legacy_files_still_present": sum(1 for m in legacy if m["path"] in found),
         "legacy_still_pending": sum(1 for m in legacy if not m["replacement_source"]),
         "legacy_direct_runtime_refs": sum(1 for m in legacy if m["direct_references"]),
         "legacy_dynamic_risks": sum(1 for m in legacy if m["possible_dynamic_references"]),
@@ -166,7 +179,7 @@ def main() -> int:
                             encoding="utf-8")
     if result["invalid_mappings"] or result["blob_mismatch"]:
         return 1
-    if args.require_no_old and result["legacy_still_pending"]:
+    if args.require_no_old and result["legacy_files_still_present"]:
         return 1
     return 0
 

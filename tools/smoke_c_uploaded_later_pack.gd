@@ -46,7 +46,7 @@ func _run() -> void:
     if not Art.activate_pack(former):
         errors.append("Cannot restore previously selected art pack")
     if not errors.is_empty():
-        _fail("; ".join(errors))
+        _fail(str(errors))
         return
     print("SUCCESS: C later-upload pack has 6 loadable sources, effective targets and preserved texture footprints")
     quit(0)

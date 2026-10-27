@@ -938,7 +938,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
                     var prop_kind: String = "sign" if stage!=1 else str(task_evidence.get("evidence_prop","sea_crystal"))
                     var prop_path: String = "res://assets/art/props/coast/"+prop_kind+".png"
                     if ResourceLoader.exists(prop_path):
-                        (nodes[stage_key] as Sprite2D).texture=load(prop_path)
+                        (nodes[stage_key] as Sprite2D).texture=CArtOverrides.texture(prop_path)
                         nodes[stage_key].set_meta("quest_evidence_type",prop_kind)
                     var task_label: Label = nodes[stage_key].get_node_or_null("QuestSpecificLocation")
                     if task_label==null:

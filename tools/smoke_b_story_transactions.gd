@@ -5,7 +5,12 @@ var faults: Array[String] = []
 
 class FixtureCatalog:
     extends RefCounted
-    var prologue: Dictionary = {"scenes":[]}
+    # Reloading a valid saved cursor must use the exact same catalogue as the
+    # writer. A zero-scene fixture forces load_story() to reject every save.
+    var prologue: Dictionary = {"scenes":[{"id":"b_qa_scene",
+        "effects":[{"type":"set_flag","key":"b.qa.scene.done","value":true},
+            {"type":"grant","xp":19,"gold":7},
+            {"type":"time_skip","years":2}]}]}
     func get_chapter(_id: String) -> Dictionary:
         return {}
     func requirements_met(_required: Array, _flags: Dictionary) -> bool:
@@ -39,10 +44,7 @@ func _runner(path: String):
     r.catalog = FixtureCatalog.new()
     r.save_path = path
     r.current_chapter_id = "prologue"
-    r.current_chapter = {"scenes":[{"id":"b_qa_scene",
-        "effects":[{"type":"set_flag","key":"b.qa.scene.done","value":true},
-            {"type":"grant","xp":19,"gold":7},
-            {"type":"time_skip","years":2}]}]}
+    r.current_chapter = r.catalog.prologue
     return r
 
 func _run() -> void:

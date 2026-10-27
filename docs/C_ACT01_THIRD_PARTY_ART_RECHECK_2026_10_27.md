@@ -67,9 +67,9 @@
    python tools/audit_act01_third_party_art.py
    python tools/audit_act01_third_party_art.py --require-commercial
    godot --headless --path . --editor --quit
-   godot --headless --path . --script res://tools/d_control/run_full_smoke_suite.py
+   python tools/d_control/run_full_smoke_suite.py
    ```
-   注意最后一条目前是 Python 扩展名，实际使用应以对应脚本支持的启动命令为准，**不要假设它能用 Godot --script 直接执行**。
+   Python 审计与 Godot 引擎冒烟测试分开执行；上方命令需要在已安装相应运行时的完整本地克隆中执行。
 5. 依六章检查截图、角色方向动作、房屋门口、地图清晰度、光照、战斗及回归存档。所有P0为零、角色和场景完成视觉签收才可说是商业级第一幕。
 
 **结论：本批完成静态重核、少量可说明依据的第三方候选修正和运行时保护；商业级成品仍未交付。不得合并 main。**

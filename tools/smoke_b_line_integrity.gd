@@ -64,7 +64,10 @@ func _run() -> void:
             continue
         var id: String=str(entry.get("id",""))
         var layout: Dictionary=geo.layout(id,1)
-        var targets: Array[Vector2i]=geo._anchors()
+        var story_targets: Dictionary=geo.resolve_story_targets(layout,geo._anchors())
+        check((story_targets.get("missing",[]) as Array).is_empty(),
+            "No accessible actual story marker: "+id+" / "+str(story_targets.get("missing",[])))
+        var targets: Array[Vector2i]=story_targets.get("points",[])
         for gate in layout.get("gates",[]):
             targets.append(gate.get("cell",Vector2i.ZERO))
         for device in puzzles.devices(id):
@@ -72,7 +75,7 @@ func _run() -> void:
             if cell.size()==2:
                 targets.append(Vector2i(int(cell[0]),int(cell[1])))
         check(geo.reachable(layout,[layout.get("spawn",Vector2i.ZERO)],targets),
-            "Unreachable gate/story/device "+id)
+            "Unreachable actual gate/story/device "+id)
         count+=1
     check(count==40,"Expected 40 playable layouts")
     var sites: Array=_read("res://story/data/phase19_quest_world_anchors.json").get("quests",[])

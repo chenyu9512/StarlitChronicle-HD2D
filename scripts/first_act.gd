@@ -672,32 +672,50 @@ func _interact(target: String) -> void:
         return
     if target.begins_with("questdoor:"):
         var lost_page_id: String = target.trim_prefix("questdoor:")
+        _capture_world_position()
+        var room_before: Dictionary = progress._pack().duplicate(true)
         if world.enter_story_submap(lost_page_id):
             var current_world: Dictionary = progress.rpg.get("world",{})
             current_world["indoor_building"] = world.interior_building
             current_world["outdoor_return"] = [world.exterior_position.x,world.exterior_position.y]
+            if not _save_progress():
+                progress.restore_snapshot(room_before)
+                _enter_location()
+                ui.show_message("调查室进入进度保存失败，已返回原地图。")
+                return
             game_events.record("lost_page_scene_entered",{"quest_id":lost_page_id,"map":world_router.current_map()})
-            _save_progress()
             _focus()
             ui.show_message("进入"+world.quest_submaps.room_name(lost_page_id)+"。现场调查、证物与离开进度均可保存。")
         return
     if target.begins_with("building:"):
         var building_id: String = target.trim_prefix("building:")
+        _capture_world_position()
+        var building_before: Dictionary = progress._pack().duplicate(true)
         if world.enter_building(building_id):
             var current_world: Dictionary = progress.rpg.get("world",{})
             current_world["indoor_building"] = building_id
             current_world["outdoor_return"] = [world.exterior_position.x,world.exterior_position.y]
+            if not _save_progress():
+                progress.restore_snapshot(building_before)
+                _enter_location()
+                ui.show_message("进门状态保存失败，已返回原来的安全位置。")
+                return
             game_events.record("building_entered",{"building":building_id,"map":world_router.current_map()})
-            _save_progress()
             _focus()
             ui.show_message("进入 " + world.region_name() + "。室内进度已自动保存。")
         return
     if target == "interior_exit":
+        _capture_world_position()
+        var exit_before: Dictionary = progress._pack().duplicate(true)
         if world.leave_building():
             var current_world: Dictionary = progress.rpg.get("world",{})
             current_world.erase("indoor_building")
             current_world.erase("outdoor_return")
-            _save_progress()
+            if not _save_progress():
+                progress.restore_snapshot(exit_before)
+                _enter_location()
+                ui.show_message("室内离开进度保存失败，已恢复屋内状态。")
+                return
             _focus()
             ui.show_message("返回 " + world.region_name() + "。")
         return
@@ -1685,6 +1703,8 @@ func _travel_to(map_id: String) -> void:
         ui.show_message("请先从建筑出口返回街道，再前往其他区域。")
         return
     var previous_map: String = world_router.current_map()
+    _capture_world_position()
+    var travel_before: Dictionary = progress._pack().duplicate(true)
     if not world_router.travel(map_id):
         ui.show_message("航路尚未解锁，请先沿主线探索相邻地区。")
         return
@@ -1692,11 +1712,15 @@ func _travel_to(map_id: String) -> void:
     current_world.erase("indoor_building")
     current_world.erase("outdoor_return")
     game_events.advance_time(45)
-    game_events.record("travel",{"map_id":map_id})
     adventure_menu.close_menu()
     _enter_location()
     world.spawn_from_exit(previous_map)
-    _save_progress()
+    if not _save_progress():
+        progress.restore_snapshot(travel_before)
+        _enter_location()
+        ui.show_message("区域旅行存档失败，地图、时间和位置均已恢复。")
+        return
+    game_events.record("travel",{"map_id":map_id})
     cinematic.banner_card(str(world_router.profile().get("name",map_id)),"远方的灯火 · 区域抵达","hope")
     ui.show_message("已抵达：" + str(world_router.profile().get("name",map_id)))
 

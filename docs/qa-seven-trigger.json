@@ -1,20 +1,15 @@
 {
-  "batch": "batch0-seven-retest-2026-10-27",
-  "request": "Run seven screenshot QA acceptance tasks",
-  "engine": "Godot 4.7.2",
-  "parent_sha": "834a9d3aa718e2d086ab070768d78b79063c531b",
-  "tests": [
+  "batch": "M0.1-2026-10-27-full-regression",
+  "reason": "Retest same SHA after world quest map UI, town NPC split and C23 gallery indexing repairs",
+  "required": [
     "build",
     "reward",
     "rollback",
     "legacy",
     "combat",
     "quests",
-    "assets"
+    "assets",
+    "all-smokes"
   ],
-  "policy": "Independent logs; no unchecked PASS; main-only, no branch changes",
-  "status": "requested-not-verified",
-  "version": 3,
-  "rerun_reason": "Batch0 P0/P1 seven independent Godot gates on one pinned main commit after D legacy, A real Boss and V3 door patch fixes; no acceptance inferred.",
-  "requested_parent_sha": "33cb98b18129f86dafe49cb53f4d79da67effe63"
+  "claim": "Only real Godot and Python QA results may determine acceptance; no expected result prefilled."
 }

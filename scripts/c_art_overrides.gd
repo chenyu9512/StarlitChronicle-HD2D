@@ -329,7 +329,11 @@ static func _read_pack_index(location: String) -> void:
             var source: String = str(map.get("source", ""))
             if not _entries.has(target):
                 continue
-            if source.begins_with("res://assets/art/") and ResourceLoader.exists(source):
+            # Main2 intentionally removed canonical original PNGs, but the
+            # DLC may reference those historical slot names. Accept sources
+            # when their third-party migration physically resolves instead
+            # of silently dropping the whole terrain theme.
+            if source.begins_with("res://assets/art/") and original_texture(source) != null:
                 accepted[target] = source
             elif location == USER_PACK_INDEX and source.begins_with(PACK_ROOT + "/") and not source.contains("..") and FileAccess.file_exists(source):
                 accepted[target] = source

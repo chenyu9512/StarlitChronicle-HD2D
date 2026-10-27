@@ -724,8 +724,9 @@ func _build_sites() -> void:
             # threshold stands one tile south, on the visible front step.
             var front: Vector2i = door+Vector2i.DOWN
             var marker: Sprite2D=_add_sprite("sign",front,false,true)
-            # Door facade is the signifier; logical hit target remains exact.
-            marker.visible=false
+            # Hide the redundant physical sign texture, but preserve the
+            # doorway's minimap marker (MapView checks node.visible).
+            marker.modulate.a=0.0
             marker.set_meta("door_cell",door)
             nodes["building:"+str(feature.get("building",""))] = marker
     var icons := {"key_npc": "beacon", "clue": "crate", "witness": "medicine_basket", "crisis": "sea_crystal", "resolve": "star_lantern", "inn": "well", "shop": "fish_stall", "side_start": "sign", "side_item": "crate", "side_return": "beacon"}
@@ -1347,6 +1348,10 @@ func interact() -> void:
     var chosen := ""
     var best: float = 65.0
     for key in nodes.keys():
+        # Building doors are selectable only from the front-side threshold
+        # check above, not from a side wall via the generic nearest-object path.
+        if str(key).begins_with("building:"):
+            continue
         if str(key).begins_with("prologue_") and chapter != 0:
             continue
         if chapter == 0 and not str(key).begins_with("prologue_") and key not in ["inn", "shop"]:

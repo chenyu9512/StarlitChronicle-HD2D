@@ -48,7 +48,7 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
     if not ATLASES.has(map_id):
         return
     var path: String=ART+str(ATLASES[map_id])
-    if not ResourceLoader.exists(path):
+    if not ArtOverrides.exists(path):
         return
     var texture: Texture2D=ArtOverrides.texture(path)
     if texture==null or texture.get_width()<256 or texture.get_height()<256:
@@ -87,7 +87,7 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
         var used: Dictionary={}
         for entry in SET_PIECES.get(map_id,[]):
             var asset: String=ART+str(entry[1])
-            if not ResourceLoader.exists(asset):
+            if not ArtOverrides.exists(asset):
                 continue
             var spot: Vector2i=_find_verge(entry[2],layout,used)
             if spot.x<0:
@@ -118,7 +118,7 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
 ## Does not edit navigation, doors, building placement or collision dictionaries.
 func _install_dew_road_material(ground: Dictionary, blocked: Dictionary, water: Dictionary) -> void:
     var path: String = ART + "dew_road_material_8x8.svg"
-    if not ResourceLoader.exists(path):
+    if not ArtOverrides.exists(path):
         return
     var texture: Texture2D = ArtOverrides.texture(path)
     if texture == null or texture.get_width() != 256 or texture.get_height() != 256:
@@ -193,7 +193,7 @@ func _add_lamp(position_in_world: Vector2) -> void:
     if active_lights.size()>=4:
         return
     var file: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
-    if not ResourceLoader.exists(file):
+    if not ArtOverrides.exists(file):
         return
     var light:=PointLight2D.new()
     light.name="OriginalCoastalLantern%d" % active_lights.size()

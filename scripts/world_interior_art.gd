@@ -118,7 +118,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
     var chosen_atlas: String=str(layout.get("art_tileset",""))
-    if not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas):
+    if not chosen_atlas.is_empty() and ArtOverrides.exists(chosen_atlas):
         theme_atlas=chosen_atlas
     name = "InteriorArt"
     if not is_instance_valid(soundscape):
@@ -153,10 +153,10 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         var record: Dictionary = value
         var art_id: String = str(record.get("asset",""))
         var path: String = ART_DIR+art_id+".svg"
-        if not ResourceLoader.exists(path):
+        if not ArtOverrides.exists(path):
             path=DISTRICT_ART+art_id+".svg"
         var place: Array = record.get("cell",[])
-        if art_id not in ALLOWED or place.size()!=2 or not ResourceLoader.exists(path):
+        if art_id not in ALLOWED or place.size()!=2 or not ArtOverrides.exists(path):
             continue
         var prop := Sprite2D.new()
         prop.name = str(record.get("id",art_id))
@@ -242,7 +242,7 @@ func _install_dew_signature(stage: Node2D, layout: Dictionary, map_key: String, 
             if not safe_footprint:
                 continue
         var path: String = SIGNATURE_DIR + asset
-        if not ResourceLoader.exists(path):
+        if not ArtOverrides.exists(path):
             continue
         var texture: Texture2D = ArtOverrides.texture(path)
         if texture == null:
@@ -268,7 +268,7 @@ func _install_fire_animation(stage: Node2D,layout: Dictionary) -> void:
     # Six separately hand-authored RGBA frames; this is an actual sprite-sheet
     # animation, not a static fireplace plus brightness oscillator.
     var sheet_path: String=ART_DIR+"hearth_flames_6f.svg"
-    if not ResourceLoader.exists(sheet_path):
+    if not ArtOverrides.exists(sheet_path):
         return
     var sheet: Texture2D=ArtOverrides.texture(sheet_path)
     if sheet==null:
@@ -326,7 +326,7 @@ func _build_occluders(layout: Dictionary) -> void:
         occluder_count+=1
 
 func _build_wall_edging(layout: Dictionary) -> void:
-    if not ResourceLoader.exists(theme_atlas):
+    if not ArtOverrides.exists(theme_atlas):
         return
     var atlas_paths: Array[String]=[theme_atlas]
     var tiles: TileSet=TilePool.shared(atlas_paths,8,7,1)

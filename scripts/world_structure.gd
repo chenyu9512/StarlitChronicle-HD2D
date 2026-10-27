@@ -119,7 +119,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
     z_index=3
     # The original painter remains the compatibility fallback for other biomes.
     var file: String = "res://assets/art/exteriors/coast_final_pass/%s_%s.svg" % [map_key,kind]
-    if ResourceLoader.exists(file):
+    if ArtOverrides.exists(file):
         facade=Sprite2D.new()
         facade.name="AuthoredFacade"
         facade.texture=ArtOverrides.texture(file)
@@ -128,7 +128,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
         facade.z_index=0
         add_child(facade)
         var shadow_file: String="res://assets/art/exteriors/coast_final_pass/building_ground_shadow.svg"
-        if ResourceLoader.exists(shadow_file):
+        if ArtOverrides.exists(shadow_file):
             ground_shadow=Sprite2D.new()
             ground_shadow.name="FootprintContactShadow"
             ground_shadow.texture=ArtOverrides.texture(shadow_file)
@@ -138,7 +138,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
             ground_shadow.z_index=-1
             add_child(ground_shadow)
         var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
-        if ResourceLoader.exists(glow):
+        if ArtOverrides.exists(glow):
             door_lamp=PointLight2D.new()
             door_lamp.name="DoorLanternLight"
             door_lamp.texture=ArtOverrides.texture(glow)

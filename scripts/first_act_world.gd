@@ -213,7 +213,7 @@ func _party_sprite(position: int, fallback: String) -> String:
     var id: String = str(party_ids[position]) if position < party_ids.size() else ""
     var suffix: String = str(characters.get(id,fallback))
     var name: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % suffix
-    return name if ResourceLoader.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
+    return name if CArtOverrides.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
 
 func _make_tiles() -> void:
     # Map geometry (including roads, water and collision) stays authored per map;
@@ -232,7 +232,7 @@ func _make_tiles() -> void:
     var outside: bool = interior_building.is_empty()
     var map_id: String = str(map_profile.get("id",""))
     var atlas_sources: Array[String] = TerrainAtlas.atlas_sources(region,map_id,chosen_atlas,outside)
-    var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas))
+    var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and CArtOverrides.exists(chosen_atlas))
     var regional_art: bool = TerrainAtlas.is_regional(region)
     var tile_set: TileSet=TilePool.shared(atlas_sources)
     if tile_set == null:
@@ -400,7 +400,7 @@ func _install_coastal_scenery() -> void:
 
 func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind
-    if not ResourceLoader.exists(path):
+    if not CArtOverrides.exists(path):
         path = "res://assets/art/props/coast/rock.png"
     var sprite := Sprite2D.new()
     sprite.texture = CArtOverrides.texture(path)
@@ -952,7 +952,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
                     var task_evidence: Dictionary = scene_director.dossier(original_id)
                     var prop_kind: String = "sign" if stage!=1 else str(task_evidence.get("evidence_prop","sea_crystal"))
                     var prop_path: String = "res://assets/art/props/coast/"+prop_kind+".png"
-                    if ResourceLoader.exists(prop_path):
+                    if CArtOverrides.exists(prop_path):
                         (nodes[stage_key] as Sprite2D).texture=CArtOverrides.texture(prop_path)
                         nodes[stage_key].set_meta("quest_evidence_type",prop_kind)
                     var task_label: Label = nodes[stage_key].get_node_or_null("QuestSpecificLocation")
@@ -1384,7 +1384,7 @@ func sync_prologue_markers(active_index: int, story_chapter: int) -> void:
         marker.modulate.a=0.30 if portraits.has(index) else 1.0
         if portraits.has(index) and not prologue_cast.has(index):
             var sprite_path: String="res://assets/art/characters/%s/walk_4dir_3frames.png" % str(portraits[index])
-            if ResourceLoader.exists(sprite_path):
+            if CArtOverrides.exists(sprite_path):
                 var performer=Actor.new()
                 performer.name="PrologueCast_%d" % index
                 performer.setup(sprite_path)

@@ -51,7 +51,7 @@ func configure(new_map: String, geometry: Dictionary, quality: int = 1) -> void:
         art_error = "Unrecognized regional art family"
         return
     var path: String = ATLAS_DIR + region + "_decals.svg"
-    if not ResourceLoader.exists(path):
+    if not Art.exists(path):
         art_error = "Missing narrative detail atlas: " + path
         return
     var paths: Array[String] = [path]
@@ -130,7 +130,7 @@ func _install_signature(plan: Dictionary, geometry: Dictionary, protected: Dicti
     if slot < 0 or slot >= 5:
         return
     var art_path: String = "res://assets/art/scene_signatures_v1/region_" + id_parts[1] + "_scenes.svg"
-    if not ResourceLoader.exists(art_path):
+    if not Art.exists(art_path):
         art_error = "Missing authored narrative floor scene strip: " + art_path
         return
     var strip: Texture2D = Art.texture(art_path)

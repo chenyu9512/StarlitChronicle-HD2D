@@ -54,7 +54,7 @@ static func shared(paths: Array[String], columns: int = 8,
     if paths.is_empty() or columns < 1 or row_start < 0 or row_count < 1:
         return null
     for path in paths:
-        if path.is_empty() or not ResourceLoader.exists(path):
+        if path.is_empty() or not Art.exists(path):
             push_warning("Missing atlas resource: " + path)
             return null
     _sync_revision()

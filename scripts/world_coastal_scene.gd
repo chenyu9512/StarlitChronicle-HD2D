@@ -196,7 +196,7 @@ func _safe_vegetation_cell(wanted: Vector2i,layout: Dictionary) -> Vector2i:
 
 func _install_water_reflections(mask: Dictionary) -> void:
     var file: String=ART+"sea_glimmer_4f.svg"
-    if not ResourceLoader.exists(file):
+    if not ArtOverrides.exists(file):
         return
     var atlas_texture: Texture2D=ArtOverrides.texture(file)
     if atlas_texture==null:
@@ -239,7 +239,7 @@ func _install_surface_detail(layout: Dictionary) -> void:
     elif map_id=="map_coast_04":
         theme="cavern"
     var file: String=ART+theme+"_detail_atlas.svg"
-    if not ResourceLoader.exists(file):
+    if not ArtOverrides.exists(file):
         return
     var atlas_paths: Array[String]=[file]
     var tiles: TileSet=TilePool.shared(atlas_paths)
@@ -337,7 +337,7 @@ func _make_cavern_lighting() -> void:
     cavern_grade.color=Color("a0b0bc")
     add_child(cavern_grade)
     var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
-    if not ResourceLoader.exists(glow):
+    if not ArtOverrides.exists(glow):
         return
     for entry in ["cave_relic","cave_boss_arena","cave_beacon"]:
         if not authored_sprites.has(entry):
@@ -354,7 +354,7 @@ func _make_cavern_lighting() -> void:
 
 func _sprite(asset: String,cell: Vector2i) -> Sprite2D:
     var file: String=Act01Art.sprite_path(map_id, asset)
-    if file.is_empty() or not ResourceLoader.exists(file):
+    if file.is_empty() or not ArtOverrides.exists(file):
         return null
     var sprite:=Sprite2D.new()
     sprite.texture=ArtOverrides.texture(file)

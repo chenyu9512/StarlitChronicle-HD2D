@@ -112,6 +112,9 @@ func _build() -> void:
     var install_pack := _button("导入DLC包")
     install_pack.pressed.connect(func() -> void: pack_picker.popup_centered_ratio(0.8))
     pack_row.add_child(install_pack)
+    var remove_pack := _button("卸载所选DLC")
+    remove_pack.pressed.connect(_uninstall_pack)
+    pack_row.add_child(remove_pack)
     pack_feedback = _text("主题切换后重新进入地图即可更新已创建的场景图集。", 12)
     pack_feedback.add_theme_color_override("font_color", Color("b1d2ba"))
     flow.add_child(pack_feedback)
@@ -385,6 +388,18 @@ func _reset_pack() -> void:
     var ok: bool = Overrides.activate_pack("original")
     pack_feedback.text = "已切换回游戏原版；单张手工覆盖仍保留。" if ok else "恢复失败，当前配置未改变。"
     if ok:
+        _refresh_pack_list()
+        asset_changed.emit("res://assets/art/backdrops/coast/tide_lighthouse.png")
+        _render_page()
+        _show_detail()
+
+func _uninstall_pack() -> void:
+    if pack_options.selected < 0 or pack_options.selected >= pack_ids.size():
+        return
+    var id: String = pack_ids[pack_options.selected]
+    var result: bool = Overrides.uninstall_pack(id)
+    pack_feedback.text = "已卸载本机DLC，原始游戏素材保留。" if result else "只能卸载用户导入的DLC，内置资源不会删除。"
+    if result:
         _refresh_pack_list()
         asset_changed.emit("res://assets/art/backdrops/coast/tide_lighthouse.png")
         _render_page()

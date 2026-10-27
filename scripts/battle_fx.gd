@@ -1,5 +1,6 @@
 extends Control
 const BattleArtDirection = preload("res://scripts/battle_art_direction.gd")
+const Art = preload("res://scripts/c_art_overrides.gd")
 ## Lightweight 2D battle presentation. Visual-only: never changes HP, turns or rewards.
 ## Works in the GL Compatibility renderer without shaders, particles or new textures.
 const ELITE_ART: String = "res://assets/art/battle/a16/high_tier_magic_4f.svg"
@@ -22,8 +23,11 @@ var elite_sequence: Texture2D
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_IGNORE
-    if ResourceLoader.exists(ELITE_ART):
-        elite_sequence=load(ELITE_ART) as Texture2D
+    # Main2 removed the former authored SVG. Resolve actual uploaded art;
+    # a single-frame icon cannot be sliced as an invented four-frame atlas.
+    var elite: Texture2D=Art.texture(ELITE_ART)
+    if elite!=null and elite.get_width()>=ELITE_FRAME_SIZE*4 and elite.get_height()>=ELITE_FRAME_SIZE:
+        elite_sequence=elite
     set_process(true)
 
 func bind_enemy(sprite: TextureRect, art: String, is_boss: bool) -> void:
@@ -34,13 +38,16 @@ func bind_enemy(sprite: TextureRect, art: String, is_boss: bool) -> void:
     _hit_timer = 0.0
     if not is_boss and not art.is_empty():
         var path: String = "res://assets/art/monsters/coast/%s/idle_4frames.png" % art
-        if ResourceLoader.exists(path):
-            var sheet: Texture2D = load(path) as Texture2D
-            if sheet != null and sheet.get_width() >= IDLE_FRAME_SIZE * IDLE_FRAME_COUNT and sheet.get_height() >= IDLE_FRAME_SIZE:
-                _idle_atlas = AtlasTexture.new()
-                _idle_atlas.atlas = sheet
-                _set_idle_frame(0)
-                sprite.texture = _idle_atlas
+        var sheet: Texture2D = Art.texture(path)
+        if sheet!=null and sheet.get_width()>=IDLE_FRAME_SIZE*IDLE_FRAME_COUNT and sheet.get_height()>=IDLE_FRAME_SIZE:
+            _idle_atlas=AtlasTexture.new()
+            _idle_atlas.atlas=sheet
+            _set_idle_frame(0)
+            sprite.texture=_idle_atlas
+        elif sprite.texture==null:
+            # Single-frame uploaded PNGs still animate via the breathing and
+            # recoil transforms below, without slicing beyond image bounds.
+            sprite.texture=Art.texture("res://assets/art/monsters/coast/%s/battle.png" % art)
     if is_instance_valid(sprite):
         sprite.pivot_offset = sprite.size * 0.5
         sprite.scale = Vector2.ONE

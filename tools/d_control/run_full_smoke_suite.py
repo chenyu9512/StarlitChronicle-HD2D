@@ -34,8 +34,13 @@ def main() -> int:
         start=time.monotonic()
         cmd=[args.godot,"--headless","--path",".","--script","res://"+path.as_posix()]
         print(f"[{i}/{len(tests)}] RUN {path}",flush=True)
+        # These two real 40-sector/120-quest integration scenarios take much
+        # longer than unit smokes; keep all assertions and allow completion.
+        long_world = path.name in {"smoke_story_world_phase19_2.gd",
+                                   "smoke_world_story_interactions.gd"}
+        case_timeout = max(args.timeout, 600) if long_world else args.timeout
         try:
-            done=subprocess.run(cmd,capture_output=True,text=True,errors="replace",timeout=args.timeout)
+            done=subprocess.run(cmd,capture_output=True,text=True,errors="replace",timeout=case_timeout)
             out=(done.stdout or "") + ("\n"+done.stderr if done.stderr else "")
             duration=round(time.monotonic()-start,2)
             bad_parse=bool(re.search(r"SCRIPT ERROR:|Parse Error:|Failed to load script",out,re.I))

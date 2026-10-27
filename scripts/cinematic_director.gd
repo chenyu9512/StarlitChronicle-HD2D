@@ -4,6 +4,7 @@ extends CanvasLayer
 signal finished(cue_id: String, skipped: bool)
 const Audio = preload("res://scripts/cinematic_audio.gd")
 const SceneFX = preload("res://scripts/cinematic_scene_fx.gd")
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const COAST: String = "res://assets/art/backdrops/coast/tide_lighthouse.png"
 var sound
 var overlay: Control
@@ -192,9 +193,12 @@ func start(cue_id: String,data: Dictionary) -> bool:
     headline.text=str(data.get("title","星灯纪行"))
     scene_location.text=str(data.get("location","洛维恩 · 星光航路"))
     var art_path: String=str(data.get("image",COAST))
-    if not ResourceLoader.exists(art_path):
-        art_path=COAST
-    backdrop.texture=load(art_path) if ResourceLoader.exists(art_path) else null
+    # Main2 retired the authored backdrop files; the canonical story ID is
+    # preserved while the art resolver loads its physical third-party source.
+    var real_backdrop: Texture2D=ArtOverrides.texture(art_path)
+    if real_backdrop==null:
+        real_backdrop=ArtOverrides.texture(COAST)
+    backdrop.texture=real_backdrop
     var palettes: Dictionary={
         "danger":Color(0.16,0.015,0.045,0.69),
         "grief":Color(0.065,0.085,0.16,0.64),
@@ -259,9 +263,9 @@ func _render_beat() -> void:
         "澄舟":portrait_path="res://assets/art/characters/chengzhou/dialogue.png"
         "岚音":portrait_path="res://assets/art/characters/lanyin/dialogue.png"
         "主角","幼年主角":portrait_path="res://assets/art/characters/leon/dialogue.png"
-    portrait.visible=not portrait_path.is_empty() and ResourceLoader.exists(portrait_path)
-    if portrait.visible:
-        portrait.texture=load(portrait_path)
+    var resolved_portrait: Texture2D=ArtOverrides.texture(portrait_path) if not portrait_path.is_empty() else null
+    portrait.visible=resolved_portrait!=null
+    portrait.texture=resolved_portrait
     next_button.text="进入旅程 ▸" if beat_index>=beats.size()-1 else "继续  ▸"
 
 func _finish(skipped: bool) -> void:

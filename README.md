@@ -1,194 +1,27 @@
-# 星灯纪行 · Starlit Chronicle
+# 星灯纪行 · Main2 游戏运行精简版
 
-> **让灯火照亮道路，也让选择留下重量。**
->
-> 一款正在开发的原创单机剧情向 JRPG。踏上洛维恩大陆与群岛的旅程，调查七座母灯与「黑星之夜」的历史，结识各地居民，并通过战斗、探索与抉择改变他们的命运。
+> 运行分支：`Main2游戏运行精简版`。源自 `Main2美术优化版` 的提交 `8e3a5871fdedea5b42e8338f7577bddc84c27ad4`。
+> 本分支不是全部原档或美术制作分支；**不包含** `assets/art/source_packs/`。
+> 保留全部正式 GDScript、Godot 场景、剧情 JSON、数值与地图数据、导出配置及游戏内可加载的图像、着色器。
 
-**项目状态：开发中 · Pre-release（非正式商业发行版）**  
-**技术：Godot 4.7.2 / GDScript · 2D / HD-2D 风格 · 单人离线 · PC 开发预览、移动端适配中**  
-**当前开发分支：`Main2美术优化版` · GitHub默认入口：`main`（保留基线，不接收新开发） · 当前计划更新：2026-10-27**
+## 已保留的美术
 
-**[当前唯一开发计划（优先阅读）](docs/DEVELOPMENT_MASTER_PLAN.md)** · [工作流清理与测试入口](docs/WORKFLOW_CLEANUP_2026_10_27.md) · [详细历史基线报告](docs/GAME_GLOBAL_OVERVIEW_ROADMAP_2026_10_27.md) · [快速开始](#快速开始) · [玩法特色](#游戏体验) · [真实开发进度](#开发进度与验收边界) · [项目结构](#工程结构) · [测试与协作](#开发协作与质量保障) · [剧情索引](story/SCREENPLAY_CURRENT_INDEX.md) · [更新记录](CHANGELOG.md)
+- `assets/art/external/cc0_named_v1/`：正在被美术迁移、角色四方向动画、地图、UI 等使用的第三方运行图片。
+- `assets/art/runtime/act01_global_v14/props/`：10 类第一幕世界道具。
+- `assets/art/runtime/act01_global_v14/scenery/`：6 类第一幕场景美术（含灯塔）。
+- `assets/art/runtime/act01_global_v14/monsters/`：9 类海岸普通怪物。
+- `assets/art/runtime/imported/librarium/`：2 张实际接线的故事 Boss 帧图。
+- `assets/art/b02/`、`assets/art/b03/`：游戏加载的角色/Boss 元数据；`assets/art/runtime/manifest.json` 等兼容性文件。
+- `assets/shaders/`、`assets/audio/`：当前项目提供的着色器和音频登记。
 
----
+## 没有拷进来的文件
 
-## 游戏体验
+全部制作原始包、DragonBones/MV ZIP、1748 张静态 Boss 原图、候选美术库、20 张仅作为 V14 预览或备用的图、素材上传缓存与大批开发报告。原档继续保存在 `Main2美术优化版`，不受此分支影响。
 
-《星灯纪行》面向喜欢经典日式角色扮演游戏、角色关系与长篇冒险的玩家。其目标不只是制作一套章节菜单，而是让城镇、房屋、NPC、道路、地下城、战斗与剧情发生在同一个能被探索和记住玩家行为的世界中。
+本分支的 `data/assets/c_act01_global_distribution_v14.json` 改成仅记录真实入库的 25 个接线图，避免旧索引继续声称 3534 份原始文件存在。
 
-| 核心方向 | 玩家体验 | 当前边界 |
-| --- | --- | --- |
-| **探索与世界** | 地区旅行、城镇与建筑进出、无迷雾完整地图视图、昼夜和天气、地下城机关 | 世界数据与基础运行时已存在；精细关卡、碰撞与场景衔接仍需逐图验收 |
-| **居民与城镇生活** | 与不同职业的居民交谈、观察作息、查看社区动态、调查房屋物件 | 已有NPC和生活系统；丰富对白、连续行为与家具交互仍在B/C/D并行升级 |
-| **策略战斗** | 四人队伍、速度时间轴、职业与装备、弱点、护盾、异常状态和原创「聚星」 | 核心战斗框架已接入；完整Boss机制、数值与跨场景回归尚未最终验收 |
-| **剧情与抉择** | 序章、12幕72章的主线规划、同伴关系、地区任务和三种结局方向 | 正典文本与运行框架不等于全篇72章均已达到连续实玩和正式演出标准 |
-| **冒险日常** | 商店、客栈、锻造、营地、家园、储物、家具与烹饪 | 有基础交互；室内表现和经济平衡仍在完善 |
+## 运行和测试
 
-### 世界观
-
-洛维恩分为**白砂海岸、三誓诸国、赤炉联邦、海歌群岛、镜眠王国、失落旧洲、天轨圣域、群灯之城**八大地区。故事以「灯火、记录与遗忘、十二年后的世界」为核心，围绕不同立场、被隐藏的历史与玩家的抉择展开。
-
-为了避免剧透，README 不列出最终章节与结局解锁细节。请从 [剧情开发总目录](story/README.md) 和 [正式剧本阅读索引](story/SCREENPLAY_CURRENT_INDEX.md) 查阅。
-
-### 设计参考与原创性
-
-项目参考经典 JRPG（包括《勇者斗恶龙》系列）在探索节奏、NPC交互、城镇生活、指令战斗和职业成长方面的**一般设计理念**。本作不是该系列的复刻、移植或授权衍生作品；角色、世界观、剧情和正式产品表现按《星灯纪行》自己的设定开发。任何引入的外部资产均须独立核实授权，不得直接复制他人受保护的台词、角色、音乐、地图或美术。
-
-## 开发进度与验收边界
-
-> **请区分四种状态**：**内容/设计已入库**、**运行时代码已接入**、**对应版本Godot测试通过**、**商业发行验收通过**。四者不能相互替代。下表是 2026-10-26 的仓库快照，不使用没有完整证据的“总体完成百分比”。
-
-| 项目 | 当前可核对的范围 | 真实状态 |
-| --- | --- | --- |
-| **主线** | 序章 + 12幕72章的正典内容与章节数据 | 内容与控制器基础存在；全篇连续通关、演出和分支一致性待统一验收 |
-| **世界地图** | 8地区、40张正式独立地图数据；另有地图与室内配置 | 数据已入库、部分功能已接入；不代表40张商业级手工场景全部完成 |
-| **Boss** | 66场剧情Boss的设计ID与战斗配置 | 有机制接口与配置；并非66场独立剧情演出和正常难度实战均通过 |
-| **职业与怪物** | 20职业档案、63技能、63怪物，以及装备/掉落目录 | 基础系统与数据存在；不等于20套完全独立技能树或全职业平衡已通过 |
-| **任务** | 120条基础任务（包含48条伙伴任务）及更多分支候选文本 | 任务数据与部分运行链已接入；文本候选不能当作新增可玩任务计数 |
-| **NPC / 房屋** | 居民对白、昼夜位置、建筑室内与调查等模块 | B线持续制作NPC生活和室内交互；重要场景需逐一核验 |
-| **人物 / 视听** | 人物运动状态、城镇生活演出、室内光影/环境音及资源替换接口 | C线在持续整合；八方向逻辑不代表已拥有八方向逐帧美术，音频与版权审计仍待完成 |
-| **战斗 ↔ 探索** | 战前状态快照、结算幂等、防重复遇敌接口、失败安全位置与恢复保护 | A线已有代码及专项回归脚本；共享场景入口和最终Godot测试待D线接入 |
-| **共享集成与存档** | 正典ID校验、存档安全补丁和多线接口契约 | D线独立审计及修复进行中；跨文件奖励事务与统一最终测试仍是开放门槛 |
-| **发布构建** | Windows/Linux 预览工作流；iPhone相关工程配置 | 仅开发预览；未获得发行级性能、签名、完整授权及平台验收 |
-
-**自动化的正确读法：**存在 [Godot Core Validation 的历史成功记录](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40274482154)（对应提交 `6c32e27`，2026-10-26），**这不是当前 `Main2美术优化版` 和此后 A/B/C/D 提交的完整验收结果**。后续一批完整Godot测试按 [批次验收政策](docs/DEVELOPMENT_BATCH_POLICY.md) 在整合冻结后执行；相关脚本存在不等于已经执行成功。
-
-### A/B/C/D 四线开发职责
-
-| 开发线 | 负责事项 | 当前文档 |
-| --- | --- | --- |
-| **A · 战斗** | 战斗数值、Boss行为、角色战斗技能、战斗与探索状态交接 | [A线战斗交付](tools/A_LINE_DELIVERY.md) · [战斗/世界接线契约](tools/A_LINE_WORLD_HANDOFF_DELIVERY.md) |
-| **B · 世界内容** | 地图、城镇居民、房屋调查、主支线和NPC生活反馈 | [城镇生活](docs/MAP_TOWN_ECOLOGY_V7.md) · [室内地图](docs/MAP_V4_INTERIORS_ACT01.md) |
-| **C · 美术音频** | 人物行走与交谈表现、门窗家具演出、城镇音景、资源替换 | [晨露村视听开发](docs/C_LINE_MORNING_DEW_AV_2026_10_26.md) · [美术替换管理](docs/C_ART_SWAP_MANAGER_2026_10_26.md) |
-| **D · 架构/QA** | 共享接口、存档与奖励一致性、跨线集成、最终统一Godot验收 | [公共接口与发行门禁](docs/d_control/CONTRACT_AND_RELEASE_GATE.md) · [待集成清单](docs/d_control/FIX_DELIVERY_AND_OPEN_GATES_2026-10-26.md) |
-
-**当前样板优先级：晨露村。**先使NPC行走与对话、可探索住宅、城镇出入口、移动反馈及生活音景形成可验证的完整体验，再将系统性成果应用到其他正式地图。
-
-## 快速开始
-
-### 从源码运行
-
-需要 **Godot 4.7.2** 和 Git；Python 3 可用于附加静态校验及地图工具。Windows/Linux 作为主要开发环境。
-
-```bash
-git clone https://github.com/chenyu9512/StarlitChronicle-HD2D.git
-cd StarlitChronicle-HD2D
-```
-
-1. 打开 Godot 项目管理器，选择 **Import / 导入**。
-2. 选择本仓库根目录的 `project.godot`，等待资源导入完成。
-3. 按 **F5** 运行。当前工程正式入口为 `scenes/first_act.tscn`。
-4. 预览内容可能包含占位图像、未打磨的动画、尚未统一测试的剧情路径或测试用功能，请勿将其视作发行成品。
-
-| 操作 | PC默认按键 |
-| --- | --- |
-| 移动 | WASD / 方向键 |
-| 对话、调查 | E / Z / 空格 |
-| 菜单 | M / Esc |
-| 地图 | 游戏内地图功能；部分快捷操作为 Tab / P |
-
-**本地存档**：主要使用 Godot `user://first_act_v3.json`、备份文件和手动槽位。重大代码更新前请备份存档；不存在已发布的跨设备云存档服务。
-
-### 获取桌面预览
-
-可查看 [Desktop Playable Preview 工作流](.github/workflows/desktop-preview.yml) 对应的 [Actions 页面](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/workflows/desktop-preview.yml)，从**成功运行且仍保留**的 Artifacts 中获取 Windows/Linux 构建（通常需要登录 GitHub）。构建工件可能已过期，仓库公开也不代表每次提交都有可下载的最新测试版本。
-
-**目前没有经商业发行验收的正式安装包或 iOS 商店版本。**
-
-### 开发者验证
-
-仓库已有独立的静态与 Godot headless 验证入口。静态检查可以单独执行；**整套 Godot 验收应遵循单批次政策，勿因修改 README 重复触发全量 Actions**。
-
-```bash
-python3 tools/validate_content.py
-python3 tools/validate_story.py
-python3 tools/validate_a_combat_balance.py
-
-# A线战斗 ↔ 世界专项（统一验收时执行，需安装匹配的Godot）：
-godot --headless --path . --script res://tools/smoke_a_line_world_handoff.gd
-```
-
-**本仓库现保留12个手动/批次测试工作流；10个旧生产或重复验收入口已退役。** 全部名称与替代方式见 [工作流清单](docs/WORKFLOW_CLEANUP_2026_10_27.md)。更多测试入口见 [Godot Core Validation 工作流](.github/workflows/godot-core-validation.yml)、[D线QA契约](docs/d_control/CONTRACT_AND_RELEASE_GATE.md)。具体测试是否通过以**对应提交SHA的运行日志**为准，不能引用旧版成功记录覆盖新提交。
-
-## 工程结构
-
-```text
-StarlitChronicle-HD2D/
-├─ project.godot                 # Godot 工程及正式启动入口
-├─ scenes/                       # 运行场景与预览场景
-├─ scripts/                      # 战斗、世界、UI、任务、存档、视听脚本
-├─ data/
-│  ├─ content/                  # 怪物、道具、任务、角色等基础数据
-│  ├─ gameplay/                 # Boss机制、职业与章节数值曲线
-│  └─ levels/
-│     ├─ v3/                    # 独立地图制作源文件
-│     ├─ v4/interiors/          # 室内地图配置
-│     └─ world_levels_v3.json   # 地图运行时兼容汇总数据
-├─ story/
-│  ├─ campaign/                 # 序章与12幕正典主线
-│  └─ data/                     # 正典角色、Boss、剧情辅助数据
-├─ assets/                       # 美术、音效及相关资源
-├─ tools/                        # 编辑器、脚本化验证与专项QA
-├─ docs/                         # 设计、验收、资产与开发交付
-└─ .github/workflows/            # CI、可玩预览、内容校验
-```
-
-**关键代码入口：**
-
-- `scripts/first_act.gd`：主流程、剧情与世界控制器
-- `scripts/first_act_world.gd`：世界地图构建、移动、实体交互与遇敌触发
-- `scripts/first_act_battle.gd`：战斗主循环
-- `scripts/battle_world_handoff.gd`：战斗/探索交接契约
-- `scripts/encounter_registry.gd`：怪物和Boss数据加载
-- `scripts/rpg_core.gd`：职业、道具、装备与任务子系统
-- `scripts/world_registry.gd`：世界地图和区域通路
-- `scripts/world_town_life.gd`：居民、生活对白与服务
-- `scripts/world_interior_v4.gd`：可探索房屋的数据布局
-- `scripts/first_act_state.gd`：第一幕状态与本机V3存档
-
-整体历史架构与数据契约参见 [ARCHITECTURE.md](ARCHITECTURE.md)。其中部分统计来自 v0.6 基线；**以实际当前代码、更新日期及专项验收报告为准**。
-
-## 开发协作与质量保障
-
-本仓库目前采用**现有 `Main2美术优化版` 单一开发分支协作**（保留默认 `main` 作为旧基线）：
-
-1. A/B/C开发各自负责的独占文件，D线统一维护跨线共享接口与最终验收。
-2. 连续、小范围、可追踪地提交，不创建新的开发分支或PR，不强制覆盖主线。每次提交应确认最新SHA并处理并发变更。
-3. 原则上在一个完整开发批次结束、各线冻结后统一进行Godot 4.7.2回归；静态验证不能替代实际运行。
-4. 提交说明应写清楚**代码已入库 / 已接入 / 已测试 / 待测试**，并保留失败记录。杜绝使用跳剧情、无限血量或预置任务成功旗标伪造产品验收。
-5. 共享文件 `scripts/first_act.gd`、`scripts/first_act_world.gd`、`scripts/rpg_core.gd`、`project.godot` 及CI配置应遵循D线集成权限约定。
-
-详细说明：**[当前开发总控](docs/DEVELOPMENT_MASTER_PLAN.md)** · [单主线批次政策](docs/DEVELOPMENT_BATCH_POLICY.md) · [工作流去重记录](docs/WORKFLOW_CLEANUP_2026_10_27.md) · [D线集成与发行门禁](docs/d_control/CONTRACT_AND_RELEASE_GATE.md)。
-
-### 当前主要开放问题
-
-- **游戏内容**：把正典72章、支线与40张地图从“已有数据/框架”推进到完整连续的玩家实玩体验。
-- **NPC与建筑**：完成NPC独立作息、居民关系、丰富对白、房屋调查、转场和地图双向通路验收。
-- **战斗**：66场Boss的独特叙事目标、难度、装备掉落及职业流派仍需正常规则下的整批测试。
-- **工程可靠性**：共享控制器接线、跨存档奖励exactly-once事务、旧档回归与崩溃恢复仍是重点。
-- **视听和发布**：完整授权资产、最终美术质量、音频体验、桌面兼容性、移动端性能、签名与商店规则待验收。
-
-## 资料导航
-
-| 资源 | 用途 |
-| --- | --- |
-| [CHANGELOG.md](CHANGELOG.md) | 已记录的版本变更 |
-| [剧情正式索引](story/SCREENPLAY_CURRENT_INDEX.md) | 12幕主线与阅读材料 |
-| [V3地图制作规范](docs/MAP_V3_AUTHORING.md) | 编辑、地形、阻挡、可达性 |
-| [城镇生活V7](docs/MAP_TOWN_ECOLOGY_V7.md) | 社区活动、特色商店 |
-| [A线战斗与世界交接](tools/A_LINE_WORLD_HANDOFF_DELIVERY.md) | 状态快照、战败保护、共享接线 |
-| [C线晨露村视听开发](docs/C_LINE_MORNING_DEW_AV_2026_10_26.md) | 角色动作、场景美术与音效 |
-| [D线架构及发行门禁](docs/d_control/CONTRACT_AND_RELEASE_GATE.md) | 证据等级、残留问题、统一QA |
-| [资产整合与授权指南](docs/EXTERNAL_ASSET_AUDIO_INTEGRATION_GUIDE_2026-10-25.md) | 第三方资源管理 |
-
-## 权利与发行声明
-
-- **开源状态**：仓库目前公开可查看，但截至本次核对尚无仓库根目录的项目级 `LICENSE` 文件。**公开源代码 ≠ 自动授予使用、再发布、商业发行或再授权许可。**
-- **第三方资产**：外部图像、字体、音效、音乐等可能各自采用不同授权；正式构建前必须逐个核对许可证、署名和二次分发条件。
-- **发行状态**：这是正在开发的可玩预览工程，不是已通过质量保障和商店审核的商业成品。
-- **知识产权**：《星灯纪行》为原创项目；对其他经典JRPG的提及只用于一般设计思路比较，不表示品牌关联或获得授权。
-
----
-
-**星灯纪行 / Starlit Chronicle** · 原创单机JRPG · **持续开发中**  
-*让每一盏灯有来处，让每一次选择有回声。*
+安装 Godot 4.7.2，直接打开项目根目录 `project.godot`。运行入口 `scenes/first_act.tscn`。
+本分支推送会自动执行 Godot 全项目解析、六章世界构建、美术贴图载入与首幕基础战斗回归。
+商业级画面审核和第 2/4/5 章独立场景完善依然是未完成工作，不因为精简分支创建而自动通过。

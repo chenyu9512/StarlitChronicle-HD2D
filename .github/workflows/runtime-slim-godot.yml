@@ -1,0 +1,30 @@
+name: "Main2 slim runtime · Godot boot and Act I acceptance"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "Main2游戏运行精简版"
+permissions:
+  contents: read
+jobs:
+  slim-godot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify runtime-only file tree and active texture references
+        run: python3 tools/validate_release_branch.py
+      - name: Install Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Headless project import and all GDScript parse
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+      - name: Run runtime art and 6-chapter world boot smoke
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_release_runtime.gd
+      - name: Verify first-act story and battle scene construction
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act.gd

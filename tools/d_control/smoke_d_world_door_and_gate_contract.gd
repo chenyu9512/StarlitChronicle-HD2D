@@ -96,7 +96,11 @@ func _run() -> void:
     for map_id in ["map_coast_01","map_coast_02"]:
         world.map_profile=geo.zone(map_id)
         world.build(2,2)
-        var kinds: Array[String] = ["inn","shop","guild","smith","house","shrine"] if map_id=="map_coast_01" else ["shelter","tavern"]
+        var kinds: Array[String]=["inn","shop","guild","smith","house","shrine"]
+        if map_id!="map_coast_01":
+            kinds.clear()
+            kinds.append("shelter")
+            kinds.append("tavern")
         for kind in kinds:
             var key: String="building:"+kind
             _check(world.nodes.has(key),"missing actual door: "+map_id+"/"+kind)

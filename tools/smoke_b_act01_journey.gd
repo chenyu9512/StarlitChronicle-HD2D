@@ -49,9 +49,8 @@ func _run() -> void:
         if chapter==3:
             check(str(preview.get("next_map_id",""))=="map_coast_04",
                 "Cave target is not reached by the actual coast-03 exit")
-            check(not bool(preview.get("can_take_next_leg",true)) and
-                str(preview.get("blocked_reason",""))=="chapter_gate",
-                "Chapter 3 cave remains blocked in D routing; never falsely unlock it")
+            check(bool(preview.get("can_take_next_leg",false)),
+                "Chapter 3 must now open the genuine Saltwind-to-cave exit")
         if chapter==4:
             check(preview.get("next_map_id","")=="map_coast_03" and
                 bool(preview.get("can_take_next_leg",false)),

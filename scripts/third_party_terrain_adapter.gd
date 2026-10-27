@@ -13,13 +13,11 @@ static func supports(path: String) -> bool:
         var filename: String = path.get_file()
         return filename.ends_with("_ground.png") or filename.ends_with("_water.png")
     if path.begins_with("res://assets/art/exteriors/coast_final_pass/"):
-        return path.get_file() in ["saltwind_route_tileset.svg", "tide_cavern_tileset.svg", "cavern_water_atlas.svg"]
+        return path.get_file() in ["saltwind_route_tileset.svg", "tide_cavern_tileset.svg", "cavern_water_atlas.svg"] or path.get_file().ends_with("_detail_atlas.svg") or path.get_file().ends_with("_ground_glaze.svg") or path.get_file().ends_with("_road_material_8x8.svg")
     if path.begins_with("res://assets/art/interiors/"):
         return path.get_file().ends_with("_tileset.svg")
     if path.begins_with("res://assets/art/tilesets/story_v1/"):
         return path.get_file().ends_with("_decals.svg")
-    if path.begins_with("res://assets/art/exteriors/coast_final_pass/"):
-        return path.get_file().ends_with("_detail_atlas.svg") or path.get_file().ends_with("_ground_glaze.svg") or path.get_file().ends_with("_road_material_8x8.svg")
     return false
 
 static func _overlay(path: String) -> bool:

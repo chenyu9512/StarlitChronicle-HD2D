@@ -13,6 +13,7 @@ signal housing_open_requested()
 signal visual_quality_changed(level: int)
 const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
@@ -235,7 +236,7 @@ func render(section: String) -> void:
                 var head_path: String = ArtAssets.party_head(pid)
                 if not head_path.is_empty():
                     var head := TextureRect.new()
-                    head.texture = load(head_path)
+                    head.texture = CArtOverrides.texture(head_path)
                     head.custom_minimum_size = Vector2(64, 64)
                     head.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
                     head.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

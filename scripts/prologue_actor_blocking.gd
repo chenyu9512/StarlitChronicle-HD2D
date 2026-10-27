@@ -2,6 +2,7 @@ extends Node2D
 ## P5 cinematic blocking in the actual game world; presentation-only.
 ## Deterministic seek() supports frame-by-frame GPU evidence.
 const Actor = preload("res://scripts/first_act_actor.gd")
+const Art = preload("res://scripts/c_art_overrides.gd")
 var hero: Node2D
 var cast: Dictionary = {}
 var phase: String = "normal"
@@ -12,7 +13,7 @@ func bind_hero(value: Node2D) -> void:
     hero = value
     for who in ["chengzhou", "lanyin"]:
         var path: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % who
-        if not ResourceLoader.exists(path):
+        if Art.texture(path) == null:
             push_warning("Missing blocking actor: " + path)
             continue
         var performer = Actor.new()

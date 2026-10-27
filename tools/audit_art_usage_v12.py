@@ -44,7 +44,7 @@ def path_for_res(source: str) -> Path:
 
 def git_blob_sha(path: Path) -> str:
     payload = path.read_bytes()
-    return hashlib.sha1(b"blob " + str(len(payload)).encode("ascii") + b"\\0" + payload).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(payload)).encode("ascii") + b"\0" + payload).hexdigest()
 
 
 def main() -> int:

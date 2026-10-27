@@ -42,8 +42,15 @@ jobs:
             smoke_a_line_live_bosses
           do
             echo "Checking $script"
-            timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$script.gd" > "build/c23-qa/$script.log" 2>&1 || failed=1
+            set +e
+            timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$script.gd" > "build/c23-qa/$script.log" 2>&1
+            rc=$?
+            set -e
+            echo "$script actual_exit_code=$rc" | tee -a build/c23-qa/exit-codes.txt
             tail -n 25 "build/c23-qa/$script.log"
+            if [ "$rc" -ne 0 ]; then
+              failed=1
+            fi
           done
           exit "$failed"
       - name: "Archive real Godot QA transcripts"

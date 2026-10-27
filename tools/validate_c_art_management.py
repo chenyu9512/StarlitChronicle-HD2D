@@ -11,9 +11,21 @@ def run():
     error=[]
     found={p.relative_to(ROOT).as_posix() for p in (ROOT/"assets").rglob("*") if p.is_file() and p.suffix.lower() in EXT}
     registered=[v.get("id","") for v in c.get("assets",[])]
+    originals_doc=json.loads((ROOT/"data/assets/c_art_source_originals.json").read_text(encoding="utf-8"))
+    original_paths=[v.get("path","") for v in originals_doc.get("files",[])]
+    originals=set(original_paths)
+    if len(original_paths)!=len(originals) or originals_doc.get("count")!=len(originals):
+        error.append("Source-original index count/duplicates")
+    if any(not p.startswith("assets/art/source_packs/") for p in originals):
+        error.append("Invalid source-original tier")
+    if originals & set(registered):
+        error.append("Source-original incorrectly duplicated in runtime gallery")
+    if not originals.issubset(found):
+        error.append("Source-original registry contains missing art")
     selection=s["primary"]+s["reserve_core"]+s["reserve_external"]
     external=[v.get("id","") for v in e.get("assets",[])]
-    if set(found)!=set(registered):error.append("Gallery does not match files: missing=%d stale=%d"%(len(found-set(registered)),len(set(registered)-found)))
+    if found!=(set(registered)|originals):
+        error.append("Gallery + source index differs from disk: missing=%d stale=%d"%(len(found-(set(registered)|originals)),len((set(registered)|originals)-found)))
     if len(registered)!=len(set(registered)) or len(registered)!=c["count"]:error.append("Gallery count/duplicates")
     if len(selection)!=len(set(selection)) or set(selection)!=set(registered):error.append("Selection differs from gallery")
     if len(external)!=len(set(external)) or len(external)!=e["count"]:error.append("External index count/duplicates")

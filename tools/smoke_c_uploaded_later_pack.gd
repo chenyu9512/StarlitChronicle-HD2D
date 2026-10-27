@@ -39,10 +39,30 @@ func _run() -> void:
         if not source.begins_with("res://assets/art/external/cc0_named_v1/"):
             errors.append("Source is not a later-uploaded art file: " + source)
             continue
+        if not Art.has_slot(target) or not Art.pack_has_slot(target):
+            errors.append("Target is not a registered effective later-upload slot: " + target)
+            continue
         var baseline: Texture2D = Art.original_texture(target)
+        var source_texture: Texture2D = Art.original_texture(source)
         var current: Texture2D = Art.texture(target)
-        if baseline == null or current == null or Vector2i(current.get_size()) != Vector2i(baseline.get_size()):
-            errors.append("Failed target load or exact footprint matching: " + target)
+        if baseline == null or source_texture == null or current == null:
+            errors.append("Target or uploaded source failed to load: " + target)
+            continue
+        var destination_size: Vector2i = Vector2i(baseline.get_size())
+        if Vector2i(current.get_size()) != destination_size:
+            errors.append("Wrong final runtime dimensions: " + target)
+            continue
+        var expected_image: Image = source_texture.get_image()
+        var current_image: Image = current.get_image()
+        if expected_image == null or current_image == null:
+            errors.append("Cannot compare texture pixels: " + target)
+            continue
+        if Vector2i(expected_image.get_size()) != destination_size:
+            expected_image.resize(destination_size.x, destination_size.y, Image.INTERPOLATE_NEAREST)
+        expected_image.convert(Image.FORMAT_RGBA8)
+        current_image.convert(Image.FORMAT_RGBA8)
+        if expected_image.get_data() != current_image.get_data():
+            errors.append("Still displaying an old fallback, not uploaded pixels: " + target)
     if not Art.activate_pack(former):
         errors.append("Cannot restore previously selected art pack")
     if not errors.is_empty():

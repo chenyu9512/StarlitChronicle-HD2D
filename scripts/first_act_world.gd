@@ -1166,7 +1166,7 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
 
 func _make_focus_marker() -> void:
     focus_light = Sprite2D.new()
-    focus_light.texture = load("res://assets/fx/glow.png")
+    focus_light.texture = CArtOverrides.texture("res://assets/fx/glow.png")
     focus_light.scale = Vector2(1.1, 1.1)
     focus_light.modulate = Color(1, 0.76, 0.22, 0.75)
     focus_light.z_index = 15
@@ -1180,7 +1180,7 @@ func _make_focus_marker() -> void:
     focus_label.z_index = 20
     root.add_child(focus_label)
     side_light = Sprite2D.new()
-    side_light.texture = load("res://assets/fx/glow.png")
+    side_light.texture = CArtOverrides.texture("res://assets/fx/glow.png")
     side_light.modulate = Color(0.38, 0.90, 1.0, 0.67)
     side_light.scale = Vector2(0.85, 0.85)
     side_light.z_index = 13

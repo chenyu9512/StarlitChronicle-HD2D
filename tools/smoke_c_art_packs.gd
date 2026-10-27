@@ -69,6 +69,7 @@ func _run() -> void:
     if failures.is_empty():
         print("SUCCESS: art theme packs, automatic fallback, DLC import, uninstall and UI")
         quit(0)
+        return
     for issue in failures:
         push_error(issue)
     quit(1)

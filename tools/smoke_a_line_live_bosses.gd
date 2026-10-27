@@ -29,10 +29,18 @@ func _run() -> void:
             var state = Save.new()
             state.chapter = chapter
             state.rpg["settings"] = {"difficulty":difficulty}
-            state.recruit_sailor()
-            # Two-person and three-person parties are both sampled across the roster.
-            if chapter % 2 == 0:
-                state.actors.pop_back()
+            # Canonical chapter roster, not the old arbitrary even/odd
+            # two-person fixture that lacked all later story companions.
+            if chapter >= 4:
+                state.recruit_sailor()
+            var core = Core.new()
+            core.bind(state)
+            if chapter >= 9:
+                core.recruit_from_story(9)
+            var expected_party: int = 2 if chapter < 4 else (3 if chapter < 9 else 4)
+            if state.actors.size() != expected_party:
+                errors.append("Wrong story roster at chapter %d: got %d, expected %d" %
+                    [chapter,state.actors.size(),expected_party])
             var level: int = int(target.get("recommended_level",1))
             for i in range(state.actors.size()):
                 var actor: Dictionary = state.actors[i]
@@ -45,13 +53,12 @@ func _run() -> void:
                 actor["attack"] = int(target.get("player_attack",21))
                 actor["defense"] = int(target.get("player_defense",9))
                 state.actors[i] = actor
-            var core = Core.new()
-            core.bind(state)
-            # Rotate all 20 vocations through live turns, without changing their unlock rules
-            # in the production core; assignments here are isolated encounter fixtures.
+            # An actual support role is needed for late, long boss battles.
+            # Rotate all 20 other roles; the production skill/MP rules remain.
             for i in range(state.actors.size()):
                 var id: String = str(state.actors[i].get("id",""))
-                var job: String = JOBS[((chapter-1)*3+difficulty_index+i)%JOBS.size()]
+                var job: String = "healer" if id == "char_tidecaller" else JOBS[
+                    ((chapter-1)*3+difficulty_index+i)%JOBS.size()]
                 state.rpg["jobs"][id] = job
                 class_coverage[job] = true
             var battle = Battle.new()
@@ -75,10 +82,48 @@ func _run() -> void:
                     break
                 var actor: Dictionary = state.actors[battle.hero_turn]
                 var hp_ratio: float = float(actor.get("hp",0))/float(maxi(1,int(actor.get("max_hp",1))))
-                # Consumables are only used when actually available and beneficial.
-                if hp_ratio < 0.3 and int(state.potions) > 0:
+                # Let the living, recruited healer use learned and affordable
+                # real skills. No free heal, forged victory, invulnerability,
+                # skipped hostile turn or manual change to boss HP.
+                var did_cast: bool=false
+                if str(actor.get("id","")) == "char_tidecaller":
+                    var wounded: int=0
+                    var weakest: int=-1
+                    var lowest_ratio: float=1.0
+                    for ally_index in range(state.actors.size()):
+                        var ally: Dictionary=state.actors[ally_index]
+                        if int(ally.get("hp",0)) <= 0 or not core.is_active(str(ally.get("id",""))):
+                            continue
+                        var ratio: float=float(ally.get("hp",0))/float(maxi(1,int(ally.get("max_hp",1))))
+                        if ratio < 0.70:
+                            wounded+=1
+                        if ratio < lowest_ratio:
+                            lowest_ratio=ratio
+                            weakest=ally_index
+                    if weakest>=0 and lowest_ratio<0.65:
+                        var heals: Array=core.skills(str(actor.get("id","")))
+                        heals.reverse()
+                        for skill in heals:
+                            var effect: Dictionary=skill.get("effect",{})
+                            if str(effect.get("kind",""))!="heal" or int(skill.get("mp_cost",999))>int(actor.get("mp",0)):
+                                continue
+                            var skill_id: String=str(skill.get("id",""))
+                            var target_type: String=str(skill.get("target",""))
+                            if target_type=="all_allies" and wounded>=2:
+                                battle._act("skill:"+skill_id)
+                            elif target_type=="single_ally":
+                                battle._act("skill:"+skill_id+"@"+str(weakest))
+                            else:
+                                continue
+                            did_cast=true
+                            break
+                if did_cast:
+                    continue
+                if hp_ratio<0.45 and int(state.potions)>0 and core.count("item_herb_01")>0:
                     battle._act("potion")
-                elif str(spec.get("goal","")) == "survive" and battle.current_round % 3 == 0:
+                elif str(spec.get("goal",""))=="survive" and battle.current_round%3==0:
+                    battle._act("guard")
+                elif float(battle.round_boss_intent.get("multiplier",1.0))>=1.5 and hp_ratio<0.65:
                     battle._act("guard")
                 else:
                     battle._act("special")
@@ -98,8 +143,9 @@ func _run() -> void:
     if class_coverage.size() != JOBS.size():
         errors.append("Not every vocation entered a real Boss encounter: "+str(class_coverage.size()))
     if errors.is_empty():
-        print("PASS: live no-cheat Boss encounters, 20 rotating jobs, all difficulties and party sizes")
+        print("PASS: live no-cheat Boss encounters, canonical story rosters, 20 jobs, real MP healing, all difficulties")
         quit(0)
+        return
     else:
         for item in errors:
             push_error(item)

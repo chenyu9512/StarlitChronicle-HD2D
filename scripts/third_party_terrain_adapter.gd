@@ -16,7 +16,50 @@ static func supports(path: String) -> bool:
         return path.get_file() in ["saltwind_route_tileset.svg", "tide_cavern_tileset.svg", "cavern_water_atlas.svg"]
     if path.begins_with("res://assets/art/interiors/"):
         return path.get_file().ends_with("_tileset.svg")
+    if path.begins_with("res://assets/art/tilesets/story_v1/"):
+        return path.get_file().ends_with("_decals.svg")
+    if path.begins_with("res://assets/art/exteriors/coast_final_pass/"):
+        return path.get_file().ends_with("_detail_atlas.svg") or path.get_file().ends_with("_ground_glaze.svg") or path.get_file().ends_with("_road_material_8x8.svg")
     return false
+
+static func _overlay(path: String) -> bool:
+    var name: String = path.get_file()
+    return name.ends_with("_decals.svg") or name.ends_with("_detail_atlas.svg") or name.ends_with("_ground_glaze.svg") or name.ends_with("_road_material_8x8.svg")
+
+static func _overlay_texture(path: String) -> Texture2D:
+    # Decal layers must be TRANSLUCENT little strokes, never a repurposed
+    # opaque 32px prop enlarged to a full 8x8 material or checkerboard.
+    var img: Image = Image.create(TILE * GRID, TILE * GRID, false, Image.FORMAT_RGBA8)
+    var water: bool = path.contains("shore") or path.contains("coastal") or path.contains("harbor")
+    var base: Color = Color("a6b7ad") if water else Color("b0a28e")
+    for row in range(GRID):
+        for col in range(GRID):
+            var salt: int = 31 + col * 23 + row * 59
+            for y in range(TILE):
+                for x in range(TILE):
+                    var random: int = _hash(x, y, salt) % 211
+                    var color: Color = base
+                    var ink: bool = false
+                    if row == 4 and water:
+                        # Tiny isolated shoreline foam flecks, only placed by
+                        # the coastline pass on genuine shore cells.
+                        ink = (y == 15 or y == 16) and x >= 3 and x <= 27 and x % 4 != 0
+                        color = Color("a4c0b1", 0.21)
+                    elif row in [0, 1, 5]:
+                        ink = random == 0 or random == 1
+                        color = Color("6b8069", 0.26) if row == 1 else Color("8d8270", 0.22)
+                    elif row == 2:
+                        ink = random <= 3 and y % 3 == 0
+                        color = Color("d9c6ad", 0.26)
+                    elif row in [3, 6]:
+                        ink = random <= 2 and (y % 5 == 0 or x % 7 == 0)
+                        color = Color("766d60", 0.22)
+                    elif row == 7:
+                        ink = random == 0
+                        color = Color("d4c8af", 0.20)
+                    if ink:
+                        img.set_pixel(col * TILE + x, row * TILE + y, color)
+    return ImageTexture.create_from_image(img)
 
 static func _water(path: String) -> bool:
     return path.get_file().contains("water")
@@ -79,6 +122,8 @@ static func _hash(x: int, y: int, salt: int) -> int:
 static func assemble(path: String, source_texture: Texture2D) -> Texture2D:
     if not supports(path) or source_texture == null:
         return source_texture
+    if _overlay(path):
+        return _overlay_texture(path)
     var sample: Image = source_texture.get_image()
     if sample == null or sample.is_empty():
         return null

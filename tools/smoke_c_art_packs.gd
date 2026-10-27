@@ -31,7 +31,17 @@ func _run() -> void:
     var tile_texture: Texture2D = Overrides.texture("res://assets/art/tilesets/coast_ground.png")
     check(tile_texture != null, "Coastal atlas load missing")
     if tile_texture != null:
-        check(Vector2i(tile_texture.get_size()) == Vector2i(256, 256), "Atlas dimensions drift")
+        # The original 256px authored PNG was removed on Main2. The raw
+        # third-party PNG is not necessarily itself a canonical 8x8 atlas;
+        # verify the actual TilePool atlas that the game will render.
+        var atlas_sources: Array[String] = [
+            "res://assets/art/tilesets/coast_ground.png",
+            "res://assets/art/tilesets/coast_water.png"]
+        var live_tileset: TileSet = Tiles.shared(atlas_sources)
+        check(live_tileset != null,"Migrated coastal material did not build a live TileSet")
+        if live_tileset != null:
+            check(Vector2i((live_tileset.get_source(0) as TileSetAtlasSource).texture.get_size()) == Vector2i(256, 256),
+                "Playable coastal atlas dimensions drift")
     check(Overrides.revision() > rev, "Art revision not bumped")
     var sid: String = "c_qa_" + str(Time.get_ticks_usec())
     var test_dir: String = "user://c_art_pack_smoke"

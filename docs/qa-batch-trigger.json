@@ -1,9 +1,10 @@
 {
-  "batch": "d-batch0-full-release-qa-20261026",
-  "scope": "Current main Godot 4.7.2 full core regression, D V3 atomic battle/quest, B outbox ACK, V1-V3 corruption and recovery, 40 maps minimap, boss and 72-chapter controller, static catalogs",
+  "batch": "M0.1-core-revalidation-2026-10-27",
+  "scope": "Cold Godot Core Validation of current main including parallel B/C 40-map blueprints and M0.1 transactions",
   "test": "Godot 4.7.2 Core Validation",
-  "revision": 4,
+  "revision": 5,
   "requested_parent_sha": "31a4ffa99b04c5cbe9cd38d2c63f22c80b195cd0",
   "engine_result": "pending",
-  "qa_policy": "Do not claim PASS without workflow run and SHA evidence"
+  "qa_policy": "Do not claim PASS without workflow run and SHA evidence",
+  "reason": "7 independent QA gates passed, frozen all-smoke under completion; revalidate newer main before M1"
 }

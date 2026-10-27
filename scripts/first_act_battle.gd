@@ -836,6 +836,10 @@ func _act(action: String) -> void:
             damage = maxi(1,roundi(float(damage)*boss_mechanics.damage_factor(_get_skill(chosen_skill) if action == "skill" else {})))
             if boss_mechanics.protect_from_lethal():
                 damage = mini(damage,maxi(0,int(enemy.get("hp",1))-1))
+        # The keeper cannot be defeated by HP depletion before the required
+        # four shared testimonies. Preserve the legal special-action victory.
+        if boss and chapter == 6 and resonance < 4:
+            damage = mini(damage,maxi(0,int(enemy.get("hp",1))-1))
         if is_instance_valid(timeline):
             timeline.queue_actor(action,_vfx_ally_point(),_vfx_foe_point(),damage,_get_skill(chosen_skill) if action == "skill" else {},hit_all_enemies)
         if not boss or chapter != 5:
@@ -929,7 +933,7 @@ func _enemy_action(index: int) -> void:
     var effect: Dictionary = combat_rules.resolve_enemy_turn(index,int(enemy.get("max_hp",1)))
     var damage_over_time: int = int(effect.get("damage",0))
     if damage_over_time > 0:
-        if boss and boss_mechanics != null and boss_mechanics.protect_from_lethal():
+        if boss and ((boss_mechanics != null and boss_mechanics.protect_from_lethal()) or (chapter == 6 and resonance < 4)):
             damage_over_time = mini(damage_over_time,maxi(0,int(enemy.get("hp",1))-1))
         formation.apply_damage(index,damage_over_time)
         enemy = formation.units[index]
@@ -1128,7 +1132,14 @@ func _finish(victory: bool) -> void:
         if item is Button:
             item.disabled = true
     if victory:
-        if boss and boss_mechanics != null and boss_mechanics.enabled() and last_boss_settlement.is_empty():
+        # Chapter 5 rescues the chained beast; chapter 6 replaces the
+        # sacrifice with four player-earned memories. Their outcomes are
+        # explicit and must not degrade to the generic "legacy_story" receipt.
+        if boss and chapter == 5 and chain_hp <= 0:
+            last_boss_settlement = "nonlethal"
+        elif boss and chapter == 6 and resonance >= 4:
+            last_boss_settlement = "testimony"
+        elif boss and boss_mechanics != null and boss_mechanics.enabled() and last_boss_settlement.is_empty():
             last_boss_settlement = str(boss_mechanics.spec.get("settlement","defeated"))
         if is_instance_valid(vfx):
             vfx.play_victory(_vfx_foe_point())

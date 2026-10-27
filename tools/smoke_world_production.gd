@@ -37,8 +37,10 @@ func _run() -> void:
         seen_positions[pos_string] = true
         var layout: Dictionary = geo.layout(str(key),1)
         var spawn: Vector2i = layout.get("spawn",Vector2i.ZERO)
-        var targets: Array[Vector2i] = geo._anchors()
-        verify(geo.reachable(layout,[spawn],targets),"Inaccessible story/quest/side marker in "+str(key))
+        var story_targets: Dictionary=geo.resolve_story_targets(layout,geo._anchors())
+        var targets: Array[Vector2i]=story_targets.get("points",[])
+        verify((story_targets.get("missing",[]) as Array).is_empty(),
+            "No physically reachable story marker position in "+str(key)+": "+str(story_targets.get("missing",[])))
         for gate in layout.get("gates",[]):
             targets.append(gate.get("cell",Vector2i.ZERO))
         verify(geo.reachable(layout,[spawn],targets),"Unreachable world border gate in "+str(key))
@@ -54,8 +56,12 @@ func _run() -> void:
             for plot in plots:
                 var door: Array = plot.get("door",[])
                 var actual: Vector2i = Vector2i(int(door[0]),int(door[1]))
-                verify(not (layout.get("blocked",{}) as Dictionary).has(actual),"Town doorway was blocked in "+str(key))
-                verify(geo.reachable(layout,[spawn],[actual]),"Town building is inaccessible in "+str(key))
+                var step: Vector2i=actual+Vector2i.DOWN
+                verify((layout.get("blocked",{}) as Dictionary).has(actual),
+                    "Town building door no longer has a solid wall: "+str(key))
+                verify(not (layout.get("blocked",{}) as Dictionary).has(step)
+                    and geo.reachable(layout,[spawn],[step]),
+                    "Town front step is blocked or inaccessible in "+str(key)+"/"+str(plot.get("id","")))
         if str(spec.get("archetype",""))=="dungeon":
             dungeon_count+=1
             dungeon_shapes[str((layout.get("blocked",{}) as Dictionary).hash())] = true

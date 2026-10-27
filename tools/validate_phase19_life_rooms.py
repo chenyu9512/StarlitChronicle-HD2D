@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from collections import deque
+from art_source_contract import available
 
 ROOT=Path(__file__).resolve().parents[1]
 def load(path): return json.loads((ROOT/path).read_text(encoding="utf8"))
@@ -61,7 +62,7 @@ for entry in m["quests"]:
     signatures.add(sig)
     for visual in data["visuals"]:
         asset=visual["asset"]
-        ck(any((ROOT/f"assets/art/interiors/{folder}/{asset}.svg").exists() for folder in ("morning_dew_inn","coastal_district")),
+        ck(any(available(f"assets/art/interiors/{folder}/{asset}.svg") for folder in ("morning_dew_inn","coastal_district")),
            "missing furniture asset "+qid+":"+asset)
 out_ids={v["quest_id"] for v in m["outdoor_preserved"]}
 ck(len(entry_ids)==19 and len(out_ids)==5 and not entry_ids.intersection(out_ids)
@@ -71,4 +72,4 @@ print(f"Phase19Life interiors={len(entry_ids)} outdoor_preserved={len(out_ids)} 
 if errors:
     print("FAIL:",*errors,sep="\n - ")
     raise SystemExit(1)
-print("PASS: canon life site IDs, unique V4 rooms, genuine collision routes, real existing SVGs, outdoor continuity.")
+print("PASS: canon life site IDs, unique V4 rooms, genuine collision routes, actual mapped physical art, outdoor continuity.")

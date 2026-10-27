@@ -56,16 +56,27 @@ func _run() -> void:
                 verify(Art.activate_pack(pack_id), "Cannot activate test theme")
                 var ground_slots: Array[String] = Terrain.group_slots("terrain_ground")
                 var water_slots: Array[String] = Terrain.group_slots("terrain_water")
-                if not ground_slots.is_empty() and not water_slots.is_empty():
-                    var ground_texture: Texture2D = Art.texture(ground_slots[0])
-                    var water_texture: Texture2D = Art.texture(water_slots[0])
-                    verify(ground_texture != null and water_texture != null, "Cannot resolve shared terrain textures")
-                    for slot in ground_slots:
-                        if not Art.has_override(slot):
-                            verify(Art.texture(slot) == ground_texture, "Ground slot did not reuse one texture: " + slot)
-                    for slot in water_slots:
-                        if not Art.has_override(slot):
-                            verify(Art.texture(slot) == water_texture, "Water slot did not reuse one texture: " + slot)
+                var ground_texture: Texture2D = null
+                var water_texture: Texture2D = null
+                # Personal single-slot replacements intentionally outrank DLC themes.
+                for slot in ground_slots:
+                    if Art.has_override(slot):
+                        continue
+                    var resolved: Texture2D = Art.texture(slot)
+                    verify(resolved != null, "Missing ground texture: " + slot)
+                    if ground_texture == null:
+                        ground_texture = resolved
+                    else:
+                        verify(resolved == ground_texture, "Ground slot did not share texture: " + slot)
+                for slot in water_slots:
+                    if Art.has_override(slot):
+                        continue
+                    var resolved: Texture2D = Art.texture(slot)
+                    verify(resolved != null, "Missing water texture: " + slot)
+                    if water_texture == null:
+                        water_texture = resolved
+                    else:
+                        verify(resolved == water_texture, "Water slot did not share texture: " + slot)
     verify(Art.activate_pack(previous_pack), "Previous art theme not restored")
     if not pack_id.is_empty():
         verify(Art.uninstall_pack(pack_id), "Temporary DLC was not uninstalled")

@@ -10,6 +10,7 @@ const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_se
 const NPCV3Contact = preload("res://scripts/d_world_interaction/npc_v3_contact.gd")
 const V3ProgressTransition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
 const WorldObjectSettlement = preload("res://scripts/d_world_interaction/world_object_settlement.gd")
+const WorldHomeInteractions = preload("res://scripts/world_home_interactions.gd")
 const RegionalServiceSettlement = preload("res://scripts/d_world_interaction/service_v3_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
@@ -49,6 +50,7 @@ var housing_room
 var optional_director
 var branch_runtime
 var evidence_puzzles = EvidencePuzzles.new()
+var room_investigations = WorldHomeInteractions.new()
 var active_puzzle_quest: String = ""
 var story_world_bindings
 var service_menu
@@ -698,6 +700,33 @@ func _interact(target: String) -> void:
             _save_progress()
             _focus()
             ui.show_message("返回 " + world.region_name() + "。")
+        return
+    if target.begins_with("homeinspect:"):
+        # No synthetic dialogue markers: the selected hotspot must belong to
+        # this exact V4 room and be within actual player interaction distance.
+        if world.interior_building.is_empty() or world.interior_building.begins_with("quest__") or not world.nodes.has(target):
+            return
+        var room_marker: Node2D = world.nodes[target]
+        if not is_instance_valid(room_marker) or not room_marker.visible or not is_instance_valid(world.hero) or world.hero.position.distance_to(room_marker.position)>45.0:
+            return
+        var inspected_id: String = target.trim_prefix("homeinspect:")
+        var inspected_map: String = world_router.current_map()
+        var inspected_building: String = world.interior_building
+        if not bool(room_investigations.preview(inspected_map,inspected_building,inspected_id,progress).get("available",false)):
+            ui.show_message("此处尚没有可调查的线索。")
+            return
+        _capture_world_position()
+        var inspection_tx: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+            var report: Dictionary = room_investigations.inspect(
+                inspected_map,inspected_building,inspected_id,progress,false)
+            return {"ok":true,"changed":bool(report.get("changed",false)),"result":report}
+        )
+        if not bool(inspection_tx.get("ok",false)):
+            ui.show_message("室内调查记录保存失败，调查状态已回滚，请重试。")
+            return
+        var inspection_report: Dictionary = (inspection_tx.get("outcome",{}) as Dictionary).get("result",{})
+        _focus()
+        ui.show_message(str(inspection_report.get("message","这里没有新的线索。")))
         return
     if target == "interior_service":
         _open_regional_service()

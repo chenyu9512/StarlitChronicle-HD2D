@@ -24,5 +24,18 @@
       "third-party-art-import"
     ],
     "source": "docs/MAIN2_P0_FIX_LOG_2026_10_27.md"
+  },
+  "map_regression_request": {
+    "requested_for": "2026-10-27-map-restoration",
+    "target_branch": "Main2美术优化版",
+    "inspected_head": "8d3d02c97a480684c7bca6ad46910a1f2201fda2",
+    "focus": [
+      "smoke_map_ui.gd",
+      "smoke_no_fog_local_map.gd",
+      "smoke_all_maps_minimap.gd",
+      "smoke_c_shared_terrain_v8.gd",
+      "smoke_world_tileset_pool.gd"
+    ],
+    "reason": "Run actual Godot 4.7.2 engine on restored three-tier map, no-fog policy, live map geometry and third-party terrain"
   }
 }

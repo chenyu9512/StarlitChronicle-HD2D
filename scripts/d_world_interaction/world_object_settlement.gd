@@ -97,3 +97,23 @@ static func puzzle(progress: Object, core: Object, puzzle_runtime: Object,
         _grant(progress,core,reward_value)
         return {"ok":true,"changed":true,"result":result}
     )
+
+## Run authored B-line ecology rules inside a single V3 snapshot.
+## Preview and B-line authored conditions remain authoritative; only this
+## boundary may award items/gold and persist their corresponding state flags.
+static func interact(progress: Object, core: Object, producer: Callable) -> Dictionary:
+    if not producer.is_valid():
+        return {"ok":false,"reason":"invalid_interaction"}
+    return transact(progress,func() -> Dictionary:
+        var value: Variant = producer.call()
+        if not (value is Dictionary):
+            return {"ok":false,"reason":"invalid_interaction_result"}
+        var interaction: Dictionary = value
+        if not bool(interaction.get("changed",false)):
+            return {"ok":true,"changed":false,"result":interaction}
+        var reward_value: Variant = interaction.get("reward",{})
+        if not (reward_value is Dictionary) or not _valid_reward(core,reward_value):
+            return {"ok":false,"reason":"invalid_reward"}
+        _grant(progress,core,reward_value)
+        return {"ok":true,"changed":true,"result":interaction}
+    )

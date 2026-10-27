@@ -107,6 +107,7 @@ func _run() -> void:
     if problems.is_empty():
         print("PASS town geometry: 11 towns, 68 solid houses, reachable front steps, live door selection and inn round-trip")
         quit(0)
+        return
     for issue in problems:
         push_error(issue)
     quit(1)

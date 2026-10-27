@@ -103,8 +103,9 @@ godot --headless --path . --editor --quit
 | V12只读分页图库源码/场景提交 | 成功（尚未在Godot执行） |
 | Python脚本在本地完整仓库运行 | 未测试 |
 | V12静态资产分配 GitHub Actions CI | **成功**（[Run #40460551876](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40460551876)） |
-| Main2独立的Godot运行美术验收 | **未通过**（[Run #40460681647](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40460681647)：第2～6章Boss阶段纹理检查失败；其余步骤中Clean Godot导入成功，后续已有其他C线修复提交，尚需重新验收） |
-| PNG视觉质量、Atlas图块/碰撞、UI九宫格、NPC/Boss动作 | 未测试 |
+| Main2独立Godot 4.7.2引擎静态+运行冒烟 | **成功**（[Run #40461090758](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40461090758)：Clean项目导入、125个首幕资源槽、六章地图构造、四方向队伍动作、八项已配置现场道具；但不含人工商业审美签收） |
+| 部分Atlas、人物动作和场景构造冒烟 | 成功（Godot CI）；复杂场景视觉细节与人工验收仍未完成 |
+| 全量PNG视觉质量、UI九宫格、剧情Boss唯一身份和全部碰撞 | 未完成商业级验收 |
 | 六章主线成品与商业画面验收 | 未完成 |
 
 **结论：1413张现存图片及104份源工程/压缩文件全部获得明确库内分配，不再是无归属文件；仍需逐组加工、核对并适量接入场景，才是商业级成品。**

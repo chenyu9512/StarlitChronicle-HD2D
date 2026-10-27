@@ -294,6 +294,9 @@ func _decorate() -> void:
     for feature in terrain_layout.get("features",[]):
         var cell: Vector2i = feature.get("cell",Vector2i.ZERO)
         var kind: String = str(feature.get("kind","rock"))
+        # A passive scene prop is not a clickable road sign.
+        if kind=="sign" and not feature.has("building"):
+            kind="flowerpot" if bool(map_profile.get("settlement",false)) else "rock"
         if feature.has("building"):
             var architecture = WorldStructure.new()
             var region: String = str(terrain_layout.get("zone",{}).get("biome","coastal"))
@@ -345,7 +348,7 @@ func _decorate() -> void:
                     continue
                 var site: Vector2i=geography.old_to_new(Vector2i(int(entry[1]),int(entry[2])))
                 if _town_prop_clear(kind,site):
-                    _add_sprite(kind,site,_reserve_tree_trunk(site) if kind=="palm_tree" else false,true)
+                    _add_sprite("flowerpot" if kind=="sign" else kind,site,_reserve_tree_trunk(site) if kind=="palm_tree" else false,true)
         return
     var objects: Array = [
         ["palm_tree", 7, 5], ["palm_tree", 38, 6], ["cottage", 11, 6], ["cottage", 34, 6],
@@ -589,13 +592,28 @@ func teleport_field_secret() -> bool:
         fourth.position=hero.position+Vector2(-78,40)
     return true
 
+func _label_interior_exit(exit_node: Node2D) -> void:
+    var tag := Label.new()
+    tag.name="ReturnToExteriorLabel"
+    tag.text="↩ 出口 · 返回室外"
+    tag.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    tag.position=Vector2(-78,-68)
+    tag.custom_minimum_size.x=156
+    tag.add_theme_font_size_override("font_size",14)
+    tag.add_theme_color_override("font_color",Color("fff2bf"))
+    tag.add_theme_color_override("font_shadow_color",Color("162333"))
+    tag.add_theme_constant_override("shadow_offset_x",1)
+    tag.add_theme_constant_override("shadow_offset_y",1)
+    exit_node.add_child(tag)
+
 func _build_sites() -> void:
     if not interior_building.is_empty():
         if interior_building.begins_with("quest__"):
             var details: Dictionary = quest_submaps.detail(interior_building.trim_prefix("quest__"))
             var spots: Array = terrain_layout.get("quest_points",[])
             var quest_exit: Dictionary = terrain_layout.get("interact_cells",{})
-            nodes["interior_exit"] = _add_sprite("sign",quest_exit.get("exit",Vector2i(36,40)),false,true)
+            nodes["interior_exit"] = _add_sprite("beacon",quest_exit.get("exit",Vector2i(36,40)),false,true)
+            _label_interior_exit(nodes["interior_exit"])
             if spots.size()==3 and not details.is_empty():
                 for step in range(3):
                     var art: String = ["crate","sea_crystal","sign"][step]
@@ -625,7 +643,8 @@ func _build_sites() -> void:
                     quest_stage.visible = false
             return
         var markers: Dictionary = terrain_layout.get("interact_cells",{})
-        nodes["interior_exit"] = _add_sprite("sign",markers.get("exit",Vector2i(35,34)),false,true)
+        nodes["interior_exit"] = _add_sprite("beacon",markers.get("exit",Vector2i(35,34)),false,true)
+        _label_interior_exit(nodes["interior_exit"])
         nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
         nodes["interior_storage"] = _add_sprite("barrel",markers.get("storage",Vector2i(45,19)),false,true)
         if not str(terrain_layout.get("art_profile","")).is_empty():
@@ -705,8 +724,8 @@ func _build_sites() -> void:
             # threshold stands one tile south, on the visible front step.
             var front: Vector2i = door+Vector2i.DOWN
             var marker: Sprite2D=_add_sprite("sign",front,false,true)
-            marker.scale=Vector2(0.72,0.72)
-            marker.modulate=Color("f4dda7")
+            # Door facade is the signifier; logical hit target remains exact.
+            marker.visible=false
             marker.set_meta("door_cell",door)
             nodes["building:"+str(feature.get("building",""))] = marker
     var icons := {"key_npc": "beacon", "clue": "crate", "witness": "medicine_basket", "crisis": "sea_crystal", "resolve": "star_lantern", "inn": "well", "shop": "fish_stall", "side_start": "sign", "side_item": "crate", "side_return": "beacon"}
@@ -1252,6 +1271,12 @@ func interact() -> void:
     if locked or not is_instance_valid(hero):
         return
     hero.react()
+    # Indoor exits take precedence over quest focus and nearby furnishings.
+    if not interior_building.is_empty() and nodes.has("interior_exit"):
+        var exit_node: Node2D=nodes["interior_exit"]
+        if is_instance_valid(exit_node) and hero.position.distance_to(exit_node.position)<=54.0:
+            interacted.emit("interior_exit")
+            return
     # Authoritative main objective has priority when the player stands at its marker.
     # Without this, a nearby town door could hijack a chapter-critical interaction.
     if not focus_name.is_empty() and nodes.has(focus_name):
@@ -1440,10 +1465,26 @@ func leave_building() -> bool:
     return true
 
 func spawn_from_exit(previous_map: String) -> void:
-    var gate_id: String = "exit:"+previous_map
-    if nodes.has(gate_id):
-        var landmark: Node2D = nodes[gate_id]
-        hero.position = landmark.position + Vector2(0,46)
-        if _blocked(hero.position):
-            hero.position = landmark.position + Vector2(46,0)
+    var gate_id: String="exit:"+previous_map
+    if not nodes.has(gate_id):
+        return
+    var marker: Node2D=nodes[gate_id]
+    var anchor:=Vector2i(floori(marker.position.x/TILE),floori(marker.position.y/TILE))
+    var bounds: Vector2i=terrain_layout.get("size",Vector2i(WIDTH,HEIGHT))
+    # Orient back into the destination sector; never push eastward off-map.
+    var inward: Vector2i=Vector2i.RIGHT if anchor.x<10 else (
+        Vector2i.LEFT if anchor.x>bounds.x-11 else (
+        Vector2i.DOWN if anchor.y<10 else Vector2i.UP))
+    var locations: Array[Vector2i]=[
+        anchor+inward*2,anchor+inward,anchor+inward*3,anchor,
+        anchor+inward*2+Vector2i.DOWN,anchor+inward*2+Vector2i.UP,
+        anchor+inward*2+Vector2i.LEFT,anchor+inward*2+Vector2i.RIGHT]
+    for cell in locations:
+        if cell.x<3 or cell.y<3 or cell.x>=bounds.x-3 or cell.y>=bounds.y-3:
+            continue
+        var candidate: Vector2=Vector2(cell*TILE)+Vector2(16,16)
+        if not _blocked(candidate):
+            hero.position=candidate
+            return
+    hero.position=Vector2(terrain_layout.get("spawn",Vector2i(10,23))*TILE)+Vector2(16,16)
 

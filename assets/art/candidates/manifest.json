@@ -2,7 +2,7 @@
   "schema": "starlit.c.candidates.v5",
   "dated": "2026-10-27",
   "note": "Every candidate has a target region/map/role; none is automatically promoted into the game unless a live runtime adapter is explicitly connected. All source_packs are Godot-ignored originals.",
-  "images": 749,
+  "images": 746,
   "source_archives": 85,
   "entries": [
     {
@@ -10056,51 +10056,6 @@
       }
     },
     {
-      "source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_N.png",
-      "sha": "3aba1f2f58fa29c31410289989e9d800aff5b672",
-      "role": "town_tiles_and_decor",
-      "use": "alternate perspective; tile layout fit needed",
-      "stage": "candidate",
-      "runtime_binding": null,
-      "allocation_v6": {
-        "region_id": "region_coast",
-        "map_id": "map_coast_01",
-        "intended_role": "town_set_dressing_candidate",
-        "entity_id": "",
-        "stage": "adaptation_needed"
-      }
-    },
-    {
-      "source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_S.png",
-      "sha": "3aba1f2f58fa29c31410289989e9d800aff5b672",
-      "role": "town_tiles_and_decor",
-      "use": "alternate perspective; tile layout fit needed",
-      "stage": "candidate",
-      "runtime_binding": null,
-      "allocation_v6": {
-        "region_id": "region_coast",
-        "map_id": "map_coast_01",
-        "intended_role": "town_set_dressing_candidate",
-        "entity_id": "",
-        "stage": "adaptation_needed"
-      }
-    },
-    {
-      "source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_W.png",
-      "sha": "3aba1f2f58fa29c31410289989e9d800aff5b672",
-      "role": "town_tiles_and_decor",
-      "use": "alternate perspective; tile layout fit needed",
-      "stage": "candidate",
-      "runtime_binding": null,
-      "allocation_v6": {
-        "region_id": "region_coast",
-        "map_id": "map_coast_01",
-        "intended_role": "town_set_dressing_candidate",
-        "entity_id": "",
-        "stage": "adaptation_needed"
-      }
-    },
-    {
       "source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/roof_gableCornerBeige_E.png",
       "sha": "54c72d84ec7c9aa8f210bf34d005e8bde966937d",
       "role": "town_tiles_and_decor",
@@ -11241,5 +11196,25 @@
       }
     }
   ],
-  "allocation_version": "c.art.v6"
+  "allocation_version": "c.art.v6",
+  "duplicate_source_aliases_v10": [
+    {
+      "original_source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_N.png",
+      "retained_source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_E.png",
+      "original_blob_sha": "3aba1f2f58fa29c31410289989e9d800aff5b672",
+      "reason": "byte-identical directional variants (no unique image content)"
+    },
+    {
+      "original_source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_S.png",
+      "retained_source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_E.png",
+      "original_blob_sha": "3aba1f2f58fa29c31410289989e9d800aff5b672",
+      "reason": "byte-identical directional variants (no unique image content)"
+    },
+    {
+      "original_source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_W.png",
+      "retained_source": "res://assets/art/source_packs/kenney_sketch-town-expansion/Tiles/grass_block_E.png",
+      "original_blob_sha": "3aba1f2f58fa29c31410289989e9d800aff5b672",
+      "reason": "byte-identical directional variants (no unique image content)"
+    }
+  ]
 }

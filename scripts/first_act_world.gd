@@ -378,7 +378,7 @@ func _install_coastal_scenery() -> void:
     if not interior_building.is_empty():
         return
     var map_id: String=str(map_profile.get("id",""))
-    if map_id not in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04"]:
+    if map_id not in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04","map_coast_05"]:
         return
     coastal_scene=CoastalScene.new()
     coastal_scene.name="CoastalScene"

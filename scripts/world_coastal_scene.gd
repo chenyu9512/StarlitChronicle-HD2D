@@ -3,6 +3,7 @@ const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const CoastPainter = preload("res://scripts/c_coastal_painter.gd")
 const AllocatedDecor = preload("res://scripts/c_live_coast_dressing.gd")
+const Act01Art = preload("res://scripts/c_act01_production_registry.gd")
 ## A7-A9: per-map authored art, animation, nonblocking exploration props.
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
@@ -13,7 +14,8 @@ const ACCEPTED: Array[String] = [
     "tide_cliff","cave_stalactite","cave_crystal","cave_altar",
     "sea_bridge","quest_glow",
     "saltwind_oak","sea_wind_pine","dune_shrub",
-    "cave_foreground_column","cave_hanging_ledge"
+    "cave_foreground_column","cave_hanging_ledge",
+    "tide_lighthouse_landmark"
 ]
 var map_id: String = ""
 var authored_sprites: Dictionary = {}
@@ -40,7 +42,7 @@ var reflection_frame: int = -1
 func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) -> void:
     map_id = map_key
     depth_stage = sort_host
-    if not map_id in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04"]:
+    if not Act01Art.has_map(map_id):
         return
     if not FileAccess.file_exists(PATH):
         return
@@ -68,6 +70,8 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
             continue
         sprite.name=id
         sprite.set_meta("art_kind",asset)
+        var art_scale: float = clampf(float(item.get("scale",1.0)),0.25,2.5)
+        sprite.scale = Vector2.ONE * art_scale
         var depth_sorted: bool=layer in ["vegetation","foreground"] and is_instance_valid(depth_stage)
         # For depth props, the scene root is y-sorted with the hero. Do not
         # move the footpoint when adding a tall canopy: use Sprite2D.offset.
@@ -308,8 +312,8 @@ func _make_cavern_lighting() -> void:
         cavern_lights.append(lamp)
 
 func _sprite(asset: String,cell: Vector2i) -> Sprite2D:
-    var file: String=ART+asset+".svg"
-    if not ResourceLoader.exists(file):
+    var file: String=Act01Art.sprite_path(map_id, asset)
+    if file.is_empty() or not ResourceLoader.exists(file):
         return null
     var sprite:=Sprite2D.new()
     sprite.texture=ArtOverrides.texture(file)

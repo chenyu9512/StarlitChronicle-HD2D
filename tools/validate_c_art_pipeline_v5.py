@@ -31,7 +31,7 @@ def validate() -> None:
     candidates = load(CANDIDATES)
     files = candidates["entries"]
     assert len(files) == candidates["images"], "Candidate manifest count mismatch"
-    assert len(files) >= 749, "Source pack candidates missing"
+    assert len(files) >= 746, "Source pack candidates missing"
     names = set()
     for row in files:
         path = res_path(row["source"])

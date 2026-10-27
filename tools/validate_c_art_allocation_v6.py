@@ -17,7 +17,7 @@ def validate():
     icons=read("data/assets/c_art_content_icons_v6.json")
     expected = set(e["source"] for e in candidate["entries"]) | set(x["path"] for x in external["assets"]) | set("res://"+x for x in selection["reserve_core"])
     rows=assign["rows"]
-    assert len(rows)==1888 and len(expected)==1888 and {x["source"] for x in rows}==expected, "Missing/untracked allocation"
+    assert len(rows)==1885 and len(expected)==1885 and {x["source"] for x in rows}==expected, "Missing/untracked allocation"
     maps=read("data/content/maps.json")["entries"]
     regions=read("data/content/regions.json")["entries"]
     map_ids={m["id"] for m in maps}
@@ -35,7 +35,7 @@ def validate():
     assert {row["id"] for row in icon_rows}==content_ids
     for row in icon_rows:
         assert row["icon"] in registered and (ROOT / row["icon"][6:]).is_file(), row
-    assert len(candidate["entries"])==749
+    assert len(candidate["entries"])==746
     for entry in candidate["entries"]:
         a=entry["allocation_v6"]
         assert a["region_id"] in region_ids and a["map_id"] in map_ids

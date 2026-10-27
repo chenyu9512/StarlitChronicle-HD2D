@@ -86,12 +86,22 @@ func _verify() -> void:
     check((restored.rpg.get("guild_contracts",{}) as Dictionary).has("region_coast"),"Guild commissions were lost on load")
     check((restored.rpg.get("talked_to",{}) as Dictionary).has("npc_coast_03"),"NPC acquaintance was lost on load")
     game.service_menu.close_service()
-    game.world.leave_building()
-    var resident_before: Vector2=game.world.nodes["citizen:npc_coast_05"].position
+    check(game.world.leave_building(),"Guild indoor exit failed")
+    check(game.world.interior_building.is_empty(),"Guild exit did not restore outdoors")
+    var night_resident: String = "citizen:npc_coast_05"
+    # A missing resident is a hard QA failure, not a dictionary-key script
+    # exception that leaves SceneTree running until the CI watchdog expires.
+    check(game.world.nodes.has(night_resident),
+        "Outdoor resident absent after guild return; map="+str(game.world.map_profile.get("id",""))
+        +" indoor="+game.world.interior_building)
+    var resident_before: Vector2 = Vector2.ZERO
+    if game.world.nodes.has(night_resident):
+        resident_before = game.world.nodes[night_resident].position
     game.world.sync_world_clock(2,22*60)
     check(game.world.ambience.day==2 and game.world.ambience.minutes==1320,"Real-time lighting clock did not update")
-    var resident_after: Vector2=game.world.nodes["citizen:npc_coast_05"].position
-    check(resident_before != resident_after,"Town residents did not move between daytime and nighttime schedules")
+    if game.world.nodes.has(night_resident):
+        var resident_after: Vector2 = game.world.nodes[night_resident].position
+        check(resident_before != resident_after,"Town residents did not move between daytime and nighttime schedules")
     if errors.is_empty():
         print("PASS: 40 authored inhabitants, social persistence, functional shops/inns/guild, no duplicate rewards, day/night NPC schedules and saved transactions")
         quit(0)

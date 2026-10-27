@@ -70,3 +70,38 @@ static func assemble(path: String, source_texture: Texture2D) -> Texture2D:
                 crop.resize(TILE,TILE,Image.INTERPOLATE_NEAREST)
                 atlas.blit_rect(crop,Rect2i(Vector2i.ZERO,Vector2i(TILE,TILE)),destination)
     return ImageTexture.create_from_image(atlas)
+
+## Five region-local marks are assembled from real third-party source tiles.
+## These are presentation-only; never change the 40-map collision/quest layer.
+static func signature_strip(source_texture: Texture2D) -> Texture2D:
+    if source_texture==null:
+        return null
+    var source: Image=source_texture.get_image()
+    if source==null or source.is_empty():
+        return null
+    if source.get_format()!=Image.FORMAT_RGBA8:
+        source.convert(Image.FORMAT_RGBA8)
+    var edge: int=TILE if source.get_width()>=TILE and source.get_height()>=TILE else 16
+    if source.get_width()<edge or source.get_height()<edge:
+        return null
+    var source_cells: Array[Vector2i]=_tile_candidates(source,edge)
+    if source_cells.size()<2:
+        return null
+    var frame_count: int=5
+    var frame_width: int=5*TILE
+    var total_width: int=frame_count*frame_width
+    var atlas: Image=Image.create(total_width,4*TILE,false,Image.FORMAT_RGBA8)
+    for scene in range(frame_count):
+        for row in range(4):
+            for column in range(5):
+                var sample_id: int=posmod(scene*37+column*11+row*17+scene*column*3,
+                    source_cells.size())
+                var part: Vector2i=source_cells[sample_id]
+                var target: Vector2i=Vector2i(scene*frame_width+column*TILE,row*TILE)
+                if edge==TILE:
+                    atlas.blit_rect(source,Rect2i(part,Vector2i(edge,edge)),target)
+                else:
+                    var single: Image=source.get_region(Rect2i(part,Vector2i(edge,edge)))
+                    single.resize(TILE,TILE,Image.INTERPOLATE_NEAREST)
+                    atlas.blit_rect(single,Rect2i(Vector2i.ZERO,Vector2i(TILE,TILE)),target)
+    return ImageTexture.create_from_image(atlas)

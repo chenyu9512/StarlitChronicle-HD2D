@@ -1,6 +1,6 @@
 extends SceneTree
-## User-facing map policy: fully uncovered local chart and compact minimap only.
-## No new fog persistence or world/regional atlas access through the HUD.
+## User-facing map policy: fully uncovered local chart, regional and world map.
+## Fog stays disabled; regional and world charts must be read-only.
 const State = preload("res://scripts/first_act_state.gd")
 const World = preload("res://scripts/first_act_world.gd")
 const Registry = preload("res://scripts/world_registry.gd")
@@ -39,9 +39,10 @@ func _run() -> void:
     require(int(info.get("width",0))==world.WIDTH and int(info.get("height",0))==world.HEIGHT,
         "Expanded map must reflect full authored terrain")
     atlas.full_view.display_mode("world")
-    require(atlas.full_view.mode=="local","Global world map still reachable")
+    require(atlas.full_view.mode=="world","World overview must be available")
     atlas._set_mode("region")
-    require(atlas.full_view.mode=="local","Regional overview still reachable")
+    require(atlas.full_view.mode=="region","Regional overview must be available")
+    atlas._set_mode("local")
     atlas.full_view.zoom_local(2.0)
     require(atlas.full_view.local_zoom>1.0,"Local zoom was disabled")
     atlas.full_view.reset_local_view()
@@ -55,7 +56,7 @@ func _run() -> void:
     require(not restored.rpg.get("world",{}).has("fog"),
         "No-fog restore unexpectedly adds exploration mask")
     if failures.is_empty():
-        print("PASS maps: exposed terrain on current-area+minimap, no fog writes, no global atlas, save compatible")
+        print("PASS maps: exposed terrain on current-area+minimap, no fog writes, world/region atlas, save compatible")
         quit(0)
     else:
         for issue in failures:

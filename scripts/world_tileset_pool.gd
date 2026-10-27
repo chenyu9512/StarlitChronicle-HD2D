@@ -4,10 +4,12 @@ extends RefCounted
 ## cells and collision state; sharing the atlas does not share map geometry.
 ## An LRU cap prevents all regions/interiors staying resident indefinitely.
 const Art = preload("res://scripts/c_art_overrides.gd")
+const TerrainAdapter = preload("res://scripts/third_party_terrain_adapter.gd")
 const TILE: int = 32
 const MAX_ENTRIES: int = 12
 
 static var _sets: Dictionary = {}
+static var _adapted: Dictionary = {}
 static var _recent: Array[String] = []
 static var _revision: int = -1
 static var _builds: int = 0
@@ -17,6 +19,7 @@ static var _evictions: int = 0
 
 static func reset() -> void:
     _sets.clear()
+    _adapted.clear()
     _recent.clear()
     _revision = Art.revision()
     _builds = 0
@@ -38,6 +41,7 @@ static func _sync_revision() -> void:
     # Existing TileMapLayers may keep references to old TileSets until
     # their scene is retired; newly built scenes receive the new art.
     _sets.clear()
+    _adapted.clear()
     _recent.clear()
     _revision = latest
 
@@ -65,6 +69,10 @@ static func shared(paths: Array[String], columns: int = 8,
     var texture_ids: Array[String] = []
     for path in paths:
         var texture: Texture2D = Art.texture(path)
+        if TerrainAdapter.supports(path) and Art.third_party_source(path) != path:
+            if not _adapted.has(path):
+                _adapted[path] = TerrainAdapter.assemble(path, texture)
+            texture = _adapted[path] as Texture2D
         if texture == null or texture.get_width() < columns*TILE or texture.get_height() < (row_start+row_count)*TILE:
             push_warning("Atlas has wrong 32px dimensions: " + path)
             return null

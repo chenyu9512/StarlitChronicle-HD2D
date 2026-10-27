@@ -1,5 +1,5 @@
 extends SceneTree
-## Real-engine map regression: fog-free current area, compact minimap, no global atlas.
+## Real-engine map regression: fog-free current area, compact minimap, three-tier regional/world atlas.
 const World = preload("res://scripts/first_act_world.gd")
 const Atlas = preload("res://scripts/map_hud.gd")
 const State = preload("res://scripts/first_act_state.gd")
@@ -36,7 +36,11 @@ func _run() -> void:
     _expect(atlas.full_view.mode == "local","Expanded view must open on local terrain")
     atlas._set_mode("world")
     await process_frame
-    _expect(atlas.full_view.mode == "local","Deprecated world chart must fall back to current area")
+    _expect(atlas.full_view.mode == "world","World overview must be restored")
+    atlas._set_mode("region")
+    _expect(atlas.full_view.mode == "region","Regional overview must be restored")
+    atlas._set_mode("local")
+    _expect(atlas.route_button.disabled,"Travel button must be disabled without a destination")
     _expect(atlas.full_view.local_frame().get("columns",0) == world.WIDTH,
         "Current area map must display the entire actual terrain without fog")
     _expect(atlas.small_view.local_frame().get("width",0) == world.WIDTH,
@@ -55,7 +59,7 @@ func _run() -> void:
     atlas.show_exploration(false)
     _expect(not atlas.small_frame.visible,"Battle/story/menu must hide minimap")
     if errors.is_empty():
-        print("PASS: fog-free minimap, full local terrain, no world atlas, retained objectives and modal closure")
+        print("PASS: fog-free minimap, full local terrain, interactive world atlas, retained objectives and modal closure")
         quit(0)
     else:
         for error in errors:

@@ -124,6 +124,7 @@ func _ready() -> void:
     atlas.bind_world(world, world_router)
     atlas.opened.connect(_map_opened)
     atlas.closed.connect(_return_to_world)
+    atlas.travel_requested.connect(_travel_to)
     adventure_menu = RPGMenu.new()
     add_child(adventure_menu)
     adventure_menu.closed.connect(_return_to_world)

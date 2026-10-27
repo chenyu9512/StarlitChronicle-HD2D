@@ -1,8 +1,9 @@
 extends CanvasLayer
-## Exploration UI: uncovered local terrain only, compact minimap plus enlarged
-## current-area view. No fog-of-war and no global / regional navigation screen.
+## Three-tier fog-free map. Local terrain / regional sectors / world routes.
+## The diagram uses the actual collision cells and the existing 42-node travel registry.
 signal opened()
 signal closed()
+signal travel_requested(map_id: String)
 
 const View = preload("res://scripts/map_view.gd")
 const CVisual = preload("res://scripts/c_visual_design.gd")
@@ -19,6 +20,11 @@ var full_view
 var full_heading: Label
 var map_info: Label
 var route_info: Label
+var route_button: Button
+var local_button: Button
+var region_button: Button
+var world_button: Button
+var selected_map: String = ""
 var shown_mode: String = "local"
 var update_clock: float = 0.0
 var in_world: bool = false
@@ -106,11 +112,20 @@ func _build_full() -> void:
     heading.add_theme_constant_override("separation",12)
     column.add_child(heading)
     full_heading = Label.new()
-    full_heading.text = "✦ 当前区域地图"
+    full_heading.text = "✦ 航路地图 / 区域"
     full_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     full_heading.add_theme_font_size_override("font_size",25)
     full_heading.add_theme_color_override("font_color",GOLD)
     heading.add_child(full_heading)
+    local_button = _button("当前地图")
+    local_button.pressed.connect(func() -> void: _set_mode("local"))
+    heading.add_child(local_button)
+    region_button = _button("地区分块")
+    region_button.pressed.connect(func() -> void: _set_mode("region"))
+    heading.add_child(region_button)
+    world_button = _button("世界航路")
+    world_button.pressed.connect(func() -> void: _set_mode("world"))
+    heading.add_child(world_button)
     var exit_button := _button("返回探索  ×")
     exit_button.pressed.connect(close_map)
     heading.add_child(exit_button)
@@ -142,6 +157,7 @@ func _build_full() -> void:
     full_view.custom_minimum_size = Vector2(450,340)
     full_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     full_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    full_view.location_selected.connect(_on_location_selected)
     columns.add_child(full_view)
     var sidebar := VBoxContainer.new()
     sidebar.custom_minimum_size.x = 204
@@ -163,8 +179,11 @@ func _build_full() -> void:
     var spacer := Control.new()
     spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
     sidebar.add_child(spacer)
+    route_button = _button("旅行到选中地点")
+    route_button.pressed.connect(_try_travel)
+    sidebar.add_child(route_button)
     var footer := Label.new()
-    footer.text = "◆ 角色朝向  ✦ 主线  ◇ 支线  ■ 建筑  ◆ 地牢  · 触摸拖动 / 滚轮缩放 · 当前地图全部显示"
+    footer.text = "◆ 角色朝向  ✦ 主线  ◇ 支线  ■ 建筑  ◆ 地牢  · 触摸拖动/滚轮缩放 · 全部地图无迷雾 · 沿已解锁航路旅行"
     footer.add_theme_color_override("font_color",Color("b6c8d5"))
     footer.add_theme_font_size_override("font_size",14)
     column.add_child(footer)
@@ -187,8 +206,10 @@ func set_story_route(map_id: String,description: String = "") -> void:
     quest_destination = map_id
     quest_summary = description
     if small_view != null:
+        small_view.quest_destination = map_id
         small_view.queue_redraw()
     if full_view != null:
+        full_view.quest_destination = map_id
         full_view.queue_redraw()
 
 func show_exploration(value: bool) -> void:
@@ -201,11 +222,19 @@ func is_open() -> bool:
 func open_map() -> void:
     if not in_world or world == null or not is_instance_valid(world.hero):
         return
+    shown_mode = "local"
+    selected_map = ""
+    full_view.selected_location = ""
     full_view.reset_local_view()
     _set_mode("local")
     overlay.show()
     small_frame.hide()
     opened.emit()
+
+func show_world_map() -> void:
+    open_map()
+    if overlay.visible:
+        _set_mode("world")
 
 func close_map() -> void:
     if not overlay.visible:
@@ -214,12 +243,12 @@ func close_map() -> void:
     small_frame.visible = in_world
     closed.emit()
 
-func _set_mode(_next_mode: String) -> void:
-    # Retained as a compatibility entry point for legacy map UI callers.
-    shown_mode = "local"
-    full_view.display_mode("local")
+func _set_mode(next_mode: String) -> void:
+    shown_mode = next_mode
+    full_view.display_mode(shown_mode)
     _refresh_zoom_toolbar()
-    full_heading.text = "✦ 当前区域地图"
+    var name: String = "世界" if shown_mode=="world" else ("分区" if shown_mode=="region" else "当前区域")
+    full_heading.text = "✦ 星灯图志 / " + name
     _refresh_info()
 
 func _zoom_local(factor: float) -> void:
@@ -243,18 +272,35 @@ func _refresh_zoom_toolbar() -> void:
     recenter_button.visible = local
     zoom_in_button.disabled = full_view.local_zoom >= View.MAX_LOCAL_ZOOM
     zoom_out_button.disabled = full_view.local_zoom <= View.MIN_LOCAL_ZOOM
-    zoom_status.text = "缩放 %d%% · 拖动查看地图" % roundi(full_view.local_zoom * 100.0)
+    zoom_status.text = ("缩放 %d%% · 拖动查看地图" % roundi(full_view.local_zoom * 100.0)) if local else "轻触地点查看路线"
+
+func _on_location_selected(map_id: String) -> void:
+    selected_map = map_id
+    _refresh_info()
+
+func _try_travel() -> void:
+    if router == null:
+        return
+    var steps: Array[String] = router.shortest_route(selected_map)
+    if steps.size() <= 1 or not router.can_travel(steps[1]):
+        _refresh_info()
+        return
+    # Perform exactly one permitted adjacent leg, never bypassing story locks.
+    var target: String = steps[1]
+    close_map()
+    travel_requested.emit(target)
 
 func _refresh_info() -> void:
     if map_info == null:
         return
     if world == null or router == null or router.state == null:
         map_info.text = "尚未进入游戏。"
+        route_button.disabled = true
         return
     var world_name: String = str(world.region_name())
     if small_header != null:
         small_header.text = "◇ " + str(world.map_profile.get("name","地图")).left(6) + " / TAB"
-        small_header.tooltip_text = world_name + " · 点击查看完整当前区域"
+        small_header.tooltip_text = world_name + " · 点击查看区域、世界航路"
     var hero_pos: Vector2i = Vector2i(-1,-1)
     if is_instance_valid(world.hero):
         hero_pos = Vector2i(world.hero.position / 32.0)
@@ -292,13 +338,35 @@ func _refresh_info() -> void:
             if weather_slow<1.0:
                 discovery_line+="\n气象风险：行进速度 %d%%" % roundi(weather_slow*100.0)
     map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
-    route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n浅金：街区生活与夜间活动\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "查看当前地图，寻找下一条探索线索。")
+    if shown_mode in ["world","region"]:
+        var info: Dictionary = router.map_info(selected_map)
+        if info.is_empty():
+            route_info.text = "轻触城镇、洞窟或野外地点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 40" % router.visited_count()
+        else:
+            var name: String = str(info.get("name",selected_map))
+            var steps: Array[String] = router.shortest_route(selected_map)
+            var available: bool = steps.size() > 1 and router.can_travel(steps[1])
+            var selected_spec: Dictionary = router.geography.zone(selected_map)
+            var biome: String = str(selected_spec.get("biome",""))
+            var setting: String = str(selected_spec.get("layout",""))
+            var directions: PackedStringArray = []
+            for stop in steps:
+                directions.append(str(router.map_info(stop).get("name",stop)).left(8))
+            var instructions: String = " → ".join(directions) if available else "尚未探索出可到达该地点的连续航路"
+            route_info.text = "目的地：%s\n地貌：%s\n布局：%s\n\n路线：%s" % [name,biome,setting,instructions]
+        route_button.visible = true
+        var possible_route: Array[String] = router.shortest_route(selected_map)
+        route_button.disabled = possible_route.size() <= 1 or not router.can_travel(possible_route[1])
+        route_button.text = "前往下一站（不越级）"
+    else:
+        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n浅金：街区生活与夜间活动\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
+        route_button.visible = false
+        route_button.disabled = true
 
 func _process(delta: float) -> void:
     if not small_frame.visible and not overlay.visible:
         return
-    # Reset map framing on outdoor / interior transitions only.
-    # This local key does not reveal, calculate or persist exploration fog.
+    # Reset map framing on outdoor/interior changes; do not store fog state.
     if world != null and is_instance_valid(world.layer):
         var context: String = str(world.map_profile.get("id",""))+"#"+str(world.interior_building)
         if displayed_context != context:

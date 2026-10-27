@@ -90,7 +90,8 @@ func _run() -> void:
     game._track_branch_event(a)
     check(str(game.progress.rpg.get("tracked_branch_event",""))==a,"map navigation saved")
     check(game.atlas.quest_destination=="map_coast_02","atlas points to tracked quest sector")
-    check(game.atlas.small_view.quest_destination=="map_coast_02","minimap destination bound")
+    check(game.atlas.small_view.world==game.world and game.atlas.small_view.compact and game.atlas.small_view.mode=="local",
+        "tracked quest sector shares the canonical fog-free local minimap world")
     check(game.branch_runtime.eligible(a),"authored A path eligible on coast sector")
     check(not game.branch_runtime.eligible(source+".p17.b.followup"),"B route locked")
     if game.world.nodes.has("questdoor:"+source):

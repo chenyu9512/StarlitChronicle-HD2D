@@ -3,6 +3,7 @@
 import json
 from collections import deque
 from pathlib import Path
+from art_source_contract import available
 P = Path(__file__).resolve().parents[1]
 def load(name):
     return json.loads((P / name).read_text(encoding="utf-8"))
@@ -74,9 +75,9 @@ for entry in doc["quests"]:
     ck(len(reachable)>=400,"no tiny token room "+id)
     for v in data.get("visuals",[]):
         asset=v.get("asset")
-        ck(any((P/"assets"/"art"/"interiors"/folder/(asset+".svg")).exists()
+        ck(any(available(f"assets/art/interiors/{folder}/{asset}.svg")
                for folder in ("morning_dew_inn","coastal_district")),
-           "real installed SVG "+id+":"+str(asset))
+           "real mapped art "+id+":"+str(asset))
 for record in doc["outdoor_preserved"]:
     id=record["quest_id"]
     ck(id not in listed_outdoors, "duplicate outdoors "+id)

@@ -64,6 +64,12 @@ func _init() -> void:
                 if map_id not in (sectors.get(previous,{}) as Dictionary).get("neighbors",[]):
                     issues.append("Act-I chapter %d jumps over a missing exit: %s to %s" % [chapter,previous,map_id])
         chapters[chapter]=record.duplicate(true)
+        # Match the D-line WorldRegistry migration: a chapter's actual
+        # narrative destination opens by that chapter, even when the
+        # historical quest-spawn table first referenced it later.
+        # This is guidance data only; the real gate still checks adjacency
+        # and discovery inside WorldRegistry.travel().
+        chapter_gates[desired]=mini(int(chapter_gates.get(desired,chapter)),chapter)
     if chapters.size()!=6:
         issues.append("All six original Act-I chapters need physical routes")
 

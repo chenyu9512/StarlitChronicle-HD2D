@@ -26,5 +26,7 @@ void fragment() {
     tex.rgb = mix(tex.rgb, vec3(0.91, 0.63, 0.73), 0.23 * hit_weight);
     tex.rgb = mix(tex.rgb, vec3(0.68, 0.77, 0.96), 0.11 * phase_weight);
     tex.a *= 1.0 - 0.90 * defeat_weight;
-    COLOR = tex * COLOR;
+    // Do not multiply by the already-textured built-in COLOR: doing so
+    // would double-darken the authoritative B03 character illustration.
+    COLOR = tex;
 }

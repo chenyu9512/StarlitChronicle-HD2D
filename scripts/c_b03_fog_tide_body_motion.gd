@@ -18,6 +18,7 @@ var clock: float = 0.0
 var frame_index: int = 0
 var reduced_motion: bool = false
 var enabled: bool = false
+var queued_phase: bool = false
 
 func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) -> bool:
     enabled = false
@@ -61,6 +62,7 @@ func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) 
     state = "idle"
     state_elapsed = 0.0
     clock = 0.0
+    queued_phase = false
     _advance(0.0)
     set_process(true)
     return true
@@ -78,6 +80,10 @@ func _set_state(pose: String) -> void:
     if not enabled or not STATES.has(pose) and pose != "phase":
         return
     if state != "idle" and _priority(state) > _priority(pose):
+        # A-line raises phase-two immediately after a hit. Queue it so the
+        # hit is visibly shown and the only phase transition is not lost.
+        if pose == "phase" and state != "defeat":
+            queued_phase = true
         return
     state = pose
     state_elapsed = 0.0
@@ -106,9 +112,10 @@ func _advance(delta: float) -> void:
     state_elapsed += dt
     var duration: float = float(DURATIONS.get(state,0.0))
     if duration > 0.0 and state_elapsed >= duration and state != "defeat":
-        state = "idle"
+        state = "phase" if queued_phase else "idle"
+        queued_phase = false
         state_elapsed = 0.0
-        duration = 0.0
+        duration = float(DURATIONS.get(state,0.0))
     var progress: float = clampf(state_elapsed/maxf(duration,0.001),0.0,1.0) if duration > 0.0 else 0.0
     var pulse: float = sin(progress*PI)
     var idling: float = 1.0 if state == "idle" else 0.34

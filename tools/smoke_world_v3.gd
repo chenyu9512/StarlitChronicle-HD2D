@@ -56,10 +56,32 @@ func _run() -> void:
             verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],[gate.get("cell",Vector2i.ZERO)]),"Map gate inaccessible: "+str(id))
         if bool(zone.get("settlement",false)) or str(zone.get("archetype",""))=="dungeon":
             var custom: Dictionary = authored.duplicate(true)
-            # The spawn is physically clear in the original map. Old QA wrote
-            # over an arbitrary roof footprint that final house collision must
-            # correctly replace, then misreported this as a V3 editor failure.
-            var editable: Vector2i=initial
+            # Exercise a legitimately editable exposed tile, not a spawn,
+            # gate, essential story anchor or solid authored house facade.
+            var editable: Vector2i=Vector2i(-1,-1)
+            var extent: Vector2i=current.get("size",Vector2i(72,48))
+            for y in range(5,extent.y-5):
+                if editable.x>=0:
+                    break
+                for x in range(5,extent.x-5):
+                    var cell:=Vector2i(x,y)
+                    if cell.distance_to(initial)<5.0 or (current.get("blocked",{}) as Dictionary).has(cell):
+                        continue
+                    if bool(zone.get("settlement",false)) and geo._inside_town_building(cell,zone):
+                        continue
+                    if cell in geo._anchors():
+                        continue
+                    var is_gate: bool=false
+                    for gate in current.get("gates",[]):
+                        if cell==gate.get("cell",Vector2i(-1,-1)):
+                            is_gate=true
+                            break
+                    if not is_gate:
+                        editable=cell
+                        break
+            verify(editable.x>=0,"No editable open ground in "+str(id))
+            if editable.x<0:
+                continue
             custom["paint_overrides"] = [{"cell":[editable.x,editable.y],"row":4,"blocked":true}]
             geo.authored.levels[str(id)] = custom
             var edited: Dictionary = geo.layout(str(id),3)

@@ -61,7 +61,11 @@ func _run() -> void:
                 "Chapter 5 current legacy spawn must return through the cave")
         # Follow each leg ONLY through Registry.travel; the B preview may
         # not secretly unlock a door or skip a region.
-        for next_id in path.slice(1):
+        var starting_index: int=path.find(router.current_map())
+        check(starting_index>=0,
+            "Chapter %d legacy spawn missing from intended journey" % chapter)
+        for leg in range(starting_index+1,path.size()):
+            var next_id: String=path[leg]
             var direction: Dictionary=journey.preview(chapter,router.current_map(),state)
             check(str(direction.get("next_map_id",""))==str(next_id),
                 "Chapter %d missing physical next gate %s" % [chapter,next_id])

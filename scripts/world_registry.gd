@@ -4,6 +4,7 @@ extends RefCounted
 const WORLD_MAPS: String = "res://data/content/maps.json"
 const WORLD_REGIONS: String = "res://data/content/regions.json"
 const WORLD_QUESTS: String = "res://data/content/quests.json"
+const ACT01_LOCATIONS: String = "res://data/levels/act01_scene_locations_v1.json"
 const INITIAL_MAP: String = "map_coast_01"
 const Geography = preload("res://scripts/world_geography.gd")
 var maps: Dictionary = {}
@@ -11,6 +12,7 @@ var geography = Geography.new()
 var regions: Dictionary = {}
 var chapter_maps: Dictionary = {}
 var first_chapter: Dictionary = {}
+var act01_destinations: Dictionary = {}
 var errors: Array[String] = []
 var state
 
@@ -34,6 +36,19 @@ func _init() -> void:
                 first_chapter[map_id] = chapter
             else:
                 first_chapter[map_id] = mini(chapter,int(first_chapter[map_id]))
+    # Narrative destinations may be reachable earlier than an old chapter's
+    # automatic spawn map. In particular chapter 3 must unlock the cave,
+    # which the legacy quest table first assigned to chapter 4.
+    for scene in _read(ACT01_LOCATIONS).get("chapters",[]):
+        if not (scene is Dictionary):
+            continue
+        var act_chapter: int = int(scene.get("chapter",0))
+        var destination: String = str(scene.get("required_map_id",""))
+        if act_chapter < 1 or act_chapter > 6 or not maps.has(destination):
+            continue
+        act01_destinations[act_chapter] = destination
+        first_chapter[destination] = mini(
+            int(first_chapter.get(destination,act_chapter)),act_chapter)
     errors = validate_catalog()
 
 func _read(path: String) -> Dictionary:
@@ -94,13 +109,23 @@ func _mark_visited(map_id: String) -> void:
 func chapter_map(chapter: int) -> String:
     return INITIAL_MAP if chapter < 1 else str(chapter_maps.get(chapter,INITIAL_MAP))
 
+func act01_target_map(chapter: int) -> String:
+    return str(act01_destinations.get(chapter,""))
+
 func sync_chapter(chapter: int) -> void:
     if state == null:
         return
     var world: Dictionary = state.rpg["world"]
     var selected: String = str(world.get("current_map",""))
-    if int(world.get("bound_chapter",-1)) != chapter or not maps.has(selected):
-        selected = chapter_map(chapter)
+    var previously_bound: int = int(world.get("bound_chapter",-1))
+    if previously_bound != chapter or not maps.has(selected):
+        # A normal Act-I chapter change keeps the player on the sector where
+        # the previous chapter ended. The next destination is reached on foot
+        # through authoritative adjacent gates; older/non-sequential saves
+        # retain the existing safe chapter_map fallback.
+        var keep_previous: bool = chapter>=2 and chapter<=6 and previously_bound==chapter-1 and maps.has(selected)
+        if not keep_previous:
+            selected = chapter_map(chapter)
         world["current_map"] = selected
         world["bound_chapter"] = chapter
     _mark_visited(selected)

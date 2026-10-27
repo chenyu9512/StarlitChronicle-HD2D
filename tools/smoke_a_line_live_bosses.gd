@@ -51,7 +51,7 @@ func _run() -> void:
             # in the production core; assignments here are isolated encounter fixtures.
             for i in range(state.actors.size()):
                 var id: String = str(state.actors[i].get("id",""))
-                var job: String = JOBS[(chapter*5+difficulty_index*7+i*3)%JOBS.size()]
+                var job: String = JOBS[((chapter-1)*3+difficulty_index+i)%JOBS.size()]
                 state.rpg["jobs"][id] = job
                 class_coverage[job] = true
             var battle = Battle.new()
@@ -84,7 +84,12 @@ func _run() -> void:
                     battle._act("special")
             if not bool(settled["done"]) or not bool(settled["victory"]) or int(settled["calls"]) != 1:
                 errors.append("Boss not truly cleared with live commands: "+str(spec.get("boss_id",""))+
-                    " / "+difficulty+" / round "+str(battle.current_round))
+                    " / "+difficulty+" / round "+str(battle.current_round)+
+                    " / victory="+str(settled.get("victory",false))+
+                    " / callback_count="+str(settled.get("calls",0))+
+                    " / enemy_hp="+str(battle.enemy.get("hp",0))+
+                    " / party_hp="+str(state.actors.map(func(member: Dictionary) -> int:
+                        return int(member.get("hp",0)))))
             elif str(spec.get("goal","")) == "pacify" and battle.last_boss_settlement != "nonlethal":
                 errors.append("Nonlethal ending lost: "+str(spec.get("boss_id","")))
             battle.free()

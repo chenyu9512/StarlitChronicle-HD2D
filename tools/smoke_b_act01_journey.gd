@@ -82,6 +82,9 @@ func _run() -> void:
     var before_missing: Dictionary=missing._pack().duplicate(true)
     check(not bool(journey.preview(7,"map_coast_01",missing).get("valid",true)),
         "Act-II chapter accepted by an Act-I-only route adviser")
+    check(journey.preview(4,"map_coast_05",missing).get("reason","")=="chapter_mismatch",
+        "Spoofed future chapter offered a route before the save reached it")
+    missing.chapter=4
     var stranger: Dictionary=journey.preview(4,"map_coast_05",missing)
     check(stranger.get("blocked_reason","")=="outside_authored_route",
         "An off-route location offered an unsafe teleport")

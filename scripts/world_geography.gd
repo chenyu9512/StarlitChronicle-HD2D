@@ -224,7 +224,7 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             var body: Vector2i = Vector2i(int(building["pos"][0]),int(building["pos"][1]))
             var size: Vector2i = Vector2i(int(building["size"][0]),int(building["size"][1]))
             for y in range(body.y-size.y/2,body.y+size.y/2+1):
-                for x in range(body.x-size.x/2,body.x+size.x/2+1):
+                for x in range(body.x-size.x/2,body.x-size.x/2+size.x):
                     _paint(terrain,walls,Vector2i(x,y),Vector2i((x+y)%8,6),true)
             var door: Vector2i = Vector2i(int(building["door"][0]),int(building["door"][1]))
             _road(terrain,walls,door,hub,seed+body.x,1)
@@ -348,8 +348,10 @@ func _building_box(building: Dictionary) -> Rect2i:
         return Rect2i()
     var body := Vector2i(int(center[0]),int(center[1]))
     var size := Vector2i(int(dimensions[0]),int(dimensions[1]))
-    var half := Vector2i(size.x / 2,size.y / 2)
-    return Rect2i(body-half,half*2+Vector2i.ONE)
+    # Facades span exactly size.x 32px columns. The old +1 created
+    # a phantom right-side collision ring around every even-width building.
+    # Keep the southern threshold row solid, and the front step walkable.
+    return Rect2i(body-Vector2i(size.x/2,size.y/2),Vector2i(size.x,size.y+1))
 
 func _inside_town_building(cell: Vector2i,spec: Dictionary) -> bool:
     for raw in spec.get("buildings",[]):

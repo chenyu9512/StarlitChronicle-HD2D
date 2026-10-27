@@ -92,7 +92,7 @@ func configure(actors: Array, active_ids: Array = []) -> void:
 func _resolve_art(actor_id: String) -> String:
     var folder: String = "res://assets/art/b02/characters/main/%s/" % actor_id
     for file in ["fullbody_rgba.png","dialogue_192x240.png","head_160x160.png"]:
-        if ResourceLoader.exists(folder + file):
+        if CArtOverrides.exists(folder + file):
             return folder + file
     var legacy: Dictionary = {
         "char_wayfarer":"leon","char_tidecaller":"lanyin",
@@ -100,7 +100,7 @@ func _resolve_art(actor_id: String) -> String:
     }
     if legacy.has(actor_id):
         var path: String = "res://assets/art/characters/%s/battle.png" % str(legacy[actor_id])
-        if ResourceLoader.exists(path):
+        if CArtOverrides.exists(path):
             return path
     return ""
 

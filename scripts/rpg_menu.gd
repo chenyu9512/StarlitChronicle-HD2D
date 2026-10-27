@@ -16,6 +16,7 @@ const ArtAssets = preload("res://scripts/art_assets.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const CArtItemIcons = preload("res://scripts/c_art_item_icons.gd")
 const CArtNavigationIcons = preload("res://scripts/c_art_navigation_icons.gd")
+const CArtUIFrame = preload("res://scripts/c_art_ui_frame.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
@@ -71,13 +72,7 @@ func _ready() -> void:
     panel.anchor_right = 0.97
     panel.anchor_top = 0.03
     panel.anchor_bottom = 0.97
-    var style := StyleBoxFlat.new()
-    style.bg_color = Color("0b1c32")
-    style.border_color = Color("e6c47d")
-    style.set_border_width_all(2)
-    style.set_corner_radius_all(12)
-    style.set_content_margin_all(12)
-    panel.add_theme_stylebox_override("panel",style)
+    panel.add_theme_stylebox_override("panel", CArtUIFrame.panel_frame())
     root.add_child(panel)
     var body := VBoxContainer.new()
     body.add_theme_constant_override("separation",7)

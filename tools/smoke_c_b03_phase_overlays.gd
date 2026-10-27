@@ -40,6 +40,7 @@ func _run() -> void:
     if errors.is_empty():
         print("PASS: five authored B03 phase overlays, 30 illustrated frames, imported and animated")
         quit(0)
+        return
     for err in errors:
         push_error(err)
     quit(1)

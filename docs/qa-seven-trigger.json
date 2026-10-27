@@ -1,15 +1,11 @@
 {
-  "batch": "M0.1-2026-10-27-full-regression",
-  "reason": "Retest same SHA after world quest map UI, town NPC split and C23 gallery indexing repairs",
-  "required": [
-    "build",
-    "reward",
-    "rollback",
-    "legacy",
-    "combat",
-    "quests",
-    "assets",
-    "all-smokes"
+  "batch": "M0.1-final-same-sha-integrated-world-2026-10-27",
+  "base_main": "dbf4a8b5fa208963654d42a0d07765f874e1304c",
+  "engine": "Godot 4.7.2",
+  "strict_release_checks": [
+    "Godot Core Validation",
+    "Batch0 Seven Independent QA Gates",
+    "Starlit Full Godot Smoke Suite"
   ],
-  "claim": "Only real Godot and Python QA results may determine acceptance; no expected result prefilled."
+  "policy": "All workflows run on the exact same trigger SHA; any failed or in-progress gate means no global signoff and M1 HOLD."
 }

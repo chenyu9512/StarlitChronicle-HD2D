@@ -69,10 +69,13 @@ static func shared(paths: Array[String], columns: int = 8,
     var texture_ids: Array[String] = []
     for path in paths:
         var texture: Texture2D = Art.texture(path)
-        if TerrainAdapter.supports(path) and Art.third_party_source(path) != path:
-            if not _adapted.has(path):
-                _adapted[path] = TerrainAdapter.assemble(path, texture)
-            texture = _adapted[path] as Texture2D
+        if TerrainAdapter.supports(path) and Art.third_party_source(path) != path and texture != null:
+            # Shared DLC source textures must produce one shared terrain TileSet,
+            # not one distinct adapted ImageTexture for every legacy slot alias.
+            var identity: String = ("water:" if path.get_file().ends_with("_water.png") else "ground:") + str(texture.get_instance_id())
+            if not _adapted.has(identity):
+                _adapted[identity] = TerrainAdapter.assemble(path, texture)
+            texture = _adapted[identity] as Texture2D
         if texture == null or texture.get_width() < columns*TILE or texture.get_height() < (row_start+row_count)*TILE:
             push_warning("Atlas has wrong 32px dimensions: " + path)
             return null

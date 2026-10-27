@@ -139,7 +139,11 @@ func _run() -> void:
     map.display_mode("world")
     map.queue_redraw()
     await process_frame
-    verify(map.mode == "local","Deprecated world atlas mode must be unavailable")
+    verify(map.mode == "world","World atlas mode must be restored")
+    map.display_mode("region")
+    verify(map.mode == "region","Regional atlas must be restored")
+    map.display_mode("local")
+    verify(map.mode == "local","Return to local chart must work")
     var local: Dictionary = map.local_frame()
     verify(not local.is_empty(),"Live current-area chart failed to initialize")
     verify(int(local.get("width",0))==world.WIDTH and int(local.get("height",0))==world.HEIGHT,

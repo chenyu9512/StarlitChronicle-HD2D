@@ -96,14 +96,18 @@ func _run() -> void:
     await process_frame
     check(atlas.full_view.mode=="local","Expanded map must remain local only")
     atlas._set_mode("world")
-    check(atlas.full_view.mode=="local","Deprecated global map mode must not be available")
+    check(atlas.full_view.mode=="world","World atlas mode must be available")
+    atlas._set_mode("region")
+    check(atlas.full_view.mode=="region","Regional atlas mode must be available")
+    atlas._set_mode("local")
+    check(atlas.full_view.mode=="local","Switching back to local terrain must work")
     check(not state.rpg.get("world",{}).has("fog"),
         "Viewing maps must not create persistent fog data")
     check(not router.can_travel("unknown_map"),"Viewing map unlocked forbidden travel")
     atlas.close_map()
     check(atlas.small_frame.visible,"Closing map should recover minimap")
     if failures.is_empty():
-        print("PASS: all 40 real map sizes, fog-free local/minimap, zoom, and physical inn round-trip")
+        print("PASS: all 40 map sizes, no-fog local/region/world modes, zoom, safe inn round-trip")
         quit(0)
     else:
         for problem in failures:

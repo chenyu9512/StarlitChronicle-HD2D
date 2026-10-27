@@ -30,7 +30,8 @@ func _run() -> void:
         var pair: Array[String] = Terrain.atlas_sources(region_id,map_id)
         verify(pair.size() == 2, "Missing terrain pair " + map_id)
         for path in pair:
-            verify(ResourceLoader.exists(path), "Unresolved atlas " + map_id)
+            verify(Art.exists(path), "Unresolved migrated atlas " + map_id)
+        verify(Pool.shared(pair) != null, "Unusable 32px terrain atlas " + map_id)
     var geographic := Geog.new()
     var before: Dictionary = geographic.layout("map_coast_01", 1)
     verify(Art.activate_pack("shared_terrain"), "Shared atlas theme unavailable")

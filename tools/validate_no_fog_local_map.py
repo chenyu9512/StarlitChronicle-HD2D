@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Static acceptance for the user-requested map UI policy.
 
-The local TileMap and minimap are fully visible. Global/regional atlas and
-per-cell exploration fog are removed. This is a source gate, not a Godot test.
+The local TileMap, minimap, region atlas and world routes are fully visible.
+Per-cell exploration fog stays removed. This is a source gate, not a Godot test.
 """
 from pathlib import Path
 
@@ -38,14 +38,16 @@ def main() -> int:
         for token in ("world_fog_v3.gd", "fog.reveal(", "fog.revealed(",
                       "fog.configure(", "fog.percent("):
             require(token not in source, f"{name} still references fog: {token}")
-    require("func show_world_map()" not in ui and "world_button" not in ui,
-            "World map mode is still accessible from map HUD")
-    require("region_button" not in ui and "travel_requested" not in ui,
-            "Regional map or map-based travel remains in HUD")
-    require("func _draw_atlas(" not in view and "WORLD_ART" not in view,
-            "Global/regional atlas renderer remains in map view")
-    require('mode = "local"' in view and 'mode = "local"' in ui,
-            "Local-only map mode not established")
+    require("func show_world_map()" in ui and "world_button" in ui,
+            "World map mode disappeared from the HUD")
+    require("region_button" in ui and "travel_requested" in ui,
+            "Regional map or gated map travel is missing from HUD")
+    require("func _draw_atlas(" in view and "WORLD_ART" not in view,
+            "World chart must use live registry geometry, not deleted legacy PNG")
+    require('"region"' in view and '"world"' in view and 'mode = "local"' in ui,
+            "Local/region/world modes must coexist")
+    require("router.can_travel(steps[1])" in ui,
+            "Map must only permit adjacent authorized travel")
     require("world.fog_key" not in ui and "world.fog" not in view,
             "Map UI still depends on fog discovery")
     require('"世界地图"' not in menu,
@@ -54,13 +56,13 @@ def main() -> int:
             "Adventure book current-area map handler is disconnected")
     require("func _open_local_map_from_book()" in game,
             "Current-area map handler is missing")
-    require('atlas.show_world_map()' not in game,
-            "Game still invokes removed world atlas method")
+    require("atlas.travel_requested.connect(_travel_to)" in game,
+            "World map travel signal is not connected to the gameplay controller")
     require("func local_frame()" in view and "func _draw_local()" in view,
             "Local map renderer and dynamic viewport must be retained")
     require("small_view = View.new()" in ui and "full_view = View.new()" in ui,
             "Compact and expanded local views must remain")
-    print("PASS: no fog implementation, no global atlas, local chart/minimap wired"
+    print("PASS: no fog implementation, local/region/world chart + gated travel wired"
           if not errors else "\n".join("FAIL: " + e for e in errors))
     return int(bool(errors))
 

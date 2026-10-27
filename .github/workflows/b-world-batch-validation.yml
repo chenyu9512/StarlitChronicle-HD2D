@@ -40,5 +40,9 @@ jobs:
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_dialogue_preview.gd
       - name: Verify eight guild states, no UI read side effects and no duplicate claims
         run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_town_guild_readonly.gd
+      - name: Verify 11-town/33-stage read-only activity preview and unique event IDs
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_town_activity_preview.gd
+      - name: Verify distant NPC route and stalled-occupancy recovery
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_navigation_safety.gd
       - name: Validate 40 physical maps, eight dungeon geometries and indoor travel
         run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

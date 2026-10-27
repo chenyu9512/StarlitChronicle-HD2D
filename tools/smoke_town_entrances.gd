@@ -97,6 +97,8 @@ func _run() -> void:
         check(not world._blocked(center(door+Vector2i.DOWN)),"World door apron blocked "+id)
         if marker!=null:
             check(marker.position.distance_to(center(door+Vector2i.DOWN))<1.0,"Entrance marker offset "+id)
+            check(marker.visible and marker.modulate.a<=0.01,
+                "Door lost minimap pin or still duplicates signboard: "+id)
             world.hero.position=marker.position
             selected=""
             world.interact()

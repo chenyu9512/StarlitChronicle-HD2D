@@ -418,3 +418,28 @@ static func uninstall_pack(id: String) -> bool:
     _cache.clear()
     _revision += 1
     return true
+
+## Restores every runtime slot to the shipped original artwork in one action.
+## Notes and installed DLCs remain available. The current savegame is untouched.
+static func restore_everything() -> bool:
+    _load()
+    var previous_pack: String = _active_pack_id
+    var saved: Dictionary = {}
+    if _config.has_section("overrides"):
+        for target in _config.get_section_keys("overrides"):
+            saved[str(target)] = str(_config.get_value("overrides", target, ""))
+        _config.erase_section("overrides")
+    _config.set_value("packs", "active", "original")
+    if _config.save(SETTINGS) != OK:
+        _config.set_value("packs", "active", previous_pack)
+        for target in saved.keys():
+            _config.set_value("overrides", target, saved[target])
+        return false
+    _active_pack_id = "original"
+    _cache.clear()
+    _revision += 1
+    for path in saved.values():
+        var location: String = str(path)
+        if location.begins_with(ASSET_DIR + "/") and not location.contains(".."):
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(location))
+    return true

@@ -6,6 +6,7 @@ signal encounter_requested()
 const Actor = preload("res://scripts/first_act_actor.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
+const StoryDressing = preload("res://scripts/world_story_dressing.gd")
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
@@ -265,6 +266,13 @@ func _make_tiles() -> void:
             source_id = 1
             atlas = Vector2i(atlas.x,2)
         layer.set_cell(tile,source_id,atlas)
+    # Renderable 32px cinematic ground details from 40 individual story plans.
+    # No tile/collision replacement. C DLC overrides still resolve via TilePool.
+    if outside:
+        var narrative_layer := StoryDressing.new()
+        narrative_layer.name = "StoryMapDressing"
+        root.add_child(narrative_layer)
+        narrative_layer.configure(map_id, terrain_layout, visual_quality)
 
 func _decorate() -> void:
     if not interior_building.is_empty():

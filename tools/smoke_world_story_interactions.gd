@@ -39,8 +39,15 @@ func _check() -> void:
     var restored = State.new()
     check(restored.load_saved(),"Puzzle flags could not restore")
     check(bool(restored.flags.get("map.map_coast_04.chest_claimed",false)),"Dungeon chest was not persisted")
-    game._open_world_map_from_book()
-    check(game.atlas.is_open() and game.atlas.full_view.mode=="world","World map cannot be opened from journal menu")
+    # Legacy global atlas was removed by product decision. The same journal
+    # action must open ONLY the current fully visible local area and must not
+    # unlock any additional area or route.
+    var before_map_view: Dictionary=game.progress._pack().duplicate(true)
+    game._open_local_map_from_book()
+    check(game.atlas.is_open() and game.atlas.full_view.mode=="local",
+        "Journal should open the fog-free current-area map, never a world atlas")
+    check(game.progress._pack()==before_map_view,
+        "Viewing the local map modified the saved world or discovery flags")
     game.atlas.close_map()
     var state = State.new()
     state.chapter=3
@@ -56,7 +63,7 @@ func _check() -> void:
     check(not route.can_travel("map_coast_01"),"Map route display bypassed one-leg travel gate")
     check(route.shortest_route("map_coast_04").is_empty(),"Locked future dungeon received a traversable route")
     if errors.is_empty():
-        print("PASS: authored cave puzzle, one-time reward, persisted switches, journal world map and multi-leg gated route planning")
+        print("PASS: authored cave puzzle, one-time reward, persisted switches, fog-free local journal map and multi-leg gated route planning")
         quit(0)
     else:
         for error in errors:

@@ -456,7 +456,23 @@ func _reconcile_town_dressing(ground: Dictionary,walls: Dictionary,
         reserved[story_cell] = true
     var kept: Array[Dictionary] = []
     var extent: Vector2i = Vector2i(map_width,map_height)
-    var layout: Dictionary = {"blocked":walls,"size":extent}
+    # Compute connectivity once, not a full BFS for every possible prop cell.
+    var walkable: Dictionary = {}
+    if not walls.has(spawn):
+        var frontier: Array[Vector2i] = [spawn]
+        walkable[spawn] = true
+        var cursor: int = 0
+        while cursor<frontier.size():
+            var current: Vector2i=frontier[cursor]
+            cursor+=1
+            for delta in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+                var neighbor: Vector2i=current+delta
+                if neighbor.x<2 or neighbor.y<2 or neighbor.x>=extent.x-2 or neighbor.y>=extent.y-2:
+                    continue
+                if walls.has(neighbor) or walkable.has(neighbor):
+                    continue
+                walkable[neighbor]=true
+                frontier.append(neighbor)
     for feature in features:
         if not bool(feature.get("town_dressing",false)):
             kept.append(feature)
@@ -478,9 +494,10 @@ func _reconcile_town_dressing(ground: Dictionary,walls: Dictionary,
                     if walls.has(cell) or reserved.has(cell) or _inside_town_building(cell,spec):
                         continue
                     # Do not decorate over cliffs, water or unreachable islands.
-                    if (ground.get(cell,Vector2i(0,6)) as Vector2i).y==6:
+                    var ground_tile: Vector2i=ground.get(cell,Vector2i(0,6))
+                    if ground_tile.y==6:
                         continue
-                    if reachable(layout,[spawn],[cell]):
+                    if walkable.has(cell):
                         selected=cell
                         break
         if selected.x<0:

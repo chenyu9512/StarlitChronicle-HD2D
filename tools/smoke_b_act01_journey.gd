@@ -95,12 +95,15 @@ func _run() -> void:
         "Act-II chapter accepted by an Act-I-only route adviser")
     check(journey.preview(4,"map_coast_05",missing).get("reason","")=="chapter_mismatch",
         "Spoofed future chapter offered a route before the save reached it")
+    check(missing._pack()==before_missing,
+        "Spoofed chapter hint changed the save")
     missing.chapter=4
+    var before_stranger: Dictionary=missing._pack().duplicate(true)
     var stranger: Dictionary=journey.preview(4,"map_coast_05",missing)
     check(stranger.get("blocked_reason","")=="outside_authored_route",
         "An off-route location offered an unsafe teleport")
-    check(missing._pack()==before_missing,
-        "Invalid route changed the save")
+    check(missing._pack()==before_stranger,
+        "Invalid off-route hint changed the save")
     if failures.is_empty():
         print("PASS B Act-I: six physical chapter routes, pure guidance, chapter-3 lock, no teleport or skip")
         quit(0)

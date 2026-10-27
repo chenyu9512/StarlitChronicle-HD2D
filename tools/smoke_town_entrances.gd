@@ -47,6 +47,7 @@ func _run() -> void:
             var door:=Vector2i(int(door_data[0]),int(door_data[1]))
             var threshold: Vector2i=door+Vector2i.DOWN
             var inside:=geo._building_box(building)
+            check(inside.size.x==dims.x and inside.size.y==dims.y+1,map_id+"/"+id+" phantom width")
             for yy in range(inside.position.y,inside.end.y):
                 for xx in range(inside.position.x,inside.end.x):
                     check(blockers.has(Vector2i(xx,yy)),map_id+"/"+id+" ghost collision at "+str(Vector2i(xx,yy)))
@@ -100,6 +101,15 @@ func _run() -> void:
     world.hero.position=position_before
     check(world.enter_building(entry_key),"Inn interior transition failed")
     check(world.interior_building==entry_key,"Interior ID mismatch")
+    check(world.nodes.has("interior_exit"),"Room exit marker is absent")
+    if world.nodes.has("interior_exit"):
+        var marker_exit: Node2D=world.nodes["interior_exit"]
+        check(marker_exit.visible and marker_exit.has_node("ReturnToExteriorLabel"),"Room exit is not signposted")
+        check(not world._blocked(marker_exit.position),"Room exit blocked")
+        world.hero.position=marker_exit.position
+        selected=""
+        world.interact()
+        check(selected=="interior_exit","Return interaction did not select exit")
     check(world.leave_building(),"Inn exit transition failed")
     check(world.hero.position.distance_to(position_before)<1.0,"Exit did not restore front-door checkpoint")
     check(not world._blocked(world.hero.position),"Inn exit restored player into a wall")

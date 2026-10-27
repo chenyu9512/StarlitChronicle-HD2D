@@ -31,6 +31,10 @@ def main():
             errors.append(f"{map_id}: stable first-act discovery/receipt IDs changed")
         if [e["require"] for e in scene] != ["", "trace", "mechanism"]:
             errors.append(f"{map_id}: player can bypass discovery prerequisites")
+        decorated = {tuple(node["cell"]) for node in level.get("expansion_nodes", [])}
+        for event in scene:
+            if tuple(event["cell"]) in decorated:
+                errors.append(f"{map_id}/{event['id']}: click target overlaps environmental art")
         if any(e["reward"] is not None for e in scene[:2]):
             errors.append(f"{map_id}: a clue grants an unexpected reward")
         if not isinstance(scene[2]["reward"], dict):

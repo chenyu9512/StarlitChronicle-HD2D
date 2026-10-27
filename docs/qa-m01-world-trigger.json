@@ -1,6 +1,6 @@
 {
   "schema": "starlit.qa.m01-world.v1",
-  "requested_parent_sha": "878900cc2d33aa126592313c5123c4635c198724",
+  "requested_parent_sha": "18864450e59f339381d2bb4f5508d5462e5605f5",
   "engine": "4.7.2",
   "tests": [
     "tools/smoke_town_direction_v4.gd",
@@ -12,6 +12,6 @@
   ],
   "scope": "Plaza outside roof; authored editor overlays; real house service sign; all 68 thresholds and 40 map exits",
   "status": "requested-not-verified",
-  "version": 10,
-  "rerun_reason": "Run 6 actual Godot 4.7.2 targeted regressions: canonical 40 gate road alignment, all 68 building widths and doors, all 99 V4 interior exit geometries and 8 real input-enter-return paths."
+  "version": 11,
+  "rerun_reason": "Retry after Godot editor cold import aborted with glibc double free during CSV reimport, before the six geometry assertions ran; do not relax any tests."
 }

@@ -2,7 +2,7 @@
 
 日期：2026-10-27  
 分支：`Main2美术优化版`  
-保护边界：`main` **只读，不进行任何美术删除或合并**。
+保护边界：`main` **只读，不进行任何美术删除或合并**。注意 GitHub 分支元数据目前显示 `main` 的 `protected=false`，因此这里的“只读”是本次操作约束，**不是 GitHub 平台已生效的分支保护规则**。
 
 ## 核查范围与事实
 
@@ -43,6 +43,7 @@
 3. `assets/art/runtime/manifest.json`：101个旧槽均补充真实第三方路径，并更正旧版错误的“保留原路径直接加载”声明。
 4. `data/assets/c_act01_semantic_rematch_v11.json`：新增完整六章、五地图、125个地图运行槽的源/目标/语义风险台账。
 5. `tools/audit_act01_third_party_art.py`：增加静态资源存在性、重定向一致性、PNG文件头与部分32px图集几何检查，且 `--require-commercial` 在所有未完成验收前应拒绝放行。
+6. `scripts/world_terrain_atlas_registry.gd`：历史地形路径已退役时也通过第三方映射检查源文件，避免一律因旧路径不存在而选择默认地形；这**不代表图集UV、切片、碰撞或水体映射已验收**。
 
 ## 测试（状态只写成功或未测试）
 

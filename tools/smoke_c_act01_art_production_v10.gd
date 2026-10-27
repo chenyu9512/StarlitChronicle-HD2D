@@ -31,8 +31,8 @@ func _run() -> void:
     check(Overrides.has_slot("res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg"),
         "Lighthouse not exposed to global DLC / gallery")
     for i in range(2,7):
-        check(ResourceLoader.exists(str(Art.chapter_bundle(i).get("boss_phase_overlay",""))),
-            "Chapter boss phase art missing: "+str(i))
+        check(Overrides.texture(str(Art.chapter_bundle(i).get("boss_phase_overlay",""))) != null,
+            "Chapter boss phase art missing after third-party remapping: "+str(i))
     check(Art.sprite_path("map_coast_05","tide_lighthouse_landmark")=="res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
         "Lighthouse artwork not registered")
     var layout: Dictionary=geography.layout("map_coast_05",6)

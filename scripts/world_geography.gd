@@ -279,6 +279,7 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
     var current_order: int = sequence.find(str(current_parts[1]))*5+int(current_parts[2])
     var main_roads: Array = authored_level.get("roads",[])
     var spine: Array = (main_roads[0] as Dictionary).get("points",[]) if not main_roads.is_empty() else []
+    var occupied_gate_cells: Dictionary = {}
     for i in range(names.size()):
         var destination: String = str(names[i])
         var parts: PackedStringArray = destination.split("_")
@@ -288,6 +289,19 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             spine[-1] if not spine.is_empty() else [36,24])
         var road_y: int = clampi(int(endpoint[1]),6,map_height-7)
         var gate: Vector2i = Vector2i(4 if western else map_width-5,road_y)
+        # Neighbor lists with multiple routes on the same side used to stack
+        # two exits at one position. Preserve the first authored-road anchor,
+        # then stagger additional gates into real, separate roadside tiles.
+        for shift in [0,8,-8,16,-16,24,-24,32,-32]:
+            var y_candidate: int = clampi(road_y+shift,6,map_height-7)
+            var distinct: Vector2i = Vector2i(gate.x,y_candidate)
+            if not occupied_gate_cells.has(distinct):
+                gate = distinct
+                break
+        if occupied_gate_cells.has(gate):
+            push_error("No unique travel gate for "+map_id+" -> "+destination)
+            continue
+        occupied_gate_cells[gate] = true
         # Build into the canonical live route. Final roof collision/seal and
         # the route regression still have authority over wall integrity.
         _road(terrain,walls,start,gate,seed+i,1)

@@ -325,6 +325,9 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         # LAST physical authority: roads, quests, gates and expansion passes
         # must never drill invisible holes through a house facade.
         _seal_town_buildings(terrain,walls,spec,start)
+        # Urban dressing was positioned before roofs and author overrides. A
+        # visual prop may not remain embedded in the FINAL collision layout.
+        _reconcile_town_dressing(terrain,walls,features,spec,start)
     var wet: Dictionary = {}
     if not authored_level.is_empty():
         wet = authored.open_water_tiles(authored_level,walls)
@@ -432,6 +435,64 @@ func _seal_town_buildings(ground: Dictionary,walls: Dictionary,spec: Dictionary,
         for cell in link:
             if not roofs.has(cell):
                 _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),3),false)
+
+## Relocate only cosmetic civic set dressing after final roof collision.
+## Never move quest markers, homes, doors or story interaction geometry.
+## The original plan remains authoritative; nearest reachable pavement wins.
+func _reconcile_town_dressing(ground: Dictionary,walls: Dictionary,
+        features: Array[Dictionary],spec: Dictionary,spawn: Vector2i) -> void:
+    var reserved: Dictionary = {}
+    for feature in features:
+        if not bool(feature.get("town_dressing",false)):
+            reserved[feature.get("cell",Vector2i(-1,-1))] = true
+    for raw in spec.get("buildings",[]):
+        var door: Array = raw.get("door",[])
+        if door.size()!=2:
+            continue
+        var step: Vector2i = Vector2i(int(door[0]),int(door[1])+1)
+        reserved[step] = true
+        reserved[step+Vector2i.DOWN] = true
+    for story_cell in _anchors():
+        reserved[story_cell] = true
+    var kept: Array[Dictionary] = []
+    var extent: Vector2i = Vector2i(map_width,map_height)
+    var layout: Dictionary = {"blocked":walls,"size":extent}
+    for feature in features:
+        if not bool(feature.get("town_dressing",false)):
+            kept.append(feature)
+            continue
+        var desired: Vector2i = feature.get("cell",Vector2i(-1,-1))
+        var selected: Vector2i = Vector2i(-1,-1)
+        for radius in range(9):
+            if selected.x>=0:
+                break
+            for y in range(-radius,radius+1):
+                if selected.x>=0:
+                    break
+                for x in range(-radius,radius+1):
+                    if absi(x)+absi(y)!=radius:
+                        continue
+                    var cell: Vector2i=desired+Vector2i(x,y)
+                    if cell.x<3 or cell.y<3 or cell.x>=map_width-3 or cell.y>=map_height-3:
+                        continue
+                    if walls.has(cell) or reserved.has(cell) or _inside_town_building(cell,spec):
+                        continue
+                    # Do not decorate over cliffs, water or unreachable islands.
+                    if (ground.get(cell,Vector2i(0,6)) as Vector2i).y==6:
+                        continue
+                    if reachable(layout,[spawn],[cell]):
+                        selected=cell
+                        break
+        if selected.x<0:
+            push_warning("Town decorative item has no safe pavement: "+str(feature.get("name","")))
+            continue
+        var updated: Dictionary=feature.duplicate(true)
+        updated["cell"]=selected
+        kept.append(updated)
+        reserved[selected]=true
+    features.clear()
+    features.append_array(kept)
+
 
 func interior(building: String,building_kind: String,map_id: String = "") -> Dictionary:
     map_width = WIDTH

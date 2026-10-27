@@ -52,7 +52,9 @@ static func _load() -> void:
             _catalog["count"] = (_catalog["assets"] as Array).size()
     _read_pack_index(PACK_INDEX)
     _read_pack_index(USER_PACK_INDEX)
-    _active_pack_id = str(_config.get_value("packs", "active", "original"))
+    # Later uploaded user art is the default for fresh installations.
+    # An explicitly chosen local theme remains untouched.
+    _active_pack_id = str(_config.get_value("packs", "active", "uploaded_later_v1"))
     if _active_pack_id != "original" and not _packs.has(_active_pack_id):
         _active_pack_id = "original"
 
@@ -145,6 +147,15 @@ static func texture(path: String) -> Texture2D:
                     var slot: Dictionary = _entries[path]
                     var ratio_ok: bool = expected.y > 0 and actual.y > 0 and absf(float(actual.x) / float(actual.y) / (float(expected.x) / float(expected.y)) - 1.0) <= 0.12
                     if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok):
+                        # This batch contains 32px user-uploaded pixel props mapped
+                        # onto some historical 96px Sprite2D slots. Scale the image
+                        # itself with nearest-neighbor sampling: never alter geometry,
+                        # collisions, animation atlases, or any other DLC pack.
+                        if _active_pack_id == "uploaded_later_v1" and not bool(slot.get("atlas", false)) and actual != expected:
+                            var sampled: Image = proposed.get_image()
+                            if sampled != null and not sampled.is_empty():
+                                sampled.resize(expected.x, expected.y, Image.INTERPOLATE_NEAREST)
+                                proposed = ImageTexture.create_from_image(sampled)
                         _cache[path] = proposed
                         if candidate.begins_with(PACK_ROOT + "/"):
                             _shared_pack_images[candidate] = proposed

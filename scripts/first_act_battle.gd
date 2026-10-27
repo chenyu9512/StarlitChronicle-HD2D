@@ -16,6 +16,7 @@ const BattleCamera = preload("res://scripts/battle_camera.gd")
 const BattleHud = preload("res://scripts/battle_hud.gd")
 const BossAwakening = preload("res://scripts/battle_boss_awakening.gd")
 const C23FogTideBodyMotion = preload("res://scripts/c_b03_fog_tide_body_motion.gd")
+const C23OtherBossMotion = preload("res://scripts/c_b03_other_boss_motion.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -269,9 +270,12 @@ func _build() -> void:
     portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     root.add_child(portrait)
     c23_boss_body_motion = null
-    if boss and chapter == 2:
-        c23_boss_body_motion = C23FogTideBodyMotion.new()
-        c23_boss_body_motion.name = "C23FogTideBodyMotion"
+    if boss and chapter >= 2 and chapter <= 6:
+        if chapter == 2:
+            c23_boss_body_motion = C23FogTideBodyMotion.new()
+        else:
+            c23_boss_body_motion = C23OtherBossMotion.new()
+        c23_boss_body_motion.name = "C23BossBodyMotion_%d" % chapter
         root.add_child(c23_boss_body_motion)
         c23_boss_body_motion.configure(portrait,chapter,bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
     if boss:
@@ -1042,6 +1046,8 @@ func _telegraph_next_boss_action() -> void:
         return
     last_warning_round = current_round
     last_warning_text = name
+    if is_instance_valid(c23_boss_body_motion):
+        c23_boss_body_motion.play_charge()
     vfx.play_warning(_vfx_foe_point(),name)
     if is_instance_valid(battle_hud):
         battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,last_warning_text)
@@ -1106,7 +1112,7 @@ func _finish(victory: bool) -> void:
     if win_locked:
         return
     win_locked = true
-    if victory and is_instance_valid(c23_boss_body_motion) and chapter == 2:
+    if victory and boss and is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_defeat()
     for item in commands.get_children():
         if item is Button:

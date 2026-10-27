@@ -19,12 +19,16 @@ var frame_index: int = 0
 var reduced_motion: bool = false
 var enabled: bool = false
 var queued_phase: bool = false
+var permitted_chapter: int = 2
+var art_directory: String = DIRECTORY
+var shader_path: String = SHADER_PATH
+var effect_label: String = "C23AuthoredFogAppendages"
 
 func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) -> bool:
     enabled = false
-    if chapter != 2 or not is_instance_valid(target) or target.texture == null:
+    if chapter != permitted_chapter or not is_instance_valid(target) or target.texture == null:
         return false
-    if not ResourceLoader.exists(SHADER_PATH):
+    if not ResourceLoader.exists(shader_path):
         return false
     portrait = target
     reduced_motion = motion_reduced
@@ -32,13 +36,13 @@ func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) 
     # Respect any externally-authored material instead of overwriting a DLC effect.
     if original_material != null:
         return false
-    var shader: Shader = load(SHADER_PATH) as Shader
+    var shader: Shader = load(shader_path) as Shader
     if shader == null:
         return false
     var imported: Dictionary = {}
     for pose in STATES.keys():
         var count: int = int(STATES[pose])
-        var path: String = DIRECTORY + pose + "_" + str(count) + "f.svg"
+        var path: String = art_directory + pose + "_" + str(count) + "f.svg"
         if not ResourceLoader.exists(path):
             return false
         var texture: Texture2D = load(path) as Texture2D
@@ -50,7 +54,7 @@ func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) 
     shader_material.shader = shader
     portrait.material = shader_material
     effect = Sprite2D.new()
-    effect.name = "C23AuthoredFogAppendages"
+    effect.name = effect_label
     effect.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
     atlas = AtlasTexture.new()
     atlas.atlas = sheets["idle"]

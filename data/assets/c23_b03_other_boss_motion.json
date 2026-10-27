@@ -1,0 +1,159 @@
+{
+  "schema": "starlit.c_b03_multi_boss_motion.v1",
+  "date": "2026-10-27",
+  "chapter_scope": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "tech": "source_preserving_b03_shader_deformation_plus_chapter_original_illustrated_state_overlays",
+  "high_resolution_portrait_replaced": false,
+  "execution": "first_act_battle.gd boss==true and 3<=chapter<=6; only single-boss portrait visible",
+  "rig": "scripts/c_b03_other_boss_motion.gd",
+  "shader": "assets/shaders/c23_b03_chapter_body_warp.gdshader",
+  "chapters": [
+    {
+      "chapter": 3,
+      "boss_id": "boss.ch003",
+      "boss_name": "潮痕守卫",
+      "source": "res://assets/art/b03/boss_final_render/ch003_tidemark_sentinel_battle_768.png",
+      "state_sheets": [
+        {
+          "state": "idle",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch003/idle_4f.svg"
+        },
+        {
+          "state": "charge",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch003/charge_6f.svg"
+        },
+        {
+          "state": "attack",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch003/attack_6f.svg"
+        },
+        {
+          "state": "hit",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch003/hit_4f.svg"
+        },
+        {
+          "state": "defeat",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch003/defeat_6f.svg"
+        }
+      ],
+      "chapter5_release_nonlethal": false
+    },
+    {
+      "chapter": 4,
+      "boss_id": "boss.ch004",
+      "boss_name": "灰帷水手",
+      "source": "res://assets/art/b03/boss_final_render/ch004_ashveil_sailor_battle_768.png",
+      "state_sheets": [
+        {
+          "state": "idle",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch004/idle_4f.svg"
+        },
+        {
+          "state": "charge",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch004/charge_6f.svg"
+        },
+        {
+          "state": "attack",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch004/attack_6f.svg"
+        },
+        {
+          "state": "hit",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch004/hit_4f.svg"
+        },
+        {
+          "state": "defeat",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch004/defeat_6f.svg"
+        }
+      ],
+      "chapter5_release_nonlethal": false
+    },
+    {
+      "chapter": 5,
+      "boss_id": "boss.ch005",
+      "boss_name": "缚潮古兽",
+      "source": "res://assets/art/b03/boss_final_render/ch005_bound_tide_beast_battle_768.png",
+      "state_sheets": [
+        {
+          "state": "idle",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch005/idle_4f.svg"
+        },
+        {
+          "state": "charge",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch005/charge_6f.svg"
+        },
+        {
+          "state": "attack",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch005/attack_6f.svg"
+        },
+        {
+          "state": "hit",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch005/hit_4f.svg"
+        },
+        {
+          "state": "defeat",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch005/defeat_6f.svg"
+        }
+      ],
+      "chapter5_release_nonlethal": true
+    },
+    {
+      "chapter": 6,
+      "boss_id": "boss.ch006",
+      "boss_name": "潮歌守门人",
+      "source": "res://assets/art/b03/boss_final_render/ch006_tidesong_gatekeeper_battle_768.png",
+      "state_sheets": [
+        {
+          "state": "idle",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch006/idle_4f.svg"
+        },
+        {
+          "state": "charge",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch006/charge_6f.svg"
+        },
+        {
+          "state": "attack",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch006/attack_6f.svg"
+        },
+        {
+          "state": "hit",
+          "frames": 4,
+          "file": "res://assets/art/b03/boss_motion/c23_ch006/hit_4f.svg"
+        },
+        {
+          "state": "defeat",
+          "frames": 6,
+          "file": "res://assets/art/b03/boss_motion/c23_ch006/defeat_6f.svg"
+        }
+      ],
+      "chapter5_release_nonlethal": false
+    }
+  ],
+  "qa": {
+    "static_svg": "success",
+    "Godot": "not_tested",
+    "real_combat": "not_tested",
+    "motion_identity": "not_tested"
+  }
+}

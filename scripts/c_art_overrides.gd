@@ -14,6 +14,8 @@ static var _catalog: Dictionary = {}
 static var _entries: Dictionary = {}
 static var _config: ConfigFile
 static var _cache: Dictionary = {}
+## Many regional targets can resolve to one imported image. Reuse the exact Texture2D.
+static var _shared_pack_images: Dictionary = {}
 static var _revision: int = 0
 static var _packs: Dictionary = {}
 static var _active_pack_id: String = "original"
@@ -113,9 +115,12 @@ static func texture(path: String) -> Texture2D:
                 if candidate.begins_with("res://assets/art/"):
                     proposed = original_texture(candidate)
                 elif candidate.begins_with(PACK_ROOT + "/") and not candidate.contains(".."):
-                    var image := Image.new()
-                    if image.load(candidate) == OK and not image.is_empty():
-                        proposed = ImageTexture.create_from_image(image)
+                    if _shared_pack_images.has(candidate):
+                        proposed = _shared_pack_images[candidate] as Texture2D
+                    else:
+                        var image := Image.new()
+                        if image.load(candidate) == OK and not image.is_empty():
+                            proposed = ImageTexture.create_from_image(image)
                 var baseline: Texture2D = original_texture(path)
                 if proposed != null and baseline != null:
                     var expected: Vector2i = Vector2i(baseline.get_size())
@@ -124,6 +129,8 @@ static func texture(path: String) -> Texture2D:
                     var ratio_ok: bool = expected.y > 0 and actual.y > 0 and absf(float(actual.x) / float(actual.y) / (float(expected.x) / float(expected.y)) - 1.0) <= 0.12
                     if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok):
                         _cache[path] = proposed
+                        if candidate.begins_with(PACK_ROOT + "/"):
+                            _shared_pack_images[candidate] = proposed
                         return proposed
     return original_texture(path)
 
@@ -327,6 +334,7 @@ static func activate_pack(id: String) -> bool:
         return false
     _active_pack_id = id
     _cache.clear()
+    _shared_pack_images.clear()
     _revision += 1
     return true
 
@@ -497,6 +505,7 @@ static func uninstall_pack(id: String) -> bool:
             DirAccess.remove_absolute(ProjectSettings.globalize_path(source))
     _packs.erase(id)
     _cache.clear()
+    _shared_pack_images.clear()
     _revision += 1
     return true
 
@@ -518,6 +527,7 @@ static func restore_everything() -> bool:
         return false
     _active_pack_id = "original"
     _cache.clear()
+    _shared_pack_images.clear()
     _revision += 1
     for path in saved.values():
         var location: String = str(path)

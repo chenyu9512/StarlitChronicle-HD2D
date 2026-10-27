@@ -99,13 +99,12 @@ func preview(chapter: int,current_map: String,state) -> Dictionary:
     }
     if position<0:
         outcome["blocked_reason"]="outside_authored_route"
-        outcome["guidance"]="本章需要沿已发现的道路前往%s；先返回%s附近寻找路标。" % [
-            outcome["story_location"],str(sectors.get(stages[0],{}).get("name",stages[0]))]
+        outcome["guidance"]=str(info.get("route_guidance",
+            "沿已发现的道路前往"+str(outcome["story_location"])))
         return outcome
     if position==stages.size()-1:
-        outcome["guidance"]="已到达%s。%s" % [outcome["story_location"],
-            ("寻找建筑入口并调查事件线索。" if not building.is_empty()
-                else "沿场景实际道路接近调查对象，推进剧情。")]
+        outcome["guidance"]=str(info.get("arrived_guidance",
+            "已到达"+str(outcome["story_location"])+"，请沿实际道路接近调查对象。"))
         return outcome
     var next_map: String=stages[position+1]
     outcome["next_map_id"]=next_map
@@ -117,8 +116,9 @@ func preview(chapter: int,current_map: String,state) -> Dictionary:
     outcome["can_take_next_leg"]=permitted
     if not permitted:
         outcome["blocked_reason"]="chapter_gate" if first_chapter>chapter else "not_discovered"
-        outcome["guidance"]="当前主线通往%s，但下一处地区尚未由正式剧情解锁；不可使用地图菜单跳关。" % outcome["story_location"]
+        outcome["guidance"]=str(info.get("locked_guidance",
+            "通往"+str(outcome["story_location"])+"的道路尚未开放。"))
     else:
-        outcome["guidance"]="前往%s：先经当前区域的正式出口到%s，沿道路继续探索。" % [
-            outcome["story_location"],str(sectors[next_map].get("name",next_map))]
+        outcome["guidance"]=str(info.get("route_guidance",
+            "沿实际道路前往"+str(outcome["story_location"]))) + "\n下一站：" + str(sectors[next_map].get("name",next_map))
     return outcome

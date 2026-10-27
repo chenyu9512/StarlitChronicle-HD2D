@@ -10,6 +10,7 @@ const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_se
 const NPCV3Contact = preload("res://scripts/d_world_interaction/npc_v3_contact.gd")
 const V3ProgressTransition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
 const WorldObjectSettlement = preload("res://scripts/d_world_interaction/world_object_settlement.gd")
+const WorldHomeInteractions = preload("res://scripts/world_home_interactions.gd")
 const RegionalServiceSettlement = preload("res://scripts/d_world_interaction/service_v3_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
@@ -49,6 +50,7 @@ var housing_room
 var optional_director
 var branch_runtime
 var evidence_puzzles = EvidencePuzzles.new()
+var room_investigations = WorldHomeInteractions.new()
 var active_puzzle_quest: String = ""
 var story_world_bindings
 var service_menu
@@ -699,6 +701,33 @@ func _interact(target: String) -> void:
             _focus()
             ui.show_message("返回 " + world.region_name() + "。")
         return
+    if target.begins_with("homeinspect:"):
+        # No synthetic dialogue markers: the selected hotspot must belong to
+        # this exact V4 room and be within actual player interaction distance.
+        if world.interior_building.is_empty() or world.interior_building.begins_with("quest__") or not world.nodes.has(target):
+            return
+        var room_marker: Node2D = world.nodes[target]
+        if not is_instance_valid(room_marker) or not room_marker.visible or not is_instance_valid(world.hero) or world.hero.position.distance_to(room_marker.position)>45.0:
+            return
+        var inspected_id: String = target.trim_prefix("homeinspect:")
+        var inspected_map: String = world_router.current_map()
+        var inspected_building: String = world.interior_building
+        if not bool(room_investigations.preview(inspected_map,inspected_building,inspected_id,progress).get("available",false)):
+            ui.show_message("此处尚没有可调查的线索。")
+            return
+        _capture_world_position()
+        var inspection_tx: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+            var report: Dictionary = room_investigations.inspect(
+                inspected_map,inspected_building,inspected_id,progress,false)
+            return {"ok":true,"changed":bool(report.get("changed",false)),"result":report}
+        )
+        if not bool(inspection_tx.get("ok",false)):
+            ui.show_message("室内调查记录保存失败，调查状态已回滚，请重试。")
+            return
+        var inspection_report: Dictionary = (inspection_tx.get("outcome",{}) as Dictionary).get("result",{})
+        _focus()
+        ui.show_message(str(inspection_report.get("message","这里没有新的线索。")))
+        return
     if target == "interior_service":
         _open_regional_service()
         return
@@ -771,10 +800,18 @@ func _interact(target: String) -> void:
         if progress.gold < 16:
             ui.show_message("盐露草售价 16 G，金币不足。")
         else:
-            progress.gold -= 16
-            game_core.add_item("item_herb_01",1)
-            _save_progress()
-            ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
+            _capture_world_position()
+            var purchase: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+                if progress.gold < 16:
+                    return {"ok":false,"reason":"insufficient_gold"}
+                progress.gold -= 16
+                game_core.add_item("item_herb_01",1)
+                return {"ok":true,"changed":true}
+            )
+            if bool(purchase.get("ok",false)):
+                ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
+            else:
+                ui.show_message("商店结算保存失败，金币和药草已恢复，请重试。")
         _focus()
         return
     if target.begins_with("side_"):
@@ -1882,9 +1919,16 @@ func _use_potion() -> void:
     if who < 0:
         ui.show_message("队员生命已经全满。")
         return
-    progress.heal_member(who, 65)
-    game_core.take_item("item_herb_01", 1)
-    _save_progress()
+    _capture_world_position()
+    var herb_tx: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+        if not game_core.take_item("item_herb_01",1):
+            return {"ok":false,"reason":"missing_herb"}
+        if not progress.heal_member(who,65):
+            return {"ok":false,"reason":"no_healing_needed"}
+        return {"ok":true,"changed":true}
+    )
+    if not bool(herb_tx.get("ok",false)):
+        ui.show_message("药草使用记录未保存，治疗和消耗已回滚。")
     ui.show_menu(progress.actors, progress.gold, progress.potions)
     _focus()
 
@@ -1892,10 +1936,20 @@ func _rest() -> void:
     if progress.gold < 30:
         ui.show_message("需要30 G才能休息。")
         return
-    progress.gold -= 30
-    game_events.advance_time(480)
-    progress.heal_all()
-    _save_progress()
+    _capture_world_position()
+    var inn_tx: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+        if progress.gold < 30:
+            return {"ok":false,"reason":"insufficient_gold"}
+        progress.gold -= 30
+        game_events.advance_time(480)
+        progress.heal_all()
+        return {"ok":true,"changed":true}
+    )
+    if not bool(inn_tx.get("ok",false)):
+        ui.show_message("旅馆结算未保存，金币、时间和HP/MP均已回滚。")
+        return
+    world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),
+        int(progress.rpg.get("game_clock",{}).get("minutes",480)))
     ui.show_message("全队休息完毕，HP/MP完全恢复。")
     _focus()
 

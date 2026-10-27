@@ -38,7 +38,7 @@ func _apply_light_state() -> void:
         lamp.energy = 0.42 * intensity
 
 func _install_lamp(at: Vector2) -> void:
-    if active_lights.size() >= 3 or not ResourceLoader.exists(LAMP_ART):
+    if active_lights.size() >= 3 or not ArtOverrides.exists(LAMP_ART):
         return
     var glow: Texture2D = ArtOverrides.texture(LAMP_ART)
     if glow == null:

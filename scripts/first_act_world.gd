@@ -213,7 +213,7 @@ func _party_sprite(position: int, fallback: String) -> String:
     var id: String = str(party_ids[position]) if position < party_ids.size() else ""
     var suffix: String = str(characters.get(id,fallback))
     var name: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % suffix
-    return name if ResourceLoader.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
+    return name if CArtOverrides.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
 
 func _make_tiles() -> void:
     # Map geometry (including roads, water and collision) stays authored per map;
@@ -232,7 +232,7 @@ func _make_tiles() -> void:
     var outside: bool = interior_building.is_empty()
     var map_id: String = str(map_profile.get("id",""))
     var atlas_sources: Array[String] = TerrainAtlas.atlas_sources(region,map_id,chosen_atlas,outside)
-    var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas))
+    var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and CArtOverrides.exists(chosen_atlas))
     var regional_art: bool = TerrainAtlas.is_regional(region)
     var tile_set: TileSet=TilePool.shared(atlas_sources)
     if tile_set == null:
@@ -400,7 +400,7 @@ func _install_coastal_scenery() -> void:
 
 func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind
-    if not ResourceLoader.exists(path):
+    if not CArtOverrides.exists(path):
         path = "res://assets/art/props/coast/rock.png"
     var sprite := Sprite2D.new()
     sprite.texture = CArtOverrides.texture(path)
@@ -652,6 +652,18 @@ func _build_sites() -> void:
             # replaces its old beacon/barrel pictogram at the same anchor.
             nodes["interior_service"].modulate.a = 0.0
             nodes["interior_storage"].modulate.a = 0.0
+        # V4 authored investigations become physical, selectable room objects.
+        # Preserve original V4 IDs and never invent an interaction over a wall.
+        for authored_inspection in terrain_layout.get("investigations",[]):
+            if not (authored_inspection is Dictionary):
+                continue
+            var inspection_id: String = str(authored_inspection.get("id",""))
+            var inspection_cell: Vector2i = authored_inspection.get("cell",Vector2i(-1,-1))
+            if inspection_id.is_empty() or inspection_cell.x<0 or blocked.has(inspection_cell):
+                continue
+            var inspection_marker: Sprite2D = _add_sprite("sea_crystal",inspection_cell,false,true)
+            inspection_marker.set_meta("site_name",str(authored_inspection.get("name","室内线索")))
+            nodes["homeinspect:"+inspection_id] = inspection_marker
         return
     var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))
     if archetype == "dungeon":
@@ -952,7 +964,7 @@ func sync_story_world_markers(binder,core,runtime,tracked_id: String = "") -> Di
                     var task_evidence: Dictionary = scene_director.dossier(original_id)
                     var prop_kind: String = "sign" if stage!=1 else str(task_evidence.get("evidence_prop","sea_crystal"))
                     var prop_path: String = "res://assets/art/props/coast/"+prop_kind+".png"
-                    if ResourceLoader.exists(prop_path):
+                    if CArtOverrides.exists(prop_path):
                         (nodes[stage_key] as Sprite2D).texture=CArtOverrides.texture(prop_path)
                         nodes[stage_key].set_meta("quest_evidence_type",prop_kind)
                     var task_label: Label = nodes[stage_key].get_node_or_null("QuestSpecificLocation")
@@ -1166,7 +1178,7 @@ func sync_world_clock(day_number: int,minutes: int) -> void:
 
 func _make_focus_marker() -> void:
     focus_light = Sprite2D.new()
-    focus_light.texture = load("res://assets/fx/glow.png")
+    focus_light.texture = CArtOverrides.texture("res://assets/fx/glow.png")
     focus_light.scale = Vector2(1.1, 1.1)
     focus_light.modulate = Color(1, 0.76, 0.22, 0.75)
     focus_light.z_index = 15
@@ -1180,7 +1192,7 @@ func _make_focus_marker() -> void:
     focus_label.z_index = 20
     root.add_child(focus_label)
     side_light = Sprite2D.new()
-    side_light.texture = load("res://assets/fx/glow.png")
+    side_light.texture = CArtOverrides.texture("res://assets/fx/glow.png")
     side_light.modulate = Color(0.38, 0.90, 1.0, 0.67)
     side_light.scale = Vector2(0.85, 0.85)
     side_light.z_index = 13
@@ -1277,6 +1289,24 @@ func interact() -> void:
         var exit_node: Node2D=nodes["interior_exit"]
         if is_instance_valid(exit_node) and hero.position.distance_to(exit_node.position)<=54.0:
             interacted.emit("interior_exit")
+            return
+    # Inspectable V4 furnishings use a real player proximity interaction.
+    # Resolve them before generic service furniture; the exit still wins above.
+    if not interior_building.is_empty() and not interior_building.begins_with("quest__"):
+        var nearest_inspection: String = ""
+        var inspection_distance: float = 45.0
+        for key in nodes.keys():
+            if not str(key).begins_with("homeinspect:"):
+                continue
+            var inspect_node: Node2D = nodes[key]
+            if not is_instance_valid(inspect_node) or not inspect_node.visible:
+                continue
+            var candidate_distance: float = hero.position.distance_to(inspect_node.position)
+            if candidate_distance<inspection_distance:
+                inspection_distance=candidate_distance
+                nearest_inspection=str(key)
+        if not nearest_inspection.is_empty():
+            interacted.emit(nearest_inspection)
             return
     # Authoritative main objective has priority when the player stands at its marker.
     # Without this, a nearby town door could hijack a chapter-critical interaction.
@@ -1384,7 +1414,7 @@ func sync_prologue_markers(active_index: int, story_chapter: int) -> void:
         marker.modulate.a=0.30 if portraits.has(index) else 1.0
         if portraits.has(index) and not prologue_cast.has(index):
             var sprite_path: String="res://assets/art/characters/%s/walk_4dir_3frames.png" % str(portraits[index])
-            if ResourceLoader.exists(sprite_path):
+            if CArtOverrides.exists(sprite_path):
                 var performer=Actor.new()
                 performer.name="PrologueCast_%d" % index
                 performer.setup(sprite_path)

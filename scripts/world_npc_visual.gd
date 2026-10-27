@@ -136,7 +136,7 @@ func setup(info: Dictionary) -> void:
     # Only the 35 approved B02 NPC fullbody sheets are used as still overworld figures.
     # Coast residents without authored B02 art keep their silhouette fallback.
     var art_path: String = ArtAssets.npc_fullbody(str(info.get("id", "")))
-    if not art_path.is_empty() and ResourceLoader.exists(art_path):
+    if not art_path.is_empty() and ArtOverrides.exists(art_path):
         artwork = Sprite2D.new()
         artwork.texture = ArtOverrides.texture(art_path)
         var dimensions: Vector2 = artwork.texture.get_size()

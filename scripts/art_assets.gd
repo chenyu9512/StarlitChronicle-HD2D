@@ -1,4 +1,5 @@
 extends RefCounted
+const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## B02 static illustrations / B03 static boss art. Never treat portraits as animation sheets.
 const B02: String = "res://assets/art/b02/MANIFEST.json"
 const B03: String = "res://assets/art/b03/boss_final_render/manifest.json"
@@ -26,13 +27,13 @@ static func _load_registry() -> void:
                 var dialogue: String = base + "dialogue_192x240.png"
                 var head: String = base + "head_160x160.png"
                 var body: String = base + "fullbody_rgba.png"
-                if ResourceLoader.exists(dialogue):
+                if CArtOverrides.exists(dialogue):
                     dialogues[str(record.get("name", ""))] = dialogue
                     if group == "npc":
                         npc_portraits[id] = dialogue
-                if ResourceLoader.exists(head):
+                if CArtOverrides.exists(head):
                     heads[id] = head
-                if group == "npc" and ResourceLoader.exists(body):
+                if group == "npc" and CArtOverrides.exists(body):
                     npc_bodies[id] = body
     if FileAccess.file_exists(B03):
         var doc: Variant = JSON.parse_string(FileAccess.get_file_as_string(B03))
@@ -42,7 +43,7 @@ static func _load_registry() -> void:
                     continue
                 var file_names: Dictionary = item.get("files", {})
                 var path: String = B03_DIR + str(file_names.get("battle", ""))
-                if ResourceLoader.exists(path):
+                if CArtOverrides.exists(path):
                     bosses[str(item.get("boss_id", ""))] = path
 
 static func dialogue_portrait(speaker: String) -> String:
@@ -84,6 +85,6 @@ static func battle_image(enemy: Dictionary, is_boss: bool, chapter: int) -> Stri
     var monster: String = str(enemy.get("art", ""))
     if not monster.is_empty():
         var path: String = "res://assets/art/monsters/coast/%s/battle.png" % monster
-        if ResourceLoader.exists(path):
+        if CArtOverrides.exists(path):
             return path
     return "res://assets/enemies/boss.png"

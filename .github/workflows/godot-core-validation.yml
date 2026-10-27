@@ -1,12 +1,12 @@
 name: Godot 4.7.2 Core Validation
-# Development is now main-only. Heavy QA is opt-in by batch marker or manual dispatch.
+# Development uses the existing Main2 optimized-art branch only. Heavy QA is opt-in by batch marker or manual dispatch.
 concurrency:
-  group: starlit-main-batch-qa-${{ github.ref }}
+  group: starlit-main2-batch-qa-${{ github.ref }}
   cancel-in-progress: false
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: ["Main2美术优化版"]
     paths:
       - "docs/qa-batch-trigger.json"
 jobs:

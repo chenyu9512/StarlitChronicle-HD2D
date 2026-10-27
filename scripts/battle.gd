@@ -150,7 +150,7 @@ func begin_story(enemy_id: String, display_name: String) -> void:
     var chapter_level: int = maxi(1, State.story_chapter)
     var level_scale: int = maxi(1, mini(50, chapter_level * 2))
     var image_path: String = str(entry.get("preview_fallback", "res://assets/enemies/boss.png"))
-    if not ResourceLoader.exists(image_path):
+    if not CArtOverrides.exists(image_path):
         image_path = "res://assets/enemies/boss.png"
     enemies = [{
         "name": display_name, "id": enemy_id, "sprite_path": image_path,
@@ -176,7 +176,7 @@ func _refresh() -> void:
         portrait.visible = i < enemies.size() and int(enemies[i]["hp"]) > 0
         if i < enemies.size():
             var sprite_path: String = str(enemies[i].get("sprite_path", "res://assets/enemies/%s.png" % str(enemies[i]["id"])))
-            if ResourceLoader.exists(sprite_path):
+            if CArtOverrides.exists(sprite_path):
                 portrait.texture = CArtOverrides.texture(sprite_path)
     var stats := ""
     for person in State.party:

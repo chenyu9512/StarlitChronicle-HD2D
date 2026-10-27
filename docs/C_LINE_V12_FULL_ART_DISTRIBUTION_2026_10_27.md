@@ -1,6 +1,6 @@
 # 《星灯纪行》美术素材组全量分配 V12（2026-10-27）
 
-分支：`Main2美术优化版`；`main` 保留、不合并。**本批交付为全量制作分配和可浏览审计，并非全图实机适配完毕。**
+分支：`Main2美术优化版`；本批仅写该分支，未对 `main` 执行写入或合并。**本批交付为全量制作分配和可浏览审计，并非全图实机适配完毕。**
 
 ## 1. 全量范围与成果
 
@@ -102,7 +102,8 @@ godot --headless --path . --editor --quit
 | V12历史候选/选型/外部索引接线 | 成功 |
 | V12只读分页图库源码/场景提交 | 成功（尚未在Godot执行） |
 | Python脚本在本地完整仓库运行 | 未测试 |
-| GitHub Actions CI运行结果 | 待核实 |
+| V12静态资产分配 GitHub Actions CI | **成功**（[Run #40460551876](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40460551876)） |
+| Main2独立的Godot运行美术验收 | **未通过**（[Run #40460681647](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40460681647)：第2～6章Boss阶段纹理检查失败；其余步骤中Clean Godot导入成功，后续已有其他C线修复提交，尚需重新验收） |
 | PNG视觉质量、Atlas图块/碰撞、UI九宫格、NPC/Boss动作 | 未测试 |
 | 六章主线成品与商业画面验收 | 未完成 |
 

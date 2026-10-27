@@ -32,3 +32,14 @@
 - 目标设备性能、Windows完整克隆/导出、正式BGM及NPC/怪物动画均不能在没有测试证据时被标记通过。
 
 任何CI失败都在 `Main2美术优化版` 修复，不擅自回写 `main`。
+
+
+## 追加验收：美化分支 2026-10-27 16时段
+
+- **实机地图图集专项绿灯：** [Main2 Map and Third-party Terrain Acceptance · 40464007111](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40464007111)。包括真实地形、水体、叠层材质及第三方来源适配，限该Run的提交SHA。
+- **第17/51章Boss动态素材专项绿灯：** [Playable Regional Art V13 · 40464523373](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40464523373)。关键修复：`scripts/c_art_librarium_boss_idle.gd` 接受正常250ms画面更新，不再因120ms上限而冻结前三帧轮播。
+- **主控全量 Core · 40464640443：** Godot 4.7.2冷导入/脚本、全40图、序章→前三章正常战斗、第一幕六章流程、72章主线、120任务节点、12失落书页室内、19生活任务室内、54伙伴/地区房间及最终场景启动均经过CI并通过对应独立步骤。该Run总体结论仍为FAIL，最后一步旧 `qa_hd2d_refinement.py` 要求被Main2正式迁移删除的旧文件 `assets/art/tilesets/coast_ground.png`。
+- **工程验收与商业画质分开，不等于降低发行标准：** Core现执行 `tools/qa_main2_migrated_art_integrity.py`，检查89个历史逻辑美术槽位和其中55个coast-v2成员确实解析到物理第三方图片且可解码；`tools/qa_hd2d_refinement.py` 继续保留为严格商业美术参考门槛，不能因路径映射、贴图读取得到“视觉通过”。第一幕第2/4/5章仍欠缺最终语义/场景独立美术与实际玩家截图验收。
+- **新Core复测：** [40465522451](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40465522451)，触发SHA `21d321eb5e5d30080f45ba00f55e01ce6a3e3d10`；发起时状态为running，最终结论须以实际Actions页面为准。
+- **C线V12审计未过：** 后续继续上传source_packs，旧746源图/104非PNG件的静态总表尚未把新批次纳入逐文件分配，而且至少包含 `__MACOSX`/`.DS_Store` 等非运行时元数据。需在独立C批次依据Git blob与实际文件清单分配/清理，禁止为出绿灯简单忽略有效新图。
+- **分支纪律：** 上述所有本次提交均在 `Main2美术优化版`；`main`未因本轮修复被回写。其他C线持续提交可能使分支HEAD领先于上述已测SHA，不能混为同一SHA。

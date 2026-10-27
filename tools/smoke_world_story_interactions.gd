@@ -61,7 +61,7 @@ func _check() -> void:
     var path: Array[String] = route.shortest_route("map_coast_01")
     check(path==["map_coast_03","map_coast_02","map_coast_01"],"Shortest known safe path did not follow physical roads")
     check(not route.can_travel("map_coast_01"),"Map route display bypassed one-leg travel gate")
-    check(route.shortest_route("map_coast_04").is_empty(),"Locked future dungeon received a traversable route")
+    check(route.shortest_route("map_coast_04")==["map_coast_03","map_coast_04"],"Chapter-3 cave requires a real adjacent unlocked exit")
     if errors.is_empty():
         print("PASS: authored cave puzzle, one-time reward, persisted switches, fog-free local journal map and multi-leg gated route planning")
         quit(0)

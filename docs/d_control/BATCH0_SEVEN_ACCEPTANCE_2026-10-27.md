@@ -21,7 +21,7 @@
 | 保存失败回滚与异常退出 | D/P0 | 5/5 | PASS |
 | V1/V2/V3旧档兼容损坏安全回退 | D/P0 | 4/4 | PASS |
 | 战斗奖励与事务专项回归 | A/P0 | 6/7 | FAIL；高章Boss真实指令战败 |
-| 任务状态与奖励不重复 | B/P1 | 5/6首轮、第二轮大型用例正在执行 | NOT_FULLY_VERIFIED |
+| 任务状态与奖励不重复 | B/P1 | 5/6 | FAIL；120任务世界实测540.06秒超时，其余5项PASS |
 | 资源工程与运行素材 | C/P1 | 11/11 | PASS |
 
 ## 实际代码修复
@@ -37,7 +37,11 @@
 
 ## B线验收
 
-`smoke_b_story_transactions`、`smoke_batch02_quest_and_b_outbox`、`smoke_story_side_quests`、`smoke_branch_story_phase19`、`smoke_b_coast_three_chapter_routes` 在首轮PASS。 `smoke_story_world_phase19_2` 120任务、40区域实证曾超过210秒，未得到完成证明，已增加单独540秒运行时限。是否PASS**以第二轮B job最终日志为准**，不得略去第6项的实际结果。
+第二轮复测在固定SHA `4b24adfe9dba221d51ecfd57c29605b5b2a6e4a5` 下，以下5项全部PASS：`smoke_b_story_transactions`、`smoke_batch02_quest_and_b_outbox`、`smoke_story_side_quests`、`smoke_branch_story_phase19`、`smoke_b_coast_three_chapter_routes`。第6项 `smoke_story_world_phase19_2.gd` 覆盖120任务与实体场景交互，**TIMEOUT rc=124，540.06秒**；未跑完不能视作PASS，不能以成功的任务结算用例代替真实地图体验。B线性能阻塞已登记 [#13](https://github.com/chenyu9512/StarlitChronicle-HD2D/issues/13)。
+
+## 七项实际最终结果
+
+**5项PASS、2项FAIL。** P0 D编译启动、奖励事务幂等、保存失败回滚、旧档安全恢复，以及P1 C素材目录/正式运行校验均通过。A高章Boss战真实失败见 [#12](https://github.com/chenyu9512/StarlitChronicle-HD2D/issues/12)；B120任务真实世界回归超时见 [#13](https://github.com/chenyu9512/StarlitChronicle-HD2D/issues/13)。所有七个独立job已完成并留下JSON和原始日志：https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40437992601 。**仅对该被测SHA有效，不包含后续并行main提交。**
 
 ## 最终门禁
 

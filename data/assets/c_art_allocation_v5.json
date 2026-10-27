@@ -3,17 +3,17 @@
   "date": "2026-10-27",
   "policy": "Canonical runtime IDs remain unchanged. Candidate sources are references until mapped by DLC or explicit C scene bindings.",
   "stages": {
-    "source": "res://assets/art/source_packs/ (one retained binary per imported asset)",
-    "candidate": "res://assets/art/candidates/manifest.json (756 references; no binary copies)",
-    "runtime": "res://assets/art/runtime/manifest.json (preserved live res:// paths)",
-    "dlc": "res://data/assets/c_art_packs.json and user://c_art_packs/installed.json"
+    "source": "assets/art/source_packs/ (production originals, 853 files; .gdignore excludes from Godot imports/exports)",
+    "candidate": "assets/art/candidates/manifest.json (749 source PNG references, editor/runtime ignored)",
+    "runtime": "assets/art/runtime/manifest.json (101 prioritized paths; canonical IDs remain under existing asset folders)",
+    "dlc": "data/assets/c_art_packs.json (28 explicit mappings) and user://c_art_packs/installed.json (user DLC)"
   },
   "allocation": [
     {
       "role": "principal_characters",
       "canonical": "assets/art/b02/characters/main",
       "primary": "B02 high-resolution original identity art",
-      "candidate": "Cute Adventurers character animation 390 PNG",
+      "candidate": "Cute Adventurers: 383 meaningful character PNG references/frames after removing 7 macOS sidecar pseudo-images",
       "binding": "use B02 as identity; animation requires per-role frames and perspective check"
     },
     {
@@ -107,5 +107,69 @@
       "priority": "original city blocks/canals; needs a unique HD scene kit"
     }
   ],
-  "statuses": "Asset path and role audited in GitHub; live art QA remains untested."
+  "statuses": "Asset path and role audited in GitHub; live art QA remains untested.",
+  "direct_use_decisions": [
+    {
+      "area": "first_act_party_walk",
+      "resource": "res://assets/art/characters/<character_id>/walk_4dir_3frames.png",
+      "decision": "runtime_first",
+      "reason": "existing 4-direction/3-frame sheets use stable actor IDs; keep atlas/cell dimensions unchanged"
+    },
+    {
+      "area": "first_act_dialogue",
+      "resource": "res://assets/art/b02/characters/main/<character_id>/dialogue_192x240.png",
+      "decision": "runtime_first",
+      "reason": "static dialogue art works for portraits; do not pass into walk/sprite-frame animation slots"
+    },
+    {
+      "area": "npc_residents",
+      "resource": "res://assets/art/b02/characters/npc/<npc_id>/fullbody_rgba.png",
+      "decision": "runtime_first",
+      "reason": "retain identities for dialogue and full-body overlays; chibi candidate references require character-by-character pairing"
+    },
+    {
+      "area": "coastal_ground_and_water",
+      "resource": "res://assets/art/tilesets/coast_ground.png",
+      "decision": "runtime_first",
+      "reason": "existing 32px TileSet atlas and its SVG alternate can be mapped without modifying collision or TileMap cells"
+    },
+    {
+      "area": "coastal_houses",
+      "resource": "res://assets/art/exteriors/coast_final_pass/",
+      "decision": "runtime_first",
+      "reason": "authored door/footpoint proportions keep B-line entrance trigger alignment; Kenney alternatives remain candidate for matching"
+    },
+    {
+      "area": "coastal_monsters",
+      "resource": "res://assets/art/monsters/coast/<monster_id>/battle.png",
+      "decision": "runtime_first",
+      "reason": "current monster ID is wired; use Aekashics only after compatible combat poses/sheets have been authored"
+    },
+    {
+      "area": "ch002_ch006_boss",
+      "resource": "res://assets/art/b03/boss_final_render/ch00x_*_battle_768.png",
+      "decision": "runtime_first",
+      "reason": "five static boss images are suitable for battle portraits but not final animated combat states"
+    },
+    {
+      "area": "rpg_ui",
+      "resource": "res://assets/art/external/cc0_named_v1/ui/",
+      "decision": "runtime_first",
+      "reason": "use existing atlas-safe UI/icons; static theme assets can be mapped through existing catalog slots"
+    },
+    {
+      "area": "source_and_candidate",
+      "resource": "res://assets/art/source_packs/ and res://assets/art/candidates/",
+      "decision": "editor_only",
+      "reason": "Godot .gdignore; requires conscious promotion into a runtime ID or external DLC before being loadable in game"
+    }
+  ],
+  "curation_snapshot": {
+    "production_source_files": 853,
+    "candidate_images": 749,
+    "prioritized_runtime_paths": 101,
+    "global_catalog_slots": 1240,
+    "builtin_dlc_mapping_count": 28,
+    "disposition": "all unadapted candidates remain archived; no user save or map collision changed"
+  }
 }

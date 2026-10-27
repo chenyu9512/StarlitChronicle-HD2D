@@ -5,13 +5,84 @@ const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const MANIFEST: String = "res://data/assets/c_art_live_coast_v7.json"
 const ART_PREFIX: String = "res://assets/art/external/cc0_named_v1/props/"
 const TILE: int = 32
+const LAMP_ART: String = "res://assets/art/interiors/morning_dew_inn/light_pool.svg"
 var map_id: String = ""
 var placed: Dictionary = {}
 var skipped: Array[String] = []
+var active_lights: Array[PointLight2D] = []
+var visual_quality: int = 1
+var clock_minutes: int = 720
+
+func set_visual_quality(value: int) -> void:
+    visual_quality = clampi(value, 0, 2)
+    _apply_light_state()
+
+func set_clock(minutes: int) -> void:
+    clock_minutes = posmod(minutes, 1440)
+    _apply_light_state()
+
+func _apply_light_state() -> void:
+    var intensity: float = 0.0
+    if clock_minutes >= 1140 or clock_minutes < 330:
+        intensity = 1.0
+    elif clock_minutes >= 1020:
+        intensity = float(clock_minutes - 1020) / 120.0
+    elif clock_minutes < 420:
+        intensity = float(420 - clock_minutes) / 90.0
+    var cap: int = 0 if visual_quality == 0 else (1 if visual_quality == 1 else 3)
+    for index in range(active_lights.size()):
+        var lamp: PointLight2D = active_lights[index]
+        if not is_instance_valid(lamp):
+            continue
+        lamp.visible = index < cap and intensity > 0.01
+        lamp.energy = 0.42 * intensity
+
+func _install_lamp(at: Vector2) -> void:
+    if active_lights.size() >= 3 or not ResourceLoader.exists(LAMP_ART):
+        return
+    var glow: Texture2D = ArtOverrides.texture(LAMP_ART)
+    if glow == null:
+        return
+    var lamp := PointLight2D.new()
+    lamp.name = "CArtV10Lantern%d" % active_lights.size()
+    lamp.texture = glow
+    lamp.texture_scale = 0.50
+    lamp.color = Color("ffe2aa")
+    lamp.shadow_enabled = false
+    lamp.position = at + Vector2(0, -10)
+    add_child(lamp)
+    active_lights.append(lamp)
+
+func _protected_cells(layout: Dictionary) -> Dictionary:
+    var reserved: Dictionary = {}
+    # The authoritative world may mark interactables on passable ground.
+    # Their visual focus and exit approach must stay uncluttered.
+    for group in ["features", "gates"]:
+        var radius: int = 2 if group == "gates" else 1
+        for record in layout.get(group, []):
+            if not record is Dictionary:
+                continue
+            var anchor: Variant = record.get("cell", null)
+            if not anchor is Vector2i:
+                continue
+            for dy in range(-radius, radius + 1):
+                for dx in range(-radius, radius + 1):
+                    reserved[anchor + Vector2i(dx, dy)] = true
+    return reserved
 
 func configure(map_key: String, layout: Dictionary) -> void:
     map_id = map_key
+    # Configure is safe on reused nodes: no ghost sprites or orphan lights.
+    for sprite in placed.values():
+        if is_instance_valid(sprite):
+            remove_child(sprite)
+            sprite.queue_free()
+    for lamp in active_lights:
+        if is_instance_valid(lamp):
+            remove_child(lamp)
+            lamp.queue_free()
     placed.clear()
+    active_lights.clear()
     skipped.clear()
     if not FileAccess.file_exists(MANIFEST):
         return
@@ -19,6 +90,7 @@ func configure(map_key: String, layout: Dictionary) -> void:
     if not raw is Dictionary:
         return
     var occupied: Dictionary = {}
+    var reserved: Dictionary = _protected_cells(layout)
     for item in raw.get("placements", []):
         if not item is Dictionary or str(item.get("map_id", "")) != map_key:
             continue
@@ -36,7 +108,7 @@ func configure(map_key: String, layout: Dictionary) -> void:
             skipped.append(id)
             continue
         var expected: Vector2i = Vector2i(int(coords[0]), int(coords[1]))
-        var safe: Vector2i = _find_safe_verge(expected, layout, occupied)
+        var safe: Vector2i = _find_safe_verge(expected, layout, occupied, reserved)
         if safe.x < 0:
             skipped.append(id)
             continue
@@ -52,8 +124,11 @@ func configure(map_key: String, layout: Dictionary) -> void:
         sprite.set_meta("map_cell", safe)
         add_child(sprite)
         placed[id] = sprite
+        if str(item.get("kind", "")) in ["paper", "lantern"]:
+            _install_lamp(sprite.position)
+    _apply_light_state()
 
-func _find_safe_verge(wanted: Vector2i, layout: Dictionary, occupied: Dictionary) -> Vector2i:
+func _find_safe_verge(wanted: Vector2i, layout: Dictionary, occupied: Dictionary, reserved: Dictionary) -> Vector2i:
     var extent: Vector2i = layout.get("size", Vector2i(96, 56))
     var blocked: Dictionary = layout.get("blocked", {})
     var water: Dictionary = layout.get("water_mask", {})
@@ -69,7 +144,7 @@ func _find_safe_verge(wanted: Vector2i, layout: Dictionary, occupied: Dictionary
                 var tile: Vector2i = wanted + Vector2i(dx, dy)
                 if tile.x < 3 or tile.y < 3 or tile.x >= extent.x - 3 or tile.y >= extent.y - 3:
                     continue
-                if occupied.has(tile) or blocked.has(tile) or water.has(tile):
+                if occupied.has(tile) or reserved.has(tile) or blocked.has(tile) or water.has(tile):
                     continue
                 if tile.distance_squared_to(spawn) < 16:
                     continue

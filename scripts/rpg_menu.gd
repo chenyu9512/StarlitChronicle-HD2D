@@ -15,6 +15,7 @@ const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const CArtItemIcons = preload("res://scripts/c_art_item_icons.gd")
+const CArtNavigationIcons = preload("res://scripts/c_art_navigation_icons.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
@@ -122,6 +123,8 @@ func _ready() -> void:
 func _button(where: Node, caption: String, callback: Callable, size: int = 17) -> void:
     var b := Button.new()
     b.text = caption
+    b.icon = CArtNavigationIcons.icon_for(caption)
+    b.expand_icon = false
     b.custom_minimum_size.y = 43
     b.add_theme_font_size_override("font_size",size)
     where.add_child(b)

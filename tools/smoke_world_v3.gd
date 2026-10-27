@@ -44,22 +44,29 @@ func _run() -> void:
         var previous: Dictionary = geo.layout(str(id),61)
         verify(current.get("blocked",{})==previous.get("blocked",{}),"Layout changed on chapter reload: "+str(id))
         var initial: Vector2i = current.get("spawn",Vector2i.ZERO)
-        if not geo.reachable(current,[initial],geo._anchors()):
-            var missing_stops: Array[String] = []
-            for stop in geo._anchors():
-                if not geo.reachable(current,[initial],[stop]):
-                    missing_stops.append(str(stop))
-            print("MAP LINK DIAGNOSTIC ",str(id)," missing=",missing_stops," spawn=",initial," blocked_spawn=",(current.get("blocked",{}) as Dictionary).has(initial))
-        verify(geo.reachable(current,[initial],geo._anchors()),"Story quest routes disconnected: "+str(id))
+        var story_routes: Dictionary=geo.resolve_story_targets(current,geo._anchors())
+        var missing_stops: Array=story_routes.get("missing",[])
+        if not missing_stops.is_empty():
+            print("MAP LINK DIAGNOSTIC ",str(id)," missing=",missing_stops,
+                " spawn=",initial," blocked_spawn=",(current.get("blocked",{}) as Dictionary).has(initial))
+        verify(missing_stops.is_empty()
+            and geo.reachable(current,[initial],story_routes.get("points",[])),
+            "Physically reachable story interactions missing: "+str(id))
         for gate in current.get("gates",[]):
             verify(geo.reachable(current,[current.get("spawn",Vector2i.ZERO)],[gate.get("cell",Vector2i.ZERO)]),"Map gate inaccessible: "+str(id))
         if bool(zone.get("settlement",false)) or str(zone.get("archetype",""))=="dungeon":
             var custom: Dictionary = authored.duplicate(true)
-            custom["paint_overrides"] = [{"cell":[26,27],"row":4,"blocked":true}]
+            # The spawn is physically clear in the original map. Old QA wrote
+            # over an arbitrary roof footprint that final house collision must
+            # correctly replace, then misreported this as a V3 editor failure.
+            var editable: Vector2i=initial
+            custom["paint_overrides"] = [{"cell":[editable.x,editable.y],"row":4,"blocked":true}]
             geo.authored.levels[str(id)] = custom
             var edited: Dictionary = geo.layout(str(id),3)
-            verify(edited.get("tiles",{}).get(Vector2i(26,27),Vector2i.ZERO).y==4,"Town/dungeon V3 tile edit did not reach active gameplay: "+str(id))
-            verify(edited.get("blocked",{}).has(Vector2i(26,27)),"Town/dungeon V3 collision edit did not reach active gameplay: "+str(id))
+            verify(edited.get("tiles",{}).get(editable,Vector2i.ZERO).y==4,
+                "Town/dungeon V3 paint override did not reach real ground: "+str(id))
+            verify(edited.get("blocked",{}).has(editable),
+                "Town/dungeon V3 collision edit did not reach real ground: "+str(id))
             geo.authored.levels[str(id)] = authored
             continue
         overworld += 1

@@ -612,6 +612,59 @@ func interior(building: String,building_kind: String,map_id: String = "") -> Dic
         feature.append({"kind":str(item[0]),"cell":item[1],"name":str(item[2])})
     return {"tiles":terrain,"blocked":blocked,"features":feature,"gates":[],"spawn":Vector2i(35,bottom-5),"size":Vector2i(WIDTH,HEIGHT),"interior":building_kind,"building":building}
 
+## Validate ACTUAL interaction feet instead of a V1 anchor embedded in a
+## modern solid house roof. Mirrors the live world marker relocation contract:
+## nearest connected pavement within a 12-cell Manhattan radius. Never paints
+## roads or changes collision. Unresolvable story targets remain hard failures.
+func resolve_story_targets(layout_data: Dictionary, targets: Array[Vector2i]) -> Dictionary:
+    var walls: Dictionary=layout_data.get("blocked",{})
+    var extent: Vector2i=layout_data.get("size",Vector2i(WIDTH,HEIGHT))
+    var spawn: Vector2i=layout_data.get("spawn",Vector2i(-1,-1))
+    var reached: Dictionary={}
+    if spawn.x>=2 and spawn.y>=2 and spawn.x<extent.x-2 and spawn.y<extent.y-2 and not walls.has(spawn):
+        var queue: Array[Vector2i]=[spawn]
+        reached[spawn]=true
+        var index: int=0
+        while index<queue.size():
+            var cur: Vector2i=queue[index]
+            index+=1
+            for delta in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+                var p: Vector2i=cur+delta
+                if p.x<2 or p.y<2 or p.x>=extent.x-2 or p.y>=extent.y-2 or walls.has(p) or reached.has(p):
+                    continue
+                reached[p]=true
+                queue.append(p)
+    var resolved: Array[Vector2i]=[]
+    var missing: Array[Vector2i]=[]
+    var relocated: int=0
+    for target in targets:
+        if reached.has(target):
+            resolved.append(target)
+            continue
+        var chosen: Vector2i=Vector2i(-1,-1)
+        for radius in range(13):
+            if chosen.x>=0:
+                break
+            for y in range(-radius,radius+1):
+                if chosen.x>=0:
+                    break
+                for x in range(-radius,radius+1):
+                    if absi(x)+absi(y)!=radius:
+                        continue
+                    var candidate: Vector2i=target+Vector2i(x,y)
+                    if candidate.x<3 or candidate.y<3 or candidate.x>=extent.x-3 or candidate.y>=extent.y-3:
+                        continue
+                    if reached.has(candidate):
+                        chosen=candidate
+                        break
+        if chosen.x<0:
+            missing.append(target)
+        else:
+            resolved.append(chosen)
+            relocated+=1
+    return {"points":resolved,"missing":missing,"relocated":relocated}
+
+
 func reachable(layout_data: Dictionary, origins: Array[Vector2i], targets: Array[Vector2i]) -> bool:
     var walls: Dictionary = layout_data.get("blocked",{})
     var extent: Vector2i = layout_data.get("size",Vector2i(WIDTH,HEIGHT))

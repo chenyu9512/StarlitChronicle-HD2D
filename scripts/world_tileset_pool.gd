@@ -73,12 +73,15 @@ static func shared(paths: Array[String], columns: int = 8,
         if Coherent.supports(path) and Art.third_party_source(path) != path and texture != null:
             # Cache per semantic path. A dune/road/water atlas cannot share the
             # same assembled texture merely because its source PNG is shared.
-            var identity: String = path + ":" + str(texture.get_instance_id())
+            # ResourceLoader can return a different wrapper instance for the
+            # same migrated image. The art revision, not transient GPU object
+            # identity, controls whether the cached atlas is still valid.
+            var identity: String = path + ":r" + str(_revision)
             if not _adapted.has(identity):
                 _adapted[identity] = Coherent.assemble(path, texture)
             texture = _adapted[identity] as Texture2D
         elif TerrainAdapter.supports(path) and Art.third_party_source(path) != path and texture != null:
-            var source_key: String = path + ":" + str(texture.get_instance_id())
+            var source_key: String = path + ":r" + str(_revision)
             if not _adapted.has(source_key):
                 _adapted[source_key] = TerrainAdapter.assemble(path, texture)
             texture = _adapted[source_key] as Texture2D

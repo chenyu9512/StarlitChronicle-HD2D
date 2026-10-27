@@ -28,13 +28,15 @@ jobs:
           chmod +x Godot_v4.7.2-stable_linux.x86_64
       - name: Headless import and GDScript compile gate
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
-      - name: Check 66 entrances and building walk paths
+      - name: Check 68 entrances and building walk paths
         run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_entrances.gd
       - name: Check roof-safe pathfinding and no ghost doors
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_roof_pathfinding.gd
       - name: Check 40 NPC dialogues and 12 interior furniture setups
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_home_v1.gd
-      - name: Verify all 97 V4 rooms match live furniture interactions
+      - name: Verify harbor shelter and Black Sail Tavern real doors, clues and roundtrip
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_harbor_story_rooms.gd
+      - name: Verify all 99 V4 rooms match live furniture interactions
         run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_home_runtime_geometry.gd
       - name: Verify 40 read-only NPC dialogue previews
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_dialogue_preview.gd

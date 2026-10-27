@@ -25,5 +25,21 @@
     "status": "requested-not-verified",
     "branch": "Main2美术优化版",
     "reason": "Resolve deleted legacy PNG paths by safe third-party migration map; verify full Core pipeline"
+  },
+  "main2_art_and_route_validation": {
+    "batch": "main2-runner-map-cinematics-real-chapter-route-20261027",
+    "target_branch": "Main2美术优化版",
+    "state": "requested-not-verified",
+    "paths": [
+      "scripts/cinematic_director.gd",
+      "scripts/world_story_dressing.gd",
+      "scripts/third_party_terrain_adapter.gd",
+      "scripts/world_registry.gd",
+      "tools/validate_cinematics.py",
+      "tools/smoke_first_act_flow.gd",
+      "tools/smoke_first_three_playable.gd",
+      "tools/smoke_campaign_72.gd"
+    ],
+    "goal": "Core validation must exercise migrated image paths and main game GDScript; no completion claim before logs"
   }
 }

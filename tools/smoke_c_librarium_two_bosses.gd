@@ -35,7 +35,8 @@ func _run() -> void:
             var source: String = str(BossArt.SELECTION[id].get("path",""))
             check(not used.has(source), "Two distinct storyline bosses share one asset")
             used[source] = true
-            actor._process(0.25)
+            actor._process(0.12)
+            actor._process(0.12)
             check(actor.frame > 0,id+": no live animated idle frame change")
         battle.queue_free()
         await process_frame

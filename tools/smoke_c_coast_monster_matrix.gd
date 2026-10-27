@@ -46,6 +46,7 @@ func _run() -> void:
     if errors.is_empty():
         print("PASS C coast action matrix: nine monsters, 180 distinct poses, four states and visual-only battle bindings")
         quit(0)
+        return
     for item in errors:
         push_error(item)
     quit(1)

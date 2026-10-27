@@ -105,10 +105,38 @@ func _run() -> void:
         check(daily.path_queries>reads_before and
             (daily.route_cache.get(wait_npc,{}).get("path",[]) as Array).has(cutoff_goal),
             "Temporarily blocked NPC never planned through the reopened route")
+    # A free tile beside a blocked district anchor can sit behind an entire
+    # wall. A naive ring search would pick the unreachable eastern stand;
+    # reachable-stand routing must select the western side without teleport.
+    var sealed: Dictionary={}
+    var sealed_extent: Vector2i=Vector2i(32,25)
+    var district: Vector2i=Vector2i(16,12)
+    var western_start: Vector2i=Vector2i(8,12)
+    for y in range(2,23):
+        sealed[Vector2i(14,y)]=true
+    sealed[district]=true
+    var naive: Vector2i=Daily.safe_destination(district,sealed,sealed_extent)
+    check(naive.x>14,"Blocked-anchor regression fixture did not select sealed side")
+    var reachable_path: Array[Vector2i]=daily._route(
+        western_start,district,sealed,sealed_extent,4)
+    check(reachable_path.size()>1 and reachable_path[-1]==Vector2i(13,12),
+        "NPC must find an accessible stand near a sealed district anchor")
+    var stand_npc: String="npc_coast_03"
+    daily._waypoint(stand_npc,"map_coast_01",
+        western_start,district,sealed,sealed_extent,0.016)
+    var chosen: Array=daily.route_cache.get(stand_npc,{}).get("path",[])
+    check(not chosen.is_empty() and chosen[-1]==Vector2i(13,12),
+        "Live NPC waypoint cached an unreachable or walled-off stand")
+    if not chosen.is_empty():
+        for i in range(1,chosen.size()):
+            check((chosen[i]-chosen[i-1]).length_squared()==1
+                and not sealed.has(chosen[i]),
+                "Fallback district route cut through a wall or jumped tiles")
+
     var wrong: Dictionary=daily.step(resident_id,"map_city_01",600,current,0.1,restricted,extent)
     check(not bool(wrong.get("moving",true)),"NPC crossed to another map")
     if errors.is_empty():
-        print("PASS B: >4096-cell town routes, stable 4-neighbor motion, safe blocked anchor, throttled partial-path and occupancy retry")
+        print("PASS B: >4096-cell routes, reachable blocked-anchor stands, safe 4-neighbor motion, throttled partial-path and occupancy retry")
         quit(0)
         return
     for error in errors:

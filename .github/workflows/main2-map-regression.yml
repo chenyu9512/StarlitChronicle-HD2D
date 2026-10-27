@@ -22,6 +22,9 @@ on:
       - "tools/smoke_c_terrain_group_import_v9.gd"
       - "tools/smoke_b_act01_journey.gd"
       - "scripts/world_act01_journey.gd"
+      - "scripts/c_coastal_painter.gd"
+      - "scripts/world_structure.gd"
+      - "tools/smoke_c_coastal_render.gd"
       - "tools/smoke_world_production.gd"
       - "tools/validate_no_fog_local_map.py"
       - "docs/qa-main2-map-trigger.json"
@@ -58,6 +61,7 @@ jobs:
             tools/smoke_c_shared_terrain_v8.gd \
             tools/smoke_c_art_packs.gd \
             tools/smoke_c_terrain_group_import_v9.gd \
+            tools/smoke_c_coastal_render.gd \
             tools/smoke_b_act01_journey.gd \
             tools/smoke_world_tileset_pool.gd \
             tools/smoke_world_production.gd; do

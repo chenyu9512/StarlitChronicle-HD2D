@@ -90,8 +90,8 @@ func _run() -> void:
             failures.append(id+": "+item)
     print("M0.1 MAP ROUTE DIAGNOSTICS ",JSON.stringify(diagnostics))
     print("MAPS ",maps," BUILDINGS ",buildings," LEGACY_ANCHORS_REQUIRING_RELOCATION ",blocked_legacy)
-    if maps!=40 or buildings!=66:
-        failures.append("Canonical 40-map/66-door coverage changed")
+    if maps!=40 or buildings!=68:
+        failures.append("Canonical 40-map/68-door coverage changed")
     if failures.is_empty():
         print("PASS: final production collision reaches all authored exits, building steps and recoverable story markers")
         quit(0)

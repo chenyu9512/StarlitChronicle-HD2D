@@ -30,6 +30,9 @@ jobs:
         shell: bash
         run: |
           mkdir -p qa-m01-world
+          # GitHub's bash shell defaults to -e: disable it here so every
+          # check runs even after a failure, then return one final failure.
+          set +e
           code=0
           for test in \
             tools/smoke_town_direction_v4.gd \

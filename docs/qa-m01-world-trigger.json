@@ -1,6 +1,6 @@
 {
   "schema": "starlit.qa.m01-world.v1",
-  "requested_parent_sha": "07e820ff7f2e5f84cb53a727899e66e2a66ed1ae",
+  "requested_parent_sha": "e03c1e85a12fdc14036478e8df181765476b4adf",
   "engine": "4.7.2",
   "tests": [
     "tools/smoke_town_direction_v4.gd",
@@ -9,5 +9,7 @@
     "tools/d_control/smoke_m01_world_route_reachability.gd"
   ],
   "scope": "Plaza outside roof; authored editor overlays; real house service sign; all 68 thresholds and 40 map exits",
-  "status": "requested-not-verified"
+  "status": "requested-not-verified",
+  "version": 2,
+  "rerun_reason": "Original Bash -e stopped at failing V3 test before printing logs or exercising home entrances. Execute all four and preserve per-test output."
 }

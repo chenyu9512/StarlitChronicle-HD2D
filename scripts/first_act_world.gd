@@ -22,6 +22,7 @@ const EvidencePuzzles = preload("res://scripts/story_evidence_puzzles.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const CoastalScene = preload("res://scripts/world_coastal_scene.gd")
+const AllocatedDecor = preload("res://scripts/c_allocated_decor_runtime.gd")
 const CoastalAudio = preload("res://scripts/world_coastal_audio.gd")
 const PrologueStage = preload("res://scripts/prologue_world_stage.gd")
 const INN_ATLAS: String = "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
@@ -77,6 +78,7 @@ var last_party_size: int = 2
 var root: Node2D
 var scenery: Node2D
 var coastal_scene
+var allocated_decor
 var coastal_audio
 var prologue_stage
 var prologue_cast: Dictionary = {}
@@ -138,6 +140,7 @@ func build(new_chapter: int, party_size: int) -> void:
     root.add_child(scenery)
     _decorate()
     _install_coastal_scenery()
+    _install_allocated_decor()
     _build_sites()
     _reconcile_interaction_markers()
     _spawn_residents()
@@ -375,6 +378,15 @@ func _decorate() -> void:
             continue
         var pos := Vector2i(int(entry[1]), int(entry[2]))
         _add_sprite(str(entry[0]), pos, false)
+
+func _install_allocated_decor() -> void:
+    allocated_decor = null
+    if not interior_building.is_empty() or not is_instance_valid(scenery):
+        return
+    allocated_decor = AllocatedDecor.new()
+    allocated_decor.name = "AllocatedThirdPartyWorldArt"
+    scenery.add_child(allocated_decor)
+    allocated_decor.configure(str(map_profile.get("id", "")), terrain_layout)
 
 func _install_coastal_scenery() -> void:
     coastal_scene = null

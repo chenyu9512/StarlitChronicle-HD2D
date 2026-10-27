@@ -48,6 +48,8 @@ func _verify() -> void:
         check(art.art_error.is_empty(), str(id) + " / " + art.art_error)
         check(art.painted_cell_count() > 0,
             "No real rendered narrative detail atlas tiles " + str(id))
+        check(art.signature_count() == 1,
+            "Unique physical narrative mosaic has not appeared " + str(id))
         check(layout.get("blocked", {}) == prior_collision
             and layout.get("spawn", Vector2i.ZERO) == prior_spawn,
             "Presentation polluted gameplay physics " + str(id))
@@ -57,7 +59,7 @@ func _verify() -> void:
     check(total_cells >= 400, "Forty-region visual staging missing")
     if errors.is_empty():
         print("PASS: 40 unique narrative plans, eight regional imported atlases, " +
-            str(total_cells) + " actual TileMapLayer detail cells; collision/spawn preserved")
+            str(total_cells) + " actual TileMapLayer detail cells, 40 original scene mosaics; collision/spawn preserved")
         quit(0)
         return
     for failure in errors:

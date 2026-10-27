@@ -3,6 +3,7 @@ extends CanvasLayer
 signal action_requested(action: String)
 signal closed()
 const TownEcology = preload("res://scripts/world_town_ecology.gd")
+const Act01Journey = preload("res://scripts/world_act01_journey.gd")
 const PANEL_BLUE: Color = Color("0c2137")
 const WARM_GOLD: Color = Color("e8c67c")
 var root: Control
@@ -16,6 +17,7 @@ var current_kind: String = ""
 var current_region: String = ""
 var current_map: String = ""
 var ecology = TownEcology.new()
+var first_act_journey = Act01Journey.new()
 var current_title: String = ""
 
 func _ready() -> void:
@@ -175,6 +177,13 @@ func refresh(state,core,life,message: String = "") -> void:
         _:
             subtitle.text="旅途中的生活设施。"
             _add_note("该设施目前不提供购买服务。")
+    # Local, contextual story signpost for Act I. This NEVER changes the
+    # global map, reveals fog, travels or modifies player quest/save state.
+    if int(state.chapter)>=1 and int(state.chapter)<=6 and current_map.begins_with("map_coast_"):
+        var direction: Dictionary=first_act_journey.preview(
+            int(state.chapter),current_map,state)
+        if bool(direction.get("valid",false)):
+            _add_note("主线去向 · "+str(direction.get("guidance","")))
     if choices.get_child_count()==0:
         _add_note("当前没有可用指令。")
 

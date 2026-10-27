@@ -1,7 +1,7 @@
 extends SceneTree
 ## Regression for the exact map defect: checkerboard transparency, wrong
 ## terrain/water UV and tiny prop stretched to a house. No gameplay mutations.
-const AtlasAdapter = preload("res://scripts/third_party_terrain_adapter.gd")
+const AtlasAdapter = preload("res://scripts/c_coherent_terrain_materials.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const Registry = preload("res://scripts/world_terrain_atlas_registry.gd")
 const Structure = preload("res://scripts/world_structure.gd")

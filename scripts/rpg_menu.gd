@@ -14,6 +14,7 @@ signal visual_quality_changed(level: int)
 const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const CArtItemIcons = preload("res://scripts/c_art_item_icons.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
@@ -126,6 +127,16 @@ func _button(where: Node, caption: String, callback: Callable, size: int = 17) -
     where.add_child(b)
     b.pressed.connect(callback)
 
+func _icon_button(where: Node, caption: String, id: String, callback: Callable, size: int = 17) -> void:
+    var button := Button.new()
+    button.text = caption
+    button.custom_minimum_size.y = 43
+    button.add_theme_font_size_override("font_size", size)
+    button.icon = CArtItemIcons.texture_for(id)
+    button.expand_icon = false
+    where.add_child(button)
+    button.pressed.connect(callback)
+
 func _select_group(group_id: String) -> void:
     if not NAV_GROUPS.has(group_id):
         return
@@ -202,6 +213,28 @@ func _select_actor() -> void:
         var pid: String = str(actor.get("id",""))
         _button(h,("▶ " if pid == member else "") + str(actor.get("name",pid)),func() -> void: _choose(pid),14)
 
+func _icon_label(label_text: String, id: String) -> void:
+    var image: Texture2D = CArtItemIcons.texture_for(id)
+    if image == null:
+        _label(label_text)
+        return
+    var row := HBoxContainer.new()
+    row.add_theme_constant_override("separation", 8)
+    content.add_child(row)
+    var icon_rect := TextureRect.new()
+    icon_rect.texture = image
+    icon_rect.custom_minimum_size = Vector2(30, 30)
+    icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    icon_rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    row.add_child(icon_rect)
+    var caption := Label.new()
+    caption.text = label_text
+    caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    caption.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    caption.add_theme_font_size_override("font_size", 16)
+    row.add_child(caption)
+
 func _branch_page(delta: int) -> void:
     branch_page = maxi(0,branch_page + delta)
     render("剧情后续")
@@ -259,9 +292,9 @@ func render(section: String) -> void:
                     continue
                 var text_value: String = "%s ×%d" % [manager.display_name(item_id),manager.count(item_id)]
                 if not manager.entry("items",item_id).is_empty():
-                    _button(content,"使用 · "+text_value,func() -> void: _apply(manager.use_item(item_id,member)))
+                    _icon_button(content,"使用 · "+text_value,item_id,func() -> void: _apply(manager.use_item(item_id,member)))
                 else:
-                    _label("装备 · "+text_value)
+                    _icon_label("装备 · "+text_value,item_id)
         "武器","防具":
             _label("可装备的道具与部位",true)
             _select_actor()
@@ -279,12 +312,12 @@ func render(section: String) -> void:
                 if manager.count(item_id) < 1:
                     continue
                 var slot: String = "weapon" if table == "weapons" else str(object.get("slot",""))
-                _button(content,"装备 "+str(object.get("name",item_id))+"  [库存 %d]" % manager.count(item_id),func() -> void: _apply(manager.equip(member,slot,item_id)))
+                _icon_button(content,"装备 "+str(object.get("name",item_id))+"  [库存 %d]" % manager.count(item_id),item_id,func() -> void: _apply(manager.equip(member,slot,item_id)))
         "技能":
             _label("职业技能 · 专精8阶可继承该职业的初阶技",true)
             _select_actor()
             for record in manager.skills(member):
-                _label("◆ %s  MP %d  %s" % [str(record.get("name","")),int(record.get("mp_cost",0)),str(record.get("description",""))])
+                _icon_label("◆ %s  MP %d  %s" % [str(record.get("name","")),int(record.get("mp_cost",0)),str(record.get("description",""))],str(record.get("id","")))
         "职业":
             _label("二十职业转职 · 保留经验、熟练度与已继承技能",true)
             _select_actor()
@@ -485,7 +518,10 @@ func render(section: String) -> void:
                     unlocked += 1
                     _label("◆ %s · 已解决%d次" % [str(row.get("name",item_id)),int(seen.get("resolved",0))])
                 else:
-                    _label("◇ "+str(row.get("name",""))+" / "+item_id)
+                    if encyclopedia in ["items", "weapons", "armor"]:
+                        _icon_label("◇ "+str(row.get("name",""))+" / "+item_id, item_id)
+                    else:
+                        _label("◇ "+str(row.get("name",""))+" / "+item_id)
             if secret:
                 _label("已发现 %d/%d 种；亲自遭遇后才解锁档案。" % [unlocked,manager.records(encyclopedia).size()])
         "商店":
@@ -497,12 +533,12 @@ func render(section: String) -> void:
                     var price: int = int(entry.get("buy_price",entry.get("price",0)))
                     if price <= 0 or not manager.shop_available(entry):
                         continue
-                    _button(content,"买 "+str(entry.get("name",""))+"  "+str(price)+"G",func() -> void: _apply(manager.buy(key)),14)
+                    _icon_button(content,"买 "+str(entry.get("name",""))+"  "+str(price)+"G",key,func() -> void: _apply(manager.buy(key)),14)
             _label("出售背包",true)
             for key in save_state.inventory.keys():
                 var id: String = str(key)
                 if manager.count(id) > 0:
-                    _button(content,"出售 "+manager.display_name(id),func() -> void: _apply(manager.sell(id)),14)
+                    _icon_button(content,"出售 "+manager.display_name(id),id,func() -> void: _apply(manager.sell(id)),14)
         "锻造":
             _label("锻造：2把同型武器 + 金币 → 下一阶",true)
             var possible: bool = false
@@ -510,7 +546,7 @@ func render(section: String) -> void:
                 var id: String = str(entry.get("id",""))
                 if manager.count(id) >= 2:
                     possible = true
-                    _button(content,"锻造 "+str(entry.get("name",id)),func() -> void: _apply(manager.forge(id)))
+                    _icon_button(content,"锻造 "+str(entry.get("name",id)),id,func() -> void: _apply(manager.forge(id)))
             if not possible:
                 _label("收集两把相同武器后，这里会显示可操作配方。")
         "结局档案":

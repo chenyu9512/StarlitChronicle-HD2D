@@ -176,7 +176,9 @@ func shortest_route(target: String) -> Array[String]:
     if target == initial:
         route.append(initial)
         return route
-    var seen: Dictionary = {initial:""}
+    # Real map IDs must be indexed keys, not GDScript's literal "initial".
+    var seen: Dictionary = {}
+    seen[initial] = ""
     var queue: Array[String] = [initial]
     var offset: int = 0
     while offset < queue.size() and not seen.has(target):

@@ -49,7 +49,11 @@ func configure(view: TextureRect, details: Dictionary, reduce: bool = false) -> 
 func _process(delta: float) -> void:
     if not enabled or not is_instance_valid(target):
         return
-    elapsed += clampf(delta,0.0,0.12)
+    # A real 0.25-second presentation frame is sufficient to advance one
+    # imported 3-frame sprite. The old 0.12 cap suppressed that frame change,
+    # leaving gameplay visibly frozen when a long frame was delivered.
+    # Cap at 0.25 to avoid skipping excessive frames after app resume.
+    elapsed += clampf(delta,0.0,0.25)
     frame = 1 if reduced_motion else posmod(int(elapsed / 0.22),3)
     atlas.region = Rect2(frame * frame_size.x,0,frame_size.x,frame_size.y)
     if target.texture != atlas:

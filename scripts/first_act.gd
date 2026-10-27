@@ -1460,12 +1460,24 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
     var is_boss: bool = bool(battle_is_boss)
     var defeated_monster: String = str(battle.enemy.get("monster_id",""))
     var defeated_group: Array = battle.formation.units.duplicate(true) if battle.formation != null else []
+    # A special story boss cannot grant a generic victory receipt. Chapter 5
+    # must actually remove the beast's star chains; chapter 6 requires four
+    # shared testimony actions. Normal defeats and old save recovery are intact.
+    if won and is_boss and chapter_at_fight == 5 and (
+            battle.chain_hp > 0 or str(battle.last_boss_settlement) != "nonlethal"):
+        _hold_battle_settlement(won,xp,money,"星锁尚未解除，禁止以普通击杀结算第五章。")
+        return
+    if won and is_boss and chapter_at_fight == 6 and (
+            battle.resonance < 4 or str(battle.last_boss_settlement) != "testimony"):
+        _hold_battle_settlement(won,xp,money,"仍需四份归航见证，禁止跳过灯塔剧情结算。")
+        return
     _capture_world_position()
     var settlement: Dictionary
     if won:
         settlement = BattleV3Settlement.settle_victory(
             progress,game_core,transaction_id,chapter_at_fight,is_boss,
-            defeated_group,defeated_monster,xp,money,5 if five_xp else 1)
+            defeated_group,defeated_monster,xp,money,5 if five_xp else 1,
+            str(battle.last_boss_settlement) if is_boss else "")
     else:
         settlement = BattleV3Settlement.settle_defeat(
             progress,battle_defeat_id,chapter_at_fight,is_boss)

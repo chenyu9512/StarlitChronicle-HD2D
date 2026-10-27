@@ -95,27 +95,48 @@ static func _commit(state,map_id: String,status: Dictionary) -> void:
     history[map_id]=status.duplicate(true)
     state.rpg["town_ecology_v7"]=history
 
-func interact(map_id: String,event_id: String,state,hour: int) -> Dictionary:
-    var activity: Dictionary = config(map_id)
-    var record: Dictionary = entry(map_id,event_id)
+## B-line read-only intent. D can validate the event, persist its stable
+## receipt together with rewards, then display the authored narrative.
+## Merely opening an activity, reading its time or previewing its reward never
+## marks the event complete or changes the player's inventory.
+func preview_interact(map_id: String,event_id: String,state,hour: int) -> Dictionary:
+    var activity: Dictionary=config(map_id)
+    var record: Dictionary=entry(map_id,event_id)
     if activity.is_empty() or record.is_empty() or state==null:
-        return {"changed":false,"message":"这里没有开放的社区活动。"}
-    var result: Dictionary = _state(state,map_id)
-    var event_title: String = str(record.get("title","街区活动"))
+        return {"allowed":false,"message":"这里没有开放的社区活动。"}
+    var result: Dictionary=_state(state,map_id)
+    var event_title: String=str(record.get("title","街区活动"))
     if bool(result.get(event_id,false)):
-        return {"changed":false,"message":"【%s】这项街区工作已记录在居民档案中。" % event_title}
+        return {"allowed":false,"message":"【%s】这项街区工作已记录在居民档案中。" % event_title}
     if not is_open(record,hour):
-        return {"changed":false,"message":"【%s】活动时间为 %02d:00—%02d:00，当前无法办理。" % [event_title,int(record.get("open",0)),int(record.get("close",24))]}
-    var required: String = str(record.get("need",""))
+        return {"allowed":false,"message":"【%s】活动时间为 %02d:00—%02d:00，当前无法办理。" % [event_title,int(record.get("open",0)),int(record.get("close",24))]}
+    var required: String=str(record.get("need",""))
     if not required.is_empty() and not bool(result.get(required,false)):
-        return {"changed":false,"message":"【%s】先完成前一处街区协作，再回来确认。" % event_title}
-    result[event_id]=true
-    _commit(state,map_id,result)
-    var message: String = "【%s】\n%s" % [event_title,str(record.get("text",""))]
-    var reward: Dictionary = record.get("reward",{}) if record.get("reward",{}) is Dictionary else {}
+        return {"allowed":false,"message":"【%s】先完成前一处街区协作，再回来确认。" % event_title}
+    var reward: Dictionary=record.get("reward",{}) if record.get("reward",{}) is Dictionary else {}
+    var message: String="【%s】\n%s" % [event_title,str(record.get("text",""))]
     if not reward.is_empty():
         message+="\n社区感谢你协助完成整日的工作。"
-    return {"changed":true,"message":message,"reward":reward,"complete":not reward.is_empty()}
+    return {"allowed":true,"changed":true,"message":message,
+        "reward":reward.duplicate(true),"complete":not reward.is_empty(),
+        "event_id":"b.town."+map_id+"."+event_id,
+        "requires_save":true,"map_id":map_id,"activity_id":event_id,
+        "requires_event":required}
+
+
+func interact(map_id: String,event_id: String,state,hour: int) -> Dictionary:
+    # Backward-compatible B domain mutation for existing D callers; D should
+    # consume preview_interact inside its authoritative V3 transaction.
+    var intent: Dictionary=preview_interact(map_id,event_id,state,hour)
+    if not bool(intent.get("allowed",false)):
+        return {"changed":false,"message":str(intent.get("message","这里没有开放的社区活动。"))}
+    var result: Dictionary=_state(state,map_id)
+    result[event_id]=true
+    _commit(state,map_id,result)
+    return {"changed":true,"message":str(intent["message"]),
+        "reward":(intent["reward"] as Dictionary).duplicate(true),
+        "complete":bool(intent.get("complete",false)),
+        "event_id":str(intent["event_id"]),"requires_save":true}
 
 func social_feedback(map_id: String,state,hour: int) -> String:
     var local: Dictionary=config(map_id)

@@ -31,8 +31,16 @@ def main():
     if len(atlas)!=42 or len(anchors)!=72:
         errors.append("Original maps or main quest source records changed")
     blocked=[]
+    chapter_arrival_hints=set()
     for contract in contracts:
         chapter=int(contract["chapter"])
+        for stage in ("route","arrived","locked"):
+            hint=contract.get(stage+"_guidance","")
+            if not isinstance(hint,str) or len(hint)<20:
+                errors.append(f"Chapter {chapter} missing human-readable {stage} guidance")
+        if contract.get("arrived_guidance") in chapter_arrival_hints:
+            errors.append(f"Chapter {chapter} duplicates another story destination prompt")
+        chapter_arrival_hints.add(contract.get("arrived_guidance"))
         route=contract.get("route_map_ids",[])
         goal=contract.get("required_map_id","")
         anchor=anchors.get(chapter,"")

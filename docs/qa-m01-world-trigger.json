@@ -1,6 +1,6 @@
 {
   "schema": "starlit.qa.m01-world.v1",
-  "requested_parent_sha": "5d2d8fa8070687137dd1f8d1ca1823f8a46235f7",
+  "requested_parent_sha": "68460f14974566188d991a00a8a8f68108060014",
   "engine": "4.7.2",
   "tests": [
     "tools/smoke_town_direction_v4.gd",
@@ -11,6 +11,6 @@
   ],
   "scope": "Plaza outside roof; authored editor overlays; real house service sign; all 68 thresholds and 40 map exits",
   "status": "requested-not-verified",
-  "version": 7,
-  "rerun_reason": "Actual Godot 4.7.2 rerun: 40 story-specific narrative floor signature images (8 atlases / 40 crops) and 40 32px decal layers; check collision, town doors, V3 scenes."
+  "version": 8,
+  "rerun_reason": "Regression for 68 aligned building footprints, labeled and prioritized indoor exits, removal of noninteractive sign clutter and border-appropriate world entrance; retain previous V3 route/collision assertions."
 }

@@ -45,8 +45,8 @@ def main():
         if not sidecar.get("roads"):
             errors.append(f"No drawn travel routes: {map_id}")
     rooms = list((ROOT/"data/levels/v4/interiors").glob("*.json"))
-    if len(rooms)!=97:
-        errors.append(f"Expected 97 authored interiors, found {len(rooms)}")
+    if len(rooms)!=99:
+        errors.append(f"Expected 99 authored interiors, found {len(rooms)}")
     for file in rooms:
         d = json.loads(file.read_text(encoding="utf-8"))
         mid = str(d.get("map_id",""))

@@ -120,9 +120,9 @@ func _install_dew_road_material(ground: Dictionary, blocked: Dictionary, water: 
     var path: String = ART + "dew_road_material_8x8.svg"
     if not ArtOverrides.exists(path):
         return
-    var texture: Texture2D = ArtOverrides.texture(path)
-    if texture == null or texture.get_width() != 256 or texture.get_height() != 256:
-        return
+    # The logical old 256px road image now resolves to a smaller real
+    # uploaded source. TilePool builds the canonical 8x8 render atlas;
+    # checking the raw source size here silently removed every road layer.
     var road_paths: Array[String]=[path]
     var road_set: TileSet=TilePool.shared(road_paths)
     if road_set==null:

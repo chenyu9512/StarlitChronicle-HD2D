@@ -2,6 +2,7 @@ extends Control
 ## A16 actual six-frame transparent battle overlay for boss phase transitions.
 ## Render-only: does not mutate health, targeting, turn queue, saves or rewards.
 const SHEET: String = "res://assets/art/battle/a16/boss_awakening_6f.svg"
+const Art = preload("res://scripts/c_art_overrides.gd")
 const CHAPTER_SHEETS: Dictionary = {
     2: "res://assets/art/b03/boss_motion/ch002_phase_6f.svg",
     3: "res://assets/art/b03/boss_motion/ch003_phase_6f.svg",
@@ -43,14 +44,18 @@ func configure(target: Control, boss_chapter: int, motion_reduced: bool = false)
     aura.name="SixFrameBossAwakening"
     aura.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
     atlas=AtlasTexture.new()
-    var texture: Texture2D=load(SHEET) as Texture2D
-    selected_art_sheet=SHEET
-    var authored: String=str(CHAPTER_SHEETS.get(chapter,""))
-    if not authored.is_empty() and ResourceLoader.exists(authored):
-        var candidate: Texture2D=load(authored) as Texture2D
-        if candidate!=null and candidate.get_size()==Vector2(FRAME*FRAMES,FRAME):
-            texture=candidate
-            selected_art_sheet=authored
+    # Historical SVG animation sheets were removed on Main2. A single
+    # redirected 48/64px third-party pose is NOT an authored 6x192 strip.
+    var texture: Texture2D = Art.texture(SHEET)
+    if texture != null and texture.get_size() != Vector2(FRAME * FRAMES, FRAME):
+        texture = null
+    selected_art_sheet = SHEET if texture != null else ""
+    var authored: String = str(CHAPTER_SHEETS.get(chapter, ""))
+    if not authored.is_empty():
+        var candidate: Texture2D = Art.texture(authored)
+        if candidate != null and candidate.get_size() == Vector2(FRAME * FRAMES, FRAME):
+            texture = candidate
+            selected_art_sheet = authored
     if texture!=null:
         atlas.atlas=texture
         atlas.region=Rect2(0,0,FRAME,FRAME)
@@ -68,7 +73,7 @@ func _follow_subject() -> void:
     aura.scale=Vector2.ONE*clampf(reference/220.0,0.60,1.75)
 
 func awaken() -> void:
-    if not is_instance_valid(aura) or atlas==null:
+    if not is_instance_valid(aura) or atlas == null or atlas.atlas == null:
         return
     active_phase=true
     elapsed=0.0

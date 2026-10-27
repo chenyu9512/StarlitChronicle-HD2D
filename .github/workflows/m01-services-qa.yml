@@ -1,0 +1,56 @@
+name: M0.1 Regional Service V3 Acceptance
+# Isolated real-engine acceptance for the authoritative service transaction boundary.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/qa-m01-service-trigger.json"
+permissions:
+  contents: read
+concurrency:
+  group: starlit-m01-services-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  service-m01:
+    name: "D M0.1 service rollback, guild receipts and controller wiring"
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import and parse the exact main snapshot
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Run focused Godot transactions and wiring together
+        shell: bash
+        run: |
+          mkdir -p qa-m01-service
+          set +e
+          code=0
+          for test in \
+            tools/d_control/smoke_m01_transaction_wiring.gd \
+            tools/d_control/smoke_m01_service_transactions.gd \
+            tools/d_control/smoke_world_object_transactions.gd \
+            tools/smoke_b_town_guild_readonly.gd \
+            tools/smoke_rpg_core.gd
+          do
+            echo "::group::${test}"
+            timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://${test}" >"qa-m01-service/${test//\//_}.log" 2>&1
+            result=$?
+            echo "${test}: ${result}" | tee -a qa-m01-service/summary.txt
+            tail -n 35 "qa-m01-service/${test//\//_}.log"
+            if [ ${result} -ne 0 ]; then code=1; fi
+            echo "::endgroup::"
+          done
+          exit ${code}
+      - name: Preserve exact test transcripts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m01-regional-service-godot
+          path: qa-m01-service/
+          if-no-files-found: warn

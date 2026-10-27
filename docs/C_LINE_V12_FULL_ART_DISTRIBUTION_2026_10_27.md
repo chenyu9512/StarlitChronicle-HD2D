@@ -79,9 +79,9 @@
 - `data/assets/c_art_nonimage_groups_v12.json`：85份ZIP与19份非图片工程/授权/配置文件。
 - `data/assets/c_art_group_contracts_v12.json`：27组统一约束、后续技术交付和六章缺口。
 - `assets/art/candidates/manifest.json`、`data/assets/c_art_selection.json`、`data/assets/external_cc0_named_index.json`：已增加V12索引入口，旧V6信息保留用于历史对照。
-- `scenes/c_art_distribution_gallery.tscn`：只读开发图库，按组分页预览后期命名PNG并显示分配状态；因Godot未运行，其画面仍待验证。
+- `scenes/c_art_distribution_gallery.tscn`：只读开发图库，按组分页预览后期命名PNG并显示分配状态；其控件初始化、27组筛选和18项分页已通过 Godot 4.7.2 headless 冒烟检查，人工画质验收仍未完成。
 - `tools/audit_art_usage_v12.py`：对全部1,517个资产进行路径、分组、Git SHA、明确UI/装饰绑定与首幕阶段审计。
-- `.github/workflows/c-art-distribution-v12.yml`：对Main2源素材、清单及工具变化进行自动静态核验；需要在GitHub Actions执行记录中确认实际结果。
+- `.github/workflows/c-art-distribution-v12.yml`：Main2变更自动执行Git SHA/库存检查、Godot导入以及图库分组筛选冒烟测试，最新[成功记录 #40461459155](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40461459155)。
 
 在完整仓库的Python环境执行：
 
@@ -100,9 +100,9 @@ godot --headless --path . --editor --quit
 | GitHub真实文件树/路径/SHA/组契约静态交叉核对 | 成功 |
 | 3份V12资源清单与V12组契约提交 | 成功 |
 | V12历史候选/选型/外部索引接线 | 成功 |
-| V12只读分页图库源码/场景提交 | 成功（尚未在Godot执行） |
-| Python脚本在本地完整仓库运行 | 未测试 |
-| V12静态资产分配 GitHub Actions CI | **成功**（[Run #40460551876](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40460551876)） |
+| V12只读图库（27分组/1,517记录/每页18项）Godot运行冒烟 | **成功**；未做人工画质签收 |
+| Python脚本在 GitHub Actions 完整克隆中运行 | **成功**（附Git Blob散列核验）；本地Windows手工执行未测试 |
+| V12静态库存+Git SHA+Godot分组图库 CI | **成功**（[最新Run #40461459155](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40461459155)；此前仅静态库存也通过 [Run #40460551876](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40460551876)） |
 | Main2独立Godot 4.7.2引擎静态+运行冒烟 | **成功**（[Run #40461090758](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40461090758)：Clean项目导入、125个首幕资源槽、六章地图构造、四方向队伍动作、八项已配置现场道具；但不含人工商业审美签收） |
 | 部分Atlas、人物动作和场景构造冒烟 | 成功（Godot CI）；复杂场景视觉细节与人工验收仍未完成 |
 | 全量PNG视觉质量、UI九宫格、剧情Boss唯一身份和全部碰撞 | 未完成商业级验收 |

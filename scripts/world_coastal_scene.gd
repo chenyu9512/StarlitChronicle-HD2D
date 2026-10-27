@@ -2,6 +2,7 @@ extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const CoastPainter = preload("res://scripts/c_coastal_painter.gd")
+const AllocatedDecor = preload("res://scripts/c_live_coast_dressing.gd")
 ## A7-A9: per-map authored art, animation, nonblocking exploration props.
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
@@ -23,6 +24,7 @@ var wave_timer: float = 0.0
 var cavern_grade: CanvasModulate
 var cavern_lights: Array[PointLight2D] = []
 var surface_detail: TileMapLayer
+var allocated_dressing: Node2D
 var illustrated_dressing: Node2D
 var reflection_material: ShaderMaterial
 var detail_count: int = 0
@@ -104,6 +106,10 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
     water_count=selected
     _install_water_reflections(mask)
     _install_surface_detail(layout)
+    allocated_dressing = AllocatedDecor.new()
+    allocated_dressing.name = "CuratedCArtV7Decor"
+    add_child(allocated_dressing)
+    allocated_dressing.configure(map_id, layout)
     if map_id in ["map_coast_01","map_coast_02"]:
         illustrated_dressing = CoastPainter.new()
         illustrated_dressing.name = "OriginalCoastalDressing"

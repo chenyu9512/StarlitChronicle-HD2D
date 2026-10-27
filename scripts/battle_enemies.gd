@@ -2,6 +2,7 @@ extends Control
 ## Independent visual actors for multi-enemy formations. No changes to combat data.
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CMonsterMotion = preload("res://scripts/c_coast_monster_motion.gd")
+const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const FRAME_SIZE: int = 128
 const FRAME_COUNT: int = 4
 const FRAME_INTERVAL: float = 0.22
@@ -30,7 +31,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
         var enemy: Dictionary = units[index]
         var footing := Sprite2D.new()
         footing.name="FoeFooting_%d" % index
-        footing.texture=load(BOSS_ART if boss else GROUND_ART)
+        footing.texture=ArtOverrides.texture(BOSS_ART if boss else GROUND_ART)
         footing.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
         footing.z_index=0
         add_child(footing)
@@ -42,7 +43,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
         sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
         var art_path: String = ArtAssets.battle_image(enemy,boss,chapter)
         if ResourceLoader.exists(art_path):
-            sprite.texture = load(art_path) as Texture2D
+            sprite.texture = ArtOverrides.texture(art_path)
         var atlas: AtlasTexture
         var action_sheets: Dictionary = {}
         var art: String = str(enemy.get("art",""))
@@ -56,7 +57,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
         if atlas == null and not boss and not art.is_empty():
             var sheet_path: String = "res://assets/art/monsters/coast/%s/idle_4frames.png" % art
             if ResourceLoader.exists(sheet_path):
-                var sheet: Texture2D = load(sheet_path) as Texture2D
+                var sheet: Texture2D = ArtOverrides.texture(sheet_path)
                 if sheet != null and sheet.get_width() >= FRAME_SIZE*FRAME_COUNT and sheet.get_height() >= FRAME_SIZE:
                     atlas = AtlasTexture.new()
                     atlas.atlas = sheet

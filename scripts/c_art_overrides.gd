@@ -1,11 +1,12 @@
 extends RefCounted
-## Non-destructive image replacement. Immutable res:// originals, device-local user:// PNG.
+## Branch-only third-party artwork resolver; project-created originals are not used.
 ## No quest/save data or script execution is stored here.
 const CATALOG_PATH: String = "res://data/assets/c_art_catalog.json"
 const ACT01_SLOTS: String = "res://data/assets/c_act01_extra_art_slots_v10.json"
 const SETTINGS: String = "user://c_art_overrides.cfg"
 const ASSET_DIR: String = "user://c_art_replacements"
 const PACK_INDEX: String = "res://data/assets/c_art_packs.json"
+const THIRD_PARTY_MIGRATION: String = "res://data/assets/c_third_party_only_migration_v1.json"
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
 const PACK_ROOT: String = "user://c_art_packs"
@@ -20,6 +21,8 @@ static var _shared_pack_images: Dictionary = {}
 static var _revision: int = 0
 static var _packs: Dictionary = {}
 static var _active_pack_id: String = "original"
+static var _third_party_paths: Dictionary = {}
+static var _third_party_index_loaded: bool = false
 
 static func _load() -> void:
     if _config != null:
@@ -27,7 +30,7 @@ static func _load() -> void:
     _config = ConfigFile.new()
     var status: Error = _config.load(SETTINGS)
     if status != OK and status != ERR_FILE_NOT_FOUND:
-        push_warning("Art overrides config was unreadable; original art is preserved.")
+        push_warning("Art overrides config unreadable; third-party art baseline remains.")
         _config = ConfigFile.new()
     var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(CATALOG_PATH))
     _catalog = raw if raw is Dictionary else {}
@@ -142,10 +145,31 @@ static func _safe_override_file(path: String) -> String:
         return ""
     return file
 
+## Branch-only redirect. Original visual contents have been removed; even
+## historical res:// art slot names resolve to later uploaded third-party PNG.
+static func third_party_source(path: String) -> String:
+    if not _third_party_index_loaded:
+        _third_party_index_loaded = true
+        if FileAccess.file_exists(THIRD_PARTY_MIGRATION):
+            var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(THIRD_PARTY_MIGRATION))
+            if raw is Dictionary:
+                for item in raw.get("mappings", []):
+                    if not item is Dictionary:
+                        continue
+                    var old_path: String = str(item.get("old_path", ""))
+                    var source: String = str(item.get("new_source", ""))
+                    if not old_path.begins_with("assets/") or old_path.contains(".."):
+                        continue
+                    if not source.begins_with("assets/art/external/cc0_named_v1/") or source.contains(".."):
+                        continue
+                    _third_party_paths["res://" + old_path] = "res://" + source
+    return str(_third_party_paths.get(path, path))
+
 static func original_texture(path: String) -> Texture2D:
-    if not path.begins_with("res://") or not ResourceLoader.exists(path):
+    var resolved: String = third_party_source(path)
+    if not resolved.begins_with("res://") or not ResourceLoader.exists(resolved):
         return null
-    return ResourceLoader.load(path) as Texture2D
+    return ResourceLoader.load(resolved) as Texture2D
 
 static func texture(path: String) -> Texture2D:
     _load()

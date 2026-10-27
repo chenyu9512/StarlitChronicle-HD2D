@@ -93,7 +93,7 @@ func apply_town(id: String,ground: Dictionary,walls: Dictionary,features: Array[
         if not _inside(at) or walls.has(at):
             continue
         features.append({
-            "kind":str(record.get("kind","rock")),
+            "kind":"flowerpot" if str(record.get("kind","rock"))=="sign" else str(record.get("kind","rock")),
             "cell":at,
             "name":str(record.get("id","street detail")),
             "town_dressing":true

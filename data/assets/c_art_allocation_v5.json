@@ -1,0 +1,111 @@
+{
+  "schema": "starlit.c.asset_allocation.v5",
+  "date": "2026-10-27",
+  "policy": "Canonical runtime IDs remain unchanged. Candidate sources are references until mapped by DLC or explicit C scene bindings.",
+  "stages": {
+    "source": "res://assets/art/source_packs/ (one retained binary per imported asset)",
+    "candidate": "res://assets/art/candidates/manifest.json (756 references; no binary copies)",
+    "runtime": "res://assets/art/runtime/manifest.json (preserved live res:// paths)",
+    "dlc": "res://data/assets/c_art_packs.json and user://c_art_packs/installed.json"
+  },
+  "allocation": [
+    {
+      "role": "principal_characters",
+      "canonical": "assets/art/b02/characters/main",
+      "primary": "B02 high-resolution original identity art",
+      "candidate": "Cute Adventurers character animation 390 PNG",
+      "binding": "use B02 as identity; animation requires per-role frames and perspective check"
+    },
+    {
+      "role": "residents",
+      "canonical": "assets/art/b02/characters/npc",
+      "primary": "35 NPC B02 reference bodies, with regional needs",
+      "candidate": "Adventure Hollow 35 PNG",
+      "binding": "visual reference; no automatic NPC identity mutation"
+    },
+    {
+      "role": "boss",
+      "canonical": "assets/art/b03/boss_final_render",
+      "primary": "5 original static boss images",
+      "candidate": "Aekashics 42 frontview sheets + 47 MV sideview sheets",
+      "binding": "optional DLC combat sprite states after animation slicing; never remap boss_id"
+    },
+    {
+      "role": "towns_and_houses",
+      "canonical": "assets/art/exteriors/coast_final_pass",
+      "primary": "authored structures with live entrance alignment",
+      "candidate": "Kenney Sketch Town Expansion 238 PNG",
+      "binding": "preview and prop references only until drawing angle + collision match"
+    },
+    {
+      "role": "map_terrain",
+      "canonical": "assets/art/tilesets/regions",
+      "primary": "region tiles and C coastal ink",
+      "candidate": "Kenney modular shapes; isometric village 4 PNG for layout references",
+      "binding": "never replace fixed tile collision geometry with unreviewed layout image"
+    },
+    {
+      "role": "monster_animations",
+      "canonical": "assets/art/monsters",
+      "primary": "current coastal monsters plus canonical IDs",
+      "candidate": "Aekashics front/MV/DragonBones",
+      "binding": "convert selected clips into Godot 2D SpriteFrames preserving original monster ID"
+    },
+    {
+      "role": "ui_icons",
+      "canonical": "assets/art/external/cc0_named_v1/ui",
+      "primary": "existing C-designed RPG HUD and icons",
+      "candidate": "CC0 UI/icons",
+      "binding": "replace after layout-safe asset dimensions only"
+    },
+    {
+      "role": "world_decor",
+      "canonical": "assets/art/props/coast",
+      "primary": "original weather/time and footpoint-matched scenery",
+      "candidate": "Kenney props and original coast scene art",
+      "binding": "decor Sprite2D based on walkable footpoints, not whole image collision"
+    }
+  ],
+  "per_region": [
+    {
+      "region_id": "region_coast",
+      "maps": [
+        "map_coast_01",
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04",
+        "map_coast_05"
+      ],
+      "priority": "original exterior + coastline SVG/TileMap; Kenney only as layout references"
+    },
+    {
+      "region_id": "region_oaths",
+      "priority": "original highland stone and wind; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_forge",
+      "priority": "original lava/smithwork/stone; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_isles",
+      "priority": "original archipelago/water; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_mirror",
+      "priority": "original reflection/crystal forest; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_oldland",
+      "priority": "original ruins/sand; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_sanctum",
+      "priority": "original altar/starlight; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_city",
+      "priority": "original city blocks/canals; needs a unique HD scene kit"
+    }
+  ],
+  "statuses": "Asset path and role audited in GitHub; live art QA remains untested."
+}

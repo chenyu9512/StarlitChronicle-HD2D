@@ -2,6 +2,7 @@
 """Validate first-act assets and semantic integration, beyond bare JSON syntax."""
 import json
 from pathlib import Path
+from art_source_contract import resolve
 root = Path(__file__).resolve().parents[1]
 scene = root/'scenes'/'first_act.tscn'
 assert scene.exists(), 'missing first act scene'
@@ -14,15 +15,15 @@ assert len(art['assets']) >= 89, 'first act needs original assets'
 for entry in art['assets']:
     svg = root/entry['path']
     png = svg.with_suffix('.png')
-    assert svg.exists(), svg
-    assert png.exists(), png
+    assert resolve(entry['path']).is_file(), svg
+    assert resolve(str(png.relative_to(root))).is_file(), png
 for path in ['assets/art/characters/leon/walk_4dir_3frames.png',
              'assets/art/characters/lanyin/walk_4dir_3frames.png',
              'assets/art/characters/shuoxian/walk_4dir_3frames.png',
              'assets/art/tilesets/coast_ground.png',
              'assets/art/tilesets/coast_water.png',
              'assets/art/backdrops/coast/tide_lighthouse.png']:
-    assert (root/path).exists(), path
+    assert resolve(path).is_file(), path
 chapter_file = json.loads((root/'story'/'campaign'/'act_01.json').read_text(encoding='utf-8'))
 assert len(chapter_file['chapters']) == 6
 expected = [f'ch{x:03d}' for x in range(1,7)]
@@ -53,4 +54,4 @@ assert [q['chapter'] for q in side['quests']] == list(range(1,7))
 for quest in side['quests']:
     assert all(quest[k] for k in ('id','name','start','find','finish'))
 assert '9169' in (root/'scripts'/'cheat_panel.gd').read_text(encoding='utf-8')
-print('PASS: First Act nine prologue scenes, six playable chapters, 5 boss links, objective IDs, all art PNGs')
+print('PASS: First Act nine prologue scenes, six playable chapters, 5 boss links, objective IDs, third-party physical art mappings')

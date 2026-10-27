@@ -83,13 +83,15 @@ func _run() -> void:
                 else:
                     battle._act("special")
             if not bool(settled["done"]) or not bool(settled["victory"]) or int(settled["calls"]) != 1:
+                var remaining_party_hp: Array[int]=[]
+                for member in state.actors:
+                    remaining_party_hp.append(int(member.get("hp",0)))
                 errors.append("Boss not truly cleared with live commands: "+str(spec.get("boss_id",""))+
                     " / "+difficulty+" / round "+str(battle.current_round)+
                     " / victory="+str(settled.get("victory",false))+
                     " / callback_count="+str(settled.get("calls",0))+
                     " / enemy_hp="+str(battle.enemy.get("hp",0))+
-                    " / party_hp="+str(state.actors.map(func(member: Dictionary) -> int:
-                        return int(member.get("hp",0)))))
+                    " / party_hp="+str(remaining_party_hp))
             elif str(spec.get("goal","")) == "pacify" and battle.last_boss_settlement != "nonlethal":
                 errors.append("Nonlethal ending lost: "+str(spec.get("boss_id","")))
             battle.free()

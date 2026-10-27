@@ -7,7 +7,7 @@ const V3Ledger = preload("res://scripts/d_world_interaction/v3_reward_ledger.gd"
 
 static func settle_victory(progress: Variant, core: Variant, transaction_id: String, chapter: int,
         is_boss: bool, enemies: Array, monster_id: String, xp: int, gold: int,
-        xp_multiplier: int = 1) -> Dictionary:
+        xp_multiplier: int = 1, story_resolution: String = "") -> Dictionary:
     if progress == null or core == null or not AReceipt.valid_id(transaction_id):
         return {"ok":false,"applied":false,"reason":"invalid_battle_transaction"}
     if bool(transaction_id.begins_with("boss:")) != is_boss or chapter != int(progress.get("chapter")):
@@ -26,8 +26,15 @@ static func settle_victory(progress: Variant, core: Variant, transaction_id: Str
         return {"ok":true,"applied":false,"repeated":true,"reason":"a_receipt_exists"}
     var awarded_xp: int = maxi(0,xp) * maxi(1,xp_multiplier)
     var awarded_gold: int = maxi(0,gold)
+    # The first-act humane rescue and lighthouse resolution belong to the
+    # same atomic receipt as the boss reward and chapter transition.
+    if is_boss and chapter == 5 and not story_resolution.is_empty() and story_resolution != "nonlethal":
+        return {"ok":false,"applied":false,"reason":"invalid_beast_resolution"}
+    if is_boss and chapter == 6 and not story_resolution.is_empty() and story_resolution != "testimony":
+        return {"ok":false,"applied":false,"reason":"invalid_lighthouse_resolution"}
     var intent: Dictionary = {"source":"battle_victory","chapter":chapter,
-        "boss":is_boss,"xp":awarded_xp,"gold":awarded_gold}
+        "boss":is_boss,"xp":awarded_xp,"gold":awarded_gold,
+        "story_resolution":story_resolution}
     var mutation: Callable = func() -> Dictionary:
         for raw_enemy in enemies:
             if not (raw_enemy is Dictionary):
@@ -44,6 +51,10 @@ static func settle_victory(progress: Variant, core: Variant, transaction_id: Str
         var loot: Array[String] = core.roll_monster_loot(monster_id)
         if is_boss:
             progress.flags["ch%03d.battle_won" % chapter] = true
+            if chapter == 5 and story_resolution == "nonlethal":
+                progress.flags["ch005.beast_released"] = true
+            if chapter == 6 and story_resolution == "testimony":
+                progress.flags["ch006.lighthouse_testimony"] = true
             progress.scene_index += 1
             progress.task_index = 0
             progress.dialogue_seen = false

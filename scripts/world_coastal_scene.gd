@@ -4,6 +4,7 @@ const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const CoastPainter = preload("res://scripts/c_coastal_painter.gd")
 const AllocatedDecor = preload("res://scripts/c_live_coast_dressing.gd")
 const Act01Art = preload("res://scripts/c_act01_production_registry.gd")
+const GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 ## A7-A9: per-map authored art, animation, nonblocking exploration props.
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
@@ -74,13 +75,13 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
         sprite.name=id
         sprite.set_meta("art_kind",asset)
         var art_scale: float = clampf(float(item.get("scale",1.0)),0.25,2.5)
-        sprite.scale = Vector2.ONE * art_scale
+        sprite.scale = Vector2.ONE * art_scale * float(sprite.get_meta("global_art_fit",1.0))
         var depth_sorted: bool=layer in ["vegetation","foreground"] and is_instance_valid(depth_stage)
         # For depth props, the scene root is y-sorted with the hero. Do not
         # move the footpoint when adding a tall canopy: use Sprite2D.offset.
         sprite.z_index=3 if depth_sorted else (-3 if layer=="floor" else (2 if layer=="background" else 3))
         var offset: Array=item.get("offset",[])
-        if offset.size()==2:
+        if offset.size()==2 and not sprite.has_meta("global_art_fit"):
             sprite.offset=Vector2(float(offset[0]),float(offset[1]))
         if depth_sorted:
             depth_stage.add_child(sprite)
@@ -357,7 +358,14 @@ func _sprite(asset: String,cell: Vector2i) -> Sprite2D:
     if file.is_empty() or not ArtOverrides.exists(file):
         return null
     var sprite:=Sprite2D.new()
-    sprite.texture=ArtOverrides.texture(file)
+    var imported: Texture2D = GlobalArt.texture_for_scenery(asset, map_id)
+    sprite.texture = imported if imported != null else ArtOverrides.texture(file)
+    if imported != null:
+        # Keep footpoint/entry geometry fixed while fitting large real sprites.
+        var max_width: float = 155.0 if asset == "tide_lighthouse_landmark" else 92.0
+        var fit: float = minf(1.0, max_width / maxf(1.0, float(imported.get_width())))
+        sprite.set_meta("global_art_fit",fit)
+        sprite.offset = Vector2(0.0, -float(imported.get_height()) * 0.5 + 12.0 / maxf(0.01,fit))
     sprite.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
     sprite.position=Vector2(float(cell.x)*TILE+16.0,float(cell.y)*TILE+16.0)
     return sprite

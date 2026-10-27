@@ -5,6 +5,7 @@ signal encounter_requested()
 
 const Actor = preload("res://scripts/first_act_actor.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const CAct01GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const StoryDressing = preload("res://scripts/world_story_dressing.gd")
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
@@ -427,11 +428,19 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
     if not CArtOverrides.exists(path):
         path = "res://assets/art/props/coast/rock.png"
     var sprite := Sprite2D.new()
-    sprite.texture = CArtOverrides.texture(path)
+    var global_art: Texture2D = CAct01GlobalArt.texture_for_prop(kind) if interior_building.is_empty() and chapter >= 1 and chapter <= 6 else null
+    sprite.texture = global_art if global_art != null else CArtOverrides.texture(path)
+    if global_art != null:
+        sprite.set_meta("act01_global_art_v14", true)
+        var target_width: float = 112.0 if kind == "cottage" else (78.0 if kind in ["sign", "beacon", "star_lantern"] else 92.0)
+        sprite.scale = Vector2.ONE * minf(1.0, target_width / maxf(1.0, float(global_art.get_width())))
     sprite.set_meta("prop_kind",kind)
     var place: Vector2i = tile if authored else geography.old_to_new(tile)
     sprite.position = Vector2(place*TILE)+Vector2(16,16)
     sprite.offset = Vector2(0, -20)
+    if global_art != null:
+        # Correct full-size source PNG anchor: footpoint stays on the authored tile.
+        sprite.offset = Vector2(0.0, -float(global_art.get_height()) * 0.5 + 14.0 / maxf(0.01, sprite.scale.y))
     if kind in ["palm_tree","saltwind_oak","sea_wind_pine"]:
         # A canopy sorts against the actor by trunk/ground contact, not its top.
         sprite.z_index=3

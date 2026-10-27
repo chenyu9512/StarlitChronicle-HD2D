@@ -1,5 +1,6 @@
 extends RefCounted
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const CAct01GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 ## B02 static illustrations / B03 static boss art. Never treat portraits as animation sheets.
 const B02: String = "res://assets/art/b02/MANIFEST.json"
 const B03: String = "res://assets/art/b03/boss_final_render/manifest.json"
@@ -82,6 +83,14 @@ static func battle_image(enemy: Dictionary, is_boss: bool, chapter: int) -> Stri
             boss_path = str(bosses.get("boss.ch%03d" % chapter, ""))
         if not boss_path.is_empty():
             return boss_path
+        # Static boss assets are curated candidates only. Keep identity-specific
+        # B03/phase motion; do not replace it with an unrelated monster portrait.
+    # Prefer a physically imported first-act monster portrait over the generic
+    # placeholder. Existing coastal action sheets still own combat movement.
+    if chapter >= 1 and chapter <= 6 and not is_boss:
+        var imported: String = CAct01GlobalArt.battle_path(str(enemy.get("monster_id", "")))
+        if not imported.is_empty():
+            return imported
     var monster: String = str(enemy.get("art", ""))
     if not monster.is_empty():
         var path: String = "res://assets/art/monsters/coast/%s/battle.png" % monster

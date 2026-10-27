@@ -119,8 +119,48 @@ func _run() -> void:
     check(bool(defeat.get("applied",false)) and fresh.gold==20 and fresh.heal_count==1,"Defeat not persisted")
     var repeat_loss: Dictionary = Settlement.settle_defeat(fresh,loss_id,3,false)
     check(bool(repeat_loss.get("repeated",false)) and fresh.gold==20,"Duplicate defeat penalty")
+    # Act-I Ch5/6 resolutions must share the same atomic save/receipt as
+    # XP, money, boss victory and scene advance. A wrong result cannot pay.
+    var beast := FakeProgress.new()
+    beast.chapter = 5
+    var beast_id: String = AReceipt.make_id(true,5,"boss.ch005")
+    var wrong_beast: Dictionary = Settlement.settle_victory(
+        beast,FakeCore.new(beast),beast_id,5,true,[],"",125,40,1,"legacy_story")
+    check(str(wrong_beast.get("reason",""))=="invalid_beast_resolution",
+        "Lethal result was accepted as nonlethal rescue")
+    var freed: Dictionary = Settlement.settle_victory(
+        beast,FakeCore.new(beast),beast_id,5,true,[],"",125,40,1,"nonlethal")
+    check(bool(freed.get("applied",false)) and bool(beast.flags.get("ch005.beast_released",false)),
+        "Star-chain rescue was not committed")
+    check(bool(beast.on_disk.get("flags",{}).get("ch005.beast_released",false)),
+        "Beast release flag missing after save")
+    var already_freed: Dictionary = Settlement.settle_victory(
+        beast,FakeCore.new(beast),beast_id,5,true,[],"",125,40,1,"nonlethal")
+    check(bool(already_freed.get("repeated",false)) and beast.gold==60,
+        "Beast rescue paid twice")
+
+    var lantern := FakeProgress.new()
+    lantern.chapter = 6
+    lantern.fail_save = true
+    var lantern_id: String = AReceipt.make_id(true,6,"boss.ch006")
+    var original_lantern: Dictionary = lantern._pack().duplicate(true)
+    var failed_lantern: Dictionary = Settlement.settle_victory(
+        lantern,FakeCore.new(lantern),lantern_id,6,true,[],"",180,65,1,"testimony")
+    check(str(failed_lantern.get("reason",""))=="save_failed" and lantern._pack()==original_lantern,
+        "Failed lighthouse save leaked chapter progress")
+    lantern.fail_save = false
+    var wrong_lantern: Dictionary = Settlement.settle_victory(
+        lantern,FakeCore.new(lantern),lantern_id,6,true,[],"",180,65,1,"legacy_story")
+    check(str(wrong_lantern.get("reason",""))=="invalid_lighthouse_resolution",
+        "Old lethal lighthouse outcome was accepted")
+    var relight: Dictionary = Settlement.settle_victory(
+        lantern,FakeCore.new(lantern),lantern_id,6,true,[],"",180,65,1,"testimony")
+    check(bool(relight.get("applied",false)) and bool(lantern.flags.get("ch006.lighthouse_testimony",false)),
+        "Shared testimony did not persist")
+    check(bool(lantern.on_disk.get("flags",{}).get("ch006.lighthouse_testimony",false)),
+        "Saved lighthouse testimony was missing")
     if problems.is_empty():
-        print("PASS: Batch 0.1 battle V3 single snapshot, legacy, nonce replay, save failure, restart and defeat")
+        print("PASS: V3 rewards/rollback plus real Act-I humane rescue and lighthouse testimony receipts")
         quit(0)
     else:
         for problem in problems:

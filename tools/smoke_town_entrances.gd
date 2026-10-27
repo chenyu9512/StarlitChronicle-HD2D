@@ -51,6 +51,11 @@ func _run() -> void:
             for yy in range(inside.position.y,inside.end.y):
                 for xx in range(inside.position.x,inside.end.x):
                     check(blockers.has(Vector2i(xx,yy)),map_id+"/"+id+" ghost collision at "+str(Vector2i(xx,yy)))
+            for ring in [
+                Vector2i(inside.position.x-1,body.y),Vector2i(inside.end.x,body.y),
+                Vector2i(body.x,inside.position.y-1),Vector2i(body.x,inside.end.y)]:
+                if not geo._inside_town_building(ring,geo.zone(map_id)):
+                    check(not blockers.has(ring),map_id+"/"+id+" blocked empty sidewalk "+str(ring))
             check(blockers.has(door),map_id+"/"+id+" door crosses a solid wall")
             check(not blockers.has(threshold),map_id+"/"+id+" threshold blocked")
             check(geo.reachable({"blocked":blockers,"size":size},[spawn],[threshold]),map_id+"/"+id+" entrance unreachable")

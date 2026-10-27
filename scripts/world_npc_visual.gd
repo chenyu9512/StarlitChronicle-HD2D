@@ -2,6 +2,7 @@ extends Sprite2D
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const RegionalNPC = preload("res://scripts/c_art_regional_npc.gd")
 ## Small original top-down citizen silhouette; role palette conveys information.
 var motion = CharacterMotion.new()
 var reduced_motion: bool = false
@@ -15,6 +16,9 @@ var tone: Color = Color("749eab")
 var base_hour: int = 8
 var label: Label
 var artwork: Sprite2D
+var costume_clips: Dictionary = {}
+var costume_atlas: AtlasTexture
+var last_costume_signature: String = ""
 var idle_elapsed: float = 0.0
 var gesture_clock: float = 0.0
 var blink_phase: float = 0.0
@@ -71,6 +75,8 @@ func _process(delta: float) -> void:
             _: life_action = ["observe", "rest", "look_around", "observe"][cycle]
     blink_phase=fposmod(idle_elapsed+float(posmod(role.hash(),7))*0.37,3.9)
     if is_instance_valid(artwork):
+        if not costume_clips.is_empty():
+            _update_costume()
         # Still portrait identities stay intact: only subtle vertical breathing.
         artwork.position.y = base_art_offset if reduced_motion else base_art_offset + 0.8 * sin(idle_elapsed * 1.6 + float(posmod(role.hash(), 8)))
         artwork.position.x = motion.visual_offset().x
@@ -112,6 +118,27 @@ func perform_life_action(action: String) -> void:
     motion.gesture()
     queue_redraw()
 
+func _update_costume() -> void:
+    if costume_atlas == null or not is_instance_valid(artwork):
+        return
+    var dirs: Array[String] = ["down", "left", "up", "right"]
+    var dir: String = dirs[clampi(motion.atlas_row(), 0, 3)]
+    var moving: bool = motion.move_blend > 0.12
+    var state: String = "walk" if moving else "idle"
+    var record: Dictionary = (costume_clips.get(dir, {}) as Dictionary).get(state, {})
+    if record.is_empty():
+        return
+    var source: Texture2D = record.get("texture") as Texture2D
+    if source == null:
+        return
+    var signature: String = dir + ":" + state
+    if signature != last_costume_signature:
+        costume_atlas.atlas = source
+        last_costume_signature = signature
+    var frames: int = int(record.get("count", 1))
+    var index: int = posmod(int(idle_elapsed * (8.0 if moving else 4.0)), maxi(1, frames))
+    costume_atlas.region = Rect2(index * 48, 0, 48, 48)
+
 func setup(info: Dictionary) -> void:
     role=str(info.get("role","lore"))
     citizen_name=str(info.get("name","旅人"))
@@ -135,8 +162,23 @@ func setup(info: Dictionary) -> void:
     label.text=citizen_name
     # Only the 35 approved B02 NPC fullbody sheets are used as still overworld figures.
     # Coast residents without authored B02 art keep their silhouette fallback.
+    costume_clips = RegionalNPC.costume(str(info.get("id", "")))
+    if not costume_clips.is_empty():
+        # The real 48x48 character strips replace only matching named roles.
+        # Collision, interaction, dialogue and NPC daily routing remain unchanged.
+        costume_atlas = AtlasTexture.new()
+        var down: Dictionary = (costume_clips.get("down", {}) as Dictionary).get("idle", {})
+        costume_atlas.atlas = down.get("texture") as Texture2D
+        costume_atlas.region = Rect2(0, 0, 48, 48)
+        artwork = Sprite2D.new()
+        artwork.texture = costume_atlas
+        artwork.scale = Vector2.ONE * (38.0 / 48.0)
+        artwork.position = Vector2(0, -21)
+        artwork.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        artwork.set_meta("regional_costume", str(info.get("id", "")))
+        add_child(artwork)
     var art_path: String = ArtAssets.npc_fullbody(str(info.get("id", "")))
-    if not art_path.is_empty() and ArtOverrides.exists(art_path):
+    if artwork == null and not art_path.is_empty() and ArtOverrides.exists(art_path):
         artwork = Sprite2D.new()
         artwork.texture = ArtOverrides.texture(art_path)
         var dimensions: Vector2 = artwork.texture.get_size()

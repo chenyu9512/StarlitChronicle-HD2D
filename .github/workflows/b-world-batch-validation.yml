@@ -21,6 +21,8 @@ jobs:
           python3 tools/audit_b_world_source_matrix.py --output /tmp/starlit-b-world-source-matrix.json
           python3 tools/validate_b_npc_home.py
           python3 tools/validate_b_line_delivery.py
+      - name: Validate two playable harbor story buildings and eight physical clue paths
+        run: python3 tools/validate_b_act01_harbor_rooms.py
       - name: Install official Godot 4.7.2
         run: |
           curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip

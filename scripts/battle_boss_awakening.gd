@@ -2,6 +2,13 @@ extends Control
 ## A16 actual six-frame transparent battle overlay for boss phase transitions.
 ## Render-only: does not mutate health, targeting, turn queue, saves or rewards.
 const SHEET: String = "res://assets/art/battle/a16/boss_awakening_6f.svg"
+const CHAPTER_SHEETS: Dictionary = {
+    2: "res://assets/art/b03/boss_motion/ch002_phase_6f.svg",
+    3: "res://assets/art/b03/boss_motion/ch003_phase_6f.svg",
+    4: "res://assets/art/b03/boss_motion/ch004_phase_6f.svg",
+    5: "res://assets/art/b03/boss_motion/ch005_phase_6f.svg",
+    6: "res://assets/art/b03/boss_motion/ch006_phase_6f.svg"
+}
 const FRAME: int = 192
 const FRAMES: int = 6
 const DURATION: float = 0.96
@@ -16,6 +23,7 @@ var elapsed: float = 0.0
 var displayed_frame: int = -1
 var frame_switches: int = 0
 var tint: Color = Color("d4b6fb")
+var selected_art_sheet: String = SHEET
 
 func _ready() -> void:
     mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -36,6 +44,13 @@ func configure(target: Control, boss_chapter: int, motion_reduced: bool = false)
     aura.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
     atlas=AtlasTexture.new()
     var texture: Texture2D=load(SHEET) as Texture2D
+    selected_art_sheet=SHEET
+    var authored: String=str(CHAPTER_SHEETS.get(chapter,""))
+    if not authored.is_empty() and ResourceLoader.exists(authored):
+        var candidate: Texture2D=load(authored) as Texture2D
+        if candidate!=null and candidate.get_size()==Vector2(FRAME*FRAMES,FRAME):
+            texture=candidate
+            selected_art_sheet=authored
     if texture!=null:
         atlas.atlas=texture
         atlas.region=Rect2(0,0,FRAME,FRAME)

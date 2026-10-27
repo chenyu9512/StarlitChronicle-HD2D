@@ -153,10 +153,11 @@ func _waypoint(npc_id: String,map_id: String,at: Vector2i,goal: Vector2i,
     if index>=0 and index+1<path.size():
         if walls.has(path[index+1]):
             index=-1
-    # When temporarily surrounded by residents, a cached one-cell path
-    # must be retried rather than leaving a citizen frozen indefinitely.
-    # Throttle these retries; never re-run BFS every rendered frame.
-    if index>=0 and path.size()<=1 and at!=goal:
+    # A partial BFS path may end NEAR an unreachable destination, not only
+    # in a one-cell dead end. Once an NPC reaches that final tile, retry at
+    # a bounded interval instead of running the same town-wide BFS every
+    # rendered frame. This also lets temporary obstacles clear naturally.
+    if index>=0 and index==path.size()-1 and at!=goal:
         var retry: float=maxf(0.0,float(memo.get("retry_after",1.25))-maxf(0.0,seconds))
         if retry>0.0:
             memo["retry_after"]=retry

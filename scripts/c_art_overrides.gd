@@ -385,3 +385,36 @@ static func install_pack(manifest_file: String) -> Dictionary:
 static func _rollback_dlc_files(paths: Array) -> void:
     for path in paths:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(str(path)))
+
+## Remove an installed user DLC (never removes an original or built-in pack).
+## Keep the disk manifest authoritative so deactivated packs do not reload.
+static func uninstall_pack(id: String) -> bool:
+    _load()
+    if not _packs.has(id) or not bool(_packs[id].get("user_pack", false)):
+        return false
+    if _active_pack_id == id and not activate_pack("original"):
+        return false
+    var retained: Array = []
+    for pack_id in _packs.keys():
+        var pack: Dictionary = _packs[pack_id]
+        if not bool(pack.get("user_pack", false)) or str(pack_id) == id:
+            continue
+        var replacements: Array = []
+        for target in pack.get("mappings", {}).keys():
+            replacements.append({"target": str(target), "source": str(pack["mappings"][target])})
+        retained.append({"id": str(pack_id), "name": str(pack.get("name", pack_id)), "mappings": replacements})
+    var previous: String = FileAccess.get_file_as_string(USER_PACK_INDEX)
+    var file: FileAccess = FileAccess.open(USER_PACK_INDEX, FileAccess.WRITE)
+    if file == null:
+        return false
+    file.store_string(JSON.stringify({"schema": "starlit.c.userpacks.v1", "packs": retained}, "  "))
+    file.close()
+    var folder: String = PACK_ROOT + "/" + id
+    for target in _packs[id].get("mappings", {}).keys():
+        var source: String = str(_packs[id]["mappings"][target])
+        if source.begins_with(folder + "/") and not source.contains(".."):
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(source))
+    _packs.erase(id)
+    _cache.clear()
+    _revision += 1
+    return true

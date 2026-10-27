@@ -1,6 +1,6 @@
 {
   "schema": "starlit.qa.m01-world.v1",
-  "requested_parent_sha": "e03c1e85a12fdc14036478e8df181765476b4adf",
+  "requested_parent_sha": "77bbc3ec4a2860f6da98be3760d999035cc9f6d2",
   "engine": "4.7.2",
   "tests": [
     "tools/smoke_town_direction_v4.gd",
@@ -10,6 +10,6 @@
   ],
   "scope": "Plaza outside roof; authored editor overlays; real house service sign; all 68 thresholds and 40 map exits",
   "status": "requested-not-verified",
-  "version": 2,
-  "rerun_reason": "Original Bash -e stopped at failing V3 test before printing logs or exercising home entrances. Execute all four and preserve per-test output."
+  "version": 3,
+  "rerun_reason": "Verify D line town door quit(0) immediate return; retain V3 authored painting/collision assertions, 68 doors and 40-map reachability."
 }

@@ -27,7 +27,10 @@ func _verify() -> void:
     game.world_router.sync_chapter(1)
     game._enter_location()
     check(game.world.nodes.has("citizen:npc_coast_01"),"NPC resident did not spawn in playable village")
-    check(game.world.nodes.has("citizen:npc_coast_05"),"Named rumor citizen did not spawn")
+    check(game.world.nodes.has("citizen:npc_coast_03"),"Village lore NPC did not spawn")
+    check(str(life.citizen("npc_coast_05").get("map_id",""))=="map_coast_02"
+        and not game.world.nodes.has("citizen:npc_coast_05"),
+        "Port rumor citizen must be authored only in harbor, not duplicated in village")
     check(game.world.ambience!=null and game.world.ambience.weather in ["rain","mist","clear"],"Coastal ambient weather profile not initialized")
     var resident_id: String="citizen:npc_coast_03"
     var old_flags: Dictionary=game.progress.rpg.get("talked_to",{}).duplicate(true)
@@ -88,7 +91,7 @@ func _verify() -> void:
     game.service_menu.close_service()
     check(game.world.leave_building(),"Guild indoor exit failed")
     check(game.world.interior_building.is_empty(),"Guild exit did not restore outdoors")
-    var night_resident: String = "citizen:npc_coast_05"
+    var night_resident: String = "citizen:npc_coast_03"
     # A missing resident is a hard QA failure, not a dictionary-key script
     # exception that leaves SceneTree running until the CI watchdog expires.
     check(game.world.nodes.has(night_resident),

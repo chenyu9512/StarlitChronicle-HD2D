@@ -4,6 +4,30 @@ from pathlib import Path
 import json
 root=Path(__file__).resolve().parents[1]
 base=root/"data"/"content"
+
+# Main2 maps deleted project-authored art slots to existing third-party PNGs.
+# Validate the *physical* fallback source, not an intentionally retired path.
+migration_file=root/"data"/"assets"/"c_third_party_only_migration_v1.json"
+migrated_paths={}
+if migration_file.is_file():
+    migration=json.loads(migration_file.read_text(encoding="utf8"))
+    for pair in migration.get("mappings",[]):
+        former=str(pair.get("old_path",""))
+        source=str(pair.get("new_source",""))
+        if former and source:
+            assert former not in migrated_paths,("duplicate migrated art id",former)
+            migrated_paths[former]=source
+
+def physical_resource_exists(value):
+    assert value.startswith("res://"),value
+    logical=value.removeprefix("res://")
+    original=root/logical
+    if original.is_file():
+        return True
+    replacement=migrated_paths.get(logical,"")
+    assert replacement.startswith("assets/art/external/cc0_named_v1/"),(logical,replacement)
+    assert ".." not in Path(replacement).parts,(logical,replacement)
+    return (root/replacement).is_file()
 manifest=json.loads((base/"manifest.json").read_text(encoding="utf8"))
 assert manifest["format"]=="starlit.content.v1"
 tables={}
@@ -30,7 +54,7 @@ for category in ("monsters","bosses"):
         check("regions",row["region_id"],row["id"])
         for item in row.get("loot",row.get("drops",[])):
             check("items",item["item_id"],row["id"])
-        assert (root/row["preview_fallback"].removeprefix("res://")).is_file()
+        assert physical_resource_exists(row["preview_fallback"]),row["id"]
 for row in tables["quests"].values():
     check("regions",row["region_id"],row["id"])
     check("maps",row["map_id"],row["id"])

@@ -75,6 +75,7 @@ func _run() -> void:
     if errors.is_empty():
         print("PASS C coastal render: 2 authored atlases, real TileMap, Y-sorted props, light clock, capped shader water, no collision writes")
         quit(0)
+        return
     for issue in errors:
         push_error(issue)
     quit(1)

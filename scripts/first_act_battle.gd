@@ -17,6 +17,7 @@ const BattleHud = preload("res://scripts/battle_hud.gd")
 const BossAwakening = preload("res://scripts/battle_boss_awakening.gd")
 const C23FogTideBodyMotion = preload("res://scripts/c_b03_fog_tide_body_motion.gd")
 const C23OtherBossMotion = preload("res://scripts/c_b03_other_boss_motion.gd")
+const LibrariumBossIdle = preload("res://scripts/c_art_librarium_boss_idle.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -70,6 +71,7 @@ var camera_motion
 var battle_hud
 var boss_animation
 var c23_boss_body_motion
+var librarium_boss_idle
 var last_warning_text: String = ""
 var last_warning_round: int = 0
 var special_button: Button
@@ -269,6 +271,12 @@ func _build() -> void:
     portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     root.add_child(portrait)
+    librarium_boss_idle = null
+    if boss and LibrariumBossIdle.accepts(str(enemy.get("boss_id",""))):
+        librarium_boss_idle = LibrariumBossIdle.new()
+        librarium_boss_idle.name = "CanonicalThreeFrameBossIdle"
+        root.add_child(librarium_boss_idle)
+        librarium_boss_idle.configure(portrait, enemy, bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
     c23_boss_body_motion = null
     if boss and chapter >= 2 and chapter <= 6:
         if chapter == 2:
@@ -408,6 +416,8 @@ func _select_enemy(index: int) -> void:
         enemy_stage.focus(index)
     if is_instance_valid(portrait) and portrait.visible:
         portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
+        if is_instance_valid(librarium_boss_idle):
+            librarium_boss_idle.configure(portrait, enemy, bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
         if is_instance_valid(vfx):
             vfx.bind_enemy(portrait,str(enemy.get("art","")),boss)
 

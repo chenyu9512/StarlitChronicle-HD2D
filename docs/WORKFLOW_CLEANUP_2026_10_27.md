@@ -1,6 +1,8 @@
 # 工作流清理及持续验收入口（2026-10-27）
 
-**范围**：main 分支下 .github/workflows/，仅整理自动化入口、政策与开发导航；保留正式游戏脚本、测试脚本、候选/正式美术与历史 Git 提交。
+**原执行范围**：main 分支下 .github/workflows/，仅整理自动化入口、政策与开发导航；保留正式游戏脚本、测试脚本、候选/正式美术与历史 Git 提交。
+
+**2026-10-27 补充：** 用户将唯一开发目标切换到 `Main2美术优化版`；本文件所记删除历史仍属于原 `main` 时期。新工作流应在目标分支手动派发或由该分支专用QA批次标记触发，不能默认以 `main` 运行结果证明新分支通过。
 
 ## 核查前后
 
@@ -27,7 +29,7 @@
 | coastal-visual-evidence.yml | 第一幕实际画面与序章截图证据 | 手动 |
 | desktop-preview.yml | Windows/Linux开发预览导出 | 手动 |
 
-**所有保留的触发型工作流只在专用 docs/qa-*.json 改动时响应 push**；一般代码或文档提交不应触发大批测试。手动触发仍产生Actions用量，请在功能冻结、SHA明确时集中运行。
+**后续仅在 `Main2美术优化版` 的专用 docs/qa-*.json 改动时响应 push**；一般代码或文档提交不应触发大批测试。手动触发仍产生Actions用量，请在功能冻结、SHA明确时集中运行。
 
 ## 已废弃的 10 个工作流和替代路径
 
@@ -35,7 +37,7 @@
 | --- | --- | --- |
 | export-hd2d-art.yml | 旧 SVG→PNG批量渲染会将生成资产直接 push 回分支，可能与C线正式美术选择冲突 | 资源由C线受控导出；保留 tools/export_hd2d_svg.py 等独立脚本供人工审查 |
 | render-coast-idles.yml | 老批次动画生成后自动 rebase/push 到main，与新美术分配冲突 | C线正式资源流水线；动画专项用 battle-animation-validation 与C23验收 |
-| materialize-world-v3.yml | V3地图补齐后自动 rebase/push main；属于一次性历史生产而非测试 | tools/materialize_world_v3.py --verify 验证现有文件；不得自动改动main |
+| materialize-world-v3.yml | V3地图补齐后自动 rebase/push main；属于一次性历史生产而非测试 | tools/materialize_world_v3.py --verify 验证现有文件；不得自动改动任一仓库分支 |
 | actions-failure-audit.yml | 一次性历史Actions失败巡检，日常不再需要独立入口 | 保留 tools/audit_actions_failures.py，由D线本地按需运行 |
 | cinematic-validation.yml | 与 Godot Core 中剧情演出/序章回归重复 | godot-core-validation.yml 或完整smoke |
 | map-ui-validation.yml | 与 Core / 全库smoke中的本地地图、房屋、迷雾禁用检查大量重复 | Godot Core / 全库smoke；补充静态 tools/validate_all_map_display.py |
@@ -48,7 +50,7 @@
 
 ## 执行规程
 
-1. 开发者日常修改只提交main，检查受影响脚本；不要每提交一次就触发重型Actions。
+1. 开发者日常修改只提交`Main2美术优化版`，检查受影响脚本；不要每提交一次就触发重型Actions。
 2. 功能验收时冻结并记录HEAD SHA；先运行 content-validation 或本地静态脚本，再按风险运行 M0.1 / A / B / C 等专项。
 3. 再运行 Godot Core 和 Full Smoke，记录每个 job 与测试日志；需要画面时使用 coastal-visual-evidence，打包前使用 desktop-preview。
 4. 成功/失败/未测试必须标记清楚；历史绿色日志不能自动代表最新SHA。

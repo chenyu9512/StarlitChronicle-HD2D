@@ -38,7 +38,8 @@ jobs:
             tools/smoke_town_direction_v4.gd \
             tools/smoke_world_v3.gd \
             tools/smoke_town_entrances.gd \
-            tools/d_control/smoke_m01_world_route_reachability.gd
+            tools/d_control/smoke_m01_world_route_reachability.gd \
+            tools/smoke_story_map_dressing.gd
           do
             echo "::group::${test}"
             timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://${test}" >"qa-m01-world/${test//\//_}.log" 2>&1

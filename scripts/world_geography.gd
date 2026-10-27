@@ -438,6 +438,20 @@ func _seal_town_buildings(ground: Dictionary,walls: Dictionary,spec: Dictionary,
         # Preserve the original grid/blocker representation used by collision,
         # path tests and the editor; the building scene draws the actual roof.
         _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),6),true)
+    # One tile of genuinely walkable pavement around the actual facade.
+    # Previously unrelated terrain walls could form an invisible solid halo
+    # around houses, even though players saw a visually empty sidewalk.
+    # Never punch through another building, out-of-bounds, or the roof itself.
+    for raw in spec.get("buildings", []):
+        if not raw is Dictionary:
+            continue
+        var box: Rect2i=_building_box(raw)
+        for y in range(box.position.y-1,box.end.y+1):
+            for x in range(box.position.x-1,box.end.x+1):
+                var site:=Vector2i(x,y)
+                if site.x<2 or site.y<2 or site.x>=map_width-2 or site.y>=map_height-2 or roofs.has(site):
+                    continue
+                _paint(ground,walls,site,Vector2i(posmod(site.x+site.y,8),3),false)
     var layout_size:=Vector2i(map_width,map_height)
     for entrance in entrances:
         if roofs.has(entrance):

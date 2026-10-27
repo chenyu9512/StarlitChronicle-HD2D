@@ -6,9 +6,9 @@
 
 **项目状态：开发中 · Pre-release（非正式商业发行版）**  
 **技术：Godot 4.7.2 / GDScript · 2D / HD-2D 风格 · 单人离线 · PC 开发预览、移动端适配中**  
-**主分支：`main` · 仓库：公开可访问 · 状态快照：2026-10-26**
+**主分支：`main` · 仓库：公开可访问 · 当前计划更新：2026-10-27**
 
-[全局说明 / 开发路线与进度（2026-10-27）](docs/GAME_GLOBAL_OVERVIEW_ROADMAP_2026_10_27.md) · [快速开始](#快速开始) · [玩法特色](#游戏体验) · [真实开发进度](#开发进度与验收边界) · [项目结构](#工程结构) · [测试与协作](#开发协作与质量保障) · [剧情索引](story/SCREENPLAY_CURRENT_INDEX.md) · [更新记录](CHANGELOG.md)
+**[当前唯一开发计划（优先阅读）](docs/DEVELOPMENT_MASTER_PLAN.md)** · [工作流清理与测试入口](docs/WORKFLOW_CLEANUP_2026_10_27.md) · [详细历史基线报告](docs/GAME_GLOBAL_OVERVIEW_ROADMAP_2026_10_27.md) · [快速开始](#快速开始) · [玩法特色](#游戏体验) · [真实开发进度](#开发进度与验收边界) · [项目结构](#工程结构) · [测试与协作](#开发协作与质量保障) · [剧情索引](story/SCREENPLAY_CURRENT_INDEX.md) · [更新记录](CHANGELOG.md)
 
 ---
 
@@ -108,7 +108,7 @@ python3 tools/validate_a_combat_balance.py
 godot --headless --path . --script res://tools/smoke_a_line_world_handoff.gd
 ```
 
-更多测试入口见 [Godot Core Validation 工作流](.github/workflows/godot-core-validation.yml)、[D线QA契约](docs/d_control/CONTRACT_AND_RELEASE_GATE.md)。具体测试是否通过以**对应提交SHA的运行日志**为准，不能引用旧版成功记录覆盖新提交。
+**本仓库现保留12个手动/批次测试工作流；10个旧生产或重复验收入口已退役。** 全部名称与替代方式见 [工作流清单](docs/WORKFLOW_CLEANUP_2026_10_27.md)。更多测试入口见 [Godot Core Validation 工作流](.github/workflows/godot-core-validation.yml)、[D线QA契约](docs/d_control/CONTRACT_AND_RELEASE_GATE.md)。具体测试是否通过以**对应提交SHA的运行日志**为准，不能引用旧版成功记录覆盖新提交。
 
 ## 工程结构
 
@@ -158,7 +158,7 @@ StarlitChronicle-HD2D/
 4. 提交说明应写清楚**代码已入库 / 已接入 / 已测试 / 待测试**，并保留失败记录。杜绝使用跳剧情、无限血量或预置任务成功旗标伪造产品验收。
 5. 共享文件 `scripts/first_act.gd`、`scripts/first_act_world.gd`、`scripts/rpg_core.gd`、`project.godot` 及CI配置应遵循D线集成权限约定。
 
-详细说明：[单主线批次政策](docs/DEVELOPMENT_BATCH_POLICY.md) · [D线集成与发行门禁](docs/d_control/CONTRACT_AND_RELEASE_GATE.md)。
+详细说明：**[当前开发总控](docs/DEVELOPMENT_MASTER_PLAN.md)** · [单主线批次政策](docs/DEVELOPMENT_BATCH_POLICY.md) · [工作流去重记录](docs/WORKFLOW_CLEANUP_2026_10_27.md) · [D线集成与发行门禁](docs/d_control/CONTRACT_AND_RELEASE_GATE.md)。
 
 ### 当前主要开放问题
 

@@ -80,9 +80,21 @@ def run() -> dict:
                     f"Chapter {number} {required_building} clue inputs are not"
                     f" bound/verified by D-line main-game interaction controller")
         if record["required_scene_kind"]=="shore_subzone":
+            # B now maintains a genuinely discoverable shoal within the
+            # original Saltwind sector; do not report it as absent. D's
+            # chapter routing and nonlethal story choice remain separate P0s.
+            shoal = load("data/levels/v3/map_coast_03.json")
+            discoveries = load("data/levels/v5/world_discoveries.json")["maps"][expected]["events"]
+            clearing_cells = {tuple(c["center"]) for c in shoal.get("clearings",[])}
+            correct = ({(62,43),(66,45)} <= clearing_cells and
+                       any("鲸骨浅滩" in e.get("name","") for e in discoveries)
+                       and len(discoveries)==3)
+            if not correct:
+                commercial_blockers.append(
+                    f"Chapter {number} lacks the authored, walkable whale-shoal area")
             commercial_blockers.append(
-                f"Chapter {number} needs a distinctive whale-shoal gameplay subzone"
-                f" within {expected}; existing sector identity remains saltwind road")
+                f"Chapter {number} whale-shoal nonlethal resolution choice is not"
+                " verified through the main-game D-line story controller")
         details.append({
             "chapter":number, "story_location":record["story_location"],
             "story_map_id":expected, "current_anchor_map_id":actual,

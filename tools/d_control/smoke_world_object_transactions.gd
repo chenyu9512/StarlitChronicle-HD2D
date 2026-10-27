@@ -89,6 +89,81 @@ func _run() -> void:
         check(bool(seal_repeat.get("ok",false)) and not bool(seal_repeat.get("changed",true))
             and reload.gold==paid, "Repeat seal paid twice")
 
+    # M0.1: use actual authored B-line ecology rules, not fake payments.
+    # All reward/status/HP mutations must disappear when the V3 write fails.
+    var field = load("res://scripts/world_field_ecology.gd").new()
+    var town = load("res://scripts/world_town_ecology.gd").new()
+    check(field.issues.is_empty(), "Field catalogue has validation issues")
+    check(town.issues.is_empty(), "Town activity catalogue has validation issues")
+    var local = State.new()
+    local.save_path = sandbox + "/ecology.json"
+    local.backup_path = sandbox + "/ecology.bak.json"
+    var local_core = Core.new()
+    local_core.bind(local)
+    var trial_before: Dictionary = local._pack().duplicate(true)
+    local.save_path = sandbox + "/missing/field.json"
+    var trial_handler: Callable = func() -> Dictionary:
+        return field.interact("map_coast_02","trial",local,"clear",480,1)
+    var trial_denied: Dictionary = Tx.interact(local,local_core,trial_handler)
+    check(str(trial_denied.get("reason","")) == "save_failed"
+        and local._pack() == trial_before,
+        "Failed field trial changed HP, state or economy")
+    local.save_path = sandbox + "/ecology.json"
+    var trial_success: Dictionary = Tx.interact(local,local_core,trial_handler)
+    check(bool(trial_success.get("ok",false)) and bool(trial_success.get("changed",false)),
+        "Valid field trial could not persist")
+    var inventory_before: Dictionary = local.inventory.duplicate(true)
+    var gather_handler: Callable = func() -> Dictionary:
+        return field.interact("map_coast_02","gather",local,"clear",480,1)
+    local.save_path = sandbox + "/missing/gather.json"
+    var gather_denied: Dictionary = Tx.interact(local,local_core,gather_handler)
+    check(str(gather_denied.get("reason","")) == "save_failed"
+        and local.inventory == inventory_before
+        and int(field.snapshot(local,"map_coast_02").get("gather_day",-1)) != 1,
+        "Failed gathering leaked an item or same-day receipt")
+    local.save_path = sandbox + "/ecology.json"
+    var gather_success: Dictionary = Tx.interact(local,local_core,gather_handler)
+    check(bool(gather_success.get("ok",false)) and bool(gather_success.get("changed",false)),
+        "Field gathering and item grant were not persisted")
+    var after_gather: Dictionary = local._pack().duplicate(true)
+    var gather_repeat: Dictionary = Tx.interact(local,local_core,gather_handler)
+    check(bool(gather_repeat.get("ok",false)) and not bool(gather_repeat.get("changed",true))
+        and local._pack() == after_gather, "One-day field gathering reissued an item")
+
+    var town_handler: Callable = func() -> Dictionary:
+        return town.interact("map_coast_01","prepare",local,8)
+    var town_before: Dictionary = local._pack().duplicate(true)
+    local.save_path = sandbox + "/missing/town.json"
+    var town_denied: Dictionary = Tx.interact(local,local_core,town_handler)
+    check(str(town_denied.get("reason","")) == "save_failed"
+        and local._pack() == town_before,
+        "Failed town activity advanced the authored neighborhood")
+    local.save_path = sandbox + "/ecology.json"
+    var town_success: Dictionary = Tx.interact(local,local_core,town_handler)
+    check(bool(town_success.get("ok",false)) and bool(town_success.get("changed",false)),
+        "Town prepare step was not durably saved")
+    var town_repeat: Dictionary = Tx.interact(local,local_core,town_handler)
+    check(bool(town_repeat.get("ok",false)) and not bool(town_repeat.get("changed",true)),
+        "Completed town activity repeated itself")
+    var saved_after_town: Dictionary = local._pack().duplicate(true)
+    var camp_handler: Callable = func() -> Dictionary:
+        local.rpg["camp_last_day"] = {"map_coast_02":1}
+        var actor: Dictionary = local.actors[0]
+        actor["hp"] = mini(int(actor.get("max_hp",1)),int(actor.get("hp",1))+9)
+        local.actors[0] = actor
+        var clock: Dictionary = local.rpg.get("game_clock",{})
+        clock["minutes"] = int(clock.get("minutes",480)) + 120
+        return {"ok":true,"changed":true}
+    local.save_path = sandbox + "/missing/camp.json"
+    var failed_rest: Dictionary = Tx.transact(local,camp_handler)
+    check(str(failed_rest.get("reason","")) == "save_failed"
+        and local._pack() == saved_after_town,
+        "Failed camp rest changed clock, HP or same-day receipt")
+    for file_path in [sandbox + "/ecology.json",sandbox + "/ecology.bak.json",
+            sandbox + "/ecology.json.tmp",sandbox + "/ecology.bak.json.tmp"]:
+        if FileAccess.file_exists(file_path):
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(file_path))
+
     for path in [state.save_path,state.backup_path,state.save_path+".tmp",
             state.backup_path+".tmp"]:
         if FileAccess.file_exists(path):

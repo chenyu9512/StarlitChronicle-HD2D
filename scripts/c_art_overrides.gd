@@ -387,6 +387,7 @@ static func install_pack(manifest_file: String) -> Dictionary:
     var mappings: Array = []
     var seen: Dictionary = {}
     var shared_saved: Dictionary = {}
+    var shared_dimensions: Dictionary = {}
     for row in expanded:
         if not row is Dictionary:
             _rollback_dlc_files(installed)
@@ -402,6 +403,16 @@ static func install_pack(manifest_file: String) -> Dictionary:
         if relative.get_extension().to_lower() not in ["png", "jpg", "jpeg", "webp"]:
             _rollback_dlc_files(installed)
             return {"ok": false, "message": "DLC只允许图片文件。"}
+        # A terrain family expands into 10-11 targets but references one PNG.
+        # Validate each target's atlas size without decoding that PNG again.
+        if bool(row.get("_shared", false)) and shared_saved.has(relative):
+            var baseline_shared: Texture2D = original_texture(target)
+            if baseline_shared == null or Vector2i(baseline_shared.get_size()) != shared_dimensions[relative]:
+                _rollback_dlc_files(installed)
+                return {"ok": false, "message": "共享图集尺寸不一致：" + target}
+            mappings.append({"target": target, "source": str(shared_saved[relative])})
+            seen[target] = true
+            continue
         var source_file: String = manifest_file.get_base_dir().path_join(relative)
         var file: FileAccess = FileAccess.open(source_file, FileAccess.READ)
         if file == null or file.get_length() < 16 or file.get_length() > MAX_INPUT_BYTES:
@@ -434,16 +445,14 @@ static func install_pack(manifest_file: String) -> Dictionary:
             image.convert(Image.FORMAT_RGBA8)
         var is_shared: bool = bool(row.get("_shared", false))
         var destination: String = folder + "/" + (relative.sha256_text() if is_shared else target.sha256_text()) + ".png"
-        # Save an expanded terrain family image only once, not 8-11 duplicates.
-        if not (is_shared and shared_saved.has(relative)):
-            if image.save_png(destination) != OK:
-                _rollback_dlc_files(installed)
-                return {"ok": false, "message": "DLC图片保存失败。"}
-            installed.append(destination)
-            if is_shared:
-                shared_saved[relative] = destination
-        else:
-            destination = str(shared_saved[relative])
+        # Shared groups save and decode once; all other target IDs have unique PNGs.
+        if image.save_png(destination) != OK:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "DLC图片保存失败。"}
+        installed.append(destination)
+        if is_shared:
+            shared_saved[relative] = destination
+            shared_dimensions[relative] = dimensions
         mappings.append({"target": target, "source": destination})
         seen[target] = true
     var saved: Array = []

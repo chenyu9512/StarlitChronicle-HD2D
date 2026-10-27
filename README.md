@@ -25,3 +25,13 @@
 安装 Godot 4.7.2，直接打开项目根目录 `project.godot`。运行入口 `scenes/first_act.tscn`。
 本分支推送会自动执行 Godot 全项目解析、六章世界构建、美术贴图载入与首幕基础战斗回归。
 商业级画面审核和第 2/4/5 章独立场景完善依然是未完成工作，不因为精简分支创建而自动通过。
+
+## 如何只下载这一版本，不把旧版素材历史拉到电脑
+
+GitHub 的分支共享提交历史。为了确保本地**只拉取 28 MiB 的当前文件树**（不下载父提交中的原始大包），务必单分支浅克隆：
+
+```powershell
+git clone --depth 1 --single-branch --branch "Main2游戏运行精简版" https://github.com/chenyu9512/StarlitChronicle-HD2D.git StarlitChronicle-Runtime
+```
+
+不要用默认的全历史克隆来衡量这条运行分支的大小；GitHub 历史中的老文件并不会因为新分支删除文件而从仓库对象库中消失。

@@ -718,8 +718,15 @@ func _build_sites() -> void:
             var inspection_cell: Vector2i = authored_inspection.get("cell",Vector2i(-1,-1))
             if inspection_id.is_empty() or inspection_cell.x<0 or blocked.has(inspection_cell):
                 continue
-            var inspection_marker: Sprite2D = _add_sprite("sea_crystal",inspection_cell,false,true)
+            # Each authored clue uses its actual furniture identity. The old
+            # one-size-fits-all crystal obscured medicine, manifests and barrels
+            # in the shelter/tavern and made every room look like a test scene.
+            var furniture_kind: String = str(authored_inspection.get("kind","crate"))
+            if furniture_kind not in ["barrel","crate","flowerpot","sign","medicine_basket","fish_stall","sea_crystal","well"]:
+                furniture_kind = "crate"
+            var inspection_marker: Sprite2D = _add_sprite(furniture_kind,inspection_cell,false,true)
             inspection_marker.set_meta("site_name",str(authored_inspection.get("name","室内线索")))
+            inspection_marker.set_meta("inspection_kind",furniture_kind)
             nodes["homeinspect:"+inspection_id] = inspection_marker
         return
     var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))

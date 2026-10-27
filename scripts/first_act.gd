@@ -10,6 +10,7 @@ const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_se
 const NPCV3Contact = preload("res://scripts/d_world_interaction/npc_v3_contact.gd")
 const V3ProgressTransition = preload("res://scripts/d_world_interaction/v3_progress_transition.gd")
 const WorldObjectSettlement = preload("res://scripts/d_world_interaction/world_object_settlement.gd")
+const RegionalServiceSettlement = preload("res://scripts/d_world_interaction/service_v3_settlement.gd")
 const StateScript = preload("res://scripts/first_act_state.gd")
 const CatalogScript = preload("res://scripts/story_catalog.gd")
 const CheatScript = preload("res://scripts/cheat_panel.gd")
@@ -1675,47 +1676,26 @@ func _open_regional_service() -> void:
     service_menu.open_service(kind,region_id,world.interior_kind,progress,game_core,world.town_life,world_router.current_map())
 
 func _service_action(action: String) -> void:
-    var message: String = ""
-    var region_id: String = str(world.map_profile.get("region_id","region_coast"))
-    if action.begins_with("buy:"):
-        message = game_core.buy(action.trim_prefix("buy:"))
-        if message.begins_with("购买了 "):
-            game_events.record("shop_purchase",{"region":region_id,"item":action.trim_prefix("buy:")})
-    elif action.begins_with("sell:"):
-        message = game_core.sell(action.trim_prefix("sell:"))
-    elif action.begins_with("forge:"):
-        message = game_core.forge(action.trim_prefix("forge:"))
-        if message.begins_with("锻造成品"):
-            game_events.record("forge_success",{"region":region_id})
-    elif action == "rest":
-        if progress.gold < 30:
-            message = "金币不足，无法入住。"
-        else:
-            progress.gold -= 30
-            game_events.advance_time(480)
-            progress.heal_all()
-            world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
-            game_events.record("inn_rest",{"region":region_id})
-            message = "在客栈安睡一晚，队伍 HP / MP 已全部恢复。"
-    elif action == "blessing":
-        if progress.gold < 20:
-            message = "祝福需要 20 G。"
-        else:
-            progress.gold -= 20
-            progress.heal_all()
-            game_events.advance_time(35)
-            game_events.record("shrine_blessing",{"region":region_id})
-            message = "祈灯仪式完成，队伍 HP / MP 全部恢复。"
-    elif action == "guild":
-        message = world.town_life.guild_action(region_id,progress)
-        game_events.record("guild_visit",{"region":region_id})
-    elif action == "home":
+    if action == "home":
         service_menu.close_service()
         _open_house()
         return
+    # Preserve the current physical return point before taking the V3 snapshot.
+    # Every economic/state/event mutation is written or rolled back as one unit.
+    _capture_world_position()
+    var region_id: String = str(world.map_profile.get("region_id","region_coast"))
+    var settled: Dictionary = RegionalServiceSettlement.execute(
+        progress,game_core,world.town_life,game_events,action,region_id)
+    var message: String = ""
+    if not bool(settled.get("ok",false)):
+        message = "服务记录未能保存，金币、物品、恢复状态及公会奖励已回滚。请检查存储空间后重试。"
     else:
-        message = "这里目前没有可执行的指令。"
-    _save_progress()
+        var outcome: Dictionary = settled.get("outcome",{})
+        message = str(outcome.get("message","服务已处理。"))
+        if bool(settled.get("changed",false)) and action in ["rest","blessing"]:
+            # Presentation must reflect only successfully persisted game time.
+            world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),
+                int(progress.rpg.get("game_clock",{}).get("minutes",480)))
     service_menu.refresh(progress,game_core,world.town_life,message)
 
 func _house_accessible() -> bool:

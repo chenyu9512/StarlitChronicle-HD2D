@@ -800,10 +800,18 @@ func _interact(target: String) -> void:
         if progress.gold < 16:
             ui.show_message("盐露草售价 16 G，金币不足。")
         else:
-            progress.gold -= 16
-            game_core.add_item("item_herb_01",1)
-            _save_progress()
-            ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
+            _capture_world_position()
+            var purchase: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+                if progress.gold < 16:
+                    return {"ok":false,"reason":"insufficient_gold"}
+                progress.gold -= 16
+                game_core.add_item("item_herb_01",1)
+                return {"ok":true,"changed":true}
+            )
+            if bool(purchase.get("ok",false)):
+                ui.show_message("购买盐露草 ×1，剩余金币 %d。" % progress.gold)
+            else:
+                ui.show_message("商店结算保存失败，金币和药草已恢复，请重试。")
         _focus()
         return
     if target.begins_with("side_"):
@@ -1911,9 +1919,16 @@ func _use_potion() -> void:
     if who < 0:
         ui.show_message("队员生命已经全满。")
         return
-    progress.heal_member(who, 65)
-    game_core.take_item("item_herb_01", 1)
-    _save_progress()
+    _capture_world_position()
+    var herb_tx: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+        if not game_core.take_item("item_herb_01",1):
+            return {"ok":false,"reason":"missing_herb"}
+        if not progress.heal_member(who,65):
+            return {"ok":false,"reason":"no_healing_needed"}
+        return {"ok":true,"changed":true}
+    )
+    if not bool(herb_tx.get("ok",false)):
+        ui.show_message("药草使用记录未保存，治疗和消耗已回滚。")
     ui.show_menu(progress.actors, progress.gold, progress.potions)
     _focus()
 
@@ -1921,10 +1936,20 @@ func _rest() -> void:
     if progress.gold < 30:
         ui.show_message("需要30 G才能休息。")
         return
-    progress.gold -= 30
-    game_events.advance_time(480)
-    progress.heal_all()
-    _save_progress()
+    _capture_world_position()
+    var inn_tx: Dictionary = WorldObjectSettlement.transact(progress,func() -> Dictionary:
+        if progress.gold < 30:
+            return {"ok":false,"reason":"insufficient_gold"}
+        progress.gold -= 30
+        game_events.advance_time(480)
+        progress.heal_all()
+        return {"ok":true,"changed":true}
+    )
+    if not bool(inn_tx.get("ok",false)):
+        ui.show_message("旅馆结算未保存，金币、时间和HP/MP均已回滚。")
+        return
+    world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),
+        int(progress.rpg.get("game_clock",{}).get("minutes",480)))
     ui.show_message("全队休息完毕，HP/MP完全恢复。")
     _focus()
 

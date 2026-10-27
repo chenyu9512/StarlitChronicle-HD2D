@@ -1,6 +1,7 @@
 extends SceneTree
 ## Engine-side proof that the B02/B03 runtime resources resolve without replacing animation sheets.
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const Art = preload("res://scripts/c_art_overrides.gd")
 var failures: Array[String] = []
 
 func _initialize() -> void:
@@ -24,7 +25,7 @@ func _run() -> void:
             var group: String = "main" if str(record.get("group", "")) == "main" else "npc"
             var root_path: String = "res://assets/art/b02/characters/%s/%s/" % [group,character_id]
             for filename in ["fullbody_rgba.png","portrait_320x400.png","dialogue_192x240.png","head_160x160.png"]:
-                expect(ResourceLoader.exists(root_path+filename), "Missing B02 asset: "+root_path+filename)
+                expect(Art.texture(root_path+filename)!=null, "No physical third-party B02 texture: "+root_path+filename)
             expect(ArtAssets.dialogue_portrait(person_name)==root_path+"dialogue_192x240.png","Dialogue must use B02 portrait: "+character_id)
             expect(ArtAssets.party_head(character_id)==root_path+"head_160x160.png","Missing B02 headshot: "+character_id)
             if group == "main":
@@ -46,16 +47,20 @@ func _run() -> void:
             var boss_id: String = str(boss.get("boss_id", ""))
             var chapter: int = int(str(boss.get("chapter", "ch000")).trim_prefix("ch"))
             var image_path: String = ArtAssets.boss_image(boss_id)
-            expect(ResourceLoader.exists(image_path),"Missing B03 boss: "+boss_id)
+            expect(not image_path.is_empty() and Art.texture(image_path)!=null,"No physical third-party B03 boss: "+boss_id)
             expect(ArtAssets.battle_image({"boss_id":boss_id,"art":"tide_guardian"},true,chapter)==image_path,"Boss illustration not bound: "+boss_id)
-            var image: Texture2D = load(image_path)
-            expect(image != null and image.get_size()==Vector2(768,768),"Boss render must be 768×768: "+boss_id)
+            var image: Texture2D = Art.texture(image_path)
+            # Migration replaces 768px B03 illustrations with approved PNG
+            # sources of other sizes. Assert importability, not a deleted
+            # file's obsolete export dimensions; visual/identity QA is separate.
+            expect(image != null and image.get_width()>=16 and image.get_height()>=16,
+                "Migrated B03 Boss texture is blank: "+boss_id)
             boss_count += 1
     expect(boss_count==5,"B03 must contain five authored static boss portraits")
     expect(ArtAssets.battle_image({"art":"salt_slime"},false,3).ends_with("salt_slime/battle.png"),"Regular monster must retain runtime art")
     expect(ArtAssets.battle_image({},false,10)=="res://assets/enemies/boss.png","Missing monsters need a safe fallback")
     if failures.is_empty():
-        print("PASS: 12 main characters, 35 NPC illustrations, 5 B03 bosses and all fallback paths")
+        print("PASS Main2 runtime source binding: 12 main, 35 NPC and 5 B03 logical IDs decode into real imported textures; original B03 illustration size and visual identity are NOT certified")
         quit(0)
     else:
         for reason in failures:

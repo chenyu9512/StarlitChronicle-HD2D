@@ -4,6 +4,27 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
+MIGRATIONS_PATH=ROOT/"data/assets/c_third_party_only_migration_v1.json"
+
+def resolved_cinematic_art(resource):
+    """Validate the physical source selected by Main2's runtime art resolver."""
+    assert resource.startswith("res://assets/art/"),resource
+    logical=resource.removeprefix("res://")
+    direct=ROOT/logical
+    if direct.is_file():
+        return direct
+    assert MIGRATIONS_PATH.is_file(),("missing migration register",resource)
+    migration=json.loads(MIGRATIONS_PATH.read_text(encoding="utf-8"))
+    matched=[m["new_source"] for m in migration.get("mappings",[])
+             if m.get("old_path")==logical]
+    assert len(matched)==1,(resource,"missing or ambiguous migration")
+    replacement=matched[0]
+    assert replacement.startswith("assets/art/external/cc0_named_v1/") and ".." not in Path(replacement).parts,resource
+    physical=ROOT/replacement
+    assert physical.is_file(),(resource,replacement,"migrated source missing")
+    assert physical.suffix.lower() in {".png",".webp",".jpg",".jpeg"},(resource,replacement)
+    return physical
+
 def read(path):
     return json.loads((ROOT/path).read_text(encoding="utf-8"))
 
@@ -21,7 +42,8 @@ def main():
     for cue_id,rec in story["beats"].items():
         assert required.issubset(rec),cue_id
         assert rec["lines"] and all(isinstance(x,list) and len(x)==2 and all(x) for x in rec["lines"]),cue_id
-        assert (ROOT/rec["image"].removeprefix("res://")).is_file(),cue_id
+        picture=resolved_cinematic_art(rec["image"])
+        assert picture.stat().st_size>0,(cue_id,picture)
     for i,sc in enumerate(prologue["scenes"]):
         assert story["beats"][f"prologue_{i}"]["title"],sc["id"]
         assert sc["dialogue"] and "objective" in sc,sc["id"]

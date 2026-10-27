@@ -5,6 +5,7 @@ const CATALOG_PATH: String = "res://data/assets/c_art_catalog.json"
 const SETTINGS: String = "user://c_art_overrides.cfg"
 const ASSET_DIR: String = "user://c_art_replacements"
 const PACK_INDEX: String = "res://data/assets/c_art_packs.json"
+const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
 const PACK_ROOT: String = "user://c_art_packs"
 const MAX_INPUT_BYTES: int = 24 * 1024 * 1024
@@ -352,13 +353,33 @@ static func install_pack(manifest_file: String) -> Dictionary:
     var rows: Array = raw.get("mappings", [])
     if rows.is_empty() or rows.size() > 2048:
         return {"ok": false, "message": "DLC必须含1～2048条贴图映射。"}
+    # A single 256x256 image can be assigned to all region-equivalent terrain
+    # slots. Do not let a malformed group silently replace arbitrary assets.
+    var expanded: Array = []
+    for row in rows:
+        if not row is Dictionary:
+            return {"ok": false, "message": "映射行不是对象。"}
+        var group_id: String = str(row.get("group", ""))
+        if group_id.is_empty():
+            expanded.append(row)
+            continue
+        if row.has("target"):
+            return {"ok": false, "message": "地形分组映射不能同时指定target。"}
+        var group_slots: Array[String] = TerrainAtlas.group_slots(group_id)
+        if group_slots.is_empty():
+            return {"ok": false, "message": "不存在的地形分组：" + group_id}
+        for slot in group_slots:
+            expanded.append({"target": slot, "file": str(row.get("file", "")), "_shared": true})
+        if expanded.size() > 2048:
+            return {"ok": false, "message": "DLC展开后超过2048个贴图槽位。"}
     var folder: String = PACK_ROOT + "/" + id
     if DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder)) != OK:
         return {"ok": false, "message": "无法创建DLC本地目录。"}
     var installed: Array = []
     var mappings: Array = []
     var seen: Dictionary = {}
-    for row in rows:
+    var shared_saved: Dictionary = {}
+    for row in expanded:
         if not row is Dictionary:
             _rollback_dlc_files(installed)
             return {"ok": false, "message": "映射行不是对象。"}
@@ -392,7 +413,7 @@ static func install_pack(manifest_file: String) -> Dictionary:
             _rollback_dlc_files(installed)
             return {"ok": false, "message": "原图不可读取：" + target}
         var original_size: Vector2i = Vector2i(reference.get_size())
-        if bool((_entries[target] as Dictionary).get("atlas", false)) and dimensions != original_size:
+        if (bool((_entries[target] as Dictionary).get("atlas", false)) or bool(row.get("_shared", false))) and dimensions != original_size:
             _rollback_dlc_files(installed)
             return {"ok": false, "message": "图集必须保持原尺寸：" + target}
         if dimensions != original_size:
@@ -403,11 +424,18 @@ static func install_pack(manifest_file: String) -> Dictionary:
             image.resize(original_size.x, original_size.y, Image.INTERPOLATE_LANCZOS)
         if image.get_format() != Image.FORMAT_RGBA8:
             image.convert(Image.FORMAT_RGBA8)
-        var destination: String = folder + "/" + target.sha256_text() + ".png"
-        if image.save_png(destination) != OK:
-            _rollback_dlc_files(installed)
-            return {"ok": false, "message": "DLC图片保存失败。"}
-        installed.append(destination)
+        var is_shared: bool = bool(row.get("_shared", false))
+        var destination: String = folder + "/" + (relative.sha256_text() if is_shared else target.sha256_text()) + ".png"
+        # Save an expanded terrain family image only once, not 8-11 duplicates.
+        if not (is_shared and shared_saved.has(relative)):
+            if image.save_png(destination) != OK:
+                _rollback_dlc_files(installed)
+                return {"ok": false, "message": "DLC图片保存失败。"}
+            installed.append(destination)
+            if is_shared:
+                shared_saved[relative] = destination
+        else:
+            destination = str(shared_saved[relative])
         mappings.append({"target": target, "source": destination})
         seen[target] = true
     var saved: Array = []

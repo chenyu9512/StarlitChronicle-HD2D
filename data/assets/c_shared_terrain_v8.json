@@ -1,0 +1,82 @@
+{
+  "schema": "starlit.c.shared_terrain.v8",
+  "version": "2026-10-27",
+  "tile_size": 32,
+  "columns": 8,
+  "rows": 8,
+  "note": "Canonical res:// terrain IDs retained; one texture can cover all compatible world atlas slots via a terrain family DLC. Original region-specific atlases are preserved.",
+  "base": {
+    "ground": "res://assets/art/tilesets/coast_ground.png",
+    "water": "res://assets/art/tilesets/coast_water.png"
+  },
+  "regions": {
+    "region_coast": {
+      "ground": "res://assets/art/tilesets/regions/region_coast_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_coast_water.png"
+    },
+    "region_oaths": {
+      "ground": "res://assets/art/tilesets/regions/region_oaths_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_oaths_water.png"
+    },
+    "region_forge": {
+      "ground": "res://assets/art/tilesets/regions/region_forge_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_forge_water.png"
+    },
+    "region_isles": {
+      "ground": "res://assets/art/tilesets/regions/region_isles_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_isles_water.png"
+    },
+    "region_mirror": {
+      "ground": "res://assets/art/tilesets/regions/region_mirror_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_mirror_water.png"
+    },
+    "region_oldland": {
+      "ground": "res://assets/art/tilesets/regions/region_oldland_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_oldland_water.png"
+    },
+    "region_sanctum": {
+      "ground": "res://assets/art/tilesets/regions/region_sanctum_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_sanctum_water.png"
+    },
+    "region_city": {
+      "ground": "res://assets/art/tilesets/regions/region_city_ground.png",
+      "water": "res://assets/art/tilesets/regions/region_city_water.png"
+    }
+  },
+  "map_overrides": {
+    "map_coast_03": {
+      "ground": "res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg"
+    },
+    "map_coast_04": {
+      "ground": "res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg",
+      "water": "res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg"
+    }
+  },
+  "groups": {
+    "terrain_ground": [
+      "res://assets/art/tilesets/coast_ground.png",
+      "res://assets/art/tilesets/regions/region_coast_ground.png",
+      "res://assets/art/tilesets/regions/region_oaths_ground.png",
+      "res://assets/art/tilesets/regions/region_forge_ground.png",
+      "res://assets/art/tilesets/regions/region_isles_ground.png",
+      "res://assets/art/tilesets/regions/region_mirror_ground.png",
+      "res://assets/art/tilesets/regions/region_oldland_ground.png",
+      "res://assets/art/tilesets/regions/region_sanctum_ground.png",
+      "res://assets/art/tilesets/regions/region_city_ground.png",
+      "res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg",
+      "res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg"
+    ],
+    "terrain_water": [
+      "res://assets/art/tilesets/coast_water.png",
+      "res://assets/art/tilesets/regions/region_coast_water.png",
+      "res://assets/art/tilesets/regions/region_oaths_water.png",
+      "res://assets/art/tilesets/regions/region_forge_water.png",
+      "res://assets/art/tilesets/regions/region_isles_water.png",
+      "res://assets/art/tilesets/regions/region_mirror_water.png",
+      "res://assets/art/tilesets/regions/region_oldland_water.png",
+      "res://assets/art/tilesets/regions/region_sanctum_water.png",
+      "res://assets/art/tilesets/regions/region_city_water.png",
+      "res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg"
+    ]
+  }
+}

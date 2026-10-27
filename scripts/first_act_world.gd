@@ -6,6 +6,7 @@ signal encounter_requested()
 const Actor = preload("res://scripts/first_act_actor.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
+const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
@@ -214,12 +215,9 @@ func _party_sprite(position: int, fallback: String) -> String:
     return name if ResourceLoader.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
 
 func _make_tiles() -> void:
+    # Map geometry (including roads, water and collision) stays authored per map;
+    # only the canonical 32px atlas is reused across compatible maps/regions.
     var region: String = str(map_profile.get("region_id", "region_coast"))
-    var land_path: String = REGION_TILE_DIR + region + "_ground.png"
-    var water_path: String = REGION_TILE_DIR + region + "_water.png"
-    var regional_art: bool = ResourceLoader.exists(land_path) and ResourceLoader.exists(water_path)
-    # Determine the physical room before selecting the render texture; V4 art
-    # and the authoritative terrain now share a single cell coordinate grid.
     if not interior_building.is_empty():
         terrain_layout = geography.interior(interior_building,interior_kind,str(map_profile.get("id","")))
     else:
@@ -227,28 +225,14 @@ func _make_tiles() -> void:
     var extent: Vector2i = terrain_layout.get("size",Vector2i(72,48))
     WIDTH = extent.x
     HEIGHT = extent.y
-    var chosen_atlas: String=str(terrain_layout.get("art_tileset",""))
+    var chosen_atlas: String = str(terrain_layout.get("art_tileset",""))
     if chosen_atlas.is_empty() and str(terrain_layout.get("art_profile",""))=="coast_inn_v1":
-        chosen_atlas=INN_ATLAS
-    if interior_building.is_empty():
-        var outdoor_key: String=str(map_profile.get("id",""))
-        var outdoor_atlas: String=""
-        if outdoor_key=="map_coast_03":
-            outdoor_atlas="res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg"
-        elif outdoor_key=="map_coast_04":
-            outdoor_atlas="res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg"
-        if not outdoor_atlas.is_empty() and ResourceLoader.exists(outdoor_atlas):
-            chosen_atlas=outdoor_atlas
-    var authored_art: bool = not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas)
-    # A map owns its cell positions; only the immutable tile atlas is reused.
-    # Preserve source IDs 0=ground and 1=water and the 8x8/32px source grid.
-    var ground_texture: String = chosen_atlas if authored_art else (land_path if regional_art else GROUND)
-    var selected_water: String = water_path if regional_art else WATER
-    if interior_building.is_empty() and str(map_profile.get("id",""))=="map_coast_04":
-        var cavern_water: String="res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg"
-        if ResourceLoader.exists(cavern_water):
-            selected_water=cavern_water
-    var atlas_sources: Array[String]=[ground_texture,selected_water]
+        chosen_atlas = INN_ATLAS
+    var outside: bool = interior_building.is_empty()
+    var map_id: String = str(map_profile.get("id",""))
+    var atlas_sources: Array[String] = TerrainAtlas.atlas_sources(region,map_id,chosen_atlas,outside)
+    var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and ResourceLoader.exists(chosen_atlas))
+    var regional_art: bool = TerrainAtlas.is_regional(region)
     var tile_set: TileSet=TilePool.shared(atlas_sources)
     if tile_set == null:
         # Optional regional or local replacement art may be damaged.

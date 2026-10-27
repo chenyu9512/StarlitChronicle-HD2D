@@ -58,22 +58,25 @@ static func shared(paths: Array[String], columns: int = 8,
             push_warning("Missing atlas resource: " + path)
             return null
     _sync_revision()
-    var key: String = "%d:%d:%d:%d:%s" % [
-        _revision, columns, row_start, row_count, JSON.stringify(paths)]
-    if _sets.has(key):
-        _hits += 1
-        _mark_used(key)
-        return _sets[key] as TileSet
-
-    # Validate all textures before adding any source, so a malformed optional
-    # atlas never leaves a partly built shared TileSet in the pool.
+    # Build cache identity from the resolved Texture2D objects, not source
+    # path strings. Several region paths may intentionally point to the SAME
+    # 256px image through a global terrain DLC; one TileSet then serves them all.
     var textures: Array[Texture2D] = []
+    var texture_ids: Array[String] = []
     for path in paths:
         var texture: Texture2D = Art.texture(path)
         if texture == null or texture.get_width() < columns*TILE or texture.get_height() < (row_start+row_count)*TILE:
             push_warning("Atlas has wrong 32px dimensions: " + path)
             return null
         textures.append(texture)
+        texture_ids.append(str(texture.get_instance_id()))
+    var key: String = "%d:%d:%d:%d:%s" % [
+        _revision, columns, row_start, row_count, JSON.stringify(texture_ids)]
+    if _sets.has(key):
+        _hits += 1
+        _mark_used(key)
+        return _sets[key] as TileSet
+
     var result := TileSet.new()
     result.tile_size = Vector2i(TILE, TILE)
     for source_id in range(textures.size()):

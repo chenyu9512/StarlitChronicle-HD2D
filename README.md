@@ -6,7 +6,7 @@
 
 **项目状态：开发中 · Pre-release（非正式商业发行版）**  
 **技术：Godot 4.7.2 / GDScript · 2D / HD-2D 风格 · 单人离线 · PC 开发预览、移动端适配中**  
-**主分支：`main` · 仓库：公开可访问 · 当前计划更新：2026-10-27**
+**当前开发分支：`Main2美术优化版` · GitHub默认入口：`main`（保留基线，不接收新开发） · 当前计划更新：2026-10-27**
 
 **[当前唯一开发计划（优先阅读）](docs/DEVELOPMENT_MASTER_PLAN.md)** · [工作流清理与测试入口](docs/WORKFLOW_CLEANUP_2026_10_27.md) · [详细历史基线报告](docs/GAME_GLOBAL_OVERVIEW_ROADMAP_2026_10_27.md) · [快速开始](#快速开始) · [玩法特色](#游戏体验) · [真实开发进度](#开发进度与验收边界) · [项目结构](#工程结构) · [测试与协作](#开发协作与质量保障) · [剧情索引](story/SCREENPLAY_CURRENT_INDEX.md) · [更新记录](CHANGELOG.md)
 
@@ -51,7 +51,7 @@
 | **共享集成与存档** | 正典ID校验、存档安全补丁和多线接口契约 | D线独立审计及修复进行中；跨文件奖励事务与统一最终测试仍是开放门槛 |
 | **发布构建** | Windows/Linux 预览工作流；iPhone相关工程配置 | 仅开发预览；未获得发行级性能、签名、完整授权及平台验收 |
 
-**自动化的正确读法：**存在 [Godot Core Validation 的历史成功记录](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40274482154)（对应提交 `6c32e27`，2026-10-26），**这不是当前 `main` 和此后 A/B/C/D 提交的完整验收结果**。后续一批完整Godot测试按 [批次验收政策](docs/DEVELOPMENT_BATCH_POLICY.md) 在整合冻结后执行；相关脚本存在不等于已经执行成功。
+**自动化的正确读法：**存在 [Godot Core Validation 的历史成功记录](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40274482154)（对应提交 `6c32e27`，2026-10-26），**这不是当前 `Main2美术优化版` 和此后 A/B/C/D 提交的完整验收结果**。后续一批完整Godot测试按 [批次验收政策](docs/DEVELOPMENT_BATCH_POLICY.md) 在整合冻结后执行；相关脚本存在不等于已经执行成功。
 
 ### A/B/C/D 四线开发职责
 
@@ -150,7 +150,7 @@ StarlitChronicle-HD2D/
 
 ## 开发协作与质量保障
 
-本仓库目前采用**单一 `main` 主线协作**：
+本仓库目前采用**现有 `Main2美术优化版` 单一开发分支协作**（保留默认 `main` 作为旧基线）：
 
 1. A/B/C开发各自负责的独占文件，D线统一维护跨线共享接口与最终验收。
 2. 连续、小范围、可追踪地提交，不创建新的开发分支或PR，不强制覆盖主线。每次提交应确认最新SHA并处理并发变更。

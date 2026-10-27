@@ -9,6 +9,10 @@ on:
       - "scripts/c_art_coast_waves.gd"
       - "scripts/c_art_navigation_icons.gd"
       - "scripts/c_art_ui_frame.gd"
+      - "scripts/c_art_librarium_boss_idle.gd"
+      - "scripts/first_act_battle.gd"
+      - "assets/art/runtime/imported/librarium/**"
+      - "tools/smoke_c_librarium_two_bosses.gd"
       - "scripts/world_npc_visual.gd"
       - "scripts/rpg_menu.gd"
       - "scripts/first_act_world.gd"
@@ -38,7 +42,7 @@ jobs:
           mkdir -p build/c-art-v13
           timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit > build/c-art-v13/import.log 2>&1 || { cat build/c-art-v13/import.log; exit 1; }
           failed=0
-          for script in smoke_c_promoted_runtime_v13 smoke_c_navigation_icons_v13 smoke_c_character_motion smoke_battle_actors; do
+          for script in smoke_c_promoted_runtime_v13 smoke_c_navigation_icons_v13 smoke_c_librarium_two_bosses smoke_c_character_motion smoke_battle_actors; do
             set +e
             timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$script.gd" > "build/c-art-v13/$script.log" 2>&1
             rc=$?

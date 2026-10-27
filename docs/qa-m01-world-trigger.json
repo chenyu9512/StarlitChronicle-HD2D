@@ -1,6 +1,6 @@
 {
   "schema": "starlit.qa.m01-world.v1",
-  "requested_parent_sha": "71031850fa973c8946e974df81df5901ca5d15b2",
+  "requested_parent_sha": "e6fc087841d7e20ebf94f1c29324392f0e198347",
   "engine": "4.7.2",
   "tests": [
     "tools/smoke_town_direction_v4.gd",
@@ -10,6 +10,6 @@
   ],
   "scope": "Plaza outside roof; authored editor overlays; real house service sign; all 68 thresholds and 40 map exits",
   "status": "requested-not-verified",
-  "version": 4,
-  "rerun_reason": "V3 authored painting now checks an actual editable, roof-free and spawn-free cell; town entry false failure already corrected in main. Re-run full four targeted map P0 smoke cases."
+  "version": 5,
+  "rerun_reason": "Validate 3/4 passing focused scripts and collect exact ground-tile vs authored patch trace on town/underground geometry; no assertions relaxed."
 }

@@ -13,6 +13,7 @@ var ground_shadow: Sprite2D
 var exterior_identity: String = ""
 var entrance_local: Vector2 = Vector2.ZERO
 var door_lamp: PointLight2D
+static var _shared_lantern_cookie: Texture2D
 var visual_time_minutes: int = 660
 var motion_seconds: float = 0.0
 var motion_tick: float = 0.0
@@ -146,16 +147,32 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
             ground_shadow.position=Vector2(0,float(cells.y)*TILE*0.5-22.0)
             ground_shadow.z_index=-1
             add_child(ground_shadow)
-        var glow: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
-        if ArtOverrides.exists(glow):
-            door_lamp=PointLight2D.new()
-            door_lamp.name="DoorLanternLight"
-            door_lamp.texture=ArtOverrides.texture(glow)
-            door_lamp.texture_scale=0.58
-            door_lamp.position=entrance_local+Vector2(0,-37)
-            door_lamp.color=Color("ffdea1")
-            add_child(door_lamp)
-            set_clock(visual_time_minutes)
+    # Lighting is independent of a pre-rendered facade: on Main2, most
+    # 256px building facades were intentionally retired because their mapped
+    # replacement is merely a 32px wall prop. Keep the native building drawn
+    # at its real collision footprint, with its own correctly positioned door.
+    # A radial light COOKIE is presentation shading, not invented facade art.
+    if _shared_lantern_cookie == null:
+        var halo_gradient := Gradient.new()
+        halo_gradient.set_color(0,Color(1,1,1,1))
+        halo_gradient.set_color(1,Color(1,1,1,0))
+        var halo := GradientTexture2D.new()
+        halo.gradient=halo_gradient
+        halo.fill=GradientTexture2D.FILL_RADIAL
+        halo.fill_from=Vector2(0.5,0.5)
+        halo.fill_to=Vector2(0.5,0)
+        halo.width=128
+        halo.height=128
+        _shared_lantern_cookie=halo
+    if not is_instance_valid(door_lamp):
+        door_lamp=PointLight2D.new()
+        door_lamp.name="DoorLanternLight"
+        door_lamp.texture=_shared_lantern_cookie
+        door_lamp.texture_scale=0.58
+        door_lamp.position=entrance_local+Vector2(0,-37)
+        door_lamp.color=Color("ffdea1")
+        add_child(door_lamp)
+    set_clock(visual_time_minutes)
     queue_redraw()
 
 func set_clock(minutes: int) -> void:

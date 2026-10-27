@@ -41,5 +41,17 @@
       "tools/smoke_campaign_72.gd"
     ],
     "goal": "Core validation must exercise migrated image paths and main game GDScript; no completion claim before logs"
+  },
+  "main2_resolved_art_validation": {
+    "batch": "main2-mapped-story-interiors-cinematics-real-route-20261027",
+    "status": "requested-not-verified",
+    "purpose": "validate physical third-party art through old logical IDs; run actual Godot Core and first-act route regression",
+    "new_methods": [
+      "tools/art_source_contract.py",
+      "tools/validate_phase19_lost_page_rooms.py",
+      "tools/validate_phase19_life_rooms.py",
+      "tools/validate_phase19_companion_regional_rooms.py",
+      "tools/validate_first_act.py"
+    ]
   }
 }

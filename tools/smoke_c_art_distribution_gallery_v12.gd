@@ -18,16 +18,21 @@ func _run() -> void:
         return
     root.add_child(ui)
     await process_frame
-    if ui.entries.size() != 1517 or ui.group_ids.size() != 27:
-        push_error("V12 gallery count does not match source registry: entries=%d groups=%d" % [ui.entries.size(), ui.group_ids.size()])
+    var records: Array = ui.get("entries") as Array
+    var groups: Array = ui.get("group_ids") as Array
+    var shown: Array = ui.get("filtered") as Array
+    var grid: GridContainer = ui.get("grid") as GridContainer
+    if records.size() != 1517 or groups.size() != 27:
+        push_error("V12 gallery count does not match source registry: entries=%d groups=%d" % [records.size(), groups.size()])
         quit(1)
         return
-    if ui.filtered.size() != 1517 or ui.grid.get_child_count() != 18:
-        push_error("V12 gallery initial page missing: %d" % ui.grid.get_child_count())
+    if shown.size() != 1517 or grid == null or grid.get_child_count() != 18:
+        push_error("V12 gallery initial page missing: %d" % grid.get_child_count())
         quit(1)
         return
-    ui._change_group(1)
-    if ui.filtered.is_empty() or ui.filtered.size() >= 1517:
+    ui.call("_change_group", 1)
+    shown = ui.get("filtered") as Array
+    if shown.is_empty() or shown.size() >= 1517:
         push_error("V12 group dropdown does not filter art")
         quit(1)
         return

@@ -85,6 +85,12 @@ func _run() -> void:
             custom["paint_overrides"] = [{"cell":[editable.x,editable.y],"row":4,"blocked":true}]
             geo.authored.levels[str(id)] = custom
             var edited: Dictionary = geo.layout(str(id),3)
+            if str(id) in ["map_coast_01","map_coast_04","map_city_01"]:
+                print("V3_PATCH_TRACE ",str(id)," cell=",editable,
+                    " authored_patches=",geo.authored.level(str(id)).get("paint_overrides",[]),
+                    " actual_tile=",edited.get("tiles",{}).get(editable,Vector2i(-1,-1)),
+                    " actual_blocked=",edited.get("blocked",{}).has(editable),
+                    " inside_roof=",geo._inside_town_building(editable,zone))
             verify(edited.get("tiles",{}).get(editable,Vector2i.ZERO).y==4,
                 "Town/dungeon V3 paint override did not reach real ground: "+str(id))
             verify(edited.get("blocked",{}).has(editable),

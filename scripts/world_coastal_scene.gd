@@ -124,11 +124,15 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
 func set_clock(minutes: int) -> void:
     if is_instance_valid(illustrated_dressing):
         illustrated_dressing.set_clock(minutes)
+    if is_instance_valid(allocated_dressing):
+        allocated_dressing.set_clock(minutes)
 
 func set_visual_quality(level: int) -> void:
     var q: int=clampi(level,0,2)
     if is_instance_valid(illustrated_dressing):
         illustrated_dressing.set_visual_quality(q)
+    if is_instance_valid(allocated_dressing):
+        allocated_dressing.set_visual_quality(q)
     for reflection in reflections:
         reflection.visible=q>0
     for wave in tidal_sprites:

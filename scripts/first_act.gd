@@ -499,18 +499,20 @@ func _interact(target: String) -> void:
         var field_action: String=target.trim_prefix("field:")
         var field_clock: Dictionary=progress.rpg.get("game_clock",{})
         var field_weather: String=str(world.ambience.weather) if world.ambience!=null else "clear"
-        var field_result: Dictionary=world.field_ecology.interact(field_map,field_action,progress,field_weather,int(field_clock.get("minutes",480)),int(field_clock.get("day",1)))
-        if bool(field_result.get("changed",false)):
-            var field_reward: Dictionary=field_result.get("reward",{})
-            if not field_reward.is_empty():
-                var field_gold: int=maxi(0,int(field_reward.get("gold",0)))
-                var field_item: String=str(field_reward.get("item_id",""))
-                var field_count: int=maxi(0,int(field_reward.get("amount",0)))
-                progress.gold+=field_gold
-                if not field_item.is_empty() and field_count>0:
-                    game_core.add_item(field_item,field_count)
-            game_events.record("field_ecology_v7",{"map":field_map,"event":field_action,"weather":field_weather})
-            _save_progress()
+        _capture_world_position()
+        var field_handler: Callable = func() -> Dictionary:
+            var applied: Dictionary = world.field_ecology.interact(field_map,field_action,progress,
+                field_weather,int(field_clock.get("minutes",480)),int(field_clock.get("day",1)))
+            if bool(applied.get("changed",false)):
+                game_events.record("field_ecology_v7",
+                    {"map":field_map,"event":field_action,"weather":field_weather})
+            return applied
+        var field_tx: Dictionary = WorldObjectSettlement.interact(progress,game_core,field_handler)
+        if not bool(field_tx.get("ok",false)):
+            ui.show_message("野外探索状态或采集奖励保存失败，HP和物品已回滚。请重新尝试。")
+            return
+        var field_result: Dictionary = (field_tx.get("outcome",{}) as Dictionary).get("result",{})
+        if bool(field_tx.get("changed",false)):
             _focus()
         world.refresh_field_ecology(progress)
         if bool(field_result.get("teleport",false)):
@@ -523,25 +525,26 @@ func _interact(target: String) -> void:
         var town_id: String = world_router.current_map()
         var task_id: String = target.trim_prefix("townlife:")
         var hour: int = int(float(progress.rpg.get("game_clock",{}).get("minutes",480))/60.0)
-        var result: Dictionary = world.town_ecology.interact(town_id,task_id,progress,hour)
-        if bool(result.get("changed",false)):
+        _capture_world_position()
+        var town_handler: Callable = func() -> Dictionary:
+            var applied: Dictionary = world.town_ecology.interact(town_id,task_id,progress,hour)
+            if bool(applied.get("changed",false)):
+                var town_reward: Dictionary = applied.get("reward",{})
+                game_events.record("town_ecology_completed" if not town_reward.is_empty()
+                    else "town_ecology_activity",{"map":town_id,"activity":task_id})
+            return applied
+        var town_tx: Dictionary = WorldObjectSettlement.interact(progress,game_core,town_handler)
+        if not bool(town_tx.get("ok",false)):
+            ui.show_message("街区活动进度或酬谢保存失败，物品和完成记录已回滚。请重试。")
+            return
+        var result: Dictionary = (town_tx.get("outcome",{}) as Dictionary).get("result",{})
+        var message: String = str(result.get("message","街区活动暂时无法办理。"))
+        if bool(town_tx.get("changed",false)):
             var reward: Dictionary = result.get("reward",{})
-            var message: String = str(result.get("message",""))
             if not reward.is_empty():
-                var amount: int = maxi(0,int(reward.get("gold",0)))
-                var item_id: String = str(reward.get("item_id",""))
-                var item_count: int = maxi(0,int(reward.get("amount",0)))
-                progress.gold += amount
-                if item_count>0 and not item_id.is_empty():
-                    game_core.add_item(item_id,item_count)
-                message += "\n社区酬谢：%d G 与补给 ×%d。" % [amount,item_count]
-                game_events.record("town_ecology_completed",{"map":town_id,"activity":task_id})
-            else:
-                game_events.record("town_ecology_activity",{"map":town_id,"activity":task_id})
-            _save_progress()
-            ui.show_message(message)
-        else:
-            ui.show_message(str(result.get("message","街区活动暂时无法办理。")))
+                message += "\n社区酬谢：%d G 与补给 ×%d。" % [int(reward.get("gold",0)),int(reward.get("amount",0))]
+            _focus()
+        ui.show_message(message)
         return
     if target.begins_with("discovery:"):
         if not world.interior_building.is_empty():
@@ -638,19 +641,26 @@ func _interact(target: String) -> void:
         if int(daily.get(region_id,-1)) == today:
             ui.show_message("今天已经在这处营地休息过了。还可以整理队伍与查看地图。")
             return
-        daily[region_id] = today
-        progress.rpg["camp_last_day"] = daily
-        for i in range(progress.actors.size()):
-            var person: Dictionary = progress.actors[i]
-            if int(person.get("hp",0))>0:
-                person["hp"]=mini(int(person.get("max_hp",1)),int(person.get("hp",1))+maxi(12,roundi(float(person.get("max_hp",1))*0.38)))
-                person["mp"]=mini(int(person.get("max_mp",1)),int(person.get("mp",0))+maxi(6,roundi(float(person.get("max_mp",1))*0.30)))
-                progress.actors[i]=person
+        _capture_world_position()
+        var rest_handler: Callable = func() -> Dictionary:
+            var saved_days: Dictionary = (progress.rpg.get("camp_last_day",{}) as Dictionary).duplicate(true)
+            saved_days[region_id] = today
+            progress.rpg["camp_last_day"] = saved_days
+            for i in range(progress.actors.size()):
+                var person: Dictionary = progress.actors[i]
+                if int(person.get("hp",0))>0:
+                    person["hp"]=mini(int(person.get("max_hp",1)),int(person.get("hp",1))+maxi(12,roundi(float(person.get("max_hp",1))*0.38)))
+                    person["mp"]=mini(int(person.get("max_mp",1)),int(person.get("mp",0))+maxi(6,roundi(float(person.get("max_mp",1))*0.30)))
+                    progress.actors[i]=person
+            game_events.advance_time(120)
+            game_events.record("camp_rest",{"map":region_id})
+            return {"ok":true,"changed":true}
+        var camp_tx: Dictionary = WorldObjectSettlement.transact(progress,rest_handler)
+        if not bool(camp_tx.get("ok",false)):
+            ui.show_message("营地状态保存失败，休息恢复与经过的时间已回滚。请重试。")
+            return
         world.encounter_meter=-380.0
-        game_events.advance_time(120)
-        game_events.record("camp_rest",{"map":region_id})
         world.sync_world_clock(int(progress.rpg["game_clock"].get("day",1)),int(progress.rpg["game_clock"].get("minutes",480)))
-        _save_progress()
         _focus()
         ui.show_message("队伍在安全营地整备两小时，恢复部分 HP / MP；附近的怪物暂时不会接近。")
         return

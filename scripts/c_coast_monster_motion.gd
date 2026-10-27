@@ -8,6 +8,30 @@ const CONFIG: Dictionary = {
         "attack": ["res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg", 6],
         "hit": ["res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg", 4],
         "defeat": ["res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg", 6]
+    },
+    "fog_crab": {
+        "idle": ["res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg", 6]
+    },
+    "shell_hermit": {
+        "idle": ["res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg", 6]
+    },
+    "sand_lizard": {
+        "idle": ["res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg", 6]
+    },
+    "salt_wolf": {
+        "idle": ["res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg", 6]
     }
 }
 static func sheets(art_id: String) -> Dictionary:

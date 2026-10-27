@@ -5,7 +5,7 @@
     "map_coast_01",
     "map_coast_03"
   ],
-  "status": "FIRST_MONSTER_ONLY",
+  "status": "PARTIAL_5_OF_9",
   "art_id": "salt_slime",
   "engine_consumer": "scripts/battle_enemies.gd",
   "presentation_only": true,
@@ -36,13 +36,9 @@
     }
   },
   "missing_coverage": [
-    "fog_crab",
-    "shell_hermit",
-    "tide_ghost",
-    "sand_lizard",
-    "salt_wolf",
     "white_seabird",
     "star_ray",
+    "tide_ghost",
     "tide_guardian",
     "B03 five boss static illustrations"
   ],
@@ -51,5 +47,91 @@
     "godot_import": "not_tested",
     "live_battle": "not_tested",
     "quality_acceptance": "not_tested"
-  }
+  },
+  "additional_creatures": [
+    {
+      "art_id": "fog_crab",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "shell_hermit",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "sand_lizard",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "salt_wolf",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    }
+  ]
 }

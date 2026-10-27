@@ -11,7 +11,7 @@ func _initialize() -> void:
 func _run() -> void:
     var sheets: Dictionary = Art.sheets("salt_slime")
     check(sheets.size() == 4, "Four real action sheets not imported")
-    check(Art.sheets("fog_crab").is_empty(), "Unfinished monsters must remain on old atlas")
+    check(Art.sheets("unknown_coastal_enemy").is_empty(), "Unregistered monsters must remain on original fallback")
     if sheets.size() == 4:
         for pose in ["idle", "attack", "hit", "defeat"]:
             var tex: Texture2D = sheets[pose]

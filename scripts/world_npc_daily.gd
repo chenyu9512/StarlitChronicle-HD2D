@@ -106,7 +106,9 @@ func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i,
         stand_radius: int=0) -> Array[Vector2i]:
     path_queries+=1
     var empty: Array[Vector2i]=[]
-    if not _within(start,extent) or walls.has(start) or not _within(goal,extent)             or (stand_radius<=0 and walls.has(goal)):
+    if not _within(start,extent) or walls.has(start):
+        return empty
+    if not _within(goal,extent) or (stand_radius<=0 and walls.has(goal)):
         return empty
     var parent: Dictionary={}
     # A variable-key dictionary MUST use indexed assignment, not {start:start},

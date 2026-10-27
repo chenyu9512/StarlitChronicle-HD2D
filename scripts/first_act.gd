@@ -388,7 +388,7 @@ func _objective() -> String:
     if progress.chapter >= 1 and progress.chapter <= 6:
         var chapter_destination: String = world_router.act01_target_map(progress.chapter)
         if not chapter_destination.is_empty() and world_router.current_map() != chapter_destination:
-            var travel_route: Array[String] = world_router.shortest_route(chapter_destination)
+            var travel_route: Array[String] = world_router.route_towards(chapter_destination)
             var target_name: String = str(world_router.map_info(chapter_destination).get("name",chapter_destination))
             if not world.interior_building.is_empty():
                 return "【本章目的地】%s\n先离开房屋，再沿已解锁道路前往。" % target_name

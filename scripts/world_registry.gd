@@ -192,6 +192,45 @@ func neighbors() -> Array:
         result.append(info)
     return result
 
+## Plan a multi-leg chapter route without pretending that distant sectors have
+## already been visited. Each first leg must be a real, currently available
+## adjacent exit; later legs become discovered only after physical arrival.
+func route_towards(target: String) -> Array[String]:
+    var result: Array[String] = []
+    if state == null or not maps.has(target):
+        return result
+    var current: String = current_map()
+    if target == current:
+        result.append(current)
+        return result
+    var visited: Dictionary = {}
+    visited[current] = ""
+    var queue: Array[String] = [current]
+    var cursor: int = 0
+    while cursor < queue.size() and not visited.has(target):
+        var map_id: String = queue[cursor]
+        cursor += 1
+        for raw_neighbor in maps[map_id].get("neighbors",[]):
+            var neighbor: String = str(raw_neighbor)
+            if visited.has(neighbor) or not maps.has(neighbor):
+                continue
+            if str(maps[neighbor].get("type",""))=="prototype":
+                continue
+            if int(first_chapter.get(neighbor,999)) > int(state.chapter):
+                continue
+            visited[neighbor] = map_id
+            queue.append(neighbor)
+    if not visited.has(target):
+        return result
+    var step: String = target
+    while not step.is_empty():
+        result.push_front(step)
+        step = str(visited.get(step,""))
+    # Important: the route planner is not an alternate teleport/unlock API.
+    if result.size()>1 and not can_travel(result[1]):
+        result.clear()
+    return result
+
 func shortest_route(target: String) -> Array[String]:
     # Navigation aid only: each leg still uses can_travel and the saved discovery locks.
     var route: Array[String] = []

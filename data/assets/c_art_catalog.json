@@ -3,7 +3,7 @@
   "revision": 5,
   "generated": "2026-10-26",
   "policy": "game data unaffected; original res:// immutable; user:// local override; status is provenance not license proof",
-  "count": 1281,
+  "count": 1282,
   "categories": [
     "Boss",
     "Boss候选原稿",
@@ -24156,6 +24156,24 @@
       "description": "区域city 五个160×128剧情身份地面纹章；独立地图专属，但不增加实体碰撞。 Godot 4.7.2视觉层CI已通过；商业级场景人工验收未测试。",
       "curation_tier": "primary",
       "curation_reason": "40张正式地图Godot TileMapLayer/AtlasTexture实际加载、不会修改碰撞或旧档"
+    },
+    {
+      "id": "assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
+      "path": "res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
+      "name": "潮歌灯塔 · 正式灯塔场景SVG",
+      "category": "建筑与室外",
+      "source": "project_existing",
+      "status": "godot_integration_visual_acceptance_pending",
+      "usage": "scripts/world_coastal_scene.gd C art lighthouse staging",
+      "entry_id": "map_coast_05",
+      "expected_size": [
+        256,
+        320
+      ],
+      "atlas": false,
+      "description": "第一幕潮歌灯塔场景主地标；母灯状态由真实剧情进度控制，不单独改变碰撞、进度或奖励。",
+      "curation_tier": "primary",
+      "curation_reason": "C线提交a159655已接入正式场景渲染；须在索引中可被DLC美术管理识别，逐项场景手工验收未测试"
     }
   ],
   "curated_at": "2026-10-27"

@@ -20,6 +20,7 @@ func _run() -> void:
     var journey=Journey.new()
     check(journey.issues.is_empty(),"Act-I route catalog invalid: "+str(journey.issues))
     check(journey.chapters.size()==6,"Missing an Act-I route")
+    var unique_guidance: Dictionary={}
     for chapter in range(1,7):
         var state=State.new()
         state.new_game()
@@ -35,6 +36,12 @@ func _run() -> void:
         var preview: Dictionary=journey.preview(chapter,router.current_map(),state)
         check(bool(preview.get("valid",false)),
             "Chapter %d has no read-only player guidance" % chapter)
+        var spoken: String=str(preview.get("guidance",""))
+        check(spoken.length()>=20,
+            "Chapter %d has no useful in-world objective text" % chapter)
+        check(not unique_guidance.has(spoken),
+            "Two first-act chapters show the same generic quest hint")
+        unique_guidance[spoken]=true
         check(state._pack()==before,
             "Chapter %d guidance silently wrote progress/visited/discovery" % chapter)
         check(not bool(preview.get("requires_save",true)),

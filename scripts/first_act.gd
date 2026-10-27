@@ -384,6 +384,17 @@ func _objective() -> String:
         return "终章已完成 · 星灯纪行迎来结局。可继续探索与保存。"
     var scene: Dictionary = _current_scene()
     var prefix: String = str(scene.get("title", "探索周围"))
+    if progress.chapter >= 1 and progress.chapter <= 6:
+        var chapter_destination: String = world_router.act01_target_map(progress.chapter)
+        if not chapter_destination.is_empty() and world_router.current_map() != chapter_destination:
+            var travel_route: Array[String] = world_router.shortest_route(chapter_destination)
+            var target_name: String = str(world_router.map_info(chapter_destination).get("name",chapter_destination))
+            if not world.interior_building.is_empty():
+                return "【本章目的地】%s\n先离开房屋，再沿已解锁道路前往。" % target_name
+            if travel_route.size()>1:
+                var next_name: String = str(world_router.map_info(travel_route[1]).get("name",travel_route[1]))
+                return "【本章目的地】%s\n从当前地图前往下一出口：%s" % [target_name,next_name]
+            return "【本章目的地】%s\n当前路线尚未开放，请先完成必要条件。" % target_name
     if progress.chapter == 0:
         return "前往 ✦ 光点：" + prefix
     if progress.chapter <= 3:
@@ -414,7 +425,15 @@ func _focus() -> void:
     world.refresh_room_evidence(progress.rpg)
     world.refresh_room_npcs(progress.flags)
     world.sync_prologue_markers(progress.scene_index,progress.chapter)
-    world.set_focus(_target() if not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else "")
+    var required_act01_map: String = world_router.act01_target_map(progress.chapter)
+    var story_here: bool = required_act01_map.is_empty() or world_router.current_map()==required_act01_map
+    if not story_here:
+        # Otherwise old procedural chapter props would let the player finish
+        # cave/tavern/shoal/lighthouse scenes on an unrelated sector.
+        for main_marker in ["key_npc","clue","witness","crisis","resolve"]:
+            if world.nodes.has(main_marker):
+                world.nodes[main_marker].visible = false
+    world.set_focus(_target() if story_here and not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else "")
     var side_step: int = _side_step()
     var extra: String = ""
     var side_target: String = ""
@@ -850,7 +869,10 @@ func _interact(target: String) -> void:
     if progress.chapter == 72 and bool(progress.flags.get("story.complete", false)):
         ui.show_message("结局已经完成。可从「功能手册 → 结局档案」回看后日谈。")
         return
-    if target != _target():
+    if target != _target() or (
+            progress.chapter>=1 and progress.chapter<=6 and
+            not world_router.act01_target_map(progress.chapter).is_empty() and
+            world_router.current_map()!=world_router.act01_target_map(progress.chapter)):
         ui.show_message("当前目标：" + _objective())
         return
     if progress.chapter == 0:

@@ -25,12 +25,17 @@ func _check() -> void:
     fx.size = Vector2(1152,648)
     viewport.add_child(fx)
     fx.bind_enemy(enemy,"salt_slime",false)
-    _expect(enemy.texture is AtlasTexture,"Coast monster idle animation was not bound")
+    _expect(enemy.texture is Texture2D,"Migrated coast monster has no real idle/battle texture")
     for frame_tick in range(3):
         fx._process(0.1)
     if enemy.texture is AtlasTexture:
         var sheet: AtlasTexture = enemy.texture
-        _expect(int(sheet.region.position.x) == 128,"Idle animation did not advance to frame 2")
+        _expect(int(sheet.region.position.x) == 128,"Imported four-frame idle did not advance to frame 2")
+    else:
+        # Many uploaded enemy images are genuinely single-frame. They use
+        # real texture breathing/recoil, not an out-of-bounds fake flipbook.
+        _expect(absf(enemy.scale.x-1.0)>0.001,
+            "Single-frame migrated coast monster has no live idle animation")
     var p := Vector2(520,210)
     fx.play_attack(p,24)
     fx.play_spell(Vector2(250,430),p,"火",28)
@@ -71,5 +76,5 @@ func _check() -> void:
             push_error(error)
         quit(1)
         return
-    print("PASS: animated coastal sprites, VFX events, lifetime cleanup, reduced motion, active battle wiring")
+    print("PASS Main2 battle FX: imported coast enemy idle (4 frames or breathing), live VFX, cleanup, reduced motion and real combat binding")
     quit(0)

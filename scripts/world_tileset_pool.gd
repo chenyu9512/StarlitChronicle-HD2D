@@ -76,9 +76,13 @@ static func shared(paths: Array[String], columns: int = 8,
             # ResourceLoader can return a different wrapper instance for the
             # same migrated image. The art revision, not transient GPU object
             # identity, controls whether the cached atlas is still valid.
-            var identity: String = path + ":r" + str(_revision)
+            var semantic_path: String = path
+            var shared_theme: bool = Art.active_pack() == "shared_terrain" and Art.pack_has_slot(path)
+            if shared_theme:
+                semantic_path = "res://assets/art/tilesets/coast_water.png" if path.get_file().contains("water") else "res://assets/art/tilesets/coast_ground.png"
+            var identity: String = semantic_path + ":r" + str(_revision)
             if not _adapted.has(identity):
-                _adapted[identity] = Coherent.assemble(path, texture)
+                _adapted[identity] = Coherent.assemble(semantic_path, texture)
             texture = _adapted[identity] as Texture2D
         elif TerrainAdapter.supports(path) and Art.third_party_source(path) != path and texture != null:
             var source_key: String = path + ":r" + str(_revision)

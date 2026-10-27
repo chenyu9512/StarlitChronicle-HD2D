@@ -211,7 +211,7 @@ static func texture(path: String) -> Texture2D:
                     var actual: Vector2i = Vector2i(proposed.get_size())
                     var slot: Dictionary = _entries[path]
                     var ratio_ok: bool = expected.y > 0 and actual.y > 0 and absf(float(actual.x) / float(actual.y) / (float(expected.x) / float(expected.y)) - 1.0) <= 0.12
-                    if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok) or (_active_pack_id == "shared_terrain" and _shared_terrain_slot(path) and actual.x >= 32 and actual.y >= 32):
+                    if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok) or (_active_pack_id == "shared_terrain" and _shared_terrain_slot(path) and actual.x >= 32 and actual.y >= 32) or (_active_pack_id.begins_with("user_") and _shared_terrain_slot(path) and actual == Vector2i(256,256)):
                         # This batch contains 32px user-uploaded pixel props mapped
                         # onto some historical 96px Sprite2D slots. Scale the image
                         # itself with nearest-neighbor sampling: never alter geometry,
@@ -401,7 +401,7 @@ static func pack_report(id: String) -> Dictionary:
         var atlas: bool = bool((_entries[slot] as Dictionary).get("atlas", false))
         var match_size: bool = actual == expected
         var ratio_ok: bool = absf(float(actual.x) * float(expected.y) / (float(actual.y) * float(expected.x)) - 1.0) <= 0.12
-        if (match_size if atlas else ratio_ok) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32):
+        if (match_size if atlas else ratio_ok) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32) or (id.begins_with("user_") and _shared_terrain_slot(slot) and actual == Vector2i(256,256)):
             usable += 1
             if has_override(slot):
                 personal += 1
@@ -503,10 +503,13 @@ static func install_pack(manifest_file: String) -> Dictionary:
         # A terrain family expands into 10-11 targets but references one PNG.
         # Validate each target's atlas size without decoding that PNG again.
         if bool(row.get("_shared", false)) and shared_saved.has(relative):
-            var baseline_shared: Texture2D = original_texture(target)
-            if baseline_shared == null or Vector2i(baseline_shared.get_size()) != shared_dimensions[relative]:
+            # Group slots are logical 8x8 terrain atlases. The migrated
+            # baseline can be a 32/48px external source PNG, while a user's
+            # complete two-image DLC must already be genuine 256x256 atlases.
+            # Do not compare the new shared atlas to a deleted old file size.
+            if not _shared_terrain_slot(target) or shared_dimensions[relative] != Vector2i(256,256):
                 _rollback_dlc_files(installed)
-                return {"ok": false, "message": "共享图集尺寸不一致：" + target}
+                return {"ok": false, "message": "共享图集必须为256×256：" + target}
             mappings.append({"target": target, "source": str(shared_saved[relative])})
             seen[target] = true
             continue
@@ -529,10 +532,14 @@ static func install_pack(manifest_file: String) -> Dictionary:
             _rollback_dlc_files(installed)
             return {"ok": false, "message": "原图不可读取：" + target}
         var original_size: Vector2i = Vector2i(reference.get_size())
-        if (bool((_entries[target] as Dictionary).get("atlas", false)) or bool(row.get("_shared", false))) and dimensions != original_size:
+        var terrain_family: bool = bool(row.get("_shared", false))
+        if terrain_family and (not _shared_terrain_slot(target) or dimensions != Vector2i(256,256)):
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "地形组DLC要求256×256八乘八图集：" + target}
+        if not terrain_family and bool((_entries[target] as Dictionary).get("atlas", false)) and dimensions != original_size:
             _rollback_dlc_files(installed)
             return {"ok": false, "message": "图集必须保持原尺寸：" + target}
-        if dimensions != original_size:
+        if not terrain_family and dimensions != original_size:
             var ratio: float = float(dimensions.x) / float(dimensions.y) / (float(original_size.x) / float(original_size.y))
             if absf(ratio - 1.0) > 0.12:
                 _rollback_dlc_files(installed)

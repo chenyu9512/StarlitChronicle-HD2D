@@ -15,6 +15,7 @@ const BattleTimeline = preload("res://scripts/battle_timeline.gd")
 const BattleCamera = preload("res://scripts/battle_camera.gd")
 const BattleHud = preload("res://scripts/battle_hud.gd")
 const BossAwakening = preload("res://scripts/battle_boss_awakening.gd")
+const C23FogTideBodyMotion = preload("res://scripts/c_b03_fog_tide_body_motion.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
 const BOSS_NAMES: Dictionary = {2: "雾潮寄生体", 3: "潮痕守卫", 4: "灰帷水手", 5: "缚潮古兽", 6: "潮歌守门人"}
@@ -67,6 +68,7 @@ var timeline
 var camera_motion
 var battle_hud
 var boss_animation
+var c23_boss_body_motion
 var last_warning_text: String = ""
 var last_warning_round: int = 0
 var special_button: Button
@@ -266,6 +268,12 @@ func _build() -> void:
     portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     root.add_child(portrait)
+    c23_boss_body_motion = null
+    if boss and chapter == 2:
+        c23_boss_body_motion = C23FogTideBodyMotion.new()
+        c23_boss_body_motion.name = "C23FogTideBodyMotion"
+        root.add_child(c23_boss_body_motion)
+        c23_boss_body_motion.configure(portrait,chapter,bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
     if boss:
         boss_animation=BossAwakening.new()
         boss_animation.name="BossSixFrameAwakening"
@@ -858,6 +866,8 @@ func _act(action: String) -> void:
             enemy = formation.units[active_target]
             if is_instance_valid(enemy_stage):
                 enemy_stage.hit(active_target,int(enemy.get("hp",0)) <= 0)
+    if is_instance_valid(c23_boss_body_motion) and not enemy_stage.visible:
+        c23_boss_body_motion.play_hit(int(enemy.get("hp",0)) <= 0)
     if not phase_two and boss and int(enemy["hp"]) <= int(enemy["max_hp"]) / 2:
         phase_two = true
         if boss_mechanics != null and boss_mechanics.enabled():
@@ -871,6 +881,8 @@ func _act(action: String) -> void:
             vfx.play_boss_cue(_vfx_foe_point(),chapter,true)
         if is_instance_valid(boss_animation):
             boss_animation.awaken()
+        if is_instance_valid(c23_boss_body_motion):
+            c23_boss_body_motion.play_phase()
         if is_instance_valid(camera_motion):
             camera_motion.impulse(7.0)
         if is_instance_valid(sfx):
@@ -934,6 +946,8 @@ func _enemy_strike(attacker_index: int = -1) -> void:
         return
     var intent: Dictionary = round_boss_intent if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors)
     last_enemy_action = str(enemy.get("name","敌人")) + " · " + str(intent.get("label","攻击"))
+    if is_instance_valid(c23_boss_body_motion):
+        c23_boss_body_motion.play_attack()
     var target: int = living[dice.randi_range(0, living.size() - 1)]
     var targeting: String = str(intent.get("target",""))
     if targeting in ["lowest_hp","highest_hp","lowest_mp"]:
@@ -1092,6 +1106,8 @@ func _finish(victory: bool) -> void:
     if win_locked:
         return
     win_locked = true
+    if victory and is_instance_valid(c23_boss_body_motion) and chapter == 2:
+        c23_boss_body_motion.play_defeat()
     for item in commands.get_children():
         if item is Button:
             item.disabled = true

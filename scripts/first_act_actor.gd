@@ -2,9 +2,11 @@ extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 ## C-line actor: eight logical headings with honest four-direction sprite atlas fallback.
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
+const ThirdPartyWalk = preload("res://scripts/c_third_party_walk.gd")
 const AudioBusRuntime = preload("res://scripts/audio_bus_runtime.gd")
 static var footstep_wave: AudioStreamWAV
 var sprite: Sprite2D
+var third_party_strips: Dictionary = {}
 var walk_clock: float = 0.0
 var facing: int = 0
 var idle_elapsed: float = 0.0
@@ -27,6 +29,7 @@ func setup(image: String) -> void:
     if is_instance_valid(sprite):
         sprite.queue_free()
     sprite = Sprite2D.new()
+    third_party_strips = ThirdPartyWalk.resolve(image)
     # Use the authored C2.1 four-facing atlas only when no local PNG override exists.
     # Existing 96x192 PNG remains the safe fallback, unchanged on disk.
     var authored: String = image.get_basename() + "_c21.svg" if image.ends_with("/walk_4dir_3frames.png") else ""
@@ -35,11 +38,18 @@ func setup(image: String) -> void:
         if upgrade != null and upgrade.get_size() == Vector2(96, 192):
             sprite.texture = upgrade
             sprite.set_meta("c21_walk_source", authored)
+    if sprite.texture == null and not third_party_strips.is_empty():
+        sprite.texture = (third_party_strips.get("down", {}) as Dictionary).get("idle") as Texture2D
+        sprite.set_meta("third_party_directional_strips", true)
     if sprite.texture == null and ArtOverrides.exists(image):
         sprite.texture = ArtOverrides.texture(image)
     # Third-party migration may resolve a historical 96x192 walk atlas to
     # one directional PNG. Never slice that single frame into 12 random pieces.
-    if sprite.texture != null and sprite.texture.get_size() == Vector2(96, 192):
+    if not third_party_strips.is_empty() and sprite.texture != null:
+        sprite.hframes = maxi(1, int(sprite.texture.get_width() / 48))
+        sprite.vframes = 1
+        sprite.frame = 0
+    elif sprite.texture != null and sprite.texture.get_size() == Vector2(96, 192):
         sprite.hframes = 3
         sprite.vframes = 4
         sprite.frame_coords = Vector2i(1, 0)
@@ -85,7 +95,9 @@ func set_motion(delta: float, velocity: Vector2) -> void:
     walk_clock = motion.phase
     facing = motion.atlas_row()
     idle_elapsed = motion.idle_time
-    if sprite.hframes == 3 and sprite.vframes == 4:
+    if not third_party_strips.is_empty():
+        _apply_third_party_frame()
+    elif sprite.hframes == 3 and sprite.vframes == 4:
         sprite.frame_coords = Vector2i(motion.atlas_column(), facing)
     sprite.position = Vector2(0, -19) + motion.visual_offset()
     if not reduced_motion:
@@ -99,7 +111,9 @@ func face_position(world_point: Vector2) -> void:
     motion.face_vector(to_local(world_point))
     facing = motion.atlas_row()
     if is_instance_valid(sprite):
-        if sprite.hframes == 3 and sprite.vframes == 4:
+        if not third_party_strips.is_empty():
+            _apply_third_party_frame()
+        elif sprite.hframes == 3 and sprite.vframes == 4:
             sprite.frame_coords = Vector2i(1, facing)
 
 func begin_conversation(world_point: Vector2) -> void:
@@ -108,6 +122,22 @@ func begin_conversation(world_point: Vector2) -> void:
     if is_instance_valid(sprite):
         if sprite.hframes == 3 and sprite.vframes == 4:
             sprite.frame_coords = Vector2i(1, facing)
+
+func _apply_third_party_frame() -> void:
+    if third_party_strips.is_empty() or not is_instance_valid(sprite):
+        return
+    var headings: Array[String] = ["down", "left", "up", "right"]
+    var key: String = headings[clampi(motion.atlas_row(), 0, 3)]
+    var data: Dictionary = third_party_strips.get(key, {})
+    var moving: bool = motion.move_blend > 0.12
+    var wanted: Texture2D = data.get("walk" if moving else "idle") as Texture2D
+    if wanted == null:
+        return
+    if sprite.texture != wanted:
+        sprite.texture = wanted
+        sprite.hframes = maxi(1, int(wanted.get_width() / 48))
+        sprite.vframes = 1
+    sprite.frame = posmod(floori(walk_clock), sprite.hframes) if moving else 0
 
 func react() -> void:
     if not is_instance_valid(sprite) or reacting:

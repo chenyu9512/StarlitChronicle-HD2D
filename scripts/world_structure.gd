@@ -119,10 +119,19 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
     z_index=3
     # The original painter remains the compatibility fallback for other biomes.
     var file: String = "res://assets/art/exteriors/coast_final_pass/%s_%s.svg" % [map_key,kind]
-    if ArtOverrides.exists(file):
+    # The third-party migration sometimes redirects an entire 256x192 house
+    # facade to a 32x32 shrine wall/prop. That is not architectural artwork.
+    # Reject migrated role-mismatched facades and draw the complete native
+    # building below until a real facade (or user-reviewed override) exists.
+    var original_facade: bool = ArtOverrides.third_party_source(file) == file
+    var accepted_override: bool = ArtOverrides.has_override(file)
+    var facade_tex: Texture2D = null
+    if (original_facade or accepted_override) and ArtOverrides.exists(file):
+        facade_tex = ArtOverrides.texture(file)
+    if facade_tex != null and facade_tex.get_width() >= 192 and facade_tex.get_height() >= 128:
         facade=Sprite2D.new()
         facade.name="AuthoredFacade"
-        facade.texture=ArtOverrides.texture(file)
+        facade.texture=facade_tex
         facade.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
         facade.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
         facade.z_index=0
@@ -224,7 +233,11 @@ func _draw() -> void:
             var yy: float = top+21.0+float(row)*16.0+absf(xx)*0.08
             draw_line(Vector2(xx,yy),Vector2(xx+12,yy-1),roof.lightened(0.18 if (row+col)%2==0 else 0.05),1.1)
     # Three-dimensional porch with a highlighted physical doorway.
-    var doorway: Rect2 = Rect2(-18,top+h-54,36,46)
+    # Match the playable door tile instead of painting every entrance at the
+    # same hard-coded center position, which was misaligning visible thresholds.
+    var door_x: float = clampf(entrance_local.x - 18.0, left + 20.0, left + w - 56.0)
+    var door_y: float = clampf(entrance_local.y - 49.0, top + 44.0, top + h - 52.0)
+    var doorway: Rect2 = Rect2(door_x, door_y, 36, 44)
     draw_rect(Rect2(doorway.position-Vector2(3,4),doorway.size+Vector2(6,4)),trim,true)
     draw_rect(doorway,Color("263f4c"),true)
     draw_rect(Rect2(doorway.position+Vector2(4,3),Vector2(28,37)),Color("704d38"),true)

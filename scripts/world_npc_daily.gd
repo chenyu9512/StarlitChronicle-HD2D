@@ -5,7 +5,7 @@ const NPCS: String = "res://data/content/npcs.json"
 const TOWNS: String = "res://data/levels/town_director_v4.json"
 const TILE: float = 32.0
 const SPEED: float = 72.0
-const MAX_VISITS: int = 4096
+const MAX_VISITS: int = 8192
 var by_id: Dictionary = {}
 var towns: Dictionary = {}
 var talking: Dictionary = {}
@@ -88,10 +88,24 @@ func reset_route(npc_id: String = "") -> void:
 static func _within(cell: Vector2i,extent: Vector2i) -> bool:
     return cell.x>=2 and cell.y>=2 and cell.x<extent.x-2 and cell.y<extent.y-2
 
+## A district anchor may land on new scenery after a C-line art pass. Find
+## a nearby clear stand tile, without editing geometry or teleporting the NPC.
+## Stable Manhattan-ring ordering ensures determinism across game reloads.
+static func safe_destination(wanted: Vector2i,walls: Dictionary,extent: Vector2i) -> Vector2i:
+    for radius in range(5):
+        for y in range(-radius,radius+1):
+            for x in range(-radius,radius+1):
+                if absi(x)+absi(y)!=radius:
+                    continue
+                var cell: Vector2i=wanted+Vector2i(x,y)
+                if _within(cell,extent) and not walls.has(cell):
+                    return cell
+    return Vector2i(-1,-1)
+
 func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -> Array[Vector2i]:
     path_queries+=1
     var empty: Array[Vector2i]=[]
-    if not _within(start,extent) or walls.has(start) or not _within(goal,extent):
+    if not _within(start,extent) or walls.has(start) or not _within(goal,extent) or walls.has(goal):
         return empty
     var parent: Dictionary={}
     # A variable-key dictionary MUST use indexed assignment, not {start:start},
@@ -101,7 +115,10 @@ func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -
     var index: int=0
     var best: Vector2i=start
     var closest: int=start.distance_squared_to(goal)
-    while index<queue.size() and index<MAX_VISITS:
+    # The largest authored settlement can exceed 4096 cells; still cap
+    # searches by the grid area and our hard safety limit.
+    var visit_limit: int=mini(MAX_VISITS,maxi(1,(extent.x-4)*(extent.y-4)))
+    while index<queue.size() and index<visit_limit:
         var at: Vector2i=queue[index]
         index+=1
         var d: int=at.distance_squared_to(goal)
@@ -127,7 +144,7 @@ func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -
     return path
 
 func _waypoint(npc_id: String,map_id: String,at: Vector2i,goal: Vector2i,
-        walls: Dictionary,extent: Vector2i) -> Vector2i:
+        walls: Dictionary,extent: Vector2i,seconds: float=0.0) -> Vector2i:
     var memo: Dictionary=route_cache.get(npc_id,{})
     var path: Array=memo.get("path",[])
     var valid: bool=str(memo.get("map_id",""))==map_id and memo.get("goal",Vector2i(-1,-1))==goal \
@@ -136,10 +153,21 @@ func _waypoint(npc_id: String,map_id: String,at: Vector2i,goal: Vector2i,
     if index>=0 and index+1<path.size():
         if walls.has(path[index+1]):
             index=-1
+    # When temporarily surrounded by residents, a cached one-cell path
+    # must be retried rather than leaving a citizen frozen indefinitely.
+    # Throttle these retries; never re-run BFS every rendered frame.
+    if index>=0 and path.size()<=1 and at!=goal:
+        var retry: float=maxf(0.0,float(memo.get("retry_after",1.25))-maxf(0.0,seconds))
+        if retry>0.0:
+            memo["retry_after"]=retry
+            route_cache[npc_id]=memo
+        else:
+            index=-1
     if index<0:
         var rebuilt: Array[Vector2i]=_route(at,goal,walls,extent)
         memo={"map_id":map_id,"goal":goal,"extent":extent,
-            "wall_count":walls.size(),"path":rebuilt}
+            "wall_count":walls.size(),"path":rebuilt,
+            "retry_after":1.25}
         route_cache[npc_id]=memo
         path=rebuilt
         index=0 if not path.is_empty() else -1
@@ -165,7 +193,11 @@ func step(npc_id: String,map_id: String,minutes: int,current: Vector2,
         reset_route(npc_id)
         return {"position":current,"state":"blocked","moving":false}
     var searches_before: int=path_queries
-    var next: Vector2i=_waypoint(npc_id,map_id,at,goal,walls,extent)
+    var navigation_goal: Vector2i=safe_destination(goal,walls,extent)
+    if navigation_goal.x<0:
+        reset_route(npc_id)
+        return {"position":current,"state":"blocked","moving":false,"goal":goal}
+    var next: Vector2i=_waypoint(npc_id,map_id,at,navigation_goal,walls,extent,seconds)
     var center: Vector2=Vector2(at)*TILE+Vector2.ONE*(TILE*0.5)
     # Stop at the center before rounding a corner: diagonal interpolation from
     # an offset actor position can otherwise cut through a blocked tile.
@@ -176,4 +208,5 @@ func step(npc_id: String,map_id: String,minutes: int,current: Vector2,
     var direction: Vector2=(moved-current).normalized()
     return {"position":moved,"state":str(task.get("action","idle")),
         "moving":not moved.is_equal_approx(current),"facing":direction,
-        "goal":goal,"path_cached":path_queries==searches_before}
+        "goal":goal,"navigation_goal":navigation_goal,
+        "path_cached":path_queries==searches_before}

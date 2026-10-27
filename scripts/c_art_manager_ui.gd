@@ -106,7 +106,7 @@ func _build() -> void:
     var apply_pack := _button("一键应用全局画风")
     apply_pack.pressed.connect(_apply_pack)
     pack_row.add_child(apply_pack)
-    var reset_pack := _button("切换回游戏原版")
+    var reset_pack := _button("一键恢复全部原始美术")
     reset_pack.pressed.connect(_reset_pack)
     pack_row.add_child(reset_pack)
     var install_pack := _button("导入DLC包")
@@ -385,8 +385,8 @@ func _apply_pack() -> void:
         _show_detail()
 
 func _reset_pack() -> void:
-    var ok: bool = Overrides.activate_pack("original")
-    pack_feedback.text = "已切换回游戏原版；单张手工覆盖仍保留。" if ok else "恢复失败，当前配置未改变。"
+    var ok: bool = Overrides.restore_everything()
+    pack_feedback.text = "全部美术已恢复游戏原版；DLC安装记录和个人备注保留。" if ok else "恢复失败，当前配置未改变。"
     if ok:
         _refresh_pack_list()
         asset_changed.emit("res://assets/art/backdrops/coast/tide_lighthouse.png")

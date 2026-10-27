@@ -49,7 +49,7 @@ func _run() -> void:
                 var sand: Color = pixels.get_pixel(10, 12)
                 var pavement: Color = pixels.get_pixel(10, 3 * 32 + 12)
                 var cliffs: Color = pixels.get_pixel(10, 6 * 32 + 12)
-                verify(sand.distance_to(pavement) > 0.05 and cliffs.distance_to(pavement) > 0.05,
+                verify(absf(sand.r - pavement.r) + absf(sand.g - pavement.g) + absf(sand.b - pavement.b) > 0.10 and absf(cliffs.r - pavement.r) + absf(cliffs.g - pavement.g) + absf(cliffs.b - pavement.b) > 0.10,
                     map_id + " sand/path/cliff are still the same wrongly repeated source cell")
             checked += 1
     var overlays: Array[String] = [
@@ -61,7 +61,8 @@ func _run() -> void:
         verify(AtlasAdapter.supports(path), "Missing overlay adapter: " + path)
         if not Art.exists(path):
             continue
-        var set: TileSet = TilePool.shared([path])
+        var paths: Array[String] = [path]
+        var set: TileSet = TilePool.shared(paths)
         verify(set != null, "Overlay does not have a valid 32px atlas: " + path)
         if set != null:
             var source: TileSetAtlasSource = set.get_source(0) as TileSetAtlasSource
@@ -69,7 +70,6 @@ func _run() -> void:
             verify(sample.get_pixel(0, 0).a < 0.9,
                 "Overlay paints an opaque 32px blocking square: " + path)
     var facade := Structure.new()
-    var slot: String = "res://assets/art/exteriors/coast_final_pass/map_coast_01_house.svg"
     facade.setup("house", "朝露屋", Vector2i(8, 6), "coastal",
         "map_coast_01", 720, Vector2i(0, 3))
     verify(facade.facade == null,

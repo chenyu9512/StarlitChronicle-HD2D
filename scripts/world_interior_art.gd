@@ -8,6 +8,8 @@ const TownSoundscape = preload("res://scripts/c_town_soundscape.gd")
 const ART_DIR: String = "res://assets/art/interiors/morning_dew_inn/"
 const PROFILE: String = "coast_inn_v1"
 const DISTRICT_ART: String = "res://assets/art/interiors/coastal_district/"
+const SIGNATURE_DIR: String = "res://assets/art/interiors/morning_dew_signature/"
+const SIGNATURE_MANIFEST: String = "res://data/assets/c_morning_dew_signature.json"
 var theme_atlas: String = ART_DIR+"inn_tileset.svg"
 var soundscape
 var presentation_fx
@@ -69,6 +71,7 @@ const ALLOWED: Array[String] = [
     "shrine_incense", "harbor_guest_bed"
 ]
 var prop_nodes: Dictionary = {}
+var signature_nodes: Dictionary = {}
 var detail_layer: TileMapLayer
 var active_lights: Array[PointLight2D] = []
 var light_energy: Array[float] = []
@@ -122,13 +125,28 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         soundscape = TownSoundscape.new()
         soundscape.name = "IndoorSoundscape"
         add_child(soundscape)
-    soundscape.configure(str(layout.get("map_id", "map_coast_01")), str(layout.get("building_id", "inn")), true)
+    var identity: String = str(layout.get("layout_id", ""))
+    var map_key: String = str(layout.get("map_id", ""))
+    var room_key: String = str(layout.get("building_id", ""))
+    if identity.contains("#"):
+        var parts: PackedStringArray = identity.split("#")
+        if parts.size() >= 2:
+            if map_key.is_empty():
+                map_key = parts[0]
+            if room_key.is_empty():
+                room_key = parts[1]
+    if map_key.is_empty():
+        map_key = "map_coast_01"
+    if room_key.is_empty():
+        room_key = "inn"
+    soundscape.configure(map_key, room_key, true)
     if not is_instance_valid(presentation_fx):
         presentation_fx = InteractionFX.new()
         presentation_fx.name = "InteriorInteractionFX"
         presentation_fx.z_index = 5
         add_child(presentation_fx)
     _build_wall_edging(layout)
+    _install_dew_signature(stage, layout, map_key, room_key)
     for value in layout.get("visuals",[]):
         if not value is Dictionary:
             continue
@@ -186,6 +204,65 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         light_energy.append(lamp.energy)
     set_clock(minutes)
     set_visual_quality(visual_quality)
+
+## C2.1: real room-specific original images, not a UI colour overlay.
+## Decorative floor cloths do not alter collision or navigation. Hanging images
+## share the existing wall display plane and are not granted interaction IDs.
+func _install_dew_signature(stage: Node2D, layout: Dictionary, map_key: String, room_key: String) -> void:
+    if map_key != "map_coast_01" or not FileAccess.file_exists(SIGNATURE_MANIFEST):
+        return
+    var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SIGNATURE_MANIFEST))
+    if not parsed is Dictionary or str(parsed.get("schema", "")) != "starlit.c_morning_dew_signature.v1":
+        return
+    var rooms: Dictionary = parsed.get("room_dressing", {})
+    if not rooms.has(room_key):
+        return
+    var ground: Dictionary = layout.get("tiles", {})
+    var blocked: Dictionary = layout.get("blocked", {})
+    for record in rooms.get(room_key, []):
+        if not record is Dictionary:
+            continue
+        var id: String = str(record.get("id", ""))
+        var asset: String = str(record.get("asset", ""))
+        var layer: String = str(record.get("layer", ""))
+        var xy: Array = record.get("cell", [])
+        if id.is_empty() or signature_nodes.has(id) or asset.contains("/") or not asset.ends_with(".svg") or xy.size() != 2:
+            continue
+        if layer not in ["floor", "wall"]:
+            continue
+        var point := Vector2i(int(xy[0]), int(xy[1]))
+        if layer == "floor":
+            if blocked.has(point) or not ground.has(point):
+                continue
+            var safe_footprint: bool = true
+            for delta in [Vector2i.ZERO, Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
+                if blocked.has(point + delta):
+                    safe_footprint = false
+                    break
+            if not safe_footprint:
+                continue
+        var path: String = SIGNATURE_DIR + asset
+        if not ResourceLoader.exists(path):
+            continue
+        var texture: Texture2D = ArtOverrides.texture(path)
+        if texture == null:
+            continue
+        var art := Sprite2D.new()
+        art.name = id
+        art.texture = texture
+        art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        art.position = Vector2(float(point.x) * TILE + 16.0, float(point.y) * TILE + 16.0)
+        var art_offset: Array = record.get("offset", [0, 0])
+        if art_offset.size() == 2:
+            art.offset = Vector2(float(art_offset[0]), float(art_offset[1]))
+        art.z_index = -3 if layer == "floor" else -1
+        art.set_meta("signature_cell", point)
+        art.set_meta("signature_layer", layer)
+        if layer == "floor":
+            add_child(art)
+        else:
+            stage.add_child(art)
+        signature_nodes[id] = art
 
 func _install_fire_animation(stage: Node2D,layout: Dictionary) -> void:
     # Six separately hand-authored RGBA frames; this is an actual sprite-sheet

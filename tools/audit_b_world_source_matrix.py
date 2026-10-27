@@ -85,8 +85,8 @@ def audit() -> tuple[dict, list[str]]:
         if mid not in zones or path.name != f"{mid}__{bid}.json":
             errors.append(f"Interior points to unknown map/building: {path.name}")
     production_rooms = sum(len(v) for v in all_rooms.values())
-    if production_rooms != 97:
-        errors.append(f"97 V4 interior source records expected, got {production_rooms}")
+    if production_rooms != 99:
+        errors.append(f"99 V4 interior source records expected, got {production_rooms}")
 
     rows = []
     entrances = 0
@@ -135,8 +135,8 @@ def audit() -> tuple[dict, list[str]]:
             "godot_tested": False,
             "commercial_accepted": False,
         })
-    if entrances != 66:
-        errors.append(f"Expected 66 building entrance definitions, got {entrances}")
+    if entrances != 68:
+        errors.append(f"Expected 68 building entrance definitions, got {entrances}")
     result = {
         "schema": "starlit.b_world.source_matrix.v1",
         "scope": "SOURCE_REFERENCE_ONLY_NOT_GODOT",
@@ -155,7 +155,7 @@ def audit() -> tuple[dict, list[str]]:
             "B/D: live NPC identity filtered by current map rather than whole region",
             "D: stable world.interact routing for furniture and doors",
             "D: V3 transactional NPC conversations and service rewards",
-            "B/D: actual walkability, 40 maps and 66 entrances in Godot",
+            "B/D: actual walkability, 40 maps and 68 entrances in Godot",
             "A/D: 66 actual boss encounters and battle/world settlement",
             "C: final scene art + visual collision agreement",
             "D: actual save/load and full player path acceptance",

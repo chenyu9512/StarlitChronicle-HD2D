@@ -1,0 +1,69 @@
+{
+  "schema": "starlit.b.act01.scene_location_contract.v1",
+  "purpose": "Non-mutating Act-I commercial-acceptance location contracts; NOT an override of WorldRegistry until B/D migration with tested old-save handling",
+  "scope": "prologue_and_chapters_1_to_6",
+  "chapters": [
+    {
+      "chapter": 1,
+      "story_location": "晨露村·澄舟旧屋",
+      "required_map_id": "map_coast_01",
+      "required_scene_kind": "house_interior",
+      "required_building_id": "house",
+      "required_interaction": "actual_house_entry_and_interior_clue",
+      "player_path_gate": "walk_to_house_and_return"
+    },
+    {
+      "chapter": 2,
+      "story_location": "白砂港·收容所",
+      "required_map_id": "map_coast_02",
+      "required_scene_kind": "shelter_interior",
+      "required_building_id": "shelter",
+      "required_interaction": "shelter_registry_and_patient_evidence",
+      "player_path_gate": "walk_to_shelter_then_leave"
+    },
+    {
+      "chapter": 3,
+      "story_location": "断桅海蚀洞",
+      "required_map_id": "map_coast_04",
+      "required_scene_kind": "dungeon",
+      "required_building_id": "",
+      "required_interaction": "three_tide_mechanisms_then_story_boss",
+      "player_path_gate": "walk_from_harbor_through_saltwind_road_to_cave"
+    },
+    {
+      "chapter": 4,
+      "story_location": "白砂港·黑帆酒馆",
+      "required_map_id": "map_coast_02",
+      "required_scene_kind": "tavern_interior",
+      "required_building_id": "tavern",
+      "required_interaction": "interrogate_tavern_patron_and_read_goods_ledger",
+      "player_path_gate": "walk_back_from_cave_to_harbor_pub"
+    },
+    {
+      "chapter": 5,
+      "story_location": "鲸骨浅滩",
+      "required_map_id": "map_coast_03",
+      "required_scene_kind": "shore_subzone",
+      "required_building_id": "",
+      "required_interaction": "inspect_star_chain_and_choose_nonlethal_resolution",
+      "player_path_gate": "walk_to_seaside_shoal_from_saltwind_route"
+    },
+    {
+      "chapter": 6,
+      "story_location": "潮歌灯塔",
+      "required_map_id": "map_coast_05",
+      "required_scene_kind": "lighthouse",
+      "required_building_id": "",
+      "required_interaction": "relight_lighthouse_after_keeper_boss",
+      "player_path_gate": "reach_lighthouse_from_cave_and_complete_act"
+    }
+  ],
+  "acceptance_levels": [
+    "source_match",
+    "physical_route",
+    "interactions_live",
+    "save_restore",
+    "visual_accepted"
+  ],
+  "note": "Critical narrative geography acceptance gates for B+D; existing map/chapter ids and active saves must not be silently rewritten. Ch2/Ch4 need genuinely authored unique interiors; Ch5 requires a dedicated shoal subzone in existing coast map without creating a 41st map."
+}

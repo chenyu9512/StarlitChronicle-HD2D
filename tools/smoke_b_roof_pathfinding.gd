@@ -66,9 +66,9 @@ func _run() -> void:
                     marker=true
             _expect(marker,mid+"/"+id+" missing canonical feature/door link")
             entrances+=1
-    _expect(towns==11 and entrances==66,"Lost one of 11 settlements or 66 physical doors")
+    _expect(towns==11 and entrances==68,"Lost one of 11 settlements or 68 physical doors")
     if errors.is_empty():
-        print("PASS B roof-safe routing: valid Vector2i BFS, no roof tunneling, 66 reachable building thresholds")
+        print("PASS B roof-safe routing: valid Vector2i BFS, no roof tunneling, 68 reachable building thresholds")
         quit(0)
         return
     for reason in errors:

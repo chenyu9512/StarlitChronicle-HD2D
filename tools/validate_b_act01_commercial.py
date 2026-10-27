@@ -69,6 +69,16 @@ def run() -> dict:
             commercial_blockers.append(
                 f"Chapter {number} requires a missing authored {record['required_scene_kind']}"
                 f" interior: {interior_path.relative_to(ROOT)}")
+        elif required_building in ("shelter", "tavern"):
+            scene = json.loads(interior_path.read_text(encoding="utf-8"))
+            if not scene.get("art_profile"):
+                commercial_blockers.append(
+                    f"Chapter {number} {required_building} has working B V4 geometry,"
+                    f" but no final C-line art profile or authored prop textures")
+            if scene.get("interaction_status") != "runtime_D_verified":
+                commercial_blockers.append(
+                    f"Chapter {number} {required_building} clue inputs are not"
+                    f" bound/verified by D-line main-game interaction controller")
         if record["required_scene_kind"]=="shore_subzone":
             commercial_blockers.append(
                 f"Chapter {number} needs a distinctive whale-shoal gameplay subzone"

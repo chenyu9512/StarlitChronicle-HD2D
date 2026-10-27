@@ -652,6 +652,18 @@ func _build_sites() -> void:
             # replaces its old beacon/barrel pictogram at the same anchor.
             nodes["interior_service"].modulate.a = 0.0
             nodes["interior_storage"].modulate.a = 0.0
+        # V4 authored investigations become physical, selectable room objects.
+        # Preserve original V4 IDs and never invent an interaction over a wall.
+        for authored_inspection in terrain_layout.get("investigations",[]):
+            if not (authored_inspection is Dictionary):
+                continue
+            var inspection_id: String = str(authored_inspection.get("id",""))
+            var inspection_cell: Vector2i = authored_inspection.get("cell",Vector2i(-1,-1))
+            if inspection_id.is_empty() or inspection_cell.x<0 or blocked.has(inspection_cell):
+                continue
+            var inspection_marker: Sprite2D = _add_sprite("sea_crystal",inspection_cell,false,true)
+            inspection_marker.set_meta("site_name",str(authored_inspection.get("name","室内线索")))
+            nodes["homeinspect:"+inspection_id] = inspection_marker
         return
     var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))
     if archetype == "dungeon":
@@ -1277,6 +1289,24 @@ func interact() -> void:
         var exit_node: Node2D=nodes["interior_exit"]
         if is_instance_valid(exit_node) and hero.position.distance_to(exit_node.position)<=54.0:
             interacted.emit("interior_exit")
+            return
+    # Inspectable V4 furnishings use a real player proximity interaction.
+    # Resolve them before generic service furniture; the exit still wins above.
+    if not interior_building.is_empty() and not interior_building.begins_with("quest__"):
+        var nearest_inspection: String = ""
+        var inspection_distance: float = 45.0
+        for key in nodes.keys():
+            if not str(key).begins_with("homeinspect:"):
+                continue
+            var inspect_node: Node2D = nodes[key]
+            if not is_instance_valid(inspect_node) or not inspect_node.visible:
+                continue
+            var candidate_distance: float = hero.position.distance_to(inspect_node.position)
+            if candidate_distance<inspection_distance:
+                inspection_distance=candidate_distance
+                nearest_inspection=str(key)
+        if not nearest_inspection.is_empty():
+            interacted.emit(nearest_inspection)
             return
     # Authoritative main objective has priority when the player stands at its marker.
     # Without this, a nearby town door could hijack a chapter-critical interaction.

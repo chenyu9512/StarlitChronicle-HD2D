@@ -4,6 +4,9 @@ extends RefCounted
 const CATALOG_PATH: String = "res://data/assets/c_art_catalog.json"
 const SETTINGS: String = "user://c_art_overrides.cfg"
 const ASSET_DIR: String = "user://c_art_replacements"
+const PACK_INDEX: String = "res://data/assets/c_art_packs.json"
+const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
+const PACK_ROOT: String = "user://c_art_packs"
 const MAX_INPUT_BYTES: int = 24 * 1024 * 1024
 const MAX_IMAGE_PIXELS: int = 32 * 1024 * 1024
 static var _catalog: Dictionary = {}
@@ -11,6 +14,8 @@ static var _entries: Dictionary = {}
 static var _config: ConfigFile
 static var _cache: Dictionary = {}
 static var _revision: int = 0
+static var _packs: Dictionary = {}
+static var _active_pack_id: String = "original"
 
 static func _load() -> void:
     if _config != null:
@@ -25,6 +30,11 @@ static func _load() -> void:
     for value in _catalog.get("assets", []):
         if value is Dictionary and str(value.get("path", "")).begins_with("res://assets/"):
             _entries[str(value["path"])] = value
+    _read_pack_index(PACK_INDEX)
+    _read_pack_index(USER_PACK_INDEX)
+    _active_pack_id = str(_config.get_value("packs", "active", "original"))
+    if _active_pack_id != "original" and not _packs.has(_active_pack_id):
+        _active_pack_id = "original"
 
 static func list_assets() -> Array:
     _load()
@@ -92,6 +102,28 @@ static func texture(path: String) -> Texture2D:
                 _cache[path] = replacement
                 return replacement
             push_warning("Art override unreadable; original restored in this session: " + path)
+        if _active_pack_id != "original" and _packs.has(_active_pack_id):
+            var mappings: Dictionary = _packs[_active_pack_id].get("mappings", {})
+            if mappings.has(path):
+                if _cache.has(path):
+                    return _cache[path] as Texture2D
+                var candidate: String = str(mappings[path])
+                var proposed: Texture2D = null
+                if candidate.begins_with("res://assets/art/"):
+                    proposed = original_texture(candidate)
+                elif candidate.begins_with(PACK_ROOT + "/") and not candidate.contains(".."):
+                    var image := Image.new()
+                    if image.load(candidate) == OK and not image.is_empty():
+                        proposed = ImageTexture.create_from_image(image)
+                var baseline: Texture2D = original_texture(path)
+                if proposed != null and baseline != null:
+                    var expected: Vector2i = Vector2i(baseline.get_size())
+                    var actual: Vector2i = Vector2i(proposed.get_size())
+                    var slot: Dictionary = _entries[path]
+                    var ratio_ok: bool = expected.y > 0 and actual.y > 0 and absf(float(actual.x) / float(actual.y) / (float(expected.x) / float(expected.y)) - 1.0) <= 0.12
+                    if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok):
+                        _cache[path] = proposed
+                        return proposed
     return original_texture(path)
 
 static func exists(path: String) -> bool:
@@ -176,3 +208,180 @@ static func restore(path: String) -> bool:
 
 static func revision() -> int:
     return _revision
+
+## DLC theme packs are path mappings over canonical runtime art slots.
+## The original files are never overwritten, and no scripts can be loaded.
+static func _read_pack_index(location: String) -> void:
+    if not FileAccess.file_exists(location):
+        return
+    var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(location))
+    if not raw is Dictionary:
+        return
+    for entry in raw.get("packs", []):
+        if not entry is Dictionary:
+            continue
+        var id: String = str(entry.get("id", ""))
+        if id.is_empty() or id == "original" or id.contains("/") or id.contains(".."):
+            continue
+        var accepted: Dictionary = {}
+        for map in entry.get("mappings", []):
+            if not map is Dictionary:
+                continue
+            var target: String = str(map.get("target", ""))
+            var source: String = str(map.get("source", ""))
+            if not _entries.has(target):
+                continue
+            if source.begins_with("res://assets/art/") and ResourceLoader.exists(source):
+                accepted[target] = source
+            elif location == USER_PACK_INDEX and source.begins_with(PACK_ROOT + "/") and not source.contains("..") and FileAccess.file_exists(source):
+                accepted[target] = source
+        if not accepted.is_empty():
+            _packs[id] = {
+                "id": id,
+                "name": str(entry.get("name", id)).substr(0, 60),
+                "mappings": accepted,
+                "user_pack": location == USER_PACK_INDEX
+            }
+
+static func list_packs() -> Array[Dictionary]:
+    _load()
+    var result: Array[Dictionary] = [{"id": "original", "name": "游戏原版", "count": 0, "user_pack": false}]
+    var ids: Array = _packs.keys()
+    ids.sort()
+    for id in ids:
+        var pack: Dictionary = _packs[id]
+        result.append({"id": str(id), "name": str(pack.get("name", id)),
+            "count": (pack.get("mappings", {}) as Dictionary).size(),
+            "user_pack": bool(pack.get("user_pack", false))})
+    return result
+
+static func active_pack() -> String:
+    _load()
+    return _active_pack_id
+
+static func pack_has_slot(path: String) -> bool:
+    _load()
+    return _active_pack_id != "original" and _packs.has(_active_pack_id) and (_packs[_active_pack_id].get("mappings", {}) as Dictionary).has(path)
+
+static func activate_pack(id: String) -> bool:
+    _load()
+    if id != "original" and not _packs.has(id):
+        return false
+    if id == _active_pack_id:
+        return true
+    var before: String = _active_pack_id
+    _config.set_value("packs", "active", id)
+    if _config.save(SETTINGS) != OK:
+        _config.set_value("packs", "active", before)
+        return false
+    _active_pack_id = id
+    _cache.clear()
+    _revision += 1
+    return true
+
+## Installs one local DLC JSON manifest. It names existing runtime target slots
+## and relative PNG/JPEG/WebP images in the same directory; all images are
+## validated and copied into user:// before the pack becomes selectable.
+## Format: {"id":"my_pack","name":"...","mappings":[{"target":"res://assets/art/...","file":"images/a.png"}]}
+static func install_pack(manifest_file: String) -> Dictionary:
+    _load()
+    if manifest_file.get_extension().to_lower() != "json":
+        return {"ok": false, "message": "请选择DLC素材包的JSON清单。"}
+    var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_file))
+    if not raw is Dictionary:
+        return {"ok": false, "message": "DLC JSON无效。"}
+    var external_id: String = str(raw.get("id", ""))
+    if external_id.is_empty() or external_id.length() > 48:
+        return {"ok": false, "message": "DLC包ID不能为空且最多48字符。"}
+    for character in external_id:
+        if not (character.to_lower() in "abcdefghijklmnopqrstuvwxyz0123456789_-"):
+            return {"ok": false, "message": "DLC包ID只能包含字母、数字、下划线和横线。"}
+    var id: String = "user_" + external_id
+    if _packs.has(id):
+        return {"ok": false, "message": "已有相同DLC，请使用新的版本ID。"}
+    var rows: Array = raw.get("mappings", [])
+    if rows.is_empty() or rows.size() > 2048:
+        return {"ok": false, "message": "DLC必须含1～2048条贴图映射。"}
+    var folder: String = PACK_ROOT + "/" + id
+    if DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder)) != OK:
+        return {"ok": false, "message": "无法创建DLC本地目录。"}
+    var installed: Array = []
+    var mappings: Array = []
+    var seen: Dictionary = {}
+    for row in rows:
+        if not row is Dictionary:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "映射行不是对象。"}
+        var target: String = str(row.get("target", ""))
+        var relative: String = str(row.get("file", "")).replace("\\", "/")
+        if not _entries.has(target) or seen.has(target):
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "资源ID不存在或重复：" + target}
+        if relative.is_empty() or relative.begins_with("/") or relative.contains("..") or relative.contains(":"):
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "DLC图片路径不安全。"}
+        if relative.get_extension().to_lower() not in ["png", "jpg", "jpeg", "webp"]:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "DLC只允许图片文件。"}
+        var source_file: String = manifest_file.get_base_dir().path_join(relative)
+        var file: FileAccess = FileAccess.open(source_file, FileAccess.READ)
+        if file == null or file.get_length() < 16 or file.get_length() > MAX_INPUT_BYTES:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "图片丢失或大小不合法：" + relative}
+        file.close()
+        var image := Image.new()
+        if image.load(source_file) != OK or image.is_empty():
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "图片解码失败：" + relative}
+        var dimensions: Vector2i = Vector2i(image.get_width(), image.get_height())
+        if dimensions.x < 8 or dimensions.y < 8 or dimensions.x > 8192 or dimensions.y > 8192 or dimensions.x * dimensions.y > MAX_IMAGE_PIXELS:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "图片尺寸非法：" + relative}
+        var reference: Texture2D = original_texture(target)
+        if reference == null:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "原图不可读取：" + target}
+        var original_size: Vector2i = Vector2i(reference.get_size())
+        if bool((_entries[target] as Dictionary).get("atlas", false)) and dimensions != original_size:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "图集必须保持原尺寸：" + target}
+        if dimensions != original_size:
+            var ratio: float = float(dimensions.x) / float(dimensions.y) / (float(original_size.x) / float(original_size.y))
+            if absf(ratio - 1.0) > 0.12:
+                _rollback_dlc_files(installed)
+                return {"ok": false, "message": "图片比例不匹配：" + target}
+            image.resize(original_size.x, original_size.y, Image.INTERPOLATE_LANCZOS)
+        if image.get_format() != Image.FORMAT_RGBA8:
+            image.convert(Image.FORMAT_RGBA8)
+        var destination: String = folder + "/" + target.sha256_text() + ".png"
+        if image.save_png(destination) != OK:
+            _rollback_dlc_files(installed)
+            return {"ok": false, "message": "DLC图片保存失败。"}
+        installed.append(destination)
+        mappings.append({"target": target, "source": destination})
+        seen[target] = true
+    var saved: Array = []
+    for item in _packs.values():
+        if not bool(item.get("user_pack", false)):
+            continue
+        var paths: Array = []
+        for slot in item.get("mappings", {}).keys():
+            paths.append({"target": slot, "source": item["mappings"][slot]})
+        saved.append({"id": item["id"], "name": item["name"], "mappings": paths})
+    saved.append({"id": id, "name": str(raw.get("name", external_id)).substr(0, 60), "mappings": mappings})
+    var index: FileAccess = FileAccess.open(USER_PACK_INDEX, FileAccess.WRITE)
+    if index == null:
+        _rollback_dlc_files(installed)
+        return {"ok": false, "message": "DLC索引保存失败。"}
+    index.store_string(JSON.stringify({"schema":"starlit.c.userpacks.v1","packs":saved}, "  "))
+    index.close()
+    var lookup: Dictionary = {}
+    for row in mappings:
+        lookup[str(row["target"])] = str(row["source"])
+    _packs[id] = {"id": id, "name": str(raw.get("name", external_id)).substr(0, 60),
+        "mappings": lookup, "user_pack": true}
+    return {"ok": true, "message": "DLC导入成功，可在主题包列表一键启用。", "pack_id": id, "count": lookup.size()}
+
+static func _rollback_dlc_files(paths: Array) -> void:
+    for path in paths:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(str(path)))

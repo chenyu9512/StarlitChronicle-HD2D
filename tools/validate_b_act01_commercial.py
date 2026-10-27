@@ -25,6 +25,8 @@ def run() -> dict:
     canonical = load("story/campaign/act_01.json")["chapters"]
     sidequests = load("data/first_act_side_quests.json")["quests"]
     bosses = load("story/data/bosses.json")["bosses"]
+    citizens = load("data/content/npcs.json")["entries"]
+    towns = load("data/levels/town_director_v4.json")["towns"]
     registry = {m["id"]:m for m in map_catalog}
     anchors = {q["chapter"]:q for q in quest_catalog if q.get("kind")=="main"}
     boss_ids = {b["id"] for b in bosses}
@@ -82,7 +84,25 @@ def run() -> dict:
         })
     if len(registry)!=42:
         fatal.append(f"Expected 40 formal + 2 prototype maps, got {len(registry)}")
+    stable_ids=[n.get("id","") for n in citizens]
+    if len(stable_ids)!=40 or len(set(stable_ids))!=40:
+        fatal.append("Canonical NPC count/identity changed from 40")
+    coast_counts={mid:sum(n.get("map_id")==mid for n in citizens)
+                  for mid in ("map_coast_01","map_coast_02")}
+    if coast_counts!={"map_coast_01":3,"map_coast_02":2}:
+        commercial_blockers.append(
+            "Act-I village and harbor population must be 3+2, actual "+str(coast_counts))
+    for citizen in citizens:
+        mid=citizen.get("map_id","")
+        districts={d.get("name","") for d in towns.get(mid,{}).get("districts",[])}
+        if not districts:
+            fatal.append(f"NPC {citizen.get('id')} has no playable town home: {mid}")
+            continue
+        for phase in citizen.get("daily_routine",[]):
+            if phase.get("district") not in districts:
+                fatal.append(f"NPC {citizen.get('id')} has no physical town district: {phase.get('district')}")
     return {"schema":"starlit.b.act01.commercial_gate.v1",
+        "coastal_population":coast_counts,
         "source_only":True, "chapters":details, "fatal_source_errors":fatal,
         "commercial_blockers":commercial_blockers,
         "ready_for_commercial_acceptance":not fatal and not commercial_blockers}

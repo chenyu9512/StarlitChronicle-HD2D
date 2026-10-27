@@ -766,7 +766,10 @@ func _build_sites() -> void:
             field_marker.visible = chapter>0 and field_key!="field:cache"
             field_marker.set_meta("site_name",str(field_site.get("title","地形探查")))
             nodes[field_key]=field_marker
-    if str(map_profile.get("kind","")) == "town":
+    if interior_building.is_empty() and bool(map_profile.get("settlement",false)):
+        # The world-atlas schema uses settlement/archetype, never a "kind"
+        # field. Checking "kind" silently removed the real house service
+        # marker from every town, although the house itself was enterable.
         # Housing services use a notice near the real residence, not a fake house.
         for feature in terrain_layout.get("features",[]):
             if str(feature.get("building",""))!="house":

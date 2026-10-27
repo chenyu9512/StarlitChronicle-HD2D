@@ -4,6 +4,7 @@ const Art = preload("res://scripts/c_act01_production_registry.gd")
 const Coast = preload("res://scripts/world_coastal_scene.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const Registry = preload("res://scripts/world_registry.gd")
+const Overrides = preload("res://scripts/c_art_overrides.gd")
 var errors: Array[String] = []
 
 func check(ok: bool,reason: String) -> void:
@@ -27,6 +28,11 @@ func _run() -> void:
         check(Art.production_paths(map_key).size()>5,"No production paths "+map_key)
         check(registry.maps.has(map_key),"Map registry lacks "+map_key)
     check(not Art.has_map("map_unknown"),"Unknown map accepted")
+    check(Overrides.has_slot("res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg"),
+        "Lighthouse not exposed to global DLC / gallery")
+    for i in range(2,7):
+        check(ResourceLoader.exists(str(Art.chapter_bundle(i).get("boss_phase_overlay",""))),
+            "Chapter boss phase art missing: "+str(i))
     check(Art.sprite_path("map_coast_05","tide_lighthouse_landmark")=="res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
         "Lighthouse artwork not registered")
     var layout: Dictionary=geography.layout("map_coast_05",6)
@@ -35,6 +41,14 @@ func _run() -> void:
     root.add_child(scene)
     scene.configure("map_coast_05",layout)
     check(scene.authored_sprites.has("lighthouse_landmark"),"Lighthouse scene not rendered")
+    check(is_instance_valid(scene.lighthouse_light), "Coastal lighthouse lamp missing")
+    scene.set_clock(1320)
+    scene.set_visual_quality(2)
+    if is_instance_valid(scene.lighthouse_light):
+        check(scene.lighthouse_light.visible, "Lighthouse night light disabled")
+    scene.set_visual_quality(0)
+    if is_instance_valid(scene.lighthouse_light):
+        check(not scene.lighthouse_light.visible, "Lighthouse low-quality budget not respected")
     check(layout.get("blocked",{})==original_blocked,"C-art changed authority blocked cells")
     if scene.authored_sprites.has("lighthouse_landmark"):
         var artwork: Sprite2D=scene.authored_sprites["lighthouse_landmark"]

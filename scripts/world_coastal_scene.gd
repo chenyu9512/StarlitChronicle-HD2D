@@ -25,6 +25,9 @@ var water_count: int = 0
 var wave_timer: float = 0.0
 var cavern_grade: CanvasModulate
 var cavern_lights: Array[PointLight2D] = []
+var lighthouse_light: PointLight2D
+var light_clock: int = 720
+var light_quality: int = 1
 var surface_detail: TileMapLayer
 var allocated_dressing: Node2D
 var illustrated_dressing: Node2D
@@ -121,11 +124,15 @@ func configure(map_key: String, layout: Dictionary, sort_host: Node2D = null) ->
         illustrated_dressing.configure(map_id, layout, depth_stage)
     if map_id=="map_coast_04":
         _make_cavern_lighting()
+    elif map_id=="map_coast_05":
+        _install_lighthouse_light()
 
 ## Keep a tree trunk outside houses, door approaches and painted road.
 ## The canopy can overlap scenery behind it through Y sorting, but its root
 ## never appears in the middle of a shop, quest path or indoor doorway.
 func set_clock(minutes: int) -> void:
+    light_clock = posmod(minutes,1440)
+    _apply_lighthouse_light()
     if is_instance_valid(illustrated_dressing):
         illustrated_dressing.set_clock(minutes)
     if is_instance_valid(allocated_dressing):
@@ -133,6 +140,8 @@ func set_clock(minutes: int) -> void:
 
 func set_visual_quality(level: int) -> void:
     var q: int=clampi(level,0,2)
+    light_quality = q
+    _apply_lighthouse_light()
     if is_instance_valid(illustrated_dressing):
         illustrated_dressing.set_visual_quality(q)
     if is_instance_valid(allocated_dressing):
@@ -289,6 +298,39 @@ func _install_surface_detail(layout: Dictionary) -> void:
         if row>=0:
             surface_detail.set_cell(cell,0,Vector2i(posmod(cell.x*11+cell.y*7+seed,8),row))
             detail_count+=1
+
+## The lighthouse lamp is an authored light source, not a quest-complete flag.
+## Its brightness changes with the clock; the story director still owns whether
+## the great beacon can be formally relit.
+func _install_lighthouse_light() -> void:
+    if not authored_sprites.has("lighthouse_landmark"):
+        return
+    var texture_path: String = "res://assets/art/interiors/morning_dew_inn/light_pool.svg"
+    var texture: Texture2D = ArtOverrides.texture(texture_path)
+    if texture == null:
+        return
+    lighthouse_light = PointLight2D.new()
+    lighthouse_light.name = "CoastalLighthouseSignal"
+    lighthouse_light.texture = texture
+    lighthouse_light.texture_scale = 2.25
+    lighthouse_light.shadow_enabled = false
+    lighthouse_light.color = Color("ffe6a6")
+    lighthouse_light.position = (authored_sprites["lighthouse_landmark"] as Sprite2D).position + Vector2(0,-165)
+    add_child(lighthouse_light)
+    _apply_lighthouse_light()
+
+func _apply_lighthouse_light() -> void:
+    if not is_instance_valid(lighthouse_light):
+        return
+    var strength: float = 0.0
+    if light_clock >= 1140 or light_clock < 330:
+        strength = 1.0
+    elif light_clock >= 1020:
+        strength = float(light_clock - 1020) / 120.0
+    elif light_clock < 420:
+        strength = float(420 - light_clock) / 90.0
+    lighthouse_light.visible = light_quality > 0 and strength > 0.02
+    lighthouse_light.energy = strength * (0.65 if light_quality == 1 else 0.95)
 
 func _make_cavern_lighting() -> void:
     cavern_grade=CanvasModulate.new()

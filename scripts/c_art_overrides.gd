@@ -2,6 +2,7 @@ extends RefCounted
 ## Non-destructive image replacement. Immutable res:// originals, device-local user:// PNG.
 ## No quest/save data or script execution is stored here.
 const CATALOG_PATH: String = "res://data/assets/c_art_catalog.json"
+const ACT01_SLOTS: String = "res://data/assets/c_act01_extra_art_slots_v10.json"
 const SETTINGS: String = "user://c_art_overrides.cfg"
 const ASSET_DIR: String = "user://c_art_replacements"
 const PACK_INDEX: String = "res://data/assets/c_art_packs.json"
@@ -33,6 +34,22 @@ static func _load() -> void:
     for value in _catalog.get("assets", []):
         if value is Dictionary and str(value.get("path", "")).begins_with("res://assets/"):
             _entries[str(value["path"])] = value
+    # Explicit new first-act runtime art is appended without rewriting the
+    # large legacy catalog or altering any existing canonical resource ID.
+    if FileAccess.file_exists(ACT01_SLOTS):
+        var extension: Variant = JSON.parse_string(FileAccess.get_file_as_string(ACT01_SLOTS))
+        if extension is Dictionary:
+            for value in extension.get("assets", []):
+                if not value is Dictionary:
+                    continue
+                var path: String = str(value.get("path", ""))
+                if not path.begins_with("res://assets/art/") or path.contains("..") or _entries.has(path):
+                    continue
+                if not ResourceLoader.exists(path):
+                    continue
+                _entries[path] = value
+                (_catalog["assets"] as Array).append(value)
+            _catalog["count"] = (_catalog["assets"] as Array).size()
     _read_pack_index(PACK_INDEX)
     _read_pack_index(USER_PACK_INDEX)
     _active_pack_id = str(_config.get_value("packs", "active", "original"))

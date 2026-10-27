@@ -5,6 +5,7 @@ extends RefCounted
 ## An LRU cap prevents all regions/interiors staying resident indefinitely.
 const Art = preload("res://scripts/c_art_overrides.gd")
 const TerrainAdapter = preload("res://scripts/third_party_terrain_adapter.gd")
+const Coherent = preload("res://scripts/c_coherent_terrain_materials.gd")
 const TILE: int = 32
 const MAX_ENTRIES: int = 12
 
@@ -69,13 +70,18 @@ static func shared(paths: Array[String], columns: int = 8,
     var texture_ids: Array[String] = []
     for path in paths:
         var texture: Texture2D = Art.texture(path)
-        if TerrainAdapter.supports(path) and Art.third_party_source(path) != path and texture != null:
-            # Shared DLC source textures must produce one shared terrain TileSet,
-            # not one distinct adapted ImageTexture for every legacy slot alias.
-            var identity: String = ("water:" if path.get_file().ends_with("_water.png") else "ground:") + str(texture.get_instance_id())
+        if Coherent.supports(path) and Art.third_party_source(path) != path and texture != null:
+            # Cache per semantic path. A dune/road/water atlas cannot share the
+            # same assembled texture merely because its source PNG is shared.
+            var identity: String = path + ":" + str(texture.get_instance_id())
             if not _adapted.has(identity):
-                _adapted[identity] = TerrainAdapter.assemble(path, texture)
+                _adapted[identity] = Coherent.assemble(path, texture)
             texture = _adapted[identity] as Texture2D
+        elif TerrainAdapter.supports(path) and Art.third_party_source(path) != path and texture != null:
+            var source_key: String = path + ":" + str(texture.get_instance_id())
+            if not _adapted.has(source_key):
+                _adapted[source_key] = TerrainAdapter.assemble(path, texture)
+            texture = _adapted[source_key] as Texture2D
         if texture == null or texture.get_width() < columns*TILE or texture.get_height() < (row_start+row_count)*TILE:
             push_warning("Atlas has wrong 32px dimensions: " + path)
             return null

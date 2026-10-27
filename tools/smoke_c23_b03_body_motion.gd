@@ -64,6 +64,7 @@ func _run() -> void:
     if failures.is_empty():
         print("PASS C23: unchanged B03 portrait with deforming material, 26 overlay frames and state priority")
         quit(0)
+        return
     for entry in failures:
         push_error(entry)
     quit(1)

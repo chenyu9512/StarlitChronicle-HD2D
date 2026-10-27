@@ -48,6 +48,9 @@ func _run() -> void:
     world.interacted.connect(_on_interaction)
     world.map_profile = registry.profile("map_coast_02")
     world.build(2,2)
+    # Authored rooms and semantic replacement signs must remain recognizable.
+    var sign_image: Image = world._wayfinding_sign_texture().get_image()
+    _check(sign_image.get_size()==Vector2i(32,48),"Road-sign fallback is not a real full-size 32x48 texture")
     var home = Home.new()
     var inspected: int = 0
     for building in ["shelter","tavern"]:
@@ -66,8 +69,29 @@ func _run() -> void:
             world.interact()
             _check(selected==key,"Live player input did not select "+key+"; got "+selected)
             inspected += 1
+        _check(world.nodes.has("interior_exit"),"Indoor "+building+" has no visible return exit")
+        if world.nodes.has("interior_exit"):
+            selected = ""
+            world.hero.position = (world.nodes["interior_exit"] as Node2D).position
+            world.interact()
+            _check(selected=="interior_exit","Indoor "+building+" exit cannot be selected with interact")
+        if building == "shelter":
+            # Simulate a stale save that points into the shelter facade.
+            # The exit must recover onto physically connected pavement.
+            world.exterior_position = Vector2(52.0*32.0+16.0,22.0*32.0+16.0)
         _check(world.leave_building(),"Cannot leave "+building)
+        _check(not world._blocked(world.hero.position),"Room exit returned player inside solid facade "+building)
     _check(inspected==8,"Incomplete harbor investigation coverage")
+    # In a map with multiple destinations, exits must be distinct and safe
+    # to find again after a real World.build (not only in source JSON).
+    for coast_id in ["map_coast_01","map_coast_02","map_coast_03","map_coast_04","map_coast_05"]:
+        world.map_profile = registry.profile(coast_id)
+        world.build(2,2)
+        var used_gates: Dictionary = {}
+        for gate in world.terrain_layout.get("gates",[]):
+            var cell: Vector2i = gate.get("cell",Vector2i(-1,-1))
+            _check(not used_gates.has(cell),"Overlapping travel gates in "+coast_id+" at "+str(cell))
+            used_gates[cell] = true
 
     # Mutation must not remain marked seen in RAM after a failed V3 save.
     state.save_path = "user://__main2_regression_no_parent__/save.json"

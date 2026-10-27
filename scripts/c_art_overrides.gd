@@ -194,16 +194,18 @@ static func restore(path: String) -> bool:
     _load()
     if not _entries.has(path):
         return false
-    var file: String = _safe_override_file(path)
-    if file.is_empty():
+    var previous: String = str(_config.get_value("overrides", path, ""))
+    if previous.is_empty():
         return true
+    var file: String = _safe_override_file(path)
     _config.erase_section_key("overrides", path)
     if _config.save(SETTINGS) != OK:
-        _config.set_value("overrides", path, file)
+        _config.set_value("overrides", path, previous)
         return false
     _cache.erase(path)
     _revision += 1
-    DirAccess.remove_absolute(ProjectSettings.globalize_path(file))
+    if not file.is_empty():
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(file))
     return true
 
 static func revision() -> int:
@@ -254,6 +256,54 @@ static func list_packs() -> Array[Dictionary]:
             "count": (pack.get("mappings", {}) as Dictionary).size(),
             "user_pack": bool(pack.get("user_pack", false))})
     return result
+
+
+## Inspect a complete DLC before applying it. Returns effective/invalid slot counts.
+## A missing or dimension-incompatible image falls back to the immutable original.
+static func pack_report(id: String) -> Dictionary:
+    _load()
+    if id == "original":
+        return {"ok": true, "id": id, "mapped": 0, "usable": 0,
+            "fallback": 0, "personal_overrides": 0, "catalog_slots": _entries.size()}
+    if not _packs.has(id):
+        return {"ok": false, "id": id, "message": "主题包不存在。"}
+    var mappings: Dictionary = _packs[id].get("mappings", {})
+    var usable: int = 0
+    var fallback: int = 0
+    var personal: int = 0
+    for target in mappings.keys():
+        var slot: String = str(target)
+        var baseline: Texture2D = original_texture(slot)
+        if baseline == null or not _entries.has(slot):
+            fallback += 1
+            continue
+        var source: String = str(mappings[target])
+        var proposed: Texture2D = null
+        if source.begins_with("res://assets/art/"):
+            proposed = original_texture(source)
+        elif source.begins_with(PACK_ROOT + "/") and not source.contains(".."):
+            var image := Image.new()
+            if image.load(source) == OK and not image.is_empty():
+                proposed = ImageTexture.create_from_image(image)
+        if proposed == null:
+            fallback += 1
+            continue
+        var expected: Vector2i = Vector2i(baseline.get_size())
+        var actual: Vector2i = Vector2i(proposed.get_size())
+        if expected.x < 1 or expected.y < 1 or actual.x < 1 or actual.y < 1:
+            fallback += 1
+            continue
+        var atlas: bool = bool((_entries[slot] as Dictionary).get("atlas", false))
+        var match_size: bool = actual == expected
+        var ratio_ok: bool = absf(float(actual.x) * float(expected.y) / (float(actual.y) * float(expected.x)) - 1.0) <= 0.12
+        if (match_size if atlas else ratio_ok):
+            usable += 1
+            if has_override(slot):
+                personal += 1
+        else:
+            fallback += 1
+    return {"ok": true, "id": id, "mapped": mappings.size(), "usable": usable,
+        "fallback": fallback, "personal_overrides": personal, "catalog_slots": _entries.size()}
 
 static func active_pack() -> String:
     _load()
@@ -392,7 +442,8 @@ static func uninstall_pack(id: String) -> bool:
     _load()
     if not _packs.has(id) or not bool(_packs[id].get("user_pack", false)):
         return false
-    if _active_pack_id == id and not activate_pack("original"):
+    var was_active: bool = _active_pack_id == id
+    if was_active and not activate_pack("original"):
         return false
     var retained: Array = []
     for pack_id in _packs.keys():
@@ -406,6 +457,8 @@ static func uninstall_pack(id: String) -> bool:
     var previous: String = FileAccess.get_file_as_string(USER_PACK_INDEX)
     var file: FileAccess = FileAccess.open(USER_PACK_INDEX, FileAccess.WRITE)
     if file == null:
+        if was_active:
+            activate_pack(id)
         return false
     file.store_string(JSON.stringify({"schema": "starlit.c.userpacks.v1", "packs": retained}, "  "))
     file.close()

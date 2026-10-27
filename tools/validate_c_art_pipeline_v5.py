@@ -29,7 +29,7 @@ def validate() -> None:
     candidates = load(CANDIDATES)
     files = candidates["entries"]
     assert len(files) == candidates["images"], "Candidate manifest count mismatch"
-    assert len(files) >= 756, "Source pack candidates missing"
+    assert len(files) >= 749, "Source pack candidates missing"
     names = set()
     for row in files:
         path = res_path(row["source"])
@@ -38,6 +38,13 @@ def validate() -> None:
         assert row["source"] not in names, "Candidate has duplicate path"
         names.add(row["source"])
         assert row["runtime_binding"] is None, "Candidate was bound without a review"
+    source_records = load(ROOT / "data/assets/c_art_source_originals.json")
+    source_paths = {"res://" + row["path"] for row in source_records["files"]}
+    assert len(source_paths) == source_records["count"], "Source original count mismatch"
+    assert source_paths == names, "Candidate-to-original source mismatch"
+    for name in source_paths:
+        assert "__MACOSX" not in name and "/._" not in name and "/.DS_Store" not in name, f"Apple metadata leaked: {name}"
+    assert not list((ART / "source_packs").rglob("__MACOSX")), "macOS metadata directory remains"
     runtime = load(RUNTIME)["entries"]
     for record in runtime:
         assert res_path(record["path"]).is_file(), f"Runtime image missing: {record['path']}"

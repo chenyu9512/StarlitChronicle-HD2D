@@ -377,8 +377,13 @@ func _apply_pack() -> void:
     if pack_options.selected < 0 or pack_options.selected >= pack_ids.size():
         return
     var chosen: String = pack_ids[pack_options.selected]
-    var ok: bool = Overrides.activate_pack(chosen)
-    pack_feedback.text = ("已启用整套主题："+pack_options.get_item_text(pack_options.selected)+"。重新进入地图生效。" if ok else "启用失败：原主题仍生效。")
+    var report: Dictionary = Overrides.pack_report(chosen)
+    var ok: bool = bool(report.get("ok", false)) and Overrides.activate_pack(chosen)
+    if ok:
+        pack_feedback.text = "主题已切换：%d项可替换，%d项保持原图；%d项仍优先使用个人替换。重新进入地图后更新。" % [
+            int(report.get("usable", 0)), int(report.get("fallback", 0)), int(report.get("personal_overrides", 0))]
+    else:
+        pack_feedback.text = "启用失败：原主题仍生效。"
     if ok:
         asset_changed.emit("res://assets/art/backdrops/coast/tide_lighthouse.png")
         _render_page()

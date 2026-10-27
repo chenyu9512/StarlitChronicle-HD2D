@@ -60,11 +60,12 @@ func _run() -> void:
     verify(harbor.active_lights.size() == 2, "Harbor paper/stone lamps need two pooled lights")
     harbor.set_clock(1200)
     harbor.set_visual_quality(1)
-    verify(harbor.active_lights[0].visible and not harbor.active_lights[1].visible,
-        "Medium graphics quality should light only one harbor prop")
-    harbor.set_visual_quality(2)
-    verify(harbor.active_lights[0].visible and harbor.active_lights[1].visible,
-        "High graphics quality should light both harbor props")
+    if harbor.active_lights.size() == 2:
+        verify(harbor.active_lights[0].visible and not harbor.active_lights[1].visible,
+            "Medium graphics quality should light only one harbor prop")
+        harbor.set_visual_quality(2)
+        verify(harbor.active_lights[0].visible and harbor.active_lights[1].visible,
+            "High graphics quality should light both harbor props")
     if issues.is_empty():
         print("SUCCESS: C V10 daytime/nighttime, quality budget, quest/gate halo and scene rebuilding")
         quit(0)

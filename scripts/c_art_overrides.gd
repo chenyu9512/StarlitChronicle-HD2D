@@ -50,6 +50,10 @@ static func _load() -> void:
                 _entries[path] = value
                 (_catalog["assets"] as Array).append(value)
             _catalog["count"] = (_catalog["assets"] as Array).size()
+    # Approved migration targets may come from the tiny legacy assets/props/
+    # tree, which was not guaranteed to be present in the large art gallery.
+    # Register ONLY the six reviewed slots; never auto-publish arbitrary paths.
+    _ensure_later_uploaded_slots()
     _read_pack_index(PACK_INDEX)
     _read_pack_index(USER_PACK_INDEX)
     # Later uploaded user art is the default for fresh installations.
@@ -57,6 +61,38 @@ static func _load() -> void:
     _active_pack_id = str(_config.get_value("packs", "active", "uploaded_later_v1"))
     if _active_pack_id != "original" and not _packs.has(_active_pack_id):
         _active_pack_id = "original"
+
+## Confirmed legacy targets for the first later-uploaded prop migration.
+## These are catalog slots, not new art or a request to mutate original files.
+static func _ensure_later_uploaded_slots() -> void:
+    var approved: Array[String] = [
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/well.png",
+        "res://assets/art/props/coast/barrel.png",
+        "res://assets/art/props/coast/star_lantern.png",
+        "res://assets/props/well.png",
+        "res://assets/props/lamp.png",
+    ]
+    for target in approved:
+        if _entries.has(target):
+            continue
+        var original: Texture2D = original_texture(target)
+        if original == null:
+            push_warning("Approved later-upload slot has no runtime baseline: " + target)
+            continue
+        var record: Dictionary = {
+            "path": target,
+            "name": target.get_file().get_basename(),
+            "category": "环境道具",
+            "atlas": false,
+            "description": "后期上传素材替换入口（旧纹理仅作兼容回退）",
+            "status": "uploaded_migration_pending_godot_qa"
+        }
+        _entries[target] = record
+        if _catalog.has("assets") and _catalog["assets"] is Array:
+            (_catalog["assets"] as Array).append(record)
+    if _catalog.has("assets") and _catalog["assets"] is Array:
+        _catalog["count"] = (_catalog["assets"] as Array).size()
 
 static func list_assets() -> Array:
     _load()

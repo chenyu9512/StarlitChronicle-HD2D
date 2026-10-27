@@ -176,7 +176,10 @@ func shortest_route(target: String) -> Array[String]:
     if target == initial:
         route.append(initial)
         return route
-    var seen: Dictionary = {initial:""}
+    # Dynamic map IDs require indexed keys. A named dictionary literal
+    # {initial:""} would use the string "initial", not the current map.
+    var seen: Dictionary = {}
+    seen[initial] = ""
     var queue: Array[String] = [initial]
     var offset: int = 0
     while offset < queue.size() and not seen.has(target):

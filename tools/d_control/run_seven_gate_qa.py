@@ -21,7 +21,7 @@ GROUPS = {
                    "tools/validate_first_act.py"],
         "godot": ["--editor --quit", "--quit-after 45"],
         "smoke": ["tools/check_combat_load.gd", "tools/smoke_first_act.gd",
-                  "tools/smoke_title_foyer.gd"],
+                  "tools/d_control/smoke_title_foyer.gd"],
     },
     "reward": {
         "title": "奖励事务与重复回调集成",
@@ -140,10 +140,13 @@ def main() -> int:
                             [a.godot,"--headless","--path",".",*cli.split()],
                             a.timeout,folder))
     for script in gate.get("smoke", []):
+        # 120 quest sectors invoke dozens of full procedural layouts. This
+        # one integration scenario has a larger proven runtime budget.
+        case_timeout = 540 if script.endswith("smoke_story_world_phase19_2.gd") else a.timeout
         rows.append(execute(Path(script).stem,
                             [a.godot,"--headless","--path",".","--script",
                              "res://"+script],
-                            a.timeout,folder))
+                            case_timeout,folder))
     passed = sum(x["status"] == "PASS" for x in rows)
     verdict = {"gate":a.gate, "title":gate["title"],"tested_sha":os.environ.get("GITHUB_SHA","unavailable"),
                "total":len(rows),"passed":passed,"failed":len(rows)-passed,

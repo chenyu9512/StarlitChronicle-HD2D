@@ -76,6 +76,7 @@ var evidence_puzzles = EvidencePuzzles.new()
 var interior_building: String = ""
 var interior_kind: String = ""
 var exterior_position: Vector2 = Vector2.ZERO
+var _semantic_wayfinding_sign: Texture2D
 var last_party_size: int = 2
 var root: Node2D
 var scenery: Node2D
@@ -423,6 +424,24 @@ func _install_coastal_scenery() -> void:
         var trunk: Vector2i=Vector2i(floori(tree.position.x/TILE),floori(tree.position.y/TILE))
         _reserve_tree_trunk(trunk)
 
+# A readable sign must never become a lily pad after the Main2 third-party
+# migration. Use this small semantic-safe board until an approved sign PNG is
+# supplied through the art override system; gameplay interaction is unchanged.
+func _wayfinding_sign_texture() -> Texture2D:
+    if _semantic_wayfinding_sign != null:
+        return _semantic_wayfinding_sign
+    var canvas: Image = Image.create(32,48,false,Image.FORMAT_RGBA8)
+    canvas.fill(Color.TRANSPARENT)
+    canvas.fill_rect(Rect2i(14,19,4,28),Color("503928"))
+    canvas.fill_rect(Rect2i(11,42,10,3),Color("38291f"))
+    canvas.fill_rect(Rect2i(2,3,28,20),Color("38291f"))
+    canvas.fill_rect(Rect2i(4,5,24,16),Color("b98a57"))
+    canvas.fill_rect(Rect2i(5,7,22,2),Color("e4c99a"))
+    canvas.fill_rect(Rect2i(9,13,14,2),Color("6b4e33"))
+    canvas.fill_rect(Rect2i(12,17,8,2),Color("6b4e33"))
+    _semantic_wayfinding_sign = ImageTexture.create_from_image(canvas)
+    return _semantic_wayfinding_sign
+
 func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = false) -> Sprite2D:
     var path: String = "res://assets/art/props/coast/%s.png" % kind
     if not CArtOverrides.exists(path):
@@ -430,6 +449,11 @@ func _add_sprite(kind: String, tile: Vector2i, solid: bool, authored: bool = fal
     var sprite := Sprite2D.new()
     var global_art: Texture2D = CAct01GlobalArt.texture_for_prop(kind) if interior_building.is_empty() and chapter >= 1 and chapter <= 6 else null
     sprite.texture = global_art if global_art != null else CArtOverrides.texture(path)
+    # The old sign slot resolves to a water-lily PNG after third-party
+    # migration. Respect a user replacement or curated full-size runtime art,
+    # but do not display a false environmental object as road guidance.
+    if kind == "sign" and global_art == null and not CArtOverrides.has_override(path) and CArtOverrides.third_party_source(path) != path:
+        sprite.texture = _wayfinding_sign_texture()
     if global_art != null:
         sprite.set_meta("act01_global_art_v14", true)
         var target_width: float = 112.0 if kind == "cottage" else (78.0 if kind in ["sign", "beacon", "star_lantern"] else 92.0)
@@ -1523,13 +1547,40 @@ func enter_story_submap(quest_id: String, restore: bool = false) -> bool:
         return false
     return true
 
+# The saved exterior point can become invalid after map/asset collision
+# changes. Keep the exact return point when safe; otherwise choose nearby
+# *walkable* pavement instead of trapping the player inside a facade.
+func _safe_return_outside(original: Vector2) -> Vector2:
+    if not _blocked(original):
+        return original
+    var origin: Vector2i = Vector2i(floori(original.x/TILE),floori(original.y/TILE))
+    var bounds: Vector2i = terrain_layout.get("size",Vector2i(WIDTH,HEIGHT))
+    var reachable: Dictionary = _walkable_tiles()
+    for radius in range(1,11):
+        for dy in range(-radius,radius+1):
+            for dx in range(-radius,radius+1):
+                if absi(dx)+absi(dy)!=radius:
+                    continue
+                var cell: Vector2i = origin+Vector2i(dx,dy)
+                if cell.x<3 or cell.y<3 or cell.x>=bounds.x-3 or cell.y>=bounds.y-3 or not reachable.has(cell):
+                    continue
+                var candidate: Vector2 = Vector2(cell*TILE)+Vector2(16,16)
+                if not _blocked(candidate):
+                    return candidate
+    var spawn_cell: Vector2i = terrain_layout.get("spawn",Vector2i(10,23))
+    var fallback: Vector2 = Vector2(spawn_cell*TILE)+Vector2(16,16)
+    if not _blocked(fallback):
+        return fallback
+    push_error("No safe exterior return position in "+str(map_profile.get("id","")))
+    return original
+
 func leave_building() -> bool:
     if interior_building.is_empty():
         return false
     interior_building = ""
     interior_kind = ""
     build(chapter,last_party_size)
-    hero.position = exterior_position
+    hero.position = _safe_return_outside(exterior_position)
     return true
 
 func spawn_from_exit(previous_map: String) -> void:

@@ -3,6 +3,7 @@
 from collections import deque
 from pathlib import Path
 import json
+from art_source_contract import available
 
 ROOT = Path(__file__).resolve().parents[1]
 def load(p):
@@ -51,8 +52,8 @@ for entry in manifest["quests"]:
        "individual day/night ambience "+qid)
     for visual in d.get("visuals",[]):
         asset=visual.get("asset","")
-        exists=(ROOT / f"assets/art/interiors/morning_dew_inn/{asset}.svg").is_file() or (
-            ROOT / f"assets/art/interiors/coastal_district/{asset}.svg").is_file()
+        exists=any(available(f"assets/art/interiors/{folder}/{asset}.svg")
+                   for folder in ("morning_dew_inn","coastal_district"))
         ck(exists,"actual installed art resource "+qid+":"+asset)
     marks=[d["points"][k] for k in ("spawn","exit","service","storage")]+d["quest_points"]
     ck(len(d["quest_points"])==3 and len({tuple(p) for p in d["quest_points"]})==3,

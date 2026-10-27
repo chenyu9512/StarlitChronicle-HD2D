@@ -43,13 +43,20 @@ func _run() -> void:
         var focal: Array=plan.get("focal_point",[])
         var plaza: Vector2i=Vector2i(int(focal[0]),int(focal[1]))
         check(geo.reachable(layout,[approach],[plaza]),"Town square disconnected from entrance: "+town_id)
-        check(geo.reachable(layout,[approach],geo._anchors()),"Scripted chapter points blocked by city layout: "+town_id)
+        var story_routes: Dictionary=geo.resolve_story_targets(layout,geo._anchors())
+        check((story_routes.get("missing",[]) as Array).is_empty(),
+            "Actual story markers have no accessible pavement: "+town_id+" / "+str(story_routes.get("missing",[])))
         for gate in layout.get("gates",[]):
             check(geo.reachable(layout,[approach],[gate["cell"]]),"Road gate blocked by district: "+town_id)
         for building in profile.get("buildings",[]):
             var door: Array=building.get("door",[])
             var door_cell: Vector2i=Vector2i(int(door[0]),int(door[1]))
-            check(geo.reachable(layout,[approach],[door_cell]),"Functional building cannot be reached: "+town_id+"/"+str(building["id"]))
+            var front_step: Vector2i=door_cell+Vector2i.DOWN
+            check((layout.get("blocked",{}) as Dictionary).has(door_cell),
+                "Town door is not a solid building facade: "+town_id+"/"+str(building["id"]))
+            check(not (layout.get("blocked",{}) as Dictionary).has(front_step)
+                and geo.reachable(layout,[approach],[front_step]),
+                "Functional building front step cannot be reached: "+town_id+"/"+str(building["id"]))
         var props: int=0
         for prop in layout.get("features",[]):
             if bool(prop.get("town_dressing",false)):

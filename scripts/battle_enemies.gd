@@ -1,6 +1,7 @@
 extends Control
 ## Independent visual actors for multi-enemy formations. No changes to combat data.
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const CMonsterMotion = preload("res://scripts/c_coast_monster_motion.gd")
 const FRAME_SIZE: int = 128
 const FRAME_COUNT: int = 4
 const FRAME_INTERVAL: float = 0.22
@@ -43,8 +44,16 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
         if ResourceLoader.exists(art_path):
             sprite.texture = load(art_path) as Texture2D
         var atlas: AtlasTexture
+        var action_sheets: Dictionary = {}
         var art: String = str(enemy.get("art",""))
         if not boss and not art.is_empty():
+            action_sheets = CMonsterMotion.sheets(art)
+            if not action_sheets.is_empty():
+                atlas = AtlasTexture.new()
+                atlas.atlas = action_sheets["idle"]
+                atlas.region = Rect2(0,0,FRAME_SIZE,FRAME_SIZE)
+                sprite.texture = atlas
+        if atlas == null and not boss and not art.is_empty():
             var sheet_path: String = "res://assets/art/monsters/coast/%s/idle_4frames.png" % art
             if ResourceLoader.exists(sheet_path):
                 var sheet: Texture2D = load(sheet_path) as Texture2D
@@ -55,7 +64,7 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
                     sprite.texture = atlas
         add_child(sprite)
         slots[index] = {"node":sprite,"footing":footing,"atlas":atlas,"base":Vector2.ZERO,
-            "hit":0.0,"attack":0.0,"dying":0.0,"dead":false,"frame":0,"phase":0.17*float(index)}
+            "hit":0.0,"attack":0.0,"dying":0.0,"dead":false,"frame":0,"phase":0.17*float(index),"action_sheets":action_sheets}
     _layout()
 
 func _layout() -> void:
@@ -138,7 +147,37 @@ func _process(delta: float) -> void:
             if float(entry["dying"]) <= 0.0:
                 entry["dead"] = true
         var atlas: AtlasTexture = entry["atlas"]
-        if atlas != null and not reduced_motion and not bool(entry["dead"]):
+        var action_sheets: Dictionary = entry.get("action_sheets", {})
+        if atlas != null and not action_sheets.is_empty():
+            var pose: String = "idle"
+            var duration: float = 0.0
+            var remaining: float = 0.0
+            if bool(entry["dead"]) or float(entry["dying"]) > 0.0:
+                pose = "defeat"
+                duration = 0.48
+                remaining = float(entry["dying"])
+            elif float(entry["hit"]) > 0.0:
+                pose = "hit"
+                duration = 0.23
+                remaining = float(entry["hit"])
+            elif float(entry["attack"]) > 0.0:
+                pose = "attack"
+                duration = 0.27
+                remaining = float(entry["attack"])
+            var count: int = CMonsterMotion.frame_count(pose)
+            var motion_frame: int = 0
+            if pose == "idle":
+                motion_frame = 1 if reduced_motion else int((elapsed + float(entry["phase"])) / FRAME_INTERVAL) % count
+            elif bool(entry["dead"]):
+                motion_frame = count - 1
+            elif reduced_motion:
+                motion_frame = 0
+            elif duration > 0.0:
+                motion_frame = clampi(floori((1.0 - remaining / duration) * float(count)), 0, count - 1)
+            atlas.atlas = action_sheets[pose]
+            atlas.region = Rect2(motion_frame * FRAME_SIZE, 0, FRAME_SIZE, FRAME_SIZE)
+            entry["frame"] = motion_frame
+        elif atlas != null and not reduced_motion and not bool(entry["dead"]):
             var next_frame: int = int((elapsed+float(entry["phase"]))/FRAME_INTERVAL)%FRAME_COUNT
             if int(entry["frame"]) != next_frame:
                 atlas.region = Rect2(next_frame*FRAME_SIZE,0,FRAME_SIZE,FRAME_SIZE)

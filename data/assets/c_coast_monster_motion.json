@@ -1,0 +1,55 @@
+{
+  "schema": "starlit.c_monster_action_motion.v1",
+  "date": "2026-10-27",
+  "map_scope": [
+    "map_coast_01",
+    "map_coast_03"
+  ],
+  "status": "FIRST_MONSTER_ONLY",
+  "art_id": "salt_slime",
+  "engine_consumer": "scripts/battle_enemies.gd",
+  "presentation_only": true,
+  "frame_size": [
+    128,
+    128
+  ],
+  "states": {
+    "idle": {
+      "path": "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+      "frames": 4,
+      "artwork": "independently drawn body/eye/crest and state-specific geometry"
+    },
+    "attack": {
+      "path": "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+      "frames": 6,
+      "artwork": "independently drawn body/eye/crest and state-specific geometry"
+    },
+    "hit": {
+      "path": "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+      "frames": 4,
+      "artwork": "independently drawn body/eye/crest and state-specific geometry"
+    },
+    "defeat": {
+      "path": "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+      "frames": 6,
+      "artwork": "independently drawn body/eye/crest and state-specific geometry"
+    }
+  },
+  "missing_coverage": [
+    "fog_crab",
+    "shell_hermit",
+    "tide_ghost",
+    "sand_lizard",
+    "salt_wolf",
+    "white_seabird",
+    "star_ray",
+    "tide_guardian",
+    "B03 five boss static illustrations"
+  ],
+  "QA": {
+    "svg_structural": "checked_in_authoring",
+    "godot_import": "not_tested",
+    "live_battle": "not_tested",
+    "quality_acceptance": "not_tested"
+  }
+}

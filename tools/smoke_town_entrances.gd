@@ -60,7 +60,7 @@ func _run() -> void:
                     check(feature.get("door",Vector2i.ZERO)==door,map_id+"/"+id+" art/event ID mismatch")
             check(has_marker,map_id+"/"+id+" has no unique feature")
             building_count+=1
-    check(building_count==66,"Expected 66 town building instances")
+    check(building_count==68,"Expected 68 town building instances")
     var world=PlayableWorld.new()
     world.map_profile=geo.zone("map_coast_01")
     root.add_child(world)
@@ -105,7 +105,7 @@ func _run() -> void:
     check(not world._blocked(world.hero.position),"Inn exit restored player into a wall")
     world.queue_free()
     if problems.is_empty():
-        print("PASS town geometry: 11 towns, 66 solid houses, reachable front steps, live door selection and inn round-trip")
+        print("PASS town geometry: 11 towns, 68 solid houses, reachable front steps, live door selection and inn round-trip")
         quit(0)
     for issue in problems:
         push_error(issue)

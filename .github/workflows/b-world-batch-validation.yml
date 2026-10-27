@@ -23,6 +23,8 @@ jobs:
           python3 tools/validate_b_line_delivery.py
       - name: Validate two playable harbor story buildings and eight physical clue paths
         run: python3 tools/validate_b_act01_harbor_rooms.py
+      - name: Verify three coastal chapters, lighthouse grounds and disjoint cave mechanisms
+        run: python3 tools/validate_b_act01_coastal_landmarks.py
       - name: Install official Godot 4.7.2
         run: |
           curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
@@ -60,5 +62,7 @@ jobs:
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_coastal_residents.gd
       - name: Act I six chapter player-reachable plot and quest markers
         run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_physical_reachability.gd
+      - name: Real player-grid reachability of cave valves, whale shoal and lighthouse
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_coastal_landmarks.gd
       - name: Validate 40 physical maps, eight dungeon geometries and indoor travel
         run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

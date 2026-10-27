@@ -120,59 +120,115 @@ static func _time_window(window: String,minutes: int) -> bool:
         "night": return hour>=20 or hour<5
     return false
 
-func interact(map_id: String,action: String,state,weather: String,minutes: int,day: int) -> Dictionary:
-    var info: Dictionary = config(map_id)
-    if info.is_empty() or action not in SITE_IDS or state==null:
-        return {"changed":false,"message":"这里没有对应的野外探索记录。"}
-    var current: Dictionary = _saved(state,map_id)
-    var challenge: Dictionary = info.get("challenge",{})
-    var gathering: Dictionary = info.get("gather",{})
-    var secret: Dictionary = info.get("secret",{})
-    var reward: Dictionary = info.get("reward",{})
+## Read-only evaluation of all 84 authored wilderness sites.
+## D can use event_id with its V3 save/reward ledger before committing effects.
+## The input State, actor HP, gold, item counts, passage and cache flags NEVER
+## change during this preview. A gathered item is the only repeatable grant:
+## its receipt includes the actual in-game calendar day.
+func preview_interact(map_id: String,action: String,state,weather: String,minutes: int,day: int) -> Dictionary:
+    var info: Dictionary=config(map_id)
+    if info.is_empty() or action not in SITE_IDS or state==null or day<1:
+        return {"allowed":false,"changed":false,"message":"这里没有对应的野外探索记录。"}
+    var current: Dictionary=_saved(state,map_id)
+    var challenge: Dictionary=info.get("challenge",{})
+    var gathering: Dictionary=info.get("gather",{})
+    var secret: Dictionary=info.get("secret",{})
+    var reward: Dictionary=info.get("reward",{})
+    var event_id: String="b.field."+map_id+"."+action
+    var message: String=""
+    var result: Dictionary={"allowed":true,"changed":true,
+        "requires_save":true,"map_id":map_id,"action":action}
     match action:
         "trial":
             if bool(current.get("trial",false)):
-                return {"changed":false,"message":"地形路线已勘定，队伍记住了安全落脚点。"}
-            var hazardous: bool = weather==str(challenge.get("danger_weather",""))
-            var cost: int = int(challenge.get("hp_cost",10)) if hazardous else maxi(1,floori(float(challenge.get("hp_cost",10))*0.5))
+                return {"allowed":false,"changed":false,
+                    "message":"地形路线已勘定，队伍记住了安全落脚点。"}
+            var hazardous: bool=weather==str(challenge.get("danger_weather",""))
+            var cost: int=int(challenge.get("hp_cost",10)) if hazardous else maxi(
+                1,floori(float(challenge.get("hp_cost",10))*0.5))
+            message="【%s】%s\n（%s天气，存活队员损失至多 %d HP；不会致命）" % [
+                challenge.get("title","地貌挑战"),challenge.get("text",""),weather,cost]
+            result["hazard"]=cost
+        "gather":
+            if not bool(current.get("trial",false)):
+                return {"allowed":false,"changed":false,
+                    "message":"必须先勘察地貌与安全路线，才能接近采集点。"}
+            if int(current.get("gather_day",-1))==day:
+                return {"allowed":false,"changed":false,
+                    "message":"今日这处采集点已采完。翌日会自然恢复，不能反复刷取。"}
+            var qty: int=1+(1 if weather==str(gathering.get("bonus_weather","")) else 0)
+            message="【%s】%s\n采得 %d 份地区素材。" % [
+                gathering.get("title","野外采集"),gathering.get("text",""),qty]
+            result["reward"]={"item_id":str(gathering.get("item_id","")),"amount":qty}
+            result["gather"]=true
+            # Per-map, per-day idempotency without disabling the next day's harvest.
+            event_id+=".day."+str(day)
+        "passage":
+            if not bool(current.get("trial",false)) or not bool(current.get("harvested",false)):
+                return {"allowed":false,"changed":false,
+                    "message":"隐藏通道尚未定位：需要先完成地貌勘察，并取得当地采样。"}
+            var active: bool=weather==str(secret.get("opening_weather","")) or \
+                _time_window(str(secret.get("opening_time","")),minutes)
+            if not bool(current.get("passage",false)) and not active and int(current.get("gather_total",0))<2:
+                return {"allowed":false,"changed":false,
+                    "message":"【%s】此刻风向/光照无法辨认入口。可等候合适的时刻或天气，或在不同日期取得第二次采样来复原路线。" % secret.get("title","秘密通道")}
+            message="【%s】%s\n沿地图中真实的捷径前往暗藏宝匣。" % [
+                secret.get("title","隐藏通道"),secret.get("text","")]
+            result["teleport"]=true
+            if bool(current.get("passage",false)):
+                # Reusing an opened shortcut is a real journey, not a new
+                # reward or saved 'first reveal' event.
+                result["changed"]=false
+                result["requires_save"]=false
+                result["event_id"]=""
+                result["message"]=message
+                return result
+        "cache":
+            if not bool(current.get("passage",false)):
+                return {"allowed":false,"changed":false,
+                    "message":"秘藏仍在岩壁另一侧，必须先找到正确的隐藏入口。"}
+            if bool(current.get("claimed",false)):
+                return {"allowed":false,"changed":false,
+                    "message":"这处隐藏秘藏已领取，不能反复获取。"}
+            message="【%s】%s" % [reward.get("title","秘藏"),reward.get("text","")]
+            result["reward"]={"gold":int(reward.get("gold",0)),
+                "item_id":str(reward.get("item_id","")),"amount":int(reward.get("amount",1))}
+            result["claimed"]=true
+    result["message"]=message
+    result["event_id"]=event_id
+    return result
+
+
+func interact(map_id: String,action: String,state,weather: String,minutes: int,day: int) -> Dictionary:
+    # Legacy B mutation entrypoint is kept for current D game handlers.
+    # D must eventually call preview_interact and perform this mutation plus
+    # reward payout inside ONE authoritative V3 transaction.
+    var intent: Dictionary=preview_interact(map_id,action,state,weather,minutes,day)
+    if not bool(intent.get("allowed",false)):
+        return {"changed":false,"message":str(intent.get("message","无法执行探索。"))}
+    if not bool(intent.get("changed",false)):
+        return {"changed":false,"message":str(intent.get("message","")),
+            "teleport":bool(intent.get("teleport",false))}
+    var current: Dictionary=_saved(state,map_id)
+    match action:
+        "trial":
+            var cost: int=int(intent.get("hazard",0))
             for index in range(state.actors.size()):
-                var member: Dictionary = state.actors[index]
-                var hp: int = int(member.get("hp",1))
+                var member: Dictionary=state.actors[index]
+                var hp: int=int(member.get("hp",1))
                 if hp>0:
                     member["hp"]=maxi(1,hp-cost)
                     state.actors[index]=member
             current["trial"]=true
-            _write(state,map_id,current)
-            var warning: String = "（%s天气，存活队员损失至多 %d HP；不会致命）" % [weather,cost]
-            return {"changed":true,"message":"【%s】%s\n%s" % [challenge.get("title","地貌挑战"),challenge.get("text",""),warning],"hazard":cost}
         "gather":
-            if not bool(current.get("trial",false)):
-                return {"changed":false,"message":"必须先勘察地貌与安全路线，才能接近采集点。"}
-            if int(current.get("gather_day",-1))==day:
-                return {"changed":false,"message":"今日这处采集点已采完。翌日会自然恢复，不能反复刷取。"}
-            var bonus: int = 1 if weather==str(gathering.get("bonus_weather","")) else 0
-            var qty: int = 1+bonus
             current["gather_day"]=day
             current["gather_total"]=int(current.get("gather_total",0))+1
             current["harvested"]=true
-            _write(state,map_id,current)
-            return {"changed":true,"message":"【%s】%s\n采得 %d 份地区素材。" % [gathering.get("title","野外采集"),gathering.get("text",""),qty],"reward":{"item_id":str(gathering.get("item_id","")),"amount":qty},"gather":true}
         "passage":
-            if not bool(current.get("trial",false)) or not bool(current.get("harvested",false)):
-                return {"changed":false,"message":"隐藏通道尚未定位：需要先完成地貌勘察，并取得当地采样。"}
-            var active: bool = weather==str(secret.get("opening_weather","")) or _time_window(str(secret.get("opening_time","")),minutes)
-            if not bool(current.get("passage",false)) and not active and int(current.get("gather_total",0))<2:
-                return {"changed":false,"message":"【%s】此刻风向/光照无法辨认入口。可等候合适的时刻或天气，或在不同日期取得第二次采样来复原路线。" % secret.get("title","秘密通道")}
-            var was_open: bool = bool(current.get("passage",false))
             current["passage"]=true
-            _write(state,map_id,current)
-            return {"changed":not was_open,"teleport":true,"message":"【%s】%s\n沿地图中真实的捷径前往暗藏宝匣。" % [secret.get("title","隐藏通道"),secret.get("text","")]}
         "cache":
-            if not bool(current.get("passage",false)):
-                return {"changed":false,"message":"秘藏仍在岩壁另一侧，必须先找到正确的隐藏入口。"}
-            if bool(current.get("claimed",false)):
-                return {"changed":false,"message":"这处隐藏秘藏已领取，不能反复获取。"}
             current["claimed"]=true
-            _write(state,map_id,current)
-            return {"changed":true,"message":"【%s】%s" % [reward.get("title","秘藏"),reward.get("text","")],"reward":{"gold":int(reward.get("gold",0)),"item_id":str(reward.get("item_id","")),"amount":int(reward.get("amount",1))},"claimed":true}
-    return {"changed":false,"message":"未能识别野外探索动作。"}
+    _write(state,map_id,current)
+    var applied: Dictionary=intent.duplicate(true)
+    applied.erase("allowed")
+    return applied

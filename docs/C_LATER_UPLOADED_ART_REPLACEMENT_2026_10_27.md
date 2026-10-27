@@ -74,3 +74,33 @@ GitHub 主树快照 `c6e2cec8917816f72f8e679381e075b14fce2186`（2026-10-27）�
 5. 本轮与并行A/B/C/D提交并行发生，没有修改`first_act.gd`、`first_act_world.gd`、`project.godot`及任何剧情/存档文件。
 
 **当前执行结果：建立全量逐图台账、完成6个运行时候选映射和默认主题的源码接线；尚未完成全游戏换图，也没有删除仍有潜在引用的旧图。**
+
+## 6. 第二批：可验证的替换入口与旧图依赖审计（2026-10-27）
+
+**本批不是新增不存在的素材，也没有在视觉未验收前扩大默认替换范围。** 第一批确切映射仍为6项。原因是新导入包没有与旧美术的宝箱、渔网、船锚、海岸棕榈和多数角色/怪物直接对应的同身份、同帧序素材；强行替换会破坏场景语义和商用画质。
+
+- `scripts/c_art_overrides.gd`：新增`_ensure_later_uploaded_slots()`，在读DLC包索引之前为六个已核准的旧槽位建立缺失目录登记（仅资源存在时有效）。这修复了旧资源有纹理但未进入较新的美术目录时，整个包映射会被`_entries.has(target)`过滤的风险。现有登记不会重复加入、其他未审批路径不会开放。
+- `tools/smoke_c_uploaded_later_pack.gd`：不再只对比尺寸；测试六张生效贴图的**像素值**是否与后期上传资源经最近邻尺寸适配后的图像一致，同时检验槽位、来源、有效主题，测试后恢复原用户主题。
+- `tools/audit_uploaded_only_art.py`：新增无第三方依赖的**只读本地审计工具**，逐文件核对之前建立的2029份图像Git blob和实际存在性，对C线后期素材与旧运行资源的映射、代码/场景/地图/运行资源表中的静态引用与动态拼接风险生成 JSON。工具不会替用户自动删除任何图像；`--require-no-old`只有在旧集合不再有实体文件时才可能成功。
+- 扫描的主要代码来源包含`scripts/`、`scenes/`、`data/levels/`、有运行作用的`data/assets/`和`story/`。只读文本引用不等于引擎实测，`safe_to_delete`永久保守标记为false，必须结合人工检查和真实Godot回归才能放行单张删除。
+
+### 建议的本地独立检查
+
+```bash
+python tools/audit_uploaded_only_art.py --verify-blobs --out art-dependency-audit.json
+godot --headless --path . --editor --quit
+godot --headless --path . --script res://tools/smoke_c_uploaded_later_pack.gd
+godot --headless --path . --script res://tools/smoke_c_art_overrides.gd
+```
+
+测试状态：
+
+| 第二批项目 | 状态 |
+| --- | --- |
+| 注册器/六映射像素验证脚本/引用审计工具提交并回读 | **成功（GitHub静态）** |
+| 本地Python审计运行、逐图哈希核验 | **未测试** |
+| Godot加载与逐像素断言 | **未测试** |
+| 玩家场景画面人工审阅与商业级验收 | **未测试** |
+| 所有616条旧项目图片已完成替换并安全删除 | **未测试；当前仍未完成** |
+
+> 注意：旧图集合还包含用户并非要求淘汰的部分**后期新制作地图图集**，后续真正删除前仍需确定来源与保留决策。全局强制不显示旧美术之前，必须交付针对全部运行引用的兼容新图集，不能只改一条默认主题配置。

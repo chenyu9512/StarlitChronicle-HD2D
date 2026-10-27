@@ -18,6 +18,10 @@ on:
       - "tools/smoke_no_fog_local_map.gd"
       - "tools/smoke_all_maps_minimap.gd"
       - "tools/smoke_c_shared_terrain_v8.gd"
+      - "tools/smoke_c_art_packs.gd"
+      - "tools/smoke_c_terrain_group_import_v9.gd"
+      - "tools/smoke_b_act01_journey.gd"
+      - "scripts/world_act01_journey.gd"
       - "tools/smoke_world_production.gd"
       - "tools/validate_no_fog_local_map.py"
       - "docs/qa-main2-map-trigger.json"
@@ -52,6 +56,9 @@ jobs:
             tools/smoke_no_fog_local_map.gd \
             tools/smoke_all_maps_minimap.gd \
             tools/smoke_c_shared_terrain_v8.gd \
+            tools/smoke_c_art_packs.gd \
+            tools/smoke_c_terrain_group_import_v9.gd \
+            tools/smoke_b_act01_journey.gd \
             tools/smoke_world_tileset_pool.gd \
             tools/smoke_world_production.gd; do
             basename="${file##*/}"

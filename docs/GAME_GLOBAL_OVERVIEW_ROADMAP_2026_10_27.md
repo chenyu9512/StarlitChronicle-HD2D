@@ -119,7 +119,7 @@
 
 **目标**：最新版本Godot冷启动无阻塞；V1/V2/V3旧档安全恢复；战斗和任务的奖励事务防重；区域服务/世界物件失败回滚；40图门口和真实路径可达；高章Boss正常流程能运行。
 
-**当前进展**：D线已提交正式世界对象与区域服务事务相关接线、静态/故障注入脚本、全图路径诊断、针对NPC路线的持续修复；`docs/qa-batch-trigger.json`已请求`M0.1-core-revalidation-2026-10-27`，`engine_result`仍记录为`pending`。**七项独立门禁曾被触发配置的备注描述为通过，但本次未取得当前SHA的完整CI回执，不据此宣布全库通过。**
+**当前进展**：D线已提交正式世界对象与区域服务事务相关接线、静态/故障注入脚本、全图路径诊断、针对NPC路线的持续修复。D线于本报告首版提交后补充了**具体Actions验收记录**：在`e62fefb2`源码SHA上，[七项质量门禁 7/7 成功](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40448668459)、[全库Godot冒烟108/108成功](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40448668514)；在地图变更后的`507a8c5c`上，[Godot Core Validation成功](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40448953773)；在`c9ae66c7`上，[地图几何聚焦工作流成功](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40449086819)。这些是**各自SHA与范围**的成功，不能推广为并行更新后的最新`main`全量成功。`docs/qa-batch-trigger.json`的`engine_result`字段仍记录`pending`，需与实际运行回执分开解读。
 
 **完成门槛**：记录被冻结的`main` SHA、Godot 4.7.2导入/解析、全局smoke、V1/V2/V3损坏恢复、无作弊Boss、40图路线、一次性奖励与故障注入结果；P0=0。未满足即 **M1 HOLD**。
 
@@ -203,7 +203,7 @@
 | A线战斗 | [战斗总账](../tools/A_LINE_DELIVERY.md)、[战斗/世界交接](../tools/A_LINE_WORLD_HANDOFF_DELIVERY.md) |
 | B线第一幕 | [白砂港双室内与P0](B_ACT01_HARBOR_ROOMS_BATCH_2026_10_27.md)、[叙事地图蓝图](../data/levels/story_map_blueprints_v1.json) |
 | C线美术 | [美术选择与清理状态](../data/assets/c_art_selection.json)、[C线V10布景灯光](C_LINE_V10_DEW_LANTERNS_2026_10_27.md)、[替换管理器](C_ART_SWAP_MANAGER_2026_10_26.md) |
-| D线工程集成 | [M0.1执行与风险](d_control/M0_1_EXECUTION_2026-10-27.md)、[契约与发行门禁](d_control/CONTRACT_AND_RELEASE_GATE.md) |
+| D线工程集成 | [M0.1执行、风险及追加Actions验收实录](d_control/M0_1_EXECUTION_2026-10-27.md)、[契约与发行门禁](d_control/CONTRACT_AND_RELEASE_GATE.md) |
 | QA | [单主线批次政策](DEVELOPMENT_BATCH_POLICY.md)、[本轮QA请求](qa-batch-trigger.json)、[Godot Core Validation](../.github/workflows/godot-core-validation.yml) |
 
 ### 本文自身的验证状态

@@ -225,7 +225,7 @@
       "id": "npc_coast_04",
       "name": "渔市行商",
       "region_id": "region_coast",
-      "map_id": "map_coast_01",
+      "map_id": "map_coast_02",
       "role": "craft",
       "dialogue": [
         "潮声比昨天慢了一拍。",
@@ -241,8 +241,8 @@
       "status": "authored_dialogue_and_motion_contract_pending_D_visual_integration",
       "personality": "讲信用、很会算账的行商",
       "occupation": "早市称重、午后整理货票",
-      "home_district": "海风集市",
-      "work_district": "海风集市",
+      "home_district": "旅店与货栈",
+      "work_district": "渔市水岸",
       "home_detail": "商铺后屋",
       "daily_routine": [
         {
@@ -250,44 +250,44 @@
           "start": 5,
           "end": 8,
           "action": "commute",
-          "district": "海风集市"
+          "district": "旅店与货栈"
         },
         {
           "id": "work",
           "start": 8,
           "end": 13,
           "action": "work",
-          "district": "海风集市"
+          "district": "渔市水岸"
         },
         {
           "id": "afternoon",
           "start": 13,
           "end": 19,
           "action": "work",
-          "district": "海风集市"
+          "district": "渔市水岸"
         },
         {
           "id": "return",
           "start": 19,
           "end": 21,
           "action": "commute",
-          "district": "海风集市"
+          "district": "旅店与货栈"
         },
         {
           "id": "rest",
           "start": 21,
           "end": 5,
           "action": "sleep",
-          "district": "海风集市"
+          "district": "旅店与货栈"
         }
       ],
       "dialogue_states": {
-        "first": "我是替叔父守摊的新商人。你若找盐草，先看一眼秤的刻度。",
-        "repeat": "昨夜补货少了一包干鱼，今天货单我亲手核了两遍。",
-        "night": "摊子收了，账却没收。我得把明早的零钱装好。",
-        "after_chapter": "大家轮流搬灯祭物资，我这本货账终于不用写‘欠着’二字。",
+        "first": "我从晨露村运货来白砂港。这边的盐鱼、潮表和货票都得过秤，少一笔便有人吃亏。",
+        "repeat": "昨晚船队靠岸少了一包干鱼。我正在码头逐箱对照，谁也别急着背锅。",
+        "night": "货栈收灯前还要点一遍账。白砂港的夜潮从不等人。",
+        "after_chapter": "港务员把出入船簿摊开供大家核对，漏记的货物终于有人认领。",
         "choice_reflection": "你肯把证据拿出来核对，我就敢在账簿上写自己的名字。",
-        "after_quest": "街坊按新账本轮流运货，公平生意原来也能让大家一起开心。"
+        "after_quest": "渔市与水手照着同一本账运货，少了争执，靠泊也快了。"
       },
       "relationships": [
         "npc_coast_05"
@@ -298,7 +298,7 @@
       "id": "npc_coast_05",
       "name": "海岸记录员",
       "region_id": "region_coast",
-      "map_id": "map_coast_01",
+      "map_id": "map_coast_02",
       "role": "rumor",
       "dialogue": [
         "潮声比昨天慢了一拍。",
@@ -314,8 +314,8 @@
       "status": "authored_dialogue_and_motion_contract_pending_D_visual_integration",
       "personality": "冷静细致、喜欢替人保存记忆的记录员",
       "occupation": "收集口述、整理航船登记簿",
-      "home_district": "旧屋居住区",
-      "work_district": "码头前街",
+      "home_district": "水手街",
+      "work_district": "港务广场",
       "home_detail": "档案小屋",
       "daily_routine": [
         {
@@ -323,44 +323,44 @@
           "start": 5,
           "end": 8,
           "action": "commute",
-          "district": "旧屋居住区"
+          "district": "水手街"
         },
         {
           "id": "work",
           "start": 8,
           "end": 13,
           "action": "visit",
-          "district": "码头前街"
+          "district": "港务广场"
         },
         {
           "id": "afternoon",
           "start": 13,
           "end": 19,
           "action": "work",
-          "district": "码头前街"
+          "district": "渔市水岸"
         },
         {
           "id": "return",
           "start": 19,
           "end": 21,
           "action": "commute",
-          "district": "旧屋居住区"
+          "district": "水手街"
         },
         {
           "id": "rest",
           "start": 21,
           "end": 5,
           "action": "sleep",
-          "district": "旧屋居住区"
+          "district": "水手街"
         }
       ],
       "dialogue_states": {
-        "first": "旅行者，请在这里写一行你记得的海岸。日后有人失忆，也许能靠它找到归路。",
-        "repeat": "老邮差寄不出去的信，我替他按年份摊开晾干了。",
-        "night": "晚潮会把码头上的字迹冲淡，我趁灯还亮着誊写。",
-        "after_chapter": "港务员同意为失踪船员留下空白页；没有名字也不代表没有来过。",
+        "first": "这里是白砂港的航船与收容登记处。若有人忘记姓名，就先留下他记得的最后一件事。",
+        "repeat": "那位水手记不得自己的名字，却认得鞋里的贝壳。我正把这条线索补进病患登记册。",
+        "night": "我在誊写今天的归港名册；若半夜再有人获救，纸页还得留出空格。",
+        "after_chapter": "护士和港务员终于肯把病例留存两份。名字可以慢慢找，证据不能焚掉。",
         "choice_reflection": "村长的第二次钟声记录还在吗？不同人的回忆要一起存档。",
-        "after_quest": "记录簿里多了每家送来的口述，渔港的事终于不是一个人记。"
+        "after_quest": "各艘船会为救起的陌生人留一行记录。没有名字，也不能让人消失在港口。"
       },
       "relationships": [
         "npc_coast_01"

@@ -1,8 +1,8 @@
 {
-  "batch": "batch0-seven-categories-2026-10-27",
+  "batch": "batch0-seven-retest-2026-10-27",
   "request": "Run seven screenshot QA acceptance tasks",
   "engine": "Godot 4.7.2",
-  "parent_sha": "7ea4de818dab54878e78178ceda334135cb9ae02",
+  "parent_sha": "834a9d3aa718e2d086ab070768d78b79063c531b",
   "tests": [
     "build",
     "reward",
@@ -13,5 +13,7 @@
     "assets"
   ],
   "policy": "Independent logs; no unchecked PASS; main-only, no branch changes",
-  "status": "requested"
+  "status": "requested-fix-retest",
+  "version": 2,
+  "rerun_reason": "Resource 1996-file tiered catalog reconciliation, removed stale entry, correct title smoke path, long world task timeout, C smoke return fix"
 }

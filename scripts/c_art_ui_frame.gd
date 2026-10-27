@@ -6,7 +6,7 @@ const BORDER: String = "res://assets/art/external/cc0_named_v1/ui/kenney_fantasy
 
 static func panel_frame() -> StyleBox:
     var texture: Texture2D = Art.texture(BORDER)
-    if texture == null or Vector2i(texture.get_size()) != Vector2i(32, 32):
+    if texture == null or Vector2i(texture.get_size()) != Vector2i(48, 48):
         var fallback := StyleBoxFlat.new()
         fallback.bg_color = Color("0b1c32")
         fallback.border_color = Color("e6c47d")
@@ -16,10 +16,10 @@ static func panel_frame() -> StyleBox:
         return fallback
     var panel := StyleBoxTexture.new()
     panel.texture = texture
-    panel.texture_margin_left = 8.0
-    panel.texture_margin_right = 8.0
-    panel.texture_margin_top = 8.0
-    panel.texture_margin_bottom = 8.0
+    panel.texture_margin_left = 12.0
+    panel.texture_margin_right = 12.0
+    panel.texture_margin_top = 12.0
+    panel.texture_margin_bottom = 12.0
     panel.set_content_margin_all(14.0)
     panel.modulate_color = Color("e6c47d")
     panel.draw_center = false

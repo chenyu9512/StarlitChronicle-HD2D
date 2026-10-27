@@ -42,7 +42,6 @@ func _run() -> void:
         var step: Vector2i=Vector2i(marker.position/32.0)
         check(reachable.has(step),room_id+": no valid walkable route to public door")
         check(not occupied.has(step),room_id+": doorstep blocked by authored building")
-        var before: Dictionary=save._pack().duplicate(true)
         var original: Vector2=marker.position
         world.hero.position=original
         check(world.enter_building(room_id),room_id+": first-act world refused room entry")
@@ -70,10 +69,11 @@ func _run() -> void:
             check(not world.blocked.has(cell),room_id+"/"+id+": clue inside a wall")
             check(str(home.object_at("map_coast_02",room_id,cell).get("id",""))==id,
                 room_id+"/"+id+": actual cell and inspectable ID do not match")
+            var read_snapshot: Dictionary=save._pack().duplicate(true)
             var observation: Dictionary=home.preview("map_coast_02",room_id,id,save)
             check(bool(observation.get("available",false)),
                 room_id+"/"+id+": no physical B clue observation")
-            check(save._pack()==before,room_id+"/"+id+": preview changed the saved world")
+            check(save._pack()==read_snapshot,room_id+"/"+id+": preview changed the saved world")
             var action: Dictionary=home.inspect_at("map_coast_02",room_id,cell,save)
             check(bool(action.get("changed",false)) and
                 not str(action.get("message","")).is_empty(),

@@ -37,7 +37,7 @@ func _run() -> void:
     check(world.visited_count() >= 2, "Discovery did not persist")
     state.chapter = 3
     world.sync_chapter(3)
-    check(world.current_map() == "map_coast_03", "Chapter 3 did not activate its canonical map")
+    check(world.current_map() == "map_coast_01", "Act-I chapter advance teleported instead of preserving the player sector")
     var events = Events.new()
     events.bind(state)
     events.advance_time(750)
@@ -58,7 +58,7 @@ func _run() -> void:
     check(not slots.load_slot(state,0), "Invalid save slot loaded")
     world.bind(state)
     events.bind(state)
-    check(world.current_map() == "map_coast_03", "World map lost after slot loading")
+    check(world.current_map() == "map_coast_01", "World map lost after slot loading")
     check(events.history().size() == 2, "Event history lost after slot loading")
     var menu = Menu.new()
     root.add_child(menu)

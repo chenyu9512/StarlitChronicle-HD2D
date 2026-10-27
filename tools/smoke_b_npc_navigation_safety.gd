@@ -46,12 +46,10 @@ func _run() -> void:
     var resident_id: String="npc_coast_01"
     var from_cell: Vector2i=Vector2i(12,12)
     var current: Vector2=Vector2(from_cell)*32.0+Vector2(16,16)
-    var restricted: Dictionary={
-        from_cell+Vector2i.UP:true,
-        from_cell+Vector2i.DOWN:true,
-        from_cell+Vector2i.LEFT:true,
-        from_cell+Vector2i.RIGHT:true,
-    }
+    # Always use indexed Vector2i keys, not named dictionary literals.
+    var restricted: Dictionary={}
+    for direction in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+        restricted[from_cell+direction]=true
     var first: Dictionary=daily.step(resident_id,"map_coast_01",600,current,0.1,restricted,extent)
     check(not bool(first.get("moving",true)) and first.get("position",Vector2.ZERO)==current,
         "Surrounded citizen moved through occupied cells")
@@ -72,10 +70,45 @@ func _run() -> void:
     var resumed: Dictionary=daily.step(resident_id,"map_coast_01",600,current,0.1,restricted,extent)
     check((resumed.get("position",current) as Vector2).distance_to(current)<=8.0,
         "NPC teleported while resuming its route")
+    # A two-dozen-cell PARTIAL route can also end before a solid river or
+    # fence. At its last reachable tile, it must not re-run BFS every frame.
+    var cutoff_extent: Vector2i=Vector2i(40,32)
+    var partitioned: Dictionary={}
+    for y in range(2,30):
+        partitioned[Vector2i(20,y)]=true
+    var cutoff_start: Vector2i=Vector2i(5,5)
+    var cutoff_goal: Vector2i=Vector2i(32,25)
+    var partial: Array[Vector2i]=daily._route(
+        cutoff_start,cutoff_goal,partitioned,cutoff_extent)
+    check(partial.size()>8 and partial[-1]!=cutoff_goal,
+        "Partitioned large-room NPC must have a partial route, not teleport")
+    if partial.size()>8:
+        var wait_npc: String="npc_coast_02"
+        daily._waypoint(wait_npc,"map_coast_01",cutoff_start,
+            cutoff_goal,partitioned,cutoff_extent,0.016)
+        var closest: Vector2i=partial[-1]
+        var reads_before: int=daily.path_queries
+        for frame in range(48):
+            var idle_step: Vector2i=daily._waypoint(
+                wait_npc,"map_coast_01",closest,cutoff_goal,partitioned,cutoff_extent,0.016)
+            check(idle_step==closest,
+                "Blocked NPC continued walking or jumped across a solid partition")
+        check(daily.path_queries==reads_before,
+            "Partial-path endpoint still restarted BFS on every rendered frame")
+        # A path has reopened. Keep the same number of blocked cells so that
+        # the timed retry, not the wall-count invalidation, detects it.
+        partitioned.erase(Vector2i(20,15))
+        partitioned[Vector2i(3,29)]=true
+        for frame in range(45):
+            daily._waypoint(wait_npc,"map_coast_01",closest,
+                cutoff_goal,partitioned,cutoff_extent,0.016)
+        check(daily.path_queries>reads_before and
+            (daily.route_cache.get(wait_npc,{}).get("path",[]) as Array).has(cutoff_goal),
+            "Temporarily blocked NPC never planned through the reopened route")
     var wrong: Dictionary=daily.step(resident_id,"map_city_01",600,current,0.1,restricted,extent)
     check(not bool(wrong.get("moving",true)),"NPC crossed to another map")
     if errors.is_empty():
-        print("PASS B: >4096-cell town routes, stable 4-neighbor motion, safe blocked anchor, throttled occupancy retry")
+        print("PASS B: >4096-cell town routes, stable 4-neighbor motion, safe blocked anchor, throttled partial-path and occupancy retry")
         quit(0)
         return
     for error in errors:

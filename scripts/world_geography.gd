@@ -269,12 +269,27 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             # Town and dungeon geometry remains chapter-safe, while artist-painted
             # per-cell surface/collision corrections are now genuinely applied.
             authored.apply_safe_paths(authored_level,terrain,walls,features,dungeon)
-    # Gate entrances sit inside passable terrain and connect existing registry neighbors.
+    # Physical gates must follow canonical world order and the corresponding
+    # END of the authored main road, not the arbitrary neighbors array index.
+    # A one-neighbor first sector has an EAST exit; old code put it in the west.
     var gates: Array[Dictionary] = []
     var names: Array = spec.get("neighbors",[])
+    var sequence: Array[String] = ["coast","oaths","forge","isles","mirror","oldland","sanctum","city"]
+    var current_parts: PackedStringArray = map_id.split("_")
+    var current_order: int = sequence.find(str(current_parts[1]))*5+int(current_parts[2])
+    var main_roads: Array = authored_level.get("roads",[])
+    var spine: Array = (main_roads[0] as Dictionary).get("points",[]) if not main_roads.is_empty() else []
     for i in range(names.size()):
         var destination: String = str(names[i])
-        var gate: Vector2i = Vector2i(4,24) if i%4==0 else (Vector2i(map_width-5,24) if i%4==1 else Vector2i(36,4))
+        var parts: PackedStringArray = destination.split("_")
+        var neighbor_order: int = sequence.find(str(parts[1]))*5+int(parts[2])
+        var western: bool = neighbor_order < current_order
+        var endpoint: Array = spine[0] if western and not spine.is_empty() else (
+            spine[-1] if not spine.is_empty() else [36,24])
+        var road_y: int = clampi(int(endpoint[1]),6,map_height-7)
+        var gate: Vector2i = Vector2i(4 if western else map_width-5,road_y)
+        # Build into the canonical live route. Final roof collision/seal and
+        # the route regression still have authority over wall integrity.
         _road(terrain,walls,start,gate,seed+i,1)
         gates.append({"id":destination,"cell":gate})
     # A route may not be allowed across locked chapters; physical gate is still visible.

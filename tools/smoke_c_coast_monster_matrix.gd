@@ -2,7 +2,7 @@ extends SceneTree
 ## C-line monster art smoke; only visual actor state transitions; no combat HP mutation.
 const C = preload("res://scripts/c_coast_monster_motion.gd")
 const Foes = preload("res://scripts/battle_enemies.gd")
-const IDS: Array[String] = ["salt_slime", "fog_crab", "shell_hermit", "sand_lizard", "salt_wolf"]
+const IDS: Array[String] = ["salt_slime", "fog_crab", "shell_hermit", "sand_lizard", "salt_wolf", "white_seabird", "star_ray", "tide_ghost", "tide_guardian"]
 var errors: Array[String] = []
 func verify(ok: bool, msg: String) -> void:
     if not ok:
@@ -44,7 +44,7 @@ func _run() -> void:
         enemies.queue_free()
     verify(C.sheets("unknown_coastal_enemy").is_empty(), "Non-covered enemies must remain on original texture")
     if errors.is_empty():
-        print("PASS C coast action matrix: five monsters, 100 distinct poses, four states and visual-only battle bindings")
+        print("PASS C coast action matrix: nine monsters, 180 distinct poses, four states and visual-only battle bindings")
         quit(0)
     for item in errors:
         push_error(item)

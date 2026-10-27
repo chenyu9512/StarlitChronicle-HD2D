@@ -5,7 +5,7 @@
     "map_coast_01",
     "map_coast_03"
   ],
-  "status": "PARTIAL_5_OF_9",
+  "status": "ALL_9_COASTAL_MONSTERS_STATIC_ART_READY",
   "art_id": "salt_slime",
   "engine_consumer": "scripts/battle_enemies.gd",
   "presentation_only": true,
@@ -36,11 +36,8 @@
     }
   },
   "missing_coverage": [
-    "white_seabird",
-    "star_ray",
-    "tide_ghost",
-    "tide_guardian",
-    "B03 five boss static illustrations"
+    "B03 five boss static illustrations",
+    "visual identity and Godot import/real battle QA"
   ],
   "QA": {
     "svg_structural": "checked_in_authoring",
@@ -129,6 +126,90 @@
         },
         "defeat": {
           "path": "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "white_seabird",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "star_ray",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "tide_ghost",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+          "frames": 6
+        }
+      }
+    },
+    {
+      "art_id": "tide_guardian",
+      "states": {
+        "idle": {
+          "path": "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+          "frames": 4
+        },
+        "attack": {
+          "path": "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+          "frames": 6
+        },
+        "hit": {
+          "path": "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+          "frames": 4
+        },
+        "defeat": {
+          "path": "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
           "frames": 6
         }
       }

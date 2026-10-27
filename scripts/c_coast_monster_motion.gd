@@ -32,6 +32,30 @@ const CONFIG: Dictionary = {
         "attack": ["res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg", 6],
         "hit": ["res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg", 4],
         "defeat": ["res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg", 6]
+    },
+    "white_seabird": {
+        "idle": ["res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg", 6]
+    },
+    "star_ray": {
+        "idle": ["res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg", 6]
+    },
+    "tide_ghost": {
+        "idle": ["res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg", 6]
+    },
+    "tide_guardian": {
+        "idle": ["res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg", 4],
+        "attack": ["res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg", 6],
+        "hit": ["res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg", 4],
+        "defeat": ["res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg", 6]
     }
 }
 static func sheets(art_id: String) -> Dictionary:

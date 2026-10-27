@@ -102,10 +102,11 @@ static func safe_destination(wanted: Vector2i,walls: Dictionary,extent: Vector2i
                     return cell
     return Vector2i(-1,-1)
 
-func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -> Array[Vector2i]:
+func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i,
+        stand_radius: int=0) -> Array[Vector2i]:
     path_queries+=1
     var empty: Array[Vector2i]=[]
-    if not _within(start,extent) or walls.has(start) or not _within(goal,extent) or walls.has(goal):
+    if not _within(start,extent) or walls.has(start) or not _within(goal,extent)             or (stand_radius<=0 and walls.has(goal)):
         return empty
     var parent: Dictionary={}
     # A variable-key dictionary MUST use indexed assignment, not {start:start},
@@ -115,6 +116,8 @@ func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -
     var index: int=0
     var best: Vector2i=start
     var closest: int=start.distance_squared_to(goal)
+    var reachable_stand: Vector2i=Vector2i(-1,-1)
+    var stand_distance: int=2147483647
     # The largest authored settlement can exceed 4096 cells; still cap
     # searches by the grid area and our hard safety limit.
     var visit_limit: int=mini(MAX_VISITS,maxi(1,(extent.x-4)*(extent.y-4)))
@@ -125,6 +128,15 @@ func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -
         if d<closest:
             closest=d
             best=at
+        # A painted district anchor may be blocked or sealed behind scenery.
+        # Select a stand tile from the REACHABLE BFS component, not merely
+        # the first free tile in a Manhattan ring. Equal-distance stands
+        # retain BFS order, preferring the shorter walking route.
+        if stand_radius>0:
+            var ring: int=absi(at.x-goal.x)+absi(at.y-goal.y)
+            if ring<=stand_radius and ring<stand_distance:
+                stand_distance=ring
+                reachable_stand=at
         if at==goal:
             best=goal
             break
@@ -134,6 +146,8 @@ func _route(start: Vector2i,goal: Vector2i,walls: Dictionary,extent: Vector2i) -
                 continue
             parent[next]=at
             queue.append(next)
+    if stand_radius>0 and reachable_stand.x>=0:
+        best=reachable_stand
     if best==start:
         return [start]
     var path: Array[Vector2i]=[best]
@@ -165,7 +179,7 @@ func _waypoint(npc_id: String,map_id: String,at: Vector2i,goal: Vector2i,
         else:
             index=-1
     if index<0:
-        var rebuilt: Array[Vector2i]=_route(at,goal,walls,extent)
+        var rebuilt: Array[Vector2i]=_route(at,goal,walls,extent,4)
         memo={"map_id":map_id,"goal":goal,"extent":extent,
             "wall_count":walls.size(),"path":rebuilt,
             "retry_after":1.25}
@@ -194,11 +208,17 @@ func step(npc_id: String,map_id: String,minutes: int,current: Vector2,
         reset_route(npc_id)
         return {"position":current,"state":"blocked","moving":false}
     var searches_before: int=path_queries
-    var navigation_goal: Vector2i=safe_destination(goal,walls,extent)
-    if navigation_goal.x<0:
+    # Keep the authored anchor as the preferred target. The route planner
+    # chooses a nearby stand only if it can ACTUALLY be reached from "at".
+    var wanted: Vector2i=goal if _within(goal,extent) else safe_destination(goal,walls,extent)
+    if wanted.x<0:
         reset_route(npc_id)
         return {"position":current,"state":"blocked","moving":false,"goal":goal}
-    var next: Vector2i=_waypoint(npc_id,map_id,at,navigation_goal,walls,extent,seconds)
+    var next: Vector2i=_waypoint(npc_id,map_id,at,wanted,walls,extent,seconds)
+    var cached_path: Array=(route_cache.get(npc_id,{}) as Dictionary).get("path",[])
+    var navigation_goal: Vector2i=cached_path[-1] if not cached_path.is_empty() else Vector2i(-1,-1)
+    if navigation_goal.x<0:
+        return {"position":current,"state":"blocked","moving":false,"goal":goal}
     var center: Vector2=Vector2(at)*TILE+Vector2.ONE*(TILE*0.5)
     # Stop at the center before rounding a corner: diagonal interpolation from
     # an offset actor position can otherwise cut through a blocked tile.

@@ -1,0 +1,50 @@
+name: Batch 0 Seven Independent QA Gates
+# One-shot 7 gate acceptance, each gate keeps evidence independently.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/qa-seven-trigger.json"
+permissions:
+  contents: read
+concurrency:
+  group: starlit-seven-batch0-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  seven_gate:
+    name: "Batch0 / ${{ matrix.gate }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        gate: [build, reward, rollback, legacy, combat, quests, assets]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install image and catalog validators
+        run: python -m pip install --disable-pip-version-check pillow pyyaml
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Cold project import and compile gate
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Run all tests in selected gate, preserve every failure
+        run: |
+          python3 tools/d_control/run_seven_gate_qa.py \
+            --gate ${{ matrix.gate }} \
+            --godot ./Godot_v4.7.2-stable_linux.x86_64 \
+            --timeout 210 \
+            --output qa-seven-results
+      - name: Publish precise gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch0-seven-${{ matrix.gate }}
+          path: qa-seven-results/
+          if-no-files-found: warn

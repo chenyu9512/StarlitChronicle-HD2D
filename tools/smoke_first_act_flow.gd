@@ -14,6 +14,28 @@ func _touch(target: String) -> void:
     game.world.hero.position = game.world.nodes[target].position + Vector2(0, 18)
     game.world.interact()
 
+func _enter_canonical_chapter(chapter: int) -> void:
+    if chapter>6 or chapter<1:
+        return
+    var required: String=game.world_router.act01_target_map(chapter)
+    for hop in range(5):
+        if game.world_router.current_map()==required:
+            return
+        var route: Array[String]=game.world_router.route_towards(required)
+        if route.size()<2:
+            failures.append("Chapter %d has no unlocked, physically adjacent route to %s" % [chapter,required])
+            return
+        var exit_node: String="exit:"+route[1]
+        if not game.world.nodes.has(exit_node):
+            failures.append("Missing physical border gate "+exit_node)
+            return
+        var previous: String=game.world_router.current_map()
+        _touch(exit_node)
+        if game.world_router.current_map()==previous:
+            failures.append("Physical gate did not advance from "+previous+" to "+route[1])
+            return
+    failures.append("Chapter route exceeded five physical exits")
+
 func _dialog() -> void:
     for i in range(30):
         if not game.ui.dialog_layer.visible or game.ui.choosing:
@@ -40,6 +62,7 @@ func _run() -> void:
         if game.progress.chapter != chapter:
             failures.append("Chapter progression stopped before %d" % chapter)
             break
+        _enter_canonical_chapter(chapter)
         # Three distinct side-quest objects must actually be visited.
         _touch("side_start")
         _dialog()

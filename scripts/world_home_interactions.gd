@@ -41,10 +41,16 @@ func dossier(map_id: String,building_id: String) -> Dictionary:
     # validator (e.g. a painting moved onto a blocked wall after an art update).
     var physical: Dictionary=InteriorGeometry.new().load_level(map_id,building_id,
         str(record.get("name",building_id)))
+    if physical.is_empty():
+        issues.append("Room was rejected by canonical V4 geometry: "+key)
+        return {}
     var allowed: Dictionary={}
     for visible in physical.get("investigations",[]):
         if visible is Dictionary:
-            allowed[str(visible.get("id",""))]=true
+            # An ID alone is not enough: a C-line layout edit can relocate
+            # the original prop while preserving its ID. Never offer a
+            # hotspot at a different cell from the live room renderer.
+            allowed[str(visible.get("id",""))]=visible.get("cell",Vector2i(-1,-1))
     var lookup: Dictionary={}
     var cells: Dictionary={}
     for object in record.get("investigations",[]):
@@ -60,6 +66,9 @@ func dossier(map_id: String,building_id: String) -> Dictionary:
             issues.append("Investigation not live on passable V4 room terrain: "+key+"/"+id)
             continue
         var pos: Vector2i=Vector2i(int(cell[0]),int(cell[1]))
+        if allowed[id]!=pos:
+            issues.append("Investigation hotspot differs from live V4 renderer: "+key+"/"+id)
+            continue
         if cells.has(pos):
             issues.append("Overlapping investigation marker: "+key+"/"+id)
             continue

@@ -4,6 +4,7 @@ extends Node2D
 ## NPC/story anchors, chapter flags, rewards, or old-save data.
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const Art = preload("res://scripts/c_art_overrides.gd")
+const TerrainAdapter = preload("res://scripts/third_party_terrain_adapter.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const BLUEPRINT_PATH: String = "res://data/levels/story_map_blueprints_v1.json"
 const ATLAS_DIR: String = "res://assets/art/tilesets/story_v1/"
@@ -134,8 +135,16 @@ func _install_signature(plan: Dictionary, geometry: Dictionary, protected: Dicti
         art_error = "Missing authored narrative floor scene strip: " + art_path
         return
     var strip: Texture2D = Art.texture(art_path)
-    if strip == null or strip.get_size() != Vector2(800, 128):
-        art_error = "Bad narrative scene atlas size: " + art_path
+    if strip == null:
+        art_error = "Missing actual narrative scene source: " + art_path
+        return
+    if strip.get_size()!=Vector2(800,128):
+        # The hand-drawn 800×128 SVG was retired on Main2. Assemble five
+        # genuinely different 160×128 map marks using the later-uploaded
+        # third-party source instead of slicing a smaller PNG out of bounds.
+        strip=TerrainAdapter.signature_strip(strip)
+    if strip==null or strip.get_size()!=Vector2(800,128):
+        art_error = "Narrative source has insufficient usable atlas tiles: " + art_path
         return
     var points: Array = plan.get("scenic_sites", [])
     var floor_tiles: Dictionary = geometry.get("tiles", {})

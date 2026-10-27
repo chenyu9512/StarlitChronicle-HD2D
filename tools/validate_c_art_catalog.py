@@ -31,7 +31,22 @@ def run() -> int:
         for path in (ROOT / "assets").rglob("*")
         if path.is_file() and path.suffix.lower() in {".png", ".svg", ".jpg", ".jpeg", ".webp"}
     }
-    for path in sorted(actual - seen):
+    # Source originals belong to a separate non-runtime source registry.
+    # Do not fill the interactive runtime gallery with raw source-pack atlases.
+    source_doc = json.loads((ROOT / "data/assets/c_art_source_originals.json").read_text(encoding="utf-8"))
+    originals = set()
+    for raw in source_doc.get("files", []):
+        path = str(raw.get("path", ""))
+        if not path.startswith("assets/art/source_packs/") or ".." in Path(path).parts:
+            errors.append("Invalid original path: " + path)
+        if path in originals or path in seen:
+            errors.append("Duplicate original: " + path)
+        if path not in actual:
+            errors.append("Source original missing: " + path)
+        originals.add(path)
+    if source_doc.get("count") != len(originals):
+        errors.append("Source original count mismatch")
+    for path in sorted(actual - seen - originals):
         errors.append("Not indexed: " + path)
     for path in sorted(seen - actual):
         errors.append("Stale entry: " + path)
@@ -43,7 +58,7 @@ def run() -> int:
         "scripts/c_art_overrides.gd": "func import_image(",
         "scripts/c_art_manager_ui.gd": "func open_manager(",
         "scripts/first_act_ui.gd": "art_manager = ArtManagerUI.new()",
-        "scripts/first_act_world.gd": "land.texture = CArtOverrides.texture(",
+        "scripts/first_act_world.gd": "sprite.texture = CArtOverrides.texture(path)",
         "scripts/first_act_battle.gd": "CArtOverrides.texture(ArtAssets.battle_image(",
         "scripts/world_structure.gd": "facade.texture=ArtOverrides.texture(file)",
         "scripts/world_interior_art.gd": "prop.texture = ArtOverrides.texture(path)",

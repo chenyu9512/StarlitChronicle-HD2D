@@ -35,7 +35,23 @@ func _run() -> void:
         sample.setup(source)
         expect(sample.sprite.texture != null, character_id + ": missing imported atlas")
         if sample.sprite.texture != null:
-            expect(sample.sprite.texture.get_size() == Vector2(96, 192), character_id + ": wrong atlas dimensions")
+            if not sample.third_party_strips.is_empty():
+                expect(sample.sprite.hframes > 1 and sample.sprite.vframes == 1,
+                    character_id + ": missing actual third-party frame strip")
+                var facing_textures: Array[Texture2D] = []
+                for direction in [Vector2.DOWN, Vector2.LEFT, Vector2.UP, Vector2.RIGHT]:
+                    sample.set_motion(0.13, direction)
+                    expect(sample.sprite.texture != null, character_id + ": lost texture when turning")
+                    expect(sample.sprite.hframes > 1, character_id + ": walking strip has no frames")
+                    facing_textures.append(sample.sprite.texture)
+                for i in range(facing_textures.size()):
+                    for j in range(i + 1, facing_textures.size()):
+                        expect(facing_textures[i] != facing_textures[j],
+                            character_id + ": same image reused for distinct directions")
+                sample.set_motion(0.15, Vector2.ZERO)
+                expect(sample.sprite.frame == 0, character_id + ": idle pose is not frame zero")
+            else:
+                expect(sample.sprite.texture.get_size() == Vector2(96, 192), character_id + ": wrong atlas dimensions")
             if str(sample.sprite.get_meta("c21_walk_source", "")) != "":
                 var frame_image: Image = sample.sprite.texture.get_image()
                 expect(frame_image != null, character_id + ": SVG image unreadable")
@@ -69,7 +85,7 @@ func _run() -> void:
     actor.queue_free()
     npc.queue_free()
     if failures.is_empty():
-        print("PASS C character: eight logical directions, 4x3 visual fallback, interactions, NPC life states")
+        print("PASS C character: eight headings, real third-party four-direction strips or 4x3 fallback, NPC interactions")
         quit(0)
         return
     for failure in failures:

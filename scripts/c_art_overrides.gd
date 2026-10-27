@@ -147,6 +147,11 @@ static func _safe_override_file(path: String) -> String:
 
 ## Branch-only redirect. Original visual contents have been removed; even
 ## historical res:// art slot names resolve to later uploaded third-party PNG.
+## Shared-terrain DLC slots accept sources that need 32px semantic re-atlasing
+## by WorldTilesetPool. Raw source dimensions are not the final 256px atlas.
+static func _shared_terrain_slot(path: String) -> bool:
+    return TerrainAtlas.group_slots("terrain_ground").has(path) or TerrainAtlas.group_slots("terrain_water").has(path)
+
 static func third_party_source(path: String) -> String:
     if not _third_party_index_loaded:
         _third_party_index_loaded = true
@@ -206,7 +211,7 @@ static func texture(path: String) -> Texture2D:
                     var actual: Vector2i = Vector2i(proposed.get_size())
                     var slot: Dictionary = _entries[path]
                     var ratio_ok: bool = expected.y > 0 and actual.y > 0 and absf(float(actual.x) / float(actual.y) / (float(expected.x) / float(expected.y)) - 1.0) <= 0.12
-                    if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok):
+                    if (actual == expected if bool(slot.get("atlas", false)) else ratio_ok) or (_active_pack_id == "shared_terrain" and _shared_terrain_slot(path) and actual.x >= 32 and actual.y >= 32):
                         # This batch contains 32px user-uploaded pixel props mapped
                         # onto some historical 96px Sprite2D slots. Scale the image
                         # itself with nearest-neighbor sampling: never alter geometry,
@@ -396,7 +401,7 @@ static func pack_report(id: String) -> Dictionary:
         var atlas: bool = bool((_entries[slot] as Dictionary).get("atlas", false))
         var match_size: bool = actual == expected
         var ratio_ok: bool = absf(float(actual.x) * float(expected.y) / (float(actual.y) * float(expected.x)) - 1.0) <= 0.12
-        if (match_size if atlas else ratio_ok):
+        if (match_size if atlas else ratio_ok) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32):
             usable += 1
             if has_override(slot):
                 personal += 1

@@ -32,6 +32,10 @@ var last_status: Label
 var prompt_button: Button
 var prompt_panel: PanelContainer
 var prompt_text: TextEdit
+var pack_options: OptionButton
+var pack_picker: FileDialog
+var pack_feedback: Label
+var pack_ids: Array[String] = []
 
 func _ready() -> void:
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -92,6 +96,26 @@ func _build() -> void:
     var hint := _text("按分类查看原始素材、预览缩略图、保存备注或导入本机图片。原文件与游戏存档不会被覆盖。", 15)
     hint.add_theme_color_override("font_color", Color("b5c6d9"))
     flow.add_child(hint)
+    var pack_row := HBoxContainer.new()
+    pack_row.add_theme_constant_override("separation", 8)
+    flow.add_child(pack_row)
+    pack_row.add_child(_text("全局主题包 / DLC", 15))
+    pack_options = OptionButton.new()
+    pack_options.custom_minimum_size.x = 220
+    pack_row.add_child(pack_options)
+    var apply_pack := _button("一键应用全局画风")
+    apply_pack.pressed.connect(_apply_pack)
+    pack_row.add_child(apply_pack)
+    var reset_pack := _button("切换回游戏原版")
+    reset_pack.pressed.connect(_reset_pack)
+    pack_row.add_child(reset_pack)
+    var install_pack := _button("导入DLC包")
+    install_pack.pressed.connect(func() -> void: pack_picker.popup_centered_ratio(0.8))
+    pack_row.add_child(install_pack)
+    pack_feedback = _text("主题切换后重新进入地图即可更新已创建的场景图集。", 12)
+    pack_feedback.add_theme_color_override("font_color", Color("b1d2ba"))
+    flow.add_child(pack_feedback)
+    _refresh_pack_list()
     var filters := HBoxContainer.new()
     flow.add_child(filters)
     category_filter = OptionButton.new()
@@ -210,6 +234,13 @@ func _build() -> void:
     file_picker.filters = PackedStringArray(["*.png ; PNG 图片", "*.jpg, *.jpeg ; JPEG 图片", "*.webp ; WebP 图片"])
     file_picker.file_selected.connect(_file_chosen)
     add_child(file_picker)
+    pack_picker = FileDialog.new()
+    pack_picker.title = "选择 DLC 素材包 manifest.json"
+    pack_picker.access = FileDialog.ACCESS_FILESYSTEM
+    pack_picker.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+    pack_picker.filters = PackedStringArray(["*.json ; 美术DLC清单"])
+    pack_picker.file_selected.connect(_install_pack)
+    add_child(pack_picker)
     _build_prompt_overlay()
     _refilter()
 
@@ -319,11 +350,55 @@ func _show_detail() -> void:
     dimensions_label.text = "分类：%s · 原尺寸：%d×%d · %s" % [str(entry.get("category", "")), roundi(dims.x), roundi(dims.y), "需要完全一致" if bool(entry.get("atlas", false)) else "保持长宽比"]
     var tier_key: String = str(entry.get("curation_tier", ""))
     var tier_text: String = {"primary": "晨露村优先资源", "reserve_core": "核心备用", "reserve_external": "外部候选未绑定"}.get(tier_key, "尚未分类")
-    var state_text: String = "已设置本机替换" if Overrides.has_override(current_path) else "未设置本机替换"
+    var state_text: String = "已设置单张本机替换" if Overrides.has_override(current_path) else ("使用全局DLC主题" if Overrides.pack_has_slot(current_path) else "使用原始资源")
     status_label.text = "分组：" + tier_text + "\n状态：" + str(entry.get("status", "未验收")) + "\n" + state_text
     if tier_key == "reserve_external":
         status_label.text += "\n外部候选尚未绑定场景；替换这里的图片不会自动替换游戏角色或地图。"
     note_edit.text = Overrides.user_note(current_path)
+
+func _refresh_pack_list() -> void:
+    pack_options.clear()
+    pack_ids.clear()
+    var current: String = Overrides.active_pack()
+    var active_index: int = 0
+    for pack in Overrides.list_packs():
+        var id: String = str(pack.get("id", "original"))
+        var index: int = pack_ids.size()
+        pack_ids.append(id)
+        pack_options.add_item(str(pack.get("name", id)) + " (" + str(pack.get("count", 0)) + "项)")
+        if id == current:
+            active_index = index
+    pack_options.select(active_index)
+
+func _apply_pack() -> void:
+    if pack_options.selected < 0 or pack_options.selected >= pack_ids.size():
+        return
+    var chosen: String = pack_ids[pack_options.selected]
+    var ok: bool = Overrides.activate_pack(chosen)
+    pack_feedback.text = ("已启用整套主题："+pack_options.get_item_text(pack_options.selected)+"。重新进入地图生效。" if ok else "启用失败：原主题仍生效。")
+    if ok:
+        asset_changed.emit("res://assets/art/backdrops/coast/tide_lighthouse.png")
+        _render_page()
+        _show_detail()
+
+func _reset_pack() -> void:
+    var ok: bool = Overrides.activate_pack("original")
+    pack_feedback.text = "已切换回游戏原版；单张手工覆盖仍保留。" if ok else "恢复失败，当前配置未改变。"
+    if ok:
+        _refresh_pack_list()
+        asset_changed.emit("res://assets/art/backdrops/coast/tide_lighthouse.png")
+        _render_page()
+        _show_detail()
+
+func _install_pack(path: String) -> void:
+    var report: Dictionary = Overrides.install_pack(path)
+    pack_feedback.text = str(report.get("message", "未知DLC导入结果。"))
+    if bool(report.get("ok", false)):
+        _refresh_pack_list()
+        var installed_id: String = str(report.get("pack_id", ""))
+        var selected: int = pack_ids.find(installed_id)
+        if selected >= 0:
+            pack_options.select(selected)
 
 func _save_note() -> void:
     if current_path.is_empty():

@@ -26,6 +26,8 @@ def res_path(name: str) -> Path:
 def validate() -> None:
     assert not (ART / "备份区").exists(), "Unmigrated old backup directory"
     assert not (ART / "external/imported").exists(), "Uncleaned duplicate import directory"
+    assert (ART / "source_packs/.gdignore").is_file(), "Source masters must not be Godot-imported/exported"
+    assert (ART / "candidates/.gdignore").is_file(), "Candidate stage must not be Godot-imported/exported"
     candidates = load(CANDIDATES)
     files = candidates["entries"]
     assert len(files) == candidates["images"], "Candidate manifest count mismatch"

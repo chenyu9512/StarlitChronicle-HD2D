@@ -80,6 +80,10 @@ func preview(chapter: int,current_map: String,state) -> Dictionary:
     # No mutator, no WorldRegistry.bind() and no calls to State.save().
     if state==null or not issues.is_empty() or not chapters.has(chapter):
         return {"valid":false,"reason":"invalid_chapter_or_catalog"}
+    # The authoritative save chapter, not an arbitrary UI argument, owns
+    # gate eligibility. Never offer a future chapter's route early.
+    if int(state.chapter)!=chapter:
+        return {"valid":false,"reason":"chapter_mismatch"}
     var info: Dictionary=chapters[chapter]
     var stages: Array[String]=route(chapter)
     var position: int=stages.find(current_map)

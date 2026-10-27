@@ -37,9 +37,23 @@ func setup(image: String) -> void:
             sprite.set_meta("c21_walk_source", authored)
     if sprite.texture == null and ArtOverrides.exists(image):
         sprite.texture = ArtOverrides.texture(image)
-    sprite.hframes = 3
-    sprite.vframes = 4
-    sprite.frame_coords = Vector2i(1, 0)
+    # Third-party migration may resolve a historical 96x192 walk atlas to
+    # one directional PNG. Never slice that single frame into 12 random pieces.
+    if sprite.texture != null and sprite.texture.get_size() == Vector2(96, 192):
+        sprite.hframes = 3
+        sprite.vframes = 4
+        sprite.frame_coords = Vector2i(1, 0)
+    else:
+        sprite.hframes = 1
+        sprite.vframes = 1
+        sprite.frame = 0
+        if sprite.texture != null:
+            var bounds: Vector2 = sprite.texture.get_size()
+            var fit: float = minf(1.0, minf(32.0 / maxf(bounds.x, 1.0), 48.0 / maxf(bounds.y, 1.0)))
+            sprite.scale = Vector2(fit, fit)
+        else:
+            sprite.visible = false
+            push_warning("No third-party actor texture for " + image)
     sprite.position = Vector2(0, -19)
     sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     add_child(sprite)
@@ -71,7 +85,8 @@ func set_motion(delta: float, velocity: Vector2) -> void:
     walk_clock = motion.phase
     facing = motion.atlas_row()
     idle_elapsed = motion.idle_time
-    sprite.frame_coords = Vector2i(motion.atlas_column(), facing)
+    if sprite.hframes == 3 and sprite.vframes == 4:
+        sprite.frame_coords = Vector2i(motion.atlas_column(), facing)
     sprite.position = Vector2(0, -19) + motion.visual_offset()
     if not reduced_motion:
         sprite.rotation = 0.012 * sin(motion.phase * 2.2) if motion.move_blend > 0.1 else 0.0
@@ -84,13 +99,15 @@ func face_position(world_point: Vector2) -> void:
     motion.face_vector(to_local(world_point))
     facing = motion.atlas_row()
     if is_instance_valid(sprite):
-        sprite.frame_coords = Vector2i(1, facing)
+        if sprite.hframes == 3 and sprite.vframes == 4:
+            sprite.frame_coords = Vector2i(1, facing)
 
 func begin_conversation(world_point: Vector2) -> void:
     motion.start_talking(to_local(world_point))
     facing = motion.atlas_row()
     if is_instance_valid(sprite):
-        sprite.frame_coords = Vector2i(1, facing)
+        if sprite.hframes == 3 and sprite.vframes == 4:
+            sprite.frame_coords = Vector2i(1, facing)
 
 func react() -> void:
     if not is_instance_valid(sprite) or reacting:

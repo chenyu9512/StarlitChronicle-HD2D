@@ -42,7 +42,9 @@ func _run() -> void:
         var approach: Vector2i=layout.get("spawn",Vector2i.ZERO)
         var focal: Array=plan.get("focal_point",[])
         var plaza: Vector2i=Vector2i(int(focal[0]),int(focal[1]))
-        check(geo.reachable(layout,[approach],[plaza]),"Town square disconnected from entrance: "+town_id)
+        check(not (layout.get("blocked",{}) as Dictionary).has(plaza)
+            and geo.reachable(layout,[approach],[plaza]),
+            "Authored plaza is roof-blocked or disconnected: "+town_id+" / "+str(plaza))
         var story_routes: Dictionary=geo.resolve_story_targets(layout,geo._anchors())
         check((story_routes.get("missing",[]) as Array).is_empty(),
             "Actual story markers have no accessible pavement: "+town_id+" / "+str(story_routes.get("missing",[])))

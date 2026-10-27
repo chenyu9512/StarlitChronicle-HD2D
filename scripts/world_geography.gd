@@ -321,6 +321,12 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             continue
         if not reachable({"blocked":walls,"size":Vector2i(map_width,map_height)},[start],[essential]):
             _road(terrain,walls,start,essential,seed+essential.x*7+essential.y,1)
+    # Respect authored V3 edits AFTER generated quest-link roads have finished.
+    # Solid house footprints are then resealed as the FINAL collision authority.
+    # Only towns/dungeons need this late replay: wilderness edits were already
+    # validated against gate/water paths above.
+    if not authored_level.is_empty() and (village or dungeon):
+        authored.apply_editor_patches(authored_level,terrain,walls)
     if village:
         # LAST physical authority: roads, quests, gates and expansion passes
         # must never drill invisible holes through a house facade.

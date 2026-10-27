@@ -299,9 +299,8 @@ func _install_surface_detail(layout: Dictionary) -> void:
             surface_detail.set_cell(cell,0,Vector2i(posmod(cell.x*11+cell.y*7+seed,8),row))
             detail_count+=1
 
-## The lighthouse lamp is an authored light source, not a quest-complete flag.
-## Its brightness changes with the clock; the story director still owns whether
-## the great beacon can be formally relit.
+## A small maintenance lamp near the tower entrance, never the great beacon.
+## The main navigational light stays dark until D confirms its story relight.
 func _install_lighthouse_light() -> void:
     if not authored_sprites.has("lighthouse_landmark"):
         return
@@ -310,12 +309,12 @@ func _install_lighthouse_light() -> void:
     if texture == null:
         return
     lighthouse_light = PointLight2D.new()
-    lighthouse_light.name = "CoastalLighthouseSignal"
+    lighthouse_light.name = "CoastalLighthouseMaintenanceLamp"
     lighthouse_light.texture = texture
-    lighthouse_light.texture_scale = 2.25
+    lighthouse_light.texture_scale = 0.7
     lighthouse_light.shadow_enabled = false
     lighthouse_light.color = Color("ffe6a6")
-    lighthouse_light.position = (authored_sprites["lighthouse_landmark"] as Sprite2D).position + Vector2(0,-165)
+    lighthouse_light.position = (authored_sprites["lighthouse_landmark"] as Sprite2D).position + Vector2(0,-24)
     add_child(lighthouse_light)
     _apply_lighthouse_light()
 
@@ -330,7 +329,7 @@ func _apply_lighthouse_light() -> void:
     elif light_clock < 420:
         strength = float(420 - light_clock) / 90.0
     lighthouse_light.visible = light_quality > 0 and strength > 0.02
-    lighthouse_light.energy = strength * (0.65 if light_quality == 1 else 0.95)
+    lighthouse_light.energy = strength * (0.16 if light_quality == 1 else 0.25)
 
 func _make_cavern_lighting() -> void:
     cavern_grade=CanvasModulate.new()

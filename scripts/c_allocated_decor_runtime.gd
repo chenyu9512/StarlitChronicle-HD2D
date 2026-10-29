@@ -1,9 +1,9 @@
 extends Node2D
-## Explicitly promoted, allocated 32px props from the later-uploaded third-party library.
+## Canonical generated 32px prop variants for exact world placements.
 ## Decoration ONLY: never creates a route, entrance, collision, reward or save flag.
 const Art = preload("res://scripts/c_art_overrides.gd")
 const MANIFEST: String = "res://data/assets/c_art_allocated_decor_runtime_v1.json"
-const SOURCE_PREFIX: String = "res://assets/art/external/cc0_named_v1/props/"
+const SOURCE_PREFIX: String = "res://assets/art/runtime/allocated_decor_generated_v1/"
 const TILE: int = 32
 var placed: Dictionary = {}
 var skipped: Dictionary = {}

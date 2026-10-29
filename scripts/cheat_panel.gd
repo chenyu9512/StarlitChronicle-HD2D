@@ -107,6 +107,12 @@ func _ready() -> void:
     _button(flow, "关闭", Callable(self, "close"))
     shade.hide()
     _set_unlocked(false)
+    # Debug credentials and chapter skips must never enter player exports.
+    if not OS.has_feature("editor"):
+        star.hide()
+        star.disabled = true
+        set_process_unhandled_input(false)
+        return
 
 func _style() -> StyleBoxFlat:
     var style := StyleBoxFlat.new()
@@ -126,6 +132,8 @@ func _button(parent: Node, title: String, callback: Callable) -> void:
     parent.add_child(b)
 
 func _unhandled_input(event: InputEvent) -> void:
+    if not OS.has_feature("editor"):
+        return
     if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F10:
         _show_panel()
         get_viewport().set_input_as_handled()
@@ -134,6 +142,8 @@ func _unhandled_input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
 
 func _star_pressed() -> void:
+    if not OS.has_feature("editor"):
+        return
     if shade.visible:
         return
     var now: int = Time.get_ticks_msec()
@@ -146,6 +156,8 @@ func _star_pressed() -> void:
         _show_panel()
 
 func _show_panel() -> void:
+    if not OS.has_feature("editor"):
+        return
     if shade.visible:
         return
     shade.show()
@@ -155,6 +167,8 @@ func _show_panel() -> void:
     opened.emit()
 
 func _unlock() -> void:
+    if not OS.has_feature("editor"):
+        return
     if password_field.text == ACCESS_CODE:
         authenticated = true
         message_label.text = "验证成功。已开放调试指令。"

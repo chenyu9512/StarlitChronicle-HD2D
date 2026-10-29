@@ -3236,12 +3236,23 @@ func _rest() -> void:
     _focus()
 
 func _on_cheat_opened() -> void:
+    if not OS.has_feature("editor"):
+        return
     if is_instance_valid(battle):
         return
     busy = true
     world.locked = true
 
 func _restore_cheat_settings() -> void:
+    # Saves produced by an editor session must not leak invulnerability or
+    # accelerated progression into a distributable player build.
+    if not OS.has_feature("editor"):
+        invincible = false
+        no_encounters = false
+        five_xp = false
+        if world != null:
+            world.walk_speed = 141.0
+        return
     if progress == null:
         return
     var stored: Variant = progress.rpg.get("cheat_settings_v1",{})
@@ -3254,6 +3265,8 @@ func _restore_cheat_settings() -> void:
         world.walk_speed = 240.0 if bool(stored.get("speed_boost",false)) else 141.0
 
 func _run_cheat(command: String) -> void:
+    if not OS.has_feature("editor"):
+        return
     var message := "操作已执行。"
     match command:
         "heal": progress.heal_all()

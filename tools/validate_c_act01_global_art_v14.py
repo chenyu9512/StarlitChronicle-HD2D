@@ -38,6 +38,11 @@ def flatten(category, values):
             if not boss_id.startswith("boss.ch") or not boss_id[7:].isdigit():
                 raise ValueError("Unexpected boss chapter ID: " + boss_id)
             yield "chapter_" + str(int(boss_id[7:])), path
+    elif category == "backgrounds":
+        for map_id, path in values.items():
+            if not map_id.startswith("map_coast_") or not map_id[-2:].isdigit():
+                raise ValueError("Unexpected coastal background map: " + map_id)
+            yield "map_" + str(int(map_id[-2:])), path
     else:
         yield from values.items()
 

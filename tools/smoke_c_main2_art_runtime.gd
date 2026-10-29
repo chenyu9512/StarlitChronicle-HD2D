@@ -52,6 +52,36 @@ func _run() -> void:
         var pair: PackedStringArray = key.split(".")
         verify(unique.has(Production.runtime_source(pair[0],pair[1])),
             "Missing canonical live family: "+key)
+    # Every Act-I boss must have its own canonical static art AND a real
+    # imported six-state, four-frame sheet. A registered ID alone cannot
+    # satisfy the visual gate when a middle chapter's frames are missing.
+    var motion_doc: Variant = JSON.parse_string(FileAccess.get_file_as_string(
+        "res://assets/art/runtime/boss_motion_v1/manifest.json"))
+    verify(motion_doc is Dictionary,
+        "Missing physical boss-motion manifest for the first five chapter bosses")
+    if motion_doc is Dictionary:
+        var all_motion: Dictionary = motion_doc.get("assets", {})
+        for boss_chapter in range(2,7):
+            var boss_key: String = "boss_ch%03d" % boss_chapter
+            var boss_id: String = "boss.ch%03d" % boss_chapter
+            var official_path: String = Production.runtime_source("bosses", boss_key)
+            verify(not official_path.is_empty() and unique.has(official_path),
+                "Act-I boss has no assigned canonical game image: "+boss_id)
+            verify(Generated.boss_path(boss_id) == official_path and not official_path.is_empty(),
+                "Act-I boss art does not resolve from the runtime's actual boss ID: "+boss_id)
+            var picture: Texture2D = Generated.texture("bosses", boss_key)
+            verify(picture != null and picture.get_width() > 0 and picture.get_height() > 0,
+                "Act-I boss identity bitmap is missing or unreadable: "+boss_id)
+            var motion: Dictionary = all_motion.get(boss_key, {})
+            var frames_path: String = str(motion.get("source", ""))
+            verify(str(motion.get("source_identity", "")) == official_path,
+                "Act-I boss animation is derived from the wrong boss: "+boss_id)
+            var frames: Texture2D = null
+            if frames_path.begins_with("res://assets/art/runtime/boss_motion_v1/") and ResourceLoader.exists(frames_path):
+                frames = ResourceLoader.load(frames_path) as Texture2D
+            verify(frames != null and frames.get_size() == Vector2(512,768),
+                "Act-I boss lacks a real 4x6 attack/phase animation atlas: "+boss_id)
+
     var loaded: int = 0
     for path in unique.keys():
         var texture: Texture2D = Art.texture(str(path))

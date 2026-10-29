@@ -27,9 +27,9 @@ const SHELTER_PROPS: Dictionary = {
     "medical_registration_counter": true, "treatment_bench": true,
 }
 const SEMANTIC_ROOM_ICONS: Dictionary = {
-    "medicine":"res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_medicine.png",
-    "paper":"res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_paper.png",
-    "book":"res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_book.png"
+    "medicine":"res://assets/art/runtime/generated_gaps_v10/ui__extra__medicine.png",
+    "paper":"res://assets/art/runtime/generated_gaps_v10/ui__extra__paper.png",
+    "book":"res://assets/art/runtime/generated_gaps_v10/ui__extra__book.png"
 }
 var theme_atlas: String = ART_DIR+"inn_tileset.svg"
 var soundscape

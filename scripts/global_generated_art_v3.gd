@@ -23,6 +23,12 @@ const LEGACY_CAST: Dictionary = {
     "lanyin": "char_tidecaller",
     "shuoxian": "char_seeker",
     "chengzhou": "char_vanguard",
+    "leiso": "char_vanguard",
+    "tifa": "char_smith",
+    "ize": "char_alchemist",
+    "xuanli": "char_navigator",
+    "nuoyi_adult": "char_alchemist",
+    "weisha": "char_mirrorweaver",
 }
 const PROP_ROLES: Array[String] = [
     "tree", "cottage", "shop", "shrine", "well", "lantern", "crate", "banner"

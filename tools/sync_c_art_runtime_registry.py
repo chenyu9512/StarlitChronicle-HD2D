@@ -18,6 +18,7 @@ REGIONS = (
 )
 FACTORY = "res://assets/art/runtime/global_factory_v3/"
 DETAIL_PASS = "res://assets/art/runtime/refined_overrides_v1/"
+SEMANTIC_PASS = "res://assets/art/runtime/semantic_generated_v1/"
 GROUPS = {"terrain", "ui", "props", "maps", "interiors",
           "characters", "npcs", "monsters", "bosses"}
 ROLES = ("tree", "cottage", "shop", "shrine", "well", "lantern", "crate", "banner")
@@ -160,7 +161,7 @@ def synchronize(root: Path) -> dict:
     current["shore_wave_sources"]={k:v["source"] for k,v in wave_records.items()}
     for path, sha in physical.items():
         previous = old.get(path, {})
-        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS)
+        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS) or path.startswith(SEMANTIC_PASS)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,

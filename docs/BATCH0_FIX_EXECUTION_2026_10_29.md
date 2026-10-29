@@ -90,3 +90,22 @@
 2. 第一幕六章须经不作弊的实际玩家动作、村镇进出、收容所两项实地病例检查、第四章酒馆证据、第三章机关、第五章救援红旗/星锁、第六章灯塔灯芯、五Boss真实指令与V3回执逐项通过。
 3. 全40地图/153室内必须有正常实际进退/布局/场景截图，不用静态地图展示替代。
 4. 20职业、66Boss、120任务和72章逐项独立签收，最终人工美术/发行/平台真机回归尚未完成。
+
+
+## Batch 0 续修：真实地面与第一幕推进（2026-10-29，本轮新增）
+
+| 问题 | 直接修复 | 同SHA证据 |
+|---|---|---|
+| 已删除旧地砖导致部分城镇地面无可绘制回退 | `WorldTilesetPool`改为从V10材料构建32px×8×8地面/水面，保持真实TileMap与碰撞 | [run 40887466269](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40887466269)，`7967df2b` **SUCCESS** |
+| Boss生成器升级后，旧美术测试误将真正六状态动画图集切换当成“身份图被替换” | `tools/smoke_main2_act01_live_boss_motion.gd`支持`generated_six_state_atlas`，强制检查五个真实512×768动画源、原始肖像安全保留、可切换攻击/受击/阶段/失败动画和shader反馈；无跳过Boss战斗 | `c3643f08` 已提交；**最新同SHA CI未确认** |
+| 五张海岸地图原来都被通用地区地面图集覆盖，场景缺少真实区域差异 | `WorldTerrainAtlasRegistry`以V14已登记的每图V10地表与水面优先，Pixel Fantasy玩家整包主题仍优先，其他地区和缺失来源仍安全回退 | `fcf765e7`、`148dcd22`、`540f1abc` 已提交；主题兼容与Pixel Fantasy专项在`148dcd22`成功 |
+| 每图V10地表缺少“沙地/可走道路/悬崖”语义区分 | `CCoherentTerrainMaterials.assemble`读取V10具名地形素材及材质源，按正式地形行重构8×8图集；四张地图进一步调整道路、沙地、峭壁明度，保留第3章洞窟的独立雕刻道路配色 | `1d53dd47`、`e98b5c21`、`4b7a76ba`；**最新美术CI待复核** |
+| 第一幕正常通关两套检查在第2章卡住：真人必须进入收容所并检查病历，不可在街道直接触发Boss | `smoke_first_act_flow.gd`、`smoke_act01_six_chapters_normal.gd`在第2章使用真正`building:shelter`实体入口和`homeinspect:`互动，确认2份V3病例调查收据；第4章亦实际进入黑帆酒馆和核查两项真实证据，不伪造剧情/战斗胜利旗标 | `0cac996f`、`e3d06275` 已提交；**最新完整六章CI待复核** |
+
+### 修复前的对照事实
+
+- [旧统一Main2执行run 40887466268](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40887466268)：历史执行日志达到`54/56`，剩余`smoke_first_act_flow`和`smoke_act01_six_chapters_normal`，都在第二章收容所调查卡住；该流程最终因后续HEAD被取消，**不能当成最新HEAD全通过**。
+- [原美术失败run 40887906421](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40887906421)：新地形V10图集里沙地/道路/悬崖仍没有明显区别，已做`4b7a76ba`进一步色彩角色修复，等待新SHA实跑。
+- [原美术成功run 40886321749](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40886321749)：16项Godot美术专项通过仅对`e9a377b3`有效，不能将成功挪用到随后的Boss动画或地图改造提交。
+
+未签收：第一幕真实无作弊六章全通、全部Boss战斗和奖励账本、玩家逐地图/室内人工验收、发行包在目标机实际操作与全游戏商业美术质量。下一批持续按**最新同SHA失败日志 → 正式运行代码 → 同SHA Godot验证 → 玩家画面**修复。

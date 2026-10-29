@@ -200,6 +200,26 @@ def create_snapshot(source, output, with_smoke=False):
     if regional_index not in known:
         raise RuntimeError("Regional NPC runtime source manifest missing")
     selected.add(regional_index)
+    # Ship regenerated V4.2 derivatives only when their original visual
+    # source belongs to this playable snapshot. Retain original source paths
+    # for provenance and fallback; the runtime resolver uses exact route keys.
+    overlay_manifest = "assets/art/runtime/refined_overrides_v1/manifest.json"
+    if overlay_manifest in known:
+        overlay = data(source, overlay_manifest)
+        if overlay.get("schema") != "starlit.refined_overrides.v1":
+            raise RuntimeError("Invalid regenerated detail manifest")
+        selected.add(overlay_manifest)
+        for original, row in overlay.get("routes", {}).items():
+            if not original.startswith("res://assets/art/") or ".." in original:
+                raise RuntimeError("Unsafe regenerated art original: " + str(original))
+            old = original.removeprefix("res://")
+            replacement = str(row.get("output", "")).removeprefix("res://")
+            if not replacement.startswith("assets/art/runtime/refined_overrides_v1/") or ".." in replacement:
+                raise RuntimeError("Unsafe regenerated runtime image: " + replacement)
+            if old in selected and replacement in known:
+                selected.add(replacement)
+            elif old in selected:
+                raise RuntimeError("Missing playable regenerated image: " + replacement)
     if with_smoke:
         for script in SMOKES:
             p = "tools/" + script

@@ -82,33 +82,42 @@ func seam_count() -> int:
 func _draw() -> void:
     if _quality == 0:
         return
-    # Paint both sides of every material boundary, falling off into their own
-    # original textures. The deterministic eight-pixel subsegments prevent
-    # long ruler-straight seams. Draw commands are static and collision-free.
+    # Feather the *actual* material boundary with an irregular contour,
+    # not ruler-straight horizontal/vertical lines. The underlying TileSet,
+    # its collision and all path coordinates remain the sole gameplay truth.
+    # Each boundary is emitted exactly once (RIGHT and DOWN neighbors only).
     var passes: int = PASS_COUNT if _quality >= 2 else 2
     for seam in _seams:
         var cell: Vector2i = seam["cell"]
-        var dir: Vector2i = seam["direction"]
-        var a: Color = seam["color_a"]
-        var b: Color = seam["color_b"]
-        var contrast: float = clampf(float(seam["difference"]),0.22,1.0)
-        var origin: Vector2 = Vector2(cell*TILE)
-        var vertical: bool = dir == Vector2i.RIGHT
-        var boundary: float = origin.x+TILE if vertical else origin.y+TILE
+        var direction: Vector2i = seam["direction"]
+        var neighbor_a: Color = seam["color_a"]
+        var neighbor_b: Color = seam["color_b"]
+        var contrast: float = clampf(float(seam["difference"]),0.20,1.0)
+        var normal: Vector2 = Vector2.RIGHT if direction == Vector2i.RIGHT else Vector2.DOWN
+        var tangent: Vector2 = Vector2.DOWN if direction == Vector2i.RIGHT else Vector2.RIGHT
+        var origin: Vector2 = Vector2(cell*TILE) + normal*float(TILE)
+        var influence: float = clampf(contrast*1.2,0.45,1.0)
         for segment in range(4):
-            var jitter: int = posmod(cell.x*13+cell.y*31+segment*17,3)-1
-            for pass_index in range(passes):
-                var thickness: float = 2.0 if pass_index < 2 else 3.0
-                var reach: float = float(pass_index*3 + jitter)
-                var strength: float = (0.34 if pass_index == 0 else (0.20 if pass_index == 1 else 0.09)) * clampf(contrast*1.1,0.55,1.0)
-                var tint_b: Color = b
-                var tint_a: Color = a
-                tint_b.a = strength
-                tint_a.a = strength
-                var offset: float = float(segment*8)
-                if vertical:
-                    draw_rect(Rect2(boundary - reach - thickness,origin.y+offset,thickness,8.0),tint_b)
-                    draw_rect(Rect2(boundary + reach,origin.y+offset,thickness,8.0),tint_a)
-                else:
-                    draw_rect(Rect2(origin.x+offset,boundary - reach - thickness,8.0,thickness),tint_b)
-                    draw_rect(Rect2(origin.x+offset,boundary + reach,8.0,thickness),tint_a)
+            var start: Vector2 = origin + tangent*float(segment*8)
+            var finish: Vector2 = start + tangent*8.0
+            # Neighbouring 8px strokes share their boundary endpoints. The
+            # 3px noise variation breaks up square silhouette seams.
+            var hash0: int = posmod(cell.x*31+cell.y*17+segment*19,7)-3
+            var hash1: int = posmod(cell.x*31+cell.y*17+(segment+1)*19,7)-3
+            var mid0: Vector2 = start + normal*float(hash0)
+            var mid1: Vector2 = finish + normal*float(hash1)
+            for band in range(passes):
+                var reach: float = 10.0 if band==0 else (6.0 if band==1 else 3.0)
+                var opacity: float = (0.10 if band==0 else (0.16 if band==1 else 0.26))*influence
+                var blend_b: Color = neighbor_b
+                var blend_a: Color = neighbor_a
+                blend_b.a = opacity
+                blend_a.a = opacity
+                # Two interlocking tapered masks hide the original square
+                # boundary while respecting the authored map footprint.
+                var inside: PackedVector2Array = PackedVector2Array([
+                    start-normal*reach, finish-normal*reach, mid1, mid0])
+                var outside: PackedVector2Array = PackedVector2Array([
+                    mid0, mid1, finish+normal*reach, start+normal*reach])
+                draw_colored_polygon(inside,blend_b)
+                draw_colored_polygon(outside,blend_a)

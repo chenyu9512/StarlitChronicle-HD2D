@@ -435,6 +435,24 @@ def synchronize(root: Path) -> dict:
     }
     current["version"] = "global-factory-v3-auto-synced"
     current.pop("audit_head", None)
+    # Keep the baseline 109-slot Godot theme in sync with the generated-only
+    # canonical sources. A generated image is NOT automatic visual approval.
+    theme_path = root / "data/assets/art_theme_v2.json"
+    if theme_path.is_file():
+        theme = read(theme_path)
+        if theme.get("schema") != "starlit.art_theme.v2":
+            raise ValueError("Unexpected V2 art-theme schema")
+        baseline = next((item for item in theme.get("themes", [])
+                         if item.get("id") == "starlit_hd2d_act01"), None)
+        if baseline is None or set(baseline.get("slots", {})) != set(current.get("canonical_slots", {})):
+            raise ValueError("109 art-theme slots do not match canonical registry")
+        for key, row in baseline["slots"].items():
+            source = str(current["canonical_slots"][key].get("source", ""))
+            row["source"] = source
+            row["stage"] = "runtime_generated_pending_visual_signoff" if source else "retired_unmapped"
+        theme_text = json.dumps(theme, ensure_ascii=False, indent=2) + "\n"
+        if theme_path.read_text(encoding="utf-8") != theme_text:
+            theme_path.write_text(theme_text, encoding="utf-8")
     new_text = json.dumps(current, ensure_ascii=False, indent=2) + "\n"
     if registry_file.read_text(encoding="utf-8") != new_text:
         registry_file.write_text(new_text, encoding="utf-8")

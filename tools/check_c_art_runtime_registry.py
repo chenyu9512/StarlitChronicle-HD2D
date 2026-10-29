@@ -107,8 +107,9 @@ def main() -> int:
                         errors.append("Generated normal map SHA mismatch: " + slot)
                     nh = local.read_bytes()[:24]
                     dh = diffuse.read_bytes()[:24]
-                    if not (nh.startswith(b"\\x89PNG\\r\\n\\x1a\\n") and
-                            dh.startswith(b"\\x89PNG\\r\\n\\x1a\\n") and nh[16:24] == dh[16:24]):
+                    png_magic = bytes((137, 80, 78, 71, 13, 10, 26, 10))
+                    if not (nh.startswith(png_magic) and dh.startswith(png_magic) and
+                            nh[16:24] == dh[16:24]):
                         errors.append("Generated normal map dimensions differ: " + slot)
         if live.get("asset_count") != len(generated_declared):
             errors.append("Generated manifest count does not match its assets")

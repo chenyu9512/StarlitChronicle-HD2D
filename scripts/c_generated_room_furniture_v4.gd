@@ -4,6 +4,27 @@ extends RefCounted
 ## These are provisional generated art, NOT a hand-painted visual approval.
 static var _textures: Dictionary = {}
 
+## Finishing pass for the existing per-role furnishings: subdued bevel highlights
+## and sparse woodgrain make the different 64px assets share one HD2D lighting
+## language without changing their occupancy, quest IDs or actor hit boxes.
+static func _finish_surface(image: Image, kind: String) -> void:
+    var source: Image = image.duplicate() as Image
+    var oak: Color = Color("71503e")
+    var light: Color = Color("be9166")
+    for y in range(5, 59):
+        for x in range(5, 59):
+            var sample: Color = source.get_pixel(x, y)
+            if sample.a < 0.95:
+                continue
+            var upper: Color = source.get_pixel(x, y - 1)
+            var lower: Color = source.get_pixel(x, y + 1)
+            if upper.a < 0.35:
+                image.set_pixel(x, y, sample.lightened(0.15))
+            elif lower.a < 0.35:
+                image.set_pixel(x, y, sample.darkened(0.14))
+            elif (sample.is_equal_approx(oak) or sample.is_equal_approx(light)) and posmod(x * 11 + y * 7 + kind.hash(), 29) == 0:
+                image.set_pixel(x, y, sample.lightened(0.12))
+
 static func texture(kind: String) -> Texture2D:
     if _textures.has(kind):
         return _textures[kind] as Texture2D
@@ -100,6 +121,7 @@ static func texture(kind: String) -> Texture2D:
             # Distinct missing roles remain detectable in logs instead of
             # silently drawing a semantically incorrect substitute.
             return null
+    _finish_surface(image, kind)
     var result: Texture2D = ImageTexture.create_from_image(image)
     _textures[kind] = result
     return result

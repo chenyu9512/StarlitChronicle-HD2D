@@ -108,7 +108,8 @@ func _run() -> void:
     for prop in village_props.values():
         if str(prop.get_meta("art_kind",""))=="great-oak":
             var src: String=str(prop.get_meta("source_path",""))
-            verify(src.ends_with("/great-oak.png"),"Dew Village oak source role drift")
+            verify(src=="res://assets/art/runtime/generated_gaps_v10/prop__hd2d__great_oak.png",
+                "Dew Village oak source role drift")
             verify(prop.texture!=null,"Dew Village oak has no imported artwork")
             oak_found=true
         verify(str(prop.get_meta("art_kind",""))!="cherry-tree",

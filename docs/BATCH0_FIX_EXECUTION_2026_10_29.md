@@ -122,3 +122,21 @@
 - `.github/workflows/main2-ci.yml`（`6187d9f296df`）纳入两份第一幕冒烟脚本和两份海岸材质/布局冒烟脚本的push触发路径，修复此前仅改脚本却不自动重跑正式统一门禁的遗漏。
 
 [新统一CI run 40890222792](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40890222792) 已在`6187d9f296df`提交触发；**记录此条时仍在执行，不能标记成功**。即使日后全部静态/自动化用例通过，脚本通过靠地图标记位置驱动`world.interact()`，并非真实人类从出生点步行操作；全地图无作弊手柄导航、画面审美、性能及发行仍需要独立签收。
+
+
+## Batch 0 阶段成功：正式统一质量门禁 56 / 56
+
+[GitHub Actions run 40890222792](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40890222792) 在精确源提交`6187d9f296df208da205b2b5121e1cfc10fb9e99`的QA主作业 **SUCCESS**：`MAIN2_QA_RESULT 56 / 56`。此前停在第五章的`smoke_first_act_flow.gd`和无作弊`smoke_act01_six_chapters_normal.gd`均以返回码0完成，全局地图、小地图、第一幕地图可达性、室内、战斗、存档和场景资源等其他54项均通过。此为按地图标记驱动的实际Godot自动化通关，不等同真人手柄步行或人工画面审美签收。
+
+**同运行的Runtime发布子作业失败**，原因为`tools/build_runtime_snapshot.py`读取已经删除的`data/assets/c_third_party_only_migration_v1.json`；随后核查发现同一构建器还依赖已删除的V12 Foozle、V17 SVG/PNG、V18旧目录。不存在的第三方素材不能恢复。
+
+### Runtime线持续修复（不改main，不强制推送）
+
+- `tools/build_runtime_snapshot.py`重建为以正式`global_factory_v3/active.json`、`generated_gaps_v10/manifest.json`、`boss_motion_v1/manifest.json`、`art_theme_v2.json`、实际V4酒馆/收容所、V14/V18正式分配以及运行时`c_art_runtime_registry_v1.json`为唯一素材依据；排除源包、候选、旧external。
+- `tools/verify_runtime_snapshot.py`更新为实际451张V3主图、401张法线、116张V10具名图、66份Boss动作以及288项新生成物品/装备/技能图标的完整SHA256验证，覆盖海浪/场景装饰及109正式主题槽。
+- `tools/smoke_c_regional_monsters_v15.gd`不再读取已经删除的V15常量，严格按正式运行注册表验证7种独立地区怪物图像与战斗身份。
+- `tools/build_runtime_snapshot.py`和`.github/workflows/main2-to-runtime.yml`纳入`smoke_act01_six_chapters_normal.gd`，精简游戏包同样必须完成正常战斗/保存回执，不仅跑无敌故事流。
+- `.github/workflows/main2-to-runtime.yml`删除历史遗留的`--force-with-lease`分支，**仅允许普通fast-forward推送**，出现并发版本冲突时失败而不是覆盖远端。
+- 在代码改造时，以Main2当前在线树及已登记的正式资源源路径核对，约1373个不同资源源路径存在；这些仅是**静态来源检查**，不可替代CI实际构建、Godot导入及内容使用验收。
+
+**最新Runtime独立构建/发布：未确认成功**。待GitHub同SHA发布工作流实跑后按日志判断，不把已通过的主QA与仍可能失败的发行混为一谈。

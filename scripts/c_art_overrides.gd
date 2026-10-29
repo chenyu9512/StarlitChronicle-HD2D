@@ -36,6 +36,7 @@ const RUNTIME_INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const GeneratedCompat = preload("res://scripts/c_generated_compat_v10.gd")
 const Refined = preload("res://scripts/c_art_refined_overrides_v1.gd")
 const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
 const PACK_ROOT: String = "user://c_art_packs"
@@ -200,6 +201,9 @@ static func third_party_source(path: String) -> String:
     return str(_third_party_paths.get(path, path))
 
 static func original_texture(path: String) -> Texture2D:
+    var original_generated: Texture2D = GeneratedCompat.texture(path)
+    if original_generated != null:
+        return original_generated
     var replacement: Texture2D = Generated.legacy_texture(path)
     if replacement != null:
         return replacement
@@ -229,6 +233,9 @@ static func _fit_later_uploaded(source: Texture2D, destination: Vector2i) -> Tex
     return ImageTexture.create_from_image(output)
 
 static func texture(path: String) -> Texture2D:
+    var exact_generated: Texture2D = GeneratedCompat.texture(path)
+    if exact_generated != null:
+        return exact_generated
     _load()
     # Canonical generator wins over unrelated historical aliases except when
     # the player explicitly chose the six-role later-upload pack. That pack

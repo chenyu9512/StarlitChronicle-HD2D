@@ -8,6 +8,10 @@ on:
       - "scripts/c_generated_room_furniture_v4.gd"
       - "scripts/world_interior_art.gd"
       - "scripts/first_act_ui.gd"
+      - "scripts/world_ground_transitions_v6.gd"
+      - "scripts/first_act_world.gd"
+      - "scripts/first_act_actor.gd"
+      - "tools/smoke_world_ground_transitions_v6.gd"
   workflow_dispatch:
 permissions:
   contents: read
@@ -61,13 +65,15 @@ jobs:
         shell: bash
         run: |
           mkdir -p build/latest-frame-qa
-          for name in smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion smoke_coastal_interiors smoke_b_act01_journey smoke_c_act01_hd2d_v18; do
+          for name in smoke_world_ground_transitions_v6 smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion smoke_coastal_interiors smoke_b_act01_journey smoke_c_act01_hd2d_v18; do
             echo "RUN $name"
             timeout 80s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$name.gd" > "build/latest-frame-qa/$name.log" 2>&1 || printf '%s\n' "FAILED $name" >> build/latest-frame-qa/failed-tests.txt
             tail -n 6 "build/latest-frame-qa/$name.log"
           done
-          test ! -s build/latest-frame-qa/failed-tests.txt || cat build/latest-frame-qa/failed-tests.txt
-        continue-on-error: true
+          if test -s build/latest-frame-qa/failed-tests.txt; then
+            cat build/latest-frame-qa/failed-tests.txt
+            exit 1
+          fi
       - name: Require fixed twelve-room interior integrity
         shell: bash
         run: |

@@ -2,6 +2,7 @@ extends SceneTree
 ## Real Godot import and semantic texture smoke; not a substitute for visual signoff.
 const ArtTheme = preload("res://scripts/c_art_theme_v2.gd")
 const Art = preload("res://scripts/c_art_overrides.gd")
+const BossMotion = preload("res://scripts/c_boss_action_atlas_v1.gd")
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -80,6 +81,17 @@ func _run() -> void:
     var uncatalogued: String = ""
     for slot_id in manifest_slots.keys():
         var p: String = str((manifest_slots[slot_id] as Dictionary).get("source", ""))
+        var stage: String = str((manifest_slots[slot_id] as Dictionary).get("stage", ""))
+        if stage == "candidate_not_approved_boss_identity":
+            # Five retired concept images deliberately cannot be loaded as
+            # final bosses. Require the correctly identified new action art.
+            var identity: String = p.get_file().trim_prefix("boss_").trim_suffix(".png")
+            if Art.texture(p) != null or BossMotion.texture(identity) == null:
+                push_error("Retired candidate exposed or canonical boss motion missing: " + str(slot_id))
+                ArtTheme.activate(before)
+                quit(1)
+                return
+            continue
         if Art.texture(p) == null:
             push_error("Actual gameplay art resolver misses physical V2 slot: " + str(slot_id))
             ArtTheme.activate(before)

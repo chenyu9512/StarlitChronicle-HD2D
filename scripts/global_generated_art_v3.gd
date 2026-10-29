@@ -82,6 +82,13 @@ static func legacy_texture(original: String) -> Texture2D:
         return null
     var file: String = original.get_file().to_lower()
     # Old party movement atlas paths retain the exact 96x192, 3x4 framing.
+    # Exact legacy roles are deliberately redirected to current identity art.
+    # Never broadly redirect unrelated archive images by substring.
+    match original:
+        "res://assets/art/backdrops/coast/tide_lighthouse.png":
+            return texture("maps", "map_coast_05")
+        "res://assets/art/props/coast/star_lantern.png", "res://assets/props/lamp.png":
+            return texture("props", "region_coast_lantern")
     if original.ends_with("/walk_4dir_3frames.png"):
         var cast_id: String = str(LEGACY_CAST.get(original.get_base_dir().get_file(), ""))
         return texture("characters", cast_id) if not cast_id.is_empty() else null

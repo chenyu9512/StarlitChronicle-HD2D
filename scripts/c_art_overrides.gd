@@ -208,11 +208,47 @@ static func original_texture(path: String) -> Texture2D:
         return null
     return ResourceLoader.load(resolved) as Texture2D
 
+## Render the already-reviewed 32px source inside the existing logical
+## sprite dimensions without stretching a square into a tall rectangle.
+## This is a visual-only replacement; world collision remains authoritative.
+static func _fit_later_uploaded(source: Texture2D, destination: Vector2i) -> Texture2D:
+    var pixels: Image = source.get_image()
+    if pixels == null or pixels.is_empty() or destination.x < 1 or destination.y < 1:
+        return null
+    pixels.convert(Image.FORMAT_RGBA8)
+    var factor: float = minf(float(destination.x)/float(pixels.get_width()),
+        float(destination.y)/float(pixels.get_height()))
+    var width: int = maxi(1,mini(destination.x,roundi(float(pixels.get_width())*factor)))
+    var height: int = maxi(1,mini(destination.y,roundi(float(pixels.get_height())*factor)))
+    pixels.resize(width,height,Image.INTERPOLATE_NEAREST)
+    var output: Image = Image.create(destination.x,destination.y,false,Image.FORMAT_RGBA8)
+    output.fill(Color.TRANSPARENT)
+    output.blit_rect(pixels,Rect2i(0,0,width,height),
+        Vector2i((destination.x-width)/2,(destination.y-height)/2))
+    return ImageTexture.create_from_image(output)
+
 static func texture(path: String) -> Texture2D:
+    _load()
+    # Canonical generator wins over unrelated historical aliases except when
+    # the player explicitly chose the six-role later-upload pack. That pack
+    # must actually change pixels in gameplay, not merely report activation.
+    if _active_pack_id == "uploaded_later_v1" and not ThemeV2.is_active():
+        var selected: Dictionary = (_packs.get(_active_pack_id, {}) as Dictionary).get("mappings", {})
+        if selected.has(path) and _entries.has(path):
+            if _cache.has(path):
+                return _cache[path] as Texture2D
+            var candidate: String = str(selected[path])
+            if candidate.begins_with("res://assets/art/external/cc0_named_v1/") and not candidate.contains(".."):
+                var source: Texture2D = original_texture(candidate)
+                var baseline: Texture2D = original_texture(path)
+                if source != null and baseline != null and not bool((_entries[path] as Dictionary).get("atlas",false)):
+                    var picture: Texture2D = _fit_later_uploaded(source,Vector2i(baseline.get_size()))
+                    if picture != null:
+                        _cache[path] = picture
+                        return picture
     var generated_texture: Texture2D = Generated.legacy_texture(path)
     if generated_texture != null:
         return generated_texture
-    _load()
     # Candidate source filename is NOT an approved combat boss identity.
     if path.begins_with("res://assets/art/runtime/act01_global_v14/boss_candidates/"):
         return null
@@ -467,7 +503,7 @@ static func pack_report(id: String) -> Dictionary:
         var atlas: bool = bool((_entries[slot] as Dictionary).get("atlas", false))
         var match_size: bool = actual == expected
         var ratio_ok: bool = absf(float(actual.x) * float(expected.y) / (float(actual.y) * float(expected.x)) - 1.0) <= 0.12
-        if (match_size if atlas else ratio_ok) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32) or (id.begins_with("user_") and _shared_terrain_slot(slot) and actual == Vector2i(256,256)):
+        if (match_size if atlas else ratio_ok) or (id == "uploaded_later_v1" and not atlas and source.begins_with("res://assets/art/external/cc0_named_v1/")) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32) or (id.begins_with("user_") and _shared_terrain_slot(slot) and actual == Vector2i(256,256)):
             usable += 1
             if has_override(slot):
                 personal += 1

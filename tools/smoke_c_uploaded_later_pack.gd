@@ -57,9 +57,19 @@ func _run() -> void:
         if expected_image == null or current_image == null:
             errors.append("Cannot compare texture pixels: " + target)
             continue
-        if Vector2i(expected_image.get_size()) != destination_size:
-            expected_image.resize(destination_size.x, destination_size.y, Image.INTERPOLATE_NEAREST)
+        # The six-pair DLC uses aspect-preserving padding rather than
+        # stretching a square legacy prop into a 96x128 figure.
         expected_image.convert(Image.FORMAT_RGBA8)
+        var factor: float = minf(float(destination_size.x)/float(expected_image.get_width()),
+            float(destination_size.y)/float(expected_image.get_height()))
+        var fitted_w: int = maxi(1,mini(destination_size.x,roundi(float(expected_image.get_width())*factor)))
+        var fitted_h: int = maxi(1,mini(destination_size.y,roundi(float(expected_image.get_height())*factor)))
+        expected_image.resize(fitted_w,fitted_h,Image.INTERPOLATE_NEAREST)
+        var padded: Image = Image.create(destination_size.x,destination_size.y,false,Image.FORMAT_RGBA8)
+        padded.fill(Color.TRANSPARENT)
+        padded.blit_rect(expected_image,Rect2i(0,0,fitted_w,fitted_h),
+            Vector2i((destination_size.x-fitted_w)/2,(destination_size.y-fitted_h)/2))
+        expected_image = padded
         current_image.convert(Image.FORMAT_RGBA8)
         if expected_image.get_data() != current_image.get_data():
             errors.append("Still displaying an old fallback, not uploaded pixels: " + target)

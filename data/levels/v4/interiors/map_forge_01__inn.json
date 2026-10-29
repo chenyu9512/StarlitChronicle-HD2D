@@ -4,7 +4,7 @@
   "map_id": "map_forge_01",
   "building_id": "inn",
   "name": "熔炉港·旅人客栈",
-  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "status": "b_regional_functional_visuals_integrated_pending_godot_signoff",
   "size": [
     72,
     48
@@ -227,11 +227,247 @@
       "interaction_status": "authored_no_reward"
     }
   ],
-  "art_profile": "",
-  "visuals": [],
-  "light_sources": [],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_inn_0",
+      "asset": "counter",
+      "cell": [
+        25,
+        22
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_1",
+      "asset": "travelers_shelf",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_2",
+      "asset": "provisions_shelves",
+      "cell": [
+        46,
+        17
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_4",
+      "asset": "tideway_chart",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_5",
+      "asset": "harbor_guest_bed",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        106,
+        82
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_6",
+      "asset": "guild_noticeboard",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_7",
+      "asset": "barrels",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_entry_rug",
+      "asset": "rug",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        94,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_wall_window",
+      "asset": "window",
+      "cell": [
+        36,
+        12
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        66
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inquiry_0",
+      "asset": "tideway_chart",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inquiry_1",
+      "asset": "guild_noticeboard",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "entry_lamp",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.25,
+      "energy": 0.74
+    },
+    {
+      "id": "service_lamp",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.15,
+      "energy": 0.68
+    },
+    {
+      "id": "room_corner_lamp",
+      "cell": [
+        46,
+        21
+      ],
+      "scale": 1.1,
+      "energy": 0.59
+    }
+  ],
   "region_design": "熔炉港 · volcanic",
   "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
   "interior_owner_id": "",
-  "interaction_status": "no_reward_interactive_room"
+  "interaction_status": "no_reward_interactive_room",
+  "room_day_tint": "e4c9b5",
+  "room_night_tint": "aa8578",
+  "visual_revision": 2
 }

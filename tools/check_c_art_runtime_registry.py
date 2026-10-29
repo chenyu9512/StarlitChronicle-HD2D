@@ -155,6 +155,47 @@ def main() -> int:
             if not header.startswith(b"\x89PNG\r\n\x1a\n") or struct.unpack(">II", header[16:24]) != (256, 256):
                 errors.append("Non-256x256 generated regional atlas: " + key)
 
+    # V4.2 path-exact regenerated derivatives are registered live images,
+    # not source-only candidates. Validate both source and output digests.
+    variant_root = "res://assets/art/runtime/refined_overrides_v1/"
+    variant_file = ROOT / "assets/art/runtime/refined_overrides_v1/manifest.json"
+    variants = {}
+    if variant_file.is_file():
+        variant_manifest = json.loads(variant_file.read_text(encoding="utf-8"))
+        if variant_manifest.get("schema") != "starlit.refined_overrides.v1":
+            errors.append("Invalid regenerated derivative schema")
+        variants = variant_manifest.get("routes", {})
+        if not isinstance(variants, dict) or len(variants) != variant_manifest.get("count"):
+            errors.append("Regenerated derivative count mismatch")
+            variants = {}
+        for original, row in variants.items():
+            output = row.get("output", "")
+            if (not output.startswith(variant_root) or original not in actual or
+                output not in actual or ".." in original or ".." in output):
+                errors.append("Invalid or missing regenerated derivative: " + original)
+                continue
+            origin = file_path(original)
+            target = file_path(output)
+            if origin is None or target is None:
+                errors.append("Unsafe regenerated derivative: " + original)
+                continue
+            if (hashlib.sha256(origin.read_bytes()).hexdigest() != row.get("source_sha256") or
+                hashlib.sha256(target.read_bytes()).hexdigest() != row.get("sha256")):
+                errors.append("Regenerated derivative checksum mismatch: " + original)
+            if origin.read_bytes()[:24][16:24] != target.read_bytes()[:24][16:24]:
+                errors.append("Regenerated derivative pixel size mismatch: " + original)
+        declared_outputs = {row.get("output") for row in variants.values()}
+        for path in sorted(p for p in actual if p.startswith(variant_root) and p not in declared_outputs):
+            errors.append("Unregistered regenerated derivative: " + path)
+        official_routes = index.get("refined_generated_routes", {})
+        if set(official_routes) != set(variants):
+            errors.append("Regenerated derivative registry not synchronized")
+        else:
+            for source, record in variants.items():
+                official = official_routes[source]
+                if official.get("output") != record.get("output") or official.get("sha256") != record.get("sha256"):
+                    errors.append("Regenerated derivative canonical index mismatch: " + source)
+
     hashes: dict[str, list[str]] = defaultdict(list)
     for source, row in entries.items():
         local = file_path(source)
@@ -241,6 +282,7 @@ def main() -> int:
         "factory_images": len(generated_actual),
         "factory_manifest_images": len(generated_declared),
         "factory_normal_maps": len(normal_declared),
+        "refined_generated_routes": len(variants),
         "factory_terrain_images": len(expected_terrain & actual),
         "indexed_generated_images": len(declared_index),
         "registry_images": len(entries),

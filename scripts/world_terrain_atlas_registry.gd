@@ -2,6 +2,7 @@ extends RefCounted
 ## C V8 central terrain atlas registry: source IDs stay 0 ground / 1 water.
 ## This module deliberately has no dependency on CArtOverrides or TilePool.
 const Coherent = preload("res://scripts/c_coherent_terrain_materials.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const REGISTRY_PATH: String = "res://data/assets/c_shared_terrain_v8.json"
 const CORE_GROUND: String = "res://assets/art/tilesets/coast_ground.png"
 const CORE_WATER: String = "res://assets/art/tilesets/coast_water.png"
@@ -115,6 +116,10 @@ static func atlas_sources(region_id: String, map_id: String,
             water = outdoor_water
     elif not authored_atlas.is_empty() and _has_source(authored_atlas):
         land = authored_atlas
+    if outdoors:
+        var generated: Array[String] = Generated.terrain_paths(region_id)
+        if generated.size() == 2:
+            return generated
     var pixel_local: Array[String] = pixel_theme_paths(region_id, outdoors)
     if pixel_local.size() == 2:
         return pixel_local

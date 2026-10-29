@@ -1,0 +1,144 @@
+name: "Main2 Once · Global Data and Real-Frame Evidence"
+# Companion to godot-full-smoke-suite: one explicit marker push triggers both.
+# No gameplay/source mutation, no automatic release, no success if any gate fails.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "docs/qa-full-trigger.json"
+permissions:
+  contents: read
+concurrency:
+  group: main2-global-evidence-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  data-integrity:
+    name: Full content, geometry, quests, saves, art and story validators
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validator dependencies
+        run: python -m pip install --disable-pip-version-check pillow pyyaml
+      - name: Execute independent validation scripts, preserving every failure
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, subprocess, sys, time
+          names = [
+            'validate_release_gate.py', 'validate_delivery_matrix.py',
+            'validate_project.py', 'validate_story.py', 'validate_content.py',
+            'build_and_validate_story.py', 'validate_cinematics.py',
+            'validate_story_progression.py', 'validate_first_act.py',
+            'validate_act01_canonical_routes.py', 'validate_no_fog_local_map.py',
+            'validate_act01_distinct_layouts.py', 'validate_b_line_delivery.py',
+            'validate_b_npc_home.py', 'validate_b_act01_harbor_rooms.py',
+            'validate_b_act01_coastal_landmarks.py', 'validate_b_act01_journey.py',
+            'validate_b_act01_commercial.py', 'validate_phase19_world_anchors.py',
+            'validate_phase19_scene_dressing.py', 'validate_phase19_lost_page_rooms.py',
+            'validate_phase19_lost_page_puzzles.py', 'validate_phase19_life_rooms.py',
+            'validate_phase19_companion_regional_rooms.py',
+            'validate_art_theme_v2.py', 'validate_c_act01_global_art_v14.py',
+            'validate_c_act01_matched_props_v16.py', 'validate_c_act01_semantic_v17.py',
+            'validate_c_act01_hd2d_v18.py', 'audit_act01_third_party_art.py',
+            'validate_phase18_companions.py', 'validate_narrative_v21.py',
+            'validate_phase17_lost_pages.py', 'validate_phase17_life_quests.py',
+            'validate_phase17_regional_quests.py', 'validate_phase15_city.py',
+            'validate_phase16_sanctum.py'
+          ]
+          output=pathlib.Path('qa-global-data')
+          output.mkdir(exist_ok=True)
+          results=[]
+          for name in names:
+              filename=pathlib.Path('tools')/name
+              if not filename.exists():
+                  results.append({'name':name,'status':'FAIL','reason':'script missing'})
+                  continue
+              begin=time.monotonic()
+              try:
+                  p=subprocess.run([sys.executable,str(filename)],capture_output=True,
+                      text=True,errors='replace',timeout=160)
+                  status='PASS' if p.returncode==0 else 'FAIL'
+                  log=(p.stdout or '')+'\n'+(p.stderr or '')
+                  code=p.returncode
+              except subprocess.TimeoutExpired as e:
+                  status='TIMEOUT';code=124
+                  log=str(e)
+              except Exception as e:
+                  status='ERROR';code=127;log=str(e)
+              (output/(name+'.log')).write_text(log,encoding='utf-8')
+              results.append({'name':name,'status':status,'exit_code':code,
+                  'duration_seconds':round(time.monotonic()-begin,2)})
+              print(status,name,flush=True)
+              if status!='PASS': print(log[-2200:],flush=True)
+          summary={'tested_sha':'${{ github.sha }}','total':len(results),
+              'pass':sum(x['status']=='PASS' for x in results),
+              'fail':sum(x['status']!='PASS' for x in results),
+              'results':results}
+          (output/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+          print('GLOBAL_DATA_RESULT',summary['pass'],'/',summary['total'],flush=True)
+          sys.exit(0 if summary['fail']==0 else 1)
+          PY
+      - name: Upload per-validator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-data-validation
+          path: qa-global-data/
+          if-no-files-found: warn
+  actual-frames:
+    name: Godot cold import and real GL screenshots (not player-route proof)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official Godot 4.7.2 and graphical capture dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xauth libgl1-mesa-dri fonts-noto-cjk >/dev/null
+          curl -fL --retry 3 -o godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import all assets and capture real render evidence without hiding failures
+        shell: bash
+        run: |
+          set +e
+          mkdir -p qa-global-frames build/layout-qa build/art-qa build/main2-art-qa/visual
+          timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit > qa-global-frames/godot-import.log 2>&1
+          import_rc=$?
+          if grep -Eq "SCRIPT ERROR:|Parse Error:|Failed to load script" qa-global-frames/godot-import.log; then
+            import_rc=1
+          fi
+          echo "godot_import_exit=$import_rc" | tee -a qa-global-frames/summary.txt
+          failed=0
+          if [ "$import_rc" -ne 0 ]; then failed=1; fi
+          for script in capture_act01_distinct_layouts capture_coastal_visuals capture_act01_visual_evidence; do
+            echo "BEGIN $script"
+            timeout 200s xvfb-run -a -s "-screen 0 1280x720x24" \
+              ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility \
+              --script "res://tools/$script.gd" > "qa-global-frames/$script.log" 2>&1
+            rc=$?
+            if grep -Eq "SCRIPT ERROR:|Parse Error:|Failed to load script" "qa-global-frames/$script.log"; then rc=1; fi
+            echo "$script exit=$rc" | tee -a qa-global-frames/summary.txt
+            tail -n 18 "qa-global-frames/$script.log"
+            if [ "$rc" -ne 0 ]; then failed=1; fi
+          done
+          exit "$failed"
+      - name: Upload actual Godot frames and exact capture logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-actual-godot-frames
+          path: |
+            qa-global-frames/
+            build/layout-qa/
+            build/art-qa/
+            build/main2-art-qa/visual/
+          if-no-files-found: warn

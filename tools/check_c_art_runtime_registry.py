@@ -150,6 +150,8 @@ def main() -> int:
         if source not in actual:
             errors.append(label + " references missing image: " + str(source))
 
+    for name, source in index.get("scene_detail_sources", {}).items():
+        must_exist("scene detail " + str(name), source)
     for slot, entry in index.get("canonical_slots", {}).items():
         must_exist("slot " + slot, entry.get("source", ""))
     for old, target in index.get("verified_legacy_redirects", {}).items():

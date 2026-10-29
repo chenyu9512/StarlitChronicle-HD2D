@@ -7,6 +7,9 @@ on:
       - "tools/install_global_factory_v3.py"
       - "tools/sync_c_art_runtime_registry.py"
       - "tools/check_c_art_runtime_registry.py"
+      - "assets/art/runtime/scene_details_v1/**"
+      - "scripts/world_coastal_scene.gd"
+      - "scripts/c_coastal_painter.gd"
   workflow_dispatch:
 permissions:
   contents: write
@@ -76,7 +79,7 @@ jobs:
         shell: bash
         run: |
           failed=0
-          for name in smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion; do
+          for name in smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion smoke_c_coastal_render; do
             timeout 45s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$name.gd" > "$name.log" 2>&1 || failed=1
             tail -n 35 "$name.log"
             if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' "$name.log"; then failed=1; fi

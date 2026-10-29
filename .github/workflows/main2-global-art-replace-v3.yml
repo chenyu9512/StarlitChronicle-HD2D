@@ -11,6 +11,7 @@ on:
       - "tools/art_style_v8.py"
       - "tools/test_art_style_v8.py"
       - "tools/audit_generated_only_art_v1.py"
+      - "tools/generate_semantic_slots_v1.py"
       - "scripts/c_art_refined_overrides_v1.gd"
       - "scripts/c_art_overrides.gd"
       - "tools/sync_c_art_runtime_registry.py"
@@ -99,6 +100,8 @@ jobs:
           assert data.get('renderer')=='4.2.0', data.get('renderer')
           print('PASS:',total,'generated PNGs,',normal_count,'normal maps and 16 world atlases')
           PY
+      - name: Generate exact-role semantic textures for the first act's missing required slots
+        run: python tools/generate_semantic_slots_v1.py --project .
       - name: Synchronize official runtime registry after replacing art
         shell: bash
         run: |

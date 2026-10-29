@@ -4,6 +4,9 @@ extends RefCounted
 const Coherent = preload("res://scripts/c_coherent_terrain_materials.gd")
 const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const REGISTRY_PATH: String = "res://data/assets/c_shared_terrain_v8.json"
+const COAST_V14_SOURCE: String = "res://data/assets/c_act01_global_distribution_v14.json"
+static var _coast_terrain_loaded: bool = false
+static var _coast_terrain: Dictionary = {}
 const CORE_GROUND: String = "res://assets/art/tilesets/coast_ground.png"
 const CORE_WATER: String = "res://assets/art/tilesets/coast_water.png"
 
@@ -97,6 +100,31 @@ static func group_slots(group_id: String) -> Array[String]:
             result.append(path)
     return result
 
+## Authored first-act maps use genuinely distinct 256px ground/water sheets.
+## Do not preload the GlobalArt class here: it imports RuntimeArt, whose
+## TerrainAtlas dependency would otherwise introduce a GDScript cycle.
+static func _coast_authored_pair(map_id: String) -> Array[String]:
+    if not _coast_terrain_loaded:
+        _coast_terrain_loaded = true
+        if FileAccess.file_exists(COAST_V14_SOURCE):
+            var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(COAST_V14_SOURCE))
+            if parsed is Dictionary and str(parsed.get("schema", "")) == "starlit.c.act01_global_distribution.v14":
+                _coast_terrain = (parsed.get("runtime", {}) as Dictionary).get("terrain", {})
+    var entry: Dictionary = _coast_terrain.get(map_id, {})
+    var ground: String = str(entry.get("ground", ""))
+    var water: String = str(entry.get("water", ""))
+    if not ground.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__") or
+            not water.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__"):
+        return []
+    if not ResourceLoader.exists(ground) or not ResourceLoader.exists(water):
+        return []
+    var floor_texture: Texture2D = ResourceLoader.load(ground) as Texture2D
+    var water_texture: Texture2D = ResourceLoader.load(water) as Texture2D
+    if floor_texture == null or water_texture == null or
+            floor_texture.get_size() != Vector2(256,256) or water_texture.get_size() != Vector2(256,256):
+        return []
+    return [ground, water]
+
 static func atlas_sources(region_id: String, map_id: String,
         authored_atlas: String = "", outdoors: bool = true) -> Array[String]:
     var data: Dictionary = _data()
@@ -122,6 +150,10 @@ static func atlas_sources(region_id: String, map_id: String,
     var pixel_local: Array[String] = pixel_theme_paths(region_id, outdoors)
     if pixel_local.size() == 2:
         return pixel_local
+    if outdoors and region_id == "region_coast":
+        var first_act_authored: Array[String] = _coast_authored_pair(map_id)
+        if first_act_authored.size() == 2:
+            return first_act_authored
     if outdoors:
         var generated: Array[String] = Generated.terrain_paths(region_id)
         if generated.size() == 2:

@@ -1,6 +1,6 @@
 extends SceneTree
-## Five first-act live boss identities: physically loaded imported PNGs,
-## visibly state-responsive boss shaders, recoverable reduced motion.
+## Five first-act live boss identities: real six-row generated motion
+## atlases, visibly state-responsive boss shaders and recoverable base portraits.
 ## Authored B03 multi-frame overlay production is a SEPARATE failing art gate.
 const Art = preload("res://scripts/art_assets.gd")
 const Ch2 = preload("res://scripts/c_b03_fog_tide_body_motion.gd")
@@ -33,14 +33,30 @@ func _run() -> void:
         root.add_child(rig)
         verify(rig.configure(portrait,chapter,false),boss_id+" boss shader did not configure")
         if rig.enabled:
-            verify(rig.motion_source in ["live_portrait_shader","authored_sheets"],
+            verify(rig.motion_source in ["generated_six_state_atlas","live_portrait_shader","authored_sheets"],
                 boss_id+" recorded no real runtime motion source")
             verify(portrait.material == rig.shader_material,
                 boss_id+" has no working original-identity shader")
-            verify(untouched == portrait.texture,boss_id+" identity texture was replaced")
-            verify(str(rig.motion_source) == "authored_sheets" or
+            if rig.motion_source == "generated_six_state_atlas":
+                # A REAL 512x768 six-row sheet intentionally replaces the
+                # portrait with an AtlasTexture at runtime. Identity is proved
+                # by its original portrait handoff and chapter-specific source,
+                # not by demanding that the rendering texture never change.
+                var sheet_source: String = "res://assets/art/runtime/boss_motion_v1/boss_ch%03d.png" % chapter
+                verify(ResourceLoader.exists(sheet_source)
+                    and rig.generated_texture != null
+                    and rig.generated_texture.get_size() == Vector2(512,768)
+                    and rig.generated_atlas != null
+                    and rig.generated_atlas.atlas == rig.generated_texture
+                    and portrait.texture == rig.generated_atlas
+                    and rig.previous_portrait_texture == untouched,
+                    boss_id+" six-state animation did not preserve chapter portrait identity")
+            else:
+                verify(untouched == portrait.texture,
+                    boss_id+" fallback portrait identity was changed")
+            verify(str(rig.motion_source) in ["generated_six_state_atlas","authored_sheets"] or
                 (rig.sheets.is_empty() and rig.effect == null),
-                boss_id+" claims missing multi-frame illustrations as real")
+                boss_id+" claims missing authored illustrations as real")
             if chapter >= 3:
                 verify(int(rig.shader_material.get_shader_parameter("chapter_style")) == chapter,
                     boss_id+" lost its chapter-specific style")
@@ -78,7 +94,7 @@ func _run() -> void:
         portrait.queue_free()
     verify(ids.size() == 5,"Five distinct true first-act boss art paths required")
     if errors.is_empty():
-        print("PASS Main2: 5 distinct imported boss portraits, shader charge/strike/hit/phase/end, reduced motion and unchanged identity. B03 painted atlases not accepted.")
+        print("PASS Main2: five distinct boss sources, real 6-state animation or safe shader fallback, charge/strike/hit/phase/end, reduced motion and preserved portrait identity; human art approval pending")
         quit(0)
         return
     for problem in errors:

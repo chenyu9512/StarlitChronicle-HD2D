@@ -56,16 +56,16 @@ def interior_rooms() -> int:
         if size != [72, 48]:
             ISSUES.append(f"{name}: expected 72x48 room coordinates, got {size!r}")
         if d.get("region_design"):
-            # Staged art is committed per room when reviewed; remaining
-            # region rooms receive the same semantic assets at runtime.
+            # All 54 region rooms must have explicit V4 art; the former
+            # runtime fallback was removed to expose incomplete content.
             profile = d.get("art_profile", "")
-            if profile not in ("", "regional_functional_v1"):
-                ISSUES.append(f"{name}: unexpected regional art profile {profile!r}")
+            if profile != "regional_functional_v1":
+                ISSUES.append(f"{name}: missing explicit authored regional art profile: {profile!r}")
             if len(d.get("features", [])) != 8 or len(d.get("investigations", [])) != 2:
                 ISSUES.append(f"{name}: incomplete regional furniture or clues")
             if profile == "regional_functional_v1":
                 visuals = d.get("visuals", [])
-                if len(visuals) < 12 or len(d.get("light_sources", [])) < 2:
+                if len(visuals) < 12 or len(d.get("light_sources", [])) < 3:
                     ISSUES.append(f"{name}: missing regional visuals or light sources")
                 art_ids = [v.get("id") for v in visuals if isinstance(v, dict)]
                 if len(art_ids) != len(set(art_ids)):

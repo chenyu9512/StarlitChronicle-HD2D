@@ -14,6 +14,12 @@
 - **备份、临时、非标准导出附件**：禁止提交 `*.bak`、`*.tmp`、`*.translation`、`*.pyc` 等。审计 CSV/JSON 保留为真实记录。
 - **清理方式**：先核对实际 blob SHA、调用关系、动态资源路径、Godot import 与存档兼容，再删除；相同 SHA 不等于可以删除文件路径。
 
+## Git 引用清点（2026-10-29）
+
+在线仓库有 4 个分支：`main`、`Main2美术优化版`、`StarlitChronicle-Runtime`、`Main2-GameCore-NoArt`。前 3 个有明确业务角色；`Main2-GameCore-NoArt` 是否仍要保留须先检查同步工作流使用情况，不能仅因名称旧就删除。
+
+有 2 个历史标签：`archive-v0.1.1-before-core` 与 `archive-v0.2-before-first-act`。它们是恢复锚点，现阶段不删。GitHub Release 数为 0。审计脚本会读取本地已获取的分支和标签；对于未完整 fetch 的 clone，应以 GitHub 在线 API 结果为准。
+
 ## 全量版本清单
 
 从项目根目录执行：
@@ -23,7 +29,7 @@ python tools/audit_version_hygiene.py --json --output build/version_audit.json
 python tools/audit_version_hygiene.py --strict
 ```
 
-报告覆盖 Git 跟踪文件、所有路径中的版本标记、按子系统的分组、逐个二进制重复 blob SHA、所有代码与工作流名称、源文件字面引用、临时残留和缺失文件。检查为只读操作，不会删正式美术或改存档。
+报告覆盖 Git 跟踪文件、所有路径与可读源码/文档中的版本标记、已获取的分支与标签、按子系统的分组、逐个二进制重复 blob SHA、所有代码与工作流名称、源文件字面引用、临时残留和缺失文件。检查为只读操作，不会删正式美术或改存档。
 
 ## 2026-10-29 整理基线与遗留项
 

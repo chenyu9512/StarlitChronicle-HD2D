@@ -127,6 +127,8 @@ class ArtFactoryTests(unittest.TestCase):
         old=fingerprint(job,"gpt-image-2.5-sunburst","xhigh")
         self.assertNotEqual(old,fingerprint(job,"gpt-image-2.5-sunburst","max"))
         self.assertNotEqual(old,fingerprint(job,"gpt-image-2.5-flare","xhigh"))
+        self.assertNotEqual(old,fingerprint(job,"gpt-image-2.5-sunburst","xhigh",
+                                             reference_sha="abc123"))
         modified={**job,"prompt":job["prompt"]+" unique markings"}
         self.assertNotEqual(old,fingerprint(modified,"gpt-image-2.5-sunburst","xhigh"))
 

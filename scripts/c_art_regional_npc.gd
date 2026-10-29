@@ -20,6 +20,11 @@ static func _index() -> void:
     if _indexed:
         return
     _indexed = true
+    # The old third-party V12 catalog was intentionally deleted. Resolve
+    # each named NPC through its own generated 96x192 directional atlas when
+    # that archive is absent, without emitting a JSON parse failure.
+    if not FileAccess.file_exists(V12):
+        return
     var source: Variant = JSON.parse_string(FileAccess.get_file_as_string(V12))
     if not source is Dictionary:
         return

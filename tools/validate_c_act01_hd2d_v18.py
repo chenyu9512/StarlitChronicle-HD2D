@@ -9,6 +9,7 @@ import json
 import struct
 from collections import Counter
 from pathlib import Path
+from act01_source_provenance import verify_art
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = Path("assets/art/runtime/act01_hd2d_v18")
@@ -40,14 +41,13 @@ def asset(relative_path, origin):
     """Verify real file bytes and source identity (no placeholder PNGs)."""
     runtime = ROOT / relative_path
     original = ROOT / origin
-    for name in (runtime, original):
-        check(name.is_file(), "Missing source/runtime image " + str(name))
-        if not name.is_file():
-            return
+    try:
+        proof = verify_art(relative_path, origin)
+    except (ValueError, OSError) as exc:
+        check(False, "Source blob mismatch: " + str(exc))
+        return
     first = runtime.read_bytes()
-    second = original.read_bytes()
     check(first.startswith(b"\x89PNG\r\n\x1a\n"), "Invalid PNG: " + str(relative_path))
-    check(first == second, "Altered/mis-mapped Golden Horizon art: " + str(relative_path))
     if len(first) >= 24:
         width, height = struct.unpack(">II", first[16:24])
         check(width >= 32 and height >= 32,

@@ -53,6 +53,10 @@ jobs:
               for type_ in ('ground','water'):
                   p=root/'terrain'/f'{rid}_{type_}.png'
                   with Image.open(p) as im: assert im.size==(256,256)
+          with Image.open(root/'terrain'/'region_coast_ground.png') as coast:
+              # Region mood blue is not an acceptable meadow material.
+              grass=coast.getpixel((1,33))
+              assert grass[1]>grass[2], ('CYAN_GRASS_REINTRODUCED',grass)
           print('PASS V3 ACTIVE ASSETS:',len(data['assets']),'TRUE 256px ATLAS:',16)
           PY
       - name: Godot import and script syntax

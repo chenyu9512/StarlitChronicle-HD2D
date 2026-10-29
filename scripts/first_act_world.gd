@@ -523,6 +523,11 @@ func _decorate() -> void:
     # area as a settlement. Keep only real authored scenery/quest geometry.
     var coastal_landmark: bool=str(map_profile.get("id","")) in ["map_coast_03","map_coast_04","map_coast_05"]
     if bool(map_profile.get("settlement",false)) and not coastal_landmark:
+        # The current V3/V4 town director already places verified live props.
+        # Legacy 44x28 chapter decoration uses a fixed coordinate conversion
+        # and otherwise scatters duplicate wells/props over a 96x56 village.
+        if not (terrain_layout.get("town_plan",{}) as Dictionary).is_empty():
+            return
         for entry in current_layout.get("objects",[]):
 
             if entry is Array and entry.size()>=3:
@@ -779,7 +784,9 @@ func _town_prop_clear(kind: String,site: Vector2i) -> bool:
     if kind=="cottage" or site.x<3 or site.y<3 or site.x>=WIDTH-3 or site.y>=HEIGHT-3 or blocked.has(site):
         return false
     var floor: Vector2i=terrain_layout.get("tiles",{}).get(site,Vector2i.ZERO)
-    if floor.y==3:
+    # The authored civic well sits ON its paved central courtyard.
+    # Reject incidental town props on roads but keep the actual well visible.
+    if floor.y==3 and kind!="well":
         return false
     var start: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
     if site.distance_squared_to(start)<16:

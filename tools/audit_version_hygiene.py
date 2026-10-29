@@ -84,6 +84,8 @@ def inventory() -> dict:
     identifiers = {name: [name, Path(name).name] for name in versioned_code}
     reference_hits = collections.defaultdict(list)
     sources_scanned = 0
+    inline_versions = collections.Counter()
+    files_with_inline_versions = collections.Counter()
     for name in tracked:
         p = ROOT / name
         if p.suffix.lower() not in TEXT_EXT and p.name not in (".gitignore",):
@@ -92,6 +94,11 @@ def inventory() -> dict:
             continue
         body = p.read_text(encoding="utf-8", errors="replace")
         sources_scanned += 1
+        seen = list(VERSION.finditer(body))
+        if seen:
+            files_with_inline_versions[category(name)] += 1
+            for matched in seen:
+                inline_versions[f"v{int(matched.group('number'))}"] += 1
         for candidate, needles in identifiers.items():
             if candidate == name:
                 continue
@@ -101,8 +108,16 @@ def inventory() -> dict:
     unresolved = [
         name for name in versioned_code if name not in reference_hits
     ]
+    def git_refs(namespace: str) -> list[str]:
+        proc = subprocess.run(
+            ["git", "-C", str(ROOT), "for-each-ref", "--format=%(refname:short)", namespace],
+            capture_output=True, check=True, text=True,
+        )
+        return sorted(ref for ref in proc.stdout.splitlines() if ref)
     return {
         "branch_policy": EXPECTED_BRANCH,
+        "git_branches": git_refs("refs/heads"),
+        "git_tags": git_refs("refs/tags"),
         "total_tracked_files": len(tracked),
         "top_level_counts": dict(sorted(roots.items())),
         "versioned_path_count": len(versioned),
@@ -117,6 +132,8 @@ def inventory() -> dict:
         "source_reference_hits": dict(sorted(reference_hits.items())),
         "versioned_source_without_literal_reference": sorted(unresolved),
         "text_sources_scanned": sources_scanned,
+        "inline_version_occurrences": dict(sorted(inline_versions.items(), key=lambda x: int(x[0][1:]))),
+        "files_with_inline_versions_by_role": dict(sorted(files_with_inline_versions.items())),
         "missing_worktree_files": sorted(missing),
         "canonical_generator_exists": GENERATOR in tracked,
         "warnings": [

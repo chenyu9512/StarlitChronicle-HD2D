@@ -2131,6 +2131,18 @@ func enter_building(building_id: String) -> bool:
             break
     if entry.is_empty():
         return false
+    # An authored V4 room must never silently turn into the generic old
+    # interior when a typo, blocked furniture or malformed JSON breaks it.
+    # Verify before changing the exterior state so the player remains safely
+    # at the original physical front step if the destination is unusable.
+    var building_map_id: String = str(map_profile.get("id",""))
+    var authored_room_path: String = "res://data/levels/v4/interiors/%s__%s.json" % [building_map_id,building_id]
+    if FileAccess.file_exists(authored_room_path):
+        var physical_room: Dictionary = geography.interior(building_id,
+            str(entry.get("name",building_id)),building_map_id)
+        if str(physical_room.get("authored_source","")) != "v4":
+            push_error("Cannot enter damaged authored V4 room: "+building_map_id+"#"+building_id)
+            return false
     exterior_position = hero.position
     interior_building = building_id
     interior_kind = str(entry.get("name",building_id))

@@ -11,6 +11,7 @@ const CAct01Semantic = preload("res://scripts/c_act01_semantic_art_v17.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const StoryDressing = preload("res://scripts/world_story_dressing.gd")
 const GroundTransitions = preload("res://scripts/world_ground_transitions_v6.gd")
+const TownVerge = preload("res://scripts/world_town_verge_v7.gd")
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const Geography = preload("res://scripts/world_geography.gd")
@@ -101,6 +102,7 @@ var prologue_stage
 var prologue_cast: Dictionary = {}
 var layer: TileMapLayer
 var ground_transitions: Node2D
+var town_verge: Node2D
 var blocked: Dictionary = {}
 var reachable_tiles: Dictionary = {}
 var nodes: Dictionary = {}
@@ -277,6 +279,8 @@ func set_visual_quality(level: int) -> void:
         ambience.set_visual_quality(visual_quality)
     if is_instance_valid(ground_transitions):
         ground_transitions.set_visual_quality(visual_quality)
+    if is_instance_valid(town_verge):
+        town_verge.set_visual_quality(visual_quality)
     if is_instance_valid(coastal_scene):
         coastal_scene.set_visual_quality(visual_quality)
     if is_instance_valid(interior_art):
@@ -461,6 +465,14 @@ func _make_tiles() -> void:
         narrative_layer.name = "StoryMapDressing"
         root.add_child(narrative_layer)
         narrative_layer.configure(map_id, terrain_layout, visual_quality)
+        # Zoning-aware frontage planting sits behind architecture and actors.
+        # Placement respects original building/door/road/collision geometry.
+        if not (terrain_layout.get("zone",{}).get("buildings",[]) as Array).is_empty():
+            town_verge = TownVerge.new()
+            town_verge.name = "TownFrontageGardens"
+            town_verge.z_index = -3
+            root.add_child(town_verge)
+            town_verge.configure(map_id, terrain_layout, visual_quality)
 
 func _decorate() -> void:
     if not interior_building.is_empty():

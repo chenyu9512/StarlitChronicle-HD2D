@@ -36,6 +36,21 @@ func _enter_canonical_chapter(chapter: int) -> void:
             return
     failures.append("Chapter route exceeded five physical exits")
 
+# Exercise the real evidence hotspot UI, not a forged evidence flag.
+# Chapter 1 and Chapter 3 require player-selected physical observations
+# before their clue dialogue is allowed to progress.
+func _inspect_canon_evidence() -> void:
+    var attempts: int = 0
+    while game.pending == "canon_evidence" and attempts < 24:
+        var options: Array[Node] = game.ui.choice_area.get_children()
+        if options.is_empty() or not (options[0] is Button):
+            failures.append("Evidence close-up has no selectable hotspot")
+            return
+        (options[0] as Button).pressed.emit()
+        attempts += 1
+    if game.pending == "canon_evidence":
+        failures.append("Physical evidence investigation did not finish within 24 choices")
+
 func _dialog() -> void:
     for i in range(30):
         if not game.ui.dialog_layer.visible or game.ui.choosing:
@@ -82,6 +97,7 @@ func _run() -> void:
         _touch("key_npc")
         _dialog()
         _touch("clue")
+        _inspect_canon_evidence()
         _dialog()
         _touch("witness")
         _touch("crisis")

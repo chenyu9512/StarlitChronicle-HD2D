@@ -2246,13 +2246,28 @@ func _safe_return_outside(original: Vector2) -> Vector2:
     return original
 
 func leave_building() -> bool:
-    if interior_building.is_empty():
+    if interior_building.is_empty() or not is_instance_valid(hero):
         return false
+    var previous_room: String = interior_building
+    var previous_kind: String = interior_kind
+    var indoor_position: Vector2 = hero.position
     interior_building = ""
     interior_kind = ""
     build(chapter,last_party_size)
-    hero.position = _safe_return_outside(exterior_position)
-    return true
+    var destination: Vector2 = _safe_return_outside(exterior_position)
+    var arrival_tile := Vector2i(floori(destination.x/TILE),floori(destination.y/TILE))
+    if not _blocked(destination) and _walkable_tiles().has(arrival_tile):
+        hero.position = destination
+        return true
+    # A broken outdoor layout must never trap the player inside a facade
+    # after reporting that the room exit succeeded.
+    push_error("Unable to leave interior: no spawn-connected exterior floor at " +
+        str(map_profile.get("id","")) + "#" + previous_room)
+    interior_building = previous_room
+    interior_kind = previous_kind
+    build(chapter,last_party_size)
+    hero.position = _safe_return_outside(indoor_position)
+    return false
 
 func spawn_from_exit(previous_map: String) -> void:
     var gate_id: String="exit:"+previous_map

@@ -13,6 +13,7 @@ on:
       - "data/levels/v4/interiors/**"
       - "tools/test_global_art_factory_v3.py"
       - "tools/generate_art.py"
+      - "tools/audit_legacy_cleanup.py"
       - "addons/starlit_art_pipeline/plugin.gd"
       - ".github/workflows/main2-global-art-factory-v3.yml"
   workflow_dispatch:
@@ -34,6 +35,10 @@ jobs:
           python-version: '3.12'
       - name: Install image tooling
         run: python -m pip install --disable-pip-version-check Pillow
+      - name: Reject retired art generator and obsolete V5 dependencies
+        run: |
+          test ! -e tools/art_style_v5.py
+          ! grep -q -- '--legacy' tools/generate_art.py
       - name: Unit regression coverage
         run: python tools/test_global_art_factory_v3.py
       - name: Produce all canonical art candidates

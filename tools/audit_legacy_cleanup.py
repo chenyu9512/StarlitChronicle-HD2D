@@ -10,9 +10,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REMOVED = ["GITHUB_FIRST_PUSH.md", "PUBLISH_TO_GITHUB.ps1",
-           "assets/art/_spec/preview_batch_0_3.png"]
+           "assets/art/_spec/preview_batch_0_3.png", "tools/art_style_v5.py"]
 REQUIRED = ["scripts/game_state.gd", "scripts/first_act_state.gd",
-            "scenes/first_act.tscn", "tools/smoke_legacy_ending.gd"]
+            "scenes/first_act.tscn", "tools/smoke_legacy_ending.gd",
+            "tools/generate_art.py", "tools/global_art_factory_v3.py",
+            "tools/art_style_v6.py", "tools/art_style_v7.py",
+            "tools/art_style_v8.py", "tools/install_global_factory_v3.py"]
 
 def audit() -> dict:
     ls = subprocess.run(["git", "-C", str(ROOT), "ls-files", "-z"],
@@ -38,6 +41,14 @@ def audit() -> dict:
         violations.append("obsolete first-push guide/script or preview still tracked")
     if set(REQUIRED).difference(tracked):
         violations.append("protected current/legacy save or regression file missing")
+    tracked_backup = [n for n in names if n.endswith(
+        (".bak", ".backup", ".orig", ".rej", ".tmp", ".swp", ".swo", ".pyc"))]
+    if tracked_backup:
+        violations.append("disposable backup/cache files still tracked: " +
+                          ", ".join(tracked_backup[:12]))
+    launcher = ROOT / "tools/generate_art.py"
+    if launcher.exists() and "--legacy" in launcher.read_text("utf-8"):
+        violations.append("retired fixed-size art demo still embedded in official generator")
     if 'run/main_scene="res://scenes/first_act.tscn"' not in cfg:
         violations.append("production entry changed")
     if 'State="*res://scripts/game_state.gd"' not in cfg:
@@ -52,6 +63,7 @@ def audit() -> dict:
         "paths_in_duplicate_groups": sum(len(g) for g in duplicates),
         "duplicate_extra_copies": sum(len(g) - 1 for g in duplicates),
         "duplicate_groups_for_manual_review_only": duplicates,
+        "tracked_backup_files": tracked_backup,
         "missing_worktree_files": absent, "violations": violations,
         "warning": "Godot dynamic resource paths and save-compatibility prohibit automatic removal.",
     }

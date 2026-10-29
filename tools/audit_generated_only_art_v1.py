@@ -87,6 +87,18 @@ def audit(root):
             errors.append("Incomplete canonical scene-detail sprites")
         for name,record in semantic_routes.items():
             register(str(record.get("source","")).removeprefix("res://"),record.get("sha256"))
+    allocated_count=0
+    allocated_file=root/(ROOT+"allocated_decor_generated_v1/manifest.json")
+    if allocated_file.is_file():
+        alloc=load(root,ROOT+"allocated_decor_generated_v1/manifest.json")
+        if alloc.get("schema")!="starlit.allocated_decor_generated.v1":
+            errors.append("Invalid generated world-prop manifest")
+        records=alloc.get("assets",{})
+        allocated_count=len(records)
+        if allocated_count!=25:
+            errors.append("Expected 25 allocated 32px generated props")
+        for item in records.values():
+            register(str(item.get("source","")).removeprefix("res://"),item.get("sha256"))
     # Original project-authored SVGs of local scene detailing remain valid,
     # and must not be misreported as uploaded third-party source files.
     scene=load(root,ROOT+"scene_details_v1/manifest.json")
@@ -113,6 +125,7 @@ def audit(root):
         "status":"success" if not errors else "failed",
         "generated_main":len(assets),
         "generated_semantic_scene_props":semantic_count,
+        "generated_allocated_region_props":allocated_count,
         "generated_normal_maps":sum(bool(x.get("normal_map_path")) for x in assets.values()),
         "generated_terrain_derivatives":16,
         "generated_icons":288,

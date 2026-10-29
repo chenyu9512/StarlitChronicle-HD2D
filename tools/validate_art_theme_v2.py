@@ -47,20 +47,35 @@ def run(strict: bool = True) -> dict:
                 errors.append(f"{key}: unsupported runtime file {path.suffix}")
             rows.append({"slot": key, "category": slot.get("category",""),"source":source,
                          "required":bool(slot.get("required",False)),"exists":exists,"stage":slot.get("stage","unreviewed")})
-    # Every promoted runtime image must be registered so no image is silently
-    # omitted when an all-or-nothing theme is changed.
+    # V2 themes own their 109 semantic slots. New generated runtime roles
+    # (288 content icons, 66 boss motion atlases, 153 room materials, etc.)
+    # belong to the single A-line runtime registry, NOT to the legacy V2 DLC
+    # slot system. Check the UNION, not an impossible V2-only membership.
     canonical = {p.relative_to(ROOT).as_posix() for p in (ROOT/"assets/art/runtime").rglob("*")
                  if p.is_file() and p.suffix.lower() in (".png",".jpg",".jpeg",".webp",".svg")}
     registered = {rec["source"].removeprefix("res://") for rec in rows}
-    for path in sorted(canonical - registered):
-        errors.append("runtime image missing V2 semantic slot: "+path)
+    runtime_file = ROOT / "data/assets/c_art_runtime_registry_v1.json"
+    index = json.loads(runtime_file.read_text(encoding="utf-8"))
+    if index.get("schema") != "starlit.c.art_runtime_registry.v1":
+        errors.append("Invalid A-line canonical runtime registry schema")
+    live_sources = index.get("sources", {})
+    additional_registered = {
+        path.removeprefix("res://") for path,row in live_sources.items()
+        if bool(row.get("registered")) and path.startswith("res://assets/art/runtime/")
+    }
+    for path in sorted(canonical - (registered | additional_registered)):
+        errors.append("runtime image absent from BOTH V2 theme and current A-line registry: "+path)
     for path in sorted(registered - canonical):
         errors.append("V2 slot source not tracked in runtime: "+path)
+    for path in sorted(additional_registered - canonical):
+        errors.append("A-line registered runtime file physically absent: "+path)
     categories = Counter(x["category"] for x in rows)
     result = {"schema":"starlit.art_theme.audit.v2","themes":sorted(seen),
               "registered_slots":len(rows),"registered_categories":dict(categories),
               "present":sum(x["exists"] for x in rows),"missing":errors,
               "required":sum(x["required"] for x in rows),
+              "a_line_registered_runtime_files":len(additional_registered),
+              "total_runtime_image_files":len(canonical),
               "commercial_visual_approval":False}
     if strict and errors:
         raise SystemExit("\n".join(errors[:60]))

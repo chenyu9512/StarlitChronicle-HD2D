@@ -118,3 +118,15 @@ py tools/global_art_factory_v3.py --project . --source-root build/starlit_global
 
 精修生成路径：\`build/starlit_global_art_factory_v3/model_sources/<scope>/<asset_id>.png\`。
 这一步**不直接写入** \`assets/art/runtime\`，不会删除旧美术，也不会绕开 109 槽位的 DLC 正式接入审核。
+
+
+### 原画参考精修（推荐用于角色与 Boss）
+
+将已经确定外观的原画按 \`<参考目录>/<分类>/<资产ID>.png\` 放置，例如
+\`assets/art/reference_masters/bosses/boss_001.png\`。也可以在 Godot 插件 ⑥ 按钮上方填写此目录：
+
+\`\`\`powershell
+py tools/global_art_ai_provider_v3.py --project . --render --scope bosses --limit 8 --quality xhigh --reference-root assets/art/reference_masters
+\`\`\`
+
+存在参考 PNG 时走 Image Edit 参考精修，要求保持角色面部、服装、装备、配色和怪物关键纹样；没有参考图的登记条目仍走从零生成。参考图超过尺寸限制或无法解码时，该条目记录失败而不是擅自换成另一身份。PNG SHA256 纳入缓存指纹，参考图一旦变更，生成器会重新绘制。**角色身份一致和动画真实连续性仍须人工检查**。

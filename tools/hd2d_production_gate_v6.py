@@ -64,7 +64,7 @@ def frame_quality(image: Image.Image, group: str) -> dict:
         center = [frames[r][1] for r in range(4)]
         differing = 0
         for j in range(1, 4):
-            if ImageChops.difference(center[0], center[j]).getbbox() is not None:
+            if ImageChops.difference(center[0], center[j]).convert("RGB").getbbox() is not None or ImageChops.difference(center[0], center[j]).getchannel("A").getbbox() is not None:
                 differing += 1
         if differing < 3:
             raise ValueError("DIRECTION_ROWS_NOT_DISTINCT")

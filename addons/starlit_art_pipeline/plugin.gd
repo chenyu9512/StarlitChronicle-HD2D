@@ -14,6 +14,10 @@ var _status: RichTextLabel
 var _folder_dialog: EditorFileDialog
 var _import_dialog: EditorFileDialog
 var _theme_picker: OptionButton
+var _ai_scope: OptionButton
+var _ai_limit: SpinBox
+var _ai_quality: OptionButton
+var _ai_pid: int = -1
 
 func _enter_tree() -> void:
     _dock = VBoxContainer.new()
@@ -73,7 +77,36 @@ func _enter_tree() -> void:
     _add_button("切换到所选主题", _activate_selected)
     _add_button("撤销上次切换", _undo)
     _add_button("退出完整主题，恢复原有美术", _restore_original)
-    _add_button("④ 批量生成全游戏美术候选资产 V3", _generate_global_art_v3)
+    var art_heading := Label.new()
+    art_heading.text = "高清2D美术生成器 · 高品质工作流"
+    _controls.add_child(art_heading)
+    var model_tip := Label.new()
+    model_tip.text = "程序绘制仅供占位。高画质需要显式选择模型生成；\n不会自动覆盖正式游戏资源。"
+    model_tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    _controls.add_child(model_tip)
+    _add_button("④ 程序占位素材（离线，低保真）", _generate_global_art_v3)
+    _add_button("⑤ 全游戏高画质生成任务清单（不调用API）", _export_model_briefs)
+    var settings_row := HBoxContainer.new()
+    _ai_scope = OptionButton.new()
+    for scope in ["bosses", "characters", "maps", "interiors", "props", "monsters", "npcs", "terrain", "ui", "all"]:
+        _ai_scope.add_item(scope)
+    _ai_scope.tooltip_text = "选择本次精修资产类别；all 为全游戏批次"
+    settings_row.add_child(_ai_scope)
+    _ai_limit = SpinBox.new()
+    _ai_limit.min_value = 0
+    _ai_limit.max_value = 1000
+    _ai_limit.step = 1
+    _ai_limit.value = 8
+    _ai_limit.tooltip_text = "本次生成张数（0=全部）；每张消耗API额度"
+    settings_row.add_child(_ai_limit)
+    _ai_quality = OptionButton.new()
+    _ai_quality.add_item("xhigh")
+    _ai_quality.add_item("max")
+    _ai_quality.tooltip_text = "模型渲染品质"
+    settings_row.add_child(_ai_quality)
+    _controls.add_child(settings_row)
+    _add_button("⑥ 按所选范围生成高画质PNG（需要API密钥）", _render_model_art)
+    _add_button("刷新高画质生成结果", _check_model_art)
     _add_button("运行游戏检查替换效果", _play_game)
 
     var warning := Label.new()
@@ -287,6 +320,68 @@ func _generate_global_art_v3() -> void:
         _status.text = "全局候选美术生成完成：res://build/starlit_global_art_factory_v3/candidate_manifest.json\n" + "\n".join(output)
     else:
         _status.text = "美术生成器执行失败（退出码 %d）。请确认已安装Python与Pillow。\n" % status + "\n".join(output)
+
+
+func _export_model_briefs() -> void:
+    var script_path: String = ProjectSettings.globalize_path("res://tools/global_art_ai_provider_v3.py")
+    var project_path: String = ProjectSettings.globalize_path("res://")
+    var args := PackedStringArray([script_path, "--project", project_path, "--jobs-only"])
+    var output: Array = []
+    var exit_code: int = OS.execute("python", args, output, true)
+    if exit_code != 0:
+        output.clear()
+        exit_code = OS.execute("py", PackedStringArray(["-3"] + Array(args)), output, true)
+    _status.text = ("全游戏高清任务已生成（未调用收费API）：" if exit_code == 0
+        else "高清任务生成失败；需 Python 与 Pillow：") + \
+        "\nbuild/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl\n" + "\n".join(output)
+
+
+func _render_model_art() -> void:
+    if _ai_pid > 0 and OS.is_process_running(_ai_pid):
+        _status.text = "已经有高清生成进程正在运行：PID " + str(_ai_pid)
+        return
+    if not OS.has_environment("OPENAI_API_KEY"):
+        _status.text = "未发现OPENAI_API_KEY。请在启动Godot前配置环境变量；不会发起请求。"
+        return
+    var script_path: String = ProjectSettings.globalize_path("res://tools/global_art_ai_provider_v3.py")
+    var project_path: String = ProjectSettings.globalize_path("res://")
+    var scope: String = _ai_scope.get_item_text(_ai_scope.selected)
+    var quality: String = _ai_quality.get_item_text(_ai_quality.selected)
+    var args := PackedStringArray([script_path, "--project", project_path,
+        "--render", "--scope", scope, "--limit", str(int(_ai_limit.value)),
+        "--quality", quality])
+    _ai_pid = OS.create_process("python", args)
+    if _ai_pid <= 0:
+        _ai_pid = OS.create_process("py", PackedStringArray(["-3"] + Array(args)))
+    if _ai_pid <= 0:
+        _status.text = "无法启动 Python 图像生成器；请检查Python和openai、Pillow依赖。"
+        return
+    _status.text = "已开始真实模型绘制（非程序占位图）：" + scope + \
+        " / " + quality + " / 目标张数 " + str(int(_ai_limit.value)) + \
+        "\n进程 PID " + str(_ai_pid) + \
+        "\n生成PNG在 build/starlit_global_art_factory_v3/model_sources/；完成后点击「刷新高画质生成结果」。"
+
+
+func _check_model_art() -> void:
+    if _ai_pid > 0 and OS.is_process_running(_ai_pid):
+        _status.text = "高画质生成仍在执行：PID " + str(_ai_pid)
+        return
+    var report_path: String = "res://build/starlit_global_art_factory_v3/model_sources/render_report.json"
+    if not FileAccess.file_exists(report_path):
+        _status.text = "尚无高画质生成结果。先创建任务或启动生成。"
+        return
+    var obj: Variant = JSON.parse_string(FileAccess.get_file_as_string(report_path))
+    if not obj is Dictionary:
+        _status.text = "高画质报告损坏或尚未写完。"
+        return
+    var report: Dictionary = obj
+    _status.text = "模型：" + str(report.get("model", "")) + \
+        "；品质：" + str(report.get("quality", "")) + \
+        "\n新生成：" + str(report.get("complete", 0)) + \
+        "；复用缓存：" + str(report.get("cached", 0)) + \
+        "；失败：" + str((report.get("failures", []) as Array).size()) + \
+        "\n图片为待审核候选：build/starlit_global_art_factory_v3/model_sources/\n" + \
+        "生成后可以通过全局资产工厂 --source-root 导入，正式游戏资源不自动替换。"
 
 func _play_game() -> void:
     _status.text = "启动当前项目主场景以检查已激活主题。\n仅实际运行和截图能证明画面已替换。"

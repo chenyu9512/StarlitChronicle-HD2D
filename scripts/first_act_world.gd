@@ -1032,7 +1032,7 @@ func _build_sites() -> void:
             # Harbor room-specific stage art already draws the exact clue
             # furniture at this cell. Keep the *interactive* node and name,
             # but do not display a second overlapping legacy prop sprite.
-            if str(terrain_layout.get("art_profile","")) in ["coast_act01_shelter_v1","coast_act01_tavern_v1"]:
+            if str(terrain_layout.get("art_profile","")) in ["coast_act01_shelter_v1","coast_act01_tavern_v1","regional_functional_v1"]:
                 inspection_marker.self_modulate.a = 0.0
             inspection_marker.set_meta("site_name",str(authored_inspection.get("name","室内线索")))
             inspection_marker.set_meta("inspection_kind",furniture_kind)

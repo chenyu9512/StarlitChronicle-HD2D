@@ -3,6 +3,7 @@ const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const RegionalNPC = preload("res://scripts/c_art_regional_npc.gd")
 ## Small original top-down citizen silhouette; role palette conveys information.
 var motion = CharacterMotion.new()
@@ -80,7 +81,7 @@ func _process(delta: float) -> void:
                 _: life_action = ["observe", "rest", "look_around", "observe"][cycle]
     blink_phase=fposmod(idle_elapsed+float(posmod(role.hash(),7))*0.37,3.9)
     if is_instance_valid(artwork):
-        if not costume_clips.is_empty():
+        if artwork == null and not costume_clips.is_empty():
             _update_costume()
         # Still portrait identities stay intact: only subtle vertical breathing.
         artwork.position.y = base_art_offset if reduced_motion else base_art_offset + 0.8 * sin(idle_elapsed * 1.6 + float(posmod(role.hash(), 8)))
@@ -178,6 +179,17 @@ func setup(info: Dictionary) -> void:
     label.text=citizen_name
     # Only the 35 approved B02 NPC fullbody sheets are used as still overworld figures.
     # Coast residents without authored B02 art keep their silhouette fallback.
+    var new_npc: Texture2D = Generated.texture("npcs", str(info.get("id", "")))
+    if new_npc != null:
+        artwork = Sprite2D.new()
+        artwork.texture = new_npc
+        artwork.hframes = 3
+        artwork.vframes = 4
+        artwork.frame_coords = Vector2i(1, 0)
+        artwork.position = Vector2(0, -21)
+        artwork.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        artwork.set_meta("generated_v3_npc", str(info.get("id", "")))
+        add_child(artwork)
     costume_clips = RegionalNPC.costume(str(info.get("id", "")))
     if not costume_clips.is_empty():
         # The real 48x48 character strips replace only matching named roles.

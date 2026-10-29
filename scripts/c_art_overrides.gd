@@ -83,6 +83,35 @@ static func _load() -> void:
                 _entries[path] = value
                 (_catalog["assets"] as Array).append(value)
             _catalog["count"] = (_catalog["assets"] as Array).size()
+    # Generated-only Main2 retired the 1,282-entry source catalog. Restore
+    # actual editable/switchable slots from the authoritative LIVE identity
+    # manifest, not from deleted external packs or guessed filenames.
+    if Generated.active() and FileAccess.file_exists(Generated.SWITCH):
+        var live: Variant = JSON.parse_string(FileAccess.get_file_as_string(Generated.SWITCH))
+        if live is Dictionary and str(live.get("schema", "")) == "starlit.global_factory.live.v3" and live.get("assets", {}) is Dictionary:
+            var generated_entries: Dictionary = live.get("assets", {})
+            for identity in generated_entries.keys():
+                var entry: Variant = generated_entries[identity]
+                if not (entry is Dictionary):
+                    continue
+                var name: String = str(identity)
+                var group: String = name.get_slice(".", 0)
+                var path: String = str(entry.get("path", ""))
+                if group not in ["terrain", "maps", "interiors", "props", "characters", "npcs", "monsters", "bosses", "ui"]:
+                    continue
+                if path != Generated.ROOT + group + "/" + name.trim_prefix(group + ".") + ".png" or not ResourceLoader.exists(path) or _entries.has(path):
+                    continue
+                var record: Dictionary = {
+                    "path": path, "name": name, "category": "生成/" + group,
+                    "atlas": group == "terrain",
+                    "description": "已生成的正式身份候选；仍须人工美术签收",
+                    "status": "generated_candidate_not_visual_approved"
+                }
+                _entries[path] = record
+                (_catalog["assets"] as Array).append(record)
+    # The source-only catalog count was historical; the live menu must show
+    # only physically valid registered assets, never 1,282 deleted entries.
+    _catalog["count"] = (_catalog["assets"] as Array).size()
     # Approved migration targets may come from the tiny legacy assets/props/
     # tree, which was not guaranteed to be present in the large art gallery.
     # Register ONLY the six reviewed slots; never auto-publish arbitrary paths.

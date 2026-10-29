@@ -7,6 +7,7 @@ a substitute for the Godot in-scene smoke or human composition assessment.
 import hashlib
 import json
 from pathlib import Path
+from act01_source_provenance import verify_art
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = Path("assets/art/source_packs/Golden-Horizon-2D-01-Sprites-Icons-Effects/2D/Prepared/Sprites")
@@ -43,14 +44,8 @@ def validate():
     for role, source_name in MATCHES.items():
         source = ROOT / (SEA_CRAB_SOURCE if role == "crab" else SOURCE / source_name)
         destination = ROOT / RUNTIME / (role + ".png")
-        if not source.is_file() or not destination.is_file():
-            raise RuntimeError("Missing original or runtime art for " + role)
-        a, b = source.read_bytes(), destination.read_bytes()
-        if a != b:
-            raise RuntimeError("Not the original PNG bytes: " + role)
-        if a[:8] != bytes.fromhex("89504e470d0a1a0a"):
-            raise RuntimeError("PNG signature missing: " + role)
-        reviewed.append({"role": role, "sha": blob_sha(b), "bytes": len(b)})
+        proof = verify_art((RUNTIME / (role + ".png")).as_posix(), source.relative_to(ROOT))
+        reviewed.append({"role": role, "sha": proof["sha"], "bytes": proof["bytes"]})
     scenes = json.loads((ROOT / "data/levels/v4/coastal_scenery.json").read_text("utf-8"))
     expected_maps = {f"map_coast_{idx:02d}" for idx in range(1, 6)}
     if set(scenes) != expected_maps:

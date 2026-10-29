@@ -1,0 +1,1076 @@
+{
+  "format": "starlit.content.v1",
+  "category": "maps",
+  "entries": [
+    {
+      "id": "map_coast_01",
+      "name": "晨露村（正式版规划）",
+      "region_id": "region_coast",
+      "type": "town",
+      "neighbors": [
+        "map_coast_02"
+      ],
+      "level_range": [
+        1,
+        6
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_coast",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        96,
+        56
+      ],
+      "layout_identity": "coast.01.海滩凹湾",
+      "layout_source": "res://data/levels/v3/map_coast_01.json"
+    },
+    {
+      "id": "map_coast_02",
+      "name": "白砂港",
+      "region_id": "region_coast",
+      "type": "field",
+      "neighbors": [
+        "map_coast_01",
+        "map_coast_03"
+      ],
+      "level_range": [
+        2,
+        8
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_coast",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        92,
+        52
+      ],
+      "layout_identity": "coast.02.潮汐分岔",
+      "layout_source": "res://data/levels/v3/map_coast_02.json"
+    },
+    {
+      "id": "map_coast_03",
+      "name": "盐风古道",
+      "region_id": "region_coast",
+      "type": "route",
+      "neighbors": [
+        "map_coast_02",
+        "map_coast_04"
+      ],
+      "level_range": [
+        4,
+        10
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_coast",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        94,
+        54
+      ],
+      "layout_identity": "coast.03.海滩凹湾",
+      "layout_source": "res://data/levels/v3/map_coast_03.json"
+    },
+    {
+      "id": "map_coast_04",
+      "name": "潮声洞窟",
+      "region_id": "region_coast",
+      "type": "dungeon",
+      "neighbors": [
+        "map_coast_03",
+        "map_coast_05"
+      ],
+      "level_range": [
+        6,
+        12
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_coast",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        100,
+        60
+      ],
+      "layout_identity": "coast.04.潮汐分岔",
+      "layout_source": "res://data/levels/v3/map_coast_04.json"
+    },
+    {
+      "id": "map_coast_05",
+      "name": "潮歌灯塔",
+      "region_id": "region_coast",
+      "type": "landmark",
+      "neighbors": [
+        "map_coast_04",
+        "map_oaths_01"
+      ],
+      "level_range": [
+        8,
+        14
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_coast",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        98,
+        52
+      ],
+      "layout_identity": "coast.05.海滩凹湾",
+      "layout_source": "res://data/levels/v3/map_coast_05.json"
+    },
+    {
+      "id": "map_oaths_01",
+      "name": "三誓门城",
+      "region_id": "region_oaths",
+      "type": "town",
+      "neighbors": [
+        "map_oaths_02",
+        "map_coast_05"
+      ],
+      "level_range": [
+        11,
+        17
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oaths",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        96,
+        62
+      ],
+      "layout_identity": "oaths.01.岗哨高路",
+      "layout_source": "res://data/levels/v3/map_oaths_01.json"
+    },
+    {
+      "id": "map_oaths_02",
+      "name": "断誓山径",
+      "region_id": "region_oaths",
+      "type": "field",
+      "neighbors": [
+        "map_oaths_01",
+        "map_oaths_03"
+      ],
+      "level_range": [
+        13,
+        19
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oaths",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        92,
+        64
+      ],
+      "layout_identity": "oaths.02.悬崖折返",
+      "layout_source": "res://data/levels/v3/map_oaths_02.json"
+    },
+    {
+      "id": "map_oaths_03",
+      "name": "银鹫要塞",
+      "region_id": "region_oaths",
+      "type": "route",
+      "neighbors": [
+        "map_oaths_02",
+        "map_oaths_04"
+      ],
+      "level_range": [
+        15,
+        21
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oaths",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        96,
+        60
+      ],
+      "layout_identity": "oaths.03.岗哨高路",
+      "layout_source": "res://data/levels/v3/map_oaths_03.json"
+    },
+    {
+      "id": "map_oaths_04",
+      "name": "誓石神殿",
+      "region_id": "region_oaths",
+      "type": "dungeon",
+      "neighbors": [
+        "map_oaths_03",
+        "map_oaths_05"
+      ],
+      "level_range": [
+        17,
+        23
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oaths",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        100,
+        66
+      ],
+      "layout_identity": "oaths.04.悬崖折返",
+      "layout_source": "res://data/levels/v3/map_oaths_04.json"
+    },
+    {
+      "id": "map_oaths_05",
+      "name": "旧王谒见厅",
+      "region_id": "region_oaths",
+      "type": "landmark",
+      "neighbors": [
+        "map_oaths_04",
+        "map_forge_01"
+      ],
+      "level_range": [
+        19,
+        25
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oaths",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        98,
+        64
+      ],
+      "layout_identity": "oaths.05.岗哨高路",
+      "layout_source": "res://data/levels/v3/map_oaths_05.json"
+    },
+    {
+      "id": "map_forge_01",
+      "name": "熔炉港",
+      "region_id": "region_forge",
+      "type": "town",
+      "neighbors": [
+        "map_forge_02",
+        "map_oaths_05"
+      ],
+      "level_range": [
+        22,
+        28
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_forge",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        86,
+        58
+      ],
+      "layout_identity": "forge.01.炉城高架",
+      "layout_source": "res://data/levels/v3/map_forge_01.json"
+    },
+    {
+      "id": "map_forge_02",
+      "name": "烟塔工坊",
+      "region_id": "region_forge",
+      "type": "field",
+      "neighbors": [
+        "map_forge_01",
+        "map_forge_03"
+      ],
+      "level_range": [
+        24,
+        30
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_forge",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        82,
+        60
+      ],
+      "layout_identity": "forge.02.工业栈桥",
+      "layout_source": "res://data/levels/v3/map_forge_02.json"
+    },
+    {
+      "id": "map_forge_03",
+      "name": "赤砂矿坑",
+      "region_id": "region_forge",
+      "type": "route",
+      "neighbors": [
+        "map_forge_02",
+        "map_forge_04"
+      ],
+      "level_range": [
+        26,
+        32
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_forge",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        84,
+        56
+      ],
+      "layout_identity": "forge.03.炉城高架",
+      "layout_source": "res://data/levels/v3/map_forge_03.json"
+    },
+    {
+      "id": "map_forge_04",
+      "name": "灰烬铁路",
+      "region_id": "region_forge",
+      "type": "dungeon",
+      "neighbors": [
+        "map_forge_03",
+        "map_forge_05"
+      ],
+      "level_range": [
+        28,
+        34
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_forge",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        90,
+        62
+      ],
+      "layout_identity": "forge.04.工业栈桥",
+      "layout_source": "res://data/levels/v3/map_forge_04.json"
+    },
+    {
+      "id": "map_forge_05",
+      "name": "炉心禁区",
+      "region_id": "region_forge",
+      "type": "landmark",
+      "neighbors": [
+        "map_forge_04",
+        "map_isles_01"
+      ],
+      "level_range": [
+        30,
+        36
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_forge",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        88,
+        60
+      ],
+      "layout_identity": "forge.05.炉城高架",
+      "layout_source": "res://data/levels/v3/map_forge_05.json"
+    },
+    {
+      "id": "map_isles_01",
+      "name": "珊歌港",
+      "region_id": "region_isles",
+      "type": "town",
+      "neighbors": [
+        "map_isles_02",
+        "map_forge_05"
+      ],
+      "level_range": [
+        33,
+        39
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_isles",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        98,
+        56
+      ],
+      "layout_identity": "isles.01.岛屿链桥",
+      "layout_source": "res://data/levels/v3/map_isles_01.json"
+    },
+    {
+      "id": "map_isles_02",
+      "name": "五色环礁",
+      "region_id": "region_isles",
+      "type": "field",
+      "neighbors": [
+        "map_isles_01",
+        "map_isles_03"
+      ],
+      "level_range": [
+        35,
+        41
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_isles",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        92,
+        58
+      ],
+      "layout_identity": "isles.02.潮沟分支",
+      "layout_source": "res://data/levels/v3/map_isles_02.json"
+    },
+    {
+      "id": "map_isles_03",
+      "name": "风暴航道",
+      "region_id": "region_isles",
+      "type": "route",
+      "neighbors": [
+        "map_isles_02",
+        "map_isles_04"
+      ],
+      "level_range": [
+        37,
+        43
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_isles",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        94,
+        60
+      ],
+      "layout_identity": "isles.03.岛屿链桥",
+      "layout_source": "res://data/levels/v3/map_isles_03.json"
+    },
+    {
+      "id": "map_isles_04",
+      "name": "深潮神庙",
+      "region_id": "region_isles",
+      "type": "dungeon",
+      "neighbors": [
+        "map_isles_03",
+        "map_isles_05"
+      ],
+      "level_range": [
+        39,
+        45
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_isles",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        102,
+        60
+      ],
+      "layout_identity": "isles.04.潮沟分支",
+      "layout_source": "res://data/levels/v3/map_isles_04.json"
+    },
+    {
+      "id": "map_isles_05",
+      "name": "沉没王座",
+      "region_id": "region_isles",
+      "type": "landmark",
+      "neighbors": [
+        "map_isles_04",
+        "map_mirror_01"
+      ],
+      "level_range": [
+        41,
+        47
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_isles",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        98,
+        58
+      ],
+      "layout_identity": "isles.05.岛屿链桥",
+      "layout_source": "res://data/levels/v3/map_isles_05.json"
+    },
+    {
+      "id": "map_mirror_01",
+      "name": "镜湖都",
+      "region_id": "region_mirror",
+      "type": "town",
+      "neighbors": [
+        "map_mirror_02",
+        "map_isles_05"
+      ],
+      "level_range": [
+        44,
+        50
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_mirror",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        86,
+        64
+      ],
+      "layout_identity": "mirror.01.雾林曲径",
+      "layout_source": "res://data/levels/v3/map_mirror_01.json"
+    },
+    {
+      "id": "map_mirror_02",
+      "name": "夜镜森林",
+      "region_id": "region_mirror",
+      "type": "field",
+      "neighbors": [
+        "map_mirror_01",
+        "map_mirror_03"
+      ],
+      "level_range": [
+        46,
+        52
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_mirror",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        84,
+        60
+      ],
+      "layout_identity": "mirror.02.回廊螺旋",
+      "layout_source": "res://data/levels/v3/map_mirror_02.json"
+    },
+    {
+      "id": "map_mirror_03",
+      "name": "忘梦庭院",
+      "region_id": "region_mirror",
+      "type": "route",
+      "neighbors": [
+        "map_mirror_02",
+        "map_mirror_04"
+      ],
+      "level_range": [
+        48,
+        54
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_mirror",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        84,
+        62
+      ],
+      "layout_identity": "mirror.03.雾林曲径",
+      "layout_source": "res://data/levels/v3/map_mirror_03.json"
+    },
+    {
+      "id": "map_mirror_04",
+      "name": "银玻璃塔",
+      "region_id": "region_mirror",
+      "type": "dungeon",
+      "neighbors": [
+        "map_mirror_03",
+        "map_mirror_05"
+      ],
+      "level_range": [
+        50,
+        56
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_mirror",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        90,
+        68
+      ],
+      "layout_identity": "mirror.04.回廊螺旋",
+      "layout_source": "res://data/levels/v3/map_mirror_04.json"
+    },
+    {
+      "id": "map_mirror_05",
+      "name": "映世回廊",
+      "region_id": "region_mirror",
+      "type": "landmark",
+      "neighbors": [
+        "map_mirror_04",
+        "map_oldland_01"
+      ],
+      "level_range": [
+        52,
+        58
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_mirror",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        90,
+        60
+      ],
+      "layout_identity": "mirror.05.雾林曲径",
+      "layout_source": "res://data/levels/v3/map_mirror_05.json"
+    },
+    {
+      "id": "map_oldland_01",
+      "name": "遗民营地",
+      "region_id": "region_oldland",
+      "type": "town",
+      "neighbors": [
+        "map_oldland_02",
+        "map_mirror_05"
+      ],
+      "level_range": [
+        55,
+        61
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oldland",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        88,
+        64
+      ],
+      "layout_identity": "oldland.01.遗迹环城",
+      "layout_source": "res://data/levels/v3/map_oldland_01.json"
+    },
+    {
+      "id": "map_oldland_02",
+      "name": "荒星平原",
+      "region_id": "region_oldland",
+      "type": "field",
+      "neighbors": [
+        "map_oldland_01",
+        "map_oldland_03"
+      ],
+      "level_range": [
+        57,
+        63
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oldland",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        82,
+        66
+      ],
+      "layout_identity": "oldland.02.沉降盆地",
+      "layout_source": "res://data/levels/v3/map_oldland_02.json"
+    },
+    {
+      "id": "map_oldland_03",
+      "name": "时裂峡谷",
+      "region_id": "region_oldland",
+      "type": "route",
+      "neighbors": [
+        "map_oldland_02",
+        "map_oldland_04"
+      ],
+      "level_range": [
+        59,
+        65
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oldland",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        84,
+        68
+      ],
+      "layout_identity": "oldland.03.遗迹环城",
+      "layout_source": "res://data/levels/v3/map_oldland_03.json"
+    },
+    {
+      "id": "map_oldland_04",
+      "name": "星墓秘殿",
+      "region_id": "region_oldland",
+      "type": "dungeon",
+      "neighbors": [
+        "map_oldland_03",
+        "map_oldland_05"
+      ],
+      "level_range": [
+        61,
+        67
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oldland",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        92,
+        68
+      ],
+      "layout_identity": "oldland.04.沉降盆地",
+      "layout_source": "res://data/levels/v3/map_oldland_04.json"
+    },
+    {
+      "id": "map_oldland_05",
+      "name": "旧日灯枢",
+      "region_id": "region_oldland",
+      "type": "landmark",
+      "neighbors": [
+        "map_oldland_04",
+        "map_sanctum_01"
+      ],
+      "level_range": [
+        63,
+        69
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_oldland",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        88,
+        66
+      ],
+      "layout_identity": "oldland.05.遗迹环城",
+      "layout_source": "res://data/levels/v3/map_oldland_05.json"
+    },
+    {
+      "id": "map_sanctum_01",
+      "name": "天轨前庭",
+      "region_id": "region_sanctum",
+      "type": "town",
+      "neighbors": [
+        "map_sanctum_02",
+        "map_oldland_05"
+      ],
+      "level_range": [
+        66,
+        72
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_sanctum",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        96,
+        68
+      ],
+      "layout_identity": "sanctum.01.星环回廊",
+      "layout_source": "res://data/levels/v3/map_sanctum_01.json"
+    },
+    {
+      "id": "map_sanctum_02",
+      "name": "七灯环庭",
+      "region_id": "region_sanctum",
+      "type": "field",
+      "neighbors": [
+        "map_sanctum_01",
+        "map_sanctum_03"
+      ],
+      "level_range": [
+        68,
+        74
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_sanctum",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        94,
+        64
+      ],
+      "layout_identity": "sanctum.02.浮岛支径",
+      "layout_source": "res://data/levels/v3/map_sanctum_02.json"
+    },
+    {
+      "id": "map_sanctum_03",
+      "name": "反转星穹",
+      "region_id": "region_sanctum",
+      "type": "route",
+      "neighbors": [
+        "map_sanctum_02",
+        "map_sanctum_04"
+      ],
+      "level_range": [
+        70,
+        76
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_sanctum",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        94,
+        66
+      ],
+      "layout_identity": "sanctum.03.星环回廊",
+      "layout_source": "res://data/levels/v3/map_sanctum_03.json"
+    },
+    {
+      "id": "map_sanctum_04",
+      "name": "岁影尽头",
+      "region_id": "region_sanctum",
+      "type": "dungeon",
+      "neighbors": [
+        "map_sanctum_03",
+        "map_sanctum_05"
+      ],
+      "level_range": [
+        72,
+        78
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_sanctum",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        100,
+        72
+      ],
+      "layout_identity": "sanctum.04.浮岛支径",
+      "layout_source": "res://data/levels/v3/map_sanctum_04.json"
+    },
+    {
+      "id": "map_sanctum_05",
+      "name": "永昼祭坛",
+      "region_id": "region_sanctum",
+      "type": "landmark",
+      "neighbors": [
+        "map_sanctum_04"
+      ],
+      "level_range": [
+        74,
+        80
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_sanctum",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        100,
+        64
+      ],
+      "layout_identity": "sanctum.05.星环回廊",
+      "layout_source": "res://data/levels/v3/map_sanctum_05.json"
+    },
+    {
+      "id": "map_legacy_village",
+      "name": "晨露村（旧版试玩）",
+      "region_id": "region_coast",
+      "type": "prototype",
+      "neighbors": [
+        "map_legacy_ruins"
+      ],
+      "level_range": [
+        1,
+        5
+      ],
+      "scene_path": "res://data/village.json",
+      "art_status": "prototype",
+      "implementation": "playable",
+      "status": "prototype"
+    },
+    {
+      "id": "map_legacy_ruins",
+      "name": "星落遗迹（旧版试玩）",
+      "region_id": "region_coast",
+      "type": "prototype",
+      "neighbors": [
+        "map_legacy_village"
+      ],
+      "level_range": [
+        1,
+        8
+      ],
+      "scene_path": "res://data/ruins.json",
+      "art_status": "prototype",
+      "implementation": "playable",
+      "status": "prototype"
+    },
+    {
+      "id": "map_city_01",
+      "name": "群灯旧会馆",
+      "region_id": "region_city",
+      "type": "town",
+      "neighbors": [
+        "map_city_02"
+      ],
+      "level_range": [
+        70,
+        75
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        86,
+        52
+      ],
+      "layout_identity": "city.01.河港三环",
+      "layout_source": "res://data/levels/v3/map_city_01.json"
+    },
+    {
+      "id": "map_city_02",
+      "name": "自由议事厅",
+      "region_id": "region_city",
+      "type": "hall",
+      "neighbors": [
+        "map_city_01",
+        "map_city_03"
+      ],
+      "level_range": [
+        71,
+        76
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        88,
+        54
+      ],
+      "layout_identity": "city.02.修复大道",
+      "layout_source": "res://data/levels/v3/map_city_02.json"
+    },
+    {
+      "id": "map_city_03",
+      "name": "群灯居民街",
+      "region_id": "region_city",
+      "type": "residential",
+      "neighbors": [
+        "map_city_02",
+        "map_city_04"
+      ],
+      "level_range": [
+        72,
+        77
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        90,
+        56
+      ],
+      "layout_identity": "city.03.河港三环",
+      "layout_source": "res://data/levels/v3/map_city_03.json"
+    },
+    {
+      "id": "map_city_04",
+      "name": "星灯中枢",
+      "region_id": "region_city",
+      "type": "dungeon",
+      "neighbors": [
+        "map_city_03",
+        "map_city_05"
+      ],
+      "level_range": [
+        73,
+        78
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        92,
+        56
+      ],
+      "layout_identity": "city.04.修复大道",
+      "layout_source": "res://data/levels/v3/map_city_04.json"
+    },
+    {
+      "id": "map_city_05",
+      "name": "西区修复工地",
+      "region_id": "region_city",
+      "type": "worksite",
+      "neighbors": [
+        "map_city_04"
+      ],
+      "level_range": [
+        74,
+        79
+      ],
+      "scene_path": null,
+      "tile_size": 32,
+      "tileset_key": "tileset_city",
+      "art_status": "not_final_painted",
+      "implementation": "runtime_independent_layout_v5",
+      "status": "layout_playable_art_pending",
+      "grid_size": [
+        90,
+        54
+      ],
+      "layout_identity": "city.05.河港三环",
+      "layout_source": "res://data/levels/v3/map_city_05.json"
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+extends CanvasLayer
+## Exploration UI: uncovered local terrain only, compact minimap plus enlarged
+## current-area view. No fog-of-war and no global / regional navigation screen.
+signal opened()
+signal closed()
+
+const View = preload("res://scripts/map_view.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
+const INK: Color = Color("0b1c32")
+const GOLD: Color = Color("e6c47d")
+var world
+var router
+var root: Control
+var small_frame: PanelContainer
+var small_view
+var small_header: Button
+var overlay: Control
+var full_view
+var full_heading: Label
+var map_info: Label
+var route_info: Label
+var shown_mode: String = "local"
+var update_clock: float = 0.0
+var in_world: bool = false
+var primary_target: String = ""
+var secondary_target: String = ""
+var quest_destination: String = ""
+var quest_summary: String = ""
+var zoom_out_button: Button
+var zoom_in_button: Button
+var recenter_button: Button
+var zoom_status: Label
+var displayed_context: String = ""
+
+func _ready() -> void:
+    layer = 14
+    root = Control.new()
+    root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    add_child(root)
+    _build_small()
+    _build_full()
+    small_frame.hide()
+    overlay.hide()
+    set_process(true)
+
+func _frame_style() -> StyleBoxFlat:
+    return CVisual.frame(CVisual.NAVY, CVisual.RIM, 10, 9)
+
+func _button(title: String) -> Button:
+    var btn := Button.new()
+    btn.text = title
+    btn.custom_minimum_size.y = 43
+    btn.add_theme_font_size_override("font_size", 17)
+    btn.add_theme_color_override("font_color", Color("f8e9c6"))
+    btn.add_theme_stylebox_override("normal", _frame_style())
+    CVisual.style_button(btn)
+    return btn
+
+func _build_small() -> void:
+    small_frame = PanelContainer.new()
+    small_frame.name = "ExploreMinimap"
+    small_frame.anchor_left = 0.795
+    small_frame.anchor_right = 0.985
+    small_frame.anchor_top = 0.025
+    small_frame.anchor_bottom = 0.327
+    small_frame.add_theme_stylebox_override("panel", _frame_style())
+    small_frame.mouse_filter = Control.MOUSE_FILTER_STOP
+    root.add_child(small_frame)
+    var vertical := VBoxContainer.new()
+    vertical.add_theme_constant_override("separation", 4)
+    small_frame.add_child(vertical)
+    small_header = _button("◇ 地图 / TAB")
+    small_header.custom_minimum_size.y = 34
+    small_header.add_theme_font_size_override("font_size", 15)
+    small_header.pressed.connect(open_map)
+    vertical.add_child(small_header)
+    small_view = View.new()
+    small_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    small_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    small_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    vertical.add_child(small_view)
+
+func _build_full() -> void:
+    overlay = Control.new()
+    overlay.name = "AtlasOverlay"
+    overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+    root.add_child(overlay)
+    var tint := ColorRect.new()
+    tint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    tint.color = Color(0.015,0.035,0.065,0.96)
+    tint.mouse_filter = Control.MOUSE_FILTER_STOP
+    overlay.add_child(tint)
+    var panel := PanelContainer.new()
+    panel.anchor_left = 0.075
+    panel.anchor_right = 0.925
+    panel.anchor_top = 0.06
+    panel.anchor_bottom = 0.945
+    panel.add_theme_stylebox_override("panel",_frame_style())
+    overlay.add_child(panel)
+    var column := VBoxContainer.new()
+    column.add_theme_constant_override("separation",10)
+    panel.add_child(column)
+    var heading := HBoxContainer.new()
+    heading.add_theme_constant_override("separation",12)
+    column.add_child(heading)
+    full_heading = Label.new()
+    full_heading.text = "✦ 当前区域地图"
+    full_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    full_heading.add_theme_font_size_override("font_size",25)
+    full_heading.add_theme_color_override("font_color",GOLD)
+    heading.add_child(full_heading)
+    var exit_button := _button("返回探索  ×")
+    exit_button.pressed.connect(close_map)
+    heading.add_child(exit_button)
+    # Separate toolbar so local controls remain usable on landscape phones.
+    var tools := HBoxContainer.new()
+    tools.add_theme_constant_override("separation",9)
+    column.add_child(tools)
+    zoom_out_button = _button("－ 缩小")
+    zoom_out_button.pressed.connect(func() -> void: _zoom_local(0.8))
+    tools.add_child(zoom_out_button)
+    zoom_in_button = _button("＋ 放大")
+    zoom_in_button.pressed.connect(func() -> void: _zoom_local(1.25))
+    tools.add_child(zoom_in_button)
+    recenter_button = _button("◎ 定位角色")
+    recenter_button.pressed.connect(func() -> void: _recenter_local())
+    tools.add_child(recenter_button)
+    zoom_status = Label.new()
+    zoom_status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    zoom_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    zoom_status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    zoom_status.add_theme_font_size_override("font_size",14)
+    zoom_status.add_theme_color_override("font_color",Color("cfdeec"))
+    tools.add_child(zoom_status)
+    var columns := HBoxContainer.new()
+    columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    columns.add_theme_constant_override("separation",15)
+    column.add_child(columns)
+    full_view = View.new()
+    full_view.custom_minimum_size = Vector2(450,340)
+    full_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    full_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    columns.add_child(full_view)
+    var sidebar := VBoxContainer.new()
+    sidebar.custom_minimum_size.x = 204
+    sidebar.add_theme_constant_override("separation",13)
+    columns.add_child(sidebar)
+    var detail_title := Label.new()
+    detail_title.text = "探索情报"
+    detail_title.add_theme_color_override("font_color",GOLD)
+    detail_title.add_theme_font_size_override("font_size",20)
+    sidebar.add_child(detail_title)
+    map_info = Label.new()
+    map_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    map_info.add_theme_font_size_override("font_size",16)
+    sidebar.add_child(map_info)
+    route_info = Label.new()
+    route_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    route_info.add_theme_font_size_override("font_size",15)
+    sidebar.add_child(route_info)
+    var spacer := Control.new()
+    spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    sidebar.add_child(spacer)
+    var footer := Label.new()
+    footer.text = "◆ 角色朝向  ✦ 主线  ◇ 支线  ■ 建筑  ◆ 地牢  · 触摸拖动 / 滚轮缩放 · 当前地图全部显示"
+    footer.add_theme_color_override("font_color",Color("b6c8d5"))
+    footer.add_theme_font_size_override("font_size",14)
+    column.add_child(footer)
+
+func bind_world(world_ref, router_ref) -> void:
+    world = world_ref
+    router = router_ref
+    small_view.setup(world,router,true)
+    full_view.setup(world,router,false)
+    displayed_context = ""
+    _refresh_info()
+
+func set_targets(main_id: String, side_id: String = "") -> void:
+    primary_target = main_id
+    secondary_target = side_id
+    small_view.targets(primary_target,secondary_target)
+    full_view.targets(primary_target,secondary_target)
+
+func set_story_route(map_id: String,description: String = "") -> void:
+    quest_destination = map_id
+    quest_summary = description
+    if small_view != null:
+        small_view.queue_redraw()
+    if full_view != null:
+        full_view.queue_redraw()
+
+func show_exploration(value: bool) -> void:
+    in_world = value
+    small_frame.visible = in_world and not overlay.visible
+
+func is_open() -> bool:
+    return overlay.visible
+
+func open_map() -> void:
+    if not in_world or world == null or not is_instance_valid(world.hero):
+        return
+    full_view.reset_local_view()
+    _set_mode("local")
+    overlay.show()
+    small_frame.hide()
+    opened.emit()
+
+func close_map() -> void:
+    if not overlay.visible:
+        return
+    overlay.hide()
+    small_frame.visible = in_world
+    closed.emit()
+
+func _set_mode(_next_mode: String) -> void:
+    # Retained as a compatibility entry point for legacy map UI callers.
+    shown_mode = "local"
+    full_view.display_mode("local")
+    _refresh_zoom_toolbar()
+    full_heading.text = "✦ 当前区域地图"
+    _refresh_info()
+
+func _zoom_local(factor: float) -> void:
+    if shown_mode != "local":
+        return
+    full_view.zoom_local(factor)
+    _refresh_zoom_toolbar()
+
+func _recenter_local() -> void:
+    if shown_mode != "local":
+        return
+    full_view.recenter_local()
+    _refresh_zoom_toolbar()
+
+func _refresh_zoom_toolbar() -> void:
+    if zoom_in_button == null:
+        return
+    var local: bool = shown_mode == "local"
+    zoom_in_button.visible = local
+    zoom_out_button.visible = local
+    recenter_button.visible = local
+    zoom_in_button.disabled = full_view.local_zoom >= View.MAX_LOCAL_ZOOM
+    zoom_out_button.disabled = full_view.local_zoom <= View.MIN_LOCAL_ZOOM
+    zoom_status.text = "缩放 %d%% · 拖动查看地图" % roundi(full_view.local_zoom * 100.0)
+
+func _refresh_info() -> void:
+    if map_info == null:
+        return
+    if world == null or router == null or router.state == null:
+        map_info.text = "尚未进入游戏。"
+        return
+    var world_name: String = str(world.region_name())
+    if small_header != null:
+        small_header.text = "◇ " + str(world.map_profile.get("name","地图")).left(6) + " / TAB"
+        small_header.tooltip_text = world_name + " · 点击查看完整当前区域"
+    var hero_pos: Vector2i = Vector2i(-1,-1)
+    if is_instance_valid(world.hero):
+        hero_pos = Vector2i(world.hero.position / 32.0)
+    var area_class: String = "建筑内部" if not world.interior_building.is_empty() else str(world.map_profile.get("kind","field"))
+    var current_clock: Dictionary = router.state.rpg.get("game_clock",{})
+    var minutes: int = int(current_clock.get("minutes",480))
+    var time_label: String = "%02d:%02d" % [int(minutes/60),minutes%60]
+    var weather_id: String = str(world.ambience.weather) if world.ambience!=null and is_instance_valid(world.ambience) else "clear"
+    var weather_name: String = {"clear":"晴朗","rain":"阵雨","mist":"薄雾","ash":"浮灰"}.get(weather_id,"晴朗")
+    var discovery_line: String = ""
+    if world.interior_building.is_empty() and world.discoveries!=null:
+        var entries: Array = world.discoveries.entries(router.current_map())
+        if not entries.is_empty():
+            var finished: int = 0
+            for record in entries:
+                if bool(router.state.flags.get(world.discoveries.flag(router.current_map(),str(record.get("id",""))),false)):
+                    finished += 1
+            discovery_line = "\n地图调查：%d / %d" % [finished,entries.size()]
+    if world.interior_building.is_empty() and world.dungeon_puzzles!=null:
+        var current_dungeon: Dictionary = world.dungeon_puzzles.config(router.current_map())
+        if not current_dungeon.is_empty():
+            var unlocked: bool = bool(world.dungeon_puzzles.snapshot(router.state,router.current_map()).get("claimed",false))
+            discovery_line += "\n专属机关：" + ("已解开" if unlocked else "尚未解开")
+    if world.interior_building.is_empty() and world.town_ecology!=null:
+        var neighborhood: Dictionary = world.town_ecology.config(router.current_map())
+        if not neighborhood.is_empty():
+            var completed: int = world.town_ecology.completion_count(router.state,router.current_map())
+            discovery_line += "\n本地生活：%d / 3" % completed
+    if world.interior_building.is_empty() and world.field_ecology!=null:
+        var field_spec: Dictionary=world.field_ecology.config(router.current_map())
+        if not field_spec.is_empty():
+            var steps_done: int=world.field_ecology.completed(router.state,router.current_map())
+            var weather_slow: float=world.field_ecology.movement_multiplier(router.current_map(),weather_id)
+            discovery_line+="\n野外生态：%d / 4 · %s" % [steps_done,str(field_spec.get("identity","地貌探查"))]
+            if weather_slow<1.0:
+                discovery_line+="\n气象风险：行进速度 %d%%" % roundi(weather_slow*100.0)
+    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
+    route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n浅金：街区生活与夜间活动\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "查看当前地图，寻找下一条探索线索。")
+
+func _process(delta: float) -> void:
+    if not small_frame.visible and not overlay.visible:
+        return
+    # Reset map framing on outdoor / interior transitions only.
+    # This local key does not reveal, calculate or persist exploration fog.
+    if world != null and is_instance_valid(world.layer):
+        var context: String = str(world.map_profile.get("id",""))+"#"+str(world.interior_building)
+        if displayed_context != context:
+            displayed_context = context
+            small_view.reset_local_view()
+            full_view.reset_local_view()
+            _refresh_zoom_toolbar()
+            _refresh_info()
+    update_clock += delta
+    if update_clock < (0.10 if small_frame.visible else 0.16):
+        return
+    update_clock = 0.0
+    if small_frame.visible:
+        small_view.queue_redraw()
+    if overlay.visible:
+        full_view.queue_redraw()
+        _refresh_info()

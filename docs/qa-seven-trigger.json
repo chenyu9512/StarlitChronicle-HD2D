@@ -1,0 +1,15 @@
+{
+  "batch": "M0.1-final-same-sha-integrated-world-2026-10-27",
+  "base_main": "dbf4a8b5fa208963654d42a0d07765f874e1304c",
+  "engine": "Godot 4.7.2",
+  "strict_release_checks": [
+    "Godot Core Validation",
+    "Batch0 Seven Independent QA Gates",
+    "Starlit Full Godot Smoke Suite"
+  ],
+  "policy": "All workflows run on the exact same trigger SHA; any failed or in-progress gate means no global signoff and M1 HOLD.",
+  "version": 3,
+  "requested_parent_sha": "395aa7d63beb89718cb7704840d5b77f9f23b25a",
+  "status": "requested-not-verified",
+  "rerun_reason": "Audit all seven gates after correct registration of sixteen new scene atlas files and concurrently added lighthouse art; do not infer from old SHA."
+}

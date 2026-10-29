@@ -1,0 +1,354 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 2,
+  "map_id": "map_coast_01",
+  "building_id": "shrine",
+  "name": "晨露村·祈灯祠",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        33,
+        26,
+        41,
+        37
+      ]
+    },
+    {
+      "rect": [
+        27,
+        10,
+        45,
+        29
+      ]
+    },
+    {
+      "rect": [
+        19,
+        17,
+        30,
+        25
+      ]
+    },
+    {
+      "rect": [
+        42,
+        17,
+        55,
+        25
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        30,
+        13,
+        32,
+        14
+      ]
+    },
+    {
+      "rect": [
+        40,
+        13,
+        42,
+        14
+      ]
+    },
+    {
+      "rect": [
+        34,
+        21,
+        36,
+        22
+      ]
+    }
+  ],
+  "door_regions": [],
+  "points": {
+    "spawn": [
+      37,
+      32
+    ],
+    "exit": [
+      37,
+      36
+    ],
+    "service": [
+      36,
+      15
+    ],
+    "storage": [
+      48,
+      20
+    ]
+  },
+  "features": [
+    {
+      "kind": "beacon",
+      "cell": [
+        36,
+        15
+      ],
+      "name": "晨露村·祈灯祠·服务台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        48,
+        20
+      ],
+      "name": "晨露村·祈灯祠·储物处"
+    }
+  ],
+  "art_profile": "coast_district_shrine_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/dew_shrine_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "shrine_altar",
+      "cell": [
+        36,
+        15
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        48,
+        20
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_0_shrine_altar",
+      "asset": "shrine_altar",
+      "cell": [
+        39,
+        13
+      ],
+      "offset": [
+        0,
+        -58
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_shrine_starseal",
+      "asset": "shrine_starseal",
+      "cell": [
+        44,
+        23
+      ],
+      "offset": [
+        0,
+        -12
+      ],
+      "layer": "floor"
+    },
+    {
+      "id": "stage_2_shrine_incense",
+      "asset": "shrine_incense",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_3_lantern",
+      "asset": "lantern",
+      "cell": [
+        37,
+        17
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_guild_emblem",
+      "asset": "guild_emblem",
+      "cell": [
+        47,
+        18
+      ],
+      "offset": [
+        0,
+        -66
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_5_window",
+      "asset": "window",
+      "cell": [
+        32,
+        27
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        42,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      39,
+      13
+    ],
+    [
+      44,
+      23
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "dew_shrine_light_0",
+      "cell": [
+        36,
+        15
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "dew_shrine_light_1",
+      "cell": [
+        37,
+        24
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    },
+    {
+      "id": "dew_shrine_light_2",
+      "cell": [
+        48,
+        20
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    }
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_shrine_altar",
+      "source_visual_id": "stage_0_shrine_altar",
+      "kind": "shrine_altar",
+      "name": "六灯祭坛",
+      "cell": [
+        39,
+        12
+      ],
+      "first_text": "祭坛只为六盏灯留了凹槽，左侧却有一处被磨平的旧石痕。",
+      "repeat_text": "烛油结成细小的白点。",
+      "after_text": "祭坛外缘多了一盏旅人带来的小灯，愿望不再只有一种。",
+      "owner_absent_text": "祈愿可以，但别触碰祭司保存的供物。",
+      "owner_present_text": "屋主同意你仔细查看「六灯祭坛」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_shrine_starseal",
+      "source_visual_id": "stage_1_shrine_starseal",
+      "kind": "shrine_starseal",
+      "name": "褪色星纹",
+      "cell": [
+        44,
+        22
+      ],
+      "first_text": "看似破裂的星纹在灯光下分成七段，最后一段朝着海面。",
+      "repeat_text": "石纹的边缘微微反光。",
+      "after_text": "星纹边贴上解读说明，也注明仍有未经确认的地方。",
+      "owner_absent_text": "石壁脆弱，只用目光观察。",
+      "owner_present_text": "屋主同意你仔细查看「褪色星纹」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_shrine_incense",
+      "source_visual_id": "stage_2_shrine_incense",
+      "kind": "shrine_incense",
+      "name": "旧香炉",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "香灰下面埋着一枚小石珠，祭司说这是给远航人的安稳祝福。",
+      "repeat_text": "香炉温度已降下。",
+      "after_text": "多了一本可自行署名的平安簿，远行家属会来这里写下愿望。",
+      "owner_absent_text": "香料要由守祠人添加。",
+      "owner_present_text": "屋主同意你仔细查看「旧香炉」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_3_lantern",
+      "source_visual_id": "stage_3_lantern",
+      "kind": "lantern",
+      "name": "长明小灯",
+      "cell": [
+        37,
+        17
+      ],
+      "first_text": "灯座刻着旧日修灯人的姓名，有一道刻痕还未写完。",
+      "repeat_text": "灯罩内积了点灰。",
+      "after_text": "小灯旁留下新的署名，不再遮掩那段无人说起的往事。",
+      "owner_absent_text": "灯火由守祠人照看，切勿随意挪动。",
+      "owner_present_text": "屋主同意你仔细查看「长明小灯」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "npc_coast_01",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
+}

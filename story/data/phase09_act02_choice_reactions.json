@@ -1,0 +1,379 @@
+{
+  "schema": "starlit.story.phase09.act02.choice_reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "十二个选择后即时反应候选；只在原choice保存状态后播一次。无A/B独立任务路线，未增加触发器和战斗判定。",
+  "followups": [
+    {
+      "id": "ch007.p9.choice.listen",
+      "chapter_id": "ch007",
+      "after_choice_id": "ch007.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch007.approach": "open_registry",
+        "world.ch007.approach": "open_registry"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch007.p9.choice.listen.l01",
+          "speaker": "救济官",
+          "text": "公开的是急需药品的数量和拒绝签署的机关，不是躲避追兵的住址。"
+        },
+        {
+          "id": "ch007.p9.choice.listen.l02",
+          "speaker": "主角",
+          "text": "三廷各留一份能核对的记录，医馆单独保管个人姓名。"
+        },
+        {
+          "id": "ch007.p9.choice.listen.l03",
+          "speaker": "雷索",
+          "text": "让人被看见，不该先把他们暴露给危险。"
+        }
+      ]
+    },
+    {
+      "id": "ch007.p9.choice.act",
+      "chapter_id": "ch007",
+      "after_choice_id": "ch007.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch007.approach": "protect_privacy",
+        "world.ch007.approach": "protect_privacy"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch007.p9.choice.act.l01",
+          "speaker": "岚音",
+          "text": "医馆封存了完整名单。今晚谁发药、发了多少都有记录。"
+        },
+        {
+          "id": "ch007.p9.choice.act.l02",
+          "speaker": "救济官",
+          "text": "等追兵过去，我还可以自己决定要不要公开姓名。"
+        },
+        {
+          "id": "ch007.p9.choice.act.l03",
+          "speaker": "主角",
+          "text": "这不是把问题藏起来，而是先保护能受到伤害的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch008.p9.choice.listen",
+      "chapter_id": "ch008",
+      "after_choice_id": "ch008.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch008.approach": "evidence_first",
+        "world.ch008.approach": "evidence_first"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch008.p9.choice.listen.l01",
+          "speaker": "雷索",
+          "text": "先让两岸看同一份军械编号。字迹抄错了也允许当面更正。"
+        },
+        {
+          "id": "ch008.p9.choice.listen.l02",
+          "speaker": "车队长",
+          "text": "我等你们查清楚，不会先冲去烧粮仓。"
+        },
+        {
+          "id": "ch008.p9.choice.listen.l03",
+          "speaker": "对岸村长",
+          "text": "我们也拿出失窃物品记录，不让谣言替我们发言。"
+        }
+      ]
+    },
+    {
+      "id": "ch008.p9.choice.act",
+      "chapter_id": "ch008",
+      "after_choice_id": "ch008.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch008.approach": "rescue_first",
+        "world.ch008.approach": "rescue_first"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch008.p9.choice.act.l01",
+          "speaker": "岚音",
+          "text": "老人孩子先上河湾小船，其他人沿桥头退到干地。"
+        },
+        {
+          "id": "ch008.p9.choice.act.l02",
+          "speaker": "朔弦",
+          "text": "接应的人不要带武器，免得对岸以为又来了袭击者。"
+        },
+        {
+          "id": "ch008.p9.choice.act.l03",
+          "speaker": "车队长",
+          "text": "我留下解释运粮和药品的用途，不让他们担心我们逃跑。"
+        }
+      ]
+    },
+    {
+      "id": "ch009.p9.choice.listen",
+      "chapter_id": "ch009",
+      "after_choice_id": "ch009.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch009.approach": "safe_home",
+        "world.ch009.approach": "safe_home"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch009.p9.choice.listen.l01",
+          "speaker": "幸存老妇",
+          "text": "我先带孙女去安全住处，等她安顿好再回来作证。"
+        },
+        {
+          "id": "ch009.p9.choice.listen.l02",
+          "speaker": "雷索",
+          "text": "庭审延期不等于放弃证词。她们的安全比我的名誉重要。"
+        },
+        {
+          "id": "ch009.p9.choice.listen.l03",
+          "speaker": "书记官",
+          "text": "我会记录延期原因，不公开孩子的去向。"
+        }
+      ]
+    },
+    {
+      "id": "ch009.p9.choice.act",
+      "chapter_id": "ch009",
+      "after_choice_id": "ch009.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch009.approach": "public_witness",
+        "world.ch009.approach": "public_witness"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch009.p9.choice.act.l01",
+          "speaker": "书记官",
+          "text": "法庭必须当众写下保护措施，谁泄露住址要负责任。"
+        },
+        {
+          "id": "ch009.p9.choice.act.l02",
+          "speaker": "幸存老妇",
+          "text": "我听清楚了，但我仍要有权在害怕时暂停作证。"
+        },
+        {
+          "id": "ch009.p9.choice.act.l03",
+          "speaker": "雷索",
+          "text": "允许拒绝才谈得上自愿；不该由我的案子替她决定。"
+        }
+      ]
+    },
+    {
+      "id": "ch010.p9.choice.listen",
+      "chapter_id": "ch010",
+      "after_choice_id": "ch010.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch010.approach": "joint_audit",
+        "world.ch010.approach": "joint_audit"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch010.p9.choice.listen.l01",
+          "speaker": "中庭书记",
+          "text": "各国先点验在场人口和伤员，粮袋分配都留可查记录。"
+        },
+        {
+          "id": "ch010.p9.choice.listen.l02",
+          "speaker": "北廷商贩",
+          "text": "偏远村庄不该只因为人数少就永远排在最后。"
+        },
+        {
+          "id": "ch010.p9.choice.listen.l03",
+          "speaker": "岚音",
+          "text": "把特殊医药需求另列出来，下一车按急需情况复核。"
+        }
+      ]
+    },
+    {
+      "id": "ch010.p9.choice.act",
+      "chapter_id": "ch010",
+      "after_choice_id": "ch010.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch010.approach": "medical_priority",
+        "world.ch010.approach": "medical_priority"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch010.p9.choice.act.l01",
+          "speaker": "岚音",
+          "text": "先送严重伤病者、婴儿和无法自行领粮的人。"
+        },
+        {
+          "id": "ch010.p9.choice.act.l02",
+          "speaker": "南廷农夫",
+          "text": "那其他村怎么办？我们不能只靠一句“下回优先”。"
+        },
+        {
+          "id": "ch010.p9.choice.act.l03",
+          "speaker": "主角",
+          "text": "先贴上第二车的预计路线和负责人，承诺也要查得到。"
+        }
+      ]
+    },
+    {
+      "id": "ch011.p9.choice.listen",
+      "chapter_id": "ch011",
+      "after_choice_id": "ch011.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch011.approach": "orders_first",
+        "world.ch011.approach": "orders_first"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch011.p9.choice.listen.l01",
+          "speaker": "雷索",
+          "text": "两岸都看见原始命令的签发人和时间，士兵有理由先停手核对。"
+        },
+        {
+          "id": "ch011.p9.choice.listen.l02",
+          "speaker": "朔弦",
+          "text": "我争取一点时间处理桥下引线；如果桥出现晃动就撤。"
+        },
+        {
+          "id": "ch011.p9.choice.listen.l03",
+          "speaker": "岚音",
+          "text": "桥边的医务棚已经准备好，别让百姓留下来看热闹。"
+        }
+      ]
+    },
+    {
+      "id": "ch011.p9.choice.act",
+      "chapter_id": "ch011",
+      "after_choice_id": "ch011.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch011.approach": "bridge_first",
+        "world.ch011.approach": "bridge_first"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch011.p9.choice.act.l01",
+          "speaker": "朔弦",
+          "text": "先锁绞盘，桥下两条引线由懂结构的工匠一起处理。"
+        },
+        {
+          "id": "ch011.p9.choice.act.l02",
+          "speaker": "雷索",
+          "text": "军队仍在等错误命令，我去召集双方指挥官核对原件。"
+        },
+        {
+          "id": "ch011.p9.choice.act.l03",
+          "speaker": "主角",
+          "text": "不把哪边的士兵直接叫作敌人，先让他们知道桥上还有平民。"
+        }
+      ]
+    },
+    {
+      "id": "ch012.p9.choice.listen",
+      "chapter_id": "ch012",
+      "after_choice_id": "ch012.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch012.approach": "shared_oath",
+        "world.ch012.approach": "shared_oath"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch012.p9.choice.listen.l01",
+          "speaker": "平民代表",
+          "text": "我可以签名，也会记住哪一天谁答应公开粮仓。"
+        },
+        {
+          "id": "ch012.p9.choice.listen.l02",
+          "speaker": "王族使者",
+          "text": "王廷接受同一张监督表，不再各藏一份。"
+        },
+        {
+          "id": "ch012.p9.choice.listen.l03",
+          "speaker": "雷索",
+          "text": "盟约生效不代表所有问题从此消失，而是终于有办法追问。"
+        }
+      ]
+    },
+    {
+      "id": "ch012.p9.choice.act",
+      "chapter_id": "ch012",
+      "after_choice_id": "ch012.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch012.approach": "public_review",
+        "world.ch012.approach": "public_review"
+      },
+      "required_stage": "crisis",
+      "insertion": "after_choice_before_encounter",
+      "independent_route": false,
+      "optional": true,
+      "dialogue": [
+        {
+          "id": "ch012.p9.choice.act.l01",
+          "speaker": "中庭书记",
+          "text": "先写清楚审查频率、居民申诉和改约手续，再请各方签字。"
+        },
+        {
+          "id": "ch012.p9.choice.act.l02",
+          "speaker": "南廷农夫",
+          "text": "不懂的条款我会请人再读一遍，不会因为怕丢脸就点头。"
+        },
+        {
+          "id": "ch012.p9.choice.act.l03",
+          "speaker": "雷索",
+          "text": "今天有反对意见，以后也该有。母灯不该替我们堵住别人的嘴。"
+        }
+      ]
+    }
+  ]
+}

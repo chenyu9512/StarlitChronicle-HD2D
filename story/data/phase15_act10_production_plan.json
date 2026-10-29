@@ -1,0 +1,645 @@
+{
+  "schema": "starlit.story.phase15.act10.production_plan.v1",
+  "date": "2026-10-25",
+  "status": "production_design_only_not_runtime_bound",
+  "scope": "ch055_ch060",
+  "notes": "12 optional scenes, 12 instant choice responses, 6 practical reconstruction tasks, 12 conceptual grid nodes. All map targets unassigned and no new save flags.",
+  "event_plan": [
+    {
+      "id": "ch055.p15.town",
+      "chapter_id": "ch055",
+      "optional_scene_id": "ch055.p15.town",
+      "location_hint": "群灯之城·西区",
+      "physical_target": "棚屋门口的借床单",
+      "player_actions": [
+        "问明临时安置家庭的最低居住需要",
+        "检查屋顶漏水与临时借物清单",
+        "把借物归还日期交给居民本人"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch055.opening",
+        "required_flags": [
+          "ch055.started"
+        ],
+        "without_flags": [
+          "ch055.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch055.p15.evidence",
+      "chapter_id": "ch055",
+      "optional_scene_id": "ch055.p15.evidence",
+      "location_hint": "群灯之城·西区",
+      "physical_target": "修缮木料和旧地契",
+      "player_actions": [
+        "核对旧产权指印与现有房屋登记",
+        "检查梁柱承重、木料费用和实际工时",
+        "分别登记暂住安排与产权申诉"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch055.investigate",
+        "required_flags": [
+          "ch055.evidence"
+        ],
+        "without_flags": [
+          "ch055.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch056.p15.town",
+      "chapter_id": "ch056",
+      "optional_scene_id": "ch056.p15.town",
+      "location_hint": "群灯之城·旧会馆",
+      "physical_target": "新公会的第一堂急救课",
+      "player_actions": [
+        "到新公会报名基本急救和辨认求救路标",
+        "从无战斗委托中选择技能训练",
+        "确认培训有合格医护在场"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch056.opening",
+        "required_flags": [
+          "ch056.started"
+        ],
+        "without_flags": [
+          "ch056.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch056.p15.evidence",
+      "chapter_id": "ch056",
+      "optional_scene_id": "ch056.p15.evidence",
+      "location_hint": "群灯之城·旧会馆",
+      "physical_target": "未送达物资账册",
+      "player_actions": [
+        "查出送药箱的最终交接点",
+        "比对出库章与真正医馆签收",
+        "把断桥标记到新路线图"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch056.investigate",
+        "required_flags": [
+          "ch056.evidence"
+        ],
+        "without_flags": [
+          "ch056.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch057.p15.town",
+      "chapter_id": "ch057",
+      "optional_scene_id": "ch057.p15.town",
+      "location_hint": "群灯之城·居民街",
+      "physical_target": "灵兽牧场边的饮水井",
+      "player_actions": [
+        "检查牧场排水与民用饮水井距离",
+        "安排让孩童可通行的街道和缓坡",
+        "记录工坊与牧场所需公共设施"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch057.opening",
+        "required_flags": [
+          "ch057.started"
+        ],
+        "without_flags": [
+          "ch057.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch057.p15.evidence",
+      "chapter_id": "ch057",
+      "optional_scene_id": "ch057.p15.evidence",
+      "location_hint": "群灯之城·居民街",
+      "physical_target": "共享广场的使用日历",
+      "player_actions": [
+        "对照各族节日日期与广场使用量",
+        "规划夜间安静通道和节后清理责任",
+        "保留未来居民的日历申请窗口"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch057.investigate",
+        "required_flags": [
+          "ch057.evidence"
+        ],
+        "without_flags": [
+          "ch057.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch058.p15.town",
+      "chapter_id": "ch058",
+      "optional_scene_id": "ch058.p15.town",
+      "location_hint": "城郊·封存档案车",
+      "physical_target": "听证厅外的等候木椅",
+      "player_actions": [
+        "引导家属至私密等候区域",
+        "确认现场安全人员与调查官职责分离",
+        "告知暂停听证与离场的自主权"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch058.opening",
+        "required_flags": [
+          "ch058.started"
+        ],
+        "without_flags": [
+          "ch058.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch058.p15.evidence",
+      "chapter_id": "ch058",
+      "optional_scene_id": "ch058.p15.evidence",
+      "location_hint": "城郊·封存档案车",
+      "physical_target": "记灯师签名与转供电图",
+      "player_actions": [
+        "比对维莎签名与改造线路图日期",
+        "分别封存公开审批与私人医疗资料",
+        "请受害者代表签收可核验证据副本"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch058.investigate",
+        "required_flags": [
+          "ch058.evidence"
+        ],
+        "without_flags": [
+          "ch058.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch059.p15.town",
+      "chapter_id": "ch059",
+      "optional_scene_id": "ch059.p15.town",
+      "location_hint": "群灯城·自由议事厅",
+      "physical_target": "不用握剑的木工课堂",
+      "player_actions": [
+        "由雷索示范救援信号与避难门加固",
+        "让儿童自愿选战斗训练或非战斗技能",
+        "确认培训不影响领取基本救助"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch059.opening",
+        "required_flags": [
+          "ch059.started"
+        ],
+        "without_flags": [
+          "ch059.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch059.p15.evidence",
+      "chapter_id": "ch059",
+      "optional_scene_id": "ch059.p15.evidence",
+      "location_hint": "群灯城·自由议事厅",
+      "physical_target": "护理与粮车双账表",
+      "player_actions": [
+        "核对粮车到达与医护值守名单",
+        "记录未被统计的护理工作和替班需求",
+        "公示自愿后勤预算及退出条款"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch059.investigate",
+        "required_flags": [
+          "ch059.evidence"
+        ],
+        "without_flags": [
+          "ch059.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch060.p15.town",
+      "chapter_id": "ch060",
+      "optional_scene_id": "ch060.p15.town",
+      "location_hint": "群灯城·星灯中枢",
+      "physical_target": "南区拒绝接入的小灯",
+      "player_actions": [
+        "核对未接入居民是否仍享紧急医疗与供水",
+        "让住户亲自检查节点的隔离开关",
+        "记录各户对接入及退出的真实意愿"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch060.opening",
+        "required_flags": [
+          "ch060.started"
+        ],
+        "without_flags": [
+          "ch060.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch060.p15.evidence",
+      "chapter_id": "ch060",
+      "optional_scene_id": "ch060.p15.evidence",
+      "location_hint": "群灯城·星灯中枢",
+      "physical_target": "十二社区隔离阀图",
+      "player_actions": [
+        "检查社区隔离阀与医院备用供电",
+        "用第41章蓝图比对当前十二支路实装",
+        "在地区代表签认后分组测试线路"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch060.investigate",
+        "required_flags": [
+          "ch060.evidence"
+        ],
+        "without_flags": [
+          "ch060.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original mainline flags and rewards unaffected",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch055.p15.choice.hear",
+      "chapter_id": "ch055",
+      "choice_id": "ch055.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch055.approach": "urgent",
+        "world.ch055.approach": "urgent"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch055.p15.choice.protect",
+      "chapter_id": "ch055",
+      "choice_id": "ch055.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch055.approach": "public_review",
+        "world.ch055.approach": "public_review"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch056.p15.choice.hear",
+      "chapter_id": "ch056",
+      "choice_id": "ch056.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch056.approach": "transparent",
+        "world.ch056.approach": "transparent"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch056.p15.choice.protect",
+      "chapter_id": "ch056",
+      "choice_id": "ch056.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch056.approach": "civil_oversight",
+        "world.ch056.approach": "civil_oversight"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch057.p15.choice.hear",
+      "chapter_id": "ch057",
+      "choice_id": "ch057.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch057.approach": "rotating",
+        "world.ch057.approach": "rotating"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch057.p15.choice.protect",
+      "chapter_id": "ch057",
+      "choice_id": "ch057.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch057.approach": "inclusive",
+        "world.ch057.approach": "inclusive"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch058.p15.choice.hear",
+      "chapter_id": "ch058",
+      "choice_id": "ch058.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch058.approach": "public_hearing",
+        "world.ch058.approach": "public_hearing"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch058.p15.choice.protect",
+      "chapter_id": "ch058",
+      "choice_id": "ch058.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch058.approach": "victim_panel",
+        "world.ch058.approach": "victim_panel"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch059.p15.choice.hear",
+      "chapter_id": "ch059",
+      "choice_id": "ch059.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch059.approach": "right_refuse",
+        "world.ch059.approach": "right_refuse"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch059.p15.choice.protect",
+      "chapter_id": "ch059",
+      "choice_id": "ch059.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch059.approach": "civil_support",
+        "world.ch059.approach": "civil_support"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch060.p15.choice.hear",
+      "chapter_id": "ch060",
+      "choice_id": "ch060.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch060.approach": "community",
+        "world.ch060.approach": "community"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch060.p15.choice.protect",
+      "chapter_id": "ch060",
+      "choice_id": "ch060.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch060.approach": "emergency_nodes",
+        "world.ch060.approach": "emergency_nodes"
+      },
+      "insertion": "after_choice_commit_before_boss_or_resolve",
+      "once_only": true,
+      "runtime_registered": false
+    }
+  ],
+  "setpiece_design": {
+    "housing_restoration": {
+      "chapter": "ch055",
+      "status": "design_only",
+      "actions": [
+        "roof and support-beam inspection",
+        "separate temporary occupancy permit from land title",
+        "track paid working hours and restitution review"
+      ],
+      "guard": "no automatic property ownership transfer"
+    },
+    "volunteer_guild": {
+      "chapter": "ch056",
+      "status": "design_only",
+      "commissions": [
+        "repair bridge",
+        "deliver medicine",
+        "locate missing resident"
+      ],
+      "actions": [
+        "verify delivery signature",
+        "show route and skills required",
+        "allow withdrawal and civilian appeal"
+      ],
+      "guard": "no permanent private militia"
+    },
+    "festival_city": {
+      "chapter": "ch057",
+      "status": "design_only",
+      "actions": [
+        "schedule plural community traditions",
+        "provide accessible health routes",
+        "preserve quiet time and sanitation"
+      ],
+      "guard": "no battle/Boss appended to original peaceful festival"
+    },
+    "witness_hearing": {
+      "chapter": "ch058",
+      "status": "design_only",
+      "actions": [
+        "keep original signed evidence",
+        "provide victim counsel and right to recess",
+        "hold separate responsibility review after party entry"
+      ],
+      "guard": "Weisha joins only ch058.resolve; not acquitted by recruitment"
+    },
+    "civic_defense": {
+      "chapter": "ch059",
+      "status": "design_only",
+      "actions": [
+        "run voluntary defense roster",
+        "fund noncombat care and repair work",
+        "require rest cycles and an exit procedure"
+      ],
+      "guard": "no forced conscription and no loss of basic support for refusing"
+    },
+    "distributed_light_network": {
+      "chapter": "ch060",
+      "status": "design_only",
+      "nodes": [
+        {
+          "id": "ch060.node.01",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.02",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.03",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.04",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.05",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.06",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.07",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.08",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.09",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.10",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.11",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch060.node.12",
+          "action": "test community consent, power isolation and independent fallback",
+          "runtime_registered": false
+        }
+      ],
+      "safety_checks": [
+        "hospital backup stable",
+        "residents free to exit",
+        "local node isolation tested",
+        "repair and appeal contacts public"
+      ],
+      "guard": "Only original ch060.resolve sets world.distributed_network; no auto-setting twelve pages, seven lanterns, or ending C"
+    }
+  }
+}

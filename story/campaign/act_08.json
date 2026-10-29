@@ -1,0 +1,2698 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 8,
+  "title": "黑星战争",
+  "theme": "赫西安登场，队伍失利，世界陷入黑星时代。",
+  "progression_unlock": "world_blackstar",
+  "chapters": [
+    {
+      "id": "ch043",
+      "number": 43,
+      "act": 8,
+      "chapter_number": 1,
+      "title": "六灯的代价",
+      "location": "三誓王都·星务署",
+      "required_flags": [
+        "story.ch042.done"
+      ],
+      "chapter_start_flag": "ch043.started",
+      "chapter_complete_flag": "story.ch043.done",
+      "lead_character": "缇珐",
+      "summary": "在三誓王都·星务署，检查六盏母灯重燃后的能流。星务署拒绝停机检查，声称此刻停止会导致城市断电。最终，玩家取得完整输能图，才发现过去的努力正被人利用。",
+      "production_status": "scripted_blocking_v2_phase8_climax_pass",
+      "recommended_level": [
+        51,
+        55
+      ],
+      "boss": "高压星阵",
+      "scenes": [
+        {
+          "id": "ch043.opening",
+          "title": "开场：三誓王都·星务署",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·星务署"
+          },
+          "dialogue": [
+            {
+              "id": "ch043.opening.l01",
+              "speaker": "旁白",
+              "text": "星务署的观测盘上，六座母灯的光汇成一条指向天轨的细线。"
+            },
+            {
+              "id": "ch043.opening.l02",
+              "speaker": "缇珐",
+              "text": "不对，这些能量不该朝同一个地方走。"
+            },
+            {
+              "id": "ch043.opening.l03",
+              "speaker": "雷索",
+              "text": "有人把修复后的灯网接到更高一级的装置。"
+            },
+            {
+              "id": "ch043.opening.l04",
+              "speaker": "主角",
+              "text": "我们一路点亮的灯，为什么反而在供给敌人？"
+            },
+            {
+              "id": "ch043.opening.p8.l01",
+              "speaker": "旁白",
+              "text": "控制盘旁的夜班茶杯还冒着热气，一名值班员抱着一摞电力报表，手背被滚烫的纸角割破。"
+            },
+            {
+              "id": "ch043.opening.p8.l02",
+              "speaker": "值班员",
+              "text": "我们昨夜才把港口的灯恢复。今天再叫它们停，我怎么跟等着出海的人说？"
+            },
+            {
+              "id": "ch043.opening.p8.l03",
+              "speaker": "缇珐",
+              "text": "我不是要关掉你们的灯。我想知道是谁把本来属于各地的能量改道。"
+            },
+            {
+              "id": "ch043.opening.p8.l04",
+              "speaker": "主角",
+              "text": "先把每一座灯该得到多少、现在实际拿到多少，画在同一张图上。"
+            },
+            {
+              "id": "ch043.opening.p8.l05",
+              "speaker": "值班员",
+              "text": "那张图我能抄一份给地方工坊吗？我们从来只收到上头的总数。"
+            },
+            {
+              "id": "ch043.opening.l05",
+              "speaker": "维莎的留言",
+              "text": "若读到此处，请停止自动校准。第七灯早已自行启动。"
+            },
+            {
+              "id": "ch043.opening.l06",
+              "speaker": "岚音",
+              "text": "先让沿途城市知道异常，再追查那条线路。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·星务署"
+            },
+            {
+              "type": "interact",
+              "target": "ch043.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch043.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "六灯光线汇入一点",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "普通人的生活与危机现场先于世界理论"
+          }
+        },
+        {
+          "id": "ch043.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch043.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch043.investigate.l01",
+              "speaker": "旁白",
+              "text": "账册记录每次母灯重燃，天轨蓄能值就增加一格。"
+            },
+            {
+              "id": "ch043.investigate.l02",
+              "speaker": "缇珐",
+              "text": "我们修好的是灯，别人改掉的是输能方向。"
+            },
+            {
+              "id": "ch043.investigate.l03",
+              "speaker": "玄璃",
+              "text": "第七灯在映世的影子不自然，它把所有可能都朝一处挤。"
+            },
+            {
+              "id": "ch043.investigate.l04",
+              "speaker": "伊泽",
+              "text": "难怪那些古代歌谣只唱重燃，却从不问光去哪儿。"
+            },
+            {
+              "id": "ch043.investigate.l05",
+              "speaker": "朔弦",
+              "text": "如果拆错线，六地的港口和医院又会失去光。"
+            },
+            {
+              "id": "ch043.investigate.p8.l01",
+              "speaker": "旁白",
+              "text": "两张输能图重叠后，代表白砂港医院的蓝线只剩发丝粗细，通往天轨的黑线却越来越亮。"
+            },
+            {
+              "id": "ch043.investigate.p8.l02",
+              "speaker": "岚音",
+              "text": "这意味着诊疗室明天会先停电，灯塔后天才察觉。不能把它叫作无害损耗。"
+            },
+            {
+              "id": "ch043.investigate.p8.l03",
+              "speaker": "缇珐",
+              "text": "旧制给改道写了个好听名字：“优先保障稳定”。稳定的是天顶，不是病床。"
+            },
+            {
+              "id": "ch043.investigate.p8.l04",
+              "speaker": "雷索",
+              "text": "我们要带走证据，也要留下应急指令。这里的值班员不能只替我们背责。"
+            },
+            {
+              "id": "ch043.investigate.p8.l05",
+              "speaker": "值班员",
+              "text": "我愿意在抄件上署名。但请也写清楚我今天什么时候才知道真相。"
+            },
+            {
+              "id": "ch043.investigate.l06",
+              "speaker": "主角",
+              "text": "把完整图纸抄出，让每个地区都能自己决定应对。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch043.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch043.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch043.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "观测盘数字随着回忆画面递增",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "每项发现必须导致风险判断或可操作救援"
+          }
+        },
+        {
+          "id": "ch043.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch043.crisis",
+            "requires_flags": [
+              "ch043.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch043.crisis.l01",
+              "speaker": "星务长",
+              "text": "停止输能会令医院、工坊、航标同时断电！你们有资格承担吗？"
+            },
+            {
+              "id": "ch043.crisis.l02",
+              "speaker": "缇珐",
+              "text": "不是只有“继续供能”和“完全停机”两种办法。"
+            },
+            {
+              "id": "ch043.crisis.l03",
+              "speaker": "雷索",
+              "text": "把强制汇流切掉，保留地方的紧急线路。"
+            },
+            {
+              "id": "ch043.crisis.l04",
+              "speaker": "主角",
+              "text": "先通知城市，不能再让他们最后一刻才得知风险。"
+            },
+            {
+              "id": "ch043.crisis.l05",
+              "speaker": "星务长",
+              "text": "那样会引发恐慌！"
+            },
+            {
+              "id": "ch043.crisis.l06",
+              "speaker": "岚音",
+              "text": "不告诉他们，才是把他们当作无法作决定的人。"
+            },
+            {
+              "id": "ch043.crisis.p8.l01",
+              "speaker": "星务长",
+              "text": "你们只看到图上几根线，我每天面对的是一整座城的吃饭和用电！"
+            },
+            {
+              "id": "ch043.crisis.p8.l02",
+              "speaker": "缇珐",
+              "text": "所以我带来了分流方案，不是带一把斧头来砍总闸。"
+            },
+            {
+              "id": "ch043.crisis.p8.l03",
+              "speaker": "岚音",
+              "text": "医院至少需要今晚的稳定供能。请把供电优先名单交给医师，而不是全交给星务署。"
+            },
+            {
+              "id": "ch043.crisis.p8.l04",
+              "speaker": "雷索",
+              "text": "没人要你承担全部决定。问题要公开，负责实施的人也必须获得足够信息。"
+            },
+            {
+              "id": "ch043.crisis.p8.l05",
+              "speaker": "星务长",
+              "text": "……若我签字公布，你们得保证不会把每个停电的人都推回我门前。"
+            },
+            {
+              "id": "ch043.crisis.p8.l06",
+              "speaker": "主角",
+              "text": "无法保证没人责怪，但我们可以留下人协助，不让你一人替旧制挡灾。"
+            },
+            {
+              "id": "ch043.crisis.l07",
+              "speaker": "旁白",
+              "text": "黑星投影第一次出现在观测盘中央。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch043.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch043.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch043.choice",
+            "prompt": "面对输能异常，优先公开什么？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "立即公布全图，让各地自行准备",
+                "sets": {
+                  "ch043.approach": "publish",
+                  "world.ch043.approach": "publish"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保障医疗与航路后再公布风险",
+                "sets": {
+                  "ch043.approach": "protect",
+                  "world.ch043.approach": "protect"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch043",
+            "display_name": "高压星阵",
+            "win_flag": "ch043.battle_won",
+            "recommended_level": 54
+          },
+          "direction": {
+            "shot": "星务长挡在主闸前",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "明确行动代价，避免以台词替代玩家选择"
+          }
+        },
+        {
+          "id": "ch043.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch043.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch043.resolve.l01",
+              "speaker": "旁白",
+              "text": "众人成功保存六灯输能图，却没能切断通往天轨的全部能量。"
+            },
+            {
+              "id": "ch043.resolve.l02",
+              "speaker": "缇珐",
+              "text": "我需要时间造分流器。现有线路不能直接拆。"
+            },
+            {
+              "id": "ch043.resolve.l03",
+              "speaker": "主角",
+              "text": "我们没有那么多时间了。"
+            },
+            {
+              "id": "ch043.resolve.l04",
+              "speaker": "伊泽",
+              "text": "现在至少知道灾难不是我们完全无法理解的东西。"
+            },
+            {
+              "id": "ch043.resolve.l05",
+              "speaker": "雷索",
+              "text": "先保护今天仍能保护的人。"
+            },
+            {
+              "id": "ch043.resolve.p8.l01",
+              "speaker": "值班员",
+              "text": "这是我能找到的第二份备用图。这里用红笔标着“不可回流”，去年还没有这行字。"
+            },
+            {
+              "id": "ch043.resolve.p8.l02",
+              "speaker": "缇珐",
+              "text": "把它一起送给地方技师。就算我们失败，也不能让线路图跟着被烧掉。"
+            },
+            {
+              "id": "ch043.resolve.p8.l03",
+              "speaker": "伊泽",
+              "text": "我以前总想把遇到的事写成歌。今天先抄数字吧，它们可能更救命。"
+            },
+            {
+              "id": "ch043.resolve.p8.l04",
+              "speaker": "主角",
+              "text": "把求援优先级写在公开告示上。天轨的事我们去查，城市的晚饭还得有人守。"
+            },
+            {
+              "id": "ch043.resolve.p8.l05",
+              "speaker": "旁白",
+              "text": "窗外一个卖面包的人抬头看天，面包烤糊了一角，仍有人掏钱买了它。"
+            },
+            {
+              "id": "ch043.resolve.l06",
+              "speaker": "玄璃",
+              "text": "那颗黑星没有升起，只是在等待被允许出现。"
+            },
+            {
+              "id": "ch043.resolve.l07",
+              "speaker": "旁白",
+              "text": "天际闪过一道黑线，王都的晚钟比平常提前响起。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch043"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch043.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1820,
+              "gold": 642
+            }
+          ],
+          "direction": {
+            "shot": "夜空中出现细如针尖的黑线",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "承认损失与不确定，不用胜利口号冲淡事件"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch043.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch043.done",
+          "speaker": "路人",
+          "text": "以后再说起三誓王都·星务署，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act08_dialogue_v2",
+      "production_notes": "第46章维莎未正式登场，仅通过匿名远程声音提供资料；不让其加入队伍。第48章末维持现有12年时间跳跃事件。",
+      "phase8_revision": {
+        "date": "2026-10-25",
+        "new_lines": 21,
+        "scope": "disaster_transition_emotional_pass"
+      }
+    },
+    {
+      "id": "ch044",
+      "number": 44,
+      "act": 8,
+      "chapter_number": 2,
+      "title": "守灯者归来",
+      "location": "群灯广场",
+      "required_flags": [
+        "story.ch043.done"
+      ],
+      "chapter_start_flag": "ch044.started",
+      "chapter_complete_flag": "story.ch044.done",
+      "lead_character": "赫西安",
+      "summary": "在群灯广场，疏散集会群众并对质赫西安。群众对主角提出尖锐质问：自由是否值得以亲人死亡为代价。最终，主角无法简单说服所有人，宣布每个人都有权知道计划代价。",
+      "production_status": "scripted_blocking_v2_phase8_climax_pass",
+      "recommended_level": [
+        52,
+        56
+      ],
+      "boss": "赫西安幻身",
+      "scenes": [
+        {
+          "id": "ch044.opening",
+          "title": "开场：群灯广场",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯广场"
+          },
+          "dialogue": [
+            {
+              "id": "ch044.opening.l01",
+              "speaker": "旁白",
+              "text": "群灯广场聚满了人。有人捧着恢复记忆的家书，也有人展示失去亲人的照片。"
+            },
+            {
+              "id": "ch044.opening.l02",
+              "speaker": "赫西安",
+              "text": "我见过你们做过的一切。你们救了很多人，也让另一些人重新知道自己失去了什么。"
+            },
+            {
+              "id": "ch044.opening.l03",
+              "speaker": "雷索",
+              "text": "你是谁？"
+            },
+            {
+              "id": "ch044.opening.l04",
+              "speaker": "赫西安",
+              "text": "赫西安。旧世界称我终幕司录者。"
+            },
+            {
+              "id": "ch044.opening.l05",
+              "speaker": "主角",
+              "text": "你改了六灯的输能方向。"
+            },
+            {
+              "id": "ch044.opening.p8.l01",
+              "speaker": "老父亲",
+              "text": "你们都说灯能把名字还给人。可我儿子记起自己母亲死去那天，整夜不肯睡。"
+            },
+            {
+              "id": "ch044.opening.p8.l02",
+              "speaker": "岚音",
+              "text": "我不能保证记忆回来就会快乐。治疗不是把悲伤从一个人身上抹掉。"
+            },
+            {
+              "id": "ch044.opening.p8.l03",
+              "speaker": "赫西安",
+              "text": "至少你敢承认它不会让所有人好起来。"
+            },
+            {
+              "id": "ch044.opening.p8.l04",
+              "speaker": "雷索",
+              "text": "承认做不到全部，不等于谁可以接管每个人接下来的人生。"
+            },
+            {
+              "id": "ch044.opening.p8.l05",
+              "speaker": "旁白",
+              "text": "一位孩子把写着“我还想长大”的纸折成船，放在广场喷泉边。"
+            },
+            {
+              "id": "ch044.opening.l06",
+              "speaker": "赫西安",
+              "text": "是。我想让它们再也不必为了下一次悲伤而燃烧。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯广场"
+            },
+            {
+              "type": "interact",
+              "target": "ch044.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch044.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "广场里同时出现喜悦与悲伤",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "普通人的生活与危机现场先于世界理论"
+          }
+        },
+        {
+          "id": "ch044.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch044.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch044.investigate.l01",
+              "speaker": "赫西安",
+              "text": "想想那个病人。灯一亮，他记起了亲人，却再也无法见她。"
+            },
+            {
+              "id": "ch044.investigate.l02",
+              "speaker": "岚音",
+              "text": "记得一个人并不等于不该活下去。"
+            },
+            {
+              "id": "ch044.investigate.l03",
+              "speaker": "赫西安",
+              "text": "这句话由你说很容易，你没有替他承受痛苦。"
+            },
+            {
+              "id": "ch044.investigate.l04",
+              "speaker": "主角",
+              "text": "我也失去过人，但我没因此要求别人永远停在昨天。"
+            },
+            {
+              "id": "ch044.investigate.l05",
+              "speaker": "玄璃",
+              "text": "映世里有被放弃的幸福，它们并不因此能取代现世。"
+            },
+            {
+              "id": "ch044.investigate.p8.l01",
+              "speaker": "赫西安",
+              "text": "我见过人们一次又一次选择，然后一次又一次后悔。"
+            },
+            {
+              "id": "ch044.investigate.p8.l02",
+              "speaker": "玄璃",
+              "text": "你也见过从未有机会选择的人吗？他们并没有因为不后悔就幸福。"
+            },
+            {
+              "id": "ch044.investigate.p8.l03",
+              "speaker": "主角",
+              "text": "你提出的办法能阻止明天的损失，也会阻止明天有人说“不”。"
+            },
+            {
+              "id": "ch044.investigate.p8.l04",
+              "speaker": "赫西安",
+              "text": "如果那声“不”只是通往新的痛苦，我为什么要让它发生？"
+            },
+            {
+              "id": "ch044.investigate.p8.l05",
+              "speaker": "岚音",
+              "text": "因为你仍在用自己失去的东西，替所有还活着的人写答案。"
+            },
+            {
+              "id": "ch044.investigate.l06",
+              "speaker": "赫西安",
+              "text": "你们把不确定叫作自由，只因你们还没失去全部。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch044.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch044.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch044.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "赫西安站在投影光中不露怒容",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "每项发现必须导致风险判断或可操作救援"
+          }
+        },
+        {
+          "id": "ch044.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch044.crisis",
+            "requires_flags": [
+              "ch044.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch044.crisis.l01",
+              "speaker": "旁白",
+              "text": "广场另一侧，有些居民举起了永昼计划的传单。"
+            },
+            {
+              "id": "ch044.crisis.l02",
+              "speaker": "居民甲",
+              "text": "如果他能让我再见孩子，我愿意试。"
+            },
+            {
+              "id": "ch044.crisis.l03",
+              "speaker": "居民乙",
+              "text": "凭什么一个外来英雄替我们说不可以？"
+            },
+            {
+              "id": "ch044.crisis.l04",
+              "speaker": "雷索",
+              "text": "没有人要阻止你表达愿望，但计划的代价也必须说清。"
+            },
+            {
+              "id": "ch044.crisis.l05",
+              "speaker": "赫西安",
+              "text": "代价只有一个：未来不再把幸福夺走。"
+            },
+            {
+              "id": "ch044.crisis.l06",
+              "speaker": "主角",
+              "text": "未来也不再允许产生新的选择，对吗？"
+            },
+            {
+              "id": "ch044.crisis.p8.l01",
+              "speaker": "居民丙",
+              "text": "我支持他，不是因为我恨自由。我只是再也不想在一夜之间没了家。"
+            },
+            {
+              "id": "ch044.crisis.p8.l02",
+              "speaker": "居民乙",
+              "text": "那我妹妹还没出生的孩子怎么办？他们也要永远停在今天吗？"
+            },
+            {
+              "id": "ch044.crisis.p8.l03",
+              "speaker": "主角",
+              "text": "把两边的问题都记下来。谁也不该因为害怕而被嘲笑。"
+            },
+            {
+              "id": "ch044.crisis.p8.l04",
+              "speaker": "赫西安",
+              "text": "你们要一份没有人能给出的保证。"
+            },
+            {
+              "id": "ch044.crisis.p8.l05",
+              "speaker": "雷索",
+              "text": "对。我们给不了永不失去的保证，也不能用没有保证当作剥夺选择的理由。"
+            },
+            {
+              "id": "ch044.crisis.p8.l06",
+              "speaker": "旁白",
+              "text": "两位争吵的居民同时伸手扶住快被人潮挤倒的老人，又各自沉默。"
+            },
+            {
+              "id": "ch044.crisis.l07",
+              "speaker": "赫西安",
+              "text": "那是避免遗憾最可靠的方式。"
+            },
+            {
+              "id": "ch044.crisis.l08",
+              "speaker": "岚音",
+              "text": "别让承诺成为另一种没写出来的强制条款。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch044.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch044.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch044.choice",
+            "prompt": "面对赞成永昼的普通居民，你怎样回应？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "公开计划的完整代价，让居民自己判断",
+                "sets": {
+                  "ch044.approach": "disclose",
+                  "world.ch044.approach": "disclose"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保护争论现场，避免双方冲突",
+                "sets": {
+                  "ch044.approach": "mediate",
+                  "world.ch044.approach": "mediate"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch044",
+            "display_name": "赫西安幻身",
+            "win_flag": "ch044.battle_won",
+            "recommended_level": 55
+          },
+          "direction": {
+            "shot": "相反标语之间站着普通家庭",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "明确行动代价，避免以台词替代玩家选择"
+          }
+        },
+        {
+          "id": "ch044.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch044.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch044.resolve.l01",
+              "speaker": "旁白",
+              "text": "赫西安的投影离去，广场并没有因主角的话而一致欢呼。"
+            },
+            {
+              "id": "ch044.resolve.l02",
+              "speaker": "朔弦",
+              "text": "有些人真的愿意接受他。"
+            },
+            {
+              "id": "ch044.resolve.l03",
+              "speaker": "伊泽",
+              "text": "因为他们的痛并不是谎言。"
+            },
+            {
+              "id": "ch044.resolve.l04",
+              "speaker": "主角",
+              "text": "我们不能因为不认同，就把他们都当作敌人。"
+            },
+            {
+              "id": "ch044.resolve.l05",
+              "speaker": "雷索",
+              "text": "城门外已出现赤烬军团的旗。"
+            },
+            {
+              "id": "ch044.resolve.p8.l01",
+              "speaker": "老父亲",
+              "text": "我并没被你说服。明天我还会来问，为什么不能让我儿子再见她一面。"
+            },
+            {
+              "id": "ch044.resolve.p8.l02",
+              "speaker": "主角",
+              "text": "您可以继续问。今天我说过的话，也应当允许被反驳。"
+            },
+            {
+              "id": "ch044.resolve.p8.l03",
+              "speaker": "伊泽",
+              "text": "这场争论写不成一首胜利的歌，倒可以先留下一张没人撕掉的问答纸。"
+            },
+            {
+              "id": "ch044.resolve.p8.l04",
+              "speaker": "朔弦",
+              "text": "街口卖糖的人还没走，他正在给吵得最凶的那家孩子留一块糖。"
+            },
+            {
+              "id": "ch044.resolve.p8.l05",
+              "speaker": "岚音",
+              "text": "那是孩子今天唯一肯吃的东西。先让他把糖拿回去吧。"
+            },
+            {
+              "id": "ch044.resolve.l06",
+              "speaker": "玄璃",
+              "text": "那颗黑星正在靠近真正的天顶。"
+            },
+            {
+              "id": "ch044.resolve.l07",
+              "speaker": "旁白",
+              "text": "人群缓慢散去，争论留在了广场。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch044"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch044.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1860,
+              "gold": 656
+            }
+          ],
+          "direction": {
+            "shot": "群众离开时广场灯光没有变化",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "承认损失与不确定，不用胜利口号冲淡事件"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch044.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch044.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯广场，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act08_dialogue_v2",
+      "production_notes": "第46章维莎未正式登场，仅通过匿名远程声音提供资料；不让其加入队伍。第48章末维持现有12年时间跳跃事件。",
+      "phase8_revision": {
+        "date": "2026-10-25",
+        "new_lines": 21,
+        "scope": "disaster_transition_emotional_pass"
+      }
+    },
+    {
+      "id": "ch045",
+      "number": 45,
+      "act": 8,
+      "chapter_number": 3,
+      "title": "选择安宁的人们",
+      "location": "赤炉城区·避难街",
+      "required_flags": [
+        "story.ch044.done"
+      ],
+      "chapter_start_flag": "ch045.started",
+      "chapter_complete_flag": "story.ch045.done",
+      "lead_character": "雷索",
+      "summary": "在赤炉城区·避难街，保护赞成永昼的平民免受报复。自由派民兵计划驱逐所有赞成者，引发内战。最终，队伍公开约束盟友的暴力，帮助双方撤离火线。",
+      "production_status": "scripted_blocking_v2_phase8_climax_pass",
+      "recommended_level": [
+        54,
+        58
+      ],
+      "boss": "暴走民兵",
+      "scenes": [
+        {
+          "id": "ch045.opening",
+          "title": "开场：赤炉城区·避难街",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "赤炉城区·避难街"
+          },
+          "dialogue": [
+            {
+              "id": "ch045.opening.l01",
+              "speaker": "旁白",
+              "text": "赤炉避难街两侧挤满了赞成与反对永昼的家庭。有人朝另一侧的窗户扔石头。"
+            },
+            {
+              "id": "ch045.opening.l02",
+              "speaker": "岚音",
+              "text": "先把受伤的人带出来。他们投了什么票不该影响救治。"
+            },
+            {
+              "id": "ch045.opening.l03",
+              "speaker": "民兵队长",
+              "text": "支持赫西安的人就是帮凶！"
+            },
+            {
+              "id": "ch045.opening.l04",
+              "speaker": "雷索",
+              "text": "那里面有孩子和老人。"
+            },
+            {
+              "id": "ch045.opening.l05",
+              "speaker": "主角",
+              "text": "把街道隔开不是为了继续对峙，是让所有人先安全退场。"
+            },
+            {
+              "id": "ch045.opening.p8.l01",
+              "speaker": "诺依尚幼",
+              "text": "可他们昨天还一起给我们分过面包，怎么今天就要互相扔石头？"
+            },
+            {
+              "id": "ch045.opening.p8.l02",
+              "speaker": "雷索",
+              "text": "人会因为恐惧做错事。我们不能让这种错事变成新的命令。"
+            },
+            {
+              "id": "ch045.opening.p8.l03",
+              "speaker": "民兵队长",
+              "text": "你说得容易，昨晚守夜的是我们！门要是开给敌人，先死的是我的弟兄！"
+            },
+            {
+              "id": "ch045.opening.p8.l04",
+              "speaker": "主角",
+              "text": "那就增设看得见的守卫。别把一整条街的孩子当成你们的敌人。"
+            },
+            {
+              "id": "ch045.opening.p8.l05",
+              "speaker": "旁白",
+              "text": "一块碎瓦砸破粮店招牌，屋里的老妇弯腰捡起半块还没卖掉的面包。"
+            },
+            {
+              "id": "ch045.opening.l06",
+              "speaker": "诺依尚幼",
+              "text": "他们都在喊，我听不懂谁才是好人。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "赤炉城区·避难街"
+            },
+            {
+              "type": "interact",
+              "target": "ch045.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch045.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "石头砸在挂着相框的窗户",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "普通人的生活与危机现场先于世界理论"
+          }
+        },
+        {
+          "id": "ch045.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch045.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch045.investigate.l01",
+              "speaker": "旁白",
+              "text": "一名妇女抱着旧相框躲在门后，屋外反复传来辱骂。"
+            },
+            {
+              "id": "ch045.investigate.l02",
+              "speaker": "妇女",
+              "text": "我不是想害谁，我只是想再听丈夫叫我的名字。"
+            },
+            {
+              "id": "ch045.investigate.l03",
+              "speaker": "伊泽",
+              "text": "你愿意说出你的理由，已经很不容易。"
+            },
+            {
+              "id": "ch045.investigate.l04",
+              "speaker": "玄璃",
+              "text": "任何人都不能保证那段声音是真正拥有未来的他。"
+            },
+            {
+              "id": "ch045.investigate.l05",
+              "speaker": "妇女",
+              "text": "可如果我知道是假，也还是想听一次。"
+            },
+            {
+              "id": "ch045.investigate.l06",
+              "speaker": "主角",
+              "text": "想念他不是罪。我们反对的是别人替你永久决定。"
+            },
+            {
+              "id": "ch045.investigate.p8.l01",
+              "speaker": "妇女",
+              "text": "我知道他说的永昼不可能没有代价。可在别人的院子里，人还愿意叫一声我的名字。"
+            },
+            {
+              "id": "ch045.investigate.p8.l02",
+              "speaker": "岚音",
+              "text": "今天你不必决定相信谁。你先把手上的伤包好。"
+            },
+            {
+              "id": "ch045.investigate.p8.l03",
+              "speaker": "伊泽",
+              "text": "如果你愿意，我能把你丈夫生前爱说的话记下来；不愿意也没关系。"
+            },
+            {
+              "id": "ch045.investigate.p8.l04",
+              "speaker": "妇女",
+              "text": "他总说屋顶漏雨，修好就再也不会漏。每次修完，第二年还是漏。"
+            },
+            {
+              "id": "ch045.investigate.p8.l05",
+              "speaker": "主角",
+              "text": "那我们先帮你找块瓦。屋顶漏着，争论再大也挡不住雨。"
+            },
+            {
+              "id": "ch045.investigate.l07",
+              "speaker": "岚音",
+              "text": "先帮你把窗户修好。今晚别独自待着。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch045.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch045.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch045.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "相框里只有幸福的旧照片",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "每项发现必须导致风险判断或可操作救援"
+          }
+        },
+        {
+          "id": "ch045.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch045.crisis",
+            "requires_flags": [
+              "ch045.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch045.crisis.l01",
+              "speaker": "民兵队长",
+              "text": "你们在保护敌人！我们还要不要继续打仗？"
+            },
+            {
+              "id": "ch045.crisis.l02",
+              "speaker": "雷索",
+              "text": "保护平民与阻止军团进攻并不冲突。"
+            },
+            {
+              "id": "ch045.crisis.l03",
+              "speaker": "民兵队长",
+              "text": "他们明天可能给敌人开门！"
+            },
+            {
+              "id": "ch045.crisis.l04",
+              "speaker": "主角",
+              "text": "那就加强公开守卫，不是今天先把一家人赶出城。"
+            },
+            {
+              "id": "ch045.crisis.l05",
+              "speaker": "岚音",
+              "text": "受伤的孩子就在你面前。你真要先问他站哪边？"
+            },
+            {
+              "id": "ch045.crisis.l06",
+              "speaker": "民兵队长",
+              "text": "……我让人把石头搬走。"
+            },
+            {
+              "id": "ch045.crisis.p8.l01",
+              "speaker": "诺依尚幼",
+              "text": "我认识那家人的孩子，他昨天还借过我弹弓。"
+            },
+            {
+              "id": "ch045.crisis.p8.l02",
+              "speaker": "民兵队长",
+              "text": "借过弹弓就能保证明天不通敌？"
+            },
+            {
+              "id": "ch045.crisis.p8.l03",
+              "speaker": "雷索",
+              "text": "不是。可你也不能因为他父母的选择，认定他明天会伤人。"
+            },
+            {
+              "id": "ch045.crisis.p8.l04",
+              "speaker": "岚音",
+              "text": "救护棚已经挤满了。要争道理，先把担架让过去。"
+            },
+            {
+              "id": "ch045.crisis.p8.l05",
+              "speaker": "旁白",
+              "text": "民兵队长把手中的石头放下，转身叫来两名队员扶走伤者。"
+            },
+            {
+              "id": "ch045.crisis.l07",
+              "speaker": "旁白",
+              "text": "赤烬军团的远炮声从城外传来。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch045.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch045.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch045.choice",
+            "prompt": "发生报复骚乱后，你先保障什么？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "立刻建立不分阵营的避难与救治",
+                "sets": {
+                  "ch045.approach": "neutral_aid",
+                  "world.ch045.approach": "neutral_aid"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "公开约束民兵行为，阻止强制驱逐",
+                "sets": {
+                  "ch045.approach": "stop_militia",
+                  "world.ch045.approach": "stop_militia"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch045",
+            "display_name": "暴走民兵",
+            "win_flag": "ch045.battle_won",
+            "recommended_level": 57
+          },
+          "direction": {
+            "shot": "民兵队长的视线移向受伤孩子",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "明确行动代价，避免以台词替代玩家选择"
+          }
+        },
+        {
+          "id": "ch045.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch045.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch045.resolve.l01",
+              "speaker": "旁白",
+              "text": "两方居民先后撤入避难所，医疗区只登记病情，不再登记阵营。"
+            },
+            {
+              "id": "ch045.resolve.l02",
+              "speaker": "诺依",
+              "text": "原来大人吵得那么凶，也可以一起排队领水。"
+            },
+            {
+              "id": "ch045.resolve.l03",
+              "speaker": "雷索",
+              "text": "能。前提是有人肯让出第一步。"
+            },
+            {
+              "id": "ch045.resolve.l04",
+              "speaker": "妇女",
+              "text": "我还没决定永昼是否正确，谢谢你们没逼我说。"
+            },
+            {
+              "id": "ch045.resolve.l05",
+              "speaker": "主角",
+              "text": "有些问题今天不会有答案。"
+            },
+            {
+              "id": "ch045.resolve.p8.l01",
+              "speaker": "诺依尚幼",
+              "text": "那位阿姨还是赞成永昼。我是不是不该再跟她说话？"
+            },
+            {
+              "id": "ch045.resolve.p8.l02",
+              "speaker": "主角",
+              "text": "你可以不同意她，也可以问她明天需不需要带水。"
+            },
+            {
+              "id": "ch045.resolve.p8.l03",
+              "speaker": "雷索",
+              "text": "守护一个人，不是要求他先做出跟你一样的决定。"
+            },
+            {
+              "id": "ch045.resolve.p8.l04",
+              "speaker": "妇女",
+              "text": "我今天没改主意。但那扇被打碎的窗，你们帮我钉上了。"
+            },
+            {
+              "id": "ch045.resolve.p8.l05",
+              "speaker": "旁白",
+              "text": "窗板钉歪了一点，风吹过时发出轻响，屋里终于能点起一盏小灯。"
+            },
+            {
+              "id": "ch045.resolve.l06",
+              "speaker": "伊泽",
+              "text": "但今天至少没有人因为说错一句话而失去家。"
+            },
+            {
+              "id": "ch045.resolve.l07",
+              "speaker": "旁白",
+              "text": "避难街灯亮起，远处的炮声却越来越近。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch045"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch045.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1900,
+              "gold": 670
+            }
+          ],
+          "direction": {
+            "shot": "两队居民在同一供水点相遇",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "承认损失与不确定，不用胜利口号冲淡事件"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch045.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch045.done",
+          "speaker": "路人",
+          "text": "以后再说起赤炉城区·避难街，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act08_dialogue_v2",
+      "production_notes": "第46章维莎未正式登场，仅通过匿名远程声音提供资料；不让其加入队伍。第48章末维持现有12年时间跳跃事件。",
+      "phase8_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "disaster_transition_emotional_pass"
+      }
+    },
+    {
+      "id": "ch046",
+      "number": 46,
+      "act": 8,
+      "chapter_number": 4,
+      "title": "黑星升起",
+      "location": "天顶观测站",
+      "required_flags": [
+        "story.ch045.done"
+      ],
+      "chapter_start_flag": "ch046.started",
+      "chapter_complete_flag": "story.ch046.done",
+      "lead_character": "缇珐",
+      "summary": "在天顶观测站，阻止星轨锁定六灯核心。主角若关闭塔顶装置，地面护盾就会立即崩溃。最终，众人只能维持部分护盾，目睹黑星覆盖王都。",
+      "production_status": "scripted_blocking_v2_phase8_climax_pass",
+      "recommended_level": [
+        55,
+        59
+      ],
+      "boss": "赤烬战舰",
+      "scenes": [
+        {
+          "id": "ch046.opening",
+          "title": "开场：天顶观测站",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "天顶观测站"
+          },
+          "dialogue": [
+            {
+              "id": "ch046.opening.l01",
+              "speaker": "旁白",
+              "text": "天顶观测站所有指针同时倒转，黑星在白昼中显现。"
+            },
+            {
+              "id": "ch046.opening.l02",
+              "speaker": "缇珐",
+              "text": "它不是从外面飞来的，天衡灯把时间折成一个点。"
+            },
+            {
+              "id": "ch046.opening.l03",
+              "speaker": "玄璃",
+              "text": "映世里的可能性正在被吸向那里。"
+            },
+            {
+              "id": "ch046.opening.l04",
+              "speaker": "朔弦",
+              "text": "我们不是已经修复了六盏灯吗！"
+            },
+            {
+              "id": "ch046.opening.l05",
+              "speaker": "主角",
+              "text": "修复是事实，被人劫持也是事实。"
+            },
+            {
+              "id": "ch046.opening.p8.l01",
+              "speaker": "观测员",
+              "text": "有一条街的时钟全停在同一分，街上的面包却还在炉里烤。"
+            },
+            {
+              "id": "ch046.opening.p8.l02",
+              "speaker": "缇珐",
+              "text": "时间在局部被卡住了。别去拉那些人，先在地上标出边界。"
+            },
+            {
+              "id": "ch046.opening.p8.l03",
+              "speaker": "主角",
+              "text": "他们还活着吗？"
+            },
+            {
+              "id": "ch046.opening.p8.l04",
+              "speaker": "玄璃",
+              "text": "还在发生的可能性里。可是那条路越来越窄，我也不能保证能把他们带回来。"
+            },
+            {
+              "id": "ch046.opening.p8.l05",
+              "speaker": "旁白",
+              "text": "街口的狗保持着扑向主人的动作，脚边掉落的木球再也没有往前滚。"
+            },
+            {
+              "id": "ch046.opening.l06",
+              "speaker": "雷索",
+              "text": "先确认城里所有避难路线。"
+            },
+            {
+              "id": "ch046.opening.l07",
+              "speaker": "旁白",
+              "text": "一道黑光扫过王都，街上的影子停在半步之前。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "天顶观测站"
+            },
+            {
+              "type": "interact",
+              "target": "ch046.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch046.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "白昼天空出现黑星",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "普通人的生活与危机现场先于世界理论"
+          }
+        },
+        {
+          "id": "ch046.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch046.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch046.investigate.l01",
+              "speaker": "旁白",
+              "text": "天顶控制室仍保有澄舟旧式的手动紧急闸。"
+            },
+            {
+              "id": "ch046.investigate.l02",
+              "speaker": "缇珐",
+              "text": "这套控制台曾经可以分离供能，如今只留一个总开关。"
+            },
+            {
+              "id": "ch046.investigate.l03",
+              "speaker": "主角",
+              "text": "总开关断掉会怎样？"
+            },
+            {
+              "id": "ch046.investigate.l04",
+              "speaker": "缇珐",
+              "text": "外围护盾也会立即崩溃。城里还有来不及撤走的人。"
+            },
+            {
+              "id": "ch046.investigate.l05",
+              "speaker": "岚音",
+              "text": "医院无法承受一次完全停电。"
+            },
+            {
+              "id": "ch046.investigate.l06",
+              "speaker": "雷索",
+              "text": "能不能同时保住一部分护盾和撤离口？"
+            },
+            {
+              "id": "ch046.investigate.p8.l01",
+              "speaker": "缇珐",
+              "text": "我能让两条备用线路暂时分开，但主闸若彻底断开，医院先撑不住。"
+            },
+            {
+              "id": "ch046.investigate.p8.l02",
+              "speaker": "雷索",
+              "text": "让撤离队知道哪条街会先失去护盾。别只把地图放在控制室。"
+            },
+            {
+              "id": "ch046.investigate.p8.l03",
+              "speaker": "岚音",
+              "text": "我需要两个愿意留下的医师，不是被命令留在这里的人。"
+            },
+            {
+              "id": "ch046.investigate.p8.l04",
+              "speaker": "玄璃",
+              "text": "我可以稳住裂隙一段时间。你们不必把我当成用完就扔的工具。"
+            },
+            {
+              "id": "ch046.investigate.p8.l05",
+              "speaker": "主角",
+              "text": "那段时间由你自己定。结束前提前告诉我们，所有人都得有撤出的路。"
+            },
+            {
+              "id": "ch046.investigate.l07",
+              "speaker": "玄璃",
+              "text": "我能短暂稳定映世裂隙，但坚持不了很久。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch046.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch046.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch046.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "旧控制台只剩一个总开关",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "每项发现必须导致风险判断或可操作救援"
+          }
+        },
+        {
+          "id": "ch046.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch046.crisis",
+            "requires_flags": [
+              "ch046.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch046.crisis.l01",
+              "speaker": "赤烬将军库洛萨",
+              "text": "旧秩序已经失败。把抵抗交给我们，城市便无需再选择。"
+            },
+            {
+              "id": "ch046.crisis.l02",
+              "speaker": "雷索",
+              "text": "选择不应该由一支军队收走。"
+            },
+            {
+              "id": "ch046.crisis.l03",
+              "speaker": "库洛萨",
+              "text": "你们的犹豫正在让人死去！"
+            },
+            {
+              "id": "ch046.crisis.l04",
+              "speaker": "主角",
+              "text": "先撤民众，再谈谁来统治未来。"
+            },
+            {
+              "id": "ch046.crisis.l05",
+              "speaker": "缇珐",
+              "text": "护盾只能维持半数区域，另一半必须疏散。"
+            },
+            {
+              "id": "ch046.crisis.p8.l01",
+              "speaker": "缇珐",
+              "text": "如果现在选错供能区域，下面有人连我们为什么没救他都不会知道。"
+            },
+            {
+              "id": "ch046.crisis.p8.l02",
+              "speaker": "主角",
+              "text": "把保护范围贴在屏上，不要只让我一个人看。"
+            },
+            {
+              "id": "ch046.crisis.p8.l03",
+              "speaker": "库洛萨",
+              "text": "公开只会让城里更加混乱！"
+            },
+            {
+              "id": "ch046.crisis.p8.l04",
+              "speaker": "雷索",
+              "text": "混乱可以组织。被蒙在鼓里的人，却连最后一条逃生路都找不到。"
+            },
+            {
+              "id": "ch046.crisis.p8.l05",
+              "speaker": "岚音",
+              "text": "我的救护队已经准备好，无论选择哪一边，我们都要把另一边的人接出来。"
+            },
+            {
+              "id": "ch046.crisis.l06",
+              "speaker": "岚音",
+              "text": "那就尽快告诉他们真实情况。"
+            },
+            {
+              "id": "ch046.crisis.l07",
+              "speaker": "玄璃",
+              "text": "黑星正在把剩余的路逐条关上。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch046.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch046.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch046.choice",
+            "prompt": "护盾已无法保护全城，你如何部署？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "将护盾留给医疗与集中避难所",
+                "sets": {
+                  "ch046.approach": "medical_shield",
+                  "world.ch046.approach": "medical_shield"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "打开更多撤离通道，接受部分区域停电",
+                "sets": {
+                  "ch046.approach": "escape_routes",
+                  "world.ch046.approach": "escape_routes"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch046",
+            "display_name": "赤烬战舰",
+            "win_flag": "ch046.battle_won",
+            "recommended_level": 58
+          },
+          "direction": {
+            "shot": "将军与居民避难图叠映",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "明确行动代价，避免以台词替代玩家选择"
+          }
+        },
+        {
+          "id": "ch046.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch046.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch046.resolve.l01",
+              "speaker": "旁白",
+              "text": "主角勉强维持半城护盾，却眼见远处数个街区从地图上淡去。"
+            },
+            {
+              "id": "ch046.resolve.l02",
+              "speaker": "朔弦",
+              "text": "那条街昨天还在，我们还在那里吃过饭。"
+            },
+            {
+              "id": "ch046.resolve.l03",
+              "speaker": "伊泽",
+              "text": "我记得店主的名字。"
+            },
+            {
+              "id": "ch046.resolve.l04",
+              "speaker": "岚音",
+              "text": "先记下来。别让这次又无人见证。"
+            },
+            {
+              "id": "ch046.resolve.l05",
+              "speaker": "雷索",
+              "text": "王都仍有一条撤离通道。"
+            },
+            {
+              "id": "ch046.resolve.p8.l01",
+              "speaker": "朔弦",
+              "text": "那条街拐角有家卖甜酒的，老板每回都偷偷多给我半杯。"
+            },
+            {
+              "id": "ch046.resolve.p8.l02",
+              "speaker": "伊泽",
+              "text": "他叫阿善。我昨天答应过，等港口恢复就去听他唱旧调。"
+            },
+            {
+              "id": "ch046.resolve.p8.l03",
+              "speaker": "主角",
+              "text": "先把名字写下来，把没能确认的人单列。不要为了好看写成“无人幸存”。"
+            },
+            {
+              "id": "ch046.resolve.p8.l04",
+              "speaker": "岚音",
+              "text": "我们还没查遍那些街区。今天先确认还能救的人。"
+            },
+            {
+              "id": "ch046.resolve.p8.l05",
+              "speaker": "旁白",
+              "text": "伊泽的笔尖停了一瞬，墨水在“阿善”两个字旁晕开一点。"
+            },
+            {
+              "id": "ch046.resolve.l06",
+              "speaker": "主角",
+              "text": "我们去城门，能走的人先走。"
+            },
+            {
+              "id": "ch046.resolve.l07",
+              "speaker": "旁白",
+              "text": "黑星升起，巨大的阴影终于落在众人身上。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch046"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch046.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1940,
+              "gold": 684
+            }
+          ],
+          "direction": {
+            "shot": "街道在远景中逐渐失去轮廓",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "承认损失与不确定，不用胜利口号冲淡事件"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch046.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch046.done",
+          "speaker": "路人",
+          "text": "以后再说起天顶观测站，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act08_dialogue_v2",
+      "production_notes": "第46章维莎未正式登场，仅通过匿名远程声音提供资料；不让其加入队伍。第48章末维持现有12年时间跳跃事件。",
+      "phase8_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "disaster_transition_emotional_pass"
+      }
+    },
+    {
+      "id": "ch047",
+      "number": 47,
+      "act": 8,
+      "chapter_number": 5,
+      "title": "破碎的同行之誓",
+      "location": "三誓王都·撤离城门",
+      "required_flags": [
+        "story.ch046.done"
+      ],
+      "chapter_start_flag": "ch047.started",
+      "chapter_complete_flag": "story.ch047.done",
+      "lead_character": "雷索",
+      "summary": "在三誓王都·撤离城门，分别操作各伙伴护送不同人群。守护儿童、老人、伤者的路线同时崩溃，队伍必须分开。最终，主角安排多个撤离小队，队友各自承担危险任务。",
+      "production_status": "scripted_blocking_v2_phase8_climax_pass",
+      "recommended_level": [
+        56,
+        60
+      ],
+      "boss": "赤烬将军库洛萨",
+      "scenes": [
+        {
+          "id": "ch047.opening",
+          "title": "开场：三誓王都·撤离城门",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·撤离城门"
+          },
+          "dialogue": [
+            {
+              "id": "ch047.opening.l01",
+              "speaker": "旁白",
+              "text": "三誓王都的城门挤满了撤离民众，三条出口各自陷入混乱。"
+            },
+            {
+              "id": "ch047.opening.l02",
+              "speaker": "雷索",
+              "text": "东门有伤员，南门是儿童，西门的道路快塌了。"
+            },
+            {
+              "id": "ch047.opening.l03",
+              "speaker": "岚音",
+              "text": "我带医师去东门。"
+            },
+            {
+              "id": "ch047.opening.l04",
+              "speaker": "朔弦",
+              "text": "南门的孩子我带走，我能找到去港口的小路。"
+            },
+            {
+              "id": "ch047.opening.l05",
+              "speaker": "缇珐",
+              "text": "西门支架可以修，但我要有人守住工具。"
+            },
+            {
+              "id": "ch047.opening.p8.l01",
+              "speaker": "雷索",
+              "text": "我在东门至少要三名担架手。可他们都被南门叫走了。"
+            },
+            {
+              "id": "ch047.opening.p8.l02",
+              "speaker": "朔弦",
+              "text": "我这儿缺船员，也缺肯把孩子一个个点过数的人。"
+            },
+            {
+              "id": "ch047.opening.p8.l03",
+              "speaker": "缇珐",
+              "text": "西门的机械臂还能再撑十分钟，超过就只剩手摇。"
+            },
+            {
+              "id": "ch047.opening.p8.l04",
+              "speaker": "主角",
+              "text": "每队带一份名单。路线断了，先把人送到最近的安全点，不要死守集合地点。"
+            },
+            {
+              "id": "ch047.opening.p8.l05",
+              "speaker": "岚音",
+              "text": "我们说好最后在灯塔碰面，但谁也不能拿这个约定逼队友冒险回头。"
+            },
+            {
+              "id": "ch047.opening.p8.l06",
+              "speaker": "诺依尚幼",
+              "text": "我会给每张名单画不一样的星星，免得大人慌起来拿错。"
+            },
+            {
+              "id": "ch047.opening.l06",
+              "speaker": "主角",
+              "text": "大家分开行动。约定最后回到潮歌灯塔。"
+            },
+            {
+              "id": "ch047.opening.l07",
+              "speaker": "伊泽",
+              "text": "把集合的地点写给每一位救援者。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·撤离城门"
+            },
+            {
+              "type": "interact",
+              "target": "ch047.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch047.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "三处城门同时出现求救灯",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "普通人的生活与危机现场先于世界理论"
+          }
+        },
+        {
+          "id": "ch047.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch047.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch047.investigate.l01",
+              "speaker": "旁白",
+              "text": "城门机关被改成只允许贵族通行，居民被迫排成两列。"
+            },
+            {
+              "id": "ch047.investigate.l02",
+              "speaker": "诺依",
+              "text": "为什么他们能先走？"
+            },
+            {
+              "id": "ch047.investigate.l03",
+              "speaker": "雷索",
+              "text": "因为有人改了规则。不是因为他们更应该活。"
+            },
+            {
+              "id": "ch047.investigate.l04",
+              "speaker": "缇珐",
+              "text": "旧升降门还有手动解锁孔。"
+            },
+            {
+              "id": "ch047.investigate.l05",
+              "speaker": "主角",
+              "text": "先打开放行通道，不要让任何人被身份牌挡在这里。"
+            },
+            {
+              "id": "ch047.investigate.l06",
+              "speaker": "岚音",
+              "text": "我留在医务站直到最后一批伤员离开。"
+            },
+            {
+              "id": "ch047.investigate.p8.l01",
+              "speaker": "守门书记",
+              "text": "这台闸是我按上头命令改的。现在解锁得有两个人同时转把手。"
+            },
+            {
+              "id": "ch047.investigate.p8.l02",
+              "speaker": "缇珐",
+              "text": "你来左边，我来右边。手指别伸进齿轮。"
+            },
+            {
+              "id": "ch047.investigate.p8.l03",
+              "speaker": "守门书记",
+              "text": "我以前只看过控制台，从没听见门外有人求救。"
+            },
+            {
+              "id": "ch047.investigate.p8.l04",
+              "speaker": "雷索",
+              "text": "听见了就还来得及做事。别把时间浪费在求一句宽恕上。"
+            },
+            {
+              "id": "ch047.investigate.p8.l05",
+              "speaker": "诺依尚幼",
+              "text": "我可以先把孩子们的名字念给你听，免得你不知道自己替谁开门。"
+            },
+            {
+              "id": "ch047.investigate.p8.l06",
+              "speaker": "旁白",
+              "text": "年轻书记手忙脚乱地掏出钥匙，第一次把贵族专用标牌从门上取了下来。"
+            },
+            {
+              "id": "ch047.investigate.l07",
+              "speaker": "玄璃",
+              "text": "映世的短路能让我们绕过封锁一次。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch047.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch047.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch047.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "贵族通行牌挡住普通居民",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "每项发现必须导致风险判断或可操作救援"
+          }
+        },
+        {
+          "id": "ch047.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch047.crisis",
+            "requires_flags": [
+              "ch047.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch047.crisis.l01",
+              "speaker": "库洛萨",
+              "text": "一个指挥官带一支队伍。你们分开就是自取灭亡。"
+            },
+            {
+              "id": "ch047.crisis.l02",
+              "speaker": "雷索",
+              "text": "我们分开是因为不愿把人丢在某一扇门后。"
+            },
+            {
+              "id": "ch047.crisis.l03",
+              "speaker": "库洛萨",
+              "text": "城门若塌，谁还会记得你们？"
+            },
+            {
+              "id": "ch047.crisis.l04",
+              "speaker": "朔弦",
+              "text": "能让那些孩子活下来就好，不一定要记得我。"
+            },
+            {
+              "id": "ch047.crisis.l05",
+              "speaker": "主角",
+              "text": "撤离已经开始。先走，别为证明勇敢留下。"
+            },
+            {
+              "id": "ch047.crisis.p8.l01",
+              "speaker": "主角",
+              "text": "我们不必一起赢一场战斗。每条路都需要有人把人送到终点。"
+            },
+            {
+              "id": "ch047.crisis.p8.l02",
+              "speaker": "雷索",
+              "text": "指挥权交给各队。任何队觉得路不安全，都有权先撤。"
+            },
+            {
+              "id": "ch047.crisis.p8.l03",
+              "speaker": "朔弦",
+              "text": "谁活着回港谁就画最后一段航线。别留着等我回来才动笔。"
+            },
+            {
+              "id": "ch047.crisis.p8.l04",
+              "speaker": "岚音",
+              "text": "别说得像遗言。我们都要想办法回来，但先送人走。"
+            },
+            {
+              "id": "ch047.crisis.p8.l05",
+              "speaker": "旁白",
+              "text": "众人交换的不是誓约戒指，而是写着各自撤离路标的粗纸条。"
+            },
+            {
+              "id": "ch047.crisis.l06",
+              "speaker": "岚音",
+              "text": "约定在灯塔集合，一个也别忘了。"
+            },
+            {
+              "id": "ch047.crisis.l07",
+              "speaker": "旁白",
+              "text": "赤烬的钢铁巨机冲向城门，队伍不得不各自迎敌。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch047.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch047.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch047.choice",
+            "prompt": "撤离路口同时告急，你先安排谁支援？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "集中救护力量保障东门重伤者",
+                "sets": {
+                  "ch047.approach": "east",
+                  "world.ch047.approach": "east"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "优先打开南门儿童与西门的逃生路线",
+                "sets": {
+                  "ch047.approach": "south_west",
+                  "world.ch047.approach": "south_west"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch047",
+            "display_name": "赤烬将军库洛萨",
+            "win_flag": "ch047.battle_won",
+            "recommended_level": 59
+          },
+          "direction": {
+            "shot": "队伍从画面中央分开",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "明确行动代价，避免以台词替代玩家选择"
+          }
+        },
+        {
+          "id": "ch047.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch047.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch047.resolve.l01",
+              "speaker": "旁白",
+              "text": "多路撤离勉强完成，但部分伙伴失散，约定的集合人数始终对不上。"
+            },
+            {
+              "id": "ch047.resolve.l02",
+              "speaker": "主角",
+              "text": "有没有见到西门的医师队？"
+            },
+            {
+              "id": "ch047.resolve.l03",
+              "speaker": "雷索",
+              "text": "还有人没回来。我会继续找。"
+            },
+            {
+              "id": "ch047.resolve.l04",
+              "speaker": "伊泽",
+              "text": "名单记得太多，空着的位置也太多。"
+            },
+            {
+              "id": "ch047.resolve.l05",
+              "speaker": "朔弦",
+              "text": "逐星号还能撑最后一趟。"
+            },
+            {
+              "id": "ch047.resolve.p8.l01",
+              "speaker": "伊泽",
+              "text": "最后一页名单我留了空格。不是说他们死了，是我还不知道。"
+            },
+            {
+              "id": "ch047.resolve.p8.l02",
+              "speaker": "岚音",
+              "text": "今晚不要让家属挨个来问我们一个已经写死的答案。"
+            },
+            {
+              "id": "ch047.resolve.p8.l03",
+              "speaker": "朔弦",
+              "text": "逐星号还能再开一回。谁愿意帮我去收最后那批小船？"
+            },
+            {
+              "id": "ch047.resolve.p8.l04",
+              "speaker": "雷索",
+              "text": "我留下守这里。主角，你先去灯塔，他们需要有人发信号。"
+            },
+            {
+              "id": "ch047.resolve.p8.l05",
+              "speaker": "主角",
+              "text": "我不想再一次把所有人分开后，自己先走。"
+            },
+            {
+              "id": "ch047.resolve.p8.l06",
+              "speaker": "雷索",
+              "text": "不是先走。是让不同地方都有人能做决定。"
+            },
+            {
+              "id": "ch047.resolve.l06",
+              "speaker": "岚音",
+              "text": "别把所有失败算成自己一个人的罪。"
+            },
+            {
+              "id": "ch047.resolve.l07",
+              "speaker": "主角",
+              "text": "可是我答应过他们，所有人都能回来。"
+            },
+            {
+              "id": "ch047.resolve.l08",
+              "speaker": "旁白",
+              "text": "队伍的同行之誓在这一夜被现实撕开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch047"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch047.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1980,
+              "gold": 698
+            }
+          ],
+          "direction": {
+            "shot": "未归者名单始终留下空位",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "承认损失与不确定，不用胜利口号冲淡事件"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch047.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch047.done",
+          "speaker": "路人",
+          "text": "以后再说起三誓王都·撤离城门，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act08_dialogue_v2",
+      "production_notes": "第46章维莎未正式登场，仅通过匿名远程声音提供资料；不让其加入队伍。第48章末维持现有12年时间跳跃事件。",
+      "phase8_revision": {
+        "date": "2026-10-25",
+        "new_lines": 23,
+        "scope": "disaster_transition_emotional_pass"
+      }
+    },
+    {
+      "id": "ch048",
+      "number": 48,
+      "act": 8,
+      "chapter_number": 6,
+      "title": "漫长的告别",
+      "location": "潮歌灯塔·黑星之夜",
+      "required_flags": [
+        "story.ch047.done"
+      ],
+      "chapter_start_flag": "ch048.started",
+      "chapter_complete_flag": "story.ch048.done",
+      "lead_character": "岚音",
+      "summary": "在潮歌灯塔·黑星之夜，守护最后的撤离船并封锁裂隙。继续战斗也无法阻止灯网失衡，某些城市注定消失。最终，主角让最后一艘船离岸，亲眼看着星灯逐盏熄灭；故事跨越十二年。",
+      "production_status": "scripted_blocking_v2_phase8_climax_pass",
+      "recommended_level": [
+        57,
+        61
+      ],
+      "boss": "黑星化身",
+      "scenes": [
+        {
+          "id": "ch048.opening",
+          "title": "开场：潮歌灯塔·黑星之夜",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "潮歌灯塔·黑星之夜"
+          },
+          "dialogue": [
+            {
+              "id": "ch048.opening.l01",
+              "speaker": "旁白",
+              "text": "潮歌灯塔上的光比记忆中暗了许多，码头只剩最后一艘撤离船。"
+            },
+            {
+              "id": "ch048.opening.l02",
+              "speaker": "岚音",
+              "text": "还有孩子没有上船。"
+            },
+            {
+              "id": "ch048.opening.l03",
+              "speaker": "朔弦",
+              "text": "潮汐马上变了，再晚船底会撞上礁石。"
+            },
+            {
+              "id": "ch048.opening.l04",
+              "speaker": "雷索",
+              "text": "我来守最后一道石阶。"
+            },
+            {
+              "id": "ch048.opening.l05",
+              "speaker": "伊泽",
+              "text": "我把人名写在两份册子里，别让下一次连谁走了都不知道。"
+            },
+            {
+              "id": "ch048.opening.p8.l01",
+              "speaker": "孩子",
+              "text": "我们到岸上以后，还能回来找门前那只狗吗？"
+            },
+            {
+              "id": "ch048.opening.p8.l02",
+              "speaker": "岚音",
+              "text": "船到了安全港，先告诉在那里等你的人。狗的事我们会写进寻物册。"
+            },
+            {
+              "id": "ch048.opening.p8.l03",
+              "speaker": "朔弦",
+              "text": "今天海上不是好天气，我不敢保证航程舒适，只保证我会照着能走的路开。"
+            },
+            {
+              "id": "ch048.opening.p8.l04",
+              "speaker": "雷索",
+              "text": "谁有晕船药先交给医师，不要让老人和孩子靠最后一张船票互相让来让去。"
+            },
+            {
+              "id": "ch048.opening.p8.l05",
+              "speaker": "主角",
+              "text": "每个人都能上船的说法，我已经不敢随便讲。但现在这艘船还能载的人，一个也别漏。"
+            },
+            {
+              "id": "ch048.opening.p8.l06",
+              "speaker": "旁白",
+              "text": "主角将一张画得歪歪扭扭的撤离地图压在钟室门边，让来迟的人也能看懂。"
+            },
+            {
+              "id": "ch048.opening.l06",
+              "speaker": "主角",
+              "text": "先送他们走。我留下关上裂隙。"
+            },
+            {
+              "id": "ch048.opening.l07",
+              "speaker": "旁白",
+              "text": "黑星的倒影像第二片夜海，覆盖在真实的海面上。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "潮歌灯塔·黑星之夜"
+            },
+            {
+              "type": "interact",
+              "target": "ch048.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch048.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "熄灭中的海灯与撤离船",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "普通人的生活与危机现场先于世界理论"
+          }
+        },
+        {
+          "id": "ch048.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch048.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch048.investigate.l01",
+              "speaker": "旁白",
+              "text": "澄舟旧灯塔的门内，留着一条通往永昼世界的狭小光路。"
+            },
+            {
+              "id": "ch048.investigate.l02",
+              "speaker": "赫西安残响",
+              "text": "你可以停下来。你已经见过尽力之后的失败。"
+            },
+            {
+              "id": "ch048.investigate.l03",
+              "speaker": "主角",
+              "text": "那艘船还在等信号。"
+            },
+            {
+              "id": "ch048.investigate.l04",
+              "speaker": "赫西安残响",
+              "text": "你救不完所有人。承认这一点，就不会再痛。"
+            },
+            {
+              "id": "ch048.investigate.l05",
+              "speaker": "岚音",
+              "text": "承认救不了所有人，不等于要停止救眼前的人。"
+            },
+            {
+              "id": "ch048.investigate.l06",
+              "speaker": "朔弦",
+              "text": "船上还有位置，最后那一家已经到了。"
+            },
+            {
+              "id": "ch048.investigate.p8.l01",
+              "speaker": "赫西安残响",
+              "text": "只要停在今天，便不会再出现你无法回答的求救声。"
+            },
+            {
+              "id": "ch048.investigate.p8.l02",
+              "speaker": "主角",
+              "text": "可那艘船上有个孩子明天还想知道海是什么颜色。"
+            },
+            {
+              "id": "ch048.investigate.p8.l03",
+              "speaker": "赫西安残响",
+              "text": "你们仍把未知说成礼物。"
+            },
+            {
+              "id": "ch048.investigate.p8.l04",
+              "speaker": "岚音",
+              "text": "未知也可能会伤人。但它属于还活着的人，不属于你的计算。"
+            },
+            {
+              "id": "ch048.investigate.p8.l05",
+              "speaker": "雷索",
+              "text": "别在这里求他承认。钟室的旧锁还能转，先完成眼前的事。"
+            },
+            {
+              "id": "ch048.investigate.l07",
+              "speaker": "雷索",
+              "text": "别再和残响争论，先把裂隙封上。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch048.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch048.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch048.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "永昼光路从门缝透出",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "每项发现必须导致风险判断或可操作救援"
+          }
+        },
+        {
+          "id": "ch048.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch048.crisis",
+            "requires_flags": [
+              "ch048.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch048.crisis.l01",
+              "speaker": "黑星化身",
+              "text": "关闭未来将终止离别。"
+            },
+            {
+              "id": "ch048.crisis.l02",
+              "speaker": "伊泽",
+              "text": "我们愿意记住离开的人，不代表愿意永远失去明天。"
+            },
+            {
+              "id": "ch048.crisis.l03",
+              "speaker": "雷索",
+              "text": "灯塔不能再撑很久！"
+            },
+            {
+              "id": "ch048.crisis.l04",
+              "speaker": "主角",
+              "text": "先让船走，再合上门。"
+            },
+            {
+              "id": "ch048.crisis.l05",
+              "speaker": "岚音",
+              "text": "你若回不来，我也不会把今天说成你应该付的代价。"
+            },
+            {
+              "id": "ch048.crisis.p8.l01",
+              "speaker": "主角",
+              "text": "朔弦，记住这次撤离的人不是一支军队，是许多不认识我们的家庭。"
+            },
+            {
+              "id": "ch048.crisis.p8.l02",
+              "speaker": "朔弦",
+              "text": "他们不需要认识。信号灯亮时，船就走。"
+            },
+            {
+              "id": "ch048.crisis.p8.l03",
+              "speaker": "岚音",
+              "text": "如果裂隙关闭的瞬间把我们隔开，别用最后一口气追那个影子。先保住还能相见的人。"
+            },
+            {
+              "id": "ch048.crisis.p8.l04",
+              "speaker": "伊泽",
+              "text": "我会把名单抄三份，一份在船上，一份交留守者，一份留给后来的人。"
+            },
+            {
+              "id": "ch048.crisis.p8.l05",
+              "speaker": "雷索",
+              "text": "出发吧。我们不拿谁的生命去换一场漂亮的告别。"
+            },
+            {
+              "id": "ch048.crisis.l06",
+              "speaker": "朔弦",
+              "text": "看我的信号！潮汐变了，船必须现在走！"
+            },
+            {
+              "id": "ch048.crisis.l07",
+              "speaker": "旁白",
+              "text": "主角用最后的力量维持归航灯，身后裂隙逐渐崩塌。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch048.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch048.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch048.choice",
+            "prompt": "最后一艘撤离船已经抵港，你想留下什么？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "将救援名单交给各地共同保管",
+                "sets": {
+                  "ch048.approach": "names",
+                  "world.ch048.approach": "names"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "优先把剩余护灯技术交给船员与医师",
+                "sets": {
+                  "ch048.approach": "knowledge",
+                  "world.ch048.approach": "knowledge"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch048",
+            "display_name": "黑星化身",
+            "win_flag": "ch048.battle_won",
+            "recommended_level": 60
+          },
+          "direction": {
+            "shot": "逐星号的船帆进入黑夜",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "明确行动代价，避免以台词替代玩家选择"
+          }
+        },
+        {
+          "id": "ch048.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch048.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch048.resolve.l01",
+              "speaker": "旁白",
+              "text": "撤离船终于出海。灯塔的光熄了，黑星覆盖剩余的天际。"
+            },
+            {
+              "id": "ch048.resolve.l02",
+              "speaker": "雷索",
+              "text": "还有人在等救援，我们不能停。"
+            },
+            {
+              "id": "ch048.resolve.l03",
+              "speaker": "岚音",
+              "text": "但主角已经撑不住了。"
+            },
+            {
+              "id": "ch048.resolve.l04",
+              "speaker": "主角",
+              "text": "是我把六盏灯重新点亮的……也让他们有了利用的机会。"
+            },
+            {
+              "id": "ch048.resolve.l05",
+              "speaker": "伊泽",
+              "text": "我们得活下来，才能知道哪里真的错了。"
+            },
+            {
+              "id": "ch048.resolve.p8.l01",
+              "speaker": "岚音",
+              "text": "今天我能做的，不是把失败解释成值得，而是把还在的人领回去。"
+            },
+            {
+              "id": "ch048.resolve.p8.l02",
+              "speaker": "主角",
+              "text": "澄舟小时候教我数灯。我每次数到第七盏，都会停一下。"
+            },
+            {
+              "id": "ch048.resolve.p8.l03",
+              "speaker": "朔弦",
+              "text": "那是因为你老忘了前面数过哪几盏。"
+            },
+            {
+              "id": "ch048.resolve.p8.l04",
+              "speaker": "主角",
+              "text": "……也许吧。我竟然还记得这句玩笑。"
+            },
+            {
+              "id": "ch048.resolve.p8.l05",
+              "speaker": "旁白",
+              "text": "无人接话。海面上最后一点船灯逐渐远去，大家都在听它是否还会发出归航信号。"
+            },
+            {
+              "id": "ch048.resolve.p8.l06",
+              "speaker": "伊泽",
+              "text": "我会写下今天没人肯说的部分。等有一天他们愿意讲，再让他们自己补。"
+            },
+            {
+              "id": "ch048.resolve.l06",
+              "speaker": "朔弦",
+              "text": "你不必今晚就找到答案。"
+            },
+            {
+              "id": "ch048.resolve.l07",
+              "speaker": "旁白",
+              "text": "伙伴们在战争后各自走向不同地方。主角从公众视野里消失。"
+            },
+            {
+              "id": "ch048.resolve.l08",
+              "speaker": "旁白",
+              "text": "十二年过去，旧英雄的名字成为传说，也成为某些人口中的责备。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch048"
+            }
+          ],
+          "effects": [
+            {
+              "type": "time_skip",
+              "years": 12,
+              "record_at": "after_ch048"
+            },
+            {
+              "type": "set_flag",
+              "key": "world.black_star",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "key": "story.ch048.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2020,
+              "gold": 712
+            }
+          ],
+          "direction": {
+            "shot": "十二年时间以灯塔海水涨退转场",
+            "note": "文字演出指引",
+            "phase8_editorial_focus": "承认损失与不确定，不用胜利口号冲淡事件"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch048.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch048.done",
+          "speaker": "路人",
+          "text": "以后再说起潮歌灯塔·黑星之夜，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act08_dialogue_v2",
+      "production_notes": "第46章维莎未正式登场，仅通过匿名远程声音提供资料；不让其加入队伍。第48章末维持现有12年时间跳跃事件。",
+      "phase8_revision": {
+        "date": "2026-10-25",
+        "new_lines": 22,
+        "scope": "disaster_transition_emotional_pass"
+      }
+    }
+  ],
+  "dialogue_revision": "act08_dialogue_v2",
+  "phase8_revision": {
+    "scope": "ch043_ch048",
+    "date": "2026-10-25",
+    "new_lines": 127,
+    "policy": "preserve_original_dialogue_ids_and_chapter_flags",
+    "note": "黑星危机文本深化，仍非演出终稿"
+  }
+}

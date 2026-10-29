@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "map_id": "map_forge_04",
+  "title": "灰烬铁路",
+  "biome": "volcanic",
+  "category": "dungeon",
+  "design_intent": "火山灰台地与古代矿道",
+  "size": [
+    90,
+    62
+  ],
+  "roads": [
+    {
+      "id": "spine-工业栈桥",
+      "width": 1,
+      "points": [
+        [
+          6,
+          23
+        ],
+        [
+          22,
+          16
+        ],
+        [
+          36,
+          18
+        ],
+        [
+          60,
+          26
+        ],
+        [
+          83,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "branch-forge",
+      "width": 1,
+      "points": [
+        [
+          28,
+          5
+        ],
+        [
+          42,
+          15
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          47,
+          55
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          11,
+          31
+        ],
+        [
+          28,
+          35
+        ],
+        [
+          59,
+          34
+        ],
+        [
+          23,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          47,
+          24
+        ],
+        [
+          75,
+          22
+        ],
+        [
+          84,
+          31
+        ],
+        [
+          81,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          19,
+          10
+        ],
+        [
+          49,
+          20
+        ],
+        [
+          58,
+          31
+        ],
+        [
+          78,
+          54
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_forge_04",
+      "width": 2,
+      "points": [
+        [
+          75,
+          10
+        ],
+        [
+          85,
+          16
+        ],
+        [
+          86,
+          49
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_forge_04",
+      "center": [
+        21,
+        19
+      ],
+      "radius": 3
+    },
+    {
+      "id": "fork-outlook-map_forge_04",
+      "center": [
+        51,
+        36
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_forge_04",
+      "center": [
+        80,
+        53
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_forge_04",
+      "cell": [
+        47,
+        18
+      ],
+      "kind": "flowerpot"
+    },
+    {
+      "id": "secondary-lookout-map_forge_04",
+      "cell": [
+        20,
+        34
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "peripheral-crest-map_forge_04",
+      "cell": [
+        81,
+        52
+      ],
+      "kind": "star_lantern"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        86,
+        58
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        86,
+        46
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        81,
+        23
+      ],
+      "kind": "beacon",
+      "name": "熔脉观测·灰烬铁路"
+    },
+    {
+      "cell": [
+        79,
+        52
+      ],
+      "kind": "sign",
+      "name": "旧轨道口·灰烬铁路"
+    },
+    {
+      "cell": [
+        67,
+        53
+      ],
+      "kind": "star_lantern",
+      "name": "高炉冷却·灰烬铁路"
+    }
+  ],
+  "layout_identity": "forge.04.工业栈桥",
+  "layout_principle": "工业栈桥：依据「灰烬铁路」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

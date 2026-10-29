@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "map_id": "map_oaths_04",
+  "title": "誓石神殿",
+  "biome": "highland",
+  "category": "dungeon",
+  "design_intent": "誓约山脊和隐秘山径",
+  "size": [
+    100,
+    66
+  ],
+  "roads": [
+    {
+      "id": "spine-悬崖折返",
+      "width": 1,
+      "points": [
+        [
+          6,
+          23
+        ],
+        [
+          27,
+          31
+        ],
+        [
+          34,
+          30
+        ],
+        [
+          55,
+          29
+        ],
+        [
+          93,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "branch-oaths",
+      "width": 1,
+      "points": [
+        [
+          23,
+          5
+        ],
+        [
+          45,
+          13
+        ],
+        [
+          24,
+          31
+        ],
+        [
+          53,
+          59
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          14,
+          36
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          50,
+          29
+        ],
+        [
+          13,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          47,
+          35
+        ],
+        [
+          74,
+          27
+        ],
+        [
+          94,
+          24
+        ],
+        [
+          91,
+          58
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          16,
+          8
+        ],
+        [
+          44,
+          11
+        ],
+        [
+          67,
+          36
+        ],
+        [
+          88,
+          58
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_oaths_04",
+      "width": 1,
+      "points": [
+        [
+          75,
+          10
+        ],
+        [
+          95,
+          19
+        ],
+        [
+          96,
+          53
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_oaths_04",
+      "center": [
+        19,
+        17
+      ],
+      "radius": 3
+    },
+    {
+      "id": "fork-outlook-map_oaths_04",
+      "center": [
+        58,
+        31
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_oaths_04",
+      "center": [
+        90,
+        57
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_oaths_04",
+      "cell": [
+        52,
+        21
+      ],
+      "kind": "sign"
+    },
+    {
+      "id": "secondary-lookout-map_oaths_04",
+      "cell": [
+        20,
+        37
+      ],
+      "kind": "crate"
+    },
+    {
+      "id": "peripheral-crest-map_oaths_04",
+      "cell": [
+        91,
+        56
+      ],
+      "kind": "rock"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        96,
+        62
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        96,
+        50
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        91,
+        30
+      ],
+      "kind": "beacon",
+      "name": "崖壁守望·誓石神殿"
+    },
+    {
+      "cell": [
+        89,
+        56
+      ],
+      "kind": "sign",
+      "name": "誓碑庭院·誓石神殿"
+    },
+    {
+      "cell": [
+        70,
+        57
+      ],
+      "kind": "star_lantern",
+      "name": "三门瞭望·誓石神殿"
+    }
+  ],
+  "layout_identity": "oaths.04.悬崖折返",
+  "layout_principle": "悬崖折返：依据「誓石神殿」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

@@ -1,0 +1,359 @@
+{
+  "schema_version": 3,
+  "map_id": "map_coast_03",
+  "title": "盐风古道",
+  "biome": "coastal",
+  "category": "route",
+  "design_intent": "潮滩沙丘与林间海风道",
+  "size": [
+    94,
+    54
+  ],
+  "roads": [
+    {
+      "id": "spine-海滩凹湾",
+      "width": 1,
+      "points": [
+        [
+          6,
+          31
+        ],
+        [
+          25,
+          19
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          53,
+          37
+        ],
+        [
+          58,
+          44
+        ],
+        [
+          76,
+          44
+        ],
+        [
+          87,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "branch-coast",
+      "width": 1,
+      "points": [
+        [
+          23,
+          5
+        ],
+        [
+          29,
+          11
+        ],
+        [
+          37,
+          27
+        ],
+        [
+          56,
+          47
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          10,
+          34
+        ],
+        [
+          25,
+          43
+        ],
+        [
+          43,
+          37
+        ],
+        [
+          20,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          55,
+          35
+        ],
+        [
+          55,
+          20
+        ],
+        [
+          74,
+          20
+        ],
+        [
+          88,
+          41
+        ],
+        [
+          85,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          21,
+          17
+        ],
+        [
+          44,
+          19
+        ],
+        [
+          65,
+          23
+        ],
+        [
+          82,
+          46
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          8
+        ],
+        [
+          33,
+          7
+        ],
+        [
+          64,
+          10
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          42
+        ],
+        [
+          35,
+          41
+        ],
+        [
+          64,
+          44
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_coast_03",
+      "width": 2,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          89,
+          15
+        ],
+        [
+          90,
+          41
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [
+    {
+      "id": "tidal-channel",
+      "width": 2,
+      "points": [
+        [
+          67,
+          7
+        ],
+        [
+          61,
+          16
+        ],
+        [
+          67,
+          31
+        ],
+        [
+          66,
+          43
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "regional-stream-map_coast_03",
+      "width": 2,
+      "points": [
+        [
+          89,
+          6
+        ],
+        [
+          86,
+          24
+        ],
+        [
+          89,
+          41
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_coast_03",
+      "center": [
+        28,
+        26
+      ],
+      "radius": 3
+    },
+    {
+      "id": "fork-outlook-map_coast_03",
+      "center": [
+        48,
+        39
+      ],
+      "radius": 2
+    },
+    {
+      "id": "expansion-court-map_coast_03",
+      "center": [
+        84,
+        45
+      ],
+      "radius": 4
+    },
+    {
+      "id": "shoal_tide_stand",
+      "center": [
+        62,
+        43
+      ],
+      "radius": 2
+    },
+    {
+      "id": "shoal_whale_bones",
+      "center": [
+        66,
+        45
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_coast_03",
+      "cell": [
+        52,
+        17
+      ],
+      "kind": "crate"
+    },
+    {
+      "id": "secondary-lookout-map_coast_03",
+      "cell": [
+        28,
+        33
+      ],
+      "kind": "star_lantern"
+    },
+    {
+      "id": "peripheral-crest-map_coast_03",
+      "cell": [
+        85,
+        44
+      ],
+      "kind": "sign"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        90,
+        50
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        90,
+        38
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 6,
+  "expansion_nodes": [
+    {
+      "cell": [
+        85,
+        20
+      ],
+      "kind": "beacon",
+      "name": "盐风高崖·浅滩观潮点"
+    },
+    {
+      "cell": [
+        83,
+        44
+      ],
+      "kind": "sign",
+      "name": "鲸骨浅滩·退潮航标"
+    },
+    {
+      "cell": [
+        66,
+        45
+      ],
+      "kind": "star_lantern",
+      "name": "鲸骨浅滩·救援补给石垒"
+    }
+  ],
+  "layout_identity": "coast.03.盐风古道及鲸骨浅滩",
+  "layout_principle": "原有盐风古道入口、五条路与任务节点全部保留；在东南侧原救援石垒周围开辟鲸骨浅滩可步行停留区，借退潮线逐渐引导玩家抵达救援现场，不创建新地图ID。"
+}

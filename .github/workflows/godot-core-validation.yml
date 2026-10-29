@@ -1,0 +1,159 @@
+name: Godot 4.7.2 Core Validation
+# Development is now main-only. Heavy QA is opt-in by batch marker or manual dispatch.
+concurrency:
+  group: starlit-main-batch-qa-${{ github.ref }}
+  cancel-in-progress: false
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/qa-batch-trigger.json"
+jobs:
+  validate:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation tools
+        run: python -m pip install --disable-pip-version-check pillow pyyaml
+      - name: Validate maps, story and item catalog
+        run: |
+          python tools/validate_release_gate.py
+          python tools/validate_delivery_matrix.py
+          python tools/validate_project.py
+          python tools/validate_story.py
+          python tools/validate_cinematics.py
+          python tools/validate_story_progression.py
+          python tools/validate_narrative_v21.py
+          python tools/validate_phase09_opening.py
+          python tools/validate_phase10_red_furnace.py
+          python tools/validate_phase11_memories.py
+          python tools/validate_phase12_archipelago.py
+          python tools/validate_phase13_mirror_kingdom.py
+          python tools/validate_phase14_lost_continent.py
+          python tools/validate_phase15_city.py
+          python tools/validate_phase16_sanctum.py
+          python tools/validate_phase17_lost_pages.py
+          python tools/validate_phase17_life_quests.py
+          python tools/validate_phase17_regional_quests.py
+          python tools/validate_phase18_companions.py
+          python tools/validate_phase19_world_anchors.py
+          python tools/validate_phase19_scene_dressing.py
+          python tools/validate_phase19_lost_page_rooms.py
+          python tools/validate_phase19_lost_page_puzzles.py
+          python tools/validate_phase19_life_rooms.py
+          python tools/validate_phase19_companion_regional_rooms.py
+          python tools/validate_content.py
+          python tools/validate_first_act.py
+
+      - name: Enforce fog-free local map policy
+        run: python3 tools/validate_no_fog_local_map.py
+      - name: Install official Godot 4.7.2 editor
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Headless project import and GDScript check
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: D Batch 0.1-0.3 atomic reward, cross-save recovery and A/B integration
+        run: |
+          set -euo pipefail
+          GODOT="./Godot_v4.7.2-stable_linux.x86_64"
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_v3_reward_ledger.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_live_battle_v3_transaction.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_batch02_quest_and_b_outbox.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/d_control/smoke_batch03_legacy_and_checkpoint_recovery.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/smoke_a_line_reward_transactions.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/smoke_a_line_world_handoff.gd
+          timeout 90s "$GODOT" --headless --path . --script res://tools/smoke_b_story_transactions.gd
+      - name: All forty maps and mini-map current-display coverage
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_all_maps_minimap.gd
+      - name: B02/B03 static art runtime resource binding and safe fallback
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_art_assets.gd
+      - name: Uncovered current-area map and minimap regression
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_map_ui.gd
+      - name: Validate editable V3 wilderness geometry and hand-painted collision rules
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_v3.gd
+      - name: All-visible local map without global atlas or fog
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_no_fog_local_map.gd
+      - name: DQ-inspired authored town staging, service routes and interior design
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_direction_v4.gd
+      - name: All forty world sectors, city plots, dungeons and walkable interiors
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd
+      - name: Regional NPCs, commerce and daily-world persistence
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_life.gd
+      - name: V3 autosave integrity, corrupted payload rejection and slot recovery
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_save_integrity.gd
+      - name: Prologue through chapter 3 save position and corrupt Continue prevention
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_three_checkpoints.gd
+      - name: Indoor save checkpoints and non-repeatable wilderness camp rest
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_checkpoints.gd
+      - name: World dungeon puzzle and multi-leg route safety
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_story_interactions.gd
+      - name: Combat and controller script load gate
+        run: timeout 30s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/check_combat_load.gd
+      - name: Four-frame battle animation and effect lifecycle
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_fx.gd
+      - name: Party actor poses and nine-element combat skills
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_actors.gd
+      - name: First Act integrated runtime and combat smoke test
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act.gd
+      - name: Real-command Boss victory and reward integration
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_live_boss_matrix.gd
+      - name: Opening bosses normal-stat balance and stable action warnings
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_opening_balance.gd
+      - name: First three chapters real-command flow without cheats
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_three_playable.gd
+      - name: P1 speed-based turns and negative status integration
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_combat_turns.gd
+      - name: Cinematic P0-P3 cold open, canon prologue, chapters, saves and skipping
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_cinematic_flow.gd
+      - name: Prologue P4 real-world starfall, blackout and decade staging
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_prologue_world_fx.gd
+      - name: Prologue and six-chapter end-to-end flow
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act_flow.gd
+      - name: All twelve acts and 72 chapters controller regression
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_campaign_72.gd
+      - name: RPG gameplay systems and complete functional menu
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_rpg_core.gd
+      - name: Five-stage side quest and lost page story scenario
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_story_side_quests.gd
+      - name: Canon endings and epilogue replay regression
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_endings.gd
+      - name: Chapter NPC, evidence and 72 midpoint runtime regression
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_chapter_ambient.gd
+      - name: Legacy chapter-72 save migration
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_legacy_ending.gd
+      - name: Game architecture world routing and persistence integration
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_architecture.gd
+      - name: Regional monster and canon boss battle systems
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_encounter_architecture.gd
+      - name: All-chapter vocational mastery, battle catalog, shop tiers and bestiary regression
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_global_rpg_reuse.gd
+      - name: Housing and tactical combat integration
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_housing_and_combat.gd
+      - name: Optional story event and save regression
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_optional_events.gd
+      - name: Phase19 branch-story save, A-B choice and playable dialogue regression
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_branch_story_phase19.gd
+      - name: Phase19-2 canonical 120-quest map, NPC and three-step world interactions
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_story_world_phase19_2.gd
+      - name: Phase19-4 twelve real independent lost-page room and save acceptance
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_phase19_lost_page_rooms.gd
+      - name: Twelve canonical evidence puzzles, wrong answers and persistent deduction
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_phase19_lost_page_puzzles.gd
+      - name: Nineteen walkable life quests, saved exhibits and five outdoor sites
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_phase19_life_rooms.gd
+      - name: Phase19-7 all 54 companion/regional rooms and outdoor continuity
+        run: timeout 240s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_phase19_companion_regional_rooms.gd
+      - name: Headless main scene smoke test
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20
+
+      - name: Final HD-2D visual asset acceptance
+        run: python tools/qa_hd2d_refinement.py

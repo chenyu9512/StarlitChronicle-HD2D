@@ -1,0 +1,616 @@
+{
+  "schema": "starlit.story.phase11.act04.production_plan.v1",
+  "status": "production_design_only_not_runtime_bound",
+  "date": "2026-10-25",
+  "notes": "24个候选项（12生活/调查戏与12选择即时回响），特别强调三段时代切换和现世选择。未在Godot实际注册，跳过所有候选不能锁主线。",
+  "event_plan": [
+    {
+      "id": "ch019.p11.town",
+      "chapter_id": "ch019",
+      "optional_scene_id": "ch019.p11.town",
+      "player_control_actor": "年轻雷索",
+      "time_layer": "ten_years_ago",
+      "suggested_map_slot": "十年前·灰石边村旧井口",
+      "object_name": "收麦前的旧井口",
+      "player_actions": [
+        "在井口查看救援绳索和烟迹",
+        "询问村妇孩子伤情与救援目的",
+        "由年轻雷索写出经确认的目击内容"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch019.opening",
+        "required_flags": [
+          "ch019.started"
+        ],
+        "without_flags": [
+          "ch019.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_opening_before_investigate",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch019.p11.evidence",
+      "chapter_id": "ch019",
+      "optional_scene_id": "ch019.p11.evidence",
+      "player_control_actor": "年轻雷索",
+      "time_layer": "ten_years_ago",
+      "suggested_map_slot": "十年前·灰石边村灶灰堆",
+      "object_name": "灶灰里的求救火种",
+      "player_actions": [
+        "检查湿木、车轮火心和取水沟方位",
+        "比较军令中“联络点”说法与实物证据",
+        "隐去家属住址，保存烟火和撤离见证"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch019.investigate",
+        "required_flags": [
+          "ch019.evidence"
+        ],
+        "without_flags": [
+          "ch019.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_investigate_before_crisis",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch020.p11.town",
+      "chapter_id": "ch020",
+      "optional_scene_id": "ch020.p11.town",
+      "player_control_actor": "年轻朔弦",
+      "time_layer": "seven_years_ago",
+      "suggested_map_slot": "七年前·无名海船尾厨房",
+      "object_name": "船尾最后一碗鱼汤",
+      "player_actions": [
+        "与小水手共享最后一碗鱼汤",
+        "倾听故乡方言并询问学自何人",
+        "让少年朔弦重画歪树、船坞和风向"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch020.opening",
+        "required_flags": [
+          "ch020.started"
+        ],
+        "without_flags": [
+          "ch020.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_opening_before_investigate",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch020.p11.evidence",
+      "chapter_id": "ch020",
+      "optional_scene_id": "ch020.p11.evidence",
+      "player_control_actor": "年轻朔弦",
+      "time_layer": "seven_years_ago",
+      "suggested_map_slot": "七年前·老船长测绘室",
+      "object_name": "刮掉海岸的铜尺",
+      "player_actions": [
+        "对照铜尺缺口和海图刮痕",
+        "核实罗盘异常与谁借过测绘尺",
+        "用海流与独立证言补出一段航线"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch020.investigate",
+        "required_flags": [
+          "ch020.evidence"
+        ],
+        "without_flags": [
+          "ch020.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_investigate_before_crisis",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch021.p11.town",
+      "chapter_id": "ch021",
+      "optional_scene_id": "ch021.p11.town",
+      "player_control_actor": "少年岚音",
+      "time_layer": "ten_years_ago_childhood",
+      "suggested_map_slot": "十年前·晨露药房药柜",
+      "object_name": "没有写名字的药瓶",
+      "player_actions": [
+        "少年岚音清点被擦名药瓶",
+        "按照剂量、日期与旧诊所编号分类",
+        "把事实记录与推测分开存档"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch021.opening",
+        "required_flags": [
+          "ch021.started"
+        ],
+        "without_flags": [
+          "ch021.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_opening_before_investigate",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch021.p11.evidence",
+      "chapter_id": "ch021",
+      "optional_scene_id": "ch021.p11.evidence",
+      "player_control_actor": "少年岚音",
+      "time_layer": "ten_years_ago_childhood",
+      "suggested_map_slot": "十年前·晨露药房后屋封箱",
+      "object_name": "澄舟封箱的双层纸",
+      "player_actions": [
+        "在澄舟封箱里找出预测页和普通病历",
+        "询问投影何时能让孩子自行选择",
+        "写下未来交付的知情与拒绝条件"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch021.investigate",
+        "required_flags": [
+          "ch021.evidence"
+        ],
+        "without_flags": [
+          "ch021.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_investigate_before_crisis",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch022.p11.town",
+      "chapter_id": "ch022",
+      "optional_scene_id": "ch022.p11.town",
+      "player_control_actor": "现世主角",
+      "time_layer": "present_day",
+      "suggested_map_slot": "现世·王都白夜祭灯市",
+      "object_name": "白夜祭的纸灯匠",
+      "player_actions": [
+        "帮助卖灯妇修好破损纸灯骨",
+        "确定过节居民离开王宫侧门的安全路线",
+        "保持广场庆典不受秘密调查直接牵连"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch022.opening",
+        "required_flags": [
+          "ch022.started"
+        ],
+        "without_flags": [
+          "ch022.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_opening_before_investigate",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch022.p11.evidence",
+      "chapter_id": "ch022",
+      "optional_scene_id": "ch022.p11.evidence",
+      "player_control_actor": "现世主角",
+      "time_layer": "present_day",
+      "suggested_map_slot": "现世·王宫拍卖后台",
+      "object_name": "匿名的拍卖托管单",
+      "player_actions": [
+        "检查托管合同的涂改与反对签名",
+        "核对灰帷会旧船号和王宫运送安排",
+        "生成不含受害者住址的公开抄本"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch022.investigate",
+        "required_flags": [
+          "ch022.evidence"
+        ],
+        "without_flags": [
+          "ch022.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_investigate_before_crisis",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch023.p11.town",
+      "chapter_id": "ch023",
+      "optional_scene_id": "ch023.p11.town",
+      "player_control_actor": "现世主角",
+      "time_layer": "present_day",
+      "suggested_map_slot": "现世·王城地下档案室钟廊",
+      "object_name": "钟楼值守留下的暖茶",
+      "player_actions": [
+        "用临时编号标记转动书架",
+        "记录每次古钟鸣响后的值守变化",
+        "留出可返回的走廊路径，不触动原卷"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch023.opening",
+        "required_flags": [
+          "ch023.started"
+        ],
+        "without_flags": [
+          "ch023.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_opening_before_investigate",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch023.p11.evidence",
+      "chapter_id": "ch023",
+      "optional_scene_id": "ch023.p11.evidence",
+      "player_control_actor": "现世主角",
+      "time_layer": "present_day",
+      "suggested_map_slot": "现世·第七灯预算原档架",
+      "object_name": "七灯预算里缺失的签字",
+      "player_actions": [
+        "比对无署名同意总数与预算人次",
+        "区分行政推定、本人拒绝和无法签字",
+        "保留“维莎”仅是档案署名的证据程度"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch023.investigate",
+        "required_flags": [
+          "ch023.evidence"
+        ],
+        "without_flags": [
+          "ch023.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_investigate_before_crisis",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch024.p11.town",
+      "chapter_id": "ch024",
+      "optional_scene_id": "ch024.p11.town",
+      "player_control_actor": "现世主角",
+      "time_layer": "present_day",
+      "suggested_map_slot": "现世·断层议会听证门厅",
+      "object_name": "议会门外的平民记录席",
+      "player_actions": [
+        "帮助三国使者准备普通人听证座位",
+        "分别安排历史档案咨询与伤者求助窗口",
+        "记录受众疑问，不要求现场一致同意"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch024.opening",
+        "required_flags": [
+          "ch024.started"
+        ],
+        "without_flags": [
+          "ch024.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_opening_before_investigate",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch024.p11.evidence",
+      "chapter_id": "ch024",
+      "optional_scene_id": "ch024.p11.evidence",
+      "player_control_actor": "现世主角",
+      "time_layer": "present_day",
+      "suggested_map_slot": "现世·断层议会档案台",
+      "object_name": "九百年后的未寄致歉书",
+      "player_actions": [
+        "核对致歉信所用纸张和官印年代",
+        "确认收件人与官员经手信息的不确定性",
+        "以三份防篡改抄本保存可公开证据"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch024.investigate",
+        "required_flags": [
+          "ch024.evidence"
+        ],
+        "without_flags": [
+          "ch024.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "after_investigate_before_crisis",
+      "production": {
+        "map_actor_id": "unassigned",
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch019.p11.choice.listen",
+      "chapter_id": "ch019",
+      "choice_id": "ch019.choice",
+      "option_id": "listen",
+      "condition": {
+        "ch019.approach": "villagers",
+        "world.ch019.approach": "villagers"
+      },
+      "time_layer": "ten_years_ago",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch019.p11.choice.act",
+      "chapter_id": "ch019",
+      "choice_id": "ch019.choice",
+      "option_id": "act",
+      "condition": {
+        "ch019.approach": "witness_soldier",
+        "world.ch019.approach": "witness_soldier"
+      },
+      "time_layer": "ten_years_ago",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch020.p11.choice.listen",
+      "chapter_id": "ch020",
+      "choice_id": "ch020.choice",
+      "option_id": "listen",
+      "condition": {
+        "ch020.approach": "keep_log",
+        "world.ch020.approach": "keep_log"
+      },
+      "time_layer": "seven_years_ago",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch020.p11.choice.act",
+      "chapter_id": "ch020",
+      "choice_id": "ch020.choice",
+      "option_id": "act",
+      "condition": {
+        "ch020.approach": "stars_first",
+        "world.ch020.approach": "stars_first"
+      },
+      "time_layer": "seven_years_ago",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch021.p11.choice.listen",
+      "chapter_id": "ch021",
+      "choice_id": "ch021.choice",
+      "option_id": "listen",
+      "condition": {
+        "ch021.approach": "need_time",
+        "world.ch021.approach": "need_time"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch021.p11.choice.act",
+      "chapter_id": "ch021",
+      "choice_id": "ch021.choice",
+      "option_id": "act",
+      "condition": {
+        "ch021.approach": "read_together",
+        "world.ch021.approach": "read_together"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch022.p11.choice.listen",
+      "chapter_id": "ch022",
+      "choice_id": "ch022.choice",
+      "option_id": "listen",
+      "condition": {
+        "ch022.approach": "anonymous_release",
+        "world.ch022.approach": "anonymous_release"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch022.p11.choice.act",
+      "chapter_id": "ch022",
+      "choice_id": "ch022.choice",
+      "option_id": "act",
+      "condition": {
+        "ch022.approach": "safe_archive",
+        "world.ch022.approach": "safe_archive"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch023.p11.choice.listen",
+      "chapter_id": "ch023",
+      "choice_id": "ch023.choice",
+      "option_id": "listen",
+      "condition": {
+        "ch023.approach": "protect_names",
+        "world.ch023.approach": "protect_names"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch023.p11.choice.act",
+      "chapter_id": "ch023",
+      "choice_id": "ch023.choice",
+      "option_id": "act",
+      "condition": {
+        "ch023.approach": "save_original",
+        "world.ch023.approach": "save_original"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch024.p11.choice.listen",
+      "chapter_id": "ch024",
+      "choice_id": "ch024.choice",
+      "option_id": "listen",
+      "condition": {
+        "ch024.approach": "public_hearing",
+        "world.ch024.approach": "public_hearing"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch024.p11.choice.act",
+      "chapter_id": "ch024",
+      "choice_id": "ch024.choice",
+      "option_id": "act",
+      "condition": {
+        "ch024.approach": "families_first",
+        "world.ch024.approach": "families_first"
+      },
+      "time_layer": "present_day",
+      "play_after_choice": true,
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    }
+  ],
+  "major_setpiece_design": {
+    "flashback_transition": {
+      "scope": "ch019_ch021",
+      "status": "design_not_runtime_bound",
+      "rules": [
+        "第19章年轻雷索、第20章年轻朔弦、第21章少年岚音分别使用不同年代临时操作视角，不读取现世同伴UI组队状态作为剧情前置",
+        "每段回忆在resolve时回归现世；第21章例外：ch021.crisis对白后必须先转回现世，再弹出关于岚音隐瞒的原有choice",
+        "不能在过去时间层触发现世地图NPC、现世伙伴野外对话、现代地区商店或未来已获得道具",
+        "既有4场主线和完成旗标仍保留；新镜头切换不能改变存档格式"
+      ]
+    },
+    "white_night_infiltration": {
+      "scope": "ch022",
+      "status": "design_not_runtime_bound",
+      "beats": [
+        "街市可选修灯生活戏，与潜入目标并行",
+        "搬琴伪装经过幕后通道，无需与普通居民交战",
+        "记录托管人和运输车次，避开公开受害者姓名",
+        "决定先匿名公开账册还是先护送证人撤离"
+      ]
+    },
+    "archive_identity_puzzle": {
+      "scope": "ch023",
+      "status": "design_not_runtime_bound",
+      "beats": [
+        "按古钟周期观察书架编号变化",
+        "核对匿名记忆预算总数与缺失签字",
+        "在档案抹名危机中互相确认身份，但不代替他人签字",
+        "确认封底维莎为署名线索，仅第58章才是正式队员"
+      ]
+    },
+    "council_hearing": {
+      "scope": "ch024",
+      "status": "design_not_runtime_bound",
+      "beats": [
+        "拆分自愿共鸣与强制记忆提取的时间顺序",
+        "读取九百年后致歉书及其收件人不确定性",
+        "为地区原件保全、匿名咨询及民众听证安排分工",
+        "将已核实的海歌港线索带入下一幕，不虚构提前取得失落航页"
+      ]
+    }
+  }
+}

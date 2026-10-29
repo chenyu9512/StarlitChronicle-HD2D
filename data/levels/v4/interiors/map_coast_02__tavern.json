@@ -1,0 +1,224 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_coast_02",
+  "building_id": "tavern",
+  "name": "白砂港·黑帆酒馆",
+  "status": "b_act01_physical_playable_c_art_pending",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        17,
+        15,
+        55,
+        36
+      ]
+    },
+    {
+      "rect": [
+        21,
+        11,
+        52,
+        29
+      ]
+    },
+    {
+      "rect": [
+        30,
+        30,
+        40,
+        38
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        33,
+        12,
+        33,
+        16
+      ]
+    },
+    {
+      "rect": [
+        41,
+        12,
+        41,
+        16
+      ]
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        29,
+        36,
+        38
+      ]
+    }
+  ],
+  "points": {
+    "spawn": [
+      35,
+      33
+    ],
+    "exit": [
+      35,
+      36
+    ],
+    "service": [
+      24,
+      21
+    ],
+    "storage": [
+      48,
+      21
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        21
+      ],
+      "name": "黑帆酒馆·老板柜台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        48,
+        21
+      ],
+      "name": "黑帆酒馆·盐渍酒桶"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        27,
+        17
+      ],
+      "name": "黑帆酒馆·货单木箱"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        45,
+        18
+      ],
+      "name": "黑帆酒馆·船员告示"
+    },
+    {
+      "kind": "fish_stall",
+      "cell": [
+        28,
+        26
+      ],
+      "name": "黑帆酒馆·晚餐长桌"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        49,
+        29
+      ],
+      "name": "黑帆酒馆·旧账簿"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        23
+      ],
+      "name": "黑帆酒馆·壁灯"
+    }
+  ],
+  "art_profile": "",
+  "art_tileset": "",
+  "visuals": [],
+  "art_collision_cells": [],
+  "investigations": [
+    {
+      "id": "inspect_act01_tavern_1",
+      "kind": "crate",
+      "name": "夹层货箱",
+      "cell": [
+        27,
+        17
+      ],
+      "first_text": "货箱标着十二包海盐，可箱板比盐袋重。底下压着一页没有署名的夜间运货单。",
+      "repeat_text": "箱板夹层里残存海盐颗粒。",
+      "after_text": "酒馆老板把原始货单交给港务员核验，留下一份抄本供工人查阅。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_tavern_2",
+      "kind": "sign",
+      "name": "无日期船员告示",
+      "cell": [
+        45,
+        18
+      ],
+      "first_text": "招募的船名还在，日期却被剪掉一角；有人希望这份工作像从未存在过。",
+      "repeat_text": "旧纸的边角已被仔细抚平。",
+      "after_text": "告示旁补上船工签收工钱的实际日期。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_tavern_3",
+      "kind": "fish_stall",
+      "name": "靠窗的旧餐桌",
+      "cell": [
+        28,
+        26
+      ],
+      "first_text": "几名水手在桌面刻下航路，最后一条被黑墨覆盖。这里是询问失踪航段的合适地点。",
+      "repeat_text": "桌上的划痕沿着海岸一直延伸。",
+      "after_text": "桌边有新的航路注记，水手们不再只靠传闻辨方向。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_tavern_4",
+      "kind": "barrel",
+      "name": "酒桶下的旧账簿",
+      "cell": [
+        49,
+        29
+      ],
+      "first_text": "账簿记着应付给搬运工的工钱，最后一页用盐渍封住。账目缺口恰好与夜船出港相同。",
+      "repeat_text": "旧账页按月份重新夹好。",
+      "after_text": "老板留下签收页，欠薪的记录没有被删掉。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    }
+  ],
+  "interior_owner_id": "npc_coast_04",
+  "interaction_revision": 1,
+  "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
+  "notes": "Real V4 walkable geometry and 32px points; renderer uses existing scene feature sprites until C hands off dedicated original artwork. No added reward, flag or quest ID."
+}

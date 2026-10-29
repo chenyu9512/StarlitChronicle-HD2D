@@ -1,0 +1,2393 @@
+{
+  "schema": "starlit.story.phase17.lost_pages.manifest.v1",
+  "date": "2026-10-25",
+  "status": "72_authored_postquest_events_not_runtime_registered",
+  "authoritative_original": "story/data/side_quests.json",
+  "branch_files": [
+    "story/data/phase17_lost_pages_01_04.json",
+    "story/data/phase17_lost_pages_05_08.json",
+    "story/data/phase17_lost_pages_09_12.json"
+  ],
+  "counts": {
+    "quests": 12,
+    "branches": 24,
+    "optional_stages": 72,
+    "new_dialogues": 216
+  },
+  "scope": "lost_pages_01_to_12_only",
+  "global_milestone_unchanged": "world.all_twelve_pages from all twelve world.page_XX flags as before",
+  "gate_semantics": {
+    "original_finish": "award one page independent of A/B",
+    "phase17_stages": "optional, after original quest complete, gated on recorded original A/B choice",
+    "revisit": "also needs late_chapter completion and previous optional stage completion marker",
+    "completed_old_save_missing_approach": "do not guess choice; ask for opt-in followup branch selection without replaying page reward",
+    "abandoned_optional_route": "does not block original quest or any ending"
+  },
+  "save_migration_status": "design_not_implemented",
+  "entries": [
+    {
+      "id": "sq_page_01",
+      "title": "断港的十二封信",
+      "region": "白砂港·旧邮仓",
+      "required_chapter": "ch005",
+      "late_revisit_chapter": "ch012",
+      "source_file": "story/data/phase17_lost_pages_01_04.json",
+      "existing_five_stages": [
+        "sq_page_01.start",
+        "sq_page_01.investigate",
+        "sq_page_01.witness",
+        "sq_page_01.decision",
+        "sq_page_01.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_01.done",
+      "existing_lost_page_reward": "page_01",
+      "existing_finish_flag": "world.page_01",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "由收件人家属自愿拆阅并建立纪念信箱",
+          "requires_original_choice": {
+            "side.sq_page_01.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_01.p17.a.followup",
+              "kind": "followup",
+              "title": "家属拆信登记",
+              "player_actions": [
+                "按家属意愿标记每封信的阅读范围",
+                "留存未拆封信件的收据"
+              ],
+              "anchor_after_original_stage": "sq_page_01.finish",
+              "required_runtime_flags": {
+                "side.sq_page_01.done": true,
+                "side.sq_page_01.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_01.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_01.p17.a.followup.l01",
+                "sq_page_01.p17.a.followup.l02",
+                "sq_page_01.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_01.p17.a.community",
+              "kind": "community",
+              "title": "新的纪念邮箱",
+              "player_actions": [
+                "询问新邮差的移交与查件流程",
+                "分别登记公开航图和保密住址"
+              ],
+              "anchor_after_original_stage": "sq_page_01.finish",
+              "required_runtime_flags": {
+                "side.sq_page_01.done": true,
+                "side.sq_page_01.approach": "a"
+              },
+              "must_follow": "sq_page_01.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_01.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_01.p17.a.community.l01",
+                "sq_page_01.p17.a.community.l02",
+                "sq_page_01.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_01.p17.a.revisit",
+              "kind": "revisit",
+              "title": "后来的一封信",
+              "player_actions": [
+                "复核当前纪念箱保存制度",
+                "允许家属申请改动阅读范围"
+              ],
+              "anchor_after_original_stage": "sq_page_01.finish",
+              "required_runtime_flags": {
+                "side.sq_page_01.done": true,
+                "side.sq_page_01.approach": "a",
+                "story.ch012.done": true
+              },
+              "must_follow": "sq_page_01.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_01.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_01.p17.a.revisit.l01",
+                "sq_page_01.p17.a.revisit.l02",
+                "sq_page_01.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "收件人女儿",
+            "text": "我仍没拆父亲最后那封信，但愿孩子知道它存在。"
+          },
+          "post_completion_summary": "邮路继续延伸，纪念箱并未逼任何家庭完成告别。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "保留原封与航线证据，先查清船长去向",
+          "requires_original_choice": {
+            "side.sq_page_01.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_01.p17.b.followup",
+              "kind": "followup",
+              "title": "未拆旧信的航线",
+              "player_actions": [
+                "拓印两种海盐邮戳",
+                "查阅旧船号欠修档"
+              ],
+              "anchor_after_original_stage": "sq_page_01.finish",
+              "required_runtime_flags": {
+                "side.sq_page_01.done": true,
+                "side.sq_page_01.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_01.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_01.p17.b.followup.l01",
+                "sq_page_01.p17.b.followup.l02",
+                "sq_page_01.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_01.p17.b.community",
+              "kind": "community",
+              "title": "补给岛的失踪线索",
+              "player_actions": [
+                "核对外海补给岛的船务记录",
+                "为未查明去向的船只留下疑点"
+              ],
+              "anchor_after_original_stage": "sq_page_01.finish",
+              "required_runtime_flags": {
+                "side.sq_page_01.done": true,
+                "side.sq_page_01.approach": "b"
+              },
+              "must_follow": "sq_page_01.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_01.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_01.p17.b.community.l01",
+                "sq_page_01.p17.b.community.l02",
+                "sq_page_01.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_01.p17.b.revisit",
+              "kind": "revisit",
+              "title": "邮仓新的航路牌",
+              "player_actions": [
+                "确认新航路的安全效益",
+                "把未知失踪结局保留在公告中"
+              ],
+              "anchor_after_original_stage": "sq_page_01.finish",
+              "required_runtime_flags": {
+                "side.sq_page_01.done": true,
+                "side.sq_page_01.approach": "b",
+                "story.ch012.done": true
+              },
+              "must_follow": "sq_page_01.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_01.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_01.p17.b.revisit.l01",
+                "sq_page_01.p17.b.revisit.l02",
+                "sq_page_01.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "新船长",
+            "text": "这份旧潮图帮我们避开浅礁，今天有船平安返港。"
+          },
+          "post_completion_summary": "港口挂出可修订的航道告示，私信依旧封存。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_02",
+      "title": "泥土里的王徽",
+      "region": "三誓边村·麦田",
+      "required_chapter": "ch010",
+      "late_revisit_chapter": "ch019",
+      "source_file": "story/data/phase17_lost_pages_01_04.json",
+      "existing_five_stages": [
+        "sq_page_02.start",
+        "sq_page_02.investigate",
+        "sq_page_02.witness",
+        "sq_page_02.decision",
+        "sq_page_02.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_02.done",
+      "existing_lost_page_reward": "page_02",
+      "existing_finish_flag": "world.page_02",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "公开王徽与两套相互矛盾的粮仓账",
+          "requires_original_choice": {
+            "side.sq_page_02.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_02.p17.a.followup",
+              "kind": "followup",
+              "title": "王徽与两份账",
+              "player_actions": [
+                "公开展示救济与征粮两册账",
+                "让居民给证据来源署名"
+              ],
+              "anchor_after_original_stage": "sq_page_02.finish",
+              "required_runtime_flags": {
+                "side.sq_page_02.done": true,
+                "side.sq_page_02.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_02.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_02.p17.a.followup.l01",
+                "sq_page_02.p17.a.followup.l02",
+                "sq_page_02.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_02.p17.a.community",
+              "kind": "community",
+              "title": "王宫借展的请求",
+              "player_actions": [
+                "检查王室借展条件",
+                "向村民说明借展仅为复制品"
+              ],
+              "anchor_after_original_stage": "sq_page_02.finish",
+              "required_runtime_flags": {
+                "side.sq_page_02.done": true,
+                "side.sq_page_02.approach": "a"
+              },
+              "must_follow": "sq_page_02.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_02.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_02.p17.a.community.l01",
+                "sq_page_02.p17.a.community.l02",
+                "sq_page_02.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_02.p17.a.revisit",
+              "kind": "revisit",
+              "title": "第二年的秋收",
+              "player_actions": [
+                "审查新粮仓的分配账",
+                "更新学校的双面历史课程"
+              ],
+              "anchor_after_original_stage": "sq_page_02.finish",
+              "required_runtime_flags": {
+                "side.sq_page_02.done": true,
+                "side.sq_page_02.approach": "a",
+                "story.ch019.done": true
+              },
+              "must_follow": "sq_page_02.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_02.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_02.p17.a.revisit.l01",
+                "sq_page_02.p17.a.revisit.l02",
+                "sq_page_02.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "边村孩子",
+            "text": "旧王开仓的粮又是谁种出来的？"
+          },
+          "post_completion_summary": "新分配簿贴在纪念台旁，谁都能公开核对。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先由边村幸存家属审读王徽相关记录",
+          "requires_original_choice": {
+            "side.sq_page_02.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_02.p17.b.followup",
+              "kind": "followup",
+              "title": "家属先行审读",
+              "player_actions": [
+                "组织受影响家属的非公开审读",
+                "登记每户的隐私授权"
+              ],
+              "anchor_after_original_stage": "sq_page_02.finish",
+              "required_runtime_flags": {
+                "side.sq_page_02.done": true,
+                "side.sq_page_02.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_02.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_02.p17.b.followup.l01",
+                "sq_page_02.p17.b.followup.l02",
+                "sq_page_02.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_02.p17.b.community",
+              "kind": "community",
+              "title": "旧账异议听证",
+              "player_actions": [
+                "对比不同口述证据的季节日期",
+                "将争议交回本地听证登记"
+              ],
+              "anchor_after_original_stage": "sq_page_02.finish",
+              "required_runtime_flags": {
+                "side.sq_page_02.done": true,
+                "side.sq_page_02.approach": "b"
+              },
+              "must_follow": "sq_page_02.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_02.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_02.p17.b.community.l01",
+                "sq_page_02.p17.b.community.l02",
+                "sq_page_02.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_02.p17.b.revisit",
+              "kind": "revisit",
+              "title": "审读之后的谷仓",
+              "player_actions": [
+                "更正王徽纪念牌的核实部分",
+                "查询公共谷仓管理监督人"
+              ],
+              "anchor_after_original_stage": "sq_page_02.finish",
+              "required_runtime_flags": {
+                "side.sq_page_02.done": true,
+                "side.sq_page_02.approach": "b",
+                "story.ch019.done": true
+              },
+              "must_follow": "sq_page_02.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_02.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_02.p17.b.revisit.l01",
+                "sq_page_02.p17.b.revisit.l02",
+                "sq_page_02.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "幸存家属",
+            "text": "粮的去向可以公布，后辈住址不必公布。"
+          },
+          "post_completion_summary": "公共谷仓重新运作，王徽留在村史室。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_03",
+      "title": "矿工孩子的歌",
+      "region": "赤炉矿区·小学校",
+      "required_chapter": "ch015",
+      "late_revisit_chapter": "ch024",
+      "source_file": "story/data/phase17_lost_pages_01_04.json",
+      "existing_five_stages": [
+        "sq_page_03.start",
+        "sq_page_03.investigate",
+        "sq_page_03.witness",
+        "sq_page_03.decision",
+        "sq_page_03.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_03.done",
+      "existing_lost_page_reward": "page_03",
+      "existing_finish_flag": "world.page_03",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "由工人与家属审查名单，暂缓公开儿童身份",
+          "requires_original_choice": {
+            "side.sq_page_03.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_03.p17.a.followup",
+              "kind": "followup",
+              "title": "工号逐项确认",
+              "player_actions": [
+                "对照工号、饭票和工具借用单",
+                "请遗属确认可公布姓名"
+              ],
+              "anchor_after_original_stage": "sq_page_03.finish",
+              "required_runtime_flags": {
+                "side.sq_page_03.done": true,
+                "side.sq_page_03.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_03.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_03.p17.a.followup.l01",
+                "sq_page_03.p17.a.followup.l02",
+                "sq_page_03.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_03.p17.a.community",
+              "kind": "community",
+              "title": "补发工资申请",
+              "player_actions": [
+                "提交欠薪审核与劳动仲裁资料",
+                "监督童年见证者不被要求出庭"
+              ],
+              "anchor_after_original_stage": "sq_page_03.finish",
+              "required_runtime_flags": {
+                "side.sq_page_03.done": true,
+                "side.sq_page_03.approach": "a"
+              },
+              "must_follow": "sq_page_03.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_03.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_03.p17.a.community.l01",
+                "sq_page_03.p17.a.community.l02",
+                "sq_page_03.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_03.p17.a.revisit",
+              "kind": "revisit",
+              "title": "学校新的歌词",
+              "player_actions": [
+                "参观学校更新的歌词本",
+                "确认工时欠账的现行处理窗口"
+              ],
+              "anchor_after_original_stage": "sq_page_03.finish",
+              "required_runtime_flags": {
+                "side.sq_page_03.done": true,
+                "side.sq_page_03.approach": "a",
+                "story.ch024.done": true
+              },
+              "must_follow": "sq_page_03.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_03.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_03.p17.a.revisit.l01",
+                "sq_page_03.p17.a.revisit.l02",
+                "sq_page_03.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "孩子",
+            "text": "最后一句能换成我们今天自己写的歌吗？"
+          },
+          "post_completion_summary": "还有钱没领回来，但没人再说他们没工作过。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先封存原谱并申请独立工时核算",
+          "requires_original_choice": {
+            "side.sq_page_03.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_03.p17.b.followup",
+              "kind": "followup",
+              "title": "双份封存歌谱",
+              "player_actions": [
+                "给学校和家属各保存一份原谱",
+                "核对封存柜访问权限"
+              ],
+              "anchor_after_original_stage": "sq_page_03.finish",
+              "required_runtime_flags": {
+                "side.sq_page_03.done": true,
+                "side.sq_page_03.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_03.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_03.p17.b.followup.l01",
+                "sq_page_03.p17.b.followup.l02",
+                "sq_page_03.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_03.p17.b.community",
+              "kind": "community",
+              "title": "独立劳动核算",
+              "player_actions": [
+                "查验矿井班次与饭票",
+                "汇总厂方可书面反驳的项目"
+              ],
+              "anchor_after_original_stage": "sq_page_03.finish",
+              "required_runtime_flags": {
+                "side.sq_page_03.done": true,
+                "side.sq_page_03.approach": "b"
+              },
+              "must_follow": "sq_page_03.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_03.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_03.p17.b.community.l01",
+                "sq_page_03.p17.b.community.l02",
+                "sq_page_03.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_03.p17.b.revisit",
+              "kind": "revisit",
+              "title": "校舍外的结算单",
+              "player_actions": [
+                "复查迟发工资结算记录",
+                "检查儿童学籍保密得到维护"
+              ],
+              "anchor_after_original_stage": "sq_page_03.finish",
+              "required_runtime_flags": {
+                "side.sq_page_03.done": true,
+                "side.sq_page_03.approach": "b",
+                "story.ch024.done": true
+              },
+              "must_follow": "sq_page_03.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_03.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_03.p17.b.revisit.l01",
+                "sq_page_03.p17.b.revisit.l02",
+                "sq_page_03.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "矿工遗属",
+            "text": "父亲的工时得到承认，其他人的仍在查。"
+          },
+          "post_completion_summary": "公开工时表注明待核项目，歌声从教室传来。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_04",
+      "title": "没有署名的军令",
+      "region": "肃清边村·废哨所",
+      "required_chapter": "ch019",
+      "late_revisit_chapter": "ch038",
+      "source_file": "story/data/phase17_lost_pages_01_04.json",
+      "existing_five_stages": [
+        "sq_page_04.start",
+        "sq_page_04.investigate",
+        "sq_page_04.witness",
+        "sq_page_04.decision",
+        "sq_page_04.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_04.done",
+      "existing_lost_page_reward": "page_04",
+      "existing_finish_flag": "world.page_04",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "保留正反面全件并公开查阅",
+          "requires_original_choice": {
+            "side.sq_page_04.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_04.p17.a.followup",
+              "kind": "followup",
+              "title": "完整军令公示",
+              "player_actions": [
+                "查阅军令的正反面",
+                "记录执行人和求情者不同角色"
+              ],
+              "anchor_after_original_stage": "sq_page_04.finish",
+              "required_runtime_flags": {
+                "side.sq_page_04.done": true,
+                "side.sq_page_04.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_04.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_04.p17.a.followup.l01",
+                "sq_page_04.p17.a.followup.l02",
+                "sq_page_04.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_04.p17.a.community",
+              "kind": "community",
+              "title": "受害者补录会",
+              "player_actions": [
+                "为受害家属开放遗漏姓名补录",
+                "核对老兵保留的值班册"
+              ],
+              "anchor_after_original_stage": "sq_page_04.finish",
+              "required_runtime_flags": {
+                "side.sq_page_04.done": true,
+                "side.sq_page_04.approach": "a"
+              },
+              "must_follow": "sq_page_04.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_04.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_04.p17.a.community.l01",
+                "sq_page_04.p17.a.community.l02",
+                "sq_page_04.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_04.p17.a.revisit",
+              "kind": "revisit",
+              "title": "年轻军官的课堂",
+              "player_actions": [
+                "旁听青年军官的完整军令课程",
+                "受理家属新增的历史注释"
+              ],
+              "anchor_after_original_stage": "sq_page_04.finish",
+              "required_runtime_flags": {
+                "side.sq_page_04.done": true,
+                "side.sq_page_04.approach": "a",
+                "story.ch038.done": true
+              },
+              "must_follow": "sq_page_04.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_04.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_04.p17.a.revisit.l01",
+                "sq_page_04.p17.a.revisit.l02",
+                "sq_page_04.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "青年军官",
+            "text": "完整军令让我明白服从也可以被质疑。"
+          },
+          "post_completion_summary": "课堂采用家属可增补的教材，并保留原件来源。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先设受害家属与后代共同审核区",
+          "requires_original_choice": {
+            "side.sq_page_04.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_04.p17.b.followup",
+              "kind": "followup",
+              "title": "家属联合审读",
+              "player_actions": [
+                "在联合审读中尊重家属暂停权",
+                "由亲见者分别描述军令"
+              ],
+              "anchor_after_original_stage": "sq_page_04.finish",
+              "required_runtime_flags": {
+                "side.sq_page_04.done": true,
+                "side.sq_page_04.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_04.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_04.p17.b.followup.l01",
+                "sq_page_04.p17.b.followup.l02",
+                "sq_page_04.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_04.p17.b.community",
+              "kind": "community",
+              "title": "废哨所缺页",
+              "player_actions": [
+                "对照废哨所编号和军需日志",
+                "封存未经证实的附页猜测"
+              ],
+              "anchor_after_original_stage": "sq_page_04.finish",
+              "required_runtime_flags": {
+                "side.sq_page_04.done": true,
+                "side.sq_page_04.approach": "b"
+              },
+              "must_follow": "sq_page_04.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_04.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_04.p17.b.community.l01",
+                "sq_page_04.p17.b.community.l02",
+                "sq_page_04.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_04.p17.b.revisit",
+              "kind": "revisit",
+              "title": "旧哨所记名碑",
+              "player_actions": [
+                "更新遗址的记名碑",
+                "保留不愿公开姓名的空白"
+              ],
+              "anchor_after_original_stage": "sq_page_04.finish",
+              "required_runtime_flags": {
+                "side.sq_page_04.done": true,
+                "side.sq_page_04.approach": "b",
+                "story.ch038.done": true
+              },
+              "must_follow": "sq_page_04.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_04.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_04.p17.b.revisit.l01",
+                "sq_page_04.p17.b.revisit.l02",
+                "sq_page_04.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "老兵",
+            "text": "这处哨所也该记录受害者，不只悬挂胜利旗。"
+          },
+          "post_completion_summary": "碑文将由家属与独立档案员共同审查。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_05",
+      "title": "最后的潮汐表",
+      "region": "晴汐小岛·观潮台",
+      "required_chapter": "ch026",
+      "late_revisit_chapter": "ch037",
+      "source_file": "story/data/phase17_lost_pages_05_08.json",
+      "existing_five_stages": [
+        "sq_page_05.start",
+        "sq_page_05.investigate",
+        "sq_page_05.witness",
+        "sq_page_05.decision",
+        "sq_page_05.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_05.done",
+      "existing_lost_page_reward": "page_05",
+      "existing_finish_flag": "world.page_05",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "免费公开潮汐坐标并保留来源",
+          "requires_original_choice": {
+            "side.sq_page_05.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_05.p17.a.followup",
+              "kind": "followup",
+              "title": "潮位表公共拓本",
+              "player_actions": [
+                "测量今日潮差并拓印旧坐标",
+                "注明航线不等于永久安全"
+              ],
+              "anchor_after_original_stage": "sq_page_05.finish",
+              "required_runtime_flags": {
+                "side.sq_page_05.done": true,
+                "side.sq_page_05.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_05.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_05.p17.a.followup.l01",
+                "sq_page_05.p17.a.followup.l02",
+                "sq_page_05.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_05.p17.a.community",
+              "kind": "community",
+              "title": "公开航路的代价",
+              "player_actions": [
+                "组织大小船共同设定限速与维护",
+                "标出不得接近的岛民居住区"
+              ],
+              "anchor_after_original_stage": "sq_page_05.finish",
+              "required_runtime_flags": {
+                "side.sq_page_05.done": true,
+                "side.sq_page_05.approach": "a"
+              },
+              "must_follow": "sq_page_05.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_05.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_05.p17.a.community.l01",
+                "sq_page_05.p17.a.community.l02",
+                "sq_page_05.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_05.p17.a.revisit",
+              "kind": "revisit",
+              "title": "旧洲重见的灯标",
+              "player_actions": [
+                "核对旧洲救援航道是否仍适用",
+                "申请修订新港口守则"
+              ],
+              "anchor_after_original_stage": "sq_page_05.finish",
+              "required_runtime_flags": {
+                "side.sq_page_05.done": true,
+                "side.sq_page_05.approach": "a",
+                "story.ch037.done": true
+              },
+              "must_follow": "sq_page_05.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_05.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_05.p17.a.revisit.l01",
+                "sq_page_05.p17.a.revisit.l02",
+                "sq_page_05.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "岛上渔妇",
+            "text": "公开海图让救援船找到了我们，也有陌生人想进村。"
+          },
+          "post_completion_summary": "航路仍公开，新的泊船守则由岛民维护。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先让岛民船队共同确认维护规则",
+          "requires_original_choice": {
+            "side.sq_page_05.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_05.p17.b.followup",
+              "kind": "followup",
+              "title": "船队测潮会议",
+              "player_actions": [
+                "召集本岛船队复核旧潮表",
+                "按月份分开记录潮差"
+              ],
+              "anchor_after_original_stage": "sq_page_05.finish",
+              "required_runtime_flags": {
+                "side.sq_page_05.done": true,
+                "side.sq_page_05.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_05.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_05.p17.b.followup.l01",
+                "sq_page_05.p17.b.followup.l02",
+                "sq_page_05.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_05.p17.b.community",
+              "kind": "community",
+              "title": "船主维护公约",
+              "player_actions": [
+                "审查灯标维护费用与免费求救权",
+                "拒绝独占海路合同"
+              ],
+              "anchor_after_original_stage": "sq_page_05.finish",
+              "required_runtime_flags": {
+                "side.sq_page_05.done": true,
+                "side.sq_page_05.approach": "b"
+              },
+              "must_follow": "sq_page_05.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_05.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_05.p17.b.community.l01",
+                "sq_page_05.p17.b.community.l02",
+                "sq_page_05.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_05.p17.b.revisit",
+              "kind": "revisit",
+              "title": "归港后的新潮表",
+              "player_actions": [
+                "监督观潮台按季更新坐标",
+                "确认救援船无需预缴通行费"
+              ],
+              "anchor_after_original_stage": "sq_page_05.finish",
+              "required_runtime_flags": {
+                "side.sq_page_05.done": true,
+                "side.sq_page_05.approach": "b",
+                "story.ch037.done": true
+              },
+              "must_follow": "sq_page_05.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_05.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_05.p17.b.revisit.l01",
+                "sq_page_05.p17.b.revisit.l02",
+                "sq_page_05.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "渔女",
+            "text": "本岛船队又改了两次潮差，没有人再把图当成永远正确。"
+          },
+          "post_completion_summary": "观潮台按季修订，新航路与旧岛港都能安全交流。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_06",
+      "title": "沉城的生日",
+      "region": "青蓝海沟·王国大厅",
+      "required_chapter": "ch027",
+      "late_revisit_chapter": "ch042",
+      "source_file": "story/data/phase17_lost_pages_05_08.json",
+      "existing_five_stages": [
+        "sq_page_06.start",
+        "sq_page_06.investigate",
+        "sq_page_06.witness",
+        "sq_page_06.decision",
+        "sq_page_06.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_06.done",
+      "existing_lost_page_reward": "page_06",
+      "existing_finish_flag": "world.page_06",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "由家属授权公开姓名与生日",
+          "requires_original_choice": {
+            "side.sq_page_06.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_06.p17.a.followup",
+              "kind": "followup",
+              "title": "沉城名字授权",
+              "player_actions": [
+                "向沉城家属逐份取得姓名公开授权",
+                "标注仍封存的生日条目"
+              ],
+              "anchor_after_original_stage": "sq_page_06.finish",
+              "required_runtime_flags": {
+                "side.sq_page_06.done": true,
+                "side.sq_page_06.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_06.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_06.p17.a.followup.l01",
+                "sq_page_06.p17.a.followup.l02",
+                "sq_page_06.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_06.p17.a.community",
+              "kind": "community",
+              "title": "第一场沉城生日",
+              "player_actions": [
+                "设置安全范围内的家族纪念活动",
+                "记录不愿出席者的选择"
+              ],
+              "anchor_after_original_stage": "sq_page_06.finish",
+              "required_runtime_flags": {
+                "side.sq_page_06.done": true,
+                "side.sq_page_06.approach": "a"
+              },
+              "must_follow": "sq_page_06.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_06.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_06.p17.a.community.l01",
+                "sq_page_06.p17.a.community.l02",
+                "sq_page_06.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_06.p17.a.revisit",
+              "kind": "revisit",
+              "title": "旧洲后裔的修订申请",
+              "player_actions": [
+                "接收后裔提出的姓名更正",
+                "更新出生簿来源索引"
+              ],
+              "anchor_after_original_stage": "sq_page_06.finish",
+              "required_runtime_flags": {
+                "side.sq_page_06.done": true,
+                "side.sq_page_06.approach": "a",
+                "story.ch042.done": true
+              },
+              "must_follow": "sq_page_06.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_06.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_06.p17.a.revisit.l01",
+                "sq_page_06.p17.a.revisit.l02",
+                "sq_page_06.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "沉城后人",
+            "text": "我找到祖母另一种写法，想更正公开名单。"
+          },
+          "post_completion_summary": "沉城出生簿继续由后裔修订，没有人再被统称“其他人”。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "建立只供后裔申请的沉城档案副本",
+          "requires_original_choice": {
+            "side.sq_page_06.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_06.p17.b.followup",
+              "kind": "followup",
+              "title": "申请制沉城副本",
+              "player_actions": [
+                "检查双人封存柜的密钥规则",
+                "说明后裔自主申请程序"
+              ],
+              "anchor_after_original_stage": "sq_page_06.finish",
+              "required_runtime_flags": {
+                "side.sq_page_06.done": true,
+                "side.sq_page_06.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_06.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_06.p17.b.followup.l01",
+                "sq_page_06.p17.b.followup.l02",
+                "sq_page_06.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_06.p17.b.community",
+              "kind": "community",
+              "title": "水下档案维护",
+              "player_actions": [
+                "保留水下原件影像并核盐蚀",
+                "允许家属审核转录准确性"
+              ],
+              "anchor_after_original_stage": "sq_page_06.finish",
+              "required_runtime_flags": {
+                "side.sq_page_06.done": true,
+                "side.sq_page_06.approach": "b"
+              },
+              "must_follow": "sq_page_06.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_06.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_06.p17.b.community.l01",
+                "sq_page_06.p17.b.community.l02",
+                "sq_page_06.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_06.p17.b.revisit",
+              "kind": "revisit",
+              "title": "归来的家族查询",
+              "player_actions": [
+                "见证后裔分段查阅",
+                "确认剩余档案仍可申请"
+              ],
+              "anchor_after_original_stage": "sq_page_06.finish",
+              "required_runtime_flags": {
+                "side.sq_page_06.done": true,
+                "side.sq_page_06.approach": "b",
+                "story.ch042.done": true
+              },
+              "must_follow": "sq_page_06.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_06.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_06.p17.b.revisit.l01",
+                "sq_page_06.p17.b.revisit.l02",
+                "sq_page_06.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "沉城后人",
+            "text": "我申请读了两页，只想先认得祖母手写的字。"
+          },
+          "post_completion_summary": "查询程序持续开放，沉城没有被迫一次说完悲伤。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_07",
+      "title": "梦里开门的人",
+      "region": "镜眠王都·镜庭",
+      "required_chapter": "ch033",
+      "late_revisit_chapter": "ch035",
+      "source_file": "story/data/phase17_lost_pages_05_08.json",
+      "existing_five_stages": [
+        "sq_page_07.start",
+        "sq_page_07.investigate",
+        "sq_page_07.witness",
+        "sq_page_07.decision",
+        "sq_page_07.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_07.done",
+      "existing_lost_page_reward": "page_07",
+      "existing_finish_flag": "world.page_07",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先告知风险，让老人决定阅读哪些记录",
+          "requires_original_choice": {
+            "side.sq_page_07.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_07.p17.a.followup",
+              "kind": "followup",
+              "title": "老人选择读一页",
+              "player_actions": [
+                "由老人自主选读救援档页数",
+                "记录是否愿有陪护"
+              ],
+              "anchor_after_original_stage": "sq_page_07.finish",
+              "required_runtime_flags": {
+                "side.sq_page_07.done": true,
+                "side.sq_page_07.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_07.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_07.p17.a.followup.l01",
+                "sq_page_07.p17.a.followup.l02",
+                "sq_page_07.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_07.p17.a.community",
+              "kind": "community",
+              "title": "失踪救援队的名单",
+              "player_actions": [
+                "匿名核对救援队路线",
+                "隔离医疗病历与公开救援档"
+              ],
+              "anchor_after_original_stage": "sq_page_07.finish",
+              "required_runtime_flags": {
+                "side.sq_page_07.done": true,
+                "side.sq_page_07.approach": "a"
+              },
+              "must_follow": "sq_page_07.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_07.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_07.p17.a.community.l01",
+                "sq_page_07.p17.a.community.l02",
+                "sq_page_07.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_07.p17.a.revisit",
+              "kind": "revisit",
+              "title": "镜眠的第二次选择",
+              "player_actions": [
+                "回访老人是否愿继续阅读",
+                "维护梦门自主退出按钮"
+              ],
+              "anchor_after_original_stage": "sq_page_07.finish",
+              "required_runtime_flags": {
+                "side.sq_page_07.done": true,
+                "side.sq_page_07.approach": "a",
+                "story.ch035.done": true
+              },
+              "must_follow": "sq_page_07.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_07.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_07.p17.a.revisit.l01",
+                "sq_page_07.p17.a.revisit.l02",
+                "sq_page_07.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "老人",
+            "text": "上次我只读一页，今天想知道他们后来走到哪里。"
+          },
+          "post_completion_summary": "镜门始终可以从内侧打开，档案也允许分次阅读。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先改善治疗和陪护安排，再开放梦门",
+          "requires_original_choice": {
+            "side.sq_page_07.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_07.p17.b.followup",
+              "kind": "followup",
+              "title": "醒转计划先行",
+              "player_actions": [
+                "安排分阶段醒转与陪同时间",
+                "把风险解释给老人本人"
+              ],
+              "anchor_after_original_stage": "sq_page_07.finish",
+              "required_runtime_flags": {
+                "side.sq_page_07.done": true,
+                "side.sq_page_07.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_07.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_07.p17.b.followup.l01",
+                "sq_page_07.p17.b.followup.l02",
+                "sq_page_07.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_07.p17.b.community",
+              "kind": "community",
+              "title": "护理与梦门维修",
+              "player_actions": [
+                "测验梦门双向开关与医疗备援",
+                "签署可撤回而非永久治疗说明"
+              ],
+              "anchor_after_original_stage": "sq_page_07.finish",
+              "required_runtime_flags": {
+                "side.sq_page_07.done": true,
+                "side.sq_page_07.approach": "b"
+              },
+              "must_follow": "sq_page_07.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_07.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_07.p17.b.community.l01",
+                "sq_page_07.p17.b.community.l02",
+                "sq_page_07.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_07.p17.b.revisit",
+              "kind": "revisit",
+              "title": "下一次窗外的雨",
+              "player_actions": [
+                "询问患者对真实雨天的体验",
+                "保持以后自主查阅档案的入口"
+              ],
+              "anchor_after_original_stage": "sq_page_07.finish",
+              "required_runtime_flags": {
+                "side.sq_page_07.done": true,
+                "side.sq_page_07.approach": "b",
+                "story.ch035.done": true
+              },
+              "must_follow": "sq_page_07.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_07.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_07.p17.b.revisit.l01",
+                "sq_page_07.p17.b.revisit.l02",
+                "sq_page_07.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "老人",
+            "text": "我看见真正的雨了，梦里的门还没决定要不要进。"
+          },
+          "post_completion_summary": "救援档由医院与家属共管，老人保留以后重新选择的权利。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_08",
+      "title": "只剩一张户籍",
+      "region": "默契城·户籍馆",
+      "required_chapter": "ch038",
+      "late_revisit_chapter": "ch042",
+      "source_file": "story/data/phase17_lost_pages_05_08.json",
+      "existing_five_stages": [
+        "sq_page_08.start",
+        "sq_page_08.investigate",
+        "sq_page_08.witness",
+        "sq_page_08.decision",
+        "sq_page_08.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_08.done",
+      "existing_lost_page_reward": "page_08",
+      "existing_finish_flag": "world.page_08",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "建立旧名与现用名双向查询索引",
+          "requires_original_choice": {
+            "side.sq_page_08.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_08.p17.a.followup",
+              "kind": "followup",
+              "title": "旧名与现用名索引",
+              "player_actions": [
+                "建立旧名与现用名双向索引",
+                "设立私人资料权限过滤"
+              ],
+              "anchor_after_original_stage": "sq_page_08.finish",
+              "required_runtime_flags": {
+                "side.sq_page_08.done": true,
+                "side.sq_page_08.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_08.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_08.p17.a.followup.l01",
+                "sq_page_08.p17.a.followup.l02",
+                "sq_page_08.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_08.p17.a.community",
+              "kind": "community",
+              "title": "户籍误认申诉",
+              "player_actions": [
+                "比对相似名字的迁居年份",
+                "为误合并户籍设申诉"
+              ],
+              "anchor_after_original_stage": "sq_page_08.finish",
+              "required_runtime_flags": {
+                "side.sq_page_08.done": true,
+                "side.sq_page_08.approach": "a"
+              },
+              "must_follow": "sq_page_08.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_08.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_08.p17.a.community.l01",
+                "sq_page_08.p17.a.community.l02",
+                "sq_page_08.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_08.p17.a.revisit",
+              "kind": "revisit",
+              "title": "新户籍馆的开放日",
+              "player_actions": [
+                "向教师解释姓名自主原则",
+                "接受当事人新增订正"
+              ],
+              "anchor_after_original_stage": "sq_page_08.finish",
+              "required_runtime_flags": {
+                "side.sq_page_08.done": true,
+                "side.sq_page_08.approach": "a",
+                "story.ch042.done": true
+              },
+              "must_follow": "sq_page_08.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_08.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_08.p17.a.revisit.l01",
+                "sq_page_08.p17.a.revisit.l02",
+                "sq_page_08.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "城中教师",
+            "text": "学生学会查询时先问本人怎样称呼，不把老名当谜题答案。"
+          },
+          "post_completion_summary": "旧索引继续可查，现用名仍由活着的人自己决定。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先逐户征询同意后开放历史姓名",
+          "requires_original_choice": {
+            "side.sq_page_08.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_08.p17.b.followup",
+              "kind": "followup",
+              "title": "逐户征询",
+              "player_actions": [
+                "逐户派发非强制同意书",
+                "防止沉默被当成许可"
+              ],
+              "anchor_after_original_stage": "sq_page_08.finish",
+              "required_runtime_flags": {
+                "side.sq_page_08.done": true,
+                "side.sq_page_08.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_08.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_08.p17.b.followup.l01",
+                "sq_page_08.p17.b.followup.l02",
+                "sq_page_08.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_08.p17.b.community",
+              "kind": "community",
+              "title": "有限开放的历史页",
+              "player_actions": [
+                "公开已获授权的部分历史页",
+                "封存未经授权页"
+              ],
+              "anchor_after_original_stage": "sq_page_08.finish",
+              "required_runtime_flags": {
+                "side.sq_page_08.done": true,
+                "side.sq_page_08.approach": "b"
+              },
+              "must_follow": "sq_page_08.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_08.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_08.p17.b.community.l01",
+                "sq_page_08.p17.b.community.l02",
+                "sq_page_08.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_08.p17.b.revisit",
+              "kind": "revisit",
+              "title": "不同家族的再次确认",
+              "player_actions": [
+                "接受迟来的授权更新",
+                "只增加被允许的历史关联"
+              ],
+              "anchor_after_original_stage": "sq_page_08.finish",
+              "required_runtime_flags": {
+                "side.sq_page_08.done": true,
+                "side.sq_page_08.approach": "b",
+                "story.ch042.done": true
+              },
+              "must_follow": "sq_page_08.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_08.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_08.p17.b.revisit.l01",
+                "sq_page_08.p17.b.revisit.l02",
+                "sq_page_08.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "老人",
+            "text": "过了一年我愿公开祖父的迁居年份，仍想保留住址。"
+          },
+          "post_completion_summary": "户籍馆的封存目录仍有人维护，没有强迫所有旧名重见天日。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_09",
+      "title": "未曾结束的婚礼",
+      "region": "旧洲·废礼堂",
+      "required_chapter": "ch040",
+      "late_revisit_chapter": "ch055",
+      "source_file": "story/data/phase17_lost_pages_09_12.json",
+      "existing_five_stages": [
+        "sq_page_09.start",
+        "sq_page_09.investigate",
+        "sq_page_09.witness",
+        "sq_page_09.decision",
+        "sq_page_09.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_09.done",
+      "existing_lost_page_reward": "page_09",
+      "existing_finish_flag": "world.page_09",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "并列保存两人信件和礼服，不补办虚构婚礼",
+          "requires_original_choice": {
+            "side.sq_page_09.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_09.p17.a.followup",
+              "kind": "followup",
+              "title": "两封未寄的信",
+              "player_actions": [
+                "整理两封未寄信的来源",
+                "确保未虚构结婚日期"
+              ],
+              "anchor_after_original_stage": "sq_page_09.finish",
+              "required_runtime_flags": {
+                "side.sq_page_09.done": true,
+                "side.sq_page_09.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_09.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_09.p17.a.followup.l01",
+                "sq_page_09.p17.a.followup.l02",
+                "sq_page_09.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_09.p17.a.community",
+              "kind": "community",
+              "title": "礼堂里的双人展柜",
+              "player_actions": [
+                "设置并列展柜与注明事实范围",
+                "拒绝伪造当年的婚礼"
+              ],
+              "anchor_after_original_stage": "sq_page_09.finish",
+              "required_runtime_flags": {
+                "side.sq_page_09.done": true,
+                "side.sq_page_09.approach": "a"
+              },
+              "must_follow": "sq_page_09.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_09.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_09.p17.a.community.l01",
+                "sq_page_09.p17.a.community.l02",
+                "sq_page_09.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_09.p17.a.revisit",
+              "kind": "revisit",
+              "title": "废礼堂重新开门",
+              "player_actions": [
+                "检查废礼堂的真实新用途",
+                "保留原件的历史边界"
+              ],
+              "anchor_after_original_stage": "sq_page_09.finish",
+              "required_runtime_flags": {
+                "side.sq_page_09.done": true,
+                "side.sq_page_09.approach": "a",
+                "story.ch055.done": true
+              },
+              "must_follow": "sq_page_09.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_09.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_09.p17.a.revisit.l01",
+                "sq_page_09.p17.a.revisit.l02",
+                "sq_page_09.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "新婚夫妇",
+            "text": "我们愿借这里举行真的婚礼，也留一个角落给旧信。"
+          },
+          "post_completion_summary": "礼堂重新有人来去，两封信仍写着“希望你平安”。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先寻找后代见证者，再决定公开方式",
+          "requires_original_choice": {
+            "side.sq_page_09.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_09.p17.b.followup",
+              "kind": "followup",
+              "title": "寻访分别两家",
+              "player_actions": [
+                "分别向两家后代请求阅信授权",
+                "把拒绝公开记录留档"
+              ],
+              "anchor_after_original_stage": "sq_page_09.finish",
+              "required_runtime_flags": {
+                "side.sq_page_09.done": true,
+                "side.sq_page_09.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_09.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_09.p17.b.followup.l01",
+                "sq_page_09.p17.b.followup.l02",
+                "sq_page_09.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_09.p17.b.community",
+              "kind": "community",
+              "title": "口述证人比对",
+              "player_actions": [
+                "比对婚礼时间的不同口述",
+                "将推测标为未经核实"
+              ],
+              "anchor_after_original_stage": "sq_page_09.finish",
+              "required_runtime_flags": {
+                "side.sq_page_09.done": true,
+                "side.sq_page_09.approach": "b"
+              },
+              "must_follow": "sq_page_09.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_09.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_09.p17.b.community.l01",
+                "sq_page_09.p17.b.community.l02",
+                "sq_page_09.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_09.p17.b.revisit",
+              "kind": "revisit",
+              "title": "迟到的家族见面",
+              "player_actions": [
+                "确认后代同意的礼服副本范围",
+                "维护封存家书查询制度"
+              ],
+              "anchor_after_original_stage": "sq_page_09.finish",
+              "required_runtime_flags": {
+                "side.sq_page_09.done": true,
+                "side.sq_page_09.approach": "b",
+                "story.ch055.done": true
+              },
+              "must_follow": "sq_page_09.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_09.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_09.p17.b.revisit.l01",
+                "sq_page_09.p17.b.revisit.l02",
+                "sq_page_09.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "家族后人",
+            "text": "我们同意展出礼服纹样，不公开家书的全部内容。"
+          },
+          "post_completion_summary": "礼堂有了新的档案室，旧婚礼仍未被捏造为真实发生。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_10",
+      "title": "黑星下的食谱",
+      "region": "灾后王都·公用厨房",
+      "required_chapter": "ch050",
+      "late_revisit_chapter": "ch054",
+      "source_file": "story/data/phase17_lost_pages_09_12.json",
+      "existing_five_stages": [
+        "sq_page_10.start",
+        "sq_page_10.investigate",
+        "sq_page_10.witness",
+        "sq_page_10.decision",
+        "sq_page_10.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_10.done",
+      "existing_lost_page_reward": "page_10",
+      "existing_finish_flag": "world.page_10",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "公开食谱与原始救援名单",
+          "requires_original_choice": {
+            "side.sq_page_10.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_10.p17.a.followup",
+              "kind": "followup",
+              "title": "避难食谱署名",
+              "player_actions": [
+                "核对食谱贡献者署名",
+                "将私密避难地址移出展示"
+              ],
+              "anchor_after_original_stage": "sq_page_10.finish",
+              "required_runtime_flags": {
+                "side.sq_page_10.done": true,
+                "side.sq_page_10.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_10.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_10.p17.a.followup.l01",
+                "sq_page_10.p17.a.followup.l02",
+                "sq_page_10.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_10.p17.a.community",
+              "kind": "community",
+              "title": "共同厨房的试做日",
+              "player_actions": [
+                "公开厨房互助餐车配方",
+                "标示成本与免费救济安排"
+              ],
+              "anchor_after_original_stage": "sq_page_10.finish",
+              "required_runtime_flags": {
+                "side.sq_page_10.done": true,
+                "side.sq_page_10.approach": "a"
+              },
+              "must_follow": "sq_page_10.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_10.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_10.p17.a.community.l01",
+                "sq_page_10.p17.a.community.l02",
+                "sq_page_10.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_10.p17.a.revisit",
+              "kind": "revisit",
+              "title": "下一次救援餐车",
+              "player_actions": [
+                "检查餐车新的过敏标识",
+                "接受灾后救援史料修订"
+              ],
+              "anchor_after_original_stage": "sq_page_10.finish",
+              "required_runtime_flags": {
+                "side.sq_page_10.done": true,
+                "side.sq_page_10.approach": "a",
+                "story.ch054.done": true
+              },
+              "must_follow": "sq_page_10.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_10.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_10.p17.a.revisit.l01",
+                "sq_page_10.p17.a.revisit.l02",
+                "sq_page_10.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "诺依",
+            "text": "今天餐车照着旧食谱做饭，却新加了过敏标记。"
+          },
+          "post_completion_summary": "旧食谱的边页不断长出新注释，原始救援名单也完整保存。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由旧避难者共同核对原始贡献者再公布",
+          "requires_original_choice": {
+            "side.sq_page_10.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_10.p17.b.followup",
+              "kind": "followup",
+              "title": "避难者核名会",
+              "player_actions": [
+                "邀请避难家庭独立核名",
+                "区分失联与死亡名单"
+              ],
+              "anchor_after_original_stage": "sq_page_10.finish",
+              "required_runtime_flags": {
+                "side.sq_page_10.done": true,
+                "side.sq_page_10.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_10.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_10.p17.b.followup.l01",
+                "sq_page_10.p17.b.followup.l02",
+                "sq_page_10.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_10.p17.b.community",
+              "kind": "community",
+              "title": "各人修订口味",
+              "player_actions": [
+                "请当事人更正厨师与助手署名",
+                "保留匿名贡献者选项"
+              ],
+              "anchor_after_original_stage": "sq_page_10.finish",
+              "required_runtime_flags": {
+                "side.sq_page_10.done": true,
+                "side.sq_page_10.approach": "b"
+              },
+              "must_follow": "sq_page_10.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_10.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_10.p17.b.community.l01",
+                "sq_page_10.p17.b.community.l02",
+                "sq_page_10.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_10.p17.b.revisit",
+              "kind": "revisit",
+              "title": "救援队回访日",
+              "player_actions": [
+                "接受迟来的家庭授权",
+                "确认共享食谱不变成私人专利"
+              ],
+              "anchor_after_original_stage": "sq_page_10.finish",
+              "required_runtime_flags": {
+                "side.sq_page_10.done": true,
+                "side.sq_page_10.approach": "b",
+                "story.ch054.done": true
+              },
+              "must_follow": "sq_page_10.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_10.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_10.p17.b.revisit.l01",
+                "sq_page_10.p17.b.revisit.l02",
+                "sq_page_10.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "旧避难者",
+            "text": "现在我愿写出母亲的名字，也愿保留父亲的匿名。"
+          },
+          "post_completion_summary": "食谱公开无专利限制，灾后受助者的资料继续审慎维护。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_11",
+      "title": "废墟里的地图",
+      "region": "群灯之城·居民广场",
+      "required_chapter": "ch057",
+      "late_revisit_chapter": "ch060",
+      "source_file": "story/data/phase17_lost_pages_09_12.json",
+      "existing_five_stages": [
+        "sq_page_11.start",
+        "sq_page_11.investigate",
+        "sq_page_11.witness",
+        "sq_page_11.decision",
+        "sq_page_11.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_11.done",
+      "existing_lost_page_reward": "page_11",
+      "existing_finish_flag": "world.page_11",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "所有路线并列公开并附见证人来源",
+          "requires_original_choice": {
+            "side.sq_page_11.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_11.p17.a.followup",
+              "kind": "followup",
+              "title": "碎瓦图公开展",
+              "player_actions": [
+                "把瓦片避难路线分时间涂色",
+                "隐藏私宅临时藏身处"
+              ],
+              "anchor_after_original_stage": "sq_page_11.finish",
+              "required_runtime_flags": {
+                "side.sq_page_11.done": true,
+                "side.sq_page_11.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_11.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_11.p17.a.followup.l01",
+                "sq_page_11.p17.a.followup.l02",
+                "sq_page_11.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_11.p17.a.community",
+              "kind": "community",
+              "title": "路线出现分歧",
+              "player_actions": [
+                "比对迁入者不同逃生时间",
+                "将冲突路线分层说明"
+              ],
+              "anchor_after_original_stage": "sq_page_11.finish",
+              "required_runtime_flags": {
+                "side.sq_page_11.done": true,
+                "side.sq_page_11.approach": "a"
+              },
+              "must_follow": "sq_page_11.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_11.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_11.p17.a.community.l01",
+                "sq_page_11.p17.a.community.l02",
+                "sq_page_11.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_11.p17.a.revisit",
+              "kind": "revisit",
+              "title": "新城防灾演练",
+              "player_actions": [
+                "参加群灯城防灾演练",
+                "标明地图更新日和责任人"
+              ],
+              "anchor_after_original_stage": "sq_page_11.finish",
+              "required_runtime_flags": {
+                "side.sq_page_11.done": true,
+                "side.sq_page_11.approach": "a",
+                "story.ch060.done": true
+              },
+              "must_follow": "sq_page_11.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_11.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_11.p17.a.revisit.l01",
+                "sq_page_11.p17.a.revisit.l02",
+                "sq_page_11.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "社区工匠",
+            "text": "根据碎瓦图补了两条逃生路，但仍需实地试走。"
+          },
+          "post_completion_summary": "居民在广场留下新的修订日期，不再依赖单独英雄领路。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先邀不同迁入者核对瓦片路线",
+          "requires_original_choice": {
+            "side.sq_page_11.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_11.p17.b.followup",
+              "kind": "followup",
+              "title": "瓦片来源核验",
+              "player_actions": [
+                "邀请不同迁入者认领碎瓦",
+                "记录历史路径实际年代"
+              ],
+              "anchor_after_original_stage": "sq_page_11.finish",
+              "required_runtime_flags": {
+                "side.sq_page_11.done": true,
+                "side.sq_page_11.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_11.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_11.p17.b.followup.l01",
+                "sq_page_11.p17.b.followup.l02",
+                "sq_page_11.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_11.p17.b.community",
+              "kind": "community",
+              "title": "迁入者共同编辑",
+              "player_actions": [
+                "制作现行安全图与历史图双层",
+                "允许迁入者更正地标"
+              ],
+              "anchor_after_original_stage": "sq_page_11.finish",
+              "required_runtime_flags": {
+                "side.sq_page_11.done": true,
+                "side.sq_page_11.approach": "b"
+              },
+              "must_follow": "sq_page_11.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_11.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_11.p17.b.community.l01",
+                "sq_page_11.p17.b.community.l02",
+                "sq_page_11.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_11.p17.b.revisit",
+              "kind": "revisit",
+              "title": "地图移交居民议事",
+              "player_actions": [
+                "把地图托管居民议事",
+                "确保可随时修订"
+              ],
+              "anchor_after_original_stage": "sq_page_11.finish",
+              "required_runtime_flags": {
+                "side.sq_page_11.done": true,
+                "side.sq_page_11.approach": "b",
+                "story.ch060.done": true
+              },
+              "must_follow": "sq_page_11.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_11.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_11.p17.b.revisit.l01",
+                "sq_page_11.p17.b.revisit.l02",
+                "sq_page_11.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "石匠",
+            "text": "今天的防灾图已复核，原来那幅碎瓦图仍完整留着。"
+          },
+          "post_completion_summary": "地图成为居民自主管理的公共工具，不是对迁徙历史的终审。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    },
+    {
+      "id": "sq_page_12",
+      "title": "明日的空白页",
+      "region": "天轨圣域·旧阅览室",
+      "required_chapter": "ch065",
+      "late_revisit_chapter": "ch066",
+      "source_file": "story/data/phase17_lost_pages_09_12.json",
+      "existing_five_stages": [
+        "sq_page_12.start",
+        "sq_page_12.investigate",
+        "sq_page_12.witness",
+        "sq_page_12.decision",
+        "sq_page_12.finish"
+      ],
+      "existing_completion_flag": "side.sq_page_12.done",
+      "existing_lost_page_reward": "page_12",
+      "existing_finish_flag": "world.page_12",
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "永久禁止强制预写，交公共档案保护空白",
+          "requires_original_choice": {
+            "side.sq_page_12.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_page_12.p17.a.followup",
+              "kind": "followup",
+              "title": "空白页的保护封套",
+              "player_actions": [
+                "注销自动预写命运权限",
+                "保存不可篡改的操作记录"
+              ],
+              "anchor_after_original_stage": "sq_page_12.finish",
+              "required_runtime_flags": {
+                "side.sq_page_12.done": true,
+                "side.sq_page_12.approach": "a"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_12.p17.a.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_12.p17.a.followup.l01",
+                "sq_page_12.p17.a.followup.l02",
+                "sq_page_12.p17.a.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_12.p17.a.community",
+              "kind": "community",
+              "title": "旧议会的再审",
+              "player_actions": [
+                "审查旧议会封印提议",
+                "拒绝将空白变成新的永恒指令"
+              ],
+              "anchor_after_original_stage": "sq_page_12.finish",
+              "required_runtime_flags": {
+                "side.sq_page_12.done": true,
+                "side.sq_page_12.approach": "a"
+              },
+              "must_follow": "sq_page_12.p17.a.followup",
+              "completion_marker_proposed": "side.sq_page_12.p17.a.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_12.p17.a.community.l01",
+                "sq_page_12.p17.a.community.l02",
+                "sq_page_12.p17.a.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_12.p17.a.revisit",
+              "kind": "revisit",
+              "title": "终门前的空白",
+              "player_actions": [
+                "检查第66章的空白页托管",
+                "确保第72章选择尚未发生"
+              ],
+              "anchor_after_original_stage": "sq_page_12.finish",
+              "required_runtime_flags": {
+                "side.sq_page_12.done": true,
+                "side.sq_page_12.approach": "a",
+                "story.ch066.done": true
+              },
+              "must_follow": "sq_page_12.p17.a.community",
+              "completion_marker_proposed": "side.sq_page_12.p17.a.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_12.p17.a.revisit.l01",
+                "sq_page_12.p17.a.revisit.l02",
+                "sq_page_12.p17.a.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "诺依",
+            "text": "这页仍是空的，可我已经听见外面有人争论未来要怎样。"
+          },
+          "post_completion_summary": "空白页存入可公开质询的档案，不在第66章替第72章作结局选择。"
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "设置公开监督机制，允许未来者自愿书写",
+          "requires_original_choice": {
+            "side.sq_page_12.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_page_12.p17.b.followup",
+              "kind": "followup",
+              "title": "自愿书写的规则",
+              "player_actions": [
+                "设计自愿书写与撤回规则",
+                "允许映世和现世自主参与"
+              ],
+              "anchor_after_original_stage": "sq_page_12.finish",
+              "required_runtime_flags": {
+                "side.sq_page_12.done": true,
+                "side.sq_page_12.approach": "b"
+              },
+              "must_follow": null,
+              "completion_marker_proposed": "side.sq_page_12.p17.b.followup.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_12.p17.b.followup.l01",
+                "sq_page_12.p17.b.followup.l02",
+                "sq_page_12.p17.b.followup.l03"
+              ]
+            },
+            {
+              "id": "sq_page_12.p17.b.community",
+              "kind": "community",
+              "title": "开放监督席",
+              "player_actions": [
+                "公开监督员轮值和查询程序",
+                "确保私人笔记不被强制公开"
+              ],
+              "anchor_after_original_stage": "sq_page_12.finish",
+              "required_runtime_flags": {
+                "side.sq_page_12.done": true,
+                "side.sq_page_12.approach": "b"
+              },
+              "must_follow": "sq_page_12.p17.b.followup",
+              "completion_marker_proposed": "side.sq_page_12.p17.b.community.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_12.p17.b.community.l01",
+                "sq_page_12.p17.b.community.l02",
+                "sq_page_12.p17.b.community.l03"
+              ]
+            },
+            {
+              "id": "sq_page_12.p17.b.revisit",
+              "kind": "revisit",
+              "title": "留给后来者的桌子",
+              "player_actions": [
+                "由学徒试用自愿登记桌",
+                "不提前设置任何结局标志"
+              ],
+              "anchor_after_original_stage": "sq_page_12.finish",
+              "required_runtime_flags": {
+                "side.sq_page_12.done": true,
+                "side.sq_page_12.approach": "b",
+                "story.ch066.done": true
+              },
+              "must_follow": "sq_page_12.p17.b.community",
+              "completion_marker_proposed": "side.sq_page_12.p17.b.revisit.seen",
+              "repeatable": false,
+              "missable": false,
+              "optional_for_original_rewards": true,
+              "existing_dialogue_ids": [
+                "sq_page_12.p17.b.revisit.l01",
+                "sq_page_12.p17.b.revisit.l02",
+                "sq_page_12.p17.b.revisit.l03"
+              ]
+            }
+          ],
+          "long_term_npc": {
+            "speaker": "未来学徒",
+            "text": "我今天只愿写日期，以后还想再来。"
+          },
+          "post_completion_summary": "自愿书写台仍开放，最终永昼选择依旧等到第七十二章。"
+        }
+      },
+      "legacy_save_policy": "preserve existing completed and page flags; if approach missing offer opt-in branch replay without regranting page",
+      "on_branch_skip": "no effect on the original quest, collectible, other route, or ending C eligibility",
+      "narrative_release_status": "authored_only_requires_runtime_registration"
+    }
+  ]
+}

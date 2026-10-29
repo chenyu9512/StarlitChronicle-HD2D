@@ -1,0 +1,367 @@
+{
+  "schema": "starlit.story.phase13.act06.choice_reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "原主线listen/act旗标写入后的12组即时回应。并非长期独立分支，不新增主线硬条件或玄璃入队时点。",
+  "followups": [
+    {
+      "id": "ch031.p13.choice.listen",
+      "chapter_id": "ch031",
+      "after_choice_id": "ch031.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch031.approach": "consent",
+        "world.ch031.approach": "consent"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch031.p13.choice.listen.l01",
+          "speaker": "花贩",
+          "text": "你们可以告诉我如何确认日期，但别替我把女儿的信拆开。"
+        },
+        {
+          "id": "ch031.p13.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "我们把选择写清楚，由你决定要不要继续问。"
+        },
+        {
+          "id": "ch031.p13.choice.listen.l03",
+          "speaker": "主角",
+          "text": "不愿立刻离开今天，也仍有接受帮助的权利。"
+        }
+      ]
+    },
+    {
+      "id": "ch031.p13.choice.act",
+      "chapter_id": "ch031",
+      "after_choice_id": "ch031.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch031.approach": "care",
+        "world.ch031.approach": "care"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch031.p13.choice.act.l01",
+          "speaker": "值夜护士",
+          "text": "我愿在街口设个地方，给那些记不起昨天的人休息。"
+        },
+        {
+          "id": "ch031.p13.choice.act.l02",
+          "speaker": "伊泽",
+          "text": "我会把重复的钟声记下来，不让病人必须自己证明一切。"
+        },
+        {
+          "id": "ch031.p13.choice.act.l03",
+          "speaker": "主角",
+          "text": "医疗援助不是强制醒来的另一种命令。"
+        }
+      ]
+    },
+    {
+      "id": "ch032.p13.choice.listen",
+      "chapter_id": "ch032",
+      "after_choice_id": "ch032.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch032.approach": "family",
+        "world.ch032.approach": "family"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch032.p13.choice.listen.l01",
+          "speaker": "姨妈",
+          "text": "我愿先听孩子讲梦里那顿饭，不要求他立刻忘记。"
+        },
+        {
+          "id": "ch032.p13.choice.listen.l02",
+          "speaker": "孩子",
+          "text": "如果我今天不回去，明天还能再见你吗？"
+        },
+        {
+          "id": "ch032.p13.choice.listen.l03",
+          "speaker": "玄璃",
+          "text": "出口会留下，决定可以重新商量。"
+        }
+      ]
+    },
+    {
+      "id": "ch032.p13.choice.act",
+      "chapter_id": "ch032",
+      "after_choice_id": "ch032.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch032.approach": "anchor",
+        "world.ch032.approach": "anchor"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch032.p13.choice.act.l01",
+          "speaker": "缇珐",
+          "text": "我先修好能由使用者打开的锚点，不把钥匙留在管理员手里。"
+        },
+        {
+          "id": "ch032.p13.choice.act.l02",
+          "speaker": "孩子",
+          "text": "我想再坐一会儿，但已经看得见门了。"
+        },
+        {
+          "id": "ch032.p13.choice.act.l03",
+          "speaker": "岚音",
+          "text": "出来以后也有人接应你，别急。"
+        }
+      ]
+    },
+    {
+      "id": "ch033.p13.choice.listen",
+      "chapter_id": "ch033",
+      "after_choice_id": "ch033.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch033.approach": "share",
+        "world.ch033.approach": "share"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch033.p13.choice.listen.l01",
+          "speaker": "雷索",
+          "text": "我看到的选择，不必替别人证明哪条路更好。"
+        },
+        {
+          "id": "ch033.p13.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "愿意说的人慢慢说；我也准备好听问题。"
+        },
+        {
+          "id": "ch033.p13.choice.listen.l03",
+          "speaker": "玄璃",
+          "text": "没有被选择的未来，可以被记住，而不必被住进去。"
+        }
+      ]
+    },
+    {
+      "id": "ch033.p13.choice.act",
+      "chapter_id": "ch033",
+      "after_choice_id": "ch033.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch033.approach": "space",
+        "world.ch033.approach": "space"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch033.p13.choice.act.l01",
+          "speaker": "朔弦",
+          "text": "有人不想谈，就给他留张椅子和一杯水吧。"
+        },
+        {
+          "id": "ch033.p13.choice.act.l02",
+          "speaker": "伊泽",
+          "text": "我不会把每个人的遗憾唱给所有听众。"
+        },
+        {
+          "id": "ch033.p13.choice.act.l03",
+          "speaker": "主角",
+          "text": "等愿意的时候再说，我们继续沿真实的路走。"
+        }
+      ]
+    },
+    {
+      "id": "ch034.p13.choice.listen",
+      "chapter_id": "ch034",
+      "after_choice_id": "ch034.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch034.approach": "self_voice",
+        "world.ch034.approach": "self_voice"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch034.p13.choice.listen.l01",
+          "speaker": "玄璃",
+          "text": "我自己说：不要回收我。我想离开这座剧场。"
+        },
+        {
+          "id": "ch034.p13.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "我们负责确保她能完整说完，不替她填答案。"
+        },
+        {
+          "id": "ch034.p13.choice.listen.l03",
+          "speaker": "主角",
+          "text": "她的拒绝必须被记录为有效选择。"
+        }
+      ]
+    },
+    {
+      "id": "ch034.p13.choice.act",
+      "chapter_id": "ch034",
+      "after_choice_id": "ch034.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch034.approach": "register",
+        "world.ch034.approach": "register"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch034.p13.choice.act.l01",
+          "speaker": "缇珐",
+          "text": "回收规则里没有自主退出栏，这是规则的缺陷。"
+        },
+        {
+          "id": "ch034.p13.choice.act.l02",
+          "speaker": "玄璃",
+          "text": "我的名字和去处要由我自己填写。"
+        },
+        {
+          "id": "ch034.p13.choice.act.l03",
+          "speaker": "主角",
+          "text": "登记先保障安全，身份以后也可以自主更改。"
+        }
+      ]
+    },
+    {
+      "id": "ch035.p13.choice.listen",
+      "chapter_id": "ch035",
+      "after_choice_id": "ch035.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch035.approach": "gradual",
+        "world.ch035.approach": "gradual"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch035.p13.choice.listen.l01",
+          "speaker": "护士",
+          "text": "先安排重症照护与陪伴时段，不用人数追成绩。"
+        },
+        {
+          "id": "ch035.p13.choice.listen.l02",
+          "speaker": "老人",
+          "text": "我愿醒一会儿，不愿意时会告诉你们。"
+        },
+        {
+          "id": "ch035.p13.choice.listen.l03",
+          "speaker": "岚音",
+          "text": "好，治疗计划可以随你的情况调整。"
+        }
+      ]
+    },
+    {
+      "id": "ch035.p13.choice.act",
+      "chapter_id": "ch035",
+      "after_choice_id": "ch035.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch035.approach": "oversight",
+        "world.ch035.approach": "oversight"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch035.p13.choice.act.l01",
+          "speaker": "玄璃",
+          "text": "每扇梦门应有独立退出开关，也应有人定期检查。"
+        },
+        {
+          "id": "ch035.p13.choice.act.l02",
+          "speaker": "值夜护士",
+          "text": "我会公布监督与申诉方式，不要求病人现场签长期协议。"
+        },
+        {
+          "id": "ch035.p13.choice.act.l03",
+          "speaker": "主角",
+          "text": "谁来决定自己醒着多久，应该写得明明白白。"
+        }
+      ]
+    },
+    {
+      "id": "ch036.p13.choice.listen",
+      "chapter_id": "ch036",
+      "after_choice_id": "ch036.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch036.approach": "exit_first",
+        "world.ch036.approach": "exit_first"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch036.p13.choice.listen.l01",
+          "speaker": "玄璃",
+          "text": "先把每扇门交还使用者自己，谁想醒来都不必申请。"
+        },
+        {
+          "id": "ch036.p13.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "医院留人陪伴，防止醒转后无人照护。"
+        },
+        {
+          "id": "ch036.p13.choice.listen.l03",
+          "speaker": "缇珐",
+          "text": "退出线路恢复后我们会连续测试，不能只看亮灯。"
+        }
+      ]
+    },
+    {
+      "id": "ch036.p13.choice.act",
+      "chapter_id": "ch036",
+      "after_choice_id": "ch036.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch036.approach": "medical_first",
+        "world.ch036.approach": "medical_first"
+      },
+      "insertion": "after_choice_commit_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch036.p13.choice.act.l01",
+          "speaker": "岚音",
+          "text": "保留医护使用的短眠设备，但要先告知风险并允许撤回。"
+        },
+        {
+          "id": "ch036.p13.choice.act.l02",
+          "speaker": "玄璃",
+          "text": "我愿帮忙验证镜门，也想决定什么时候回到现实。"
+        },
+        {
+          "id": "ch036.p13.choice.act.l03",
+          "speaker": "主角",
+          "text": "每个人都能拒绝永久停留，今后仍可以修改规则。"
+        }
+      ]
+    }
+  ]
+}

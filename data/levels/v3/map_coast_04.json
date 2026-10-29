@@ -1,0 +1,270 @@
+{
+  "schema_version": 3,
+  "map_id": "map_coast_04",
+  "title": "潮声洞窟",
+  "biome": "coastal",
+  "category": "dungeon",
+  "design_intent": "潮滩沙丘与林间海风道",
+  "size": [
+    100,
+    60
+  ],
+  "roads": [
+    {
+      "id": "spine-潮汐分岔",
+      "width": 1,
+      "points": [
+        [
+          6,
+          28
+        ],
+        [
+          27,
+          31
+        ],
+        [
+          33,
+          35
+        ],
+        [
+          55,
+          25
+        ],
+        [
+          93,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "branch-coast",
+      "width": 1,
+      "points": [
+        [
+          19,
+          5
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          45,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          13,
+          36
+        ],
+        [
+          37,
+          37
+        ],
+        [
+          55,
+          29
+        ],
+        [
+          15,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          52,
+          31
+        ],
+        [
+          74,
+          25
+        ],
+        [
+          94,
+          41
+        ],
+        [
+          91,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          20,
+          18
+        ],
+        [
+          56,
+          19
+        ],
+        [
+          66,
+          34
+        ],
+        [
+          88,
+          52
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_coast_04",
+      "width": 1,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          95,
+          18
+        ],
+        [
+          96,
+          47
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_coast_04",
+      "width": 1,
+      "points": [
+        [
+          95,
+          6
+        ],
+        [
+          92,
+          25
+        ],
+        [
+          95,
+          47
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_coast_04",
+      "center": [
+        18,
+        16
+      ],
+      "radius": 4
+    },
+    {
+      "id": "fork-outlook-map_coast_04",
+      "center": [
+        60,
+        31
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_coast_04",
+      "center": [
+        90,
+        51
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_coast_04",
+      "cell": [
+        50,
+        17
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "secondary-lookout-map_coast_04",
+      "cell": [
+        25,
+        33
+      ],
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "peripheral-crest-map_coast_04",
+      "cell": [
+        91,
+        50
+      ],
+      "kind": "flowerpot"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        96,
+        56
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        96,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        91,
+        15
+      ],
+      "kind": "beacon",
+      "name": "盐风观潮·潮声洞窟"
+    },
+    {
+      "cell": [
+        89,
+        50
+      ],
+      "kind": "sign",
+      "name": "滩涂哨台·潮声洞窟"
+    },
+    {
+      "cell": [
+        69,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "海湾灯台·潮声洞窟"
+    }
+  ],
+  "layout_identity": "coast.04.潮汐分岔",
+  "layout_principle": "潮汐分岔：依据「潮声洞窟」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

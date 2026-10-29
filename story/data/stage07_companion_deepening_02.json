@@ -1,0 +1,519 @@
+{
+  "schema": "starlit.story.companion_deepening.v1",
+  "status": "authored_text_not_runtime_bound",
+  "notes": "八名伙伴各第二条个人任务，每条新增两场可选剧情，保留原四阶段、A/B结果和奖励。所有新增对白为独立撰写，不重用既有源对白。",
+  "quests": [
+    {
+      "quest_id": "cq_lanyin_02",
+      "lead": "岚音",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_lanyin_02.choice",
+      "insert_after_stage": "cq_lanyin_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_lanyin_02.deepening.evidence",
+          "title": "录音装置的暂停键",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_02.deepening.evidence.l01",
+              "speaker": "孩子",
+              "text": "按下去的时候，爸爸总把手缩回去。大家说那是他快想起来了。"
+            },
+            {
+              "id": "cq_lanyin_02.deepening.evidence.l02",
+              "speaker": "岚音",
+              "text": "也可能是声音太响，或者他不愿意被一遍遍考试。"
+            },
+            {
+              "id": "cq_lanyin_02.deepening.evidence.l03",
+              "speaker": "矿工",
+              "text": "我不是不想见你。我怕你看着我，等一个我给不出的答案。"
+            },
+            {
+              "id": "cq_lanyin_02.deepening.evidence.l04",
+              "speaker": "孩子",
+              "text": "那今天不听录音。你能教我怎么把汤里的盐放少一点吗？"
+            }
+          ]
+        },
+        {
+          "id": "cq_lanyin_02.deepening.aftermath",
+          "title": "厨房里新的一页",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_02.deepening.aftermath.l01",
+              "speaker": "矿工",
+              "text": "从前的事我不敢说记得，可今天我们把锅底烧糊了。"
+            },
+            {
+              "id": "cq_lanyin_02.deepening.aftermath.l02",
+              "speaker": "孩子",
+              "text": "我把这件事写在新本子第一面，不写在旧录音背面。"
+            },
+            {
+              "id": "cq_lanyin_02.deepening.aftermath.l03",
+              "speaker": "岚音",
+              "text": "记忆没有回来不等于今天没有发生。"
+            },
+            {
+              "id": "cq_lanyin_02.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "把录音收好；以后要不要听，由他们自己商量。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_leiso_02",
+      "lead": "雷索",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_leiso_02.choice",
+      "insert_after_stage": "cq_leiso_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_leiso_02.deepening.evidence",
+          "title": "地图折痕下的小路",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_leiso_02.deepening.evidence.l01",
+              "speaker": "孩子乙",
+              "text": "这条桥有时关门，所以我绕河湾给外婆送药。"
+            },
+            {
+              "id": "cq_leiso_02.deepening.evidence.l02",
+              "speaker": "孩子甲",
+              "text": "我以为桥那边只有哨所，没有人住。"
+            },
+            {
+              "id": "cq_leiso_02.deepening.evidence.l03",
+              "speaker": "雷索",
+              "text": "把外婆家的路画出来，再画每天谁去取水。"
+            },
+            {
+              "id": "cq_leiso_02.deepening.evidence.l04",
+              "speaker": "教师",
+              "text": "旗帜可以留着，但别让它遮住人真正走的地方。"
+            }
+          ]
+        },
+        {
+          "id": "cq_leiso_02.deepening.aftermath",
+          "title": "午后的三色地图",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_leiso_02.deepening.aftermath.l01",
+              "speaker": "孩子甲",
+              "text": "我还是喜欢自己的旗子，可我不想再把他的桥涂黑了。"
+            },
+            {
+              "id": "cq_leiso_02.deepening.aftermath.l02",
+              "speaker": "孩子乙",
+              "text": "我也在他学校旁画了集市，他妈妈在那里卖面包。"
+            },
+            {
+              "id": "cq_leiso_02.deepening.aftermath.l03",
+              "speaker": "雷索",
+              "text": "你们不需要今天就同意所有事情。"
+            },
+            {
+              "id": "cq_leiso_02.deepening.aftermath.l04",
+              "speaker": "教师",
+              "text": "只要明天还肯坐在一张桌前，地图就能接着画。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_shouxian_02",
+      "lead": "朔弦",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_shouxian_02.choice",
+      "insert_after_stage": "cq_shouxian_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_shouxian_02.deepening.evidence",
+          "title": "航图上未完成的星点",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_02.deepening.evidence.l01",
+              "speaker": "老水手",
+              "text": "我画到这里就停了。后面不是没星星，是我怕留下证据。"
+            },
+            {
+              "id": "cq_shouxian_02.deepening.evidence.l02",
+              "speaker": "朔弦",
+              "text": "我当时以为你不肯跟我走，是怕丢饭碗。"
+            },
+            {
+              "id": "cq_shouxian_02.deepening.evidence.l03",
+              "speaker": "老水手",
+              "text": "船舱里还关着我妹妹。你能走，我得留下来找她。"
+            },
+            {
+              "id": "cq_shouxian_02.deepening.evidence.l04",
+              "speaker": "主角",
+              "text": "两个人都不欠对方一个英雄的结局，先把图上缺的路补全。"
+            }
+          ]
+        },
+        {
+          "id": "cq_shouxian_02.deepening.aftermath",
+          "title": "歪树的旧传闻",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_02.deepening.aftermath.l01",
+              "speaker": "老水手",
+              "text": "歪树还在不在，我其实不知道。那是她小时候认路的记号。"
+            },
+            {
+              "id": "cq_shouxian_02.deepening.aftermath.l02",
+              "speaker": "朔弦",
+              "text": "我会查，但不会回来编一个好听的答案。"
+            },
+            {
+              "id": "cq_shouxian_02.deepening.aftermath.l03",
+              "speaker": "老水手",
+              "text": "查不到也写下来。空白不能再装成海雾。"
+            },
+            {
+              "id": "cq_shouxian_02.deepening.aftermath.l04",
+              "speaker": "朔弦",
+              "text": "这一回我把你的名字写在航图旁边，你愿意吗？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_tifa_02",
+      "lead": "缇珐",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_tifa_02.choice",
+      "insert_after_stage": "cq_tifa_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_tifa_02.deepening.evidence",
+          "title": "褪色的四号阀门铭牌",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_tifa_02.deepening.evidence.l01",
+              "speaker": "老工匠",
+              "text": "旧牌上写着北街热水房，我照命令刮掉了。"
+            },
+            {
+              "id": "cq_tifa_02.deepening.evidence.l02",
+              "speaker": "缇珐",
+              "text": "你按下阀门时，控制室只显示四号；街上却有人洗不成热水澡。"
+            },
+            {
+              "id": "cq_tifa_02.deepening.evidence.l03",
+              "speaker": "岚音",
+              "text": "病房停暖那夜，我们靠一壶壶热水撑到了天亮。"
+            },
+            {
+              "id": "cq_tifa_02.deepening.evidence.l04",
+              "speaker": "老工匠",
+              "text": "我可以作证，也愿意亲手把真正的用途刻回去。"
+            }
+          ]
+        },
+        {
+          "id": "cq_tifa_02.deepening.aftermath",
+          "title": "新的双人复核表",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_tifa_02.deepening.aftermath.l01",
+              "speaker": "维修主管",
+              "text": "两人复核会慢一分钟。"
+            },
+            {
+              "id": "cq_tifa_02.deepening.aftermath.l02",
+              "speaker": "缇珐",
+              "text": "误关医院供暖再抢修，要慢一整晚。"
+            },
+            {
+              "id": "cq_tifa_02.deepening.aftermath.l03",
+              "speaker": "老工匠",
+              "text": "这张表让我写操作者姓名，也写受影响的地方。"
+            },
+            {
+              "id": "cq_tifa_02.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "效率要算进去，谁承担代价也要写清楚。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_ize_02",
+      "lead": "伊泽",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_ize_02.choice",
+      "insert_after_stage": "cq_ize_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_ize_02.deepening.evidence",
+          "title": "厨房采购单上的名字",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_ize_02.deepening.evidence.l01",
+              "speaker": "年轻船员",
+              "text": "父亲的字不好看，每次买鱼都要别人帮忙写账。"
+            },
+            {
+              "id": "cq_ize_02.deepening.evidence.l02",
+              "speaker": "伊泽",
+              "text": "账簿上有同一种字迹，却有不同的签名；是不是那位帮忙的水手？"
+            },
+            {
+              "id": "cq_ize_02.deepening.evidence.l03",
+              "speaker": "朔弦",
+              "text": "船上谁管灶，大家都知道。只有纪念碑假装不知道。"
+            },
+            {
+              "id": "cq_ize_02.deepening.evidence.l04",
+              "speaker": "年轻船员",
+              "text": "我不求替他写勇敢，就写他做的鱼汤能让晕船的人吃下去。"
+            }
+          ]
+        },
+        {
+          "id": "cq_ize_02.deepening.aftermath",
+          "title": "未写满的船员册",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_ize_02.deepening.aftermath.l01",
+              "speaker": "伊泽",
+              "text": "这一页留两行空白，迟来的证词还能补进来。"
+            },
+            {
+              "id": "cq_ize_02.deepening.aftermath.l02",
+              "speaker": "年轻船员",
+              "text": "我先把父亲的手艺写上，剩下的让以前的船友来添。"
+            },
+            {
+              "id": "cq_ize_02.deepening.aftermath.l03",
+              "speaker": "朔弦",
+              "text": "我知道一个老水手还记得那趟航程，回港后带他来。"
+            },
+            {
+              "id": "cq_ize_02.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "纪念不必一次写完，也不能为了好看删掉普通人的生活。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_xuanli_02",
+      "lead": "玄璃",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_xuanli_02.choice",
+      "insert_after_stage": "cq_xuanli_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_xuanli_02.deepening.evidence",
+          "title": "屋檐下的两盆花",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_02.deepening.evidence.l01",
+              "speaker": "园丁",
+              "text": "左边喝真正的雨，右边用镜宫雾水，叶子都长得不错。"
+            },
+            {
+              "id": "cq_xuanli_02.deepening.evidence.l02",
+              "speaker": "玄璃",
+              "text": "那我不用先选哪一盆更真实？"
+            },
+            {
+              "id": "cq_xuanli_02.deepening.evidence.l03",
+              "speaker": "岚音",
+              "text": "你可以喜欢两种雨，也可以有一天只想待在屋里。"
+            },
+            {
+              "id": "cq_xuanli_02.deepening.evidence.l04",
+              "speaker": "玄璃",
+              "text": "我想记录的是自己选择站在哪里，不是别人给雨打的分数。"
+            }
+          ]
+        },
+        {
+          "id": "cq_xuanli_02.deepening.aftermath",
+          "title": "泥鞋印留在门边",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_02.deepening.aftermath.l01",
+              "speaker": "玄璃",
+              "text": "今天鞋湿了，我有点讨厌这场雨。"
+            },
+            {
+              "id": "cq_xuanli_02.deepening.aftermath.l02",
+              "speaker": "园丁",
+              "text": "那明天带伞来。讨厌一次，不用永远讨厌。"
+            },
+            {
+              "id": "cq_xuanli_02.deepening.aftermath.l03",
+              "speaker": "主角",
+              "text": "你可以写下不喜欢，记录不必总证明世界美好。"
+            },
+            {
+              "id": "cq_xuanli_02.deepening.aftermath.l04",
+              "speaker": "玄璃",
+              "text": "我在这一页写了冷、泥味，还有有人给我留了一双干鞋。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_nuoyi_02",
+      "lead": "诺依",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_nuoyi_02.choice",
+      "insert_after_stage": "cq_nuoyi_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_nuoyi_02.deepening.evidence",
+          "title": "被盖住的还书日期",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_02.deepening.evidence.l01",
+              "speaker": "孩子",
+              "text": "我每年把日期往后改，怕朋友以为我把书弄丢了。"
+            },
+            {
+              "id": "cq_nuoyi_02.deepening.evidence.l02",
+              "speaker": "诺依",
+              "text": "书还在，你们却被一堵墙隔开了三年。"
+            },
+            {
+              "id": "cq_nuoyi_02.deepening.evidence.l03",
+              "speaker": "医师",
+              "text": "药箱也得绕远路，有时赶到已经错过了时辰。"
+            },
+            {
+              "id": "cq_nuoyi_02.deepening.evidence.l04",
+              "speaker": "守卫",
+              "text": "我能签一张临时通行单，但不能保证以后天天准走。"
+            }
+          ]
+        },
+        {
+          "id": "cq_nuoyi_02.deepening.aftermath",
+          "title": "通道开启后的纸条",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_02.deepening.aftermath.l01",
+              "speaker": "孩子",
+              "text": "他把新书借给我，还在扉页写了别再改日期。"
+            },
+            {
+              "id": "cq_nuoyi_02.deepening.aftermath.l02",
+              "speaker": "诺依",
+              "text": "我们应当把每天能通行的规则贴出来，不只靠某个守卫心情好。"
+            },
+            {
+              "id": "cq_nuoyi_02.deepening.aftermath.l03",
+              "speaker": "守卫",
+              "text": "我会把拒绝通行的理由也登记，免得一句不准就把人挡回去。"
+            },
+            {
+              "id": "cq_nuoyi_02.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "一条路真正打开，是普通人明天还能再走。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_weisha_02",
+      "lead": "维莎",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_weisha_02.choice",
+      "insert_after_stage": "cq_weisha_02.resolution",
+      "scenes": [
+        {
+          "id": "cq_weisha_02.deepening.evidence",
+          "title": "空白的照护工时栏",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_weisha_02.deepening.evidence.l01",
+              "speaker": "后勤主管",
+              "text": "这家没人上报工时，可病人三个月没断过药和饭。"
+            },
+            {
+              "id": "cq_weisha_02.deepening.evidence.l02",
+              "speaker": "维莎",
+              "text": "旧算法把没有计时的照护当成零。我亲手批准过这个公式。"
+            },
+            {
+              "id": "cq_weisha_02.deepening.evidence.l03",
+              "speaker": "岚音",
+              "text": "病人不是凭积分得到热饭，陪护者也需要有人替班。"
+            },
+            {
+              "id": "cq_weisha_02.deepening.evidence.l04",
+              "speaker": "主角",
+              "text": "先按需要发放，再问如何记录。不要让登记成为领取援助的门槛。"
+            }
+          ]
+        },
+        {
+          "id": "cq_weisha_02.deepening.aftermath",
+          "title": "第一张休息轮班表",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_weisha_02.deepening.aftermath.l01",
+              "speaker": "照护者",
+              "text": "今天有人替我坐两个小时，我终于能出门买一双鞋。"
+            },
+            {
+              "id": "cq_weisha_02.deepening.aftermath.l02",
+              "speaker": "维莎",
+              "text": "表格没有要求你感谢谁，它只写你什么时候需要休息。"
+            },
+            {
+              "id": "cq_weisha_02.deepening.aftermath.l03",
+              "speaker": "后勤主管",
+              "text": "明早再核对缺口，不把今天发出的物资当绩效扣回去。"
+            },
+            {
+              "id": "cq_weisha_02.deepening.aftermath.l04",
+              "speaker": "岚音",
+              "text": "有人休息了，病床旁仍有人照顾，这才是我们想看的结果。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

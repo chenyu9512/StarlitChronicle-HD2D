@@ -1,0 +1,60 @@
+name: M0.1 World Geometry Focused Acceptance
+# One batch of actual Godot 4.7.2 tests against the exact committed SHA.
+# No branch, PR, test bypass, or code writeback.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/qa-m01-world-trigger.json"
+permissions:
+  contents: read
+concurrency:
+  group: starlit-m01-world-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  world-m01:
+    name: "D/B M0.1 world geometry and housing P0"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Godot cold import and parser verification
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Run all focused physical tests without skipping failures
+        shell: bash
+        run: |
+          mkdir -p qa-m01-world
+          # GitHub's bash shell defaults to -e: disable it here so every
+          # check runs even after a failure, then return one final failure.
+          set +e
+          code=0
+          for test in \
+            tools/smoke_town_direction_v4.gd \
+            tools/smoke_world_v3.gd \
+            tools/smoke_town_entrances.gd \
+            tools/d_control/smoke_m01_world_route_reachability.gd \
+            tools/smoke_story_map_dressing.gd \
+            tools/d_control/smoke_d_world_door_and_gate_contract.gd
+          do
+            echo "::group::${test}"
+            timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://${test}" >"qa-m01-world/${test//\//_}.log" 2>&1
+            result=$?
+            echo "${test}: ${result}" | tee -a qa-m01-world/summary.txt
+            tail -n 32 "qa-m01-world/${test//\//_}.log"
+            if [ ${result} -ne 0 ]; then code=1; fi
+            echo "::endgroup::"
+          done
+          exit ${code}
+      - name: Preserve source-aligned logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: world-m01-physical-qa
+          path: qa-m01-world/
+          if-no-files-found: warn

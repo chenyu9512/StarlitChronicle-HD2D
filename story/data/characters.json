@@ -1,0 +1,456 @@
+{
+  "schema": "starlit.story.characters.v1",
+  "cast": [
+    {
+      "id": "player",
+      "name": "主角",
+      "default_display_name": "黎昂",
+      "role": "主角",
+      "recommended_jobs": [
+        "swordsman",
+        "guardian",
+        "ranger"
+      ],
+      "arc": "玩家命名/一切未被预定的未来",
+      "speech_style": "短句，遇重要的事先问证据。",
+      "join_chapter": "ch001",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "主角：我们继续向前吧。",
+          "主角：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "主角：我还撑得住！"
+        ],
+        "defend": [
+          "主角：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "lan_yin",
+      "name": "岚音",
+      "default_display_name": "岚音",
+      "role": "药师",
+      "recommended_jobs": [
+        "healer",
+        "high_priest"
+      ],
+      "arc": "救人并处理对澄舟病例的隐瞒",
+      "speech_style": "讲话平静，偶尔用童年习惯称呼主角。",
+      "join_chapter": "ch001",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "岚音：我们继续向前吧。",
+          "岚音：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "岚音：我还撑得住！"
+        ],
+        "defend": [
+          "岚音：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "lei_suo",
+      "name": "雷索",
+      "default_display_name": "雷索",
+      "role": "骑士",
+      "recommended_jobs": [
+        "guardian",
+        "star_knight"
+      ],
+      "arc": "拒绝不义军令、建立不强制服役的秩序",
+      "speech_style": "庄重但不会训斥普通人。",
+      "join_chapter": "ch009",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "雷索：我们继续向前吧。",
+          "雷索：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "雷索：我还撑得住！"
+        ],
+        "defend": [
+          "雷索：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "shuo_xian",
+      "name": "朔弦",
+      "default_display_name": "朔弦",
+      "role": "航海家",
+      "recommended_jobs": [
+        "ranger",
+        "shadow_blade"
+      ],
+      "arc": "找回被抹去的故乡并弥补走私过错",
+      "speech_style": "玩笑掩盖脆弱，认真时突然变短句。",
+      "join_chapter": "ch004",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "朔弦：我们继续向前吧。",
+          "朔弦：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "朔弦：我还撑得住！"
+        ],
+        "defend": [
+          "朔弦：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "ti_fa",
+      "name": "缇珐",
+      "default_display_name": "缇珐",
+      "role": "工匠",
+      "recommended_jobs": [
+        "engineer",
+        "star_smith"
+      ],
+      "arc": "把武器化技术变成公共能源",
+      "speech_style": "具体、急躁，但主动承担错误。",
+      "join_chapter": "ch014",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "缇珐：我们继续向前吧。",
+          "缇珐：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "缇珐：我还撑得住！"
+        ],
+        "defend": [
+          "缇珐：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "yi_ze",
+      "name": "伊泽",
+      "default_display_name": "伊泽",
+      "role": "吟游者",
+      "recommended_jobs": [
+        "bard",
+        "war_singer"
+      ],
+      "arc": "让无人记录的平民记忆被听见",
+      "speech_style": "擅长隐喻，但重要时直接说事实。",
+      "join_chapter": "ch028",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "伊泽：我们继续向前吧。",
+          "伊泽：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "伊泽：我还撑得住！"
+        ],
+        "defend": [
+          "伊泽：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "xuan_li",
+      "name": "玄璃",
+      "default_display_name": "玄璃",
+      "role": "映世居民",
+      "recommended_jobs": [
+        "mage",
+        "time_scholar"
+      ],
+      "arc": "争取映世生命的自主权",
+      "speech_style": "谨慎、观察细节，谈自我价值时敏感。",
+      "join_chapter": "ch032",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "玄璃：我们继续向前吧。",
+          "玄璃：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "玄璃：我还撑得住！"
+        ],
+        "defend": [
+          "玄璃：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "nuo_yi",
+      "name": "诺依",
+      "default_display_name": "诺依",
+      "role": "下一代传承者",
+      "recommended_jobs": [
+        "swordsman",
+        "celestial_sailor"
+      ],
+      "arc": "让重建成为普通人的共同责任",
+      "speech_style": "前期稚嫩，十二年后坚定但不盲目。",
+      "join_chapter": "ch039",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "诺依：我们继续向前吧。",
+          "诺依：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "诺依：我还撑得住！"
+        ],
+        "defend": [
+          "诺依：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    },
+    {
+      "id": "wei_sha",
+      "name": "维莎",
+      "default_display_name": "维莎",
+      "role": "记灯师",
+      "recommended_jobs": [
+        "mage",
+        "allmaker"
+      ],
+      "arc": "承认旧议会罪责并纠正控制系统",
+      "speech_style": "习惯数字表达，学会讲具体的人。",
+      "join_chapter": "ch058",
+      "portrait_asset": "TODO: final portrait",
+      "affinity_levels": [
+        {
+          "value": 0,
+          "title": "初识",
+          "unlock": "基础营地对话"
+        },
+        {
+          "value": 25,
+          "title": "信任",
+          "unlock": "个人回忆对话"
+        },
+        {
+          "value": 60,
+          "title": "并肩",
+          "unlock": "合击招式与角色任务"
+        },
+        {
+          "value": 90,
+          "title": "家人",
+          "unlock": "独立后日谈与亲密互动"
+        }
+      ],
+      "battle_lines": {
+        "victory": [
+          "维莎：我们继续向前吧。",
+          "维莎：先查看大家有没有受伤。"
+        ],
+        "low_hp": [
+          "维莎：我还撑得住！"
+        ],
+        "defend": [
+          "维莎：这里交给我！"
+        ]
+      },
+      "is_romance_eligible": false,
+      "romance_status": "设计中，不能用此字段推断玩家选项"
+    }
+  ]
+}

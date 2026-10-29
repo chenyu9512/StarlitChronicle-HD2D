@@ -1,0 +1,13 @@
+{
+  "batch": "M0.1-regional-services",
+  "scope": "D authoritative V3 commerce, inn, shrine and guild transaction rollback",
+  "engine": "Godot 4.7.2",
+  "tests": [
+    "tools/d_control/smoke_m01_transaction_wiring.gd",
+    "tools/d_control/smoke_m01_service_transactions.gd",
+    "tools/d_control/smoke_world_object_transactions.gd",
+    "tools/smoke_b_town_guild_readonly.gd",
+    "tools/smoke_rpg_core.gd"
+  ],
+  "note": "One isolated integration batch; no assert suppression or branch/PR."
+}

@@ -1,0 +1,4905 @@
+{
+  "schema": "starlit.librarium.assignment.v1",
+  "updated": "2026-10-27",
+  "base": "assets/art/source_packs",
+  "source_policy": "Keep originals untouched under .gdignore. Only selected canonical PNG SHA aliases may be imported. Archives never run as textures.",
+  "groups": {
+    "dragonbones": {
+      "zip": 72,
+      "status": "waiting_animation_import"
+    },
+    "mv_animated": {
+      "identities": 39,
+      "zip": 13,
+      "png": 47,
+      "status": "26 selected PNG ready to import; 13 ZIP pending"
+    },
+    "frontview_3frame": {
+      "png": 42,
+      "status": "map marker API only; not automatically placed"
+    },
+    "static_battlers": {
+      "png": 0,
+      "status": "missing_in_repository_location_unverified"
+    }
+  },
+  "totals": {
+    "source_files": 179,
+    "art_files": 174,
+    "documentation": 5,
+    "logical_identities": 153,
+    "game_slots": 141,
+    "mv_png_runtime": 26,
+    "map_png_runtime": 42,
+    "active_mv_slots": 21,
+    "unconverted_archives": 85
+  },
+  "aliases": {
+    "slime": "mon_coast_01",
+    "bat": "mon_forge_02",
+    "golem": "mon_forge_03"
+  },
+  "source_files": [
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Ancient_Priestess.png",
+      "sha": "bab6b3df3ca3298fbc0ff299db4f2a15b3a5d845",
+      "bytes": 2554,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch065",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/ancient_priestess.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$AphroditePR.png",
+      "sha": "be548715be8a0d3d618f0dcf9e4b0c77c212807d",
+      "bytes": 2273,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch068",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/aphroditepr.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$DarkQueenShaccad.png",
+      "sha": "7591d921eabf19d7b352fe2d04a4f6ea637f8f8b",
+      "bytes": 3677,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch070",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/darkqueenshaccad.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Dynamo.png",
+      "sha": "6724016935e39da0cdf8077182be996808e63e9e",
+      "bytes": 6916,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch043",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/dynamo.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Goken.png",
+      "sha": "9e787bd944432fe8cfeec9536fe068f23da3bf58",
+      "bytes": 2998,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch047",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/goken.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Grunt.png",
+      "sha": "0acef77a07fcb9de67f8619e973169eacda2afe7",
+      "bytes": 1961,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch045",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/grunt.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$HuangLong.png",
+      "sha": "0b1208be65a1023bdc7a2570d422e179ed3fe433",
+      "bytes": 9313,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch061",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/huanglong.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Leviathan.png",
+      "sha": "0c5262fe0ec29b8d819efb5e151c53726341cbf8",
+      "bytes": 9380,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch029",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/leviathan.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$LKnightMichael.png",
+      "sha": "8d67bfcaec6612fe702770edff3d90af2135c303",
+      "bytes": 3000,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch064",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/lknightmichael.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$ShaccadYogg.png",
+      "sha": "e6057c3c477efaad92fc81af47595e36d437329d",
+      "bytes": 15162,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch071",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/shaccadyogg.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Skoll.png",
+      "sha": "ae634f28ec479d0a6e5d4897a23d1b204c2f3912",
+      "bytes": 2152,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "mon_oldland_07",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/skoll.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$Skor.png",
+      "sha": "101f439056dd711f81b994f55bbc93478f3929c8",
+      "bytes": 2519,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch051",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/skor.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$UrmicaR.png",
+      "sha": "cb9e446fa758e5089235d1f5e02aa40c0a0c5550",
+      "bytes": 8275,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch005",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/urmicar.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$VoidGargoyleIo.png",
+      "sha": "bd6c80443d6786c6f4bdc6fd9e45c228c9ee27a4",
+      "bytes": 6104,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "mon_sanctum_08",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/voidgargoyleio.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/!$ZodiacCancer.png",
+      "sha": "507b824ecbbdd03e26ea493eaa063f5985a4e202",
+      "bytes": 5081,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "mon_coast_02",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/zodiaccancer.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$!MknightGoldnharl.png",
+      "sha": "7049cf005009d77985137e618cc94ab03ff49d28",
+      "bytes": 1649,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch062",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/mknightgoldnharl.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$!SkullKnightXoer.png",
+      "sha": "28c156069e06965804cb7cbf0909be058407138e",
+      "bytes": 4843,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "mon_oaths_06",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/skullknightxoer.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$!Ygg.png",
+      "sha": "706a1d2a376ec79eb150be52829a08a43b084094",
+      "bytes": 2405,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch041",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/ygg.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$AntQueen.png",
+      "sha": "527cc7197a51b95bc79ca3335c16a500da21ffc9",
+      "bytes": 8165,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "mon_forge_01",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/antqueen.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster14.png",
+      "sha": "140fedbc76da6af6a7e6a1c9a227c746a744126f",
+      "bytes": 25309,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch002",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster14.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster15.png",
+      "sha": "18d2b051e6c0bce5db6cd49eae61690b04e5808e",
+      "bytes": 27558,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch003",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster15.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster16.png",
+      "sha": "542a905aff6d4776d2f9684540dee01a7f4bc491",
+      "bytes": 20225,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch004",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster16.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster17.png",
+      "sha": "f567fac3f3e2811f3ae6654d44b347e85e78de82",
+      "bytes": 16320,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch005",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster17.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster18.png",
+      "sha": "331be15bd4d3f8c119c4742d55cdfbffbf28134e",
+      "bytes": 7493,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch006",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster18.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster19.png",
+      "sha": "cc6a8b81e064003de0796fdfc151b897bb829870",
+      "bytes": 23374,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch008",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster19.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster20.png",
+      "sha": "e6e8d1667e17bfa765706fae69732ba36498a261",
+      "bytes": 21292,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch009",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster20.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster21.png",
+      "sha": "e6345713a74198f7722e9878b7dfb3de8fdd5138",
+      "bytes": 23029,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch010",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster21.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Big_Monster22.png",
+      "sha": "24e8f90d0ef71d0939dcb81d7dc81f40d91deea9",
+      "bytes": 7123,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch011",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster22.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster10.png",
+      "sha": "398cfce286cac644055489f0b918089ca40b6b7c",
+      "bytes": 13613,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch012",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster10.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster11.png",
+      "sha": "4368ff667a88fbbda8c51c1113b431b98d64fbdb",
+      "bytes": 16202,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch013",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster11.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster12.png",
+      "sha": "e514c88358e933f361fabe829e9fbfa710c1765a",
+      "bytes": 13181,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch014",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster12.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster13.png",
+      "sha": "8d1da2fd21b17b4bc293aaa1ebcc8f56dfbec64c",
+      "bytes": 24287,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch015",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster13.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster3.png",
+      "sha": "e7445115e8e78d7ceed66b0c3e70fdcda7c1944f",
+      "bytes": 4362,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch016",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster3.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster4.png",
+      "sha": "7e963837d5a49294c9abaf20e4f56321e47bb6af",
+      "bytes": 18236,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch017",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster4.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster5.png",
+      "sha": "df25e76e9d3fe98abcd1cdb478fb16f093577987",
+      "bytes": 18343,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch018",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster5.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster6.png",
+      "sha": "1a0daa3ae24ce10c5701afaf7173eb621ab0f090",
+      "bytes": 20954,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch019",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster6.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster7.png",
+      "sha": "d6d8cb005af5b4e54f16f67eca8f832b33fc971f",
+      "bytes": 16381,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch020",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster7.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster8.png",
+      "sha": "7d44c410686c6ca740d5d5800254e11f7debf8f4",
+      "bytes": 20508,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch022",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster8.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$BigMonster9.png",
+      "sha": "e91b76e53b681183f016700e39b44e0a3b44125f",
+      "bytes": 20212,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch023",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster9.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$Demeres.png",
+      "sha": "b4293c82afe2f9f6d623f93f398d3e8517868e7d",
+      "bytes": 7923,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "mon_mirror_09",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/demeres.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/$LegendaryKnightRemmentPR.png",
+      "sha": "bf450762691061ab2b3a2e394d35f802167f5f44",
+      "bytes": 2411,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch064",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/legendaryknightremmentpr.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Aekashics Librarium Idle Frontview Sprites/KingsA.png",
+      "sha": "d31b0a1c083a3fbbd8b558481cc3c4ab7d3e42a7",
+      "bytes": 7453,
+      "group": "frontview_3frame",
+      "role": "map_marker_candidate",
+      "target_id": "boss.ch008",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/kingsa.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Alfadriel.zip",
+      "sha": "7dd1edc3c8bd37ffef025cb7f8fca2afb3df2135",
+      "bytes": 4848377,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss_act_11",
+      "identity": "Alfadriel",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Anubis/Anubis.png",
+      "sha": "ee563d20582ae48b7a5e11269855de7cc1dfc078",
+      "bytes": 5129600,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch064",
+      "identity": "Anubis",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/anubis.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Arriette.zip",
+      "sha": "95d0cad50c6907c2f53a7e2c73b81c6add4abeae",
+      "bytes": 1702863,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss.ch044",
+      "identity": "Arriette",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Bat/Bat1_1.png",
+      "sha": "9a095a3d6cf4350260030619cbace46d2c064681",
+      "bytes": 362259,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_forge_02",
+      "identity": "Bat",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/bat.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/BigFish.zip",
+      "sha": "33a08984cdb8efe07848a06c65cbed88e924ece5",
+      "bytes": 4921249,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "mon_isles_03",
+      "identity": "BigFish",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/BloodFeral.zip",
+      "sha": "2845d0fb93b8f590e912d1bf73435ef56f71bfaa",
+      "bytes": 3064961,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "mon_oldland_07",
+      "identity": "BloodFeral",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Carnivorous Plant Cathy/carnivorousplant.png",
+      "sha": "f746b50d8cfd98896e8879479e2a706f197c6cb6",
+      "bytes": 773645,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch035",
+      "identity": "Carnivorous Plant Cathy",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/carnivorous_plant_cathy.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Clockwork Dragon Gearex/Gearex.png",
+      "sha": "3279274e43e6cf5af1e4351e8a3755c9bc87e0b5",
+      "bytes": 3200148,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch017",
+      "identity": "Clockwork Dragon Gearex",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/clockwork_dragon_gearex.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Critter Unibun/Unibun.png",
+      "sha": "c762fca72b32be6aef7b14c535675bc6511935c9",
+      "bytes": 1255947,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_mirror_02",
+      "identity": "Critter Unibun",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Critter Unibun/Unibun1_1.png",
+      "sha": "bb5d85fa8f01bd1ff3a601315a90e061bad3dde9",
+      "bytes": 1260633,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_mirror_02",
+      "identity": "Critter Unibun",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/critter_unibun.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Demon Butler Clorfos/Clorfos3.png",
+      "sha": "339072a9f23b32128b2fc0f379f495a97379f29c",
+      "bytes": 4368237,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_mirror_07",
+      "identity": "Demon Butler Clorfos",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/demon_butler_clorfos.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/DoppelSlime.zip",
+      "sha": "15f6e2af7e65ec30dbe4475f13e44b6f0d0426b7",
+      "bytes": 996151,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "mon_coast_01",
+      "identity": "DoppelSlime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Dragon Demios/Demios.png",
+      "sha": "b61c5b4b9270fe2cb2ed2fc18bfbc0e785b26fd6",
+      "bytes": 6184452,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_forge_07",
+      "identity": "Dragon Demios",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/dragon_demios.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Earth Dragon.zip",
+      "sha": "16e80fbd52c3f51da86c87df5b2dd452b52c99cd",
+      "bytes": 2077311,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss.ch039",
+      "identity": "Earth Dragon",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/EldritchOvermind.zip",
+      "sha": "e77858f7298dfe31310ab6cd5f48ded153c80cd8",
+      "bytes": 5832578,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss.ch070",
+      "identity": "EldritchOvermind",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/God Novus.zip",
+      "sha": "9bf56948d06a93a0658c2388f675617556574615",
+      "bytes": 2277629,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss.ch065",
+      "identity": "God Novus",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Golem Ort/Golem.png",
+      "sha": "1858d89fa09dbee7d8aa981cf2ba8543db39edcc",
+      "bytes": 5034815,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_forge_03",
+      "identity": "Golem Ort",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Golem Ort/Golem1_1.png",
+      "sha": "39379f4529e6f820dec30427a544595137e6aab3",
+      "bytes": 5511452,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_forge_03",
+      "identity": "Golem Ort",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/golem_ort.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Golem Ort/Golem1_2.png",
+      "sha": "75fac90936622ec95cfa208f01e5c2e7fcdfaca1",
+      "bytes": 4983677,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_forge_03",
+      "identity": "Golem Ort",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Great Owl/Great Owl.png",
+      "sha": "daaefcb303b177063a38bed60742cf0859800fdf",
+      "bytes": 3915769,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_oaths_04",
+      "identity": "Great Owl",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/great_owl.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Ice Avian.zip",
+      "sha": "d0858222224da5e44bd6be0b829654a603e3586a",
+      "bytes": 3122271,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "mon_mirror_01",
+      "identity": "Ice Avian",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Jupiter/Jupiter.png",
+      "sha": "cd2c54cccba68426e1c3d0b6a428d75548abdb3a",
+      "bytes": 1985073,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch018",
+      "identity": "Jupiter",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/jupiter.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Khronos.zip",
+      "sha": "11dfad47636f01a57b2ab97f59d1770d862b94ca",
+      "bytes": 5991685,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss.ch066",
+      "identity": "Khronos",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Kraken Oceanos/OceanosL.png",
+      "sha": "7d5031334c92c0d37b0e105150b85375c939856e",
+      "bytes": 5584649,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch029",
+      "identity": "Kraken Oceanos",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/kraken_oceanos.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana.png",
+      "sha": "79ff39860ca2040a325531befaacd98a3f6de302",
+      "bytes": 1991182,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "boss.ch028",
+      "identity": "Lamia Diana",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana1_1.png",
+      "sha": "7e7ac45db861f55b21bdce318ecacf8d9d24e8f7",
+      "bytes": 1887972,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch028",
+      "identity": "Lamia Diana",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/lamia_diana.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana1_2.png",
+      "sha": "719a0758f22c60ead5d1a76444ffa64aada18176",
+      "bytes": 2036385,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "boss.ch028",
+      "identity": "Lamia Diana",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana1_3.png",
+      "sha": "8af256d20ea6685a73e372de7f111f54823b41fc",
+      "bytes": 1872404,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "boss.ch028",
+      "identity": "Lamia Diana",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Leaf Leafen/Leafen.png",
+      "sha": "51fd34356f47905d94da5fb69858fa308a1391eb",
+      "bytes": 731777,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "boss.ch067",
+      "identity": "Leaf Leafen",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Leaf Leafen/Leafen1_1.png",
+      "sha": "49413f7d5378afe85f3e08bc502692a9352fa015",
+      "bytes": 741481,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch067",
+      "identity": "Leaf Leafen",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/leaf_leafen.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Leaf Leafen/Leafen1_2.png",
+      "sha": "462bf8ec992916e13d4b4f30e7480162bfeeb593",
+      "bytes": 731660,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "boss.ch067",
+      "identity": "Leaf Leafen",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Mimic MiMic/Mimic.png",
+      "sha": "dcec981cbef964844f6118212c7e0d3acec7ef2f",
+      "bytes": 3063522,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_mirror_03",
+      "identity": "Mimic MiMic",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/mimic_mimic.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Minotaur Beef/Beef.png",
+      "sha": "5ae0518dfc3b0f14526d1e8204fb69c298b76ecf",
+      "bytes": 1505412,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch039",
+      "identity": "Minotaur Beef",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/minotaur_beef.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Peacock.zip",
+      "sha": "7264cf794e77294626bfcf257d0762fa2eddedd0",
+      "bytes": 5067480,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "mon_sanctum_09",
+      "identity": "Peacock",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Phoenix/Phoenix.png",
+      "sha": "0973d79b61509661d2fbd7bc19ce290e93acfa5c",
+      "bytes": 2533481,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_sanctum_01",
+      "identity": "Phoenix",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/phoenix.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Quetzalcoatl/Quetzalcoatl.png",
+      "sha": "afd005cdcc534fda4fd86b5f28b3d509656ed55a",
+      "bytes": 4893872,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch030",
+      "identity": "Quetzalcoatl",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/quetzalcoatl.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Rat Ritz/Ritz.png",
+      "sha": "4b86b9be24ebe47fa86f6e27ad4cd738c6744c87",
+      "bytes": 555158,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_forge_04",
+      "identity": "Rat Ritz",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/rat_ritz.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Skeleton Alstreim/Alstreim2.png",
+      "sha": "e3c8916e72308f6ba15ebfc0a5141dad23f7236e",
+      "bytes": 2142725,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_oaths_03",
+      "identity": "Skeleton Alstreim",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/skeleton_alstreim.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_1.png",
+      "sha": "ad72980d4bfce0fa57dcbdf7b633dbf727a899d1",
+      "bytes": 352200,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/slime.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_2.png",
+      "sha": "325db97877e8e1698023d870ea068e2b37a32ae4",
+      "bytes": 331631,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_3.png",
+      "sha": "2e315c87e441387fa4a55d70dcf6496c9c690d7d",
+      "bytes": 336615,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_4.png",
+      "sha": "f4bcd03ccefac26010e58677d3cffd5e6f8e9a98",
+      "bytes": 338585,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_5.png",
+      "sha": "1293500507c55c3109dcee831700eb4c8e0cb120",
+      "bytes": 333761,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_6.png",
+      "sha": "2c79c520620e40fd1e15fb7d674c21224599cc1e",
+      "bytes": 341897,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_7.png",
+      "sha": "cd7b67f9e030db29c074fab9c9c2b36c84d894d4",
+      "bytes": 313130,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_8.png",
+      "sha": "c7d25a20f00c95b4f260cc60ce478af1032558e1",
+      "bytes": 324825,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_9.png",
+      "sha": "8225a8deb5896df0b54cd1e7f13a18be8495551a",
+      "bytes": 307225,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_coast_01",
+      "identity": "Slime",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens.png",
+      "sha": "e569d5826bb7f92ab4daa2863100e219a8018e91",
+      "bytes": 614423,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_isles_01",
+      "identity": "Snake Cobrens",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens1_1.png",
+      "sha": "1c106a6a3a5429b0bbd16698a93c034ede21f249",
+      "bytes": 630225,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_isles_01",
+      "identity": "Snake Cobrens",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/snake_cobrens.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens1_2.png",
+      "sha": "8f3ef6f01412f0bbbc77a0dc533b076105475075",
+      "bytes": 617339,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_isles_01",
+      "identity": "Snake Cobrens",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens1_3.png",
+      "sha": "f1dde74c2a99167c8b25965ec1a62fd37716bb14",
+      "bytes": 630990,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_isles_01",
+      "identity": "Snake Cobrens",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Succubbus Vi/Vi.png",
+      "sha": "a5f3ab4feb66e24de22085ca5e8d6774098c28f3",
+      "bytes": 1635499,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_mirror_08",
+      "identity": "Succubbus Vi",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Succubbus Vi/Vi1_1.png",
+      "sha": "c89a2f7638d07e07755b077c5ed5f3b17c27a272",
+      "bytes": 1635761,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_mirror_08",
+      "identity": "Succubbus Vi",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/succubbus_vi.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Succubbus Vi/Vi1_2.png",
+      "sha": "841375ff3cf008a0d5282f11a3573d5128407c70",
+      "bytes": 1640108,
+      "group": "mv_animated",
+      "role": "appearance_variant",
+      "target_id": "mon_mirror_08",
+      "identity": "Succubbus Vi",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Sun Goddess.zip",
+      "sha": "df7c33cc2a70aa4a98b02278ad79c5426d94b918",
+      "bytes": 1637581,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss_act_12",
+      "identity": "Sun Goddess",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Tiamat/Tiamat.png",
+      "sha": "aa80826881ab071c49e448cbb91a45c82541ab66",
+      "bytes": 4099438,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_oldland_09",
+      "identity": "Tiamat",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/tiamat.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Tusk God Warrior.zip",
+      "sha": "e428afe731cc6ea9c12d87547739b9ad98b60daa",
+      "bytes": 6152646,
+      "group": "mv_animated",
+      "role": "zip_requires_unpack",
+      "target_id": "boss.ch064",
+      "identity": "Tusk God Warrior",
+      "runtime_path": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Ventoss/VEntos.png",
+      "sha": "6b5214de3586fbec1209a53277404137f95afac8",
+      "bytes": 2478667,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "boss.ch037",
+      "identity": "Ventoss",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/ventoss.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Werewolf Regulus/Regulus.png",
+      "sha": "e384f25b53a1b2a98432bfcd3ceea7d703b776de",
+      "bytes": 1914994,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_forge_08",
+      "identity": "Werewolf Regulus",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/werewolf_regulus.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Wisp Wispia/Wispia.png",
+      "sha": "9c82f7742f226b89e1eaccf515f207aaf9307b21",
+      "bytes": 1062057,
+      "group": "mv_animated",
+      "role": "primary_9x6",
+      "target_id": "mon_oldland_06",
+      "identity": "Wisp Wispia",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/wisp_wispia.png"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Ancient-Automaton.zip",
+      "sha": "d158ce8474cf2bf9c34b5ad8d0ae708a238dfe77",
+      "bytes": 573977,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch014",
+      "identity": "Ancient-Automaton"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Animated-Drill-Dwarf.zip",
+      "sha": "9fecb79f6bd13eafa7dfc52c505087b57ac81d78",
+      "bytes": 261214,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_06",
+      "identity": "Animated-Drill-Dwarf"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Arcane-Golem.zip",
+      "sha": "1705f85c5af57f22e462f9b831e255232521ec56",
+      "bytes": 1102574,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_03",
+      "identity": "Arcane-Golem"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Black-Ant-Queen.zip",
+      "sha": "5445f372358840b69b69e393fae425a98d40c379",
+      "bytes": 530766,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_01",
+      "identity": "Black-Ant-Queen"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Bonemask-Shadow-Creature.zip",
+      "sha": "2f30f0393a65cda4a934378bb566432d3b0b1957",
+      "bytes": 325178,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch006",
+      "identity": "Bonemask-Shadow-Creature"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-King.zip",
+      "sha": "26818db67542119aa8063828ae1725d9e30f05c0",
+      "bytes": 638009,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch017",
+      "identity": "Clockwork-King"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-Mage.zip",
+      "sha": "cb43e068bd3e74f8bca7bf095936c455a76bc54c",
+      "bytes": 199813,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch017",
+      "identity": "Clockwork-Mage"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-prototype.zip",
+      "sha": "e5fac361d16d3d691551c22e69ae9027be756705",
+      "bytes": 163422,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch017",
+      "identity": "Clockwork-prototype"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-Skull.zip",
+      "sha": "bc52b1a93ba9b3fe66a90946d7a575f93bfb3145",
+      "bytes": 605601,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch017",
+      "identity": "Clockwork-Skull"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Colossal-Crow.zip",
+      "sha": "3a6cc42c77fd8ebd7594e3d9ea09ea5907f9f025",
+      "bytes": 395980,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_oaths_04",
+      "identity": "Colossal-Crow"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Continental-Turtle-Rukkha.zip",
+      "sha": "e3cc697482cc775efd20790951c3dc50ead2900a",
+      "bytes": 795600,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch039",
+      "identity": "Continental-Turtle-Rukkha"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Crab-King-Karkinos.zip",
+      "sha": "b7dee6d6679828d88aef0d05c5d4de06ada23f16",
+      "bytes": 855334,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_coast_02",
+      "identity": "Crab-King-Karkinos"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Cultist-Mage.zip",
+      "sha": "28ac0bebd0230c50f7ac7b279cc4fa1f12f2ad17",
+      "bytes": 349601,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_mirror_07",
+      "identity": "Cultist-Mage"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Daidarabotchi.zip",
+      "sha": "30982f62d835f1e67b50ad241d3b0e27d96cb00f",
+      "bytes": 372412,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch016",
+      "identity": "Daidarabotchi"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dark-Queen-ShaccadYoggoth.zip",
+      "sha": "329440588af815b3b2a288502a866c874e9fcbf5",
+      "bytes": 415482,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch036",
+      "identity": "Dark-Queen-ShaccadYoggoth"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Darkness-Titan-Ilnoct.zip",
+      "sha": "b8c9b63c6d89d8357ed40edc4bfc2473daedfec2",
+      "bytes": 1786432,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch054",
+      "identity": "Darkness-Titan-Ilnoct"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dragon-Huanglong.zip",
+      "sha": "75d7356168387d6df77f374e4613206df4c35c21",
+      "bytes": 688988,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch061",
+      "identity": "Dragon-Huanglong"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dryad-Queen-Rafflesia.zip",
+      "sha": "e120d22d0667f31e072c175be541a34c1fee86f8",
+      "bytes": 976043,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch041",
+      "identity": "Dryad-Queen-Rafflesia"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dryad-Yggdrasil.zip",
+      "sha": "f27dd55632c6d46c8ac6805bf38bfbe31ba6f274",
+      "bytes": 462940,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch041",
+      "identity": "Dryad-Yggdrasil"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Eldritch-Overmind.zip",
+      "sha": "2c83d92d62556006c3022500fa84737717fae3e7",
+      "bytes": 709130,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch070",
+      "identity": "Eldritch-Overmind"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Giant-Kitsune.zip",
+      "sha": "f5b55970c195dacabafaacbd91b4042b52f7c669",
+      "bytes": 675169,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_01",
+      "identity": "Giant-Kitsune"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Dagon.zip",
+      "sha": "6d9b5457b1a4023fb890f5bc978bb3bfb5f8f620",
+      "bytes": 513186,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch026",
+      "identity": "God-Warrior-Dagon"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Isis.zip",
+      "sha": "7d6097fc18f94963f65d98cd4569f4c38b9f0ddf",
+      "bytes": 614594,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch027",
+      "identity": "God-Warrior-Isis"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Osiris.zip",
+      "sha": "45f63d638cb2f57958b59fa7baf12a30d53c54ab",
+      "bytes": 381248,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch028",
+      "identity": "God-Warrior-Osiris"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Skoll.zip",
+      "sha": "8cc3b1dcaec2d6b15084a27253c9a7ac2072b54c",
+      "bytes": 254426,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch029",
+      "identity": "God-Warrior-Skoll"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Goddess-Aphrodite.zip",
+      "sha": "f6764deb42ee258db6770d032e5e7b75c3fa74b6",
+      "bytes": 593066,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch030",
+      "identity": "Goddess-Aphrodite"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Grand-Sorceress-Duesa.zip",
+      "sha": "330f4bf717ec1b445afc44b94008acefa24a7515",
+      "bytes": 895740,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch044",
+      "identity": "Grand-Sorceress-Duesa"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Hades.zip",
+      "sha": "c3ff7caa72579b2db3520561c90f7054af81bc78",
+      "bytes": 430219,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch071",
+      "identity": "Hades"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Hellhound-Garm.zip",
+      "sha": "7d04ee062b251acd42ead049643054dd1aaec432",
+      "bytes": 345833,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_08",
+      "identity": "Hellhound-Garm"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Ice-Titan-Demeres.zip",
+      "sha": "cf4c8a1364a2495cbb292e9313ed1e4dd64c1bef",
+      "bytes": 716827,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch054",
+      "identity": "Ice-Titan-Demeres"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Insect-Queen.zip",
+      "sha": "d4cd2edbfdcbf300c8555c4c5befba103da5ef92",
+      "bytes": 770250,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch036",
+      "identity": "Insect-Queen"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Jubokko.zip",
+      "sha": "8658687ba6bbb61419cd5ee30bb3d6a7f597c8bd",
+      "bytes": 1619225,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch041",
+      "identity": "Jubokko"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-King-Archial.zip",
+      "sha": "846f6800cd2360f550294f63a0f30e30f59fa362",
+      "bytes": 477133,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch060",
+      "identity": "King-Archial"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Legendary-Knight-Michael.zip",
+      "sha": "dbf8cd7aa55789af9a647d213d1d19723d585ae6",
+      "bytes": 352445,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch064",
+      "identity": "Legendary-Knight-Michael"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Legendary-Knight-Regulus.zip",
+      "sha": "6f4335143a63e076daeb2c49a6d74ddcb2ef48fb",
+      "bytes": 424595,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch064",
+      "identity": "Legendary-Knight-Regulus"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Legendary-Knight-Remment.zip",
+      "sha": "e83ce3e5b2d4b047caa543b49da899facd233651",
+      "bytes": 507802,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch064",
+      "identity": "Legendary-Knight-Remment"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Light-Titan-Alfadriel.zip",
+      "sha": "6f61c00b8322a1fe3f90fc8cde7e1c8ccd92a107",
+      "bytes": 1029442,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch054",
+      "identity": "Light-Titan-Alfadriel"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Living-Hoard-Midas.zip",
+      "sha": "7f5b08953d03e2a21192622250f50cf27046d3e5",
+      "bytes": 379816,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch042",
+      "identity": "Living-Hoard-Midas"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Mecha-Rattlesnake.zip",
+      "sha": "5a69f151c565d4ca5193ba318d9ee665d8663cc6",
+      "bytes": 438566,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch059",
+      "identity": "Mecha-Rattlesnake"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-MechaScorpion.zip",
+      "sha": "48c2f3c93fa82714040d6346bbdd8e3498b0eaba",
+      "bytes": 608548,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch059",
+      "identity": "MechaScorpion"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Mermaid-Warrior-Undeen.zip",
+      "sha": "2b2553de80d61e7147f7f00b8babe1e8c31d8c64",
+      "bytes": 273887,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch028",
+      "identity": "Mermaid-Warrior-Undeen"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Mythical-Knight-Goldnharl.zip",
+      "sha": "cb555b9a7d040febe92edb7558c35cd7b72c4472",
+      "bytes": 277694,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch064",
+      "identity": "Mythical-Knight-Goldnharl"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Orc-Chief-Grunt.zip",
+      "sha": "aa9824964d140c5049e9330e63a9349b01689ba3",
+      "bytes": 439928,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch047",
+      "identity": "Orc-Chief-Grunt"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Parrot-King.zip",
+      "sha": "c2b42d996374f50c225702e0b73fe59a302d5bbf",
+      "bytes": 695620,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch060",
+      "identity": "Parrot-King"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Poseidon.zip",
+      "sha": "65e9d5092622e7e4b610c1a73f6e13b1a8d603d5",
+      "bytes": 377893,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch030",
+      "identity": "Poseidon"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Radulac-The-Voidvod.zip",
+      "sha": "97b458430aca69ca9eecae54dd274944e823f5e1",
+      "bytes": 686397,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch050",
+      "identity": "Radulac-The-Voidvod"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Runic-Stone-Golem-Goliath.zip",
+      "sha": "390d822eb4d804fc4976d8542d6edee77cce9ee0",
+      "bytes": 640968,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_03",
+      "identity": "Runic-Stone-Golem-Goliath"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Sea-Calamity-Urmica.zip",
+      "sha": "c9c960c1f6f14dcbed401a4a88d6288277e84774",
+      "bytes": 1185430,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch030",
+      "identity": "Sea-Calamity-Urmica"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Sea-Dragon-Leviathan.zip",
+      "sha": "4461f322231caba056f3e6e8af20414c5fa71169",
+      "bytes": 645651,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch029",
+      "identity": "Sea-Dragon-Leviathan"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-ShaccadYoggoth.zip",
+      "sha": "36a3923c30f992be7680ffb4d25292a52ed96338",
+      "bytes": 923526,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch054",
+      "identity": "ShaccadYoggoth"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Slime-Flynn.zip",
+      "sha": "8d30cc3e7ff2aac312473b3d3a63e32f7961ddf7",
+      "bytes": 285005,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_coast_01",
+      "identity": "Slime-Flynn"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Son-Of-Valhalla.zip",
+      "sha": "b4cbd1c60464d41ee9624e9950811d04769f540f",
+      "bytes": 580490,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch056",
+      "identity": "Son-Of-Valhalla"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Spirit-Fighter.zip",
+      "sha": "3b41fe6149445e89c6866e5f94d71cea7d7be267",
+      "bytes": 470647,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch058",
+      "identity": "Spirit-Fighter"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Sun-Goddess.zip",
+      "sha": "d38d7cfce377d81e4254e777ef882266460d9331",
+      "bytes": 216048,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch069",
+      "identity": "Sun-Goddess"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Tantalus.zip",
+      "sha": "209a7fe2b88002bfb66bf33603331408d4954b3f",
+      "bytes": 1083781,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_forge_01",
+      "identity": "Tantalus"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Thanatos.zip",
+      "sha": "7b1b19a6054ba3583e897e1251fdea782ef6294a",
+      "bytes": 657537,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch061",
+      "identity": "Thanatos"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-The-Fallen.zip",
+      "sha": "89fd8c76a4f9b5c078102efed9c92855c52e64f5",
+      "bytes": 216943,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch062",
+      "identity": "The-Fallen"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-The-Horde.zip",
+      "sha": "fde9cdebeb8c8466fe9c50484991237b24fdd65b",
+      "bytes": 615104,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch063",
+      "identity": "The-Horde"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Thunder-Titan-Dynamo.zip",
+      "sha": "03939374f2f85d96929e936a25d934197dbb836e",
+      "bytes": 723555,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch054",
+      "identity": "Thunder-Titan-Dynamo"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Tiamat-Double-Release.zip",
+      "sha": "12053faecf50cdab55be020f3aaad1a04cfdfd03",
+      "bytes": 1297727,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch048",
+      "identity": "Tiamat-Double-Release"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Unicorn.zip",
+      "sha": "e3bc6e66aae9ca2e89b03654c89b90f37b9b904d",
+      "bytes": 211843,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch068",
+      "identity": "Unicorn"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Zeograth.zip",
+      "sha": "f654f7302c91763c74be218fe15933e3cd8d2567",
+      "bytes": 647414,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch067",
+      "identity": "Zeograth"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Zodiac-Aries.zip",
+      "sha": "e68c07360e4279fae71a28c1d8bbf86923fa627c",
+      "bytes": 416364,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch068",
+      "identity": "Zodiac-Aries"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Zodiac-Cancer.zip",
+      "sha": "f66764926c8268ee01355774e81b1db8d5f49624",
+      "bytes": 514772,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch069",
+      "identity": "Zodiac-Cancer"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Animated-Legendary-Knight-Pizarro.zip",
+      "sha": "e33171c69712e98278ada196b60e90f0c4e34b56",
+      "bytes": 412668,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch064",
+      "identity": "Librarium-Animated-Legendary-Knight-Pizarro"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Animated-Mechadragon-Ladon.zip",
+      "sha": "5837f7b4d28a5cc93559d35496eb96dd90d60bdc",
+      "bytes": 1258883,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch059",
+      "identity": "Librarium-Animated-Mechadragon-Ladon"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Animated-Skull-Knight-Xoer.zip",
+      "sha": "bb77e19c1aaa05e88753f36f75ae78c76894a2c2",
+      "bytes": 582568,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_oaths_03",
+      "identity": "Librarium-Animated-Skull-Knight-Xoer"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Dragonbones-Megapack-I.zip",
+      "sha": "b12748b1c51b96bf390d7d1b0ae42d3e6d9f2467",
+      "bytes": 1464326,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch061",
+      "identity": "Librarium-Dragonbones-Megapack-I"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Cosmic-Drifter-Khronos.zip",
+      "sha": "16b8b782c563ab1bf13f26ecb4e7f9ab886d022c",
+      "bytes": 6001850,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch066",
+      "identity": "択ashics-Librarium-Cosmic-Drifter-Khronos"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Jiangshi.zip",
+      "sha": "d32eccf2ef02b003dffb4f2482db90eca7a6aec3",
+      "bytes": 153595,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch005",
+      "identity": "択ashics-Librarium-Jiangshi"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Weretiger-Maxima.zip",
+      "sha": "24635210306c955f5b28275fc50d484070cea21e",
+      "bytes": 5886977,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "boss.ch006",
+      "identity": "択ashics-Librarium-Weretiger-Maxima"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Witch-Baba.zip",
+      "sha": "5955f014e96ba03cb9cb5ad0680159bc744f4a5e",
+      "bytes": 124103,
+      "group": "dragonbones",
+      "role": "zip_skeleton_not_playable",
+      "target_id": "mon_mirror_08",
+      "identity": "択ashics-Librarium-Witch-Baba"
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/How to use.txt",
+      "sha": "70f63a61ca9e8f679a9d40dea6e29d842ec91155",
+      "bytes": 814,
+      "group": "terms_and_readme",
+      "role": "documentation",
+      "target_id": ""
+    },
+    {
+      "path": "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Jupiter/Terms of use - Tag settings.txt",
+      "sha": "22eb512e6b949ee6961278dd105a4e65ae4eb29a",
+      "bytes": 1632,
+      "group": "terms_and_readme",
+      "role": "documentation",
+      "target_id": ""
+    },
+    {
+      "path": "assets/art/source_packs/import_metadata/battlers_3frame/aekashics_librarium_3_frame_frontview_big_monster_sprites_4d6c2e16f2/files/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites/Terms of use.txt",
+      "sha": "552dd1d12dd18041612f0ec9831bde5858c82ef9",
+      "bytes": 6618,
+      "group": "terms_and_readme",
+      "role": "documentation",
+      "target_id": ""
+    },
+    {
+      "path": "assets/art/source_packs/import_metadata/battlers_dragonbones/aekashics_librarium_dragonbones_animated_battlers_90c8ce15af/files/Aekashics Librarium - Dragonbones Animated Battlers/Terms of use.txt",
+      "sha": "f4c8ded99b75aa5632ada776fc4f13e0835318ed",
+      "bytes": 6610,
+      "group": "terms_and_readme",
+      "role": "documentation",
+      "target_id": ""
+    },
+    {
+      "path": "assets/art/source_packs/import_metadata/battlers_mv_animated/aekashics_librarium_mv_format_animated_battlers_2bf9b035bd/files/Aekashics Librarium MV Format Animated Battlers/Terms of use.txt",
+      "sha": "af33fb14de9542d33301f737932cb1f4fff99cda",
+      "bytes": 6658,
+      "group": "terms_and_readme",
+      "role": "documentation",
+      "target_id": ""
+    }
+  ],
+  "identities": [
+    {
+      "id": "map:ancient_priestess",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch065",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/ancient_priestess.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:aphroditepr",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch068",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/aphroditepr.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:darkqueenshaccad",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch070",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/darkqueenshaccad.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:dynamo",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch043",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/dynamo.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:goken",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch047",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/goken.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:grunt",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch045",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/grunt.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:huanglong",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch061",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/huanglong.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:leviathan",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch029",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/leviathan.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:lknightmichael",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch064",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/lknightmichael.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:shaccadyogg",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch071",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/shaccadyogg.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:skoll",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "mon_oldland_07",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/skoll.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:skor",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch051",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/skor.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:urmicar",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch005",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/urmicar.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:voidgargoyleio",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "mon_sanctum_08",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/voidgargoyleio.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:zodiaccancer",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "mon_coast_02",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/zodiaccancer.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:mknightgoldnharl",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch062",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/mknightgoldnharl.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:skullknightxoer",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "mon_oaths_06",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/skullknightxoer.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:ygg",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch041",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/ygg.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:antqueen",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "mon_forge_01",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/antqueen.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster14",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch002",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster14.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster15",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch003",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster15.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster16",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch004",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster16.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster17",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch005",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster17.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster18",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch006",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster18.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster19",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch008",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster19.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster20",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch009",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster20.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster21",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch010",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster21.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:big_monster22",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch011",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/big_monster22.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster10",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch012",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster10.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster11",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch013",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster11.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster12",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch014",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster12.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster13",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch015",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster13.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster3",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch016",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster3.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster4",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch017",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster4.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster5",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch018",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster5.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster6",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch019",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster6.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster7",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch020",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster7.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster8",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch022",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster8.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:bigmonster9",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch023",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/bigmonster9.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:demeres",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "mon_mirror_09",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/demeres.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:legendaryknightremmentpr",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch064",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/legendaryknightremmentpr.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "map:kingsa",
+      "format": "3frame_3x4",
+      "group": "frontview_3frame",
+      "target_id": "boss.ch008",
+      "runtime_path": "res://assets/art/external/librarium_runtime/map/kingsa.png",
+      "status": "runtime_importable_map_marker_needs_authoring"
+    },
+    {
+      "id": "mv:alfadriel",
+      "group": "mv_animated",
+      "identity": "Alfadriel",
+      "target_id": "boss_act_11",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Alfadriel.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:anubis",
+      "group": "mv_animated",
+      "identity": "Anubis",
+      "target_id": "boss.ch064",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/anubis.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Anubis/Anubis.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:arriette",
+      "group": "mv_animated",
+      "identity": "Arriette",
+      "target_id": "boss.ch044",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Arriette.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:bat",
+      "group": "mv_animated",
+      "identity": "Bat",
+      "target_id": "mon_forge_02",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/bat.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Bat/Bat1_1.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:bigfish",
+      "group": "mv_animated",
+      "identity": "BigFish",
+      "target_id": "mon_isles_03",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/BigFish.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:bloodferal",
+      "group": "mv_animated",
+      "identity": "BloodFeral",
+      "target_id": "mon_oldland_07",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/BloodFeral.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:carnivorous_plant_cathy",
+      "group": "mv_animated",
+      "identity": "Carnivorous Plant Cathy",
+      "target_id": "boss.ch035",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/carnivorous_plant_cathy.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Carnivorous Plant Cathy/carnivorousplant.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:clockwork_dragon_gearex",
+      "group": "mv_animated",
+      "identity": "Clockwork Dragon Gearex",
+      "target_id": "boss.ch017",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/clockwork_dragon_gearex.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Clockwork Dragon Gearex/Gearex.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:critter_unibun",
+      "group": "mv_animated",
+      "identity": "Critter Unibun",
+      "target_id": "mon_mirror_02",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/critter_unibun.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Critter Unibun/Unibun.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Critter Unibun/Unibun1_1.png"
+      ],
+      "status": "candidate_imported"
+    },
+    {
+      "id": "mv:demon_butler_clorfos",
+      "group": "mv_animated",
+      "identity": "Demon Butler Clorfos",
+      "target_id": "mon_mirror_07",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/demon_butler_clorfos.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Demon Butler Clorfos/Clorfos3.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:doppelslime",
+      "group": "mv_animated",
+      "identity": "DoppelSlime",
+      "target_id": "mon_coast_01",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/DoppelSlime.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:dragon_demios",
+      "group": "mv_animated",
+      "identity": "Dragon Demios",
+      "target_id": "mon_forge_07",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/dragon_demios.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Dragon Demios/Demios.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:earth_dragon",
+      "group": "mv_animated",
+      "identity": "Earth Dragon",
+      "target_id": "boss.ch039",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Earth Dragon.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:eldritchovermind",
+      "group": "mv_animated",
+      "identity": "EldritchOvermind",
+      "target_id": "boss.ch070",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/EldritchOvermind.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:god_novus",
+      "group": "mv_animated",
+      "identity": "God Novus",
+      "target_id": "boss.ch065",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/God Novus.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:golem_ort",
+      "group": "mv_animated",
+      "identity": "Golem Ort",
+      "target_id": "mon_forge_03",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/golem_ort.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Golem Ort/Golem.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Golem Ort/Golem1_1.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Golem Ort/Golem1_2.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:great_owl",
+      "group": "mv_animated",
+      "identity": "Great Owl",
+      "target_id": "mon_oaths_04",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/great_owl.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Great Owl/Great Owl.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:ice_avian",
+      "group": "mv_animated",
+      "identity": "Ice Avian",
+      "target_id": "mon_mirror_01",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Ice Avian.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:jupiter",
+      "group": "mv_animated",
+      "identity": "Jupiter",
+      "target_id": "boss.ch018",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/jupiter.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Jupiter/Jupiter.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:khronos",
+      "group": "mv_animated",
+      "identity": "Khronos",
+      "target_id": "boss.ch066",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Khronos.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:kraken_oceanos",
+      "group": "mv_animated",
+      "identity": "Kraken Oceanos",
+      "target_id": "boss.ch029",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/kraken_oceanos.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Kraken Oceanos/OceanosL.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:lamia_diana",
+      "group": "mv_animated",
+      "identity": "Lamia Diana",
+      "target_id": "boss.ch028",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/lamia_diana.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana1_1.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana1_2.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Lamia Diana/Diana1_3.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:leaf_leafen",
+      "group": "mv_animated",
+      "identity": "Leaf Leafen",
+      "target_id": "boss.ch067",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/leaf_leafen.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Leaf Leafen/Leafen.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Leaf Leafen/Leafen1_1.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Leaf Leafen/Leafen1_2.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:mimic_mimic",
+      "group": "mv_animated",
+      "identity": "Mimic MiMic",
+      "target_id": "mon_mirror_03",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/mimic_mimic.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Mimic MiMic/Mimic.png"
+      ],
+      "status": "candidate_imported"
+    },
+    {
+      "id": "mv:minotaur_beef",
+      "group": "mv_animated",
+      "identity": "Minotaur Beef",
+      "target_id": "boss.ch039",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/minotaur_beef.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Minotaur Beef/Beef.png"
+      ],
+      "status": "candidate_imported"
+    },
+    {
+      "id": "mv:peacock",
+      "group": "mv_animated",
+      "identity": "Peacock",
+      "target_id": "mon_sanctum_09",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Peacock.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:phoenix",
+      "group": "mv_animated",
+      "identity": "Phoenix",
+      "target_id": "mon_sanctum_01",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/phoenix.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Phoenix/Phoenix.png"
+      ],
+      "status": "candidate_imported"
+    },
+    {
+      "id": "mv:quetzalcoatl",
+      "group": "mv_animated",
+      "identity": "Quetzalcoatl",
+      "target_id": "boss.ch030",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/quetzalcoatl.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Quetzalcoatl/Quetzalcoatl.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:rat_ritz",
+      "group": "mv_animated",
+      "identity": "Rat Ritz",
+      "target_id": "mon_forge_04",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/rat_ritz.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Rat Ritz/Ritz.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:skeleton_alstreim",
+      "group": "mv_animated",
+      "identity": "Skeleton Alstreim",
+      "target_id": "mon_oaths_03",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/skeleton_alstreim.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Skeleton Alstreim/Alstreim2.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:slime",
+      "group": "mv_animated",
+      "identity": "Slime",
+      "target_id": "mon_coast_01",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/slime.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_1.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_2.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_3.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_4.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_5.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_6.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_7.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_8.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Slime/Slime1_9.png"
+      ],
+      "status": "candidate_imported"
+    },
+    {
+      "id": "mv:snake_cobrens",
+      "group": "mv_animated",
+      "identity": "Snake Cobrens",
+      "target_id": "mon_isles_01",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/snake_cobrens.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens1_1.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens1_2.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Snake Cobrens/Cobrens1_3.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:succubbus_vi",
+      "group": "mv_animated",
+      "identity": "Succubbus Vi",
+      "target_id": "mon_mirror_08",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/succubbus_vi.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Succubbus Vi/Vi.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Succubbus Vi/Vi1_1.png",
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Succubbus Vi/Vi1_2.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:sun_goddess",
+      "group": "mv_animated",
+      "identity": "Sun Goddess",
+      "target_id": "boss_act_12",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Sun Goddess.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:tiamat",
+      "group": "mv_animated",
+      "identity": "Tiamat",
+      "target_id": "mon_oldland_09",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/tiamat.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Tiamat/Tiamat.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:tusk_god_warrior",
+      "group": "mv_animated",
+      "identity": "Tusk God Warrior",
+      "target_id": "boss.ch064",
+      "runtime_path": "",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Tusk God Warrior.zip"
+      ],
+      "status": "zip_pending_conversion"
+    },
+    {
+      "id": "mv:ventoss",
+      "group": "mv_animated",
+      "identity": "Ventoss",
+      "target_id": "boss.ch037",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/ventoss.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Ventoss/VEntos.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:werewolf_regulus",
+      "group": "mv_animated",
+      "identity": "Werewolf Regulus",
+      "target_id": "mon_forge_08",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/werewolf_regulus.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Werewolf Regulus/Regulus.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "mv:wisp_wispia",
+      "group": "mv_animated",
+      "identity": "Wisp Wispia",
+      "target_id": "mon_oldland_06",
+      "runtime_path": "res://assets/art/external/librarium_runtime/mv/wisp_wispia.png",
+      "source_files": [
+        "assets/art/source_packs/Aekashics Librarium MV Format Animated Battlers/RPG Maker MV format Animated Sideview Battlers/Wisp Wispia/Wispia.png"
+      ],
+      "status": "active_after_9x6_validation"
+    },
+    {
+      "id": "dragon:ancient-automaton",
+      "group": "dragonbones",
+      "identity": "Ancient-Automaton",
+      "target_id": "boss.ch014",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Ancient-Automaton.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:animated-drill-dwarf",
+      "group": "dragonbones",
+      "identity": "Animated-Drill-Dwarf",
+      "target_id": "mon_forge_06",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Animated-Drill-Dwarf.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:arcane-golem",
+      "group": "dragonbones",
+      "identity": "Arcane-Golem",
+      "target_id": "mon_forge_03",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Arcane-Golem.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:black-ant-queen",
+      "group": "dragonbones",
+      "identity": "Black-Ant-Queen",
+      "target_id": "mon_forge_01",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Black-Ant-Queen.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:bonemask-shadow-creature",
+      "group": "dragonbones",
+      "identity": "Bonemask-Shadow-Creature",
+      "target_id": "boss.ch006",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Bonemask-Shadow-Creature.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:clockwork-king",
+      "group": "dragonbones",
+      "identity": "Clockwork-King",
+      "target_id": "boss.ch017",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-King.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:clockwork-mage",
+      "group": "dragonbones",
+      "identity": "Clockwork-Mage",
+      "target_id": "boss.ch017",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-Mage.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:clockwork-prototype",
+      "group": "dragonbones",
+      "identity": "Clockwork-prototype",
+      "target_id": "boss.ch017",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-prototype.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:clockwork-skull",
+      "group": "dragonbones",
+      "identity": "Clockwork-Skull",
+      "target_id": "boss.ch017",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Clockwork-Skull.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:colossal-crow",
+      "group": "dragonbones",
+      "identity": "Colossal-Crow",
+      "target_id": "mon_oaths_04",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Colossal-Crow.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:continental-turtle-rukkha",
+      "group": "dragonbones",
+      "identity": "Continental-Turtle-Rukkha",
+      "target_id": "boss.ch039",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Continental-Turtle-Rukkha.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:crab-king-karkinos",
+      "group": "dragonbones",
+      "identity": "Crab-King-Karkinos",
+      "target_id": "mon_coast_02",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Crab-King-Karkinos.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:cultist-mage",
+      "group": "dragonbones",
+      "identity": "Cultist-Mage",
+      "target_id": "mon_mirror_07",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Cultist-Mage.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:daidarabotchi",
+      "group": "dragonbones",
+      "identity": "Daidarabotchi",
+      "target_id": "boss.ch016",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Daidarabotchi.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:dark-queen-shaccadyoggoth",
+      "group": "dragonbones",
+      "identity": "Dark-Queen-ShaccadYoggoth",
+      "target_id": "boss.ch036",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dark-Queen-ShaccadYoggoth.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:darkness-titan-ilnoct",
+      "group": "dragonbones",
+      "identity": "Darkness-Titan-Ilnoct",
+      "target_id": "boss.ch054",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Darkness-Titan-Ilnoct.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:dragon-huanglong",
+      "group": "dragonbones",
+      "identity": "Dragon-Huanglong",
+      "target_id": "boss.ch061",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dragon-Huanglong.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:dryad-queen-rafflesia",
+      "group": "dragonbones",
+      "identity": "Dryad-Queen-Rafflesia",
+      "target_id": "boss.ch041",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dryad-Queen-Rafflesia.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:dryad-yggdrasil",
+      "group": "dragonbones",
+      "identity": "Dryad-Yggdrasil",
+      "target_id": "boss.ch041",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Dryad-Yggdrasil.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:eldritch-overmind",
+      "group": "dragonbones",
+      "identity": "Eldritch-Overmind",
+      "target_id": "boss.ch070",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Eldritch-Overmind.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:giant-kitsune",
+      "group": "dragonbones",
+      "identity": "Giant-Kitsune",
+      "target_id": "mon_forge_01",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Giant-Kitsune.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:god-warrior-dagon",
+      "group": "dragonbones",
+      "identity": "God-Warrior-Dagon",
+      "target_id": "boss.ch026",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Dagon.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:god-warrior-isis",
+      "group": "dragonbones",
+      "identity": "God-Warrior-Isis",
+      "target_id": "boss.ch027",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Isis.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:god-warrior-osiris",
+      "group": "dragonbones",
+      "identity": "God-Warrior-Osiris",
+      "target_id": "boss.ch028",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Osiris.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:god-warrior-skoll",
+      "group": "dragonbones",
+      "identity": "God-Warrior-Skoll",
+      "target_id": "boss.ch029",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-God-Warrior-Skoll.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:goddess-aphrodite",
+      "group": "dragonbones",
+      "identity": "Goddess-Aphrodite",
+      "target_id": "boss.ch030",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Goddess-Aphrodite.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:grand-sorceress-duesa",
+      "group": "dragonbones",
+      "identity": "Grand-Sorceress-Duesa",
+      "target_id": "boss.ch044",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Grand-Sorceress-Duesa.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:hades",
+      "group": "dragonbones",
+      "identity": "Hades",
+      "target_id": "boss.ch071",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Hades.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:hellhound-garm",
+      "group": "dragonbones",
+      "identity": "Hellhound-Garm",
+      "target_id": "mon_forge_08",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Hellhound-Garm.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:ice-titan-demeres",
+      "group": "dragonbones",
+      "identity": "Ice-Titan-Demeres",
+      "target_id": "boss.ch054",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Ice-Titan-Demeres.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:insect-queen",
+      "group": "dragonbones",
+      "identity": "Insect-Queen",
+      "target_id": "boss.ch036",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Insect-Queen.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:jubokko",
+      "group": "dragonbones",
+      "identity": "Jubokko",
+      "target_id": "boss.ch041",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Jubokko.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:king-archial",
+      "group": "dragonbones",
+      "identity": "King-Archial",
+      "target_id": "boss.ch060",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-King-Archial.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:legendary-knight-michael",
+      "group": "dragonbones",
+      "identity": "Legendary-Knight-Michael",
+      "target_id": "boss.ch064",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Legendary-Knight-Michael.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:legendary-knight-regulus",
+      "group": "dragonbones",
+      "identity": "Legendary-Knight-Regulus",
+      "target_id": "boss.ch064",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Legendary-Knight-Regulus.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:legendary-knight-remment",
+      "group": "dragonbones",
+      "identity": "Legendary-Knight-Remment",
+      "target_id": "boss.ch064",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Legendary-Knight-Remment.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:light-titan-alfadriel",
+      "group": "dragonbones",
+      "identity": "Light-Titan-Alfadriel",
+      "target_id": "boss.ch054",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Light-Titan-Alfadriel.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:living-hoard-midas",
+      "group": "dragonbones",
+      "identity": "Living-Hoard-Midas",
+      "target_id": "boss.ch042",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Living-Hoard-Midas.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:mecha-rattlesnake",
+      "group": "dragonbones",
+      "identity": "Mecha-Rattlesnake",
+      "target_id": "boss.ch059",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Mecha-Rattlesnake.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:mechascorpion",
+      "group": "dragonbones",
+      "identity": "MechaScorpion",
+      "target_id": "boss.ch059",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-MechaScorpion.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:mermaid-warrior-undeen",
+      "group": "dragonbones",
+      "identity": "Mermaid-Warrior-Undeen",
+      "target_id": "boss.ch028",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Mermaid-Warrior-Undeen.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:mythical-knight-goldnharl",
+      "group": "dragonbones",
+      "identity": "Mythical-Knight-Goldnharl",
+      "target_id": "boss.ch064",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Mythical-Knight-Goldnharl.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:orc-chief-grunt",
+      "group": "dragonbones",
+      "identity": "Orc-Chief-Grunt",
+      "target_id": "boss.ch047",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Orc-Chief-Grunt.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:parrot-king",
+      "group": "dragonbones",
+      "identity": "Parrot-King",
+      "target_id": "boss.ch060",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Parrot-King.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:poseidon",
+      "group": "dragonbones",
+      "identity": "Poseidon",
+      "target_id": "boss.ch030",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Poseidon.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:radulac-the-voidvod",
+      "group": "dragonbones",
+      "identity": "Radulac-The-Voidvod",
+      "target_id": "boss.ch050",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Radulac-The-Voidvod.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:runic-stone-golem-goliath",
+      "group": "dragonbones",
+      "identity": "Runic-Stone-Golem-Goliath",
+      "target_id": "mon_forge_03",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Runic-Stone-Golem-Goliath.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:sea-calamity-urmica",
+      "group": "dragonbones",
+      "identity": "Sea-Calamity-Urmica",
+      "target_id": "boss.ch030",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Sea-Calamity-Urmica.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:sea-dragon-leviathan",
+      "group": "dragonbones",
+      "identity": "Sea-Dragon-Leviathan",
+      "target_id": "boss.ch029",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Sea-Dragon-Leviathan.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:shaccadyoggoth",
+      "group": "dragonbones",
+      "identity": "ShaccadYoggoth",
+      "target_id": "boss.ch054",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-ShaccadYoggoth.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:slime-flynn",
+      "group": "dragonbones",
+      "identity": "Slime-Flynn",
+      "target_id": "mon_coast_01",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Slime-Flynn.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:son-of-valhalla",
+      "group": "dragonbones",
+      "identity": "Son-Of-Valhalla",
+      "target_id": "boss.ch056",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Son-Of-Valhalla.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:spirit-fighter",
+      "group": "dragonbones",
+      "identity": "Spirit-Fighter",
+      "target_id": "boss.ch058",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Spirit-Fighter.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:sun-goddess",
+      "group": "dragonbones",
+      "identity": "Sun-Goddess",
+      "target_id": "boss.ch069",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Sun-Goddess.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:tantalus",
+      "group": "dragonbones",
+      "identity": "Tantalus",
+      "target_id": "mon_forge_01",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Tantalus.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:thanatos",
+      "group": "dragonbones",
+      "identity": "Thanatos",
+      "target_id": "boss.ch061",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Thanatos.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:the-fallen",
+      "group": "dragonbones",
+      "identity": "The-Fallen",
+      "target_id": "boss.ch062",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-The-Fallen.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:the-horde",
+      "group": "dragonbones",
+      "identity": "The-Horde",
+      "target_id": "boss.ch063",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-The-Horde.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:thunder-titan-dynamo",
+      "group": "dragonbones",
+      "identity": "Thunder-Titan-Dynamo",
+      "target_id": "boss.ch054",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Thunder-Titan-Dynamo.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:tiamat-double-release",
+      "group": "dragonbones",
+      "identity": "Tiamat-Double-Release",
+      "target_id": "boss.ch048",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Tiamat-Double-Release.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:unicorn",
+      "group": "dragonbones",
+      "identity": "Unicorn",
+      "target_id": "boss.ch068",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Unicorn.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:zeograth",
+      "group": "dragonbones",
+      "identity": "Zeograth",
+      "target_id": "boss.ch067",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Zeograth.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:zodiac-aries",
+      "group": "dragonbones",
+      "identity": "Zodiac-Aries",
+      "target_id": "boss.ch068",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Zodiac-Aries.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:zodiac-cancer",
+      "group": "dragonbones",
+      "identity": "Zodiac-Cancer",
+      "target_id": "boss.ch069",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Aekashics-Librarium-Zodiac-Cancer.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:librarium-animated-legendary-knight-pizarro",
+      "group": "dragonbones",
+      "identity": "Librarium-Animated-Legendary-Knight-Pizarro",
+      "target_id": "boss.ch064",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Animated-Legendary-Knight-Pizarro.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:librarium-animated-mechadragon-ladon",
+      "group": "dragonbones",
+      "identity": "Librarium-Animated-Mechadragon-Ladon",
+      "target_id": "boss.ch059",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Animated-Mechadragon-Ladon.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:librarium-animated-skull-knight-xoer",
+      "group": "dragonbones",
+      "identity": "Librarium-Animated-Skull-Knight-Xoer",
+      "target_id": "mon_oaths_03",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Animated-Skull-Knight-Xoer.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:librarium-dragonbones-megapack-i",
+      "group": "dragonbones",
+      "identity": "Librarium-Dragonbones-Megapack-I",
+      "target_id": "boss.ch061",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/Librarium-Dragonbones-Megapack-I.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:ashics-librarium-cosmic-drifter-khronos",
+      "group": "dragonbones",
+      "identity": "択ashics-Librarium-Cosmic-Drifter-Khronos",
+      "target_id": "boss.ch066",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Cosmic-Drifter-Khronos.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:ashics-librarium-jiangshi",
+      "group": "dragonbones",
+      "identity": "択ashics-Librarium-Jiangshi",
+      "target_id": "boss.ch005",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Jiangshi.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:ashics-librarium-weretiger-maxima",
+      "group": "dragonbones",
+      "identity": "択ashics-Librarium-Weretiger-Maxima",
+      "target_id": "boss.ch006",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Weretiger-Maxima.zip",
+      "status": "blocked_pending_godot_adapter"
+    },
+    {
+      "id": "dragon:ashics-librarium-witch-baba",
+      "group": "dragonbones",
+      "identity": "択ashics-Librarium-Witch-Baba",
+      "target_id": "mon_mirror_08",
+      "source_path": "assets/art/source_packs/Aekashics Librarium - Dragonbones Animated Battlers/Dragonbones Battlers/択ashics-Librarium-Witch-Baba.zip",
+      "status": "blocked_pending_godot_adapter"
+    }
+  ],
+  "assignments": [
+    {
+      "id": "mon_coast_01",
+      "name": "盐泥团",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:doppelslime",
+        "mv:slime"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:slime-flynn"
+      ],
+      "live": false
+    },
+    {
+      "id": "mon_coast_02",
+      "name": "雾壳蟹",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/zodiaccancer.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:crab-king-karkinos"
+      ],
+      "live": false
+    },
+    {
+      "id": "mon_coast_03",
+      "name": "砂灯蜥",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_coast_04",
+      "name": "潮泡幽灵",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_coast_05",
+      "name": "白礁鸟",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_coast_06",
+      "name": "空贝寄居",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_coast_07",
+      "name": "盐纹狼",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_coast_08",
+      "name": "星涡鳐",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_coast_09",
+      "name": "潮底看守",
+      "kind": "monster",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_01",
+      "name": "誓林鹿影",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_02",
+      "name": "高原铁蜂",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_03",
+      "name": "断旗亡兵",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/skeleton_alstreim.png",
+      "mv_candidates": [
+        "mv:skeleton_alstreim"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:librarium-animated-skull-knight-xoer"
+      ],
+      "live": true
+    },
+    {
+      "id": "mon_oaths_04",
+      "name": "岩纹哨鹰",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/great_owl.png",
+      "mv_candidates": [
+        "mv:great_owl"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:colossal-crow"
+      ],
+      "live": true
+    },
+    {
+      "id": "mon_oaths_05",
+      "name": "壁垒石犬",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_06",
+      "name": "空誓骑魂",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/skullknightxoer.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_07",
+      "name": "誓印巨蜥",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_08",
+      "name": "三钟巡者",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oaths_09",
+      "name": "无面判官",
+      "kind": "monster",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_forge_01",
+      "name": "煤灰蚁",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/antqueen.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:black-ant-queen",
+        "dragon:giant-kitsune",
+        "dragon:tantalus"
+      ],
+      "live": false
+    },
+    {
+      "id": "mon_forge_02",
+      "name": "炉火蝠",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/bat.png",
+      "mv_candidates": [
+        "mv:bat"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "mon_forge_03",
+      "name": "铁砂傀儡",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/golem_ort.png",
+      "mv_candidates": [
+        "mv:golem_ort"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:arcane-golem",
+        "dragon:runic-stone-golem-goliath"
+      ],
+      "live": true
+    },
+    {
+      "id": "mon_forge_04",
+      "name": "烟尾鼠",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/rat_ritz.png",
+      "mv_candidates": [
+        "mv:rat_ritz"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "mon_forge_05",
+      "name": "熔渣甲虫",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_forge_06",
+      "name": "铜齿机械",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:animated-drill-dwarf"
+      ],
+      "live": false
+    },
+    {
+      "id": "mon_forge_07",
+      "name": "裂炉熔兽",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/dragon_demios.png",
+      "mv_candidates": [
+        "mv:dragon_demios"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "mon_forge_08",
+      "name": "赤芯猎犬",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/werewolf_regulus.png",
+      "mv_candidates": [
+        "mv:werewolf_regulus"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:hellhound-garm"
+      ],
+      "live": true
+    },
+    {
+      "id": "mon_forge_09",
+      "name": "禁炉执刑者",
+      "kind": "monster",
+      "region_id": "region_forge",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_01",
+      "name": "蓝珊海蛇",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/snake_cobrens.png",
+      "mv_candidates": [
+        "mv:snake_cobrens"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "mon_isles_02",
+      "name": "礁影水母",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_03",
+      "name": "泡鸣鱼群",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:bigfish"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_04",
+      "name": "海歌羽灵",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_05",
+      "name": "潮穴刺螯",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_06",
+      "name": "深海潜客",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_07",
+      "name": "断桅海妖",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_08",
+      "name": "黑潮巨鳗",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_isles_09",
+      "name": "深渊引歌者",
+      "kind": "monster",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_01",
+      "name": "眠砂蝶",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:ice_avian"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_02",
+      "name": "倒影狸",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:critter_unibun"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_03",
+      "name": "银玻璃人偶",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:mimic_mimic"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_04",
+      "name": "迷梦菇",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_05",
+      "name": "破镜蛛",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_06",
+      "name": "无面镜骑",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_mirror_07",
+      "name": "寝钟侍者",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/demon_butler_clorfos.png",
+      "mv_candidates": [
+        "mv:demon_butler_clorfos"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:cultist-mage"
+      ],
+      "live": true
+    },
+    {
+      "id": "mon_mirror_08",
+      "name": "双影魔女",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/succubbus_vi.png",
+      "mv_candidates": [
+        "mv:succubbus_vi"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:ashics-librarium-witch-baba"
+      ],
+      "live": true
+    },
+    {
+      "id": "mon_mirror_09",
+      "name": "遗忘裁缝",
+      "kind": "monster",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/demeres.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_01",
+      "name": "时砂蚁狮",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_02",
+      "name": "腐钟幽兵",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_03",
+      "name": "旧星螳螂",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_04",
+      "name": "断轨机兵",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_05",
+      "name": "碎碑看守",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_06",
+      "name": "荒城残影",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/wisp_wispia.png",
+      "mv_candidates": [
+        "mv:wisp_wispia"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "mon_oldland_07",
+      "name": "岁影捕食者",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:bloodferal"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/skoll.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_08",
+      "name": "空心灯卫",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_oldland_09",
+      "name": "古代星孽",
+      "kind": "monster",
+      "region_id": "region_oldland",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/tiamat.png",
+      "mv_candidates": [
+        "mv:tiamat"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "mon_sanctum_01",
+      "name": "虚空灯蛾",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:phoenix"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_02",
+      "name": "天轨眼球",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_03",
+      "name": "寂潮游魂",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_04",
+      "name": "暮刻守卫",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_05",
+      "name": "七灯残音",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_06",
+      "name": "永昼空壳",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_07",
+      "name": "星链执事",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_08",
+      "name": "终夜巡者",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/voidgargoyleio.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "mon_sanctum_09",
+      "name": "逆星幻兽",
+      "kind": "monster",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:peacock"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch002",
+      "name": "雾潮寄生体",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster14.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch003",
+      "name": "潮痕守卫",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster15.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch004",
+      "name": "灰帷水手",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster16.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch005",
+      "name": "缚潮古兽",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/urmicar.png",
+        "res://assets/art/external/librarium_runtime/map/big_monster17.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:ashics-librarium-jiangshi"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch006",
+      "name": "潮歌守门人",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster18.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:bonemask-shadow-creature",
+        "dragon:ashics-librarium-weretiger-maxima"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch008",
+      "name": "伪装边防队",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster19.png",
+        "res://assets/art/external/librarium_runtime/map/kingsa.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch009",
+      "name": "王城禁卫",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster20.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch010",
+      "name": "灰帷纵火者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster21.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch011",
+      "name": "伪誓顾问",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/big_monster22.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch012",
+      "name": "律序执剑者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster10.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch013",
+      "name": "噬忆矿螳",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster11.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch014",
+      "name": "失控采矿机",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster12.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:ancient-automaton"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch015",
+      "name": "百工机关偶",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster13.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch016",
+      "name": "记忆收割机",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster3.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:daidarabotchi"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch017",
+      "name": "赤炉巨机",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/clockwork_dragon_gearex.png",
+      "mv_candidates": [
+        "mv:clockwork_dragon_gearex"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster4.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:clockwork-king",
+        "dragon:clockwork-mage",
+        "dragon:clockwork-prototype",
+        "dragon:clockwork-skull"
+      ],
+      "live": true
+    },
+    {
+      "id": "boss.ch018",
+      "name": "炉心监察者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/jupiter.png",
+      "mv_candidates": [
+        "mv:jupiter"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster5.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "boss.ch019",
+      "name": "肃清队长",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster6.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch020",
+      "name": "灰帷猎手",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster7.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch022",
+      "name": "白夜傀儡",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster8.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch023",
+      "name": "记录监守者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/bigmonster9.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch024",
+      "name": "古议会之影",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch026",
+      "name": "海信怨灵",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:god-warrior-dagon"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch027",
+      "name": "深海钟卫",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:god-warrior-isis"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch028",
+      "name": "无声海妖",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/lamia_diana.png",
+      "mv_candidates": [
+        "mv:lamia_diana"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:god-warrior-osiris",
+        "dragon:mermaid-warrior-undeen"
+      ],
+      "live": true
+    },
+    {
+      "id": "boss.ch029",
+      "name": "静海巨蛸",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/kraken_oceanos.png",
+      "mv_candidates": [
+        "mv:kraken_oceanos"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/leviathan.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:god-warrior-skoll",
+        "dragon:sea-dragon-leviathan"
+      ],
+      "live": true
+    },
+    {
+      "id": "boss.ch030",
+      "name": "逆风海魁",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/quetzalcoatl.png",
+      "mv_candidates": [
+        "mv:quetzalcoatl"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:goddess-aphrodite",
+        "dragon:poseidon",
+        "dragon:sea-calamity-urmica"
+      ],
+      "live": true
+    },
+    {
+      "id": "boss.ch031",
+      "name": "笑颜面偶",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch032",
+      "name": "镜面行者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch033",
+      "name": "愿景残响",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch034",
+      "name": "梦核回收者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch035",
+      "name": "眠潮蔓藤",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/carnivorous_plant_cathy.png",
+      "mv_candidates": [
+        "mv:carnivorous_plant_cathy"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "boss.ch036",
+      "name": "梦境王座",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:dark-queen-shaccadyoggoth",
+        "dragon:insect-queen"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch037",
+      "name": "遮航迷雾",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/ventoss.png",
+      "mv_candidates": [
+        "mv:ventoss"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": true
+    },
+    {
+      "id": "boss.ch038",
+      "name": "伪忆群影",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch039",
+      "name": "谷地岩蛇",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:earth_dragon",
+        "mv:minotaur_beef"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:continental-turtle-rukkha"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch040",
+      "name": "旧日裁决者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch041",
+      "name": "地脉缠根王",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/ygg.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:dryad-queen-rafflesia",
+        "dragon:dryad-yggdrasil",
+        "dragon:jubokko"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch042",
+      "name": "根忆哀歌",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:living-hoard-midas"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch043",
+      "name": "高压星阵",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/dynamo.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch044",
+      "name": "赫西安幻身",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:arriette"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:grand-sorceress-duesa"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch045",
+      "name": "暴走民兵",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/grunt.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch046",
+      "name": "赤烬战舰",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch047",
+      "name": "赤烬将军库洛萨",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/goken.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:orc-chief-grunt"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch048",
+      "name": "黑星化身",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:tiamat-double-release"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch049",
+      "name": "荒原窃光兽",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch050",
+      "name": "门卫机关",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:radulac-the-voidvod"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch051",
+      "name": "岭间魔狼",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/skor.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch052",
+      "name": "落灯盗团",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch053",
+      "name": "旧潮遗骸",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch054",
+      "name": "群星考验者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:darkness-titan-ilnoct",
+        "dragon:ice-titan-demeres",
+        "dragon:light-titan-alfadriel",
+        "dragon:shaccadyoggoth",
+        "dragon:thunder-titan-dynamo"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch055",
+      "name": "废铁搬运偶",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch056",
+      "name": "佣兵试探队",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:son-of-valhalla"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch058",
+      "name": "议会追猎者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:spirit-fighter"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch059",
+      "name": "强硬派机兵",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:mecha-rattlesnake",
+        "dragon:mechascorpion",
+        "dragon:librarium-animated-mechadragon-ladon"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch060",
+      "name": "赤烬主力机",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:king-archial",
+        "dragon:parrot-king"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch061",
+      "name": "天轨巡游兽",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/huanglong.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:dragon-huanglong",
+        "dragon:thanatos",
+        "dragon:librarium-dragonbones-megapack-i"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch062",
+      "name": "原初算偶",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/mknightgoldnharl.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:the-fallen"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch063",
+      "name": "记忆监察者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:the-horde"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch064",
+      "name": "天衡审判者",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/anubis.png",
+      "mv_candidates": [
+        "mv:anubis",
+        "mv:tusk_god_warrior"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/lknightmichael.png",
+        "res://assets/art/external/librarium_runtime/map/legendaryknightremmentpr.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:legendary-knight-michael",
+        "dragon:legendary-knight-regulus",
+        "dragon:legendary-knight-remment",
+        "dragon:mythical-knight-goldnharl",
+        "dragon:librarium-animated-legendary-knight-pizarro"
+      ],
+      "live": true
+    },
+    {
+      "id": "boss.ch065",
+      "name": "七灯议会合议体",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:god_novus"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/ancient_priestess.png"
+      ],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss.ch066",
+      "name": "定时星蛇",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:khronos"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:ashics-librarium-cosmic-drifter-khronos"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch067",
+      "name": "永昼园丁",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "res://assets/art/external/librarium_runtime/mv/leaf_leafen.png",
+      "mv_candidates": [
+        "mv:leaf_leafen"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:zeograth"
+      ],
+      "live": true
+    },
+    {
+      "id": "boss.ch068",
+      "name": "愿望之影",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/aphroditepr.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:unicorn",
+        "dragon:zodiac-aries"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch069",
+      "name": "静日守门人",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [
+        "dragon:sun-goddess",
+        "dragon:zodiac-cancer"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch070",
+      "name": "七灯意志",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:eldritchovermind"
+      ],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/darkqueenshaccad.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:eldritch-overmind"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss.ch071",
+      "name": "终幕司录者赫西安",
+      "kind": "story_boss",
+      "region_id": "",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [
+        "res://assets/art/external/librarium_runtime/map/shaccadyogg.png"
+      ],
+      "dragonbones_candidates": [
+        "dragon:hades"
+      ],
+      "live": false
+    },
+    {
+      "id": "boss_act_01",
+      "name": "潮底记忆吞噬者",
+      "kind": "act_boss",
+      "region_id": "region_coast",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_02",
+      "name": "律序残誓执政官",
+      "kind": "act_boss",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_03",
+      "name": "炉心记忆机神",
+      "kind": "act_boss",
+      "region_id": "region_forge",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_04",
+      "name": "旧议会镜录机兵",
+      "kind": "act_boss",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_05",
+      "name": "风航深潮回声",
+      "kind": "act_boss",
+      "region_id": "region_isles",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_06",
+      "name": "镜眠回收使",
+      "kind": "act_boss",
+      "region_id": "region_mirror",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_07",
+      "name": "根忆断碑守卫",
+      "kind": "act_boss",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_08",
+      "name": "赤烬将军·库洛萨",
+      "kind": "act_boss",
+      "region_id": "region_oaths",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_09",
+      "name": "黑星遗迹猎手",
+      "kind": "act_boss",
+      "region_id": "region_oldland",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_10",
+      "name": "失控灯网核心",
+      "kind": "act_boss",
+      "region_id": "region_city",
+      "primary_mv": "",
+      "mv_candidates": [],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_11",
+      "name": "天衡旧议会守门者",
+      "kind": "act_boss",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:alfadriel"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    },
+    {
+      "id": "boss_act_12",
+      "name": "赫西安·终幕司录者",
+      "kind": "act_boss",
+      "region_id": "region_sanctum",
+      "primary_mv": "",
+      "mv_candidates": [
+        "mv:sun_goddess"
+      ],
+      "map_candidates": [],
+      "dragonbones_candidates": [],
+      "live": false
+    }
+  ],
+  "open_items": [
+    "Static Battlers assets missing",
+    "72 DragonBones ZIP conversion",
+    "13 MV ZIP extraction",
+    "Map encounter markers require authored placement and QA",
+    "21 activated MV slots require Godot visual QA"
+  ]
+}

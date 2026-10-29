@@ -1,0 +1,331 @@
+{
+  "schema_version": 3,
+  "map_id": "map_isles_05",
+  "title": "沉没王座",
+  "biome": "archipelago",
+  "category": "landmark",
+  "design_intent": "群岛水路与石桥",
+  "size": [
+    98,
+    58
+  ],
+  "roads": [
+    {
+      "id": "spine-岛屿链桥",
+      "width": 1,
+      "points": [
+        [
+          6,
+          30
+        ],
+        [
+          19,
+          13
+        ],
+        [
+          40,
+          34
+        ],
+        [
+          57,
+          15
+        ],
+        [
+          91,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "branch-isles",
+      "width": 1,
+      "points": [
+        [
+          17,
+          5
+        ],
+        [
+          31,
+          19
+        ],
+        [
+          36,
+          29
+        ],
+        [
+          38,
+          51
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          12,
+          38
+        ],
+        [
+          31,
+          36
+        ],
+        [
+          54,
+          31
+        ],
+        [
+          26,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          54,
+          29
+        ],
+        [
+          76,
+          17
+        ],
+        [
+          92,
+          26
+        ],
+        [
+          89,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          17,
+          14
+        ],
+        [
+          54,
+          9
+        ],
+        [
+          62,
+          40
+        ],
+        [
+          86,
+          50
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          6
+        ],
+        [
+          33,
+          4
+        ],
+        [
+          64,
+          6
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          40
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          64,
+          40
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_isles_05",
+      "width": 2,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          93,
+          17
+        ],
+        [
+          94,
+          45
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [
+    {
+      "id": "tidal-channel",
+      "width": 4,
+      "points": [
+        [
+          67,
+          9
+        ],
+        [
+          62,
+          16
+        ],
+        [
+          67,
+          31
+        ],
+        [
+          66,
+          43
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "regional-stream-map_isles_05",
+      "width": 2,
+      "points": [
+        [
+          93,
+          6
+        ],
+        [
+          90,
+          21
+        ],
+        [
+          93,
+          45
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_isles_05",
+      "center": [
+        25,
+        23
+      ],
+      "radius": 3
+    },
+    {
+      "id": "fork-outlook-map_isles_05",
+      "center": [
+        54,
+        33
+      ],
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_isles_05",
+      "center": [
+        88,
+        49
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_isles_05",
+      "cell": [
+        56,
+        19
+      ],
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "secondary-lookout-map_isles_05",
+      "cell": [
+        27,
+        35
+      ],
+      "kind": "barrel"
+    },
+    {
+      "id": "peripheral-crest-map_isles_05",
+      "cell": [
+        89,
+        48
+      ],
+      "kind": "beacon"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        94,
+        54
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        94,
+        42
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        89,
+        26
+      ],
+      "kind": "beacon",
+      "name": "潮桥灯位·沉没王座"
+    },
+    {
+      "cell": [
+        87,
+        48
+      ],
+      "kind": "sign",
+      "name": "珊瑚浅径·沉没王座"
+    },
+    {
+      "cell": [
+        68,
+        49
+      ],
+      "kind": "star_lantern",
+      "name": "归航星标·沉没王座"
+    }
+  ],
+  "layout_identity": "isles.05.岛屿链桥",
+  "layout_principle": "岛屿链桥：依据「沉没王座」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

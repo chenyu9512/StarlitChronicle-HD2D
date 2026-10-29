@@ -1,0 +1,32 @@
+name: "Main2 · iOS Export Preflight Regression"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "tools/ios_export_preflight.py"
+      - "tools/test_ios_export_preflight.py"
+      - "project.godot"
+      - "export_presets.cfg"
+      - ".github/workflows/main2-ios-preflight.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  godot-config-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify Python syntax
+        run: python -m py_compile tools/ios_export_preflight.py tools/test_ios_export_preflight.py
+      - name: Test Godot config_version and other preflight failures
+        run: python -m unittest discover -s tools -p "test_ios_export_preflight.py" -v
+      - name: Check actual Main2 iOS export preset before Codemagic
+        run: python tools/ios_export_preflight.py --project .
+      - name: Assert project.godot was not rewritten to fake an INI file
+        run: |
+          grep -q '^config_version=5$' project.godot
+          test -z "$(git status --porcelain --untracked-files=no)"

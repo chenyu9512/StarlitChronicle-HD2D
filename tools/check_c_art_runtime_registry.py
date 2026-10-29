@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+"""A-line static audit of the single Main2 runtime art registry.
+
+Run from any directory: python tools/check_c_art_runtime_registry.py
+Checks tracked file existence/identity and registry semantics. This does NOT
+claim Godot import, live scene drawing, animation, aesthetic or visual QA.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+from collections import defaultdict
+from pathlib import Path
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+INDEX = ROOT / "data/assets/c_art_runtime_registry_v1.json"
+KINDS = (".png", ".svg", ".jpg", ".jpeg", ".webp")
+EXPECTED_REGIONS = {
+    "region_coast", "region_oaths", "region_forge", "region_isles",
+    "region_mirror", "region_oldland", "region_sanctum", "region_city",
+}
+
+
+def tracked_images() -> set[str]:
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "-z", "--", "assets/art"],
+            cwd=ROOT, check=True, capture_output=True,
+        )
+        paths = [p.decode("utf-8") for p in result.stdout.split(b"\0") if p]
+        return {"res://" + p for p in paths if p.lower().endswith(KINDS)}
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return {
+            "res://" + str(p.relative_to(ROOT)).replace("\\", "/")
+            for p in (ROOT / "assets/art").rglob("*")
+            if p.is_file() and p.suffix.lower() in KINDS
+        }
+
+
+def file_path(source: str) -> Path | None:
+    if not isinstance(source, str) or not source.startswith("res://"):
+        return None
+    relative = Path(source[6:])
+    if relative.is_absolute() or ".." in relative.parts:
+        return None
+    return ROOT / relative
+
+
+def sha_blob(path: Path) -> str:
+    data = path.read_bytes()
+    prefix = b"blob " + str(len(data)).encode("ascii") + b"\0"
+    return hashlib.sha1(prefix + data).hexdigest()
+
+
+def main() -> int:
+    errors: list[str] = []
+    notes: list[str] = []
+    index = json.loads(INDEX.read_text(encoding="utf-8"))
+    if index.get("schema") != "starlit.c.art_runtime_registry.v1":
+        errors.append("Wrong runtime registry schema")
+    entries = index.get("sources", {})
+    actual = tracked_images()
+    recorded = set(entries)
+    for path in sorted(actual - recorded):
+        errors.append("Tracked image absent from registry: " + path)
+    for path in sorted(recorded - actual):
+        errors.append("Registry image not tracked: " + path)
+
+    hashes: dict[str, list[str]] = defaultdict(list)
+    for source, row in entries.items():
+        local = file_path(source)
+        if local is None or not local.is_file():
+            errors.append("Physical image absent: " + source)
+            continue
+        if not row.get("physically_present", False):
+            errors.append("Physical image misclassified: " + source)
+        blob_sha = sha_blob(local)
+        hashes[blob_sha].append(source)
+        if row.get("sha") != blob_sha:
+            errors.append("Git blob checksum mismatch: " + source)
+        if row.get("drawn_in_scene") == "成功" or row.get("visual_correct") == "成功":
+            notes.append("Manually reconfirm success evidence: " + source)
+
+    def must_exist(label: str, source: str) -> None:
+        if source not in actual:
+            errors.append(label + " references missing image: " + str(source))
+
+    for slot, entry in index.get("canonical_slots", {}).items():
+        must_exist("slot " + slot, entry.get("source", ""))
+    for old, target in index.get("verified_legacy_redirects", {}).items():
+        if not old.startswith("res://assets/"):
+            errors.append("Unsafe legacy alias key: " + old)
+        must_exist("approved redirect " + old, target)
+    for name, source in index.get("ui", {}).items():
+        must_exist("UI " + name, source)
+    for name, source in index.get("content_icons", {}).items():
+        must_exist("content icon " + name, source)
+    for name, source in index.get("monster_id_sources", {}).items():
+        must_exist("monster " + name, source)
+
+    regions = index.get("regions", {})
+    if set(regions) != EXPECTED_REGIONS:
+        errors.append("Eight regional identities not preserved")
+    for region_id, record in regions.items():
+        terrain = record.get("terrain", {})
+        for kind in ("ground", "water"):
+            path = terrain.get(kind, "")
+            if not path.startswith("res://assets/art/") or ".." in path:
+                errors.append("Invalid logical atlas " + region_id + "/" + kind)
+        for category in ("scene_props", "material_preview", "building_bindings",
+                         "npc_identity_bindings", "boss_identity_bindings"):
+            for name, source in record.get(category, {}).items():
+                must_exist(region_id + " " + category + " " + name, source)
+        for path in record.get("unique_monster_candidates", []):
+            must_exist(region_id + " monster candidate", path)
+        if record.get("boss_identity_bindings"):
+            notes.append("Boss identity bindings need separate visual/canon QA: " + region_id)
+
+    duplicates = [v for v in hashes.values() if len(v) > 1]
+    report = {
+        "schema": "starlit.a_line.static_audit.v1",
+        "tracked_images": len(actual),
+        "registry_images": len(entries),
+        "registered_images": sum(bool(x.get("registered")) for x in entries.values()),
+        "unverified_registration": sum(not bool(x.get("registered")) for x in entries.values()),
+        "theme_slots": len(index.get("canonical_slots", {})),
+        "regions": len(regions),
+        "content_icon_ids": len(index.get("content_icons", {})),
+        "monster_ids": len(index.get("monster_id_sources", {})),
+        "approved_legacy_aliases": len(index.get("verified_legacy_redirects", {})),
+        "same_blob_groups_retained": len(duplicates),
+        "errors": errors,
+        "notes": notes,
+        "godot_run": "未测试",
+        "visual_acceptance": "未测试",
+    }
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

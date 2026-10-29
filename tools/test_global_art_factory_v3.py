@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from PIL import Image
-from global_art_factory_v3 import SCOPES, produce, tasks as plans, verify, atlas, walker
+from global_art_factory_v3 import VERSION, SCOPES, produce, tasks as plans, verify, atlas, walker
 from global_art_ai_provider_v3 import (build_jobs, fit, quality_metrics, fingerprint,
                                       SOURCE_SIZES, PIPELINE_REV)
 

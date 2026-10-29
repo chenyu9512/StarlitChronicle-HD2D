@@ -15,9 +15,11 @@ import re
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
-from art_style_v5 import terrain_cell, character_sheet
+from art_style_v6 import (terrain_cell, character_sheet, draw_prop,
+                          enemy_sheet, landscape, normal_map, write_auxiliary_svgs)
 
-VERSION = "3.1.0"
+VERSION = "4.0.0"
+NORMAL_GROUPS = frozenset(("terrain", "interiors", "props", "characters", "npcs", "monsters", "bosses"))
 SCOPES = ("terrain", "maps", "interiors", "props", "characters", "npcs", "monsters", "bosses", "ui")
 SIZES = {"terrain": (256,256), "maps": (1152,648), "interiors": (256,256),
          "props": (96,128), "characters": (96,192), "npcs": (96,192),
@@ -68,104 +70,16 @@ def atlas(region,room_id=""):
     return out
 
 def backdrop(entry,region):
-    w,h=1152,648; rng=random.Random(seeded(entry["id"],"backdrop"))
-    a,b,c=colors(region)
-    out=Image.new("RGB",(w,h)); d=ImageDraw.Draw(out)
-    for y in range(h):
-        d.line((0,y,w,y),fill=blend(shade(c,.48),shade(a,-.16),y/h*.82))
-    d=ImageDraw.Draw(out,"RGBA")
-    sun_x=rng.randrange(740,970)
-    d.ellipse((sun_x,65,sun_x+145,210),fill=(*shade(b,.52),135))
-    for layer in range(5):
-        baseline=275+layer*63
-        tone=shade(blend(a,c,min(1,layer*.19)),-layer*.08)
-        points=[(0,h)]
-        for x in range(-90,w+180,65):
-            points.append((x,baseline+rng.randint(-55,65)+math.sin(x*.006+layer)*15))
-        points.append((w,h))
-        d.polygon(points,fill=(*tone,255))
-    kind=entry.get("type","field")
-    count={"town":9,"dungeon":3,"landmark":2,"field":3}.get(kind,5)
-    for _ in range(count):
-        x=rng.randint(35,w-95); y=rng.randint(430,540); size=rng.randint(30,87)
-        if kind in ("town","landmark"):
-            d.rectangle((x+8,y-size+14,x+size,y),fill=(*shade(c,-.25),255))
-            d.polygon([(x,y-size+14),(x+size//2,y-size-18),(x+size+8,y-size+14)],
-                      fill=(*shade(b,-.27),255))
-            d.rectangle((x+size//3,y-22,x+size//3+9,y-7),fill=(*shade(b,.4),255))
-        else:
-            d.ellipse((x,y-size,x+size*.4,y),fill=(*shade(c,-.15),255))
-    return out
+    return landscape(entry,region)
 
 def prop(region,kind):
-    a,b,c=colors(region)
-    out=Image.new("RGBA",(96,128),(0,0,0,0)); d=ImageDraw.Draw(out)
-    if kind=="tree":
-        d.rectangle((40,66,53,118),fill=shade(b,-.4))
-        for dx,dy,r in [(-12,43,23),(16,47,27),(0,23,32)]:
-            d.ellipse((48+dx-r,dy-r//2,48+dx+r,dy+r),fill=shade(a,(dx%7-3)*.045))
-    elif kind in ("cottage","shop","shrine"):
-        d.rectangle((10,43,86,111),fill=shade(b,.24),outline=shade(c,-.25),width=2)
-        d.polygon([(3,47),(47,6),(92,47)],fill=shade(c,-.15))
-        d.rectangle((36,75,59,111),fill=shade(c,-.32))
-        for x in (19,68):
-            d.rectangle((x,56,x+11,70),fill=shade(a,.46),outline=shade(c,-.25))
-        if kind=="shop":
-            d.rectangle((12,48,83,56),fill=shade(a,.15))
-        if kind=="shrine":
-            d.polygon([(47,15),(52,35),(47,44),(42,35)],fill=shade(b,.58))
-    elif kind=="well":
-        d.ellipse((16,64,82,106),fill=shade(c,-.27))
-        d.ellipse((25,71,73,96),fill=shade(a,-.13))
-        for x in (20,72):
-            d.rectangle((x,34,x+7,83),fill=shade(b,-.4))
-        d.polygon([(12,34),(49,14),(87,34)],fill=shade(c,-.1))
-    elif kind=="lantern":
-        d.rectangle((46,40,51,118),fill=shade(c,-.35))
-        d.ellipse((29,20,69,68),fill=(*shade(b,.55),210))
-        d.ellipse((36,29,62,60),fill=shade(b,.75))
-    elif kind=="crate":
-        d.rectangle((18,63,81,112),fill=shade(b,-.22),outline=shade(c,-.3),width=3)
-        d.line((19,65,80,111),fill=shade(c,-.26),width=3)
-        d.line((80,65,19,111),fill=shade(c,-.26),width=3)
-    elif kind=="banner":
-        d.rectangle((45,12,51,119),fill=shade(b,-.38))
-        d.polygon([(47,19),(82,29),(78,83),(47,73)],fill=shade(a,-.19))
-    return out
+    return draw_prop(region,kind)
 
-def walker(asset_id, region):
-    # Pixel characters remain identity-labelled candidates. Four directions
-    # have distinct faces and three distinct movement poses per row.
-    return character_sheet(asset_id, region)
+def walker(asset_id,region):
+    return character_sheet(asset_id,region)
 
 def enemy(asset_id,region,boss=False):
-    a,b,c=colors(region); rng=random.Random(seeded(asset_id))
-    out=Image.new("RGBA",(512,128),(0,0,0,0)); d=ImageDraw.Draw(out)
-    shape=seeded(asset_id)%5
-    for frame in range(4):
-        ox=frame*128; wobble=(-2,0,3,0)[frame]
-        tone=shade(a,rng.uniform(-.13,.14))
-        if shape==0:
-            d.ellipse((ox+22,47+wobble,ox+106,112+wobble),fill=tone)
-        elif shape==1:
-            d.polygon([(ox+20,108),(ox+35,38+wobble),(ox+64,15+wobble),
-                       (ox+94,38+wobble),(ox+108,108)],fill=tone)
-        elif shape==2:
-            d.ellipse((ox+25,35+wobble,ox+101,107+wobble),fill=tone)
-            for dx in (-18,18):
-                d.line((ox+64+dx,80,ox+64+2*dx,119),fill=shade(c,-.15),width=8)
-        elif shape==3:
-            d.polygon([(ox+12,74),(ox+35,31+wobble),(ox+66,57),
-                       (ox+96,25+wobble),(ox+115,73),(ox+64,110)],fill=tone)
-        else:
-            d.rounded_rectangle((ox+24,31+wobble,ox+104,110+wobble),20,fill=tone)
-        for x in (43,76):
-            d.ellipse((ox+x-6,65+wobble,ox+x+6,75+wobble),fill=shade(b,.55))
-        if boss:
-            for x,dx in ((30,-13),(97,12)):
-                d.polygon([(ox+x,52),(ox+x+dx,17+wobble),
-                           (ox+x-dx,40)],fill=shade(c,.12))
-    return out
+    return enemy_sheet(asset_id,region,boss)
 
 def ui(region):
     a,b,c=colors(region)
@@ -242,7 +156,23 @@ def verify(path,group):
             raise ValueError("Wrong image dimensions/mode for "+str(path))
     return {"size":list(SIZES[group]),"sha256":hashlib.sha256(path.read_bytes()).hexdigest()}
 
-def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=None):
+def write_normal_candidate(image,output,group,asset_id):
+    """Non-destructive sibling PNG with identical image size/alpha."""
+    relative=Path("normal_maps")/group/(asset_id+"_n.png")
+    final=output/relative
+    final.parent.mkdir(parents=True,exist_ok=True)
+    temporary=final.with_suffix(".partial.png")
+    baked=normal_map(image)
+    if baked.size!=image.size or baked.getchannel("A").tobytes()!=image.convert("RGBA").getchannel("A").tobytes():
+        raise ValueError("Normal map alpha/size mismatch for "+asset_id)
+    baked.save(temporary,format="PNG",optimize=True)
+    verify(temporary,group)
+    temporary.replace(final)
+    return {"normal_map_path":relative.as_posix(),
+            "normal_map_sha256":hashlib.sha256(final.read_bytes()).hexdigest()}
+
+def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=None,
+            normal_maps=True,legacy_ui=True):
     root=root.resolve(); output=output.resolve()
     if output in (root,root/"assets",root/"assets/art",root/"assets/art/runtime"):
         raise ValueError("Refusing to overwrite live art directories")
@@ -252,7 +182,8 @@ def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=N
     report={"schema":"starlit.global_art_factory.v3","version":VERSION,
             "source":"canonical maps, AV registry and V4 interiors",
             "status":"candidate_only_not_runtime_integrated",
-            "game_runtime_modified":False,"counts":{},"assets":[],"errors":[]}
+            "game_runtime_modified":False,"counts":{},"assets":[],"errors":[],
+            "normal_map_count":0,"auxiliary_svg_paths":[] }
     if dry_run:
         for group,*_ in queue:
             report["counts"][group]=report["counts"].get(group,0)+1
@@ -260,6 +191,12 @@ def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=N
         return report
     output.mkdir(parents=True,exist_ok=True)
     index={}
+    prior_path=output/"candidate_manifest.json"
+    try:
+        previous=read(prior_path) if prior_path.is_file() else {}
+    except (OSError,ValueError,TypeError):
+        previous={}
+    cache_version=previous.get("version")==VERSION
     for group,asset_id,meta,render in queue:
         path=output/group/(asset_id+".png")
         origin=source_root/group/(asset_id+".png") if source_root else None
@@ -273,11 +210,22 @@ def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=N
                         raise ValueError("Curated art dimensions do not match "+asset_id)
                     image=source.convert("RGBA")
                 provenance="imported_exact_size_candidate"
-            elif not force and path.is_file():
+            elif not force and cache_version and path.is_file():
                 proof=verify(path,group)
                 entry={"id":asset_id,"group":group,
                        "path":path.relative_to(output).as_posix(),
                        "provenance":"existing_candidate",**meta,**proof}
+                if normal_maps and group in NORMAL_GROUPS:
+                    target=output/"normal_maps"/group/(asset_id+"_n.png")
+                    if target.is_file() and not force:
+                        verified=verify(target,group)
+                        entry["normal_map_path"]=target.relative_to(output).as_posix()
+                        entry["normal_map_sha256"]=verified["sha256"]
+                    else:
+                        with Image.open(path) as existing:
+                            info=write_normal_candidate(existing.convert("RGBA"),output,group,asset_id)
+                        entry.update(info)
+                        report["normal_map_count"]+=1
                 report["assets"].append(entry)
                 report["counts"][group]=report["counts"].get(group,0)+1
                 index[group+"."+asset_id]=entry["path"]
@@ -293,11 +241,19 @@ def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=N
             entry={"id":asset_id,"group":group,
                    "path":path.relative_to(output).as_posix(),
                    "provenance":provenance,**meta,**proof}
+            if normal_maps and group in NORMAL_GROUPS:
+                entry.update(write_normal_candidate(image,output,group,asset_id))
+                report["normal_map_count"]+=1
             report["assets"].append(entry)
             report["counts"][group]=report["counts"].get(group,0)+1
             index[group+"."+asset_id]=entry["path"]
         except (OSError,ValueError,KeyError,TypeError) as exc:
             report["errors"].append({"id":asset_id,"group":group,"error":str(exc)})
+    if legacy_ui and "ui" in selected:
+        try:
+            report["auxiliary_svg_paths"]=write_auxiliary_svgs(output)
+        except (OSError,ValueError,TypeError) as exc:
+            report["errors"].append({"group":"ui_svg","error":str(exc)})
     report["status"]="candidates_complete" if not report["errors"] else "candidates_partial_errors"
     (output/"candidate_index.json").write_text(
         json.dumps({"schema":"starlit.global_art_index.v3","assets":index},
@@ -314,17 +270,22 @@ def main(argv=None):
     parser.add_argument("--source-root",type=Path,help="Exact-size artist/AI candidate PNGs, category/ID.png")
     parser.add_argument("--dry-run",action="store_true")
     parser.add_argument("--force",action="store_true")
+    parser.add_argument("--no-normal-maps",action="store_true",help="Skip normal-map baking")
+    parser.add_argument("--no-legacy-ui",action="store_true",help="Skip 8 job + 4 evidence SVG assets")
     parser.add_argument("--limit",type=int,default=0)
     args=parser.parse_args(argv)
     out=args.output or args.project/"build/starlit_global_art_factory_v3"
     try:
         result=produce(args.project,out,set(SCOPES) if args.scope=="all" else {args.scope},
-                       args.dry_run,args.force,max(0,args.limit),args.source_root)
+                       args.dry_run,args.force,max(0,args.limit),args.source_root,
+                       normal_maps=not args.no_normal_maps,legacy_ui=not args.no_legacy_ui)
     except (OSError,ValueError,KeyError,TypeError) as exc:
         print("GLOBAL ART FACTORY: "+str(exc),file=sys.stderr)
         return 2
     print(json.dumps({"status":result["status"],"counts":result["counts"],
                       "errors":result["errors"][:8],"error_count":len(result["errors"]),
+                      "normal_map_count":result["normal_map_count"],
+                      "auxiliary_svg_count":len(result["auxiliary_svg_paths"]),
                       "manifest":None if args.dry_run else str(out/"candidate_manifest.json")},
                      ensure_ascii=False,indent=2))
     return 0 if not result["errors"] else 1

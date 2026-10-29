@@ -21,6 +21,8 @@ jobs:
           python3 tools/audit_b_world_source_matrix.py --output /tmp/starlit-b-world-source-matrix.json
           python3 tools/validate_b_npc_home.py
           python3 tools/validate_b_line_delivery.py
+      - name: Validate 42 atlas IDs, 40 V3 zones, 68 exterior buildings and all 153 V4 interiors
+        run: python3 tools/validate_b_world_spatial_integrity.py
       - name: Validate two playable harbor story buildings and eight physical clue paths
         run: python3 tools/validate_b_act01_harbor_rooms.py
       - name: Verify three coastal chapters, lighthouse grounds and disjoint cave mechanisms
@@ -42,7 +44,7 @@ jobs:
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_home_v1.gd
       - name: Verify harbor shelter and Black Sail Tavern real doors, clues and roundtrip
         run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_harbor_story_rooms.gd
-      - name: Verify all 99 V4 rooms match live furniture interactions
+      - name: Verify all 153 V4 rooms match live furniture interactions
         run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_home_runtime_geometry.gd
       - name: Verify 40 read-only NPC dialogue previews
         run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_dialogue_preview.gd

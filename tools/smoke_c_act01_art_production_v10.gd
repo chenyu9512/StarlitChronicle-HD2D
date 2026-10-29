@@ -5,6 +5,8 @@ const Coast = preload("res://scripts/world_coastal_scene.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const Registry = preload("res://scripts/world_registry.gd")
 const Overrides = preload("res://scripts/c_art_overrides.gd")
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
+const GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 const BossMotion = preload("res://scripts/c_boss_action_atlas_v1.gd")
 var errors: Array[String] = []
 
@@ -29,8 +31,8 @@ func _run() -> void:
         check(Art.production_paths(map_key).size()>5,"No production paths "+map_key)
         check(registry.maps.has(map_key),"Map registry lacks "+map_key)
     check(not Art.has_map("map_unknown"),"Unknown map accepted")
-    check(Overrides.has_slot("res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg"),
-        "Lighthouse not exposed to global DLC / gallery")
+    check(RuntimeArt.texture_slot("landmark.coast.tide_lighthouse_landmark") != null,
+        "Current generated lighthouse semantic asset is not loadable")
     for i in range(2,7):
         var boss_id: String = "boss_ch%03d" % i
         var motion: Texture2D = BossMotion.texture(boss_id)
@@ -38,8 +40,9 @@ func _run() -> void:
             "Chapter boss must resolve real 6-pose animation sheet: "+str(i))
         check(BossMotion.region("phase_change",0).position.y == 640.0,
             "Chapter boss phase transition missing animation row: "+str(i))
-    check(Art.sprite_path("map_coast_05","tide_lighthouse_landmark")=="res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
-        "Lighthouse artwork not registered")
+    check(GlobalArt.source_for("scenery","tide_lighthouse_landmark") ==
+        RuntimeArt.slot_source("landmark.coast.tide_lighthouse_landmark"),
+        "Live lighthouse source not bound to one exact generated asset")
     var layout: Dictionary=geography.layout("map_coast_05",6)
     var original_blocked: Dictionary=layout.get("blocked",{}).duplicate(true)
     var scene := Coast.new()
@@ -58,7 +61,10 @@ func _run() -> void:
     if scene.authored_sprites.has("lighthouse_landmark"):
         var artwork: Sprite2D=scene.authored_sprites["lighthouse_landmark"]
         check(artwork.texture!=null,"Lighthouse texture missing")
-        check(artwork.scale.x<1.0,"Lighthouse authored scale missing")
+        var painted_size: Vector2 = artwork.texture.get_size() * artwork.scale
+        check(painted_size.x >= 190.0 and painted_size.y >= 250.0
+              and painted_size.x <= 281.0 and painted_size.y <= 361.0,
+            "Actual lighthouse is not rendered at authored story-landmark size")
     if errors.is_empty():
         print("SUCCESS: first six art map bundles and lighthouse scene wired; geometry untouched")
         quit(0)

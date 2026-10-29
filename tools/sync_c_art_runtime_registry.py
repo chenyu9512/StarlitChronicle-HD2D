@@ -97,15 +97,26 @@ def synchronize(root: Path) -> dict:
         if image_path not in physical:
             raise ValueError("Missing actual scene detail image: " + str(name) + " -> " + image_path)
     current["scene_detail_sources"] = detail_roots
+    icon_manifest = read(root / "assets/art/runtime/content_icons_v1/manifest.json")
+    if icon_manifest.get("schema") != "starlit.content_icons.runtime.v1" or icon_manifest.get("count") != 288:
+        raise ValueError("Content icon manifest must contain exactly 288 IDs")
+    icon_assets = icon_manifest.get("assets", {})
+    expected_icons = read(root / "data/assets/c_art_content_icons_v6.json")["records"]
+    if len(icon_assets) != 288 or set(icon_assets) != {row["id"] for row in expected_icons}:
+        raise ValueError("Generated content icons do not match canonical content IDs")
+    icon_paths = {item["source"] for item in icon_assets.values()}
+    if not icon_paths.issubset(set(physical)) or len(icon_paths) != 288:
+        raise ValueError("Not all 288 generated content icon PNGs exist")
     for path, sha in physical.items():
         previous = old.get(path, {})
         produced = path.startswith(FACTORY)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
-            "registered": produced or path in detail_roots.values() or bool(previous.get("registered", False)),
+            "registered": produced or path in detail_roots.values() or path in icon_paths or bool(previous.get("registered", False)),
             "code_reference": ("generated_semantic_resolver" if produced else
                                "scene_detail_runtime_renderer" if path in detail_roots.values() else
+                               "generated_content_icon_lookup" if path in icon_paths else
                                previous.get("code_reference", "not_confirmed")),
             "drawn_in_scene": previous.get("drawn_in_scene", "未测试") if same_blob else "未测试",
             "visual_correct": previous.get("visual_correct", "未测试") if same_blob else "未测试",
@@ -129,6 +140,11 @@ def synchronize(root: Path) -> dict:
             else:
                 rejected.append(f"{field}:{key}")
         current[field] = valid
+
+    current["content_icons"] = {key: icon_assets[key]["source"] for key in sorted(icon_assets)}
+    current["content_icon_generation"] = {"count": len(icon_assets),
+        "manifest": "res://assets/art/runtime/content_icons_v1/manifest.json",
+        "stage": "runtime_generated_visual_qa_pending"}
 
     def group_sources(group: str) -> dict[str, str]:
         return {

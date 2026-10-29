@@ -15,6 +15,7 @@ import shutil
 from pathlib import Path
 from PIL import Image
 from global_art_factory_v3 import SCOPES, produce, read, verify
+from generate_content_icons_v1 import generate as generate_content_icons
 
 RUNTIME_REL = Path("assets/art/runtime/global_factory_v3")
 LEGACY_EXTENSIONS = {".png", ".svg", ".webp", ".jpg", ".jpeg"}
@@ -47,6 +48,9 @@ def install(root: Path, *, prune: bool = True) -> dict:
         actual = verify(temporary / item["path"], item["group"])
         if actual["sha256"] != item["sha256"]:
             raise RuntimeError("Generated art SHA mismatch: " + item["path"])
+    # Install one physical PNG per canonical item, equipment and skill ID.
+    # Runtime ID mappings are promoted only after all 288 files are verified.
+    content_icons_report = generate_content_icons(root)
     out.mkdir(parents=True, exist_ok=True)
     for item in expected:
         source = temporary / item["path"]
@@ -140,6 +144,7 @@ def install(root: Path, *, prune: bool = True) -> dict:
         "schema": "starlit.global_factory.install.v3",
         "status": "runtime_assets_installed",
         "generated_assets": len(expected),
+        "new_content_icons": content_icons_report["icons"],
         "terrain_pairs": report["counts"].get("terrain", 0),
         "removed_unreferenced_legacy": deleted,
         "retained_legacy_requires_rebinding": len(kept),

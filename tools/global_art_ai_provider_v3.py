@@ -202,15 +202,17 @@ def quality_metrics(image: Image.Image, group: str) -> dict:
         "machine_minimum_pass": True, "human_visual_review": "required"}
 
 
-def fingerprint(job: dict, model: str, quality: str) -> str:
+def fingerprint(job: dict, model: str, quality: str, reference_sha: str = "") -> str:
     packed = json.dumps({
         "revision": PIPELINE_REV, "prompt": job["prompt"],
         "source_size": job["source_size"], "target_size": job["target_size"],
-        "model": model, "quality": quality}, sort_keys=True)
+        "model": model, "quality": quality,
+        "reference_sha256": reference_sha}, sort_keys=True)
     return hashlib.sha256(packed.encode("utf-8")).hexdigest()
 
 def execute(root: Path, out: Path, selected: set[str], limit=0,
-            render=False, model=MODEL, force=False, quality=QUALITY):
+            render=False, model=MODEL, force=False, quality=QUALITY,
+            reference_root: Path | None = None):
     jobs = build_jobs(root, selected, limit)
     out.mkdir(parents=True, exist_ok=True)
     (out / "render_jobs.jsonl").write_text(
@@ -235,11 +237,26 @@ def execute(root: Path, out: Path, selected: set[str], limit=0,
     except ImportError as exc:
         raise ValueError("Install renderer: python -m pip install openai") from exc
     client = OpenAI()
+    if reference_root is not None:
+        reference_root = reference_root.resolve()
+        if not reference_root.is_dir():
+            raise ValueError("REFERENCE_ROOT_DOES_NOT_EXIST: " + str(reference_root))
     for job in jobs:
         dest = out / job["group"] / (safe(job["id"]) + ".png")
         receipt = dest.with_suffix(".quality.json")
-        key = fingerprint(job, model, quality)
+        reference = (reference_root / job["group"] / (safe(job["id"]) + ".png")
+                     if reference_root is not None else None)
         try:
+            reference_sha = ""
+            if reference is not None and reference.is_file():
+                if reference.stat().st_size >= 48 * 1024 * 1024:
+                    raise ValueError("REFERENCE_IMAGE_TOO_LARGE")
+                with Image.open(reference) as source:
+                    source.verify()
+                reference_sha = hashlib.sha256(reference.read_bytes()).hexdigest()
+            else:
+                reference = None
+            key = fingerprint(job, model, quality, reference_sha)
             dest.parent.mkdir(parents=True, exist_ok=True)
             if dest.is_file() and receipt.is_file() and not force:
                 meta = json.loads(receipt.read_text(encoding="utf-8"))
@@ -255,11 +272,21 @@ def execute(root: Path, out: Path, selected: set[str], limit=0,
                         "status": "cached_candidate", "qa": checks})
                     continue
             is_transparent = job["group"] in TRANSPARENT
-            response = client.images.generate(
-                model=model, prompt=job["prompt"], n=1,
-                size=job["source_size"], quality=quality,
-                background="transparent" if is_transparent else "opaque",
-                output_format="png")
+            request = {
+                "model": model, "n": 1,
+                "size": job["source_size"], "quality": quality,
+                "background": "transparent" if is_transparent else "opaque",
+                "output_format": "png"}
+            if reference is None:
+                response = client.images.generate(prompt=job["prompt"], **request)
+            else:
+                # Image-edit reference is essential for consistent named identity.
+                prompt = (job["prompt"] +
+                          "\nREFERENCE IS CANON: preserve the same recognizable "
+                          "anatomy, costume, palette, markings, equipment and identity. "
+                          "Improve rendering detail and required sheet layout only.")
+                with reference.open("rb") as source:
+                    response = client.images.edit(image=source, prompt=prompt, **request)
             if not response.data or not response.data[0].b64_json:
                 raise RuntimeError("IMAGE_API_RETURNED_NO_IMAGE")
             blob = base64.b64decode(response.data[0].b64_json, validate=True)
@@ -281,6 +308,7 @@ def execute(root: Path, out: Path, selected: set[str], limit=0,
                 "id": job["id"], "group": job["group"],
                 "path": dest.relative_to(out).as_posix(),
                 "status": "machine_checked_candidate_needs_human_review",
+                "reference_sha256": reference_sha,
                 "qa": checks})
         except Exception as exc:
             report["failures"].append({"id": job["id"], "group": job["group"],
@@ -297,6 +325,8 @@ def main(argv=None):
     p.add_argument("--limit",type=int,default=0)
     p.add_argument("--model",default=MODEL)
     p.add_argument("--quality",choices=("low","medium","high","xhigh","max","auto"),default=QUALITY)
+    p.add_argument("--reference-root",type=Path,
+                   help="Optional canonical art masters: CATEGORY/ID.png for identity-preserving edits")
     p.add_argument("--jobs-only",action="store_true",help="Only write canonical art brief JSONL, no API calls")
     p.add_argument("--render",action="store_true",help="Generate PNGs using configured model/API credentials")
     p.add_argument("--force",action="store_true")
@@ -309,7 +339,8 @@ def main(argv=None):
         p.error("Refusing to write image candidates to the live runtime")
     try:
         report=execute(root,out,set(SCOPES) if a.scope=="all" else {a.scope},
-                       max(0,a.limit),a.render,a.model,a.force,a.quality)
+                       max(0,a.limit),a.render,a.model,a.force,a.quality,
+                       a.reference_root)
     except (ValueError,OSError,KeyError,TypeError) as exc:
         print("MODEL ART ERROR:",exc,file=sys.stderr)
         return 2

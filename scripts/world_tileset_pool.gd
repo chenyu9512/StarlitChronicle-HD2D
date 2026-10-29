@@ -10,7 +10,7 @@ const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const Coherent = preload("res://scripts/c_coherent_terrain_materials.gd")
 const TILE: int = 32
 const MAX_ENTRIES: int = 12
-const MATERIAL_ROOT: String = "res://assets/art/runtime/act01_hd2d_v18/materials/"
+const MATERIAL_ROOT: String = "res://assets/art/runtime/generated_gaps_v10/"
 
 ## The pre-migration logical atlas URLs may have no local imported texture.
 ## Keep authored cell semantics by rebuilding an opaque atlas from V18 materials.
@@ -35,7 +35,7 @@ static func _verified_material_for(path: String) -> Texture2D:
         material_name = "cobbles"
     elif path.contains("isles"):
         material_name = "beach-sand"
-    var candidate: String = MATERIAL_ROOT + material_name + ".png"
+    var candidate: String = MATERIAL_ROOT + "material__coast__" + material_name.replace("-","_") + ".png"
     if not ResourceLoader.exists(candidate):
         return null
     return ResourceLoader.load(candidate) as Texture2D

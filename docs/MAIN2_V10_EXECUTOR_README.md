@@ -1,15 +1,17 @@
 # Main2 V10 · 统一美术生成器
 
-新默认入口（使用上传的 V10 合并执行器、安全升级版）：
+唯一推荐入口（统一美术生成器、安全升级版）：
 
 ```powershell
 py tools/generate_art.py --project .
 ```
 
+实现模块位于 `tools/art_pipeline.py`，旧根目录 V10 脚本仅作为临时兼容转发层保留，不再维护两份生成实现。
+
 保留原始执行器文件名：
 
 ```powershell
-py main2_merge_regen_replace_cleanup_v10.py --project .
+py tools/generate_art.py --project .
 ```
 
 只校验现有正式资源（不修改）：

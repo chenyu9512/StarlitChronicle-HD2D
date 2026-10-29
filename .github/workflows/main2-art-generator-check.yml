@@ -1,12 +1,15 @@
-name: "Main2 V10 Unified Generator Verification"
+name: "Main2 · Canonical Art Generator Check"
 on:
   push:
     branches: ["Main2美术优化版"]
     paths:
+      - "tools/art_pipeline.py"
       - "main2_merge_regen_replace_cleanup_v10.py"
+      - "tools/test_art_pipeline_entrypoint.py"
+      - "docs/VERSION_GOVERNANCE.md"
       - "tools/generate_art.py"
       - "docs/MAIN2_V10_EXECUTOR_README.md"
-      - ".github/workflows/main2-v10-generator-verification.yml"
+      - ".github/workflows/main2-art-generator-check.yml"
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,7 +26,8 @@ jobs:
         run: python -m pip install --disable-pip-version-check Pillow numpy
       - name: Compile unified generator and entrypoint
         run: |
-          python -m py_compile main2_merge_regen_replace_cleanup_v10.py tools/generate_art.py
+          python -m py_compile tools/art_pipeline.py tools/generate_art.py main2_merge_regen_replace_cleanup_v10.py tools/test_art_pipeline_entrypoint.py
+          python tools/test_art_pipeline_entrypoint.py
           python tools/generate_art.py --help
       - name: Check existing 451 core slots, 401 normals and 16 terrain atlases
         run: python tools/generate_art.py --project . --verify-only
@@ -34,4 +38,4 @@ jobs:
       - name: Forbid unintended modifications
         run: |
           test -z "$(git status --porcelain --untracked-files=no)"
-          echo "V10 verifier passed; no runtime art files were overwritten."
+          echo "Canonical generator verification passed; no runtime art files were overwritten."

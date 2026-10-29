@@ -30,6 +30,10 @@ jobs:
         run: |
           set -euo pipefail
           test "$GITHUB_REF_NAME" = "Main2美术优化版"
+          # Runtime may only ship the exact approved source graph. No parallel
+          # chapter/quest IDs, missing V4 rooms or unregistered exterior doors.
+          python3 tools/validate_global_runtime_contract.py
+          python3 tools/validate_b_world_spatial_integrity.py
           python3 tools/validate_c_act01_global_art_v14.py
           python3 tools/audit_act01_third_party_art.py
           python3 tools/validate_act01_canonical_routes.py

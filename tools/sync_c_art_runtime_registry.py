@@ -92,14 +92,20 @@ def synchronize(root: Path) -> dict:
     old = current.get("sources", {})
     generated_by_path = {item["source"]: item for item in generated.values()}
     sources = {}
+    detail_roots = {k: v for k, v in read(root / "assets/art/runtime/scene_details_v1/manifest.json").get("assets", {}).items()}
+    for name, image_path in detail_roots.items():
+        if image_path not in physical:
+            raise ValueError("Missing actual scene detail image: " + str(name) + " -> " + image_path)
+    current["scene_detail_sources"] = detail_roots
     for path, sha in physical.items():
         previous = old.get(path, {})
         produced = path.startswith(FACTORY)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
-            "registered": produced or bool(previous.get("registered", False)),
+            "registered": produced or path in detail_roots.values() or bool(previous.get("registered", False)),
             "code_reference": ("generated_semantic_resolver" if produced else
+                               "scene_detail_runtime_renderer" if path in detail_roots.values() else
                                previous.get("code_reference", "not_confirmed")),
             "drawn_in_scene": previous.get("drawn_in_scene", "未测试") if same_blob else "未测试",
             "visual_correct": previous.get("visual_correct", "未测试") if same_blob else "未测试",

@@ -3,6 +3,7 @@ extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const ART: String = "res://assets/art/exteriors/coast_final_pass/"
+const DETAIL_ROOT: String = "res://assets/art/runtime/scene_details_v1/"
 const TILE: int = 32
 const ATLASES: Dictionary = {"map_coast_01":"dew_ground_glaze.svg","map_coast_02":"harbor_ground_glaze.svg"}
 const SET_PIECES: Dictionary = {
@@ -47,7 +48,7 @@ func set_clock(minutes: int) -> void:
 func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
     if not ATLASES.has(map_id):
         return
-    var path: String=ART+str(ATLASES[map_id])
+    var path: String=DETAIL_ROOT+("harbor_detail_atlas.svg" if map_id=="map_coast_02" else "coastal_detail_atlas.svg")
     if not ArtOverrides.exists(path):
         return
     var texture: Texture2D=ArtOverrides.texture(path)
@@ -86,7 +87,7 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
     if sorted_stage!=null:
         var used: Dictionary={}
         for entry in SET_PIECES.get(map_id,[]):
-            var asset: String=ART+str(entry[1])
+            var asset: String=DETAIL_ROOT+str(entry[1])
             if not ArtOverrides.exists(asset):
                 continue
             var spot: Vector2i=_find_verge(entry[2],layout,used)
@@ -117,7 +118,7 @@ func configure(map_id: String,layout: Dictionary,sorted_stage: Node2D) -> void:
 ## Only paints existing passable road cells (terrain atlas row 3).
 ## Does not edit navigation, doors, building placement or collision dictionaries.
 func _install_dew_road_material(ground: Dictionary, blocked: Dictionary, water: Dictionary) -> void:
-    var path: String = ART + "dew_road_material_8x8.svg"
+    var path: String = DETAIL_ROOT + "dew_road_material_8x8.svg"
     if not ArtOverrides.exists(path):
         return
     # The logical old 256px road image now resolves to a smaller real
@@ -192,7 +193,7 @@ func _find_verge(desired: Vector2i,layout: Dictionary,used: Dictionary) -> Vecto
 func _add_lamp(position_in_world: Vector2) -> void:
     if active_lights.size()>=4:
         return
-    var file: String="res://assets/art/interiors/morning_dew_inn/light_pool.svg"
+    var file: String=DETAIL_ROOT+"light_pool.svg"
     if not ArtOverrides.exists(file):
         return
     var light:=PointLight2D.new()

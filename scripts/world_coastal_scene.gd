@@ -13,6 +13,7 @@ const RegionAccents = preload("res://scripts/world_act01_region_accents.gd")
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
 const ART: String = "res://assets/art/exteriors/coast_final_pass/"
+const DETAIL_ROOT: String = "res://assets/art/runtime/scene_details_v1/"
 const TILE: int = 32
 const ACCEPTED: Array[String] = [
     "tide_pool","dune_grass","fish_net_stand","harbor_crane",
@@ -255,7 +256,7 @@ func _safe_vegetation_cell(wanted: Vector2i,layout: Dictionary) -> Vector2i:
     return Vector2i(-1,-1)
 
 func _install_water_reflections(mask: Dictionary) -> void:
-    var file: String=ART+"sea_glimmer_4f.svg"
+    var file: String=DETAIL_ROOT+"sea_glimmer_4f.svg"
     if not ArtOverrides.exists(file):
         return
     var atlas_texture: Texture2D=ArtOverrides.texture(file)
@@ -298,7 +299,7 @@ func _install_surface_detail(layout: Dictionary) -> void:
         theme="harbor"
     elif map_id=="map_coast_04":
         theme="cavern"
-    var file: String=ART+theme+"_detail_atlas.svg"
+    var file: String=DETAIL_ROOT+theme+"_detail_atlas.svg"
     if not ArtOverrides.exists(file):
         return
     var atlas_paths: Array[String]=[file]

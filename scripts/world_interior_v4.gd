@@ -182,17 +182,17 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         for item in inspections:
             if str(item.get("id","")) in evidence_seen and not visited.has(item.get("cell",Vector2i(-1,-1))):
                 return {}
-    # B-line physical acceptance shared by all 99 authored V4 interiors.
+    # B-line physical acceptance shared by all authored V4 interiors.
     # Validate every interactive station against the SAME final walls that
     # the player collides with, including furniture art_collision_cells.
     # This is real four-direction walking, not a teleport or cheat path.
     var accessible: Dictionary = {}
     var queue: Array[Vector2i] = [points["spawn"]]
     accessible[points["spawn"]] = true
-    var head: int = 0
-    while head < queue.size():
-        var at: Vector2i = queue[head]
-        head += 1
+    var walk_cursor: int = 0
+    while walk_cursor < queue.size():
+        var at: Vector2i = queue[walk_cursor]
+        walk_cursor += 1
         for direction in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
             var next: Vector2i = at + direction
             if next.x<2 or next.y<2 or next.x>=WIDTH-2 or next.y>=HEIGHT-2:

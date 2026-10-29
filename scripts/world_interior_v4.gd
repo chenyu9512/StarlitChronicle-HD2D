@@ -30,6 +30,71 @@ func _fill(ground: Dictionary,walls: Dictionary,record: Variant,base_row: int,so
             else:
                 walls.erase(p)
 
+## Production B-line fallthrough for authored regional rooms that have
+## physical V4 geometry but have not yet received artist-staged furniture.
+## Uses existing A-line semantic furniture roles; no asset registry duplication.
+## Never changes floor, walls, door, spawn, IDs, or investigation coordinates.
+const REGIONAL_ROLES: Dictionary = {
+    "inn":["counter","travelers_shelf","provisions_shelves","lantern","tideway_chart","harbor_guest_bed","guild_noticeboard","barrels"],
+    "shop":["merchant_counter","provisions_shelves","barrels","lantern","bookshelf","barrels","guild_noticeboard","provisions_shelves"],
+    "guild":["counter","bookshelf","provisions_shelves","lantern","tideway_chart","barrels","guild_noticeboard","bookshelf"],
+    "smith":["smith_toolwall","provisions_shelves","smith_forge","lantern","smith_anvil","barrels","smith_toolwall","bookshelf"],
+    "house":["table","home_hutch","barrels","lantern","window","harbor_guest_bed","tideway_chart","saltgrass_planter"],
+    "shrine":["shrine_starseal","bookshelf","shrine_altar","lantern","shrine_incense","barrels","guild_noticeboard","saltgrass_planter"]
+}
+const REGION_TINTS: Dictionary = {
+    "oaths":["d8d2bd","a8a6a0"],"forge":["e4c9b5","aa8578"],
+    "isles":["d7e0db","91adb2"],"mirror":["d1dbd6","9ba7b3"],
+    "oldland":["ddcdb8","a49c8d"],"sanctum":["ded9e6","aaa3c2"],
+    "city":["dad0bf","a7a0a2"]
+}
+
+func _assemble_regional_visuals(data: Dictionary) -> void:
+    var kind: String = str(data.get("building_id",""))
+    if not REGIONAL_ROLES.has(kind):
+        return
+    var roles: Array = REGIONAL_ROLES[kind]
+    var furniture: Array = data.get("features",[])
+    var visuals: Array = []
+    for i in range(mini(roles.size(),furniture.size())):
+        var record: Dictionary = furniture[i]
+        var position: Array = record.get("cell",[])
+        if position.size()!=2:
+            continue
+        var asset: String = str(roles[i])
+        visuals.append({
+            "id":"regional_"+kind+"_"+str(i),"asset":asset,
+            "cell":position.duplicate(),
+            "layer":"wall" if asset in ["window","guild_noticeboard","tideway_chart","smith_toolwall","bookshelf"] else "furniture",
+            "footprint":[106,82] if asset in ["shrine_altar","smith_forge","harbor_guest_bed"] else [66,74],
+            "offset":[0,0]
+        })
+    visuals.append({"id":"regional_entry_rug","asset":"rug",
+        "cell":[35,29],"layer":"floor","footprint":[94,62],"offset":[0,0]})
+    visuals.append({"id":"regional_wall_window","asset":"window",
+        "cell":[36,12],"layer":"wall","footprint":[66,66],"offset":[0,0]})
+    var inspection_records: Array = data.get("investigations",[])
+    for i in range(mini(2,inspection_records.size())):
+        var entry: Dictionary = inspection_records[i]
+        visuals.append({"id":"regional_inquiry_"+str(i),
+            "asset":"tideway_chart" if i==0 else "guild_noticeboard",
+            "cell":entry.get("cell",[]),"layer":"wall",
+            "footprint":[54,60],"offset":[0,0]})
+    if visuals.is_empty():
+        return
+    data["visuals"] = visuals
+    data["art_profile"] = "regional_functional_v1"
+    data["light_sources"] = [
+        {"id":"entry_lamp","cell":[35,30],"scale":1.25,"energy":0.74},
+        {"id":"service_lamp","cell":[25,20],"scale":1.15,"energy":0.68},
+        {"id":"room_corner_lamp","cell":[46,21],"scale":1.10,"energy":0.59}
+    ]
+    var parts: PackedStringArray = str(data.get("map_id","")).split("_")
+    var region: String = str(parts[1]) if parts.size()>2 else ""
+    var colors: Array = REGION_TINTS.get(region,["d8d1c2","a5a2a1"])
+    data["room_day_tint"] = str(colors[0])
+    data["room_night_tint"] = str(colors[1])
+
 func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
     if map_id.is_empty() or building_id.is_empty():
         return {}
@@ -42,6 +107,8 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
     var data: Dictionary = record
     if str(data.get("schema",""))!="starlit.interior.v4" or str(data.get("map_id",""))!=map_id or str(data.get("building_id",""))!=building_id:
         return {}
+    if not str(data.get("region_design","")).is_empty() and str(data.get("art_profile","")).is_empty():
+        _assemble_regional_visuals(data)
     var tiles: Dictionary = {}
     var walls: Dictionary = {}
     for y in range(HEIGHT):

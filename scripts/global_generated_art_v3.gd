@@ -78,7 +78,14 @@ static func boss_path(runtime_id: String) -> String:
     return path("bosses", key)
 
 static func legacy_texture(original: String) -> Texture2D:
-    if not active() or not original.begins_with("res://assets/art/"):
+    if not active():
+        return null
+    # Two historically public world-prop slots live outside assets/art/.
+    # Their identity is explicit, so allow ONLY these exact aliases.
+    match original:
+        "res://assets/props/lamp.png":
+            return texture("props", "region_coast_lantern")
+    if not original.begins_with("res://assets/art/"):
         return null
     var file: String = original.get_file().to_lower()
     # Old party movement atlas paths retain the exact 96x192, 3x4 framing.

@@ -109,7 +109,8 @@ def install(root: Path, *, prune: bool = True) -> dict:
             "sha256": item["sha256"],
             "provenance": item["provenance"],
             "normal_map_path": ("res://" + (RUNTIME_REL / item["normal_map_path"]).as_posix()
-                                if item.get("normal_map_path") else None)}
+                                if item.get("normal_map_path") else None),
+            "normal_map_sha256": item.get("normal_map_sha256")}
             for item in expected},
     }
     (out / "active.json").write_text(

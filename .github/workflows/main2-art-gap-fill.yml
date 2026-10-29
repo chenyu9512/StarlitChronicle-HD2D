@@ -1,4 +1,4 @@
-name: "Main2 · Generate and Bind All Remaining Art Gaps V10"
+name: "Main2 · Generate and Bind All Remaining Art Gaps"
 on:
   push:
     branches: ["Main2美术优化版"]
@@ -11,12 +11,12 @@ on:
       - "scripts/world_interior_art.gd"
       - "scripts/global_generated_art_v3.gd"
       - "tools/smoke_legacy_art_compat_v10.gd"
-      - ".github/workflows/main2-all-art-gaps-v10.yml"
+      - ".github/workflows/main2-art-gap-fill.yml"
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: main2-v10-generated-gap-art
+  group: main2-generated-gap-art
   cancel-in-progress: false
 jobs:
   fill-runtime-gaps:

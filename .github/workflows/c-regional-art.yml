@@ -1,10 +1,10 @@
-name: "Main2 · Playable Regional Art V13"
+name: "Main2 · Playable Regional Art"
 on:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: regional-art-v13-${{ github.ref }}
+  group: regional-art-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   real-scene-validation:

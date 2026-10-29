@@ -9,8 +9,28 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REMOVED = ["GITHUB_FIRST_PUSH.md", "PUBLISH_TO_GITHUB.ps1",
-           "assets/art/_spec/preview_batch_0_3.png", "tools/art_style_v5.py"]
+REMOVED = [
+    "GITHUB_FIRST_PUSH.md",
+    "PUBLISH_TO_GITHUB.ps1",
+    "assets/art/_spec/preview_batch_0_3.png",
+    "tools/art_style_v5.py",
+    ".github/workflows/main2-purge-all-manual-third-party-art.yml",
+    "tools/purge_online_third_party_art_v1.py",
+    "tools/audit_uploaded_only_art.py",
+    "tools/export_hd2d_svg.py",
+    "tools/animate_coast_monsters.py",
+    "tools/validate_hd2d_art.py",
+    "tools/generate_remaining_art_v1.py",
+    "tools/art_migration_validation_v2.py",
+    "tools/validate_c_art_curation.py",
+    "tools/validate_c_art_management.py",
+    "tools/validate_c_art_pipeline_v5.py",
+    "tools/qa_main2_migrated_art_integrity.py",
+    "tools/art_source_contract.py",
+    "tools/build_art_inventory_v2.py",
+    "tools/report_art_coverage_v2.py",
+    "data/assets/c_uploaded_only_full_audit_2026_10_27.json",
+]
 REQUIRED = ["scripts/game_state.gd", "scripts/first_act_state.gd",
             "scenes/first_act.tscn", "tools/smoke_legacy_ending.gd",
             "tools/generate_art.py", "tools/global_art_factory_v3.py",
@@ -38,7 +58,7 @@ def audit() -> dict:
     cfg = (ROOT / "project.godot").read_text(encoding="utf-8")
     violations = []
     if tracked.intersection(REMOVED):
-        violations.append("obsolete first-push guide/script or preview still tracked")
+        violations.append("retired art utilities or migration-only artifacts still tracked")
     if set(REQUIRED).difference(tracked):
         violations.append("protected current/legacy save or regression file missing")
     tracked_backup = [n for n in names if n.endswith(

@@ -6,6 +6,11 @@ on:
       - "tools/fill_global_art_gaps_v10.py"
       - "tools/smoke_art_gap_fill_v10.gd"
       - "scripts/c_art_runtime.gd"
+      - "scripts/c_generated_compat_v10.gd"
+      - "scripts/c_art_overrides.gd"
+      - "scripts/world_interior_art.gd"
+      - "scripts/global_generated_art_v3.gd"
+      - "tools/smoke_legacy_art_compat_v10.gd"
       - ".github/workflows/main2-all-art-gaps-v10.yml"
   workflow_dispatch:
 permissions:
@@ -65,7 +70,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for smoke in smoke_art_gap_fill_v10 smoke_world_ground_transitions_v6 smoke_world_town_verge_v7; do
+          for smoke in smoke_art_gap_fill_v10 smoke_legacy_art_compat_v10 smoke_world_ground_transitions_v6 smoke_world_town_verge_v7; do
             timeout 100s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/${smoke}.gd" > "build/v10-art-gap-qa/${smoke}.log" 2>&1 || { tail -n 110 "build/v10-art-gap-qa/${smoke}.log"; exit 1; }
             if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' "build/v10-art-gap-qa/${smoke}.log"; then exit 1; fi
             tail -n 8 "build/v10-art-gap-qa/${smoke}.log"

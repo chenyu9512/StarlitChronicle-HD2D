@@ -36,8 +36,9 @@ func _run() -> void:
         var layout: Dictionary = world.terrain_layout
         _verify(str(layout.get("art_profile","")) == "coast_act01_"+room+"_v1",
             room+" did not load the authored room art profile")
-        var expected_floor: String = RuntimeArt.slot_source("interior.tavern.tavern_wood_atlas") if room == "tavern" else
-            "res://assets/art/runtime/global_factory_v3/interiors/map_coast_02__shelter.png"
+        var expected_floor: String = "res://assets/art/runtime/global_factory_v3/interiors/map_coast_02__shelter.png"
+        if room == "tavern":
+            expected_floor = RuntimeArt.slot_source("interior.tavern.tavern_wood_atlas")
         var assigned_floor: String = str(layout.get("art_tileset", ""))
         _verify(assigned_floor == expected_floor and ResourceLoader.exists(expected_floor),
             room+" is not using its own actual generated 2D room atlas")

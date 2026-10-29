@@ -4,6 +4,7 @@ signal action_requested(action: String)
 signal closed()
 const TownEcology = preload("res://scripts/world_town_ecology.gd")
 const Act01Journey = preload("res://scripts/world_act01_journey.gd")
+const ItemIcons = preload("res://scripts/c_art_item_icons.gd")
 const PANEL_BLUE: Color = Color("0c2137")
 const WARM_GOLD: Color = Color("e8c67c")
 var root: Control
@@ -96,6 +97,15 @@ func _clear() -> void:
 
 func _add_action(text_value: String,action_id: String,enabled: bool = true) -> void:
     var b: Button = _button(text_value,not enabled)
+    # These are production shop/forge UI controls, not an art gallery.
+    # Keep their canonical item IDs and click actions exactly unchanged.
+    if action_id.begins_with("buy:") or action_id.begins_with("sell:") or action_id.begins_with("forge:"):
+        var content_id: String = action_id.get_slice(":",1)
+        var icon_texture: Texture2D = ItemIcons.texture_for(content_id)
+        if icon_texture != null:
+            b.icon = icon_texture
+            b.add_theme_constant_override("h_separation",12)
+            b.set_meta("content_icon_id",content_id)
     b.disabled=not enabled
     b.pressed.connect(func() -> void: action_requested.emit(action_id))
     choices.add_child(b)

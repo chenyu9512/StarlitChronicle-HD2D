@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const ContentDB = preload("res://scripts/content_db.gd")
+const ItemIcons = preload("res://scripts/c_art_item_icons.gd")
 const CVisual = preload("res://scripts/c_visual_design.gd")
 ## Native responsive game HUD / D-pad / dialogue / local-save menu.
 ## All controls are regular Godot GUI nodes, so multi-touch works on iPhone.
@@ -279,7 +280,25 @@ func _render_catalog(index: int) -> void:
         if detail.is_empty() and entry.has("region_id"):
             detail = "区域：" + str(entry["region_id"])
         lines.append("◆ " + str(entry["name"]) + "   [" + str(entry["id"]) + "]\n" + detail)
-    catalog_text.text = "收录 %d 条设计记录（部分尚无可用美术或战斗实现）\n\n" % records.size() + "\n\n".join(lines)
+    # Render the actual registered icon in the game's in-play codex for the
+    # 288 real content IDs, not just a path list or QA gallery.
+    if category in ["items","weapons","armor","skills"]:
+        catalog_text.clear()
+        catalog_text.add_text("收录 %d 条设计记录（部分尚无独立战斗动作）\n\n" % records.size())
+        for entry in records:
+            var content_id: String = str(entry.get("id",""))
+            var art: Texture2D = ItemIcons.texture_for(content_id)
+            if art != null:
+                catalog_text.add_image(art,32,32)
+                catalog_text.add_text("  ")
+            var detail: String = str(entry.get("lore",entry.get("objective","")))
+            if detail.is_empty() and entry.has("element"):
+                detail="属性："+str(entry["element"])
+            if detail.is_empty() and entry.has("tier"):
+                detail="品阶："+str(entry["tier"])
+            catalog_text.add_text("◆ "+str(entry.get("name",content_id))+"  ["+content_id+"]\n"+detail+"\n\n")
+    else:
+        catalog_text.text = "收录 %d 条设计记录（部分尚无可用美术或战斗实现）\n\n" % records.size() + "\n\n".join(lines)
     catalog_text.scroll_to_line(0)
 
 func refresh_hud() -> void:

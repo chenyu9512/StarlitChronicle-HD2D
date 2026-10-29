@@ -70,7 +70,7 @@ class V7QualityTests(unittest.TestCase):
             self.assertEqual(new.getpixel((0,0))[3],0)
             # A narrow mechanical proxy: distinct opaque RGB colors, not artistic approval.
             def colors(im):
-                return len(set((r,g,b) for r,g,b,a in im.get_flattened_data() if a>=200))
+                return len(set((r,g,b) for r,g,b,a in im.getdata() if a>=200))
             self.assertGreater(colors(new),colors(old),(kind,colors(old),colors(new)))
 
     def test_normal_map_preserves_alpha(self):

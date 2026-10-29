@@ -17,8 +17,8 @@ const PROFILE: String = "coast_inn_v1"
 const DISTRICT_ART: String = "res://assets/art/interiors/coastal_district/"
 const SIGNATURE_DIR: String = "res://assets/art/interiors/morning_dew_signature/"
 const SIGNATURE_MANIFEST: String = "res://data/assets/c_morning_dew_signature.json"
-const BLACK_SAIL_ART: String = "res://assets/art/runtime/act01_tavern_v2/"
-const SHELTER_ART: String = "res://assets/art/runtime/act01_shelter_v3/"
+# Retired source directories are not used. Named scene furniture resolves
+# only through the canonical slot registry and generated-only image sources.
 ## Dedicated clinic furniture is registered in the same all-or-nothing V2
 ## theme as the rest of Act I. No tavern furniture identity is borrowed.
 const SHELTER_PROPS: Dictionary = {
@@ -229,11 +229,11 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         if black_sail_room:
             actual_prop = ThemeV2.texture("interior.tavern."+art_id)
             if actual_prop == null:
-                actual_prop = ArtOverrides.original_texture(BLACK_SAIL_ART+art_id+".svg")
+                actual_prop = RuntimeArt.texture_slot("interior.tavern."+art_id)
         elif shelter_room and SHELTER_PROPS.has(art_id):
             actual_prop = ThemeV2.texture("interior.shelter." + art_id)
             if actual_prop == null:
-                actual_prop = ArtOverrides.original_texture(SHELTER_ART + art_id + ".svg")
+                actual_prop = RuntimeArt.texture_slot("interior.shelter." + art_id)
         elif active_act01_room:
             actual_prop = GlobalArt.texture_for_prop(art_id)
             if actual_prop == null:
@@ -269,9 +269,10 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         if active_act01_room:
             prop.set_meta("act01_imported_furniture",true)
             if black_sail_room:
-                prop.set_meta("black_sail_v2_asset",BLACK_SAIL_ART+art_id+".svg")
+                prop.set_meta("black_sail_v2_asset",RuntimeArt.slot_source("interior.tavern."+art_id))
             elif shelter_room and SHELTER_PROPS.has(art_id):
-                prop.set_meta("shelter_medical_furniture_source", SHELTER_ART + art_id + ".svg")
+                prop.set_meta("shelter_medical_furniture_source",
+                    RuntimeArt.slot_source("interior.shelter." + art_id))
             # A medical basket and an unsigned sailor's log must not both
             # appear as identical crates. These are existing third-party PNG
             # labels composited over actually imported, interactive furniture.

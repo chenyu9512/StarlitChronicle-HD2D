@@ -16,6 +16,7 @@ CODE_EXT = {".py", ".gd", ".sh", ".ps1", ".yaml", ".yml", ".toml", ".cfg", ".god
 TEXT_EXT = CODE_EXT | {".json", ".md", ".txt", ".csv", ".tscn", ".tres", ".ini", ".gitignore"}
 GENERATOR = "tools/generate_art.py"
 PIPELINE = "tools/art_pipeline.py"
+BASELINE = ROOT / "data/governance/versioned_code_allowlist.json"
 EXPECTED_BRANCH = "Main2美术优化版"
 
 def tracked_files() -> dict[str, str]:
@@ -109,6 +110,10 @@ def inventory() -> dict:
     unresolved = [
         name for name in versioned_code if name not in reference_hits
     ]
+    baseline = json.loads(BASELINE.read_text(encoding="utf-8")) if BASELINE.is_file() else {}
+    approved = set(baseline.get("approved_paths", []))
+    unexpected_versioned_code = sorted(set(versioned_code) - approved)
+    obsolete_baseline_paths = sorted(approved - set(versioned_code))
     def git_refs(namespace: str) -> list[str]:
         proc = subprocess.run(
             ["git", "-C", str(ROOT), "for-each-ref", "--format=%(refname:short)", namespace],
@@ -130,6 +135,10 @@ def inventory() -> dict:
         "duplicate_groups": duplicates,
         "disposable_files": sorted(disposable),
         "versioned_source_or_workflow": sorted(versioned_code),
+        "approved_versioned_source_count": len(approved),
+        "new_versioned_source_or_workflow": unexpected_versioned_code,
+        "allowlist_paths_no_longer_present": obsolete_baseline_paths,
+        "versioned_code_allowlist_exists": BASELINE.is_file(),
         "source_reference_hits": dict(sorted(reference_hits.items())),
         "versioned_source_without_literal_reference": sorted(unresolved),
         "text_sources_scanned": sources_scanned,
@@ -169,7 +178,8 @@ def main() -> int:
         print("versioned executable/workflow paths:", len(data["versioned_source_or_workflow"]))
         print("Use --json or --output to get full paths/references (read-only).")
     fail = bool(data["disposable_files"] or data["missing_worktree_files"]
-                or not data["canonical_generator_exists"] or not data["canonical_pipeline_exists"])
+                or not data["canonical_generator_exists"] or not data["canonical_pipeline_exists"]
+                or not data["versioned_code_allowlist_exists"] or data["new_versioned_source_or_workflow"])
     return 1 if args.strict and fail else 0
 
 if __name__ == "__main__":

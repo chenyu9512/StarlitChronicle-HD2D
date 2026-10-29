@@ -18,8 +18,22 @@ import zipfile
 def load_config(path: Path) -> configparser.ConfigParser:
     if not path.is_file():
         raise ValueError("Missing Godot configuration: " + str(path))
-    cfg = configparser.ConfigParser(interpolation=None)
-    cfg.read(path, encoding="utf-8-sig")
+    # Godot's project.godot is not a pure INI file: its mandatory
+    # config_version=5 lives before the first [section]. Python's standard
+    # configparser raises MissingSectionHeaderError on that valid Godot line.
+    # Add a parser-only synthetic section; never rewrite project.godot.
+    content = path.read_text(encoding="utf-8-sig")
+    first_non_comment = next(
+        (line.strip() for line in content.splitlines()
+         if line.strip() and not line.lstrip().startswith(("#", ";"))),
+        "",
+    )
+    if not first_non_comment.startswith("["):
+        if path.name != "project.godot":
+            raise ValueError("Missing INI section header: " + str(path))
+        content = "[__godot_project_root__]\\n".replace("\\\\n", "\\n") + content
+    cfg = configparser.ConfigParser(interpolation=None, delimiters=("=",))
+    cfg.read_string(content, source=str(path))
     return cfg
 
 

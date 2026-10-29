@@ -20,6 +20,12 @@
 
 有 2 个历史标签：`archive-v0.1.1-before-core` 与 `archive-v0.2-before-first-act`。它们是恢复锚点，现阶段不删。GitHub Release 数为 0。审计脚本会读取本地已获取的分支和标签；对于未完整 fetch 的 clone，应以 GitHub 在线 API 结果为准。
 
+## 版本化代码冻结基线
+
+现行兼容代码及工作流的版本化路径统一记录在 `data/governance/versioned_code_allowlist.json`。在保留合法 V3/V4 存档格式、正式美术路径的前提下，CI 拒绝无审批地添加新的 `foo_vN.py`、`foo_vN.gd` 或 `foo-vN.yml`；已经迁移并删除的旧文件无需从历史恢复，也不阻止继续减少版本后缀。
+
+版本审计现在被集成到统一质量门禁和美术生成验证工作流中。CI 仅读取内容和输出检查结果，不自动重写运行时文件。
+
 ## 全量版本清单
 
 从项目根目录执行：

@@ -1,62 +1,80 @@
 #!/usr/bin/env python3
-"""Act I global art distribution: verify real sources, exact SHA aliases, map coverage."""
+"""Validate the V14 first-act assignment registry AFTER V10 regeneration.
+
+V14 scene IDs and exact map/Chapter ownership remain immutable; all physical
+render images are now V10 generated-only PNGs. Pin every one to V10's SHA256,
+not to a deleted and duplicate-filled source-pack inventory.
+"""
+from __future__ import annotations
+
 import hashlib
 import json
+import struct
 from pathlib import Path
-from act01_source_provenance import verify_art, git_blob_sha
 
-root = Path(__file__).resolve().parent.parent
-manifest = json.loads((root / "data/assets/c_act01_global_distribution_v14.json").read_text("utf-8"))
-assert manifest["schema"] == "starlit.c.act01_global_distribution.v14"
-rows = manifest["source_index"]
-assert len(rows) == manifest["counts"]["source_files"]
-assert len({r["source"] for r in rows}) == len(rows)
-# Several reused originals intentionally have more than one authored runtime alias.
-# Count all distinct export paths rather than counting source records (which are deduplicated).
-runtime_manifest = manifest["runtime"]
-def paths_of(obj):
-    if isinstance(obj, str):
-        return {obj} if obj.startswith("res://assets/art/runtime/act01_global_v14/") else set()
-    if isinstance(obj, dict):
-        return set().union(*(paths_of(v) for v in obj.values())) if obj else set()
-    if isinstance(obj, list):
-        return set().union(*(paths_of(v) for v in obj)) if obj else set()
-    return set()
-runtime_paths = paths_of(runtime_manifest)
-assert len(runtime_paths) == manifest["counts"]["physical_aliases"]
-# The migration index predates an archive cleanup. Keep its original count
-# and source IDs for provenance, but reject actual missing art independently
-# from removable Finder/WebDAV ZIP metadata. Never relax an image check.
-def is_archive_metadata(source):
-    path = Path(source)
-    return ("__MACOSX" in path.parts or "._DAV" in path.parts or
-        path.name == ".DS_Store" or path.name.startswith("._"))
+ROOT = Path(__file__).resolve().parents[1]
+RUNTIME = "res://assets/art/runtime/generated_gaps_v10/"
+EXPECTED = {"props": 10, "scenery": 6, "monsters": 9,
+            "boss_candidates": 5, "terrain": 10, "backgrounds": 2, "ui": 3}
+PREFIX = {"props": "prop.coast.", "scenery": "landmark.coast.",
+          "monsters": "monster.coast.", "boss_candidates": "boss.coast.",
+          "terrain": "terrain.coast.", "backgrounds": "background.coast.",
+          "ui": "ui.game."}
 
-real_sources = [row for row in rows if not is_archive_metadata(row["source"])]
-source_shas = {r["sha"] for r in real_sources}
-assert set(manifest["maps"]) == {f"map_coast_{i:02d}" for i in range(1,6)}
-assert set(c["chapter"] for c in manifest["chapter_routes"]) == set(range(1,7))
-for row in rows:
-    source = root / row["source"]
-    if is_archive_metadata(row["source"]):
-        # These Finder-generated sidecars were explicitly removed from Main2;
-        # retaining their historic SHA references must not block Runtime.
-        assert not source.exists(), f"Obsolete macOS archive metadata still tracked: {source}"
-        continue
-    if source.is_file():
-        assert git_blob_sha(source.read_bytes()) == row["sha"], f"Altered source blob: {source}"
+
+def read(path):
+    return json.loads((ROOT / path).read_text(encoding="utf-8"))
+
+
+def flatten(category, values):
+    if category == "terrain":
+        for map_id, surfaces in values.items():
+            for kind, path in surfaces.items():
+                yield f"map_{int(map_id[-2:])}_{kind}", path
     else:
-        # Main2 deliberately purged bulky historical source packs. Keep the
-        # source SHA contract and validate the shipped PNG against pinned Git
-        # blob identity from the pre-cleanup commit instead.
-        assert row["source"].startswith("assets/art/source_packs/"), f"Missing non-archived source: {source}"
-        assert len(row["sha"]) == 40, f"Invalid historical source SHA: {source}"
-for path in sorted(runtime_paths):
-    target = root / path.removeprefix("res://")
-    assert target.is_file(), f"Missing imported runtime: {target}"
-    proof = verify_art(path.removeprefix("res://"))
-    assert proof["sha"] in source_shas, f"Runtime image does not match a historical source Git blob: {target}"
-for section in ["props", "scenery", "monsters", "boss_candidates"]:
-    for name,path in manifest["runtime"][section].items():
-        assert (root / path.removeprefix("res://")).is_file(), (section,name)
-print(f"PASS: Act I {len(real_sources)} actual sources, {len(rows)-len(real_sources)} retired OS sidecars, runtime aliases, chapter/map coverage and image SHA integrity.")
+        yield from values.items()
+
+
+def audit():
+    dist = read("data/assets/c_act01_global_distribution_v14.json")
+    regenerated = read("assets/art/runtime/generated_gaps_v10/manifest.json")
+    assert dist.get("schema") == "starlit.c.act01_global_distribution.v14"
+    assert regenerated.get("schema") == "starlit.main2.gap_fill.v10"
+    index = regenerated["assets"]
+    assert isinstance(index, dict) and len(index) == regenerated["generated_count"]
+    assert set(dist.get("maps", {})) == {f"map_coast_{i:02d}" for i in range(1, 6)}
+    assert {int(row["chapter"]) for row in dist["chapter_routes"]} == set(range(1, 7))
+    runtime = dist["runtime"]
+    verified = set()
+    for section, expected_count in EXPECTED.items():
+        entries = dict(flatten(section, runtime[section]))
+        assert len(entries) == expected_count, f"Missing live V14 mapping: {section}"
+        for name, source in entries.items():
+            identity = PREFIX[section] + name
+            row = index.get(identity)
+            if not isinstance(row, dict):
+                raise ValueError("Missing exact generated identity: " + identity)
+            if source != row.get("source") or not source.startswith(RUNTIME):
+                raise ValueError("Source changed object identity: " + identity)
+            asset = ROOT / source.removeprefix("res://")
+            if not asset.is_file():
+                raise ValueError("Generated source missing: " + source)
+            data = asset.read_bytes()
+            if len(data) < 24 or not data.startswith(b"\x89PNG\r\n\x1a\n"):
+                raise ValueError("Invalid generated PNG: " + source)
+            width, height = struct.unpack(">II", data[16:24])
+            if not (8 <= width <= 8192 and 8 <= height <= 8192):
+                raise ValueError("Invalid image dimensions: " + source)
+            if row.get("dimensions") != [width, height]:
+                raise ValueError("Wrong generated dimensions: " + source)
+            if hashlib.sha256(data).hexdigest() != row.get("sha256"):
+                raise ValueError("Generated file SHA mismatch: " + source)
+            verified.add(source)
+    assert len(verified) == 45, "Missing or duplicated V14 live image roles"
+    code = (ROOT / "scripts/c_act01_global_art_v14.gd").read_text("utf-8")
+    assert "RuntimeArt.texture_path(path)" in code and RUNTIME in code, "Scene adapter still rejects V10 sources"
+    print(f"PASS: 5 maps, 6 chapters, {len(verified)} role-exact V10 images, verified SHA256; visual signoff pending")
+
+
+if __name__ == "__main__":
+    audit()

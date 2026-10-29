@@ -7,6 +7,7 @@ const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 const SemanticArt = preload("res://scripts/c_act01_semantic_art_v17.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
+const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const InteractionFX = preload("res://scripts/c_interaction_fx.gd")
 const TownSoundscape = preload("res://scripts/c_town_soundscape.gd")
 ## First commercial-art vertical slice: live art is driven by the V4 room,
@@ -517,10 +518,16 @@ func _build_wall_edging(layout: Dictionary, map_id: String, building_id: String)
     var edge_row: int = 7
     if not ArtOverrides.exists(edge_path):
         # Generated V3 room atlases have their authored WALL tiles in row 6.
-        # Old V4 SVG tile atlases were retired; previously this returned
-        # early, leaving all 12 coastal rooms without wall edging.
         edge_path = Generated.interior_path(map_id, building_id)
         edge_row = 6
+    if (edge_path.is_empty() or not ArtOverrides.exists(edge_path)) and str(layout.get("art_profile",""))=="regional_functional_v1":
+        # For the newly authored 54 V4 rooms, use the same A-line regional
+        # terrain family as the real indoor ground, never the coastal inn.
+        var region_name: String = "region_" + str(map_id.split("_")[1])
+        var candidates: Array[String] = TerrainAtlas.atlas_sources(region_name,map_id,"",false)
+        if not candidates.is_empty():
+            edge_path = candidates[0]
+            edge_row = 6
     if edge_path.is_empty() or not ArtOverrides.exists(edge_path):
         push_warning("No drawable wall edging for " + map_id + "#" + building_id)
         return

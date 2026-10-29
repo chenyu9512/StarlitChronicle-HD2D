@@ -452,7 +452,7 @@ func toggle_party(id: String) -> String:
         if party.size() >= 4:
             return "最多四人出战。"
         party.append(id)
-    return "阵容已经更新."
+    return "阵容已经更新。"
 
 func active_party_ids() -> Array:
     if state.chapter >= 49 and state.chapter <= 51:

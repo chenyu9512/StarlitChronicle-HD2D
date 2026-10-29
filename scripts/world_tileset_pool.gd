@@ -119,7 +119,13 @@ static func shared(paths: Array[String], columns: int = 8,
         # source using imported V18 water materials while retaining actual
         # selected semantic water, and preserve full user DLC atlas priority.
         var high_res_live_water: bool = path.contains("/runtime/act01_global_v14/surfaces/") and path.ends_with("_water.png")
-        if not ready_user_atlas and Coherent.supports(path) and (Art.third_party_source(path) != path or high_res_live_water or from_verified_material) and texture != null:
+        # Existing coastal SVG sheets are physical files, but their original
+        # rows do not encode the gameplay's modern sand/road/rock semantics.
+        # Importing them as-is repeats the same rock tile in distinct roles.
+        # Rebuild ONLY these two authored route/cave sheets. Approved user
+        # theme atlases above continue to take precedence, untouched.
+        var legacy_exterior_roles: bool = path.contains("/exteriors/coast_final_pass/") and path.get_file() in ["tide_cavern_tileset.svg", "saltwind_route_tileset.svg"]
+        if not ready_user_atlas and Coherent.supports(path) and (Art.third_party_source(path) != path or high_res_live_water or from_verified_material or legacy_exterior_roles) and texture != null:
             # Cache per semantic path. A dune/road/water atlas cannot share the
             # same assembled texture merely because its source PNG is shared.
             # ResourceLoader can return a different wrapper instance for the

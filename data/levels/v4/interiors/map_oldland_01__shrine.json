@@ -4,7 +4,7 @@
   "map_id": "map_oldland_01",
   "building_id": "shrine",
   "name": "遗民营地·祈灯祠",
-  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "status": "b_regional_functional_visuals_authored_pending_godot",
   "size": [
     72,
     48
@@ -227,11 +227,307 @@
       "interaction_status": "authored_no_reward"
     }
   ],
-  "art_profile": "",
-  "visuals": [],
-  "light_sources": [],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_shrine_0",
+      "asset": "shrine_starseal",
+      "cell": [
+        25,
+        22
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_1",
+      "asset": "bookshelf",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_2",
+      "asset": "shrine_altar",
+      "cell": [
+        46,
+        17
+      ],
+      "layer": "furniture",
+      "footprint": [
+        106,
+        82
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_4",
+      "asset": "shrine_incense",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_5",
+      "asset": "barrels",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_6",
+      "asset": "guild_noticeboard",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_7",
+      "asset": "saltgrass_planter",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "sandstone_threshold",
+      "asset": "rug",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        91,
+        55
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "windwall_window",
+      "asset": "window",
+      "cell": [
+        35,
+        12
+      ],
+      "layer": "wall",
+      "footprint": [
+        63,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "oldland_clue_0",
+      "asset": "tideway_chart",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "oldland_clue_1",
+      "asset": "guild_noticeboard",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "archive_relief",
+      "asset": "shrine_starseal",
+      "cell": [
+        35,
+        19
+      ],
+      "layer": "floor",
+      "footprint": [
+        50,
+        56
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weathered_register",
+      "asset": "tideway_chart",
+      "cell": [
+        40,
+        18
+      ],
+      "layer": "wall",
+      "footprint": [
+        50,
+        56
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "dune_supply",
+      "asset": "barrels",
+      "cell": [
+        48,
+        30
+      ],
+      "layer": "furniture",
+      "footprint": [
+        50,
+        56
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "entry_amber",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.22,
+      "energy": 0.72
+    },
+    {
+      "id": "service_oil_lamp",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.1,
+      "energy": 0.68
+    },
+    {
+      "id": "archive_lamp",
+      "cell": [
+        45,
+        21
+      ],
+      "scale": 1.05,
+      "energy": 0.57
+    },
+    {
+      "id": "rear_watch_lamp",
+      "cell": [
+        38,
+        17
+      ],
+      "scale": 0.9,
+      "energy": 0.43
+    }
+  ],
   "region_design": "遗民营地 · badlands",
-  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
+  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。 B-line Oldland refinement: ochre/daylight, relief archive, wind-wall window; visual-only accents do not change collision.",
   "interior_owner_id": "",
-  "interaction_status": "no_reward_interactive_room"
+  "interaction_status": "no_reward_interactive_room",
+  "visual_revision": 3,
+  "room_day_tint": "ddcdb8",
+  "room_night_tint": "a49c8d"
 }

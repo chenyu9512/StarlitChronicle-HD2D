@@ -72,252 +72,235 @@ def create_snapshot(source, output, with_smoke=False):
     known = tracked(source)
     selected = {p for p in known if is_game_file(p)}
     if "project.godot" not in selected or "scenes/first_act.tscn" not in selected:
-        raise RuntimeError("Missing game entrypoint")
-    migration = data(source, "data/assets/c_third_party_only_migration_v1.json")
-    redirects = {}
-    for entry in migration.get("mappings", []):
-        old = str(entry.get("old_path", ""))
-        new = str(entry.get("new_source", ""))
-        if old.startswith("assets/") and new.startswith(ART+"external/"):
-            redirects[old] = new
-            # Dynamic texture names are generated from gameplay IDs.
-            # Retain migration targets, not the historical unshippable originals.
-            if new in known:
-                selected.add(new)
+        raise RuntimeError("Missing player entrypoint")
+
+    def read(name, schema=None):
+        if name not in known:
+            raise RuntimeError("Required live manifest missing: " + name)
+        result = data(source, name)
+        if not isinstance(result, dict) or (schema and result.get("schema") != schema):
+            raise RuntimeError("Unexpected runtime manifest schema: " + name)
+        selected.add(name)
+        return result
+
+    def actual_image(reference, identity):
+        if not isinstance(reference, str) or not reference.startswith("res://assets/art/runtime/"):
+            raise RuntimeError("Non-runtime image source for " + identity + ": " + str(reference))
+        name = reference.removeprefix("res://")
+        if ".." in Path(name).parts or Path(name).suffix.lower() not in IMAGES:
+            raise RuntimeError("Unsafe generated image source: " + identity)
+        if name not in known or not (source / name).is_file():
+            raise RuntimeError("Live playable image missing: " + identity + " -> " + name)
+        selected.add(name)
+        return name
+
+    def references(v):
+        if isinstance(v, dict):
+            for item in v.values():
+                yield from references(item)
+        elif isinstance(v, list):
+            for item in v:
+                yield from references(item)
+        elif isinstance(v, str) and v.startswith("res://assets/"):
+            yield v
+
+    # The old third-party migrations, Foozle pack and V17/V18 hardcoded
+    # directories were deliberately deleted from Main2. The only authority
+    # is the generated-and-bound runtime source graph; never restore them.
+    theme = read("data/assets/art_theme_v2.json", "starlit.art_theme.v2")
+    themes = theme.get("themes", [])
+    if len(themes) != 1 or len(themes[0].get("slots", {})) != 109:
+        raise RuntimeError("Canonical 109-slot generated theme is incomplete")
+    for identity, record in themes[0]["slots"].items():
+        actual_image(record.get("source"), identity)
+
+    registry = read("data/assets/c_art_runtime_registry_v1.json",
+                    "starlit.c.art_runtime_registry.v1")
+    for identity, record in registry.get("canonical_slots", {}).items():
+        actual_image(record.get("source"), identity)
+    if set(registry.get("canonical_slots", {})) != set(themes[0]["slots"]):
+        raise RuntimeError("Theme/runtime slot identities diverged")
+
+    # 451 unique named original HD2D images + every real normal map used by
+    # the live renderer; missing images make the release fail, not disappear.
+    factory = read("assets/art/runtime/global_factory_v3/active.json",
+                   "starlit.global_factory.live.v3")
+    assets = factory.get("assets", {})
+    if factory.get("enabled") is not True or len(assets) != factory.get("asset_count") or len(assets) != 451:
+        raise RuntimeError("Current generated active asset graph not complete")
+    normal_count = 0
+    for identity, record in assets.items():
+        actual_image(record.get("path"), identity)
+        normal = record.get("normal_map_path")
+        if normal:
+            actual_image(normal, identity + ".normal")
+            normal_count += 1
+    if normal_count != factory.get("normal_map_count"):
+        raise RuntimeError("Generated normal-map graph incomplete")
+
+    # All 116 V10 named replacements are registered by actual role. They
+    # are a small live generated runtime pool, NOT uploaded source-pack art.
+    gaps = read("assets/art/runtime/generated_gaps_v10/manifest.json",
+                "starlit.main2.gap_fill.v10")
+    if len(gaps.get("assets", {})) != gaps.get("generated_count"):
+        raise RuntimeError("Current V10 semantic art count invalid")
+    for identity, record in gaps["assets"].items():
+        actual_image(record.get("source"), identity)
+
+    motion = read("assets/art/runtime/boss_motion_v1/manifest.json",
+                  "starlit.boss_motion.runtime.v1")
+    if len(motion.get("assets", {})) != motion.get("count") or len(motion["assets"]) != 66:
+        raise RuntimeError("Runtime must include all 66 independently named boss action sheets")
+    for identity, record in motion["assets"].items():
+        actual_image(record.get("source_identity"), identity + ".portrait")
+        actual_image(record.get("source"), identity + ".six_state")
+
+    # The original V14 logical map and NPC/monster IDs still route gameplay
+    # to V10 generated images. Include exactly their manifest targets.
+    v14 = read("data/assets/c_act01_global_distribution_v14.json",
+               "starlit.c.act01_global_distribution.v14")
+    if set(v14.get("maps", {})) != {f"map_coast_{i:02d}" for i in range(1, 6)}:
+        raise RuntimeError("Playable Act-I map distribution incomplete")
+    for number, path in enumerate(references(v14.get("runtime", {}))):
+        actual_image(path, "v14_runtime_" + str(number))
+
+    hd2d = read("data/assets/c_act01_hd2d_v18.json",
+                "starlit.c.act01_hd2d_v18")
+    props = {str(record.get("source", "")) for record in hd2d.get("placements", [])}
+    materials = set(hd2d.get("materials", {}).values())
+    if len(hd2d.get("placements", [])) != 17 or len(props) != 14 or len(materials) != 11:
+        raise RuntimeError("V18 live scene role contract incomplete")
+    for number, path in enumerate(sorted(props | materials)):
+        actual_image(path, "v18_scene_" + str(number))
+
+    tavern = read("data/levels/v4/interiors/map_coast_02__tavern.json")
+    shelter = read("data/levels/v4/interiors/map_coast_02__shelter.json")
+    for room_name, room in (("tavern", tavern), ("shelter", shelter)):
+        if room.get("art_profile") != "coast_act01_" + room_name + "_v1":
+            raise RuntimeError("Act-I authored interior not registered: " + room_name)
+        actual_image(room.get("art_tileset"), room_name + "_atlas")
+        for row in room.get("visuals", []):
+            role = str(row.get("asset", ""))
+            if room_name == "tavern" or role in (
+                    "shelter_cot", "shelter_medicine_cabinet", "shelter_linen_cart",
+                    "shelter_treatment_tray", "medical_registration_counter", "treatment_bench"):
+                slot = "interior." + room_name + "." + role
+                if slot not in registry.get("canonical_slots", {}):
+                    raise RuntimeError("Missing exact room furniture identity: " + slot)
+                actual_image(registry["canonical_slots"][slot]["source"], slot)
+
+    for name, key in (
+        ("data/assets/c_art_content_icons_v6.json", "records"),
+        ("data/assets/c_art_allocated_decor_runtime_v1.json", "placements")):
+        for number, row in enumerate(read(name).get(key, [])):
+            actual_image(row.get("icon", row.get("source", "")), name + str(number))
+    packs = read("data/assets/c_art_packs.json", "starlit.c.art_packs.v1")
+    if packs.get("packs", []) != []:
+        raise RuntimeError("Third-party uploaded art packs must remain removed")
+
+    # Ordinary static source URLs may name other actually playable art, for
+    # example battle overlays or controls. Unknown/retired URLs do not cause
+    # a third-party source archive to reappear.
     for name in list(selected):
-        # The in-game catalog contains *candidates*, not only playable art.
-        # Its content must never expand the shipped binary dependency set.
         if name in ("data/assets/c_art_catalog.json", "data/assets/c_art_packs.json"):
-            # Quarantined historical pack paths are not runtime dependencies.
             continue
         if Path(name).suffix.lower() not in {".gd", ".tscn", ".tres", ".json", ".cfg", ".csv"}:
             continue
-        path = source/name
-        if path.stat().st_size > 3000000:
+        file = source / name
+        if file.stat().st_size > 3000000:
             continue
-        content = path.read_text(encoding="utf-8", errors="replace")
-        for ref in RES_PATTERN.findall(content):
+        for ref in RES_PATTERN.findall(file.read_text(encoding="utf-8", errors="replace")):
             candidate = ref.removeprefix("res://")
-            if candidate in known and Path(candidate).suffix.lower() in IMAGES:
-                if not candidate.startswith(SOURCE_PACKS):
-                    selected.add(candidate)
-            if candidate in redirects and redirects[candidate] in known:
-                selected.add(redirects[candidate])
-    # All approved curated aliases are published: these are already bound to
-    # real prop/scenery/monster world and battle code, not source candidates.
-    selected.update(p for p in known if p.startswith(CURATED) and Path(p).suffix.lower() in IMAGES)
+            if (candidate in known and Path(candidate).suffix.lower() in IMAGES
+                    and candidate.startswith("assets/") and
+                    not candidate.startswith((SOURCE_PACKS, "assets/art/candidates/",
+                                              "assets/art/external/"))):
+                selected.add(candidate)
 
-    # Black Sail Chapter IV furnishings are built from an authored art prefix
-    # and per-placement asset names, not literal res:// filenames in the script.
-    # Include only the pieces actually assigned to the playable tavern. This
-    # keeps source packs/candidates out of Runtime while avoiding invisible
-    # counters, tables and investigation clues in the slim build.
-    tavern = data(source, "data/levels/v4/interiors/map_coast_02__tavern.json")
-    if tavern.get("art_profile") != "coast_act01_tavern_v1":
-        raise RuntimeError("Playable Black Sail interior profile missing")
-    tavern_root = "assets/art/runtime/act01_tavern_v2/"
-    tavern_images = {str(tavern.get("art_tileset", "")).removeprefix("res://")}
-    for prop in tavern.get("visuals", []):
-        if not isinstance(prop, dict):
-            raise RuntimeError("Malformed Black Sail furniture placement")
-        asset = str(prop.get("asset", ""))
-        if not asset.startswith("tavern_") or "/" in asset or ".." in asset:
-            raise RuntimeError("Unapproved Black Sail furniture identity: " + asset)
-        tavern_images.add(tavern_root + asset + ".svg")
-    for image_name in sorted(tavern_images):
-        if not (image_name.startswith(tavern_root)
-                and image_name.endswith(".svg") and image_name in known):
-            raise RuntimeError("Missing playable Black Sail image: " + image_name)
-        selected.add(image_name)
-    # V17 names are built from a constant prefix plus exact gameplay kind in
-    # GDScript (not full res:// literals); static URL scanning cannot see them.
-    # These eight aliases are verified before packaging, and only these seven
-    # already-live runtime PNGs are shipped, never source_packs.
-    v17_approved = {
-        "flowerpot.png", "sea_crystal.png", "mangrove.png", "crab.png",
-        "harbor_crane.png", "sea_wind_pine.png", "saltwind_oak.png",
-        "tide_pool.png",
-    }
-    for filename in sorted(v17_approved):
-        name = CURATED_ACT01_SEMANTIC + filename
-        if name not in known:
-            raise RuntimeError("Missing promoted and actually bound Act-I art: " + name)
-        selected.add(name)
-
-    # Curated V18 images are dynamically loaded by kind / material name.
-    # Include only images actually bound to five first-act maps.
-    hd2d = data(source, "data/assets/c_act01_hd2d_v18.json")
-    if hd2d.get("schema") != "starlit.c.act01_hd2d_v18":
-        raise RuntimeError("Bad V18 playable manifest")
-    props = {str(row.get("source", "")).removeprefix("res://")
-             for row in hd2d.get("placements", [])}
-    materials = {str(v).removeprefix("res://")
-                 for v in hd2d.get("materials", {}).values()}
-    promoted = props | materials
-    # Scenery is deliberately pruned when visual review rejects a prop.
-    # Publish exactly the current live references, not a stale fixed count.
-    if len(materials) != 11 or len(props) < 10 or len(promoted) != len(props) + len(materials):
-        raise RuntimeError("V18 image roles incomplete or overlapping")
-    for name in promoted:
-        if not name.startswith(CURATED_ACT01_HD2D) or name not in known:
-            raise RuntimeError("V18 image missing from Main2: " + name)
-        selected.add(name)
-
-    for filename, key in (
-        ("data/assets/c_art_content_icons_v6.json", "records"),
-        ("data/assets/c_art_allocated_decor_runtime_v1.json", "placements")
-    ):
-        for entry in data(source, filename).get(key, []):
-            path = str(entry.get("icon", entry.get("source", ""))).removeprefix("res://")
-            if path not in known:
-                raise RuntimeError("Missing actual icon/prop: " + path)
-            selected.add(path)
-    for pack in data(source, "data/assets/c_art_packs.json").get("packs", []):
-        if pack.get("id") != "uploaded_later_v1":
-            continue
-        for entry in pack.get("mappings", []):
-            path = str(entry.get("source", "")).removeprefix("res://")
-            if path not in known:
-                raise RuntimeError("Missing active DLC art: " + path)
-            selected.add(path)
-    selected = {p for p in selected if p in known
-        and not p.startswith((SOURCE_PACKS, "assets/art/candidates/"))}
-    # Directional NPC strips are selected by family/action at runtime, not by
-    # a literal filename in code; include the documented 3 approved families.
-    npc_source_index = data(source, "data/assets/c_art_usage_external_v12.json")
-    for npc in npc_source_index.get("rows", []):
-        if (npc.get("category") == "characters" and
-            npc.get("family") in ("foozle_warrior", "foozle_sorceress", "foozle_necromancer") and
-            npc.get("orientation") in ("down", "left", "up", "right") and
-            npc.get("clip") in ("idle", "walk", "run")):
-            candidate = str(npc.get("source", "")).removeprefix("res://")
-            if candidate not in known:
-                raise RuntimeError("Missing actual NPC directional art: " + candidate)
-            selected.add(candidate)
-    # The NPC costume loader reads this manifest dynamically via FileAccess.
-    # Ship only the required Foozle 48px 4-direction character entries.
-    regional_index = "data/assets/c_art_usage_external_v12.json"
-    if regional_index not in known:
-        raise RuntimeError("Regional NPC runtime source manifest missing")
-    selected.add(regional_index)
-    # Ship regenerated V4.2 derivatives only when their original visual
-    # source belongs to this playable snapshot. Retain original source paths
-    # for provenance and fallback; the runtime resolver uses exact route keys.
+    # Regenerated details are overlays of images included above; never
+    # publish a second unrelated candidate pack.
     overlay_manifest = "assets/art/runtime/refined_overrides_v1/manifest.json"
     if overlay_manifest in known:
-        overlay = data(source, overlay_manifest)
-        if overlay.get("schema") != "starlit.refined_overrides.v1":
-            raise RuntimeError("Invalid regenerated detail manifest")
-        selected.add(overlay_manifest)
+        overlay = read(overlay_manifest, "starlit.refined_overrides.v1")
         for original, row in overlay.get("routes", {}).items():
             if not original.startswith("res://assets/art/") or ".." in original:
-                raise RuntimeError("Unsafe regenerated art original: " + str(original))
+                raise RuntimeError("Unsafe refined source key: " + original)
             old = original.removeprefix("res://")
             replacement = str(row.get("output", "")).removeprefix("res://")
-            if not replacement.startswith("assets/art/runtime/refined_overrides_v1/") or ".." in replacement:
-                raise RuntimeError("Unsafe regenerated runtime image: " + replacement)
-            if old in selected and replacement in known:
+            if old in selected:
+                if (not replacement.startswith("assets/art/runtime/refined_overrides_v1/")
+                        or replacement not in known):
+                    raise RuntimeError("Broken playable regenerated image: " + replacement)
                 selected.add(replacement)
-            elif old in selected:
-                raise RuntimeError("Missing playable regenerated image: " + replacement)
+
     if with_smoke:
         for script in SMOKES:
-            p = "tools/" + script
-            if p not in known:
-                raise RuntimeError("Missing required Godot smoke: " + p)
-            selected.add(p)
+            filename = "tools/" + script
+            if filename not in known:
+                raise RuntimeError("Missing runtime player smoke test: " + filename)
+            selected.add(filename)
+    selected = {p for p in selected if p in known and
+                not p.startswith((SOURCE_PACKS, "assets/art/candidates/",
+                                  "assets/art/external/"))}
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
     for name in sorted(selected):
-        destination = output/name
+        destination = output / name
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source/name, destination)
-    # The playable Runtime deliberately excludes the Main2 editor addon.
-    # Strip activation only from the copied project, never the Main2 original.
+        shutil.copy2(source / name, destination)
+
+    # The actual Runtime has no editor addon. Never mutate the Main2 source.
     runtime_project = output / "project.godot"
-    project_lines = runtime_project.read_text(encoding="utf-8").splitlines()
-    runtime_lines = []
-    in_editor_plugins = False
-    for line in project_lines:
+    lines = runtime_project.read_text(encoding="utf-8").splitlines()
+    cleaned = []
+    editor_plugins = False
+    for line in lines:
         if line.strip() == "[editor_plugins]":
-            in_editor_plugins = True
+            editor_plugins = True
             continue
-        if in_editor_plugins and line.startswith("[") and line.rstrip().endswith("]"):
-            in_editor_plugins = False
-        if not in_editor_plugins:
-            runtime_lines.append(line)
-    runtime_project.write_text("\n".join(runtime_lines).rstrip() + "\n", encoding="utf-8")
-    # Remove production inventory without altering actual gameplay mappings.
-    artfile = output/"data/assets/c_act01_global_distribution_v14.json"
-    registry = json.loads(artfile.read_text(encoding="utf-8"))
-    if registry.get("schema") != "starlit.c.act01_global_distribution.v14":
-        raise RuntimeError("Unexpected live art registry schema")
-    registry["source_index"] = []
-    registry.setdefault("counts", {})["source_files"] = 0
-    artfile.write_text(json.dumps(registry, ensure_ascii=False, separators=(",", ":")) + "\n",
-        encoding="utf-8")
-    def runtime_paths(v):
-        if isinstance(v, dict):
-            for child in v.values():
-                yield from runtime_paths(child)
-        elif isinstance(v, list):
-            for child in v:
-                yield from runtime_paths(child)
-        elif isinstance(v, str) and v.startswith("res://assets/art/runtime/"):
-            yield v.removeprefix("res://")
-    for name in runtime_paths(registry.get("runtime", {})):
-        if not (output/name).is_file():
-            raise RuntimeError("Curated gameplay image excluded by mistake: " + name)
-    # Reduce 667 source-library catalog rows to the NPC families actually
-    # used by CArtRegionalNPC.costume(), retaining valid frame references.
-    npcfile = output/"data/assets/c_art_usage_external_v12.json"
-    npc_manifest = json.loads(npcfile.read_text(encoding="utf-8"))
-    allowed_families = {"foozle_warrior", "foozle_sorceress", "foozle_necromancer"}
-    npc_rows = [row for row in npc_manifest.get("rows", [])
-        if row.get("category") == "characters" and row.get("family") in allowed_families
-        and row.get("orientation") in ("down", "left", "up", "right")
-        and row.get("clip") in ("idle", "walk", "run")]
-    if len(npc_rows) < 20:
-        raise RuntimeError("Incomplete runtime NPC 4-direction animation source index")
-    for row in npc_rows:
-        name = str(row.get("source", "")).removeprefix("res://")
-        if not (output/name).is_file():
-            raise RuntimeError("Regional NPC frame missing from runtime: " + name)
-    npc_manifest["rows"] = npc_rows
-    npc_manifest["image_count"] = len(npc_rows)
-    npc_manifest["group_summaries"] = {}
-    npc_manifest["status_counts"] = {}
-    npcfile.write_text(json.dumps(npc_manifest, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-    # The in-game art manager must not present 1,000+ absent candidates.
-    catalogfile = output/"data/assets/c_art_catalog.json"
-    catalog = json.loads(catalogfile.read_text(encoding="utf-8"))
-    records = []
-    for row in catalog.get("assets", []):
-        if not isinstance(row, dict):
-            continue
-        name = str(row.get("path", "")).removeprefix("res://")
-        if name in selected or (name in redirects and redirects[name] in selected):
-            records.append(row)
-    catalog["assets"] = records
-    catalog["count"] = len(records)
-    catalogfile.write_text(json.dumps(catalog, ensure_ascii=False, separators=(",", ":")) + "\n",
-        encoding="utf-8")
-    for filename, key in (
-        ("data/assets/c_art_content_icons_v6.json", "records"),
-        ("data/assets/c_art_allocated_decor_runtime_v1.json", "placements")
-    ):
-        for entry in data(output, filename).get(key, []):
-            name = str(entry.get("icon", entry.get("source", ""))).removeprefix("res://")
-            if not (output/name).is_file():
-                raise RuntimeError("Dangling visible art reference: " + name)
-    if any(p.startswith(SOURCE_PACKS) for p in selected):
-        raise RuntimeError("Production source packs leaked to Runtime")
-    summary = {"files":len(selected), "art_images":sum(Path(p).suffix.lower() in IMAGES
-        for p in selected if p.startswith(ART)), "catalog_visible":len(records),
-        "source_pack_files":0, "temporary_test_scripts":len(SMOKES) if with_smoke else 0}
-    print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
-    return summary
+        if editor_plugins and line.startswith("[") and line.rstrip().endswith("]"):
+            editor_plugins = False
+        if not editor_plugins:
+            cleaned.append(line)
+    runtime_project.write_text("\n".join(cleaned).rstrip() + "\n", encoding="utf-8")
+
+    # Prevent a production catalog from advertising deleted raw imports.
+    catalog_file = output / "data/assets/c_art_catalog.json"
+    if catalog_file.is_file():
+        catalog = json.loads(catalog_file.read_text(encoding="utf-8"))
+        kept = [row for row in catalog.get("assets", [])
+                if isinstance(row, dict) and
+                str(row.get("path", "")).removeprefix("res://") in selected]
+        catalog["assets"] = kept
+        catalog["count"] = len(kept)
+        catalog_file.write_text(json.dumps(catalog, ensure_ascii=False, separators=(",", ":")) + "\n",
+                                encoding="utf-8")
+
+    # Match the V14 gameplay graph without shipping its old source library
+    # inventory. All records used by live GDScript must still point to real art.
+    art_file = output / "data/assets/c_act01_global_distribution_v14.json"
+    art_registry = json.loads(art_file.read_text(encoding="utf-8"))
+    art_registry["source_index"] = []
+    if "count" in art_registry and isinstance(art_registry["count"], dict):
+        art_registry["count"]["source_files"] = 0
+    art_file.write_text(json.dumps(art_registry, ensure_ascii=False, separators=(",", ":")) + "\n",
+                        encoding="utf-8")
+
+    if any(p.startswith((SOURCE_PACKS, "assets/art/external/", "assets/art/candidates/"))
+           for p in selected):
+        raise RuntimeError("Raw uploaded or candidate artwork leaked into Runtime")
+    art_images = sum(Path(p).suffix.lower() in IMAGES
+                     for p in selected if p.startswith(ART))
+    result = {"files": len(selected), "art_images": art_images,
+              "v3_active_images": len(assets),
+              "v3_normal_maps": normal_count,
+              "v10_semantic_images": len(gaps["assets"]),
+              "boss_action_sheets": len(motion["assets"]),
+              "source_pack_files": 0,
+              "temporary_test_scripts": len(SMOKES) if with_smoke else 0}
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    return result
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

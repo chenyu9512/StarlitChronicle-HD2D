@@ -23,6 +23,10 @@ REQUIRED = (
     "assets/art/runtime/global_factory_v3/active.json",
     "assets/art/runtime/generated_gaps_v10/manifest.json",
     "assets/art/runtime/boss_motion_v1/manifest.json",
+    "assets/art/runtime/content_icons_v1/manifest.json",
+    "assets/art/runtime/scene_details_v1/manifest.json",
+    "assets/art/runtime/shore_waves_v1/manifest.json",
+    "assets/art/runtime/semantic_generated_v1/manifest.json",
 )
 
 
@@ -100,6 +104,36 @@ def verify(root: Path) -> dict:
             errors.append("Canonical theme source divergence: " + identity)
         add(source, "registry:" + identity)
 
+    generated_icons = read("assets/art/runtime/content_icons_v1/manifest.json",
+                           "starlit.content_icons.runtime.v1")
+    icon_assets = generated_icons.get("assets", {})
+    icon_paths = registry.get("content_icons", {})
+    if len(icon_assets) != 288 or len(icon_paths) != 288:
+        errors.append("288 content icons required in release")
+    for identity, entry in icon_assets.items():
+        if entry.get("source") != icon_paths.get(identity):
+            errors.append("Content icon ID/source mismatch: " + identity)
+        add(entry.get("source"), "content_icon:" + identity, entry.get("sha256"))
+
+    for group in ("generated_allocated_scene_props", "scene_detail_sources",
+                  "shore_wave_sources", "generated_semantic_scene_assets", "ui"):
+        for identity, path in registry.get(group, {}).items():
+            add(path, group + ":" + identity)
+    for manifest_path, schema in (
+        ("assets/art/runtime/scene_details_v1/manifest.json",
+         "starlit.scene_details.runtime.v1"),
+        ("assets/art/runtime/shore_waves_v1/manifest.json",
+         "starlit.shore_waves.runtime.v1"),
+        ("assets/art/runtime/semantic_generated_v1/manifest.json",
+         "starlit.semantic_generated.v1"),
+    ):
+        manifest = read(manifest_path, schema)
+        entries = manifest.get("routes", {}) if "routes" in manifest else manifest.get("assets", {})
+        for identity, entry in entries.items():
+            source = entry.get("source") if isinstance(entry, dict) else entry
+            add(source, manifest_path + ":" + identity,
+                entry.get("sha256") if isinstance(entry, dict) else None)
+
     factory = read("assets/art/runtime/global_factory_v3/active.json",
                    "starlit.global_factory.live.v3")
     assets = factory.get("assets", {})
@@ -144,13 +178,19 @@ def verify(root: Path) -> dict:
     for path in props | set(materials.values()):
         add(path, "V18 coast prop or material")
 
-    for name, field in (
-        ("data/assets/c_art_content_icons_v6.json", "records"),
-        ("data/assets/c_art_allocated_decor_runtime_v1.json", "placements"),
-    ):
-        obj = json.loads(files[name].read_text(encoding="utf-8"))
-        for entry in obj.get(field, []):
-            add(entry.get("icon", entry.get("source", "")), name)
+    v6 = json.loads(files["data/assets/c_art_content_icons_v6.json"].read_text(encoding="utf-8"))
+    content_records = v6.get("records", [])
+    if len(content_records) != 288 or {x.get("id") for x in content_records} != set(icon_paths):
+        errors.append("Actual content-icon catalogue IDs changed")
+    for entry in content_records:
+        identity = str(entry.get("id", ""))
+        original = entry.get("icon", "")
+        if original and original != icon_paths.get(identity):
+            errors.append("V6 content icon source does not match generated role: " + identity)
+        add(icon_paths.get(identity), "content_catalog:" + identity)
+    decor = json.loads(files["data/assets/c_art_allocated_decor_runtime_v1.json"].read_text(encoding="utf-8"))
+    for entry in decor.get("placements", []):
+        add(entry.get("source"), "allocated scene prop")
 
     packs = read("data/assets/c_art_packs.json", "starlit.c.art_packs.v1")
     if packs.get("packs", []) != []:
@@ -178,7 +218,8 @@ def verify(root: Path) -> dict:
         "v3_assets": len(assets), "v3_normal_maps": normals,
         "v10_generated_images": len(gaps.get("assets", {})),
         "boss_action_sheets": len(boss.get("assets", {})),
-        "theme_slots": len(slots), "source_pack_files": 0,
+        "theme_slots": len(slots), "generated_content_icons": len(icon_assets),
+        "source_pack_files": 0,
         "third_party_uploaded_images": 0,
     }
 

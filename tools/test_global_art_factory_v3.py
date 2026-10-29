@@ -221,7 +221,7 @@ class ArtFactoryTests(unittest.TestCase):
         import xml.etree.ElementTree as ET
         report=produce(self.root,self.out,{"terrain","ui"},limit=2)
         self.assertFalse(report["errors"],report["errors"])
-        self.assertEqual(report["version"],"4.0.0")
+        self.assertEqual(report["version"],VERSION)
         self.assertEqual(report["normal_map_count"],1)
         self.assertEqual(len(report["auxiliary_svg_paths"]),12)
         for svg in report["auxiliary_svg_paths"]:

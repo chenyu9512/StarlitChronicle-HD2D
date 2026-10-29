@@ -28,8 +28,14 @@ static func slot_source(slot_id: String) -> String:
     return str(entry.get("source", ""))
 
 static func texture_slot(slot_id: String) -> Texture2D:
-    if slot_source(slot_id).is_empty():
+    var source: String = slot_source(slot_id)
+    if source.is_empty():
         return null
+    # V10 fills exact historical semantic slots, not approximate unrelated
+    # category fallbacks. These first-party PNGs are the official replacement
+    # for deleted third-party runtime images, even when V2 themes are enabled.
+    if source.begins_with("res://assets/art/runtime/generated_gaps_v10/"):
+        return texture_path(source)
     if not RuntimeArtTheme.is_active() and Generated.active():
         var generated: String = str((_data().get("generated_slot_sources", {}) as Dictionary).get(slot_id, ""))
         if not generated.is_empty():

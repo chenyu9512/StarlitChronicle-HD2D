@@ -116,13 +116,16 @@ static func atlas_sources(region_id: String, map_id: String,
             water = outdoor_water
     elif not authored_atlas.is_empty() and _has_source(authored_atlas):
         land = authored_atlas
+    # Explicit fully-verified Pixel Fantasy DLC must outrank the automatic
+    # V3 generated default, otherwise the user-selected full theme never
+    # reaches the actual TileMap. A broken DLC is rejected for every region.
+    var pixel_local: Array[String] = pixel_theme_paths(region_id, outdoors)
+    if pixel_local.size() == 2:
+        return pixel_local
     if outdoors:
         var generated: Array[String] = Generated.terrain_paths(region_id)
         if generated.size() == 2:
             return generated
-    var pixel_local: Array[String] = pixel_theme_paths(region_id, outdoors)
-    if pixel_local.size() == 2:
-        return pixel_local
     return [land, water]
 
 static func is_regional(region_id: String) -> bool:

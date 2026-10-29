@@ -28,6 +28,7 @@ import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
+from art_common import stable_seed
 
 from hd2d_studio_v7 import (rgb, mix, rgba, save_png, height_normal,
                             scene as legacy_scene)
@@ -74,7 +75,7 @@ MORPH = {
 }
 
 def seed(*parts):
-    return int.from_bytes(hashlib.sha256('|'.join(map(str,parts)).encode()).digest()[:8],'big')
+    return stable_seed(*parts)
 
 def safe_id(name):
     if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,90}',str(name)):

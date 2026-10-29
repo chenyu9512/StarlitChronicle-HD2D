@@ -64,6 +64,19 @@ func _run() -> void:
     missing_field["inventory"] = {"item_herb_01": INF}
     check(not reader._valid_payload(missing_field), "Infinite item count passed V3 validation")
     missing_field = reader._pack()
+    missing_field["chapter"] = 2.5
+    check(not reader._valid_payload(missing_field), "Fractional chapter silently truncated")
+    missing_field = reader._pack()
+    missing_field["gold"] = 80.75
+    check(not reader._valid_payload(missing_field), "Fractional gold silently truncated")
+    missing_field = reader._pack()
+    missing_field["inventory"] = {"item_herb_01": 1.5}
+    check(not reader._valid_payload(missing_field), "Fractional inventory reward silently truncated")
+    missing_field = reader._pack()
+    missing_field["actors"] = reader.actors.duplicate(true)
+    missing_field["actors"][0]["hp"] = 0.5
+    check(not reader._valid_payload(missing_field), "Fractional party HP silently truncated")
+    missing_field = reader._pack()
     missing_field["actors"] = reader.actors.duplicate(true)
     missing_field["actors"][0]["hp"] = -1
     check(not reader._valid_payload(missing_field), "Negative party HP passed V3 validation")

@@ -23,7 +23,8 @@
 ## 当前工作流职责归并
 
 - `main2-art-generator-check.yml` 为所有美术生成层的**唯一自动回归检查入口**，统一运行绘图 V7/V8、候选工厂 V3、工作室 V9 及最终运行素材只读验证。
-- `main2-global-art-factory-v3.yml` 只保留人工按需生成候选清单；`main2-hd2d-studio-v9.yml` 只保留人工全量生成、原子切换与发布操作，避免旧版生成工作流在每次 push 时重复运行。
+- 保留 `main2-global-art-factory-v3.yml` 的自动全量候选覆盖验证，以及 `main2-hd2d-studio-v9.yml` 的自动完整生成检查；其较重的验证与统一入口中的快速回归互补，不能视为完全重复。自动发布步骤仍只允许 `workflow_dispatch` 条件通过后执行。
+- **平台限制**：GitHub 要求 `workflow_dispatch` 工作流文件存在于默认分支，而本项目默认 `main` 不能改动，所以上述仅存 Main2 的工作流暂不能保证在 GitHub UI 用“Run workflow”启动。保留 push 触发以避免原有可运行功能失效；不把手动发布功能计为已验证。
 - 删除了已经没有目标文件的 `main2-art-import-cache-cleanup-v3.yml`，因为在线代码树中跟踪的 `.import` 缓存为 0；今后由 `.gitignore` 与版本治理 `--strict` 拦截缓存重新提交。
 - 上述调整不改动存档格式、运行时美术素材、具体生成算法，保留需要的兼容模块。
 

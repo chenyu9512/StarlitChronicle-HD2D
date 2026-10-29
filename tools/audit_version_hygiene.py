@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = re.compile(r"(?<![A-Za-z0-9])v(?P<number>\d{1,2})(?:[._-]\d+)*(?!\d)", re.I)
-DISPOSABLE = re.compile(r"(?:\.translation|\.bak|\.backup|\.orig|\.rej|\.tmp|\.swp|\.swo|\.pyc)$", re.I)
+DISPOSABLE = re.compile(r"(?:\.import|\.translation|\.bak|\.backup|\.orig|\.rej|\.tmp|\.swp|\.swo|\.pyc)$", re.I)
 CODE_EXT = {".py", ".gd", ".sh", ".ps1", ".yaml", ".yml", ".toml", ".cfg", ".godot", ".ts", ".js"}
 TEXT_EXT = CODE_EXT | {".json", ".md", ".txt", ".csv", ".tscn", ".tres", ".ini", ".gitignore"}
 GENERATOR = "tools/generate_art.py"

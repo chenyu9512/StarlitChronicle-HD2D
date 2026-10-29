@@ -4,6 +4,18 @@ on:
     branches: ["Main2美术优化版"]
     paths:
       - "tools/art_pipeline.py"
+      - "tools/hd2d_studio_v7.py"
+      - "tools/hd2d_studio_v8.py"
+      - "tools/hd2d_studio_v9.py"
+      - "tools/test_hd2d_studio_v9.py"
+      - "tools/art_style_v6.py"
+      - "tools/art_style_v7.py"
+      - "tools/art_style_v8.py"
+      - "tools/test_art_style_v7.py"
+      - "tools/test_art_style_v8.py"
+      - "tools/global_art_factory_v3.py"
+      - "tools/global_art_ai_provider_v3.py"
+      - "tools/test_global_art_factory_v3.py"
       - "tools/audit_version_hygiene.py"
       - "data/governance/versioned_code_allowlist.json"
       - "main2_merge_regen_replace_cleanup_v10.py"
@@ -37,6 +49,11 @@ jobs:
         run: python tools/generate_art.py --project . --verify-only
       - name: Inspect cleanup without deleting any live art
         run: python tools/generate_art.py --project . --cleanup-only --cleanup-dry-run
+      - name: Verify layered art algorithms and candidate factory contracts
+        run: |
+          python tools/test_art_style_v7.py
+          python tools/test_art_style_v8.py
+          python tools/test_global_art_factory_v3.py
       - name: Verify V9 generator contracts in isolated fixtures
         run: python tools/test_hd2d_studio_v9.py
       - name: Forbid unintended modifications

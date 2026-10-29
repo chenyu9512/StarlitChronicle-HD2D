@@ -21,6 +21,7 @@ const BattleHud = preload("res://scripts/battle_hud.gd")
 const BossAwakening = preload("res://scripts/battle_boss_awakening.gd")
 const C23FogTideBodyMotion = preload("res://scripts/c_b03_fog_tide_body_motion.gd")
 const C23OtherBossMotion = preload("res://scripts/c_b03_other_boss_motion.gd")
+const GeneratedBossMotion = preload("res://scripts/battle_generated_boss_motion.gd")
 const LibrariumBossIdle = preload("res://scripts/c_art_librarium_boss_idle.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
@@ -82,6 +83,7 @@ var camera_motion
 var battle_hud
 var boss_animation
 var c23_boss_body_motion
+var generated_boss_motion
 var librarium_boss_idle
 var last_warning_text: String = ""
 var last_warning_round: int = 0
@@ -397,6 +399,18 @@ func _build() -> void:
         c23_boss_body_motion.name = "C23BossBodyMotion_%d" % chapter
         root.add_child(c23_boss_body_motion)
         c23_boss_body_motion.configure(portrait,chapter,bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
+    generated_boss_motion = null
+    if boss and chapter >= 7:
+        # Later chapters now use the same physically generated six-state
+        # identity sheets as Act I, without replacing any battle mechanics.
+        var later_motion = GeneratedBossMotion.new()
+        later_motion.name = "CanonicalChapterBossMotion_%d" % chapter
+        root.add_child(later_motion)
+        if later_motion.configure(portrait, chapter,
+                bool(game_state.rpg.get("settings", {}).get("reduced_motion", false))):
+            generated_boss_motion = later_motion
+        else:
+            later_motion.queue_free()
     if boss:
         boss_animation=BossAwakening.new()
         boss_animation.name="BossSixFrameAwakening"
@@ -532,7 +546,10 @@ func _select_enemy(index: int) -> void:
     if is_instance_valid(enemy_stage):
         enemy_stage.focus(index)
     if is_instance_valid(portrait) and portrait.visible:
-        portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
+        # The atlas already represents the active chapter boss. Reassigning
+        # a static portrait during focus would silently stop its animation.
+        if not is_instance_valid(generated_boss_motion) or not generated_boss_motion.enabled:
+            portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
         if is_instance_valid(librarium_boss_idle):
             librarium_boss_idle.configure(portrait, enemy, bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
         if is_instance_valid(vfx):
@@ -1180,6 +1197,8 @@ func _act(action: String) -> void:
                 enemy_stage.hit(active_target,int(enemy.get("hp",0)) <= 0)
     if is_instance_valid(c23_boss_body_motion) and not enemy_stage.visible:
         c23_boss_body_motion.play_hit(int(enemy.get("hp",0)) <= 0)
+    if is_instance_valid(generated_boss_motion) and not enemy_stage.visible:
+        generated_boss_motion.play_hit(int(enemy.get("hp",0)) <= 0)
     if not phase_two and boss and int(enemy["hp"]) <= int(enemy["max_hp"]) / 2:
         phase_two = true
         if boss_mechanics != null and boss_mechanics.enabled():
@@ -1195,6 +1214,8 @@ func _act(action: String) -> void:
             boss_animation.awaken()
         if is_instance_valid(c23_boss_body_motion):
             c23_boss_body_motion.play_phase()
+        if is_instance_valid(generated_boss_motion):
+            generated_boss_motion.play_phase()
         if is_instance_valid(camera_motion):
             camera_motion.impulse(7.0)
         if is_instance_valid(sfx):
@@ -1263,6 +1284,8 @@ func _enemy_strike(attacker_index: int = -1) -> void:
     last_enemy_action = str(enemy.get("name","敌人")) + " · " + str(intent.get("label","攻击"))
     if is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_attack()
+    if is_instance_valid(generated_boss_motion):
+        generated_boss_motion.play_attack()
     var target: int = living[dice.randi_range(0, living.size() - 1)]
     var targeting: String = str(intent.get("target",""))
     if targeting in ["lowest_hp","highest_hp","lowest_mp"]:
@@ -1362,6 +1385,8 @@ func _telegraph_next_boss_action() -> void:
     last_warning_text = name
     if is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_charge()
+    if is_instance_valid(generated_boss_motion):
+        generated_boss_motion.play_charge()
     vfx.play_warning(_vfx_foe_point(),name)
     if is_instance_valid(battle_hud):
         battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,last_warning_text)
@@ -1449,6 +1474,8 @@ func _finish(victory: bool) -> void:
     win_locked = true
     if victory and boss and is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_defeat()
+    if victory and boss and is_instance_valid(generated_boss_motion):
+        generated_boss_motion.play_defeat()
     for item in commands.get_children():
         if item is Button:
             item.disabled = true

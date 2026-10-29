@@ -164,6 +164,15 @@ func restore(world: Node) -> Dictionary:
         # running. Never return to the OLD map or accept a blocked arrival in
         # the NEW map; only resolve against the live destination geometry.
         var arrival: Dictionary = find_safe_position(world,avatar.position)
+        if not bool(arrival.get("ok",false)):
+            # An old-map coordinate may be nowhere near the destination's
+            # actual walkable component. Use the NEW map's authored spawn,
+            # never the checkpoint/map we just left.
+            var live_layout: Variant = world.get("terrain_layout")
+            if live_layout is Dictionary:
+                var spawn_value: Variant = live_layout.get("spawn",null)
+                if spawn_value is Vector2i:
+                    arrival = find_safe_position(world,Vector2(spawn_value)*TILE_SIZE+Vector2(16,16))
         safe_found = bool(arrival.get("ok",false))
         if safe_found:
             destination = arrival["position"]

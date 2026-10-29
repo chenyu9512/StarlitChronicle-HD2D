@@ -125,7 +125,10 @@ static func shared(paths: Array[String], columns: int = 8,
         # Rebuild ONLY these two authored route/cave sheets. Approved user
         # theme atlases above continue to take precedence, untouched.
         var legacy_exterior_roles: bool = path.contains("/exteriors/coast_final_pass/") and path.get_file() in ["tide_cavern_tileset.svg", "saltwind_route_tileset.svg"]
-        if not ready_user_atlas and Coherent.supports(path) and (Art.third_party_source(path) != path or high_res_live_water or from_verified_material or legacy_exterior_roles) and texture != null:
+        # The new V10 terrain 8x8 sheets must be sorted back into meaningful
+        # authored map rows before painting. Every map keeps its own palette.
+        var generated_map_rows: bool = path.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__")
+        if not ready_user_atlas and Coherent.supports(path) and (Art.third_party_source(path) != path or high_res_live_water or from_verified_material or legacy_exterior_roles or generated_map_rows) and texture != null:
             # Cache per semantic path. A dune/road/water atlas cannot share the
             # same assembled texture merely because its source PNG is shared.
             # ResourceLoader can return a different wrapper instance for the

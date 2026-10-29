@@ -31,7 +31,7 @@ def load_config(path: Path) -> configparser.ConfigParser:
     if not first_non_comment.startswith("["):
         if path.name != "project.godot":
             raise ValueError("Missing INI section header: " + str(path))
-        content = "[__godot_project_root__]\\n".replace("\\\\n", "\\n") + content
+        content = "[__godot_project_root__]\n" + content
     cfg = configparser.ConfigParser(interpolation=None, delimiters=("=",))
     cfg.read_string(content, source=str(path))
     return cfg

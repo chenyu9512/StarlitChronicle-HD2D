@@ -20,6 +20,13 @@
 
 有 2 个历史标签：`archive-v0.1.1-before-core` 与 `archive-v0.2-before-first-act`。它们是恢复锚点，现阶段不删。GitHub Release 数为 0。审计脚本会读取本地已获取的分支和标签；对于未完整 fetch 的 clone，应以 GitHub 在线 API 结果为准。
 
+## 当前工作流职责归并
+
+- `main2-art-generator-check.yml` 为所有美术生成层的**唯一自动回归检查入口**，统一运行绘图 V7/V8、候选工厂 V3、工作室 V9 及最终运行素材只读验证。
+- `main2-global-art-factory-v3.yml` 只保留人工按需生成候选清单；`main2-hd2d-studio-v9.yml` 只保留人工全量生成、原子切换与发布操作，避免旧版生成工作流在每次 push 时重复运行。
+- 删除了已经没有目标文件的 `main2-art-import-cache-cleanup-v3.yml`，因为在线代码树中跟踪的 `.import` 缓存为 0；今后由 `.gitignore` 与版本治理 `--strict` 拦截缓存重新提交。
+- 上述调整不改动存档格式、运行时美术素材、具体生成算法，保留需要的兼容模块。
+
 ## 版本化代码冻结基线
 
 现行兼容代码及工作流的版本化路径统一记录在 `data/governance/versioned_code_allowlist.json`。在保留合法 V3/V4 存档格式、正式美术路径的前提下，CI 拒绝无审批地添加新的 `foo_vN.py`、`foo_vN.gd` 或 `foo-vN.yml`；已经迁移并删除的旧文件无需从历史恢复，也不阻止继续减少版本后缀。

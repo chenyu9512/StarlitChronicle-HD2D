@@ -171,6 +171,27 @@ func _run() -> void:
     check(not bool(moved_result.get("same_map",true)),"map change went unnoticed")
     check(world.hero.position==Vector2(480,480),"cross-map victory wrongly teleported to previous map")
     check(str(moved_result.get("boss_settlement",""))=="rescued","nonlethal settlement lost")
+    # A battle that crosses into a smaller destination map must recover
+    # from that destination's authored spawn rather than old-map XY.
+    var smaller := mock()
+    smaller.terrain_layout = {"spawn":Vector2i(3,4),"size":Vector2i(12,12)}
+    var cross_bounds := Handoff.new()
+    check(bool(cross_bounds.begin(smaller,"boss",context(smaller)).get("ok",false)),
+        "small-destination handoff begin failed")
+    smaller.map_profile["id"]="map_oaths_02"
+    smaller.hero.position=Vector2(1648,1312)
+    check(bool(cross_bounds.mark_result(true,"rescued").get("ok",false)),
+        "small-destination victory result missing")
+    var cross_result: Dictionary=cross_bounds.restore(smaller)
+    var cross_tile := Vector2i(floori(smaller.hero.position.x/32.0),
+        floori(smaller.hero.position.y/32.0))
+    check(bool(cross_result.get("ok",false)),
+        "small-destination victory failed to restore at live spawn")
+    check(cross_tile.x>=1 and cross_tile.y>=1 and cross_tile.x<11 and cross_tile.y<11
+        and smaller._walkable_tiles().has(cross_tile),
+        "cross-map victory retained out-of-bounds old-map XY")
+    check(smaller.companion.position.distance_to(smaller.hero.position)<60.0,
+        "cross-map victory left companion behind")
     world.map_profile["id"]="map_coast_01"
     var reg := Encounter.new()
     var state := State.new()

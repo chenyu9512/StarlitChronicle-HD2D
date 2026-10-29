@@ -12,7 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 STATIC = {
-    "base": ["tools/validate_project.py", "tools/validate_first_act.py", "tools/validate_act01_canonical_routes.py", "tools/validate_release_no_cheats.py"],
+    "base": ["tools/validate_project.py", "tools/validate_global_runtime_contract.py", "tools/validate_first_act.py", "tools/validate_act01_canonical_routes.py", "tools/validate_release_no_cheats.py"],
     "map": ["tools/validate_act01_distinct_layouts.py", "tools/validate_no_fog_local_map.py", "tools/validate_b_world_spatial_integrity.py"],
     "art": ["tools/validate_art_theme_v2.py", "tools/validate_nonrandom_atlas_v2.py", "tools/audit_art_pipeline_v3.py", "tools/validate_c_act01_global_art_v14.py", "tools/validate_c_act01_semantic_v17.py", "tools/validate_c_act01_hd2d_v18.py", "tools/validate_c_act01_matched_props_v16.py", "tools/audit_act01_third_party_art.py"],
     "systems": ["tools/validate_release_gate.py", "tools/validate_story.py"],

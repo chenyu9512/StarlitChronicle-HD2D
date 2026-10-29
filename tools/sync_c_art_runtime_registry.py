@@ -384,7 +384,7 @@ def synchronize(root: Path) -> dict:
         if source and source not in physical:
             raise ValueError("Slot generation produced non-existent image: "+slot)
         record["source"] = source
-        record["stage"] = "generated_source_visual_review_pending" if source else "retired_source_unmapped"
+        record["stage"] = "runtime_source_pending_visual_signoff" if source else "retired_source_unmapped"
     current["canonical_slots"] = slots
     for region, record in current.get("regions",{}).items():
         record["material_preview"] = {
@@ -449,7 +449,7 @@ def synchronize(root: Path) -> dict:
         for key, row in baseline["slots"].items():
             source = str(current["canonical_slots"][key].get("source", ""))
             row["source"] = source
-            row["stage"] = "runtime_generated_pending_visual_signoff" if source else "retired_unmapped"
+            row["stage"] = "runtime_source_pending_visual_signoff" if source else "retired_unmapped"
         theme_text = json.dumps(theme, ensure_ascii=False, indent=2) + "\n"
         if theme_path.read_text(encoding="utf-8") != theme_text:
             theme_path.write_text(theme_text, encoding="utf-8")

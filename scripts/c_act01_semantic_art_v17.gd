@@ -34,12 +34,16 @@ const MAPS: Dictionary = {
 static func prop_path(kind: String) -> String:
     if not PROPS.has(kind):
         return ""
-    return RuntimeArt.slot_source("scene.coast." + kind)
+    var identity: String = "mangrove" if kind == "palm_tree" else kind
+    return RuntimeArt.slot_source("scene.coast." + identity)
 
 static func scenery_path(kind: String, map_id: String) -> String:
     if not MAPS.has(kind) or map_id not in (MAPS[kind] as Array):
         return ""
-    return RuntimeArt.slot_source("scene.coast." + kind)
+    # The coastal cave and shore crystal are the SAME named mineral artwork;
+    # a separate missing legacy source must not erase the actual cave sprite.
+    var identity: String = "sea_crystal" if kind == "cave_crystal" else kind
+    return RuntimeArt.slot_source("scene.coast." + identity)
 
 static func texture_for_prop(kind: String) -> Texture2D:
     var path: String = prop_path(kind)

@@ -1930,7 +1930,6 @@ func nearest_interaction() -> String:
         var exit_node: Node2D=nodes["interior_exit"]
         if is_instance_valid(exit_node) and hero.position.distance_to(exit_node.position)<=54.0:
             return "interior_exit"
-            return
     # Inspectable V4 furnishings use a real player proximity interaction.
     # Resolve them before generic service furniture; the exit still wins above.
     if not interior_building.is_empty() and not interior_building.begins_with("quest__"):
@@ -1948,21 +1947,18 @@ func nearest_interaction() -> String:
                 nearest_inspection=str(key)
         if not nearest_inspection.is_empty():
             return nearest_inspection
-            return
     # Authoritative main objective has priority when the player stands at its marker.
     # Without this, a nearby town door could hijack a chapter-critical interaction.
     if not focus_name.is_empty() and nodes.has(focus_name):
         var focus_node: Node2D = nodes[focus_name]
         if is_instance_valid(focus_node) and focus_node.visible and hero.position.distance_to(focus_node.position) <= 45.0:
             return focus_name
-            return
     # Tracked story-side / postscript objectives take priority over ambient
     # doorways and passing NPCs, but never override a nearby critical main NPC.
     if not side_focus_name.is_empty() and nodes.has(side_focus_name):
         var tracked_node: Node2D = nodes[side_focus_name]
         if is_instance_valid(tracked_node) and tracked_node.visible and hero.position.distance_to(tracked_node.position)<=38.0:
             return side_focus_name
-            return
     # All five original narrative quest stage props are explicit walkable
     # interactions. A neighbouring doorway, generic field prop or chapter
     # errand must not consume the action intended for the selected quest.
@@ -1972,7 +1968,6 @@ func nearest_interaction() -> String:
             var stage_node: Node2D = nodes[stage_id]
             if is_instance_valid(stage_node) and stage_node.visible and hero.position.distance_to(stage_node.position) <= 34.0:
                 return stage_id
-                return
     # Chapter interaction markers must never be shadowed by a newly placed
     # building doorway, gate, camp or side treasure in their immediate radius.
     for quest_id in ["key_npc","clue","witness","crisis","resolve"]:
@@ -1980,7 +1975,6 @@ func nearest_interaction() -> String:
             var quest_node: Node2D = nodes[quest_id]
             if is_instance_valid(quest_node) and quest_node.visible and hero.position.distance_to(quest_node.position) <= 28.0:
                 return quest_id
-                return
     # The three chapter-five physical evidence markers have their own
     # proximity contract and can never be invoked from other chapters/maps.
     if chapter == 5 and interior_building.is_empty() and str(map_profile.get("id","")) == "map_coast_03":
@@ -1991,7 +1985,6 @@ func nearest_interaction() -> String:
             var site: Node2D = nodes[key]
             if is_instance_valid(site) and site.visible and hero.position.distance_to(site.position) <= 42.0:
                 return key
-                return
     if chapter == 6 and interior_building.is_empty() and str(map_profile.get("id","")) == "map_coast_05":
         for piece_id in ["breakwater_wick","keeper_wick","summit_wick"]:
             var key: String = "wick:"+piece_id
@@ -2000,7 +1993,6 @@ func nearest_interaction() -> String:
             var wick_node: Node2D = nodes[key]
             if is_instance_valid(wick_node) and wick_node.visible and hero.position.distance_to(wick_node.position) <= 42.0:
                 return key
-                return
     # A dedicated quest-room entrance must outrank the generic shop/guild
     # doorway when the two share a canonical building door or nearby paving.
     var nearest_quest_door: String = ""
@@ -2017,7 +2009,6 @@ func nearest_interaction() -> String:
             nearest_quest_door = marker_id
     if not nearest_quest_door.is_empty():
         return nearest_quest_door
-        return
     # Explicit threshold interaction wins over unrelated decor/NPC markers.
     # Only the front side is usable; roofs and side walls remain impassable.
     var nearest_building: String = ""
@@ -2035,7 +2026,6 @@ func nearest_interaction() -> String:
             nearest_building=str(key)
     if not nearest_building.is_empty():
         return nearest_building
-        return
     var chosen := ""
     var best: float = 65.0
     for key in nodes.keys():

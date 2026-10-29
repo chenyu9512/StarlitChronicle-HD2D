@@ -38,6 +38,21 @@ class ArtFactoryTests(unittest.TestCase):
             (self.root/f"data/levels/v4/interiors/map_{i%42}__room_{i}.json").write_text(
                 json.dumps(room), encoding="utf-8")
 
+    def test_all_eight_biomes_use_semantic_material_colors(self):
+        from global_art_factory_v3 import TERRAIN_ROLE_COLORS
+        regions=("coast","oaths","forge","isles","mirror","oldland","sanctum","city")
+        self.assertEqual(set(TERRAIN_ROLE_COLORS),{"region_"+name for name in regions})
+        coast={"id":"region_coast","style":{"palette":["#83B9C4","#D7C59D","#386A82"]}}
+        sample=atlas(coast)
+        grass=sample.getpixel((1,32+1))
+        sand=sample.getpixel((1,5*32+1))
+        water=sample.getpixel((1,6*32+1))
+        # Sea cyan cannot replace grass; warm coastal sand must remain
+        # distinct from water even when the style's primary mood color is blue.
+        self.assertGreater(grass[1],grass[2], grass)
+        self.assertGreater(sand[0],sand[2], sand)
+        self.assertGreater(water[2],water[0], water)
+
     def test_v5_ground_materials_have_no_bright_column_boundaries(self):
         region={"id":"region_coast","style":{"palette":["#83B9C4","#D7C59D","#386A82"]}}
         image=atlas(region)

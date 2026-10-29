@@ -15,8 +15,9 @@ import re
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
+from art_style_v5 import terrain_cell, character_sheet
 
-VERSION = "3.0.0"
+VERSION = "3.1.0"
 SCOPES = ("terrain", "maps", "interiors", "props", "characters", "npcs", "monsters", "bosses", "ui")
 SIZES = {"terrain": (256,256), "maps": (1152,648), "interiors": (256,256),
          "props": (96,128), "characters": (96,192), "npcs": (96,192),
@@ -49,29 +50,8 @@ def colors(region):
         vals=["#83B9C4","#D7C59D","#386A82"]
     return tuple(tuple(int(x[j:j+2],16) for j in (1,3,5)) for x in vals[:3])
 
-def tile(d,x,y,c,kind,seed):
-    rng=random.Random(seed)
-    d.rectangle((x,y,x+31,y+31),fill=c)
-    if kind=="water":
-        for k in range(4):
-            v=y+4+k*7+rng.randrange(3)
-            d.arc((x-8,v-2,x+40,v+4),5,135,fill=shade(c,.22))
-    elif kind in ("wood","wall"):
-        for k in range(4):
-            v=y+k*8
-            d.line((x,v,x+31,v),fill=shade(c,-.21))
-            dx=x+(15 if (k+seed)%2 else 7)
-            d.line((dx,v+1,dx,v+7),fill=shade(c,-.15))
-    elif kind in ("stone","cobbles"):
-        for v in range(y,y+32,11):
-            d.line((x,v,x+31,v),fill=shade(c,-.18))
-            for dx in range(x+(12 if v%2 else 0),x+32,19):
-                d.line((dx,v,dx,min(y+31,v+10)),fill=shade(c,-.12))
-    else:
-        for _ in range(13):
-            px=x+rng.randrange(32); py=y+rng.randrange(32)
-            d.line((px,py,px+rng.randrange(-2,3),py-rng.randrange(1,4)),
-                   fill=shade(c,rng.uniform(-.18,.18)))
+def tile(d, x, y, c, kind, seed):
+    return terrain_cell(d, x, y, c, kind, seed)
 
 def atlas(region,room_id=""):
     a,b,c=colors(region)
@@ -83,7 +63,7 @@ def atlas(region,room_id=""):
     out=Image.new("RGBA",(256,256),(0,0,0,0)); d=ImageDraw.Draw(out)
     for row,(kind,base) in enumerate(zip(kinds,bases)):
         for col in range(8):
-            tile(d,col*32,row*32,shade(base,(col-3)*.016),kind,
+            tile(d,col*32,row*32,base,kind,
                  seeded(region["id"],room_id,row,col))
     return out
 
@@ -153,30 +133,10 @@ def prop(region,kind):
         d.polygon([(47,19),(82,29),(78,83),(47,73)],fill=shade(a,-.19))
     return out
 
-def walker(asset_id,region):
-    a,b,c=colors(region); rng=random.Random(seeded(asset_id))
-    jacket=shade(a,rng.uniform(-.15,.22)); hair=shade(c,rng.uniform(-.25,.17))
-    out=Image.new("RGBA",(96,192),(0,0,0,0)); d=ImageDraw.Draw(out)
-    for direction in range(4):
-        for frame in range(3):
-            ox,oy=frame*32,direction*48; gait=(-2,0,2)[frame]
-            d.rectangle((ox+9,oy+25,ox+22,oy+37),
-                        fill=jacket if direction!=2 else shade(jacket,-.23))
-            for px,dx in ((11,gait),(20,-gait)):
-                d.line((ox+px,oy+37,ox+px+dx,oy+45),fill=shade(c,-.3),width=4)
-            skin=(222,173,137)
-            d.ellipse((ox+10,oy+8,ox+23,oy+26),fill=skin)
-            d.rectangle((ox+9,oy+7,ox+23,oy+13),fill=hair)
-            if direction==0:
-                for x in (13,20):
-                    d.rectangle((ox+x,oy+17,ox+x+1,oy+18),fill=shade(c,-.2))
-            elif direction==1:
-                d.rectangle((ox+10,oy+18,ox+11,oy+19),fill=shade(c,-.2))
-            elif direction==3:
-                d.rectangle((ox+22,oy+18,ox+23,oy+19),fill=shade(c,-.2))
-            for x in (6,23):
-                d.rectangle((ox+x,oy+25,ox+x+3,oy+33),fill=skin)
-    return out
+def walker(asset_id, region):
+    # Pixel characters remain identity-labelled candidates. Four directions
+    # have distinct faces and three distinct movement poses per row.
+    return character_sheet(asset_id, region)
 
 def enemy(asset_id,region,boss=False):
     a,b,c=colors(region); rng=random.Random(seeded(asset_id))

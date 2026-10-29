@@ -94,6 +94,8 @@ const ALLOWED: Array[String] = [
 var prop_nodes: Dictionary = {}
 var signature_nodes: Dictionary = {}
 var detail_layer: TileMapLayer
+var generated_floor_layer: TileMapLayer
+var generated_floor_count: int = 0
 var active_lights: Array[PointLight2D] = []
 var light_energy: Array[float] = []
 var color_grade: CanvasModulate
@@ -161,18 +163,21 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
     var black_sail_room: bool = profile_id == "coast_act01_tavern_v1"
     var shelter_room: bool = profile_id == "coast_act01_shelter_v1"
     var regional_room: bool = profile_id == "regional_functional_v1"
-    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1" and not active_act01_room and not regional_room:
+    var v4_map: String = str(layout.get("map_id",""))
+    var v4_building: String = str(layout.get("building_id",""))
+    var generated_v4: bool = not Generated.interior_path(v4_map,v4_building).is_empty()
+    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1" and not active_act01_room and not regional_room and not generated_v4:
         return
     if active_act01_room:
         # Stage-specific color temperature accompanies *real* imported
         # furniture/tiles, without altering floor occupancy or save IDs.
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
-    if profile_id=="quest_research_v1" or regional_room:
+    if profile_id=="quest_research_v1" or regional_room or generated_v4:
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
     var chosen_atlas: String=str(layout.get("art_tileset",""))
-    if regional_room:
+    if regional_room or (generated_v4 and not v4_map.begins_with("map_coast_")):
         # Do not borrow the coastal inn wall material for distant regions.
         # The existing A-line regional TilePool chooses the actual floor atlas.
         theme_atlas = ""
@@ -204,6 +209,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         presentation_fx.z_index = 5
         add_child(presentation_fx)
     _build_wall_edging(layout, map_key, room_key)
+    _install_v4_floor_details(layout, map_key, room_key)
     _install_dew_signature(stage, layout, map_key, room_key)
     for value in layout.get("visuals",[]):
         if not value is Dictionary:
@@ -359,6 +365,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         if art_id=="window_sunshafts":
             sun_shafts=prop
         prop_nodes[prop.name]=prop
+    if generated_v4 and prop_nodes.is_empty():
+        _install_v4_role_fallback(stage,layout,room_key)
     _install_fire_animation(stage,layout)
     color_grade = CanvasModulate.new()
     color_grade.name = "InteriorColorGrade"
@@ -518,6 +526,84 @@ func _build_occluders(layout: Dictionary) -> void:
         occluder.position = Vector2(float(coords[0])*TILE,float(coords[1])*TILE)
         add_child(occluder)
         occluder_count+=1
+
+## Only when every authored prop is missing: place a role-correct
+## non-interactive 2D furnishing without changing room walls or routes.
+func _install_v4_role_fallback(stage: Node2D, layout: Dictionary, room_id: String) -> void:
+    var role: String = "guild_noticeboard"
+    match room_id:
+        "inn":
+            role = "harbor_guest_bed"
+        "shop":
+            role = "merchant_counter"
+        "guild":
+            role = "guild_noticeboard"
+        "smith":
+            role = "smith_anvil"
+        "shrine":
+            role = "shrine_altar"
+        "house":
+            role = "home_hutch"
+    var source: Texture2D = GeneratedFurniture.texture(role)
+    if source == null:
+        return
+    var blocked: Dictionary = layout.get("blocked",{})
+    var service: Vector2i = layout.get("interact_cells",{}).get("service",Vector2i(35,23))
+    var foot: Vector2i = service + Vector2i(0,-2)
+    if blocked.has(foot):
+        foot = service
+    if blocked.has(foot):
+        return
+    var prop := Sprite2D.new()
+    prop.name = "V4Visible_"+room_id.replace("_","-")+"_furniture"
+    prop.texture = source
+    prop.position = Vector2(foot*32)+Vector2(16,16)
+    prop.offset = Vector2(0,-20)
+    prop.z_index = 3
+    prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    prop.set_meta("visual_only",true)
+    prop.set_meta("source_role",role)
+    stage.add_child(prop)
+    prop_nodes[prop.name]=prop
+
+## Every V4 room receives its OWN generated 8x8 material atlas in the
+## actual map, not a standalone fullscreen mockup. Decoration has no collision.
+func _install_v4_floor_details(layout: Dictionary, map_id: String, building_id: String) -> void:
+    var source: String = Generated.interior_path(map_id,building_id)
+    if source.is_empty():
+        return
+    var chosen: Array[String] = [source]
+    var tileset: TileSet = TilePool.shared(chosen)
+    if tileset == null:
+        push_warning("Generated V4 room material is not usable: " + map_id + "#" + building_id)
+        return
+    generated_floor_layer = TileMapLayer.new()
+    generated_floor_layer.name = "AuthoredV4RoomMaterial"
+    generated_floor_layer.tile_set = tileset
+    generated_floor_layer.z_index = -5
+    generated_floor_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    generated_floor_layer.set_meta("room_material_path",source)
+    add_child(generated_floor_layer)
+    var walls: Dictionary = layout.get("blocked",{})
+    var ground: Dictionary = layout.get("tiles",{})
+    var reserved: Dictionary = {}
+    reserved[layout.get("spawn",Vector2i(-1,-1))] = true
+    for p in (layout.get("interact_cells",{}) as Dictionary).values():
+        if p is Vector2i:
+            reserved[p] = true
+    var salt: int = (map_id+"#"+building_id).hash()
+    for raw in ground.keys():
+        var pos: Vector2i = raw
+        if walls.has(pos) or reserved.has(pos):
+            continue
+        var floor_cell: Vector2i = ground[pos]
+        if floor_cell.y != 5:
+            continue
+        var variation: int = posmod(pos.x*47+pos.y*71+salt,100)
+        if variation >= 8:
+            continue
+        generated_floor_layer.set_cell(pos,0,Vector2i(posmod(pos.x*11+pos.y*13+salt,8),5))
+        generated_floor_count += 1
 
 func _build_wall_edging(layout: Dictionary, map_id: String, building_id: String) -> void:
     var edge_path: String = theme_atlas

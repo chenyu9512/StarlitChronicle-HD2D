@@ -107,16 +107,31 @@ def synchronize(root: Path) -> dict:
     icon_paths = {item["source"] for item in icon_assets.values()}
     if not icon_paths.issubset(set(physical)) or len(icon_paths) != 288:
         raise ValueError("Not all 288 generated content icon PNGs exist")
+    motion = read(root / "assets/art/runtime/boss_motion_v1/manifest.json")
+    if motion.get("schema") != "starlit.boss_motion.runtime.v1" or motion.get("count") != 66:
+        raise ValueError("Expected exactly 66 generated boss action sheets")
+    boss_records = motion.get("assets", {})
+    expected_boss_ids = {x["id"] for x in read(root / "data/assets/av_registry.json")["bosses"]}
+    if set(boss_records) != expected_boss_ids:
+        raise ValueError("Generated motion sheet identities do not cover canonical 66 bosses")
+    boss_paths = {item["source"] for item in boss_records.values()}
+    if len(boss_paths) != 66 or not boss_paths.issubset(physical):
+        raise ValueError("Boss motion files missing or aliased to another identity")
+    for boss_id, item in boss_records.items():
+        p = root / item["source"].removeprefix("res://")
+        if hashlib.sha256(p.read_bytes()).hexdigest() != item["sha256"]:
+            raise ValueError("Boss motion checksum mismatch: " + boss_id)
     for path, sha in physical.items():
         previous = old.get(path, {})
         produced = path.startswith(FACTORY)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
-            "registered": produced or path in detail_roots.values() or path in icon_paths or bool(previous.get("registered", False)),
+            "registered": produced or path in detail_roots.values() or path in icon_paths or path in boss_paths or bool(previous.get("registered", False)),
             "code_reference": ("generated_semantic_resolver" if produced else
                                "scene_detail_runtime_renderer" if path in detail_roots.values() else
                                "generated_content_icon_lookup" if path in icon_paths else
+                               "boss_action_atlas_runtime" if path in boss_paths else
                                previous.get("code_reference", "not_confirmed")),
             "drawn_in_scene": previous.get("drawn_in_scene", "未测试") if same_blob else "未测试",
             "visual_correct": previous.get("visual_correct", "未测试") if same_blob else "未测试",
@@ -129,6 +144,45 @@ def synchronize(root: Path) -> dict:
                 "provenance", "generated_runtime"
             )
     current["sources"] = sources
+    current["boss_motion_sources"] = {
+        key: boss_records[key]["source"] for key in sorted(boss_records)
+    }
+    current["boss_motion_contract"] = {
+        "count":66, "states":["idle","attack","hit","status","down","phase_change"],
+        "frames_per_state":4, "manifest":"res://assets/art/runtime/boss_motion_v1/manifest.json",
+        "state":"real_animated_frames; visual_art_direction_unverified",
+    }
+    # Every remaining source-only file gets an explicit role and disposition.
+    # These assets are not promoted as in-game content without exact identity.
+    def candidate_role(path: str) -> str:
+        if "/bosses/" in path:
+            return "unmatched_boss_motion_candidate"
+        if "/characters/" in path:
+            return "unmatched_character_motion_candidate"
+        if "/monsters/" in path:
+            return "unmatched_monster_motion_candidate"
+        if "/tilesets/" in path:
+            return "external_tileset_candidate"
+        if "/icons/" in path:
+            return "unassigned_icon_candidate"
+        if "/props/" in path:
+            return "regional_prop_candidate"
+        if "/exteriors/" in path:
+            return "authored_exterior_candidate"
+        if "/ui/" in path:
+            return "evidence_ui_candidate"
+        return "world_reference_candidate"
+    current["source_candidate_pool"] = {
+        path: {
+            "role":candidate_role(path),
+            "source":path,
+            "sha":record["sha"],
+            "in_game_binding":"not_approved",
+            "disposition":"retain_for_exact_role_review",
+            "visual_acceptance":"未测试",
+        }
+        for path,record in sources.items() if not record["registered"]
+    }
     rejected = []
     for field in ("ui", "canonical_slots", "content_icons",
                   "monster_id_sources", "verified_legacy_redirects"):
@@ -207,6 +261,8 @@ def synchronize(root: Path) -> dict:
         "removed_retired_sources": len(set(old) - set(physical)),
         "registered_images": sum(bool(r["registered"]) for r in sources.values()),
         "unregistered_images": sum(not r["registered"] for r in sources.values()),
+        "boss_motion_sheets":len(boss_records),
+        "candidate_sources_classified":len(current["source_candidate_pool"]),
         "removed_invalid_bindings": rejected, "visual_status": "未测试",
     }
     current["version"] = "global-factory-v3-auto-synced"

@@ -15,6 +15,7 @@ import shutil
 from pathlib import Path
 from PIL import Image
 from global_art_factory_v3 import SCOPES, produce, read, verify
+from generate_boss_motion_v1 import create as create_boss_motion
 from generate_content_icons_v1 import generate as generate_content_icons
 
 RUNTIME_REL = Path("assets/art/runtime/global_factory_v3")
@@ -96,6 +97,8 @@ def install(root: Path, *, prune: bool = True) -> dict:
     }
     (out / "active.json").write_text(
         json.dumps(routes, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # Real 6-pose/4-frame PNG sheets from 66 already-installed boss identities.
+    boss_motion_report = create_boss_motion(root)
 
     # Find safe-to-delete legacy images; do not infer "unused" from missing
     # source-pack archives or audit report prose. A dynamic path directory
@@ -145,6 +148,7 @@ def install(root: Path, *, prune: bool = True) -> dict:
         "status": "runtime_assets_installed",
         "generated_assets": len(expected),
         "new_content_icons": content_icons_report["icons"],
+        "new_boss_action_sheets": boss_motion_report["bosses"],
         "terrain_pairs": report["counts"].get("terrain", 0),
         "removed_unreferenced_legacy": deleted,
         "retained_legacy_requires_rebinding": len(kept),

@@ -1,5 +1,7 @@
 extends Node2D
 const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const GeneratedFurniture = preload("res://scripts/c_generated_room_furniture_v4.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
@@ -195,7 +197,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         presentation_fx.name = "InteriorInteractionFX"
         presentation_fx.z_index = 5
         add_child(presentation_fx)
-    _build_wall_edging(layout)
+    _build_wall_edging(layout, map_key, room_key)
     _install_dew_signature(stage, layout, map_key, room_key)
     for value in layout.get("visuals",[]):
         if not value is Dictionary:
@@ -230,12 +232,18 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
             if actual_prop == null:
                 push_warning("Act-I room furniture missing approved matching image: "+art_id)
                 continue
-        elif art_id not in ALLOWED or not ArtOverrides.exists(path):
+        elif art_id not in ALLOWED:
             continue
         var prop := Sprite2D.new()
         prop.name = str(record.get("id",art_id))
         prop.texture = actual_prop if active_act01_room else RuntimeArt.texture_path(path)
+        if prop.texture == null and not active_act01_room:
+            # V4 rooms previously depended on removed coastal-district SVGs.
+            # Use identifiable generated 2D furniture rather than silently
+            # omitting the service desk, bed, shelves or decorative objects.
+            prop.texture = GeneratedFurniture.texture(art_id)
         if prop.texture == null:
+            push_warning("No matching V4 room prop: " + art_id)
             continue
         if active_act01_room:
             prop.set_meta("act01_imported_furniture",true)
@@ -483,22 +491,31 @@ func _build_occluders(layout: Dictionary) -> void:
         add_child(occluder)
         occluder_count+=1
 
-func _build_wall_edging(layout: Dictionary) -> void:
-    if not ArtOverrides.exists(theme_atlas):
+func _build_wall_edging(layout: Dictionary, map_id: String, building_id: String) -> void:
+    var edge_path: String = theme_atlas
+    var edge_row: int = 7
+    if not ArtOverrides.exists(edge_path):
+        # Generated V3 room atlases have their authored WALL tiles in row 6.
+        # Old V4 SVG tile atlases were retired; previously this returned
+        # early, leaving all 12 coastal rooms without wall edging.
+        edge_path = Generated.interior_path(map_id, building_id)
+        edge_row = 6
+    if edge_path.is_empty() or not ArtOverrides.exists(edge_path):
+        push_warning("No drawable wall edging for " + map_id + "#" + building_id)
         return
-    var atlas_paths: Array[String]=[theme_atlas]
-    var tiles: TileSet=TilePool.shared(atlas_paths,8,7,1)
-    if tiles==null:
+    var atlas_paths: Array[String] = [edge_path]
+    var tiles: TileSet = TilePool.shared(atlas_paths, 8, edge_row, 1)
+    if tiles == null:
         return
-    detail_layer=TileMapLayer.new()
-    detail_layer.name="WallEdgeTiles"
-    detail_layer.tile_set=tiles
-    detail_layer.z_index=-4
-    detail_layer.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+    detail_layer = TileMapLayer.new()
+    detail_layer.name = "WallEdgeTiles"
+    detail_layer.tile_set = tiles
+    detail_layer.z_index = -4
+    detail_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     add_child(detail_layer)
-    var walls: Dictionary=layout.get("blocked",{})
-    var cells: Dictionary=layout.get("tiles",{})
+    var walls: Dictionary = layout.get("blocked", {})
+    var cells: Dictionary = layout.get("tiles", {})
     for item in cells.keys():
-        var cell: Vector2i=item
-        if not walls.has(cell) and walls.has(cell+Vector2i.UP):
-            detail_layer.set_cell(cell+Vector2i.UP,0,Vector2i(posmod(cell.x,8),7))
+        var cell: Vector2i = item
+        if not walls.has(cell) and walls.has(cell + Vector2i.UP):
+            detail_layer.set_cell(cell + Vector2i.UP, 0, Vector2i(posmod(cell.x, 8), edge_row))

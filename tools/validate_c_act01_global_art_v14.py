@@ -31,6 +31,13 @@ def flatten(category, values):
         for map_id, surfaces in values.items():
             for kind, path in surfaces.items():
                 yield f"map_{int(map_id[-2:])}_{kind}", path
+    elif category == "boss_candidates":
+        # Authored boss IDs are boss.ch002..006, while generation names the
+        # visual role chapter_2..6. Preserve one-to-one chapter identity.
+        for boss_id, path in values.items():
+            if not boss_id.startswith("boss.ch") or not boss_id[7:].isdigit():
+                raise ValueError("Unexpected boss chapter ID: " + boss_id)
+            yield "chapter_" + str(int(boss_id[7:])), path
     else:
         yield from values.items()
 

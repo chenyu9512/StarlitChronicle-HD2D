@@ -196,6 +196,32 @@ def main() -> int:
                 if official.get("output") != record.get("output") or official.get("sha256") != record.get("sha256"):
                     errors.append("Regenerated derivative canonical index mismatch: " + source)
 
+    semantic_root = "res://assets/art/runtime/semantic_generated_v1/"
+    semantic_file = ROOT / "assets/art/runtime/semantic_generated_v1/manifest.json"
+    semantic_routes = {}
+    if semantic_file.is_file():
+        semantic_manifest = json.loads(semantic_file.read_text(encoding="utf-8"))
+        if semantic_manifest.get("schema") != "starlit.semantic_generated.v1":
+            errors.append("Invalid generated semantic image schema")
+        semantic_routes = semantic_manifest.get("routes", {})
+        if len(semantic_routes) != semantic_manifest.get("count"):
+            errors.append("Generated semantic image count mismatch")
+        for slot, record in semantic_routes.items():
+            image_path = record.get("source", "")
+            if not image_path.startswith(semantic_root) or image_path not in actual:
+                errors.append("Missing generated semantic scene image: " + slot)
+                continue
+            local = file_path(image_path)
+            if local is None or hashlib.sha256(local.read_bytes()).hexdigest() != record.get("sha256"):
+                errors.append("Generated semantic image SHA mismatch: " + slot)
+            expected = str(index.get("generated_semantic_scene_assets", {}).get(slot, ""))
+            if expected != image_path:
+                errors.append("Generated semantic image not officially registered: " + slot)
+        generated_files = {p for p in actual if p.startswith(semantic_root)}
+        declared_semantic = {row.get("source") for row in semantic_routes.values()}
+        for path in sorted(generated_files - declared_semantic):
+            errors.append("Unregistered semantic generated PNG: " + path)
+
     hashes: dict[str, list[str]] = defaultdict(list)
     for source, row in entries.items():
         local = file_path(source)
@@ -241,7 +267,13 @@ def main() -> int:
     for name, source in index.get("scene_detail_sources", {}).items():
         must_exist("scene detail " + str(name), source)
     for slot, entry in index.get("canonical_slots", {}).items():
-        must_exist("slot " + slot, entry.get("source", ""))
+        source = str(entry.get("source", ""))
+        if source:
+            must_exist("slot " + slot, source)
+        elif bool(entry.get("required", False)):
+            errors.append("Required semantic art still unbound: " + slot)
+        else:
+            notes.append("Optional historical slot retired after source purge: " + slot)
     for old, target in index.get("verified_legacy_redirects", {}).items():
         if not old.startswith("res://assets/"):
             errors.append("Unsafe legacy alias key: " + old)
@@ -283,6 +315,7 @@ def main() -> int:
         "factory_manifest_images": len(generated_declared),
         "factory_normal_maps": len(normal_declared),
         "refined_generated_routes": len(variants),
+        "generated_semantic_sprites": len(semantic_routes),
         "factory_terrain_images": len(expected_terrain & actual),
         "indexed_generated_images": len(declared_index),
         "registry_images": len(entries),

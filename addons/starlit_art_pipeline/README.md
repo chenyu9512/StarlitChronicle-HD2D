@@ -93,3 +93,28 @@ py tools/global_art_factory_v3.py --project . --source-root build/starlit_global
 ```
 
 模型结果会在保持宽高比的情况下装入固定画布；它们仍是候选，尤其是帧动画、人物身份与图集邻接必须在Godot实际画面逐张核对。不会因为生成成功自动覆盖游戏正式素材。没有密钥时不执行收费API，不能将提示词输出冒充已经生成的精修图片。
+
+
+## V4 画质强化（2026-10-29）
+
+编辑器「星灯美术生产线」现在区分三种真实不同的操作：
+
+- **④ 离线低保真占位**：Pillow 程序化绘制，只用于开发占位，不能当作高清商业原画。
+- **⑤ 全游戏高画质任务**：根据当前地图、室内、角色、怪物、Boss 正典输出完整视觉提示词，不调用付费 API。
+- **⑥ 模型高清 PNG**：显式调用图像模型；可选类别、生成张数和 xhigh/max。默认仅 8 张，避免误启动数百张付费渲染；将数量设为 0 可一次处理该类别全部资产。可点击「刷新高画质生成结果」查看结果数量。
+
+推荐的高质量命令（必须预先安装 \`openai\`、\`Pillow\` 和设置 \`OPENAI_API_KEY\`）：
+
+\`\`\`powershell
+py tools/global_art_ai_provider_v3.py --project . --jobs-only
+py tools/global_art_ai_provider_v3.py --project . --render --scope bosses --limit 8 --quality xhigh
+py tools/global_art_ai_provider_v3.py --project . --render --scope characters --quality max
+py tools/global_art_factory_v3.py --project . --source-root build/starlit_global_art_factory_v3/model_sources --force
+\`\`\`
+
+**画质处理要点：** 采用 \`gpt-image-2.5-sunburst\`、默认 xhigh，地图/图集高分辨率、人物竖向原画、Boss 横向母稿分别生成；按正确画幅覆盖或等比缩放，避免横竖挤压、黑框占位、透明背景被替换成底色。对行走帧表保留 4×3 布局；对 Boss/怪物从 3:1 母稿截取中间 4:1 帧条。
+
+**最低质量门禁：** 图片尺寸、真实透明像素、非空内容、色彩层次、动画各格非空，任何一项失败记入 \`render_report.json.failures\`，不进入候选集。成功文件旁的 \`*.quality.json\` 保存提示词、模型、品质、分辨率对应的指纹；升级生成配置后旧图不会被错误地当作新画质缓存复用。注意：程序无法凭这些指标证明角色身份相同、动作自然或地形完美无缝，仍须画廊和 Godot 游戏实机验收。
+
+精修生成路径：\`build/starlit_global_art_factory_v3/model_sources/<scope>/<asset_id>.png\`。
+这一步**不直接写入** \`assets/art/runtime\`，不会删除旧美术，也不会绕开 109 槽位的 DLC 正式接入审核。

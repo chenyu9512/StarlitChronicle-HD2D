@@ -19,6 +19,18 @@ class GateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"DUPLICATE_ANIMATION_FRAMES"):
             frame_quality(art,"characters")
 
+    def test_four_distinct_rgba_directions_not_false_rejected(self):
+        # PIL RGBA getbbox() treats an all-zero alpha *difference* as empty.
+        # The comparison must inspect RGB and alpha difference separately.
+        art=Image.new("RGBA",(96,192),(0,0,0,0))
+        for row in range(4):
+            for col in range(3):
+                color=(80+row*30,80+col*45,120,255)
+                ImageDraw.Draw(art).rectangle(
+                    (col*32+7,row*48+4,col*32+24,row*48+44),fill=color)
+        report=frame_quality(art,"characters")
+        self.assertEqual(report["frame_layout"],"4x3")
+
     def test_reject_broken_tile_edges(self):
         im=Image.new("RGB",(256,256),(50,50,50))
         d=ImageDraw.Draw(im)

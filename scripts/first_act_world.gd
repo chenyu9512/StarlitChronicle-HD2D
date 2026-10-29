@@ -10,6 +10,7 @@ const CAct01MatchedProps = preload("res://scripts/c_act01_matched_props_v16.gd")
 const CAct01Semantic = preload("res://scripts/c_act01_semantic_art_v17.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const StoryDressing = preload("res://scripts/world_story_dressing.gd")
+const GroundTransitions = preload("res://scripts/world_ground_transitions_v6.gd")
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const Geography = preload("res://scripts/world_geography.gd")
@@ -99,6 +100,7 @@ var coastal_audio
 var prologue_stage
 var prologue_cast: Dictionary = {}
 var layer: TileMapLayer
+var ground_transitions: Node2D
 var blocked: Dictionary = {}
 var reachable_tiles: Dictionary = {}
 var nodes: Dictionary = {}
@@ -273,6 +275,8 @@ func set_visual_quality(level: int) -> void:
     visual_quality = clampi(level,0,2)
     if is_instance_valid(ambience):
         ambience.set_visual_quality(visual_quality)
+    if is_instance_valid(ground_transitions):
+        ground_transitions.set_visual_quality(visual_quality)
     if is_instance_valid(coastal_scene):
         coastal_scene.set_visual_quality(visual_quality)
     if is_instance_valid(interior_art):
@@ -442,6 +446,14 @@ func _make_tiles() -> void:
         if outside and source_id==0:
             atlas=first_act_visual_ground(map_id,atlas)
         layer.set_cell(tile,source_id,atlas)
+    if outside:
+        # Seam shading samples the actual active TileSet, works with every
+        # region and art pack, and never modifies gameplay tile dictionaries.
+        ground_transitions = GroundTransitions.new()
+        ground_transitions.name = "GroundMaterialTransitions"
+        ground_transitions.z_index = -4
+        root.add_child(ground_transitions)
+        ground_transitions.configure(layer, visual_quality)
     # Renderable 32px cinematic ground details from 40 individual story plans.
     # No tile/collision replacement. C DLC overrides still resolve via TilePool.
     if outside:

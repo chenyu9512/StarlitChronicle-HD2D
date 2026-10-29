@@ -40,8 +40,8 @@ def cell(raw: object) -> tuple[int, int] | None:
 
 def interior_rooms() -> int:
     files = sorted(INTERIORS.glob("*.json"))
-    if len(files) < 99:
-        ISSUES.append(f"V4 room inventory: expected at least 99 files, got {len(files)}")
+    if len(files) < 153:
+        ISSUES.append(f"V4 room inventory: expected at least 153 files, got {len(files)}")
     count = 0
     for path in files:
         d = document(path)
@@ -152,6 +152,12 @@ def world_maps() -> tuple[int, int]:
                 if xy is None or not 2 <= xy[0] < width - 2 or not 2 <= xy[1] < height - 2:
                     ISSUES.append(f"{map_id}: V3 road out of bounds: {p}")
         occupied: list[tuple[str, tuple[int, int, int, int]]] = []
+        # Every outside doorway must resolve to a real V4 room; the old
+        # generic interior fallback is no longer a shipping path for towns.
+        for building in zone.get("buildings", []):
+            expected_room = INTERIORS / f"{map_id}__{building.get('id', '')}.json"
+            if not expected_room.is_file():
+                ISSUES.append(f"{map_id}/{building.get('id', '')}: missing live V4 interior")
         for building in zone.get("buildings", []):
             b_id = building.get("id", "")
             pos = cell(building.get("pos"))

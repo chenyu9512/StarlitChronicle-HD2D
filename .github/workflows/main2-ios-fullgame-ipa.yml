@@ -1,0 +1,263 @@
+name: "Main2 · Full Game iOS IPA Publish"
+
+# Full original game from Main2, never the art-free GameCore or trimmed Runtime.
+# One push of this workflow/config starts packaging; later builds are manual.
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/main2-ios-fullgame-ipa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: starlit-ios-fullgame-release
+  cancel-in-progress: false
+
+jobs:
+  package-and-publish:
+    name: "Godot 4.7.2 full-content iOS archive / optional signing / GitHub prerelease"
+    runs-on: macos-15
+    timeout-minutes: 120
+    env:
+      GODOT_VERSION: "4.7.2"
+      IOS_TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
+      IOS_BUNDLE_ID: ${{ secrets.IOS_BUNDLE_ID }}
+      IOS_CERT_B64: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 }}
+      IOS_CERT_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+      IOS_PROFILE_B64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout Main2 including tracked LFS game art
+        uses: actions/checkout@v4
+        with:
+          ref: "Main2美术优化版"
+          lfs: true
+          persist-credentials: false
+
+      - name: Identify full-game contents and prepare optional release identifiers
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/ios dist
+          python3 - <<'PY'
+          import json, os, pathlib, re
+          root = pathlib.Path(".")
+          acts = [json.loads((root / f"story/campaign/act_{i:02d}.json").read_text()) for i in range(1,13)]
+          chapters = sum(len(act["chapters"]) for act in acts)
+          q = sum(len(json.loads((root / path).read_text())["quests"]) for path in (
+              "story/data/side_quests.json",
+              "story/data/companion_quests.json",
+              "story/data/regional_quests_v2.json",
+          ))
+          bosses = len(json.loads((root / "story/data/bosses.json").read_text())["bosses"])
+          maps = len(list((root / "data/levels/v3").glob("map_*.json")))
+          assets = len(list((root / "assets/art/runtime").rglob("*.png")))
+          assert (len(acts), chapters, q, bosses, maps) == (12,72,120,66,40), (
+              "Full game content is missing: acts/chapters/quests/bosses/maps",
+              len(acts),chapters,q,bosses,maps,
+          )
+          assert assets > 0, "Original Main2 runtime artwork is missing"
+          report = dict(source_sha=os.environ["GITHUB_SHA"], branch="Main2美术优化版",
+                        acts=12, chapters=chapters, quests=q, bosses=bosses,
+                        maps=maps, runtime_png_count=assets,
+                        package_scope="all_resources plus nonresource JSON/CSV/TXT",
+                        gameplay_accepted=False, human_visual_qa=False)
+          (root / "build/ios/fullgame-inventory.json").write_text(
+              json.dumps(report, ensure_ascii=False, indent=2))
+          print(json.dumps(report, ensure_ascii=False))
+          settings = root / "export_presets.cfg"
+          preset = settings.read_text()
+          assert 'export_filter="all_resources"' in preset
+          assert 'include_filter="*.json,*.csv,*.txt"' in preset.split("[preset.0.options]")[0]
+          fields = {
+              "IOS_TEAM_ID": ("application/app_store_team_id", r"[A-Za-z0-9]{10}"),
+              "IOS_BUNDLE_ID": ("application/bundle_identifier", r"[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+"),
+          }
+          secrets = ("IOS_TEAM_ID","IOS_BUNDLE_ID","IOS_CERT_B64","IOS_CERT_PASSWORD","IOS_PROFILE_B64")
+          signing_ready = all(bool(os.environ.get(k)) for k in secrets)
+          if any(bool(os.environ.get(k)) for k in secrets) and not signing_ready:
+              raise SystemExit("Partial Apple signing secrets. Configure all five or none.")
+          if signing_ready:
+              for key, (field, pattern) in fields.items():
+                  value = os.environ[key]
+                  if not re.fullmatch(pattern,value):
+                      raise SystemExit("Invalid format for "+key)
+                  preset, count = re.subn(r'(?m)^'+re.escape(field)+r'="[^"]+"$',
+                      lambda _: field+'="'+value+'"',preset, count=1)
+                  if count != 1:
+                      raise SystemExit("Missing export preset setting: "+field)
+              settings.write_text(preset)
+          with open(os.environ["GITHUB_ENV"],"a") as env:
+              env.write("SIGNED_READY="+str(signing_ready).lower()+"\n")
+          print("Apple signing mode: " + ("provided provisioning" if signing_ready else "unsigned, requires external signing"))
+          PY
+          python3 tools/ios_export_preflight.py --project .
+
+      - name: Install official Godot editor and iOS export template
+        shell: bash
+        run: |
+          set -euo pipefail
+          release="https://github.com/godotengine/godot/releases/download/$GODOT_VERSION-stable"
+          curl -fL --retry 3 --output "$RUNNER_TEMP/godot-mac.zip" "$release/Godot_v$GODOT_VERSION-stable_macos.universal.zip"
+          mkdir -p "$RUNNER_TEMP/starlit-godot"
+          unzip -q "$RUNNER_TEMP/godot-mac.zip" -d "$RUNNER_TEMP/starlit-godot"
+          GODOT_BIN=$(find "$RUNNER_TEMP/starlit-godot" -path '*/Contents/MacOS/Godot' -type f -print -quit)
+          test -n "$GODOT_BIN"
+          chmod +x "$GODOT_BIN"
+          echo "GODOT_BIN=$GODOT_BIN" >> "$GITHUB_ENV"
+          curl -fL --retry 3 --output "$RUNNER_TEMP/templates.tpz" "$release/Godot_v$GODOT_VERSION-stable_export_templates.tpz"
+          mkdir -p "$RUNNER_TEMP/starlit-templates"
+          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$RUNNER_TEMP/starlit-templates"
+          template_dir="$HOME/Library/Application Support/Godot/export_templates/$GODOT_VERSION.stable"
+          mkdir -p "$template_dir"
+          cp -R "$RUNNER_TEMP/starlit-templates/templates/." "$template_dir/"
+          test -s "$template_dir/ios.zip"
+          "$GODOT_BIN" --version
+
+      - name: Import all game scenes, artwork and campaign data; export release Xcode project
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --editor --path . --quit 2>&1 | tee build/ios/import.log
+          "$GODOT_BIN" --headless --path . --export-release "iOS" "build/ios/StarlitChronicle.xcodeproj" 2>&1 | tee build/ios/export.log
+          test -s build/ios/StarlitChronicle.xcodeproj/project.pbxproj
+          find build/ios -type f -name '*.pck' -size +1M -print | tee build/ios/pck-files.txt
+          test -s build/ios/pck-files.txt || { echo "Missing packaged Godot data.pck; cannot release incomplete game"; exit 1; }
+
+      - name: Compile full-content native iPhone app for arm64
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild -list -json -project build/ios/StarlitChronicle.xcodeproj > build/ios/xcode_schemes.json
+          SCHEME=$(python3 -c 'import json; d=json.load(open("build/ios/xcode_schemes.json")); print(d["project"]["schemes"][0])')
+          test -n "$SCHEME"
+          xcodebuild -project build/ios/StarlitChronicle.xcodeproj \
+            -scheme "$SCHEME" -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$PWD/build/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            build 2>&1 | tee build/ios/xcodebuild.log
+          APP_PATH=$(find "$PWD/build/DerivedData/Build/Products/Release-iphoneos" -maxdepth 1 -type d -name '*.app' -print -quit)
+          test -n "$APP_PATH"
+          test -f "$APP_PATH/Info.plist"
+          find "$APP_PATH" -type f -name '*.pck' -size +1M -print | tee build/ios/bundled-pck-files.txt
+          test -s build/ios/bundled-pck-files.txt || { echo "Full game .pck missing from compiled iPhone app"; exit 1; }
+          printf '%s\n' "$APP_PATH" > build/ios/app-path.txt
+
+      - name: Package full-game unsigned IPA (not directly installable)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/unsigned/Payload
+          APP_PATH=$(cat build/ios/app-path.txt)
+          cp -R "$APP_PATH" build/unsigned/Payload/
+          (cd build/unsigned && zip -qry ../../dist/StarlitChronicle-FullGame-unsigned.ipa Payload)
+          unzip -t dist/StarlitChronicle-FullGame-unsigned.ipa >/dev/null
+          test -s dist/StarlitChronicle-FullGame-unsigned.ipa
+          shasum -a 256 dist/StarlitChronicle-FullGame-unsigned.ipa > dist/SHA256SUMS.txt
+
+      - name: Sign full-game IPA with supplied Apple developer certificate and profile
+        if: env.SIGNED_READY == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p build/signing/Payload "$RUNNER_TEMP/starlit-signing"
+          KEYCHAIN="$RUNNER_TEMP/starlit-signing/release.keychain-db"
+          KEYCHAIN_PASSWORD=$(openssl rand -hex 24)
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 3600 "$KEYCHAIN"
+          printf %s "$IOS_CERT_B64" | base64 -D > "$RUNNER_TEMP/starlit-signing/distribution.p12"
+          printf %s "$IOS_PROFILE_B64" | base64 -D > "$RUNNER_TEMP/starlit-signing/profile.mobileprovision"
+          security import "$RUNNER_TEMP/starlit-signing/distribution.p12" \
+            -k "$KEYCHAIN" -P "$IOS_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN" | sed -nE 's/.* ([0-9A-F]{40}) ".*"/\1/p' | head -1)
+          test -n "$IDENTITY" || { echo "No usable Apple signing identity imported"; exit 1; }
+          security cms -D -i "$RUNNER_TEMP/starlit-signing/profile.mobileprovision" > "$RUNNER_TEMP/starlit-signing/profile.plist"
+          python3 - <<'PY'
+          import os, pathlib, plistlib, datetime
+          root = pathlib.Path(os.environ["RUNNER_TEMP"])/"starlit-signing"
+          with (root/"profile.plist").open("rb") as f:
+              profile = plistlib.load(f)
+          team = os.environ["IOS_TEAM_ID"]
+          bundle = os.environ["IOS_BUNDLE_ID"]
+          assert team in profile["TeamIdentifier"], "Provisioning Team ID does not match"
+          ent = profile["Entitlements"]
+          assert ent["application-identifier"] == team + "." + bundle, "Profile Bundle ID does not match"
+          assert profile["ExpirationDate"] > datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None), "Profile is expired"
+          with (root/"entitlements.plist").open("wb") as f:
+              plistlib.dump(ent, f, fmt=plistlib.FMT_XML)
+          print("Apple signing profile matches configured application and has not expired")
+          PY
+          APP_PATH=$(cat build/ios/app-path.txt)
+          cp -R "$APP_PATH" build/signing/Payload/
+          TARGET_APP=$(find build/signing/Payload -maxdepth 1 -type d -name '*.app' -print -quit)
+          test -n "$TARGET_APP"
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$TARGET_APP/Info.plist")
+          test "$BUNDLE_ID" = "$IOS_BUNDLE_ID" || { echo "Compiled app Bundle ID mismatches profile"; exit 1; }
+          cp "$RUNNER_TEMP/starlit-signing/profile.mobileprovision" "$TARGET_APP/embedded.mobileprovision"
+          if [ -d "$TARGET_APP/Frameworks" ]; then
+            find "$TARGET_APP/Frameworks" -type f -name '*.dylib' -print0 | while IFS= read -r -d '' lib; do
+              codesign --force --sign "$IDENTITY" --keychain "$KEYCHAIN" "$lib"
+            done
+            find "$TARGET_APP/Frameworks" -type d -name '*.framework' -print0 | while IFS= read -r -d '' framework; do
+              codesign --force --sign "$IDENTITY" --keychain "$KEYCHAIN" "$framework"
+            done
+          fi
+          codesign --force --sign "$IDENTITY" --keychain "$KEYCHAIN" \
+            --entitlements "$RUNNER_TEMP/starlit-signing/entitlements.plist" "$TARGET_APP"
+          codesign --verify --deep --strict "$TARGET_APP"
+          (cd build/signing && zip -qry ../../dist/StarlitChronicle-FullGame-signed.ipa Payload)
+          unzip -t dist/StarlitChronicle-FullGame-signed.ipa >/dev/null
+          shasum -a 256 dist/StarlitChronicle-FullGame-signed.ipa >> dist/SHA256SUMS.txt
+
+      - name: Upload actual IPA artifacts and build inventory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: StarlitChronicle-iOS-FullGame
+          path: |
+            dist/*.ipa
+            dist/SHA256SUMS.txt
+            build/ios/fullgame-inventory.json
+            build/ios/*.log
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish downloadable GitHub preview release
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="ios-fullgame-preview-v0.6.0-run-$GITHUB_RUN_NUMBER"
+          {
+            echo "Starlit Chronicle HD2D - Main2 full-content iOS preview"
+            echo
+            echo "Source commit: $GITHUB_SHA"
+            echo "Godot: $GODOT_VERSION; all 12 act sources, 72 chapters, 120 quests, 66 Boss definitions and all 40 official world maps included as game data."
+            echo "This is a developer preview, NOT certification that 72 chapters are fully playable or commercially accepted."
+            echo
+            if [ "$SIGNED_READY" = "true" ]; then
+              echo "signed.ipa: manually code-signed using the provided Apple provisioning profile. Device installation depends on the profile's distribution type and permitted devices."
+              echo "unsigned.ipa: only for developers or external re-signing."
+            else
+              echo "unsigned.ipa: NOT directly installable; import into an authorized iOS signing/sideloading tool. No Apple signing certificate was provided."
+            fi
+            echo "See SHA256SUMS.txt and the CI fullgame-inventory.json."
+          } > dist/RELEASE_NOTES.txt
+          gh release create "$tag" dist/*.ipa dist/SHA256SUMS.txt build/ios/fullgame-inventory.json \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "Starlit Chronicle iOS Full Game Preview v0.6.0 ($GITHUB_RUN_NUMBER)" \
+            --notes-file dist/RELEASE_NOTES.txt --prerelease
+          echo "Release tag: $tag" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Erase temporary Apple signing material
+        if: always()
+        shell: bash
+        run: |
+          rm -rf "$RUNNER_TEMP/starlit-signing"

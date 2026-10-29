@@ -91,6 +91,7 @@ func _enter_tree() -> void:
     for scope in ["bosses", "characters", "maps", "interiors", "props", "monsters", "npcs", "terrain", "ui", "all"]:
         _ai_scope.add_item(scope)
     _ai_scope.tooltip_text = "选择本次精修资产类别；all 为全游戏批次"
+    _ai_scope.select(0)
     settings_row.add_child(_ai_scope)
     _ai_limit = SpinBox.new()
     _ai_limit.min_value = 0
@@ -103,6 +104,7 @@ func _enter_tree() -> void:
     _ai_quality.add_item("xhigh")
     _ai_quality.add_item("max")
     _ai_quality.tooltip_text = "模型渲染品质"
+    _ai_quality.select(0)
     settings_row.add_child(_ai_quality)
     _controls.add_child(settings_row)
     _add_button("⑥ 按所选范围生成高画质PNG（需要API密钥）", _render_model_art)
@@ -375,7 +377,7 @@ func _check_model_art() -> void:
         _status.text = "高画质报告损坏或尚未写完。"
         return
     var report: Dictionary = obj
-    _status.text = "模型：" + str(report.get("model", "")) + \
+    _status.text = "最近一次模型报告（请核对生成时间）：\n" + "模型：" + str(report.get("model", "")) + \
         "；品质：" + str(report.get("quality", "")) + \
         "\n新生成：" + str(report.get("complete", 0)) + \
         "；复用缓存：" + str(report.get("cached", 0)) + \

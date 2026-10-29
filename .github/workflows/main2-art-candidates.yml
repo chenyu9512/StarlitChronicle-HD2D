@@ -1,4 +1,4 @@
-name: Main2 Global Art Factory V3
+name: 'Main2 · Art Candidate Factory'
 on:
   push:
     branches: ["Main2美术优化版"]
@@ -15,7 +15,7 @@ on:
       - "tools/generate_art.py"
       - "tools/audit_legacy_cleanup.py"
       - "addons/starlit_art_pipeline/plugin.gd"
-      - ".github/workflows/main2-global-art-factory-v3.yml"
+      - ".github/workflows/main2-art-candidates.yml"
   workflow_dispatch:
 jobs:
   full-game-art-factory:

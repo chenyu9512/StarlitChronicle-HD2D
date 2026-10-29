@@ -12,39 +12,64 @@ import io
 import json
 import os
 import sys
+import hashlib
 from pathlib import Path
 
 from PIL import Image
 from global_art_factory_v3 import SCOPES, SIZES, read, safe, tasks
 
-MODEL = "gpt-image-2.5-flare"
-STYLE = ("Original premium hand-painted high definition 2D Japanese fantasy RPG art. "
-         "Consistent elegant design language across all regions, warm luminous highlights, "
-         "readable silhouettes, clean textures, coherent orthographic viewpoint, "
-         "no 3D renders, no stock clipart, no letters, no watermark.")
-
+MODEL = "gpt-image-2.5-sunburst"
+QUALITY = "xhigh"
+PIPELINE_REV = "quality-v4-20261029"
+TRANSPARENT = frozenset(("props", "characters", "npcs", "monsters", "bosses"))
+# The image API permits up to 3:1; we crop creature masters to the 4:1 strip.
+SOURCE_SIZES = {
+    "terrain": "1536x1536", "maps": "1536x864",
+    "interiors": "1536x1536", "props": "1024x1536",
+    "characters": "1024x2048", "npcs": "1024x2048",
+    "monsters": "1536x512", "bosses": "1536x512", "ui": "1536x512"}
+FRAMES = {"characters": (4, 3), "npcs": (4, 3),
+          "monsters": (1, 4), "bosses": (1, 4)}
+STYLE = (
+    "Original premium hand-painted high definition 2D Japanese fantasy RPG art. "
+    "Precise authored silhouettes and anatomy, readable even at 32px, richly "
+    "layered color temperature, soft painterly texture and controlled highlights, "
+    "coherent light direction, believable materials, beautiful original design. "
+    "Consistent visual language and scale across the entire game. Strictly 2D: "
+    "no 3D renders, no stock clipart, no photo collage, no flat geometric placeholders. "
+    "No letters, caption, text, copyright logos, framing mockups or watermark.")
 DESIGN = {
-    "terrain": "Create a clean 8-column 8-row tile sheet: row 1 terrain, row 2 roads, "
-               "row 3 stones, row 4 planks, row 5 cobbles, row 6 sand, row 7 water, "
-               "row 8 walls. Exactly uniform cells, seamless edges, NO combined landscape.",
-    "maps": "Detailed scenic location illustration for a layered parallax background; "
-            "this image MUST NOT be mistaken for collision geometry or a playable level.",
-    "interiors": "Straight top-down environment material atlas for a living, functional JRPG interior. "
-                 "Eight by eight uniform tile cells, no people, game-ready 2D textures.",
-    "props": "One clean isolated orthographic game prop with consistent anchor at bottom center, "
-             "strong functional silhouette, transparent background.",
-    "characters": "Twelve-frame walking animation sprite sheet, four direction rows "
-                  "(front, left, back, right), three frames per row. Identical recognizable "
-                  "character design in every cell, transparent background, exact alignment.",
-    "npcs": "Twelve-frame four-direction NPC walk sheet, three frames per direction, "
-            "same costume and identity, transparent background, no frame drift.",
-    "monsters": "Four equal horizontal frames of the same original creature's idle loop. "
-                "Clear anatomy, readable silhouette, consistent identity, transparent background.",
-    "bosses": "Four equal horizontal frames of the SAME named story boss with epic original "
-              "visual identity and phase details. Each frame aligned on the same baseline, "
-              "transparent background. No recycled generic enemy.",
-    "ui": "One elegant original dark ornamental JRPG interface border, gold/brass edging "
-          "with regional accent colors, clean empty interior, no textual labels.",
+    "terrain": "Top-down orthographic EIGHT by EIGHT independent tileable material cells "
+               "with invisible boundaries, never a landscape illustration. Rows: organic ground, "
+               "road, stone, planks, cobbles, sand, water, walls. Uniform lighting, no "
+               "perspective, no printed grid lines, no shadows crossing cell boundaries.",
+    "maps": "One detailed original 2D panoramic parallax scenery plate, distant landmark "
+            "clarity and atmospheric near/mid/far layers, no gameplay terrain or collision.",
+    "interiors": "TOP-DOWN 8x8 orthographic material texture atlas, exactly 64 separate "
+                 "square cells. Believable floor, wall, rug, stone and timber materials, "
+                 "seamless tiling, no furniture, no people, no isometric room mockup.",
+    "props": "One perfectly isolated three-quarter-view 2D functional object, fine handmade "
+             "material details and recognizable silhouette, bottom-center floor contact; "
+             "TRUE transparent background, no cast floor shadows or scenery.",
+    "characters": "Exactly four horizontal rows (front,left,back,right) of three walking "
+                  "animation frames each (step, idle, step), total TWELVE rectangular "
+                  "cells. Same recognizable clothing and proportions in every frame, "
+                  "identical feet baselines, 32x48 target pixels per cell. TRUE transparency.",
+    "npcs": "EXACTLY 4 direction rows (front,left,back,right) by 3 frames per row. "
+            "Maintain exactly one same identifiable NPC per cell, stable body and "
+            "costume design, 32x48 target per cell, aligned baseline. TRUE transparency.",
+    "monsters": "Four different but subtly animated IDLE poses of SAME unique monster "
+                "across FOUR square cells left-to-right, identical anatomy and markings. "
+                "Center four cells in the MIDDLE 75% height of source; leave 12.5% "
+                "transparent padding above and below for crop. TRUE transparency.",
+    "bosses": "Four distinct aligned idle-phase frames of the SAME unique story boss, "
+              "exquisite narrative silhouette and original phase ornaments, consistent "
+              "body proportions and gear across all four square cells. Composition only "
+              "in the middle 75% of source height, transparent top/bottom 12.5% margin. "
+              "TRUE transparency. Never use a generic recycled enemy.",
+    "ui": "Elegant meticulously hand-drawn ornate JRPG dialog frame, sophisticated brass "
+          "filigree with regional accents, clean EMPTY central readable field, "
+          "balanced corners. No typography, lettering or icons.",
 }
 
 def name_index(root: Path) -> dict:
@@ -63,31 +88,43 @@ def name_index(root: Path) -> dict:
 
 def build_jobs(root: Path, selected: set[str], limit: int = 0) -> list[dict]:
     av = read(root / "data/assets/av_registry.json")
-    regions = {r["id"]:r for r in av.get("regions",[])}
+    map_items = read(root / "data/content/maps.json").get("entries", [])
+    regions = {r["id"]: r for r in av.get("regions", [])}
     names = name_index(root)
+    entity_index = {
+        group: {str(item["id"]): item for item in av.get(group, [])}
+        for group in ("characters", "npcs", "monsters", "bosses")}
+    entity_index["maps"] = {str(item["id"]): item for item in map_items}
     queue = tasks(root, selected)
     if limit:
-        queue=queue[:limit]
-    output=[]
+        queue = queue[:limit]
+    output = []
     for group, asset_id, meta, _ in queue:
         region = regions.get(meta.get("region_id", ""), {})
         style = region.get("style", {})
-        label = names.get((group,asset_id),asset_id)
+        label = names.get((group, asset_id), asset_id)
         target = SIZES[group]
-        source_detail = str(meta.get("building_id","") or meta.get("kind",""))
-        prompt = (STYLE + "\nART ASSET: " + label + " (" + asset_id + ").\n"
-                  "REGIONAL STYLE: " + str(region.get("name",meta.get("region_id",""))) + ". "
-                  "Motif: " + str(style.get("motif","")) + ". "
-                  "Color palette: " + ", ".join(style.get("palette",[])) + ".\n"
-                  "CATEGORY REQUIREMENTS: " + DESIGN[group] + "\n"
-                  "ADDITIONAL CONTEXT: " + source_detail + ".\n"
-                  "FINAL TARGET RASTER: " + str(target[0]) + " x " + str(target[1]) +
-                  " pixels. Keep all distinct content inside safe margins. "
-                  "Deliver original high-quality art without text.")
-        output.append({"group":group,"id":asset_id,"name":label,
-                       "target_size":list(target),
-                       "prompt":prompt,"metadata":meta,
-                       "qa":"candidate_identity_and_animation_review_required"})
+        entity = entity_index.get(group, {}).get(asset_id, {})
+        details = "; ".join(str(entity[k]) for k in
+                            ("description", "appearance", "visual", "role", "type", "kind", "species")
+                            if entity.get(k))
+        location = str(meta.get("building_id", "") or meta.get("kind", ""))
+        prompt = (
+            STYLE + "\nCANONICAL ART IDENTITY: " + label + " (" + asset_id + ").\n"
+            "REGION: " + str(region.get("name", meta.get("region_id", ""))) + ". "
+            "Art motifs: " + str(style.get("motif", "")) + ". "
+            "Color palette: " + ", ".join(map(str, style.get("palette", []))) + ".\n"
+            "LORE AND FUNCTION: " + details + "; " + location + ".\n"
+            "ASSET SPECIFICATION: " + DESIGN[group] + "\n"
+            "TARGET IN-GAME RASTER: " + str(target[0]) + " x " + str(target[1]) +
+            " pixels; compose master art with tiny-screen readability and safe margins. "
+            "Deliver original high-quality art without text.")
+        output.append({
+            "group": group, "id": asset_id, "name": label,
+            "target_size": list(target), "source_size": SOURCE_SIZES[group],
+            "frame_grid": list(FRAMES[group]) if group in FRAMES else None,
+            "prompt": prompt, "metadata": meta,
+            "qa": "candidate_identity_and_animation_review_required"})
     return output
 
 def fit(image_bytes: bytes, desired: tuple[int,int], transparency: bool) -> Image.Image:

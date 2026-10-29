@@ -20,8 +20,9 @@ func _run() -> void:
         require(image != null and image.get_width() > 0 and image.get_height() > 0,
             "Real prop image missing: " + str(id))
     for id in Semantic.SCENERY.keys():
-        var candidate: String = str(Semantic.SCENERY[id])
-        var image: Texture2D = Art.texture(candidate)
+        var map_id: String = "map_coast_04" if str(id) == "cave_crystal" else "map_coast_02"
+        var candidate: String = Semantic.scenery_path(str(id), map_id)
+        var image: Texture2D = Semantic.texture_for_scenery(str(id), map_id)
         require(image != null and image.get_width() > 0 and image.get_height() > 0,
             "Real scenery PNG missing: " + str(id))
     require(Semantic.scenery_path("cave_crystal", "map_coast_04") ==

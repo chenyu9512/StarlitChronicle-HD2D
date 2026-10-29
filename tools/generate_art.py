@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+# Main2 V3: default entry point for data-driven global art candidates.
+# Use --legacy to opt into the old fixed 44x28 demo exporter.
+import sys as _factory_sys
+if __name__ == "__main__" and "--legacy" not in _factory_sys.argv:
+    from global_art_factory_v3 import main as _global_art_main
+    raise SystemExit(_global_art_main(_factory_sys.argv[1:]))
+if "--legacy" in _factory_sys.argv:
+    _factory_sys.argv.remove("--legacy")
+
 """Regenerates all original CC0-style in-project pixel assets using Pillow.
 No AI images, downloaded art, copyrighted Dragon Quest assets, or paid APIs.
 Generated sprites were created specifically for Starlit Chronicle.

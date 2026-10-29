@@ -3,6 +3,7 @@ extends SceneTree
 ## Resource existence alone is not enough: each registered ID must decode into
 ## a real 64x64 Texture2D through the production CArtItemIcons entrypoint.
 const Icons = preload("res://scripts/c_art_item_icons.gd")
+const Service = preload("res://scripts/world_service_menu.gd")
 var issues: Array[String] = []
 
 func _initialize() -> void:
@@ -32,6 +33,17 @@ func _run() -> void:
             issues.append("Generated content icon did not import: " + id)
     if records.size() != 288 or Icons.allocated_count() != 288 or seen.size() != 288:
         issues.append("All 288 independent item/equipment/skill IDs were not loaded")
+    # Real in-game business UI: the buy/forge command button must carry the
+    # actual Texture2D, not merely a catalog ID or decorative fake image.
+    var service = Service.new()
+    root.add_child(service)
+    for action in ["buy:item_herb_01","buy:wpn_sword_01","forge:wpn_sword_01"]:
+        service._add_action("Asset-loaded shop command",action,true)
+        var button: Button = service.choices.get_child(service.choices.get_child_count()-1) as Button
+        var item_id: String = action.get_slice(":",1)
+        if button == null or button.icon == null or button.icon.get_size() != Vector2(64,64) or str(button.get_meta("content_icon_id","")) != item_id:
+            issues.append("Real shop/forge button lacks working icon: "+action)
+    service.queue_free()
     if issues.is_empty():
         print("PASS: 288 unique canonical content IDs draw real 64x64 Godot Texture2D art; human visual QA pending")
         quit(0)

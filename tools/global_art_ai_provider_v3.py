@@ -243,7 +243,8 @@ def execute(root: Path, out: Path, selected: set[str], limit=0,
             dest.parent.mkdir(parents=True, exist_ok=True)
             if dest.is_file() and receipt.is_file() and not force:
                 meta = json.loads(receipt.read_text(encoding="utf-8"))
-                if meta.get("fingerprint") == key:
+                if (meta.get("fingerprint") == key and
+                        meta.get("image_sha256") == hashlib.sha256(dest.read_bytes()).hexdigest()):
                     with Image.open(dest) as cached:
                         cached.load()
                         checks = quality_metrics(cached, job["group"])
@@ -269,7 +270,10 @@ def execute(root: Path, out: Path, selected: set[str], limit=0,
             with Image.open(tmp) as check:
                 check.verify()
             tmp.replace(dest)
-            receipt.write_text(json.dumps({"fingerprint": key, "qa": checks},
+            receipt.write_text(json.dumps({
+                "fingerprint": key,
+                "image_sha256": hashlib.sha256(dest.read_bytes()).hexdigest(),
+                "qa": checks},
                                           ensure_ascii=False, indent=2) + "\n",
                                encoding="utf-8")
             report["complete"] += 1

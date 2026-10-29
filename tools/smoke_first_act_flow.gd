@@ -121,6 +121,28 @@ func _run() -> void:
                         game.progress,game.world_router.current_map(),required_room,str(evidence_id))
                     if not bool(record.get("seen_before", false)):
                         failures.append("Chapter %d physical evidence was not saved: %s" % [chapter,str(evidence_id)])
+        # Chapters 5 and 6 have genuine world-site investigations.
+        # Visit each actual on-map marker in the prescribed order; the
+        # controller owns the V3 transaction and enforces proximity/order.
+        # Never set flags, RPG receipts or battle-win fields in this test.
+        if chapter == 5:
+            var shoal_observations: Array[String] = ["red_flag","star_chain","retreat_line"]
+            for observation in shoal_observations:
+                _touch("shoal:" + observation)
+                var persisted: Dictionary = game.world.shoal_plan.snapshot(game.progress)
+                if not bool(persisted.get(observation,false)):
+                    failures.append("Chapter 5 physical shoal evidence not saved: " + observation)
+            if not game.world.shoal_plan.fully_observed(game.progress):
+                failures.append("Chapter 5 rescue prerequisites not satisfied")
+        if chapter == 6:
+            var lamp_fragments: Array[String] = ["breakwater_wick","keeper_wick","summit_wick"]
+            for fragment in lamp_fragments:
+                _touch("wick:" + fragment)
+                var persisted: Dictionary = game.world.lighthouse_plan.snapshot(game.progress)
+                if not bool(persisted.get(fragment,false)):
+                    failures.append("Chapter 6 physical lamp fragment not saved: " + fragment)
+            if not game.world.lighthouse_plan.all_fragments_found(game.progress):
+                failures.append("Chapter 6 lantern prerequisites not satisfied")
         _touch("clue")
         _inspect_canon_evidence()
         _dialog()

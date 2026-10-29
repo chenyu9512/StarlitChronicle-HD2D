@@ -11,6 +11,7 @@ const CAct01Semantic = preload("res://scripts/c_act01_semantic_art_v17.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const StoryDressing = preload("res://scripts/world_story_dressing.gd")
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
@@ -400,6 +401,10 @@ func _make_tiles() -> void:
         chosen_atlas = INN_ATLAS
     var outside: bool = interior_building.is_empty()
     var map_id: String = str(map_profile.get("id",""))
+    if not outside:
+        var new_interior: String = Generated.interior_path(map_id, interior_building)
+        if not new_interior.is_empty():
+            chosen_atlas = new_interior
     var atlas_sources: Array[String] = TerrainAtlas.atlas_sources(region,map_id,chosen_atlas,outside)
     var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and CArtOverrides.exists(chosen_atlas))
     var regional_art: bool = TerrainAtlas.is_regional(region)

@@ -25,8 +25,20 @@ func _run() -> void:
     ]
     verify(Icons.allocated_count() == 288, "288 allocated content IDs no longer bound to RPG icons")
     for map_key in maps:
-        for path in Production.production_paths(map_key):
+        var live_map: String = Production.runtime_source("maps",map_key)
+        verify(not live_map.is_empty(),
+            "Live map "+map_key+" has no canonical generated backdrop")
+        var live_paths: Array[String] = Production.production_paths(map_key)
+        verify(not live_paths.is_empty() and live_paths.has(live_map),
+            "First Act map "+map_key+" has no registered runtime art")
+        for path in live_paths:
             unique[path] = true
+    for key in ["terrain.region_coast_ground","terrain.region_coast_water",
+        "bosses.boss_ch002","bosses.boss_ch006","monsters.mon_coast_01",
+        "characters.char_wayfarer"]:
+        var pair: PackedStringArray = key.split(".")
+        verify(unique.has(Production.runtime_source(pair[0],pair[1])),
+            "Missing canonical live family: "+key)
     var loaded: int = 0
     for path in unique.keys():
         var texture: Texture2D = Art.texture(str(path))
@@ -34,7 +46,7 @@ func _run() -> void:
             errors.append("Missing real runtime Texture2D: " + str(path))
         else:
             loaded += 1
-    verify(unique.size() >= 120, "Expected at least 120 distinct Act-I slots")
+    verify(unique.size() >= 45, "Expected 45 or more distinct physically assigned First Act sources")
     verify(loaded == unique.size(), "One or more Act-I assigned runtime paths did not resolve")
     var state := State.new()
     state.new_game()

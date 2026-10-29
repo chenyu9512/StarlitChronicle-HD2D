@@ -4,7 +4,7 @@
   "map_id": "map_city_03",
   "building_id": "smith",
   "name": "群灯居民街·装备工房",
-  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "status": "b_neighborhood_visuals_authored_pending_godot",
   "size": [
     72,
     48
@@ -235,11 +235,281 @@
       "interaction_status": "authored_no_reward"
     }
   ],
-  "art_profile": "",
-  "visuals": [],
-  "light_sources": [],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_smith_0",
+      "asset": "smith_toolwall",
+      "cell": [
+        25,
+        22
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_1",
+      "asset": "provisions_shelves",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_2",
+      "asset": "smith_forge",
+      "cell": [
+        46,
+        17
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_4",
+      "asset": "smith_anvil",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_5",
+      "asset": "barrels",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_6",
+      "asset": "smith_toolwall",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_7",
+      "asset": "bookshelf",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        68
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "neighborhood_entry_mat",
+      "asset": "rug",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        86,
+        50
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "neighborhood_sun_window",
+      "asset": "window",
+      "cell": [
+        38,
+        13
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        65
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "neighborhood_memory_0",
+      "asset": "tideway_chart",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "neighborhood_memory_1",
+      "asset": "guild_noticeboard",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "neighborhood_herb_corner",
+      "asset": "saltgrass_planter",
+      "cell": [
+        43,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        48,
+        54
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "neighbor_family_books",
+      "asset": "bookshelf",
+      "cell": [
+        34,
+        17
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        63
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "neighborhood_entry",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.19,
+      "energy": 0.73
+    },
+    {
+      "id": "family_lantern",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.08,
+      "energy": 0.72
+    },
+    {
+      "id": "window_night",
+      "cell": [
+        45,
+        21
+      ],
+      "scale": 1,
+      "energy": 0.59
+    }
+  ],
   "region_design": "群灯居民街 · metropolis",
-  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
+  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。 B-line City03: housing-scale warm lighting, lived-in storage and neighborhood window, no collision changes.",
   "interior_owner_id": "",
-  "interaction_status": "no_reward_interactive_room"
+  "interaction_status": "no_reward_interactive_room",
+  "visual_revision": 3,
+  "room_day_tint": "e4d8c9",
+  "room_night_tint": "b09a94"
 }

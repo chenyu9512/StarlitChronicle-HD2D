@@ -209,9 +209,9 @@ static func original_texture(path: String) -> Texture2D:
     return ResourceLoader.load(resolved) as Texture2D
 
 static func texture(path: String) -> Texture2D:
-    var replacement: Texture2D = Generated.legacy_texture(path)
-    if replacement != null:
-        return replacement
+    var generated_texture: Texture2D = Generated.legacy_texture(path)
+    if generated_texture != null:
+        return generated_texture
     _load()
     # Candidate source filename is NOT an approved combat boss identity.
     if path.begins_with("res://assets/art/runtime/act01_global_v14/boss_candidates/"):

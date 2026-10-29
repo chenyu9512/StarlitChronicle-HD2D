@@ -16,7 +16,15 @@ func check(condition: bool, label: String) -> void:
 func _run() -> void:
     var registry = Registry.new()
     check(registry.load_all(), "registry load: " + "; ".join(registry.errors))
-    check(registry.create_controller("ch015") == null, "pending chapter must not instantiate")
+    # ch015 is now an explicitly active, chapter-owned eight-trial controller.
+    # Do not mistake the new active mechanism for an unsafe pending shortcut.
+    var ch015: Node = registry.create_controller("ch015")
+    check(str(registry.binding_for("ch015").get("status", "")) == "active", "ch015 must have an explicit active binding")
+    check(ch015 != null, "active ch015 safety-trial controller did not instantiate")
+    if ch015 != null:
+        ch015.free()
+    # An unregistered chapter must still fail closed.
+    check(registry.create_controller("ch014") == null, "unregistered chapter instantiated an unauthorized controller")
     var director: Node = registry.create_controller("ch021")
     check(director != null, "active chapter controller missing")
     var catalog = Catalog.new()

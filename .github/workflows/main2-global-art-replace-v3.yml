@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
           persist-credentials: true
       - uses: actions/setup-python@v5
         with:
@@ -99,8 +99,25 @@ jobs:
             echo "No art changes"
             exit 0
           fi
-          git commit -m "feat(art): replace retired visuals with 451 generated V3 images and prune unused old assets"
-          git push origin HEAD:"Main2美术优化版"
+          git commit -m "feat(art): install generated runtime imagery and canonical content icons"
+          # Several Main2 jobs may publish while Godot is testing images.
+          # Never force-push or reset another worker's newer branch tip.
+          for attempt in 1 2 3 4 5; do
+            git fetch --no-tags origin "refs/heads/Main2美术优化版"
+            if ! git rebase FETCH_HEAD; then
+              git rebase --abort || true
+              echo "Concurrent updates overlap generated art; refusing to overwrite newer changes."
+              exit 1
+            fi
+            if git push origin HEAD:"Main2美术优化版"; then
+              echo "Generated art and registry committed after verified fast-forward rebase."
+              exit 0
+            fi
+            echo "Branch advanced during push attempt $attempt; retrying without force."
+            sleep 2
+          done
+          echo "Failed to safely fast-forward Main2 after five attempts." >&2
+          exit 1
       - name: Upload generation and Godot acceptance evidence
         if: always()
         uses: actions/upload-artifact@v4

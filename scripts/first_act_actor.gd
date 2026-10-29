@@ -1,5 +1,6 @@
 extends Node2D
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 ## C-line actor: eight logical headings with honest four-direction sprite atlas fallback.
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
 const ThirdPartyWalk = preload("res://scripts/c_third_party_walk.gd")
@@ -30,10 +31,16 @@ func setup(image: String) -> void:
         sprite.queue_free()
     sprite = Sprite2D.new()
     third_party_strips = ThirdPartyWalk.resolve(image)
+    # Exact 3x4 directional sprite only; static portraits cannot become walks.
+    var fresh: Texture2D = Generated.legacy_texture(image)
+    if fresh != null and Vector2i(fresh.get_size()) == Vector2i(96, 192) and not ArtOverrides.has_override(image):
+        sprite.texture = fresh
+        third_party_strips.clear()
+        sprite.set_meta("art_source", "global_factory_v3")
     # Use the authored C2.1 four-facing atlas only when no local PNG override exists.
     # Existing 96x192 PNG remains the safe fallback, unchanged on disk.
     var authored: String = image.get_basename() + "_c21.svg" if image.ends_with("/walk_4dir_3frames.png") else ""
-    if not authored.is_empty() and not ArtOverrides.has_override(image) and ArtOverrides.exists(authored):
+    if sprite.texture == null and not authored.is_empty() and not ArtOverrides.has_override(image) and ArtOverrides.exists(authored):
         var upgrade: Texture2D = ArtOverrides.texture(authored)
         if upgrade != null and upgrade.get_size() == Vector2(96, 192):
             sprite.texture = upgrade

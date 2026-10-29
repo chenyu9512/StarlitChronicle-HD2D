@@ -3,6 +3,17 @@ extends RefCounted
 ## No legacy PNG or ad-hoc third-party atlas is needed for these covered roles.
 const ROOT: String = "res://assets/art/runtime/global_factory_v3/"
 const SWITCH: String = ROOT + "active.json"
+const INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
+static var _sources_loaded: bool = false
+static var _official_sources: Dictionary = {}
+
+static func _sources() -> Dictionary:
+    if not _sources_loaded:
+        _sources_loaded = true
+        var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(INDEX))
+        if raw is Dictionary and str(raw.get("schema", "")) == "starlit.c.art_runtime_registry.v1":
+            _official_sources = raw.get("generated_assets", {})
+    return _official_sources
 const REGION_IDS: Array[String] = [
     "region_coast", "region_oaths", "region_forge", "region_isles",
     "region_mirror", "region_oldland", "region_sanctum", "region_city"
@@ -34,8 +45,9 @@ static func path(group: String, asset_id: String) -> String:
         return ""
     if asset_id.is_empty() or asset_id.contains("/") or asset_id.contains(".") or asset_id.contains("\\"):
         return ""
-    var p: String = ROOT + group + "/" + asset_id + ".png"
-    return p if ResourceLoader.exists(p) else ""
+    var source: Dictionary = _sources().get(group + "." + asset_id, {})
+    var p: String = str(source.get("source", ""))
+    return p if p == ROOT + group + "/" + asset_id + ".png" and ResourceLoader.exists(p) else ""
 
 static func texture(group: String, asset_id: String) -> Texture2D:
     var p: String = path(group, asset_id)
@@ -50,8 +62,8 @@ static func terrain_paths(region_id: String) -> Array[String]:
     if not active() or not region_id in REGION_IDS:
         return result
     for kind in ["ground", "water"]:
-        var p: String = ROOT + "terrain/" + region_id + "_" + kind + ".png"
-        if not ResourceLoader.exists(p):
+        var p: String = path("terrain", region_id + "_" + kind)
+        if p.is_empty():
             return []
         result.append(p)
     return result
@@ -73,11 +85,15 @@ static func legacy_texture(original: String) -> Texture2D:
     if original.ends_with("/walk_4dir_3frames.png"):
         var cast_id: String = str(LEGACY_CAST.get(original.get_base_dir().get_file(), ""))
         return texture("characters", cast_id) if not cast_id.is_empty() else null
-    var rid: String = "region_coast"
+    var rid: String = ""
+    if original.begins_with("res://assets/art/runtime/act01_global_v14/props/") or original.begins_with("res://assets/art/props/coast/"):
+        rid = "region_coast"
     for candidate in REGION_IDS:
         if original.contains(candidate) or original.contains("/" + candidate.trim_prefix("region_") + "/"):
             rid = candidate
             break
+    if rid.is_empty():
+        return null
     for role in PROP_ROLES:
         # Match a role only as its actual noun, not by broad substring such
         # as "house" matching "shrine" or "crab" matching "crate".

@@ -6,6 +6,7 @@ const INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
 const Art = preload("res://scripts/c_art_overrides.gd")
 const RuntimeArtTheme = preload("res://scripts/c_art_theme_v2.gd")
 const Terrain = preload("res://scripts/world_terrain_atlas_registry.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 static var _index: Dictionary = {}
 static var _loaded: bool = false
 
@@ -29,6 +30,12 @@ static func slot_source(slot_id: String) -> String:
 static func texture_slot(slot_id: String) -> Texture2D:
     if slot_source(slot_id).is_empty():
         return null
+    if not RuntimeArtTheme.is_active() and Generated.active():
+        var generated: String = str((_data().get("generated_slot_sources", {}) as Dictionary).get(slot_id, ""))
+        if not generated.is_empty():
+            var fresh: Texture2D = texture_path(generated)
+            if fresh != null:
+                return fresh
     return RuntimeArtTheme.texture(slot_id)
 
 static func region_profile(region_id: String) -> Dictionary:
@@ -75,3 +82,25 @@ static func content_icon_count() -> int:
 static func monster_source(monster_id: String) -> String:
     var p: String = str((_data().get("monster_id_sources", {}) as Dictionary).get(monster_id, ""))
     return p if not p.is_empty() and texture_path(p) != null else ""
+
+## Exact generated semantic IDs; candidates must not be advertised as verified art.
+static func generated_source(group: String, asset_id: String) -> String:
+    return Generated.path(group, asset_id)
+
+static func generated_texture(group: String, asset_id: String) -> Texture2D:
+    return Generated.texture(group, asset_id)
+
+static func boss_candidate_source(boss_id: String) -> String:
+    if not Generated.active():
+        return ""
+    return str((_data().get("generated_boss_candidates", {}) as Dictionary).get(boss_id, ""))
+
+static func monster_candidate_source(monster_id: String) -> String:
+    if not Generated.active():
+        return ""
+    return str((_data().get("generated_monster_candidates", {}) as Dictionary).get(monster_id, ""))
+
+static func npc_candidate_source(npc_id: String) -> String:
+    if not Generated.active():
+        return ""
+    return str((_data().get("generated_npc_candidates", {}) as Dictionary).get(npc_id, ""))

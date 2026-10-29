@@ -78,6 +78,15 @@ def interior_rooms() -> int:
                 for inquiry in d["investigations"]:
                     if tuple(inquiry.get("cell", [])) not in visual_cells:
                         ISSUES.append(f"{name}: inspection clue not visibly staged")
+                collision_cells = {tuple(p) for p in d.get("art_collision_cells", [])}
+                for label in ("service", "storage"):
+                    stand = cell(d.get("points", {}).get(label))
+                    if stand is None or stand in collision_cells:
+                        ISSUES.append(f"{name}: {label} player stand blocked by furniture")
+                        continue
+                    neighbors = [(stand[0] + dx, stand[1] + dy) for dx, dy in STEPS]
+                    if not any(p in collision_cells and p in visual_cells for p in neighbors):
+                        ISSUES.append(f"{name}: {label} has no adjacent visible physical furnishing")
         # Identical authority order to world_interior_v4.gd, including art.
         width, height = 72, 48
         walls = {(x, y) for y in range(height) for x in range(width)}

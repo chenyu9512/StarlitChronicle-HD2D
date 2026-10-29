@@ -81,7 +81,7 @@ func _process(delta: float) -> void:
                 _: life_action = ["observe", "rest", "look_around", "observe"][cycle]
     blink_phase=fposmod(idle_elapsed+float(posmod(role.hash(),7))*0.37,3.9)
     if is_instance_valid(artwork):
-        if artwork == null and not costume_clips.is_empty():
+        if costume_atlas != null and not costume_clips.is_empty():
             _update_costume()
         # Still portrait identities stay intact: only subtle vertical breathing.
         artwork.position.y = base_art_offset if reduced_motion else base_art_offset + 0.8 * sin(idle_elapsed * 1.6 + float(posmod(role.hash(), 8)))
@@ -198,6 +198,9 @@ func setup(info: Dictionary) -> void:
         var down: Dictionary = (costume_clips.get("down", {}) as Dictionary).get("idle", {})
         costume_atlas.atlas = down.get("texture") as Texture2D
         costume_atlas.region = Rect2(0, 0, 48, 48)
+        if is_instance_valid(artwork):
+            remove_child(artwork)
+            artwork.queue_free()
         artwork = Sprite2D.new()
         artwork.texture = costume_atlas
         artwork.scale = Vector2.ONE * (38.0 / 48.0)

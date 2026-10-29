@@ -1,8 +1,8 @@
 extends Node2D
-## Authored shore-only imported Foozle wave sheets. Animated at real water edges
+## Generated role-correct shoreline sprite sheets. Animated at real water edges
 ## with 3 frames per strip; NOT a collectible, collider or invisible map gate.
 const Art = preload("res://scripts/c_art_overrides.gd")
-const DIR: String = "res://assets/art/external/cc0_named_v1/effects/foozle_effects/effects/wave/"
+const DIR: String = "res://assets/art/runtime/shore_waves_v1/"
 const TILE: int = 32
 var animated: Array[Dictionary] = []
 var art_errors: Array[String] = []
@@ -10,8 +10,7 @@ var elapsed: float = 0.0
 
 func _source(big: bool, heading: String) -> String:
     var size_name: String = "big" if big else "small"
-    var file_heading: String = "r_ight" if heading == "right" and not big else heading
-    return DIR + size_name + "/" + heading + "/fx_foozle_effects_wave_" + size_name + "_" + file_heading + ".png"
+    return DIR + size_name + "_" + heading + ".png"
 
 func configure(map_id: String, layout: Dictionary) -> void:
     for child in get_children():

@@ -9,6 +9,10 @@ on:
       - "tools/art_style_v5.py"
       - "tools/generate_content_icons_v1.py"
       - "tools/generate_boss_motion_v1.py"
+      - "tools/generate_shore_waves_v1.py"
+      - "scripts/c_art_coast_waves.gd"
+      - "scripts/c_art_regional_npc.gd"
+      - "scripts/world_npc_visual.gd"
       - "tools/smoke_all_boss_motion_v1.gd"
       - "tools/smoke_all_v4_visuals_v1.gd"
       - "scripts/c_boss_action_atlas_v1.gd"
@@ -21,6 +25,7 @@ on:
       - "assets/art/runtime/scene_details_v1/**"
       - "assets/art/runtime/content_icons_v1/**"
       - "assets/art/runtime/boss_motion_v1/**"
+      - "assets/art/runtime/shore_waves_v1/**"
       - "scripts/world_coastal_scene.gd"
       - "scripts/c_coastal_painter.gd"
   workflow_dispatch:
@@ -77,6 +82,7 @@ jobs:
           git add -A assets/art
           python tools/generate_content_icons_v1.py --project . --verify-only
           python tools/generate_boss_motion_v1.py --project . --verify-only
+          python tools/generate_shore_waves_v1.py --project . --verify-only
           python tools/sync_c_art_runtime_registry.py --project .
           python tools/check_c_art_runtime_registry.py
       - name: Import entire Godot project (not fake acceptance)
@@ -94,7 +100,7 @@ jobs:
         shell: bash
         run: |
           failed=0
-          for name in smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion smoke_c_coastal_render smoke_content_icons_v1 smoke_all_boss_motion_v1 smoke_all_v4_visuals_v1; do
+          for name in smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion smoke_c_coastal_render smoke_content_icons_v1 smoke_all_boss_motion_v1 smoke_all_v4_visuals_v1 smoke_c_promoted_runtime_v13; do
             timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$name.gd" > "$name.log" 2>&1 || failed=1
             tail -n 35 "$name.log"
             if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' "$name.log"; then failed=1; fi
@@ -143,6 +149,7 @@ jobs:
             smoke_content_icons_v1.log
             smoke_all_boss_motion_v1.log
             smoke_all_v4_visuals_v1.log
+            smoke_c_promoted_runtime_v13.log
             smoke_c_character_motion.log
             smoke_main2_act01_live_boss_motion.log
           if-no-files-found: warn

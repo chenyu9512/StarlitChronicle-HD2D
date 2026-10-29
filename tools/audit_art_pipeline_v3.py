@@ -67,11 +67,19 @@ def stem(key: str) -> str:
 
 def audit() -> dict:
     manifest = load(THEME)
-    allocation = load(ALLOCATION)
-    external = load(EXTERNAL)
-    source = load(SOURCE)
     problems = []
     warnings = []
+    # The generated-only library intentionally retired these two third-party
+    # provenance snapshots. They are archival counts, not active runtime
+    # manifests; missing snapshots must not crash strict source verification.
+    # Never skip the mandatory live theme, V18 or interior source checks below.
+    allocation = load(ALLOCATION)
+    external = load(EXTERNAL) if (ROOT / EXTERNAL).is_file() else {"rows": []}
+    source = load(SOURCE) if (ROOT / SOURCE).is_file() else {"rows": []}
+    for historical in (EXTERNAL, SOURCE):
+        if not (ROOT / historical).is_file():
+            warnings.append("retired historical snapshot absent: " + historical +
+                            "; counts unavailable, not an active art approval")
     if manifest.get("schema") != "starlit.art_theme.v2":
         problems.append("unexpected theme schema")
     themes = manifest.get("themes", [])

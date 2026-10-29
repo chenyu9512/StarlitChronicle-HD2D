@@ -35,6 +35,7 @@ const PACK_INDEX: String = "res://data/assets/c_art_packs.json"
 const RUNTIME_INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
 const PACK_ROOT: String = "user://c_art_packs"
 const MAX_INPUT_BYTES: int = 24 * 1024 * 1024
@@ -198,6 +199,9 @@ static func third_party_source(path: String) -> String:
     return str(_third_party_paths.get(path, path))
 
 static func original_texture(path: String) -> Texture2D:
+    var replacement: Texture2D = Generated.legacy_texture(path)
+    if replacement != null:
+        return replacement
     # Direct physically present canonical files outrank any legacy redirect.
     var resolved: String = path if ResourceLoader.exists(path) else third_party_source(path)
     if not resolved.begins_with("res://") or not ResourceLoader.exists(resolved):
@@ -205,6 +209,9 @@ static func original_texture(path: String) -> Texture2D:
     return ResourceLoader.load(resolved) as Texture2D
 
 static func texture(path: String) -> Texture2D:
+    var replacement: Texture2D = Generated.legacy_texture(path)
+    if replacement != null:
+        return replacement
     _load()
     # Candidate source filename is NOT an approved combat boss identity.
     if path.begins_with("res://assets/art/runtime/act01_global_v14/boss_candidates/"):

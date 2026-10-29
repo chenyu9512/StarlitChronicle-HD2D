@@ -222,6 +222,25 @@ def main() -> int:
         for path in sorted(generated_files - declared_semantic):
             errors.append("Unregistered semantic generated PNG: " + path)
 
+    allocated_root = "res://assets/art/runtime/allocated_decor_generated_v1/"
+    allocated_file = ROOT / "assets/art/runtime/allocated_decor_generated_v1/manifest.json"
+    allocated_assets = {}
+    if allocated_file.is_file():
+        allocated_manifest = json.loads(allocated_file.read_text(encoding="utf-8"))
+        allocated_assets = allocated_manifest.get("assets", {})
+        if allocated_manifest.get("schema") != "starlit.allocated_decor_generated.v1" or len(allocated_assets) != 25:
+            errors.append("Invalid generated region-decor manifest")
+        for identity, data in allocated_assets.items():
+            path = data.get("source", "")
+            if not path.startswith(allocated_root) or path not in actual:
+                errors.append("Allocated generated sprite missing: " + identity)
+                continue
+            local = file_path(path)
+            if local is None or hashlib.sha256(local.read_bytes()).hexdigest() != data.get("sha256"):
+                errors.append("Allocated sprite SHA mismatch: " + identity)
+            if str(index.get("generated_allocated_scene_props", {}).get(identity, "")) != path:
+                errors.append("Allocated generated sprite not registered: " + identity)
+
     hashes: dict[str, list[str]] = defaultdict(list)
     for source, row in entries.items():
         local = file_path(source)
@@ -316,6 +335,7 @@ def main() -> int:
         "factory_normal_maps": len(normal_declared),
         "refined_generated_routes": len(variants),
         "generated_semantic_sprites": len(semantic_routes),
+        "generated_allocated_props": len(allocated_assets),
         "factory_terrain_images": len(expected_terrain & actual),
         "indexed_generated_images": len(declared_index),
         "registry_images": len(entries),

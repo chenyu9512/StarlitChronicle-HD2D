@@ -17,6 +17,7 @@ REGIONS = (
     "region_mirror", "region_oldland", "region_sanctum", "region_city",
 )
 FACTORY = "res://assets/art/runtime/global_factory_v3/"
+DETAIL_PASS = "res://assets/art/runtime/refined_overrides_v1/"
 GROUPS = {"terrain", "ui", "props", "maps", "interiors",
           "characters", "npcs", "monsters", "bosses"}
 ROLES = ("tree", "cottage", "shop", "shrine", "well", "lantern", "crate", "banner")
@@ -89,6 +90,30 @@ def synchronize(root: Path) -> dict:
                 "stage": "runtime_atlas_pending_visual_qa",
             }
 
+    detail_manifest_path = root / "assets/art/runtime/refined_overrides_v1/manifest.json"
+    detail_routes = {}
+    if detail_manifest_path.is_file():
+        detail_manifest = read(detail_manifest_path)
+        if detail_manifest.get("schema") != "starlit.refined_overrides.v1":
+            raise ValueError("Incorrect V4.2 detail-pass manifest schema")
+        detail_routes = detail_manifest.get("routes", {})
+        if not isinstance(detail_routes, dict) or len(detail_routes) != detail_manifest.get("count"):
+            raise ValueError("V4.2 detail-pass manifest count mismatch")
+        for original, detail in detail_routes.items():
+            target = detail.get("output", "")
+            if (not original.startswith("res://assets/art/") or
+                not target.startswith(DETAIL_PASS) or
+                ".." in original or ".." in target):
+                raise ValueError("Invalid generated detail-pass path")
+            if original not in physical or target not in physical:
+                raise ValueError("Generated detail source/target not staged: " + original)
+            source_path = root / original.removeprefix("res://")
+            target_path = root / target.removeprefix("res://")
+            if hashlib.sha256(source_path.read_bytes()).hexdigest() != detail.get("source_sha256"):
+                raise ValueError("Detail-pass original changed: " + original)
+            if hashlib.sha256(target_path.read_bytes()).hexdigest() != detail.get("sha256"):
+                raise ValueError("Detail-pass new image SHA mismatch: " + target)
+
     old = current.get("sources", {})
     generated_by_path = {item["source"]: item for item in generated.values()}
     sources = {}
@@ -135,7 +160,7 @@ def synchronize(root: Path) -> dict:
     current["shore_wave_sources"]={k:v["source"] for k,v in wave_records.items()}
     for path, sha in physical.items():
         previous = old.get(path, {})
-        produced = path.startswith(FACTORY)
+        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
@@ -256,10 +281,17 @@ def synchronize(root: Path) -> dict:
                     actors[npc["id"]] = generated[key]["source"]
         profile["generated_stage"] = "runtime_candidate; visual_identity未测试"
 
+    current["refined_generated_routes"] = {
+        source: {"output": record["output"], "sha256": record["sha256"],
+                 "source_sha256": record["source_sha256"],
+                 "visual_status": "未测试"}
+        for source, record in sorted(detail_routes.items())
+    }
     current["generated_assets"] = generated
     current["generated_manifest"] = {
         "source": FACTORY + "active.json",
         "manifest_images": len(manifest),
+        "generated_detail_variants": len(detail_routes),
         "regional_atlases_extra": 16,
         "groups": groups, "enabled": True, "visual_status": "未测试",
     }

@@ -45,7 +45,15 @@ func _run() -> void:
             if grid.size()==2 and active.has(id):
                 check(active[id]==Vector2i(int(grid[0]),int(grid[1])),
                     "Home physical cell did not match live terrain "+file_name+"/"+id)
-        if not building_id.begins_with("quest__"):
+        if building_id.begins_with("quest__"):
+            # All 85 actual quest rooms must remain V4, with three walkable
+            # player-operated stations. Presence of JSON alone is not enough.
+            var stations: Variant = physical.get("quest_points",[])
+            check(str(physical.get("authored_source","")) == "v4",
+                "Quest room silently loaded a generic V2 interior: "+file_name)
+            check(stations is Array and stations.size() == 3,
+                "Quest room cannot complete its three physical investigation steps: "+file_name)
+        else:
             regular_rooms+=1
             regular_props+=candidates.size()
         inspected+=1

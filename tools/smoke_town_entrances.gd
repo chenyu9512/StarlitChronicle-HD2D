@@ -120,6 +120,18 @@ func _run() -> void:
     check(world.leave_building(),"Inn exit transition failed")
     check(world.hero.position.distance_to(position_before)<1.0,"Exit did not restore front-door checkpoint")
     check(not world._blocked(world.hero.position),"Inn exit restored player into a wall")
+    check(world._walkable_tiles().has(Vector2i(floori(world.hero.position.x/32.0),
+        floori(world.hero.position.y/32.0))),"Inn exit restored player to disconnected ground")
+    # A historic doorway may be removed in a later map revision. The
+    # fallback must be a real connected floor, not the invalid old XY.
+    world.hero.position = position_before
+    check(world.enter_building(entry_key),"Inn repeat entry failed")
+    world.exterior_position = Vector2(-96.0,-96.0)
+    check(world.leave_building(),"Invalid historical exterior checkpoint stranded player inside")
+    var recovered_cell := Vector2i(floori(world.hero.position.x/32.0),
+        floori(world.hero.position.y/32.0))
+    check(not world._blocked(world.hero.position) and world._walkable_tiles().has(recovered_cell),
+        "Invalid exterior checkpoint returned player to inaccessible floor")
     world.queue_free()
     if problems.is_empty():
         print("PASS town geometry: 11 towns, 68 solid houses, reachable front steps, live door selection and inn round-trip")

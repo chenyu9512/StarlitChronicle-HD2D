@@ -4,7 +4,7 @@
   "map_id": "map_sanctum_01",
   "building_id": "guild",
   "name": "天轨前庭·冒险者公会",
-  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "status": "b_regional_functional_visuals_authored_pending_godot",
   "size": [
     72,
     48
@@ -227,11 +227,307 @@
       "interaction_status": "authored_no_reward"
     }
   ],
-  "art_profile": "",
-  "visuals": [],
-  "light_sources": [],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_guild_0",
+      "asset": "counter",
+      "cell": [
+        25,
+        22
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_1",
+      "asset": "bookshelf",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_2",
+      "asset": "provisions_shelves",
+      "cell": [
+        46,
+        17
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_4",
+      "asset": "tideway_chart",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_5",
+      "asset": "barrels",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_6",
+      "asset": "guild_noticeboard",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_guild_7",
+      "asset": "bookshelf",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "celestial_entry_pattern",
+      "asset": "shrine_starseal",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        90,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "high_window",
+      "asset": "window",
+      "cell": [
+        37,
+        13
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "star_script_0",
+      "asset": "guild_emblem",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "star_script_1",
+      "asset": "tideway_chart",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "liturgy_seal",
+      "asset": "shrine_starseal",
+      "cell": [
+        34,
+        19
+      ],
+      "layer": "floor",
+      "footprint": [
+        52,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "north_stained_glass",
+      "asset": "window",
+      "cell": [
+        40,
+        16
+      ],
+      "layer": "wall",
+      "footprint": [
+        52,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "processional_lamp",
+      "asset": "lantern",
+      "cell": [
+        42,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        52,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "threshold_star",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.25,
+      "energy": 0.72
+    },
+    {
+      "id": "prayer_lamp",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.2,
+      "energy": 0.66
+    },
+    {
+      "id": "arch_lamp",
+      "cell": [
+        46,
+        21
+      ],
+      "scale": 1.12,
+      "energy": 0.61
+    },
+    {
+      "id": "ceiling_halo",
+      "cell": [
+        35,
+        17
+      ],
+      "scale": 1.32,
+      "energy": 0.48
+    }
+  ],
   "region_design": "天轨前庭 · celestial",
-  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
+  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。 B-line Sanctum: ceremonial axes and stained-glass furniture accents, without physical obstruction changes.",
   "interior_owner_id": "",
-  "interaction_status": "no_reward_interactive_room"
+  "interaction_status": "no_reward_interactive_room",
+  "visual_revision": 3,
+  "room_day_tint": "ded9e6",
+  "room_night_tint": "aaa3c2"
 }

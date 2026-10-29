@@ -97,8 +97,8 @@ func configure(map_id: String, layout: Dictionary, quality: int = 2) -> void:
                 # access lanes or stone steps. No scenery on a door approach.
                 if ground.y not in [0,1,7]:
                     continue
-                var dx: int = maxi(footprint.position.x-x,x-footprint.end.x+1,0)
-                var dy: int = maxi(footprint.position.y-y,y-footprint.end.y+1,0)
+                var dx: int = maxi(maxi(footprint.position.x-x,x-footprint.end.x+1),0)
+                var dy: int = maxi(maxi(footprint.position.y-y,y-footprint.end.y+1),0)
                 if maxi(dx,dy) < 2 or maxi(dx,dy) > 3:
                     continue
                 var roll: int = _hash(x,y,seed) % 100

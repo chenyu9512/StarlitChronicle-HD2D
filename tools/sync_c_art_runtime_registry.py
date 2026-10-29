@@ -121,17 +121,30 @@ def synchronize(root: Path) -> dict:
         p = root / item["source"].removeprefix("res://")
         if hashlib.sha256(p.read_bytes()).hexdigest() != item["sha256"]:
             raise ValueError("Boss motion checksum mismatch: " + boss_id)
+    wave_manifest=read(root / "assets/art/runtime/shore_waves_v1/manifest.json")
+    if wave_manifest.get("schema")!="starlit.shore_waves.runtime.v1" or wave_manifest.get("count")!=8:
+        raise ValueError("Eight directional shoreline waves must be installed")
+    wave_records=wave_manifest.get("assets",{})
+    wave_paths={row["source"] for row in wave_records.values()}
+    if len(wave_paths)!=8 or not wave_paths.issubset(physical):
+        raise ValueError("Some real shoreline animation PNGs are absent")
+    for row in wave_records.values():
+        path=root/row["source"].removeprefix("res://")
+        if hashlib.sha256(path.read_bytes()).hexdigest()!=row["sha256"]:
+            raise ValueError("Shoreline animated sprite checksum mismatch")
+    current["shore_wave_sources"]={k:v["source"] for k,v in wave_records.items()}
     for path, sha in physical.items():
         previous = old.get(path, {})
         produced = path.startswith(FACTORY)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
-            "registered": produced or path in detail_roots.values() or path in icon_paths or path in boss_paths or bool(previous.get("registered", False)),
+            "registered": produced or path in detail_roots.values() or path in icon_paths or path in boss_paths or path in wave_paths or bool(previous.get("registered", False)),
             "code_reference": ("generated_semantic_resolver" if produced else
                                "scene_detail_runtime_renderer" if path in detail_roots.values() else
                                "generated_content_icon_lookup" if path in icon_paths else
                                "boss_action_atlas_runtime" if path in boss_paths else
+                               "shoreline_wave_animation_runtime" if path in wave_paths else
                                previous.get("code_reference", "not_confirmed")),
             "drawn_in_scene": previous.get("drawn_in_scene", "未测试") if same_blob else "未测试",
             "visual_correct": previous.get("visual_correct", "未测试") if same_blob else "未测试",
@@ -262,6 +275,7 @@ def synchronize(root: Path) -> dict:
         "registered_images": sum(bool(r["registered"]) for r in sources.values()),
         "unregistered_images": sum(not r["registered"] for r in sources.values()),
         "boss_motion_sheets":len(boss_records),
+        "shoreline_motion_sheets":len(wave_records),
         "candidate_sources_classified":len(current["source_candidate_pool"]),
         "removed_invalid_bindings": rejected, "visual_status": "未测试",
     }

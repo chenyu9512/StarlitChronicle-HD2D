@@ -1,5 +1,6 @@
 extends RefCounted
 const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 ## Game NPCs only: use original directional strips from the allocated 48px Foozle
 ## characters. Never remap arbitrary story characters by index or class.
 const Art = preload("res://scripts/c_art_overrides.gd")
@@ -43,6 +44,9 @@ static func has_costume(npc_id: String) -> bool:
 static func costume(npc_id: String) -> Dictionary:
     if not CAST.has(npc_id):
         return {}
+    # Prefer real named uploaded strips only when ALL directions are still
+    # present. The V3 3x4 generated identity atlas is a verified replacement
+    # for the four NPCs whose old directional Foozle files were deleted.
     _index()
     var family: String = str(CAST[npc_id])
     var prepared: Dictionary = {}
@@ -52,9 +56,30 @@ static func costume(npc_id: String) -> Dictionary:
         if walk.is_empty():
             walk = _clip(family, direction, "run")
         if idle.is_empty() or walk.is_empty():
-            return {}
+            return _generated_costume(npc_id)
         prepared[direction] = {"idle": idle, "walk": walk}
     return prepared
+
+static func _generated_costume(npc_id: String) -> Dictionary:
+    var texture: Texture2D = Generated.texture("npcs",npc_id)
+    if texture == null or texture.get_size()!=Vector2(96,192):
+        return {}
+    var sheet: Image = texture.get_image()
+    if sheet == null or sheet.is_empty():
+        return {}
+    var result: Dictionary={}
+    for row in range(4):
+        var dir: String = ["down","left","up","right"][row]
+        var pixels: Image=sheet.get_region(Rect2i(0,row*48,96,48))
+        pixels.resize(144,48,Image.INTERPOLATE_NEAREST)
+        var resampled: Texture2D=ImageTexture.create_from_image(pixels)
+        var standing: Image=pixels.get_region(Rect2i(48,0,48,48))
+        result[dir]={
+            "walk":{"texture":resampled,"count":3,"source":Generated.path("npcs",npc_id)},
+            "idle":{"texture":ImageTexture.create_from_image(standing),"count":1,
+                     "source":Generated.path("npcs",npc_id)}
+        }
+    return result
 
 static func _clip(family: String, direction: String, action: String) -> Dictionary:
     var path: String = str(_paths.get(family + ":" + direction + ":" + action, ""))

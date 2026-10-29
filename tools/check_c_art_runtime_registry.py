@@ -150,6 +150,11 @@ def main() -> int:
         if source not in actual:
             errors.append(label + " references missing image: " + str(source))
 
+    wave_sources=index.get("shore_wave_sources",{})
+    if len(wave_sources)!=8:
+        errors.append("Eight directional live shoreline wave strips missing")
+    for key,source in wave_sources.items():
+        must_exist("live shoreline wave "+key,source)
     motion_map = index.get("boss_motion_sources", {})
     if len(motion_map) != 66:
         errors.append("66 canonical boss motion routes are missing")

@@ -178,8 +178,8 @@ func _run() -> void:
     # The 12 removed C2.1 signature SVGs must never be redrawn using the
     # migration's unrelated shrine wall tile, even when that PNG exists.
     var retired := "res://assets/art/interiors/morning_dew_signature/dew_inn_floor_motif.svg"
-    _verify(Overrides.third_party_source(retired) != retired,
-        "Legacy signature fixture changed; reconsider semantic approval")
+    _verify(not ResourceLoader.exists(retired) and Overrides.third_party_source(retired) == retired,
+        "Retired signature was unexpectedly restored or redirected to mismatched shrine art")
     var signature_art := InteriorArt.new()
     var signature_stage := Node2D.new()
     root.add_child(signature_stage)

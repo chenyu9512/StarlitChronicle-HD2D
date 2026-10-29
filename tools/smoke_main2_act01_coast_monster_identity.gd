@@ -6,6 +6,7 @@ extends SceneTree
 const Registry = preload("res://scripts/encounter_registry.gd")
 const Art = preload("res://scripts/art_assets.gd")
 const LiveArt = preload("res://scripts/c_act01_global_art_v14.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const Foes = preload("res://scripts/battle_enemies.gd")
 const IDS: Array[String] = ["salt_slime","fog_crab","sand_lizard","tide_ghost",
     "white_seabird","shell_hermit","salt_wolf","star_ray","tide_guardian"]
@@ -34,10 +35,12 @@ func _run() -> void:
         var content_name: String = str(tracked.get(id,{}).get("name",""))
         check(content_name == NAMES[i],id+" canonical monster identity changed")
         check(registry.COAST_ART[i] == art,id+" has the wrong battle silhouette: "+str(registry.COAST_ART[i]))
-        var atlas_path: String = LiveArt.battle_path(id)
+        var atlas_path: String = Generated.path("monsters",id)
+        if atlas_path.is_empty():
+            atlas_path = LiveArt.battle_path(id)
         var live_path: String = Art.battle_image({"monster_id":id,"art":art},false,3)
         check(not atlas_path.is_empty() and atlas_path == live_path,
-            id+" combat did not choose the active imported monster portrait")
+            id+" combat did not choose currently approved canonical real species texture")
         if live_path.is_empty() or not ResourceLoader.exists(live_path):
             failures.append(id+" has no physically imported battle texture")
             continue

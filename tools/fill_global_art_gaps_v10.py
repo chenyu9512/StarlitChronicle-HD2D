@@ -211,7 +211,7 @@ def produce(root):
     slots=registry.get("canonical_slots",{})
     if len(slots)<100:
         raise RuntimeError("Official canonical slots missing; refusing partial generation")
-    gap_ids=sorted(k for k,row in slots.items() if not row.get("source"))
+    gap_ids=sorted(k for k,row in slots.items() if not row.get("source") or str(row["source"]).startswith("res://"+REL.as_posix()+"/"))
     if len(gap_ids)<100:
         raise RuntimeError("Missing slot count unexpectedly smaller; re-audit before generating")
     out=root/REL
@@ -237,7 +237,7 @@ def produce(root):
         row["stage"]="generated_runtime_candidate_visual_qa_pending"
     # Also fill seven gameplay icon slots with truly generated pictograms.
     ui_paths={}
-    for icon in sorted(k for k,v in registry.get("ui",{}).items() if not v):
+    for icon in sorted(k for k,v in registry.get("ui",{}).items() if not v or str(v).startswith("res://"+REL.as_posix()+"/")):
         name="ui.extra."+icon;dim=(64,64)
         img=object_image(name,"ui_icon",dim,root)
         dest=out/(safe(name)+".png")
@@ -256,6 +256,7 @@ def produce(root):
             raise RuntimeError("Missing current generated monster identity: "+mon)
         registry["monster_id_sources"][mon]="res://"+path.relative_to(root).as_posix()
         monster_bound+=1
+    monster_bound=len(registry.get("monster_id_sources",{}))
     for region,profile in registry.get("regions",{}).items():
         for kind,value in profile.get("material_preview",{}).items():
             if value:continue

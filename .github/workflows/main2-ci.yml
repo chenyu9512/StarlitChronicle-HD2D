@@ -7,6 +7,8 @@ on:
       - ".github/workflows/main2-ci.yml"
       - ".github/workflows/main2-to-runtime.yml"
       - "tools/d_control/run_main2_ci.py"
+      - "tools/audit_version_hygiene.py"
+      - "data/governance/versioned_code_allowlist.json"
       - "tools/audit_art_pipeline_v3.py"
       - "tools/validate_art_theme_v2.py"
       - "tools/smoke_c_art_theme_v2.gd"
@@ -47,6 +49,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
+      - name: Prevent new versioned scripts, workflows and tracked temp files
+        run: python3 tools/audit_version_hygiene.py --strict
       - name: Plan selected QA domains
         id: changes
         env:

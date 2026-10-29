@@ -4,6 +4,8 @@ on:
     branches: ["Main2美术优化版"]
     paths:
       - "tools/art_pipeline.py"
+      - "tools/audit_version_hygiene.py"
+      - "data/governance/versioned_code_allowlist.json"
       - "main2_merge_regen_replace_cleanup_v10.py"
       - "tools/test_art_pipeline_entrypoint.py"
       - "docs/VERSION_GOVERNANCE.md"
@@ -24,6 +26,8 @@ jobs:
           python-version: "3.12"
       - name: Install generation dependencies
         run: python -m pip install --disable-pip-version-check Pillow numpy
+      - name: Enforce versioned-code hygiene baseline
+        run: python tools/audit_version_hygiene.py --strict
       - name: Compile unified generator and entrypoint
         run: |
           python -m py_compile tools/art_pipeline.py tools/generate_art.py main2_merge_regen_replace_cleanup_v10.py tools/test_art_pipeline_entrypoint.py

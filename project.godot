@@ -22,6 +22,9 @@ window/stretch/aspect="expand"
 window/handheld/orientation=4
 
 [rendering]
+; Apple iOS export requires ETC2/ASTC imported. Without this, Godot 4.7
+; may report an empty "configuration errors" message before Xcode starts.
+textures/vram_compression/import_etc2_astc=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=false

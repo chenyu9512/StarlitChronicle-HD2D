@@ -13,6 +13,8 @@ on:
       - "tools/audit_generated_only_art_v1.py"
       - "tools/generate_semantic_slots_v1.py"
       - "tools/generate_allocated_decor_v1.py"
+      - "tools/rebind_generated_first_act_v1.py"
+      - "scripts/c_act01_semantic_art_v17.gd"
       - "scripts/c_allocated_decor_runtime.gd"
       - "scripts/c_art_refined_overrides_v1.gd"
       - "scripts/c_art_overrides.gd"
@@ -106,6 +108,8 @@ jobs:
         run: python tools/generate_semantic_slots_v1.py --project .
       - name: Generate and bind all 25 actual world decoration sprites
         run: python tools/generate_allocated_decor_v1.py --project .
+      - name: Restore first-act V14 world and V18 visual source bindings from generated V10
+        run: python tools/rebind_generated_first_act_v1.py --project .
       - name: Synchronize official runtime registry after replacing art
         shell: bash
         run: |
@@ -143,7 +147,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A assets/art data/assets/c_art_runtime_registry_v1.json data/assets/c_art_allocated_decor_runtime_v1.json data/assets/art_theme_v2.json
+          git add -A assets/art data/assets/c_art_runtime_registry_v1.json data/assets/c_art_allocated_decor_runtime_v1.json data/assets/art_theme_v2.json data/assets/c_act01_global_distribution_v14.json data/assets/c_act01_hd2d_v18.json
           git diff --cached --stat
           if git diff --cached --quiet; then
             echo "No art changes"

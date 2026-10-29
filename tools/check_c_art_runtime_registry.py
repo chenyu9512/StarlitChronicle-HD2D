@@ -230,6 +230,13 @@ def main() -> int:
         allocated_assets = allocated_manifest.get("assets", {})
         if allocated_manifest.get("schema") != "starlit.allocated_decor_generated.v1" or len(allocated_assets) != 25:
             errors.append("Invalid generated region-decor manifest")
+        placement_data = json.loads((ROOT / "data/assets/c_art_allocated_decor_runtime_v1.json").read_text(encoding="utf-8"))
+        placements = {row["id"]: row for row in placement_data.get("placements", [])}
+        if len(placements) != 25 or set(placements) != set(allocated_assets):
+            errors.append("Generated world-decoration placement IDs incomplete")
+        for identity, data in allocated_assets.items():
+            if placements.get(identity, {}).get("source") != data.get("source"):
+                errors.append("World placement points at stale source: " + identity)
         for identity, data in allocated_assets.items():
             path = data.get("source", "")
             if not path.startswith(allocated_root) or path not in actual:

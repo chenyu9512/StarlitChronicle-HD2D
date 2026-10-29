@@ -67,6 +67,35 @@ def main() -> int:
         errors.append("Tracked image absent from registry: " + path)
     for path in sorted(recorded - actual):
         errors.append("Registry image not tracked: " + path)
+    # Global Factory V3 is live: include both 451 declared images and its
+    # 16 per-region ground/water atlases. A generated file is a registered
+    # candidate, NOT evidence that a scene drew or approved that image.
+    generated_root = "res://assets/art/runtime/global_factory_v3/"
+    active_file = ROOT / "assets/art/runtime/global_factory_v3/active.json"
+    generated_actual = {p for p in actual if p.startswith(generated_root)}
+    generated_declared: set[str] = set()
+    if not active_file.is_file():
+        errors.append("Live factory active.json is absent")
+    else:
+        live = json.loads(active_file.read_text(encoding="utf-8"))
+        if live.get("schema") != "starlit.global_factory.live.v3" or not live.get("enabled", False):
+            errors.append("Global Factory V3 is not active")
+        for asset in live.get("assets", {}).values():
+            path = asset.get("path", "")
+            generated_declared.add(path)
+            if path not in actual:
+                errors.append("Generated manifest image missing: " + path)
+        if live.get("asset_count") != len(generated_declared):
+            errors.append("Generated manifest count does not match its assets")
+    expected_terrain = {
+        generated_root + "terrain/" + rid + "_" + kind + ".png"
+        for rid in EXPECTED_REGIONS for kind in ("ground", "water")
+    }
+    for path in sorted(expected_terrain - actual):
+        errors.append("Generated regional atlas missing: " + path)
+    unexpected_generated = generated_actual - generated_declared - expected_terrain
+    for path in sorted(unexpected_generated):
+        errors.append("Generated image not covered by factory contract: " + path)
 
     hashes: dict[str, list[str]] = defaultdict(list)
     for source, row in entries.items():
@@ -109,6 +138,8 @@ def main() -> int:
             path = terrain.get(kind, "")
             if not path.startswith("res://assets/art/") or ".." in path:
                 errors.append("Invalid logical atlas " + region_id + "/" + kind)
+            else:
+                must_exist("region terrain " + region_id + "/" + kind, path)
         for category in ("scene_props", "material_preview", "building_bindings",
                          "npc_identity_bindings", "boss_identity_bindings"):
             for name, source in record.get(category, {}).items():
@@ -122,6 +153,9 @@ def main() -> int:
     report = {
         "schema": "starlit.a_line.static_audit.v1",
         "tracked_images": len(actual),
+        "factory_images": len(generated_actual),
+        "factory_manifest_images": len(generated_declared),
+        "factory_terrain_images": len(expected_terrain & actual),
         "registry_images": len(entries),
         "registered_images": sum(bool(x.get("registered")) for x in entries.values()),
         "unverified_registration": sum(not bool(x.get("registered")) for x in entries.values()),

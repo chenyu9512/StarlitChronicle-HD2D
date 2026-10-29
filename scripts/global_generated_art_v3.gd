@@ -22,7 +22,8 @@ const LEGACY_CAST: Dictionary = {
     "leon": "char_wayfarer",
     "lanyin": "char_tidecaller",
     "shuoxian": "char_seeker",
-    "chengzhou": "char_vanguard",
+    # Chengzhou has a separately generated identity atlas: never reuse Leiso's vanguard image.
+    "chengzhou": "char_chengzhou",
     "leiso": "char_vanguard",
     "tifa": "char_smith",
     "ize": "char_alchemist",

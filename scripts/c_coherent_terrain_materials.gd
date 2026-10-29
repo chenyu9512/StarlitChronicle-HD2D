@@ -191,6 +191,15 @@ static func assemble(path: String, texture: Texture2D) -> Texture2D:
                         var sample: Color=material.get_pixel(mx,my)
                         if sample.a>0.94:
                             c=c.lerp(sample,0.70 if path.contains("coast") or path.contains("cavern") or path.contains("saltwind") else 0.24)
+                    # V18 cliff/cobbles photo textures have overlapping
+                    # luminance. A cave corridor must remain visibly distinct
+                    # from blocking rock even when both source photos are grey.
+                    # Distinguish authored tile roles, never their collision.
+                    if path.get_file() == "tide_cavern_tileset.svg":
+                        if row == 3: # Safe carved route, warm navigational tone.
+                            c=c.lerp(Color("c8b593"),0.56)
+                        elif row == 6: # Rough solid escarpment / blocked rim.
+                            c=c.lerp(Color("46535f"),0.60)
                     c.a=1.0
                     atlas.set_pixel(col * TILE + x, row * TILE + y, c)
     return ImageTexture.create_from_image(atlas)

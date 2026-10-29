@@ -73,3 +73,23 @@ py tools/generate_art.py --project . --dry-run
 - 自动CI：`.github/workflows/main2-global-art-factory-v3.yml`，执行5项单元回归及全地图/室内/角色/Boss候选生成检查。
 
 旧的固定44×28地图和简单人物示例仍可通过 `py tools/generate_art.py --legacy` 单独运行。
+
+## V3 高画质模型绘制接口
+
+支持将正式角色、地区、地图、室内、Boss身份及视觉规范转为全游戏批量图像任务：
+
+```powershell
+py tools/global_art_ai_provider_v3.py --project . --jobs-only
+```
+
+这会为全部登记项目输出 `build/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl`，不触发收费API。
+
+需要执行实际高画质图像生成时，安装 `openai` Python包并在本地环境配置 `OPENAI_API_KEY`，然后运行：
+
+```powershell
+py -m pip install openai Pillow
+py tools/global_art_ai_provider_v3.py --project . --render --model gpt-image-2.5-flare --scope bosses
+py tools/global_art_factory_v3.py --project . --source-root build/starlit_global_art_factory_v3/model_sources --force
+```
+
+模型结果会在保持宽高比的情况下装入固定画布；它们仍是候选，尤其是帧动画、人物身份与图集邻接必须在Godot实际画面逐张核对。不会因为生成成功自动覆盖游戏正式素材。没有密钥时不执行收费API，不能将提示词输出冒充已经生成的精修图片。

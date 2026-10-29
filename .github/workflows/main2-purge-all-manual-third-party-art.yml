@@ -1,0 +1,111 @@
+name: "Main2 · PURGE All Uploaded Third-Party Art Online"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/main2-purge-all-manual-third-party-art.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: main2-global-art-promotion
+  cancel-in-progress: false
+jobs:
+  replace-and-purge-in-online-repository:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install graphics dependency
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Generate the entire canonical game art and original item icon set
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/test_art_style_v8.py
+          python tools/install_global_factory_v3.py --project . --no-prune
+          python tools/generate_content_icons_v1.py --project . --verify-only
+          python tools/generate_boss_motion_v1.py --project . --verify-only
+          python tools/generate_shore_waves_v1.py --project . --verify-only
+      - name: Stage source files and synchronize runtime semantic registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A assets/art
+          python tools/sync_c_art_runtime_registry.py --project .
+      - name: Remove ALL older uploaded third-party binaries, assignment pools and indexes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/purge_online_third_party_art_v1.py --project .
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('assets/art')
+          allowed=('runtime/global_factory_v3/','runtime/content_icons_v1/',
+                   'runtime/boss_motion_v1/','runtime/shore_waves_v1/',
+                   'runtime/scene_details_v1/')
+          remaining=[p.as_posix() for p in root.rglob('*')
+                     if p.is_file() and not p.relative_to(root).as_posix().startswith(allowed)]
+          assert not remaining, remaining[:30]
+          report=json.loads(Path('docs/audits/MAIN2_GENERATOR_ONLY_PURGE.json').read_text())
+          assert report['removed_image_count'] > 100, report
+          assert report['generated_canonical_assets'] >= 451
+          assert report['new_original_content_icons'] == 288
+          print('PURGED FROM ONLINE BRANCH:',report['removed_image_count'],'imported legacy images')
+          print('TOTAL RETIRED FILES:',report['removed_legacy_files_total'])
+          print('GENERATED IMAGES REMAIN:',report['retained_generated_or_original_images'])
+          PY
+      - name: Check generated-only Godot import and live art tests
+        shell: bash
+        continue-on-error: true
+        run: |
+          mkdir -p build/manual-art-purge-qa
+          curl -fLsS --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+          timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit > build/manual-art-purge-qa/import.log 2>&1
+          for smoke in smoke_world_ground_transitions_v6 smoke_world_town_verge_v7; do
+            timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/${smoke}.gd" > "build/manual-art-purge-qa/${smoke}.log" 2>&1
+          done
+      - name: Commit true online removal and replacement to Main2
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/art data/assets docs/audits
+          git diff --cached --stat | tail -n 50
+          git diff --cached --quiet && { echo "No changes"; exit 1; }
+          git commit -m "feat(art): permanently purge uploaded third-party art and replace with generated-only runtime assets"
+          for attempt in 1 2 3 4 5; do
+            git fetch --no-tags origin "refs/heads/Main2美术优化版"
+            if ! git rebase FETCH_HEAD; then
+              git rebase --abort || true
+              echo "Conflicting concurrent Main2 edit. No force push." >&2
+              exit 1
+            fi
+            if git push origin HEAD:"Main2美术优化版"; then
+              echo "ONLINE_MAIN2_THIRD_PARTY_PURGE_COMMITTED=YES"
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+      - name: Upload exact deletion report and real QA logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-all-thirdparty-purged-online
+          path: |
+            docs/audits/MAIN2_GENERATOR_ONLY_PURGE.json
+            build/global_art_v3_install_report.json
+            build/manual-art-purge-qa/
+          retention-days: 14
+          if-no-files-found: warn

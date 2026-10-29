@@ -113,15 +113,16 @@ static func _coast_authored_pair(map_id: String) -> Array[String]:
     var entry: Dictionary = _coast_terrain.get(map_id, {})
     var ground: String = str(entry.get("ground", ""))
     var water: String = str(entry.get("water", ""))
-    if not ground.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__") or
-            not water.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__"):
+    if (not ground.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__")
+            or not water.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__")):
         return []
     if not ResourceLoader.exists(ground) or not ResourceLoader.exists(water):
         return []
     var floor_texture: Texture2D = ResourceLoader.load(ground) as Texture2D
     var water_texture: Texture2D = ResourceLoader.load(water) as Texture2D
-    if floor_texture == null or water_texture == null or
-            floor_texture.get_size() != Vector2(256,256) or water_texture.get_size() != Vector2(256,256):
+    if (floor_texture == null or water_texture == null
+            or floor_texture.get_size() != Vector2(256,256)
+            or water_texture.get_size() != Vector2(256,256)):
         return []
     return [ground, water]
 

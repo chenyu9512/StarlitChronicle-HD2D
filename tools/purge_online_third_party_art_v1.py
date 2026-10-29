@@ -78,12 +78,15 @@ def purge(root: Path) -> dict:
         raise RuntimeError("Scene details provenance is not native original art")
 
     removed = []
+    removed_image_count = 0
     for p in sorted(image_root.rglob("*")):
-        if not p.is_file() or p.suffix.lower() not in IMAGES:
+        if not p.is_file():
             continue
         rel = relative(p,root)
         if allowed_image(rel):
             continue
+        if p.suffix.lower() in IMAGES:
+            removed_image_count += 1
         p.unlink()
         removed.append(rel)
     if not removed:
@@ -156,7 +159,8 @@ def purge(root: Path) -> dict:
     proof={"schema":"starlit.generator_only.online_purge.v1",
            "branch":"Main2美术优化版",
            "policy":"no user-uploaded or imported third-party imagery retained",
-           "removed_image_count":len(removed),
+           "removed_image_count":removed_image_count,
+           "removed_legacy_files_total":len(removed),
            "removed_images":removed,
            "purged_source_indexes":indexes,
            "sanitized_registry_files":sorted(sanitized),

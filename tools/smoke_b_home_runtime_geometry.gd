@@ -49,12 +49,12 @@ func _run() -> void:
             regular_rooms+=1
             regular_props+=candidates.size()
         inspected+=1
-    check(inspected==99,"All 99 actual V4 indoor assets must load")
-    check(regular_rooms==14 and regular_props==60,
-        "Fourteen public rooms must expose 60 real inspectable furniture objects")
+    check(inspected==153,"All 153 actual V4 indoor assets must load")
+    check(regular_rooms==68 and regular_props==168,
+        "68 public buildings must expose 168 physically reachable inspectable objects")
     check(home.issues.is_empty(),"Furniture source contains invalid/ghost markers: "+str(home.issues))
     if failures.is_empty():
-        print("PASS B indoor: 99 physical rooms, no phantom furniture hotspots, 14 ordinary rooms / 60 inspectables")
+        print("PASS B indoor: 153 physical rooms, no phantom hotspots, 68 buildings / 168 inspectables")
         quit(0)
         return
     for failure in failures:

@@ -55,6 +55,29 @@ def interior_rooms() -> int:
         size = d.get("size", [])
         if size != [72, 48]:
             ISSUES.append(f"{name}: expected 72x48 room coordinates, got {size!r}")
+        if d.get("region_design"):
+            # Staged art is committed per room when reviewed; remaining
+            # region rooms receive the same semantic assets at runtime.
+            profile = d.get("art_profile", "")
+            if profile not in ("", "regional_functional_v1"):
+                ISSUES.append(f"{name}: unexpected regional art profile {profile!r}")
+            if len(d.get("features", [])) != 8 or len(d.get("investigations", [])) != 2:
+                ISSUES.append(f"{name}: incomplete regional furniture or clues")
+            if profile == "regional_functional_v1":
+                visuals = d.get("visuals", [])
+                if len(visuals) < 12 or len(d.get("light_sources", [])) < 2:
+                    ISSUES.append(f"{name}: missing regional visuals or light sources")
+                art_ids = [v.get("id") for v in visuals if isinstance(v, dict)]
+                if len(art_ids) != len(set(art_ids)):
+                    ISSUES.append(f"{name}: duplicated visual IDs")
+                visual_cells = {tuple(v.get("cell", [])) for v in visuals
+                                if isinstance(v, dict) and isinstance(v.get("cell"), list)}
+                for prop in d["features"]:
+                    if tuple(prop.get("cell", [])) not in visual_cells:
+                        ISSUES.append(f"{name}: physical furniture lacks an anchored sprite")
+                for inquiry in d["investigations"]:
+                    if tuple(inquiry.get("cell", [])) not in visual_cells:
+                        ISSUES.append(f"{name}: inspection clue not visibly staged")
         # Identical authority order to world_interior_v4.gd, including art.
         width, height = 72, 48
         walls = {(x, y) for y in range(height) for x in range(width)}

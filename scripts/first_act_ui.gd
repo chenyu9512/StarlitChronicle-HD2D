@@ -121,9 +121,9 @@ func _full_screen(name: String, shade_alpha: float = 0.85) -> Control:
 func _build_hud() -> void:
     hud = PanelContainer.new()
     hud.anchor_left = 0.018
-    hud.anchor_right = 0.685
-    hud.anchor_top = 0.022
-    hud.anchor_bottom = 0.151
+    hud.anchor_right = 0.575
+    hud.anchor_top = 0.018
+    hud.anchor_bottom = 0.125
     hud.add_theme_stylebox_override("panel", CVisual.surface(true))
     hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
     root.add_child(hud)
@@ -132,7 +132,7 @@ func _build_hud() -> void:
     row.mouse_filter = Control.MOUSE_FILTER_IGNORE
     hud.add_child(row)
     name_label = Label.new()
-    name_label.custom_minimum_size.x = 150
+    name_label.custom_minimum_size.x = 120
     name_label.add_theme_font_size_override("font_size", 16)
     name_label.add_theme_color_override("font_color", CVisual.GOLD)
     name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -143,7 +143,7 @@ func _build_hud() -> void:
     tracker.scroll_active = false
     tracker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     tracker.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    tracker.add_theme_font_size_override("normal_font_size", 15)
+    tracker.add_theme_font_size_override("normal_font_size", 13)
     tracker.tooltip_text = "当前主线目标"
     row.add_child(tracker)
     party_line = Label.new()
@@ -154,8 +154,8 @@ func _build_hud() -> void:
     # Readable HP/MP command window, distinct from the quest tracker and minimap.
     status_frame = PanelContainer.new()
     status_frame.anchor_left = 0.018
-    status_frame.anchor_right = 0.295
-    status_frame.anchor_top = 0.795
+    status_frame.anchor_right = 0.235
+    status_frame.anchor_top = 0.858
     status_frame.anchor_bottom = 0.961
     status_frame.add_theme_stylebox_override("panel",CVisual.surface(false))
     status_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -298,7 +298,7 @@ func set_hud(chapter: int, location: String, objective: String, actors: Array[Di
     hud.add_theme_stylebox_override("panel", CVisual.surface(true,chapter))
     name_label.add_theme_color_override("font_color",_hud_accent)
     name_label.text = "%s\n%s" % ["序章" if chapter == 0 else "第%d幕 · %d章" % [act_number,chapter], location.left(10)]
-    tracker.text = "[color=#%s]◆ 目标[/color]  %s" % [_hud_accent.to_html(false),objective.split("\n")[0].left(56)]
+    tracker.text = "[color=#%s]◆ 目标[/color]  %s" % [_hud_accent.to_html(false),objective.split("\n")[0].left(46)]
     tracker.tooltip_text = objective
     var values := PackedStringArray()
     for member in actors:
@@ -640,15 +640,17 @@ func _reflow_layout() -> void:
     var compact: bool = view.x < 1040.0 or view.y < 600.0
     var safe: float = 18.0 / maxf(view.x,1.0)
     hud.anchor_left = safe
-    hud.anchor_right = 0.70 if compact else 0.685
-    hud.anchor_top = 0.024
-    hud.anchor_bottom = 0.205 if compact else 0.151
-    name_label.custom_minimum_size.x = 112.0 if compact else 150.0
-    name_label.add_theme_font_size_override("font_size",14 if compact else 16)
-    tracker.add_theme_font_size_override("normal_font_size",13 if compact else 15)
+    # Preserve the centre of the gameplay screen. Tooltips/menu keep full
+    # objective and HP/MP detail; only the passive overlays are compact.
+    hud.anchor_right = 0.67 if compact else 0.575
+    hud.anchor_top = 0.018
+    hud.anchor_bottom = 0.170 if compact else 0.125
+    name_label.custom_minimum_size.x = 108.0 if compact else 120.0
+    name_label.add_theme_font_size_override("font_size",13 if compact else 15)
+    tracker.add_theme_font_size_override("normal_font_size",12 if compact else 13)
     status_frame.anchor_left = safe
-    status_frame.anchor_right = (0.43 if status_expanded else 0.36) if compact else (0.38 if status_expanded else 0.295)
-    status_frame.anchor_top = 0.225 if _touch_mode else (0.66 if status_expanded else 0.795)
+    status_frame.anchor_right = (0.43 if status_expanded else 0.30) if compact else (0.34 if status_expanded else 0.235)
+    status_frame.anchor_top = 0.225 if _touch_mode else (0.70 if status_expanded else 0.858)
     status_frame.anchor_bottom = (0.54 if status_expanded else 0.38) if _touch_mode else 0.961
     status_rows.add_theme_font_size_override("normal_font_size",12 if compact else 14)
     dpad.offset_left = 14

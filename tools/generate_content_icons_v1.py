@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build 288 unique, deterministic and loadable 64px RPG UI icons.
 
-Each canonical content ID keeps the original matching Owlish pictogram, but
+Each canonical content ID receives an original deterministic RPG silhouette,
 gets its own restrained metal/enamel mount, grade marks and ID-locked glyph.
 This is usable pixel UI art, not individual hand-painted equipment art approval.
 """
@@ -30,12 +30,8 @@ def draw_icon(root: Path, row: dict) -> Image.Image:
     group = str(row["group"])
     if not re.fullmatch(r"[a-z][a-z0-9_]{2,76}", asset_id) or group not in PALETTE:
         raise ValueError("Invalid canonical ID/group: " + repr(row))
-    source = str(row["icon"])
-    if not source.startswith("res://assets/art/external/cc0_named_v1/icons/") or ".." in source:
-        raise ValueError("Invalid original icon path: " + source)
-    original = root / source.removeprefix("res://")
-    if not original.is_file():
-        raise FileNotFoundError("Missing source pictogram " + str(original))
+    # Fully original silhouette drawn from canonical item/skill identity.
+    # The historical third-party pictogram is not loaded or sampled.
     digest = hashlib.sha256(asset_id.encode("utf-8")).digest()
     dark, bright = PALETTE[group]
     art = Image.new("RGBA", (64, 64))
@@ -52,14 +48,43 @@ def draw_icon(root: Path, row: dict) -> Image.Image:
         shade = tuple(min(255, v + digest[layer] % 18) for v in bright)
         paint.line((12, 15 + layer * 2, 51, 15 + layer * 2),
                    fill=(*shade, 26 + layer * 4), width=1)
-    with Image.open(original) as raw:
-        source_image = raw.convert("RGBA")
-        content = source_image.getbbox()
-        if content:
-            source_image = source_image.crop(content)
-        source_image.thumbnail((34, 34), Image.Resampling.NEAREST)
-        target = (32 - source_image.width // 2, 33 - source_image.height // 2)
-        art.alpha_composite(source_image, target)
+    # Draw distinct original silhouettes for each RPG item family. Shape
+    # varies deterministically by ID, with no third-party pixels reused.
+    import math
+    q = asset_id.lower()
+    cx, cy = 32, 32
+    if any(w in q for w in ("herb","leaf","seed","flower")):
+        paint.line([(31,48),(31,19)],fill=(*bright,255),width=3)
+        for side in (-1,1):
+            paint.ellipse((cx-3+side*12,20, cx+3+side*12,34),fill=(*bright,245))
+            paint.line((cx,36,cx+side*14,26),fill=(*dark,245),width=2)
+    elif any(w in q for w in ("ether","elixir","potion","water","tonic","vial")):
+        paint.polygon([(26,16),(38,16),(38,23),(45,43),(42,49),(22,49),(19,43),(26,23)],fill=(*bright,240))
+        paint.rectangle((28,13,36,20),fill=(*dark,255))
+        paint.ellipse((25,35,39,43),fill=(210,245,255,210))
+    elif group=="weapons":
+        paint.polygon([(22,44),(28,37),(37,19),(42,17),(43,24),(34,40),(28,46)],fill=(*bright,255))
+        paint.line((19,27,38,44),fill=(*dark,255),width=5)
+        paint.line((21,29,36,42),fill=(*bright,240),width=2)
+    elif group=="armor":
+        paint.polygon([(20,19),(26,16),(38,16),(44,19),(48,28),(43,29),(42,47),(22,47),(21,29),(16,28)],fill=(*bright,245))
+        paint.polygon([(27,22),(37,22),(37,33),(32,39),(27,33)],fill=(*dark,230))
+    elif group=="skills":
+        rays=5+digest[0]%3
+        for i in range(rays):
+            angle=i*6.2831853/rays+digest[1]/255.0
+            x=int(cx+math.cos(angle)*17); y=int(cy+math.sin(angle)*17)
+            paint.line((cx,cy,x,y),fill=(*bright,235),width=3)
+            paint.ellipse((x-2,y-2,x+2,y+2),fill=(234,222,161,255))
+        paint.ellipse((26,26,38,38),fill=(*dark,255),outline=(*bright,255),width=2)
+    else:
+        paint.rounded_rectangle((20,22,44,44),radius=5,fill=(*bright,235))
+        paint.line((25,19,39,19),fill=(*bright,255),width=3)
+    # Each ID has an original heraldic stamp and slight individual variation.
+    for bit in range(5):
+        if digest[bit] & 1:
+            x=23+bit*4
+            paint.point((x,46),fill=(*bright,255))
     paint = ImageDraw.Draw(art, "RGBA")
     paint.line((11, 13, 19, 13), fill=(*bright, 185), width=2)
     paint.line((45, 53, 53, 53), fill=(*bright, 200), width=2)
@@ -98,7 +123,7 @@ def generate(root: Path, verify_only: bool = False) -> dict:
                 raise ValueError("Invalid icon pixels: " + str(path))
         index[asset_id] = {
             "source": "res://" + (OUT / "icons" / (asset_id + ".png")).as_posix(),
-            "group": row["group"], "source_pictogram": row["icon"],
+            "group": row["group"], "generator": "original_id_shape_v2",
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "stage": "runtime_generated_visual_qa_pending",
         }

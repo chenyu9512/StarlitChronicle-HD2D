@@ -66,6 +66,25 @@ func _regional_art_valid(data: Dictionary) -> bool:
         for entry in data.get(group,[]):
             if not entry is Dictionary or not visible_cells.has(_point(entry.get("cell",[]))):
                 return false
+    # The visible counter/cabinet must be a REAL physical blocker in the
+    # adjacent tile. The interaction tile itself remains walkable. This
+    # prevents overlapping the player with a desk or hiding the storage point.
+    var occupied_contact: Dictionary = {}
+    for raw_cell in data.get("art_collision_cells",[]):
+        occupied_contact[_point(raw_cell)] = true
+    var interact: Dictionary = data.get("points",{})
+    for purpose in ["service","storage"]:
+        var stand: Vector2i = _point(interact.get(purpose,[]))
+        if occupied_contact.has(stand):
+            return false
+        var nearby_counter: bool = false
+        for direction in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+            var contact: Vector2i = stand + direction
+            if occupied_contact.has(contact) and visible_cells.has(contact):
+                nearby_counter = true
+                break
+        if not nearby_counter:
+            return false
     return true
 
 func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:

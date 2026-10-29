@@ -13,6 +13,7 @@ from collections import defaultdict
 from pathlib import Path
 import subprocess
 import sys
+import struct
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "data/assets/c_art_runtime_registry_v1.json"
@@ -74,6 +75,7 @@ def main() -> int:
     active_file = ROOT / "assets/art/runtime/global_factory_v3/active.json"
     generated_actual = {p for p in actual if p.startswith(generated_root)}
     generated_declared: set[str] = set()
+    live: dict = {}
     if not active_file.is_file():
         errors.append("Live factory active.json is absent")
     else:
@@ -115,13 +117,17 @@ def main() -> int:
             source_meta = live.get("assets", {}).get(key, {})
             if source_meta.get("path") != path or source_meta.get("sha256") != meta.get("manifest_sha256"):
                 errors.append("Generated checksum/identity metadata mismatch: " + key)
-            elif file_path(path).is_file():
-                checksum = hashlib.sha256(file_path(path).read_bytes()).hexdigest()
+            else:
+                local = file_path(path)
+                if local is not None and local.is_file():
+                    checksum = hashlib.sha256(local.read_bytes()).hexdigest()
+                else:
+                    checksum = ""
                 if checksum != meta["manifest_sha256"]:
                     errors.append("Changed generated PNG checksum: " + key)
-        if path in expected_terrain and file_path(path).is_file():
-            import struct
-            header = file_path(path).read_bytes()[:24]
+        local = file_path(path)
+        if path in expected_terrain and local is not None and local.is_file():
+            header = local.read_bytes()[:24]
             if not header.startswith(b"\x89PNG\r\n\x1a\n") or struct.unpack(">II", header[16:24]) != (256, 256):
                 errors.append("Non-256x256 generated regional atlas: " + key)
 

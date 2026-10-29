@@ -4,6 +4,7 @@ import hashlib
 import json
 import struct
 from pathlib import Path
+from act01_source_provenance import verify_art
 
 ROOT = Path(__file__).resolve().parent.parent
 ORIGINAL = ROOT / "assets/art/source_packs/Golden-Horizon-2D-01-Sprites-Icons-Effects/2D/Prepared/Sprites/rowboat.png"
@@ -17,12 +18,9 @@ def git_blob_sha(content: bytes) -> str:
 
 
 def check() -> dict:
-    for path in [ORIGINAL, RUNTIME]:
-        if not path.is_file():
-            raise RuntimeError("Missing required art file: " + str(path))
-    original = ORIGINAL.read_bytes()
+    proof = verify_art("assets/art/runtime/act01_matched_v16/dock_boat.png", ORIGINAL.relative_to(ROOT))
     candidate = RUNTIME.read_bytes()
-    if original != candidate:
+    if ORIGINAL.is_file() and ORIGINAL.read_bytes() != candidate:
         raise RuntimeError("Runtime rowboat does not contain the source PNG bytes")
     if candidate[:8] != bytes.fromhex("89504e470d0a1a0a") or len(candidate) < 24:
         raise RuntimeError("Curated rowboat is not a PNG")
@@ -41,7 +39,7 @@ def check() -> dict:
     assert "res://assets/art/runtime/act01_matched_v16/dock_boat.png" in adapter
     assert 'if kind != "dock_boat":' in adapter
     return {"status": "PASS", "approved_kind": "dock_boat",
-            "source_bytes": len(original), "width": width, "height": height,
+            "source_bytes": len(candidate), "width": width, "height": height,
             "same_git_blob_sha": git_blob_sha(candidate),
             "mismatched_legacy_bridge_bypassed": True}
 

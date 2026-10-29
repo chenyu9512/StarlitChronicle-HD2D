@@ -3,6 +3,7 @@
 import hashlib
 import json
 from pathlib import Path
+from act01_source_provenance import verify_art, git_blob_sha
 
 root = Path(__file__).resolve().parent.parent
 manifest = json.loads((root / "data/assets/c_act01_global_distribution_v14.json").read_text("utf-8"))
@@ -42,13 +43,19 @@ for row in rows:
         # retaining their historic SHA references must not block Runtime.
         assert not source.exists(), f"Obsolete macOS archive metadata still tracked: {source}"
         continue
-    assert source.is_file(), f"Missing real art/source: {source}"
+    if source.is_file():
+        assert git_blob_sha(source.read_bytes()) == row["sha"], f"Altered source blob: {source}"
+    else:
+        # Main2 deliberately purged bulky historical source packs. Keep the
+        # source SHA contract and validate the shipped PNG against pinned Git
+        # blob identity from the pre-cleanup commit instead.
+        assert row["source"].startswith("assets/art/source_packs/"), f"Missing non-archived source: {source}"
+        assert len(row["sha"]) == 40, f"Invalid historical source SHA: {source}"
 for path in sorted(runtime_paths):
     target = root / path.removeprefix("res://")
     assert target.is_file(), f"Missing imported runtime: {target}"
-    blob = target.read_bytes()
-    checksum = hashlib.sha1(b"blob " + str(len(blob)).encode("ascii") + b"\x00" + blob).hexdigest()
-    assert checksum in source_shas, f"Runtime image does not match a source Git blob: {target}"
+    proof = verify_art(path.removeprefix("res://"))
+    assert proof["sha"] in source_shas, f"Runtime image does not match a historical source Git blob: {target}"
 for section in ["props", "scenery", "monsters", "boss_candidates"]:
     for name,path in manifest["runtime"][section].items():
         assert (root / path.removeprefix("res://")).is_file(), (section,name)

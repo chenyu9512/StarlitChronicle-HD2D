@@ -298,6 +298,12 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "branch_stage_points":branch_stage_points,
         "art_profile":str(data.get("art_profile","")),
         "art_tileset":str(data.get("art_tileset","")),
+        "room_day_tint":str(data.get("room_day_tint","dbcebd")),
+        "room_night_tint":str(data.get("room_night_tint","b4ada7")),
+        "map_id":map_id,
+        "building_id":building_id,
+        "room_function":str(data.get("room_function","")),
+        "region_design":str(data.get("region_design","")),
         "visuals":data.get("visuals",[]),
         "light_sources":data.get("light_sources",[]),
         "solid_regions":data.get("solid_regions",[])}

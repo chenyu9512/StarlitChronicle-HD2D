@@ -1,0 +1,436 @@
+{
+  "schema": "starlit.story.prologue.v1",
+  "id": "prologue",
+  "title": "星落之夜",
+  "lead_character": "幼年主角",
+  "location": "晨露村",
+  "prerequisites": [],
+  "finish_flag": "story.prologue_done",
+  "scenes": [
+    {
+      "id": "prologue.star_festival",
+      "title": "灯祭清晨",
+      "location": "晨露村·养父家",
+      "order": 1,
+      "trigger": {
+        "type": "new_game",
+        "required_previous": null
+      },
+      "dialogue": [
+        {
+          "id": "prologue.star_festival.l01",
+          "speaker": "旁白",
+          "text": "海风穿过窗缝，木地板上落满星形纸屑。"
+        },
+        {
+          "id": "prologue.star_festival.l02",
+          "speaker": "澄舟",
+          "text": "醒了？院子里的灯架还差最后一根绳。"
+        },
+        {
+          "id": "prologue.star_festival.l03",
+          "speaker": "幼年主角",
+          "text": "今年我能站在灯塔最高的地方吗？"
+        },
+        {
+          "id": "prologue.star_festival.l04",
+          "speaker": "澄舟",
+          "text": "先学会把绳结打紧。世界上的大事，总要从小事开始。"
+        },
+        {
+          "id": "prologue.star_festival.l05",
+          "speaker": "系统",
+          "text": "目标更新：帮助养父准备星灯祭。"
+        }
+      ],
+      "objective": "准备灯架并离家前往村广场",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.star_festival.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.friend_herbs",
+      "title": "岚音的药草篮",
+      "location": "晨露村·花田",
+      "order": 2,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.star_festival"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.friend_herbs.l01",
+          "speaker": "岚音",
+          "text": "等一下！你走这么快，我的药草全掉在后面了。"
+        },
+        {
+          "id": "prologue.friend_herbs.l02",
+          "speaker": "幼年主角",
+          "text": "不是说好一起去灯祭吗？"
+        },
+        {
+          "id": "prologue.friend_herbs.l03",
+          "speaker": "岚音",
+          "text": "药房里有人发烧。我想先把药送过去。"
+        },
+        {
+          "id": "prologue.friend_herbs.l04",
+          "speaker": "幼年主角",
+          "text": "那我帮你捡。送完药再去也来得及。"
+        },
+        {
+          "id": "prologue.friend_herbs.l05",
+          "speaker": "岚音",
+          "text": "好。你要记得，这可是你自己答应的。"
+        }
+      ],
+      "objective": "收集三份散落药草并送药",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.friend_herbs.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.festival_market",
+      "title": "热闹的广场",
+      "location": "晨露村·星灯祭场",
+      "order": 3,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.friend_herbs"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.festival_market.l01",
+          "speaker": "旁白",
+          "text": "摊贩叫卖甜栗子，孩子们用贝壳换来写有祝愿的纸签。"
+        },
+        {
+          "id": "prologue.festival_market.l02",
+          "speaker": "摊主",
+          "text": "小客人，今天许什么愿？"
+        },
+        {
+          "id": "prologue.festival_market.l03",
+          "speaker": "幼年主角",
+          "text": "我想以后和澄舟一起去大海另一边。"
+        },
+        {
+          "id": "prologue.festival_market.l04",
+          "speaker": "摊主",
+          "text": "那你得学会看风。愿望只是出发点。"
+        },
+        {
+          "id": "prologue.festival_market.l05",
+          "speaker": "旁白",
+          "text": "主角获得一枚不会发光的小星灯。"
+        }
+      ],
+      "objective": "参与灯祭小游戏并获得星灯",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.festival_market.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.elder_story",
+      "title": "古老的规矩",
+      "location": "晨露村·旧石碑",
+      "order": 4,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.festival_market"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.elder_story.l01",
+          "speaker": "守灯人",
+          "text": "每年点灯时，大家都要念出出海未归的人的名字。"
+        },
+        {
+          "id": "prologue.elder_story.l02",
+          "speaker": "幼年主角",
+          "text": "他们听得见吗？"
+        },
+        {
+          "id": "prologue.elder_story.l03",
+          "speaker": "守灯人",
+          "text": "不知道。但只要还有人念，回家的路就不会轻易消失。"
+        },
+        {
+          "id": "prologue.elder_story.l04",
+          "speaker": "澄舟",
+          "text": "记住这句话，比记住我的工具藏在哪儿重要。"
+        },
+        {
+          "id": "prologue.elder_story.l05",
+          "speaker": "幼年主角",
+          "text": "我都记住。"
+        },
+        {
+          "id": "prologue.elder_story.l06",
+          "speaker": "旁白",
+          "text": "澄舟静静望着主角，仿佛还有什么话想说。"
+        }
+      ],
+      "objective": "调查石碑并聆听旧传说",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.elder_story.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.tower_steps",
+      "title": "登上灯塔",
+      "location": "晨露村·潮风灯塔",
+      "order": 5,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.elder_story"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.tower_steps.l01",
+          "speaker": "澄舟",
+          "text": "把灯芯放好，别急着点燃。等太阳真正落下。"
+        },
+        {
+          "id": "prologue.tower_steps.l02",
+          "speaker": "幼年主角",
+          "text": "风吹得我有点怕。"
+        },
+        {
+          "id": "prologue.tower_steps.l03",
+          "speaker": "澄舟",
+          "text": "怕就抓住栏杆。勇敢不是一点都不怕。"
+        },
+        {
+          "id": "prologue.tower_steps.l04",
+          "speaker": "岚音",
+          "text": "我在下面看见你了！快跟我挥手！"
+        },
+        {
+          "id": "prologue.tower_steps.l05",
+          "speaker": "旁白",
+          "text": "主角抬手时，看见远方海面有一粒不自然的黑光。"
+        }
+      ],
+      "objective": "安装灯芯并完成攀爬教学",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.tower_steps.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.black_star",
+      "title": "黑色流星",
+      "location": "晨露村·灯塔顶层",
+      "order": 6,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.tower_steps"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.black_star.l01",
+          "speaker": "旁白",
+          "text": "群星忽然像被谁擦去，一颗黑色流星划过海平线。"
+        },
+        {
+          "id": "prologue.black_star.l02",
+          "speaker": "幼年主角",
+          "text": "澄舟？为什么所有灯都灭了？"
+        },
+        {
+          "id": "prologue.black_star.l03",
+          "speaker": "澄舟",
+          "text": "听着，待会儿无论看见谁，都别走近海边。"
+        },
+        {
+          "id": "prologue.black_star.l04",
+          "speaker": "旁白",
+          "text": "海雾中，一个早已死去的老人正向灯塔挥手。"
+        },
+        {
+          "id": "prologue.black_star.l05",
+          "speaker": "陌生老人",
+          "text": "第七盏灯……终于找到你了。"
+        },
+        {
+          "id": "prologue.black_star.l06",
+          "speaker": "澄舟",
+          "text": "别听它的声音！岚音，带他走！"
+        }
+      ],
+      "objective": "发生黑星事件并进入逃离段落",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.black_star.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.escape",
+      "title": "灯灭之后",
+      "location": "晨露村·海边石阶",
+      "order": 7,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.black_star"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.escape.l01",
+          "speaker": "岚音",
+          "text": "这边！我看不清台阶，你牵着我的手！"
+        },
+        {
+          "id": "prologue.escape.l02",
+          "speaker": "幼年主角",
+          "text": "澄舟还在上面，我们不能丢下他！"
+        },
+        {
+          "id": "prologue.escape.l03",
+          "speaker": "澄舟",
+          "text": "你们活下去，就是我还能留给这世界的东西。"
+        },
+        {
+          "id": "prologue.escape.l04",
+          "speaker": "旁白",
+          "text": "灯塔的门被从内侧锁住。海雾吞没了最后一丝光。"
+        },
+        {
+          "id": "prologue.escape.l05",
+          "speaker": "系统",
+          "text": "剧情事件：养父澄舟失踪。"
+        }
+      ],
+      "objective": "跟随岚音逃出海雾，不能返回灯塔",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.escape.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.morning_absence",
+      "title": "无人记得的人",
+      "location": "晨露村·村长家",
+      "order": 8,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.escape"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.morning_absence.l01",
+          "speaker": "幼年主角",
+          "text": "澄舟昨天就在灯塔！你们怎么会不知道？"
+        },
+        {
+          "id": "prologue.morning_absence.l02",
+          "speaker": "村长",
+          "text": "孩子，这村里没有叫这个名字的人。"
+        },
+        {
+          "id": "prologue.morning_absence.l03",
+          "speaker": "岚音",
+          "text": "可是他给我修过药箱！那封信还在……"
+        },
+        {
+          "id": "prologue.morning_absence.l04",
+          "speaker": "村长",
+          "text": "什么信？你是不是吓糊涂了？"
+        },
+        {
+          "id": "prologue.morning_absence.l05",
+          "speaker": "旁白",
+          "text": "村长桌下，一张写有澄舟签名的旧收据静静压在石头下。"
+        },
+        {
+          "id": "prologue.morning_absence.l06",
+          "speaker": "幼年主角",
+          "text": "既然你们都忘了，那就由我记住。"
+        }
+      ],
+      "objective": "调查村长收据，建立主人公动机",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.morning_absence.seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "prologue.ten_years",
+      "title": "十年之后",
+      "location": "晨露村·澄舟旧屋",
+      "order": 9,
+      "trigger": {
+        "type": "sequence",
+        "required_previous": "prologue.morning_absence"
+      },
+      "dialogue": [
+        {
+          "id": "prologue.ten_years.l01",
+          "speaker": "旁白",
+          "text": "十年过去，潮风仍旧吹过同一扇窗。"
+        },
+        {
+          "id": "prologue.ten_years.l02",
+          "speaker": "岚音",
+          "text": "你又翻那只旧箱子了？里面的纸都快被你摸坏了。"
+        },
+        {
+          "id": "prologue.ten_years.l03",
+          "speaker": "主角",
+          "text": "昨晚梦见灯塔了。我觉得那封信还有秘密。"
+        },
+        {
+          "id": "prologue.ten_years.l04",
+          "speaker": "岚音",
+          "text": "那就一起去看。只是这次，不许把我丢在后面。"
+        },
+        {
+          "id": "prologue.ten_years.l05",
+          "speaker": "旁白",
+          "text": "【正式主线开启】第一幕《白砂海岸》。"
+        }
+      ],
+      "objective": "完成序章，解锁第1章",
+      "effects": [
+        {
+          "type": "set_flag",
+          "key": "prologue.ten_years.seen",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "key": "story.prologue_done",
+          "value": true
+        }
+      ]
+    }
+  ]
+}

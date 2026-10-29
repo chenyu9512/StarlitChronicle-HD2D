@@ -1,0 +1,354 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 2,
+  "map_id": "map_coast_01",
+  "building_id": "guild",
+  "name": "晨露村·星路公会",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        32,
+        27,
+        41,
+        36
+      ]
+    },
+    {
+      "rect": [
+        21,
+        12,
+        50,
+        30
+      ]
+    },
+    {
+      "rect": [
+        17,
+        16,
+        29,
+        24
+      ]
+    },
+    {
+      "rect": [
+        44,
+        15,
+        55,
+        25
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        30,
+        18,
+        33,
+        18
+      ]
+    },
+    {
+      "rect": [
+        39,
+        24,
+        44,
+        24
+      ]
+    },
+    {
+      "rect": [
+        27,
+        26,
+        29,
+        27
+      ]
+    }
+  ],
+  "door_regions": [],
+  "points": {
+    "spawn": [
+      36,
+      32
+    ],
+    "exit": [
+      36,
+      35
+    ],
+    "service": [
+      23,
+      19
+    ],
+    "storage": [
+      49,
+      21
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        23,
+        19
+      ],
+      "name": "晨露村·星路公会·服务台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        49,
+        21
+      ],
+      "name": "晨露村·星路公会·储物处"
+    }
+  ],
+  "art_profile": "coast_district_guild_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/dew_guild_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        23,
+        19
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        49,
+        21
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_0_guild_noticeboard",
+      "asset": "guild_noticeboard",
+      "cell": [
+        28,
+        15
+      ],
+      "offset": [
+        0,
+        -62
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_1_guild_emblem",
+      "asset": "guild_emblem",
+      "cell": [
+        45,
+        24
+      ],
+      "offset": [
+        0,
+        -66
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_2_merchant_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_3_bookshelf",
+      "asset": "bookshelf",
+      "cell": [
+        24,
+        21
+      ],
+      "offset": [
+        0,
+        -67
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_tideway_chart",
+      "asset": "tideway_chart",
+      "cell": [
+        48,
+        19
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_5_table",
+      "asset": "table",
+      "cell": [
+        31,
+        27
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_6_lantern",
+      "asset": "lantern",
+      "cell": [
+        41,
+        26
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      28,
+      15
+    ],
+    [
+      45,
+      24
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "dew_guild_light_0",
+      "cell": [
+        23,
+        19
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "dew_guild_light_1",
+      "cell": [
+        30,
+        26
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    },
+    {
+      "id": "dew_guild_light_2",
+      "cell": [
+        49,
+        21
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    }
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_guild_noticeboard",
+      "source_visual_id": "stage_0_guild_noticeboard",
+      "kind": "guild_noticeboard",
+      "name": "公会水渍告示",
+      "cell": [
+        28,
+        14
+      ],
+      "first_text": "最旧的一张寻船通告没有写报酬，只写了‘求知道他是否平安’。",
+      "repeat_text": "告示纸张已重新装订。",
+      "after_text": "新的航路修复报告压在告示最上方，失踪名单仍然保留。",
+      "owner_absent_text": "公开告示可读，但委托人的私人地址被挡住。",
+      "owner_present_text": "屋主同意你仔细查看「公会水渍告示」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_guild_emblem",
+      "source_visual_id": "stage_1_guild_emblem",
+      "kind": "guild_emblem",
+      "name": "磨损的行路徽",
+      "cell": [
+        45,
+        23
+      ],
+      "first_text": "徽记背面是一位无名冒险者的誓词：先把同行人带回来。",
+      "repeat_text": "徽章边缘留着长年触摸的亮痕。",
+      "after_text": "新来的冒险者把这条誓词重新刻清楚了。",
+      "owner_absent_text": "徽章属于公会，不便取下。",
+      "owner_present_text": "屋主同意你仔细查看「磨损的行路徽」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_3_bookshelf",
+      "source_visual_id": "stage_3_bookshelf",
+      "kind": "bookshelf",
+      "name": "航海档案书架",
+      "cell": [
+        24,
+        21
+      ],
+      "first_text": "卷宗上夹着不同年份的潮汐误报记录，提醒冒险者别轻信传闻。",
+      "repeat_text": "架上的卷宗按月份排好。",
+      "after_text": "记录员添上了更正与消息来源，错误也没有从档案抹去。",
+      "owner_absent_text": "完整卷宗需由公会登记后借阅。",
+      "owner_present_text": "屋主同意你仔细查看「航海档案书架」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_4_tideway_chart",
+      "source_visual_id": "stage_4_tideway_chart",
+      "kind": "tideway_chart",
+      "name": "潮风救援示意图",
+      "cell": [
+        48,
+        19
+      ],
+      "first_text": "三条红线通向避风点，最短的一条却被标记为‘不可夜行’。",
+      "repeat_text": "示意图的箭头指向村东。",
+      "after_text": "图上多了一处志愿者守灯点，夜路比以前安全。",
+      "owner_absent_text": "地图是公开资料，可以仔细看。",
+      "owner_present_text": "屋主同意你仔细查看「潮风救援示意图」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "npc_coast_05",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
+}

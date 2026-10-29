@@ -1,0 +1,167 @@
+name: "Main2 to Runtime - Verified Game Only"
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+concurrency:
+  group: starlit-runtime-sync
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify complete semantic theme and scene-binding contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/validate_art_theme_v2.py --json
+          python3 tools/audit_art_pipeline_v3.py --strict --out build/art-theme-v3/release-audit.json
+      - name: Validate complete Main2 source and curated images
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "Main2美术优化版"
+          python3 tools/validate_c_act01_global_art_v14.py
+          python3 tools/audit_act01_third_party_art.py
+          python3 tools/validate_act01_canonical_routes.py
+      - name: Validate new source-matched gameplay prop before packaging
+        shell: bash
+        run: python3 tools/validate_c_act01_matched_props_v16.py
+      - name: Verify semantic first-act art before pruning source packs
+        shell: bash
+        run: python3 tools/validate_c_act01_semantic_v17.py
+      - name: Confirm V18 source identity and real scene roles
+        run: python3 tools/validate_c_act01_hd2d_v18.py
+      - name: Build independent game snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/build_runtime_snapshot.py --source . --dest "$RUNNER_TEMP/playable" --with-smoke
+          test ! -e "$RUNNER_TEMP/playable/assets/art/source_packs"
+          test ! -e "$RUNNER_TEMP/playable/assets/art/candidates"
+      - name: Install official Godot 4.7.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -oq "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP"
+          chmod +x "$RUNNER_TEMP/Godot_v4.7.2-stable_linux.x86_64"
+      - name: Verify the SLIM checkout actually runs
+        shell: bash
+        run: |
+          set -euo pipefail
+          G="$RUNNER_TEMP/Godot_v4.7.2-stable_linux.x86_64"
+          cd "$RUNNER_TEMP/playable"
+          timeout 180s "$G" --headless --path . --editor --quit
+          for script in smoke_c_act01_global_art_v14 smoke_c_act01_semantic_v17 smoke_c_main2_art_runtime smoke_battle_actors smoke_first_act_flow smoke_rpg_core smoke_save_integrity smoke_c_regional_monsters_v15 smoke_main2_act01_harbor_rooms_visual smoke_main2_lighthouse_story_state smoke_main2_act01_live_boss_motion smoke_main2_act01_coast_monster_identity smoke_main2_act01_canonical_chapter_routes smoke_b_act01_journey smoke_world_story_interactions smoke_world_checkpoints smoke_branch_story_phase19 smoke_c_act01_hd2d_v18; do
+            echo "Runtime Godot smoke: $script"
+            timeout 180s "$G" --headless --path . --script "res://tools/$script.gd" 2>&1 | tee "$RUNNER_TEMP/$script.log"
+            if [ "$script" != "smoke_save_integrity" ] && grep -Eq "ERROR: Parse JSON failed|ERROR: Failed loading" "$RUNNER_TEMP/$script.log"; then
+              echo "Unexpected runtime resource parser/load error in $script" >&2
+              exit 1
+            fi
+          done
+          timeout 90s "$G" --headless --path . --quit-after 20
+      - name: Remove developer-only smoke tools and caches
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$RUNNER_TEMP/playable/tools" "$RUNNER_TEMP/playable/.godot" "$RUNNER_TEMP/playable/build"
+          find "$RUNNER_TEMP/playable" -type f -name "*.import" -delete
+          test -f "$RUNNER_TEMP/playable/project.godot"
+          test ! -e "$RUNNER_TEMP/playable/assets/art/source_packs"
+      - name: Verify independent Runtime image integrity and runtime references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/verify_runtime_snapshot.py --path "$RUNNER_TEMP/playable"
+          test ! -e "$RUNNER_TEMP/playable/tools"
+          test ! -e "$RUNNER_TEMP/playable/.github"
+          test ! -e "$RUNNER_TEMP/playable/docs"
+      - name: Publish only if current and changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/heads/Main2美术优化版"
+          newest="$(git rev-parse FETCH_HEAD)"
+          if [ "$newest" != "$GITHUB_SHA" ]; then
+            # A later docs-only / unrelated CI commit does not invalidate
+            # the already-tested playable payload. Only actual game inputs
+            # force this older snapshot to yield to a newer workflow.
+            if ! git diff --quiet "$GITHUB_SHA" "$newest" -- \
+              project.godot scripts scenes story data assets/art/runtime \
+              assets/art/external assets/audio assets/shaders assets/fx \
+              assets/enemies tools/build_runtime_snapshot.py \
+              tools/verify_runtime_snapshot.py \
+              tools/validate_act01_canonical_routes.py \
+              tools/validate_c_act01_global_art_v14.py \
+              tools/validate_c_act01_matched_props_v16.py \
+              tools/validate_c_act01_semantic_v17.py \
+              .github/workflows/main2-to-runtime.yml; then
+              echo "Newer playable inputs exist; skip this stale tested snapshot."
+              exit 0
+            fi
+            echo "Only unrelated documentation/workflows advanced; publishing identical tested playable source."
+          fi
+          if git ls-remote --exit-code --heads origin "StarlitChronicle-Runtime" >/dev/null; then
+            git fetch origin "refs/heads/StarlitChronicle-Runtime:refs/remotes/origin/StarlitChronicle-Runtime"
+            parent="refs/remotes/origin/StarlitChronicle-Runtime"
+          else
+            parent="$GITHUB_SHA"
+          fi
+          # Runtime commit subject records which Main2 SHA supplied its pixels.
+          # An older or divergent source may never overwrite a newer release.
+          if [ "$parent" != "$GITHUB_SHA" ]; then
+            last_message="$(git log -1 --format=%s "$parent")"
+            source_sha="$(printf '%s\n' "$last_message" | grep '^build(runtime): playable Main2 snapshot ' | awk '{print $NF}' || true)"
+            if [ -n "$source_sha" ]; then
+              if [[ ! "$source_sha" =~ ^[0-9a-f]{40}$ ]]; then
+                echo "Runtime commit has invalid source SHA" >&2
+                exit 1
+              fi
+              if git merge-base --is-ancestor "$GITHUB_SHA" "$source_sha"; then
+                echo "Equal or newer source already published: skipping."
+                exit 0
+              fi
+              if ! git merge-base --is-ancestor "$source_sha" "$GITHUB_SHA"; then
+                echo "Diverged source history: refusing runtime regression."
+                exit 0
+              fi
+            fi
+          fi
+          target="$RUNNER_TEMP/runtime-worktree"
+          git worktree add --no-checkout --detach "$target" "$parent"
+          # Runtime v1 was initially branched off the entire Main2 history.
+          # Rewrite ONLY that exact first bot-owned tip into an independent
+          # root commit; otherwise another author's Runtime commits are safe.
+          first_runtime="6625155db3d9e2f5a6db050863bc81afd50623e3"
+          rewrite_root=false
+          if [ "$(git rev-parse "$parent")" = "$first_runtime" ]; then
+            rewrite_root=true
+            git -C "$target" switch --orphan runtime-publish-root
+          fi
+          git -C "$target" read-tree --empty
+          cp -a "$RUNNER_TEMP/playable/." "$target/"
+          git -C "$target" add -A
+          git -C "$target" config user.name "github-actions[bot]"
+          git -C "$target" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$rewrite_root" = false ] && git -C "$target" diff --cached --quiet "$parent" --; then
+            echo "No playable content changed. Skip Runtime commit."
+            exit 0
+          fi
+          git -C "$target" commit -m "build(runtime): playable Main2 snapshot $GITHUB_SHA"
+          if [ "$rewrite_root" = true ]; then
+            # This is force-with-lease against the exact Runtime v1 SHA only.
+            git -C "$target" push --force-with-lease="refs/heads/StarlitChronicle-Runtime:$first_runtime" origin HEAD:refs/heads/StarlitChronicle-Runtime
+          else
+            git -C "$target" push origin HEAD:refs/heads/StarlitChronicle-Runtime
+          fi

@@ -1,0 +1,43 @@
+{
+  "schema": "starlit.c_b03_body_motion.v1",
+  "date": "2026-10-27",
+  "chapter": 2,
+  "boss_id": "boss.ch002",
+  "name": "雾潮寄生体",
+  "mode": "source_preserving_procedural_body_deformation_and_original_fx_frames",
+  "original_art": "res://assets/art/b03/boss_final_render/ch002_fog_tide_parasite_battle_768.png",
+  "rig": "scripts/c_b03_fog_tide_body_motion.gd",
+  "shader": "assets/shaders/c23_fog_tide_body_warp.gdshader",
+  "scene": "scripts/first_act_battle.gd",
+  "states": {
+    "idle": {
+      "asset": "assets/art/b03/boss_motion/c23_ch002/idle_4f.svg",
+      "frames": 4
+    },
+    "charge": {
+      "asset": "assets/art/b03/boss_motion/c23_ch002/charge_6f.svg",
+      "frames": 6
+    },
+    "attack": {
+      "asset": "assets/art/b03/boss_motion/c23_ch002/attack_6f.svg",
+      "frames": 6
+    },
+    "hit": {
+      "asset": "assets/art/b03/boss_motion/c23_ch002/hit_4f.svg",
+      "frames": 4
+    },
+    "defeat": {
+      "asset": "assets/art/b03/boss_motion/c23_ch002/defeat_6f.svg",
+      "frames": 6
+    }
+  },
+  "total_overlay_frames": 26,
+  "not_full_body_repaint": true,
+  "quality_status": "candidate_needs_onscreen_match",
+  "tests": {
+    "svg_structure": "success_static",
+    "godot_import": "not_tested",
+    "battle_runtime": "not_tested",
+    "portrait_identity_screenshot": "not_tested"
+  }
+}

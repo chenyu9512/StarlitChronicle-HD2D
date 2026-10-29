@@ -1,0 +1,138 @@
+{
+  "schema": "starlit.story.endgame_expansion_registry.v1",
+  "version": "2.5.1",
+  "integration_status": "ch47_rescue_escort_staging_and_save_binding_wired_godot_not_tested",
+  "modules": {
+    "act08_evacuation": "res://scripts/mechanics/Act08EvacuationController.gd",
+    "noe_leadership_transition": "res://scripts/systems/NoeTransitionAndLeadershipSystem.gd",
+    "side_quests_and_lore": "res://scripts/systems/SideQuestsAndLoreLoader.gd",
+    "evacuation_tactical_hud": "res://scripts/systems/EvacuationSquadHud.gd",
+    "rescue_world_director": "res://scripts/systems/Act08RescueWorldDirector.gd",
+    "noe_era_world_director": "res://scripts/systems/NoeEraWorldDirector.gd",
+    "postbattle_finale": "res://scripts/mechanics/Act10To12EndgameMechanics.gd"
+  },
+  "activation_chapters": {
+    "act08_evacuation": [
+      "ch047"
+    ],
+    "noe_leadership_transition": [
+      "ch049",
+      "ch050",
+      "ch051",
+      "ch052",
+      "ch053",
+      "ch054"
+    ],
+    "postbattle_finale": [
+      "ch058",
+      "ch059",
+      "ch064",
+      "ch071",
+      "ch072"
+    ]
+  },
+  "data_sources": {
+    "original_quests": "res://story/data/side_quests.json",
+    "companion_quests": "res://story/data/companion_quests.json",
+    "regional_quests": "res://story/data/regional_quests_v2.json",
+    "lore_documents": "res://story/data/lore_texts.json",
+    "rescue_field_actions": "res://story/runtime/act08_rescue_actions.json",
+    "three_gate_combat_profiles": "res://story/runtime/act08_encounter_profiles.json",
+    "finale_action_sequences": "res://story/runtime/chapter_mechanics_steps.json"
+  },
+  "canonical_counts": {
+    "original_quests": 36,
+    "companion_quests": 48,
+    "regional_quests": 36,
+    "total_side_quests": 120,
+    "total_lore_documents": 27
+  },
+  "scene_auto_mount_enabled": true,
+  "notes": "Main2 第54章纪念册已由正典旗标自动归档改为玩家在实际世界可达标记依次核对车票来源、保留证词、放入原件的三阶段V3交互，真实结算与保存仍走first_act正式事务。对带有可核实第39章来源回执的正常档案，第54章流程必须完成后才能进入第55章；旧档缺少来源证据时不伪造原件、不把旧版自动归档展示成已验证结果，也不强锁旧档。世界导演显示逐页2D书册进度而不重复生成成年诺依，三门支援NPC不再重复生成已在世界队伍中的战斗角色。尚未执行Godot导入、编译、游戏实跑、画面或存档测试，不能标记商业级完成。 第47章新增集结点接队：伤员/儿童需在上一真实救援检查点会合才跟随，导航先指向集结点再指向出口，护送未完成不得跨地区旅行。重载地图恢复最近已保存阶段；临时NPC坐标不会成为完成凭据。救援存档错误对象和未知章节拒绝绑定。保留第54章纪念册新三阶段V3调查、58–72章机制与独立三门战斗回执。未运行任何测试，不声明商业级通过。",
+  "runtime_entry": "res://scripts/first_act.gd",
+  "runtime_bridge": "res://scripts/systems/EndgameExpansionBridge.gd",
+  "persistence_key": "rpg.endgame_expansion",
+  "interaction_ids": [
+    "evac:command",
+    "evac:east:triage",
+    "evac:east:escort",
+    "evac:east:secure",
+    "evac:south:children",
+    "evac:south:route",
+    "evac:south:secure",
+    "evac:west:repair",
+    "evac:west:manual",
+    "evac:west:secure",
+    "endgame:handover",
+    "lore:<doc_id>",
+    "menu:正典文献",
+    "menu:伙伴羁绊",
+    "endgame:memorial"
+  ],
+  "verification_smoke": "res://tools/smoke_endgame_expansion.gd",
+  "runtime_menu": "res://scripts/rpg_menu.gd",
+  "persistence_keys": [
+    "rpg.endgame_expansion",
+    "rpg.canonical_item_provenance_v1",
+    "rpg.evacuation_battle_pending_v1"
+  ],
+  "features": {
+    "rescue": "chapter47_nine_site_objectives_six_authored_field_choices_three_live_nonboss_battle_receipts",
+    "west_gate_seconds": 600,
+    "tactical_view": "three_lane_status_overlay_not_three_camera_split",
+    "lore": "twenty_seven_chapter_location_markers_plus_manual_codex",
+    "companion_bonds": "four_narrative_ranks_from_48_canonical_companion_quests_no_combat_or_romance",
+    "noe": "legacy_ticket_from_ch039_investigation_persistent_provenance_only",
+    "rescue_battle_roster": "per_squad_temporary_canon_fighter_override_no_savestate_party_mutation_child_noe_support_only",
+    "rescue_battle_receipts": "per_squad_v3_reserved_nonce_reused_after_reload_to_prevent_duplicate_rewards",
+    "adult_noe_pov": "chapter49_started_and_ch048_done_leadership_ch49_to54_world_roster_tracks_actual_canonical_party",
+    "rescue_encounter_presentation": "three_named_guard_waves_with_existing_regional_enemy_assets_visual_not_accepted",
+    "rescue_world": "bfs_route_guides_on_existing_walkable_grid_no_teleport",
+    "rescue_visual_choreography": "animated_noncombat_npcs_and_escort_on_successful_v3_checkpoint",
+    "solo_noe": "ch049_to_ch051_single_visible_fighter_and_canonical_cast_id_2d_fallback",
+    "postwar_meeting": "ch052_to_ch054_reachable_campcast_and_story_handover_stage",
+    "party_sync": "return_to_world_uses_active_party_contract_not_full_saved_party",
+    "three_gate_combat": "distinct_gate_enemy_number_hp_attack_defense_speed_and_tactical_hints_using_canonical_encounter_art",
+    "rescue_recovery": "single_paid_v3_battle_ledger_receipt_restores_squad_checkpoint_after_crash_without_duplicate_reward_or_refight",
+    "chapter47_world_pov": "active_physical_rescue_squad_fighters_reflected_on_map_without_changing_permanent_party",
+    "adult_noe_world_pov": "adult_nuo_yi_visible_from_ch049_story_time_shift_through_ch054_handover_with_existing_sprite_fallback",
+    "invalid_rescue_profile": "fail_closed_no_generic_random_enemy_substitution",
+    "rescue_escort": "east_medical_and_south_children_follow_hero_on_connected_floor_cannot_finalize_until_physically_arrived",
+    "dynamic_wayfinding": "reroute_when_player_enters_new_tile_route_uses_walkable_component",
+    "tactical_hud": "collapsible_upper_screen_panel_keeps_touch_dpad_and_action_buttons_clear",
+    "rescue_time_policy": "ten_minute_timer_paused_during_dialogue_menus_turn_based_battle",
+    "postbattle_finale": "ch058_override_ch059_rotational_charter_ch064_three_rings_ch071_real_battle_receipt_ch072_ending_C_readonly",
+    "finale_save_migration": "preserves_old_slots_without_forging_missing_player_sequences",
+    "ch054_memorial": "three_explicit_field_interactions_preserve_ch039_provenance_witness_sources_and_original_ticket_no_auto_finalization",
+    "ch054_presentation": "hand-drawn_2D_book_stages_reflect_saved_archival_step_no_duplicate_adult_noe",
+    "ch054_progress_gate": "requires_verified_original_ticket_plus_memorial_workflow_before_ch55_for_new_canonical_saves;unverifiable_legacy_saves_not_hard_locked",
+    "ch047_support_cast": "escort_sprites_show_only_noncombat_support_no_duplicate_world_hero_and_companion",
+    "escort_staging": "east_medical_and_south_children_require_physical_assembly_before_follow",
+    "escort_guide": "pre_join_route_guides_to_previous_checkpoint_then_exit",
+    "escort_travel_guard": "cross_region_travel_blocked_while_escorting_civilians",
+    "escort_map_rebuild": "restart_from_last_saved_checkpoint_no_transient_animation_state_as_proof",
+    "evacuation_restore": "invalid_field_or_unexpected_chapter_save_rejected",
+    "escort_hud": "tactical_stage_shows_waiting_to_assemble_or_distance_to_gate"
+  },
+  "combat_roster_contract": "res://scripts/systems/EvacuationBattleRoster.gd",
+  "validation_status": {
+    "godot": "未测试",
+    "CI": "未测试",
+    "manual_player": "未测试",
+    "save_recovery": "未测试",
+    "visual": "未测试"
+  },
+  "pending_acceptance": [
+    "Godot 4.7.2 import and syntax compilation (deliberately not run)",
+    "Actual chapter47 continuous three-squad player route and live timer",
+    "Crash/reload recovery and exactly-once reward engine verification",
+    "Distinct HD2D guard enemies and adult Noe authored animation (still not in repository)",
+    "World location readability and physical route QA",
+    "Full 72 chapter and 120 quest regression/playtest",
+    "Chapter 58/59/60/64/66/71/72 ordered player action and postreceipt saves on the same HEAD",
+    "Chapter 71 real Boss receipt required; Chapter 72 ending C needs all independent canonical gates",
+    "Chapter54 battle -> third handover -> reachable book -> three manually saved archive steps -> Chapter55 real playthrough",
+    "Legacy slot with no ch039 provenance must not present forged original memorial completion",
+    "2D memorial prop replacement by reviewed final HD2D art and four-direction adult Noe character animations"
+  ]
+}

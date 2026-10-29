@@ -1,0 +1,40 @@
+; Starlit Chronicle / 星灯纪行
+; Original Godot 4.7.2 GDScript project. Landscape, iPhone-first.
+config_version=5
+
+[application]
+config/name="星灯纪行"
+run/main_scene="res://scenes/first_act.tscn"
+config/description="星灯纪行 · 12幕72章 · v0.6 战斗、职业与住宅系统工程"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_cosmos.png"
+
+[autoload]
+State="*res://scripts/game_state.gd"
+
+[display]
+window/size/viewport_width=1152
+window/size/viewport_height=648
+window/size/window_width_override=1152
+window/size/window_height_override=648
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.055, 0.078, 0.12, 1)
+
+[input]
+move_left={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":65),Object(InputEventKey,"physical_keycode":4194319)]}
+move_right={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":68),Object(InputEventKey,"physical_keycode":4194321)]}
+move_up={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":87),Object(InputEventKey,"physical_keycode":4194320)]}
+move_down={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":83),Object(InputEventKey,"physical_keycode":4194322)]}
+interact={"deadzone":0.5,"events":[Object(InputEventKey,"physical_keycode":69),Object(InputEventKey,"physical_keycode":90),Object(InputEventKey,"physical_keycode":32)]}
+open_menu={"deadzone":0.5,"events":[Object(InputEventKey,"physical_keycode":77),Object(InputEventKey,"physical_keycode":4194305)]}
+
+[editor_plugins]
+enabled=PackedStringArray("res://addons/starlit_art_pipeline/plugin.cfg")

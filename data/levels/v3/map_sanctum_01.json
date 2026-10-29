@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "map_id": "map_sanctum_01",
+  "title": "天轨前庭",
+  "biome": "celestial",
+  "category": "town",
+  "design_intent": "浮空星轨和断桥",
+  "size": [
+    96,
+    68
+  ],
+  "roads": [
+    {
+      "id": "spine-星环回廊",
+      "width": 2,
+      "points": [
+        [
+          6,
+          22
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          37,
+          23
+        ],
+        [
+          59,
+          19
+        ],
+        [
+          89,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "branch-sanctum",
+      "width": 1,
+      "points": [
+        [
+          21,
+          5
+        ],
+        [
+          35,
+          16
+        ],
+        [
+          38,
+          33
+        ],
+        [
+          44,
+          61
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          10,
+          30
+        ],
+        [
+          32,
+          43
+        ],
+        [
+          43,
+          33
+        ],
+        [
+          27,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          46,
+          33
+        ],
+        [
+          76,
+          27
+        ],
+        [
+          90,
+          28
+        ],
+        [
+          87,
+          60
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          17,
+          11
+        ],
+        [
+          42,
+          13
+        ],
+        [
+          59,
+          36
+        ],
+        [
+          84,
+          60
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_sanctum_01",
+      "width": 2,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          91,
+          15
+        ],
+        [
+          92,
+          55
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_sanctum_01",
+      "center": [
+        22,
+        20
+      ],
+      "radius": 4
+    },
+    {
+      "id": "fork-outlook-map_sanctum_01",
+      "center": [
+        55,
+        35
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_sanctum_01",
+      "center": [
+        86,
+        59
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_sanctum_01",
+      "cell": [
+        52,
+        11
+      ],
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "secondary-lookout-map_sanctum_01",
+      "cell": [
+        19,
+        39
+      ],
+      "kind": "barrel"
+    },
+    {
+      "id": "peripheral-crest-map_sanctum_01",
+      "cell": [
+        87,
+        58
+      ],
+      "kind": "beacon"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        92,
+        64
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        92,
+        52
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        87,
+        27
+      ],
+      "kind": "beacon",
+      "name": "天轨节点·天轨前庭"
+    },
+    {
+      "cell": [
+        85,
+        58
+      ],
+      "kind": "sign",
+      "name": "观星圣坛·天轨前庭"
+    },
+    {
+      "cell": [
+        66,
+        59
+      ],
+      "kind": "star_lantern",
+      "name": "浮空石庭·天轨前庭"
+    }
+  ],
+  "layout_identity": "sanctum.01.星环回廊",
+  "layout_principle": "星环回廊：依据「天轨前庭」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

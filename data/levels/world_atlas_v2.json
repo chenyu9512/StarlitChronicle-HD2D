@@ -1,0 +1,3021 @@
+{
+  "schema": "starlit.world_atlas.v2",
+  "world_size": [
+    1200,
+    720
+  ],
+  "sector_grid": [
+    12,
+    8
+  ],
+  "tile_world_size": [
+    72,
+    48
+  ],
+  "notes": "42 mapped nodes; original 2 prototype nodes remain non-traversable. Coordinates are authored positions in a continuous world atlas, not real Earth geography. Drawn world geography and playable 72x48 sector use this single catalog.",
+  "regions": [
+    {
+      "id": "region_coast",
+      "center": [
+        183,
+        540
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "晨雾海岸与白沙丘",
+      "biome": "coastal",
+      "color": "#cbb98d"
+    },
+    {
+      "id": "region_oaths",
+      "center": [
+        397,
+        346
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "誓约群山与高墙",
+      "biome": "highland",
+      "color": "#7eaa9a"
+    },
+    {
+      "id": "region_forge",
+      "center": [
+        584,
+        478
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "赤炉盆地与火山",
+      "biome": "volcanic",
+      "color": "#b97d63"
+    },
+    {
+      "id": "region_isles",
+      "center": [
+        831,
+        522
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "潮汐群岛与海湾",
+      "biome": "archipelago",
+      "color": "#67a5b3"
+    },
+    {
+      "id": "region_mirror",
+      "center": [
+        802,
+        256
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "星镜森林与湖泊",
+      "biome": "mistforest",
+      "color": "#819cbd"
+    },
+    {
+      "id": "region_oldland",
+      "center": [
+        528,
+        172
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "古文明裂谷高原",
+      "biome": "badlands",
+      "color": "#9d8a73"
+    },
+    {
+      "id": "region_sanctum",
+      "center": [
+        257,
+        86
+      ],
+      "radius": [
+        145,
+        120
+      ],
+      "landscape": "高空圣殿与悬浮陆地",
+      "biome": "celestial",
+      "color": "#c3b4d6"
+    },
+    {
+      "id": "region_city",
+      "center": [
+        1069,
+        257
+      ],
+      "radius": [
+        110,
+        125
+      ],
+      "landscape": "旧王都与居民街",
+      "biome": "metropolis",
+      "color": "#c6a17c"
+    }
+  ],
+  "zones": [
+    {
+      "id": "map_coast_01",
+      "region_id": "region_coast",
+      "name": "晨露村（正式版规划）",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        1,
+        6
+      ],
+      "atlas": [
+        116,
+        550
+      ],
+      "biome": "coastal",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "central_square",
+      "village_shape": "dew_village_ring",
+      "seed": 3901,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            19,
+            10
+          ],
+          "door": [
+            19,
+            13
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            45,
+            10
+          ],
+          "door": [
+            45,
+            13
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            35,
+            26
+          ],
+          "door": [
+            35,
+            29
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            53,
+            34
+          ],
+          "door": [
+            53,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            15,
+            33
+          ],
+          "door": [
+            15,
+            36
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            60,
+            16
+          ],
+          "door": [
+            60,
+            19
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_coast_02"
+      ]
+    },
+    {
+      "id": "map_coast_02",
+      "region_id": "region_coast",
+      "name": "白砂港",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        1,
+        6
+      ],
+      "atlas": [
+        132,
+        608
+      ],
+      "biome": "coastal",
+      "archetype": "field",
+      "settlement": true,
+      "layout": "waterfront_docks",
+      "seed": 6611,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            21,
+            10
+          ],
+          "door": [
+            21,
+            13
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            43,
+            14
+          ],
+          "door": [
+            43,
+            17
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            31,
+            28
+          ],
+          "door": [
+            31,
+            31
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            57,
+            33
+          ],
+          "door": [
+            57,
+            36
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            13,
+            31
+          ],
+          "door": [
+            13,
+            34
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            60,
+            10
+          ],
+          "door": [
+            60,
+            13
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shelter",
+          "name": "临潮收容所",
+          "kind": "shelter",
+          "pos": [52, 22],
+          "door": [52, 25],
+          "size": [8, 6]
+        },
+        {
+          "id": "tavern",
+          "name": "黑帆酒馆",
+          "kind": "tavern",
+          "pos": [68, 19],
+          "door": [68, 22],
+          "size": [10, 6]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_coast_01",
+        "map_coast_03"
+      ]
+    },
+    {
+      "id": "map_coast_03",
+      "region_id": "region_coast",
+      "name": "盐风古道",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        1,
+        6
+      ],
+      "atlas": [
+        190,
+        569
+      ],
+      "biome": "coastal",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "waterfront_docks",
+      "seed": 9321,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_coast_02",
+        "map_coast_04"
+      ]
+    },
+    {
+      "id": "map_coast_04",
+      "region_id": "region_coast",
+      "name": "潮声洞窟",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        2,
+        5
+      ],
+      "atlas": [
+        222,
+        510
+      ],
+      "biome": "coastal",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "circular_market",
+      "seed": 12031,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_coast_03",
+        "map_coast_05"
+      ],
+      "dungeon_design": "潮蚀海洞",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          17,
+          10
+        ],
+        [
+          33,
+          9
+        ],
+        [
+          57,
+          16
+        ],
+        [
+          52,
+          36
+        ],
+        [
+          29,
+          37
+        ],
+        [
+          13,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "map_coast_05",
+      "region_id": "region_coast",
+      "name": "潮歌灯塔",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        2,
+        5
+      ],
+      "atlas": [
+        257,
+        465
+      ],
+      "biome": "coastal",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "fortified_quarters",
+      "seed": 14741,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_coast_04",
+        "map_oaths_01"
+      ]
+    },
+    {
+      "id": "map_oaths_01",
+      "region_id": "region_oaths",
+      "name": "三誓门城",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        3,
+        4
+      ],
+      "atlas": [
+        320,
+        432
+      ],
+      "biome": "highland",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "terraced_streets",
+      "seed": 12546,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            16,
+            13
+          ],
+          "door": [
+            16,
+            16
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            45,
+            13
+          ],
+          "door": [
+            45,
+            16
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            27,
+            29
+          ],
+          "door": [
+            27,
+            32
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            56,
+            32
+          ],
+          "door": [
+            56,
+            35
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            13,
+            34
+          ],
+          "door": [
+            13,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            60,
+            11
+          ],
+          "door": [
+            60,
+            14
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_oaths_02",
+        "map_coast_05"
+      ]
+    },
+    {
+      "id": "map_oaths_02",
+      "region_id": "region_oaths",
+      "name": "断誓山径",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        3,
+        4
+      ],
+      "atlas": [
+        357,
+        373
+      ],
+      "biome": "highland",
+      "archetype": "field",
+      "settlement": false,
+      "layout": "central_square",
+      "seed": 15256,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_oaths_01",
+        "map_oaths_03"
+      ]
+    },
+    {
+      "id": "map_oaths_03",
+      "region_id": "region_oaths",
+      "name": "银鹫要塞",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        4,
+        3
+      ],
+      "atlas": [
+        409,
+        359
+      ],
+      "biome": "highland",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "terraced_streets",
+      "seed": 17966,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_oaths_02",
+        "map_oaths_04"
+      ]
+    },
+    {
+      "id": "map_oaths_04",
+      "region_id": "region_oaths",
+      "name": "誓石神殿",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        4,
+        3
+      ],
+      "atlas": [
+        434,
+        298
+      ],
+      "biome": "highland",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "waterfront_docks",
+      "seed": 20676,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_oaths_03",
+        "map_oaths_05"
+      ],
+      "dungeon_design": "三誓回字神殿",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          17,
+          10
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          53,
+          10
+        ],
+        [
+          60,
+          24
+        ],
+        [
+          53,
+          37
+        ],
+        [
+          35,
+          37
+        ],
+        [
+          17,
+          37
+        ]
+      ]
+    },
+    {
+      "id": "map_oaths_05",
+      "region_id": "region_oaths",
+      "name": "旧王谒见厅",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        4,
+        2
+      ],
+      "atlas": [
+        464,
+        269
+      ],
+      "biome": "highland",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "circular_market",
+      "seed": 23386,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_oaths_04",
+        "map_forge_01"
+      ]
+    },
+    {
+      "id": "map_forge_01",
+      "region_id": "region_forge",
+      "name": "熔炉港",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        5,
+        4
+      ],
+      "atlas": [
+        500,
+        380
+      ],
+      "biome": "volcanic",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "waterfront_docks",
+      "seed": 21191,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            18,
+            10
+          ],
+          "door": [
+            18,
+            13
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            46,
+            11
+          ],
+          "door": [
+            46,
+            14
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            32,
+            29
+          ],
+          "door": [
+            32,
+            32
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            56,
+            33
+          ],
+          "door": [
+            56,
+            36
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            14,
+            34
+          ],
+          "door": [
+            14,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            61,
+            12
+          ],
+          "door": [
+            61,
+            15
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_forge_02",
+        "map_oaths_05"
+      ]
+    },
+    {
+      "id": "map_forge_02",
+      "region_id": "region_forge",
+      "name": "烟塔工坊",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        5,
+        4
+      ],
+      "atlas": [
+        553,
+        422
+      ],
+      "biome": "volcanic",
+      "archetype": "field",
+      "settlement": false,
+      "layout": "canal_neighborhood",
+      "seed": 23901,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_forge_01",
+        "map_forge_03"
+      ]
+    },
+    {
+      "id": "map_forge_03",
+      "region_id": "region_forge",
+      "name": "赤砂矿坑",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        6,
+        5
+      ],
+      "atlas": [
+        601,
+        473
+      ],
+      "biome": "volcanic",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "central_square",
+      "seed": 26611,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_forge_02",
+        "map_forge_04"
+      ]
+    },
+    {
+      "id": "map_forge_04",
+      "region_id": "region_forge",
+      "name": "灰烬铁路",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        6,
+        5
+      ],
+      "atlas": [
+        618,
+        531
+      ],
+      "biome": "volcanic",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "terraced_streets",
+      "seed": 29321,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_forge_03",
+        "map_forge_05"
+      ],
+      "dungeon_design": "灰烬轨道矿道",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          32,
+          12
+        ],
+        [
+          48,
+          16
+        ],
+        [
+          60,
+          23
+        ],
+        [
+          48,
+          36
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          16,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "map_forge_05",
+      "region_id": "region_forge",
+      "name": "炉心禁区",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        6,
+        6
+      ],
+      "atlas": [
+        646,
+        583
+      ],
+      "biome": "volcanic",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "waterfront_docks",
+      "seed": 32031,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_forge_04",
+        "map_isles_01"
+      ]
+    },
+    {
+      "id": "map_isles_01",
+      "region_id": "region_isles",
+      "name": "珊歌港",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        7,
+        6
+      ],
+      "atlas": [
+        722,
+        594
+      ],
+      "biome": "archipelago",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "circular_market",
+      "seed": 29836,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            23,
+            10
+          ],
+          "door": [
+            23,
+            13
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            50,
+            12
+          ],
+          "door": [
+            50,
+            15
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            35,
+            29
+          ],
+          "door": [
+            35,
+            32
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            56,
+            30
+          ],
+          "door": [
+            56,
+            33
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            15,
+            27
+          ],
+          "door": [
+            15,
+            30
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            61,
+            17
+          ],
+          "door": [
+            61,
+            20
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_isles_02",
+        "map_forge_05"
+      ]
+    },
+    {
+      "id": "map_isles_02",
+      "region_id": "region_isles",
+      "name": "五色环礁",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        7,
+        6
+      ],
+      "atlas": [
+        784,
+        569
+      ],
+      "biome": "archipelago",
+      "archetype": "field",
+      "settlement": false,
+      "layout": "fortified_quarters",
+      "seed": 32546,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_isles_01",
+        "map_isles_03"
+      ]
+    },
+    {
+      "id": "map_isles_03",
+      "region_id": "region_isles",
+      "name": "风暴航道",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        8,
+        5
+      ],
+      "atlas": [
+        851,
+        529
+      ],
+      "biome": "archipelago",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "canal_neighborhood",
+      "seed": 35256,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_isles_02",
+        "map_isles_04"
+      ]
+    },
+    {
+      "id": "map_isles_04",
+      "region_id": "region_isles",
+      "name": "深潮神庙",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        8,
+        5
+      ],
+      "atlas": [
+        884,
+        482
+      ],
+      "biome": "archipelago",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "central_square",
+      "seed": 37966,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_isles_03",
+        "map_isles_05"
+      ],
+      "dungeon_design": "沉海十字神殿",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          35,
+          24
+        ],
+        [
+          35,
+          9
+        ],
+        [
+          59,
+          12
+        ],
+        [
+          61,
+          37
+        ],
+        [
+          35,
+          40
+        ],
+        [
+          17,
+          39
+        ],
+        [
+          17,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "map_isles_05",
+      "region_id": "region_isles",
+      "name": "沉没王座",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        9,
+        4
+      ],
+      "atlas": [
+        915,
+        434
+      ],
+      "biome": "archipelago",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "terraced_streets",
+      "seed": 40676,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_isles_04",
+        "map_mirror_01"
+      ]
+    },
+    {
+      "id": "map_mirror_01",
+      "region_id": "region_mirror",
+      "name": "镜湖都",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        8,
+        3
+      ],
+      "atlas": [
+        891,
+        338
+      ],
+      "biome": "mistforest",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "fortified_quarters",
+      "seed": 38662,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            17,
+            10
+          ],
+          "door": [
+            17,
+            13
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            42,
+            11
+          ],
+          "door": [
+            42,
+            14
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            29,
+            33
+          ],
+          "door": [
+            29,
+            36
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            53,
+            32
+          ],
+          "door": [
+            53,
+            35
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            17,
+            32
+          ],
+          "door": [
+            17,
+            35
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            61,
+            12
+          ],
+          "door": [
+            61,
+            15
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_mirror_02",
+        "map_isles_05"
+      ]
+    },
+    {
+      "id": "map_mirror_02",
+      "region_id": "region_mirror",
+      "name": "夜镜森林",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        8,
+        3
+      ],
+      "atlas": [
+        852,
+        293
+      ],
+      "biome": "mistforest",
+      "archetype": "field",
+      "settlement": false,
+      "layout": "circular_market",
+      "seed": 41372,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_mirror_01",
+        "map_mirror_03"
+      ]
+    },
+    {
+      "id": "map_mirror_03",
+      "region_id": "region_mirror",
+      "name": "忘梦庭院",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        8,
+        2
+      ],
+      "atlas": [
+        806,
+        257
+      ],
+      "biome": "mistforest",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "fortified_quarters",
+      "seed": 44082,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_mirror_02",
+        "map_mirror_04"
+      ]
+    },
+    {
+      "id": "map_mirror_04",
+      "region_id": "region_mirror",
+      "name": "银玻璃塔",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        7,
+        2
+      ],
+      "atlas": [
+        753,
+        211
+      ],
+      "biome": "mistforest",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "canal_neighborhood",
+      "seed": 46792,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_mirror_03",
+        "map_mirror_05"
+      ],
+      "dungeon_design": "反射镜面螺旋塔",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          55,
+          9
+        ],
+        [
+          60,
+          39
+        ],
+        [
+          17,
+          39
+        ],
+        [
+          22,
+          16
+        ],
+        [
+          49,
+          16
+        ],
+        [
+          50,
+          32
+        ],
+        [
+          27,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "map_mirror_05",
+      "region_id": "region_mirror",
+      "name": "映世回廊",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        7,
+        2
+      ],
+      "atlas": [
+        708,
+        181
+      ],
+      "biome": "mistforest",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "central_square",
+      "seed": 49502,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_mirror_04",
+        "map_oldland_01"
+      ]
+    },
+    {
+      "id": "map_oldland_01",
+      "region_id": "region_oldland",
+      "name": "遗民营地",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        6,
+        1
+      ],
+      "atlas": [
+        630,
+        179
+      ],
+      "biome": "badlands",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "canal_neighborhood",
+      "seed": 47488,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            20,
+            11
+          ],
+          "door": [
+            20,
+            14
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            49,
+            10
+          ],
+          "door": [
+            49,
+            13
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            33,
+            31
+          ],
+          "door": [
+            33,
+            34
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            56,
+            31
+          ],
+          "door": [
+            56,
+            34
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            13,
+            28
+          ],
+          "door": [
+            13,
+            31
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            60,
+            18
+          ],
+          "door": [
+            60,
+            21
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_oldland_02",
+        "map_mirror_05"
+      ]
+    },
+    {
+      "id": "map_oldland_02",
+      "region_id": "region_oldland",
+      "name": "荒星平原",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        5,
+        2
+      ],
+      "atlas": [
+        581,
+        206
+      ],
+      "biome": "badlands",
+      "archetype": "field",
+      "settlement": false,
+      "layout": "waterfront_docks",
+      "seed": 50198,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_oldland_01",
+        "map_oldland_03"
+      ]
+    },
+    {
+      "id": "map_oldland_03",
+      "region_id": "region_oldland",
+      "name": "时裂峡谷",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        5,
+        2
+      ],
+      "atlas": [
+        528,
+        184
+      ],
+      "biome": "badlands",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "circular_market",
+      "seed": 52908,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_oldland_02",
+        "map_oldland_04"
+      ]
+    },
+    {
+      "id": "map_oldland_04",
+      "region_id": "region_oldland",
+      "name": "星墓秘殿",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        4,
+        1
+      ],
+      "atlas": [
+        466,
+        164
+      ],
+      "biome": "badlands",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "fortified_quarters",
+      "seed": 55618,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_oldland_03",
+        "map_oldland_05"
+      ],
+      "dungeon_design": "星墓分支陵寝",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          50,
+          10
+        ],
+        [
+          35,
+          24
+        ],
+        [
+          20,
+          39
+        ],
+        [
+          35,
+          39
+        ],
+        [
+          50,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "map_oldland_05",
+      "region_id": "region_oldland",
+      "name": "旧日灯枢",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        4,
+        1
+      ],
+      "atlas": [
+        435,
+        126
+      ],
+      "biome": "badlands",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "canal_neighborhood",
+      "seed": 58328,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_oldland_04",
+        "map_sanctum_01"
+      ]
+    },
+    {
+      "id": "map_sanctum_01",
+      "region_id": "region_sanctum",
+      "name": "天轨前庭",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        3,
+        1
+      ],
+      "atlas": [
+        358,
+        100
+      ],
+      "biome": "celestial",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "central_square",
+      "seed": 56133,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            20,
+            11
+          ],
+          "door": [
+            20,
+            14
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            48,
+            10
+          ],
+          "door": [
+            48,
+            13
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            34,
+            30
+          ],
+          "door": [
+            34,
+            33
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            56,
+            31
+          ],
+          "door": [
+            56,
+            34
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            13,
+            34
+          ],
+          "door": [
+            13,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            61,
+            16
+          ],
+          "door": [
+            61,
+            19
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_sanctum_02",
+        "map_oldland_05"
+      ]
+    },
+    {
+      "id": "map_sanctum_02",
+      "region_id": "region_sanctum",
+      "name": "七灯环庭",
+      "type": "field",
+      "playable": true,
+      "sector": [
+        3,
+        0
+      ],
+      "atlas": [
+        302,
+        76
+      ],
+      "biome": "celestial",
+      "archetype": "field",
+      "settlement": false,
+      "layout": "terraced_streets",
+      "seed": 58843,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_sanctum_01",
+        "map_sanctum_03"
+      ]
+    },
+    {
+      "id": "map_sanctum_03",
+      "region_id": "region_sanctum",
+      "name": "反转星穹",
+      "type": "route",
+      "playable": true,
+      "sector": [
+        2,
+        1
+      ],
+      "atlas": [
+        259,
+        113
+      ],
+      "biome": "celestial",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "waterfront_docks",
+      "seed": 61553,
+      "buildings": [],
+      "landmarks": [
+        "road_fork",
+        "campsite",
+        "hidden_glade",
+        "ruin_marker"
+      ],
+      "neighbors": [
+        "map_sanctum_02",
+        "map_sanctum_04"
+      ]
+    },
+    {
+      "id": "map_sanctum_04",
+      "region_id": "region_sanctum",
+      "name": "岁影尽头",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        2,
+        0
+      ],
+      "atlas": [
+        203,
+        86
+      ],
+      "biome": "celestial",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "circular_market",
+      "seed": 64263,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_sanctum_03",
+        "map_sanctum_05"
+      ],
+      "dungeon_design": "天轨时序阶梯",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          15,
+          9
+        ],
+        [
+          29,
+          12
+        ],
+        [
+          45,
+          10
+        ],
+        [
+          60,
+          16
+        ],
+        [
+          58,
+          29
+        ],
+        [
+          43,
+          34
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          15,
+          37
+        ]
+      ]
+    },
+    {
+      "id": "map_sanctum_05",
+      "region_id": "region_sanctum",
+      "name": "永昼祭坛",
+      "type": "landmark",
+      "playable": true,
+      "sector": [
+        1,
+        0
+      ],
+      "atlas": [
+        163,
+        57
+      ],
+      "biome": "celestial",
+      "archetype": "landmark",
+      "settlement": false,
+      "layout": "fortified_quarters",
+      "seed": 66973,
+      "buildings": [],
+      "landmarks": [
+        "beacon_plaza",
+        "vista",
+        "ancient_ruin"
+      ],
+      "neighbors": [
+        "map_sanctum_04"
+      ]
+    },
+    {
+      "id": "map_legacy_village",
+      "region_id": "region_coast",
+      "name": "晨露村（旧版试玩）",
+      "type": "prototype",
+      "playable": false,
+      "sector": [
+        1,
+        7
+      ],
+      "atlas": [
+        191,
+        630
+      ],
+      "biome": "coastal",
+      "archetype": "prototype",
+      "settlement": false,
+      "layout": "canal_neighborhood",
+      "seed": 69321,
+      "buildings": [],
+      "landmarks": [],
+      "neighbors": [
+        "map_legacy_ruins"
+      ]
+    },
+    {
+      "id": "map_legacy_ruins",
+      "region_id": "region_coast",
+      "name": "星落遗迹（旧版试玩）",
+      "type": "prototype",
+      "playable": false,
+      "sector": [
+        2,
+        7
+      ],
+      "atlas": [
+        206,
+        630
+      ],
+      "biome": "coastal",
+      "archetype": "prototype",
+      "settlement": false,
+      "layout": "central_square",
+      "seed": 72031,
+      "buildings": [],
+      "landmarks": [],
+      "neighbors": [
+        "map_legacy_village"
+      ]
+    },
+    {
+      "id": "map_city_01",
+      "region_id": "region_city",
+      "name": "群灯旧会馆",
+      "type": "town",
+      "playable": true,
+      "sector": [
+        10,
+        1
+      ],
+      "atlas": [
+        1010,
+        173
+      ],
+      "biome": "metropolis",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "terraced_streets",
+      "seed": 67693,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            19,
+            12
+          ],
+          "door": [
+            19,
+            15
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            48,
+            12
+          ],
+          "door": [
+            48,
+            15
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            33,
+            30
+          ],
+          "door": [
+            33,
+            33
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            56,
+            33
+          ],
+          "door": [
+            56,
+            36
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            14,
+            34
+          ],
+          "door": [
+            14,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            61,
+            11
+          ],
+          "door": [
+            61,
+            14
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_city_02"
+      ]
+    },
+    {
+      "id": "map_city_02",
+      "region_id": "region_city",
+      "name": "自由议事厅",
+      "type": "hall",
+      "playable": true,
+      "sector": [
+        10,
+        2
+      ],
+      "atlas": [
+        1053,
+        224
+      ],
+      "biome": "metropolis",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "terraced_streets",
+      "seed": 70403,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            18,
+            11
+          ],
+          "door": [
+            18,
+            14
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            50,
+            11
+          ],
+          "door": [
+            50,
+            14
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            35,
+            30
+          ],
+          "door": [
+            35,
+            33
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            57,
+            34
+          ],
+          "door": [
+            57,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            13,
+            32
+          ],
+          "door": [
+            13,
+            35
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            62,
+            15
+          ],
+          "door": [
+            62,
+            18
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_city_01",
+        "map_city_03"
+      ]
+    },
+    {
+      "id": "map_city_03",
+      "region_id": "region_city",
+      "name": "群灯居民街",
+      "type": "residential",
+      "playable": true,
+      "sector": [
+        11,
+        2
+      ],
+      "atlas": [
+        1101,
+        254
+      ],
+      "biome": "metropolis",
+      "archetype": "town",
+      "settlement": true,
+      "layout": "terraced_streets",
+      "seed": 73113,
+      "buildings": [
+        {
+          "id": "inn",
+          "name": "旅人客栈",
+          "kind": "inn",
+          "pos": [
+            20,
+            12
+          ],
+          "door": [
+            20,
+            15
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shop",
+          "name": "商店街",
+          "kind": "shop",
+          "pos": [
+            47,
+            12
+          ],
+          "door": [
+            47,
+            15
+          ],
+          "size": [
+            9,
+            6
+          ]
+        },
+        {
+          "id": "guild",
+          "name": "冒险者公会",
+          "kind": "guild",
+          "pos": [
+            31,
+            31
+          ],
+          "door": [
+            31,
+            34
+          ],
+          "size": [
+            10,
+            6
+          ]
+        },
+        {
+          "id": "smith",
+          "name": "装备工房",
+          "kind": "smith",
+          "pos": [
+            55,
+            34
+          ],
+          "door": [
+            55,
+            37
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "house",
+          "name": "居民住宅",
+          "kind": "house",
+          "pos": [
+            14,
+            35
+          ],
+          "door": [
+            14,
+            38
+          ],
+          "size": [
+            8,
+            6
+          ]
+        },
+        {
+          "id": "shrine",
+          "name": "祈灯祠",
+          "kind": "shrine",
+          "pos": [
+            61,
+            17
+          ],
+          "door": [
+            61,
+            20
+          ],
+          "size": [
+            8,
+            6
+          ]
+        }
+      ],
+      "landmarks": [
+        "town_square",
+        "notice_board",
+        "well",
+        "market",
+        "stairs"
+      ],
+      "neighbors": [
+        "map_city_02",
+        "map_city_04"
+      ]
+    },
+    {
+      "id": "map_city_04",
+      "region_id": "region_city",
+      "name": "星灯中枢",
+      "type": "dungeon",
+      "playable": true,
+      "sector": [
+        11,
+        3
+      ],
+      "atlas": [
+        1121,
+        299
+      ],
+      "biome": "metropolis",
+      "archetype": "dungeon",
+      "settlement": false,
+      "layout": "fortified_quarters",
+      "seed": 75823,
+      "buildings": [],
+      "landmarks": [
+        "boss_chamber",
+        "locked_gate",
+        "upper_bridge",
+        "side_passage",
+        "supply_chest"
+      ],
+      "neighbors": [
+        "map_city_03",
+        "map_city_05"
+      ],
+      "dungeon_design": "群灯地下中枢",
+      "dungeon_chambers": [
+        [
+          10,
+          23
+        ],
+        [
+          19,
+          12
+        ],
+        [
+          35,
+          13
+        ],
+        [
+          51,
+          12
+        ],
+        [
+          59,
+          23
+        ],
+        [
+          51,
+          36
+        ],
+        [
+          35,
+          35
+        ],
+        [
+          19,
+          35
+        ],
+        [
+          35,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "map_city_05",
+      "region_id": "region_city",
+      "name": "西区修复工地",
+      "type": "worksite",
+      "playable": true,
+      "sector": [
+        10,
+        3
+      ],
+      "atlas": [
+        1061,
+        334
+      ],
+      "biome": "metropolis",
+      "archetype": "route",
+      "settlement": false,
+      "layout": "canal_neighborhood",
+      "seed": 78533,
+      "buildings": [],
+      "landmarks": [],
+      "neighbors": [
+        "map_city_04"
+      ]
+    }
+  ],
+  "connections": [
+    [
+      "map_coast_01",
+      "map_coast_02"
+    ],
+    [
+      "map_coast_02",
+      "map_coast_03"
+    ],
+    [
+      "map_coast_03",
+      "map_coast_04"
+    ],
+    [
+      "map_coast_04",
+      "map_coast_05"
+    ],
+    [
+      "map_coast_05",
+      "map_oaths_01"
+    ],
+    [
+      "map_oaths_01",
+      "map_oaths_02"
+    ],
+    [
+      "map_oaths_02",
+      "map_oaths_03"
+    ],
+    [
+      "map_oaths_03",
+      "map_oaths_04"
+    ],
+    [
+      "map_oaths_04",
+      "map_oaths_05"
+    ],
+    [
+      "map_forge_01",
+      "map_forge_02"
+    ],
+    [
+      "map_forge_01",
+      "map_oaths_05"
+    ],
+    [
+      "map_forge_02",
+      "map_forge_03"
+    ],
+    [
+      "map_forge_03",
+      "map_forge_04"
+    ],
+    [
+      "map_forge_04",
+      "map_forge_05"
+    ],
+    [
+      "map_forge_05",
+      "map_isles_01"
+    ],
+    [
+      "map_isles_01",
+      "map_isles_02"
+    ],
+    [
+      "map_isles_02",
+      "map_isles_03"
+    ],
+    [
+      "map_isles_03",
+      "map_isles_04"
+    ],
+    [
+      "map_isles_04",
+      "map_isles_05"
+    ],
+    [
+      "map_isles_05",
+      "map_mirror_01"
+    ],
+    [
+      "map_mirror_01",
+      "map_mirror_02"
+    ],
+    [
+      "map_mirror_02",
+      "map_mirror_03"
+    ],
+    [
+      "map_mirror_03",
+      "map_mirror_04"
+    ],
+    [
+      "map_mirror_04",
+      "map_mirror_05"
+    ],
+    [
+      "map_mirror_05",
+      "map_oldland_01"
+    ],
+    [
+      "map_oldland_01",
+      "map_oldland_02"
+    ],
+    [
+      "map_oldland_02",
+      "map_oldland_03"
+    ],
+    [
+      "map_oldland_03",
+      "map_oldland_04"
+    ],
+    [
+      "map_oldland_04",
+      "map_oldland_05"
+    ],
+    [
+      "map_oldland_05",
+      "map_sanctum_01"
+    ],
+    [
+      "map_sanctum_01",
+      "map_sanctum_02"
+    ],
+    [
+      "map_sanctum_02",
+      "map_sanctum_03"
+    ],
+    [
+      "map_sanctum_03",
+      "map_sanctum_04"
+    ],
+    [
+      "map_sanctum_04",
+      "map_sanctum_05"
+    ],
+    [
+      "map_legacy_ruins",
+      "map_legacy_village"
+    ],
+    [
+      "map_city_01",
+      "map_city_02"
+    ],
+    [
+      "map_city_02",
+      "map_city_03"
+    ],
+    [
+      "map_city_03",
+      "map_city_04"
+    ],
+    [
+      "map_city_04",
+      "map_city_05"
+    ]
+  ]
+}

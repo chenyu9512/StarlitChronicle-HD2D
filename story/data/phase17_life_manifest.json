@@ -1,0 +1,4735 @@
+{
+  "schema": "starlit.story.phase17.life_branch_manifest.v1",
+  "date": "2026-10-25",
+  "status": "authored_only_144_optional_stages_not_runtime_registered",
+  "authoritative_original": "story/data/side_quests.json",
+  "source_files": [
+    "story/data/phase17_life_01_03.json",
+    "story/data/phase17_life_04_06.json",
+    "story/data/phase17_life_07_09.json",
+    "story/data/phase17_life_10_12.json",
+    "story/data/phase17_life_13_15.json",
+    "story/data/phase17_life_16_18.json",
+    "story/data/phase17_life_19_21.json",
+    "story/data/phase17_life_22_24.json"
+  ],
+  "counts": {
+    "quests": 24,
+    "branches": 48,
+    "optional_scenes": 144,
+    "new_dialogues": 432
+  },
+  "gate_contract": {
+    "original_quest": "five original stages, reward still granted only by original finish",
+    "branch_route": "only after original quest is complete with recorded approach a or b",
+    "revisit": "late_chapter.done and previous optional stages seen",
+    "old_saves": "never guess missing choice or regrant xp/gold",
+    "returning_to_old_task": "phase17 optional seen flags must not replace original quest flags"
+  },
+  "entries": [
+    {
+      "id": "sq_life_01",
+      "title": "路灯修理师",
+      "region": "晨露村·黄昏街",
+      "npc": "灯匠",
+      "required_chapter": "ch002",
+      "late_revisit_chapter": "ch006",
+      "source_file": "story/data/phase17_life_01_03.json",
+      "original_five_stages": [
+        "sq_life_01.start",
+        "sq_life_01.investigate",
+        "sq_life_01.witness",
+        "sq_life_01.decision",
+        "sq_life_01.finish"
+      ],
+      "original_completion_flag": "side.sq_life_01.done",
+      "original_rewards": {
+        "xp": 110,
+        "gold": 51
+      },
+      "original_npc_after": {
+        "speaker": "灯匠",
+        "text": "线盒高了一截，小蟹爬不上来。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "建立居民轮流巡灯制度",
+          "original_choice_flags": {
+            "side.sq_life_01.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_01.p17.a.followup",
+              "kind": "followup",
+              "title": "邻里轮班",
+              "player_action": "在巡灯板登记自愿轮值与安全范围",
+              "after_original_stage": "sq_life_01.finish",
+              "required_flags": {
+                "side.sq_life_01.done": true,
+                "side.sq_life_01.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_01.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_01.p17.a.followup.l01",
+                "sq_life_01.p17.a.followup.l02",
+                "sq_life_01.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_01.p17.a.community",
+              "kind": "community",
+              "title": "雨夜报修",
+              "player_action": "按当晚值班名单报告一次坏灯",
+              "after_original_stage": "sq_life_01.finish",
+              "required_flags": {
+                "side.sq_life_01.done": true,
+                "side.sq_life_01.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_01.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_01.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_01.p17.a.community.l01",
+                "sq_life_01.p17.a.community.l02",
+                "sq_life_01.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_01.p17.a.revisit",
+              "kind": "revisit",
+              "title": "下一次黄昏",
+              "player_action": "查看下一轮巡灯表并询问居民反馈",
+              "after_original_stage": "sq_life_01.finish",
+              "required_flags": {
+                "side.sq_life_01.done": true,
+                "side.sq_life_01.approach": "a",
+                "story.ch006.done": true
+              },
+              "previous_optional_stage": "sq_life_01.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_01.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_01.p17.a.revisit.l01",
+                "sq_life_01.p17.a.revisit.l02",
+                "sq_life_01.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "街坊",
+            "text": "灯匠生病也有人知道联系谁。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先更换防盐防蟹接线盒",
+          "original_choice_flags": {
+            "side.sq_life_01.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_01.p17.b.followup",
+              "kind": "followup",
+              "title": "耐盐线盒",
+              "player_action": "在断电状态观察耐盐线盒防蟹结构",
+              "after_original_stage": "sq_life_01.finish",
+              "required_flags": {
+                "side.sq_life_01.done": true,
+                "side.sq_life_01.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_01.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_01.p17.b.followup.l01",
+                "sq_life_01.p17.b.followup.l02",
+                "sq_life_01.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_01.p17.b.community",
+              "kind": "community",
+              "title": "更换垫圈",
+              "player_action": "检查新垫圈领用与维护账",
+              "after_original_stage": "sq_life_01.finish",
+              "required_flags": {
+                "side.sq_life_01.done": true,
+                "side.sq_life_01.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_01.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_01.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_01.p17.b.community.l01",
+                "sq_life_01.p17.b.community.l02",
+                "sq_life_01.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_01.p17.b.revisit",
+              "kind": "revisit",
+              "title": "盐潮复查",
+              "player_action": "在雨夜记录是否仍有间歇断电",
+              "after_original_stage": "sq_life_01.finish",
+              "required_flags": {
+                "side.sq_life_01.done": true,
+                "side.sq_life_01.approach": "b",
+                "story.ch006.done": true
+              },
+              "previous_optional_stage": "sq_life_01.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_01.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_01.p17.b.revisit.l01",
+                "sq_life_01.p17.b.revisit.l02",
+                "sq_life_01.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "岚音",
+            "text": "连续两场雨，夜路没再大面积熄灯。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_02",
+      "title": "药房的第二张床",
+      "region": "晨露药房",
+      "npc": "岚音",
+      "required_chapter": "ch002",
+      "late_revisit_chapter": "ch008",
+      "source_file": "story/data/phase17_life_01_03.json",
+      "original_five_stages": [
+        "sq_life_02.start",
+        "sq_life_02.investigate",
+        "sq_life_02.witness",
+        "sq_life_02.decision",
+        "sq_life_02.finish"
+      ],
+      "original_completion_flag": "side.sq_life_02.done",
+      "original_rewards": {
+        "xp": 110,
+        "gold": 51
+      },
+      "original_npc_after": {
+        "speaker": "岚音",
+        "text": "捐赠者写在感谢册，不写在床位上。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "公开病床建造和维护账目",
+          "original_choice_flags": {
+            "side.sq_life_02.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_02.p17.a.followup",
+              "kind": "followup",
+              "title": "床位公开清单",
+              "player_action": "核对捐赠木材来源和床架承重测试",
+              "after_original_stage": "sq_life_02.finish",
+              "required_flags": {
+                "side.sq_life_02.done": true,
+                "side.sq_life_02.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_02.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_02.p17.a.followup.l01",
+                "sq_life_02.p17.a.followup.l02",
+                "sq_life_02.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_02.p17.a.community",
+              "kind": "community",
+              "title": "维修值班日",
+              "player_action": "核对第二张床的维修工时和费用",
+              "after_original_stage": "sq_life_02.finish",
+              "required_flags": {
+                "side.sq_life_02.done": true,
+                "side.sq_life_02.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_02.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_02.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_02.p17.a.community.l01",
+                "sq_life_02.p17.a.community.l02",
+                "sq_life_02.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_02.p17.a.revisit",
+              "kind": "revisit",
+              "title": "冬季第二张床",
+              "player_action": "检查冬季床位登记与隐私隔离",
+              "after_original_stage": "sq_life_02.finish",
+              "required_flags": {
+                "side.sq_life_02.done": true,
+                "side.sq_life_02.approach": "a",
+                "story.ch008.done": true
+              },
+              "previous_optional_stage": "sq_life_02.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_02.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_02.p17.a.revisit.l01",
+                "sq_life_02.p17.a.revisit.l02",
+                "sq_life_02.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "病人家属",
+            "text": "今年不用再让老人睡在地板上。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "培训村民协助日常护理",
+          "original_choice_flags": {
+            "side.sq_life_02.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_02.p17.b.followup",
+              "kind": "followup",
+              "title": "护理基础课",
+              "player_action": "参加护士组织的洗手与呼救演练",
+              "after_original_stage": "sq_life_02.finish",
+              "required_flags": {
+                "side.sq_life_02.done": true,
+                "side.sq_life_02.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_02.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_02.p17.b.followup.l01",
+                "sq_life_02.p17.b.followup.l02",
+                "sq_life_02.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_02.p17.b.community",
+              "kind": "community",
+              "title": "安排夜班轮休",
+              "player_action": "协助制定有替班人的夜间照护表",
+              "after_original_stage": "sq_life_02.finish",
+              "required_flags": {
+                "side.sq_life_02.done": true,
+                "side.sq_life_02.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_02.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_02.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_02.p17.b.community.l01",
+                "sq_life_02.p17.b.community.l02",
+                "sq_life_02.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_02.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新一批志愿者",
+              "player_action": "记录新志愿者可做与不可做的护理项目",
+              "after_original_stage": "sq_life_02.finish",
+              "required_flags": {
+                "side.sq_life_02.done": true,
+                "side.sq_life_02.approach": "b",
+                "story.ch008.done": true
+              },
+              "previous_optional_stage": "sq_life_02.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_02.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_02.p17.b.revisit.l01",
+                "sq_life_02.p17.b.revisit.l02",
+                "sq_life_02.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "年轻村民",
+            "text": "我会安全搬床，遇到发热还是先找医生。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_03",
+      "title": "海盐与糖",
+      "region": "白砂港·厨房",
+      "npc": "厨娘",
+      "required_chapter": "ch005",
+      "late_revisit_chapter": "ch009",
+      "source_file": "story/data/phase17_life_01_03.json",
+      "original_five_stages": [
+        "sq_life_03.start",
+        "sq_life_03.investigate",
+        "sq_life_03.witness",
+        "sq_life_03.decision",
+        "sq_life_03.finish"
+      ],
+      "original_completion_flag": "side.sq_life_03.done",
+      "original_rewards": {
+        "xp": 170,
+        "gold": 75
+      },
+      "original_npc_after": {
+        "speaker": "厨娘",
+        "text": "不行！"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先修仓库再补充货品标签",
+          "original_choice_flags": {
+            "side.sq_life_03.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_03.p17.a.followup",
+              "kind": "followup",
+              "title": "调料罐重排",
+              "player_action": "重新排列两种调料的凸纹罐和量勺",
+              "after_original_stage": "sq_life_03.finish",
+              "required_flags": {
+                "side.sq_life_03.done": true,
+                "side.sq_life_03.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_03.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_03.p17.a.followup.l01",
+                "sq_life_03.p17.a.followup.l02",
+                "sq_life_03.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_03.p17.a.community",
+              "kind": "community",
+              "title": "闭眼取料练习",
+              "player_action": "在厨娘监督下完成一次辨盐辨糖练习",
+              "after_original_stage": "sq_life_03.finish",
+              "required_flags": {
+                "side.sq_life_03.done": true,
+                "side.sq_life_03.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_03.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_03.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_03.p17.a.community.l01",
+                "sq_life_03.p17.a.community.l02",
+                "sq_life_03.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_03.p17.a.revisit",
+              "kind": "revisit",
+              "title": "又一锅热汤",
+              "player_action": "核对厨房潮湿修缮与欠账结清记录",
+              "after_original_stage": "sq_life_03.finish",
+              "required_flags": {
+                "side.sq_life_03.done": true,
+                "side.sq_life_03.approach": "a",
+                "story.ch009.done": true
+              },
+              "previous_optional_stage": "sq_life_03.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_03.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_03.p17.a.revisit.l01",
+                "sq_life_03.p17.a.revisit.l02",
+                "sq_life_03.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "码头工",
+            "text": "不认字的新学徒也能区分盐糖了。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "将还款和维护写进公开明细",
+          "original_choice_flags": {
+            "side.sq_life_03.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_03.p17.b.followup",
+              "kind": "followup",
+              "title": "旧饭账分开",
+              "player_action": "把朔弦旧饭账与厨房维修费分开记",
+              "after_original_stage": "sq_life_03.finish",
+              "required_flags": {
+                "side.sq_life_03.done": true,
+                "side.sq_life_03.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_03.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_03.p17.b.followup.l01",
+                "sq_life_03.p17.b.followup.l02",
+                "sq_life_03.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_03.p17.b.community",
+              "kind": "community",
+              "title": "厨房修柜日",
+              "player_action": "检查柜铰链维护费实际经手人",
+              "after_original_stage": "sq_life_03.finish",
+              "required_flags": {
+                "side.sq_life_03.done": true,
+                "side.sq_life_03.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_03.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_03.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_03.p17.b.community.l01",
+                "sq_life_03.p17.b.community.l02",
+                "sq_life_03.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_03.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新菜单价目",
+              "player_action": "审阅新的价目表和透明维修预算",
+              "after_original_stage": "sq_life_03.finish",
+              "required_flags": {
+                "side.sq_life_03.done": true,
+                "side.sq_life_03.approach": "b",
+                "story.ch009.done": true
+              },
+              "previous_optional_stage": "sq_life_03.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_03.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_03.p17.b.revisit.l01",
+                "sq_life_03.p17.b.revisit.l02",
+                "sq_life_03.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "厨娘",
+            "text": "老账结清了，新的菜价也贴在墙上。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_04",
+      "title": "被误读的旗语",
+      "region": "三誓关卡",
+      "npc": "旗手",
+      "required_chapter": "ch008",
+      "late_revisit_chapter": "ch012",
+      "source_file": "story/data/phase17_life_04_06.json",
+      "original_five_stages": [
+        "sq_life_04.start",
+        "sq_life_04.investigate",
+        "sq_life_04.witness",
+        "sq_life_04.decision",
+        "sq_life_04.finish"
+      ],
+      "original_completion_flag": "side.sq_life_04.done",
+      "original_rewards": {
+        "xp": 230,
+        "gold": 99
+      },
+      "original_npc_after": {
+        "speaker": "旗手",
+        "text": "雨天和雾天的手册也要加上。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先用临时双边急救信号",
+          "original_choice_flags": {
+            "side.sq_life_04.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_04.p17.a.followup",
+              "kind": "followup",
+              "title": "双边求救旗",
+              "player_action": "与两国医护演示共同急救旗与紧急手势",
+              "after_original_stage": "sq_life_04.finish",
+              "required_flags": {
+                "side.sq_life_04.done": true,
+                "side.sq_life_04.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_04.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_04.p17.a.followup.l01",
+                "sq_life_04.p17.a.followup.l02",
+                "sq_life_04.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_04.p17.a.community",
+              "kind": "community",
+              "title": "雾天通行演习",
+              "player_action": "在安全演习中改用雾天敲钟确认",
+              "after_original_stage": "sq_life_04.finish",
+              "required_flags": {
+                "side.sq_life_04.done": true,
+                "side.sq_life_04.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_04.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_04.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_04.p17.a.community.l01",
+                "sq_life_04.p17.a.community.l02",
+                "sq_life_04.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_04.p17.a.revisit",
+              "kind": "revisit",
+              "title": "边关救护日",
+              "player_action": "核验边境急救指引是否双向一致",
+              "after_original_stage": "sq_life_04.finish",
+              "required_flags": {
+                "side.sq_life_04.done": true,
+                "side.sq_life_04.approach": "a",
+                "story.ch012.done": true
+              },
+              "previous_optional_stage": "sq_life_04.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_04.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_04.p17.a.revisit.l01",
+                "sq_life_04.p17.a.revisit.l02",
+                "sq_life_04.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "边境医师",
+            "text": "两边终于听懂同一套急救信号。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由两国学员共同制定手册",
+          "original_choice_flags": {
+            "side.sq_life_04.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_04.p17.b.followup",
+              "kind": "followup",
+              "title": "旗语双语教材",
+              "player_action": "比较双方旧教材中相反的旗语定义",
+              "after_original_stage": "sq_life_04.finish",
+              "required_flags": {
+                "side.sq_life_04.done": true,
+                "side.sq_life_04.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_04.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_04.p17.b.followup.l01",
+                "sq_life_04.p17.b.followup.l02",
+                "sq_life_04.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_04.p17.b.community",
+              "kind": "community",
+              "title": "手势互译练习",
+              "player_action": "组织学员共同演练夜间互译与纠错",
+              "after_original_stage": "sq_life_04.finish",
+              "required_flags": {
+                "side.sq_life_04.done": true,
+                "side.sq_life_04.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_04.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_04.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_04.p17.b.community.l01",
+                "sq_life_04.p17.b.community.l02",
+                "sq_life_04.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_04.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新一届旗手",
+              "player_action": "查阅两国签认的旗语勘误记录",
+              "after_original_stage": "sq_life_04.finish",
+              "required_flags": {
+                "side.sq_life_04.done": true,
+                "side.sq_life_04.approach": "b",
+                "story.ch012.done": true
+              },
+              "previous_optional_stage": "sq_life_04.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_04.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_04.p17.b.revisit.l01",
+                "sq_life_04.p17.b.revisit.l02",
+                "sq_life_04.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "旗手",
+            "text": "新版手册加了更正联系人。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_05",
+      "title": "国王的旧鞋",
+      "region": "三誓王都·旧裁缝铺",
+      "npc": "鞋匠",
+      "required_chapter": "ch011",
+      "late_revisit_chapter": "ch014",
+      "source_file": "story/data/phase17_life_04_06.json",
+      "original_five_stages": [
+        "sq_life_05.start",
+        "sq_life_05.investigate",
+        "sq_life_05.witness",
+        "sq_life_05.decision",
+        "sq_life_05.finish"
+      ],
+      "original_completion_flag": "side.sq_life_05.done",
+      "original_rewards": {
+        "xp": 290,
+        "gold": 123
+      },
+      "original_npc_after": {
+        "speaker": "鞋匠",
+        "text": "这双鞋总算回到真正走过的路上。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先由家属审核展品出处",
+          "original_choice_flags": {
+            "side.sq_life_05.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_05.p17.a.followup",
+              "kind": "followup",
+              "title": "旧鞋归还家属",
+              "player_action": "将鞋底针脚交给搬运工后裔辨认",
+              "after_original_stage": "sq_life_05.finish",
+              "required_flags": {
+                "side.sq_life_05.done": true,
+                "side.sq_life_05.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_05.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_05.p17.a.followup.l01",
+                "sq_life_05.p17.a.followup.l02",
+                "sq_life_05.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_05.p17.a.community",
+              "kind": "community",
+              "title": "补丁细节",
+              "player_action": "查明旧鞋补丁与救援粮仓的关系",
+              "after_original_stage": "sq_life_05.finish",
+              "required_flags": {
+                "side.sq_life_05.done": true,
+                "side.sq_life_05.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_05.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_05.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_05.p17.a.community.l01",
+                "sq_life_05.p17.a.community.l02",
+                "sq_life_05.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_05.p17.a.revisit",
+              "kind": "revisit",
+              "title": "王都送粮史展",
+              "player_action": "检查王都展柜的隐私与真实主人署名",
+              "after_original_stage": "sq_life_05.finish",
+              "required_flags": {
+                "side.sq_life_05.done": true,
+                "side.sq_life_05.approach": "a",
+                "story.ch014.done": true
+              },
+              "previous_optional_stage": "sq_life_05.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_05.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_05.p17.a.revisit.l01",
+                "sq_life_05.p17.a.revisit.l02",
+                "sq_life_05.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "搬运工后人",
+            "text": "我愿让孩子来看，不公开祖母家门牌。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "公开修改说明并保留旧误记",
+          "original_choice_flags": {
+            "side.sq_life_05.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_05.p17.b.followup",
+              "kind": "followup",
+              "title": "更正旧牌",
+              "player_action": "保留旧错误展牌并附来源更正说明",
+              "after_original_stage": "sq_life_05.finish",
+              "required_flags": {
+                "side.sq_life_05.done": true,
+                "side.sq_life_05.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_05.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_05.p17.b.followup.l01",
+                "sq_life_05.p17.b.followup.l02",
+                "sq_life_05.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_05.p17.b.community",
+              "kind": "community",
+              "title": "公开修正日",
+              "player_action": "参加学生查证原主人身份的展示",
+              "after_original_stage": "sq_life_05.finish",
+              "required_flags": {
+                "side.sq_life_05.done": true,
+                "side.sq_life_05.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_05.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_05.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_05.p17.b.community.l01",
+                "sq_life_05.p17.b.community.l02",
+                "sq_life_05.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_05.p17.b.revisit",
+              "kind": "revisit",
+              "title": "永久勘误栏",
+              "player_action": "检查新展厅的永久勘误渠道",
+              "after_original_stage": "sq_life_05.finish",
+              "required_flags": {
+                "side.sq_life_05.done": true,
+                "side.sq_life_05.approach": "b",
+                "story.ch014.done": true
+              },
+              "previous_optional_stage": "sq_life_05.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_05.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_05.p17.b.revisit.l01",
+                "sq_life_05.p17.b.revisit.l02",
+                "sq_life_05.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "史馆员",
+            "text": "新证据出现，展牌以后还可再次更正。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_06",
+      "title": "边境合唱团",
+      "region": "三国边界·教堂",
+      "npc": "教堂唱诗教师",
+      "required_chapter": "ch012",
+      "late_revisit_chapter": "ch016",
+      "source_file": "story/data/phase17_life_04_06.json",
+      "original_five_stages": [
+        "sq_life_06.start",
+        "sq_life_06.investigate",
+        "sq_life_06.witness",
+        "sq_life_06.decision",
+        "sq_life_06.finish"
+      ],
+      "original_completion_flag": "side.sq_life_06.done",
+      "original_rewards": {
+        "xp": 310,
+        "gold": 131
+      },
+      "original_npc_after": {
+        "speaker": "教堂唱诗教师",
+        "text": "这次不必争谁唱错了。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "将三位老作者共同署名",
+          "original_choice_flags": {
+            "side.sq_life_06.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_06.p17.a.followup",
+              "kind": "followup",
+              "title": "三名作者",
+              "player_action": "记录三位作曲老人的各自段落",
+              "after_original_stage": "sq_life_06.finish",
+              "required_flags": {
+                "side.sq_life_06.done": true,
+                "side.sq_life_06.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_06.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_06.p17.a.followup.l01",
+                "sq_life_06.p17.a.followup.l02",
+                "sq_life_06.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_06.p17.a.community",
+              "kind": "community",
+              "title": "三国排练",
+              "player_action": "安排三种节拍的完整排练",
+              "after_original_stage": "sq_life_06.finish",
+              "required_flags": {
+                "side.sq_life_06.done": true,
+                "side.sq_life_06.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_06.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_06.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_06.p17.a.community.l01",
+                "sq_life_06.p17.a.community.l02",
+                "sq_life_06.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_06.p17.a.revisit",
+              "kind": "revisit",
+              "title": "春日边境演出",
+              "player_action": "参加保留各国差异的春日合唱",
+              "after_original_stage": "sq_life_06.finish",
+              "required_flags": {
+                "side.sq_life_06.done": true,
+                "side.sq_life_06.approach": "a",
+                "story.ch016.done": true
+              },
+              "previous_optional_stage": "sq_life_06.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_06.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_06.p17.a.revisit.l01",
+                "sq_life_06.p17.a.revisit.l02",
+                "sq_life_06.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "边村老人",
+            "text": "三个村的孩子同台，没有谁抢着宣布赢。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由孩子共同商议合唱方式",
+          "original_choice_flags": {
+            "side.sq_life_06.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_06.p17.b.followup",
+              "kind": "followup",
+              "title": "孩子写节目单",
+              "player_action": "请儿童商议自己的轮唱和结尾",
+              "after_original_stage": "sq_life_06.finish",
+              "required_flags": {
+                "side.sq_life_06.done": true,
+                "side.sq_life_06.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_06.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_06.p17.b.followup.l01",
+                "sq_life_06.p17.b.followup.l02",
+                "sq_life_06.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_06.p17.b.community",
+              "kind": "community",
+              "title": "幕后的绘画者",
+              "player_action": "让不愿登台的孩子设计节目单",
+              "after_original_stage": "sq_life_06.finish",
+              "required_flags": {
+                "side.sq_life_06.done": true,
+                "side.sq_life_06.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_06.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_06.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_06.p17.b.community.l01",
+                "sq_life_06.p17.b.community.l02",
+                "sq_life_06.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_06.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新一年的曲谱",
+              "player_action": "确认新旧曲谱均获平等保管",
+              "after_original_stage": "sq_life_06.finish",
+              "required_flags": {
+                "side.sq_life_06.done": true,
+                "side.sq_life_06.approach": "b",
+                "story.ch016.done": true
+              },
+              "previous_optional_stage": "sq_life_06.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_06.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_06.p17.b.revisit.l01",
+                "sq_life_06.p17.b.revisit.l02",
+                "sq_life_06.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "教师",
+            "text": "孩子们创作了自己的前奏。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_07",
+      "title": "炉房里的猫",
+      "region": "赤炉工厂·休息间",
+      "npc": "学徒",
+      "required_chapter": "ch016",
+      "late_revisit_chapter": "ch022",
+      "source_file": "story/data/phase17_life_07_09.json",
+      "original_five_stages": [
+        "sq_life_07.start",
+        "sq_life_07.investigate",
+        "sq_life_07.witness",
+        "sq_life_07.decision",
+        "sq_life_07.finish"
+      ],
+      "original_completion_flag": "side.sq_life_07.done",
+      "original_rewards": {
+        "xp": 390,
+        "gold": 163
+      },
+      "original_npc_after": {
+        "speaker": "学徒",
+        "text": "你们能重新认识。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先由矿工家属安排熟悉环境",
+          "original_choice_flags": {
+            "side.sq_life_07.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_07.p17.a.followup",
+              "kind": "followup",
+              "title": "矿工家属探望",
+              "player_action": "由矿工家属安排猫自愿接近旧手套",
+              "after_original_stage": "sq_life_07.finish",
+              "required_flags": {
+                "side.sq_life_07.done": true,
+                "side.sq_life_07.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_07.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_07.p17.a.followup.l01",
+                "sq_life_07.p17.a.followup.l02",
+                "sq_life_07.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_07.p17.a.community",
+              "kind": "community",
+              "title": "新猫窝",
+              "player_action": "检查猫窝与高温机械的安全距离",
+              "after_original_stage": "sq_life_07.finish",
+              "required_flags": {
+                "side.sq_life_07.done": true,
+                "side.sq_life_07.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_07.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_07.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_07.p17.a.community.l01",
+                "sq_life_07.p17.a.community.l02",
+                "sq_life_07.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_07.p17.a.revisit",
+              "kind": "revisit",
+              "title": "停工后的脚步",
+              "player_action": "确认炉房停工后有人继续照顾猫",
+              "after_original_stage": "sq_life_07.finish",
+              "required_flags": {
+                "side.sq_life_07.done": true,
+                "side.sq_life_07.approach": "a",
+                "story.ch022.done": true
+              },
+              "previous_optional_stage": "sq_life_07.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_07.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_07.p17.a.revisit.l01",
+                "sq_life_07.p17.a.revisit.l02",
+                "sq_life_07.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "学徒",
+            "text": "每到收工它还会来，现在也认得新工友了。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "给猫制作安全地址项圈",
+          "original_choice_flags": {
+            "side.sq_life_07.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_07.p17.b.followup",
+              "kind": "followup",
+              "title": "安全项圈",
+              "player_action": "检验可挣脱项圈和非私人地址牌",
+              "after_original_stage": "sq_life_07.finish",
+              "required_flags": {
+                "side.sq_life_07.done": true,
+                "side.sq_life_07.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_07.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_07.p17.b.followup.l01",
+                "sq_life_07.p17.b.followup.l02",
+                "sq_life_07.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_07.p17.b.community",
+              "kind": "community",
+              "title": "走失寻找演练",
+              "player_action": "在厂区标出走失猫的安全等候点",
+              "after_original_stage": "sq_life_07.finish",
+              "required_flags": {
+                "side.sq_life_07.done": true,
+                "side.sq_life_07.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_07.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_07.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_07.p17.b.community.l01",
+                "sq_life_07.p17.b.community.l02",
+                "sq_life_07.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_07.p17.b.revisit",
+              "kind": "revisit",
+              "title": "回来的猫",
+              "player_action": "回访项圈舒适性及机房避让提示",
+              "after_original_stage": "sq_life_07.finish",
+              "required_flags": {
+                "side.sq_life_07.done": true,
+                "side.sq_life_07.approach": "b",
+                "story.ch022.done": true
+              },
+              "previous_optional_stage": "sq_life_07.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_07.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_07.p17.b.revisit.l01",
+                "sq_life_07.p17.b.revisit.l02",
+                "sq_life_07.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "看门工",
+            "text": "今早它从旧街回来了，项圈上没勒痕。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_08",
+      "title": "一把不会伤人的锤",
+      "region": "赤炉试炼塔",
+      "npc": "缇珐",
+      "required_chapter": "ch018",
+      "late_revisit_chapter": "ch029",
+      "source_file": "story/data/phase17_life_07_09.json",
+      "original_five_stages": [
+        "sq_life_08.start",
+        "sq_life_08.investigate",
+        "sq_life_08.witness",
+        "sq_life_08.decision",
+        "sq_life_08.finish"
+      ],
+      "original_completion_flag": "side.sq_life_08.done",
+      "original_rewards": {
+        "xp": 430,
+        "gold": 179
+      },
+      "original_npc_after": {
+        "speaker": "缇珐",
+        "text": "希望第一次真正用到它，就能安全救出人。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "由医护主持安全试验",
+          "original_choice_flags": {
+            "side.sq_life_08.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_08.p17.a.followup",
+              "kind": "followup",
+              "title": "担架锤试验",
+              "player_action": "与医护使用假人测试非战斗锤",
+              "after_original_stage": "sq_life_08.finish",
+              "required_flags": {
+                "side.sq_life_08.done": true,
+                "side.sq_life_08.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_08.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_08.p17.a.followup.l01",
+                "sq_life_08.p17.a.followup.l02",
+                "sq_life_08.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_08.p17.a.community",
+              "kind": "community",
+              "title": "救援模拟课",
+              "player_action": "模拟拆门时的支撑与暂停步骤",
+              "after_original_stage": "sq_life_08.finish",
+              "required_flags": {
+                "side.sq_life_08.done": true,
+                "side.sq_life_08.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_08.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_08.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_08.p17.a.community.l01",
+                "sq_life_08.p17.a.community.l02",
+                "sq_life_08.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_08.p17.a.revisit",
+              "kind": "revisit",
+              "title": "第一次真实救援",
+              "player_action": "检查真实救援后锤头的安全状态",
+              "after_original_stage": "sq_life_08.finish",
+              "required_flags": {
+                "side.sq_life_08.done": true,
+                "side.sq_life_08.approach": "a",
+                "story.ch029.done": true
+              },
+              "previous_optional_stage": "sq_life_08.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_08.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_08.p17.a.revisit.l01",
+                "sq_life_08.p17.a.revisit.l02",
+                "sq_life_08.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "救援队员",
+            "text": "新锤帮我们卸下压在门框的木楔。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "让工匠学徒参与结构复核",
+          "original_choice_flags": {
+            "side.sq_life_08.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_08.p17.b.followup",
+              "kind": "followup",
+              "title": "学徒评审台",
+              "player_action": "由学徒检验锤头不可加工武器的结构",
+              "after_original_stage": "sq_life_08.finish",
+              "required_flags": {
+                "side.sq_life_08.done": true,
+                "side.sq_life_08.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_08.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_08.p17.b.followup.l01",
+                "sq_life_08.p17.b.followup.l02",
+                "sq_life_08.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_08.p17.b.community",
+              "kind": "community",
+              "title": "工坊耐久测试",
+              "player_action": "进行握柄耐久试验并记录缺陷",
+              "after_original_stage": "sq_life_08.finish",
+              "required_flags": {
+                "side.sq_life_08.done": true,
+                "side.sq_life_08.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_08.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_08.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_08.p17.b.community.l01",
+                "sq_life_08.p17.b.community.l02",
+                "sq_life_08.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_08.p17.b.revisit",
+              "kind": "revisit",
+              "title": "救援工具入库",
+              "player_action": "在工具库核查领用条件与定期维护",
+              "after_original_stage": "sq_life_08.finish",
+              "required_flags": {
+                "side.sq_life_08.done": true,
+                "side.sq_life_08.approach": "b",
+                "story.ch029.done": true
+              },
+              "previous_optional_stage": "sq_life_08.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_08.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_08.p17.b.revisit.l01",
+                "sq_life_08.p17.b.revisit.l02",
+                "sq_life_08.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "工坊师傅",
+            "text": "工坊留下两个合格样品，领用要登记。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_09",
+      "title": "故障的留声机",
+      "region": "赤炉旧街",
+      "npc": "老人",
+      "required_chapter": "ch018",
+      "late_revisit_chapter": "ch031",
+      "source_file": "story/data/phase17_life_07_09.json",
+      "original_five_stages": [
+        "sq_life_09.start",
+        "sq_life_09.investigate",
+        "sq_life_09.witness",
+        "sq_life_09.decision",
+        "sq_life_09.finish"
+      ],
+      "original_completion_flag": "side.sq_life_09.done",
+      "original_rewards": {
+        "xp": 430,
+        "gold": 179
+      },
+      "original_npc_after": {
+        "speaker": "老人",
+        "text": "那我们现在就去一回。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先让父女私下完整听一遍",
+          "original_choice_flags": {
+            "side.sq_life_09.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_09.p17.a.followup",
+              "kind": "followup",
+              "title": "修好的生日录音",
+              "player_action": "在父女同意下私下播放完整旧祝福",
+              "after_original_stage": "sq_life_09.finish",
+              "required_flags": {
+                "side.sq_life_09.done": true,
+                "side.sq_life_09.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_09.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_09.p17.a.followup.l01",
+                "sq_life_09.p17.a.followup.l02",
+                "sq_life_09.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_09.p17.a.community",
+              "kind": "community",
+              "title": "普通的一顿晚饭",
+              "player_action": "以旧录音为线索准备一次普通晚饭",
+              "after_original_stage": "sq_life_09.finish",
+              "required_flags": {
+                "side.sq_life_09.done": true,
+                "side.sq_life_09.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_09.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_09.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_09.p17.a.community.l01",
+                "sq_life_09.p17.a.community.l02",
+                "sq_life_09.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_09.p17.a.revisit",
+              "kind": "revisit",
+              "title": "新录的一句话",
+              "player_action": "在不覆盖旧磁带情况下录下新祝福",
+              "after_original_stage": "sq_life_09.finish",
+              "required_flags": {
+                "side.sq_life_09.done": true,
+                "side.sq_life_09.approach": "a",
+                "story.ch031.done": true
+              },
+              "previous_optional_stage": "sq_life_09.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_09.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_09.p17.a.revisit.l01",
+                "sq_life_09.p17.a.revisit.l02",
+                "sq_life_09.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "女儿",
+            "text": "我重新录了一句今天的生日祝福，没有擦掉旧磁带。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "公开修复步骤但不公开录音",
+          "original_choice_flags": {
+            "side.sq_life_09.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_09.p17.b.followup",
+              "kind": "followup",
+              "title": "维修笔记",
+              "player_action": "绘制断电维修说明且不公开私密音频",
+              "after_original_stage": "sq_life_09.finish",
+              "required_flags": {
+                "side.sq_life_09.done": true,
+                "side.sq_life_09.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_09.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_09.p17.b.followup.l01",
+                "sq_life_09.p17.b.followup.l02",
+                "sq_life_09.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_09.p17.b.community",
+              "kind": "community",
+              "title": "街坊旧机修复",
+              "player_action": "使用空白磁带验证其他旧留声机维修",
+              "after_original_stage": "sq_life_09.finish",
+              "required_flags": {
+                "side.sq_life_09.done": true,
+                "side.sq_life_09.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_09.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_09.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_09.p17.b.community.l01",
+                "sq_life_09.p17.b.community.l02",
+                "sq_life_09.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_09.p17.b.revisit",
+              "kind": "revisit",
+              "title": "修理间的开放日",
+              "player_action": "检查修理间安全说明和不能修复的情况",
+              "after_original_stage": "sq_life_09.finish",
+              "required_flags": {
+                "side.sq_life_09.done": true,
+                "side.sq_life_09.approach": "b",
+                "story.ch031.done": true
+              },
+              "previous_optional_stage": "sq_life_09.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_09.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_09.p17.b.revisit.l01",
+                "sq_life_09.p17.b.revisit.l02",
+                "sq_life_09.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "学徒",
+            "text": "现在有几台留声机恢复播放，也有修不好的一台。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_10",
+      "title": "雷索的旧披风",
+      "region": "三誓边村",
+      "npc": "雷索",
+      "required_chapter": "ch020",
+      "late_revisit_chapter": "ch043",
+      "source_file": "story/data/phase17_life_10_12.json",
+      "original_five_stages": [
+        "sq_life_10.start",
+        "sq_life_10.investigate",
+        "sq_life_10.witness",
+        "sq_life_10.decision",
+        "sq_life_10.finish"
+      ],
+      "original_completion_flag": "side.sq_life_10.done",
+      "original_rewards": {
+        "xp": 470,
+        "gold": 195
+      },
+      "original_npc_after": {
+        "speaker": "雷索",
+        "text": "祖母想让你知道，人们记得那条救命的沟。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "在村里保留披风并登记姓名",
+          "original_choice_flags": {
+            "side.sq_life_10.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_10.p17.a.followup",
+              "kind": "followup",
+              "title": "披风留在边村",
+              "player_action": "由村民确认旧披风与救人姓名来源",
+              "after_original_stage": "sq_life_10.finish",
+              "required_flags": {
+                "side.sq_life_10.done": true,
+                "side.sq_life_10.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_10.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_10.p17.a.followup.l01",
+                "sq_life_10.p17.a.followup.l02",
+                "sq_life_10.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_10.p17.a.community",
+              "kind": "community",
+              "title": "披风的布料修补",
+              "player_action": "请裁缝只加固针脚并遮盖未授权姓名",
+              "after_original_stage": "sq_life_10.finish",
+              "required_flags": {
+                "side.sq_life_10.done": true,
+                "side.sq_life_10.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_10.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_10.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_10.p17.a.community.l01",
+                "sq_life_10.p17.a.community.l02",
+                "sq_life_10.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_10.p17.a.revisit",
+              "kind": "revisit",
+              "title": "多年后的救援课",
+              "player_action": "在村史室检查防洪教学与披风陈列",
+              "after_original_stage": "sq_life_10.finish",
+              "required_flags": {
+                "side.sq_life_10.done": true,
+                "side.sq_life_10.approach": "a",
+                "story.ch043.done": true
+              },
+              "previous_optional_stage": "sq_life_10.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_10.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_10.p17.a.revisit.l01",
+                "sq_life_10.p17.a.revisit.l02",
+                "sq_life_10.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "村童",
+            "text": "我们学会了挖浅排水沟，不会乱进洪水里。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "征得家属同意后举办流动展览",
+          "original_choice_flags": {
+            "side.sq_life_10.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_10.p17.b.followup",
+              "kind": "followup",
+              "title": "征求各户同意",
+              "player_action": "逐户确认巡展姓名授权与撤回方式",
+              "after_original_stage": "sq_life_10.finish",
+              "required_flags": {
+                "side.sq_life_10.done": true,
+                "side.sq_life_10.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_10.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_10.p17.b.followup.l01",
+                "sq_life_10.p17.b.followup.l02",
+                "sq_life_10.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_10.p17.b.community",
+              "kind": "community",
+              "title": "流动展的第一站",
+              "player_action": "组织第一站不颂扬单一英雄的展览",
+              "after_original_stage": "sq_life_10.finish",
+              "required_flags": {
+                "side.sq_life_10.done": true,
+                "side.sq_life_10.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_10.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_10.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_10.p17.b.community.l01",
+                "sq_life_10.p17.b.community.l02",
+                "sq_life_10.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_10.p17.b.revisit",
+              "kind": "revisit",
+              "title": "披风回到村里",
+              "player_action": "检查巡展归还与异地防洪笔记",
+              "after_original_stage": "sq_life_10.finish",
+              "required_flags": {
+                "side.sq_life_10.done": true,
+                "side.sq_life_10.approach": "b",
+                "story.ch043.done": true
+              },
+              "previous_optional_stage": "sq_life_10.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_10.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_10.p17.b.revisit.l01",
+                "sq_life_10.p17.b.revisit.l02",
+                "sq_life_10.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "老农",
+            "text": "巡展结束了，披风仍完整回来了。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_11",
+      "title": "走失的红围巾",
+      "region": "白夜祭·市集",
+      "npc": "女童",
+      "required_chapter": "ch022",
+      "late_revisit_chapter": "ch025",
+      "source_file": "story/data/phase17_life_10_12.json",
+      "original_five_stages": [
+        "sq_life_11.start",
+        "sq_life_11.investigate",
+        "sq_life_11.witness",
+        "sq_life_11.decision",
+        "sq_life_11.finish"
+      ],
+      "original_completion_flag": "side.sq_life_11.done",
+      "original_rewards": {
+        "xp": 510,
+        "gold": 211
+      },
+      "original_npc_after": {
+        "speaker": "女童",
+        "text": "我们把见面的地方约好。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "设置节庆临时寻人点",
+          "original_choice_flags": {
+            "side.sq_life_11.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_11.p17.a.followup",
+              "kind": "followup",
+              "title": "节庆寻人点",
+              "player_action": "在节庆入口设立安全寻人会合点",
+              "after_original_stage": "sq_life_11.finish",
+              "required_flags": {
+                "side.sq_life_11.done": true,
+                "side.sq_life_11.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_11.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_11.p17.a.followup.l01",
+                "sq_life_11.p17.a.followup.l02",
+                "sq_life_11.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_11.p17.a.community",
+              "kind": "community",
+              "title": "找回红围巾",
+              "player_action": "由母亲确认围巾针脚并办理认领",
+              "after_original_stage": "sq_life_11.finish",
+              "required_flags": {
+                "side.sq_life_11.done": true,
+                "side.sq_life_11.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_11.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_11.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_11.p17.a.community.l01",
+                "sq_life_11.p17.a.community.l02",
+                "sq_life_11.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_11.p17.a.revisit",
+              "kind": "revisit",
+              "title": "下一次白夜祭",
+              "player_action": "回访儿童是否记得向谁安全求助",
+              "after_original_stage": "sq_life_11.finish",
+              "required_flags": {
+                "side.sq_life_11.done": true,
+                "side.sq_life_11.approach": "a",
+                "story.ch025.done": true
+              },
+              "previous_optional_stage": "sq_life_11.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_11.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_11.p17.a.revisit.l01",
+                "sq_life_11.p17.a.revisit.l02",
+                "sq_life_11.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "女童",
+            "text": "现在我知道和妈妈走散就去那面红旗下面。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由母亲核对针脚后归还",
+          "original_choice_flags": {
+            "side.sq_life_11.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_11.p17.b.followup",
+              "kind": "followup",
+              "title": "核对歪星针脚",
+              "player_action": "由监护人当场鉴定围巾的歪星针法",
+              "after_original_stage": "sq_life_11.finish",
+              "required_flags": {
+                "side.sq_life_11.done": true,
+                "side.sq_life_11.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_11.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_11.p17.b.followup.l01",
+                "sq_life_11.p17.b.followup.l02",
+                "sq_life_11.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_11.p17.b.community",
+              "kind": "community",
+              "title": "母女约定见面地",
+              "player_action": "在安全地点练习走失后等待步骤",
+              "after_original_stage": "sq_life_11.finish",
+              "required_flags": {
+                "side.sq_life_11.done": true,
+                "side.sq_life_11.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_11.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_11.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_11.p17.b.community.l01",
+                "sq_life_11.p17.b.community.l02",
+                "sq_life_11.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_11.p17.b.revisit",
+              "kind": "revisit",
+              "title": "记得的那颗星",
+              "player_action": "让摊贩公示失物认领和监护确认流程",
+              "after_original_stage": "sq_life_11.finish",
+              "required_flags": {
+                "side.sq_life_11.done": true,
+                "side.sq_life_11.approach": "b",
+                "story.ch025.done": true
+              },
+              "previous_optional_stage": "sq_life_11.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_11.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_11.p17.b.revisit.l01",
+                "sq_life_11.p17.b.revisit.l02",
+                "sq_life_11.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "女童",
+            "text": "围巾又戴上啦，我也知道该去哪里找妈妈。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_12",
+      "title": "最短的演出",
+      "region": "白夜祭·后台",
+      "npc": "宫廷乐师",
+      "required_chapter": "ch023",
+      "late_revisit_chapter": "ch027",
+      "source_file": "story/data/phase17_life_10_12.json",
+      "original_five_stages": [
+        "sq_life_12.start",
+        "sq_life_12.investigate",
+        "sq_life_12.witness",
+        "sq_life_12.decision",
+        "sq_life_12.finish"
+      ],
+      "original_completion_flag": "side.sq_life_12.done",
+      "original_rewards": {
+        "xp": 530,
+        "gold": 219
+      },
+      "original_npc_after": {
+        "speaker": "宫廷乐师",
+        "text": "值得被听到的是证词，不是噱头。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "由证人自行宣读已匿名的证据",
+          "original_choice_flags": {
+            "side.sq_life_12.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_12.p17.a.followup",
+              "kind": "followup",
+              "title": "证人自己念",
+              "player_action": "由证人逐段选择愿公开的口述证词",
+              "after_original_stage": "sq_life_12.finish",
+              "required_flags": {
+                "side.sq_life_12.done": true,
+                "side.sq_life_12.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_12.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_12.p17.a.followup.l01",
+                "sq_life_12.p17.a.followup.l02",
+                "sq_life_12.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_12.p17.a.community",
+              "kind": "community",
+              "title": "舞台护送",
+              "player_action": "检查证人上下台及临时休息通道",
+              "after_original_stage": "sq_life_12.finish",
+              "required_flags": {
+                "side.sq_life_12.done": true,
+                "side.sq_life_12.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_12.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_12.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_12.p17.a.community.l01",
+                "sq_life_12.p17.a.community.l02",
+                "sq_life_12.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_12.p17.a.revisit",
+              "kind": "revisit",
+              "title": "演出后的证据箱",
+              "player_action": "查看档案箱是否保留可更正的证言",
+              "after_original_stage": "sq_life_12.finish",
+              "required_flags": {
+                "side.sq_life_12.done": true,
+                "side.sq_life_12.approach": "a",
+                "story.ch027.done": true
+              },
+              "previous_optional_stage": "sq_life_12.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_12.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_12.p17.a.revisit.l01",
+                "sq_life_12.p17.a.revisit.l02",
+                "sq_life_12.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "观众",
+            "text": "我记住的不是独唱，而是那段真实的日期。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "请档案员代读经授权的书面证词",
+          "original_choice_flags": {
+            "side.sq_life_12.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_12.p17.b.followup",
+              "kind": "followup",
+              "title": "代读授权书",
+              "player_action": "审核档案员的匿名代读授权",
+              "after_original_stage": "sq_life_12.finish",
+              "required_flags": {
+                "side.sq_life_12.done": true,
+                "side.sq_life_12.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_12.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_12.p17.b.followup.l01",
+                "sq_life_12.p17.b.followup.l02",
+                "sq_life_12.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_12.p17.b.community",
+              "kind": "community",
+              "title": "歌词与原件区分",
+              "player_action": "对照书面证据和演出歌词的区别",
+              "after_original_stage": "sq_life_12.finish",
+              "required_flags": {
+                "side.sq_life_12.done": true,
+                "side.sq_life_12.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_12.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_12.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_12.p17.b.community.l01",
+                "sq_life_12.p17.b.community.l02",
+                "sq_life_12.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_12.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新的后台惯例",
+              "player_action": "核查证人下次有权自讲或不登台",
+              "after_original_stage": "sq_life_12.finish",
+              "required_flags": {
+                "side.sq_life_12.done": true,
+                "side.sq_life_12.approach": "b",
+                "story.ch027.done": true
+              },
+              "previous_optional_stage": "sq_life_12.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_12.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_12.p17.b.revisit.l01",
+                "sq_life_12.p17.b.revisit.l02",
+                "sq_life_12.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "证人",
+            "text": "下次我愿自己讲，也可能不愿，没有人替我承诺。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_13",
+      "title": "船舱里的盆栽",
+      "region": "逐星号·船员室",
+      "npc": "水手",
+      "required_chapter": "ch026",
+      "late_revisit_chapter": "ch038",
+      "source_file": "story/data/phase17_life_13_15.json",
+      "original_five_stages": [
+        "sq_life_13.start",
+        "sq_life_13.investigate",
+        "sq_life_13.witness",
+        "sq_life_13.decision",
+        "sq_life_13.finish"
+      ],
+      "original_completion_flag": "side.sq_life_13.done",
+      "original_rewards": {
+        "xp": 590,
+        "gold": 243
+      },
+      "original_npc_after": {
+        "speaker": "水手",
+        "text": "这船第一次有了个专门给花留的座位。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "设计固定花盆与雨水收集盒",
+          "original_choice_flags": {
+            "side.sq_life_13.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_13.p17.a.followup",
+              "kind": "followup",
+              "title": "船舱花盆支架",
+              "player_action": "检查船舱低位花盆支架与逃生通道",
+              "after_original_stage": "sq_life_13.finish",
+              "required_flags": {
+                "side.sq_life_13.done": true,
+                "side.sq_life_13.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_13.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_13.p17.a.followup.l01",
+                "sq_life_13.p17.a.followup.l02",
+                "sq_life_13.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_13.p17.a.community",
+              "kind": "community",
+              "title": "雨水收集日",
+              "player_action": "测试雨水盒溢流与日常植物供水",
+              "after_original_stage": "sq_life_13.finish",
+              "required_flags": {
+                "side.sq_life_13.done": true,
+                "side.sq_life_13.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_13.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_13.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_13.p17.a.community.l01",
+                "sq_life_13.p17.a.community.l02",
+                "sq_life_13.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_13.p17.a.revisit",
+              "kind": "revisit",
+              "title": "航海中的新芽",
+              "player_action": "核查海航后固定件与新叶生长",
+              "after_original_stage": "sq_life_13.finish",
+              "required_flags": {
+                "side.sq_life_13.done": true,
+                "side.sq_life_13.approach": "a",
+                "story.ch038.done": true
+              },
+              "previous_optional_stage": "sq_life_13.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_13.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_13.p17.a.revisit.l01",
+                "sq_life_13.p17.a.revisit.l02",
+                "sq_life_13.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "水手",
+            "text": "新叶长出来了，我终于不总担心它离不开岸。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由船员共同轮值照顾",
+          "original_choice_flags": {
+            "side.sq_life_13.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_13.p17.b.followup",
+              "kind": "followup",
+              "title": "三班浇水",
+              "player_action": "与船员建立自愿且可替班的浇水表",
+              "after_original_stage": "sq_life_13.finish",
+              "required_flags": {
+                "side.sq_life_13.done": true,
+                "side.sq_life_13.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_13.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_13.p17.b.followup.l01",
+                "sq_life_13.p17.b.followup.l02",
+                "sq_life_13.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_13.p17.b.community",
+              "kind": "community",
+              "title": "识别根部病害",
+              "player_action": "按叶片状态调整过量浇水",
+              "after_original_stage": "sq_life_13.finish",
+              "required_flags": {
+                "side.sq_life_13.done": true,
+                "side.sq_life_13.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_13.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_13.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_13.p17.b.community.l01",
+                "sq_life_13.p17.b.community.l02",
+                "sq_life_13.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_13.p17.b.revisit",
+              "kind": "revisit",
+              "title": "船员共同的小花园",
+              "player_action": "观察多人轮换后植物是否获得持续照顾",
+              "after_original_stage": "sq_life_13.finish",
+              "required_flags": {
+                "side.sq_life_13.done": true,
+                "side.sq_life_13.approach": "b",
+                "story.ch038.done": true
+              },
+              "previous_optional_stage": "sq_life_13.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_13.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_13.p17.b.revisit.l01",
+                "sq_life_13.p17.b.revisit.l02",
+                "sq_life_13.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "船员",
+            "text": "值班表换过几次，盆栽依然在。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_14",
+      "title": "不收费的灯塔",
+      "region": "海歌群岛·偏港",
+      "npc": "守塔妇人",
+      "required_chapter": "ch029",
+      "late_revisit_chapter": "ch042",
+      "source_file": "story/data/phase17_life_13_15.json",
+      "original_five_stages": [
+        "sq_life_14.start",
+        "sq_life_14.investigate",
+        "sq_life_14.witness",
+        "sq_life_14.decision",
+        "sq_life_14.finish"
+      ],
+      "original_completion_flag": "side.sq_life_14.done",
+      "original_rewards": {
+        "xp": 650,
+        "gold": 267
+      },
+      "original_npc_after": {
+        "speaker": "守塔妇人",
+        "text": "希望他以后也愿替别人留灯。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "建立公开维护基金",
+          "original_choice_flags": {
+            "side.sq_life_14.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_14.p17.a.followup",
+              "kind": "followup",
+              "title": "公益灯塔账",
+              "player_action": "公开燃料、灯罩维修和自愿捐赠账",
+              "after_original_stage": "sq_life_14.finish",
+              "required_flags": {
+                "side.sq_life_14.done": true,
+                "side.sq_life_14.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_14.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_14.p17.a.followup.l01",
+                "sq_life_14.p17.a.followup.l02",
+                "sq_life_14.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_14.p17.a.community",
+              "kind": "community",
+              "title": "风暴后的账单",
+              "player_action": "在暴雨后核对公益基金的维修支出",
+              "after_original_stage": "sq_life_14.finish",
+              "required_flags": {
+                "side.sq_life_14.done": true,
+                "side.sq_life_14.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_14.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_14.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_14.p17.a.community.l01",
+                "sq_life_14.p17.a.community.l02",
+                "sq_life_14.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_14.p17.a.revisit",
+              "kind": "revisit",
+              "title": "又一个迷航夜",
+              "player_action": "确认所有船只仍可免费求救",
+              "after_original_stage": "sq_life_14.finish",
+              "required_flags": {
+                "side.sq_life_14.done": true,
+                "side.sq_life_14.approach": "a",
+                "story.ch042.done": true
+              },
+              "previous_optional_stage": "sq_life_14.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_14.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_14.p17.a.revisit.l01",
+                "sq_life_14.p17.a.revisit.l02",
+                "sq_life_14.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "小船船长",
+            "text": "那晚灯塔救了我，我只捐得起一小瓶灯油。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "组织船队轮值维护",
+          "original_choice_flags": {
+            "side.sq_life_14.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_14.p17.b.followup",
+              "kind": "followup",
+              "title": "船队轮流守塔",
+              "player_action": "安排合格船员轮班而非无培训爬塔",
+              "after_original_stage": "sq_life_14.finish",
+              "required_flags": {
+                "side.sq_life_14.done": true,
+                "side.sq_life_14.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_14.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_14.p17.b.followup.l01",
+                "sq_life_14.p17.b.followup.l02",
+                "sq_life_14.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_14.p17.b.community",
+              "kind": "community",
+              "title": "值守交接训练",
+              "player_action": "参加安全发灯号和船只求助的交接演习",
+              "after_original_stage": "sq_life_14.finish",
+              "required_flags": {
+                "side.sq_life_14.done": true,
+                "side.sq_life_14.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_14.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_14.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_14.p17.b.community.l01",
+                "sq_life_14.p17.b.community.l02",
+                "sq_life_14.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_14.p17.b.revisit",
+              "kind": "revisit",
+              "title": "灯塔的第二班人",
+              "player_action": "检查轮值表上的替班与免费救援制度",
+              "after_original_stage": "sq_life_14.finish",
+              "required_flags": {
+                "side.sq_life_14.done": true,
+                "side.sq_life_14.approach": "b",
+                "story.ch042.done": true
+              },
+              "previous_optional_stage": "sq_life_14.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_14.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_14.p17.b.revisit.l01",
+                "sq_life_14.p17.b.revisit.l02",
+                "sq_life_14.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "年轻船员",
+            "text": "我学会读灯志，但还没有资格拆修主灯。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_15",
+      "title": "给海兽的名字",
+      "region": "鲸背水道",
+      "npc": "少年",
+      "required_chapter": "ch030",
+      "late_revisit_chapter": "ch043",
+      "source_file": "story/data/phase17_life_13_15.json",
+      "original_five_stages": [
+        "sq_life_15.start",
+        "sq_life_15.investigate",
+        "sq_life_15.witness",
+        "sq_life_15.decision",
+        "sq_life_15.finish"
+      ],
+      "original_completion_flag": "side.sq_life_15.done",
+      "original_rewards": {
+        "xp": 670,
+        "gold": 275
+      },
+      "original_npc_after": {
+        "speaker": "少年",
+        "text": "无论怎样，不必抓住它。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "让孩子选择称呼并观察海兽反应",
+          "original_choice_flags": {
+            "side.sq_life_15.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_15.p17.a.followup",
+              "kind": "followup",
+              "title": "海兽回应声音",
+              "player_action": "远距离观察海兽对不同声音的反应",
+              "after_original_stage": "sq_life_15.finish",
+              "required_flags": {
+                "side.sq_life_15.done": true,
+                "side.sq_life_15.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_15.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_15.p17.a.followup.l01",
+                "sq_life_15.p17.a.followup.l02",
+                "sq_life_15.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_15.p17.a.community",
+              "kind": "community",
+              "title": "声音辨识观察",
+              "player_action": "绘制避开幼兽的安静观察路线",
+              "after_original_stage": "sq_life_15.finish",
+              "required_flags": {
+                "side.sq_life_15.done": true,
+                "side.sq_life_15.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_15.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_15.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_15.p17.a.community.l01",
+                "sq_life_15.p17.a.community.l02",
+                "sq_life_15.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_15.p17.a.revisit",
+              "kind": "revisit",
+              "title": "再次经过鲸背水道",
+              "player_action": "回访海兽是否依然自由经过水道",
+              "after_original_stage": "sq_life_15.finish",
+              "required_flags": {
+                "side.sq_life_15.done": true,
+                "side.sq_life_15.approach": "a",
+                "story.ch043.done": true
+              },
+              "previous_optional_stage": "sq_life_15.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_15.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_15.p17.a.revisit.l01",
+                "sq_life_15.p17.a.revisit.l02",
+                "sq_life_15.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "少年",
+            "text": "小蓝还在自由游，我远远叫它就很满足。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先建立避让海兽的安全航道",
+          "original_choice_flags": {
+            "side.sq_life_15.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_15.p17.b.followup",
+              "kind": "followup",
+              "title": "避让通航线",
+              "player_action": "使用潮差图标出两条避让航线",
+              "after_original_stage": "sq_life_15.finish",
+              "required_flags": {
+                "side.sq_life_15.done": true,
+                "side.sq_life_15.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_15.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_15.p17.b.followup.l01",
+                "sq_life_15.p17.b.followup.l02",
+                "sq_life_15.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_15.p17.b.community",
+              "kind": "community",
+              "title": "安静航行练习",
+              "player_action": "在船上示范减速不鸣笛的环保通航",
+              "after_original_stage": "sq_life_15.finish",
+              "required_flags": {
+                "side.sq_life_15.done": true,
+                "side.sq_life_15.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_15.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_15.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_15.p17.b.community.l01",
+                "sq_life_15.p17.b.community.l02",
+                "sq_life_15.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_15.p17.b.revisit",
+              "kind": "revisit",
+              "title": "水道新的航行守则",
+              "player_action": "查阅保护海兽栖息通道的航行守则",
+              "after_original_stage": "sq_life_15.finish",
+              "required_flags": {
+                "side.sq_life_15.done": true,
+                "side.sq_life_15.approach": "b",
+                "story.ch043.done": true
+              },
+              "previous_optional_stage": "sq_life_15.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_15.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_15.p17.b.revisit.l01",
+                "sq_life_15.p17.b.revisit.l02",
+                "sq_life_15.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "舵手",
+            "text": "按避让线走，船仍能按时到港。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_16",
+      "title": "睡不醒的钟匠",
+      "region": "镜眠王国·钟表铺",
+      "npc": "钟匠家属",
+      "required_chapter": "ch034",
+      "late_revisit_chapter": "ch044",
+      "source_file": "story/data/phase17_life_16_18.json",
+      "original_five_stages": [
+        "sq_life_16.start",
+        "sq_life_16.investigate",
+        "sq_life_16.witness",
+        "sq_life_16.decision",
+        "sq_life_16.finish"
+      ],
+      "original_completion_flag": "side.sq_life_16.done",
+      "original_rewards": {
+        "xp": 750,
+        "gold": 307
+      },
+      "original_npc_after": {
+        "speaker": "钟匠家属",
+        "text": "那明晚也一起吃饭吧。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先建立逐步醒转治疗",
+          "original_choice_flags": {
+            "side.sq_life_16.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_16.p17.a.followup",
+              "kind": "followup",
+              "title": "分段醒转表",
+              "player_action": "由钟匠本人设置可停止的分段醒转时段",
+              "after_original_stage": "sq_life_16.finish",
+              "required_flags": {
+                "side.sq_life_16.done": true,
+                "side.sq_life_16.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_16.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_16.p17.a.followup.l01",
+                "sq_life_16.p17.a.followup.l02",
+                "sq_life_16.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_16.p17.a.community",
+              "kind": "community",
+              "title": "钟表铺开门半日",
+              "player_action": "检查只营业半日的安全工作安排",
+              "after_original_stage": "sq_life_16.finish",
+              "required_flags": {
+                "side.sq_life_16.done": true,
+                "side.sq_life_16.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_16.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_16.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_16.p17.a.community.l01",
+                "sq_life_16.p17.a.community.l02",
+                "sq_life_16.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_16.p17.a.revisit",
+              "kind": "revisit",
+              "title": "晚餐不再迟到",
+              "player_action": "与家属共同回访不强制打卡的晚餐",
+              "after_original_stage": "sq_life_16.finish",
+              "required_flags": {
+                "side.sq_life_16.done": true,
+                "side.sq_life_16.approach": "a",
+                "story.ch044.done": true
+              },
+              "previous_optional_stage": "sq_life_16.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_16.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_16.p17.a.revisit.l01",
+                "sq_life_16.p17.a.revisit.l02",
+                "sq_life_16.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "钟匠",
+            "text": "今晚我在钟响前回家，没把最后一分钟藏在工作里。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由家属自愿陪伴认识新日常",
+          "original_choice_flags": {
+            "side.sq_life_16.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_16.p17.b.followup",
+              "kind": "followup",
+              "title": "一家人的日常表",
+              "player_action": "请钟匠自主挑选散步和买菜活动",
+              "after_original_stage": "sq_life_16.finish",
+              "required_flags": {
+                "side.sq_life_16.done": true,
+                "side.sq_life_16.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_16.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_16.p17.b.followup.l01",
+                "sq_life_16.p17.b.followup.l02",
+                "sq_life_16.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_16.p17.b.community",
+              "kind": "community",
+              "title": "家属陪伴轮值",
+              "player_action": "建立家属陪伴轮值与独立梦门出口",
+              "after_original_stage": "sq_life_16.finish",
+              "required_flags": {
+                "side.sq_life_16.done": true,
+                "side.sq_life_16.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_16.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_16.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_16.p17.b.community.l01",
+                "sq_life_16.p17.b.community.l02",
+                "sq_life_16.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_16.p17.b.revisit",
+              "kind": "revisit",
+              "title": "下一次周末",
+              "player_action": "回访钟匠愿意怎样度过周末",
+              "after_original_stage": "sq_life_16.finish",
+              "required_flags": {
+                "side.sq_life_16.done": true,
+                "side.sq_life_16.approach": "b",
+                "story.ch044.done": true
+              },
+              "previous_optional_stage": "sq_life_16.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_16.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_16.p17.b.revisit.l01",
+                "sq_life_16.p17.b.revisit.l02",
+                "sq_life_16.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "钟匠",
+            "text": "这一周我错过了一顿饭，也和家人一起吃了三顿。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_17",
+      "title": "玄璃的身份证明",
+      "region": "镜眠王都·档案局",
+      "npc": "玄璃",
+      "required_chapter": "ch035",
+      "late_revisit_chapter": "ch049",
+      "source_file": "story/data/phase17_life_16_18.json",
+      "original_five_stages": [
+        "sq_life_17.start",
+        "sq_life_17.investigate",
+        "sq_life_17.witness",
+        "sq_life_17.decision",
+        "sq_life_17.finish"
+      ],
+      "original_completion_flag": "side.sq_life_17.done",
+      "original_rewards": {
+        "xp": 770,
+        "gold": 315
+      },
+      "original_npc_after": {
+        "speaker": "玄璃",
+        "text": "以后还会写很多次。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "新增映世居民平等登记栏",
+          "original_choice_flags": {
+            "side.sq_life_17.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_17.p17.a.followup",
+              "kind": "followup",
+              "title": "新身份登记栏",
+              "player_action": "为映世申请者新增平等身份登记栏",
+              "after_original_stage": "sq_life_17.finish",
+              "required_flags": {
+                "side.sq_life_17.done": true,
+                "side.sq_life_17.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_17.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_17.p17.a.followup.l01",
+                "sq_life_17.p17.a.followup.l02",
+                "sq_life_17.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_17.p17.a.community",
+              "kind": "community",
+              "title": "登记窗口测试",
+              "player_action": "协助测试临时居所及更正机制",
+              "after_original_stage": "sq_life_17.finish",
+              "required_flags": {
+                "side.sq_life_17.done": true,
+                "side.sq_life_17.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_17.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_17.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_17.p17.a.community.l01",
+                "sq_life_17.p17.a.community.l02",
+                "sq_life_17.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_17.p17.a.revisit",
+              "kind": "revisit",
+              "title": "映世居民第一张证",
+              "player_action": "查验首批证件与私人姓名公开权限",
+              "after_original_stage": "sq_life_17.finish",
+              "required_flags": {
+                "side.sq_life_17.done": true,
+                "side.sq_life_17.approach": "a",
+                "story.ch049.done": true
+              },
+              "previous_optional_stage": "sq_life_17.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_17.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_17.p17.a.revisit.l01",
+                "sq_life_17.p17.a.revisit.l02",
+                "sq_life_17.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "映世居民",
+            "text": "证件印好了，但我不想让名字出现在观光公告上。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先设公民身份咨询和申诉窗口",
+          "original_choice_flags": {
+            "side.sq_life_17.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_17.p17.b.followup",
+              "kind": "followup",
+              "title": "身份咨询席",
+              "player_action": "由玄璃本人示范签署咨询申请",
+              "after_original_stage": "sq_life_17.finish",
+              "required_flags": {
+                "side.sq_life_17.done": true,
+                "side.sq_life_17.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_17.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_17.p17.b.followup.l01",
+                "sq_life_17.p17.b.followup.l02",
+                "sq_life_17.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_17.p17.b.community",
+              "kind": "community",
+              "title": "申诉受理示范",
+              "player_action": "协助映世居民提交一份行政申诉",
+              "after_original_stage": "sq_life_17.finish",
+              "required_flags": {
+                "side.sq_life_17.done": true,
+                "side.sq_life_17.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_17.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_17.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_17.p17.b.community.l01",
+                "sq_life_17.p17.b.community.l02",
+                "sq_life_17.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_17.p17.b.revisit",
+              "kind": "revisit",
+              "title": "长期咨询日",
+              "player_action": "核验咨询席与纸质回执的处理时限",
+              "after_original_stage": "sq_life_17.finish",
+              "required_flags": {
+                "side.sq_life_17.done": true,
+                "side.sq_life_17.approach": "b",
+                "story.ch049.done": true
+              },
+              "previous_optional_stage": "sq_life_17.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_17.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_17.p17.b.revisit.l01",
+                "sq_life_17.p17.b.revisit.l02",
+                "sq_life_17.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "映世居民",
+            "text": "我的申请还在审查，但现在知道能找谁。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_18",
+      "title": "真正的雨",
+      "region": "映世·花庭",
+      "npc": "玄璃",
+      "required_chapter": "ch036",
+      "late_revisit_chapter": "ch050",
+      "source_file": "story/data/phase17_life_16_18.json",
+      "original_five_stages": [
+        "sq_life_18.start",
+        "sq_life_18.investigate",
+        "sq_life_18.witness",
+        "sq_life_18.decision",
+        "sq_life_18.finish"
+      ],
+      "original_completion_flag": "side.sq_life_18.done",
+      "original_rewards": {
+        "xp": 790,
+        "gold": 323
+      },
+      "original_npc_after": {
+        "speaker": "玄璃",
+        "text": "这才叫真正学会在雨里生活。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "记录真实降雨的气味与声音",
+          "original_choice_flags": {
+            "side.sq_life_18.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_18.p17.a.followup",
+              "kind": "followup",
+              "title": "记录第一场真雨",
+              "player_action": "记录真雨与幻雨的温度和声音差别",
+              "after_original_stage": "sq_life_18.finish",
+              "required_flags": {
+                "side.sq_life_18.done": true,
+                "side.sq_life_18.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_18.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_18.p17.a.followup.l01",
+                "sq_life_18.p17.a.followup.l02",
+                "sq_life_18.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_18.p17.a.community",
+              "kind": "community",
+              "title": "雨声与幻雨",
+              "player_action": "与儿童比较雨声但不强迫一致",
+              "after_original_stage": "sq_life_18.finish",
+              "required_flags": {
+                "side.sq_life_18.done": true,
+                "side.sq_life_18.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_18.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_18.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_18.p17.a.community.l01",
+                "sq_life_18.p17.a.community.l02",
+                "sq_life_18.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_18.p17.a.revisit",
+              "kind": "revisit",
+              "title": "风停以后",
+              "player_action": "查看无人下雨日也能正常使用的天气簿",
+              "after_original_stage": "sq_life_18.finish",
+              "required_flags": {
+                "side.sq_life_18.done": true,
+                "side.sq_life_18.approach": "a",
+                "story.ch050.done": true
+              },
+              "previous_optional_stage": "sq_life_18.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_18.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_18.p17.a.revisit.l01",
+                "sq_life_18.p17.a.revisit.l02",
+                "sq_life_18.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "玄璃",
+            "text": "今天没有下雨，我也高兴能在晴天走出去。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "邀请映世居民共同体验雨夜",
+          "original_choice_flags": {
+            "side.sq_life_18.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_18.p17.b.followup",
+              "kind": "followup",
+              "title": "映世居民雨夜邀请",
+              "player_action": "安排自愿参加且可以立刻回屋的雨夜",
+              "after_original_stage": "sq_life_18.finish",
+              "required_flags": {
+                "side.sq_life_18.done": true,
+                "side.sq_life_18.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_18.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_18.p17.b.followup.l01",
+                "sq_life_18.p17.b.followup.l02",
+                "sq_life_18.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_18.p17.b.community",
+              "kind": "community",
+              "title": "雨夜安全屋",
+              "player_action": "检查屋檐安全、照护与短眠退出路线",
+              "after_original_stage": "sq_life_18.finish",
+              "required_flags": {
+                "side.sq_life_18.done": true,
+                "side.sq_life_18.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_18.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_18.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_18.p17.b.community.l01",
+                "sq_life_18.p17.b.community.l02",
+                "sq_life_18.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_18.p17.b.revisit",
+              "kind": "revisit",
+              "title": "第二次邀请",
+              "player_action": "回访每位映世居民对第二次雨夜的选择",
+              "after_original_stage": "sq_life_18.finish",
+              "required_flags": {
+                "side.sq_life_18.done": true,
+                "side.sq_life_18.approach": "b",
+                "story.ch050.done": true
+              },
+              "previous_optional_stage": "sq_life_18.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_18.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_18.p17.b.revisit.l01",
+                "sq_life_18.p17.b.revisit.l02",
+                "sq_life_18.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "映世居民",
+            "text": "这次我愿走到院子里，下次也可能不愿。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_19",
+      "title": "写错的名字",
+      "region": "旧洲·默契城",
+      "npc": "书记员",
+      "required_chapter": "ch038",
+      "late_revisit_chapter": "ch050",
+      "source_file": "story/data/phase17_life_19_21.json",
+      "original_five_stages": [
+        "sq_life_19.start",
+        "sq_life_19.investigate",
+        "sq_life_19.witness",
+        "sq_life_19.decision",
+        "sq_life_19.finish"
+      ],
+      "original_completion_flag": "side.sq_life_19.done",
+      "original_rewards": {
+        "xp": 830,
+        "gold": 339
+      },
+      "original_npc_after": {
+        "speaker": "书记员",
+        "text": "下次我先问本人，再握笔。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "记录读音与历史姓名双索引",
+          "original_choice_flags": {
+            "side.sq_life_19.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_19.p17.a.followup",
+              "kind": "followup",
+              "title": "两种姓名索引",
+              "player_action": "按本人认可区分现名、发音与旧名",
+              "after_original_stage": "sq_life_19.finish",
+              "required_flags": {
+                "side.sq_life_19.done": true,
+                "side.sq_life_19.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_19.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_19.p17.a.followup.l01",
+                "sq_life_19.p17.a.followup.l02",
+                "sq_life_19.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_19.p17.a.community",
+              "kind": "community",
+              "title": "给识字学生的练习",
+              "player_action": "由教师演示不公开个人资料的更名练习",
+              "after_original_stage": "sq_life_19.finish",
+              "required_flags": {
+                "side.sq_life_19.done": true,
+                "side.sq_life_19.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_19.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_19.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_19.p17.a.community.l01",
+                "sq_life_19.p17.a.community.l02",
+                "sq_life_19.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_19.p17.a.revisit",
+              "kind": "revisit",
+              "title": "后来的一次申诉",
+              "player_action": "核验相似姓名仍可各自独立索引",
+              "after_original_stage": "sq_life_19.finish",
+              "required_flags": {
+                "side.sq_life_19.done": true,
+                "side.sq_life_19.approach": "a",
+                "story.ch050.done": true
+              },
+              "previous_optional_stage": "sq_life_19.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_19.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_19.p17.a.revisit.l01",
+                "sq_life_19.p17.a.revisit.l02",
+                "sq_life_19.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "书记员",
+            "text": "新索引找到两处重名，不再把两户并成一户。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "本人决定现用姓名及公开范围",
+          "original_choice_flags": {
+            "side.sq_life_19.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_19.p17.b.followup",
+              "kind": "followup",
+              "title": "本人签字台",
+              "player_action": "让本人自由决定登记范围与是否带回表单",
+              "after_original_stage": "sq_life_19.finish",
+              "required_flags": {
+                "side.sq_life_19.done": true,
+                "side.sq_life_19.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_19.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_19.p17.b.followup.l01",
+                "sq_life_19.p17.b.followup.l02",
+                "sq_life_19.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_19.p17.b.community",
+              "kind": "community",
+              "title": "隐私查询练习",
+              "player_action": "测试本人授权的历史姓名查询权限",
+              "after_original_stage": "sq_life_19.finish",
+              "required_flags": {
+                "side.sq_life_19.done": true,
+                "side.sq_life_19.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_19.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_19.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_19.p17.b.community.l01",
+                "sq_life_19.p17.b.community.l02",
+                "sq_life_19.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_19.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新生儿的名字",
+              "player_action": "回访新生登记的再次更正权",
+              "after_original_stage": "sq_life_19.finish",
+              "required_flags": {
+                "side.sq_life_19.done": true,
+                "side.sq_life_19.approach": "b",
+                "story.ch050.done": true
+              },
+              "previous_optional_stage": "sq_life_19.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_19.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_19.p17.b.revisit.l01",
+                "sq_life_19.p17.b.revisit.l02",
+                "sq_life_19.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "年轻父母",
+            "text": "孩子的名字写好啦，以后她也能决定怎么称呼自己。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_20",
+      "title": "诺依的第一封信",
+      "region": "旧洲·难民营",
+      "npc": "诺依",
+      "required_chapter": "ch041",
+      "late_revisit_chapter": "ch054",
+      "source_file": "story/data/phase17_life_19_21.json",
+      "original_five_stages": [
+        "sq_life_20.start",
+        "sq_life_20.investigate",
+        "sq_life_20.witness",
+        "sq_life_20.decision",
+        "sq_life_20.finish"
+      ],
+      "original_completion_flag": "side.sq_life_20.done",
+      "original_rewards": {
+        "xp": 890,
+        "gold": 363
+      },
+      "original_npc_after": {
+        "speaker": "诺依",
+        "text": "我会陪你来，等你愿意的时候。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "由诺依自己写下一句话",
+          "original_choice_flags": {
+            "side.sq_life_20.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_20.p17.a.followup",
+              "kind": "followup",
+              "title": "诺依的第一句话",
+              "player_action": "请儿童诺依自己写一句给母亲的信",
+              "after_original_stage": "sq_life_20.finish",
+              "required_flags": {
+                "side.sq_life_20.done": true,
+                "side.sq_life_20.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_20.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_20.p17.a.followup.l01",
+                "sq_life_20.p17.a.followup.l02",
+                "sq_life_20.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_20.p17.a.community",
+              "kind": "community",
+              "title": "无地址纪念邮筒",
+              "player_action": "在不拆信情况下完成纪念邮箱投递",
+              "after_original_stage": "sq_life_20.finish",
+              "required_flags": {
+                "side.sq_life_20.done": true,
+                "side.sq_life_20.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_20.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_20.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_20.p17.a.community.l01",
+                "sq_life_20.p17.a.community.l02",
+                "sq_life_20.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_20.p17.a.revisit",
+              "kind": "revisit",
+              "title": "多年后的信封",
+              "player_action": "十二年后由成年诺依回访旧信",
+              "after_original_stage": "sq_life_20.finish",
+              "required_flags": {
+                "side.sq_life_20.done": true,
+                "side.sq_life_20.approach": "a",
+                "story.ch054.done": true
+              },
+              "previous_optional_stage": "sq_life_20.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_20.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_20.p17.a.revisit.l01",
+                "sq_life_20.p17.a.revisit.l02",
+                "sq_life_20.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "成年诺依",
+            "text": "我还记得第一封写得歪歪的信。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先画海，改天再继续写字",
+          "original_choice_flags": {
+            "side.sq_life_20.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_20.p17.b.followup",
+              "kind": "followup",
+              "title": "海的颜色",
+              "player_action": "让儿童诺依先画画而不逼其写信",
+              "after_original_stage": "sq_life_20.finish",
+              "required_flags": {
+                "side.sq_life_20.done": true,
+                "side.sq_life_20.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_20.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_20.p17.b.followup.l01",
+                "sq_life_20.p17.b.followup.l02",
+                "sq_life_20.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_20.p17.b.community",
+              "kind": "community",
+              "title": "第二张画纸",
+              "player_action": "邀请营地孩子画给思念的人",
+              "after_original_stage": "sq_life_20.finish",
+              "required_flags": {
+                "side.sq_life_20.done": true,
+                "side.sq_life_20.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_20.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_20.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_20.p17.b.community.l01",
+                "sq_life_20.p17.b.community.l02",
+                "sq_life_20.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_20.p17.b.revisit",
+              "kind": "revisit",
+              "title": "十二年后的海边",
+              "player_action": "十二年后由成年诺依自主决定是否补写",
+              "after_original_stage": "sq_life_20.finish",
+              "required_flags": {
+                "side.sq_life_20.done": true,
+                "side.sq_life_20.approach": "b",
+                "story.ch054.done": true
+              },
+              "previous_optional_stage": "sq_life_20.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_20.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_20.p17.b.revisit.l01",
+                "sq_life_20.p17.b.revisit.l02",
+                "sq_life_20.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "成年诺依",
+            "text": "以前那张海画还在，我今天终于写了一行字。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_21",
+      "title": "一杯没喝完的茶",
+      "region": "晨露村·旧屋",
+      "npc": "老邻居",
+      "required_chapter": "ch053",
+      "late_revisit_chapter": "ch063",
+      "source_file": "story/data/phase17_life_19_21.json",
+      "original_five_stages": [
+        "sq_life_21.start",
+        "sq_life_21.investigate",
+        "sq_life_21.witness",
+        "sq_life_21.decision",
+        "sq_life_21.finish"
+      ],
+      "original_completion_flag": "side.sq_life_21.done",
+      "original_rewards": {
+        "xp": 1130,
+        "gold": 459
+      },
+      "original_npc_after": {
+        "speaker": "老邻居",
+        "text": "对我而言，这些小事已经足够重要。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "保留杯子，登记澄舟的旧日修缮",
+          "original_choice_flags": {
+            "side.sq_life_21.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_21.p17.a.followup",
+              "kind": "followup",
+              "title": "旧茶杯与量身尺",
+              "player_action": "检视旧茶杯与屋梁修补的生活痕迹",
+              "after_original_stage": "sq_life_21.finish",
+              "required_flags": {
+                "side.sq_life_21.done": true,
+                "side.sq_life_21.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_21.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_21.p17.a.followup.l01",
+                "sq_life_21.p17.a.followup.l02",
+                "sq_life_21.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_21.p17.a.community",
+              "kind": "community",
+              "title": "村屋的木梁",
+              "player_action": "与修屋工匠核对澄舟留下的木工标记",
+              "after_original_stage": "sq_life_21.finish",
+              "required_flags": {
+                "side.sq_life_21.done": true,
+                "side.sq_life_21.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_21.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_21.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_21.p17.a.community.l01",
+                "sq_life_21.p17.a.community.l02",
+                "sq_life_21.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_21.p17.a.revisit",
+              "kind": "revisit",
+              "title": "后来量身尺旁",
+              "player_action": "参观恢复日常生活的晨露旧屋",
+              "after_original_stage": "sq_life_21.finish",
+              "required_flags": {
+                "side.sq_life_21.done": true,
+                "side.sq_life_21.approach": "a",
+                "story.ch063.done": true
+              },
+              "previous_optional_stage": "sq_life_21.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_21.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_21.p17.a.revisit.l01",
+                "sq_life_21.p17.a.revisit.l02",
+                "sq_life_21.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "主角",
+            "text": "我把茶杯放在这里，不是等他某天突然回来。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "让老邻居自由讲述并保存口述记录",
+          "original_choice_flags": {
+            "side.sq_life_21.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_21.p17.b.followup",
+              "kind": "followup",
+              "title": "老邻居慢慢说",
+              "player_action": "自愿听老邻居讲述细节不强求结局",
+              "after_original_stage": "sq_life_21.finish",
+              "required_flags": {
+                "side.sq_life_21.done": true,
+                "side.sq_life_21.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_21.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_21.p17.b.followup.l01",
+                "sq_life_21.p17.b.followup.l02",
+                "sq_life_21.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_21.p17.b.community",
+              "kind": "community",
+              "title": "不同人的记忆",
+              "player_action": "同时记录不同证人不一致的维修季节",
+              "after_original_stage": "sq_life_21.finish",
+              "required_flags": {
+                "side.sq_life_21.done": true,
+                "side.sq_life_21.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_21.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_21.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_21.p17.b.community.l01",
+                "sq_life_21.p17.b.community.l02",
+                "sq_life_21.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_21.p17.b.revisit",
+              "kind": "revisit",
+              "title": "旧屋的访客登记",
+              "player_action": "回访新增口述而不覆盖初次记忆",
+              "after_original_stage": "sq_life_21.finish",
+              "required_flags": {
+                "side.sq_life_21.done": true,
+                "side.sq_life_21.approach": "b",
+                "story.ch063.done": true
+              },
+              "previous_optional_stage": "sq_life_21.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_21.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_21.p17.b.revisit.l01",
+                "sq_life_21.p17.b.revisit.l02",
+                "sq_life_21.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "老邻居",
+            "text": "我后来想起另一件小事，今天自己来补记。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_22",
+      "title": "旧队伍的照片",
+      "region": "暮林古道·驿站",
+      "npc": "旅店老板",
+      "required_chapter": "ch052",
+      "late_revisit_chapter": "ch060",
+      "source_file": "story/data/phase17_life_22_24.json",
+      "original_five_stages": [
+        "sq_life_22.start",
+        "sq_life_22.investigate",
+        "sq_life_22.witness",
+        "sq_life_22.decision",
+        "sq_life_22.finish"
+      ],
+      "original_completion_flag": "side.sq_life_22.done",
+      "original_rewards": {
+        "xp": 1110,
+        "gold": 451
+      },
+      "original_npc_after": {
+        "speaker": "旅店老板",
+        "text": "下次我要坐在椅子上拍。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "把两张照片并排公开展出",
+          "original_choice_flags": {
+            "side.sq_life_22.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_22.p17.a.followup",
+              "kind": "followup",
+              "title": "两张队伍照片",
+              "player_action": "展示不美化的旧照与现状合照",
+              "after_original_stage": "sq_life_22.finish",
+              "required_flags": {
+                "side.sq_life_22.done": true,
+                "side.sq_life_22.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_22.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_22.p17.a.followup.l01",
+                "sq_life_22.p17.a.followup.l02",
+                "sq_life_22.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_22.p17.a.community",
+              "kind": "community",
+              "title": "驿站合影日",
+              "player_action": "安排旧成员和新成员自愿拍照",
+              "after_original_stage": "sq_life_22.finish",
+              "required_flags": {
+                "side.sq_life_22.done": true,
+                "side.sq_life_22.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_22.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_22.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_22.p17.a.community.l01",
+                "sq_life_22.p17.a.community.l02",
+                "sq_life_22.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_22.p17.a.revisit",
+              "kind": "revisit",
+              "title": "后来路过驿站",
+              "player_action": "在驿站查两代照片与未完成旅行图",
+              "after_original_stage": "sq_life_22.finish",
+              "required_flags": {
+                "side.sq_life_22.done": true,
+                "side.sq_life_22.approach": "a",
+                "story.ch060.done": true
+              },
+              "previous_optional_stage": "sq_life_22.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_22.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_22.p17.a.revisit.l01",
+                "sq_life_22.p17.a.revisit.l02",
+                "sq_life_22.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "成年诺依",
+            "text": "旧照片旁有人贴了新的旅行路线。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由伙伴各写一段旧照片的注释",
+          "original_choice_flags": {
+            "side.sq_life_22.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_22.p17.b.followup",
+              "kind": "followup",
+              "title": "每个人的注释",
+              "player_action": "请每位伙伴独立填写一段注释",
+              "after_original_stage": "sq_life_22.finish",
+              "required_flags": {
+                "side.sq_life_22.done": true,
+                "side.sq_life_22.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_22.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_22.p17.b.followup.l01",
+                "sq_life_22.p17.b.followup.l02",
+                "sq_life_22.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_22.p17.b.community",
+              "kind": "community",
+              "title": "照片背后的路线",
+              "player_action": "阅读相互矛盾但不改写的旅行计划",
+              "after_original_stage": "sq_life_22.finish",
+              "required_flags": {
+                "side.sq_life_22.done": true,
+                "side.sq_life_22.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_22.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_22.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_22.p17.b.community.l01",
+                "sq_life_22.p17.b.community.l02",
+                "sq_life_22.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_22.p17.b.revisit",
+              "kind": "revisit",
+              "title": "迟来的第三条注释",
+              "player_action": "接受照片背面新增署名的独立回忆",
+              "after_original_stage": "sq_life_22.finish",
+              "required_flags": {
+                "side.sq_life_22.done": true,
+                "side.sq_life_22.approach": "b",
+                "story.ch060.done": true
+              },
+              "previous_optional_stage": "sq_life_22.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_22.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_22.p17.b.revisit.l01",
+                "sq_life_22.p17.b.revisit.l02",
+                "sq_life_22.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "旅店老板",
+            "text": "有人来补写一句，旧注释还保留着。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_23",
+      "title": "晚归的人",
+      "region": "群灯城·建造区",
+      "npc": "工匠",
+      "required_chapter": "ch057",
+      "late_revisit_chapter": "ch062",
+      "source_file": "story/data/phase17_life_22_24.json",
+      "original_five_stages": [
+        "sq_life_23.start",
+        "sq_life_23.investigate",
+        "sq_life_23.witness",
+        "sq_life_23.decision",
+        "sq_life_23.finish"
+      ],
+      "original_completion_flag": "side.sq_life_23.done",
+      "original_rewards": {
+        "xp": 1210,
+        "gold": 491
+      },
+      "original_npc_after": {
+        "speaker": "工匠",
+        "text": "城市需要房子，也需要住在房子里的人。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "先实行工匠轮班与休息安排",
+          "original_choice_flags": {
+            "side.sq_life_23.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_23.p17.a.followup",
+              "kind": "followup",
+              "title": "第一周轮班",
+              "player_action": "分配可休息且按安全规定交接的工班",
+              "after_original_stage": "sq_life_23.finish",
+              "required_flags": {
+                "side.sq_life_23.done": true,
+                "side.sq_life_23.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_23.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_23.p17.a.followup.l01",
+                "sq_life_23.p17.a.followup.l02",
+                "sq_life_23.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_23.p17.a.community",
+              "kind": "community",
+              "title": "回家的工地",
+              "player_action": "与工匠家属核对合理回家时段",
+              "after_original_stage": "sq_life_23.finish",
+              "required_flags": {
+                "side.sq_life_23.done": true,
+                "side.sq_life_23.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_23.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_23.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_23.p17.a.community.l01",
+                "sq_life_23.p17.a.community.l02",
+                "sq_life_23.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_23.p17.a.revisit",
+              "kind": "revisit",
+              "title": "工地旁的晚餐",
+              "player_action": "查看新工地不因赶工强迫免费加班",
+              "after_original_stage": "sq_life_23.finish",
+              "required_flags": {
+                "side.sq_life_23.done": true,
+                "side.sq_life_23.approach": "a",
+                "story.ch062.done": true
+              },
+              "previous_optional_stage": "sq_life_23.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_23.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_23.p17.a.revisit.l01",
+                "sq_life_23.p17.a.revisit.l02",
+                "sq_life_23.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "工匠",
+            "text": "屋子还没全修完，可我今天能陪孩子吃饭。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "由居民确认优先修缮区域和工期",
+          "original_choice_flags": {
+            "side.sq_life_23.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_23.p17.b.followup",
+              "kind": "followup",
+              "title": "社区工期听证",
+              "player_action": "组织居民协商医院坡道与学校修缮次序",
+              "after_original_stage": "sq_life_23.finish",
+              "required_flags": {
+                "side.sq_life_23.done": true,
+                "side.sq_life_23.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_23.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_23.p17.b.followup.l01",
+                "sq_life_23.p17.b.followup.l02",
+                "sq_life_23.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_23.p17.b.community",
+              "kind": "community",
+              "title": "优先修缮投票",
+              "player_action": "核对新工程计划与周边安全绕行线",
+              "after_original_stage": "sq_life_23.finish",
+              "required_flags": {
+                "side.sq_life_23.done": true,
+                "side.sq_life_23.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_23.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_23.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_23.p17.b.community.l01",
+                "sq_life_23.p17.b.community.l02",
+                "sq_life_23.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_23.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新的维修清单",
+              "player_action": "回访公共维修看板的下一次提案入口",
+              "after_original_stage": "sq_life_23.finish",
+              "required_flags": {
+                "side.sq_life_23.done": true,
+                "side.sq_life_23.approach": "b",
+                "story.ch062.done": true
+              },
+              "previous_optional_stage": "sq_life_23.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_23.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_23.p17.b.revisit.l01",
+                "sq_life_23.p17.b.revisit.l02",
+                "sq_life_23.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "居民",
+            "text": "学校和坡道修好了，剩下的工程仍能继续排。"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    },
+    {
+      "id": "sq_life_24",
+      "title": "自由广场的小食摊",
+      "region": "群灯之城·广场",
+      "npc": "摊主",
+      "required_chapter": "ch059",
+      "late_revisit_chapter": "ch067",
+      "source_file": "story/data/phase17_life_22_24.json",
+      "original_five_stages": [
+        "sq_life_24.start",
+        "sq_life_24.investigate",
+        "sq_life_24.witness",
+        "sq_life_24.decision",
+        "sq_life_24.finish"
+      ],
+      "original_completion_flag": "side.sq_life_24.done",
+      "original_rewards": {
+        "xp": 1250,
+        "gold": 507
+      },
+      "original_npc_after": {
+        "speaker": "摊主",
+        "text": "这一页菜单比争谁第一有意思。"
+      },
+      "branches": {
+        "a": {
+          "choice_option_id": "a",
+          "original_choice_label": "举办开放的三国食谱节",
+          "original_choice_flags": {
+            "side.sq_life_24.approach": "a"
+          },
+          "stages": [
+            {
+              "id": "sq_life_24.p17.a.followup",
+              "kind": "followup",
+              "title": "三国小食试吃",
+              "player_action": "尝试三国独立调味的开放食谱节",
+              "after_original_stage": "sq_life_24.finish",
+              "required_flags": {
+                "side.sq_life_24.done": true,
+                "side.sq_life_24.approach": "a"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_24.p17.a.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_24.p17.a.followup.l01",
+                "sq_life_24.p17.a.followup.l02",
+                "sq_life_24.p17.a.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_24.p17.a.community",
+              "kind": "community",
+              "title": "夜市共用炉灶",
+              "player_action": "测试分区烹制与过敏食品标识",
+              "after_original_stage": "sq_life_24.finish",
+              "required_flags": {
+                "side.sq_life_24.done": true,
+                "side.sq_life_24.approach": "a"
+              },
+              "previous_optional_stage": "sq_life_24.p17.a.followup",
+              "proposed_seen_flag": "side.sq_life_24.p17.a.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_24.p17.a.community.l01",
+                "sq_life_24.p17.a.community.l02",
+                "sq_life_24.p17.a.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_24.p17.a.revisit",
+              "kind": "revisit",
+              "title": "来年的新菜单",
+              "player_action": "查看下一年仍保留各家味道的新菜单",
+              "after_original_stage": "sq_life_24.finish",
+              "required_flags": {
+                "side.sq_life_24.done": true,
+                "side.sq_life_24.approach": "a",
+                "story.ch067.done": true
+              },
+              "previous_optional_stage": "sq_life_24.p17.a.community",
+              "proposed_seen_flag": "side.sq_life_24.p17.a.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_24.p17.a.revisit.l01",
+                "sq_life_24.p17.a.revisit.l02",
+                "sq_life_24.p17.a.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "摊主",
+            "text": "菜单多了三国混合汤，也没删旧家乡味。"
+          }
+        },
+        "b": {
+          "choice_option_id": "b",
+          "original_choice_label": "先保存各家独立做法与来源",
+          "original_choice_flags": {
+            "side.sq_life_24.approach": "b"
+          },
+          "stages": [
+            {
+              "id": "sq_life_24.p17.b.followup",
+              "kind": "followup",
+              "title": "家乡做法记录",
+              "player_action": "与厨师分别记录各自同意公开的做法",
+              "after_original_stage": "sq_life_24.finish",
+              "required_flags": {
+                "side.sq_life_24.done": true,
+                "side.sq_life_24.approach": "b"
+              },
+              "previous_optional_stage": null,
+              "proposed_seen_flag": "side.sq_life_24.p17.b.followup.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_24.p17.b.followup.l01",
+                "sq_life_24.p17.b.followup.l02",
+                "sq_life_24.p17.b.followup.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_24.p17.b.community",
+              "kind": "community",
+              "title": "独立小摊协作",
+              "player_action": "布置分开调味但可共享清洁水的小摊",
+              "after_original_stage": "sq_life_24.finish",
+              "required_flags": {
+                "side.sq_life_24.done": true,
+                "side.sq_life_24.approach": "b"
+              },
+              "previous_optional_stage": "sq_life_24.p17.b.followup",
+              "proposed_seen_flag": "side.sq_life_24.p17.b.community.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_24.p17.b.community.l01",
+                "sq_life_24.p17.b.community.l02",
+                "sq_life_24.p17.b.community.l03"
+              ],
+              "runtime_registered": false
+            },
+            {
+              "id": "sq_life_24.p17.b.revisit",
+              "kind": "revisit",
+              "title": "新居民的小摊位",
+              "player_action": "回访面向新居民开放的安全经营规则",
+              "after_original_stage": "sq_life_24.finish",
+              "required_flags": {
+                "side.sq_life_24.done": true,
+                "side.sq_life_24.approach": "b",
+                "story.ch067.done": true
+              },
+              "previous_optional_stage": "sq_life_24.p17.b.community",
+              "proposed_seen_flag": "side.sq_life_24.p17.b.revisit.seen",
+              "once_only": true,
+              "can_delay": true,
+              "required_for_original_quest": false,
+              "repeat_original_reward": false,
+              "source_dialogue_ids": [
+                "sq_life_24.p17.b.revisit.l01",
+                "sq_life_24.p17.b.revisit.l02",
+                "sq_life_24.p17.b.revisit.l03"
+              ],
+              "runtime_registered": false
+            }
+          ],
+          "long_term_revisit": {
+            "speaker": "新来的厨师",
+            "text": "我能带来自己的菜，不必先通过谁的正宗考试吧？"
+          }
+        }
+      },
+      "legacy_policy": "retain original done and reward; if approach is absent let player opt-in to a followup, never auto-decide or grant rewards again",
+      "skip_policy": "does not block original completion or mainline",
+      "map_targets": "not_registered"
+    }
+  ]
+}

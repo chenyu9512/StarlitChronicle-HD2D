@@ -1,0 +1,179 @@
+extends RefCounted
+## Version 3 authored gameplay layers. Each level has a separate editable record.
+## Draw order: geology -> waterways -> routes -> clearings -> editor overrides.
+const SOURCE: String = "res://data/levels/world_levels_v3.json"
+const WIDTH: int = 72
+const HEIGHT: int = 48
+var active_width: int = WIDTH
+var active_height: int = HEIGHT
+
+func _use_size(info: Dictionary) -> void:
+    var d: Array = info.get("size",[WIDTH,HEIGHT])
+    active_width = int(d[0]) if d.size()==2 else WIDTH
+    active_height = int(d[1]) if d.size()==2 else HEIGHT
+var levels: Dictionary = {}
+var problems: Array[String] = []
+
+func _init() -> void:
+    var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SOURCE))
+    if not parsed is Dictionary or str(parsed.get("schema","")) != "starlit.world_level_collection.v3":
+        problems.append("V3 map dataset is absent or invalid")
+        return
+    levels = parsed.get("levels",{})
+    # Artists edit map_id.json independently; collection is a read-only fallback
+    # for old repository snapshots that predate physical V3 sidecar files.
+    for map_key in levels.keys():
+        var file_path: String = "res://data/levels/v3/%s.json" % str(map_key)
+        if FileAccess.file_exists(file_path):
+            var per_map: Variant = JSON.parse_string(FileAccess.get_file_as_string(file_path))
+            if per_map is Dictionary and str(per_map.get("map_id","")) == str(map_key):
+                levels[map_key] = per_map
+            else:
+                problems.append("Invalid independent V3 map file: "+str(map_key))
+    if levels.size() != 40:
+        problems.append("Expected 40 individually editable production map definitions")
+    for id in levels.keys():
+        var entry: Dictionary = levels[id]
+        var dimensions: Array = entry.get("size",[])
+        if str(entry.get("map_id","")) != str(id) or dimensions.size()!=2 or int(dimensions[0])<WIDTH or int(dimensions[0])>112 or int(dimensions[1])<HEIGHT or int(dimensions[1])>78:
+            problems.append("Broken V3 level identity or dimensions: "+str(id))
+        if not entry.get("roads",[]) is Array or entry.get("roads",[]).is_empty():
+            problems.append("No authored primary roads: "+str(id))
+
+func level(id: String) -> Dictionary:
+    return levels.get(id,{})
+
+func _valid(p: Vector2i) -> bool:
+    return p.x >= 2 and p.y >= 2 and p.x < active_width-2 and p.y < active_height-2
+
+func _point(value: Variant) -> Vector2i:
+    if value is Array and value.size() >= 2:
+        return Vector2i(int(value[0]),int(value[1]))
+    return Vector2i(-10,-10)
+
+func _stamp(ground: Dictionary,walls: Dictionary,center: Vector2i,width: int,row: int,solid: bool) -> void:
+    for yy in range(-width,width+1):
+        for xx in range(-width,width+1):
+            var p: Vector2i = center+Vector2i(xx,yy)
+            if _valid(p) and abs(xx)+abs(yy) <= maxi(1,width*2):
+                ground[p]=Vector2i(posmod(p.x+p.y,8),row)
+                if solid:
+                    walls[p]=true
+                else:
+                    walls.erase(p)
+
+func _draw_polyline(ground: Dictionary,walls: Dictionary,points: Array,thickness: int,row: int,solid: bool) -> void:
+    if points.size()<2:
+        return
+    for i in range(points.size()-1):
+        var a: Vector2i = _point(points[i])
+        var b: Vector2i = _point(points[i+1])
+        var span: int = maxi(absi(a.x-b.x),absi(a.y-b.y))
+        if span <= 0:
+            _stamp(ground,walls,a,thickness,row,solid)
+            continue
+        for j in range(span+1):
+            var t: float = float(j)/float(span)
+            var p: Vector2i = Vector2i(roundi(lerpf(float(a.x),float(b.x),t)),roundi(lerpf(float(a.y),float(b.y),t)))
+            _stamp(ground,walls,p,thickness,row,solid)
+
+func apply_authored_barriers(level_info: Dictionary,ground: Dictionary,walls: Dictionary) -> void:
+    _use_size(level_info)
+    # The same authored water/obstacles affect collision and rendering in every
+    # sector type. Doors, quest-critical corridors and bridges are reviewed by
+    # reachability tests; collision_overrides explicitly define author bridges.
+    for kind in ["obstacles","waterways"]:
+        for record in level_info.get(kind,[]):
+            var thickness: int = clampi(int(record.get("width",1)),1,6)
+            _draw_polyline(ground,walls,record.get("points",[]),thickness,clampi(int(record.get("tile_row",6)),0,7),true)
+
+func apply(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary]) -> Array[Vector2i]:
+    _use_size(level_info)
+    var roadway: Array[Vector2i] = []
+    if level_info.is_empty():
+        return roadway
+    apply_authored_barriers(level_info,ground,walls)
+    for road in level_info.get("roads",[]):
+        var points: Array = road.get("points",[])
+        var thickness: int = clampi(int(road.get("width",1)),0,5)
+        _draw_polyline(ground,walls,points,thickness,3,false)
+        for item in points:
+            var where: Vector2i = _point(item)
+            if _valid(where):
+                roadway.append(where)
+    for clearing in level_info.get("clearings",[]):
+        var center: Vector2i = _point(clearing.get("center",[]))
+        if _valid(center):
+            _stamp(ground,walls,center,clampi(int(clearing.get("radius",2)),1,6),1,false)
+    apply_editor_patches(level_info,ground,walls)
+    for point in level_info.get("landmarks",[]):
+        var cell: Vector2i = _point(point.get("cell",[]))
+        if _valid(cell) and not walls.has(cell):
+            features.append({"kind":str(point.get("kind","rock")),"cell":cell,"name":str(point.get("id","landmark"))})
+    return roadway
+
+func nearest_road(point: Vector2i,roadway: Array[Vector2i]) -> Vector2i:
+    if roadway.is_empty():
+        return Vector2i(10,23)
+    var closest: Vector2i = roadway[0]
+    var best: int = 999999
+    for candidate in roadway:
+        var dist: int = absi(candidate.x-point.x)+absi(candidate.y-point.y)
+        if dist < best:
+            closest=candidate
+            best=dist
+    return closest
+
+func apply_editor_patches(level_info: Dictionary,ground: Dictionary,walls: Dictionary) -> void:
+    _use_size(level_info)
+    for override in level_info.get("paint_overrides",[]):
+        var cell: Vector2i = _point(override.get("cell",[]))
+        if not _valid(cell):
+            continue
+        _stamp(ground,walls,cell,0,clampi(int(override.get("row",1)),0,7),bool(override.get("blocked",false)))
+    for override in level_info.get("collision_overrides",[]):
+        var cell: Vector2i = _point(override.get("cell",[]))
+        if not _valid(cell):
+            continue
+        if bool(override.get("blocked",true)):
+            walls[cell]=true
+        else:
+            walls.erase(cell)
+
+func apply_safe_paths(level_info: Dictionary,ground: Dictionary,walls: Dictionary,features: Array[Dictionary],dungeon: bool) -> void:
+    _use_size(level_info)
+    # Towns and dungeon chambers already have authored structure. Paint ONLY
+    # existing walkable corridors so road/surface art cannot erase buildings,
+    # boss-room walls, locked gates or the original quest design.
+    var desired_row: int = 5 if dungeon else 3
+    for road in level_info.get("roads",[]):
+        var scratch: Dictionary = {}
+        var scratch_walls: Dictionary = {}
+        _draw_polyline(scratch,scratch_walls,road.get("points",[]),clampi(int(road.get("width",1)),0,4),desired_row,false)
+        for cell in scratch.keys():
+            if ground.has(cell) and not walls.has(cell):
+                ground[cell] = scratch[cell]
+    # V3 previously omitted these two layers for towns and dungeons, so
+    # waterways and authored cliffs were invisible to their physical layouts.
+    # Paint only the existing road surface above, never silently punch holes
+    # through authored dungeon walls with decorative road polylines.
+    apply_authored_barriers(level_info,ground,walls)
+    apply_editor_patches(level_info,ground,walls)
+    for point in level_info.get("landmarks",[]):
+        var cell: Vector2i = _point(point.get("cell",[]))
+        if _valid(cell) and not walls.has(cell):
+            features.append({"kind":str(point.get("kind","rock")),"cell":cell,"name":str(point.get("id","landmark"))})
+
+func open_water_tiles(level_info: Dictionary, final_walls: Dictionary) -> Dictionary:
+    _use_size(level_info)
+    # Water is visually blue only while the cell still represents impassable water.
+    # Bridges and authored paths clear collision and therefore take priority.
+    var wet: Dictionary = {}
+    for channel in level_info.get("waterways",[]):
+        var temp_ground: Dictionary = {}
+        var temp_collision: Dictionary = {}
+        _draw_polyline(temp_ground,temp_collision,channel.get("points",[]),clampi(int(channel.get("width",2)),1,6),6,true)
+        for tile in temp_collision.keys():
+            if final_walls.has(tile):
+                wet[tile]=true
+    return wet

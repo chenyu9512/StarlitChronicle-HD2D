@@ -1,0 +1,2202 @@
+{
+  "schema": "starlit.b_source_coverage.20261026.v1",
+  "audited_main_sha": "69f0cdd26ed769669ccae11558b18f8510585ac2",
+  "scope": "STATIC_ONLY; requires Godot player-path and save QA",
+  "total": {
+    "maps": 40,
+    "atlases": 42,
+    "npcs": 40,
+    "chapters": 72,
+    "side_quests": 120,
+    "boss_designs": 66,
+    "entrance_definitions": 66,
+    "v4_room_files": 97
+  },
+  "proven_bugs_to_fix": [
+    "main world resident spawning selects all region residents instead of current map, D ownership",
+    "D must use world interaction bridge for physical interior furniture",
+    "guild_action in formal world controller must atomically persist rewards",
+    "real Godot player walkthroughs not performed"
+  ],
+  "static_mismatches": [],
+  "maps": [
+    {
+      "map_id": "map_coast_01",
+      "name": "晨露村（正式版规划）",
+      "region_id": "region_coast",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_coast_01.json",
+      "authored_size": [
+        96,
+        56
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_coast_01",
+        "npc_coast_02",
+        "npc_coast_03",
+        "npc_coast_04",
+        "npc_coast_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            19,
+            13
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            45,
+            13
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            35,
+            29
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            53,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            15,
+            36
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            60,
+            19
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        1,
+        6
+      ],
+      "side_quest_ids": [
+        "cq_lanyin_03",
+        "cq_lanyin_05",
+        "sq_life_01",
+        "sq_life_02",
+        "sq_life_21"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch006"
+      ],
+      "v4_interior_file_count": 11,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_coast_02",
+      "name": "白砂港",
+      "region_id": "region_coast",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_coast_02.json",
+      "authored_size": [
+        92,
+        52
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            21,
+            13
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            43,
+            17
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            31,
+            31
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            57,
+            36
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            13,
+            34
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            60,
+            13
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        2
+      ],
+      "side_quest_ids": [
+        "cq_lanyin_01",
+        "cq_shouxian_01",
+        "cq_shouxian_02",
+        "rq_001",
+        "sq_life_03",
+        "sq_page_01"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch002"
+      ],
+      "v4_interior_file_count": 12,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_coast_03",
+      "name": "盐风古道",
+      "region_id": "region_coast",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_coast_03.json",
+      "authored_size": [
+        94,
+        54
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        3
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch003"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_coast_04",
+      "name": "潮声洞窟",
+      "region_id": "region_coast",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_coast_04.json",
+      "authored_size": [
+        100,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        4
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch004"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_coast_05",
+      "name": "潮歌灯塔",
+      "region_id": "region_coast",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_coast_05.json",
+      "authored_size": [
+        98,
+        52
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        5
+      ],
+      "side_quest_ids": [
+        "rq_002",
+        "rq_003"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch005"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oaths_01",
+      "name": "三誓门城",
+      "region_id": "region_oaths",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_oaths_01.json",
+      "authored_size": [
+        96,
+        62
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_oaths_01",
+        "npc_oaths_02",
+        "npc_oaths_03",
+        "npc_oaths_04",
+        "npc_oaths_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            16,
+            16
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            45,
+            16
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            27,
+            32
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            56,
+            35
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            13,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            60,
+            14
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        7,
+        12,
+        19,
+        24,
+        43,
+        48
+      ],
+      "side_quest_ids": [
+        "cq_leiso_01",
+        "cq_leiso_02",
+        "cq_leiso_04",
+        "rq_004",
+        "rq_006",
+        "rq_011",
+        "rq_023",
+        "rq_024",
+        "sq_life_04",
+        "sq_life_05",
+        "sq_life_06",
+        "sq_life_11",
+        "sq_life_12"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch012",
+        "boss.ch019",
+        "boss.ch024",
+        "boss.ch043",
+        "boss.ch048"
+      ],
+      "v4_interior_file_count": 13,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oaths_02",
+      "name": "断誓山径",
+      "region_id": "region_oaths",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_oaths_02.json",
+      "authored_size": [
+        92,
+        64
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        8,
+        20,
+        44
+      ],
+      "side_quest_ids": [
+        "rq_005",
+        "rq_010",
+        "sq_life_10",
+        "sq_page_02"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch008",
+        "boss.ch020",
+        "boss.ch044"
+      ],
+      "v4_interior_file_count": 1,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oaths_03",
+      "name": "银鹫要塞",
+      "region_id": "region_oaths",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_oaths_03.json",
+      "authored_size": [
+        96,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        9,
+        21,
+        45
+      ],
+      "side_quest_ids": [
+        "sq_page_04"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch009",
+        "boss.ch045"
+      ],
+      "v4_interior_file_count": 1,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oaths_04",
+      "name": "誓石神殿",
+      "region_id": "region_oaths",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_oaths_04.json",
+      "authored_size": [
+        100,
+        66
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        10,
+        22,
+        46
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch010",
+        "boss.ch022",
+        "boss.ch046"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oaths_05",
+      "name": "旧王谒见厅",
+      "region_id": "region_oaths",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_oaths_05.json",
+      "authored_size": [
+        98,
+        64
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        11,
+        23,
+        47
+      ],
+      "side_quest_ids": [
+        "cq_leiso_03",
+        "rq_012"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch011",
+        "boss.ch023",
+        "boss.ch047"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_forge_01",
+      "name": "熔炉港",
+      "region_id": "region_forge",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_forge_01.json",
+      "authored_size": [
+        86,
+        58
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_forge_01",
+        "npc_forge_02",
+        "npc_forge_03",
+        "npc_forge_04",
+        "npc_forge_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            18,
+            13
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            46,
+            14
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            32,
+            32
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            56,
+            36
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            14,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            61,
+            15
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        13,
+        18
+      ],
+      "side_quest_ids": [
+        "cq_lanyin_02",
+        "rq_007",
+        "rq_008",
+        "sq_life_07",
+        "sq_life_09"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch013",
+        "boss.ch018"
+      ],
+      "v4_interior_file_count": 5,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_forge_02",
+      "name": "烟塔工坊",
+      "region_id": "region_forge",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_forge_02.json",
+      "authored_size": [
+        82,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        14
+      ],
+      "side_quest_ids": [
+        "cq_tifa_01",
+        "cq_tifa_03",
+        "sq_life_08"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch014"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_forge_03",
+      "name": "赤砂矿坑",
+      "region_id": "region_forge",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_forge_03.json",
+      "authored_size": [
+        84,
+        56
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        15
+      ],
+      "side_quest_ids": [
+        "sq_page_03"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch015"
+      ],
+      "v4_interior_file_count": 1,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_forge_04",
+      "name": "灰烬铁路",
+      "region_id": "region_forge",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_forge_04.json",
+      "authored_size": [
+        90,
+        62
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        16
+      ],
+      "side_quest_ids": [
+        "rq_009"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch016"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_forge_05",
+      "name": "炉心禁区",
+      "region_id": "region_forge",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_forge_05.json",
+      "authored_size": [
+        88,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        17
+      ],
+      "side_quest_ids": [
+        "cq_tifa_02"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch017"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_isles_01",
+      "name": "珊歌港",
+      "region_id": "region_isles",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_isles_01.json",
+      "authored_size": [
+        98,
+        56
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_isles_01",
+        "npc_isles_02",
+        "npc_isles_03",
+        "npc_isles_04",
+        "npc_isles_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            23,
+            13
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            50,
+            15
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            35,
+            32
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            56,
+            33
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            15,
+            30
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            61,
+            20
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        25,
+        30
+      ],
+      "side_quest_ids": [
+        "cq_ize_02",
+        "cq_shouxian_04",
+        "rq_013",
+        "rq_015",
+        "rq_019",
+        "sq_life_13",
+        "sq_life_14"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch030"
+      ],
+      "v4_interior_file_count": 7,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_isles_02",
+      "name": "五色环礁",
+      "region_id": "region_isles",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_isles_02.json",
+      "authored_size": [
+        92,
+        58
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        26
+      ],
+      "side_quest_ids": [
+        "cq_shouxian_03",
+        "rq_014",
+        "sq_life_15",
+        "sq_page_05",
+        "sq_page_06"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch026"
+      ],
+      "v4_interior_file_count": 2,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_isles_03",
+      "name": "风暴航道",
+      "region_id": "region_isles",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_isles_03.json",
+      "authored_size": [
+        94,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        27
+      ],
+      "side_quest_ids": [
+        "cq_ize_01"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch027"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_isles_04",
+      "name": "深潮神庙",
+      "region_id": "region_isles",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_isles_04.json",
+      "authored_size": [
+        102,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        28
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch028"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_isles_05",
+      "name": "沉没王座",
+      "region_id": "region_isles",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_isles_05.json",
+      "authored_size": [
+        98,
+        58
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        29
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch029"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_mirror_01",
+      "name": "镜湖都",
+      "region_id": "region_mirror",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_mirror_01.json",
+      "authored_size": [
+        86,
+        64
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_mirror_01",
+        "npc_mirror_02",
+        "npc_mirror_03",
+        "npc_mirror_04",
+        "npc_mirror_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            17,
+            13
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            42,
+            14
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            29,
+            36
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            53,
+            35
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            17,
+            35
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            61,
+            15
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        31,
+        36
+      ],
+      "side_quest_ids": [
+        "cq_lanyin_04",
+        "cq_xuanli_01",
+        "rq_016",
+        "rq_017",
+        "sq_life_16",
+        "sq_life_17"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch031",
+        "boss.ch036"
+      ],
+      "v4_interior_file_count": 6,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_mirror_02",
+      "name": "夜镜森林",
+      "region_id": "region_mirror",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_mirror_02.json",
+      "authored_size": [
+        84,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        32
+      ],
+      "side_quest_ids": [
+        "rq_018"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch032"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_mirror_03",
+      "name": "忘梦庭院",
+      "region_id": "region_mirror",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_mirror_03.json",
+      "authored_size": [
+        84,
+        62
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        33
+      ],
+      "side_quest_ids": [
+        "cq_xuanli_02",
+        "sq_life_18",
+        "sq_page_07"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch033"
+      ],
+      "v4_interior_file_count": 1,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_mirror_04",
+      "name": "银玻璃塔",
+      "region_id": "region_mirror",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_mirror_04.json",
+      "authored_size": [
+        90,
+        68
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        34
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch034"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_mirror_05",
+      "name": "映世回廊",
+      "region_id": "region_mirror",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_mirror_05.json",
+      "authored_size": [
+        90,
+        60
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        35
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch035"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oldland_01",
+      "name": "遗民营地",
+      "region_id": "region_oldland",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_oldland_01.json",
+      "authored_size": [
+        88,
+        64
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_oldland_01",
+        "npc_oldland_02",
+        "npc_oldland_03",
+        "npc_oldland_04",
+        "npc_oldland_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            20,
+            14
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            49,
+            13
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            33,
+            34
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            56,
+            34
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            13,
+            31
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            60,
+            21
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        37,
+        42,
+        49,
+        54
+      ],
+      "side_quest_ids": [
+        "cq_leiso_05",
+        "cq_nuoyi_01",
+        "cq_nuoyi_02",
+        "cq_nuoyi_04",
+        "cq_shouxian_05",
+        "cq_xuanli_04",
+        "rq_025",
+        "rq_027",
+        "sq_life_19",
+        "sq_life_20",
+        "sq_page_08",
+        "sq_page_10"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch037",
+        "boss.ch042",
+        "boss.ch049",
+        "boss.ch054"
+      ],
+      "v4_interior_file_count": 12,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oldland_02",
+      "name": "荒星平原",
+      "region_id": "region_oldland",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_oldland_02.json",
+      "authored_size": [
+        82,
+        66
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        38,
+        50
+      ],
+      "side_quest_ids": [
+        "cq_nuoyi_03",
+        "cq_tifa_04",
+        "cq_xuanli_03",
+        "rq_021"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch038",
+        "boss.ch050"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oldland_03",
+      "name": "时裂峡谷",
+      "region_id": "region_oldland",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_oldland_03.json",
+      "authored_size": [
+        84,
+        68
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        39,
+        51
+      ],
+      "side_quest_ids": [
+        "cq_ize_05",
+        "rq_020",
+        "rq_026",
+        "sq_life_22",
+        "sq_page_09"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch039",
+        "boss.ch051"
+      ],
+      "v4_interior_file_count": 1,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oldland_04",
+      "name": "星墓秘殿",
+      "region_id": "region_oldland",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_oldland_04.json",
+      "authored_size": [
+        92,
+        68
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        40,
+        52
+      ],
+      "side_quest_ids": [
+        "cq_ize_03"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch040",
+        "boss.ch052"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_oldland_05",
+      "name": "旧日灯枢",
+      "region_id": "region_oldland",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_oldland_05.json",
+      "authored_size": [
+        88,
+        66
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        41,
+        53
+      ],
+      "side_quest_ids": [
+        "cq_ize_04",
+        "rq_022"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch041",
+        "boss.ch053"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_sanctum_01",
+      "name": "天轨前庭",
+      "region_id": "region_sanctum",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_sanctum_01.json",
+      "authored_size": [
+        96,
+        68
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_sanctum_01",
+        "npc_sanctum_02",
+        "npc_sanctum_03",
+        "npc_sanctum_04",
+        "npc_sanctum_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            20,
+            14
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            48,
+            13
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            34,
+            33
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            56,
+            34
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            13,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            61,
+            19
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        61,
+        66,
+        67,
+        72
+      ],
+      "side_quest_ids": [
+        "cq_nuoyi_06",
+        "cq_weisha_04",
+        "cq_weisha_05",
+        "cq_weisha_06",
+        "cq_xuanli_05",
+        "cq_xuanli_06",
+        "rq_031",
+        "rq_036",
+        "sq_page_12"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch061",
+        "boss.ch066",
+        "boss.ch067"
+      ],
+      "v4_interior_file_count": 9,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_sanctum_02",
+      "name": "七灯环庭",
+      "region_id": "region_sanctum",
+      "kind": "field",
+      "source_path": "res://data/levels/v3/map_sanctum_02.json",
+      "authored_size": [
+        94,
+        64
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        62,
+        68
+      ],
+      "side_quest_ids": [
+        "rq_032"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch062",
+        "boss.ch068"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_sanctum_03",
+      "name": "反转星穹",
+      "region_id": "region_sanctum",
+      "kind": "route",
+      "source_path": "res://data/levels/v3/map_sanctum_03.json",
+      "authored_size": [
+        94,
+        66
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        63,
+        69
+      ],
+      "side_quest_ids": [
+        "rq_033"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch063",
+        "boss.ch069"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_sanctum_04",
+      "name": "岁影尽头",
+      "region_id": "region_sanctum",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_sanctum_04.json",
+      "authored_size": [
+        100,
+        72
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        64,
+        70
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch064",
+        "boss.ch070"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_sanctum_05",
+      "name": "永昼祭坛",
+      "region_id": "region_sanctum",
+      "kind": "landmark",
+      "source_path": "res://data/levels/v3/map_sanctum_05.json",
+      "authored_size": [
+        100,
+        64
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        65,
+        71
+      ],
+      "side_quest_ids": [
+        "cq_ize_06",
+        "rq_034",
+        "rq_035"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch065",
+        "boss.ch071"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_city_01",
+      "name": "群灯旧会馆",
+      "region_id": "region_city",
+      "kind": "town",
+      "source_path": "res://data/levels/v3/map_city_01.json",
+      "authored_size": [
+        86,
+        52
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [
+        "npc_city_01",
+        "npc_city_02",
+        "npc_city_03",
+        "npc_city_04",
+        "npc_city_05"
+      ],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            19,
+            15
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            48,
+            15
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            33,
+            33
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            56,
+            36
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            14,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            61,
+            14
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        55,
+        60
+      ],
+      "side_quest_ids": [
+        "cq_shouxian_06",
+        "cq_tifa_05",
+        "rq_028",
+        "rq_029",
+        "sq_life_24"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch055",
+        "boss.ch060"
+      ],
+      "v4_interior_file_count": 5,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_city_02",
+      "name": "自由议事厅",
+      "region_id": "region_city",
+      "kind": "hall",
+      "source_path": "res://data/levels/v3/map_city_02.json",
+      "authored_size": [
+        88,
+        54
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            18,
+            14
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            50,
+            14
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            35,
+            33
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            57,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            13,
+            35
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            62,
+            18
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        56
+      ],
+      "side_quest_ids": [
+        "cq_leiso_06",
+        "cq_tifa_06",
+        "cq_weisha_01",
+        "cq_weisha_03"
+      ],
+      "story_boss_design_ids": [
+        "boss.ch056"
+      ],
+      "v4_interior_file_count": 4,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_city_03",
+      "name": "群灯居民街",
+      "region_id": "region_city",
+      "kind": "residential",
+      "source_path": "res://data/levels/v3/map_city_03.json",
+      "authored_size": [
+        90,
+        56
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [
+        {
+          "id": "inn",
+          "door": [
+            20,
+            15
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shop",
+          "door": [
+            47,
+            15
+          ],
+          "footprint": [
+            9,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "guild",
+          "door": [
+            31,
+            34
+          ],
+          "footprint": [
+            10,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "smith",
+          "door": [
+            55,
+            37
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "house",
+          "door": [
+            14,
+            38
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        },
+        {
+          "id": "shrine",
+          "door": [
+            61,
+            20
+          ],
+          "footprint": [
+            8,
+            6
+          ],
+          "live_door_tested": false
+        }
+      ],
+      "chapter_numbers": [
+        57
+      ],
+      "side_quest_ids": [
+        "cq_lanyin_06",
+        "cq_nuoyi_05",
+        "cq_weisha_02",
+        "rq_030",
+        "sq_life_23",
+        "sq_page_11"
+      ],
+      "story_boss_design_ids": [],
+      "v4_interior_file_count": 6,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_city_04",
+      "name": "星灯中枢",
+      "region_id": "region_city",
+      "kind": "dungeon",
+      "source_path": "res://data/levels/v3/map_city_04.json",
+      "authored_size": [
+        92,
+        56
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        58
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch058"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    },
+    {
+      "map_id": "map_city_05",
+      "name": "西区修复工地",
+      "region_id": "region_city",
+      "kind": "worksite",
+      "source_path": "res://data/levels/v3/map_city_05.json",
+      "authored_size": [
+        90,
+        54
+      ],
+      "map_art_status": "not_final_painted",
+      "npc_ids": [],
+      "buildings": [],
+      "chapter_numbers": [
+        59
+      ],
+      "side_quest_ids": [],
+      "story_boss_design_ids": [
+        "boss.ch059"
+      ],
+      "v4_interior_file_count": 0,
+      "status": {
+        "source_linked": true,
+        "live_player_path_tested": false,
+        "save_restore_tested": false,
+        "final_art_accepted": false
+      }
+    }
+  ]
+}

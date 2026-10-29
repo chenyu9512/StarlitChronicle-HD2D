@@ -1,0 +1,256 @@
+{
+  "version": "2.4.0",
+  "note": "Seven endgame action sequences wired for V3 checkpoint gate, postreceipt logic independent; no Godot/CI/player tests performed.",
+  "chapter_mechanics_bindings": {
+    "ch003": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act01Mechanics.gd",
+      "boss_id": "boss.ch003",
+      "features": [
+        "saved_v7_three_valve_order",
+        "chest_lamp_rescue_window",
+        "cave_evidence_emblem_pacification"
+      ]
+    },
+    "ch005": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act01Mechanics.gd",
+      "boss_id": "boss.ch005",
+      "features": [
+        "fisherman_red_flag_warning",
+        "shuoxian_whistle_cue",
+        "nonlethal_star_chain_v3_settlement"
+      ]
+    },
+    "ch015": {
+      "status": "active",
+      "controller": "res://scripts/systems/HundredCraftsTrialSystem.gd",
+      "boss_id": "boss.ch015",
+      "features": [
+        "eight_job_safety_trials",
+        "party_class_change_unlock"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch017": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act03RedFurnaceController.gd",
+      "boss_id": "boss.ch017",
+      "features": [
+        "four_energy_valves",
+        "lanyin_180s_manual_oxygen",
+        "east_depot_backup_battery_decouple"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch021": {
+      "status": "active",
+      "controller": "res://scripts/systems/DirectionCutscenePlayer.gd",
+      "features": [
+        "pharmacy_to_present_campfire_before_choice"
+      ]
+    },
+    "ch023": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act04To07Mechanics.gd",
+      "boss_id": "boss.ch023",
+      "features": [
+        "clock_rotating_bookshelves",
+        "ink_name_erasure_counter_recitation"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch027": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act04To07Mechanics.gd",
+      "boss_id": "boss.ch027",
+      "features": [
+        "azure_trench_diving_bell",
+        "ize_temporary_guide_only"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch029": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act04To07Mechanics.gd",
+      "boss_id": "boss.ch029",
+      "features": [
+        "silent_wave_six_buoys_calibration"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch036": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act04To07Mechanics.gd",
+      "boss_id": "boss.ch036",
+      "features": [
+        "mirror_sleep_lamp_dynamic_shadow_unlock"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch040": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act04To07Mechanics.gd",
+      "boss_id": "boss.ch040",
+      "features": [
+        "chronicle_corridor_dual_testimony_archiving"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions"
+    },
+    "ch058": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "visha_human_override_record"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch059": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "rotational_charter_record"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch060": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "distributed_network_canon_gate"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch064": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "three_ring_alignment_state"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch066": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "seven_lanterns_canon_gate"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch071": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "hessian_three_phase_receipt_tracking"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch072": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CanonActionAdapter.gd",
+      "features": [
+        "ending_c_readonly_canon_gate"
+      ],
+      "note": "The sequence only authorizes canonical crisis; post-chapter/endgame flags and Boss receipts retain existing authorities.",
+      "outcome_controller": "res://scripts/mechanics/Act10To12EndgameMechanics.gd",
+      "integration_stage": "player_operated_pre_crisis_with_post_commit_canon_reconciliation",
+      "qa": "not_run"
+    },
+    "ch055": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "public_housing_rights",
+        "structural_rescue_clearance",
+        "temporary_occupancy_consent"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    },
+    "ch056": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "public_commission_ledgers",
+        "three_nonviolent_public_services",
+        "no_private_army_monopoly"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    },
+    "ch057": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "minority_festival_access",
+        "public_space_and_zoning",
+        "voluntary_mixed_festival"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    },
+    "ch061": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "sail_load_repair",
+        "capacity_without_sacrifice",
+        "return_supply_station"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    },
+    "ch062": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "seven_original_reports",
+        "remove_auto_experiment_execution",
+        "open_auditable_archive"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    },
+    "ch065": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "seven_guardians_preserve_all_testimony",
+        "refuse_memory_deletion",
+        "public_archive"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    },
+    "ch070": {
+      "status": "active",
+      "controller": "res://scripts/mechanics/Act10To12CivicMechanics.gd",
+      "features": [
+        "seven_region_council",
+        "no_forced_unanimity",
+        "ending_gate_transparency",
+        "player_retains_A_B_C_choice"
+      ],
+      "integration_stage": "canonical_pre_crisis_player_interactions",
+      "qa": "not_run"
+    }
+  }
+}

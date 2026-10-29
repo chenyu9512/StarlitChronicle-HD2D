@@ -1,0 +1,366 @@
+{
+  "schema": "starlit.story.phase14.act07.reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "followups": [
+    {
+      "id": "ch037.p14.choice.hear",
+      "chapter_id": "ch037",
+      "after_choice_id": "ch037.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch037.approach": "consent_first",
+        "world.ch037.approach": "consent_first"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch037.p14.choice.hear.l01",
+          "speaker": "岛上渔妇",
+          "text": "先开居民听证，我们再决定公开哪条航路。"
+        },
+        {
+          "id": "ch037.p14.choice.hear.l02",
+          "speaker": "朔弦",
+          "text": "我可以等，不拿归乡心情替大家表决。"
+        },
+        {
+          "id": "ch037.p14.choice.hear.l03",
+          "speaker": "主角",
+          "text": "救援用的临时航标仍会保留。"
+        }
+      ]
+    },
+    {
+      "id": "ch037.p14.choice.protect",
+      "chapter_id": "ch037",
+      "after_choice_id": "ch037.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch037.approach": "safe_route",
+        "world.ch037.approach": "safe_route"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch037.p14.choice.protect.l01",
+          "speaker": "海员",
+          "text": "求救方位先公开，住址只交给地方保管。"
+        },
+        {
+          "id": "ch037.p14.choice.protect.l02",
+          "speaker": "岛上渔妇",
+          "text": "这样至少能让迷失的船进港。"
+        },
+        {
+          "id": "ch037.p14.choice.protect.l03",
+          "speaker": "朔弦",
+          "text": "航图以后仍要按大家的意见修订。"
+        }
+      ]
+    },
+    {
+      "id": "ch038.p14.choice.hear",
+      "chapter_id": "ch038",
+      "after_choice_id": "ch038.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch038.approach": "open_access",
+        "world.ch038.approach": "open_access"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch038.p14.choice.hear.l01",
+          "speaker": "老居民",
+          "text": "我愿先查父亲的档案，其他人不必陪我。"
+        },
+        {
+          "id": "ch038.p14.choice.hear.l02",
+          "speaker": "书记",
+          "text": "公共目录今天开放，私人页按本人申请。"
+        },
+        {
+          "id": "ch038.p14.choice.hear.l03",
+          "speaker": "岚音",
+          "text": "不知道何时准备好也没有关系。"
+        }
+      ]
+    },
+    {
+      "id": "ch038.p14.choice.protect",
+      "chapter_id": "ch038",
+      "after_choice_id": "ch038.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch038.approach": "guided",
+        "world.ch038.approach": "guided"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch038.p14.choice.protect.l01",
+          "speaker": "医师",
+          "text": "家属与居民可以慢慢核对旧记录。"
+        },
+        {
+          "id": "ch038.p14.choice.protect.l02",
+          "speaker": "面包师",
+          "text": "店还要开，真相不能让今天的生活停下。"
+        },
+        {
+          "id": "ch038.p14.choice.protect.l03",
+          "speaker": "主角",
+          "text": "公开时间和负责人，不让等待没有尽头。"
+        }
+      ]
+    },
+    {
+      "id": "ch039.p14.choice.hear",
+      "chapter_id": "ch039",
+      "after_choice_id": "ch039.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch039.approach": "truth_with_care",
+        "world.ch039.approach": "truth_with_care"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch039.p14.choice.hear.l01",
+          "speaker": "诺依",
+          "text": "我愿意听你们说清楚哪些人找到了。"
+        },
+        {
+          "id": "ch039.p14.choice.hear.l02",
+          "speaker": "岚音",
+          "text": "还有待查的地方，我们会一起记下来。"
+        },
+        {
+          "id": "ch039.p14.choice.hear.l03",
+          "speaker": "主角",
+          "text": "将后续寻找方式和联系人交给你。"
+        }
+      ]
+    },
+    {
+      "id": "ch039.p14.choice.protect",
+      "chapter_id": "ch039",
+      "after_choice_id": "ch039.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch039.approach": "seaside",
+        "world.ch039.approach": "seaside"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch039.p14.choice.protect.l01",
+          "speaker": "诺依",
+          "text": "我们先去海边，好不好？"
+        },
+        {
+          "id": "ch039.p14.choice.protect.l02",
+          "speaker": "雷索",
+          "text": "船上有你的位置，不必今天决定永远留在哪里。"
+        },
+        {
+          "id": "ch039.p14.choice.protect.l03",
+          "speaker": "岚音",
+          "text": "车票由你收好，也可以随时问起后续搜救。"
+        }
+      ]
+    },
+    {
+      "id": "ch040.p14.choice.hear",
+      "chapter_id": "ch040",
+      "after_choice_id": "ch040.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch040.approach": "parallel",
+        "world.ch040.approach": "parallel"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch040.p14.choice.hear.l01",
+          "speaker": "伊泽",
+          "text": "两份证词并排放，不给它们编同一种结尾。"
+        },
+        {
+          "id": "ch040.p14.choice.hear.l02",
+          "speaker": "诺依",
+          "text": "那以后看的人能知道门两边都有孩子吗？"
+        },
+        {
+          "id": "ch040.p14.choice.hear.l03",
+          "speaker": "主角",
+          "text": "会，目录里保留双方名字。"
+        }
+      ]
+    },
+    {
+      "id": "ch040.p14.choice.protect",
+      "chapter_id": "ch040",
+      "after_choice_id": "ch040.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch040.approach": "annotated",
+        "world.ch040.approach": "annotated"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch040.p14.choice.protect.l01",
+          "speaker": "城内证人",
+          "text": "我愿在原记录旁加注，不改掉旧话。"
+        },
+        {
+          "id": "ch040.p14.choice.protect.l02",
+          "speaker": "外城证人",
+          "text": "我的经历也该留在同一座档案馆。"
+        },
+        {
+          "id": "ch040.p14.choice.protect.l03",
+          "speaker": "玄璃",
+          "text": "注释可不同，原文不应被删。"
+        }
+      ]
+    },
+    {
+      "id": "ch041.p14.choice.hear",
+      "chapter_id": "ch041",
+      "after_choice_id": "ch041.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch041.approach": "open_design",
+        "world.ch041.approach": "open_design"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch041.p14.choice.hear.l01",
+          "speaker": "守护者",
+          "text": "图纸可以公开，但先请各村工匠一起核实。"
+        },
+        {
+          "id": "ch041.p14.choice.hear.l02",
+          "speaker": "缇珐",
+          "text": "每个节点的停止方法也会写进去。"
+        },
+        {
+          "id": "ch041.p14.choice.hear.l03",
+          "speaker": "玄璃",
+          "text": "第三扇门依然留白。"
+        }
+      ]
+    },
+    {
+      "id": "ch041.p14.choice.protect",
+      "chapter_id": "ch041",
+      "after_choice_id": "ch041.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch041.approach": "safety_first",
+        "world.ch041.approach": "safety_first"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch041.p14.choice.protect.l01",
+          "speaker": "岚音",
+          "text": "先检查药房和水源的备用线路。"
+        },
+        {
+          "id": "ch041.p14.choice.protect.l02",
+          "speaker": "诺依",
+          "text": "我把安全路线画给孩子们看。"
+        },
+        {
+          "id": "ch041.p14.choice.protect.l03",
+          "speaker": "主角",
+          "text": "建设还没开始，先明确谁能叫停。"
+        }
+      ]
+    },
+    {
+      "id": "ch042.p14.choice.hear",
+      "chapter_id": "ch042",
+      "after_choice_id": "ch042.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch042.approach": "public_names",
+        "world.ch042.approach": "public_names"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch042.p14.choice.hear.l01",
+          "speaker": "旧族代表",
+          "text": "我愿公开姓名，但不要求别人承认我的全部主张。"
+        },
+        {
+          "id": "ch042.p14.choice.hear.l02",
+          "speaker": "伊泽",
+          "text": "不愿公开的人也可以保留见证。"
+        },
+        {
+          "id": "ch042.p14.choice.hear.l03",
+          "speaker": "主角",
+          "text": "土地争议另外安排公开议事。"
+        }
+      ]
+    },
+    {
+      "id": "ch042.p14.choice.protect",
+      "chapter_id": "ch042",
+      "after_choice_id": "ch042.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch042.approach": "private_testimony",
+        "world.ch042.approach": "private_testimony"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "after_original_choice_commit_before_encounter",
+      "dialogue": [
+        {
+          "id": "ch042.p14.choice.protect.l01",
+          "speaker": "旧洲织工",
+          "text": "我的证词先封存，等我愿意再公开。"
+        },
+        {
+          "id": "ch042.p14.choice.protect.l02",
+          "speaker": "诺依",
+          "text": "我会问清楚再帮人送纸。"
+        },
+        {
+          "id": "ch042.p14.choice.protect.l03",
+          "speaker": "玄璃",
+          "text": "留下名字的权利，也包含暂时不公布。"
+        }
+      ]
+    }
+  ]
+}

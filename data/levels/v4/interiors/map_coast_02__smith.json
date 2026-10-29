@@ -1,0 +1,346 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 2,
+  "map_id": "map_coast_02",
+  "building_id": "smith",
+  "name": "白砂港·船锚锻坊",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        30,
+        27,
+        44,
+        36
+      ]
+    },
+    {
+      "rect": [
+        23,
+        15,
+        52,
+        30
+      ]
+    },
+    {
+      "rect": [
+        17,
+        16,
+        29,
+        25
+      ]
+    },
+    {
+      "rect": [
+        47,
+        12,
+        57,
+        22
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        43,
+        21,
+        45,
+        24
+      ]
+    },
+    {
+      "rect": [
+        27,
+        25,
+        29,
+        26
+      ]
+    }
+  ],
+  "door_regions": [],
+  "points": {
+    "spawn": [
+      37,
+      32
+    ],
+    "exit": [
+      37,
+      35
+    ],
+    "service": [
+      23,
+      21
+    ],
+    "storage": [
+      53,
+      18
+    ]
+  },
+  "features": [
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        23,
+        21
+      ],
+      "name": "白砂港·船锚锻坊·服务台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        53,
+        18
+      ],
+      "name": "白砂港·船锚锻坊·储物处"
+    }
+  ],
+  "art_profile": "coast_district_smith_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/harbor_smith_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "smith_anvil",
+      "cell": [
+        23,
+        21
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        53,
+        18
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "forge_hearth",
+      "asset": "smith_forge",
+      "cell": [
+        28,
+        17
+      ],
+      "offset": [
+        0,
+        -76
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_smith_anvil",
+      "asset": "smith_anvil",
+      "cell": [
+        49,
+        21
+      ],
+      "offset": [
+        0,
+        -55
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_2_smith_toolwall",
+      "asset": "smith_toolwall",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -64
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_3_barrels",
+      "asset": "barrels",
+      "cell": [
+        24,
+        23
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_merchant_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        52,
+        16
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_5_lantern",
+      "asset": "lantern",
+      "cell": [
+        32,
+        27
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        42,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      28,
+      17
+    ],
+    [
+      49,
+      21
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "harbor_smith_light_0",
+      "cell": [
+        23,
+        21
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "harbor_smith_light_1",
+      "cell": [
+        30,
+        27
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    },
+    {
+      "id": "harbor_smith_light_2",
+      "cell": [
+        53,
+        18
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    }
+  ],
+  "investigations": [
+    {
+      "id": "inspect_forge_hearth",
+      "source_visual_id": "forge_hearth",
+      "kind": "smith_forge",
+      "name": "船锚锻炉",
+      "cell": [
+        28,
+        16
+      ],
+      "first_text": "炉壁熏出黑色潮纹，火候不稳会使锚钩开裂。",
+      "repeat_text": "风箱旁留着灰烬。",
+      "after_text": "炉口的护板已重新校正，出海修理不必等下一班炉火。",
+      "owner_absent_text": "炉温仍高，不可擅自操作。",
+      "owner_present_text": "屋主同意你仔细查看「船锚锻炉」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_smith_anvil",
+      "source_visual_id": "stage_1_smith_anvil",
+      "kind": "smith_anvil",
+      "name": "锚环铁砧",
+      "cell": [
+        49,
+        20
+      ],
+      "first_text": "铁砧上反复敲出的圆痕对应船锚锁链的标准尺寸。",
+      "repeat_text": "铁砧传来低沉的回声。",
+      "after_text": "一批旧锁链被改造成码头护栏，没有浪费。",
+      "owner_absent_text": "敲打前必须由锻工确认。",
+      "owner_present_text": "屋主同意你仔细查看「锚环铁砧」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_smith_toolwall",
+      "source_visual_id": "stage_2_smith_toolwall",
+      "kind": "smith_toolwall",
+      "name": "盐蚀工具柜",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "最旧的扳手缠着布，是老师傅为被割伤的学徒准备的。",
+      "repeat_text": "铁器上涂着一层薄油。",
+      "after_text": "柜门上贴出了日常保养表，谁用完就负责擦油。",
+      "owner_absent_text": "工具由工坊登记借出。",
+      "owner_present_text": "屋主同意你仔细查看「盐蚀工具柜」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_5_lantern",
+      "source_visual_id": "stage_5_lantern",
+      "kind": "lantern",
+      "name": "炉前安全灯",
+      "cell": [
+        32,
+        27
+      ],
+      "first_text": "风大的时候灯罩会鸣响，提醒工人关紧火门。",
+      "repeat_text": "安全灯发出稳定亮光。",
+      "after_text": "新灯罩能承受夜海风，工匠终于不用摸黑关炉。",
+      "owner_absent_text": "灯具属于消防设施，别随意调整。",
+      "owner_present_text": "屋主同意你仔细查看「炉前安全灯」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
+}

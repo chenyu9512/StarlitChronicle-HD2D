@@ -1,0 +1,285 @@
+{
+  "schema_version": 3,
+  "map_id": "map_oldland_04",
+  "title": "星墓秘殿",
+  "biome": "badlands",
+  "category": "dungeon",
+  "design_intent": "旧洲风蚀峡谷",
+  "size": [
+    92,
+    68
+  ],
+  "roads": [
+    {
+      "id": "spine-沉降盆地",
+      "width": 1,
+      "points": [
+        [
+          6,
+          18
+        ],
+        [
+          22,
+          16
+        ],
+        [
+          37,
+          34
+        ],
+        [
+          60,
+          30
+        ],
+        [
+          85,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "branch-oldland",
+      "width": 1,
+      "points": [
+        [
+          16,
+          5
+        ],
+        [
+          46,
+          16
+        ],
+        [
+          24,
+          32
+        ],
+        [
+          55,
+          61
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          12,
+          31
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          54,
+          34
+        ],
+        [
+          21,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          57,
+          28
+        ],
+        [
+          75,
+          24
+        ],
+        [
+          86,
+          39
+        ],
+        [
+          83,
+          60
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          15,
+          11
+        ],
+        [
+          53,
+          12
+        ],
+        [
+          59,
+          33
+        ],
+        [
+          80,
+          60
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_oldland_04",
+      "width": 2,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          87,
+          17
+        ],
+        [
+          88,
+          55
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-south-crest-map_oldland_04",
+      "width": 1,
+      "points": [
+        [
+          23,
+          62
+        ],
+        [
+          85,
+          63
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_oldland_04",
+      "width": 2,
+      "points": [
+        [
+          87,
+          6
+        ],
+        [
+          84,
+          18
+        ],
+        [
+          87,
+          55
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_oldland_04",
+      "center": [
+        22,
+        20
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_oldland_04",
+      "center": [
+        49,
+        36
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_oldland_04",
+      "center": [
+        82,
+        59
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_oldland_04",
+      "cell": [
+        49,
+        22
+      ],
+      "kind": "rock"
+    },
+    {
+      "id": "secondary-lookout-map_oldland_04",
+      "cell": [
+        15,
+        38
+      ],
+      "kind": "sign"
+    },
+    {
+      "id": "peripheral-crest-map_oldland_04",
+      "cell": [
+        83,
+        58
+      ],
+      "kind": "barrel"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        88,
+        64
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        88,
+        52
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        83,
+        21
+      ],
+      "kind": "beacon",
+      "name": "断代遗碑·星墓秘殿"
+    },
+    {
+      "cell": [
+        81,
+        58
+      ],
+      "kind": "sign",
+      "name": "遗失钟楼·星墓秘殿"
+    },
+    {
+      "cell": [
+        68,
+        59
+      ],
+      "kind": "star_lantern",
+      "name": "考古营地·星墓秘殿"
+    }
+  ],
+  "layout_identity": "oldland.04.沉降盆地",
+  "layout_principle": "沉降盆地：依据「星墓秘殿」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

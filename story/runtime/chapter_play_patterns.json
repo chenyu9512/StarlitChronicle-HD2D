@@ -1,0 +1,1817 @@
+{
+  "schema": "starlit.production.chapter_play_patterns.v2",
+  "policy": "PRODUCTION CONTRACTS ONLY: 72 distinct player-operation patterns. Names and steps do not unlock scenes, grant rewards, bypass battles or constitute Godot QA.",
+  "default": {
+    "archetype": "unassigned",
+    "brief": "全部72章已有明确差异化生产合同，未实装的仍标记design_only",
+    "status": "design_only"
+  },
+  "chapters": {
+    "ch001": {
+      "archetype": "letter_provenance",
+      "brief": "拆封澄舟旧信 → 比对村长亲笔收据 → 标注潮湿海图航线",
+      "player_actions": [
+        {
+          "id": "ch001.production_action_1",
+          "label": "拆封澄舟旧信",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch001.production_action_2",
+          "label": "比对村长亲笔收据",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch001.production_action_3",
+          "label": "标注潮湿海图航线",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch002": {
+      "archetype": "shelter_case",
+      "brief": "逐床记录失忆水手姓名 → 封存焚烧前的病历副本 → 核对航海日志感染时间",
+      "player_actions": [
+        {
+          "id": "ch002.production_action_1",
+          "label": "逐床记录失忆水手姓名",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch002.production_action_2",
+          "label": "封存焚烧前的病历副本",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch002.production_action_3",
+          "label": "核对航海日志感染时间",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch003": {
+      "archetype": "tide_valves",
+      "brief": "三阀依序调水位、固定转桥与守卫停机",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch003.production_action_1",
+          "label": "按潮壁记录调节主阀",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch003.production_action_2",
+          "label": "回声潮闸与排水侧轮协同",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch003.production_action_3",
+          "label": "出示歪树船徽解除守卫误判",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch004": {
+      "archetype": "tavern_cargo",
+      "brief": "盘点黑帆酒馆假货单 → 追查灰帷船的装箱序号 → 引导无辜客人离开冲突区域",
+      "player_actions": [
+        {
+          "id": "ch004.production_action_1",
+          "label": "盘点黑帆酒馆假货单",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch004.production_action_2",
+          "label": "追查灰帷船的装箱序号",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch004.production_action_3",
+          "label": "引导无辜客人离开冲突区域",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch005": {
+      "archetype": "sea_beast_nonlethal",
+      "brief": "红旗预警、双哨、三处星纹锁非击杀",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch005.production_action_1",
+          "label": "辨认渔夫红旗警告",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch005.production_action_2",
+          "label": "朔弦双哨诱出古兽星锁",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch005.production_action_3",
+          "label": "通过战斗指令逐个拆锁不伤古兽",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch006": {
+      "archetype": "lantern_testimony",
+      "brief": "潮歌母灯共同见证仪式",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch006.production_action_1",
+          "label": "收集三处灯芯碎片",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch006.production_action_2",
+          "label": "将共同见证汇入潮歌灯",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch006.production_action_3",
+          "label": "拒绝献祭并完成四段归航共鸣",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch007": {
+      "archetype": "rescue_dispatch",
+      "brief": "施粥棚药单与救援名单",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch007.production_action_1",
+          "label": "收集被退回的三封求助函",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch007.production_action_2",
+          "label": "核验边村救援登记名单",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch007.production_action_3",
+          "label": "保护证人并转运物资",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch008": {
+      "archetype": "caravan_defense",
+      "brief": "沿商路检查三处断路 → 护卫运粮车并保存袭击者箭镞 → 交叉核对两岸军械编号",
+      "player_actions": [
+        {
+          "id": "ch008.production_action_1",
+          "label": "沿商路检查三处断路",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch008.production_action_2",
+          "label": "护卫运粮车并保存袭击者箭镞",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch008.production_action_3",
+          "label": "交叉核对两岸军械编号",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch009": {
+      "archetype": "trial_witness",
+      "brief": "找到安全证人藏身处 → 设计证人家属撤离路线 → 公开对照军令原件",
+      "player_actions": [
+        {
+          "id": "ch009.production_action_1",
+          "label": "找到安全证人藏身处",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch009.production_action_2",
+          "label": "设计证人家属撤离路线",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch009.production_action_3",
+          "label": "公开对照军令原件",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch010": {
+      "archetype": "border_supply",
+      "brief": "登记三国粮仓损耗 → 清点跨境粮车与村民人数 → 亲手按约定分配首批粮食",
+      "player_actions": [
+        {
+          "id": "ch010.production_action_1",
+          "label": "登记三国粮仓损耗",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch010.production_action_2",
+          "label": "清点跨境粮车与村民人数",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch010.production_action_3",
+          "label": "亲手按约定分配首批粮食",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch011": {
+      "archetype": "bridge_ceasefire",
+      "brief": "拆除旧盟约桥引线 → 将军令公开传递至双方阵地 → 协助士兵解除开战队形",
+      "player_actions": [
+        {
+          "id": "ch011.production_action_1",
+          "label": "拆除旧盟约桥引线",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch011.production_action_2",
+          "label": "将军令公开传递至双方阵地",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch011.production_action_3",
+          "label": "协助士兵解除开战队形",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch012": {
+      "archetype": "oaths_lantern",
+      "brief": "收集三国平民承诺文书 → 校验旧母灯王位担保装置 → 由代表共同启动律序灯",
+      "player_actions": [
+        {
+          "id": "ch012.production_action_1",
+          "label": "收集三国平民承诺文书",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch012.production_action_2",
+          "label": "校验旧母灯王位担保装置",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch012.production_action_3",
+          "label": "由代表共同启动律序灯",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch013": {
+      "archetype": "mine_rescue",
+      "brief": "排查七号矿坑塌方支路 → 在矿洞定位失踪矿工信号 → 封存星矿发光样本",
+      "player_actions": [
+        {
+          "id": "ch013.production_action_1",
+          "label": "排查七号矿坑塌方支路",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch013.production_action_2",
+          "label": "在矿洞定位失踪矿工信号",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch013.production_action_3",
+          "label": "封存星矿发光样本",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch014": {
+      "archetype": "voice_machine",
+      "brief": "修复三组老式声纹齿轮 → 辨别存储的人声和机械杂音 → 记录损坏前的技术缺陷",
+      "player_actions": [
+        {
+          "id": "ch014.production_action_1",
+          "label": "修复三组老式声纹齿轮",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch014.production_action_2",
+          "label": "辨别存储的人声和机械杂音",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch014.production_action_3",
+          "label": "记录损坏前的技术缺陷",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch015": {
+      "archetype": "craft_trials",
+      "brief": "百工塔八职业安全实操",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch015.production_action_1",
+          "label": "完成百工塔八职业安全试炼",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch015.production_action_2",
+          "label": "核验机关解锁权限",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch015.production_action_3",
+          "label": "公开图纸并开放自由转职",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch016": {
+      "archetype": "miners_registry",
+      "brief": "核对被抹消的矿工户籍 → 协助家属申请临时补给 → 共同建立可公开复核的赔偿名册",
+      "player_actions": [
+        {
+          "id": "ch016.production_action_1",
+          "label": "核对被抹消的矿工户籍",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch016.production_action_2",
+          "label": "协助家属申请临时补给",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch016.production_action_3",
+          "label": "共同建立可公开复核的赔偿名册",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch017": {
+      "archetype": "energy_distribution",
+      "brief": "四能量阀、供氧180秒、备用电池",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch017.production_action_1",
+          "label": "启动手动供氧180秒计时",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch017.production_action_2",
+          "label": "拆分主炮医院供电并接备用电池",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch017.production_action_3",
+          "label": "核对四阀门总负荷",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch018": {
+      "archetype": "furnace_rebuild",
+      "brief": "修复炉心三段能源回路 → 核对燃料来源和工业风险 → 主持居民参与的安全重燃",
+      "player_actions": [
+        {
+          "id": "ch018.production_action_1",
+          "label": "修复炉心三段能源回路",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch018.production_action_2",
+          "label": "核对燃料来源和工业风险",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch018.production_action_3",
+          "label": "主持居民参与的安全重燃",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch019": {
+      "archetype": "memory_sandbox",
+      "brief": "年轻雷索十年前受限视角",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch019.production_action_1",
+          "label": "年轻雷索护送村民离开",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch019.production_action_2",
+          "label": "收集焚村命令副本",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch019.production_action_3",
+          "label": "保留证据并接受夺爵代价",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch020": {
+      "archetype": "memory_sandbox",
+      "brief": "年轻朔弦七年前受限视角",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch020.production_action_1",
+          "label": "年轻朔弦调查消失的航线",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch020.production_action_2",
+          "label": "隐藏船长交易日志",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch020.production_action_3",
+          "label": "从无名海寻找安全逃生线",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch021": {
+      "archetype": "memory_sandbox",
+      "brief": "药房门前回现世营火后选项",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch021.production_action_1",
+          "label": "少年岚音整理药房病历",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch021.production_action_2",
+          "label": "藏好母亲要求销毁的原件",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch021.production_action_3",
+          "label": "回现世营火后回应真相",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch022": {
+      "archetype": "witness_transfer",
+      "brief": "白夜祭后台证人撤离",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch022.production_action_1",
+          "label": "伪装成艺人进入白夜祭后台",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch022.production_action_2",
+          "label": "转移匿名证人避免拍卖伤害",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch022.production_action_3",
+          "label": "取回贵族暗室原始档案",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch023": {
+      "archetype": "archive_clock",
+      "brief": "古钟书架重排与姓名恢复",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch023.production_action_1",
+          "label": "按档案时钟次序旋转书架",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch023.production_action_2",
+          "label": "找回被擦除的人名证据",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch023.production_action_3",
+          "label": "阻断记名删除装置",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch024": {
+      "archetype": "archive_release",
+      "brief": "逐页扫描旧议会黑箱记录 → 遮蔽当事人未同意公开的身份 → 向三国使者公布原件索引",
+      "player_actions": [
+        {
+          "id": "ch024.production_action_1",
+          "label": "逐页扫描旧议会黑箱记录",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch024.production_action_2",
+          "label": "遮蔽当事人未同意公开的身份",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch024.production_action_3",
+          "label": "向三国使者公布原件索引",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch025": {
+      "archetype": "ship_restoration",
+      "brief": "采集桅杆与船板材料 → 修复逐星号三处破损航具 → 用原债务收据申请船籍",
+      "player_actions": [
+        {
+          "id": "ch025.production_action_1",
+          "label": "采集桅杆与船板材料",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch025.production_action_2",
+          "label": "修复逐星号三处破损航具",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch025.production_action_3",
+          "label": "用原债务收据申请船籍",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch026": {
+      "archetype": "undelivered_letters",
+      "brief": "寻找三封漂流家书主人 → 对照新墨迹和岛民旧航图 → 标出失落航页的可能方位",
+      "player_actions": [
+        {
+          "id": "ch026.production_action_1",
+          "label": "寻找三封漂流家书主人",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch026.production_action_2",
+          "label": "对照新墨迹和岛民旧航图",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch026.production_action_3",
+          "label": "标出失落航页的可能方位",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch027": {
+      "archetype": "diving_bell",
+      "brief": "海沟潜水钟、伊泽只作向导",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch027.production_action_1",
+          "label": "取得潜水钟并核查压强",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch027.production_action_2",
+          "label": "在海底逐段开辟安全通道",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch027.production_action_3",
+          "label": "抄录沉城居民姓名",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch028": {
+      "archetype": "song_reconstruction",
+      "brief": "取得断歌礁三段残谱 → 在安全音阶上复原旋律 → 与伊泽确认公开演奏范围",
+      "player_actions": [
+        {
+          "id": "ch028.production_action_1",
+          "label": "取得断歌礁三段残谱",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch028.production_action_2",
+          "label": "在安全音阶上复原旋律",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch028.production_action_3",
+          "label": "与伊泽确认公开演奏范围",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch029": {
+      "archetype": "beacon_calibration",
+      "brief": "静浪禁航六座航标校准",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch029.production_action_1",
+          "label": "校准六座静浪禁航浮标",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch029.production_action_2",
+          "label": "调整星针指向安全航窗",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch029.production_action_3",
+          "label": "先救陌生商船再共同驶离",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch030": {
+      "archetype": "island_treaty",
+      "brief": "召集不同岛屿船长签名 → 检查收费航路的封锁装置 → 亲手开放风航灯公共信标",
+      "player_actions": [
+        {
+          "id": "ch030.production_action_1",
+          "label": "召集不同岛屿船长签名",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch030.production_action_2",
+          "label": "检查收费航路的封锁装置",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch030.production_action_3",
+          "label": "亲手开放风航灯公共信标",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch031": {
+      "archetype": "repeating_day",
+      "brief": "记录日轮街重复的时间细节 → 比对三位居民一天前的物件 → 保护自愿留在梦中的居民",
+      "player_actions": [
+        {
+          "id": "ch031.production_action_1",
+          "label": "记录日轮街重复的时间细节",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch031.production_action_2",
+          "label": "比对三位居民一天前的物件",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch031.production_action_3",
+          "label": "保护自愿留在梦中的居民",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch032": {
+      "archetype": "mirror_escape",
+      "brief": "旋转镜宫的两组折射门 → 寻找迷路孩童的真实名字 → 引导孩童自愿选择返回",
+      "player_actions": [
+        {
+          "id": "ch032.production_action_1",
+          "label": "旋转镜宫的两组折射门",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch032.production_action_2",
+          "label": "寻找迷路孩童的真实名字",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch032.production_action_3",
+          "label": "引导孩童自愿选择返回",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch033": {
+      "archetype": "seven_dreams",
+      "brief": "通过七重梦庭不同支路 → 为每位伙伴留存现实凭证 → 拒绝强制改写伙伴的人生",
+      "player_actions": [
+        {
+          "id": "ch033.production_action_1",
+          "label": "通过七重梦庭不同支路",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch033.production_action_2",
+          "label": "为每位伙伴留存现实凭证",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch033.production_action_3",
+          "label": "拒绝强制改写伙伴的人生",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch034": {
+      "archetype": "identity_theater",
+      "brief": "检查玄璃剧场身世档案 → 拆除梦核回收程序供能 → 允许玄璃亲手登记姓名",
+      "player_actions": [
+        {
+          "id": "ch034.production_action_1",
+          "label": "检查玄璃剧场身世档案",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch034.production_action_2",
+          "label": "拆除梦核回收程序供能",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch034.production_action_3",
+          "label": "允许玄璃亲手登记姓名",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch035": {
+      "archetype": "rescue_triage",
+      "brief": "疗养院逐批醒转救援",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch035.production_action_1",
+          "label": "调查疗养院不同病人的风险",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch035.production_action_2",
+          "label": "按承受能力安排分批醒转",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch035.production_action_3",
+          "label": "建立自愿短眠医疗设施",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch036": {
+      "archetype": "mirror_sleep",
+      "brief": "镜眠六类交互及动态光影",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch036.production_action_1",
+          "label": "改变镜眠灯的动态投影",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch036.production_action_2",
+          "label": "解除强制睡眠控制链",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch036.production_action_3",
+          "label": "恢复居民自由进入和离开的开关",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch037": {
+      "archetype": "lost_island_chart",
+      "brief": "拼合失落航页缺角 → 校准海图空白和旧港码头坐标 → 开启通行航道并保存公开版本",
+      "player_actions": [
+        {
+          "id": "ch037.production_action_1",
+          "label": "拼合失落航页缺角",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch037.production_action_2",
+          "label": "校准海图空白和旧港码头坐标",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch037.production_action_3",
+          "label": "开启通行航道并保存公开版本",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch038": {
+      "archetype": "false_city_history",
+      "brief": "核查默契城三个虚构年表 → 拜访两户不愿立刻恢复记忆的家庭 → 建立可自主阅读的公开档案站",
+      "player_actions": [
+        {
+          "id": "ch038.production_action_1",
+          "label": "核查默契城三个虚构年表",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch038.production_action_2",
+          "label": "拜访两户不愿立刻恢复记忆的家庭",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch038.production_action_3",
+          "label": "建立可自主阅读的公开档案站",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch039": {
+      "archetype": "collapsed_well",
+      "brief": "清理裂谷村危险井口 → 定位井下求救与旧车票线索 → 组织最后一轮搜救与带回名单",
+      "player_actions": [
+        {
+          "id": "ch039.production_action_1",
+          "label": "清理裂谷村危险井口",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch039.production_action_2",
+          "label": "定位井下求救与旧车票线索",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch039.production_action_3",
+          "label": "组织最后一轮搜救与带回名单",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch040": {
+      "archetype": "dual_history",
+      "brief": "回廊双证词并列归档",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch040.production_action_1",
+          "label": "重现古代封城两组证言",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch040.production_action_2",
+          "label": "把被要求删除的记录并列归档",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch040.production_action_3",
+          "label": "拒绝伪造单方英雄叙事",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch041": {
+      "archetype": "root_memory_doors",
+      "brief": "按树根脉动次序开启三道门 → 比对根忆守卫与灯网限制记录 → 取回可逆式灯网图纸",
+      "player_actions": [
+        {
+          "id": "ch041.production_action_1",
+          "label": "按树根脉动次序开启三道门",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch041.production_action_2",
+          "label": "比对根忆守卫与灯网限制记录",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch041.production_action_3",
+          "label": "取回可逆式灯网图纸",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch042": {
+      "archetype": "names_memorial",
+      "brief": "收集旧洲多族居民的姓名铭牌 → 逐一对照被抹除者的口述记录 → 共同点亮根忆灯而非单方裁决",
+      "player_actions": [
+        {
+          "id": "ch042.production_action_1",
+          "label": "收集旧洲多族居民的姓名铭牌",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch042.production_action_2",
+          "label": "逐一对照被抹除者的口述记录",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch042.production_action_3",
+          "label": "共同点亮根忆灯而非单方裁决",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch043": {
+      "archetype": "six_lamp_audit",
+      "brief": "沿供能管线测量六灯负荷 → 保留未修改的原始能流图 → 将风险标注给城内居民",
+      "player_actions": [
+        {
+          "id": "ch043.production_action_1",
+          "label": "沿供能管线测量六灯负荷",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch043.production_action_2",
+          "label": "保留未修改的原始能流图",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch043.production_action_3",
+          "label": "将风险标注给城内居民",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch044": {
+      "archetype": "hearing",
+      "brief": "广场公开听证",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch044.production_action_1",
+          "label": "引导群灯广场群众撤到安全区",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch044.production_action_2",
+          "label": "收集赞成与反对者公开质询",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch044.production_action_3",
+          "label": "保留无法被简单说服的不同立场",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch045": {
+      "archetype": "civilian_protection",
+      "brief": "在两派骚乱间打开安全通道 → 救出拒绝征兵的平民 → 记录双方暴力证据并阻止报复",
+      "player_actions": [
+        {
+          "id": "ch045.production_action_1",
+          "label": "在两派骚乱间打开安全通道",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch045.production_action_2",
+          "label": "救出拒绝征兵的平民",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch045.production_action_3",
+          "label": "记录双方暴力证据并阻止报复",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch046": {
+      "archetype": "shield_deployment",
+      "brief": "半城护盾部署",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch046.production_action_1",
+          "label": "根据星轨锁定警报分配护盾",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch046.production_action_2",
+          "label": "在观测塔校验六灯能流",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch046.production_action_3",
+          "label": "在无法全救时明确保护区域",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch047": {
+      "archetype": "three_gate_evacuation",
+      "brief": "东南西三城门分队撤离",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch047.production_action_1",
+          "label": "切换东门伤员护送小队",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch047.production_action_2",
+          "label": "操作南门儿童转移与西门抢修",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch047.production_action_3",
+          "label": "确认三路独立战斗回执和撤离清单",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch048": {
+      "archetype": "last_rescue_ship",
+      "brief": "核对最后撤离船救生设备 → 协助伤员依序登船 → 亲手封闭裂隙并留下救援记录",
+      "player_actions": [
+        {
+          "id": "ch048.production_action_1",
+          "label": "核对最后撤离船救生设备",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch048.production_action_2",
+          "label": "协助伤员依序登船",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch048.production_action_3",
+          "label": "亲手封闭裂隙并留下救援记录",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch049": {
+      "archetype": "adult_noe",
+      "brief": "十二年后成年诺依视角",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch049.production_action_1",
+          "label": "切换成年诺依的唯一操作视角",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch049.production_action_2",
+          "label": "调查十二年后荒原邮站名单",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch049.production_action_3",
+          "label": "寻找旧队友线索但不强制同队",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch050": {
+      "archetype": "divided_capital",
+      "brief": "分别核验王都两区救援证 → 为隔离区病患送达药包 → 联系雷索旧部开辟共同通道",
+      "player_actions": [
+        {
+          "id": "ch050.production_action_1",
+          "label": "分别核验王都两区救援证",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch050.production_action_2",
+          "label": "为隔离区病患送达药包",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch050.production_action_3",
+          "label": "联系雷索旧部开辟共同通道",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch051": {
+      "archetype": "mountain_invitation",
+      "brief": "寻找山间三处旧英雄行迹 → 留下一盏不强迫同行的手灯 → 等待主角自主作出回答",
+      "player_actions": [
+        {
+          "id": "ch051.production_action_1",
+          "label": "寻找山间三处旧英雄行迹",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch051.production_action_2",
+          "label": "留下一盏不强迫同行的手灯",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch051.production_action_3",
+          "label": "等待主角自主作出回答",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch052": {
+      "archetype": "reunion_outpost",
+      "brief": "逐一联系三位失散队友 → 修复暮林驿站补给设施 → 协商值夜与风险分担",
+      "player_actions": [
+        {
+          "id": "ch052.production_action_1",
+          "label": "逐一联系三位失散队友",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch052.production_action_2",
+          "label": "修复暮林驿站补给设施",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch052.production_action_3",
+          "label": "协商值夜与风险分担",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch053": {
+      "archetype": "family_memorial",
+      "brief": "拜访牺牲者家属并征求意见 → 修复无名墓碑周围损坏围栏 → 保留不愿原谅者的个人留言",
+      "player_actions": [
+        {
+          "id": "ch053.production_action_1",
+          "label": "拜访牺牲者家属并征求意见",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch053.production_action_2",
+          "label": "修复无名墓碑周围损坏围栏",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch053.production_action_3",
+          "label": "保留不愿原谅者的个人留言",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch054": {
+      "archetype": "memorial_transition",
+      "brief": "旧车票继承纪念册及领导过渡",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch054.production_action_1",
+          "label": "重新分配营地救援任务",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch054.production_action_2",
+          "label": "由成年诺依独立指挥并完成交接",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch054.production_action_3",
+          "label": "以第39章同一旧车票入纪念册",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch055": {
+      "archetype": "first_rebuilt_home",
+      "brief": "清点西区屋材和租住证明 → 修复第一栋公共房屋结构 → 与原主人确认临时住用协议",
+      "player_actions": [
+        {
+          "id": "ch055.production_action_1",
+          "label": "清点西区屋材和租住证明",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch055.production_action_2",
+          "label": "修复第一栋公共房屋结构",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch055.production_action_3",
+          "label": "与原主人确认临时住用协议",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch056": {
+      "archetype": "guild_charter",
+      "brief": "招募有资质工匠与冒险者 → 完成三项不收保护费的公益委托 → 公示透明委托与审计规则",
+      "player_actions": [
+        {
+          "id": "ch056.production_action_1",
+          "label": "招募有资质工匠与冒险者",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch056.production_action_2",
+          "label": "完成三项不收保护费的公益委托",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch056.production_action_3",
+          "label": "公示透明委托与审计规则",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch057": {
+      "archetype": "mixed_festival",
+      "brief": "规划旅馆工坊牧场的街区边界 → 调解不同族群的广场使用时间 → 举办由居民投票安排的群灯节",
+      "player_actions": [
+        {
+          "id": "ch057.production_action_1",
+          "label": "规划旅馆工坊牧场的街区边界",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch057.production_action_2",
+          "label": "调解不同族群的广场使用时间",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch057.production_action_3",
+          "label": "举办由居民投票安排的群灯节",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch058": {
+      "archetype": "city_building",
+      "brief": "维莎正式入队、群灯建设度",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch058.production_action_1",
+          "label": "护送维莎离开旧议会追兵",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch058.production_action_2",
+          "label": "公布她提交的封印计划证据",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch058.production_action_3",
+          "label": "在正当听证后确认入队",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch059": {
+      "archetype": "civil_pact",
+      "brief": "走访不愿参战的居民 → 组织自愿救援及粮食运输班次 → 公布禁止强制征兵的自由盟约",
+      "player_actions": [
+        {
+          "id": "ch059.production_action_1",
+          "label": "走访不愿参战的居民",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch059.production_action_2",
+          "label": "组织自愿救援及粮食运输班次",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch059.production_action_3",
+          "label": "公布禁止强制征兵的自由盟约",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch060": {
+      "archetype": "distributed_network",
+      "brief": "分布式灯网条件",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch060.production_action_1",
+          "label": "逐户部署自愿灯网节点",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch060.production_action_2",
+          "label": "抗击破坏者并修复离线节点",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch060.production_action_3",
+          "label": "保留分布式灯网真实完成记录",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch061": {
+      "archetype": "sky_sail_balance",
+      "brief": "修补浮空船星帆 → 实测升空负荷并卸除冗余货物 → 建设往返补给平台",
+      "player_actions": [
+        {
+          "id": "ch061.production_action_1",
+          "label": "修补浮空船星帆",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch061.production_action_2",
+          "label": "实测升空负荷并卸除冗余货物",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch061.production_action_3",
+          "label": "建设往返补给平台",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch062": {
+      "archetype": "origin_reports",
+      "brief": "收集七份原初实验档案 → 冻结自动执行实验指令 → 保留原始样本供公众查阅",
+      "player_actions": [
+        {
+          "id": "ch062.production_action_1",
+          "label": "收集七份原初实验档案",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch062.production_action_2",
+          "label": "冻结自动执行实验指令",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch062.production_action_3",
+          "label": "保留原始样本供公众查阅",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch063": {
+      "archetype": "blank_timeline",
+      "brief": "对照澄舟手稿缺失年份 → 封存可被赫西安反推的私人路径 → 为未知未来保留未填写的时标",
+      "player_actions": [
+        {
+          "id": "ch063.production_action_1",
+          "label": "对照澄舟手稿缺失年份",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch063.production_action_2",
+          "label": "封存可被赫西安反推的私人路径",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch063.production_action_3",
+          "label": "为未知未来保留未填写的时标",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch064": {
+      "archetype": "time_release",
+      "brief": "逐个解除母灯时间锁环 → 校验日夜恢复的避难措施 → 在居民见证下开启正常时间",
+      "player_actions": [
+        {
+          "id": "ch064.production_action_1",
+          "label": "逐个解除母灯时间锁环",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch064.production_action_2",
+          "label": "校验日夜恢复的避难措施",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch064.production_action_3",
+          "label": "在居民见证下开启正常时间",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch065": {
+      "archetype": "seven_guardians",
+      "brief": "识别七位守门者各自执念 → 分别找到非删档的解题凭证 → 保存互相冲突的全部证词",
+      "player_actions": [
+        {
+          "id": "ch065.production_action_1",
+          "label": "识别七位守门者各自执念",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch065.production_action_2",
+          "label": "分别找到非删档的解题凭证",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch065.production_action_3",
+          "label": "保存互相冲突的全部证词",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch066": {
+      "archetype": "seventh_lantern",
+      "brief": "天衡母灯仪式",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch066.production_action_1",
+          "label": "汇聚七灯时间锚点",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch066.production_action_2",
+          "label": "穿越终末天桥的静止窗口",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch066.production_action_3",
+          "label": "打开永昼核心并保存正常时间",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch067": {
+      "archetype": "static_garden",
+      "brief": "调查永昼花园静止物候 → 访问居民对未来的真实意愿 → 公布可随时改变意见的选择渠道",
+      "player_actions": [
+        {
+          "id": "ch067.production_action_1",
+          "label": "调查永昼花园静止物候",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch067.production_action_2",
+          "label": "访问居民对未来的真实意愿",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch067.production_action_3",
+          "label": "公布可随时改变意见的选择渠道",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch068": {
+      "archetype": "memory_illusions",
+      "brief": "比对归人幻象和现世记忆 → 帮助伙伴确认本人意愿 → 保留告别录而非让人生停止",
+      "player_actions": [
+        {
+          "id": "ch068.production_action_1",
+          "label": "比对归人幻象和现世记忆",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch068.production_action_2",
+          "label": "帮助伙伴确认本人意愿",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch068.production_action_3",
+          "label": "保留告别录而非让人生停止",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch069": {
+      "archetype": "silent_consent",
+      "brief": "记录静时城无法表达的愿望 → 探望未出生者权利的居民代表 → 为最终表决开放安全陈述室",
+      "player_actions": [
+        {
+          "id": "ch069.production_action_1",
+          "label": "记录静时城无法表达的愿望",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch069.production_action_2",
+          "label": "探望未出生者权利的居民代表",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch069.production_action_3",
+          "label": "为最终表决开放安全陈述室",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch070": {
+      "archetype": "seven_lamp_council",
+      "brief": "邀请七地代表出席 → 逐条核对失落航页与灯网条件 → 保留所有投票意见和异议记录",
+      "player_actions": [
+        {
+          "id": "ch070.production_action_1",
+          "label": "邀请七地代表出席",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch070.production_action_2",
+          "label": "逐条核对失落航页与灯网条件",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch070.production_action_3",
+          "label": "保留所有投票意见和异议记录",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ],
+      "status": "design_only"
+    },
+    "ch071": {
+      "archetype": "final_battle",
+      "brief": "终幕决战",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch071.production_action_1",
+          "label": "破除童年记忆幻境",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch071.production_action_2",
+          "label": "破除战争失败诱惑与执念",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch071.production_action_3",
+          "label": "在真实战斗中对抗终幕司录者",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    },
+    "ch072": {
+      "archetype": "three_endings",
+      "brief": "A/B/C三结局及后日谈",
+      "status": "design_only",
+      "player_actions": [
+        {
+          "id": "ch072.production_action_1",
+          "label": "读取结局A/B/C各自前置旗标",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch072.production_action_2",
+          "label": "由玩家主动选择可用结局",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        },
+        {
+          "id": "ch072.production_action_3",
+          "label": "完成四段后日谈并保存归档",
+          "authority": "player_interaction_required",
+          "integration": "design_only"
+        }
+      ]
+    }
+  },
+  "production_progress": {
+    "patterns_defined": 72,
+    "player_actions_defined": 216,
+    "contracts_implemented_by_this_file": 0,
+    "qa": "not_run"
+  }
+}

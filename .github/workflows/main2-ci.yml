@@ -1,0 +1,95 @@
+name: "Main2 · Unified Quality Gate and Runtime Release"
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/main2-ci.yml"
+      - ".github/workflows/main2-to-runtime.yml"
+      - "tools/d_control/run_main2_ci.py"
+      - "tools/audit_art_pipeline_v3.py"
+      - "tools/validate_art_theme_v2.py"
+      - "tools/smoke_c_art_theme_v2.gd"
+      - "project.godot"
+      - "scripts/**"
+      - "scenes/**"
+      - "story/**"
+      - "data/**"
+      - "assets/art/runtime/**"
+      - "assets/art/external/**"
+      - "assets/audio/**"
+      - "assets/shaders/**"
+      - "assets/fx/**"
+      - "assets/enemies/**"
+      - "tools/build_runtime_snapshot.py"
+      - "tools/verify_runtime_snapshot.py"
+      - "tools/validate_c_act01_matched_props_v16.py"
+      - "tools/validate_c_act01_global_art_v14.py"
+      - "tools/validate_act01_canonical_routes.py"
+      - "tools/validate_c_act01_semantic_v17.py"
+      - "tools/smoke_main2_act01_canonical_chapter_routes.gd"
+      - "tools/smoke_b_act01_journey.gd"
+permissions:
+  contents: read
+concurrency:
+  group: main2-unified-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qa:
+    name: "One Godot import / deduplicated tests / release gate"
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    outputs:
+      release_needed: ${{ steps.changes.outputs.release_needed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Plan selected QA domains
+        id: changes
+        env:
+          BASE_SHA: ${{ github.event.before }}
+        run: |
+          python3 tools/d_control/run_main2_ci.py --plan --before "$BASE_SHA" --sha "$GITHUB_SHA" --config main2-ci-plan.json
+      - name: Cache official Godot 4.7.2 binary
+        uses: actions/cache@v4
+        with:
+          path: .ci-cache/godot/4.7.2/
+          key: godot-4.7.2-linux-x86_64
+      - name: Install Godot on cache miss
+        run: |
+          set -euo pipefail
+          dest=".ci-cache/godot/4.7.2"
+          mkdir -p "$dest"
+          if [ ! -x "$dest/Godot_v4.7.2-stable_linux.x86_64" ]; then
+            curl -fL --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+              https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+            unzip -oq "$RUNNER_TEMP/godot.zip" -d "$dest"
+            chmod +x "$dest/Godot_v4.7.2-stable_linux.x86_64"
+          fi
+      - name: Install Python QA image and YAML dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check 'Pillow>=11,<13' 'PyYAML>=6,<7'
+      - name: Run relevant unique tests
+        run: |
+          python3 tools/d_control/run_main2_ci.py --run --sha "$GITHUB_SHA" \
+            --config main2-ci-plan.json \
+            --godot .ci-cache/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 \
+            --results main2-ci-results
+      - name: Upload results and failed-test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-unified-qa
+          path: |
+            main2-ci-plan.json
+            main2-ci-results/
+          retention-days: 7
+          if-no-files-found: warn
+  publish:
+    name: "Publish verified minimal Runtime"
+    needs: qa
+    if: ${{ needs.qa.result == 'success' && needs.qa.outputs.release_needed == 'true' }}
+    permissions:
+      contents: write
+    uses: ./.github/workflows/main2-to-runtime.yml

@@ -1,0 +1,367 @@
+{
+  "schema": "starlit.story.phase08.act09.choice_reaction.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "第49–54章六次选择共十二组即时对白；对应原选择状态。不会自动生成长期分支路线。",
+  "followups": [
+    {
+      "id": "ch049.p8.choice.hear",
+      "chapter_id": "ch049",
+      "after_choice_id": "ch049.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch049.approach": "record",
+        "world.ch049.approach": "record"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch049.p8.choice.hear.l01",
+          "speaker": "诺依",
+          "text": "我会把获救者和未归者分开记录，空白不写成死讯。"
+        },
+        {
+          "id": "ch049.p8.choice.hear.l02",
+          "speaker": "驿站老板",
+          "text": "我弟弟的名字就按最后一次确证的位置写。"
+        },
+        {
+          "id": "ch049.p8.choice.hear.l03",
+          "speaker": "年轻旅人",
+          "text": "那我陪你去核对一次名单，不再只看墙上的英雄画像。"
+        }
+      ]
+    },
+    {
+      "id": "ch049.p8.choice.protect",
+      "chapter_id": "ch049",
+      "after_choice_id": "ch049.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch049.approach": "action",
+        "world.ch049.approach": "action"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch049.p8.choice.protect.l01",
+          "speaker": "诺依",
+          "text": "你昨晚守过门，也知道救援不是一位英雄替所有人负责。"
+        },
+        {
+          "id": "ch049.p8.choice.protect.l02",
+          "speaker": "年轻旅人",
+          "text": "我以前只会问他为什么失败，今天才知道要先把退路找出来。"
+        },
+        {
+          "id": "ch049.p8.choice.protect.l03",
+          "speaker": "驿站老板",
+          "text": "能这样想，下次轮到你值夜我就放心一点。"
+        }
+      ]
+    },
+    {
+      "id": "ch050.p8.choice.hear",
+      "chapter_id": "ch050",
+      "after_choice_id": "ch050.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch050.approach": "corridor",
+        "world.ch050.approach": "corridor"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch050.p8.choice.hear.l01",
+          "speaker": "护士",
+          "text": "紧急通道我会跟两侧医馆共同值守，每次放行留下记录。"
+        },
+        {
+          "id": "ch050.p8.choice.hear.l02",
+          "speaker": "诺依",
+          "text": "孩子今晚能拿到药，还不算所有人以后都能通行。"
+        },
+        {
+          "id": "ch050.p8.choice.hear.l03",
+          "speaker": "卫兵",
+          "text": "我会把紧急申请单贴在窗口，不用每次等军官来解释。"
+        }
+      ]
+    },
+    {
+      "id": "ch050.p8.choice.protect",
+      "chapter_id": "ch050",
+      "after_choice_id": "ch050.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch050.approach": "medical_record",
+        "world.ch050.approach": "medical_record"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch050.p8.choice.protect.l01",
+          "speaker": "老兵",
+          "text": "两侧医师都签了名，既能保护病历，也能让后来的人知道是谁放行。"
+        },
+        {
+          "id": "ch050.p8.choice.protect.l02",
+          "speaker": "诺依",
+          "text": "这些纸不能只留在我手里，请各存一份。"
+        },
+        {
+          "id": "ch050.p8.choice.protect.l03",
+          "speaker": "流民母亲",
+          "text": "那我也写下今晚等药的时间，让他们知道耽误一天意味着什么。"
+        }
+      ]
+    },
+    {
+      "id": "ch051.p8.choice.hear",
+      "chapter_id": "ch051",
+      "after_choice_id": "ch051.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch051.approach": "plan",
+        "world.ch051.approach": "plan"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch051.p8.choice.hear.l01",
+          "speaker": "诺依",
+          "text": "新的救援路线、人员和补给都写在这里。你可以检查，不必先答应。"
+        },
+        {
+          "id": "ch051.p8.choice.hear.l02",
+          "speaker": "主角",
+          "text": "你没把我列成队长。"
+        },
+        {
+          "id": "ch051.p8.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "因为我需要的是知道自己愿意做什么的伙伴。"
+        }
+      ]
+    },
+    {
+      "id": "ch051.p8.choice.protect",
+      "chapter_id": "ch051",
+      "after_choice_id": "ch051.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch051.approach": "leave_lamp",
+        "world.ch051.approach": "leave_lamp"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch051.p8.choice.protect.l01",
+          "speaker": "诺依",
+          "text": "灯就留在桌上。我明天还会按计划去下一座村，不会站在门口等你回答。"
+        },
+        {
+          "id": "ch051.p8.choice.protect.l02",
+          "speaker": "主角",
+          "text": "你学会了给人留下不被催促的时间。"
+        },
+        {
+          "id": "ch051.p8.choice.protect.l03",
+          "speaker": "诺依",
+          "text": "是有人过去教过我。现在轮到我这么做。"
+        }
+      ]
+    },
+    {
+      "id": "ch052.p8.choice.hear",
+      "chapter_id": "ch052",
+      "after_choice_id": "ch052.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch052.approach": "noi_lead",
+        "world.ch052.approach": "noi_lead"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch052.p8.choice.hear.l01",
+          "speaker": "诺依",
+          "text": "救援路由我先协调，有不同意见请在出发前讲清楚。"
+        },
+        {
+          "id": "ch052.p8.choice.hear.l02",
+          "speaker": "雷索",
+          "text": "真正的队长不是永远走在前面，而是让每条路都有人能退。"
+        },
+        {
+          "id": "ch052.p8.choice.hear.l03",
+          "speaker": "主角",
+          "text": "我负责粮车。路线变化先向你报告。"
+        }
+      ]
+    },
+    {
+      "id": "ch052.p8.choice.protect",
+      "chapter_id": "ch052",
+      "after_choice_id": "ch052.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch052.approach": "rotation",
+        "world.ch052.approach": "rotation"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch052.p8.choice.protect.l01",
+          "speaker": "岚音",
+          "text": "今天由我守医务站，明天换别人领队。没有谁要把自己耗尽。"
+        },
+        {
+          "id": "ch052.p8.choice.protect.l02",
+          "speaker": "朔弦",
+          "text": "这回总算能轮到我当一次不负责的船员了？"
+        },
+        {
+          "id": "ch052.p8.choice.protect.l03",
+          "speaker": "诺依",
+          "text": "轮到你仍然得把航线写清楚，休息不是偷懒。"
+        }
+      ]
+    },
+    {
+      "id": "ch053.p8.choice.hear",
+      "chapter_id": "ch053",
+      "after_choice_id": "ch053.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch053.approach": "respect",
+        "world.ch053.approach": "respect"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch053.p8.choice.hear.l01",
+          "speaker": "主角",
+          "text": "你不愿我靠近你家，我就先去修村口那段公共石阶。"
+        },
+        {
+          "id": "ch053.p8.choice.hear.l02",
+          "speaker": "老村民",
+          "text": "路谁都能修，可别把修路当作等我说原谅。"
+        },
+        {
+          "id": "ch053.p8.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "会写清楚。这是村里同意的公共维护，不是私人和解。"
+        }
+      ]
+    },
+    {
+      "id": "ch053.p8.choice.protect",
+      "chapter_id": "ch053",
+      "after_choice_id": "ch053.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch053.approach": "community_vote",
+        "world.ch053.approach": "community_vote"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch053.p8.choice.protect.l01",
+          "speaker": "诺依",
+          "text": "把修复方案贴在塔门口，让每户决定哪些地方先修。"
+        },
+        {
+          "id": "ch053.p8.choice.protect.l02",
+          "speaker": "老村民",
+          "text": "我愿意投票，但别拿这张纸替谁写一句“大家已经原谅”。"
+        },
+        {
+          "id": "ch053.p8.choice.protect.l03",
+          "speaker": "主角",
+          "text": "不会。不同意见也应该留在纸上。"
+        }
+      ]
+    },
+    {
+      "id": "ch054.p8.choice.hear",
+      "chapter_id": "ch054",
+      "after_choice_id": "ch054.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch054.approach": "noi_coordination",
+        "world.ch054.approach": "noi_coordination"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch054.p8.choice.hear.l01",
+          "speaker": "诺依",
+          "text": "每支小队都先说职责和撤退路线，任何人可以提出质疑。"
+        },
+        {
+          "id": "ch054.p8.choice.hear.l02",
+          "speaker": "年轻队员",
+          "text": "那我要改西路的标记。昨晚河水又涨了。"
+        },
+        {
+          "id": "ch054.p8.choice.hear.l03",
+          "speaker": "主角",
+          "text": "改。你是今天真正看见河水的人。"
+        }
+      ]
+    },
+    {
+      "id": "ch054.p8.choice.protect",
+      "chapter_id": "ch054",
+      "after_choice_id": "ch054.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch054.approach": "specialists",
+        "world.ch054.approach": "specialists"
+      },
+      "recommended_insertion": "after_choice_before_encounter",
+      "optional": true,
+      "independent_route": false,
+      "dialogue": [
+        {
+          "id": "ch054.p8.choice.protect.l01",
+          "speaker": "雷索",
+          "text": "按地形、救护、机械各定一名临时负责人，行动中能互相提醒。"
+        },
+        {
+          "id": "ch054.p8.choice.protect.l02",
+          "speaker": "诺依",
+          "text": "没人因为年纪大就自动指挥，也没人因年轻就不能提出更好的路。"
+        },
+        {
+          "id": "ch054.p8.choice.protect.l03",
+          "speaker": "岚音",
+          "text": "我负责医疗接应。需要改变路线时会第一时间通知各队。"
+        }
+      ]
+    }
+  ]
+}

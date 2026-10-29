@@ -1,0 +1,100 @@
+{
+  "schema": "starlit.qa.m01-world.v1",
+  "requested_parent_sha": "ba609f59022945fcd48044ecec0ffe2abb62717b",
+  "engine": "4.7.2",
+  "tests": [
+    "tools/smoke_town_direction_v4.gd",
+    "tools/smoke_world_v3.gd",
+    "tools/smoke_town_entrances.gd",
+    "tools/d_control/smoke_m01_world_route_reachability.gd",
+    "tools/smoke_story_map_dressing.gd",
+    "tools/d_control/smoke_d_world_door_and_gate_contract.gd"
+  ],
+  "scope": "Plaza outside roof; authored editor overlays; real house service sign; all 68 thresholds and 40 map exits",
+  "status": "requested-not-verified",
+  "version": 14,
+  "rerun_reason": "Final D-world follow-up: 40 oriented border gates, 68 real roof widths and sidewalk rings, 99 V4 reachable exits, 8 actual input round-trips, and all 6 cottage doors pinned on fog-free minimap without useless rendered road signs.",
+  "main2_act01_regression": {
+    "branch": "Main2美术优化版",
+    "request": "first-act-world-room-save-and-third-party-art",
+    "status": "requested-not-verified",
+    "scope": [
+      "chapter-3-cave-gate",
+      "chapter-2-6-physical-travel",
+      "8-harbor-room-clues",
+      "V3-failed-write-rollback",
+      "third-party-art-import"
+    ],
+    "source": "docs/MAIN2_P0_FIX_LOG_2026_10_27.md"
+  },
+  "act01_commercial_fix_20261027": {
+    "batch": "main2-commercial-act01-fix-20261027",
+    "parent_sha": "6343af9f7dd7268b5d5ce44fdd47fa8ea21322ab",
+    "status": "requested-not-verified",
+    "focus": [
+      "collision-safe-interior-return",
+      "distinct-neighbor-exit",
+      "semantic-signs-and-clues",
+      "chapter-5-humane-beast",
+      "chapter-6-lighthouse-testimony",
+      "atomic-v3-save"
+    ]
+  },
+  "act01_rerun_20261027": {
+    "batch": "main2-act01-p0-fix-regression-v2",
+    "requested_parent_sha": "ad1bb59f71d7837885d4327fe45993ac8cb1d099",
+    "stage": "requested-not-verified",
+    "fixes": [
+      "physical gate overlap",
+      "collision safe return",
+      "specific indoor clues",
+      "ch5 nonlethal rescue",
+      "ch6 testimony",
+      "non-cheat 72-chapter boss commands",
+      "five unique imported boss portraits"
+    ]
+  },
+  "act01_lighthouse_regression_20261027": {
+    "requested_parent_sha": "57c1ec9cf6e8f221b74352b3bb0e26548f69d9e1",
+    "version": "main2-six-chapter-commercial-final-p0-batch-v3",
+    "stage": "requested-not-verified",
+    "tests": [
+      "smoke_main2_lighthouse_story_state.gd",
+      "smoke_main2_act01_boss_portrait_recovery.gd",
+      "smoke_campaign_72.gd",
+      "smoke_first_act_flow.gd"
+    ]
+  },
+  "act01_batch01_20261028": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "b93250a40288545d2a24cdc21d0086da6ca4d62e",
+    "request": "execute_12_direction_batch_01",
+    "status": "requested-not-verified",
+    "scope": [
+      "01.01 latest Godot full regression",
+      "02.05 map and landmark reachability",
+      "03.01 room entry and return",
+      "06.01 malformed save rejection",
+      "07.01 actual landmark screenshot"
+    ]
+  },
+  "act01_batch01_20261028_district_repair": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "82ecc734463e44461e83a835b7f6bf66443b7577",
+    "status": "requested-not-verified",
+    "request": "retest real village/harbor district migration and NPC daily routine after repairing 6 events and 25 schedule entries",
+    "scope": [
+      "01 engineering cold import",
+      "02 real reachable districts",
+      "03 room and exit",
+      "06 transaction and state rollback",
+      "12 all shard QA"
+    ]
+  },
+  "act01_batch01_20261028_cave_valves": {
+    "branch": "Main2美术优化版",
+    "parent_sha": "a1493e1b164cb80dc48b7ce1824a7a40692dcd7a",
+    "request": "verify physical cave tide valve placements on actual chapter-three map plus all quality gates",
+    "status": "requested-not-verified"
+  }
+}

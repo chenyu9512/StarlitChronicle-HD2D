@@ -1,0 +1,1190 @@
+{
+  "version": "2.4.0",
+  "chapters": {
+    "ch015": [
+      {
+        "prompt": "雷索守御盾卫：吊桥摇晃，如何防止队友连带坠落？",
+        "correct": "anchor_rope",
+        "job": "SHIELD_GUARDIAN",
+        "options": [
+          {
+            "id": "anchor_rope",
+            "label": "先锚定安全绳并掩护撤退"
+          },
+          {
+            "id": "unsafe_anchor_rope",
+            "label": "无绳硬扛塌陷"
+          }
+        ]
+      },
+      {
+        "prompt": "岚音星灯药师：草药不足时怎样分诊？",
+        "correct": "triage_airway",
+        "job": "STARLIGHT_HEALER",
+        "options": [
+          {
+            "id": "triage_airway",
+            "label": "气道受阻者优先，其次大出血"
+          },
+          {
+            "id": "unsafe_triage_airway",
+            "label": "先处理轻微擦伤"
+          }
+        ]
+      },
+      {
+        "prompt": "朔弦潮猎游侠：火药桶邻近出口。",
+        "correct": "isolate_kegs",
+        "job": "TIDE_RANGER",
+        "options": [
+          {
+            "id": "isolate_kegs",
+            "label": "标定出口并隔离火药桶"
+          },
+          {
+            "id": "unsafe_isolate_kegs",
+            "label": "立即朝火药桶开火"
+          }
+        ]
+      },
+      {
+        "prompt": "缇珐齿轮工匠：准备启动过载回路。",
+        "correct": "test_valve",
+        "job": "GEAR_ARTIFICER",
+        "options": [
+          {
+            "id": "test_valve",
+            "label": "测试泄压阀、保留手动停机柄"
+          },
+          {
+            "id": "unsafe_test_valve",
+            "label": "封死人工停机"
+          }
+        ]
+      },
+      {
+        "prompt": "伊泽共鸣乐师：现场群众恐慌。",
+        "correct": "steady_rhythm",
+        "job": "RESONANCE_BARD",
+        "options": [
+          {
+            "id": "steady_rhythm",
+            "label": "用节律协助队伍有序撤离"
+          },
+          {
+            "id": "unsafe_steady_rhythm",
+            "label": "只顾个人炫技"
+          }
+        ]
+      },
+      {
+        "prompt": "玄璃镜影剑舞：古镜门背后有承重结构。",
+        "correct": "read_shadows",
+        "job": "MIRROR_BLADE",
+        "options": [
+          {
+            "id": "read_shadows",
+            "label": "利用镜影错位安全开锁"
+          },
+          {
+            "id": "unsafe_read_shadows",
+            "label": "敲碎承重镜门"
+          }
+        ]
+      },
+      {
+        "prompt": "诺依岁影记述：双份工牌相互矛盾。",
+        "correct": "preserve_records",
+        "job": "CHRONICLE_KEEPER",
+        "options": [
+          {
+            "id": "preserve_records",
+            "label": "保留两份原始记录核对误差"
+          },
+          {
+            "id": "unsafe_preserve_records",
+            "label": "丢掉其中一份"
+          }
+        ]
+      },
+      {
+        "prompt": "维莎星轨裁定：自动安全判定陷入死锁。",
+        "correct": "keep_override",
+        "job": "ASTRA_ARBITER",
+        "options": [
+          {
+            "id": "keep_override",
+            "label": "保留人工接管、记录责任"
+          },
+          {
+            "id": "unsafe_keep_override",
+            "label": "永久禁用人工停机"
+          }
+        ]
+      }
+    ],
+    "ch023": [
+      {
+        "prompt": "古钟旋转书架：失踪人口档案在被涂抹的书架后。",
+        "correct": "align_clock",
+        "job": "",
+        "options": [
+          {
+            "id": "align_clock",
+            "label": "对齐古钟齿轮使原始档案室连通"
+          },
+          {
+            "id": "unsafe_align_clock",
+            "label": "烧毁疑似伪造档案"
+          }
+        ]
+      },
+      {
+        "prompt": "记录监守者抹去同伴姓名。",
+        "correct": "recite_ally",
+        "job": "",
+        "options": [
+          {
+            "id": "recite_ally",
+            "label": "由未被抹名的同伴念出名字与共同行程"
+          },
+          {
+            "id": "unsafe_recite_ally",
+            "label": "让被抹名者独自自证"
+          }
+        ]
+      }
+    ],
+    "ch027": [
+      {
+        "prompt": "潜水钟下潜前的例行操作。",
+        "correct": "check_cable",
+        "job": "",
+        "options": [
+          {
+            "id": "check_cable",
+            "label": "核对吊缆张力与紧急回收线"
+          },
+          {
+            "id": "unsafe_check_cable",
+            "label": "直接深潜"
+          }
+        ]
+      },
+      {
+        "prompt": "深海暗流出现，伊泽提供临时声学引导。",
+        "correct": "guest_acoustics",
+        "job": "",
+        "options": [
+          {
+            "id": "guest_acoustics",
+            "label": "接受伊泽声学导引但不让他提前入队"
+          },
+          {
+            "id": "unsafe_guest_acoustics",
+            "label": "关闭声学回波"
+          }
+        ]
+      },
+      {
+        "prompt": "潜水钟前方为古海沟危险深度。",
+        "correct": "controlled_descent",
+        "job": "",
+        "options": [
+          {
+            "id": "controlled_descent",
+            "label": "受控下降并保留回收余量"
+          },
+          {
+            "id": "unsafe_controlled_descent",
+            "label": "切断吊缆自由落下"
+          }
+        ]
+      }
+    ],
+    "ch029": [
+      {
+        "prompt": "静浪禁航区1号航标：主航向。",
+        "correct": "buoy_1",
+        "job": "",
+        "options": [
+          {
+            "id": "buoy_1",
+            "label": "按原始航图校准北侧方位"
+          },
+          {
+            "id": "unsafe_buoy_1",
+            "label": "反向设置"
+          }
+        ]
+      },
+      {
+        "prompt": "2号航标：商船航迹。",
+        "correct": "buoy_2",
+        "job": "",
+        "options": [
+          {
+            "id": "buoy_2",
+            "label": "按实际航迹校准东侧标线"
+          },
+          {
+            "id": "unsafe_buoy_2",
+            "label": "复制1号数据"
+          }
+        ]
+      },
+      {
+        "prompt": "3号航标：潮汐漂移。",
+        "correct": "buoy_3",
+        "job": "",
+        "options": [
+          {
+            "id": "buoy_3",
+            "label": "按实测潮汐修正"
+          },
+          {
+            "id": "unsafe_buoy_3",
+            "label": "凭印象猜测"
+          }
+        ]
+      },
+      {
+        "prompt": "4号航标：低能见度。",
+        "correct": "buoy_4",
+        "job": "",
+        "options": [
+          {
+            "id": "buoy_4",
+            "label": "保留返航方位和避险间隔"
+          },
+          {
+            "id": "unsafe_buoy_4",
+            "label": "删除返航路线"
+          }
+        ]
+      },
+      {
+        "prompt": "5号航标：船队灯号。",
+        "correct": "buoy_5",
+        "job": "",
+        "options": [
+          {
+            "id": "buoy_5",
+            "label": "交叉确认多船可见灯号"
+          },
+          {
+            "id": "unsafe_buoy_5",
+            "label": "关闭全部引导灯"
+          }
+        ]
+      },
+      {
+        "prompt": "6号航标：安全通道总核对。",
+        "correct": "buoy_6",
+        "job": "",
+        "options": [
+          {
+            "id": "buoy_6",
+            "label": "六座航标交叉核对后开放共用风路"
+          },
+          {
+            "id": "unsafe_buoy_6",
+            "label": "让单船先冲出去"
+          }
+        ]
+      }
+    ],
+    "ch036": [
+      {
+        "prompt": "映世镜眠灯的梦室被强制封锁。",
+        "correct": "restore_exits",
+        "job": "",
+        "options": [
+          {
+            "id": "restore_exits",
+            "label": "先恢复每间梦室的自主退出通道"
+          },
+          {
+            "id": "unsafe_restore_exits",
+            "label": "继续锁住居民"
+          }
+        ]
+      },
+      {
+        "prompt": "恢复知情同意与退出权后，怎样重燃镜眠灯？",
+        "correct": "voluntary_rekindle",
+        "job": "",
+        "options": [
+          {
+            "id": "voluntary_rekindle",
+            "label": "保留医疗用途并恢复自愿权限"
+          },
+          {
+            "id": "unsafe_voluntary_rekindle",
+            "label": "宣布能够复活全部逝者"
+          }
+        ]
+      }
+    ],
+    "ch040": [
+      {
+        "prompt": "东门守门人证实曾开小门放行妇孺。",
+        "correct": "preserve_open",
+        "job": "",
+        "options": [
+          {
+            "id": "preserve_open",
+            "label": "保存原始证词及其见证时间地点"
+          },
+          {
+            "id": "unsafe_preserve_open",
+            "label": "抹除东门证词"
+          }
+        ]
+      },
+      {
+        "prompt": "西侧城民证实当时大门紧闭。",
+        "correct": "preserve_sealed",
+        "job": "",
+        "options": [
+          {
+            "id": "preserve_sealed",
+            "label": "保存西侧证词及见证范围"
+          },
+          {
+            "id": "unsafe_preserve_sealed",
+            "label": "抹除封城证词"
+          }
+        ]
+      },
+      {
+        "prompt": "两段证词无法归一，最终如何归档？",
+        "correct": "archive_parallel",
+        "job": "",
+        "options": [
+          {
+            "id": "archive_parallel",
+            "label": "双证词并列保存，保留后人注释权"
+          },
+          {
+            "id": "unsafe_archive_parallel",
+            "label": "改写过去使双方记忆一致"
+          }
+        ]
+      }
+    ],
+    "ch055": [
+      {
+        "prompt": "西区第一间安置屋的屋主资料与临住申请不一致。",
+        "correct": "check_owner",
+        "options": [
+          {
+            "id": "check_owner",
+            "label": "核对原住户的产权与当前避难登记"
+          },
+          {
+            "id": "unsafe_check_owner",
+            "label": "跳过产权登记直接占房"
+          }
+        ]
+      },
+      {
+        "prompt": "墙体承重与消防疏散尚未复核。",
+        "correct": "restore_safety",
+        "options": [
+          {
+            "id": "restore_safety",
+            "label": "先加固梁柱并留出安全出入口"
+          },
+          {
+            "id": "unsafe_restore_safety",
+            "label": "把修缮材料全部封死通道"
+          }
+        ]
+      },
+      {
+        "prompt": "临住居民与原主人同时等待签署。",
+        "correct": "consent_lease",
+        "options": [
+          {
+            "id": "consent_lease",
+            "label": "双方共同签署有期限的住用协议"
+          },
+          {
+            "id": "unsafe_consent_lease",
+            "label": "单方面永久剥夺房屋所有权"
+          }
+        ]
+      }
+    ],
+    "ch056": [
+      {
+        "prompt": "公会首批委托缺少公开账本。",
+        "correct": "publish_ledger",
+        "options": [
+          {
+            "id": "publish_ledger",
+            "label": "把委托人、用途、报酬列入公开账本"
+          },
+          {
+            "id": "unsafe_publish_ledger",
+            "label": "只让佣兵团私下知道账目"
+          }
+        ]
+      },
+      {
+        "prompt": "三项公益委托要先确保无报酬胁迫。",
+        "correct": "assign_public",
+        "options": [
+          {
+            "id": "assign_public",
+            "label": "按医疗、供水、道路分别分配志愿队"
+          },
+          {
+            "id": "unsafe_assign_public",
+            "label": "只收高额保护费的工作"
+          }
+        ]
+      },
+      {
+        "prompt": "旧佣兵团索要永久治安控制权。",
+        "correct": "reject_private_rule",
+        "options": [
+          {
+            "id": "reject_private_rule",
+            "label": "明确否决私兵垄断并建立民选监督"
+          },
+          {
+            "id": "unsafe_reject_private_rule",
+            "label": "签下永久独占武装合同"
+          }
+        ]
+      }
+    ],
+    "ch057": [
+      {
+        "prompt": "不同族群对群灯广场的时间需求相撞。",
+        "correct": "survey_customs",
+        "options": [
+          {
+            "id": "survey_customs",
+            "label": "逐户登记节日与宗教传统的具体时段"
+          },
+          {
+            "id": "unsafe_survey_customs",
+            "label": "只听取人数最多的一方"
+          }
+        ]
+      },
+      {
+        "prompt": "工坊、旅馆和灵兽牧场要兼顾消防与安静。",
+        "correct": "plan_blocks",
+        "options": [
+          {
+            "id": "plan_blocks",
+            "label": "画出住居与工作区的安全缓冲带"
+          },
+          {
+            "id": "unsafe_plan_blocks",
+            "label": "让牧场封住居民街主干道"
+          }
+        ]
+      },
+      {
+        "prompt": "公共节日需要所有居民的自主参与。",
+        "correct": "hold_open_festival",
+        "options": [
+          {
+            "id": "hold_open_festival",
+            "label": "举行轮值节庆并公示参与规则"
+          },
+          {
+            "id": "unsafe_hold_open_festival",
+            "label": "强迫所有人参加同一种仪式"
+          }
+        ]
+      }
+    ],
+    "ch060": [
+      {
+        "prompt": "分散式群灯网不能依赖单个母灯控制权。",
+        "correct": "map_nodes",
+        "options": [
+          {
+            "id": "map_nodes",
+            "label": "调查各区供电节点与离线邻接关系"
+          },
+          {
+            "id": "unsafe_map_nodes",
+            "label": "只接入中央母灯总开关"
+          }
+        ]
+      },
+      {
+        "prompt": "贫困街区没有足够备用光源。",
+        "correct": "supply_spares",
+        "options": [
+          {
+            "id": "supply_spares",
+            "label": "优先给医疗和避难区分发独立手灯"
+          },
+          {
+            "id": "unsafe_supply_spares",
+            "label": "先保障贵族照明"
+          }
+        ]
+      },
+      {
+        "prompt": "居民明确要求保留退出灯网的权利。",
+        "correct": "record_consent",
+        "options": [
+          {
+            "id": "record_consent",
+            "label": "登记每户自愿接入与随时退出的决定"
+          },
+          {
+            "id": "unsafe_record_consent",
+            "label": "未经许可强制连接所有住户"
+          }
+        ]
+      },
+      {
+        "prompt": "赫西安破坏一处线路后出现网络断口。",
+        "correct": "reroute_isolated",
+        "options": [
+          {
+            "id": "reroute_isolated",
+            "label": "隔离故障节点并按备用线路转接"
+          },
+          {
+            "id": "unsafe_reroute_isolated",
+            "label": "继续向断路强行高压送电"
+          }
+        ]
+      },
+      {
+        "prompt": "城市重建委员会请求检查交接记录。",
+        "correct": "publish_decentralized",
+        "options": [
+          {
+            "id": "publish_decentralized",
+            "label": "公开分布式节点及独立维护责任表"
+          },
+          {
+            "id": "unsafe_publish_decentralized",
+            "label": "销毁分配记录让中枢永久独占"
+          }
+        ]
+      }
+    ],
+    "ch061": [
+      {
+        "prompt": "浮空船星帆右舷出现裂口。",
+        "correct": "repair_sail",
+        "options": [
+          {
+            "id": "repair_sail",
+            "label": "修补帆面并加固主索"
+          },
+          {
+            "id": "unsafe_repair_sail",
+            "label": "未经检查直接全速起飞"
+          }
+        ]
+      },
+      {
+        "prompt": "舰桥提出超重时让一批人永远留下。",
+        "correct": "weigh_supplies",
+        "options": [
+          {
+            "id": "weigh_supplies",
+            "label": "实测运载重量并优先卸下重复货物"
+          },
+          {
+            "id": "unsafe_weigh_supplies",
+            "label": "按出身决定谁被抛下"
+          }
+        ]
+      },
+      {
+        "prompt": "云海之间没有安全的返航平台。",
+        "correct": "build_supply",
+        "options": [
+          {
+            "id": "build_supply",
+            "label": "在航路中部布置双向补给站"
+          },
+          {
+            "id": "unsafe_build_supply",
+            "label": "关闭返航通道以加速前进"
+          }
+        ]
+      },
+      {
+        "prompt": "升空前全体船员需要了解风暴应急方案。",
+        "correct": "brief_crew",
+        "options": [
+          {
+            "id": "brief_crew",
+            "label": "确认紧急回收绳和护航编组后起飞"
+          },
+          {
+            "id": "unsafe_brief_crew",
+            "label": "只让船长掌握安全路线"
+          }
+        ]
+      }
+    ],
+    "ch062": [
+      {
+        "prompt": "原初实验室保留七份互相矛盾的实验报告。",
+        "correct": "scan_report_1",
+        "options": [
+          {
+            "id": "scan_report_1",
+            "label": "登记第一份原始报告的日期和版本"
+          },
+          {
+            "id": "unsafe_scan_report_1",
+            "label": "把报告直接丢入焚化炉"
+          }
+        ]
+      },
+      {
+        "prompt": "第二份报告含有被删改的实验名单。",
+        "correct": "scan_report_2",
+        "options": [
+          {
+            "id": "scan_report_2",
+            "label": "保全第二份报告删改痕迹"
+          },
+          {
+            "id": "unsafe_scan_report_2",
+            "label": "抹除所有实验者姓名"
+          }
+        ]
+      },
+      {
+        "prompt": "第三份报告还在自动执行旧方案。",
+        "correct": "halt_autorun",
+        "options": [
+          {
+            "id": "halt_autorun",
+            "label": "先切断第三份报告的自动指令"
+          },
+          {
+            "id": "unsafe_halt_autorun",
+            "label": "允许设备继续无人值守试验"
+          }
+        ]
+      },
+      {
+        "prompt": "第四份记录指出试验人员的安全缺陷。",
+        "correct": "retain_safety",
+        "options": [
+          {
+            "id": "retain_safety",
+            "label": "保留第四份伤害与防护证据"
+          },
+          {
+            "id": "unsafe_retain_safety",
+            "label": "将受害记录标为噪声"
+          }
+        ]
+      },
+      {
+        "prompt": "第五份实验复核表与公开数据不一致。",
+        "correct": "compare_fifth",
+        "options": [
+          {
+            "id": "compare_fifth",
+            "label": "并排保存第五份复核和对照副本"
+          },
+          {
+            "id": "unsafe_compare_fifth",
+            "label": "只留下好看的成功结果"
+          }
+        ]
+      },
+      {
+        "prompt": "第六份报告关联外界灾难后果。",
+        "correct": "bind_consequence",
+        "options": [
+          {
+            "id": "bind_consequence",
+            "label": "标注第六份报告的后果追溯线索"
+          },
+          {
+            "id": "unsafe_bind_consequence",
+            "label": "删除与外界受害者有关的页码"
+          }
+        ]
+      },
+      {
+        "prompt": "最后一份报告需决定怎样公开。",
+        "correct": "publish_seven",
+        "options": [
+          {
+            "id": "publish_seven",
+            "label": "完整归档七份报告并公开可核查索引"
+          },
+          {
+            "id": "unsafe_publish_seven",
+            "label": "重新启动无限制实验直至成功"
+          }
+        ]
+      }
+    ],
+    "ch065": [
+      {
+        "prompt": "第一位守门者要求删除失败者的名字。",
+        "correct": "keep_names",
+        "options": [
+          {
+            "id": "keep_names",
+            "label": "保留失败者名册作为第一道凭证"
+          },
+          {
+            "id": "unsafe_keep_names",
+            "label": "删除名字换取通行"
+          }
+        ]
+      },
+      {
+        "prompt": "第二位守门者坚持只允许胜者叙述。",
+        "correct": "keep_both",
+        "options": [
+          {
+            "id": "keep_both",
+            "label": "并列保留当事人相互矛盾的记录"
+          },
+          {
+            "id": "unsafe_keep_both",
+            "label": "销毁其中一方的证词"
+          }
+        ]
+      },
+      {
+        "prompt": "第三位守门者要求遗忘一次无辜的牺牲。",
+        "correct": "keep_sacrifice",
+        "options": [
+          {
+            "id": "keep_sacrifice",
+            "label": "保留当年的救援登记与见证"
+          },
+          {
+            "id": "unsafe_keep_sacrifice",
+            "label": "改写成没有伤亡"
+          }
+        ]
+      },
+      {
+        "prompt": "第四位守门者以王族特权换取安宁。",
+        "correct": "reject_privilege",
+        "options": [
+          {
+            "id": "reject_privilege",
+            "label": "向普通居民开放共同审查"
+          },
+          {
+            "id": "unsafe_reject_privilege",
+            "label": "封存非贵族的历史"
+          }
+        ]
+      },
+      {
+        "prompt": "第五位守门者伪造永久安全的承诺。",
+        "correct": "keep_uncertainty",
+        "options": [
+          {
+            "id": "keep_uncertainty",
+            "label": "记录制度仍有风险并保留复议权"
+          },
+          {
+            "id": "unsafe_keep_uncertainty",
+            "label": "保证任何未来都不会出错"
+          }
+        ]
+      },
+      {
+        "prompt": "第六位守门者让时间停在战争胜利前。",
+        "correct": "keep_time",
+        "options": [
+          {
+            "id": "keep_time",
+            "label": "拒绝停止普通人的后续人生"
+          },
+          {
+            "id": "unsafe_keep_time",
+            "label": "冻结全城直到胜利"
+          }
+        ]
+      },
+      {
+        "prompt": "第七位守门者要求归档者成为唯一主人。",
+        "correct": "open_archive",
+        "options": [
+          {
+            "id": "open_archive",
+            "label": "完成公开档案封存并让所有人可复核"
+          },
+          {
+            "id": "unsafe_open_archive",
+            "label": "把世界交给唯一永久司录者"
+          }
+        ]
+      }
+    ],
+    "ch070": [
+      {
+        "prompt": "评议庭尚未登记七地代表的独立身份。",
+        "correct": "register_delegates",
+        "options": [
+          {
+            "id": "register_delegates",
+            "label": "逐一核对七地代表和授权文书"
+          },
+          {
+            "id": "unsafe_register_delegates",
+            "label": "只允许一位英雄代替所有人投票"
+          }
+        ]
+      },
+      {
+        "prompt": "各地经历的灾难需要留作公共依据。",
+        "correct": "preserve_accounts",
+        "options": [
+          {
+            "id": "preserve_accounts",
+            "label": "保留真实伤亡记录和重建代价"
+          },
+          {
+            "id": "unsafe_preserve_accounts",
+            "label": "只展示赞成某个结局的证词"
+          }
+        ]
+      },
+      {
+        "prompt": "代表们对永昼利弊存在真实分歧。",
+        "correct": "hear_opposition",
+        "options": [
+          {
+            "id": "hear_opposition",
+            "label": "为支持者和反对者安排等量陈述"
+          },
+          {
+            "id": "unsafe_hear_opposition",
+            "label": "剥夺反对者发言权"
+          }
+        ]
+      },
+      {
+        "prompt": "第三条道路的失落航页与网络门槛需公开。",
+        "correct": "read_endings",
+        "options": [
+          {
+            "id": "read_endings",
+            "label": "展示现有航页、分布式灯网及七灯证据"
+          },
+          {
+            "id": "unsafe_read_endings",
+            "label": "暗中修改结局前置条件"
+          }
+        ]
+      },
+      {
+        "prompt": "永昼居民也必须拥有真正表达的机会。",
+        "correct": "invite_eternal",
+        "options": [
+          {
+            "id": "invite_eternal",
+            "label": "听取永昼居民在无胁迫条件下的意见"
+          },
+          {
+            "id": "unsafe_invite_eternal",
+            "label": "把永昼居民全部视作敌人"
+          }
+        ]
+      },
+      {
+        "prompt": "评议记录要求保留弃权与少数意见。",
+        "correct": "record_dissent",
+        "options": [
+          {
+            "id": "record_dissent",
+            "label": "保存弃权票与未通过的备选方案"
+          },
+          {
+            "id": "unsafe_record_dissent",
+            "label": "抹去不同意见以制造一致"
+          }
+        ]
+      },
+      {
+        "prompt": "评议结束时不能预选玩家最终结局。",
+        "correct": "return_choice",
+        "options": [
+          {
+            "id": "return_choice",
+            "label": "交回玩家自主抉择并保存全部见证"
+          },
+          {
+            "id": "unsafe_return_choice",
+            "label": "替玩家提前决定A/B/C结局"
+          }
+        ]
+      }
+    ],
+    "ch058": [
+      {
+        "prompt": "维莎的封印计划遗留档案需要确认真伪。",
+        "correct": "verify_visha_archive",
+        "options": [
+          {
+            "id": "verify_visha_archive",
+            "label": "登记原始密封编号并公开证据来源"
+          },
+          {
+            "id": "unsafe_verify_visha_archive",
+            "label": "直接销毁指向维莎的所有罪证"
+          }
+        ]
+      },
+      {
+        "prompt": "维莎遭追兵包围，附近还有无辜的难民。",
+        "correct": "safeguard_witness",
+        "options": [
+          {
+            "id": "safeguard_witness",
+            "label": "先安排难民安全撤离与维莎证人保护"
+          },
+          {
+            "id": "unsafe_safeguard_witness",
+            "label": "让无辜者充当诱饵"
+          }
+        ]
+      },
+      {
+        "prompt": "旧议会控制台要求永久中央独占控制。",
+        "correct": "plan_human_override",
+        "options": [
+          {
+            "id": "plan_human_override",
+            "label": "保存人工接管冗余设计并移交公众审查"
+          },
+          {
+            "id": "unsafe_plan_human_override",
+            "label": "让单个司录者保留不可撤销权限"
+          }
+        ]
+      }
+    ],
+    "ch059": [
+      {
+        "prompt": "居民提出自愿互助，不愿接受强制征兵。",
+        "correct": "consult_volunteers",
+        "options": [
+          {
+            "id": "consult_volunteers",
+            "label": "逐区登记居民自愿服务和拒绝服务的权利"
+          },
+          {
+            "id": "unsafe_consult_volunteers",
+            "label": "按家庭强制征调所有成年人"
+          }
+        ]
+      },
+      {
+        "prompt": "粮食补给易被地方守灯者据为己有。",
+        "correct": "audit_supply",
+        "options": [
+          {
+            "id": "audit_supply",
+            "label": "公布粮道与储量，允许居民联合监督"
+          },
+          {
+            "id": "unsafe_audit_supply",
+            "label": "把粮仓交给不受监督的私兵"
+          }
+        ]
+      },
+      {
+        "prompt": "自由城市盟约需要明确轮值和撤职机制。",
+        "correct": "draft_rotational_charter",
+        "options": [
+          {
+            "id": "draft_rotational_charter",
+            "label": "公开拟定守灯轮值及可罢免章程"
+          },
+          {
+            "id": "unsafe_draft_rotational_charter",
+            "label": "授予某位领袖永久不受质询的权限"
+          }
+        ]
+      }
+    ],
+    "ch064": [
+      {
+        "prompt": "时间锁第一层连接昼夜生态。",
+        "correct": "align_solar_ring",
+        "options": [
+          {
+            "id": "align_solar_ring",
+            "label": "校准日轮锁环，保留安全人工断开装置"
+          },
+          {
+            "id": "unsafe_align_solar_ring",
+            "label": "破坏昼夜保护机构直接通电"
+          }
+        ]
+      },
+      {
+        "prompt": "第二层锁环存有被暂停的居民时钟。",
+        "correct": "align_civic_ring",
+        "options": [
+          {
+            "id": "align_civic_ring",
+            "label": "核对城市公用时钟并释放可逆节点"
+          },
+          {
+            "id": "unsafe_align_civic_ring",
+            "label": "直接删除每个人的个人时间记录"
+          }
+        ]
+      },
+      {
+        "prompt": "第三层锁环连接天衡母灯核心。",
+        "correct": "align_mother_ring",
+        "options": [
+          {
+            "id": "align_mother_ring",
+            "label": "以居民自愿见证完成第三重校准"
+          },
+          {
+            "id": "unsafe_align_mother_ring",
+            "label": "让司录者永久独占时间操作权"
+          }
+        ]
+      }
+    ],
+    "ch066": [
+      {
+        "prompt": "七灯共鸣需从居民真实见证中校验。",
+        "correct": "audit_seven_lamps",
+        "options": [
+          {
+            "id": "audit_seven_lamps",
+            "label": "逐一校验七灯公开记录与独立维护权"
+          },
+          {
+            "id": "unsafe_audit_seven_lamps",
+            "label": "只听取中央司录者声称的七灯状态"
+          }
+        ]
+      },
+      {
+        "prompt": "终末天桥的静止窗口可能截断撤退路线。",
+        "correct": "secure_time_crossing",
+        "options": [
+          {
+            "id": "secure_time_crossing",
+            "label": "保留每个队员的返程时间标记"
+          },
+          {
+            "id": "unsafe_secure_time_crossing",
+            "label": "封闭退路，只靠英雄意志穿越"
+          }
+        ]
+      },
+      {
+        "prompt": "空白未来的记录不得写死后人的选择。",
+        "correct": "open_future_path",
+        "options": [
+          {
+            "id": "open_future_path",
+            "label": "将未来方案交给七地居民持续复议"
+          },
+          {
+            "id": "unsafe_open_future_path",
+            "label": "把未来固定为永不改变的单一方案"
+          }
+        ]
+      }
+    ],
+    "ch071": [
+      {
+        "prompt": "赫西安用童年的回忆制造不实证词。",
+        "correct": "verify_childhood",
+        "options": [
+          {
+            "id": "verify_childhood",
+            "label": "比对当时保存的亲历记录和见证"
+          },
+          {
+            "id": "unsafe_verify_childhood",
+            "label": "为了快速脱困抹除童年全部记忆"
+          }
+        ]
+      },
+      {
+        "prompt": "黑星战败的幻象让队伍互相责怪。",
+        "correct": "hold_mutual_testimony",
+        "options": [
+          {
+            "id": "hold_mutual_testimony",
+            "label": "让同伴分别说明失误与救援事实"
+          },
+          {
+            "id": "unsafe_hold_mutual_testimony",
+            "label": "将战争责任强行转嫁给一名同伴"
+          }
+        ]
+      },
+      {
+        "prompt": "司录者声称只能由他永久统治未来。",
+        "correct": "reject_hessian_monopoly",
+        "options": [
+          {
+            "id": "reject_hessian_monopoly",
+            "label": "公开拒绝独占未来并准备真实最终决战"
+          },
+          {
+            "id": "unsafe_reject_hessian_monopoly",
+            "label": "预先宣布已经战胜赫西安"
+          }
+        ]
+      }
+    ],
+    "ch072": [
+      {
+        "prompt": "在最终评议后仍要核对结局前置条件。",
+        "correct": "review_canonical_endings",
+        "options": [
+          {
+            "id": "review_canonical_endings",
+            "label": "核对已经保存的七灯、群灯网与航页见证"
+          },
+          {
+            "id": "unsafe_review_canonical_endings",
+            "label": "先替所有居民补齐没有取得的航页"
+          }
+        ]
+      },
+      {
+        "prompt": "无法以单一英雄代替每位居民表决。",
+        "correct": "preserve_future_choice",
+        "options": [
+          {
+            "id": "preserve_future_choice",
+            "label": "保存各地异议并把最终选择交还玩家"
+          },
+          {
+            "id": "unsafe_preserve_future_choice",
+            "label": "未经玩家决定强行锁定唯一结局"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": "Individual safe actions are committed only through first_act V3 transaction; no boss receipt, free items, world/ending flags granted by action registry."
+}

@@ -1,0 +1,1337 @@
+{
+  "schema": "starlit.b.npc_home_delivery.v1",
+  "source_main_sha": "4fbc0aec4581eeaddda164ca2c8c1663184f11cd",
+  "production_status": "B data + standalone runtime modules; D world interaction not connected; Godot suite pending",
+  "npc_count": 40,
+  "region_count": 8,
+  "settlement_community_counts": 11,
+  "real_nonquest_v4_rooms": 12,
+  "interior_objects": 52,
+  "source_counts": {
+    "npc_identity": 40,
+    "sample_village_npcs": 5,
+    "original_npc_lines_by_region": 8,
+    "authored_npc_dialogue_states": 200
+  },
+  "maps": [
+    {
+      "id": "map_coast_01",
+      "region_id": "region_coast",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 6,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_coast_02",
+      "region_id": "region_coast",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 6,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_coast_03",
+      "region_id": "region_coast",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_coast_04",
+      "region_id": "region_coast",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_coast_05",
+      "region_id": "region_coast",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oaths_01",
+      "region_id": "region_oaths",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oaths_02",
+      "region_id": "region_oaths",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oaths_03",
+      "region_id": "region_oaths",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oaths_04",
+      "region_id": "region_oaths",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oaths_05",
+      "region_id": "region_oaths",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_forge_01",
+      "region_id": "region_forge",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_forge_02",
+      "region_id": "region_forge",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_forge_03",
+      "region_id": "region_forge",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_forge_04",
+      "region_id": "region_forge",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_forge_05",
+      "region_id": "region_forge",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_isles_01",
+      "region_id": "region_isles",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_isles_02",
+      "region_id": "region_isles",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_isles_03",
+      "region_id": "region_isles",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_isles_04",
+      "region_id": "region_isles",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_isles_05",
+      "region_id": "region_isles",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_mirror_01",
+      "region_id": "region_mirror",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_mirror_02",
+      "region_id": "region_mirror",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_mirror_03",
+      "region_id": "region_mirror",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_mirror_04",
+      "region_id": "region_mirror",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_mirror_05",
+      "region_id": "region_mirror",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oldland_01",
+      "region_id": "region_oldland",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oldland_02",
+      "region_id": "region_oldland",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oldland_03",
+      "region_id": "region_oldland",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oldland_04",
+      "region_id": "region_oldland",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_oldland_05",
+      "region_id": "region_oldland",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_sanctum_01",
+      "region_id": "region_sanctum",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_sanctum_02",
+      "region_id": "region_sanctum",
+      "type": "field",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_sanctum_03",
+      "region_id": "region_sanctum",
+      "type": "route",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_sanctum_04",
+      "region_id": "region_sanctum",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_sanctum_05",
+      "region_id": "region_sanctum",
+      "type": "landmark",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_legacy_village",
+      "region_id": "region_coast",
+      "type": "prototype",
+      "layout_status": "prototype",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_legacy_ruins",
+      "region_id": "region_coast",
+      "type": "prototype",
+      "layout_status": "prototype",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_city_01",
+      "region_id": "region_city",
+      "type": "town",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 5,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_city_02",
+      "region_id": "region_city",
+      "type": "hall",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_city_03",
+      "region_id": "region_city",
+      "type": "residential",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": true,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_city_04",
+      "region_id": "region_city",
+      "type": "dungeon",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    },
+    {
+      "id": "map_city_05",
+      "region_id": "region_city",
+      "type": "worksite",
+      "layout_status": "layout_playable_art_pending",
+      "npc_authored_count": 0,
+      "community_scene_authored": false,
+      "native_v4_nonquest_room_count": 0,
+      "runtime_moving_npc_connected": false,
+      "physical_interior_interaction_connected": false,
+      "completion": "B authored only, awaiting D connection/runtime acceptance",
+      "painted_art_final": false
+    }
+  ],
+  "npc_matrix": [
+    {
+      "npc_id": "npc_coast_01",
+      "name": "潮汐婆婆",
+      "canonical_map_id": "map_coast_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧屋居住区 → 晨灯广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_coast_02",
+      "name": "盐风渔夫",
+      "canonical_map_id": "map_coast_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "码头前街 → 海风集市",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_coast_03",
+      "name": "巡灯学徒",
+      "canonical_map_id": "map_coast_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧屋居住区 → 晨灯广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_coast_04",
+      "name": "渔市行商",
+      "canonical_map_id": "map_coast_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "海风集市 → 海风集市",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_coast_05",
+      "name": "海岸记录员",
+      "canonical_map_id": "map_coast_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧屋居住区 → 码头前街",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oaths_01",
+      "name": "白垒队长",
+      "canonical_map_id": "map_oaths_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "卫戍营房 → 誓约前庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oaths_02",
+      "name": "誓约抄写官",
+      "canonical_map_id": "map_oaths_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "山坡商街 → 誓约前庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oaths_03",
+      "name": "驿路医师",
+      "canonical_map_id": "map_oaths_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "民居台地 → 山坡商街",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oaths_04",
+      "name": "银鹫骑手",
+      "canonical_map_id": "map_oaths_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "卫戍营房 → 民居台地",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oaths_05",
+      "name": "遗誓修女",
+      "canonical_map_id": "map_oaths_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "民居台地 → 誓约前庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_forge_01",
+      "name": "炉心技师",
+      "canonical_map_id": "map_forge_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "工人住区 → 主炉广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_forge_02",
+      "name": "熔铜商人",
+      "canonical_map_id": "map_forge_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "热锻市街 → 热锻市街",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_forge_03",
+      "name": "灰原矿工",
+      "canonical_map_id": "map_forge_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "工人住区 → 矿车货场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_forge_04",
+      "name": "烟塔书记",
+      "canonical_map_id": "map_forge_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "热锻市街 → 主炉广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_forge_05",
+      "name": "旧炉守卫",
+      "canonical_map_id": "map_forge_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "工人住区 → 矿车货场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_isles_01",
+      "name": "礁歌船长",
+      "canonical_map_id": "map_isles_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "居民庭园 → 栈桥泊位",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_isles_02",
+      "name": "珊瑚药师",
+      "canonical_map_id": "map_isles_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "居民庭园 → 珊瑚集市",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_isles_03",
+      "name": "航图师",
+      "canonical_map_id": "map_isles_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "居民庭园 → 栈桥泊位",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_isles_04",
+      "name": "潮祭歌者",
+      "canonical_map_id": "map_isles_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "居民庭园 → 船歌圆场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_isles_05",
+      "name": "暗礁守望人",
+      "canonical_map_id": "map_isles_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "居民庭园 → 栈桥泊位",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_mirror_01",
+      "name": "镜庭侍女",
+      "canonical_map_id": "map_mirror_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "镜湖居民苑 → 静水镜庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_mirror_02",
+      "name": "银湖诗人",
+      "canonical_map_id": "map_mirror_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "镜湖居民苑 → 工艺市廊",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_mirror_03",
+      "name": "梦疫医师",
+      "canonical_map_id": "map_mirror_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "镜湖居民苑 → 静水镜庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_mirror_04",
+      "name": "失忆画匠",
+      "canonical_map_id": "map_mirror_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "镜湖居民苑 → 工艺市廊",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_mirror_05",
+      "name": "王库看守",
+      "canonical_map_id": "map_mirror_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "镜湖居民苑 → 静水镜庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oldland_01",
+      "name": "断碑学者",
+      "canonical_map_id": "map_oldland_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "护风帐街 → 旧碑水井",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oldland_02",
+      "name": "星墓测绘员",
+      "canonical_map_id": "map_oldland_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "护风帐街 → 测绘前哨",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oldland_03",
+      "name": "旧洲拾荒者",
+      "canonical_map_id": "map_oldland_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "护风帐街 → 遗物集市",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oldland_04",
+      "name": "时砂守卫",
+      "canonical_map_id": "map_oldland_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "护风帐街 → 测绘前哨",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_oldland_05",
+      "name": "遗民守灯人",
+      "canonical_map_id": "map_oldland_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "护风帐街 → 旧碑水井",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_sanctum_01",
+      "name": "天轨引渡人",
+      "canonical_map_id": "map_sanctum_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "守灯住所 → 星轨礼庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_sanctum_02",
+      "name": "星环守卫",
+      "canonical_map_id": "map_sanctum_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "守灯住所 → 祈灯外环",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_sanctum_03",
+      "name": "母灯观测者",
+      "canonical_map_id": "map_sanctum_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "守灯住所 → 星轨礼庭",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_sanctum_04",
+      "name": "岁影记录者",
+      "canonical_map_id": "map_sanctum_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "守灯住所 → 客旅长廊",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_sanctum_05",
+      "name": "终夜见证者",
+      "canonical_map_id": "map_sanctum_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "守灯住所 → 祈灯外环",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_city_01",
+      "name": "群灯总务书记",
+      "canonical_map_id": "map_city_01",
+      "role": "quest",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧会馆居民巷 → 市政灯塔广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_city_02",
+      "name": "修灯义工",
+      "canonical_map_id": "map_city_01",
+      "role": "shop",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧会馆居民巷 → 商业主轴",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_city_03",
+      "name": "难民厨师",
+      "canonical_map_id": "map_city_01",
+      "role": "lore",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧会馆居民巷 → 市政灯塔广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_city_04",
+      "name": "城建工程师",
+      "canonical_map_id": "map_city_01",
+      "role": "craft",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧会馆居民巷 → 工匠街",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    },
+    {
+      "npc_id": "npc_city_05",
+      "name": "议事厅记录员",
+      "canonical_map_id": "map_city_01",
+      "role": "rumor",
+      "has_unique_dialogue": true,
+      "has_schedule": true,
+      "unique_route": "旧会馆居民巷 → 市政灯塔广场",
+      "runtime_motion_in_D": false,
+      "fully_animated": false
+    }
+  ],
+  "homes": [
+    {
+      "map_id": "map_coast_01",
+      "building_id": "inn",
+      "name": "晨露村·旅人客栈",
+      "kind": "real_v4",
+      "investigations": 6,
+      "reachable_targets_at_source": 6,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_01",
+      "building_id": "shop",
+      "name": "晨露村·行商杂货铺",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_01",
+      "building_id": "house",
+      "name": "晨露村·潮声民居",
+      "kind": "real_v4",
+      "investigations": 6,
+      "reachable_targets_at_source": 6,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_01",
+      "building_id": "guild",
+      "name": "晨露村·星路公会",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_01",
+      "building_id": "smith",
+      "name": "晨露村·海风工房",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_01",
+      "building_id": "shrine",
+      "name": "晨露村·祈灯祠",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "building_id": "inn",
+      "name": "白砂港·潮汐客栈",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "building_id": "shop",
+      "name": "白砂港·码头集市",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "building_id": "house",
+      "name": "白砂港·渔人之家",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "building_id": "guild",
+      "name": "白砂港·港口公会",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "building_id": "smith",
+      "name": "白砂港·船锚锻坊",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "building_id": "shrine",
+      "name": "白砂港·海灯祠堂",
+      "kind": "real_v4",
+      "investigations": 4,
+      "reachable_targets_at_source": 4,
+      "art_final": false,
+      "D_connected": false
+    }
+  ],
+  "community": [
+    {
+      "map_id": "map_coast_01",
+      "name": "晨露村",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_coast_02",
+      "name": "白砂港",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_oaths_01",
+      "name": "三誓门城",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_forge_01",
+      "name": "熔炉港",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_isles_01",
+      "name": "珊歌港",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_mirror_01",
+      "name": "镜湖都",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_oldland_01",
+      "name": "遗民营地",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_sanctum_01",
+      "name": "天轨前庭",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_city_01",
+      "name": "群灯旧会馆",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_city_02",
+      "name": "自由议事厅",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    },
+    {
+      "map_id": "map_city_03",
+      "name": "群灯居民街",
+      "activities": 3,
+      "social_phases": [
+        "pre_chapter",
+        "night",
+        "after_chapter",
+        "after_project"
+      ],
+      "requires_D_changes_for_new_social_logic": false,
+      "full_npc_motion_in_D": false
+    }
+  ],
+  "protected_files_unchanged": [
+    "scripts/first_act_world.gd",
+    "scripts/first_act.gd",
+    "project.godot"
+  ],
+  "integration": [
+    {
+      "module": "scripts/world_npc_daily.gd",
+      "caller": "D first_act_world",
+      "entrypoints": [
+        "schedule",
+        "destination",
+        "step",
+        "begin_talk",
+        "end_talk"
+      ],
+      "event_namespace": "b.npc.*",
+      "requirement": "movement applied by D from returned position; collision grid passed by D; NPC animation handled by C/D"
+    },
+    {
+      "module": "scripts/world_home_interactions.gd",
+      "caller": "D first_act input handler",
+      "entrypoints": [
+        "objects",
+        "inspect",
+        "occupancy_response"
+      ],
+      "event_namespace": "b.home.map_id.building_id.object_id.phase",
+      "requirement": "D spawns inspectable nodes at layout.investigations, calls inspect on click and saves if changed; owner presence must be grounded"
+    },
+    {
+      "module": "scripts/world_interior_v4.gd",
+      "caller": "D world scene builder",
+      "entrypoints": [
+        "load_level"
+      ],
+      "requirements": [
+        "read investigations and owner metadata from layout",
+        "never replace existing points for exit,service,storage",
+        "keep native quest submaps unchanged"
+      ]
+    },
+    {
+      "module": "scripts/world_town_life.gd",
+      "caller": "D existing citizen talk",
+      "entrypoints": [
+        "talk",
+        "residents_for_map"
+      ],
+      "requirement": "existing talk already invoked; richer dialogue is active on next loads"
+    }
+  ],
+  "tests": [
+    "tools/smoke_b_npc_home_v1.gd",
+    "tools/smoke_b_line_integrity.gd",
+    "tools/smoke_world_production.gd"
+  ],
+  "unresolved": [
+    "Actual scene NPC movement requires D binding, currently old scene teleports at dusk",
+    "Furniture markers not yet spawned by D",
+    "Only 12 native non-quest V4 rooms were authored; other map buildings fall back",
+    "No new sprite animations, sounds, final-painted interiors or one-time loot added",
+    "Godot test not executed in this tool session"
+  ]
+}

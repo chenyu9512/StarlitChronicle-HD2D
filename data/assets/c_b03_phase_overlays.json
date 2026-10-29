@@ -1,0 +1,78 @@
+{
+  "schema": "starlit.c_b03_phase_overlay.v1",
+  "date": "2026-10-27",
+  "description": "Six-frame chapter-specific phase-change visuals. Static B03 body remains unchanged, not full boss-body animation.",
+  "handler": "scripts/battle_boss_awakening.gd",
+  "mode": "presentation_only",
+  "chapters": [
+    {
+      "chapter": 2,
+      "boss_id": "boss.ch002",
+      "overlay": "res://assets/art/b03/boss_motion/ch002_phase_6f.svg",
+      "frame_px": [
+        192,
+        192
+      ],
+      "frames": 6,
+      "state": "phase_two_awaken_only",
+      "godot_tested": false
+    },
+    {
+      "chapter": 3,
+      "boss_id": "boss.ch003",
+      "overlay": "res://assets/art/b03/boss_motion/ch003_phase_6f.svg",
+      "frame_px": [
+        192,
+        192
+      ],
+      "frames": 6,
+      "state": "phase_two_awaken_only",
+      "godot_tested": false
+    },
+    {
+      "chapter": 4,
+      "boss_id": "boss.ch004",
+      "overlay": "res://assets/art/b03/boss_motion/ch004_phase_6f.svg",
+      "frame_px": [
+        192,
+        192
+      ],
+      "frames": 6,
+      "state": "phase_two_awaken_only",
+      "godot_tested": false
+    },
+    {
+      "chapter": 5,
+      "boss_id": "boss.ch005",
+      "overlay": "res://assets/art/b03/boss_motion/ch005_phase_6f.svg",
+      "frame_px": [
+        192,
+        192
+      ],
+      "frames": 6,
+      "state": "phase_two_awaken_only",
+      "godot_tested": false
+    },
+    {
+      "chapter": 6,
+      "boss_id": "boss.ch006",
+      "overlay": "res://assets/art/b03/boss_motion/ch006_phase_6f.svg",
+      "frame_px": [
+        192,
+        192
+      ],
+      "frames": 6,
+      "state": "phase_two_awaken_only",
+      "godot_tested": false
+    }
+  ],
+  "missing": [
+    "five bosses genuine independent attack/hit/defeat/body/appendage frames",
+    "live screenshot and quality review"
+  ],
+  "QA": {
+    "svg_structural": "checked",
+    "engine_import": "not_tested",
+    "live_visual": "not_tested"
+  }
+}

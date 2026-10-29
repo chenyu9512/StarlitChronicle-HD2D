@@ -1,0 +1,265 @@
+{
+  "schema_version": 3,
+  "map_id": "map_city_04",
+  "title": "星灯中枢",
+  "biome": "metropolis",
+  "category": "dungeon",
+  "design_intent": "王都高墙与轨道运输",
+  "size": [
+    92,
+    56
+  ],
+  "roads": [
+    {
+      "id": "spine-修复大道",
+      "width": 1,
+      "points": [
+        [
+          6,
+          18
+        ],
+        [
+          22,
+          26
+        ],
+        [
+          41,
+          31
+        ],
+        [
+          60,
+          24
+        ],
+        [
+          85,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "branch-city",
+      "width": 1,
+      "points": [
+        [
+          26,
+          5
+        ],
+        [
+          40,
+          20
+        ],
+        [
+          24,
+          26
+        ],
+        [
+          43,
+          49
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          15,
+          31
+        ],
+        [
+          29,
+          39
+        ],
+        [
+          51,
+          34
+        ],
+        [
+          24,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          57,
+          22
+        ],
+        [
+          73,
+          28
+        ],
+        [
+          86,
+          24
+        ],
+        [
+          83,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          21,
+          15
+        ],
+        [
+          47,
+          18
+        ],
+        [
+          63,
+          37
+        ],
+        [
+          80,
+          48
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_city_04",
+      "width": 2,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          87,
+          11
+        ],
+        [
+          88,
+          43
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-south-crest-map_city_04",
+      "width": 1,
+      "points": [
+        [
+          23,
+          50
+        ],
+        [
+          85,
+          51
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_city_04",
+      "center": [
+        26,
+        24
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_city_04",
+      "center": [
+        52,
+        36
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_city_04",
+      "center": [
+        82,
+        47
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_city_04",
+      "cell": [
+        53,
+        16
+      ],
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "secondary-lookout-map_city_04",
+      "cell": [
+        15,
+        32
+      ],
+      "kind": "barrel"
+    },
+    {
+      "id": "peripheral-crest-map_city_04",
+      "cell": [
+        83,
+        46
+      ],
+      "kind": "beacon"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        88,
+        52
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        88,
+        40
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        83,
+        24
+      ],
+      "kind": "beacon",
+      "name": "复工灯位·星灯中枢"
+    },
+    {
+      "cell": [
+        81,
+        46
+      ],
+      "kind": "sign",
+      "name": "居民庭院·星灯中枢"
+    },
+    {
+      "cell": [
+        62,
+        47
+      ],
+      "kind": "star_lantern",
+      "name": "联络岗亭·星灯中枢"
+    }
+  ],
+  "layout_identity": "city.04.修复大道",
+  "layout_principle": "修复大道：依据「星灯中枢」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

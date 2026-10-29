@@ -1,0 +1,41 @@
+{
+  "schema": "starlit.story.phase21.page_reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "chapter_id": "ch026",
+  "insert_after_scene_id": "ch026.resolve",
+  "notes": "P0兜底：主线固定使用不宣称首张的中性对白；本文件是两种可选回响，只有未来明确绑定的剧情制作/运行器才播放，不承担章节奖励或航页收集任务。",
+  "variants": [
+    {
+      "id": "ch026.v21.already_has_page",
+      "conditions": {
+        "required_flags": [
+          "world.page_01"
+        ],
+        "without_flags": []
+      },
+      "dialogue": [
+        {
+          "id": "ch026.v21.already_has_page.l01",
+          "speaker": "主角",
+          "text": "我们手里已有航页，这条新路线能与旧页相互核对，看看哪些港口仍被抹去了。"
+        }
+      ]
+    },
+    {
+      "id": "ch026.v21.not_yet_page",
+      "conditions": {
+        "required_flags": [],
+        "without_flags": [
+          "world.page_01"
+        ]
+      },
+      "dialogue": [
+        {
+          "id": "ch026.v21.not_yet_page.l01",
+          "speaker": "主角",
+          "text": "这角航图还不能代替完整航页。等回港后，再去查第一份失落航页的下落。"
+        }
+      ]
+    }
+  ]
+}

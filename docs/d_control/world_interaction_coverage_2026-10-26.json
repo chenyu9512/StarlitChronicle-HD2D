@@ -1,0 +1,2830 @@
+{
+  "snapshot_sha": "acf4af71b4e680458aacc5cce7266fbd2b8653fd",
+  "result": "STATIC_DATA_COVERAGE_ONLY",
+  "godot": "NOT_RUN",
+  "maps": [
+    {
+      "id": "map_city_01",
+      "region_id": "region_city",
+      "settlement": true,
+      "neighbors": [
+        "map_city_02"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02",
+      "region_id": "region_city",
+      "settlement": true,
+      "neighbors": [
+        "map_city_01",
+        "map_city_03"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03",
+      "region_id": "region_city",
+      "settlement": true,
+      "neighbors": [
+        "map_city_02",
+        "map_city_04"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_04",
+      "region_id": "region_city",
+      "settlement": false,
+      "neighbors": [
+        "map_city_03",
+        "map_city_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_05",
+      "region_id": "region_city",
+      "settlement": false,
+      "neighbors": [
+        "map_city_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01",
+      "region_id": "region_coast",
+      "settlement": true,
+      "neighbors": [
+        "map_coast_02"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02",
+      "region_id": "region_coast",
+      "settlement": true,
+      "neighbors": [
+        "map_coast_01",
+        "map_coast_03"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_03",
+      "region_id": "region_coast",
+      "settlement": false,
+      "neighbors": [
+        "map_coast_02",
+        "map_coast_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_04",
+      "region_id": "region_coast",
+      "settlement": false,
+      "neighbors": [
+        "map_coast_03",
+        "map_coast_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_05",
+      "region_id": "region_coast",
+      "settlement": false,
+      "neighbors": [
+        "map_coast_04",
+        "map_oaths_01"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01",
+      "region_id": "region_forge",
+      "settlement": true,
+      "neighbors": [
+        "map_forge_02",
+        "map_oaths_05"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_02",
+      "region_id": "region_forge",
+      "settlement": false,
+      "neighbors": [
+        "map_forge_01",
+        "map_forge_03"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_03",
+      "region_id": "region_forge",
+      "settlement": false,
+      "neighbors": [
+        "map_forge_02",
+        "map_forge_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_04",
+      "region_id": "region_forge",
+      "settlement": false,
+      "neighbors": [
+        "map_forge_03",
+        "map_forge_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_05",
+      "region_id": "region_forge",
+      "settlement": false,
+      "neighbors": [
+        "map_forge_04",
+        "map_isles_01"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01",
+      "region_id": "region_isles",
+      "settlement": true,
+      "neighbors": [
+        "map_isles_02",
+        "map_forge_05"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_02",
+      "region_id": "region_isles",
+      "settlement": false,
+      "neighbors": [
+        "map_isles_01",
+        "map_isles_03"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_03",
+      "region_id": "region_isles",
+      "settlement": false,
+      "neighbors": [
+        "map_isles_02",
+        "map_isles_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_04",
+      "region_id": "region_isles",
+      "settlement": false,
+      "neighbors": [
+        "map_isles_03",
+        "map_isles_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_05",
+      "region_id": "region_isles",
+      "settlement": false,
+      "neighbors": [
+        "map_isles_04",
+        "map_mirror_01"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01",
+      "region_id": "region_mirror",
+      "settlement": true,
+      "neighbors": [
+        "map_mirror_02",
+        "map_isles_05"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_02",
+      "region_id": "region_mirror",
+      "settlement": false,
+      "neighbors": [
+        "map_mirror_01",
+        "map_mirror_03"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_03",
+      "region_id": "region_mirror",
+      "settlement": false,
+      "neighbors": [
+        "map_mirror_02",
+        "map_mirror_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_04",
+      "region_id": "region_mirror",
+      "settlement": false,
+      "neighbors": [
+        "map_mirror_03",
+        "map_mirror_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_05",
+      "region_id": "region_mirror",
+      "settlement": false,
+      "neighbors": [
+        "map_mirror_04",
+        "map_oldland_01"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01",
+      "region_id": "region_oaths",
+      "settlement": true,
+      "neighbors": [
+        "map_oaths_02",
+        "map_coast_05"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_02",
+      "region_id": "region_oaths",
+      "settlement": false,
+      "neighbors": [
+        "map_oaths_01",
+        "map_oaths_03"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_03",
+      "region_id": "region_oaths",
+      "settlement": false,
+      "neighbors": [
+        "map_oaths_02",
+        "map_oaths_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_04",
+      "region_id": "region_oaths",
+      "settlement": false,
+      "neighbors": [
+        "map_oaths_03",
+        "map_oaths_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_05",
+      "region_id": "region_oaths",
+      "settlement": false,
+      "neighbors": [
+        "map_oaths_04",
+        "map_forge_01"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01",
+      "region_id": "region_oldland",
+      "settlement": true,
+      "neighbors": [
+        "map_oldland_02",
+        "map_mirror_05"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_02",
+      "region_id": "region_oldland",
+      "settlement": false,
+      "neighbors": [
+        "map_oldland_01",
+        "map_oldland_03"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_03",
+      "region_id": "region_oldland",
+      "settlement": false,
+      "neighbors": [
+        "map_oldland_02",
+        "map_oldland_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_04",
+      "region_id": "region_oldland",
+      "settlement": false,
+      "neighbors": [
+        "map_oldland_03",
+        "map_oldland_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_05",
+      "region_id": "region_oldland",
+      "settlement": false,
+      "neighbors": [
+        "map_oldland_04",
+        "map_sanctum_01"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01",
+      "region_id": "region_sanctum",
+      "settlement": true,
+      "neighbors": [
+        "map_sanctum_02",
+        "map_oldland_05"
+      ],
+      "doors": 6,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_02",
+      "region_id": "region_sanctum",
+      "settlement": false,
+      "neighbors": [
+        "map_sanctum_01",
+        "map_sanctum_03"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_03",
+      "region_id": "region_sanctum",
+      "settlement": false,
+      "neighbors": [
+        "map_sanctum_02",
+        "map_sanctum_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_04",
+      "region_id": "region_sanctum",
+      "settlement": false,
+      "neighbors": [
+        "map_sanctum_03",
+        "map_sanctum_05"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_05",
+      "region_id": "region_sanctum",
+      "settlement": false,
+      "neighbors": [
+        "map_sanctum_04"
+      ],
+      "doors": 0,
+      "map_transition": "NOT_GODOT_TESTED",
+      "spawn": "NOT_GODOT_TESTED"
+    }
+  ],
+  "buildings": [
+    {
+      "id": "map_city_01#guild",
+      "map_id": "map_city_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        33,
+        33
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_01#house",
+      "map_id": "map_city_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        14,
+        37
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_01#inn",
+      "map_id": "map_city_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        19,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_01#shop",
+      "map_id": "map_city_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        48,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_01#shrine",
+      "map_id": "map_city_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        61,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_01#smith",
+      "map_id": "map_city_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        56,
+        36
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02#guild",
+      "map_id": "map_city_02",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        35,
+        33
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02#house",
+      "map_id": "map_city_02",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        13,
+        35
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02#inn",
+      "map_id": "map_city_02",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        18,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02#shop",
+      "map_id": "map_city_02",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        50,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02#shrine",
+      "map_id": "map_city_02",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        62,
+        18
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_02#smith",
+      "map_id": "map_city_02",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        57,
+        37
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03#guild",
+      "map_id": "map_city_03",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        31,
+        34
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03#house",
+      "map_id": "map_city_03",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        14,
+        38
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03#inn",
+      "map_id": "map_city_03",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        20,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03#shop",
+      "map_id": "map_city_03",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        47,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03#shrine",
+      "map_id": "map_city_03",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        61,
+        20
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_city_03#smith",
+      "map_id": "map_city_03",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        55,
+        37
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01#guild",
+      "map_id": "map_coast_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        35,
+        29
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01#house",
+      "map_id": "map_coast_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        15,
+        36
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01#inn",
+      "map_id": "map_coast_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        19,
+        13
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01#shop",
+      "map_id": "map_coast_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        45,
+        13
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01#shrine",
+      "map_id": "map_coast_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        60,
+        19
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_01#smith",
+      "map_id": "map_coast_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        53,
+        37
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02#guild",
+      "map_id": "map_coast_02",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        31,
+        31
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02#house",
+      "map_id": "map_coast_02",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        13,
+        34
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02#inn",
+      "map_id": "map_coast_02",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        21,
+        13
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02#shop",
+      "map_id": "map_coast_02",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        43,
+        17
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02#shrine",
+      "map_id": "map_coast_02",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        60,
+        13
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_coast_02#smith",
+      "map_id": "map_coast_02",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        57,
+        36
+      ],
+      "authored_interior": true,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01#guild",
+      "map_id": "map_forge_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        32,
+        32
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01#house",
+      "map_id": "map_forge_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        14,
+        37
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01#inn",
+      "map_id": "map_forge_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        18,
+        13
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01#shop",
+      "map_id": "map_forge_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        46,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01#shrine",
+      "map_id": "map_forge_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        61,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_forge_01#smith",
+      "map_id": "map_forge_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        56,
+        36
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01#guild",
+      "map_id": "map_isles_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        35,
+        32
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01#house",
+      "map_id": "map_isles_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        15,
+        30
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01#inn",
+      "map_id": "map_isles_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        23,
+        13
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01#shop",
+      "map_id": "map_isles_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        50,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01#shrine",
+      "map_id": "map_isles_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        61,
+        20
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_isles_01#smith",
+      "map_id": "map_isles_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        56,
+        33
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01#guild",
+      "map_id": "map_mirror_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        29,
+        36
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01#house",
+      "map_id": "map_mirror_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        17,
+        35
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01#inn",
+      "map_id": "map_mirror_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        17,
+        13
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01#shop",
+      "map_id": "map_mirror_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        42,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01#shrine",
+      "map_id": "map_mirror_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        61,
+        15
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_mirror_01#smith",
+      "map_id": "map_mirror_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        53,
+        35
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01#guild",
+      "map_id": "map_oaths_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        27,
+        32
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01#house",
+      "map_id": "map_oaths_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        13,
+        37
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01#inn",
+      "map_id": "map_oaths_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        16,
+        16
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01#shop",
+      "map_id": "map_oaths_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        45,
+        16
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01#shrine",
+      "map_id": "map_oaths_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        60,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oaths_01#smith",
+      "map_id": "map_oaths_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        56,
+        35
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01#guild",
+      "map_id": "map_oldland_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        33,
+        34
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01#house",
+      "map_id": "map_oldland_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        13,
+        31
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01#inn",
+      "map_id": "map_oldland_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        20,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01#shop",
+      "map_id": "map_oldland_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        49,
+        13
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01#shrine",
+      "map_id": "map_oldland_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        60,
+        21
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_oldland_01#smith",
+      "map_id": "map_oldland_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        56,
+        34
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01#guild",
+      "map_id": "map_sanctum_01",
+      "building_id": "guild",
+      "kind": "guild",
+      "door": [
+        34,
+        33
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01#house",
+      "map_id": "map_sanctum_01",
+      "building_id": "house",
+      "kind": "house",
+      "door": [
+        13,
+        37
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01#inn",
+      "map_id": "map_sanctum_01",
+      "building_id": "inn",
+      "kind": "inn",
+      "door": [
+        20,
+        14
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01#shop",
+      "map_id": "map_sanctum_01",
+      "building_id": "shop",
+      "kind": "shop",
+      "door": [
+        48,
+        13
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01#shrine",
+      "map_id": "map_sanctum_01",
+      "building_id": "shrine",
+      "kind": "shrine",
+      "door": [
+        61,
+        19
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "map_sanctum_01#smith",
+      "map_id": "map_sanctum_01",
+      "building_id": "smith",
+      "kind": "smith",
+      "door": [
+        56,
+        34
+      ],
+      "authored_interior": false,
+      "entrance": "NOT_GODOT_TESTED",
+      "exit": "NOT_GODOT_TESTED",
+      "restore": "NOT_GODOT_TESTED"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_city_01",
+      "region_id": "region_city",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_city_02",
+      "region_id": "region_city",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_city_03",
+      "region_id": "region_city",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_city_04",
+      "region_id": "region_city",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_city_05",
+      "region_id": "region_city",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_coast_01",
+      "region_id": "region_coast",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_coast_02",
+      "region_id": "region_coast",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_coast_03",
+      "region_id": "region_coast",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_coast_04",
+      "region_id": "region_coast",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_coast_05",
+      "region_id": "region_coast",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_forge_01",
+      "region_id": "region_forge",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_forge_02",
+      "region_id": "region_forge",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_forge_03",
+      "region_id": "region_forge",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_forge_04",
+      "region_id": "region_forge",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_forge_05",
+      "region_id": "region_forge",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_isles_01",
+      "region_id": "region_isles",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_isles_02",
+      "region_id": "region_isles",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_isles_03",
+      "region_id": "region_isles",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_isles_04",
+      "region_id": "region_isles",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_isles_05",
+      "region_id": "region_isles",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_mirror_01",
+      "region_id": "region_mirror",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_mirror_02",
+      "region_id": "region_mirror",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_mirror_03",
+      "region_id": "region_mirror",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_mirror_04",
+      "region_id": "region_mirror",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_mirror_05",
+      "region_id": "region_mirror",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oaths_01",
+      "region_id": "region_oaths",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oaths_02",
+      "region_id": "region_oaths",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oaths_03",
+      "region_id": "region_oaths",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oaths_04",
+      "region_id": "region_oaths",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oaths_05",
+      "region_id": "region_oaths",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oldland_01",
+      "region_id": "region_oldland",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oldland_02",
+      "region_id": "region_oldland",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oldland_03",
+      "region_id": "region_oldland",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oldland_04",
+      "region_id": "region_oldland",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_oldland_05",
+      "region_id": "region_oldland",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_sanctum_01",
+      "region_id": "region_sanctum",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_sanctum_02",
+      "region_id": "region_sanctum",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_sanctum_03",
+      "region_id": "region_sanctum",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_sanctum_04",
+      "region_id": "region_sanctum",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    },
+    {
+      "id": "npc_sanctum_05",
+      "region_id": "region_sanctum",
+      "periods": [
+        {
+          "id": "wake",
+          "start": 5,
+          "end": 8
+        },
+        {
+          "id": "work",
+          "start": 8,
+          "end": 13
+        },
+        {
+          "id": "afternoon",
+          "start": 13,
+          "end": 19
+        },
+        {
+          "id": "return",
+          "start": 19,
+          "end": 21
+        },
+        {
+          "id": "rest",
+          "start": 21,
+          "end": 5
+        }
+      ],
+      "dialogue": "NOT_GODOT_TESTED",
+      "movement": "NOT_GODOT_TESTED",
+      "night": "NOT_GODOT_TESTED"
+    }
+  ],
+  "gate_graph": {
+    "directed_edges": 76,
+    "components": [
+      [
+        "map_coast_01",
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04",
+        "map_coast_05",
+        "map_forge_01",
+        "map_forge_02",
+        "map_forge_03",
+        "map_forge_04",
+        "map_forge_05",
+        "map_isles_01",
+        "map_isles_02",
+        "map_isles_03",
+        "map_isles_04",
+        "map_isles_05",
+        "map_mirror_01",
+        "map_mirror_02",
+        "map_mirror_03",
+        "map_mirror_04",
+        "map_mirror_05",
+        "map_oaths_01",
+        "map_oaths_02",
+        "map_oaths_03",
+        "map_oaths_04",
+        "map_oaths_05",
+        "map_oldland_01",
+        "map_oldland_02",
+        "map_oldland_03",
+        "map_oldland_04",
+        "map_oldland_05",
+        "map_sanctum_01",
+        "map_sanctum_02",
+        "map_sanctum_03",
+        "map_sanctum_04",
+        "map_sanctum_05"
+      ],
+      [
+        "map_city_01",
+        "map_city_02",
+        "map_city_03",
+        "map_city_04",
+        "map_city_05"
+      ]
+    ],
+    "scripted_cross_component_transfer": "NOT_VERIFIED"
+  },
+  "counts": {
+    "maps": 40,
+    "settlements": 11,
+    "building_doors": 66,
+    "authored_normal_interiors": 12,
+    "interior_json": 97,
+    "npcs": 40,
+    "daynight_periods": 200
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "batch": "M0.1-final-same-sha-integrated-world-2026-10-27",
+  "base_main": "dbf4a8b5fa208963654d42a0d07765f874e1304c",
+  "engine": "Godot 4.7.2",
+  "strict_release_checks": [
+    "Godot Core Validation",
+    "Batch0 Seven Independent QA Gates",
+    "Starlit Full Godot Smoke Suite"
+  ],
+  "policy": "All workflows run on the exact same trigger SHA; any failed or in-progress gate means no global signoff and M1 HOLD.",
+  "version": 3,
+  "requested_parent_sha": "395aa7d63beb89718cb7704840d5b77f9f23b25a",
+  "status": "requested-not-verified",
+  "rerun_reason": "Audit all seven gates after correct registration of sixteen new scene atlas files and concurrently added lighthouse art; do not infer from old SHA.",
+  "main2_act01_regression": {
+    "branch": "Main2美术优化版",
+    "request": "first-act-world-room-save-and-third-party-art",
+    "status": "requested-not-verified",
+    "scope": [
+      "chapter-3-cave-gate",
+      "chapter-2-6-physical-travel",
+      "8-harbor-room-clues",
+      "V3-failed-write-rollback",
+      "third-party-art-import"
+    ],
+    "source": "docs/MAIN2_P0_FIX_LOG_2026_10_27.md"
+  },
+  "act01_commercial_fix_20261027": {
+    "batch": "main2-commercial-act01-fix-20261027",
+    "parent_sha": "6343af9f7dd7268b5d5ce44fdd47fa8ea21322ab",
+    "status": "requested-not-verified",
+    "focus": [
+      "collision-safe-interior-return",
+      "distinct-neighbor-exit",
+      "semantic-signs-and-clues",
+      "chapter-5-humane-beast",
+      "chapter-6-lighthouse-testimony",
+      "atomic-v3-save"
+    ]
+  },
+  "act01_rerun_20261027": {
+    "batch": "main2-act01-p0-fix-regression-v2",
+    "requested_parent_sha": "ad1bb59f71d7837885d4327fe45993ac8cb1d099",
+    "stage": "requested-not-verified",
+    "fixes": [
+      "physical gate overlap",
+      "collision safe return",
+      "specific indoor clues",
+      "ch5 nonlethal rescue",
+      "ch6 testimony",
+      "non-cheat 72-chapter boss commands",
+      "five unique imported boss portraits"
+    ]
+  },
+  "act01_batch01_20261028": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "b93250a40288545d2a24cdc21d0086da6ca4d62e",
+    "request": "execute_12_direction_batch_01",
+    "status": "requested-not-verified",
+    "scope": [
+      "01.01 latest Godot full regression",
+      "02.05 map and landmark reachability",
+      "03.01 room entry and return",
+      "06.01 malformed save rejection",
+      "07.01 actual landmark screenshot"
+    ]
+  },
+  "act01_batch01_20261028_district_repair": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "82ecc734463e44461e83a835b7f6bf66443b7577",
+    "status": "requested-not-verified",
+    "request": "retest real village/harbor district migration and NPC daily routine after repairing 6 events and 25 schedule entries",
+    "scope": [
+      "01 engineering cold import",
+      "02 real reachable districts",
+      "03 room and exit",
+      "06 transaction and state rollback",
+      "12 all shard QA"
+    ]
+  },
+  "act01_batch01_20261028_cave_valves": {
+    "branch": "Main2美术优化版",
+    "parent_sha": "a1493e1b164cb80dc48b7ce1824a7a40692dcd7a",
+    "request": "verify physical cave tide valve placements on actual chapter-three map plus all quality gates",
+    "status": "requested-not-verified"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "schema": "starlit.c-line.town-motion.v1",
+  "baseline_source": "main Git tree; engineering sample, NOT art quality certification",
+  "sample": "map_coast_01 Morning Dew Village",
+  "motion": {
+    "logical_directions": [
+      "down",
+      "down_left",
+      "left",
+      "up_left",
+      "up",
+      "up_right",
+      "right",
+      "down_right"
+    ],
+    "real_atlas_rows": [
+      "down",
+      "left",
+      "up",
+      "right"
+    ],
+    "atlas_frames_per_row": 3,
+    "states": [
+      "idle",
+      "start",
+      "walk",
+      "stop",
+      "turn",
+      "talk",
+      "gesture"
+    ],
+    "actor_runtime": "scripts/first_act_actor.gd",
+    "npc_runtime": "scripts/world_npc_visual.gd",
+    "missing": "independent 8-direction sprite illustrations, bespoke upper/lower body gesture frames for every NPC"
+  },
+  "npc_activities": [
+    "sort_goods",
+    "wave",
+    "observe",
+    "work",
+    "sweep",
+    "rest",
+    "look_around",
+    "talk"
+  ],
+  "interiors": [
+    {
+      "id": "map_coast_01__inn",
+      "room": "inn",
+      "source": "data/levels/v4/interiors/map_coast_01__inn.json",
+      "art_profile": "coast_inn_v1",
+      "coverage": "runtime rendered authored set plus original room foley",
+      "commercial_accepted": false
+    },
+    {
+      "id": "map_coast_01__house",
+      "room": "house",
+      "source": "data/levels/v4/interiors/map_coast_01__house.json",
+      "art_profile": "coast_district_runtime_set",
+      "coverage": "existing independent room scene; C visual door/prop/audio contracts available",
+      "commercial_accepted": false
+    },
+    {
+      "id": "map_coast_01__shop",
+      "room": "shop",
+      "source": "data/levels/v4/interiors/map_coast_01__shop.json",
+      "art_profile": "coast_district_runtime_set",
+      "coverage": "existing independent room scene; C visual door/prop/audio contracts available",
+      "commercial_accepted": false
+    },
+    {
+      "id": "map_coast_01__shrine",
+      "room": "shrine",
+      "source": "data/levels/v4/interiors/map_coast_01__shrine.json",
+      "art_profile": "coast_district_runtime_set",
+      "coverage": "existing independent room scene; C visual door/prop/audio contracts available",
+      "commercial_accepted": false
+    },
+    {
+      "id": "map_coast_01__smith",
+      "room": "smith",
+      "source": "data/levels/v4/interiors/map_coast_01__smith.json",
+      "art_profile": "coast_district_runtime_set",
+      "coverage": "existing independent room scene; C visual door/prop/audio contracts available",
+      "commercial_accepted": false
+    },
+    {
+      "id": "map_coast_01__guild",
+      "room": "guild",
+      "source": "data/levels/v4/interiors/map_coast_01__guild.json",
+      "art_profile": "coast_district_runtime_set",
+      "coverage": "existing independent room scene; C visual door/prop/audio contracts available",
+      "commercial_accepted": false
+    }
+  ],
+  "buildings": [
+    {
+      "purpose": "house",
+      "door_visual": "procedural proximity feedback",
+      "facade": "existing painted if file exists, else runtime illustration",
+      "animation_final": "not_accepted"
+    },
+    {
+      "purpose": "shop",
+      "door_visual": "procedural proximity feedback",
+      "facade": "existing painted if file exists, else runtime illustration",
+      "animation_final": "not_accepted"
+    },
+    {
+      "purpose": "inn",
+      "door_visual": "procedural proximity feedback",
+      "facade": "existing painted if file exists, else runtime illustration",
+      "animation_final": "not_accepted"
+    },
+    {
+      "purpose": "guild",
+      "door_visual": "procedural proximity feedback",
+      "facade": "existing painted if file exists, else runtime illustration",
+      "animation_final": "not_accepted"
+    },
+    {
+      "purpose": "smith",
+      "door_visual": "procedural proximity feedback",
+      "facade": "existing painted if file exists, else runtime illustration",
+      "animation_final": "not_accepted"
+    },
+    {
+      "purpose": "shrine",
+      "door_visual": "procedural proximity feedback",
+      "facade": "existing painted if file exists, else runtime illustration",
+      "animation_final": "not_accepted"
+    }
+  ],
+  "audio": {
+    "provenance": "C-line self-generated deterministic PCM, not third-party music",
+    "files_committed": 0,
+    "services": [
+      "c_town_soundscape.gd",
+      "c_interaction_fx.gd"
+    ],
+    "events": [
+      "door_open",
+      "door_close",
+      "chest_open",
+      "lantern_on",
+      "inspect"
+    ],
+    "mix_bus": "Ambience/SFX",
+    "status": "procedural_reference_not_master_audio"
+  },
+  "integration": {
+    "A_B_unchanged": true,
+    "D_expected_events": [
+      {
+        "event": "character.face",
+        "call": "actor.begin_conversation(world_point) / npc.face_player(world_point)"
+      },
+      {
+        "event": "character.talk_end",
+        "call": "npc.end_conversation()"
+      },
+      {
+        "event": "building.door_open",
+        "call": "structure.play_door(true)"
+      },
+      {
+        "event": "building.door_close",
+        "call": "structure.play_door(false)"
+      },
+      {
+        "event": "room.prop_interact",
+        "call": "room.play_prop_action(id, action)"
+      },
+      {
+        "event": "world.transition_out",
+        "call": "soundscape.stop_scene(seconds)"
+      },
+      {
+        "event": "world.transition_in",
+        "call": "soundscape.configure(map_id, room_type, indoor, seconds)"
+      }
+    ]
+  },
+  "license_status": "Only existing project-owned code and assets reused; no third-party imported media in this batch.",
+  "qa_status": "committed_unexecuted_Godot_headless_integration_pending",
+  "regression": [
+    "tools/smoke_c_character_motion.gd",
+    "tools/smoke_c_town_presentation.gd",
+    "tools/smoke_town_life.gd",
+    "tools/smoke_coastal_interiors.gd"
+  ]
+}

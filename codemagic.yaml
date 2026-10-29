@@ -1,0 +1,68 @@
+# Unsigned iPhone app -> .ipa that a sideloading signer (e.g. SideStore)
+# may attempt to re-sign. This workflow does NOT produce a store-signed IPA.
+workflows:
+  ios-unsigned:
+    name: Starlit Chronicle iOS unsigned (Godot 4.7.2)
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+      vars:
+        GODOT_VERSION: "4.7.2"
+    scripts:
+      - name: Install Godot 4.7.2 editor and templates
+        script: |
+          set -euo pipefail
+          mkdir -p "$CM_BUILD_DIR/build" "$HOME/.godot-ci"
+          curl --fail --location --retry 3 \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_macos.universal.zip" \
+            --output /tmp/starlit_godot.zip
+          unzip -q /tmp/starlit_godot.zip -d "$HOME/.godot-ci"
+          GODOT_PATH=$(find "$HOME/.godot-ci" -path '*/Contents/MacOS/Godot' -type f | head -1)
+          test -n "$GODOT_PATH"
+          chmod +x "$GODOT_PATH"
+          echo "GODOT_BIN=$GODOT_PATH" >> "$CM_ENV"
+          curl --fail --location --retry 3 \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
+            --output /tmp/starlit_templates.tpz
+          mkdir -p /tmp/starlit-template-extract
+          unzip -q /tmp/starlit_templates.tpz -d /tmp/starlit-template-extract
+          TEMPLATE_DIR="$HOME/Library/Application Support/Godot/export_templates/${GODOT_VERSION}.stable"
+          mkdir -p "$TEMPLATE_DIR"
+          cp -R /tmp/starlit-template-extract/templates/. "$TEMPLATE_DIR/"
+          "$GODOT_PATH" --version
+      - name: Import resources and export Xcode project
+        script: |
+          set -euo pipefail
+          cd "$CM_BUILD_DIR"
+          mkdir -p build/ios
+          "$GODOT_BIN" --headless --editor --path . --quit
+          "$GODOT_BIN" --headless --path . --export-debug iOS "build/ios/StarlitChronicle.xcodeproj"
+          test -d build/ios/StarlitChronicle.xcodeproj
+      - name: Compile native iPhone app without Apple signing
+        script: |
+          set -euo pipefail
+          cd "$CM_BUILD_DIR"
+          xcodebuild -list -json -project build/ios/StarlitChronicle.xcodeproj > build/xcode_schemes.json
+          SCHEME=$(python3 -c 'import json; d=json.load(open("build/xcode_schemes.json")); print(d["project"]["schemes"][0])')
+          echo "Using Xcode scheme: $SCHEME"
+          xcodebuild -project build/ios/StarlitChronicle.xcodeproj \
+            -scheme "$SCHEME" -configuration Debug \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$CM_BUILD_DIR/build/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
+      - name: Package unsigned IPA for sideload signing
+        script: |
+          set -euo pipefail
+          cd "$CM_BUILD_DIR"
+          mkdir -p build/unsigned/Payload
+          APP_PATH=$(find build/DerivedData/Build/Products/Debug-iphoneos -maxdepth 1 -type d -name '*.app' -print -quit)
+          test -n "$APP_PATH" || { echo "No iPhone .app found"; exit 1; }
+          cp -R "$APP_PATH" build/unsigned/Payload/
+          cd build/unsigned
+          zip -qry StarlitChronicle-unsigned.ipa Payload
+    artifacts:
+      - build/unsigned/*.ipa
+      - build/ios/*.xcodeproj/**
+      - build/xcode_schemes.json
+      - /tmp/xcodebuild_logs/*.log

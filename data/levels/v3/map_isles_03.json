@@ -1,0 +1,331 @@
+{
+  "schema_version": 3,
+  "map_id": "map_isles_03",
+  "title": "风暴航道",
+  "biome": "archipelago",
+  "category": "route",
+  "design_intent": "群岛水路与石桥",
+  "size": [
+    94,
+    60
+  ],
+  "roads": [
+    {
+      "id": "spine-岛屿链桥",
+      "width": 1,
+      "points": [
+        [
+          6,
+          21
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          38,
+          31
+        ],
+        [
+          53,
+          15
+        ],
+        [
+          87,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "branch-isles",
+      "width": 1,
+      "points": [
+        [
+          25,
+          5
+        ],
+        [
+          31,
+          17
+        ],
+        [
+          37,
+          29
+        ],
+        [
+          37,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          15,
+          34
+        ],
+        [
+          24,
+          39
+        ],
+        [
+          51,
+          37
+        ],
+        [
+          19,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          45,
+          21
+        ],
+        [
+          76,
+          21
+        ],
+        [
+          88,
+          50
+        ],
+        [
+          85,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          19,
+          12
+        ],
+        [
+          46,
+          9
+        ],
+        [
+          60,
+          30
+        ],
+        [
+          82,
+          52
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          8
+        ],
+        [
+          33,
+          9
+        ],
+        [
+          64,
+          10
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          42
+        ],
+        [
+          35,
+          43
+        ],
+        [
+          64,
+          44
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_isles_03",
+      "width": 2,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          89,
+          11
+        ],
+        [
+          90,
+          47
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [
+    {
+      "id": "tidal-channel",
+      "width": 4,
+      "points": [
+        [
+          67,
+          7
+        ],
+        [
+          60,
+          16
+        ],
+        [
+          67,
+          31
+        ],
+        [
+          66,
+          43
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "regional-stream-map_isles_03",
+      "width": 2,
+      "points": [
+        [
+          89,
+          6
+        ],
+        [
+          86,
+          19
+        ],
+        [
+          89,
+          47
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_isles_03",
+      "center": [
+        23,
+        21
+      ],
+      "radius": 4
+    },
+    {
+      "id": "fork-outlook-map_isles_03",
+      "center": [
+        47,
+        39
+      ],
+      "radius": 2
+    },
+    {
+      "id": "expansion-court-map_isles_03",
+      "center": [
+        84,
+        51
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_isles_03",
+      "cell": [
+        46,
+        19
+      ],
+      "kind": "rock"
+    },
+    {
+      "id": "secondary-lookout-map_isles_03",
+      "cell": [
+        18,
+        35
+      ],
+      "kind": "sign"
+    },
+    {
+      "id": "peripheral-crest-map_isles_03",
+      "cell": [
+        85,
+        50
+      ],
+      "kind": "barrel"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        90,
+        56
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        90,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        85,
+        19
+      ],
+      "kind": "beacon",
+      "name": "潮桥灯位·风暴航道"
+    },
+    {
+      "cell": [
+        83,
+        50
+      ],
+      "kind": "sign",
+      "name": "珊瑚浅径·风暴航道"
+    },
+    {
+      "cell": [
+        62,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "归航星标·风暴航道"
+    }
+  ],
+  "layout_identity": "isles.03.岛屿链桥",
+  "layout_principle": "岛屿链桥：依据「风暴航道」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

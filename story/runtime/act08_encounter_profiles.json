@@ -1,0 +1,37 @@
+{
+  "schema": "starlit.campaign.act08.rescue.encounters.v1",
+  "chapter_id": "ch047",
+  "note": "Distinct ordinary non-boss enemy formations. Existing EncounterRegistry monster IDs, art and rewards remain authoritative until dedicated 2D guard artwork is integrated. Profiles affect only real battle HP/attack/defense/speed.",
+  "squads": {
+    "EAST_GATE_LEISO": {
+      "display_name": "东门 · 医疗队封锁追兵",
+      "max_enemies": 2,
+      "hp_ratio": 0.95,
+      "atk_ratio": 0.98,
+      "def_delta": 0,
+      "speed_ratio": 1.08,
+      "tactical_hint": "优先掩护撤离担架队，避免伤员路线被追兵封堵。",
+      "visual_status": "existing_encounter_art_fallback"
+    },
+    "SOUTH_GATE_SHUOXIAN": {
+      "display_name": "南门 · 儿童队追击游骑",
+      "max_enemies": 1,
+      "hp_ratio": 0.87,
+      "atk_ratio": 0.93,
+      "def_delta": 0,
+      "speed_ratio": 1.22,
+      "tactical_hint": "朔弦独自断后；诺依与孩子们已撤到保护区，不参与本场战斗。",
+      "visual_status": "existing_encounter_art_fallback"
+    },
+    "WEST_GATE_TIFA": {
+      "display_name": "西门 · 破城重甲警戒机",
+      "max_enemies": 1,
+      "hp_ratio": 1.07,
+      "atk_ratio": 0.91,
+      "def_delta": 4,
+      "speed_ratio": 0.82,
+      "tactical_hint": "高护甲低机动的攻城部队；缇珐操作机械臂完成护卫。",
+      "visual_status": "existing_encounter_art_fallback"
+    }
+  }
+}

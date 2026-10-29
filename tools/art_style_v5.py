@@ -119,7 +119,7 @@ def character_sheet(asset_id, region):
             d.polygon([(ox+11,oy+21),(ox+21,oy+21),(ox+24,oy+33),
                        (ox+9,oy+33)],fill=tunic)
             d.line((ox+12,oy+23,ox+11,oy+31),fill=_shade(tunic,.25),width=2)
-                        d.rectangle((ox+11,oy+31,ox+21,oy+33),fill=_shade(tunic,-.24))
+            d.rectangle((ox+11,oy+31,ox+21,oy+33),fill=_shade(tunic,-.24))
             _dot(d,ox+15,oy+31,accent,3,3)
             for sx,offset in ((8,arm_shift),(23,-arm_shift)):
                 d.line((ox+sx,oy+24,ox+sx+offset,oy+33),fill=_shade(tunic,-.12),width=4)

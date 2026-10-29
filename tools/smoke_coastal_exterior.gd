@@ -66,8 +66,20 @@ func _run() -> void:
             var sea_atlas: TileSetAtlasSource=world.layer.tile_set.get_source(1)
             var atlas_registry=load("res://scripts/world_terrain_atlas_registry.gd")
             var approved: Array[String]=atlas_registry.atlas_sources("region_coast",area)
-            verify(approved.size()==2 and approved[1]=="res://assets/art/runtime/act01_global_v14/surfaces/surface_map_coast_04_water.png",
-                "Cavern still points to unrelated desert art instead of real cave water")
+            # The imported water sheet must be the Ch3 authored cave water,
+            # not the shared coast fallback or deleted V14 physical source.
+            var coast_manifest: Variant=JSON.parse_string(FileAccess.get_file_as_string(
+                "res://data/assets/c_act01_global_distribution_v14.json"))
+            var map_terrain: Dictionary={}
+            if coast_manifest is Dictionary:
+                map_terrain=(coast_manifest.get("runtime",{}) as Dictionary).get("terrain",{})
+            var authored: Dictionary=map_terrain.get(area,{})
+            verify(approved.size()==2
+                and approved[0]==str(authored.get("ground",""))
+                and approved[1]==str(authored.get("water",""))
+                and approved[1]=="res://assets/art/runtime/generated_gaps_v10/terrain__coast__map_4_water.png"
+                and approved[1] != atlas_registry.atlas_sources("region_coast","map_coast_03")[1],
+                "Cavern does not use its distinct, imported V10 8x8 cave water atlas")
             verify(sea_atlas!=null and sea_atlas.texture!=null and
                 sea_atlas.texture.get_width()>=256,
                 "Cavern water atlas is not a real imported 8x8 source")

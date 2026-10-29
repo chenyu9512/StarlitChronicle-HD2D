@@ -19,6 +19,7 @@ EXCLUDE_DATA = ("c_art_allocation_v", "c_art_usage_", "c_art_source_originals",
     "c_act01_semantic_rematch", "external_cc0_named_index")
 SMOKES = ("smoke_c_act01_global_art_v14.gd", "smoke_c_main2_art_runtime.gd",
     "smoke_battle_actors.gd", "smoke_first_act_flow.gd",
+    "smoke_act01_six_chapters_normal.gd",
     "smoke_rpg_core.gd", "smoke_save_integrity.gd",
     "smoke_c_regional_monsters_v15.gd",
     "smoke_main2_act01_harbor_rooms_visual.gd",

@@ -146,7 +146,13 @@ func patch_cells() -> Array[Vector2i]:
     return result
 
 func door_is_clear(cell: Vector2i) -> bool:
-    return not _near_door(cell, _door_cells)
+    # True means no actual drawn garden occupies the interaction zone;
+    # being listed as a protected door itself is not an obstruction.
+    for item in _patches:
+        var plant: Vector2i = item["cell"]
+        if absi(plant.x-cell.x) <= 2 and absi(plant.y-cell.y) <= 3:
+            return false
+    return true
 
 func set_visual_quality(value: int) -> void:
     _quality = clampi(value,0,2)

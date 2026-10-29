@@ -202,6 +202,34 @@ class ArtFactoryTests(unittest.TestCase):
             found=fitted.getpixel((i*128+64,64))
             self.assertEqual(found,color)
 
+    def test_v4_normals_and_legacy_svg_candidates(self):
+        import xml.etree.ElementTree as ET
+        report=produce(self.root,self.out,{"terrain","ui"},limit=2)
+        self.assertFalse(report["errors"],report["errors"])
+        self.assertEqual(report["version"],"4.0.0")
+        self.assertEqual(report["normal_map_count"],1)
+        self.assertEqual(len(report["auxiliary_svg_paths"]),12)
+        for svg in report["auxiliary_svg_paths"]:
+            ET.parse(self.out/svg)
+        terrain=next(x for x in report["assets"] if x["group"]=="terrain")
+        with Image.open(self.out/terrain["path"]) as color, Image.open(self.out/terrain["normal_map_path"]) as normal:
+            self.assertEqual(color.size,normal.size)
+            self.assertEqual(color.getchannel("A").tobytes(),normal.getchannel("A").tobytes())
+        second=produce(self.root,self.out,{"terrain","ui"},limit=2)
+        self.assertFalse(second["errors"])
+        self.assertEqual(second["normal_map_count"],0)
+        self.assertEqual(len(second["auxiliary_svg_paths"]),12)
+
+    def test_v4_rerenders_v3_cached_candidates(self):
+        old=self.out/"terrain/region_coast.png"
+        old.parent.mkdir(parents=True,exist_ok=True)
+        Image.new("RGBA",(256,256),(10,20,30,255)).save(old)
+        (self.out/"candidate_manifest.json").write_text('{"version":"3.1.0"}')
+        report=produce(self.root,self.out,{"terrain"},limit=1)
+        self.assertFalse(report["errors"],report["errors"])
+        self.assertEqual(report["assets"][0]["provenance"],"generated_procedural_candidate")
+        self.assertNotEqual(Image.open(old).getpixel((7,7)),(10,20,30,255))
+
     def test_invalid_canonical_id_is_rejected(self):
         src=self.root/"data/content/maps.json"
         obj=json.loads(src.read_text())

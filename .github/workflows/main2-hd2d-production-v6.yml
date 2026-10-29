@@ -1,0 +1,48 @@
+name: Main2 HD2D Production Gate V6
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "tools/hd2d_production_gate_v6.py"
+      - "tools/test_hd2d_production_gate_v6.py"
+      - "tools/global_art_ai_provider_v3.py"
+      - ".github/workflows/main2-hd2d-production-v6.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hd2d-production-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools
+            data/content
+            data/assets
+            data/levels/v4/interiors
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install Pillow
+      - name: Production QA regression
+        run: python tools/test_hd2d_production_gate_v6.py
+      - name: Canonical high-quality art briefs (no paid rendering)
+        run: python tools/hd2d_production_gate_v6.py jobs --project . --scope all
+      - name: Verify complete full-game art task coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=Path('build/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl')
+          assets=[json.loads(line) for line in j.read_text().splitlines() if line]
+          assert assets
+          assert len(assets)==len({(x['group'],x['id']) for x in assets})
+          print('V6 canonical high-quality jobs:',len(assets))
+          PY
+      - name: Upload canonical prompts
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-hd2d-v6-model-jobs
+          path: build/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl

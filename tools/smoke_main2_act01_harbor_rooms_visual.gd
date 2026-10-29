@@ -8,6 +8,7 @@ const World = preload("res://scripts/first_act_world.gd")
 const GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const Overrides = preload("res://scripts/c_art_overrides.gd")
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 var errors: Array[String] = []
 
 func _initialize() -> void:
@@ -35,8 +36,11 @@ func _run() -> void:
         var layout: Dictionary = world.terrain_layout
         _verify(str(layout.get("art_profile","")) == "coast_act01_"+room+"_v1",
             room+" did not load the authored room art profile")
-        _verify(str(layout.get("art_tileset","")).ends_with("/act01_tavern_v2/tavern_wood_atlas.svg"),
-            room+" is not using its verified indoor atlas")
+        var expected_floor: String = RuntimeArt.slot_source("interior.tavern.tavern_wood_atlas") if room == "tavern" else
+            "res://assets/art/runtime/global_factory_v3/interiors/map_coast_02__shelter.png"
+        var assigned_floor: String = str(layout.get("art_tileset", ""))
+        _verify(assigned_floor == expected_floor and ResourceLoader.exists(expected_floor),
+            room+" is not using its own actual generated 2D room atlas")
         _verify(world.layer != null and world.layer.tile_set != null,
             room+" has no actual imported TileMap layer")
         _verify((layout.get("solid_regions",[]) as Array).size() == (6 if room == "shelter" else 7),
@@ -97,6 +101,10 @@ func _run() -> void:
                     var overlaps_exit: bool = left <= 36.0 and right >= 34.0 and top <= 38.0 and bottom >= 29.0
                     _verify(not overlaps_exit, "Black Sail furniture obscures entry/exit: " + str(entry.get("id", "")))
             var unique_ids: Dictionary = {}
+            var expected_by_id: Dictionary = {}
+            for entry in layout.get("visuals", []):
+                if entry is Dictionary:
+                    expected_by_id[str(entry.get("id", ""))] = str(entry.get("asset", ""))
             var material_icons: int = 0
             for prop_id in room_art.prop_nodes.keys():
                 var prop: Sprite2D = room_art.prop_nodes[prop_id]
@@ -108,9 +116,11 @@ func _run() -> void:
                     room+" displayed a legacy wrong-image placeholder: "+str(prop_id))
                 if room == "tavern":
                     var source: String = str(prop.get_meta("black_sail_v2_asset",""))
-                    _verify(source.begins_with("res://assets/art/runtime/act01_tavern_v2/") and
-                        ResourceLoader.exists(source),
-                        "Tavern art is not the actual approved matching asset: "+str(prop_id))
+                    var semantic_id: String = "interior.tavern." + str(expected_by_id.get(prop_id, ""))
+                    _verify(not source.is_empty() and source == RuntimeArt.slot_source(semantic_id)
+                        and source.begins_with("res://assets/art/runtime/generated_gaps_v10/")
+                        and ResourceLoader.exists(source),
+                        "Tavern did not import exact-role generated furniture: "+str(prop_id))
                 _verify(prop.texture != null and prop.texture.get_width() > 0,
                     room+" did not import the real furniture PNG: "+str(prop_id))
                 # Every imported object must fit a plausible interior floor
@@ -140,15 +150,18 @@ func _run() -> void:
                 }
                 for placement in expected_clinic.keys():
                     var expected_asset: String = str(expected_clinic[placement])
-                    var expected_path: String = "res://assets/art/runtime/act01_shelter_v3/" + expected_asset + ".svg"
+                    var expected_path: String = RuntimeArt.slot_source("interior.shelter." + expected_asset)
                     _verify(semantic_assets.get(placement, "") == expected_asset,
                         "Shelter scene retained a wrong crate as medical furniture: "+str(placement))
                     _verify(room_art.prop_nodes.has(placement),
                         "Shelter dedicated clinic furniture not rendered: "+str(placement))
                     if room_art.prop_nodes.has(placement):
                         var medical_prop: Sprite2D = room_art.prop_nodes[placement]
-                        _verify(str(medical_prop.get_meta("shelter_medical_furniture_source", "")) == expected_path and ResourceLoader.exists(expected_path),
-                            "Shelter furniture did not load registered physical SVG: "+str(placement))
+                        _verify(not expected_path.is_empty() and
+                            str(medical_prop.get_meta("shelter_medical_furniture_source", "")) == expected_path and
+                            expected_path.begins_with("res://assets/art/runtime/generated_gaps_v10/") and
+                            ResourceLoader.exists(expected_path),
+                            "Shelter furniture did not load exact-role generated PNG: "+str(placement))
                 _verify(semantic_assets.get("admission_counter", "") == "medical_registration_counter" and
                     semantic_assets.get("treatment_prep", "") == "treatment_bench",
                     "Shelter reception or treatment identity changed")

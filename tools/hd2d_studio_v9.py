@@ -325,6 +325,20 @@ def make_pack(root,out,tier='procedural',model_source=None):
       'asset_count':len(assets),'counts':counts,'renderer':'v9','normal_map_count':counts['characters']+counts['npcs'],
       'assets':assets}
     if len(assets)!=sum(counts.values()):raise ValueError('Asset count mismatch')
+    # Drop failed/retired candidate files, never leaving old names to sneak
+    # into Git commits or inflate the next published art pack.
+    declared={group:set() for group in GROUPS}
+    for slot,record in assets.items():
+        group,id=slot.split('.',1)
+        declared[group].add(id+'.png')
+        if record.get('normal_map_path'):declared[group].add(id+'_normal.png')
+    for region in regions:
+        declared['terrain'].update((region+'_ground.png',region+'_water.png'))
+    for group in GROUPS:
+        folder=out/group
+        if folder.exists():
+            for file in folder.glob('*.png'):
+                if file.name not in declared[group]:file.unlink()
     (out/'active.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     (out/'identity_variants.json').write_text(json.dumps(identity,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return report
@@ -346,6 +360,15 @@ def verify_pack(folder,root):
             normal=folder/group/(id+'_normal.png')
             if not normal.is_file() or digest(normal)!=item['normal_map_sha256']:
                 raise ValueError('normal map missing: '+name)
+    allow={group:set() for group in GROUPS}
+    for slot,item in meta['assets'].items():
+        group,id=slot.split('.',1)
+        allow[group].add(id+'.png')
+        if item.get('normal_map_path'):allow[group].add(id+'_normal.png')
+    for region in regions:allow['terrain'].update((region+'_ground.png',region+'_water.png'))
+    for group in GROUPS:
+        extra={p.name for p in (folder/group).glob('*.png')}-allow[group]
+        if extra:raise ValueError('Unexpected leftover PNG files in '+group+': '+repr(sorted(extra)))
     for region in regions:
         for kind in EXTRA:
             path=folder/'terrain'/f'{region}_{kind}.png'

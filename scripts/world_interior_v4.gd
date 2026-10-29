@@ -57,10 +57,12 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         _fill(tiles,walls,doorway,3,false)
     # Authored furniture collision is merged before marker validation; other
     # interiors have no art_collision_cells and retain their exact behavior.
+    var furniture_footprints: Dictionary = {}
     for raw_cell in data.get("art_collision_cells",[]):
         var occupied: Vector2i = _point(raw_cell)
         if occupied.x>=2 and occupied.x<WIDTH-2 and occupied.y>=2 and occupied.y<HEIGHT-2:
             walls[occupied] = true
+            furniture_footprints[occupied] = true
     var authored_points: Dictionary=data.get("points",{})
     var points: Dictionary={}
     for key in ["spawn","exit","service","storage"]:
@@ -133,7 +135,10 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         if not prop is Dictionary:
             continue
         var cell: Vector2i=_point(prop.get("cell",[]))
-        if cell.x>=2 and cell.x<WIDTH-2 and cell.y>=2 and cell.y<HEIGHT-2 and not walls.has(cell):
+        # A solid furniture footpoint still needs its real visible sprite.
+        # Structural wall cells remain prohibited, while an art_collision
+        # footprint can be drawn AND physically block the same game tile.
+        if cell.x>=2 and cell.x<WIDTH-2 and cell.y>=2 and cell.y<HEIGHT-2 and (not walls.has(cell) or furniture_footprints.has(cell)):
             features.append({"kind":str(prop.get("kind","barrel")),"cell":cell,"name":str(prop.get("name","室内陈设"))})
     var inspections: Array[Dictionary] = []
     var used_inspections: Dictionary = {}

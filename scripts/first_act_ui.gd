@@ -297,7 +297,10 @@ func set_hud(chapter: int, location: String, objective: String, actors: Array[Di
     _hud_accent = CVisual.act_accent(chapter)
     hud.add_theme_stylebox_override("panel", CVisual.surface(true,chapter))
     name_label.add_theme_color_override("font_color",_hud_accent)
-    name_label.text = "%s\n%s" % ["序章" if chapter == 0 else "第%d幕 · %d章" % [act_number,chapter], location.left(10)]
+    # Keep the chapter/location two-line label readable in a 120px HUD.
+    # The detailed area name remains available from the minimap and tracker.
+    var short_location: String = location.get_slice("（", 0).strip_edges().left(7)
+    name_label.text = "%s\n%s" % ["序章" if chapter == 0 else "第%d幕 · %d章" % [act_number,chapter], short_location]
     tracker.text = "[color=#%s]◆ 目标[/color]  %s" % [_hud_accent.to_html(false),objective.split("\n")[0].left(46)]
     tracker.tooltip_text = objective
     var values := PackedStringArray()

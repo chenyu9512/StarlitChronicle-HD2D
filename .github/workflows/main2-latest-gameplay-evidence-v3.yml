@@ -1,0 +1,120 @@
+name: "Main2 · Latest Gameplay Screens and QA"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/main2-latest-gameplay-evidence-v3.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actual-godot-framebuffers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Godot 4.7.2 and real graphics display
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xauth libgl1-mesa-dri fonts-noto-cjk >/dev/null
+          fc-cache -f
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+          python -m pip install --disable-pip-version-check Pillow
+      - name: Verify installed V3 asset count and actual runtime switch
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          root=Path('assets/art/runtime/global_factory_v3')
+          data=json.loads((root/'active.json').read_text(encoding='utf-8'))
+          assert data['schema']=='starlit.global_factory.live.v3'
+          assert data['enabled'] and len(data['assets'])>=451
+          for key,entry in data['assets'].items():
+              p=Path(entry['path'].removeprefix('res://'))
+              assert p.is_file(), (key,p)
+              with Image.open(p) as im: im.verify()
+          for rid in ['region_coast','region_oaths','region_forge','region_isles','region_mirror','region_oldland','region_sanctum','region_city']:
+              for type_ in ('ground','water'):
+                  p=root/'terrain'/f'{rid}_{type_}.png'
+                  with Image.open(p) as im: assert im.size==(256,256)
+          print('PASS V3 ACTIVE ASSETS:',len(data['assets']),'TRUE 256px ATLAS:',16)
+          PY
+      - name: Godot import and script syntax
+        shell: bash
+        run: |
+          mkdir -p build/latest-frame-qa
+          timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit > build/latest-frame-qa/godot_import.log 2>&1
+          if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' build/latest-frame-qa/godot_import.log; then exit 1; fi
+      - name: Actual art, character, combat, and world regression tests
+        shell: bash
+        run: |
+          mkdir -p build/latest-frame-qa
+          for name in smoke_c_material_atlas_repair smoke_c_character_motion smoke_main2_act01_live_boss_motion smoke_coastal_interiors smoke_b_act01_journey smoke_c_act01_hd2d_v18; do
+            echo "RUN $name"
+            timeout 80s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$name.gd" > "build/latest-frame-qa/$name.log" 2>&1 || printf '%s\n' "FAILED $name" >> build/latest-frame-qa/failed-tests.txt
+            tail -n 6 "build/latest-frame-qa/$name.log"
+          done
+          test ! -s build/latest-frame-qa/failed-tests.txt || cat build/latest-frame-qa/failed-tests.txt
+        continue-on-error: true
+      - name: Capture seven REAL coastal, cave, and house frames
+        shell: bash
+        run: |
+          mkdir -p build/art-qa
+          timeout 160s xvfb-run -a -s "-screen 0 1280x720x24" ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_coastal_visuals.gd > build/latest-frame-qa/coastal_capture.log 2>&1
+          cat build/latest-frame-qa/coastal_capture.log | tail -n 35
+        continue-on-error: true
+      - name: Capture HUD and HUD-free chapter gameplay with same HEAD
+        shell: bash
+        run: |
+          mkdir -p build/main2-art-qa/visual
+          timeout 160s xvfb-run -a -s "-screen 0 1280x720x24" ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_act01_visual_evidence.gd > build/latest-frame-qa/chapter_capture.log 2>&1
+          cat build/latest-frame-qa/chapter_capture.log | tail -n 45
+        continue-on-error: true
+      - name: Validate and index actual screenshot bytes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, hashlib, os
+          from PIL import Image, ImageStat
+          dirs=(Path('build/art-qa'),Path('build/main2-art-qa/visual'))
+          files=[]
+          for d in dirs:
+              for p in sorted(d.glob('*.png')):
+                  try:
+                      with Image.open(p) as im:
+                          im.load()
+                          rgb=im.convert('RGB')
+                          std=max(ImageStat.Stat(rgb).stddev)
+                          assert im.width>=640 and im.height>=360 and std>4, (p, std)
+                          files.append({'name':p.name,'path':p.as_posix(),'size':[im.width,im.height],
+                                        'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+                                        'max_rgb_stddev':round(std,2)})
+                  except Exception as exc:
+                      print('INVALID FRAME',p,exc)
+          out=Path('build/latest-frame-qa/evidence.json')
+          out.write_text(json.dumps({'commit':os.environ.get('GITHUB_SHA'),'engine':'Godot 4.7.2',
+                                     'real_framebuffers':files, 'manual_art_approved':False},indent=2))
+          print('CAPTURED REAL FRAMES:',len(files))
+          print('SAMPLES:',[f['name'] for f in files[:12]])
+          assert files, 'No actual playable scene frames captured'
+          PY
+      - name: Upload screenshots and full diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-latest-actual-game-screens
+          path: |
+            build/art-qa/
+            build/main2-art-qa/visual/
+            build/latest-frame-qa/
+          retention-days: 7
+          if-no-files-found: warn

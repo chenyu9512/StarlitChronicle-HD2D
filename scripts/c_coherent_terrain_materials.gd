@@ -13,6 +13,11 @@ static func supports(path: String) -> bool:
     if not path.begins_with("res://assets/art/"):
         return false
     var name: String = path.get_file()
+    # Canonical V10 per-map source sheets have correct 8x8 dimensions but
+    # are procedural color candidates, not yet organized by gameplay's
+    # semantic sand/road/cliff rows. Re-atlas them without changing V3 tiles.
+    if path.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__"):
+        return name.ends_with("_ground.png") or name.ends_with("_water.png")
     if path.contains("/tilesets/story_v1/") and name.ends_with("_decals.svg"):
         return true
     if path.contains("/tilesets/") and (name.ends_with("_ground.png") or name.ends_with("_water.png")):
@@ -35,7 +40,7 @@ static func _overlay(path: String) -> bool:
 static func _water(path: String) -> bool:
     return path.get_file().contains("water")
 
-const HD2D_MATERIAL_ROOT: String="res://assets/art/runtime/act01_hd2d_v18/materials/"
+const HD2D_MATERIAL_ROOT: String="res://assets/art/runtime/generated_gaps_v10/"
 static var _hd2d_cache: Dictionary={}
 
 static func _real_material(path: String,row: int) -> Image:
@@ -56,7 +61,7 @@ static func _real_material(path: String,row: int) -> Image:
             types=["beach-sand","beach-sand","cliff-rock","cobbles","beach-sand","planks","cliff-rock","marsh"]
     var name: String=types[clampi(row,0,7)]
     if not _hd2d_cache.has(name):
-        var file: String=HD2D_MATERIAL_ROOT+name+".png"
+        var file: String=HD2D_MATERIAL_ROOT+"material__coast__"+name.replace("-","_")+".png"
         if not ResourceLoader.exists(file):
             return null
         var texture: Texture2D=ArtTheme.texture("material.coast."+name)
@@ -195,7 +200,7 @@ static func assemble(path: String, texture: Texture2D) -> Texture2D:
                     # luminance. A cave corridor must remain visibly distinct
                     # from blocking rock even when both source photos are grey.
                     # Distinguish authored tile roles, never their collision.
-                    if path.get_file() == "tide_cavern_tileset.svg":
+                    if path.get_file() == "tide_cavern_tileset.svg" or path.contains("terrain__coast__map_4_"):
                         if row == 3: # Safe carved route, warm navigational tone.
                             c=c.lerp(Color("c8b593"),0.56)
                         elif row == 6: # Rough solid escarpment / blocked rim.

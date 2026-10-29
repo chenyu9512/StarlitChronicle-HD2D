@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 from PIL import Image
 from global_art_factory_v3 import SCOPES, produce, tasks as plans, verify
+from global_art_ai_provider_v3 import build_jobs, fit
 
 class ArtFactoryTests(unittest.TestCase):
     def setUp(self):
@@ -76,6 +77,23 @@ class ArtFactoryTests(unittest.TestCase):
         report=produce(self.root,self.out,{"terrain"},limit=1,source_root=source,force=True)
         self.assertEqual(len(report["errors"]),1)
         self.assertEqual(report["status"],"candidates_partial_errors")
+
+    def test_high_detail_prompt_jobs_cover_registry(self):
+        jobs=build_jobs(self.root,set(SCOPES))
+        self.assertEqual(len(jobs),397)
+        self.assertEqual(len({(j["group"],j["id"]) for j in jobs}),397)
+        self.assertTrue(all("high-quality art" in j["prompt"].lower() for j in jobs))
+        self.assertTrue(all(j["qa"]=="candidate_identity_and_animation_review_required" for j in jobs))
+
+    def test_model_image_adapter_keeps_aspect_ratio(self):
+        import io
+        source=Image.new("RGBA",(512,512),(255,0,0,255))
+        buf=io.BytesIO()
+        source.save(buf,format="PNG")
+        output=fit(buf.getvalue(),(96,192),True)
+        self.assertEqual(output.size,(96,192))
+        self.assertEqual(output.getpixel((0,0))[3],0)
+        self.assertEqual(output.getpixel((40,80))[3],255)
 
     def test_invalid_canonical_id_is_rejected(self):
         src=self.root/"data/content/maps.json"

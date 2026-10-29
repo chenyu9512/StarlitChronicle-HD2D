@@ -66,6 +66,28 @@ func configure(map_id: String, layout: Dictionary, quality: int = 2) -> void:
         var pair: Array = item.get("door", [])
         if pair.size() == 2:
             _door_cells[Vector2i(int(pair[0]), int(pair[1]))] = true
+    # Map story, NPC and exit markers are not reliably marked as solid.
+    # Reserve their approach radius as strictly as the physical front doors.
+    var reserved: Dictionary = {}
+    var spawn: Vector2i = layout.get("spawn",Vector2i(-99,-99))
+    if spawn.x >= 0:
+        for dy in range(-3,4):
+            for dx in range(-3,4):
+                reserved[spawn+Vector2i(dx,dy)] = true
+    for group in ["features","gates"]:
+        for point in layout.get(group,[]):
+            if not point is Dictionary:
+                continue
+            var target: Variant = point.get("cell",null)
+            if target is Vector2i:
+                for dy in range(-2,3):
+                    for dx in range(-2,3):
+                        reserved[target+Vector2i(dx,dy)] = true
+    for value in (layout.get("interact_cells",{}) as Dictionary).values():
+        if value is Vector2i:
+            for dy in range(-2,3):
+                for dx in range(-2,3):
+                    reserved[value+Vector2i(dx,dy)] = true
     var occupied: Dictionary = {}
     var seed: int = absi(map_id.hash())
     var region: String = str((layout.get("zone", {}) as Dictionary).get("region_id", "region_coast"))
@@ -86,7 +108,7 @@ func configure(map_id: String, layout: Dictionary, quality: int = 2) -> void:
                 var cell := Vector2i(x,y)
                 if cell.x < 3 or cell.y < 3 or cell.x >= extent.x - 3 or cell.y >= extent.y - 3:
                     continue
-                if roofs.has(cell) or blocked.has(cell) or water.has(cell) or occupied.has(cell):
+                if roofs.has(cell) or blocked.has(cell) or water.has(cell) or occupied.has(cell) or reserved.has(cell):
                     continue
                 if _near_door(cell, _door_cells):
                     continue

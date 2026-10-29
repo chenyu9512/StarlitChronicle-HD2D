@@ -94,8 +94,33 @@ func _run() -> void:
         _dialog()
         if game._side_step() != -1:
             failures.append("Chapter %d side quest did not complete" % chapter)
+        # Chapter 2's real clinic opening happens outside, but all later
+        # evidence, choices and battle require entering its authored V4 room.
+        # Chapter 4 starts inside the real Black Sail tavern.
+        if chapter == 4:
+            _touch("building:tavern")
+            if game.world.interior_building != "tavern":
+                failures.append("Chapter 4 could not physically enter the tavern")
         _touch("key_npc")
         _dialog()
+        if chapter == 2:
+            _touch("building:shelter")
+            if game.world.interior_building != "shelter":
+                failures.append("Chapter 2 could not physically enter the clinic")
+        if chapter in [2,4]:
+            var required_room: String = "shelter" if chapter == 2 else "tavern"
+            var observed: Array = game.world.terrain_layout.get("act01_main_story_evidence", [])
+            if observed.size() != 2:
+                failures.append("Chapter %d has no two physical V4 investigation records" % chapter)
+            else:
+                for evidence_id in observed:
+                    # Invokes the actual proximity-gated HomeInteractions
+                    # transaction; no fabricated V3 evidence flags.
+                    _touch("homeinspect:" + str(evidence_id))
+                    var record: Dictionary = game.room_investigations.snapshot(
+                        game.progress,game.world_router.current_map(),required_room,str(evidence_id))
+                    if not bool(record.get("seen_before", false)):
+                        failures.append("Chapter %d physical evidence was not saved: %s" % [chapter,str(evidence_id)])
         _touch("clue")
         _inspect_canon_evidence()
         _dialog()

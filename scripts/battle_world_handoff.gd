@@ -211,8 +211,14 @@ func find_safe_position(world: Node, origin: Vector2) -> Dictionary:
         return {"ok":false,"reason":"invalid_world_or_position"}
     # Map dimensions must come from the LIVE map after story transitions, not
     # from the pre-combat checkpoint (which might be a different room/map).
-    var width: int = maxi(8,int(world.get("WIDTH")))
-    var height: int = maxi(8,int(world.get("HEIGHT")))
+    var width: int = maxi(8,int(checkpoint_data.get("width_tiles",72)))
+    var height: int = maxi(8,int(checkpoint_data.get("height_tiles",48)))
+    var live_layout: Variant = world.get("terrain_layout")
+    if live_layout is Dictionary:
+        var live_size: Variant = live_layout.get("size",null)
+        if live_size is Vector2i:
+            width = maxi(8,live_size.x)
+            height = maxi(8,live_size.y)
     var cell: Vector2i = Vector2i(floori(origin.x/TILE_SIZE),floori(origin.y/TILE_SIZE))
     # FirstActWorld._walkable_tiles is the spawn-connected component after
     # authored collision, so a bare _blocked check alone is insufficient.

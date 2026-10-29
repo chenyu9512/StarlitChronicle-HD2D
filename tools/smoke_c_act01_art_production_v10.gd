@@ -5,6 +5,7 @@ const Coast = preload("res://scripts/world_coastal_scene.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const Registry = preload("res://scripts/world_registry.gd")
 const Overrides = preload("res://scripts/c_art_overrides.gd")
+const BossMotion = preload("res://scripts/c_boss_action_atlas_v1.gd")
 var errors: Array[String] = []
 
 func check(ok: bool,reason: String) -> void:
@@ -31,8 +32,12 @@ func _run() -> void:
     check(Overrides.has_slot("res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg"),
         "Lighthouse not exposed to global DLC / gallery")
     for i in range(2,7):
-        check(Overrides.texture(str(Art.chapter_bundle(i).get("boss_phase_overlay",""))) != null,
-            "Chapter boss phase art missing after third-party remapping: "+str(i))
+        var boss_id: String = "boss_ch%03d" % i
+        var motion: Texture2D = BossMotion.texture(boss_id)
+        check(motion != null and motion.get_size() == Vector2(512,768),
+            "Chapter boss must resolve real 6-pose animation sheet: "+str(i))
+        check(BossMotion.region("phase_change",0).position.y == 640.0,
+            "Chapter boss phase transition missing animation row: "+str(i))
     check(Art.sprite_path("map_coast_05","tide_lighthouse_landmark")=="res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
         "Lighthouse artwork not registered")
     var layout: Dictionary=geography.layout("map_coast_05",6)

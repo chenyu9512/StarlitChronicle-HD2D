@@ -56,9 +56,15 @@ func _run() -> void:
             verify(actor != null and actor.sprite != null and actor.sprite.texture != null,
                 "Chapter " + str(chapter) + " has a blank party character")
             if actor != null and actor.sprite != null:
-                verify(not actor.third_party_strips.is_empty(),
-                    "Party has not used the later-uploaded real four-direction strips")
+                var generated_walk: bool = str(actor.sprite.get_meta("art_source","")) == "global_factory_v3"
+                var authentic_strips: bool = not actor.third_party_strips.is_empty()
+                verify(generated_walk or authentic_strips,
+                    "Party has neither active 3x4 identity walk atlas nor uploaded four-direction strips")
                 verify(actor.sprite.hframes > 1, "Party has no real walking frames")
+                if generated_walk:
+                    verify(actor.sprite.hframes == 3 and actor.sprite.vframes == 4 and
+                        actor.sprite.texture.get_size() == Vector2(96,192),
+                        "Generated walking sprite lost four real directional rows")
         verify(world.coastal_scene != null,
             "Act-I coastal scene absent from live world: " + map_id)
         # Prevent the legacy city-market fallback from reappearing in the

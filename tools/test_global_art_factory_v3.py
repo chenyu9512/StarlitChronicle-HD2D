@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from PIL import Image
-from global_art_factory_v3 import SCOPES, produce, tasks as plans, verify
+from global_art_factory_v3 import SCOPES, produce, tasks as plans, verify, atlas, walker
 from global_art_ai_provider_v3 import (build_jobs, fit, quality_metrics, fingerprint,
                                       SOURCE_SIZES, PIPELINE_REV)
 
@@ -37,6 +37,37 @@ class ArtFactoryTests(unittest.TestCase):
             room={"map_id":"map_"+str(i%42),"building_id":"room_"+str(i)}
             (self.root/f"data/levels/v4/interiors/map_{i%42}__room_{i}.json").write_text(
                 json.dumps(room), encoding="utf-8")
+
+    def test_v5_ground_materials_have_no_bright_column_boundaries(self):
+        region={"id":"region_coast","style":{"palette":["#83B9C4","#D7C59D","#386A82"]}}
+        image=atlas(region)
+        self.assertEqual(image.size,(256,256))
+        # Flat edges on all 8 variants of one material row prevent
+        # visible vertical 32px checkerboard seams when the TileSet repeats.
+        for row in range(8):
+            reference=image.getpixel((0,row*32+1))
+            for col in range(8):
+                self.assertEqual(image.getpixel((col*32,row*32+1)),reference)
+                self.assertEqual(image.getpixel((col*32+31,row*32+1)),reference)
+        variants=[image.crop((col*32,0,(col+1)*32,32)).tobytes()
+                  for col in range(8)]
+        self.assertGreaterEqual(len(set(variants)),7)
+
+    def test_v5_walker_has_three_poses_and_four_directions(self):
+        region={"id":"region_coast","style":{"palette":["#83B9C4","#D7C59D","#386A82"]}}
+        image=walker("char_wayfarer",region)
+        self.assertEqual(image.size,(96,192))
+        for row in range(4):
+            frames=[image.crop((col*32,row*48,(col+1)*32,(row+1)*48)).tobytes()
+                    for col in range(3)]
+            self.assertGreaterEqual(len(set(frames)),2)
+            for col in range(3):
+                frame=image.crop((col*32,row*48,(col+1)*32,(row+1)*48))
+                alpha=frame.getchannel("A")
+                self.assertIsNotNone(alpha.getbbox())
+                self.assertEqual(frame.getpixel((0,0))[3],0)
+        fronts=[image.crop((32,row*48,64,(row+1)*48)).tobytes() for row in range(4)]
+        self.assertEqual(len(set(fronts)),4)
 
     def test_full_game_inventory(self):
         report=produce(self.root,self.out,set(SCOPES),dry_run=True)

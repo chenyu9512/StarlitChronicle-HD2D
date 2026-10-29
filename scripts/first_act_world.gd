@@ -300,10 +300,22 @@ func _party_sprite(position: int, fallback: String) -> String:
         "char_alchemist":"nuoyi_adult","cast_wei_sha":"weisha"
     }
     var id: String = str(party_ids[position]) if position < party_ids.size() else ""
+    # Real canonical class/character IDs must use their own generated walking
+    # atlas instead of a missing legacy path falling back to the protagonist.
+    # Only a genuine 3x4 atlas is eligible; never slice a static portrait.
+    if id.begins_with("char_"):
+        var exact_atlas: Texture2D = Generated.texture("characters", id)
+        if exact_atlas != null and exact_atlas.get_size() == Vector2(96, 192):
+            return Generated.path("characters", id)
     var suffix: String = str(characters.get(id,fallback))
     var name: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % suffix
     if CArtOverrides.exists(name):
         return name
+    # Preserve the original save ID, but choose a physically present base
+    # walk atlas when its historical file was retired.
+    var baseline: String = Generated.path("characters", "char_wayfarer")
+    if not baseline.is_empty():
+        return baseline
     return "res://assets/art/characters/leon/walk_4dir_3frames.png"
 
 func apply_rescue_squad_pov(squad_id: String) -> void:

@@ -15,6 +15,7 @@ DISPOSABLE = re.compile(r"(?:\.translation|\.bak|\.backup|\.orig|\.rej|\.tmp|\.s
 CODE_EXT = {".py", ".gd", ".sh", ".ps1", ".yaml", ".yml", ".toml", ".cfg", ".godot", ".ts", ".js"}
 TEXT_EXT = CODE_EXT | {".json", ".md", ".txt", ".csv", ".tscn", ".tres", ".ini", ".gitignore"}
 GENERATOR = "tools/generate_art.py"
+PIPELINE = "tools/art_pipeline.py"
 EXPECTED_BRANCH = "Main2美术优化版"
 
 def tracked_files() -> dict[str, str]:
@@ -136,6 +137,7 @@ def inventory() -> dict:
         "files_with_inline_versions_by_role": dict(sorted(files_with_inline_versions.items())),
         "missing_worktree_files": sorted(missing),
         "canonical_generator_exists": GENERATOR in tracked,
+        "canonical_pipeline_exists": PIPELINE in tracked,
         "warnings": [
             "Identical SHA files may be required aliases, not redundant runtime assets.",
             "V3 maps/V4 interiors and save migrations are schema contracts, not obsolete revisions.",
@@ -167,7 +169,7 @@ def main() -> int:
         print("versioned executable/workflow paths:", len(data["versioned_source_or_workflow"]))
         print("Use --json or --output to get full paths/references (read-only).")
     fail = bool(data["disposable_files"] or data["missing_worktree_files"]
-                or not data["canonical_generator_exists"])
+                or not data["canonical_generator_exists"] or not data["canonical_pipeline_exists"])
     return 1 if args.strict and fail else 0
 
 if __name__ == "__main__":

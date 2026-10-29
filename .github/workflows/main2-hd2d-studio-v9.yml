@@ -1,0 +1,102 @@
+name: Main2 HD2D V9 Full Identity Factory / Atomic Switch
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "tools/hd2d_studio_v9.py"
+      - "tools/hd2d_studio_v8.py"
+      - "tools/hd2d_studio_v7.py"
+      - "tools/test_hd2d_studio_v9.py"
+      - ".github/workflows/main2-hd2d-studio-v9.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: main2-v9-runtime-art
+  cancel-in-progress: false
+jobs:
+  generate-verify-maybe-publish:
+    if: github.ref == 'refs/heads/Main2美术优化版'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dependencies
+        run: python -m pip install --disable-pip-version-check Pillow numpy
+      - name: Run V9 failure and atomic rollback regression suite
+        run: python -m unittest discover -s tools -p 'test_hd2d_studio_v9.py' -v
+      - name: Generate full official image coverage, without runtime changes
+        run: |
+          python tools/hd2d_studio_v9.py --project . --generate
+          python tools/hd2d_studio_v9.py --project . --verify
+      - name: Assert official 451 core IDs including all 153 interiors
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from sys import path
+          path.insert(0, 'tools')
+          from hd2d_studio_v9 import data_index, verify_pack
+          q,_ = data_index(Path('.'))
+          total = sum(len(x) for x in q.values())
+          meta = verify_pack(Path('build/starlit_hd2d_studio_v9/factory'),Path('.'))
+          assert total >= 451 and meta['slots'] == total
+          assert len(q['interiors']) >= 153
+          print('OFFICIAL CANONICAL COVERAGE:', {k:len(v) for k,v in q.items()})
+          PY
+      - name: Atomically activate the full art candidate set
+        if: github.event_name == 'workflow_dispatch'
+        run: python tools/hd2d_studio_v9.py --project . --one-click
+      - name: Sync canonical runtime registry with actual tracked images
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git add -A assets/art/runtime/global_factory_v3
+          python tools/sync_c_art_runtime_registry.py --project .
+          python tools/check_c_art_runtime_registry.py
+      - name: Import Godot 4.7.2 before allowing publish
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp
+          chmod +x /tmp/Godot_v4.7.2-stable_linux.x86_64
+          timeout 180s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit > build/v9-godot-import.log 2>&1 || { tail -n 150 build/v9-godot-import.log; exit 1; }
+          if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' build/v9-godot-import.log; then exit 1; fi
+      - name: Run visual-registry scene smoke
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          timeout 180s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_all_v4_visuals_v1.gd > build/v9-godot-smoke.log 2>&1 || { tail -n 150 build/v9-godot-smoke.log; exit 1; }
+          if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' build/v9-godot-smoke.log; then exit 1; fi
+      - name: Commit checked runtime images to Main2, never force push
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A assets/art/runtime/global_factory_v3 data/assets/c_art_runtime_registry_v1.json
+          git diff --cached --stat
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'feat(art): install complete V9 canonical runtime image candidates'
+          for attempt in 1 2 3; do
+            git fetch --no-tags origin 'refs/heads/Main2美术优化版'
+            git rebase FETCH_HEAD || { git rebase --abort || true; exit 1; }
+            if git push origin HEAD:'Main2美术优化版'; then exit 0; fi
+          done
+          exit 1
+      - name: Retain test and import logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-v9-full-art-evidence
+          path: |
+            build/starlit_hd2d_studio_v9/factory/active.json
+            build/starlit_hd2d_studio_v9/factory/identity_variants.json
+            build/v9-godot-import.log
+            build/v9-godot-smoke.log
+          if-no-files-found: warn

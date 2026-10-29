@@ -99,6 +99,37 @@ def audit(root):
             errors.append("Expected 25 allocated 32px generated props")
         for item in records.values():
             register(str(item.get("source","")).removeprefix("res://"),item.get("sha256"))
+    # V10 adds exactly named replacement PNGs for legacy canonical slot gaps.
+    # The optional layer must be registered and hashed, never treated as an
+    # untracked backup simply because it arrived after the V3 factory.
+    v10_count = 0
+    v10_manifest = ROOT + "generated_gaps_v10/manifest.json"
+    if (root / v10_manifest).is_file():
+        v10 = load(root, v10_manifest)
+        if v10.get("schema") != "starlit.main2.gap_fill.v10":
+            errors.append("Invalid V10 generated-gap manifest schema")
+        records = v10.get("assets", {})
+        if not isinstance(records, dict):
+            errors.append("Invalid V10 generated-gap asset table")
+            records = {}
+        v10_count = len(records)
+        if v10.get("generated_count") != v10_count or v10_count < 109:
+            errors.append("Incomplete V10 generated-gap materialization")
+        registry_path = root / "data/assets/c_art_runtime_registry_v1.json"
+        registry = load(root, "data/assets/c_art_runtime_registry_v1.json") if registry_path.is_file() else {}
+        canonical = registry.get("canonical_slots", {})
+        ui_sources = set(registry.get("ui", {}).values())
+        for slot, entry in records.items():
+            source = str(entry.get("source", "")).removeprefix("res://")
+            if not source.startswith(ROOT + "generated_gaps_v10/") or ".." in Path(source).parts:
+                errors.append("Unsafe generated-gap source: " + slot)
+                continue
+            if slot.startswith("ui.extra."):
+                if "res://" + source not in ui_sources:
+                    errors.append("Unbound generated UI icon: " + slot)
+            elif canonical.get(slot, {}).get("source") != "res://" + source:
+                errors.append("Unbound canonical art gap: " + slot)
+            register(source, entry.get("sha256"))
     # Original project-authored SVGs of local scene detailing remain valid,
     # and must not be misreported as uploaded third-party source files.
     scene=load(root,ROOT+"scene_details_v1/manifest.json")
@@ -124,6 +155,7 @@ def audit(root):
         "schema":"starlit.generated_only_inventory.v1",
         "status":"success" if not errors else "failed",
         "generated_main":len(assets),
+        "generated_v10_gap_fill":v10_count,
         "generated_semantic_scene_props":semantic_count,
         "generated_allocated_region_props":allocated_count,
         "generated_normal_maps":sum(bool(x.get("normal_map_path")) for x in assets.values()),

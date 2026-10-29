@@ -128,8 +128,17 @@ def world() -> tuple[int, int, int]:
             playable.add(mid)
             sidecar = read(LEVELS / "v3" / f"{mid}.json")
             require(sidecar.get("map_id") == mid, f"{mid}: missing real V3 map")
-            require(sidecar.get("size") == zone.get("grid_size"),
-                    f"{mid}: V3 map size mismatch with atlas")
+            # The world atlas defines travel/sector position, not a duplicate
+            # per-map tile dimension. All 40 V3 maps own their actual grid size.
+            # Verify that authoritative geometry instead of comparing to an
+            # absent atlas.grid_size (which falsely failed every map).
+            size = sidecar.get("size")
+            require(isinstance(size, list) and len(size) == 2
+                    and all(type(n) is int and 8 <= n <= 512 for n in size),
+                    f"{mid}: invalid authoritative V3 grid size")
+            if "grid_size" in zone:
+                require(zone["grid_size"] == size,
+                        f"{mid}: explicitly defined atlas grid_size disagrees with V3")
         for building in zone.get("buildings", []):
             if not isinstance(building, dict):
                 ISSUES.append(f"{mid}: invalid building")

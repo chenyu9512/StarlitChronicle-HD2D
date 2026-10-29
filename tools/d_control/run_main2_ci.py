@@ -32,7 +32,8 @@ def diff(before, head):
     if not before or before == "0" * 40:
         return None
     try:
-        p = subprocess.run(["git", "diff", "--name-only", "--diff-filter=ACMRT", before, head],
+        # Deleted assets/scripts are release changes too; never hide them from QA.
+        p = subprocess.run(["git", "diff", "--name-only", "--diff-filter=ACMRTD", before, head],
                            cwd=ROOT, capture_output=True, text=True, check=True, timeout=30)
         return [s for s in p.stdout.splitlines() if s]
     except (OSError, subprocess.SubprocessError):

@@ -70,61 +70,7 @@ jobs:
       - name: Require fixed twelve-room interior integrity
         shell: bash
         run: |
-          if [ -f build/latest-frame-qa/failed-tests.txt ] && grep -q '^FAILED smoke_coastal_interiors
-        shell: bash
-        run: |
-          mkdir -p build/art-qa
-          timeout 160s xvfb-run -a -s "-screen 0 1280x720x24" ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_coastal_visuals.gd > build/latest-frame-qa/coastal_capture.log 2>&1
-          cat build/latest-frame-qa/coastal_capture.log | tail -n 35
-        continue-on-error: true
-      - name: Capture HUD and HUD-free chapter gameplay with same HEAD
-        shell: bash
-        run: |
-          mkdir -p build/main2-art-qa/visual
-          timeout 160s xvfb-run -a -s "-screen 0 1280x720x24" ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_act01_visual_evidence.gd > build/latest-frame-qa/chapter_capture.log 2>&1
-          cat build/latest-frame-qa/chapter_capture.log | tail -n 45
-        continue-on-error: true
-      - name: Validate and index actual screenshot bytes
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import json, hashlib, os
-          from PIL import Image, ImageStat
-          dirs=(Path('build/art-qa'),Path('build/main2-art-qa/visual'))
-          files=[]
-          for d in dirs:
-              for p in sorted(d.glob('*.png')):
-                  try:
-                      with Image.open(p) as im:
-                          im.load()
-                          rgb=im.convert('RGB')
-                          std=max(ImageStat.Stat(rgb).stddev)
-                          assert im.width>=640 and im.height>=360 and std>4, (p, std)
-                          files.append({'name':p.name,'path':p.as_posix(),'size':[im.width,im.height],
-                                        'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
-                                        'max_rgb_stddev':round(std,2)})
-                  except Exception as exc:
-                      print('INVALID FRAME',p,exc)
-          out=Path('build/latest-frame-qa/evidence.json')
-          out.write_text(json.dumps({'commit':os.environ.get('GITHUB_SHA'),'engine':'Godot 4.7.2',
-                                     'real_framebuffers':files, 'manual_art_approved':False},indent=2))
-          print('CAPTURED REAL FRAMES:',len(files))
-          print('SAMPLES:',[f['name'] for f in files[:12]])
-          assert files, 'No actual playable scene frames captured'
-          PY
-      - name: Upload screenshots and full diagnostic evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: main2-latest-actual-game-screens
-          path: |
-            build/art-qa/
-            build/main2-art-qa/visual/
-            build/latest-frame-qa/
-          retention-days: 7
-          if-no-files-found: warn
- build/latest-frame-qa/failed-tests.txt; then
+          if test -s build/latest-frame-qa/failed-tests.txt && grep -q 'FAILED smoke_coastal_interiors' build/latest-frame-qa/failed-tests.txt; then
             tail -n 110 build/latest-frame-qa/smoke_coastal_interiors.log
             exit 1
           fi

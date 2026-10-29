@@ -205,6 +205,17 @@ static func assemble(path: String, texture: Texture2D) -> Texture2D:
                             c=c.lerp(Color("c8b593"),0.56)
                         elif row == 6: # Rough solid escarpment / blocked rim.
                             c=c.lerp(Color("46535f"),0.60)
+                    elif path.contains("terrain__coast__map_") and path.ends_with("_ground.png"):
+                        # V10 image gradients alone blended road, sand and
+                        # cliff into visually identical cells on four maps.
+                        # Reinstate the authored row meanings with subtle
+                        # distinct physical tones; not a collision workaround.
+                        if row == 0: # Beach sand and washed soil
+                            c=c.lerp(Color("dfc89f"),0.55)
+                        elif row == 3: # Deliberately readable walking road
+                            c=c.lerp(Color("796d62"),0.58)
+                        elif row == 6: # Solid cliffs and impassable rock
+                            c=c.lerp(Color("4d5660"),0.64)
                     c.a=1.0
                     atlas.set_pixel(col * TILE + x, row * TILE + y, c)
     return ImageTexture.create_from_image(atlas)

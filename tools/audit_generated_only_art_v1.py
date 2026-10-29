@@ -130,6 +130,18 @@ def audit(root):
             elif canonical.get(slot, {}).get("source") != "res://" + source:
                 errors.append("Unbound canonical art gap: " + slot)
             register(source, entry.get("sha256"))
+    gap_count=0
+    gap_file=root/(ROOT+"generated_gaps_v10/manifest.json")
+    if gap_file.is_file():
+        gap=load(root,ROOT+"generated_gaps_v10/manifest.json")
+        if gap.get("schema")!="starlit.main2.gap_fill.v10":
+            errors.append("Generated-gaps V10 schema invalid")
+        entries=gap.get("assets",{})
+        gap_count=len(entries)
+        if gap_count!=116 or gap.get("generated_count")!=gap_count:
+            errors.append("Expected 109 canonical gap PNGs plus 7 UI icons")
+        for item in entries.values():
+            register(str(item.get("source","")).removeprefix("res://"),item.get("sha256"))
     # Original project-authored SVGs of local scene detailing remain valid,
     # and must not be misreported as uploaded third-party source files.
     scene=load(root,ROOT+"scene_details_v1/manifest.json")
@@ -158,6 +170,7 @@ def audit(root):
         "generated_v10_gap_fill":v10_count,
         "generated_semantic_scene_props":semantic_count,
         "generated_allocated_region_props":allocated_count,
+        "generated_gap_and_ui_assets":gap_count,
         "generated_normal_maps":sum(bool(x.get("normal_map_path")) for x in assets.values()),
         "generated_terrain_derivatives":16,
         "generated_icons":288,

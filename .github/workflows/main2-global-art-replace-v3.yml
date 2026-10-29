@@ -10,7 +10,7 @@ on:
       - "tools/art_style_v7.py"
       - "tools/art_style_v8.py"
       - "tools/test_art_style_v8.py"
-      - "tools/generate_remaining_art_v1.py"
+      - "tools/audit_generated_only_art_v1.py"
       - "scripts/c_art_refined_overrides_v1.gd"
       - "scripts/c_art_overrides.gd"
       - "tools/sync_c_art_runtime_registry.py"
@@ -99,17 +99,6 @@ jobs:
           assert data.get('renderer')=='4.2.0', data.get('renderer')
           print('PASS:',total,'generated PNGs,',normal_count,'normal maps and 16 world atlases')
           PY
-      - name: Regenerate all remaining legacy and external PNGs preserving exact frame contracts
-        run: |
-          python tools/generate_remaining_art_v1.py --project .
-          python tools/generate_remaining_art_v1.py --project . --verify-only
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          data=json.loads(Path('assets/art/runtime/refined_overrides_v1/manifest.json').read_text())
-          assert data['count'] >= 150, data['count']
-          print('REFINED LEGACY + EXTERNAL IMAGES:', data['count'])
-          PY
       - name: Synchronize official runtime registry after replacing art
         shell: bash
         run: |
@@ -119,6 +108,8 @@ jobs:
           python tools/generate_shore_waves_v1.py --project . --verify-only
           python tools/sync_c_art_runtime_registry.py --project .
           python tools/check_c_art_runtime_registry.py
+      - name: Check generator-only library inventory with original uploads removed
+        run: python tools/audit_generated_only_art_v1.py --project . --report build/generated_only_inventory.json
       - name: Import entire Godot project (not fake acceptance)
         shell: bash
         run: |
@@ -177,6 +168,7 @@ jobs:
           name: main2-generated-art-adoption-v3
           path: |
             build/global_art_v3_install_report.json
+            build/generated_only_inventory.json
             build/starlit_global_art_factory_v3/candidate_manifest.json
             import.log
             smoke_c_material_atlas_repair.log

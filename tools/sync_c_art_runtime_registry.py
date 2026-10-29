@@ -19,6 +19,7 @@ REGIONS = (
 FACTORY = "res://assets/art/runtime/global_factory_v3/"
 DETAIL_PASS = "res://assets/art/runtime/refined_overrides_v1/"
 SEMANTIC_PASS = "res://assets/art/runtime/semantic_generated_v1/"
+ALLOCATED_PASS = "res://assets/art/runtime/allocated_decor_generated_v1/"
 GROUPS = {"terrain", "ui", "props", "maps", "interiors",
           "characters", "npcs", "monsters", "bosses"}
 ROLES = ("tree", "cottage", "shop", "shrine", "well", "lantern", "crate", "banner")
@@ -115,6 +116,21 @@ def synchronize(root: Path) -> dict:
             if hashlib.sha256(target_path.read_bytes()).hexdigest() != detail.get("sha256"):
                 raise ValueError("Detail-pass new image SHA mismatch: " + target)
 
+    allocated_manifest_path = root / "assets/art/runtime/allocated_decor_generated_v1/manifest.json"
+    generated_allocated = {}
+    if allocated_manifest_path.is_file():
+        allocated_manifest = read(allocated_manifest_path)
+        if allocated_manifest.get("schema") != "starlit.allocated_decor_generated.v1":
+            raise ValueError("Wrong generated 32px placement manifest schema")
+        generated_allocated = allocated_manifest.get("assets", {})
+        if len(generated_allocated) != 25 or len(generated_allocated) != allocated_manifest.get("count"):
+            raise ValueError("Exactly 25 allocated scenes need generated 32px props")
+        for item in generated_allocated.values():
+            source = item.get("source", "")
+            if not source.startswith(ALLOCATED_PASS) or source not in physical:
+                raise ValueError("Missing generated allocated prop: " + source)
+            if hashlib.sha256((root/source.removeprefix("res://")).read_bytes()).hexdigest() != item.get("sha256"):
+                raise ValueError("Incorrect generated 32px prop checksum: " + source)
     old = current.get("sources", {})
     generated_by_path = {item["source"]: item for item in generated.values()}
     sources = {}
@@ -161,7 +177,7 @@ def synchronize(root: Path) -> dict:
     current["shore_wave_sources"]={k:v["source"] for k,v in wave_records.items()}
     for path, sha in physical.items():
         previous = old.get(path, {})
-        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS) or path.startswith(SEMANTIC_PASS)
+        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS) or path.startswith(SEMANTIC_PASS) or path.startswith(ALLOCATED_PASS)
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
@@ -360,6 +376,9 @@ def synchronize(root: Path) -> dict:
             item.get("region_id", "") == region
         ][:6]
 
+    current["generated_allocated_scene_props"] = {
+        name: record["source"] for name, record in sorted(generated_allocated.items())
+    }
     current["generated_semantic_scene_assets"] = {
         key: row["source"] for key,row in sorted(semantic_routes.items())
     }

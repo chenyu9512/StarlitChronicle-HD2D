@@ -2,6 +2,7 @@ extends Control
 ## Presentation-only party actors. Real portraits, deterministic motion, no turn/HP writes.
 const MAX_VISIBLE: int = 4
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const GROUND_ART: String = "res://assets/art/battle/a15/actor_footing.svg"
 const CAST_ART: String = "res://assets/art/battle/a15/casting_sigil.svg"
 const ATTACK_DURATION: float = 0.36
@@ -68,6 +69,15 @@ func configure(actors: Array, active_ids: Array = []) -> void:
         portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
         portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
         portrait.texture = CArtOverrides.texture(art) if not art.is_empty() else null
+        # V3 canonical character art is a 3x4 walk atlas, not a static
+        # fullbody portrait. Crop its actual facing frame for battle rather
+        # than displaying twelve repeated body images or a blank actor.
+        if portrait.texture != null and art.begins_with("res://assets/art/runtime/global_factory_v3/characters/") and portrait.texture.get_size() == Vector2(96,192):
+            var idle_frame := AtlasTexture.new()
+            idle_frame.atlas = portrait.texture
+            idle_frame.region = Rect2(32,0,32,48)
+            portrait.texture = idle_frame
+            portrait.set_meta("canonical_generated_actor",id)
         add_child(portrait)
         var motion := Sprite2D.new()
         motion.name="ActionFlipbook_%s" % id
@@ -102,6 +112,11 @@ func _resolve_art(actor_id: String) -> String:
         var path: String = "res://assets/art/characters/%s/battle.png" % str(legacy[actor_id])
         if CArtOverrides.exists(path):
             return path
+    # Removed B02/legacy portraits may not exist in Main2. The generated
+    # identity-specific 96x192 canonical character sheet is a real fallback.
+    var generated: String = Generated.path("characters",actor_id)
+    if not generated.is_empty():
+        return generated
     return ""
 
 func _layout_actors() -> void:

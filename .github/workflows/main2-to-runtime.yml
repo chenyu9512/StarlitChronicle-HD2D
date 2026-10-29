@@ -66,7 +66,7 @@ jobs:
           G="$RUNNER_TEMP/Godot_v4.7.2-stable_linux.x86_64"
           cd "$RUNNER_TEMP/playable"
           timeout 180s "$G" --headless --path . --editor --quit
-          for script in smoke_c_act01_global_art_v14 smoke_c_act01_semantic_v17 smoke_c_main2_art_runtime smoke_battle_actors smoke_first_act_flow smoke_rpg_core smoke_save_integrity smoke_c_regional_monsters_v15 smoke_main2_act01_harbor_rooms_visual smoke_main2_lighthouse_story_state smoke_main2_act01_live_boss_motion smoke_main2_act01_coast_monster_identity smoke_main2_act01_canonical_chapter_routes smoke_b_act01_journey smoke_world_story_interactions smoke_world_checkpoints smoke_branch_story_phase19 smoke_c_act01_hd2d_v18; do
+          for script in smoke_c_act01_global_art_v14 smoke_c_act01_semantic_v17 smoke_c_main2_art_runtime smoke_battle_actors smoke_first_act_flow smoke_act01_six_chapters_normal smoke_rpg_core smoke_save_integrity smoke_c_regional_monsters_v15 smoke_main2_act01_harbor_rooms_visual smoke_main2_lighthouse_story_state smoke_main2_act01_live_boss_motion smoke_main2_act01_coast_monster_identity smoke_main2_act01_canonical_chapter_routes smoke_b_act01_journey smoke_world_story_interactions smoke_world_checkpoints smoke_branch_story_phase19 smoke_c_act01_hd2d_v18; do
             echo "Runtime Godot smoke: $script"
             timeout 180s "$G" --headless --path . --script "res://tools/$script.gd" 2>&1 | tee "$RUNNER_TEMP/$script.log"
             if [ "$script" != "smoke_save_integrity" ] && grep -Eq "ERROR: Parse JSON failed|ERROR: Failed loading" "$RUNNER_TEMP/$script.log"; then
@@ -144,28 +144,18 @@ jobs:
           fi
           target="$RUNNER_TEMP/runtime-worktree"
           git worktree add --no-checkout --detach "$target" "$parent"
-          # Runtime v1 was initially branched off the entire Main2 history.
-          # Rewrite ONLY that exact first bot-owned tip into an independent
-          # root commit; otherwise another author's Runtime commits are safe.
-          first_runtime="6625155db3d9e2f5a6db050863bc81afd50623e3"
-          rewrite_root=false
-          if [ "$(git rev-parse "$parent")" = "$first_runtime" ]; then
-            rewrite_root=true
-            git -C "$target" switch --orphan runtime-publish-root
-          fi
+          # Never force-push or rewrite the Runtime branch's history.
+          # Each release is an ordinary fast-forward from the current tip.
           git -C "$target" read-tree --empty
           cp -a "$RUNNER_TEMP/playable/." "$target/"
           git -C "$target" add -A
           git -C "$target" config user.name "github-actions[bot]"
           git -C "$target" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ "$rewrite_root" = false ] && git -C "$target" diff --cached --quiet "$parent" --; then
+          if git -C "$target" diff --cached --quiet "$parent" --; then
             echo "No playable content changed. Skip Runtime commit."
             exit 0
           fi
           git -C "$target" commit -m "build(runtime): playable Main2 snapshot $GITHUB_SHA"
-          if [ "$rewrite_root" = true ]; then
-            # This is force-with-lease against the exact Runtime v1 SHA only.
-            git -C "$target" push --force-with-lease="refs/heads/StarlitChronicle-Runtime:$first_runtime" origin HEAD:refs/heads/StarlitChronicle-Runtime
-          else
-            git -C "$target" push origin HEAD:refs/heads/StarlitChronicle-Runtime
-          fi
+          # A concurrent newer Runtime publish must reject this push rather
+          # than overwrite any author or history; no --force is permitted.
+          git -C "$target" push origin HEAD:refs/heads/StarlitChronicle-Runtime

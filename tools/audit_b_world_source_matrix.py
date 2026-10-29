@@ -85,8 +85,8 @@ def audit() -> tuple[dict, list[str]]:
         if mid not in zones or path.name != f"{mid}__{bid}.json":
             errors.append(f"Interior points to unknown map/building: {path.name}")
     production_rooms = sum(len(v) for v in all_rooms.values())
-    if production_rooms != 99:
-        errors.append(f"99 V4 interior source records expected, got {production_rooms}")
+    if production_rooms != 153:
+        errors.append(f"153 V4 interior source records expected, got {production_rooms}")
 
     rows = []
     entrances = 0
@@ -106,6 +106,8 @@ def audit() -> tuple[dict, list[str]]:
             if not bid or bid in seen_buildings:
                 errors.append(f"Missing/duplicated building ID: {mid}/{bid}")
             seen_buildings.add(bid)
+            if bid not in town_rooms.get(mid, []):
+                errors.append(f"Exterior building has no corresponding authored V4 room: {mid}/{bid}")
             center = building.get("pos", [])
             scale = building.get("size", [])
             door = building.get("door", [])

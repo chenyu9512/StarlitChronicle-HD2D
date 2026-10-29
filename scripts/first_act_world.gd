@@ -2203,15 +2203,24 @@ func enter_story_submap(quest_id: String, restore: bool = false) -> bool:
     var layout_path: String = "res://data/levels/v4/interiors/%s__quest__%s.json" % [str(map_profile.get("id","")),quest_id]
     if not FileAccess.file_exists(layout_path):
         return false
+    # Validate the same authored V4 geometry used by the live scene before
+    # destroying the outdoor world. Damaged quest rooms cannot become V2 blanks.
+    var room_name: String = str(detail.get("interior_name","调查室"))
+    var authored_quest: Dictionary = geography.interior("quest__"+quest_id,
+        room_name,str(map_profile.get("id","")))
+    var objective_cells: Variant = authored_quest.get("quest_points",[])
+    if str(authored_quest.get("authored_source","")) != "v4" or not (objective_cells is Array) or objective_cells.size()!=3:
+        push_error("Cannot enter invalid authored quest room: "+str(map_profile.get("id",""))+"#quest__"+quest_id)
+        return false
     exterior_position = hero.position
     interior_building = "quest__"+quest_id
-    interior_kind = str(detail.get("interior_name","调查室"))
+    interior_kind = room_name
     build(chapter,last_party_size)
     if terrain_layout.get("quest_points",[]).size()!=3:
         interior_building = ""
         interior_kind = ""
         build(chapter,last_party_size)
-        hero.position = exterior_position
+        hero.position = _safe_return_outside(exterior_position)
         return false
     return true
 

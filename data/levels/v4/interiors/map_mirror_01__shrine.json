@@ -4,7 +4,7 @@
   "map_id": "map_mirror_01",
   "building_id": "shrine",
   "name": "镜湖都·祈灯祠",
-  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "status": "b_regional_functional_visuals_integrated_pending_godot_signoff",
   "size": [
     72,
     48
@@ -227,11 +227,247 @@
       "interaction_status": "authored_no_reward"
     }
   ],
-  "art_profile": "",
-  "visuals": [],
-  "light_sources": [],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_shrine_0",
+      "asset": "shrine_starseal",
+      "cell": [
+        25,
+        22
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_1",
+      "asset": "bookshelf",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_2",
+      "asset": "shrine_altar",
+      "cell": [
+        46,
+        17
+      ],
+      "layer": "furniture",
+      "footprint": [
+        106,
+        82
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_4",
+      "asset": "shrine_incense",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_5",
+      "asset": "barrels",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_6",
+      "asset": "guild_noticeboard",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_7",
+      "asset": "saltgrass_planter",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_entry_rug",
+      "asset": "rug",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        94,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_wall_window",
+      "asset": "window",
+      "cell": [
+        36,
+        12
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        66
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inquiry_0",
+      "asset": "tideway_chart",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inquiry_1",
+      "asset": "guild_noticeboard",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "entry_lamp",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.25,
+      "energy": 0.74
+    },
+    {
+      "id": "service_lamp",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.15,
+      "energy": 0.68
+    },
+    {
+      "id": "room_corner_lamp",
+      "cell": [
+        46,
+        21
+      ],
+      "scale": 1.1,
+      "energy": 0.59
+    }
+  ],
   "region_design": "镜湖都 · mistforest",
   "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
   "interior_owner_id": "",
-  "interaction_status": "no_reward_interactive_room"
+  "interaction_status": "no_reward_interactive_room",
+  "room_day_tint": "d1dbd6",
+  "room_night_tint": "9ba7b3",
+  "visual_revision": 2
 }

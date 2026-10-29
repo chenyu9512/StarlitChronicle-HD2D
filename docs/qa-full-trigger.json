@@ -349,9 +349,32 @@
     "branch": "Main2美术优化版",
     "source_head": "59b7cdc39da90f590179294e788c3eb8f460d38f",
     "request": "same-sha-godot-4.7.2-all-smokes",
-    "smokes": ["smoke_v21_canon_permissions.gd", "smoke_optional_acts_01_07.gd", "smoke_act01_mechanics_contract.gd", "smoke_act01_valve_boss_live.gd"],
+    "smokes": [
+      "smoke_v21_canon_permissions.gd",
+      "smoke_optional_acts_01_07.gd",
+      "smoke_act01_mechanics_contract.gd",
+      "smoke_act01_valve_boss_live.gd"
+    ],
     "status": "requested-after-campfire-sandbox-fix",
     "latest_source_head": "7167f2245ecaff2dc36ec50ca0acbfd0ab7f38dc",
     "note": "QA must match this new trigger commit; no visual or human six-chapter signoff."
+  },
+  "global_full_test_20261029": {
+    "requested_at": "2026-10-29",
+    "target_branch": "Main2美术优化版",
+    "parent_head_before_trigger": "60c75771bfbfb389018613ea31d885bee29b6750",
+    "engine": "Godot 4.7.2",
+    "status": "requested-not-verified",
+    "mode": "one-shot full QA: 4-shard all smoke scripts + independent data validators + actual Godot GL screenshots",
+    "requirements": [
+      "all scripts executed with real exit codes",
+      "no development cheats considered player-path proof",
+      "retain per-test logs and screenshot manifests",
+      "no release when any failed, cancelled or not run"
+    ],
+    "runs": [
+      "godot-full-smoke-suite.yml",
+      "main2-global-test-evidence.yml"
+    ]
   }
 }

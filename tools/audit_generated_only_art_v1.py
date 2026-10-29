@@ -75,6 +75,18 @@ def audit(root):
         for name,item in entries.items():
             target=str(item.get(path_key,"")).removeprefix("res://")
             register(target,item.get(hash_key))
+    semantic_count=0
+    semantic_manifest=root/(ROOT+"semantic_generated_v1/manifest.json")
+    if semantic_manifest.is_file():
+        semantic=load(root,ROOT+"semantic_generated_v1/manifest.json")
+        if semantic.get("schema")!="starlit.semantic_generated.v1":
+            errors.append("Invalid generated scene-detail schema")
+        semantic_routes=semantic.get("routes",{})
+        semantic_count=len(semantic_routes)
+        if semantic_count != semantic.get("count") or semantic_count < 9:
+            errors.append("Incomplete canonical scene-detail sprites")
+        for name,record in semantic_routes.items():
+            register(str(record.get("source","")).removeprefix("res://"),record.get("sha256"))
     # Original project-authored SVGs of local scene detailing remain valid,
     # and must not be misreported as uploaded third-party source files.
     scene=load(root,ROOT+"scene_details_v1/manifest.json")
@@ -100,6 +112,7 @@ def audit(root):
         "schema":"starlit.generated_only_inventory.v1",
         "status":"success" if not errors else "failed",
         "generated_main":len(assets),
+        "generated_semantic_scene_props":semantic_count,
         "generated_normal_maps":sum(bool(x.get("normal_map_path")) for x in assets.values()),
         "generated_terrain_derivatives":16,
         "generated_icons":288,

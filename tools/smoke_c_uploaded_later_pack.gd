@@ -22,6 +22,18 @@ func _run() -> void:
         _fail("Expected exactly six approved initial source-to-slot mappings")
         return
     var inspection: Dictionary = Art.pack_report(PACK_ID)
+    if int(inspection.get("fallback",0)) > 0:
+        for row in entries:
+            var target: String = str(row.get("target",""))
+            var source: String = str(row.get("source",""))
+            var baseline: Texture2D = Art.original_texture(target)
+            var uploaded: Texture2D = Art.original_texture(source)
+            var catalog_meta: Dictionary = Art._entries.get(target,{})
+            print("QA_UPLOAD_DIAG target=",target,
+                " baseline=",str(baseline.get_size()) if baseline != null else "MISSING",
+                " source=",str(uploaded.get_size()) if uploaded != null else "MISSING",
+                " atlas=",str(catalog_meta.get("atlas",false)),
+                " catalogued=",str(Art.has_slot(target)))
     if not bool(inspection.get("ok", false)) or int(inspection.get("mapped", 0)) != entries.size() or int(inspection.get("fallback", -1)) != 0:
         _fail("Pack not fully registered or some source images cannot load: " + str(inspection))
         return

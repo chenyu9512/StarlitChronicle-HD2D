@@ -1,0 +1,52 @@
+name: "Main2 · Art Pack and Theme Compatibility QA"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/main2-live-art-pack-qa.yml"
+      - "tools/smoke_c_uploaded_later_pack.gd"
+      - "tools/smoke_c_art_packs.gd"
+      - "tools/smoke_c_art_theme_v2.gd"
+      - "scripts/c_art_overrides.gd"
+      - "scripts/global_generated_art_v3.gd"
+      - "scripts/world_terrain_atlas_registry.gd"
+      - "data/assets/c_art_packs.json"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-live-switching:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Godot 4.7.2
+        shell: bash
+        run: |
+          curl -fLsS --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import and parse the actual game
+        shell: bash
+        run: |
+          mkdir -p build/art-pack-qa
+          timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit > build/art-pack-qa/import.log 2>&1
+          if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' build/art-pack-qa/import.log; then exit 1; fi
+      - name: Test actual art pack activation and theme rollback
+        shell: bash
+        run: |
+          failed=0
+          for name in smoke_c_uploaded_later_pack smoke_c_art_packs smoke_c_art_theme_v2; do
+            echo "RUN $name"
+            timeout 80s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$name.gd" > "build/art-pack-qa/$name.log" 2>&1 || failed=1
+            tail -n 60 "build/art-pack-qa/$name.log"
+            if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' "build/art-pack-qa/$name.log"; then failed=1; fi
+          done
+          exit "$failed"
+      - name: Save Godot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-actual-art-pack-migration-qa
+          path: build/art-pack-qa/
+          retention-days: 7

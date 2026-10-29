@@ -9,6 +9,7 @@ const Registry = preload("res://scripts/world_registry.gd")
 const World = preload("res://scripts/first_act_world.gd")
 const Icons = preload("res://scripts/c_art_item_icons.gd")
 const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const ArtAssets = preload("res://scripts/art_assets.gd")
 var errors: Array[String] = []
 
 func _initialize() -> void:
@@ -69,6 +70,8 @@ func _run() -> void:
                 "Act-I boss has no assigned canonical game image: "+boss_id)
             verify(Generated.boss_path(boss_id) == official_path and not official_path.is_empty(),
                 "Act-I boss art does not resolve from the runtime's actual boss ID: "+boss_id)
+            verify(ArtAssets.battle_image({"boss_id": boss_id}, true, boss_chapter) == official_path,
+                "Live battle portrait does not use the chapter-specific boss identity: "+boss_id)
             var picture: Texture2D = Generated.texture("bosses", boss_key)
             verify(picture != null and picture.get_width() > 0 and picture.get_height() > 0,
                 "Act-I boss identity bitmap is missing or unreadable: "+boss_id)

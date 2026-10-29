@@ -97,6 +97,34 @@ def main() -> int:
     for path in sorted(unexpected_generated):
         errors.append("Generated image not covered by factory contract: " + path)
 
+    # The authoritative generated-source resolver must mirror live active.json.
+    declared_index = index.get("generated_assets", {})
+    expected_index_paths = generated_declared | expected_terrain
+    indexed_paths = {meta.get("source", "") for meta in declared_index.values()}
+    for path in sorted(expected_index_paths - indexed_paths):
+        errors.append("Generated runtime source absent from canonical index: " + path)
+    for path in sorted(indexed_paths - expected_index_paths):
+        errors.append("Canonical generated source absent from active manifest: " + path)
+    for key, meta in declared_index.items():
+        path = meta.get("source", "")
+        category, dot, name = key.partition(".")
+        expected_path = generated_root + category + "/" + name + ".png"
+        if not dot or path != expected_path:
+            errors.append("Wrong generated semantic-to-file binding: " + key)
+        if path in generated_declared:
+            source_meta = live.get("assets", {}).get(key, {})
+            if source_meta.get("path") != path or source_meta.get("sha256") != meta.get("manifest_sha256"):
+                errors.append("Generated checksum/identity metadata mismatch: " + key)
+            elif file_path(path).is_file():
+                checksum = hashlib.sha256(file_path(path).read_bytes()).hexdigest()
+                if checksum != meta["manifest_sha256"]:
+                    errors.append("Changed generated PNG checksum: " + key)
+        if path in expected_terrain and file_path(path).is_file():
+            import struct
+            header = file_path(path).read_bytes()[:24]
+            if not header.startswith(b"\x89PNG\r\n\x1a\n") or struct.unpack(">II", header[16:24]) != (256, 256):
+                errors.append("Non-256x256 generated regional atlas: " + key)
+
     hashes: dict[str, list[str]] = defaultdict(list)
     for source, row in entries.items():
         local = file_path(source)
@@ -156,6 +184,7 @@ def main() -> int:
         "factory_images": len(generated_actual),
         "factory_manifest_images": len(generated_declared),
         "factory_terrain_images": len(expected_terrain & actual),
+        "indexed_generated_images": len(declared_index),
         "registry_images": len(entries),
         "registered_images": sum(bool(x.get("registered")) for x in entries.values()),
         "unverified_registration": sum(not bool(x.get("registered")) for x in entries.values()),

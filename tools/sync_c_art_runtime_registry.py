@@ -131,6 +131,25 @@ def synchronize(root: Path) -> dict:
                 raise ValueError("Missing generated allocated prop: " + source)
             if hashlib.sha256((root/source.removeprefix("res://")).read_bytes()).hexdigest() != item.get("sha256"):
                 raise ValueError("Incorrect generated 32px prop checksum: " + source)
+    # All 109 historic visual slots now have project-generated V10 variants.
+    # Verify every output before reconciling the canonical runtime registry.
+    gap_file = root / "assets/art/runtime/generated_gaps_v10/manifest.json"
+    generated_gaps = {}
+    if gap_file.is_file():
+        gaps = read(gap_file)
+        if gaps.get("schema") != "starlit.main2.gap_fill.v10":
+            raise ValueError("Incorrect generated-gap contract")
+        generated_gaps = gaps.get("assets", {})
+        if len(generated_gaps) != gaps.get("generated_count"):
+            raise ValueError("Generated-gap count mismatch")
+        for name, row in generated_gaps.items():
+            path = row.get("source", "")
+            if not path.startswith("res://assets/art/runtime/generated_gaps_v10/"):
+                raise ValueError("Invalid generated-gap path: " + name)
+            if path not in physical:
+                raise ValueError("Generated-gap image not staged: " + name)
+            if hashlib.sha256((root/path.removeprefix("res://")).read_bytes()).hexdigest() != row.get("sha256"):
+                raise ValueError("Generated-gap SHA mismatch: " + name)
     old = current.get("sources", {})
     generated_by_path = {item["source"]: item for item in generated.values()}
     sources = {}
@@ -177,7 +196,7 @@ def synchronize(root: Path) -> dict:
     current["shore_wave_sources"]={k:v["source"] for k,v in wave_records.items()}
     for path, sha in physical.items():
         previous = old.get(path, {})
-        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS) or path.startswith(SEMANTIC_PASS) or path.startswith(ALLOCATED_PASS)
+        produced = path.startswith(FACTORY) or path.startswith(DETAIL_PASS) or path.startswith(SEMANTIC_PASS) or path.startswith(ALLOCATED_PASS) or path.startswith("res://assets/art/runtime/generated_gaps_v10/")
         same_blob = previous.get("sha") == sha
         sources[path] = {
             "sha": sha, "physically_present": True,
@@ -342,7 +361,10 @@ def synchronize(root: Path) -> dict:
     }
     slots = current.get("canonical_slots", {})
     for slot, record in slots.items():
-        if slot in required_bindings:
+        existing = str(record.get("source", ""))
+        if existing and existing in physical and existing.startswith("res://assets/art/runtime/generated_gaps_v10/"):
+            source = existing
+        elif slot in required_bindings:
             source = required_bindings[slot]
         elif slot == "prop.coast.crate":
             source = generated["props.region_coast_crate"]["source"]
@@ -379,6 +401,10 @@ def synchronize(root: Path) -> dict:
     current["generated_allocated_scene_props"] = {
         name: record["source"] for name, record in sorted(generated_allocated.items())
     }
+    current["generated_gap_art"] = {
+        name: {"source": row["source"], "sha256": row["sha256"]}
+        for name, row in sorted(generated_gaps.items())
+    }
     current["generated_semantic_scene_assets"] = {
         key: row["source"] for key,row in sorted(semantic_routes.items())
     }
@@ -387,6 +413,7 @@ def synchronize(root: Path) -> dict:
         "source": FACTORY + "active.json",
         "manifest_images": len(manifest),
         "generated_detail_variants": len(detail_routes),
+        "generated_gaps_v10": len(generated_gaps),
         "regional_atlases_extra": 16,
         "groups": groups, "enabled": True, "visual_status": "未测试",
     }

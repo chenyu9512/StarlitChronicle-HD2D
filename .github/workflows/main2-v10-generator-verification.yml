@@ -1,0 +1,37 @@
+name: "Main2 V10 Unified Generator Verification"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "main2_merge_regen_replace_cleanup_v10.py"
+      - "tools/generate_art.py"
+      - "docs/MAIN2_V10_EXECUTOR_README.md"
+      - ".github/workflows/main2-v10-generator-verification.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  safety-and-runtime-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install generation dependencies
+        run: python -m pip install --disable-pip-version-check Pillow numpy
+      - name: Compile unified generator and entrypoint
+        run: |
+          python -m py_compile main2_merge_regen_replace_cleanup_v10.py tools/generate_art.py
+          python tools/generate_art.py --help
+      - name: Check existing 451 core slots, 401 normals and 16 terrain atlases
+        run: python tools/generate_art.py --project . --verify-only
+      - name: Inspect cleanup without deleting any live art
+        run: python tools/generate_art.py --project . --cleanup-only --cleanup-dry-run
+      - name: Verify V9 generator contracts in isolated fixtures
+        run: python tools/test_hd2d_studio_v9.py
+      - name: Forbid unintended modifications
+        run: |
+          test -z "$(git status --porcelain --untracked-files=no)"
+          echo "V10 verifier passed; no runtime art files were overwritten."

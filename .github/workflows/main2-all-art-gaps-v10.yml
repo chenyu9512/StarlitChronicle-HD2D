@@ -1,0 +1,108 @@
+name: "Main2 · Generate and Bind All Remaining Art Gaps V10"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "tools/fill_global_art_gaps_v10.py"
+      - "tools/smoke_art_gap_fill_v10.gd"
+      - "scripts/c_art_runtime.gd"
+      - ".github/workflows/main2-all-art-gaps-v10.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: main2-global-art-promotion
+  cancel-in-progress: false
+jobs:
+  fill-runtime-gaps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install graphics tools
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Produce all empty canonical roles using first-party generated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/fill_global_art_gaps_v10.py --project .
+          python tools/fill_global_art_gaps_v10.py --project . --verify-only
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          manifest=json.loads(Path('assets/art/runtime/generated_gaps_v10/manifest.json').read_text())
+          registry=json.loads(Path('data/assets/c_art_runtime_registry_v1.json').read_text())
+          assert manifest['canonical_filled']==109, manifest['canonical_filled']
+          assert manifest['ui_filled']==7, manifest['ui_filled']
+          assert manifest['monster_id_bound']==7,manifest['monster_id_bound']
+          assert manifest['generated_count']==116,manifest['generated_count']
+          assert all(row['source'] for row in registry['canonical_slots'].values())
+          assert all(row['source'].startswith('res://assets/art/runtime/generated_gaps_v10/')
+                     for row in registry['canonical_slots'].values())
+          assert all(registry['ui'].values())
+          assert all(registry['monster_id_sources'].values())
+          print('PASS 109 historical slots, 7 new UI assets, 7 monster IDs, region previews')
+          PY
+      - name: Install Godot 4.7.2 and validate import
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/v10-art-gap-qa
+          curl -fLsS --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp
+          chmod +x /tmp/Godot_v4.7.2-stable_linux.x86_64
+          timeout 180s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit > build/v10-art-gap-qa/import.log 2>&1 || { tail -n 110 build/v10-art-gap-qa/import.log; exit 1; }
+          if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' build/v10-art-gap-qa/import.log; then
+            exit 1
+          fi
+      - name: Load 109 live canonical textures and validate world scenes
+        shell: bash
+        run: |
+          set -euo pipefail
+          for smoke in smoke_art_gap_fill_v10 smoke_world_ground_transitions_v6 smoke_world_town_verge_v7; do
+            timeout 100s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/${smoke}.gd" > "build/v10-art-gap-qa/${smoke}.log" 2>&1 || { tail -n 110 "build/v10-art-gap-qa/${smoke}.log"; exit 1; }
+            if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' "build/v10-art-gap-qa/${smoke}.log"; then exit 1; fi
+            tail -n 8 "build/v10-art-gap-qa/${smoke}.log"
+          done
+      - name: Publish newly generated original visuals directly to Main2
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/art/runtime/generated_gaps_v10 data/assets/c_art_runtime_registry_v1.json
+          git diff --cached --stat | tail -n 35
+          if git diff --cached --quiet; then
+            echo "Already installed into online Main2"
+            exit 0
+          fi
+          git commit -m "feat(art): generate and register all 109 missing visual slots and 7 extra UI icons"
+          for attempt in 1 2 3 4 5; do
+            git fetch --no-tags origin "refs/heads/Main2美术优化版"
+            if ! git rebase FETCH_HEAD; then
+              git rebase --abort || true
+              echo "Concurrent registry update conflicts; refusing to overwrite newer Main2" >&2
+              exit 1
+            fi
+            if git push origin HEAD:"Main2美术优化版"; then
+              echo "V10_GENERATED_ART_PUBLISHED_ONLINE=YES"
+              exit 0
+            fi
+          done
+          exit 1
+      - name: Retain exact generated source and Godot testing evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-v10-art-gap-evidence
+          path: |
+            assets/art/runtime/generated_gaps_v10/manifest.json
+            build/v10-art-gap-qa/
+          if-no-files-found: warn
+          retention-days: 14

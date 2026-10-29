@@ -30,3 +30,34 @@
 5. 复验后才允许Runtime发布；任何只读无素材GameCore镜像成功不等于游戏发行成功。
 
 执行规则：修改文件前读最新blob SHA，同文件串行写，不造伪截图、不绕过游戏正常流程。
+
+
+## Batch 0 连续修复批次｜2026-10-29｜第二轮
+
+### 故障证据
+
+- Main2统一门禁 [run 40881785276](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40881785276) 在`e2a471d8`提交仅 **39/55**；Godot 4.7.2冷导入本身成功，16项静态/冒烟失败不能视为商业合格。
+- 具体阻塞：40个V3地图尺寸审计误比对不存在的atlas字段、`art_source_contract`已删除、发行包作弊入口缺少editor门禁、旧源blob审核与已删除的图片/第三方迁移JSON冲突、第一幕1/3章证据热点被旧冒烟脚本跳过、V18场景脚本仍指向删掉的旧素材、V14场景加载器拒绝生成器新路径、NPC尝试解析已移除的V12清单、旧船只仍引用已删资源。
+
+### 本轮线上源码实改（全部在Main2，仅指代码提交成功）
+
+| 目标 | 文件 / SHA摘要 | 说明与验收边界 |
+|---|---|---|
+| 40地图审核 | `validate_global_runtime_contract.py` / `97ec34ce` | 校验实际V3尺寸且只有atlas显式给出grid_size才做跨表比对，不篡改地图数据 |
+| 发行包作弊拦截 | `cheat_panel.gd` / `53f274ce`，`first_act.gd` / `2611a339` | 发行版本禁用调试菜单/命令；禁用已保存的无敌、无遇敌、5倍经验及速度作弊 |
+| 第一幕正式资源静态检查 | `validate_first_act.py` / `3787623c` | 从旧第三方图片导入检查改为真实V9 `active.json` 中451图和401张法线的SHA256、路径、剧情、Boss身份校验；实际画面仍未签收 |
+| NPC缺失旧资源清单 | `c_art_regional_npc.gd` / `29bd8804` | 文件不存在时不再触发JSON解析错误，直接回退NPC具名生成4方向精灵 |
+| 玩家证据调查回归 | `smoke_first_act_flow.gd` / `7f66a3ca`，`smoke_act01_six_chapters_normal.gd` / `36df4244` | 通过真实证据热点UI按钮完成第一、三章调查，不直接写完成旗标/假胜利 |
+| V18海岸正式布景 | `c_act01_hd2d_dressing.gd` / `b2c1e724` | 从manifest匹配真正的V10 `prop__hd2d__*`纹理ID，不再因旧路径限制整张地图遗漏布景 |
+| V18资源完整性 | `validate_c_act01_hd2d_v18.py` / `8c5ce080` | 17个实际场景布置位、14种精确道具身份、11张256px材质，均验证原生V10 SHA256；审美依旧未测试 |
+| 旧第三方审核更新 | `audit_act01_third_party_art.py` / `e25be5cd` | 只审计仍在使用的109语义槽、原图不存在、现行生成图片与6章/2关键室内；商业视觉验收参数仍不能假通过 |
+| 港口船只实际纹理 | `c_act01_matched_props_v16.gd` / `81a46e6e`，`validate_c_act01_matched_props_v16.py` / `f5b3f48a` | 正式入口使用唯一`prop.harbor.dock_boat`身份、图像源/尺寸/哈希验证，不再要求已删原船/错误木桥 |
+| 第一幕海岸语义纹理 | `c_act01_semantic_art_v17.gd` / `a5c98e51`，`validate_c_act01_semantic_v17.py` / `71c2d682` | 旧palm_tree正确映射真实V10红树林语义槽；洞窟水晶与海岸水晶共用同一个具名素材 |
+| V14场景真实资源入口 | `c_act01_global_art_v14.gd` / `e80d03c8`，`validate_c_act01_global_art_v14.py` / `c83487e4`+`f63b5b0f`+`70162831` | 允许V14原有场景ID使用生成器V10资源；验证45图（10道具/6场景/9怪/5Boss候选/10地形/2背景/3UI）及SHA，明确区别章节Boss ID与生成图像ID。 |
+
+### 已确认与未确认
+
+- 已确认历史提交的 **Godot冷导入成功**、`smoke_save_integrity.gd`成功、`smoke_rpg_core.gd`成功、地图迷雾/小地图/可达性门禁成功；这些均为原`e2a471d8`SHA的结果，不能自动转移到最新SHA。
+- [Main2 美术专项](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40885262725) 在旧`f63b5b0f`源验证到V14生成背景命名转换错误；已在`70162831`改正，**该修复需要同SHA复验**。
+- **未测试/未通过**：最新统一门禁全部55项、真实玩家第一幕六章无作弊通关、全部美术实际截图的身份/美观人工签收、Boss数值及Runtime发布。任何单次成功的GameCore无美术镜像≠完整游戏成功。
+- 现存场景对已删旧资源的引用必须继续逐项修复；不可以删断言、标记通过或者临时制造假图片掩盖美术缺口。

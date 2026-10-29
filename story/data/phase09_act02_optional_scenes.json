@@ -1,0 +1,559 @@
+{
+  "schema": "starlit.story.phase09.act02.optional.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "第7–12章每章1个生活事件、1个调查互动候选，需在关卡中分别保留前后自由探索触发窗口；不影响原4场主线拓扑，不能误记已接入Godot。",
+  "scenes": [
+    {
+      "id": "ch007.p9.town",
+      "chapter_id": "ch007",
+      "title": "雨棚下的三份药单",
+      "kind": "town",
+      "insert_after_scene_id": "ch007.opening",
+      "required_flags": [
+        "ch007.started"
+      ],
+      "required_stage": "opening",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "三誓王都·外廷",
+      "dialogue": [
+        {
+          "id": "ch007.p9.town.l01",
+          "speaker": "药铺伙计",
+          "text": "这三张单子是同一位医师开的，盖章却要跑三个窗口。"
+        },
+        {
+          "id": "ch007.p9.town.l02",
+          "speaker": "救济棚老妇",
+          "text": "我腿走不动了，你能帮我念念到底差哪一份？"
+        },
+        {
+          "id": "ch007.p9.town.l03",
+          "speaker": "主角",
+          "text": "缺的是南廷转诊确认，不是新的处方。"
+        },
+        {
+          "id": "ch007.p9.town.l04",
+          "speaker": "书记官",
+          "text": "我能把急诊申请写成同一编号，但需要医师注明日期。"
+        },
+        {
+          "id": "ch007.p9.town.l05",
+          "speaker": "岚音",
+          "text": "这份我来签，病人的名字只留在医馆原件上。"
+        },
+        {
+          "id": "ch007.p9.town.l06",
+          "speaker": "旁白",
+          "text": "雨棚里的人第一次不用把病情大声说给三个窗口听。"
+        }
+      ]
+    },
+    {
+      "id": "ch007.p9.evidence",
+      "chapter_id": "ch007",
+      "title": "顾问府退件抄本",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch007.investigate",
+      "required_flags": [
+        "ch007.evidence"
+      ],
+      "required_stage": "investigate",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "三誓王都·外廷",
+      "dialogue": [
+        {
+          "id": "ch007.p9.evidence.l01",
+          "speaker": "外廷学徒",
+          "text": "我把印模的借用收据夹在退件后面，原本打算等顾问府来问再拿出。"
+        },
+        {
+          "id": "ch007.p9.evidence.l02",
+          "speaker": "雷索",
+          "text": "印模缺角和三封公文一致，但还不能凭这张纸确认谁写了内容。"
+        },
+        {
+          "id": "ch007.p9.evidence.l03",
+          "speaker": "主角",
+          "text": "记录借走印模的人、时刻和交还栏空白，再交给各廷核验。"
+        },
+        {
+          "id": "ch007.p9.evidence.l04",
+          "speaker": "外廷学徒",
+          "text": "你们把我的名字也写上了吗？"
+        },
+        {
+          "id": "ch007.p9.evidence.l05",
+          "speaker": "岚音",
+          "text": "只写提供证据的职务与允许公开的部分。你可以先看副本。"
+        },
+        {
+          "id": "ch007.p9.evidence.l06",
+          "speaker": "旁白",
+          "text": "学徒认真核对自己的签名，第一次把收据交出柜台。"
+        }
+      ]
+    },
+    {
+      "id": "ch008.p9.town",
+      "chapter_id": "ch008",
+      "title": "客栈关门后的炉火",
+      "kind": "town",
+      "insert_after_scene_id": "ch008.opening",
+      "required_flags": [
+        "ch008.started"
+      ],
+      "required_stage": "opening",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "灰鹰商道",
+      "dialogue": [
+        {
+          "id": "ch008.p9.town.l01",
+          "speaker": "客栈老板",
+          "text": "对岸的人上回砸了我的窗，今天他们的孩子却在门口冻得发抖。"
+        },
+        {
+          "id": "ch008.p9.town.l02",
+          "speaker": "车队学徒",
+          "text": "我们能借炉子煮一锅粥吗？粮由商队出。"
+        },
+        {
+          "id": "ch008.p9.town.l03",
+          "speaker": "客栈老板",
+          "text": "火可以借，但我不保证今晚愿意跟他们说话。"
+        },
+        {
+          "id": "ch008.p9.town.l04",
+          "speaker": "岚音",
+          "text": "不必马上说话。先让孩子把手暖回来。"
+        },
+        {
+          "id": "ch008.p9.town.l05",
+          "speaker": "朔弦",
+          "text": "我修窗，谁有锤子借我？"
+        },
+        {
+          "id": "ch008.p9.town.l06",
+          "speaker": "旁白",
+          "text": "破窗仍用木板钉着，屋里第一次同时有两岸来的旅客。"
+        }
+      ]
+    },
+    {
+      "id": "ch008.p9.evidence",
+      "chapter_id": "ch008",
+      "title": "泥里两种脚印",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch008.investigate",
+      "required_flags": [
+        "ch008.evidence"
+      ],
+      "required_stage": "investigate",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "灰鹰商道",
+      "dialogue": [
+        {
+          "id": "ch008.p9.evidence.l01",
+          "speaker": "雷索",
+          "text": "这边军靴印比箭出现得晚，不能说穿军靴的人就是射箭者。"
+        },
+        {
+          "id": "ch008.p9.evidence.l02",
+          "speaker": "朔弦",
+          "text": "另一边有拖过木箱的痕迹，轮距更像小型粮车。"
+        },
+        {
+          "id": "ch008.p9.evidence.l03",
+          "speaker": "主角",
+          "text": "先量距离，别踩坏了，再去问哪家车当天经过。"
+        },
+        {
+          "id": "ch008.p9.evidence.l04",
+          "speaker": "车队长",
+          "text": "我差点只看见敌国颜色，没看见这条箱印。"
+        },
+        {
+          "id": "ch008.p9.evidence.l05",
+          "speaker": "岚音",
+          "text": "带药粉的布不要碰皮肤，我用干纸封起来。"
+        },
+        {
+          "id": "ch008.p9.evidence.l06",
+          "speaker": "旁白",
+          "text": "证物被分装，纸袋外分别写了发现位置和谁保管。"
+        }
+      ]
+    },
+    {
+      "id": "ch009.p9.town",
+      "chapter_id": "ch009",
+      "title": "法庭旁的旧披风",
+      "kind": "town",
+      "insert_after_scene_id": "ch009.opening",
+      "required_flags": [
+        "ch009.started"
+      ],
+      "required_stage": "opening",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "三誓王都·审判厅",
+      "dialogue": [
+        {
+          "id": "ch009.p9.town.l01",
+          "speaker": "裁缝",
+          "text": "有人托我把这件披风洗干净，袖口却始终有块洗不掉的泥。"
+        },
+        {
+          "id": "ch009.p9.town.l02",
+          "speaker": "雷索",
+          "text": "那是从村口沟渠里留下的，不用再洗。"
+        },
+        {
+          "id": "ch009.p9.town.l03",
+          "speaker": "幸存老妇",
+          "text": "当年我抱着孩子，连谢谢都没来得及说。"
+        },
+        {
+          "id": "ch009.p9.town.l04",
+          "speaker": "雷索",
+          "text": "您不欠我道谢。今天也不用说那些让您不舒服的往事。"
+        },
+        {
+          "id": "ch009.p9.town.l05",
+          "speaker": "裁缝",
+          "text": "那我只把破口补好，不改旧徽记的痕迹。"
+        },
+        {
+          "id": "ch009.p9.town.l06",
+          "speaker": "旁白",
+          "text": "老妇没有伸手触碰披风，只轻轻点头让裁缝继续。"
+        }
+      ]
+    },
+    {
+      "id": "ch009.p9.evidence",
+      "chapter_id": "ch009",
+      "title": "旧军令的骑缝章",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch009.investigate",
+      "required_flags": [
+        "ch009.evidence"
+      ],
+      "required_stage": "investigate",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "三誓王都·审判厅",
+      "dialogue": [
+        {
+          "id": "ch009.p9.evidence.l01",
+          "speaker": "书记官",
+          "text": "两份命令的页码相邻，但骑缝章只在旧纸上留下完整半圆。"
+        },
+        {
+          "id": "ch009.p9.evidence.l02",
+          "speaker": "朔弦",
+          "text": "新纸的印泥颜色淡，先别把颜色当作全部证据。"
+        },
+        {
+          "id": "ch009.p9.evidence.l03",
+          "speaker": "主角",
+          "text": "把原件放在旁听席能看见的地方，由两位不参与此案的人各自核验。"
+        },
+        {
+          "id": "ch009.p9.evidence.l04",
+          "speaker": "雷索",
+          "text": "我违令的事实可以公开，不能靠删掉它来证明我没错。"
+        },
+        {
+          "id": "ch009.p9.evidence.l05",
+          "speaker": "幸存老妇",
+          "text": "我愿意说那夜看到了谁。但家属的地址别写进布告。"
+        },
+        {
+          "id": "ch009.p9.evidence.l06",
+          "speaker": "旁白",
+          "text": "书记官划掉笔录上不必要的住址栏，留下了日期和签名。"
+        }
+      ]
+    },
+    {
+      "id": "ch010.p9.town",
+      "chapter_id": "ch010",
+      "title": "分成三份的午饭",
+      "kind": "town",
+      "insert_after_scene_id": "ch010.opening",
+      "required_flags": [
+        "ch010.started"
+      ],
+      "required_stage": "opening",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "三国边境议事站",
+      "dialogue": [
+        {
+          "id": "ch010.p9.town.l01",
+          "speaker": "北廷矿工",
+          "text": "我们带了盐，南廷带了菜，中庭竟只有三套公文。"
+        },
+        {
+          "id": "ch010.p9.town.l02",
+          "speaker": "南廷农夫",
+          "text": "公文煮不进汤里，不过你们的盐倒能用。"
+        },
+        {
+          "id": "ch010.p9.town.l03",
+          "speaker": "中庭书记",
+          "text": "别这么说，我还带了锅。"
+        },
+        {
+          "id": "ch010.p9.town.l04",
+          "speaker": "朔弦",
+          "text": "那我们至少凑齐一锅饭，明天再吵国旗挂哪边。"
+        },
+        {
+          "id": "ch010.p9.town.l05",
+          "speaker": "岚音",
+          "text": "先给需要吃药的人盛一小碗，药不能空腹服用。"
+        },
+        {
+          "id": "ch010.p9.town.l06",
+          "speaker": "旁白",
+          "text": "午饭时长桌终于没有画出三条不能跨越的线。"
+        }
+      ]
+    },
+    {
+      "id": "ch010.p9.evidence",
+      "chapter_id": "ch010",
+      "title": "被改过的运粮时刻",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch010.investigate",
+      "required_flags": [
+        "ch010.evidence"
+      ],
+      "required_stage": "investigate",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "三国边境议事站",
+      "dialogue": [
+        {
+          "id": "ch010.p9.evidence.l01",
+          "speaker": "南廷车夫",
+          "text": "我按时交了货，可存根上的时刻比实际晚了两个钟。"
+        },
+        {
+          "id": "ch010.p9.evidence.l02",
+          "speaker": "中庭书记",
+          "text": "当夜的门楼钟坏过，这不是唯一出错的单子。"
+        },
+        {
+          "id": "ch010.p9.evidence.l03",
+          "speaker": "雷索",
+          "text": "如果有人故意调整时间，就得查值夜人而不是先定商队的罪。"
+        },
+        {
+          "id": "ch010.p9.evidence.l04",
+          "speaker": "主角",
+          "text": "请三个门楼各给一份记录，注明哪座钟当时停了。"
+        },
+        {
+          "id": "ch010.p9.evidence.l05",
+          "speaker": "南廷车夫",
+          "text": "那我可以证明车确实经过，不用替没发生的事道歉。"
+        },
+        {
+          "id": "ch010.p9.evidence.l06",
+          "speaker": "旁白",
+          "text": "三份记录旁写着“时刻待校准”，未被草草改成同一数字。"
+        }
+      ]
+    },
+    {
+      "id": "ch011.p9.town",
+      "chapter_id": "ch011",
+      "title": "桥头补鞋的人",
+      "kind": "town",
+      "insert_after_scene_id": "ch011.opening",
+      "required_flags": [
+        "ch011.started"
+      ],
+      "required_stage": "opening",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "旧盟约桥",
+      "dialogue": [
+        {
+          "id": "ch011.p9.town.l01",
+          "speaker": "鞋匠",
+          "text": "上回战争过后，第一批从桥上回来的是找不到鞋的孩子。"
+        },
+        {
+          "id": "ch011.p9.town.l02",
+          "speaker": "雷索",
+          "text": "我记得。有人把军靴送给他们，却忘了问鞋合不合脚。"
+        },
+        {
+          "id": "ch011.p9.town.l03",
+          "speaker": "鞋匠",
+          "text": "这次我准备了几双小号的，哪国的孩子都能拿。"
+        },
+        {
+          "id": "ch011.p9.town.l04",
+          "speaker": "岚音",
+          "text": "我把医药棚的位置画在鞋摊旁边，行人更容易看见。"
+        },
+        {
+          "id": "ch011.p9.town.l05",
+          "speaker": "主角",
+          "text": "别等到战后再发，护送路上就有人需要。"
+        },
+        {
+          "id": "ch011.p9.town.l06",
+          "speaker": "旁白",
+          "text": "鞋匠把纸牌翻到正面，上面只写了“需要就取”。"
+        }
+      ]
+    },
+    {
+      "id": "ch011.p9.evidence",
+      "chapter_id": "ch011",
+      "title": "维修槽下的双重引线",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch011.investigate",
+      "required_flags": [
+        "ch011.evidence"
+      ],
+      "required_stage": "investigate",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "旧盟约桥",
+      "dialogue": [
+        {
+          "id": "ch011.p9.evidence.l01",
+          "speaker": "桥头工匠",
+          "text": "这不是我的维修绳。颜色一样，结法却相反。"
+        },
+        {
+          "id": "ch011.p9.evidence.l02",
+          "speaker": "朔弦",
+          "text": "先固定绞盘再找主引线，谁都不要用力拽这根松线。"
+        },
+        {
+          "id": "ch011.p9.evidence.l03",
+          "speaker": "主角",
+          "text": "我记录每一条连接位置，图交给两岸守卫同时查看。"
+        },
+        {
+          "id": "ch011.p9.evidence.l04",
+          "speaker": "雷索",
+          "text": "三封密信不能证明谁放了炸药，但足以说明有人想挑起战争。"
+        },
+        {
+          "id": "ch011.p9.evidence.l05",
+          "speaker": "桥头工匠",
+          "text": "要拆就用我们熟悉的桥图，不要让不懂结构的人冲下来逞英雄。"
+        },
+        {
+          "id": "ch011.p9.evidence.l06",
+          "speaker": "旁白",
+          "text": "旧石上多出一张临时安全图，旁边注明危险区域仍未排除。"
+        }
+      ]
+    },
+    {
+      "id": "ch012.p9.town",
+      "chapter_id": "ch012",
+      "title": "留给平民的第四把椅子",
+      "kind": "town",
+      "insert_after_scene_id": "ch012.opening",
+      "required_flags": [
+        "ch012.started"
+      ],
+      "required_stage": "opening",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "律序母灯坛",
+      "dialogue": [
+        {
+          "id": "ch012.p9.town.l01",
+          "speaker": "平民代表",
+          "text": "每次签盟约，台上只有三把王椅，我们都站在门外等结果。"
+        },
+        {
+          "id": "ch012.p9.town.l02",
+          "speaker": "中庭书记",
+          "text": "今天在后排添了椅子，不代表你们能听懂全部古文。"
+        },
+        {
+          "id": "ch012.p9.town.l03",
+          "speaker": "南廷农夫",
+          "text": "那就请你先念给我们听，哪里不懂我会问。"
+        },
+        {
+          "id": "ch012.p9.town.l04",
+          "speaker": "雷索",
+          "text": "把听不懂的句子标出来。权利不能只留给念得出古文的人。"
+        },
+        {
+          "id": "ch012.p9.town.l05",
+          "speaker": "朔弦",
+          "text": "如果要让我翻译，先把“不可违逆之不可违逆”删掉。"
+        },
+        {
+          "id": "ch012.p9.town.l06",
+          "speaker": "旁白",
+          "text": "第四把椅子并不高，却让原本站在门口的人坐进灯坛之内。"
+        }
+      ]
+    },
+    {
+      "id": "ch012.p9.evidence",
+      "chapter_id": "ch012",
+      "title": "三版盟约的修改痕迹",
+      "kind": "evidence",
+      "insert_after_scene_id": "ch012.investigate",
+      "required_flags": [
+        "ch012.evidence"
+      ],
+      "required_stage": "investigate",
+      "optional": true,
+      "advances_main_story": false,
+      "location_name": "律序母灯坛",
+      "dialogue": [
+        {
+          "id": "ch012.p9.evidence.l01",
+          "speaker": "旁白",
+          "text": "石环内侧刻着原始誓约，外圈是后来几次修改，最近一版把公众质询整段磨去了。"
+        },
+        {
+          "id": "ch012.p9.evidence.l02",
+          "speaker": "主角",
+          "text": "把三版并排誊出来，不能只给我们看最新的那段。"
+        },
+        {
+          "id": "ch012.p9.evidence.l03",
+          "speaker": "平民代表",
+          "text": "原来过去的人也曾有权要求解释？"
+        },
+        {
+          "id": "ch012.p9.evidence.l04",
+          "speaker": "雷索",
+          "text": "有。失去它不是因为人们不需要，而是有人把那几行删掉了。"
+        },
+        {
+          "id": "ch012.p9.evidence.l05",
+          "speaker": "岚音",
+          "text": "请保留修改的理由，让后来人能指出今日我们也可能错。"
+        },
+        {
+          "id": "ch012.p9.evidence.l06",
+          "speaker": "旁白",
+          "text": "拓纸摊开时，石圈亮起一丝微弱光芒，没有要求任何人先交出王冠。"
+        }
+      ]
+    }
+  ]
+}

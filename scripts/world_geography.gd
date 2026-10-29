@@ -1,0 +1,914 @@
+extends RefCounted
+static var _interaction_manifests: Dictionary = {}
+const WorldLevelV3 = preload("res://scripts/world_level_v3.gd")
+const TownDirector = preload("res://scripts/town_director.gd")
+const InteriorV4 = preload("res://scripts/world_interior_v4.gd")
+## 72x48 real-world sector architecture, shared by collision, renderer, minimap and tests.
+## Authored spatial zone configuration is in world_atlas_v2.json; geometry is deterministic.
+const WIDTH: int = 72
+const HEIGHT: int = 48
+var map_width: int = WIDTH
+var map_height: int = HEIGHT
+const TILE: int = 32
+const ATLAS_PATH: String = "res://data/levels/world_atlas_v2.json"
+const START: Vector2i = Vector2i(10,23)
+const ICONS: Array[String] = ["palm_tree","rock","barrel","sea_crystal","star_lantern","flowerpot","beacon","sign"]
+var zones: Dictionary = {}
+var regions: Dictionary = {}
+var faults: Array[String] = []
+var authored = WorldLevelV3.new()
+var town_design = TownDirector.new()
+
+func _init() -> void:
+    var document: Variant = JSON.parse_string(FileAccess.get_file_as_string(ATLAS_PATH))
+    if not document is Dictionary:
+        faults.append("World spatial atlas not found")
+        return
+    for region in document.get("regions",[]):
+        if region is Dictionary:
+            regions[str(region.get("id",""))] = region
+    for entry in document.get("zones",[]):
+        if entry is Dictionary:
+            zones[str(entry.get("id",""))] = entry
+    if zones.size() != 42 or regions.size() != 8:
+        faults.append("World atlas must define 42 sectors and 8 regions")
+    for reason in authored.problems:
+        faults.append(str(reason))
+    for reason in town_design.problems:
+        faults.append(str(reason))
+
+func zone(id: String) -> Dictionary:
+    return zones.get(id,{})
+
+func _hash(x: int,y: int,seed: int) -> int:
+    var value: int = abs((x*73856093) ^ (y*19349663) ^ (seed*83492791))
+    return value % 10000
+
+func old_to_new(pos: Vector2i) -> Vector2i:
+    return Vector2i(clampi(roundi(float(pos.x)*float(WIDTH)/44.0),2,WIDTH-3),clampi(roundi(float(pos.y)*float(HEIGHT)/28.0),2,HEIGHT-3))
+
+func _paint(terrain: Dictionary, walls: Dictionary, cell: Vector2i, floor_atlas: Vector2i, blocked: bool) -> void:
+    if cell.x < 0 or cell.x >= map_width or cell.y < 0 or cell.y >= map_height:
+        return
+    terrain[cell] = floor_atlas
+    if blocked:
+        walls[cell] = true
+    else:
+        walls.erase(cell)
+
+func _carve(terrain: Dictionary, walls: Dictionary, center: Vector2i, variant: int, thickness: int = 1) -> void:
+    for yy in range(-thickness,thickness+1):
+        for xx in range(-thickness,thickness+1):
+            var pos: Vector2i = center+Vector2i(xx,yy)
+            if pos.x >= 2 and pos.y >= 2 and pos.x < map_width-2 and pos.y < map_height-2:
+                _paint(terrain,walls,pos,Vector2i((variant+xx+yy+32)%8,3),false)
+
+func _road(terrain: Dictionary, walls: Dictionary, a: Vector2i, b: Vector2i, seed: int, thickness: int = 1) -> void:
+    # Deterministic street / switchback corridor; two orthogonal paths keep access legible.
+    var x: int = a.x
+    var y: int = a.y
+    var horizontal_first: bool = (seed%2)==0
+    for _step in range(2):
+        if horizontal_first == (_step == 0):
+            while x != b.x:
+                _carve(terrain,walls,Vector2i(x,y),seed%8,thickness)
+                x += 1 if x < b.x else -1
+        else:
+            while y != b.y:
+                _carve(terrain,walls,Vector2i(x,y),seed%8,thickness)
+                y += 1 if y < b.y else -1
+    _carve(terrain,walls,b,seed%8,thickness)
+
+func _room(terrain: Dictionary,walls: Dictionary,center: Vector2i,size: Vector2i,seed: int) -> void:
+    for y in range(center.y-size.y/2,center.y+size.y/2+1):
+        for x in range(center.x-size.x/2,center.x+size.x/2+1):
+            var pos: Vector2i = Vector2i(x,y)
+            if x < 2 or y < 2 or x >= map_width-2 or y >= map_height-2:
+                continue
+            _paint(terrain,walls,pos,Vector2i(_hash(x,y,seed)%8,5),false)
+
+func _anchors() -> Array[Vector2i]:
+    # Main quest, five-stage side missions and ordinary services stay physically accessible.
+    var originals: Array[Vector2i] = [
+        Vector2i(6,13),Vector2i(16,11),Vector2i(32,10),Vector2i(27,20),
+        Vector2i(34,19),Vector2i(10,19),Vector2i(20,8),Vector2i(9,10),
+        Vector2i(7,19),Vector2i(39,12),Vector2i(19,24),
+        Vector2i(8,8),Vector2i(36,12),Vector2i(23,8),Vector2i(25,22),
+        Vector2i(13,17),Vector2i(36,21),Vector2i(12,9)
+    ]
+    for i in range(9):
+        originals.append(Vector2i(7+(i%3)*12,10+int(i/3)*5))
+    for i in range(5):
+        originals.append(Vector2i(10+(i%3)*11,5+int(i/3)*18))
+    var mapped: Array[Vector2i] = []
+    for point in originals:
+        var result: Vector2i = old_to_new(point)
+        if result not in mapped:
+            mapped.append(result)
+    for landmark in [Vector2i(19,14),Vector2i(53,16),Vector2i(54,36),Vector2i(60,35),Vector2i(24,14)]:
+        if landmark not in mapped:
+            mapped.append(landmark)
+    return mapped
+
+func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
+    var spec: Dictionary = zone(map_id)
+    var map_kind: String = str(spec.get("archetype","field"))
+    var biome: String = str(spec.get("biome","coastal"))
+    var seed: int = int(spec.get("seed",1729))
+    var authored_level: Dictionary = authored.level(map_id)
+    var extent: Array = authored_level.get("size",[WIDTH,HEIGHT])
+    map_width = int(extent[0]) if extent.size()==2 else WIDTH
+    map_height = int(extent[1]) if extent.size()==2 else HEIGHT
+    var terrain: Dictionary = {}
+    var walls: Dictionary = {}
+    var features: Array[Dictionary] = []
+    # A civic hall is a populated settlement, not a cave or boss dungeon.
+    var dungeon: bool = map_kind == "dungeon"
+    var village: bool = bool(spec.get("settlement",false))
+    var shoreline: bool = biome in ["coastal","archipelago"]
+    for y in range(map_height):
+        for x in range(map_width):
+            var p: Vector2i = Vector2i(x,y)
+            var random: int = _hash(x/3,y/3,seed)
+            var detail: int = _hash(x,y,seed)
+            var row: int = 0
+            var wall: bool = x <= 1 or y <= 1 or x >= map_width-2 or y >= map_height-2
+            if biome in ["coastal","archipelago"]:
+                row = 0 if detail%13<6 else 1
+                if not village and (y > 39+(random%3) or (biome=="archipelago" and x<4)):
+                    wall = true
+                    row = 6
+            elif biome == "highland":
+                row = 2 if detail%10<6 else 1
+                if not village and (random < 850 and (x<15 or x>56)):
+                    wall = true
+                    row = 6
+            elif biome == "volcanic":
+                row = 4 if detail%11<7 else 5
+                if not village and random<1100:
+                    wall = true
+                    row = 6
+            elif biome == "mistforest":
+                row = 1 if detail%9<6 else 7
+                if not village and random<1050:
+                    wall = true
+            elif biome == "badlands":
+                row = 3 if detail%11<7 else 4
+                if not village and random < 1150:
+                    wall = true
+            elif biome == "celestial":
+                row = 7 if detail%10<7 else 2
+                if not village and random<900:
+                    wall = true
+            else:
+                row = 2 if detail%9<6 else 5
+            if dungeon:
+                wall = true
+                row = 6
+            _paint(terrain,walls,p,Vector2i(detail%8,row),wall)
+    var hub: Vector2i = Vector2i(map_width/2,map_height/2)
+    # Dew Village's map-design center is its well at (35,21), not the
+    # 96x56 rectangular level midpoint. Other towns keep existing hubs.
+    if map_id == "map_coast_01":
+        hub = Vector2i(35,21)
+    var start: Vector2i = old_to_new(Vector2i(6,13))
+    if dungeon:
+        var chambers: Array[Vector2i] = []
+        for chamber_data in spec.get("dungeon_chambers",[]):
+            if chamber_data is Array and chamber_data.size()>=2:
+                chambers.append(Vector2i(int(chamber_data[0]),int(chamber_data[1])))
+        if chambers.is_empty():
+            chambers = [start,Vector2i(19,14),Vector2i(38,10),Vector2i(55,16),Vector2i(54,36),Vector2i(35,35),Vector2i(18,34)]
+        for i in range(chambers.size()):
+            _room(terrain,walls,chambers[i],Vector2i(9+((seed+i*3)%5),7+((seed+i)%4)),seed)
+        for i in range(chambers.size()-1):
+            _road(terrain,walls,chambers[i],chambers[i+1],seed+i,1)
+        _road(terrain,walls,chambers[-1],chambers[0],seed+21,1)
+        if chambers.size()>=6:
+            _road(terrain,walls,chambers[1],chambers[chambers.size()-2],seed+27,1)
+        features.append({"kind":"sea_crystal","cell":chambers[mini(3,chambers.size()-1)],"name":"洞窟水晶"})
+        features.append({"kind":"beacon","cell":chambers[mini(2,chambers.size()-1)],"name":"古代封印"})
+    elif village:
+        var district: String = str(spec.get("village_shape",spec.get("layout","central_square")))
+        match district:
+            "dew_village_ring":
+                # The independently authored V3 ring and six organic lanes
+                # will be applied below. No generic cross-shaped city roads.
+                pass
+            "terraced_streets":
+                for street_y in [14,25,36]:
+                    _road(terrain,walls,Vector2i(4,street_y),Vector2i(67,street_y),seed+street_y,2)
+                for street_x in [23,45]:
+                    _road(terrain,walls,Vector2i(street_x,4),Vector2i(street_x,43),seed+street_x,1)
+            "waterfront_docks":
+                for street_y in [16,32,39]:
+                    _road(terrain,walls,Vector2i(4,street_y),Vector2i(67,street_y),seed+street_y,2 if street_y==32 else 1)
+                for street_x in [16,35,54]:
+                    _road(terrain,walls,Vector2i(street_x,4),Vector2i(street_x,43),seed+street_x,1)
+            "circular_market":
+                for ring_step in range(80):
+                    var angle: float = float(ring_step)*TAU/80.0
+                    var arc: Vector2i = hub+Vector2i(roundi(24.0*cos(angle)),roundi(15.0*sin(angle)))
+                    _carve(terrain,walls,arc,seed,2)
+                _road(terrain,walls,Vector2i(4,24),Vector2i(67,24),seed,1)
+                _road(terrain,walls,Vector2i(35,4),Vector2i(35,43),seed+3,1)
+            "fortified_quarters":
+                for street_y in [10,24,38]:
+                    _road(terrain,walls,Vector2i(5,street_y),Vector2i(66,street_y),seed+street_y,1)
+                for street_x in [12,35,60]:
+                    _road(terrain,walls,Vector2i(street_x,5),Vector2i(street_x,42),seed+street_x,1)
+            "canal_neighborhood":
+                for canal_y in range(5,42):
+                    for canal_x in range(28,32):
+                        _paint(terrain,walls,Vector2i(canal_x,canal_y),Vector2i((canal_x+canal_y)%8,6),true)
+                for street_y in [15,24,34]:
+                    _road(terrain,walls,Vector2i(4,street_y),Vector2i(67,street_y),seed+street_y,2)
+                for street_x in [16,44,60]:
+                    _road(terrain,walls,Vector2i(street_x,5),Vector2i(street_x,42),seed+street_x,1)
+            _:
+                _road(terrain,walls,Vector2i(4,24),Vector2i(67,24),seed,2)
+                _road(terrain,walls,Vector2i(35,4),Vector2i(35,43),seed,2)
+        # Village cobbles form a modest walkable well courtyard; not a
+        # second giant rectangular plaza under the inn and shop roofs.
+        _room(terrain,walls,hub,Vector2i(10,7) if district == "dew_village_ring" else Vector2i(18,12),seed)
+        var village_lanes: Array[Vector2i] = []
+        if district == "dew_village_ring":
+            for route in authored_level.get("roads",[]):
+                for waypoint in route.get("points",[]):
+                    if waypoint is Array and waypoint.size() == 2:
+                        village_lanes.append(Vector2i(int(waypoint[0]),int(waypoint[1])))
+        for building in spec.get("buildings",[]):
+            var body: Vector2i = Vector2i(int(building["pos"][0]),int(building["pos"][1]))
+            var size: Vector2i = Vector2i(int(building["size"][0]),int(building["size"][1]))
+            for y in range(body.y-size.y/2,body.y+size.y/2+1):
+                for x in range(body.x-size.x/2,body.x-size.x/2+size.x):
+                    _paint(terrain,walls,Vector2i(x,y),Vector2i((x+y)%8,6),true)
+            var door: Vector2i = Vector2i(int(building["door"][0]),int(building["door"][1]))
+            # Connect each doorway to its nearest actual village lane instead
+            # of drawing six straight star spokes over homes and orchards.
+            var door_destination: Vector2i = authored.nearest_road(door,village_lanes) if not village_lanes.is_empty() else hub
+            _road(terrain,walls,door,door_destination,seed+body.x,0 if not village_lanes.is_empty() else 1)
+            _carve(terrain,walls,door,seed,2)
+            features.append({"kind":str(building.get("kind","cottage")),"cell":body,"name":str(building.get("name","建筑")),"building":str(building["id"]),"door":door})
+    else:
+        var path_nodes: Array[Vector2i] = [start,Vector2i(24,14),hub,Vector2i(53,16),Vector2i(60,35),Vector2i(40,39),Vector2i(16,35)]
+        for i in range(path_nodes.size()-1):
+            _road(terrain,walls,path_nodes[i],path_nodes[i+1],seed+i,2 if map_kind=="field" else 1)
+        _road(terrain,walls,path_nodes[-1],hub,seed+27,1)
+        for i in range(32):
+            var xx: int = 5 + _hash(i,12,seed)%(map_width-10)
+            var yy: int = 5 + _hash(42,i,seed)%(map_height-10)
+            var p: Vector2i = Vector2i(xx,yy)
+            if not walls.has(p) and p.distance_to(hub)>10:
+                features.append({"kind":ICONS[_hash(i,24,seed)%ICONS.size()],"cell":p,"name":"探索景物"})
+    # V3 wilderness is an editable per-zone layout, not the former global
+    # star-shaped spawn-to-every-quest carve. All quest markers still remain
+    # accessible by short connections to their nearest authored road waypoint.
+    if not dungeon and not village and not authored_level.is_empty():
+        var route_nodes: Array[Vector2i] = authored.apply(authored_level,terrain,walls,features)
+        var authored_roads: Array = authored_level.get("roads",[])
+        if map_id in ["map_coast_03","map_coast_05"] and not authored_roads.is_empty():
+            # The saltwind switchbacks and lighthouse ascent have their own
+            # through-route. Branches attach to its nearest waypoint instead
+            # of copying the same central starburst found in generic zones.
+            var main_nodes: Array[Vector2i] = []
+            for raw in (authored_roads[0] as Dictionary).get("points",[]):
+                if raw is Array and raw.size()==2:
+                    main_nodes.append(Vector2i(int(raw[0]),int(raw[1])))
+            if not main_nodes.is_empty():
+                _road(terrain,walls,start,main_nodes[0],seed+79,1)
+                for road_index in range(1,authored_roads.size()):
+                    var stations: Array = authored_roads[road_index].get("points",[])
+                    if stations.is_empty():
+                        continue
+                    var first_station: Array = stations[0]
+                    var terminus: Vector2i = Vector2i(int(first_station[0]),int(first_station[1]))
+                    var junction: Vector2i = authored.nearest_road(terminus,main_nodes)
+                    _road(terrain,walls,junction,terminus,seed+road_index+81,0)
+        else:
+            # Legacy layout topology for all other world sectors is retained.
+            var junction: Vector2i = Vector2i(36,24)
+            _road(terrain,walls,start,junction,seed+79,1)
+            var road_index: int = 0
+            for authored_road in authored_roads:
+                var stations: Array = authored_road.get("points",[])
+                if not stations.is_empty():
+                    var first_station: Array = stations[0]
+                    var terminus: Vector2i = Vector2i(int(first_station[0]),int(first_station[1]))
+                    _road(terrain,walls,junction,terminus,seed+road_index+81,0)
+                road_index += 1
+        for index in range(_anchors().size()):
+            var anchor: Vector2i = _anchors()[index]
+            var origin: Vector2i = authored.nearest_road(anchor,route_nodes)
+            _road(terrain,walls,origin,anchor,seed+index,0)
+    else:
+        for index in range(_anchors().size()):
+            _road(terrain,walls,start,_anchors()[index],seed+index,1)
+        if not authored_level.is_empty():
+            if village and map_id in ["map_coast_01","map_coast_02"]:
+                # V3 village/harbor roads are *live geometry*, not a cosmetic
+                # overlay on pre-existing generic streets. The late roof seal
+                # below still protects doors, collision and old save markers.
+                authored.apply(authored_level,terrain,walls,features)
+            else:
+                authored.apply_safe_paths(authored_level,terrain,walls,features,dungeon)
+            if dungeon and map_id=="map_coast_04":
+                # Cut the explicitly drawn two-loop sea cave into the real
+                # dungeon walls; preserve original chamber/valve coordinates.
+                for cave_road in authored_level.get("roads",[]):
+                    var waypoints: Array = cave_road.get("points",[])
+                    for j in range(waypoints.size()-1):
+                        var aa: Array=waypoints[j]
+                        var bb: Array=waypoints[j+1]
+                        _road(terrain,walls,Vector2i(int(aa[0]),int(aa[1])),
+                            Vector2i(int(bb[0]),int(bb[1])),seed+j,0)
+    # Physical gates must follow canonical world order and the corresponding
+    # END of the authored main road, not the arbitrary neighbors array index.
+    # A one-neighbor first sector has an EAST exit; old code put it in the west.
+    var gates: Array[Dictionary] = []
+    var names: Array = spec.get("neighbors",[])
+    var sequence: Array[String] = ["coast","oaths","forge","isles","mirror","oldland","sanctum","city"]
+    var current_parts: PackedStringArray = map_id.split("_")
+    var current_order: int = sequence.find(str(current_parts[1]))*5+int(current_parts[2])
+    var main_roads: Array = authored_level.get("roads",[])
+    var spine: Array = (main_roads[0] as Dictionary).get("points",[]) if not main_roads.is_empty() else []
+    var occupied_gate_cells: Dictionary = {}
+    for i in range(names.size()):
+        var destination: String = str(names[i])
+        var parts: PackedStringArray = destination.split("_")
+        var neighbor_order: int = sequence.find(str(parts[1]))*5+int(parts[2])
+        var western: bool = neighbor_order < current_order
+        var endpoint: Array = spine[0] if western and not spine.is_empty() else (
+            spine[-1] if not spine.is_empty() else [36,24])
+        var road_y: int = clampi(int(endpoint[1]),6,map_height-7)
+        var gate: Vector2i = Vector2i(4 if western else map_width-5,road_y)
+        # Neighbor lists with multiple routes on the same side used to stack
+        # two exits at one position. Preserve the first authored-road anchor,
+        # then stagger additional gates into real, separate roadside tiles.
+        for shift in [0,8,-8,16,-16,24,-24,32,-32]:
+            var y_candidate: int = clampi(road_y+shift,6,map_height-7)
+            var distinct: Vector2i = Vector2i(gate.x,y_candidate)
+            if not occupied_gate_cells.has(distinct):
+                gate = distinct
+                break
+        if occupied_gate_cells.has(gate):
+            push_error("No unique travel gate for "+map_id+" -> "+destination)
+            continue
+        occupied_gate_cells[gate] = true
+        # Build into the canonical live route. Final roof collision/seal and
+        # the route regression still have authority over wall integrity.
+        _road(terrain,walls,start,gate,seed+i,1)
+        gates.append({"id":destination,"cell":gate})
+    # A route may not be allowed across locked chapters; physical gate is still visible.
+    # Deliberate urban composition respects original pathing and buildings.
+    var district_plan: Dictionary = {}
+    if village:
+        district_plan = town_design.apply_town(map_id,terrain,walls,features)
+    # Distinct authored wings expand the map without moving historic quest anchors.
+    # Join wings from the northern passage, not across authored water/cliffs at 66,32–36.
+    var wing_origin: Vector2i = Vector2i(71,16)
+    _road(terrain,walls,Vector2i(53,16),wing_origin,seed+101,1)
+    for extension in authored_level.get("expansion_nodes",[]):
+        if not extension is Dictionary:
+            continue
+        var coordinates: Array = extension.get("cell",[])
+        if coordinates.size()!=2:
+            continue
+        var site: Vector2i = Vector2i(int(coordinates[0]),int(coordinates[1]))
+        if site.x<3 or site.y<3 or site.x>=map_width-3 or site.y>=map_height-3:
+            continue
+        _room(terrain,walls,site,Vector2i(11,9) if dungeon else (Vector2i(13,11) if village else Vector2i(7,7)),seed+site.x)
+        _road(terrain,walls,wing_origin,site,seed+site.y,1)
+        features.append({"kind":str(extension.get("kind","beacon")),"cell":site,"name":str(extension.get("name","独立区域地标"))})
+        wing_origin=site
+    # Keep every legacy story marker reachable in formerly sealed dungeon rooms.
+    # Do this after wing carving but BEFORE the final artist collision overrides.
+    if dungeon:
+        for anchor in _anchors():
+            if not reachable({"blocked":walls,"size":Vector2i(map_width,map_height)},[start],[anchor]):
+                _road(terrain,walls,start,anchor,seed+anchor.x+anchor.y,0)
+    # Manual cell edits are the LAST authority. The initial V3 apply happened
+    # before automatic quest links and gates, which could erase editor changes.
+    # A blocked quest marker or exit is deliberately caught by map QA rather
+    # than being silently removed from the designer's data.
+    if not authored_level.is_empty():
+        authored.apply_editor_patches(authored_level,terrain,walls)
+    # Final spatial integrity: reconnect only genuinely isolated story target cells.
+    # A manual collision layer or regional cliff cannot strand an original quest.
+    # Do not alter accessible authored paths or override navigable bridge layouts.
+    for essential in _anchors():
+        if village and _inside_town_building(essential,spec):
+            # Legacy quest positions can fall under the now-solid roof. The
+            # interaction layer relocates those markers to reachable pavement.
+            continue
+        if not reachable({"blocked":walls,"size":Vector2i(map_width,map_height)},[start],[essential]):
+            _road(terrain,walls,start,essential,seed+essential.x*7+essential.y,1)
+    # Respect authored V3 cliffs and waterways AFTER generated quest-link,
+    # wing and gate roads have finished. Otherwise a late automatic road cuts
+    # straight through real cliff/water collision and the renderer loses the
+    # matching water mask. Explicit hand-painted bridges and cell overrides
+    # replay LAST, so approved water crossings remain walkable.
+    # Wilderness already applies its independent V3 authored road geometry.
+    if not authored_level.is_empty() and (village or dungeon):
+        authored.apply_authored_barriers(authored_level,terrain,walls)
+        authored.apply_editor_patches(authored_level,terrain,walls)
+    if village:
+        # LAST physical authority: roads, quests, gates and expansion passes
+        # must never drill invisible holes through a house facade.
+        _seal_town_buildings(terrain,walls,spec,start)
+        # Urban dressing was positioned before roofs and author overrides. A
+        # visual prop may not remain embedded in the FINAL collision layout.
+        _reconcile_town_dressing(terrain,walls,features,spec,start)
+    # Hard cliff and water edits can be authored AFTER an earlier gate route
+    # was generated. Reconnect only truly isolated final border gates by a
+    # minimum newly carved path, avoiding ALL solid building footprints.
+    # Otherwise some sectors have a visible exit sign with no traversable
+    # player route despite the intended neighbor link.
+    var repaired_gates: int = _reconnect_final_exits(terrain,walls,spec,start,gates)
+    if repaired_gates>0:
+        print("RESTORED_FINAL_MAP_GATES "+map_id+" count="+str(repaired_gates))
+    # Keep canonical interaction IDs in their authored cells, and pave only
+    # the disconnected final paths after cliff, roof and water collision.
+    _restore_interaction_routes(map_id,terrain,walls,spec,start)
+    var wet: Dictionary = {}
+    if not authored_level.is_empty():
+        wet = authored.open_water_tiles(authored_level,walls)
+    # Absolute last visual operation; this does NOT carve or seal a single
+    # collision tile. Keep the story's established 96x56 village footprint.
+    if map_id == "map_coast_01":
+        town_design.finalize_dew_floor(terrain,walls,wet)
+    return {"tiles":terrain,"blocked":walls,"water_mask":wet,"features":features,"gates":gates,"town_plan":district_plan,"spawn":start,"zone":spec,"size":Vector2i(map_width,map_height)}
+
+## Final minimal physical corridor repair. Reuses the existing roof-aware
+## zero/one pathfinder, preferring already-walkable roads and carving only the
+## missing cells. A cell previously marked as water is repainted as a deliberate
+## crossing rather than leaving invisible collision beneath a route.
+func _reconnect_final_exits(ground: Dictionary,walls: Dictionary,spec: Dictionary,
+        spawn: Vector2i,gates: Array[Dictionary]) -> int:
+    var roofs: Dictionary={}
+    for raw in spec.get("buildings",[]):
+        if not raw is Dictionary:
+            continue
+        var rect: Rect2i=_building_box(raw)
+        for y in range(rect.position.y,rect.end.y):
+            for x in range(rect.position.x,rect.end.x):
+                roofs[Vector2i(x,y)]=true
+    var reconnected: int=0
+    var region_size: Vector2i=Vector2i(map_width,map_height)
+    for gate in gates:
+        var endpoint: Vector2i=gate.get("cell",Vector2i(-1,-1))
+        if reachable({"blocked":walls,"size":region_size},[spawn],[endpoint]):
+            continue
+        var safe_link: Array[Vector2i]=_path_around_roofs(spawn,endpoint,roofs,walls)
+        if safe_link.is_empty():
+            push_warning("Cannot repair genuinely isolated gate to "+str(gate.get("id","")))
+            continue
+        var paved: int=0
+        for cell in safe_link:
+            if roofs.has(cell) or not walls.has(cell):
+                continue
+            _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),3),false)
+            paved+=1
+        if reachable({"blocked":walls,"size":region_size},[spawn],[endpoint]):
+            reconnected+=1
+            print("GATE_CORRIDOR_REPAIRED "+str(spec.get("id",""))+" -> "+
+                str(gate.get("id",""))+" cells="+str(paved))
+        else:
+            push_warning("Exit still unreachable after physical corridor repair: "+
+                str(gate.get("id","")))
+    return reconnected
+
+## Restores player-accessible paths to real discovery and dungeon devices.
+## Physical blockers are replaced by *visible* paving, never a hidden
+## collision bypass. Roofs, bounds, stored event IDs and puzzle order stay fixed.
+func _restore_interaction_routes(map_id: String, ground: Dictionary, walls: Dictionary,
+        spec: Dictionary, spawn: Vector2i) -> void:
+    var requested: Array[Vector2i] = []
+    for file_path in ["res://data/levels/v7/dungeon_puzzles.json",
+            "res://data/levels/v5/world_discoveries.json"]:
+        if not _interaction_manifests.has(file_path):
+            var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(file_path))
+            _interaction_manifests[file_path] = raw if raw is Dictionary else {}
+        var database: Dictionary = _interaction_manifests[file_path]
+        var info: Dictionary = (database.get("maps", {}) as Dictionary).get(map_id, {})
+        if info.is_empty():
+            continue
+        var entries: Array = info.get("events", []).duplicate(true) if file_path.contains("world_discoveries") else info.get("controls", []).duplicate(true)
+        if file_path.contains("dungeon_puzzles"):
+            entries.append(info.get("seal", {}))
+        for item in entries:
+            if not item is Dictionary:
+                continue
+            var xy: Array = item.get("cell", [])
+            if xy.size() == 2:
+                var target := Vector2i(int(xy[0]), int(xy[1]))
+                if not requested.has(target):
+                    requested.append(target)
+    if requested.is_empty():
+        return
+    var roofs: Dictionary = {}
+    for entry in spec.get("buildings", []):
+        if entry is Dictionary:
+            var footprint: Rect2i = _building_box(entry)
+            for y in range(footprint.position.y, footprint.end.y):
+                for x in range(footprint.position.x, footprint.end.x):
+                    roofs[Vector2i(x, y)] = true
+    var extent := Vector2i(map_width, map_height)
+    for goal in requested:
+        if goal.x < 3 or goal.y < 3 or goal.x >= map_width-3 or goal.y >= map_height-3 or roofs.has(goal):
+            push_warning("Authored interaction inside forbidden roof/edge: " + map_id + ":" + str(goal))
+            continue
+        if reachable({"blocked":walls, "size":extent}, [spawn], [goal]):
+            continue
+        var route: Array[Vector2i] = _path_around_roofs(spawn, goal, roofs, walls)
+        if route.is_empty():
+            push_warning("No physical corridor to authored interaction: " + map_id + ":" + str(goal))
+            continue
+        var carved: int = 0
+        for tile in route:
+            if not roofs.has(tile) and walls.has(tile):
+                _paint(ground, walls, tile, Vector2i(posmod(tile.x+tile.y, 8), 3), false)
+                carved += 1
+        if not reachable({"blocked":walls, "size":extent}, [spawn], [goal]):
+            push_error("Cannot physically restore interaction: " + map_id + ":" + str(goal))
+        elif carved > 0:
+            print("AUTHORED_INTERACTION_PAVED " + map_id + ":" + str(goal) + " tiles=" + str(carved))
+
+## One footprint / one entrance rule for every settlement. The map artist
+## owns the shape and the D interaction layer owns whether the door can open.
+func _building_box(building: Dictionary) -> Rect2i:
+    var center: Array = building.get("pos",[])
+    var dimensions: Array = building.get("size",[])
+    if center.size()!=2 or dimensions.size()!=2:
+        return Rect2i()
+    var body := Vector2i(int(center[0]),int(center[1]))
+    var size := Vector2i(int(dimensions[0]),int(dimensions[1]))
+    # Facades span exactly size.x 32px columns. The old +1 created
+    # a phantom right-side collision ring around every even-width building.
+    # Keep the southern threshold row solid, and the front step walkable.
+    return Rect2i(body-Vector2i(size.x/2,size.y/2),Vector2i(size.x,size.y+1))
+
+func _inside_town_building(cell: Vector2i,spec: Dictionary) -> bool:
+    for raw in spec.get("buildings",[]):
+        if raw is Dictionary and _building_box(raw).has_point(cell):
+            return true
+    return false
+
+func _path_around_roofs(start: Vector2i,goal: Vector2i,roofs: Dictionary,walls: Dictionary) -> Array[Vector2i]:
+    # 0-1 BFS minimises newly cut terrain. Prefer existing walkable town
+    # streets, then carve only essential connecting tiles around solid roofs.
+    if roofs.has(start) or roofs.has(goal):
+        return []
+    var frontier: Array[Vector2i]=[start]
+    # GDScript dictionary literals use identifier strings for named keys;
+    # indexed assignments are required for Vector2i pathfinding keys.
+    var distances: Dictionary={}
+    var parents: Dictionary={}
+    distances[start]=0
+    parents[start]=start
+    var steps: Array[Vector2i]=[Vector2i.UP,Vector2i.LEFT,Vector2i.RIGHT,Vector2i.DOWN]
+    while not frontier.is_empty():
+        var current: Vector2i=frontier.pop_front()
+        if current==goal:
+            break
+        var current_cost: int=int(distances[current])
+        for offset in steps:
+            var next: Vector2i=current+offset
+            if next.x<2 or next.y<2 or next.x>=map_width-2 or next.y>=map_height-2 or roofs.has(next):
+                continue
+            var cost: int=1 if walls.has(next) else 0
+            var total: int=current_cost+cost
+            if distances.has(next) and int(distances[next])<=total:
+                continue
+            distances[next]=total
+            parents[next]=current
+            if cost==0:
+                frontier.push_front(next)
+            else:
+                frontier.push_back(next)
+    if not parents.has(goal):
+        return []
+    var result: Array[Vector2i]=[]
+    var current: Vector2i=goal
+    while current!=start:
+        result.append(current)
+        current=parents[current]
+    result.append(start)
+    result.reverse()
+    return result
+
+func _seal_town_buildings(ground: Dictionary,walls: Dictionary,spec: Dictionary,spawn: Vector2i) -> void:
+    var roofs: Dictionary={}
+    var entrances: Array[Vector2i]=[]
+    for raw in spec.get("buildings",[]):
+        if not raw is Dictionary:
+            continue
+        var box: Rect2i=_building_box(raw)
+        if box.size.x==0 or box.size.y==0:
+            continue
+        for y in range(box.position.y,box.end.y):
+            for x in range(box.position.x,box.end.x):
+                var cell:=Vector2i(x,y)
+                if cell.x>=2 and cell.y>=2 and cell.x<map_width-2 and cell.y<map_height-2:
+                    roofs[cell]=true
+        var door: Array=raw.get("door",[])
+        if door.size()==2:
+            entrances.append(Vector2i(int(door[0]),int(door[1]))+Vector2i.DOWN)
+    for cell in roofs.keys():
+        # Preserve the original grid/blocker representation used by collision,
+        # path tests and the editor; the building scene draws the actual roof.
+        _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),6),true)
+    # One tile of genuinely walkable pavement around the actual facade.
+    # Previously unrelated terrain walls could form an invisible solid halo
+    # around houses, even though players saw a visually empty sidewalk.
+    # Never punch through another building, out-of-bounds, or the roof itself.
+    for raw in spec.get("buildings", []):
+        if not raw is Dictionary:
+            continue
+        var box: Rect2i=_building_box(raw)
+        for y in range(box.position.y-1,box.end.y+1):
+            for x in range(box.position.x-1,box.end.x+1):
+                var site:=Vector2i(x,y)
+                if site.x<2 or site.y<2 or site.x>=map_width-2 or site.y>=map_height-2 or roofs.has(site):
+                    continue
+                _paint(ground,walls,site,Vector2i(posmod(site.x+site.y,8),3),false)
+    var layout_size:=Vector2i(map_width,map_height)
+    for entrance in entrances:
+        if roofs.has(entrance):
+            push_warning("Town entrance overlaps another building: "+str(entrance))
+            continue
+        # Solid doorway tile remains inside the footprint; stand one tile in
+        # front of it and press interact, just like a classic tile JRPG.
+        for distance in [1,2]:
+            var apron: Vector2i=entrance+Vector2i(0,distance-1)
+            if not roofs.has(apron):
+                _paint(ground,walls,apron,Vector2i(posmod(apron.x+apron.y,8),3),false)
+        if reachable({"blocked":walls,"size":layout_size},[spawn],[entrance]):
+            continue
+        var link: Array[Vector2i]=_path_around_roofs(entrance,spawn,roofs,walls)
+        if link.is_empty():
+            push_warning("Town entrance has no non-roof route: "+str(entrance))
+            continue
+        for cell in link:
+            if not roofs.has(cell):
+                _paint(ground,walls,cell,Vector2i(posmod(cell.x+cell.y,8),3),false)
+
+## Relocate only cosmetic civic set dressing after final roof collision.
+## Never move quest markers, homes, doors or story interaction geometry.
+## The original plan remains authoritative; nearest reachable pavement wins.
+func _reconcile_town_dressing(ground: Dictionary,walls: Dictionary,
+        features: Array[Dictionary],spec: Dictionary,spawn: Vector2i) -> void:
+    var reserved: Dictionary = {}
+    for feature in features:
+        if not bool(feature.get("town_dressing",false)):
+            reserved[feature.get("cell",Vector2i(-1,-1))] = true
+    for raw in spec.get("buildings",[]):
+        var door: Array = raw.get("door",[])
+        if door.size()!=2:
+            continue
+        var step: Vector2i = Vector2i(int(door[0]),int(door[1])+1)
+        reserved[step] = true
+        reserved[step+Vector2i.DOWN] = true
+    for story_cell in _anchors():
+        reserved[story_cell] = true
+    var kept: Array[Dictionary] = []
+    var extent: Vector2i = Vector2i(map_width,map_height)
+    # Compute connectivity once, not a full BFS for every possible prop cell.
+    var walkable: Dictionary = {}
+    if not walls.has(spawn):
+        var frontier: Array[Vector2i] = [spawn]
+        walkable[spawn] = true
+        var cursor: int = 0
+        while cursor<frontier.size():
+            var current: Vector2i=frontier[cursor]
+            cursor+=1
+            for delta in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+                var neighbor: Vector2i=current+delta
+                if neighbor.x<2 or neighbor.y<2 or neighbor.x>=extent.x-2 or neighbor.y>=extent.y-2:
+                    continue
+                if walls.has(neighbor) or walkable.has(neighbor):
+                    continue
+                walkable[neighbor]=true
+                frontier.append(neighbor)
+    for feature in features:
+        if not bool(feature.get("town_dressing",false)):
+            kept.append(feature)
+            continue
+        var desired: Vector2i = feature.get("cell",Vector2i(-1,-1))
+        var selected: Vector2i = Vector2i(-1,-1)
+        for radius in range(9):
+            if selected.x>=0:
+                break
+            for y in range(-radius,radius+1):
+                if selected.x>=0:
+                    break
+                for x in range(-radius,radius+1):
+                    if absi(x)+absi(y)!=radius:
+                        continue
+                    var cell: Vector2i=desired+Vector2i(x,y)
+                    if cell.x<3 or cell.y<3 or cell.x>=map_width-3 or cell.y>=map_height-3:
+                        continue
+                    if walls.has(cell) or reserved.has(cell) or _inside_town_building(cell,spec):
+                        continue
+                    # Do not decorate over cliffs, water or unreachable islands.
+                    var ground_tile: Vector2i=ground.get(cell,Vector2i(0,6))
+                    if ground_tile.y==6:
+                        continue
+                    if walkable.has(cell):
+                        selected=cell
+                        break
+        if selected.x<0:
+            push_warning("Town decorative item has no safe pavement: "+str(feature.get("name","")))
+            continue
+        var updated: Dictionary=feature.duplicate(true)
+        updated["cell"]=selected
+        kept.append(updated)
+        reserved[selected]=true
+    features.clear()
+    features.append_array(kept)
+
+
+func interior(building: String,building_kind: String,map_id: String = "") -> Dictionary:
+    map_width = WIDTH
+    map_height = HEIGHT
+    var custom: Dictionary = InteriorV4.new().load_level(map_id,building,building_kind)
+    if not custom.is_empty():
+        return custom
+    # Existing V2-generated room remains an old-save-compatible fallback.
+    var terrain: Dictionary = {}
+    var blocked: Dictionary = {}
+    var top: int = 10
+    var left: int = 20
+    var right: int = 51
+    var bottom: int = 36
+    var bias: int = abs(building.hash())
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            var inside: bool = x>left and x<right and y>top and y<bottom
+            _paint(terrain,blocked,Vector2i(x,y),Vector2i((x+y+bias)%8,5 if inside else 6),not inside)
+    for x in range(left+2,right-1):
+        if x!=35:
+            _paint(terrain,blocked,Vector2i(x,top+8),Vector2i((x+bias)%8,6),true)
+    for y in range(top+2,bottom-2):
+        if y!=25:
+            _paint(terrain,blocked,Vector2i(37,y),Vector2i((y+bias)%8,6),true)
+    var exit: Vector2i = Vector2i(35,bottom-2)
+    _carve(terrain,blocked,exit,2,2)
+    _carve(terrain,blocked,Vector2i(36,25),2,2)
+    var feature: Array[Dictionary] = [
+        {"kind":"sign","cell":Vector2i(29,17),"name":"室内服务告示"},
+        {"kind":"barrel","cell":Vector2i(45,19),"name":"储物处"},
+        {"kind":"star_lantern","cell":Vector2i(30,30),"name":"照明灯"},
+        {"kind":"flowerpot","cell":Vector2i(44,29),"name":"室内装饰"}
+    ]
+    # Building functions have distinctly staged furniture, not four identical
+    # props and the same vacant room for every shop, inn and shrine.
+    var furniture: Dictionary = {
+        "inn":[
+            ["fish_stall",Vector2i(26,16),"旅馆接待台"],
+            ["barrel",Vector2i(26,27),"厨房储物"],
+            ["barrel",Vector2i(25,30),"客厅茶点"],
+            ["flowerpot",Vector2i(44,14),"窗边绿植"],
+            ["star_lantern",Vector2i(48,27),"客房灯"],
+            ["medicine_basket",Vector2i(43,31),"住客行李"],
+            ["crate",Vector2i(25,23),"床边柜"],
+            ["crate",Vector2i(47,32),"行李箱"]
+        ],
+        "shop":[
+            ["fish_stall",Vector2i(28,16),"商店柜台"],
+            ["medicine_basket",Vector2i(24,24),"药品展示"],
+            ["crate",Vector2i(23,16),"进货箱"],
+            ["crate",Vector2i(25,27),"储备货物"],
+            ["barrel",Vector2i(43,15),"零散商品"],
+            ["barrel",Vector2i(46,30),"货箱"],
+            ["flowerpot",Vector2i(44,31),"装饰花"],
+            ["sign",Vector2i(47,24),"商品价格牌"]
+        ],
+        "guild":[
+            ["sign",Vector2i(25,17),"任务布告栏"],
+            ["sign",Vector2i(46,17),"公会远征地图"],
+            ["fish_stall",Vector2i(26,26),"登记接待台"],
+            ["crate",Vector2i(45,29),"委托卷宗"],
+            ["barrel",Vector2i(24,30),"远征补给"],
+            ["star_lantern",Vector2i(48,25),"集会灯"],
+            ["medicine_basket",Vector2i(44,14),"补给货架"],
+            ["flowerpot",Vector2i(23,15),"壁龛植物"]
+        ],
+        "smith":[
+            ["beacon",Vector2i(44,15),"熔炉"],
+            ["rock",Vector2i(42,18),"铁砧"],
+            ["barrel",Vector2i(47,22),"冷却槽"],
+            ["crate",Vector2i(47,29),"矿料箱"],
+            ["crate",Vector2i(24,18),"金属原矿"],
+            ["sign",Vector2i(27,16),"工坊工艺板"],
+            ["star_lantern",Vector2i(27,29),"工作照明"],
+            ["rock",Vector2i(44,32),"磨刀台"]
+        ],
+        "shrine":[
+            ["beacon",Vector2i(35,15),"祈灯圣坛"],
+            ["sea_crystal",Vector2i(33,15),"星纹水晶"],
+            ["sea_crystal",Vector2i(37,15),"星纹水晶"],
+            ["flowerpot",Vector2i(25,23),"祈祷花束"],
+            ["flowerpot",Vector2i(46,23),"祈祷花束"],
+            ["star_lantern",Vector2i(29,27),"长明灯"],
+            ["star_lantern",Vector2i(43,27),"长明灯"],
+            ["sign",Vector2i(47,16),"仪式铭文"]
+        ],
+        "house":[
+            ["crate",Vector2i(25,16),"收纳柜"],
+            ["barrel",Vector2i(25,23),"厨房储藏"],
+            ["medicine_basket",Vector2i(43,15),"日常药包"],
+            ["flowerpot",Vector2i(45,25),"窗台花盆"],
+            ["star_lantern",Vector2i(28,30),"卧室灯"],
+            ["crate",Vector2i(43,30),"小木桌"],
+            ["sign",Vector2i(44,18),"家人留言板"],
+            ["barrel",Vector2i(24,30),"生活储物"]
+        ]
+    }
+    for item in furniture.get(building,[]):
+        feature.append({"kind":str(item[0]),"cell":item[1],"name":str(item[2])})
+    return {"tiles":terrain,"blocked":blocked,"features":feature,"gates":[],"spawn":Vector2i(35,bottom-5),"size":Vector2i(WIDTH,HEIGHT),"interior":building_kind,"building":building}
+
+## Validate ACTUAL interaction feet instead of a V1 anchor embedded in a
+## modern solid house roof. Mirrors the live world marker relocation contract:
+## nearest connected pavement within a 12-cell Manhattan radius. Never paints
+## roads or changes collision. Unresolvable story targets remain hard failures.
+func resolve_story_targets(layout_data: Dictionary, targets: Array[Vector2i]) -> Dictionary:
+    var walls: Dictionary=layout_data.get("blocked",{})
+    var extent: Vector2i=layout_data.get("size",Vector2i(WIDTH,HEIGHT))
+    var spawn: Vector2i=layout_data.get("spawn",Vector2i(-1,-1))
+    var reached: Dictionary={}
+    if spawn.x>=2 and spawn.y>=2 and spawn.x<extent.x-2 and spawn.y<extent.y-2 and not walls.has(spawn):
+        var queue: Array[Vector2i]=[spawn]
+        reached[spawn]=true
+        var index: int=0
+        while index<queue.size():
+            var cur: Vector2i=queue[index]
+            index+=1
+            for delta in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+                var p: Vector2i=cur+delta
+                if p.x<2 or p.y<2 or p.x>=extent.x-2 or p.y>=extent.y-2 or walls.has(p) or reached.has(p):
+                    continue
+                reached[p]=true
+                queue.append(p)
+    var resolved: Array[Vector2i]=[]
+    var missing: Array[Vector2i]=[]
+    var relocated: int=0
+    for target in targets:
+        if reached.has(target):
+            resolved.append(target)
+            continue
+        var chosen: Vector2i=Vector2i(-1,-1)
+        for radius in range(13):
+            if chosen.x>=0:
+                break
+            for y in range(-radius,radius+1):
+                if chosen.x>=0:
+                    break
+                for x in range(-radius,radius+1):
+                    if absi(x)+absi(y)!=radius:
+                        continue
+                    var candidate: Vector2i=target+Vector2i(x,y)
+                    if candidate.x<3 or candidate.y<3 or candidate.x>=extent.x-3 or candidate.y>=extent.y-3:
+                        continue
+                    if reached.has(candidate):
+                        chosen=candidate
+                        break
+        if chosen.x<0:
+            missing.append(target)
+        else:
+            resolved.append(chosen)
+            relocated+=1
+    return {"points":resolved,"missing":missing,"relocated":relocated}
+
+
+func reachable(layout_data: Dictionary, origins: Array[Vector2i], targets: Array[Vector2i]) -> bool:
+    var walls: Dictionary = layout_data.get("blocked",{})
+    var extent: Vector2i = layout_data.get("size",Vector2i(WIDTH,HEIGHT))
+    var explored: Dictionary = {}
+    var queue: Array[Vector2i] = []
+    # Never traverse a blocked or out-of-map origin. The old queue leaked
+    # through blocked starting cells and reported false-positive reachability.
+    for start in origins:
+        if start.x<2 or start.y<2 or start.x>=extent.x-2 or start.y>=extent.y-2:
+            continue
+        if walls.has(start) or explored.has(start):
+            continue
+        explored[start]=true
+        queue.append(start)
+    if queue.is_empty():
+        return false
+    var index: int = 0
+    while index<queue.size():
+        var cur: Vector2i = queue[index]
+        index += 1
+        for delta in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+            var n: Vector2i = cur+delta
+            if n.x<2 or n.y<2 or n.x>=extent.x-2 or n.y>=extent.y-2 or explored.has(n) or walls.has(n):
+                continue
+            explored[n]=true
+            queue.append(n)
+    for target in targets:
+        if not explored.has(target):
+            return false
+    return true

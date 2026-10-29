@@ -1,0 +1,379 @@
+{
+  "schema": "starlit.story.phase10.act03.choice_reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "第13–18章A/B即时文本，非长期A/B独立支线，不会追加技能、掉落和任务条件。",
+  "followups": [
+    {
+      "id": "ch013.p10.choice.listen",
+      "chapter_id": "ch013",
+      "after_choice_id": "ch013.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch013.approach": "rescue",
+        "world.ch013.approach": "rescue"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch013.p10.choice.listen.l01",
+          "speaker": "矿工妻子",
+          "text": "先救人。现场我会和工会一起看守，不让有人趁乱把账簿带走。"
+        },
+        {
+          "id": "ch013.p10.choice.listen.l02",
+          "speaker": "缇珐",
+          "text": "提升机需要有人手动扶住制动，我来指导阿锤。"
+        },
+        {
+          "id": "ch013.p10.choice.listen.l03",
+          "speaker": "主角",
+          "text": "井下的人出来之后，证物照样要封存。"
+        }
+      ]
+    },
+    {
+      "id": "ch013.p10.choice.act",
+      "chapter_id": "ch013",
+      "after_choice_id": "ch013.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch013.approach": "evidence",
+        "world.ch013.approach": "evidence"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch013.p10.choice.act.l01",
+          "speaker": "矿工妻子",
+          "text": "我愿保管副本，但别让我的丈夫继续待在井下等调查。"
+        },
+        {
+          "id": "ch013.p10.choice.act.l02",
+          "speaker": "岚音",
+          "text": "救援会同步进行，证据也不应由你一个人承担。"
+        },
+        {
+          "id": "ch013.p10.choice.act.l03",
+          "speaker": "缇珐",
+          "text": "矿井总管签过的审批文件，我会一条条核对。"
+        }
+      ]
+    },
+    {
+      "id": "ch014.p10.choice.listen",
+      "chapter_id": "ch014",
+      "after_choice_id": "ch014.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch014.approach": "family_copy",
+        "world.ch014.approach": "family_copy"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch014.p10.choice.listen.l01",
+          "speaker": "矿工孩子",
+          "text": "能不能让我先听一遍？其他人等我说可以再放。"
+        },
+        {
+          "id": "ch014.p10.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "可以。你和监护人同意之前，任何人不得向外播放。"
+        },
+        {
+          "id": "ch014.p10.choice.listen.l03",
+          "speaker": "缇珐",
+          "text": "我会保留未剪辑的原件，证据不能靠改声来证明。"
+        }
+      ]
+    },
+    {
+      "id": "ch014.p10.choice.act",
+      "chapter_id": "ch014",
+      "after_choice_id": "ch014.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch014.approach": "medical_seal",
+        "world.ch014.approach": "medical_seal"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch014.p10.choice.act.l01",
+          "speaker": "岚音",
+          "text": "医馆会封存声音样本，登记谁能查阅和查阅理由。"
+        },
+        {
+          "id": "ch014.p10.choice.act.l02",
+          "speaker": "缇珐",
+          "text": "我保留完整回路图，技术责任不会因为封存而消失。"
+        },
+        {
+          "id": "ch014.p10.choice.act.l03",
+          "speaker": "主角",
+          "text": "等家属愿意的时候，再请他们决定可以公开多少。"
+        }
+      ]
+    },
+    {
+      "id": "ch015.p10.choice.listen",
+      "chapter_id": "ch015",
+      "after_choice_id": "ch015.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch015.approach": "guild",
+        "world.ch015.approach": "guild"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch015.p10.choice.listen.l01",
+          "speaker": "学徒",
+          "text": "如果各公会一起负责，我希望小工坊也有席位。"
+        },
+        {
+          "id": "ch015.p10.choice.listen.l02",
+          "speaker": "缇珐",
+          "text": "那就把安全考试与收费决定分开，所有会签人留名。"
+        },
+        {
+          "id": "ch015.p10.choice.listen.l03",
+          "speaker": "雷索",
+          "text": "安全准则由专业人士核查，不应该成为只收自己人的借口。"
+        }
+      ]
+    },
+    {
+      "id": "ch015.p10.choice.act",
+      "chapter_id": "ch015",
+      "after_choice_id": "ch015.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch015.approach": "open_class",
+        "world.ch015.approach": "open_class"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch015.p10.choice.act.l01",
+          "speaker": "学徒",
+          "text": "我愿意先教新来的孩子换灯芯，危险的主炉要等他们通过训练。"
+        },
+        {
+          "id": "ch015.p10.choice.act.l02",
+          "speaker": "岚音",
+          "text": "课堂需要救护用品，别让学徒把受伤当成学习成本。"
+        },
+        {
+          "id": "ch015.p10.choice.act.l03",
+          "speaker": "缇珐",
+          "text": "每次修订教材都标日期，技术不是永远不变的真理。"
+        }
+      ]
+    },
+    {
+      "id": "ch016.p10.choice.listen",
+      "chapter_id": "ch016",
+      "after_choice_id": "ch016.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch016.approach": "hospital_first",
+        "world.ch016.approach": "hospital_first"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch016.p10.choice.listen.l01",
+          "speaker": "岚音",
+          "text": "医院供电有最低保障以后，才能让病人安全接受身份登记。"
+        },
+        {
+          "id": "ch016.p10.choice.listen.l02",
+          "speaker": "老妇",
+          "text": "名字可以公开，家里的具体位置请不要让谁都知道。"
+        },
+        {
+          "id": "ch016.p10.choice.listen.l03",
+          "speaker": "主角",
+          "text": "医师先拿到名单，赔偿机构只能看到必要的信息。"
+        }
+      ]
+    },
+    {
+      "id": "ch016.p10.choice.act",
+      "chapter_id": "ch016",
+      "after_choice_id": "ch016.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch016.approach": "timeline_first",
+        "world.ch016.approach": "timeline_first"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch016.p10.choice.act.l01",
+          "speaker": "档案员",
+          "text": "补偿时间表写得清楚，才不至于让家属一遍遍排队空等。"
+        },
+        {
+          "id": "ch016.p10.choice.act.l02",
+          "speaker": "缇珐",
+          "text": "能源替代仍需要几次复测，失败也要公开。"
+        },
+        {
+          "id": "ch016.p10.choice.act.l03",
+          "speaker": "雷索",
+          "text": "谁负责哪一段、何时复查，都请写成居民能查到的记录。"
+        }
+      ]
+    },
+    {
+      "id": "ch017.p10.choice.listen",
+      "chapter_id": "ch017",
+      "after_choice_id": "ch017.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch017.approach": "hospital_backup",
+        "world.ch017.approach": "hospital_backup"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch017.p10.choice.listen.l01",
+          "speaker": "城南医师",
+          "text": "临时电已接通，但现在最多能保证这几台设备。"
+        },
+        {
+          "id": "ch017.p10.choice.listen.l02",
+          "speaker": "岚音",
+          "text": "我安排替班医师看护，剩余电量由缇珐持续报告。"
+        },
+        {
+          "id": "ch017.p10.choice.listen.l03",
+          "speaker": "缇珐",
+          "text": "等供电稳定再断开炮口，不会假装另一端没有人受风险。"
+        }
+      ]
+    },
+    {
+      "id": "ch017.p10.choice.act",
+      "chapter_id": "ch017",
+      "after_choice_id": "ch017.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch017.approach": "weapon_lock",
+        "world.ch017.approach": "weapon_lock"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch017.p10.choice.act.l01",
+          "speaker": "雷索",
+          "text": "炮口机械锁已切断，我在外围确认不会再二次充能。"
+        },
+        {
+          "id": "ch017.p10.choice.act.l02",
+          "speaker": "缇珐",
+          "text": "医院那端的回流仍要补救，不能把锁住武器当作整个危机结束。"
+        },
+        {
+          "id": "ch017.p10.choice.act.l03",
+          "speaker": "主角",
+          "text": "两侧都留人回报，任何危险都可以叫停操作。"
+        }
+      ]
+    },
+    {
+      "id": "ch018.p10.choice.listen",
+      "chapter_id": "ch018",
+      "after_choice_id": "ch018.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch018.approach": "victim_oversight",
+        "world.ch018.approach": "victim_oversight"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch018.p10.choice.listen.l01",
+          "speaker": "矿工妻子",
+          "text": "我们会监督停工、补偿与恢复医疗，不能只签一张“同意书”。"
+        },
+        {
+          "id": "ch018.p10.choice.listen.l02",
+          "speaker": "缇珐",
+          "text": "这次工坊议程有你们的位置，也允许之后提出新证据。"
+        },
+        {
+          "id": "ch018.p10.choice.listen.l03",
+          "speaker": "雷索",
+          "text": "每一次公开决议都记录反对意见与复查日期。"
+        }
+      ]
+    },
+    {
+      "id": "ch018.p10.choice.act",
+      "chapter_id": "ch018",
+      "after_choice_id": "ch018.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch018.approach": "energy_transparency",
+        "world.ch018.approach": "energy_transparency"
+      },
+      "optional": true,
+      "independent_route": false,
+      "insertion": "immediately_after_choice_before_boss_or_next_objective",
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch018.p10.choice.act.l01",
+          "speaker": "缇珐",
+          "text": "每条替代回路的功率和负责人会公开，私人记忆绝不再算免费燃料。"
+        },
+        {
+          "id": "ch018.p10.choice.act.l02",
+          "speaker": "岚音",
+          "text": "医院有权指出哪条线路不安全，不必先等总工批准。"
+        },
+        {
+          "id": "ch018.p10.choice.act.l03",
+          "speaker": "主角",
+          "text": "让居民能读懂数字，也能问出修不好的原因。"
+        }
+      ]
+    }
+  ]
+}

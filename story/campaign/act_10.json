@@ -1,0 +1,2655 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 10,
+  "title": "群灯之城",
+  "theme": "建立分散式灯网与自由之城。",
+  "progression_unlock": "distributed_network",
+  "chapters": [
+    {
+      "id": "ch055",
+      "number": 55,
+      "act": 10,
+      "chapter_number": 1,
+      "title": "废墟上的第一间屋子",
+      "location": "群灯之城·西区",
+      "required_flags": [
+        "story.ch054.done"
+      ],
+      "chapter_start_flag": "ch055.started",
+      "chapter_complete_flag": "story.ch055.done",
+      "lead_character": "缇珐",
+      "summary": "在群灯之城·西区，收集材料为难民修复第一栋房屋。部分幸存者主张直接占用房屋，不必询问原主人。最终，主角建立临时住用协议，既安置难民也保护原有权利。",
+      "production_status": "scripted_blocking_v3_phase15_city",
+      "recommended_level": [
+        66,
+        70
+      ],
+      "boss": "废铁搬运偶",
+      "scenes": [
+        {
+          "id": "ch055.opening",
+          "title": "开场：群灯之城·西区",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯之城·西区"
+          },
+          "dialogue": [
+            {
+              "id": "ch055.opening.l01",
+              "speaker": "旁白",
+              "text": "群灯之城西区满是倒塌的房梁，难民们在破墙边排队等分到一块遮雨布。"
+            },
+            {
+              "id": "ch055.opening.l02",
+              "speaker": "缇珐",
+              "text": "别急着建大广场。先把这间屋子的门装好。"
+            },
+            {
+              "id": "ch055.opening.l03",
+              "speaker": "诺依",
+              "text": "原住户的地契还在，我们不能直接把房子说成无人所有。"
+            },
+            {
+              "id": "ch055.opening.l04",
+              "speaker": "雷索",
+              "text": "临时住用协议要写明撤离安排和归还条件。"
+            },
+            {
+              "id": "ch055.opening.l05",
+              "speaker": "主角",
+              "text": "第一批屋子给最需要安全住处的人。"
+            },
+            {
+              "id": "ch055.opening.p15.l01",
+              "speaker": "工棚管理员",
+              "text": "这户老房的烟囱还能用，但楼梯已经被雨泡烂。"
+            },
+            {
+              "id": "ch055.opening.p15.l02",
+              "speaker": "避难母亲",
+              "text": "我只求今夜屋顶不漏，不要求把它写成我的财产。"
+            },
+            {
+              "id": "ch055.opening.p15.l03",
+              "speaker": "缇珐",
+              "text": "先测承重，再决定哪几块砖能重新用。"
+            },
+            {
+              "id": "ch055.opening.p15.l04",
+              "speaker": "诺依",
+              "text": "老人和带孩子的家庭先去临时避雨棚，不要在危墙下排队。"
+            },
+            {
+              "id": "ch055.opening.p15.l05",
+              "speaker": "主角",
+              "text": "修好后贴两份登记，一份记房主，一份记住用期限。"
+            },
+            {
+              "id": "ch055.opening.l06",
+              "speaker": "岚音",
+              "text": "还有行动不便的老人，门槛得压低。"
+            },
+            {
+              "id": "ch055.opening.l07",
+              "speaker": "旁白",
+              "text": "一阵雨落下来，人人都先去护住怀里的纸和干粮。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯之城·西区"
+            },
+            {
+              "type": "interact",
+              "target": "ch055.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch055.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "雨中居民先护住怀里的纸",
+            "note": "纯文本演出",
+            "phase15_focus": "灾后民居实际需求与临时住用制度"
+          }
+        },
+        {
+          "id": "ch055.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch055.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch055.investigate.l01",
+              "speaker": "旁白",
+              "text": "废墟里发现一张旧地契，房主因战争加入过另一阵营。"
+            },
+            {
+              "id": "ch055.investigate.l02",
+              "speaker": "工匠",
+              "text": "那一家早就走了。还用问他们？"
+            },
+            {
+              "id": "ch055.investigate.l03",
+              "speaker": "诺依",
+              "text": "屋子空着不代表所有权消失。"
+            },
+            {
+              "id": "ch055.investigate.l04",
+              "speaker": "缇珐",
+              "text": "我们能做可拆的临时隔间，不伤原墙结构。"
+            },
+            {
+              "id": "ch055.investigate.l05",
+              "speaker": "主角",
+              "text": "把修缮费和占用期限贴在门边。"
+            },
+            {
+              "id": "ch055.investigate.p15.l01",
+              "speaker": "地契保管员",
+              "text": "旧房主在另一阵营当过兵，可地契上还有他母亲的名字。"
+            },
+            {
+              "id": "ch055.investigate.p15.l02",
+              "speaker": "缇珐",
+              "text": "窗框能拆卸重装，临时隔间不用砸掉祖屋的墙。"
+            },
+            {
+              "id": "ch055.investigate.p15.l03",
+              "speaker": "诺依",
+              "text": "请留出申诉联系人，未来房主回来才找得到对话的人。"
+            },
+            {
+              "id": "ch055.investigate.p15.l04",
+              "speaker": "搬砖少年",
+              "text": "我修这栋屋能拿工钱吗？家里还有人要吃饭。"
+            },
+            {
+              "id": "ch055.investigate.p15.l05",
+              "speaker": "主角",
+              "text": "把工时和材料分开记，建设不能再靠无偿劳动。"
+            },
+            {
+              "id": "ch055.investigate.l06",
+              "speaker": "岚音",
+              "text": "先让住进来的人有窗、有水、能关门睡觉。"
+            },
+            {
+              "id": "ch055.investigate.l07",
+              "speaker": "雷索",
+              "text": "愿意修屋的人不该因此变成新一批没有选择的人。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch055.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch055.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch055.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "旧地契压在破梁下面",
+            "note": "纯文本演出",
+            "phase15_focus": "产权查证、工钱与可拆修缮方案"
+          }
+        },
+        {
+          "id": "ch055.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch055.crisis",
+            "requires_flags": [
+              "ch055.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch055.crisis.l01",
+              "speaker": "废铁搬运偶",
+              "text": "未登记建筑，执行回收！"
+            },
+            {
+              "id": "ch055.crisis.l02",
+              "speaker": "工匠",
+              "text": "旧拆迁机又开始运转，连刚修好的门也要拆！"
+            },
+            {
+              "id": "ch055.crisis.l03",
+              "speaker": "缇珐",
+              "text": "我去停机，你们先护住居民。"
+            },
+            {
+              "id": "ch055.crisis.l04",
+              "speaker": "诺依",
+              "text": "两队抬走材料，一队带孩子去安全区。"
+            },
+            {
+              "id": "ch055.crisis.l05",
+              "speaker": "主角",
+              "text": "按诺依的部署。别在这里争谁先发现问题。"
+            },
+            {
+              "id": "ch055.crisis.p15.l01",
+              "speaker": "拆迁机值守员",
+              "text": "旧机器识别不到新住户，就会按废屋回收。"
+            },
+            {
+              "id": "ch055.crisis.p15.l02",
+              "speaker": "缇珐",
+              "text": "我来切断危险回收程序，保留可审计的故障记录。"
+            },
+            {
+              "id": "ch055.crisis.p15.l03",
+              "speaker": "诺依",
+              "text": "孩子和老人从后门撤离，修理队不要挤在同一处。"
+            },
+            {
+              "id": "ch055.crisis.p15.l04",
+              "speaker": "雷索",
+              "text": "住户和旧主人都能参与后续协商，但不能让屋里的人今夜露宿。"
+            },
+            {
+              "id": "ch055.crisis.p15.l05",
+              "speaker": "主角",
+              "text": "先救人再谈产权，这个顺序不等于谁失去权利。"
+            },
+            {
+              "id": "ch055.crisis.l06",
+              "speaker": "雷索",
+              "text": "先保住人，房子还有机会修。"
+            },
+            {
+              "id": "ch055.crisis.l07",
+              "speaker": "旁白",
+              "text": "搬运偶被关闭，居民自己在门上钉好第一块门牌。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch055.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch055.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch055.choice",
+            "prompt": "第一栋公共修缮房屋如何分配？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "优先安排急需住处的家庭，签临时住用协议",
+                "sets": {
+                  "ch055.approach": "urgent",
+                  "world.ch055.approach": "urgent"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先公开地契和修缮资金，再由居民商议",
+                "sets": {
+                  "ch055.approach": "public_review",
+                  "world.ch055.approach": "public_review"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch055",
+            "display_name": "废铁搬运偶",
+            "win_flag": "ch055.battle_won",
+            "recommended_level": 69
+          },
+          "direction": {
+            "shot": "拆迁机关瞄准新门牌",
+            "note": "纯文本演出",
+            "phase15_focus": "机器危险处理与紧急安置并行"
+          }
+        },
+        {
+          "id": "ch055.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch055.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch055.resolve.l01",
+              "speaker": "旁白",
+              "text": "第一间屋子有了门，也有了欢迎陌生人喝一口热水的桌子。"
+            },
+            {
+              "id": "ch055.resolve.l02",
+              "speaker": "新住户",
+              "text": "我知道这不是永远属于我的房子，可今晚终于能安心睡一觉。"
+            },
+            {
+              "id": "ch055.resolve.l03",
+              "speaker": "缇珐",
+              "text": "等城里有更多屋子，再一起把住用安排谈清楚。"
+            },
+            {
+              "id": "ch055.resolve.l04",
+              "speaker": "诺依",
+              "text": "先把今天帮忙的人写在账本上。"
+            },
+            {
+              "id": "ch055.resolve.l05",
+              "speaker": "主角",
+              "text": "写上住户的名字，不要只写捐赠者。"
+            },
+            {
+              "id": "ch055.resolve.p15.l01",
+              "speaker": "避难母亲",
+              "text": "窗终于能关上了，今晚孩子不必拿布挡风。"
+            },
+            {
+              "id": "ch055.resolve.p15.l02",
+              "speaker": "搬砖少年",
+              "text": "工钱明天领得着吗？我把签字留在这页。"
+            },
+            {
+              "id": "ch055.resolve.p15.l03",
+              "speaker": "缇珐",
+              "text": "领得到。木料复查也写上日期，别让这栋屋子三个月后再塌。"
+            },
+            {
+              "id": "ch055.resolve.p15.l04",
+              "speaker": "诺依",
+              "text": "把临时住用协议贴在屋内，别只让能读懂公文的人看。"
+            },
+            {
+              "id": "ch055.resolve.p15.l05",
+              "speaker": "主角",
+              "text": "等原房主回来，今天被安置的人也有资格坐下来谈。"
+            },
+            {
+              "id": "ch055.resolve.l06",
+              "speaker": "岚音",
+              "text": "屋里还有药箱，我明天来看看老人身体如何。"
+            },
+            {
+              "id": "ch055.resolve.l07",
+              "speaker": "旁白",
+              "text": "群灯城西区亮起了第一盏有人守护的灯。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch055"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch055.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2300,
+              "gold": 810
+            }
+          ],
+          "direction": {
+            "shot": "夜里从窗内透出暖光",
+            "note": "纯文本演出",
+            "phase15_focus": "居住安全不等于产权争议自动结束"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch055.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch055.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯之城·西区，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
+    },
+    {
+      "id": "ch056",
+      "number": 56,
+      "act": 10,
+      "chapter_number": 2,
+      "title": "冒险者的新公会",
+      "location": "群灯之城·旧会馆",
+      "required_flags": [
+        "story.ch055.done"
+      ],
+      "chapter_start_flag": "ch056.started",
+      "chapter_complete_flag": "story.ch056.done",
+      "lead_character": "朔弦",
+      "summary": "在群灯之城·旧会馆，招聘工匠和探险者，完成三个公益委托。旧佣兵团提出武力保护条件，索要对城市的永久管辖权。最终，众人拒绝私兵独占，建立透明委托制度。",
+      "production_status": "scripted_blocking_v3_phase15_city",
+      "recommended_level": [
+        67,
+        71
+      ],
+      "boss": "佣兵试探队",
+      "scenes": [
+        {
+          "id": "ch056.opening",
+          "title": "开场：群灯之城·旧会馆",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯之城·旧会馆"
+          },
+          "dialogue": [
+            {
+              "id": "ch056.opening.l01",
+              "speaker": "旁白",
+              "text": "旧会馆的墙被重新刷白，公告板上却还留着战争前佣兵的收款印。"
+            },
+            {
+              "id": "ch056.opening.l02",
+              "speaker": "朔弦",
+              "text": "开公会可以，但账得贴墙上。"
+            },
+            {
+              "id": "ch056.opening.l03",
+              "speaker": "诺依",
+              "text": "委托不止打怪。修桥、送药、找人都应该有人接。"
+            },
+            {
+              "id": "ch056.opening.l04",
+              "speaker": "雷索",
+              "text": "护送任务的风险要写清，不能靠一句勇敢就叫年轻人去送命。"
+            },
+            {
+              "id": "ch056.opening.l05",
+              "speaker": "主角",
+              "text": "先登记愿意承担什么工作的人，再决定需要多少费用。"
+            },
+            {
+              "id": "ch056.opening.p15.l01",
+              "speaker": "会馆管理员",
+              "text": "第一张委托不是讨伐魔物，是替半山的病人运药。"
+            },
+            {
+              "id": "ch056.opening.p15.l02",
+              "speaker": "新人冒险者",
+              "text": "若我只会修木桥，也能登记为冒险者吗？"
+            },
+            {
+              "id": "ch056.opening.p15.l03",
+              "speaker": "朔弦",
+              "text": "能，而且先别把自己写成能单挑龙的人。"
+            },
+            {
+              "id": "ch056.opening.p15.l04",
+              "speaker": "诺依",
+              "text": "每张单都写明具体工作、报酬、风险与可以求援的人。"
+            },
+            {
+              "id": "ch056.opening.p15.l05",
+              "speaker": "雷索",
+              "text": "没学会撤退的人，先参加安全培训再去护送。"
+            },
+            {
+              "id": "ch056.opening.l06",
+              "speaker": "会馆管理员",
+              "text": "旧佣兵团的人正在外面等候，他们说这地方归他们。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯之城·旧会馆"
+            },
+            {
+              "type": "interact",
+              "target": "ch056.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch056.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "旧会馆的战时收款印",
+            "note": "纯文本演出",
+            "phase15_focus": "公益委托应当包含非战斗职业"
+          }
+        },
+        {
+          "id": "ch056.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch056.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch056.investigate.l01",
+              "speaker": "旁白",
+              "text": "旧账册里有数十笔救命物资从未送达，原因栏写着“道路失效”。"
+            },
+            {
+              "id": "ch056.investigate.l02",
+              "speaker": "诺依",
+              "text": "这里的人当年不是不愿送，是没有知道路已经消失。"
+            },
+            {
+              "id": "ch056.investigate.l03",
+              "speaker": "朔弦",
+              "text": "我可以帮他们重新画航路与陆路。"
+            },
+            {
+              "id": "ch056.investigate.l04",
+              "speaker": "缇珐",
+              "text": "修桥委托也要附上材料清单，避免把工匠的劳动当成白送。"
+            },
+            {
+              "id": "ch056.investigate.l05",
+              "speaker": "雷索",
+              "text": "还有伤亡保险和撤退权。"
+            },
+            {
+              "id": "ch056.investigate.p15.l01",
+              "speaker": "送药学徒",
+              "text": "旧账上写已经送达，可医馆说从没收到那箱药。"
+            },
+            {
+              "id": "ch056.investigate.p15.l02",
+              "speaker": "会馆管理员",
+              "text": "原来签收栏盖的是收款章，不是病人的名字。"
+            },
+            {
+              "id": "ch056.investigate.p15.l03",
+              "speaker": "缇珐",
+              "text": "修桥要先量桥墩承重，别为了赶工省掉防护绳。"
+            },
+            {
+              "id": "ch056.investigate.p15.l04",
+              "speaker": "朔弦",
+              "text": "我重新画了能绕过断路的运送路线，让送药的人今晚赶得上。"
+            },
+            {
+              "id": "ch056.investigate.p15.l05",
+              "speaker": "诺依",
+              "text": "核对受托人签字和收件人回执，不能拿办事数量充当成功。"
+            },
+            {
+              "id": "ch056.investigate.l06",
+              "speaker": "主角",
+              "text": "公会该让人互相帮助，而不是让所有风险都落在接任务的人身上。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch056.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch056.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch056.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "账本上的“道路失效”",
+            "note": "纯文本演出",
+            "phase15_focus": "委托签收与实际送达分开审查"
+          }
+        },
+        {
+          "id": "ch056.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch056.crisis",
+            "requires_flags": [
+              "ch056.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch056.crisis.l01",
+              "speaker": "佣兵首领",
+              "text": "我们能替你们守城。条件是永久掌管治安权。"
+            },
+            {
+              "id": "ch056.crisis.l02",
+              "speaker": "雷索",
+              "text": "治安不能租给只有一支军队的人。"
+            },
+            {
+              "id": "ch056.crisis.l03",
+              "speaker": "佣兵首领",
+              "text": "你们根本没有战斗经验！"
+            },
+            {
+              "id": "ch056.crisis.l04",
+              "speaker": "诺依",
+              "text": "可我们有医生、船工、修桥的人，还有市民愿意参加巡查。"
+            },
+            {
+              "id": "ch056.crisis.l05",
+              "speaker": "朔弦",
+              "text": "你那份合同把大部分收入都写进了自己口袋。"
+            },
+            {
+              "id": "ch056.crisis.p15.l01",
+              "speaker": "佣兵首领",
+              "text": "我们守下整座城，拿永久治安权有什么不公平？"
+            },
+            {
+              "id": "ch056.crisis.p15.l02",
+              "speaker": "雷索",
+              "text": "守卫可以领取合同报酬，惩罚谁不能由你的私兵单独决定。"
+            },
+            {
+              "id": "ch056.crisis.p15.l03",
+              "speaker": "新人冒险者",
+              "text": "我接修桥单，却被要求签一份随时上战场的附加条款。"
+            },
+            {
+              "id": "ch056.crisis.p15.l04",
+              "speaker": "诺依",
+              "text": "先冻结那份强制条款，居民巡查和公开申诉都必须存在。"
+            },
+            {
+              "id": "ch056.crisis.p15.l05",
+              "speaker": "主角",
+              "text": "有能力保护别人，不代表从此有权替他们决定怎样生活。"
+            },
+            {
+              "id": "ch056.crisis.l06",
+              "speaker": "主角",
+              "text": "保护应当能被监督，也允许居民拒绝不公平的条款。"
+            },
+            {
+              "id": "ch056.crisis.l07",
+              "speaker": "旁白",
+              "text": "佣兵团拒绝退让，最终被公会成员共同阻止占领会馆。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch056.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch056.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch056.choice",
+            "prompt": "冒险者新公会的首要章程是什么？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "公开费用、委托风险与撤退权",
+                "sets": {
+                  "ch056.approach": "transparent",
+                  "world.ch056.approach": "transparent"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先保障市民参与的监督与申诉渠道",
+                "sets": {
+                  "ch056.approach": "civil_oversight",
+                  "world.ch056.approach": "civil_oversight"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch056",
+            "display_name": "佣兵试探队",
+            "win_flag": "ch056.battle_won",
+            "recommended_level": 70
+          },
+          "direction": {
+            "shot": "佣兵合同盖住平民委托书",
+            "note": "纯文本演出",
+            "phase15_focus": "永久私兵垄断违背市民监督"
+          }
+        },
+        {
+          "id": "ch056.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch056.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch056.resolve.l01",
+              "speaker": "旁白",
+              "text": "公告板上贴出第一批三项公益委托：修桥、寻人、送药。"
+            },
+            {
+              "id": "ch056.resolve.l02",
+              "speaker": "会馆管理员",
+              "text": "委托人能看到费用去向，受托者也能拒绝过高风险。"
+            },
+            {
+              "id": "ch056.resolve.l03",
+              "speaker": "朔弦",
+              "text": "最好再加一条，任何人欠我的船费必须亲自签字。"
+            },
+            {
+              "id": "ch056.resolve.l04",
+              "speaker": "雷索",
+              "text": "你是想管账，还是想讨旧债？"
+            },
+            {
+              "id": "ch056.resolve.l05",
+              "speaker": "诺依",
+              "text": "两种事可以分开办理。"
+            },
+            {
+              "id": "ch056.resolve.p15.l01",
+              "speaker": "会馆管理员",
+              "text": "三份委托都列明了执行人，也留下尚未完成的风险提示。"
+            },
+            {
+              "id": "ch056.resolve.p15.l02",
+              "speaker": "送药学徒",
+              "text": "药到医馆了，桥还要两天才能彻底修好。"
+            },
+            {
+              "id": "ch056.resolve.p15.l03",
+              "speaker": "朔弦",
+              "text": "你能坦白未完成的部分，这比假装全做完可靠。"
+            },
+            {
+              "id": "ch056.resolve.p15.l04",
+              "speaker": "雷索",
+              "text": "以后每季重新审查护卫章程，不允许私军把合同变成王令。"
+            },
+            {
+              "id": "ch056.resolve.p15.l05",
+              "speaker": "诺依",
+              "text": "这里没人必须永远做英雄；想退会的人也应该能平安离开。"
+            },
+            {
+              "id": "ch056.resolve.l06",
+              "speaker": "主角",
+              "text": "公会以后也许会犯错，但它必须有改错的办法。"
+            },
+            {
+              "id": "ch056.resolve.l07",
+              "speaker": "旁白",
+              "text": "冒险者新公会正式开放，居民第一次自己选择谁来守护街道。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch056"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch056.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2340,
+              "gold": 824
+            }
+          ],
+          "direction": {
+            "shot": "三张公益委托依次上墙",
+            "note": "纯文本演出",
+            "phase15_focus": "留下未完成项目与定期审查"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch056.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch056.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯之城·旧会馆，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
+    },
+    {
+      "id": "ch057",
+      "number": 57,
+      "act": 10,
+      "chapter_number": 3,
+      "title": "值得回来的地方",
+      "location": "群灯之城·居民街",
+      "required_flags": [
+        "story.ch056.done"
+      ],
+      "chapter_start_flag": "ch057.started",
+      "chapter_complete_flag": "story.ch057.done",
+      "lead_character": "岚音",
+      "summary": "在群灯之城·居民街，规划工坊、旅馆与灵兽牧场。不同族群争执广场该属于哪种传统节日。最终，玩家举办群灯节，让居民自己决定共同的节庆方式。",
+      "production_status": "scripted_blocking_v3_phase15_city",
+      "recommended_level": [
+        68,
+        72
+      ],
+      "boss": null,
+      "scenes": [
+        {
+          "id": "ch057.opening",
+          "title": "开场：群灯之城·居民街",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯之城·居民街"
+          },
+          "dialogue": [
+            {
+              "id": "ch057.opening.l01",
+              "speaker": "旁白",
+              "text": "群灯城的空地上，三种家乡风格的摊位挤在同一条街口。"
+            },
+            {
+              "id": "ch057.opening.l02",
+              "speaker": "岚音",
+              "text": "有了面包香，大家才会觉得这里真的可以生活。"
+            },
+            {
+              "id": "ch057.opening.l03",
+              "speaker": "缇珐",
+              "text": "我想建工坊，朔弦想建船员旅馆，伊泽又说要留一块演出场。"
+            },
+            {
+              "id": "ch057.opening.l04",
+              "speaker": "朔弦",
+              "text": "没有旅馆，谁来给你们送材料？"
+            },
+            {
+              "id": "ch057.opening.l05",
+              "speaker": "伊泽",
+              "text": "没有歌，旅人怎么知道这城有值得留下的故事？"
+            },
+            {
+              "id": "ch057.opening.p15.l01",
+              "speaker": "灵兽饲养员",
+              "text": "牧场离饮水井太近，雨季一来，粪水会流到居民街。"
+            },
+            {
+              "id": "ch057.opening.p15.l02",
+              "speaker": "小摊主",
+              "text": "广场若全部建成仓库，我的摊子就连炉子都摆不下。"
+            },
+            {
+              "id": "ch057.opening.p15.l03",
+              "speaker": "诺依",
+              "text": "先把地图摊开，让常走这条街的人标出脚下的路。"
+            },
+            {
+              "id": "ch057.opening.p15.l04",
+              "speaker": "岚音",
+              "text": "医务所与无障碍坡道要先选址，不能排在纪念雕像之后。"
+            },
+            {
+              "id": "ch057.opening.p15.l05",
+              "speaker": "朔弦",
+              "text": "我的船员旅馆可以挪到东街，别把整条路抢光。"
+            },
+            {
+              "id": "ch057.opening.l06",
+              "speaker": "诺依",
+              "text": "我们把居民也叫来，看看他们真正缺什么。"
+            },
+            {
+              "id": "ch057.opening.l07",
+              "speaker": "主角",
+              "text": "规划不是只给冒险者看的。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯之城·居民街"
+            },
+            {
+              "type": "interact",
+              "target": "ch057.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch057.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "各式摊位争一处街角",
+            "note": "纯文本演出",
+            "phase15_focus": "真实城市设施与公共空间竞争"
+          }
+        },
+        {
+          "id": "ch057.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch057.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch057.investigate.l01",
+              "speaker": "旁白",
+              "text": "旧居民带来失散家乡的食谱与节日手艺，档案馆里出现各种不同的城市草图。"
+            },
+            {
+              "id": "ch057.investigate.l02",
+              "speaker": "小摊主",
+              "text": "我想在广场卖三种调料的炖菜。"
+            },
+            {
+              "id": "ch057.investigate.l03",
+              "speaker": "外乡老人",
+              "text": "这里以前举行我族的冬祭，请不要把石碑拆掉。"
+            },
+            {
+              "id": "ch057.investigate.l04",
+              "speaker": "诺依",
+              "text": "我们可以让广场保留不同节日的使用日期。"
+            },
+            {
+              "id": "ch057.investigate.l05",
+              "speaker": "缇珐",
+              "text": "灵兽牧场的排水不能接进居民饮水区。"
+            },
+            {
+              "id": "ch057.investigate.p15.l01",
+              "speaker": "外乡老人",
+              "text": "祭石是我们带来的最后一件家乡东西，我不愿把它磨成新地砖。"
+            },
+            {
+              "id": "ch057.investigate.p15.l02",
+              "speaker": "节庆志愿者",
+              "text": "可城里另外两族也没有固定场地，总不能谁先来就谁永远占着。"
+            },
+            {
+              "id": "ch057.investigate.p15.l03",
+              "speaker": "缇珐",
+              "text": "工坊污水和牧场排水分流以后，广场才能安全办夜市。"
+            },
+            {
+              "id": "ch057.investigate.p15.l04",
+              "speaker": "伊泽",
+              "text": "每个节日的歌可以不相同，别先要求大家唱一首。"
+            },
+            {
+              "id": "ch057.investigate.p15.l05",
+              "speaker": "主角",
+              "text": "把孩子、行动不便的人和住在附近不爱热闹的居民也请进规划会。"
+            },
+            {
+              "id": "ch057.investigate.l06",
+              "speaker": "岚音",
+              "text": "医务所应该靠近住户，而不是建在最漂亮的高台上。"
+            },
+            {
+              "id": "ch057.investigate.l07",
+              "speaker": "主角",
+              "text": "让最常走这些路的人先标出他们每天怎么生活。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch057.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch057.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch057.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "居民在旧城草图上标路",
+            "note": "纯文本演出",
+            "phase15_focus": "不同居民的日常路径和传统都可进入规划"
+          }
+        },
+        {
+          "id": "ch057.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch057.crisis",
+            "requires_flags": [
+              "ch057.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch057.crisis.l01",
+              "speaker": "节庆委员",
+              "text": "广场只能有一种传统！不然谁都觉得自己被轻视！"
+            },
+            {
+              "id": "ch057.crisis.l02",
+              "speaker": "伊泽",
+              "text": "一座城可以有许多首歌，不需要规定只能唱一种。"
+            },
+            {
+              "id": "ch057.crisis.l03",
+              "speaker": "朔弦",
+              "text": "我只要求节日那天别把我船上的绳子全借走。"
+            },
+            {
+              "id": "ch057.crisis.l04",
+              "speaker": "诺依",
+              "text": "让不同族群轮流主持，愿意参加的人自由参加。"
+            },
+            {
+              "id": "ch057.crisis.l05",
+              "speaker": "岚音",
+              "text": "还有不喜欢热闹的人，他们也需要安静的路。"
+            },
+            {
+              "id": "ch057.crisis.p15.l01",
+              "speaker": "节庆委员",
+              "text": "一年只办一种庆典，管理方便，冲突也少！"
+            },
+            {
+              "id": "ch057.crisis.p15.l02",
+              "speaker": "外乡老人",
+              "text": "我愿和别人共享广场，不愿再失去家乡的祭日。"
+            },
+            {
+              "id": "ch057.crisis.p15.l03",
+              "speaker": "诺依",
+              "text": "轮值表要预留给之后搬来的家庭，不把城市锁在今年的名单。"
+            },
+            {
+              "id": "ch057.crisis.p15.l04",
+              "speaker": "岚音",
+              "text": "医院夜班的人需要安静通道，节日也别堵住救护车。"
+            },
+            {
+              "id": "ch057.crisis.p15.l05",
+              "speaker": "主角",
+              "text": "不必用一次热闹证明所有人都已经融为一家。"
+            },
+            {
+              "id": "ch057.crisis.l06",
+              "speaker": "主角",
+              "text": "广场不属于最吵的人，而属于愿意共同使用它的人。"
+            },
+            {
+              "id": "ch057.crisis.l07",
+              "speaker": "旁白",
+              "text": "居民经过数轮争论，终于制定轮流使用的节庆安排。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch057.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch057.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch057.choice",
+            "prompt": "城市广场应如何安排不同传统？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "由各族群轮流主持公开节日",
+                "sets": {
+                  "ch057.approach": "rotating",
+                  "world.ch057.approach": "rotating"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "兼设安静时段与自由参与的公共活动",
+                "sets": {
+                  "ch057.approach": "inclusive",
+                  "world.ch057.approach": "inclusive"
+                }
+              }
+            ]
+          },
+          "encounter": null,
+          "direction": {
+            "shot": "广场因节庆布置产生争执",
+            "note": "纯文本演出",
+            "phase15_focus": "节庆权利、急救通道和休息权共存"
+          }
+        },
+        {
+          "id": "ch057.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch057.decision_made"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch057.resolve.l01",
+              "speaker": "旁白",
+              "text": "群灯节第一夜，面包、香料和海风混在一起，街上响起许多不同口音。"
+            },
+            {
+              "id": "ch057.resolve.l02",
+              "speaker": "小摊主",
+              "text": "你尝过了吗？三国的调料放在一起也很好吃。"
+            },
+            {
+              "id": "ch057.resolve.l03",
+              "speaker": "雷索",
+              "text": "有点辣。很好吃。"
+            },
+            {
+              "id": "ch057.resolve.l04",
+              "speaker": "朔弦",
+              "text": "他能说“很好吃”四个字，说明真的不错。"
+            },
+            {
+              "id": "ch057.resolve.l05",
+              "speaker": "诺依",
+              "text": "大家自己办的节日，比我想象中更乱，也更热闹。"
+            },
+            {
+              "id": "ch057.resolve.p15.l01",
+              "speaker": "小摊主",
+              "text": "我的炖菜卖完了，明天还想试试海歌港的香料。"
+            },
+            {
+              "id": "ch057.resolve.p15.l02",
+              "speaker": "外乡老人",
+              "text": "祭石没有拆，孩子们还问我能不能教他们做冬祭灯。"
+            },
+            {
+              "id": "ch057.resolve.p15.l03",
+              "speaker": "朔弦",
+              "text": "旅馆招牌暂时挂歪了一点，我明早再修。"
+            },
+            {
+              "id": "ch057.resolve.p15.l04",
+              "speaker": "诺依",
+              "text": "今天最让我高兴的是有人提前回家睡觉，也没人说他扫兴。"
+            },
+            {
+              "id": "ch057.resolve.p15.l05",
+              "speaker": "旁白",
+              "text": "节日散场后，街坊留下来清理路面，这座城还有许多平凡的明天。"
+            },
+            {
+              "id": "ch057.resolve.l06",
+              "speaker": "主角",
+              "text": "今天没发生什么英雄传说，这就很好。"
+            },
+            {
+              "id": "ch057.resolve.l07",
+              "speaker": "旁白",
+              "text": "群灯城终于成为有人愿意回来、也能选择离开的地方。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch057"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch057.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2380,
+              "gold": 838
+            }
+          ],
+          "direction": {
+            "shot": "灯火中普通人用不同语言交谈",
+            "note": "纯文本演出",
+            "phase15_focus": "演出非Boss型章节与可回访节庆"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch057.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch057.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯之城·居民街，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
+    },
+    {
+      "id": "ch058",
+      "number": 58,
+      "act": 10,
+      "chapter_number": 4,
+      "title": "叛逃的记灯师",
+      "location": "城郊·封存档案车",
+      "required_flags": [
+        "story.ch057.done"
+      ],
+      "chapter_start_flag": "ch058.started",
+      "chapter_complete_flag": "story.ch058.done",
+      "lead_character": "维莎",
+      "summary": "在城郊·封存档案车，护送维莎逃离旧议会追兵。她过去参与过封印计划，幸存者要求当场处置。最终，主角保护审判公正，维莎公开罪证并承担修复责任。",
+      "production_status": "scripted_blocking_v3_phase15_city",
+      "recommended_level": [
+        69,
+        73
+      ],
+      "boss": "议会追猎者",
+      "scenes": [
+        {
+          "id": "ch058.opening",
+          "title": "开场：城郊·封存档案车",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "城郊·封存档案车"
+          },
+          "dialogue": [
+            {
+              "id": "ch058.opening.l01",
+              "speaker": "旁白",
+              "text": "城郊一辆封存档案车遭追兵拦截，车门后有人不断敲击。"
+            },
+            {
+              "id": "ch058.opening.l02",
+              "speaker": "维莎",
+              "text": "请救我。我带来的东西值得你们审查，也值得所有人审查。"
+            },
+            {
+              "id": "ch058.opening.l03",
+              "speaker": "雷索",
+              "text": "你是旧议会的记灯师？"
+            },
+            {
+              "id": "ch058.opening.l04",
+              "speaker": "维莎",
+              "text": "是。我参与过把人的命运变成表格的工作。"
+            },
+            {
+              "id": "ch058.opening.l05",
+              "speaker": "岚音",
+              "text": "那你知道很多人因此失去了什么。"
+            },
+            {
+              "id": "ch058.opening.p15.l01",
+              "speaker": "押车书记",
+              "text": "车厢里是原始审批簿，不是可以拿来谈价的秘密货物。"
+            },
+            {
+              "id": "ch058.opening.p15.l02",
+              "speaker": "维莎",
+              "text": "第三柜要先封存，里面有我签过的转供电命令。"
+            },
+            {
+              "id": "ch058.opening.p15.l03",
+              "speaker": "受害者家属",
+              "text": "你签字那天，医馆把我哥哥写成了“非优先对象”。"
+            },
+            {
+              "id": "ch058.opening.p15.l04",
+              "speaker": "诺依",
+              "text": "我听见了。先把追兵挡住，让你们有机会在安全的地方继续说。"
+            },
+            {
+              "id": "ch058.opening.p15.l05",
+              "speaker": "雷索",
+              "text": "审查要公正，但她不能因为愿出庭就自动获得赦免。"
+            },
+            {
+              "id": "ch058.opening.l06",
+              "speaker": "维莎",
+              "text": "我知道。我不来要求原谅，只请求先保住原始记录。"
+            },
+            {
+              "id": "ch058.opening.l07",
+              "speaker": "诺依",
+              "text": "先让她进入保护区，再由居民听证。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "城郊·封存档案车"
+            },
+            {
+              "type": "interact",
+              "target": "ch058.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch058.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "档案车内被敲击的木门",
+            "note": "纯文本演出",
+            "phase15_focus": "维莎带来的证据与家属伤害同场出现",
+            "phase15_party_contract": "维莎ch058开头为受到保护的证人，正式加入只在ch058.resolve。与协助灯网维护无关的旧审批责任继续接受公众和受害者审查。"
+          }
+        },
+        {
+          "id": "ch058.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch058.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch058.investigate.l01",
+              "speaker": "旁白",
+              "text": "维莎的档案里记载赫西安对六灯输能所做的全部修改，也保留着她本人的签名。"
+            },
+            {
+              "id": "ch058.investigate.l02",
+              "speaker": "主角",
+              "text": "为什么到现在才叛逃？"
+            },
+            {
+              "id": "ch058.investigate.l03",
+              "speaker": "维莎",
+              "text": "因为我一直以为只要数字改善，代价就能够忽略。"
+            },
+            {
+              "id": "ch058.investigate.l04",
+              "speaker": "缇珐",
+              "text": "我也曾经这样想过。"
+            },
+            {
+              "id": "ch058.investigate.l05",
+              "speaker": "维莎",
+              "text": "但账本上总有人消失，我终于不愿再写“可以接受的损失”。"
+            },
+            {
+              "id": "ch058.investigate.p15.l01",
+              "speaker": "缇珐",
+              "text": "这张供能改造图里有两次手改，维莎能说明哪一次有她参与吗？"
+            },
+            {
+              "id": "ch058.investigate.p15.l02",
+              "speaker": "维莎",
+              "text": "第一份是我签的。第二份我看见过，却没阻止它继续执行。"
+            },
+            {
+              "id": "ch058.investigate.p15.l03",
+              "speaker": "岚音",
+              "text": "请把谁确认了数据、谁批准了伤害分别记下。"
+            },
+            {
+              "id": "ch058.investigate.p15.l04",
+              "speaker": "受害者家属",
+              "text": "我不要一句“当年情况复杂”，我想知道那几天谁拿走了病人的电。"
+            },
+            {
+              "id": "ch058.investigate.p15.l05",
+              "speaker": "主角",
+              "text": "原档留两份公开校验副本；私人病历按家属授权单独保管。"
+            },
+            {
+              "id": "ch058.investigate.l06",
+              "speaker": "岚音",
+              "text": "愿意承认错误，是第一步。受害者仍有权质询你。"
+            },
+            {
+              "id": "ch058.investigate.l07",
+              "speaker": "维莎",
+              "text": "我会在公开场合一一回答。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch058.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch058.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch058.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "维莎签名与失踪者数据并排",
+            "note": "纯文本演出",
+            "phase15_focus": "责任分层与私人病历保护",
+            "phase15_party_contract": "维莎ch058开头为受到保护的证人，正式加入只在ch058.resolve。与协助灯网维护无关的旧审批责任继续接受公众和受害者审查。"
+          }
+        },
+        {
+          "id": "ch058.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch058.crisis",
+            "requires_flags": [
+              "ch058.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch058.crisis.l01",
+              "speaker": "议会追猎者",
+              "text": "回收机密资料！叛逃者不具独立身份！"
+            },
+            {
+              "id": "ch058.crisis.l02",
+              "speaker": "维莎",
+              "text": "他们连删除我的名字也已经准备好了。"
+            },
+            {
+              "id": "ch058.crisis.l03",
+              "speaker": "雷索",
+              "text": "不管她过去犯了什么错，审判都不应该由追兵当街执行。"
+            },
+            {
+              "id": "ch058.crisis.l04",
+              "speaker": "诺依",
+              "text": "带着档案走，别让她独自留在后面。"
+            },
+            {
+              "id": "ch058.crisis.l05",
+              "speaker": "主角",
+              "text": "证据先交居民档案馆，任何人不得私自销毁。"
+            },
+            {
+              "id": "ch058.crisis.p15.l01",
+              "speaker": "议会追猎者",
+              "text": "交出叛逃者，其余市民可免受追捕。"
+            },
+            {
+              "id": "ch058.crisis.p15.l02",
+              "speaker": "诺依",
+              "text": "我们不会用一个人的处决换整座城暂时安全。"
+            },
+            {
+              "id": "ch058.crisis.p15.l03",
+              "speaker": "雷索",
+              "text": "我要先保护证人出庭的机会，不替法庭预定结论。"
+            },
+            {
+              "id": "ch058.crisis.p15.l04",
+              "speaker": "维莎",
+              "text": "我愿交出密钥，今天也愿亲自说清每份签名的来源。"
+            },
+            {
+              "id": "ch058.crisis.p15.l05",
+              "speaker": "岚音",
+              "text": "家属有权提出质询，也有权在听证前离开，不必为了我们继续受伤。"
+            },
+            {
+              "id": "ch058.crisis.l06",
+              "speaker": "缇珐",
+              "text": "我来切断追猎机的星纹，保住车厢里的原件。"
+            },
+            {
+              "id": "ch058.crisis.l07",
+              "speaker": "旁白",
+              "text": "追猎装置停止后，维莎自愿走进公开听证厅。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch058.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch058.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch058.choice",
+            "prompt": "如何处理叛逃记灯师维莎？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先保护证人与原始记录，再举行公开听证",
+                "sets": {
+                  "ch058.approach": "public_hearing",
+                  "world.ch058.approach": "public_hearing"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先邀请受害者代表参与调查与监督",
+                "sets": {
+                  "ch058.approach": "victim_panel",
+                  "world.ch058.approach": "victim_panel"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch058",
+            "display_name": "议会追猎者",
+            "win_flag": "ch058.battle_won",
+            "recommended_level": 72
+          },
+          "direction": {
+            "shot": "追猎机的“身份回收”光标",
+            "note": "纯文本演出",
+            "phase15_focus": "拒绝即刻处决不等于无条件赦免",
+            "phase15_party_contract": "维莎ch058开头为受到保护的证人，正式加入只在ch058.resolve。与协助灯网维护无关的旧审批责任继续接受公众和受害者审查。"
+          }
+        },
+        {
+          "id": "ch058.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch058.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch058.resolve.l01",
+              "speaker": "旁白",
+              "text": "听证会上，有人愤怒，有人沉默，还有人第一次读到自己的亲属名字。"
+            },
+            {
+              "id": "ch058.resolve.l02",
+              "speaker": "受害者家属",
+              "text": "你能把那几年还给他们吗？"
+            },
+            {
+              "id": "ch058.resolve.l03",
+              "speaker": "维莎",
+              "text": "不能。我愿意公开全部档案，也接受相应的责任。"
+            },
+            {
+              "id": "ch058.resolve.l04",
+              "speaker": "诺依",
+              "text": "她加入队伍，不意味着过去的事被免除。"
+            },
+            {
+              "id": "ch058.resolve.l05",
+              "speaker": "岚音",
+              "text": "她的技术可以帮助受害者，但是否原谅应该由家属决定。"
+            },
+            {
+              "id": "ch058.resolve.p15.l01",
+              "speaker": "受害者家属",
+              "text": "我看到了你签的字。今天先不要对我说你改过了。"
+            },
+            {
+              "id": "ch058.resolve.p15.l02",
+              "speaker": "维莎",
+              "text": "我不会要求相信。每一处修复我都会留下可复核的记录。"
+            },
+            {
+              "id": "ch058.resolve.p15.l03",
+              "speaker": "诺依",
+              "text": "技术协作归技术协作，责任听证会仍独立进行。"
+            },
+            {
+              "id": "ch058.resolve.p15.l04",
+              "speaker": "缇珐",
+              "text": "原始档案与新灯网的维修权限要分别托管，不能再留下一人独握的钥匙。"
+            },
+            {
+              "id": "ch058.resolve.p15.l05",
+              "speaker": "主角",
+              "text": "你选择同行，也得接受居民随时对你的工作提出审查。"
+            },
+            {
+              "id": "ch058.resolve.l06",
+              "speaker": "主角",
+              "text": "若愿意，和我们一起修复那套被你参与建造的制度。"
+            },
+            {
+              "id": "ch058.resolve.l07",
+              "speaker": "维莎",
+              "text": "我愿意。今后每个数字前，我会先问那是谁。"
+            },
+            {
+              "id": "ch058.resolve.l08",
+              "speaker": "旁白",
+              "text": "维莎正式加入队伍，旧档案的封条由公众见证拆开。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch058"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch058.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2420,
+              "gold": 852
+            }
+          ],
+          "direction": {
+            "shot": "维莎站在听证大厅中央没有被赦免",
+            "note": "纯文本演出",
+            "phase15_focus": "维莎第58章resolve才正式入队且仍受独立审查",
+            "phase15_party_contract": "维莎ch058开头为受到保护的证人，正式加入只在ch058.resolve。与协助灯网维护无关的旧审批责任继续接受公众和受害者审查。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch058.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch058.done",
+          "speaker": "路人",
+          "text": "以后再说起城郊·封存档案车，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
+    },
+    {
+      "id": "ch059",
+      "number": 59,
+      "act": 10,
+      "chapter_number": 5,
+      "title": "不是所有人都想战斗",
+      "location": "群灯城·自由议事厅",
+      "required_flags": [
+        "story.ch058.done"
+      ],
+      "chapter_start_flag": "ch059.started",
+      "chapter_complete_flag": "story.ch059.done",
+      "lead_character": "雷索",
+      "summary": "在群灯城·自由议事厅，组织不同阵营平民制定不参战公约。强硬派要求强制征兵，威胁断绝粮路。最终，主角通过自愿互助体系获得支持，建立自由城市盟约。",
+      "production_status": "scripted_blocking_v3_phase15_city",
+      "recommended_level": [
+        70,
+        74
+      ],
+      "boss": "强硬派机兵",
+      "scenes": [
+        {
+          "id": "ch059.opening",
+          "title": "开场：群灯城·自由议事厅",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯城·自由议事厅"
+          },
+          "dialogue": [
+            {
+              "id": "ch059.opening.l01",
+              "speaker": "旁白",
+              "text": "自由议事厅里，许多居民公开表示不愿参加即将到来的战争。"
+            },
+            {
+              "id": "ch059.opening.l02",
+              "speaker": "雷索",
+              "text": "守护选择，也包括守护不拿武器的选择。"
+            },
+            {
+              "id": "ch059.opening.l03",
+              "speaker": "工坊主人",
+              "text": "我能造修桥工具，却不愿再造炮。"
+            },
+            {
+              "id": "ch059.opening.l04",
+              "speaker": "年轻民兵",
+              "text": "那敌人来了，谁保护你？"
+            },
+            {
+              "id": "ch059.opening.l05",
+              "speaker": "岚音",
+              "text": "医师救过你们所有人，不必先拿剑才能有资格活着。"
+            },
+            {
+              "id": "ch059.opening.p15.l01",
+              "speaker": "木匠学徒",
+              "text": "学校的孩子只认得勇者挥剑，没人知道避难门是谁修的。"
+            },
+            {
+              "id": "ch059.opening.p15.l02",
+              "speaker": "雷索",
+              "text": "让他们先学怎么看救援标志、给伤者让路。"
+            },
+            {
+              "id": "ch059.opening.p15.l03",
+              "speaker": "年轻民兵",
+              "text": "我愿守东门，可我父亲不想再握兵器。"
+            },
+            {
+              "id": "ch059.opening.p15.l04",
+              "speaker": "诺依",
+              "text": "你的选择和他的选择都可以存在，不必靠互相羞辱证明勇敢。"
+            },
+            {
+              "id": "ch059.opening.p15.l05",
+              "speaker": "维莎",
+              "text": "粮车登记里的护理者名单还缺很多人，今天先补齐。"
+            },
+            {
+              "id": "ch059.opening.l06",
+              "speaker": "诺依",
+              "text": "我们今天不是来决定谁胆小，而是决定大家怎样互相保障。"
+            },
+            {
+              "id": "ch059.opening.l07",
+              "speaker": "主角",
+              "text": "让每个人说清自己愿意承担的工作。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯城·自由议事厅"
+            },
+            {
+              "type": "interact",
+              "target": "ch059.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch059.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "议事厅里穿不同职业服装的人",
+            "note": "纯文本演出",
+            "phase15_focus": "儿童理解非战斗者与实际防卫需求"
+          }
+        },
+        {
+          "id": "ch059.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch059.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch059.investigate.l01",
+              "speaker": "旁白",
+              "text": "各地中立村落提交承诺：愿意运粮、护理、维护路标，却拒绝强制服役。"
+            },
+            {
+              "id": "ch059.investigate.l02",
+              "speaker": "雷索",
+              "text": "他们愿意承担的并不轻。"
+            },
+            {
+              "id": "ch059.investigate.l03",
+              "speaker": "工坊主人",
+              "text": "有时候修一座桥需要几个月，不比打一仗简单。"
+            },
+            {
+              "id": "ch059.investigate.l04",
+              "speaker": "朔弦",
+              "text": "没有补给和航线，再厉害的战士也到不了目的地。"
+            },
+            {
+              "id": "ch059.investigate.l05",
+              "speaker": "维莎",
+              "text": "我可以根据自愿贡献制定公开预算，不再把人当成可以调配的数字。"
+            },
+            {
+              "id": "ch059.investigate.p15.l01",
+              "speaker": "工坊主人",
+              "text": "我们愿修桥，但强硬派说不签参战承诺就不给木料。"
+            },
+            {
+              "id": "ch059.investigate.p15.l02",
+              "speaker": "朔弦",
+              "text": "中立村庄送来的粮有明确收件人，不是军团私产。"
+            },
+            {
+              "id": "ch059.investigate.p15.l03",
+              "speaker": "维莎",
+              "text": "把自愿后勤与义务征用分开计算，让贡献者自己确认数量。"
+            },
+            {
+              "id": "ch059.investigate.p15.l04",
+              "speaker": "岚音",
+              "text": "院里的护理志愿者需要轮换，不能因为不拿剑就永远没人接班。"
+            },
+            {
+              "id": "ch059.investigate.p15.l05",
+              "speaker": "主角",
+              "text": "请读出拒绝条款，确保任何人退出后仍能获得基本医疗与救济。"
+            },
+            {
+              "id": "ch059.investigate.l06",
+              "speaker": "诺依",
+              "text": "所有承诺都应允许重新讨论，不能一旦签下就永远退出不了。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch059.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch059.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch059.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "中立村落的贡献表",
+            "note": "纯文本演出",
+            "phase15_focus": "后勤自愿承担、退出和基础救助不挂钩"
+          }
+        },
+        {
+          "id": "ch059.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch059.crisis",
+            "requires_flags": [
+              "ch059.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch059.crisis.l01",
+              "speaker": "强硬派队长",
+              "text": "不征兵就没有军队，没有军队就没有城市！"
+            },
+            {
+              "id": "ch059.crisis.l02",
+              "speaker": "雷索",
+              "text": "你说的是危险，但强迫所有人拿武器不是唯一答案。"
+            },
+            {
+              "id": "ch059.crisis.l03",
+              "speaker": "强硬派队长",
+              "text": "敌人不会尊重你们的自由协议。"
+            },
+            {
+              "id": "ch059.crisis.l04",
+              "speaker": "主角",
+              "text": "所以我们需要守卫，也需要被守卫者能够质询他们。"
+            },
+            {
+              "id": "ch059.crisis.l05",
+              "speaker": "岚音",
+              "text": "谁照顾伤者，谁维护粮仓，也都是保卫。"
+            },
+            {
+              "id": "ch059.crisis.p15.l01",
+              "speaker": "强硬派队长",
+              "text": "敌军真来了，你们的同意书挡得住刀吗？"
+            },
+            {
+              "id": "ch059.crisis.p15.l02",
+              "speaker": "雷索",
+              "text": "防卫需要训练和组织，但不能把愿修桥的人叫作逃兵。"
+            },
+            {
+              "id": "ch059.crisis.p15.l03",
+              "speaker": "诺依",
+              "text": "我会安排自愿护卫保护粮道，也要接受议事厅的监察。"
+            },
+            {
+              "id": "ch059.crisis.p15.l04",
+              "speaker": "年轻民兵",
+              "text": "我愿登记值夜，可我想知道什么时候有人来接替。"
+            },
+            {
+              "id": "ch059.crisis.p15.l05",
+              "speaker": "主角",
+              "text": "守城的目标不是让下一代学会强迫上一代。"
+            },
+            {
+              "id": "ch059.crisis.l06",
+              "speaker": "诺依",
+              "text": "不愿参战的人可以参加疏散、运输和医疗，但必须是自愿。"
+            },
+            {
+              "id": "ch059.crisis.l07",
+              "speaker": "旁白",
+              "text": "公开会议最终否决强制征兵，保留志愿护城制度。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch059.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch059.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch059.choice",
+            "prompt": "面对强制征兵提议，先强调什么？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "明确拒绝强制服役，建立志愿防卫",
+                "sets": {
+                  "ch059.approach": "right_refuse",
+                  "world.ch059.approach": "right_refuse"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先统计自愿医疗、后勤与工匠承诺",
+                "sets": {
+                  "ch059.approach": "civil_support",
+                  "world.ch059.approach": "civil_support"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch059",
+            "display_name": "强硬派机兵",
+            "win_flag": "ch059.battle_won",
+            "recommended_level": 73
+          },
+          "direction": {
+            "shot": "强硬派队长和医师站在同一光线里",
+            "note": "纯文本演出",
+            "phase15_focus": "有效守城与强制服役的制度区别"
+          }
+        },
+        {
+          "id": "ch059.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch059.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch059.resolve.l01",
+              "speaker": "旁白",
+              "text": "自由城公约签署当天，商路和医疗队分别领到新的任务表。"
+            },
+            {
+              "id": "ch059.resolve.l02",
+              "speaker": "工坊主人",
+              "text": "我还是不愿造武器。但我会把桥修好。"
+            },
+            {
+              "id": "ch059.resolve.l03",
+              "speaker": "年轻民兵",
+              "text": "我愿守城，也愿让别人在我背后做自己的工作。"
+            },
+            {
+              "id": "ch059.resolve.l04",
+              "speaker": "雷索",
+              "text": "这样才叫互相依靠。"
+            },
+            {
+              "id": "ch059.resolve.l05",
+              "speaker": "维莎",
+              "text": "账簿不会只记录能上战场的人。"
+            },
+            {
+              "id": "ch059.resolve.p15.l01",
+              "speaker": "工坊主人",
+              "text": "我把桥的支架修好了，日后也不想被叫成不爱这座城。"
+            },
+            {
+              "id": "ch059.resolve.p15.l02",
+              "speaker": "年轻民兵",
+              "text": "值夜表上有轮休，父亲可以教孩子做木工。"
+            },
+            {
+              "id": "ch059.resolve.p15.l03",
+              "speaker": "维莎",
+              "text": "护理、运输、修桥都写在同一页账簿，不必换成军功才能被看见。"
+            },
+            {
+              "id": "ch059.resolve.p15.l04",
+              "speaker": "雷索",
+              "text": "今夜我巡一段城墙，明夜交给愿意接班的人。"
+            },
+            {
+              "id": "ch059.resolve.p15.l05",
+              "speaker": "诺依",
+              "text": "让签下自愿的人有权改变主意，我们才能一直互相相信。"
+            },
+            {
+              "id": "ch059.resolve.l06",
+              "speaker": "诺依",
+              "text": "所有人都有不同的力量。"
+            },
+            {
+              "id": "ch059.resolve.l07",
+              "speaker": "主角",
+              "text": "我们守护的不是一种正确人生，是他们自己选择生活的可能。"
+            },
+            {
+              "id": "ch059.resolve.l08",
+              "speaker": "旁白",
+              "text": "群灯城获得来自各地的自愿支援。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch059"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch059.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2460,
+              "gold": 866
+            }
+          ],
+          "direction": {
+            "shot": "志愿护卫与医疗队分别领到路标",
+            "note": "纯文本演出",
+            "phase15_focus": "轮值责任和非战斗劳动的可见性"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch059.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch059.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯城·自由议事厅，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
+    },
+    {
+      "id": "ch060",
+      "number": 60,
+      "act": 10,
+      "chapter_number": 6,
+      "title": "千灯共明",
+      "location": "群灯城·星灯中枢",
+      "required_flags": [
+        "story.ch059.done"
+      ],
+      "chapter_start_flag": "ch060.started",
+      "chapter_complete_flag": "story.ch060.done",
+      "lead_character": "缇珐",
+      "summary": "在群灯城·星灯中枢，部署分散式灯网并抵御敌军突袭。赫西安动用赤烬军团破坏民众自愿接入的节点。最终，居民逐户点亮手灯，六灯网络第一次不受司录者控制。",
+      "production_status": "scripted_blocking_v3_phase15_city",
+      "recommended_level": [
+        72,
+        76
+      ],
+      "boss": "赤烬主力机",
+      "scenes": [
+        {
+          "id": "ch060.opening",
+          "title": "开场：群灯城·星灯中枢",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "群灯城·星灯中枢"
+          },
+          "dialogue": [
+            {
+              "id": "ch060.opening.l01",
+              "speaker": "旁白",
+              "text": "群灯中枢上方没有王座，只有为每个社区预留的一盏小灯。"
+            },
+            {
+              "id": "ch060.opening.l02",
+              "speaker": "缇珐",
+              "text": "以前坏掉一处，全城都得跟着熄灯。这次不一样。"
+            },
+            {
+              "id": "ch060.opening.l03",
+              "speaker": "维莎",
+              "text": "每条线路有明确授权，居民能选择接入或退出。"
+            },
+            {
+              "id": "ch060.opening.l04",
+              "speaker": "诺依",
+              "text": "先去每个街区说明风险，别让任何人以为接入就保证永不受灾。"
+            },
+            {
+              "id": "ch060.opening.l05",
+              "speaker": "岚音",
+              "text": "医疗和救援不能因为某家退出共享就停止。"
+            },
+            {
+              "id": "ch060.opening.p15.l01",
+              "speaker": "社区电工",
+              "text": "南区愿意接入，但老井旁的两户担心新线会影响水泵。"
+            },
+            {
+              "id": "ch060.opening.p15.l02",
+              "speaker": "缇珐",
+              "text": "先量水泵功率，试验期间保留手动取水。"
+            },
+            {
+              "id": "ch060.opening.p15.l03",
+              "speaker": "维莎",
+              "text": "接入表有退出日期和复核联系人，不再允许默认签字。"
+            },
+            {
+              "id": "ch060.opening.p15.l04",
+              "speaker": "诺依",
+              "text": "我和居民解释风险，反对的人也可以申请防灾救助。"
+            },
+            {
+              "id": "ch060.opening.p15.l05",
+              "speaker": "主角",
+              "text": "一盏灯亮起来之前，得先知道是谁能把它关掉。"
+            },
+            {
+              "id": "ch060.opening.l06",
+              "speaker": "主角",
+              "text": "把最重要的权利先写进协议，再启动网络。"
+            },
+            {
+              "id": "ch060.opening.l07",
+              "speaker": "旁白",
+              "text": "城里许多普通人带着自己的小灯来到中枢广场。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "群灯城·星灯中枢"
+            },
+            {
+              "type": "interact",
+              "target": "ch060.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch060.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "中枢无王座只有独立小灯",
+            "note": "纯文本演出",
+            "phase15_focus": "居民知情与退出权、供水和医疗最低保障",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
+          }
+        },
+        {
+          "id": "ch060.investigate",
+          "title": "寻找证据",
+          "trigger": {
+            "type": "interact",
+            "target": "ch060.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch060.investigate.l01",
+              "speaker": "旁白",
+              "text": "新灯网的图纸由赤炉工匠和旧议会档案共同修订，终于可以交由各区审核。"
+            },
+            {
+              "id": "ch060.investigate.l02",
+              "speaker": "维莎",
+              "text": "这不是更完美的中央控制，而是一套可以随时质疑的协议。"
+            },
+            {
+              "id": "ch060.investigate.l03",
+              "speaker": "缇珐",
+              "text": "每个节点都能隔离故障，不会再有人被迫献出记忆。"
+            },
+            {
+              "id": "ch060.investigate.l04",
+              "speaker": "雷索",
+              "text": "若军队想夺走全部线路呢？"
+            },
+            {
+              "id": "ch060.investigate.l05",
+              "speaker": "诺依",
+              "text": "各区有自己的备用路线，断开一个不会让所有人失去光。"
+            },
+            {
+              "id": "ch060.investigate.p15.l01",
+              "speaker": "赤炉学徒",
+              "text": "我们手里有第41章的旧图纸，可每条支路都在这里重新验算过。"
+            },
+            {
+              "id": "ch060.investigate.p15.l02",
+              "speaker": "缇珐",
+              "text": "十二区的隔离阀不能共用一把钥匙，任何一处故障都得能本地停机。"
+            },
+            {
+              "id": "ch060.investigate.p15.l03",
+              "speaker": "维莎",
+              "text": "旧议会的权限记录会公开，包括曾经偷偷提高取能额度的签名。"
+            },
+            {
+              "id": "ch060.investigate.p15.l04",
+              "speaker": "岚音",
+              "text": "医院的备电足够维持紧急治疗，再由值班医师确认切换窗口。"
+            },
+            {
+              "id": "ch060.investigate.p15.l05",
+              "speaker": "诺依",
+              "text": "先让社区审查图纸、提出异议，再按他们同意的顺序点灯。"
+            },
+            {
+              "id": "ch060.investigate.l06",
+              "speaker": "朔弦",
+              "text": "海歌船队愿意供给航标记录，不索取独占费用。"
+            },
+            {
+              "id": "ch060.investigate.l07",
+              "speaker": "主角",
+              "text": "那就让居民决定什么时候亮起第一盏。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch060.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch060.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch060.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "公共图纸铺满桌子",
+            "note": "纯文本演出",
+            "phase15_focus": "第41章图纸经过审查正式变成可实施工程",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
+          }
+        },
+        {
+          "id": "ch060.crisis",
+          "title": "直面冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch060.crisis",
+            "requires_flags": [
+              "ch060.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch060.crisis.l01",
+              "speaker": "赤烬主力机",
+              "text": "未经终幕授权的灯网将被清除！"
+            },
+            {
+              "id": "ch060.crisis.l02",
+              "speaker": "库洛萨残响",
+              "text": "你们无法协调这么多人的决定。"
+            },
+            {
+              "id": "ch060.crisis.l03",
+              "speaker": "缇珐",
+              "text": "我们不需要每个决定都一样。"
+            },
+            {
+              "id": "ch060.crisis.l04",
+              "speaker": "雷索",
+              "text": "护城队守东门，居民撤到中枢后方。"
+            },
+            {
+              "id": "ch060.crisis.l05",
+              "speaker": "诺依",
+              "text": "不要让孩子们留在灯网接口旁。"
+            },
+            {
+              "id": "ch060.crisis.p15.l01",
+              "speaker": "赤烬机兵",
+              "text": "侦测到未经批准的独立控制节点，开始集中回收。"
+            },
+            {
+              "id": "ch060.crisis.p15.l02",
+              "speaker": "缇珐",
+              "text": "别把全部线路连回我这里！每区按隔离程序独立断开。"
+            },
+            {
+              "id": "ch060.crisis.p15.l03",
+              "speaker": "雷索",
+              "text": "护城队保护街口，撤离线别与维修队抢同一条路。"
+            },
+            {
+              "id": "ch060.crisis.p15.l04",
+              "speaker": "诺依",
+              "text": "西区先护住孩子，东区把临时灯送往诊所，谁也不必等待英雄口令。"
+            },
+            {
+              "id": "ch060.crisis.p15.l05",
+              "speaker": "主角",
+              "text": "一处失联先隔离，再从其他区报平安。不能为了救灯牺牲居民。"
+            },
+            {
+              "id": "ch060.crisis.l06",
+              "speaker": "维莎",
+              "text": "有些节点可能失效，但新网络会自动隔离损坏部分。"
+            },
+            {
+              "id": "ch060.crisis.l07",
+              "speaker": "主角",
+              "text": "就算一盏灯熄了，也不该让所有人跟着黑下去。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch060.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch060.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch060.choice",
+            "prompt": "群灯网初次启动应采取什么方案？",
+            "options": [
+              {
+                "id": "hear",
+                "label": "先由社区代表确认自愿接入，再逐区亮灯",
+                "sets": {
+                  "ch060.approach": "community",
+                  "world.ch060.approach": "community"
+                }
+              },
+              {
+                "id": "protect",
+                "label": "先独立启动医院与疏散所的备用节点",
+                "sets": {
+                  "ch060.approach": "emergency_nodes",
+                  "world.ch060.approach": "emergency_nodes"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch060",
+            "display_name": "赤烬主力机",
+            "win_flag": "ch060.battle_won",
+            "recommended_level": 75
+          },
+          "direction": {
+            "shot": "战争机甲与居民小灯形成对照",
+            "note": "纯文本演出",
+            "phase15_focus": "独立隔离而非中心英雄控制，保护撤离路线",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
+          }
+        },
+        {
+          "id": "ch060.resolve",
+          "title": "本章尾声",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch060.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch060.resolve.l01",
+              "speaker": "旁白",
+              "text": "第一盏小灯亮起，之后是第二盏、第三盏，最终蔓延为千家灯火。"
+            },
+            {
+              "id": "ch060.resolve.l02",
+              "speaker": "缇珐",
+              "text": "每个节点的功率都很小，却没有一个人必须独自承担全部。"
+            },
+            {
+              "id": "ch060.resolve.l03",
+              "speaker": "维莎",
+              "text": "系统不是无误，但它允许人们知道发生了什么。"
+            },
+            {
+              "id": "ch060.resolve.l04",
+              "speaker": "岚音",
+              "text": "医院稳定，避难所也接通了备用电。"
+            },
+            {
+              "id": "ch060.resolve.l05",
+              "speaker": "诺依",
+              "text": "这一次城市不是由一个英雄点亮的。"
+            },
+            {
+              "id": "ch060.resolve.p15.l01",
+              "speaker": "社区电工",
+              "text": "南区有一家选择不接入，水泵照样获得公共检修。"
+            },
+            {
+              "id": "ch060.resolve.p15.l02",
+              "speaker": "维莎",
+              "text": "今晚还有两条支路需要复查，我会把问题挂到公开看板上。"
+            },
+            {
+              "id": "ch060.resolve.p15.l03",
+              "speaker": "缇珐",
+              "text": "现在故障会被隔离，也不需要任何人的记忆充当燃料。"
+            },
+            {
+              "id": "ch060.resolve.p15.l04",
+              "speaker": "诺依",
+              "text": "大家把自己能拿得稳的小灯点起来，这才是我们一起建的城。"
+            },
+            {
+              "id": "ch060.resolve.p15.l05",
+              "speaker": "主角",
+              "text": "我们终于能向天轨出发，但下次灯坏了，城里的人不必等我们回来。"
+            },
+            {
+              "id": "ch060.resolve.l06",
+              "speaker": "主角",
+              "text": "它属于愿意一起守护的人。"
+            },
+            {
+              "id": "ch060.resolve.l07",
+              "speaker": "旁白",
+              "text": "第十幕结束。群灯之城成功建成自愿分散式灯网，众人准备前往天轨圣域。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch060"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch060.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 2500,
+              "gold": 880
+            },
+            {
+              "type": "set_flag",
+              "key": "world.distributed_network",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "千灯分别点亮，保留各自亮度",
+            "note": "纯文本演出",
+            "phase15_focus": "第60章resolve才授予world.distributed_network且留持续维护责任",
+            "phase15_distributed_network_contract": "world.distributed_network is granted only at ch060.resolve on successful chapter completion. Does not substitute for world.all_twelve_pages, world.seven_lanterns or full ending C eligibility."
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch060.started",
+          "speaker": "路人",
+          "text": "听说这里又有不寻常的事发生了。"
+        },
+        {
+          "condition": "story.ch060.done",
+          "speaker": "路人",
+          "text": "以后再说起群灯城·星灯中枢，人们应该不会忘记今天。"
+        }
+      ],
+      "notes": "完整章节节点与首轮正式对白，后续仍需扩写演出、城市NPC、分支及生活任务。",
+      "script_revision": "act10_dialogue_v2",
+      "phase15_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20
+      }
+    }
+  ],
+  "dialogue_revision": "act10_dialogue_v2",
+  "phase15_revision": {
+    "date": "2026-10-25",
+    "scope": "ch055_ch060",
+    "new_lines": 120,
+    "original_lines": 167,
+    "status": "narrative_pass_only_not_runtime_bound",
+    "policy": "stable original ids, triggers, choice, rewards untouched"
+  }
+}

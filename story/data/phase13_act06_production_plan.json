@@ -1,0 +1,608 @@
+{
+  "schema": "starlit.story.phase13.act06.production_plan.v1",
+  "status": "production_design_only_not_runtime_bound",
+  "date": "2026-10-25",
+  "scope": "ch031_ch036",
+  "notes": "12场可选生活调查、12组选项回应与6类独立镜眠关卡玩法，均是编剧/关卡制作规格；原4场章节事件链未改变，所有无坐标目标未在Godot注册。",
+  "event_plan": [
+    {
+      "id": "ch031.p13.town",
+      "chapter_id": "ch031",
+      "optional_scene_id": "ch031.p13.town",
+      "location_hint": "镜眠王都·日轮街",
+      "object_name": "第六次开花的花摊",
+      "player_actions": [
+        "向花贩与小男孩询问连续两天见面经过",
+        "压存一片重复出现的花瓣，给它写下真实观察时刻",
+        "将证言分为重复台词和能自行改变的行动"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch031.opening",
+        "required_flags": [
+          "ch031.started"
+        ],
+        "without_flags": [
+          "ch031.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch031.p13.evidence",
+      "chapter_id": "ch031",
+      "optional_scene_id": "ch031.p13.evidence",
+      "location_hint": "镜眠王都·日轮街",
+      "object_name": "旅馆九页同日账簿",
+      "player_actions": [
+        "翻看九页同日旅馆账本与不同客人的笔迹",
+        "沿楼梯磨痕和北门修墙痕迹追踪非循环变化",
+        "在不强制居民公开隐私的条件下记录异常证据"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch031.investigate",
+        "required_flags": [
+          "ch031.evidence"
+        ],
+        "without_flags": [
+          "ch031.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch032.p13.town",
+      "chapter_id": "ch032",
+      "optional_scene_id": "ch032.p13.town",
+      "location_hint": "镜宫回廊",
+      "object_name": "映世晚餐的空椅",
+      "player_actions": [
+        "向孩子询问映世晚餐有哪些真实记忆和期待",
+        "允许孩子主动更改桌上菜品，观察镜室是否尊重新选择",
+        "与姨妈的留声信核对沟通意愿而不指认镜中死者为真人"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch032.opening",
+        "required_flags": [
+          "ch032.started"
+        ],
+        "without_flags": [
+          "ch032.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch032.p13.evidence",
+      "chapter_id": "ch032",
+      "optional_scene_id": "ch032.p13.evidence",
+      "location_hint": "镜宫回廊",
+      "object_name": "向内开启的镜门锁",
+      "player_actions": [
+        "检查镜门从内侧是否存在退出把手",
+        "分辨使用者退出按钮和管理员封锁线路",
+        "设置由使用者本人控制的安全离开信号"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch032.investigate",
+        "required_flags": [
+          "ch032.evidence"
+        ],
+        "without_flags": [
+          "ch032.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch033.p13.town",
+      "chapter_id": "ch033",
+      "optional_scene_id": "ch033.p13.town",
+      "location_hint": "七重梦庭",
+      "object_name": "七重梦庭的归途绳",
+      "player_actions": [
+        "在梦庭入口布置七个可识别的回程结",
+        "让伙伴轮流陈述是否需要休息或暂时保持沉默",
+        "不进入未取得本人同意的私人梦境"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch033.opening",
+        "required_flags": [
+          "ch033.started"
+        ],
+        "without_flags": [
+          "ch033.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch033.p13.evidence",
+      "chapter_id": "ch033",
+      "optional_scene_id": "ch033.p13.evidence",
+      "location_hint": "七重梦庭",
+      "object_name": "没有署名的另一封信",
+      "player_actions": [
+        "查看来自另一种可能的未寄信，不把它判作正史",
+        "分别记录雷索、朔弦、岚音所见与他们现实中的选择",
+        "在入口绳标示回头方向，不要求通关所有幻象"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch033.investigate",
+        "required_flags": [
+          "ch033.evidence"
+        ],
+        "without_flags": [
+          "ch033.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch034.p13.town",
+      "chapter_id": "ch034",
+      "optional_scene_id": "ch034.p13.town",
+      "location_hint": "映世·无名剧场",
+      "object_name": "无名剧场最后一排",
+      "player_actions": [
+        "倾听玄璃谈自己第一次自主改词的经历",
+        "与剧场管理员核对回收制度的历史变更",
+        "让玄璃自己决定是否继续观看旧演出"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch034.opening",
+        "required_flags": [
+          "ch034.started"
+        ],
+        "without_flags": [
+          "ch034.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch034.p13.evidence",
+      "chapter_id": "ch034",
+      "optional_scene_id": "ch034.p13.evidence",
+      "location_hint": "映世·无名剧场",
+      "object_name": "回收档案中的自主改词",
+      "player_actions": [
+        "找到自主改词被标为故障的原始记录",
+        "检查回收装置为何没有拒绝选项",
+        "停止紧迫回收后由玄璃亲自说明姓名与去向"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch034.investigate",
+        "required_flags": [
+          "ch034.evidence"
+        ],
+        "without_flags": [
+          "ch034.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch035.p13.town",
+      "chapter_id": "ch035",
+      "optional_scene_id": "ch035.p13.town",
+      "location_hint": "镜眠王都·疗养院",
+      "object_name": "疗养院第二只茶杯",
+      "player_actions": [
+        "向老人确认第二只茶杯是否带来安慰或实际困难",
+        "与护士比较过去几天独立醒转时长",
+        "尊重老人自行决定何时整理空椅"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch035.opening",
+        "required_flags": [
+          "ch035.started"
+        ],
+        "without_flags": [
+          "ch035.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch035.p13.evidence",
+      "chapter_id": "ch035",
+      "optional_scene_id": "ch035.p13.evidence",
+      "location_hint": "镜眠王都·疗养院",
+      "object_name": "逐步醒转的值班记录",
+      "player_actions": [
+        "核对病床、值班医生与醒转可能风险",
+        "将强制同时醒转改为建议分批计划供本人选择",
+        "为梦门设置明确可撤回的短眠登记流程"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch035.investigate",
+        "required_flags": [
+          "ch035.evidence"
+        ],
+        "without_flags": [
+          "ch035.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch036.p13.town",
+      "chapter_id": "ch036",
+      "optional_scene_id": "ch036.p13.town",
+      "location_hint": "镜眠母灯深处",
+      "object_name": "母灯外没有倒影的水池",
+      "player_actions": [
+        "对比母灯外水池的假反射与真实物体回馈",
+        "观察反射是否会随个人行动改变",
+        "在操作核心前确认安全行走与撤离位置"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch036.opening",
+        "required_flags": [
+          "ch036.started"
+        ],
+        "without_flags": [
+          "ch036.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch036.p13.evidence",
+      "chapter_id": "ch036",
+      "optional_scene_id": "ch036.p13.evidence",
+      "location_hint": "镜眠母灯深处",
+      "object_name": "独立出口与中央锁控",
+      "player_actions": [
+        "把每扇梦门独立退出线路与中央锁控进行比对",
+        "确认医疗设备与个人退出不必相互排斥",
+        "逐个测试本人退出开关，不新增强制剧情旗标"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch036.investigate",
+        "required_flags": [
+          "ch036.evidence"
+        ],
+        "without_flags": [
+          "ch036.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No effect on existing stage or award",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch031.p13.choice.listen",
+      "chapter_id": "ch031",
+      "after_choice_id": "ch031.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch031.approach": "consent",
+        "world.ch031.approach": "consent"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch031.p13.choice.act",
+      "chapter_id": "ch031",
+      "after_choice_id": "ch031.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch031.approach": "care",
+        "world.ch031.approach": "care"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch032.p13.choice.listen",
+      "chapter_id": "ch032",
+      "after_choice_id": "ch032.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch032.approach": "family",
+        "world.ch032.approach": "family"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch032.p13.choice.act",
+      "chapter_id": "ch032",
+      "after_choice_id": "ch032.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch032.approach": "anchor",
+        "world.ch032.approach": "anchor"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch033.p13.choice.listen",
+      "chapter_id": "ch033",
+      "after_choice_id": "ch033.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch033.approach": "share",
+        "world.ch033.approach": "share"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch033.p13.choice.act",
+      "chapter_id": "ch033",
+      "after_choice_id": "ch033.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch033.approach": "space",
+        "world.ch033.approach": "space"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch034.p13.choice.listen",
+      "chapter_id": "ch034",
+      "after_choice_id": "ch034.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch034.approach": "self_voice",
+        "world.ch034.approach": "self_voice"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch034.p13.choice.act",
+      "chapter_id": "ch034",
+      "after_choice_id": "ch034.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch034.approach": "register",
+        "world.ch034.approach": "register"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch035.p13.choice.listen",
+      "chapter_id": "ch035",
+      "after_choice_id": "ch035.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch035.approach": "gradual",
+        "world.ch035.approach": "gradual"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch035.p13.choice.act",
+      "chapter_id": "ch035",
+      "after_choice_id": "ch035.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch035.approach": "oversight",
+        "world.ch035.approach": "oversight"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch036.p13.choice.listen",
+      "chapter_id": "ch036",
+      "after_choice_id": "ch036.choice",
+      "choice_option_id": "listen",
+      "condition": {
+        "ch036.approach": "exit_first",
+        "world.ch036.approach": "exit_first"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch036.p13.choice.act",
+      "chapter_id": "ch036",
+      "after_choice_id": "ch036.choice",
+      "choice_option_id": "act",
+      "condition": {
+        "ch036.approach": "medical_first",
+        "world.ch036.approach": "medical_first"
+      },
+      "insertion": "after_saved_choice_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    }
+  ],
+  "puzzle_design": {
+    "ch031_day_repeat": {
+      "status": "design_only",
+      "beats": [
+        "核对连续三天街口花瓣、旅馆九页账簿和北门新墙",
+        "依可证伪线索找出循环之外仍改变的事项",
+        "让居民知情后选择是否继续待在梦中"
+      ],
+      "guard": "不能将不记得昨天等同自愿；不强制花贩打开女儿的信"
+    },
+    "ch032_mirror_gate": {
+      "status": "design_only",
+      "beats": [
+        "镜门外观向内关锁，玩家比较使用者开关与管理员回路",
+        "先听孩子需求并通过可靠监护人建立联系",
+        "恢复从内侧可主动退出、重返与暂停的锚点"
+      ],
+      "guard": "映世幻想家人不是真死者复活；玄璃只以自主意识协作，尚未正式入队"
+    },
+    "ch033_seven_paths": {
+      "status": "design_only",
+      "route_markers": 7,
+      "beats": [
+        "为七条可能人生准备可认出的回程结",
+        "玩家可选择只看一部分伙伴愿意公开的记忆",
+        "不给玩家任务奖励来惩罚选择跳过私密遗憾"
+      ],
+      "guard": "七条道路是可选演出构想，不新增7个必须完成的正式主线旗标"
+    },
+    "ch034_identity_and_exit": {
+      "status": "design_only",
+      "beats": [
+        "确认所谓错误台词确为玄璃主动改写",
+        "在回收系统中发现缺少有效拒绝选项",
+        "玄璃亲自否决回收并决定姓名、是否同行"
+      ],
+      "guard": "玄璃正式加入只在ch034.resolve；勿提前触发战斗队员状态"
+    },
+    "ch035_medical_aftercare": {
+      "status": "design_only",
+      "beats": [
+        "将睡眠时长、重症护理风险与自愿程度分栏",
+        "对每个居民设置可撤回的醒转时段与陪护",
+        "保留安全的自愿短眠而非全面永久关闭梦室"
+      ],
+      "guard": "治疗的暂时波动不视为道德失败；不得把强制醒转塑造成唯一正解"
+    },
+    "ch036_lamp_protocol": {
+      "status": "design_only",
+      "beats": [
+        "检查旧版个人退出与后加的中央强制锁控",
+        "在不中断医护服务下逐个恢复自主退出",
+        "告知共同维护与复核负责人"
+      ],
+      "guard": "镜眠灯不是许愿机，不能复活真实死者；不新建结局C硬门槛"
+    }
+  }
+}

@@ -1,0 +1,688 @@
+{
+  "schema": "starlit.story.phase10.act03.production_contract.v1",
+  "date": "2026-10-25",
+  "status": "production_design_only_not_runtime_bound",
+  "chapters": "ch013_ch018",
+  "notes": "本文件提供文本场景的推荐玩家操作、地图槽位、8基础职业试炼和4供能阀门导演方案。它不注册地图实体或更改转职/战斗引擎。",
+  "event_plan": [
+    {
+      "id": "ch013.p10.town",
+      "optional_scene_id": "ch013.p10.town",
+      "chapter_id": "ch013",
+      "location_hint": "七号矿坑井口",
+      "physical_target": "工牌旁的午饭盒",
+      "player_actions": [
+        "查看饭盒上的姓名刻痕",
+        "征得妻子同意，拓印字迹",
+        "向工友确认班次和家属关系"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch013.opening",
+        "required_flags": [
+          "ch013.started"
+        ],
+        "without_flags": [
+          "ch013.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_opening_and_investigate",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch013.p10.evidence",
+      "optional_scene_id": "ch013.p10.evidence",
+      "chapter_id": "ch013",
+      "location_hint": "七号矿坑断电记录桌",
+      "physical_target": "断电后的矿车纸带",
+      "player_actions": [
+        "读取断电前后矿车纸带",
+        "与井口实际时刻和载重记录比对",
+        "将无法确认的人工作业标为待查"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch013.investigate",
+        "required_flags": [
+          "ch013.evidence"
+        ],
+        "without_flags": [
+          "ch013.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_investigate_and_crisis",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch014.p10.town",
+      "optional_scene_id": "ch014.p10.town",
+      "chapter_id": "ch014",
+      "location_hint": "赤炉工坊工作台",
+      "physical_target": "烧凉的邻居晚饭",
+      "player_actions": [
+        "与工坊邻居交谈",
+        "协助清理带电工作台",
+        "停止可能让录音外放的扬声器"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch014.opening",
+        "required_flags": [
+          "ch014.started"
+        ],
+        "without_flags": [
+          "ch014.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_opening_and_investigate",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch014.p10.evidence",
+      "optional_scene_id": "ch014.p10.evidence",
+      "chapter_id": "ch014",
+      "location_hint": "赤炉工坊电路图架",
+      "physical_target": "底层图纸上的新接口",
+      "player_actions": [
+        "对照原始电路图和改造图",
+        "追踪新增输入端的采购与审批记录",
+        "在家属同意前封存原始音频"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch014.investigate",
+        "required_flags": [
+          "ch014.evidence"
+        ],
+        "without_flags": [
+          "ch014.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_investigate_and_crisis",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch015.p10.town",
+      "optional_scene_id": "ch015.p10.town",
+      "chapter_id": "ch015",
+      "location_hint": "百工塔公共测试台",
+      "physical_target": "没有行会印章的矿灯",
+      "player_actions": [
+        "与没有资格证的学徒交谈",
+        "检查矿灯安全与培训缺口",
+        "核实推荐资格与实操能力是否分开"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch015.opening",
+        "required_flags": [
+          "ch015.started"
+        ],
+        "without_flags": [
+          "ch015.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_opening_and_investigate",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch015.p10.evidence",
+      "optional_scene_id": "ch015.p10.evidence",
+      "chapter_id": "ch015",
+      "location_hint": "百工塔八室公共评审屏",
+      "physical_target": "八室共用的试炼台",
+      "player_actions": [
+        "阅读八试炼室旧评分表",
+        "恢复测试中的安全检查和互评栏",
+        "指出终身效忠条款非原始规定"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch015.investigate",
+        "required_flags": [
+          "ch015.evidence"
+        ],
+        "without_flags": [
+          "ch015.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_investigate_and_crisis",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch016.p10.town",
+      "optional_scene_id": "ch016.p10.town",
+      "chapter_id": "ch016",
+      "location_hint": "灰砂安置区家属棚",
+      "physical_target": "缝进袖口的名字",
+      "player_actions": [
+        "查看缝入袖口的姓名",
+        "记录家属允许公开的资料",
+        "将私人联系方式与公开信息分开"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch016.opening",
+        "required_flags": [
+          "ch016.started"
+        ],
+        "without_flags": [
+          "ch016.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_opening_and_investigate",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch016.p10.evidence",
+      "optional_scene_id": "ch016.p10.evidence",
+      "chapter_id": "ch016",
+      "location_hint": "灰砂安置区档案窗口",
+      "physical_target": "双份名册上的缺号",
+      "player_actions": [
+        "对照官方名册和居民抄本",
+        "分类重复、缺失、搬迁与未核实姓名",
+        "要求当事人有权复查和更正"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch016.investigate",
+        "required_flags": [
+          "ch016.evidence"
+        ],
+        "without_flags": [
+          "ch016.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_investigate_and_crisis",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch017.p10.town",
+      "optional_scene_id": "ch017.p10.town",
+      "chapter_id": "ch017",
+      "location_hint": "城南医院应急值班室",
+      "physical_target": "医院备用电池清单",
+      "player_actions": [
+        "核实医院最低用电设备",
+        "记录备用电池输出与值班人员",
+        "把可能停电的时段告知医疗队"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch017.opening",
+        "required_flags": [
+          "ch017.started"
+        ],
+        "without_flags": [
+          "ch017.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_opening_and_investigate",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch017.p10.evidence",
+      "optional_scene_id": "ch017.p10.evidence",
+      "chapter_id": "ch017",
+      "location_hint": "赤炉主炉四回路控制台",
+      "physical_target": "被新螺钉盖住的回流线",
+      "player_actions": [
+        "找出炮口与医院回流线交叉的位置",
+        "请技师确认四条线路各自用途",
+        "标记未知断电后果并确定撤离路径"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch017.investigate",
+        "required_flags": [
+          "ch017.evidence"
+        ],
+        "without_flags": [
+          "ch017.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_investigate_and_crisis",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch018.p10.town",
+      "optional_scene_id": "ch018.p10.town",
+      "chapter_id": "ch018",
+      "location_hint": "赤炉社区供电试点街",
+      "physical_target": "低功率社区灯排",
+      "player_actions": [
+        "走访可共享低功率线路的工坊",
+        "说明自愿停工与维修责任",
+        "记录重症照护与用水的最低需求"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch018.opening",
+        "required_flags": [
+          "ch018.started"
+        ],
+        "without_flags": [
+          "ch018.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_opening_and_investigate",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch018.p10.evidence",
+      "optional_scene_id": "ch018.p10.evidence",
+      "chapter_id": "ch018",
+      "location_hint": "炉心旧签名档案库",
+      "physical_target": "被替换的社区签名表",
+      "player_actions": [
+        "比对初版社区接线签名和中央收集印章",
+        "登记改造审批和私密数据的保管人",
+        "公示设备问题而不公开个人记忆"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch018.investigate",
+        "required_flags": [
+          "ch018.evidence"
+        ],
+        "without_flags": [
+          "ch018.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_stage": "between_investigate_and_crisis",
+      "on_skip": "no changes to existing mainline objective or reward",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch013.p10.choice.listen",
+      "chapter_id": "ch013",
+      "after_choice_id": "ch013.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch013.approach": "rescue",
+        "world.ch013.approach": "rescue"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch013.p10.choice.act",
+      "chapter_id": "ch013",
+      "after_choice_id": "ch013.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch013.approach": "evidence",
+        "world.ch013.approach": "evidence"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch014.p10.choice.listen",
+      "chapter_id": "ch014",
+      "after_choice_id": "ch014.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch014.approach": "family_copy",
+        "world.ch014.approach": "family_copy"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch014.p10.choice.act",
+      "chapter_id": "ch014",
+      "after_choice_id": "ch014.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch014.approach": "medical_seal",
+        "world.ch014.approach": "medical_seal"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch015.p10.choice.listen",
+      "chapter_id": "ch015",
+      "after_choice_id": "ch015.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch015.approach": "guild",
+        "world.ch015.approach": "guild"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch015.p10.choice.act",
+      "chapter_id": "ch015",
+      "after_choice_id": "ch015.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch015.approach": "open_class",
+        "world.ch015.approach": "open_class"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch016.p10.choice.listen",
+      "chapter_id": "ch016",
+      "after_choice_id": "ch016.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch016.approach": "hospital_first",
+        "world.ch016.approach": "hospital_first"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch016.p10.choice.act",
+      "chapter_id": "ch016",
+      "after_choice_id": "ch016.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch016.approach": "timeline_first",
+        "world.ch016.approach": "timeline_first"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch017.p10.choice.listen",
+      "chapter_id": "ch017",
+      "after_choice_id": "ch017.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch017.approach": "hospital_backup",
+        "world.ch017.approach": "hospital_backup"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch017.p10.choice.act",
+      "chapter_id": "ch017",
+      "after_choice_id": "ch017.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch017.approach": "weapon_lock",
+        "world.ch017.approach": "weapon_lock"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch018.p10.choice.listen",
+      "chapter_id": "ch018",
+      "after_choice_id": "ch018.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch018.approach": "victim_oversight",
+        "world.ch018.approach": "victim_oversight"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    },
+    {
+      "id": "ch018.p10.choice.act",
+      "chapter_id": "ch018",
+      "after_choice_id": "ch018.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch018.approach": "energy_transparency",
+        "world.ch018.approach": "energy_transparency"
+      },
+      "one_time": true,
+      "delivery": "after_choice_commit_before_encounter_or_resolve",
+      "runtime_registered": false
+    }
+  ],
+  "major_setpiece_design": {
+    "ch015_eight_class_trials": {
+      "status": "narrative_and_level_design_only",
+      "note": "第15章现有主线正文声称八项试炼已完成；此处补齐各试炼的可制作操作与安全边界，不宣称八个独立副本或转职技能运行已实现。游戏正式解锁条件仍以现有章节通关逻辑为准。",
+      "base_jobs": [
+        {
+          "id": "swordsman",
+          "name": "剑士",
+          "trial_id": "ch015.trial.01",
+          "player_action": "根据敌人的攻击前摇选择进攻窗口，避免无意义的伤害",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "guardian",
+          "name": "守卫",
+          "trial_id": "ch015.trial.02",
+          "player_action": "在伤者身前建立防线，并为同伴留下撤离通道",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "monk",
+          "name": "武斗家",
+          "trial_id": "ch015.trial.03",
+          "player_action": "在有限体力下完成连招，学会在受伤前停止",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "ranger",
+          "name": "游侠",
+          "trial_id": "ch015.trial.04",
+          "player_action": "辨识三种路标，规划最快且安全的返回路线",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "healer",
+          "name": "祷愈师",
+          "trial_id": "ch015.trial.05",
+          "player_action": "用有限药品处理轻伤与急症并说明取舍",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "mage",
+          "name": "秘术师",
+          "trial_id": "ch015.trial.06",
+          "player_action": "观察元素相性，选择不会殃及旁人的施法方式",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "engineer",
+          "name": "机关师",
+          "trial_id": "ch015.trial.07",
+          "player_action": "诊断模拟传动故障，先切电再维修",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        },
+        {
+          "id": "bard",
+          "name": "吟游者",
+          "trial_id": "ch015.trial.08",
+          "player_action": "记录被遗忘矿工的名字，以歌曲传给下一位见证者",
+          "scoring": [
+            "基本操作正确",
+            "保护或支援能力",
+            "安全与伦理判断"
+          ],
+          "failure_retry": "允许重试且不锁主线",
+          "required_to_unlock_in_text": "通过八类基础技艺档案开放的公开评审，不在此资源添加新的硬flag"
+        }
+      ]
+    },
+    "ch017_four_valves": {
+      "status": "narrative_and_level_design_only",
+      "valves": [
+        {
+          "id": "weapon",
+          "display": "炮口线",
+          "action": "锁住炮口并监视回流压强",
+          "hazard": "有可能影响共线医疗系统"
+        },
+        {
+          "id": "defense",
+          "display": "城防线",
+          "action": "确认疏散道路安全与城防系统隔离",
+          "hazard": "关闭过早可能暴露居民"
+        },
+        {
+          "id": "medical",
+          "display": "医院线",
+          "action": "保留最低救命功率与手动供氧预案",
+          "hazard": "供电短暂不足危及重症患者"
+        },
+        {
+          "id": "civilian",
+          "display": "居民线",
+          "action": "安排低压过渡和供水保障",
+          "hazard": "无预案将使部分社区停电停水"
+        }
+      ],
+      "role_allocation": {
+        "缇珐": "测量压力与技术方案",
+        "岚音": "病人优先级与医疗风险",
+        "雷索": "撤离、军方干扰与护卫",
+        "朔弦": "应急电池的运输路线",
+        "主角": "公开选择与协调"
+      },
+      "rules": "四阀门是演出/探索候选，不擅自增加四个主线任务条件；原ch017.choice仍是唯一硬选择节点"
+    }
+  }
+}

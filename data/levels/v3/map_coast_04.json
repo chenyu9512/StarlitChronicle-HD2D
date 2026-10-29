@@ -1,0 +1,437 @@
+{
+  "schema_version": 3,
+  "map_id": "map_coast_04",
+  "title": "潮声洞窟",
+  "biome": "coastal",
+  "category": "dungeon",
+  "design_intent": "两层环状海蚀洞、中央潮潭与五处可辨认的洞室；分支宝箱、三座潮阀和Boss保持原坐标。",
+  "size": [
+    100,
+    60
+  ],
+  "roads": [
+    {
+      "id": "cave-upper-outer-ring",
+      "width": 0,
+      "points": [
+        [
+          6,
+          27
+        ],
+        [
+          10,
+          23
+        ],
+        [
+          17,
+          10
+        ],
+        [
+          33,
+          9
+        ],
+        [
+          46,
+          11
+        ],
+        [
+          57,
+          16
+        ],
+        [
+          73,
+          18
+        ],
+        [
+          92,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "cave-lower-outer-ring",
+      "width": 0,
+      "points": [
+        [
+          10,
+          23
+        ],
+        [
+          13,
+          34
+        ],
+        [
+          29,
+          37
+        ],
+        [
+          42,
+          41
+        ],
+        [
+          52,
+          36
+        ],
+        [
+          69,
+          33
+        ],
+        [
+          73,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "cave-middle-valve-ring",
+      "width": 0,
+      "points": [
+        [
+          17,
+          10
+        ],
+        [
+          19,
+          14
+        ],
+        [
+          33,
+          19
+        ],
+        [
+          53,
+          16
+        ],
+        [
+          61,
+          25
+        ],
+        [
+          54,
+          36
+        ],
+        [
+          29,
+          37
+        ],
+        [
+          24,
+          23
+        ],
+        [
+          19,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "cave-crystal-stalactite-bridge",
+      "width": 0,
+      "points": [
+        [
+          33,
+          9
+        ],
+        [
+          39,
+          17
+        ],
+        [
+          45,
+          25
+        ],
+        [
+          53,
+          29
+        ],
+        [
+          52,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "cave-relic-side-vault",
+      "width": 0,
+      "points": [
+        [
+          13,
+          34
+        ],
+        [
+          19,
+          40
+        ],
+        [
+          29,
+          44
+        ],
+        [
+          37,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "cave-boss-deep-approach",
+      "width": 0,
+      "points": [
+        [
+          53,
+          16
+        ],
+        [
+          63,
+          20
+        ],
+        [
+          72,
+          25
+        ],
+        [
+          78,
+          26
+        ],
+        [
+          92,
+          24
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "cave-stalactite-northern-wall",
+      "width": 2,
+      "points": [
+        [
+          20,
+          4
+        ],
+        [
+          37,
+          4
+        ],
+        [
+          60,
+          4
+        ],
+        [
+          78,
+          5
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "cave-central-tide-pool",
+      "width": 2,
+      "points": [
+        [
+          35,
+          24
+        ],
+        [
+          40,
+          26
+        ],
+        [
+          44,
+          24
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "cave-southeast-collapse",
+      "width": 2,
+      "points": [
+        [
+          66,
+          44
+        ],
+        [
+          74,
+          49
+        ],
+        [
+          88,
+          51
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "cave-middle-glowing-tide",
+      "width": 2,
+      "points": [
+        [
+          36,
+          27
+        ],
+        [
+          43,
+          28
+        ],
+        [
+          49,
+          29
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "cave-south-deep-current",
+      "width": 1,
+      "points": [
+        [
+          58,
+          43
+        ],
+        [
+          64,
+          46
+        ],
+        [
+          70,
+          48
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "cave-outer-entry",
+      "center": [
+        10,
+        23
+      ],
+      "radius": 3
+    },
+    {
+      "id": "cave-upper-valve",
+      "center": [
+        19,
+        14
+      ],
+      "radius": 3
+    },
+    {
+      "id": "cave-second-valve",
+      "center": [
+        53,
+        16
+      ],
+      "radius": 3
+    },
+    {
+      "id": "cave-third-valve",
+      "center": [
+        54,
+        36
+      ],
+      "radius": 3
+    },
+    {
+      "id": "cave-boss-stage",
+      "center": [
+        52,
+        27
+      ],
+      "radius": 4
+    },
+    {
+      "id": "cave-optional-relic",
+      "center": [
+        29,
+        37
+      ],
+      "radius": 2
+    },
+    {
+      "id": "expansion-court-map_coast_04",
+      "center": [
+        90,
+        51
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "cave-ancient-seal",
+      "cell": [
+        33,
+        9
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "cave-crystal-altar",
+      "cell": [
+        45,
+        25
+      ],
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "cave-depth-sign",
+      "cell": [
+        74,
+        25
+      ],
+      "kind": "sign"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        96,
+        56
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        96,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 7,
+  "expansion_nodes": [
+    {
+      "cell": [
+        91,
+        15
+      ],
+      "kind": "beacon",
+      "name": "盐风观潮·潮声洞窟"
+    },
+    {
+      "cell": [
+        89,
+        50
+      ],
+      "kind": "sign",
+      "name": "滩涂哨台·潮声洞窟"
+    },
+    {
+      "cell": [
+        69,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "海湾灯台·潮声洞窟"
+    }
+  ],
+  "layout_identity": "act01.v6.sea_cave.double_loop_valves",
+  "layout_principle": "从西侧洞口进入，沿外围洞室绕潮潭前进；内环连至三座潮阀，南侧回廊与深处Boss形成明显二环，不做一条直线。"
+}

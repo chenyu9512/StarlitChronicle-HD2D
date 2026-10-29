@@ -1,0 +1,467 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 8,
+  "map_id": "map_coast_02",
+  "building_id": "shelter",
+  "name": "白砂港·临潮收容所",
+  "status": "main2_shelter_six_dedicated_medical_assets_v5_pending_visual_signoff",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        17,
+        15,
+        55,
+        36
+      ]
+    },
+    {
+      "rect": [
+        21,
+        11,
+        52,
+        29
+      ]
+    },
+    {
+      "rect": [
+        30,
+        30,
+        40,
+        38
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        33,
+        12,
+        33,
+        16
+      ]
+    },
+    {
+      "rect": [
+        41,
+        12,
+        41,
+        16
+      ]
+    },
+    {
+      "rect": [
+        22,
+        16,
+        22,
+        19
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        32,
+        17,
+        32,
+        20
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        42,
+        22,
+        42,
+        25
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        50,
+        17,
+        50,
+        19
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        29,
+        36,
+        38
+      ]
+    }
+  ],
+  "points": {
+    "spawn": [
+      35,
+      33
+    ],
+    "exit": [
+      35,
+      36
+    ],
+    "service": [
+      24,
+      21
+    ],
+    "storage": [
+      48,
+      21
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        21
+      ],
+      "name": "收容所·病患登记台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        48,
+        21
+      ],
+      "name": "收容所·药品保管柜"
+    },
+    {
+      "kind": "medicine_basket",
+      "cell": [
+        27,
+        17
+      ],
+      "name": "收容所·退烧药盒"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        45,
+        18
+      ],
+      "name": "收容所·无名者行李"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        29,
+        26
+      ],
+      "name": "收容所·临时登记簿"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        49,
+        29
+      ],
+      "name": "收容所·安神盐草"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        23
+      ],
+      "name": "收容所·值班灯"
+    }
+  ],
+  "art_profile": "coast_act01_shelter_v1",
+  "art_tileset": "res://assets/art/runtime/act01_tavern_v2/tavern_wood_atlas.svg",
+  "visuals": [
+    {
+      "id": "admission_counter",
+      "asset": "medical_registration_counter",
+      "cell": [
+        24,
+        21
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        96,
+        70
+      ]
+    },
+    {
+      "id": "medicine_storage",
+      "asset": "shelter_medicine_cabinet",
+      "cell": [
+        48,
+        21
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        76,
+        102
+      ]
+    },
+    {
+      "id": "bedside_medicine",
+      "asset": "shelter_treatment_tray",
+      "cell": [
+        27,
+        17
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "icon": "medicine",
+      "footprint": [
+        89,
+        62
+      ]
+    },
+    {
+      "id": "washed_luggage",
+      "asset": "crate",
+      "cell": [
+        45,
+        18
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "icon": "paper"
+    },
+    {
+      "id": "public_patient_roster",
+      "asset": "sign",
+      "cell": [
+        29,
+        26
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "icon": "paper"
+    },
+    {
+      "id": "saltgrass_treatment",
+      "asset": "flowerpot",
+      "cell": [
+        49,
+        29
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "night_duty_lamp",
+      "asset": "star_lantern",
+      "cell": [
+        36,
+        23
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "linen_supply",
+      "asset": "shelter_linen_cart",
+      "cell": [
+        23,
+        26
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        88,
+        71
+      ]
+    },
+    {
+      "id": "medicine_reserve",
+      "asset": "shelter_medicine_cabinet",
+      "cell": [
+        51,
+        25
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "icon": "medicine",
+      "footprint": [
+        76,
+        102
+      ]
+    },
+    {
+      "id": "empty_bed_kit",
+      "asset": "shelter_cot",
+      "cell": [
+        44,
+        30
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        123,
+        80
+      ]
+    },
+    {
+      "id": "treatment_prep",
+      "asset": "treatment_bench",
+      "cell": [
+        38,
+        25
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        93,
+        55
+      ]
+    }
+  ],
+  "art_collision_cells": [],
+  "investigations": [
+    {
+      "id": "inspect_act01_shelter_1",
+      "kind": "medicine_basket",
+      "name": "当值药盒",
+      "cell": [
+        27,
+        17
+      ],
+      "first_text": "药盒边贴着收容床位号；第七号病床的姓名栏仍然空着，但每日的汤药剂量清楚。",
+      "repeat_text": "药师按日期补写了一条记录。",
+      "after_text": "护士把找回的名字写进床位卡，还保留着最初的空白登记。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_shelter_2",
+      "kind": "crate",
+      "name": "搁浅行囊",
+      "cell": [
+        45,
+        18
+      ],
+      "first_text": "一只湿透的行囊里没有身份证明，只有被海水磨圆的贝壳和一截写着归港日的绳结。",
+      "repeat_text": "贝壳安稳地放在干布上。",
+      "after_text": "行囊旁多了一张写有船员家乡的回执。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_shelter_3",
+      "kind": "sign",
+      "name": "临时名册",
+      "cell": [
+        29,
+        26
+      ],
+      "first_text": "名册按救援时间排列，几位水手的名字被人用铅笔划掉，旁边却留着不同的笔迹。",
+      "repeat_text": "几位病患的名字仍待本人确认。",
+      "after_text": "记录员抄了两份名册，一份送去港务处核对。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_shelter_4",
+      "kind": "flowerpot",
+      "name": "盐草安神盆",
+      "cell": [
+        49,
+        29
+      ],
+      "first_text": "盐草闻起来带着淡淡的海风；纸条写着先问清病患是否愿意闻，再靠近床边。",
+      "repeat_text": "安神盆的边缘留着细细水痕。",
+      "after_text": "收容所将同意与拒绝的照护记录也保存了下来。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    }
+  ],
+  "interior_owner_id": "npc_coast_05",
+  "interaction_revision": 1,
+  "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
+  "notes": "Main2 C-line: uses physically imported Act-I v14 PNG props and harbor terrain with live V4 entry, clues, service, lighting and occlusion. Original feature/inspection coordinates, player collision, quest flags and save behavior remain unchanged. Visual-semantic prototype; commercial final art/unique animation acceptance pending. Distinct four architectural partition rows are physically blocked, and all service, exit and four investigation positions pass 4-neighbor connectivity from spawn.",
+  "room_day_tint": "d9e1db",
+  "room_night_tint": "a2b0b2",
+  "light_sources": [
+    {
+      "id": "shelter_nurse_lamp",
+      "cell": [
+        24,
+        20
+      ],
+      "scale": 1.1,
+      "energy": 0.9
+    },
+    {
+      "id": "shelter_care_lamp",
+      "cell": [
+        47,
+        20
+      ],
+      "scale": 1,
+      "energy": 0.8
+    },
+    {
+      "id": "shelter_duty_lamp",
+      "cell": [
+        36,
+        24
+      ],
+      "scale": 1.25,
+      "energy": 0.8
+    }
+  ]
+}

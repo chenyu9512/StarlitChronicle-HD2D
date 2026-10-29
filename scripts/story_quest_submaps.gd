@@ -1,0 +1,111 @@
+extends RefCounted
+## Phase19-4: twelve canonical lost-page walkable interiors without replacing towns.
+const SOURCE: String = "res://story/data/phase19_lost_page_submaps.json"
+const LIFE_SOURCE: String = "res://story/data/phase19_life_submaps.json"
+const OTHER_SOURCE: String = "res://story/data/phase19_companion_regional_submaps.json"
+const LAYOUT_DIR: String = "res://data/levels/v4/interiors/"
+var entries: Dictionary = {}
+var life_entries: Dictionary = {}
+var other_entries: Dictionary = {}
+var errors: Array[String] = []
+
+func _init() -> void:
+    if not FileAccess.file_exists(SOURCE):
+        errors.append("lost-page submap manifest missing")
+        return
+    var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SOURCE))
+    if not (parsed is Dictionary):
+        errors.append("lost-page submap JSON invalid")
+        return
+    for row in parsed.get("quests",[]):
+        if not (row is Dictionary):
+            continue
+        var q: Dictionary = row
+        var quest_id: String = str(q.get("quest_id",""))
+        var map_id: String = str(q.get("map_id",""))
+        var interior_id: String = str(q.get("building_id",""))
+        if quest_id.is_empty() or entries.has(quest_id) or interior_id != "quest__"+quest_id:
+            errors.append("invalid quest room " + quest_id)
+            continue
+        if not FileAccess.file_exists(LAYOUT_DIR+"%s__%s.json" % [map_id,interior_id]):
+            errors.append("missing authored room geometry " + quest_id)
+            continue
+        entries[quest_id] = q
+    if entries.size()!=12:
+        errors.append("expected exactly twelve playable quest submaps")
+    if not FileAccess.file_exists(LIFE_SOURCE):
+        errors.append("life quest submaps missing")
+        return
+    var life_doc: Variant = JSON.parse_string(FileAccess.get_file_as_string(LIFE_SOURCE))
+    if not (life_doc is Dictionary):
+        errors.append("life quest submap format invalid")
+        return
+    for raw in life_doc.get("quests",[]):
+        if not (raw is Dictionary):
+            continue
+        var life: Dictionary = raw
+        var id: String = str(life.get("quest_id",""))
+        var map_id: String = str(life.get("map_id",""))
+        var building: String = str(life.get("building_id",""))
+        var path: String = LAYOUT_DIR+"%s__%s.json" % [map_id,building]
+        if id.is_empty() or life_entries.has(id) or entries.has(id) or building!="quest__"+id or not FileAccess.file_exists(path):
+            errors.append("invalid dedicated life room: "+id)
+            continue
+        life_entries[id] = life
+    if life_entries.size()!=19:
+        errors.append("expected nineteen canon indoor life sites")
+    if not FileAccess.file_exists(OTHER_SOURCE):
+        errors.append("companion/regional submaps missing")
+        return
+    var more: Variant = JSON.parse_string(FileAccess.get_file_as_string(OTHER_SOURCE))
+    if not (more is Dictionary):
+        errors.append("companion/regional submaps invalid")
+        return
+    var outdoor: Array = more.get("outdoor_preserved",[])
+    if outdoor.size()!=30:
+        errors.append("expected thirty genuine outdoor companion/regional sites")
+    for raw in more.get("quests",[]):
+        if not (raw is Dictionary):
+            continue
+        var room: Dictionary = raw
+        var id: String = str(room.get("quest_id",""))
+        var type: String = str(room.get("quest_type",""))
+        var building: String = str(room.get("building_id",""))
+        var map_id: String = str(room.get("map_id",""))
+        var room_path: String = LAYOUT_DIR+"%s__%s.json" % [map_id,building]
+        var invalid_room: bool = (
+            id.is_empty() or type not in ["companion","regional"]
+            or entries.has(id) or life_entries.has(id) or other_entries.has(id)
+            or building!="quest__"+id or not FileAccess.file_exists(room_path)
+        )
+        if invalid_room:
+            errors.append("invalid region/companion room "+id)
+            continue
+        other_entries[id]=room
+    if other_entries.size()!=54:
+        errors.append("expected 54 companion/regional indoor stages")
+
+func detail(quest_id: String) -> Dictionary:
+    return entries.get(quest_id,life_entries.get(quest_id,other_entries.get(quest_id,{})))
+
+func matches(quest_id: String,map_id: String,chapter: int) -> bool:
+    var data: Dictionary = detail(quest_id)
+    if data.is_empty() or str(data.get("map_id",""))!=map_id:
+        return false
+    return chapter >= int(str(data.get("open_chapter","ch999")).trim_prefix("ch"))
+
+func local(map_id: String,chapter: int) -> Array:
+    var results: Array = []
+    for quest_id in entries:
+        if matches(str(quest_id),map_id,chapter):
+            results.append(entries[quest_id])
+    for quest_id in life_entries:
+        if matches(str(quest_id),map_id,chapter):
+            results.append(life_entries[quest_id])
+    for quest_id in other_entries:
+        if matches(str(quest_id),map_id,chapter):
+            results.append(other_entries[quest_id])
+    return results
+
+func room_name(quest_id: String) -> String:
+    return str(detail(quest_id).get("interior_name","调查室"))

@@ -1,0 +1,642 @@
+{
+  "schema": "starlit.story.phase12.act05.production_plan.v1",
+  "status": "production_design_only_not_runtime_bound",
+  "date": "2026-10-25",
+  "scope": "ch025_ch030",
+  "notes": "Phase 12 maps 12 optional events and 12 immediate choice reactions to future on-map action windows; no maps, coordinates or scenes have been registered. Chapter 26 evidence does not grant a lost page. Ize appears as local guide ch027, joins officially ch028.",
+  "event_plan": [
+    {
+      "id": "ch025.p12.town",
+      "chapter_id": "ch025",
+      "optional_scene_id": "ch025.p12.town",
+      "location_hint": "海歌港·旧船坞",
+      "object_name": "船坞欠薪木牌",
+      "player_actions": [
+        "核对船坞工资木牌与旧债明细",
+        "请工匠指出哪些工钱至今未付",
+        "将公示副本交由船工和港务员分别保存"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch025.opening",
+        "required_flags": [
+          "ch025.started"
+        ],
+        "without_flags": [
+          "ch025.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_opening_and_investigate",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch025.p12.evidence",
+      "chapter_id": "ch025",
+      "optional_scene_id": "ch025.p12.evidence",
+      "location_hint": "海歌港·旧船坞",
+      "object_name": "澄舟留在船梁的刻痕",
+      "player_actions": [
+        "观察澄舟刻痕、补板与钉痕年份",
+        "请老船匠鉴别实际修补时间",
+        "记录刻痕是线索而非产权证明"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch025.investigate",
+        "required_flags": [
+          "ch025.evidence"
+        ],
+        "without_flags": [
+          "ch025.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_investigate_and_crisis",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch026.p12.town",
+      "chapter_id": "ch026",
+      "optional_scene_id": "ch026.p12.town",
+      "location_hint": "晴汐小岛",
+      "object_name": "晒网棚下的旧邮袋",
+      "player_actions": [
+        "与邮差确认无法送达的三封信",
+        "请岛民指定安全的保存地点",
+        "提供保存回执而不要求收件人立刻拆信"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch026.opening",
+        "required_flags": [
+          "ch026.started"
+        ],
+        "without_flags": [
+          "ch026.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_opening_and_investigate",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch026.p12.evidence",
+      "chapter_id": "ch026",
+      "optional_scene_id": "ch026.p12.evidence",
+      "location_hint": "晴汐小岛",
+      "object_name": "第二声海钟的潮位刻线",
+      "player_actions": [
+        "对比海钟第二声与潮痕方向",
+        "核对月相、邮戳及近期维修痕迹",
+        "把夹层航路证据单列，不设置world.page_01"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch026.investigate",
+        "required_flags": [
+          "ch026.evidence"
+        ],
+        "without_flags": [
+          "ch026.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_investigate_and_crisis",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch027.p12.town",
+      "chapter_id": "ch027",
+      "optional_scene_id": "ch027.p12.town",
+      "location_hint": "青蓝海沟·沉城",
+      "object_name": "深海潜水钟的旧座椅",
+      "player_actions": [
+        "检查潜水钟密封、氧气及上升绳",
+        "在水面设置信号和备用观察员",
+        "听伊泽解释钟声但不将其标记为已入队"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch027.opening",
+        "required_flags": [
+          "ch027.started"
+        ],
+        "without_flags": [
+          "ch027.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_opening_and_investigate",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch027.p12.evidence",
+      "chapter_id": "ch027",
+      "optional_scene_id": "ch027.p12.evidence",
+      "location_hint": "青蓝海沟·沉城",
+      "object_name": "留守者无名的纪念石",
+      "player_actions": [
+        "核对沉城撤离与留守两份名单",
+        "寻找水下供能关阀记录",
+        "保护原件并请后裔决定如何公开"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch027.investigate",
+        "required_flags": [
+          "ch027.evidence"
+        ],
+        "without_flags": [
+          "ch027.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_investigate_and_crisis",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch028.p12.town",
+      "chapter_id": "ch028",
+      "optional_scene_id": "ch028.p12.town",
+      "location_hint": "断歌礁",
+      "object_name": "断歌礁背风的小茶摊",
+      "player_actions": [
+        "帮助茶摊老板恢复背风区域营业",
+        "测试周边灯塔的声音共振",
+        "为居民标出可自愿离开的安全路线"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch028.opening",
+        "required_flags": [
+          "ch028.started"
+        ],
+        "without_flags": [
+          "ch028.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_opening_and_investigate",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch028.p12.evidence",
+      "chapter_id": "ch028",
+      "optional_scene_id": "ch028.p12.evidence",
+      "location_hint": "断歌礁",
+      "object_name": "缝进旧船帆的第三节",
+      "player_actions": [
+        "比较三段残谱字迹与修船旧帆",
+        "询问澄舟修船当日的实际见证人",
+        "确定试唱的停止信号和安全距离"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch028.investigate",
+        "required_flags": [
+          "ch028.evidence"
+        ],
+        "without_flags": [
+          "ch028.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_investigate_and_crisis",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch029.p12.town",
+      "chapter_id": "ch029",
+      "optional_scene_id": "ch029.p12.town",
+      "location_hint": "静浪禁航区",
+      "object_name": "停滞商船的水桶",
+      "player_actions": [
+        "清点停滞商船的可用饮水",
+        "记录各船人数与最低补给量",
+        "以不同钟声确定失联船位置"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch029.opening",
+        "required_flags": [
+          "ch029.started"
+        ],
+        "without_flags": [
+          "ch029.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_opening_and_investigate",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch029.p12.evidence",
+      "chapter_id": "ch029",
+      "optional_scene_id": "ch029.p12.evidence",
+      "location_hint": "静浪禁航区",
+      "object_name": "六座航标的磁石壳",
+      "player_actions": [
+        "检测六座航标磁石偏移",
+        "逐一对照星针、海流与船钟距离",
+        "记录新风路并标示危险航标"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch029.investigate",
+        "required_flags": [
+          "ch029.evidence"
+        ],
+        "without_flags": [
+          "ch029.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_investigate_and_crisis",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch030.p12.town",
+      "chapter_id": "ch030",
+      "optional_scene_id": "ch030.p12.town",
+      "location_hint": "风航群岛·云礁",
+      "object_name": "云礁小船的修灯轮值",
+      "player_actions": [
+        "登记灯塔维修与海上救援两种轮值",
+        "邀请小船及岸上人员参加公约讨论",
+        "公开工时、维修费用与安全要求"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch030.opening",
+        "required_flags": [
+          "ch030.started"
+        ],
+        "without_flags": [
+          "ch030.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_opening_and_investigate",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch030.p12.evidence",
+      "chapter_id": "ch030",
+      "optional_scene_id": "ch030.p12.evidence",
+      "location_hint": "风航群岛·云礁",
+      "object_name": "潮汐碑背面的共用签名",
+      "player_actions": [
+        "拓印旧公约上的潮汐记录和署名",
+        "核对维护基金与垄断收费的差异",
+        "把可复核的航路图交给不同港口保管"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch030.investigate",
+        "required_flags": [
+          "ch030.evidence"
+        ],
+        "without_flags": [
+          "ch030.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "entry_window": "between_investigate_and_crisis",
+      "on_skip": "main quest progresses normally",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    }
+  ],
+  "reaction_plan": [
+    {
+      "id": "ch025.p12.choice.listen",
+      "chapter_id": "ch025",
+      "after_choice_id": "ch025.choice",
+      "choice_option_id": "listen",
+      "required_choice_flags": {
+        "ch025.approach": "audit",
+        "world.ch025.approach": "audit"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch025.p12.choice.act",
+      "chapter_id": "ch025",
+      "after_choice_id": "ch025.choice",
+      "choice_option_id": "act",
+      "required_choice_flags": {
+        "ch025.approach": "wages",
+        "world.ch025.approach": "wages"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch026.p12.choice.listen",
+      "chapter_id": "ch026",
+      "after_choice_id": "ch026.choice",
+      "choice_option_id": "listen",
+      "required_choice_flags": {
+        "ch026.approach": "respect",
+        "world.ch026.approach": "respect"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch026.p12.choice.act",
+      "chapter_id": "ch026",
+      "after_choice_id": "ch026.choice",
+      "choice_option_id": "act",
+      "required_choice_flags": {
+        "ch026.approach": "investigate",
+        "world.ch026.approach": "investigate"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch027.p12.choice.listen",
+      "chapter_id": "ch027",
+      "after_choice_id": "ch027.choice",
+      "choice_option_id": "listen",
+      "required_choice_flags": {
+        "ch027.approach": "both",
+        "world.ch027.approach": "both"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch027.p12.choice.act",
+      "chapter_id": "ch027",
+      "after_choice_id": "ch027.choice",
+      "choice_option_id": "act",
+      "required_choice_flags": {
+        "ch027.approach": "descendants",
+        "world.ch027.approach": "descendants"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch028.p12.choice.listen",
+      "chapter_id": "ch028",
+      "after_choice_id": "ch028.choice",
+      "choice_option_id": "listen",
+      "required_choice_flags": {
+        "ch028.approach": "protect",
+        "world.ch028.approach": "protect"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch028.p12.choice.act",
+      "chapter_id": "ch028",
+      "after_choice_id": "ch028.choice",
+      "choice_option_id": "act",
+      "required_choice_flags": {
+        "ch028.approach": "shared_song",
+        "world.ch028.approach": "shared_song"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch029.p12.choice.listen",
+      "chapter_id": "ch029",
+      "after_choice_id": "ch029.choice",
+      "choice_option_id": "listen",
+      "required_choice_flags": {
+        "ch029.approach": "water",
+        "world.ch029.approach": "water"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch029.p12.choice.act",
+      "chapter_id": "ch029",
+      "after_choice_id": "ch029.choice",
+      "choice_option_id": "act",
+      "required_choice_flags": {
+        "ch029.approach": "fleet_route",
+        "world.ch029.approach": "fleet_route"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch030.p12.choice.listen",
+      "chapter_id": "ch030",
+      "after_choice_id": "ch030.choice",
+      "choice_option_id": "listen",
+      "required_choice_flags": {
+        "ch030.approach": "safe_passage",
+        "world.ch030.approach": "safe_passage"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch030.p12.choice.act",
+      "chapter_id": "ch030",
+      "after_choice_id": "ch030.choice",
+      "choice_option_id": "act",
+      "required_choice_flags": {
+        "ch030.approach": "shared_maintenance",
+        "world.ch030.approach": "shared_maintenance"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    }
+  ],
+  "major_setpieces": {
+    "ch025_ship_readiness": {
+      "status": "design_only",
+      "requirements": [
+        "deck water-tightness inspection",
+        "crew consent/compensation ledger",
+        "minimum freshwater and medical supplies"
+      ],
+      "do_not_change": "story.ch025.done or ship inventory in current game"
+    },
+    "ch027_diving_bell": {
+      "status": "design_only",
+      "player_actions": [
+        "test pressure seals and breathing window",
+        "record two divergent survivor lists",
+        "return to surface before rescue time limit"
+      ],
+      "story_role": "Ize local guide only; official joining in ch028.resolve"
+    },
+    "ch028_three_song_fragments": {
+      "status": "design_only",
+      "fragments": [
+        "cliff inscription",
+        "old bell inner rim",
+        "repaired ship sail"
+      ],
+      "risks": [
+        "song resonance monitored",
+        "listeners opt in",
+        "retreat path and stop cue"
+      ],
+      "do_not_change": "ch028 choice and official join trigger"
+    },
+    "ch029_six_beacons": {
+      "status": "design_only",
+      "beacons": [
+        {
+          "id": "ch029.beacon.01",
+          "operation": "compare compass deflection, magnetic casing and fleet bell distance",
+          "completion": "record bearing and pass to other ships",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch029.beacon.02",
+          "operation": "compare compass deflection, magnetic casing and fleet bell distance",
+          "completion": "record bearing and pass to other ships",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch029.beacon.03",
+          "operation": "compare compass deflection, magnetic casing and fleet bell distance",
+          "completion": "record bearing and pass to other ships",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch029.beacon.04",
+          "operation": "compare compass deflection, magnetic casing and fleet bell distance",
+          "completion": "record bearing and pass to other ships",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch029.beacon.05",
+          "operation": "compare compass deflection, magnetic casing and fleet bell distance",
+          "completion": "record bearing and pass to other ships",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch029.beacon.06",
+          "operation": "compare compass deflection, magnetic casing and fleet bell distance",
+          "completion": "record bearing and pass to other ships",
+          "runtime_registered": false
+        }
+      ],
+      "constraint": "Original story requires fleet rescue; A/B only controls action priority. No new forced collectible."
+    },
+    "ch030_open_navigation_charter": {
+      "status": "design_only",
+      "stakeholders": [
+        "small-boat owners",
+        "large-ship merchants",
+        "shore rescue watchers",
+        "lighthouse technicians"
+      ],
+      "outputs": [
+        "free emergency call rights",
+        "transparent maintenance hours and costs",
+        "revision and complaint process"
+      ],
+      "constraint": "charter is narrative contract; no extra world flag"
+    }
+  }
+}

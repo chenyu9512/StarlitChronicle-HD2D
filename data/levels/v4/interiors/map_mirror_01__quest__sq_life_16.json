@@ -1,0 +1,348 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 3,
+  "map_id": "map_mirror_01",
+  "building_id": "quest__sq_life_16",
+  "name": "镜眠钟表修理室",
+  "status": "phase19_6_individual_walkable_life_quest_scene_existing_art",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        31,
+        9,
+        43,
+        41
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        15,
+        12,
+        35,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        39,
+        13,
+        57,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        22,
+        23,
+        51,
+        28
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        23,
+        30,
+        50,
+        38
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        24,
+        17,
+        48,
+        24
+      ],
+      "tile_row": 5
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        27,
+        17,
+        27,
+        19
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        45,
+        15,
+        45,
+        17
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        29,
+        28,
+        29,
+        30
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        48,
+        30,
+        49,
+        30
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        19,
+        26,
+        19,
+        27
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        36,
+        38,
+        41
+      ],
+      "tile_row": 3
+    }
+  ],
+  "points": {
+    "spawn": [
+      36,
+      37
+    ],
+    "exit": [
+      36,
+      40
+    ],
+    "service": [
+      24,
+      18
+    ],
+    "storage": [
+      49,
+      19
+    ]
+  },
+  "quest_points": [
+    [
+      24,
+      20
+    ],
+    [
+      50,
+      23
+    ],
+    [
+      25,
+      34
+    ]
+  ],
+  "features": [
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        23,
+        16
+      ],
+      "name": "证言：钟匠家属"
+    },
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        52,
+        22
+      ],
+      "name": "睡不醒的钟匠的现场证据"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        33
+      ],
+      "name": "睡不醒的钟匠的后续记录"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        13
+      ],
+      "name": "镜眠钟表修理室灯位"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        41,
+        32
+      ],
+      "name": "镜眠钟表修理室生活陈设"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        43,
+        34
+      ],
+      "name": "镜眠钟表修理室档案匣"
+    },
+    {
+      "kind": "bookshelf",
+      "cell": [
+        20,
+        29
+      ],
+      "name": "镜眠钟表修理室·隔断阅读角"
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "life_lamp_a",
+      "cell": [
+        36,
+        13
+      ],
+      "scale": 1.25,
+      "energy": 0.72
+    },
+    {
+      "id": "life_lamp_b",
+      "cell": [
+        36,
+        30
+      ],
+      "scale": 1.4,
+      "energy": 0.54
+    }
+  ],
+  "script_quest_id": "sq_life_16",
+  "scene_kind": "life_indoor",
+  "unique_scene_seed": 113,
+  "art_profile": "quest_research_v1",
+  "room_day_tint": "c9c3dc",
+  "room_night_tint": "807a8c",
+  "art_collision_cells": [
+    [
+      26,
+      16
+    ],
+    [
+      44,
+      24
+    ]
+  ],
+  "visuals": [
+    {
+      "id": "life_furn_a_sq_life_16",
+      "asset": "bookshelf",
+      "cell": [
+        26,
+        16
+      ],
+      "offset": [
+        0,
+        -45
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_furn_b_sq_life_16",
+      "asset": "table",
+      "cell": [
+        44,
+        24
+      ],
+      "offset": [
+        0,
+        -50
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "life_wall_c_sq_life_16",
+      "asset": "lantern",
+      "cell": [
+        36,
+        10
+      ],
+      "offset": [
+        0,
+        -44
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "life_rug_sq_life_16",
+      "asset": "rug",
+      "cell": [
+        36,
+        34
+      ],
+      "offset": [
+        0,
+        -10
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_direction": {
+    "location": "镜眠王国·钟表铺",
+    "theme": "睡不醒的钟匠",
+    "source": "existing SVG artwork in unique region-correct V4 layout",
+    "final_handpainted": false
+  },
+  "story_stage_points": [
+    [
+      34,
+      16
+    ],
+    [
+      40,
+      17
+    ],
+    [
+      36,
+      21
+    ],
+    [
+      33,
+      29
+    ],
+    [
+      42,
+      31
+    ]
+  ],
+  "branch_stage_points": [
+    [
+      41,
+      14
+    ],
+    [
+      41,
+      25
+    ],
+    [
+      40,
+      34
+    ]
+  ]
+}

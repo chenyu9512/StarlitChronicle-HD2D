@@ -1,0 +1,3339 @@
+{
+  "schema": "starlit.story.bosses.v1",
+  "count": 66,
+  "bosses": [
+    {
+      "id": "boss.ch002",
+      "chapter_id": "ch002",
+      "name": "雾潮寄生体",
+      "location": "白砂港·收容所",
+      "suggested_level": 5,
+      "battle_theme": "boss_act_01",
+      "victory_flag": "ch002.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "第一阶段施加“遗名”减益，队友技能名称暂时模糊，但属性不改变",
+          "dialogue": [
+            {
+              "speaker": "岚音",
+              "text": "别让它靠近病床！先把门打开，让病人撤出去。"
+            },
+            {
+              "speaker": "雾潮寄生体",
+              "text": "铃……第二声……归来者……无名……"
+            },
+            {
+              "speaker": "主角",
+              "text": "它在重复那位水手写在手背上的警告！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "二阶段开放铃核弱点，使用净化或打断可降低寄生",
+          "dialogue": [
+            {
+              "speaker": "雾潮寄生体",
+              "text": "铃声停止……名字会回来吗……"
+            },
+            {
+              "speaker": "岚音",
+              "text": "雾核露出来了！趁它收拢触须时切断连接。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "主角保留病例副本，确认失忆并非普通疾病。"
+        }
+      ],
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "吞噬水手身份认知的雾潮寄生体，与被篡改的海上钟声同步。其外形由潮湿卷须与破损船铃组成。",
+      "victory_mechanic": "胜利条件为封印雾核，不以杀死病患作为目标"
+    },
+    {
+      "id": "boss.ch003",
+      "chapter_id": "ch003",
+      "name": "潮痕守卫",
+      "location": "断桅海蚀洞",
+      "suggested_level": 6,
+      "battle_theme": "boss_act_01",
+      "victory_flag": "ch003.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "场地潮汐升降，每两回合改变可用站位",
+          "dialogue": [
+            {
+              "speaker": "潮痕守卫",
+              "text": "归来识别失败。闯入者清除程序开始。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "它刚才看我的眼神，比收债的人还可怕。"
+            },
+            {
+              "speaker": "主角",
+              "text": "避开那条红色星纹。它应该是主控制线。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "50%血量触发权限冲突，防御增强但露出后背控制枢纽",
+          "dialogue": [
+            {
+              "speaker": "潮痕守卫",
+              "text": "警告……身份校验冲突……"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "左侧机关开始旋转了！趁它抬手时关掉！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "星针指向天空，遗迹墙面出现澄舟年轻时的影像。"
+        }
+      ],
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "潮痕守卫识别系统损坏，将归来者错判为入侵者。玩家需要令它停止攻击而不是摧毁整个遗迹。",
+      "victory_mechanic": "胜利可选择保留其核心，后续用于解读澄舟影像"
+    },
+    {
+      "id": "boss.ch004",
+      "chapter_id": "ch004",
+      "name": "灰帷水手",
+      "location": "白砂港·黑帆酒馆",
+      "suggested_level": 7,
+      "battle_theme": "boss_act_01",
+      "victory_flag": "ch004.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "开场有3个平民保护目标，玩家行动会影响战后感谢对话",
+          "dialogue": [
+            {
+              "speaker": "灰帷水手",
+              "text": "朔弦，把货单和星针交出来。今天没人需要受伤。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "说得倒好听，上次你们也是这么说的。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "我先带客人从后门走，你们别把战斗引到楼上！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "50%血量释放烟幕，命中下降；侦察技能可解除",
+          "dialogue": [
+            {
+              "speaker": "灰帷水手",
+              "text": "烟幕！别让他们看见账本！"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "左边那只手！账本在他袖子里。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "朔弦坦白旧罪并加入队伍，保留一张神秘海图。"
+        }
+      ],
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "灰帷会的追缉水手，擅长烟幕与勒索；本战场位于酒馆，有平民撤离目标。",
+      "victory_mechanic": "胜利保留货单证据并不自动免除朔弦的责任"
+    },
+    {
+      "id": "boss.ch005",
+      "chapter_id": "ch005",
+      "name": "缚潮古兽",
+      "location": "鲸骨浅滩",
+      "suggested_level": 9,
+      "battle_theme": "boss_act_01",
+      "victory_flag": "ch005.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "独立星锁部件拥有耐久值，可用拆卸类技能直接攻击",
+          "dialogue": [
+            {
+              "speaker": "缚潮古兽",
+              "text": "呜——！"
+            },
+            {
+              "speaker": "岚音",
+              "text": "它背上的锁在烧伤它。绝不能再用火了！"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "我来让它转头！你们瞄准那条发亮的链子。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "巨浪在特定回合击退前排，但可用防御减轻伤害",
+          "dialogue": [
+            {
+              "speaker": "岚音",
+              "text": "星锁裂开了！再坚持一下！"
+            },
+            {
+              "speaker": "主角",
+              "text": "先保护它的头部，别让锁链勒得更紧。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "主角解除星锁，海兽带领众人找到潮歌灯的入口。"
+        }
+      ],
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "受古代星锁控制的深海灵兽，危险来自锁链而非其本性，目标是制服后解除束缚。",
+      "victory_mechanic": "星锁被拆除即达成非致命胜利，灵兽将在剧情中领航"
+    },
+    {
+      "id": "boss.ch006",
+      "chapter_id": "ch006",
+      "name": "潮歌守门人",
+      "location": "潮歌灯塔",
+      "suggested_level": 10,
+      "battle_theme": "boss_act_01",
+      "victory_flag": "ch006.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "第一阶段有献祭倒计时，但可通过对话和支援行动延缓",
+          "dialogue": [
+            {
+              "speaker": "潮歌守门人",
+              "text": "请交出最珍贵的记忆，以完成灯芯校准。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "我们不会把任何人的过去当作燃料。"
+            },
+            {
+              "speaker": "主角",
+              "text": "如果它只会索取，我们就证明还有另一种供能方式。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "归航记忆达到3份后触发防护罩破裂，进入第二阶段",
+          "dialogue": [
+            {
+              "speaker": "潮歌守门人",
+              "text": "新供能来源……未被记录。重新计算中……"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "快把归航记录送过去，它的防护罩正在松动！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "众人以共同讲述的归航故事代替祭品，潮歌灯亮起。"
+        }
+      ],
+      "implementation_status": "authored_first_act_design_no_battle_code",
+      "background": "执行旧议会献祭协议的潮歌守门人，守护灯芯而非敌视人类。以其他途径取代献祭后进入最终验证。",
+      "victory_mechanic": "胜利激活新的自愿共享线路，给后续灯塔修复剧情留下先例"
+    },
+    {
+      "id": "boss.ch008",
+      "chapter_id": "ch008",
+      "name": "伪装边防队",
+      "location": "灰鹰商道",
+      "suggested_level": 12,
+      "battle_theme": "boss_act_02",
+      "victory_flag": "ch008.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "箭阵压制可通过掩护粮车打断",
+          "dialogue": [
+            {
+              "speaker": "队长",
+              "text": "把车留下！谁再往前一步就放箭。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "别看他们的旗，看军械刻号！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "过半阶段敌人试图烧毁断箭，需保护物证",
+          "dialogue": [
+            {
+              "speaker": "队长",
+              "text": "把证据烧掉！我们照样能换套制服。"
+            },
+            {
+              "speaker": "主角",
+              "text": "先护住粮袋后面的孩子。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "车队长",
+          "text": "他们的制服不是任何一国的。原来我们都被骗了。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "一群穿着伪造边防制服的袭击者，为掩盖雇主试图抢走断箭与粮车。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch009",
+      "chapter_id": "ch009",
+      "name": "王城禁卫",
+      "location": "三誓王都·审判厅",
+      "suggested_level": 13,
+      "battle_theme": "boss_act_02",
+      "victory_flag": "ch009.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "初期以盾墙挡路，绕侧门可削弱防御",
+          "dialogue": [
+            {
+              "speaker": "禁卫长",
+              "text": "无许可之人不得接近法庭。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "证人不是犯人，别把你们的刀指向她。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "中期禁卫尝试夺取证物，保护证物可改变战后对白",
+          "dialogue": [
+            {
+              "speaker": "禁卫长",
+              "text": "阻断通路！不得让证词呈交！"
+            },
+            {
+              "speaker": "主角",
+              "text": "击落武器，别伤害听令行事的普通卫兵。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "幸存老妇",
+          "text": "我以为今天又会有人消失。谢谢你们没有弃我而去。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "为阻止证人入庭而奉命拦截的王城禁卫，不应处理成全体禁卫都是邪恶。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch010",
+      "chapter_id": "ch010",
+      "name": "灰帷纵火者",
+      "location": "三国边境议事站",
+      "suggested_level": 15,
+      "battle_theme": "boss_act_02",
+      "victory_flag": "ch010.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "场地中存在三处引燃点，调查与救火都属于目标",
+          "dialogue": [
+            {
+              "speaker": "纵火者",
+              "text": "让他们吵吧，火从谁家先烧起来又有什么关系？"
+            },
+            {
+              "speaker": "岚音",
+              "text": "把火种从粮车旁移开！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "敌人在半血时同时引燃两处，队员可分头应对",
+          "dialogue": [
+            {
+              "speaker": "纵火者",
+              "text": "你们越忙着救人，我越有时间放下一包。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "分开队伍，把引线截住。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "使者丙",
+          "text": "我们刚刚还在争是谁放的火，现在总算看清了。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "灰帷会使用隐燃粉的纵火者，试图挑起三个国家彼此攻击。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch011",
+      "chapter_id": "ch011",
+      "name": "伪誓顾问",
+      "location": "旧盟约桥",
+      "suggested_level": 16,
+      "battle_theme": "boss_act_02",
+      "victory_flag": "ch011.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "战斗目标优先保护和平使团与原始军令",
+          "dialogue": [
+            {
+              "speaker": "王室顾问",
+              "text": "不用等和约签完。让他们先流血，自然会听从新命令。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "今天谁也别想拿另一国的士兵当替罪羊。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血顾问试图引爆桥下炸药，解除引线可避免平民伤亡",
+          "dialogue": [
+            {
+              "speaker": "王室顾问",
+              "text": "毁掉原始军令！我还可以再写十份！"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "印章能造假，人心可没那么容易。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "使节",
+          "text": "没想到让士兵放下武器的，不是王令，而是他们终于看见了证据。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "挟持盟约并操控伪造军令的王室顾问，以及负责执行阴谋的精锐护卫。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch012",
+      "chapter_id": "ch012",
+      "name": "律序执剑者",
+      "location": "律序母灯坛",
+      "suggested_level": 17,
+      "battle_theme": "boss_act_02",
+      "victory_flag": "ch012.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "护卫通过誓约锁链限制行动，履约记录可打破锁链",
+          "dialogue": [
+            {
+              "speaker": "律序执剑者",
+              "text": "三王交权，誓言才能永久。"
+            },
+            {
+              "speaker": "平民代表",
+              "text": "我拒绝让自己的日子被当作抵押。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "当民间三项承诺得到认可时，进入无需击毁本体的终止阶段",
+          "dialogue": [
+            {
+              "speaker": "律序执剑者",
+              "text": "检测到未经认证的誓言……开始清除。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "守住他们的发言权。等他们把话说完。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "律序执剑者",
+          "text": "共同见证已通过。旧式王权担保，不再适用。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "古律令拟成的守卫，只认王权献祭而拒绝民间见证，并非真正恶人。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch013",
+      "chapter_id": "ch013",
+      "name": "噬忆矿螳",
+      "location": "赤炉联邦·七号矿坑",
+      "suggested_level": 18,
+      "battle_theme": "boss_act_03",
+      "victory_flag": "ch013.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "攻击矿壳造成碎晶，碎晶会模糊一个指令描述",
+          "dialogue": [
+            {
+              "speaker": "噬忆矿螳",
+              "text": "咔……咔咔！"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "别看光亮的壳，关节才是它活动的地方。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血后矿螳试图钻进承重柱，先稳定支架再继续",
+          "dialogue": [
+            {
+              "speaker": "噬忆矿螳",
+              "text": "嗡——咔！"
+            },
+            {
+              "speaker": "岚音",
+              "text": "矿工还在后面，别把石壁打塌了。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "阿锤",
+          "text": "那些矿晶终于不再自己移动，我听见下面有人喊救命。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "被寂潮矿化侵蚀的矿坑守卫昆虫，吞噬记忆能源而扩张，不会使用人类完整语言。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch014",
+      "chapter_id": "ch014",
+      "name": "失控采矿机",
+      "location": "赤炉工坊·试验台",
+      "suggested_level": 19,
+      "battle_theme": "boss_act_03",
+      "victory_flag": "ch014.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "拆除外部采矿臂可减少无差别攻击",
+          "dialogue": [
+            {
+              "speaker": "失控采矿机",
+              "text": "作业继续……继续……"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "别砸储存盒！里面装着被人的记忆！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "剩余低血时机器重复家人语音，可借机切断能源而非粉碎内核",
+          "dialogue": [
+            {
+              "speaker": "失控采矿机",
+              "text": "小石头……蓝围巾……"
+            },
+            {
+              "speaker": "岚音",
+              "text": "听见了，先断开采矿臂的动力！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "缇珐",
+          "text": "录音保住了。但这只是证据，人的生活不能困在盒子里。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "被非法记忆回路驱动的采矿机，存有家人的声音；目标是安全停机并保留证据。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch015",
+      "chapter_id": "ch015",
+      "name": "百工机关偶",
+      "location": "赤炉联邦·百工塔",
+      "suggested_level": 21,
+      "battle_theme": "boss_act_03",
+      "victory_flag": "ch015.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "第一阶段切换守护、治疗、控制三类测试",
+          "dialogue": [
+            {
+              "speaker": "百工机关偶",
+              "text": "试炼启动。请证明技艺属于承担责任的人。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "这次不要靠单一职业硬冲。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血转为多目标救援，顺序正确可以结束考验而非击毁机关偶",
+          "dialogue": [
+            {
+              "speaker": "百工机关偶",
+              "text": "未知协作方式……更新考题。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "原来它在学我们怎么解决问题。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "百工机关偶",
+          "text": "通过。知识传递权限已向学徒开放。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "百工塔的多技艺考验机关偶，检测职业协作而非要求杀伤力。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch016",
+      "chapter_id": "ch016",
+      "name": "记忆收割机",
+      "location": "灰砂安置区",
+      "suggested_level": 22,
+      "battle_theme": "boss_act_03",
+      "victory_flag": "ch016.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "护盾与医院临时供电计量有关，单纯硬打会触发断电警告",
+          "dialogue": [
+            {
+              "speaker": "记忆收割机",
+              "text": "配额不足。自动提取程序启动。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "把病人带开！这不是他们答应过的治疗。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血启动抽取程序，优先拆除吸收管线可保护受害者",
+          "dialogue": [
+            {
+              "speaker": "记忆收割机",
+              "text": "能源需求优先级：最高。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "我在关闭一条供电线，但先让医院接上备用电！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "老妇",
+          "text": "那台机器终于关了。但我丈夫的名字，别从名单上删掉。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "提取矿工记忆的能源装置，防御来源于周围居民对断电的恐惧。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch017",
+      "chapter_id": "ch017",
+      "name": "赤炉巨机",
+      "location": "赤炉主炉",
+      "suggested_level": 23,
+      "battle_theme": "boss_act_03",
+      "victory_flag": "ch017.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "战场四阀门对应不同城镇区域，关炮口不能直接关医院",
+          "dialogue": [
+            {
+              "speaker": "赤炉巨机",
+              "text": "城市净化协议，准备发射。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "不准开炮！那是我设计来给医院供电的！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血触发炮口过载，需要队友分工关闭供能并保护医护",
+          "dialogue": [
+            {
+              "speaker": "赤炉巨机",
+              "text": "炮口过载，进入二次蓄能。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "医院临时供电还撑得住，快去接第四组阀门！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "缇珐",
+          "text": "它没有开火。接下来我要亲自把所有改造图公开。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "被军方改造成炮台的巨大民生引擎，具备四组阀门和炮口独立阶段。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch018",
+      "chapter_id": "ch018",
+      "name": "炉心监察者",
+      "location": "炉心母灯室",
+      "suggested_level": 24,
+      "battle_theme": "boss_act_03",
+      "victory_flag": "ch018.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "初期用能源锁链限制行动，需由不同角色点亮共识节点",
+          "dialogue": [
+            {
+              "speaker": "炉心监察者",
+              "text": "维持最高效率。未经许可的关机视为危险操作。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "效率不该靠偷走人的过去计算。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血校验共享回路，每完成一次自愿供能降低强制抽取强度",
+          "dialogue": [
+            {
+              "speaker": "炉心监察者",
+              "text": "新网络功率不足，判定不可接受。"
+            },
+            {
+              "speaker": "主角",
+              "text": "不足就一起补。不能因此逼一个人献出记忆。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "矿工妻子",
+          "text": "灯亮了，可我们不想别人说受害者的问题已经全部解决。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "旧炉心制度的监察程序，将“效率”置于自愿之上，挑战旧能源逻辑。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch019",
+      "chapter_id": "ch019",
+      "name": "肃清队长",
+      "location": "十年前·肃清边村",
+      "suggested_level": 25,
+      "battle_theme": "boss_act_04",
+      "victory_flag": "ch019.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "玩法设计为延迟点火、护送村民，敌方撤军可完成",
+          "dialogue": [
+            {
+              "speaker": "肃清队长",
+              "text": "下令了！给我点火！"
+            },
+            {
+              "speaker": "年轻雷索",
+              "text": "收回命令。村民没有武器。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "中段主官试图封堵沟渠撤离线，优先解除封锁",
+          "dialogue": [
+            {
+              "speaker": "肃清队长",
+              "text": "少尉，违令你连头衔都保不住！"
+            },
+            {
+              "speaker": "年轻雷索",
+              "text": "那就把徽章拿走。把火灭了。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "村妇",
+          "text": "我们活下来了。那孩子到现在还记得那件披风。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "执行屠村命令的军队主官与其指挥阵列，用于雷索过去视角的非致命抵抗。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch020",
+      "chapter_id": "ch020",
+      "name": "灰帷猎手",
+      "location": "七年前·无名海",
+      "suggested_level": 27,
+      "battle_theme": "boss_act_04",
+      "victory_flag": "ch020.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "小艇地形障碍迫使玩家避开重装敌人，非正面击杀",
+          "dialogue": [
+            {
+              "speaker": "灰帷猎手",
+              "text": "船长说了，把孩子和日志一起交出来。"
+            },
+            {
+              "speaker": "年轻朔弦",
+              "text": "你们买得起船，也买不起我的故乡。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "过半阶段出现同伙快艇，利用潮汐与灯标摆脱追缉",
+          "dialogue": [
+            {
+              "speaker": "灰帷猎手",
+              "text": "海上没有人会替你作证。"
+            },
+            {
+              "speaker": "小水手",
+              "text": "错了，我还在这里！快划走！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "年轻朔弦",
+          "text": "我还记得那棵歪树。只要我记得，路就没断。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "与灰帷会合作追缉朔弦的海上猎手，代表其失去故乡后的第一次逃亡。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch022",
+      "chapter_id": "ch022",
+      "name": "白夜傀儡",
+      "location": "三誓王都·灯会",
+      "suggested_level": 29,
+      "battle_theme": "boss_act_04",
+      "victory_flag": "ch022.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "攻击外壳可中断运输，误击结晶会降低证据完整性",
+          "dialogue": [
+            {
+              "speaker": "白夜傀儡",
+              "text": "交易开始。记忆将移交最高出价者。"
+            },
+            {
+              "speaker": "宫廷乐师",
+              "text": "箱子里的人声不是货物！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "过半尝试启动记忆封存，先解除锁定能留下身份匿名化资料",
+          "dialogue": [
+            {
+              "speaker": "白夜傀儡",
+              "text": "访问权限不足。执行保全。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "这里有很多宾客。先引开它，别让人群受伤！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "宫廷乐师",
+          "text": "谢谢你们。以后这场白夜祭，人们会记得被带走的不只是宝石。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "灰帷会操纵的记忆容器傀儡，负责搬运白夜祭拍卖品，保护受害者隐私为目标。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch023",
+      "chapter_id": "ch023",
+      "name": "记录监守者",
+      "location": "王城地下档案室",
+      "suggested_level": 30,
+      "battle_theme": "boss_act_04",
+      "victory_flag": "ch023.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "名字符印会临时隐藏一个指令名，可通过同伴呼喊恢复",
+          "dialogue": [
+            {
+              "speaker": "记录监守者",
+              "text": "访问者无记录。证词无效。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "互相叫出名字，不要让任何人走散！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "过半阶段企图删除记录原件，优先保护档案比击毁守卫更重要",
+          "dialogue": [
+            {
+              "speaker": "记录监守者",
+              "text": "存在冲突。执行删除。"
+            },
+            {
+              "speaker": "主角",
+              "text": "把那些未署名的人也写回来！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "书架终于不乱跑了。要我再来一次？想都别想。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "古档案守卫通过抹去“来访者身份”否定证词，无法被普通武力永久消灭。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch024",
+      "chapter_id": "ch024",
+      "name": "古议会之影",
+      "location": "断层议会遗迹",
+      "suggested_level": 31,
+      "battle_theme": "boss_act_04",
+      "victory_flag": "ch024.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "击破多段记录封印，每段对应不同群体证词",
+          "dialogue": [
+            {
+              "speaker": "古议会之影",
+              "text": "请选择唯一正确的历史，其他记录将被删除。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "做过善事的人也可能犯错，不能只留一半。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "过半要求选一方删除，玩家可坚持保留多方见证以解锁和平结算",
+          "dialogue": [
+            {
+              "speaker": "古议会之影",
+              "text": "多方证词冲突。建议执行删减。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "那就把冲突也留着，人总可以继续解释。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "议会残响",
+          "text": "矛盾未消除。允许完整记录继续存续。"
+        }
+      ],
+      "implementation_status": "authored_story_boss_v2_text_only",
+      "background": "古议会争议的残留意识，试图强迫玩家从历史中删除一方证词才能继续。",
+      "story_combat_outcome": "非致命战斗优先；仅为文本与关卡设计，不等同于实际战斗代码。"
+    },
+    {
+      "id": "boss.ch026",
+      "chapter_id": "ch026",
+      "name": "海信怨灵",
+      "location": "晴汐小岛",
+      "suggested_level": 34,
+      "battle_theme": "boss_act_05",
+      "victory_flag": "ch026.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "海信怨灵",
+              "text": "岛民坚持收件人早死，信纸上的新墨却证明有人近期收信。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "海信怨灵",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "邮差的老航线在海图上被反复涂改。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "主角找到第一张失落航页，答应继续寻找消失的群岛。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch027",
+      "chapter_id": "ch027",
+      "name": "深海钟卫",
+      "location": "青蓝海沟·沉城",
+      "suggested_level": 35,
+      "battle_theme": "boss_act_05",
+      "victory_flag": "ch027.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "深海钟卫",
+              "text": "海底守卫把所有来访者视为当年的叛徒。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "深海钟卫",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "王国沉没前曾主动关闭海底灯，以保住陆上城市。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "伊泽",
+          "text": "主角记录沉城居民姓名，让古钟最后响一次。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch028",
+      "chapter_id": "ch028",
+      "name": "无声海妖",
+      "location": "断歌礁",
+      "suggested_level": 36,
+      "battle_theme": "boss_act_05",
+      "victory_flag": "ch028.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "无声海妖",
+              "text": "伊泽发现歌声会唤醒寂潮，也可能召来灰帷会。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "无声海妖",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "歌词里出现主角养父的字迹与失落旧洲地名。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "伊泽",
+          "text": "伊泽决定不再独自保管秘密，正式加入冒险队伍。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch029",
+      "chapter_id": "ch029",
+      "name": "静海巨蛸",
+      "location": "静浪禁航区",
+      "suggested_level": 37,
+      "battle_theme": "boss_act_05",
+      "victory_flag": "ch029.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "静海巨蛸",
+              "text": "为了救一艘陌生商船，队伍必须放弃最佳航窗。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "静海巨蛸",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "航标被改成通往赫西安旧船队的陷阱。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "主角先救商船，借众船合力驶出禁海。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch030",
+      "chapter_id": "ch030",
+      "name": "逆风海魁",
+      "location": "风航群岛·云礁",
+      "suggested_level": 39,
+      "battle_theme": "boss_act_05",
+      "victory_flag": "ch030.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "风压造成全队行动延迟，船主提供航图可抵消",
+          "dialogue": [
+            {
+              "speaker": "逆风海魁",
+              "text": "我守了这片风二十年。你们想来就来？"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "你守的是收费亭，不是风。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血后海魁试图关闭灯塔，需保护公共锚点",
+          "dialogue": [
+            {
+              "speaker": "逆风海魁",
+              "text": "没人会免费替别人守夜！"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "那让每条船自己作决定，不用替他们拒绝。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "船主甲",
+          "text": "风航灯属于所有愿意共同维护航路的人。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "风航群岛的旧海盗首领，试图用海兽与独占航标维持垄断。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch031",
+      "chapter_id": "ch031",
+      "name": "笑颜面偶",
+      "location": "镜眠王都·日轮街",
+      "suggested_level": 40,
+      "battle_theme": "boss_act_06",
+      "victory_flag": "ch031.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "笑颜面偶",
+              "text": "王国居民恳求玩家不要打破难得的安宁。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "笑颜面偶",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "街上日历永远停在花祭当天，花却一直新开。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "主角决定调查幻境源头，而不是强行叫醒所有人。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch032",
+      "chapter_id": "ch032",
+      "name": "镜面行者",
+      "location": "镜宫回廊",
+      "suggested_level": 41,
+      "battle_theme": "boss_act_06",
+      "victory_flag": "ch032.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "镜面行者",
+              "text": "失踪孩子在映世拥有幸福家庭，不愿返回现世。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "镜面行者",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "映世里的建筑由未完成的愿望塑形。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "队伍和孩子协商，让其自愿在两个世界之间做决定。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch033",
+      "chapter_id": "ch033",
+      "name": "愿景残响",
+      "location": "七重梦庭",
+      "suggested_level": 42,
+      "battle_theme": "boss_act_06",
+      "victory_flag": "ch033.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "愿景残响",
+              "text": "伙伴们开始怀疑自己的现在是否比另一条路更好。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "愿景残响",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "每个分支都真实拥有情绪，却无法脱离梦庭成长。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "众人带着遗憾回到现世，羁绊因坦诚而加深。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch034",
+      "chapter_id": "ch034",
+      "name": "梦核回收者",
+      "location": "映世·无名剧场",
+      "suggested_level": 43,
+      "battle_theme": "boss_act_06",
+      "victory_flag": "ch034.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "梦核回收者",
+              "text": "古代程序将她登记为“可回收幻象”。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "梦核回收者",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "玄璃由无数被放弃的愿望凝成，却拥有独立意志。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "主角破坏回收装置，玄璃亲手写下自己的名字。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch035",
+      "chapter_id": "ch035",
+      "name": "眠潮蔓藤",
+      "location": "镜眠王都·疗养院",
+      "suggested_level": 45,
+      "battle_theme": "boss_act_06",
+      "victory_flag": "ch035.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "幻象、异常状态与战术转换",
+          "dialogue": [
+            {
+              "speaker": "眠潮蔓藤",
+              "text": "官员要求强制唤醒，许多病弱居民无法承受。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "眠潮蔓藤",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "梦境为每位居民保存了失去之人的理想形象。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "岚音设计循序醒转疗法，王国保留自愿短眠的医疗设施。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch036",
+      "chapter_id": "ch036",
+      "name": "梦境王座",
+      "location": "镜眠母灯深处",
+      "suggested_level": 46,
+      "battle_theme": "boss_act_06",
+      "victory_flag": "ch036.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "睡眠异常状态要求队友相互呼唤才能解除",
+          "dialogue": [
+            {
+              "speaker": "梦境王座",
+              "text": "醒来会带来离别。拒绝唤醒。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "离开是他们自己的选择，不是你的错误。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血封闭全部退出门，恢复自愿锚点可降低防护",
+          "dialogue": [
+            {
+              "speaker": "梦境王座",
+              "text": "正在删除未经允许的明日。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先恢复退出门，再让每个人决定何时醒来。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "从今以后，他们的梦和清晨都属于自己。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "镜眠王座由永久安宁计划驱动，防御机制来自居民被限制的选择权。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch037",
+      "chapter_id": "ch037",
+      "name": "遮航迷雾",
+      "location": "旧洲外海·无名岛",
+      "suggested_level": 47,
+      "battle_theme": "boss_act_07",
+      "victory_flag": "ch037.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "遮航迷雾",
+              "text": "航页一旦被修复，海上商会就要承认自己隐瞒了几十年的航线。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "遮航迷雾",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "海面并非空无一物，而是所有测绘罗盘同时忽略同一片海。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "第一座失落岛屿重现，朔弦终于看见儿时码头上的歪树。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch038",
+      "chapter_id": "ch038",
+      "name": "伪忆群影",
+      "location": "旧洲·默契城",
+      "suggested_level": 48,
+      "battle_theme": "boss_act_07",
+      "victory_flag": "ch038.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "伪忆群影",
+              "text": "居民宁愿假装记得一切，也害怕知道自己的过去曾被夺去。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "伪忆群影",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "城内所有户籍的第一代住户日期完全相同。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "主角公开档案并保护不愿立即接受真相的家庭。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch039",
+      "chapter_id": "ch039",
+      "name": "谷地岩蛇",
+      "location": "旧洲·裂谷村",
+      "suggested_level": 49,
+      "battle_theme": "boss_act_07",
+      "victory_flag": "ch039.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "谷地岩蛇",
+              "text": "救援队判断剩余搜寻已无希望，但诺依仍听见井下求救声。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "谷地岩蛇",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "诺依握着一枚写着母亲名字的旧车票。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "主角冒险重返井下救出幸存者，正式收留诺依同行。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch040",
+      "chapter_id": "ch040",
+      "name": "旧日裁决者",
+      "location": "岁影回廊·灰烬年代",
+      "suggested_level": 51,
+      "battle_theme": "boss_act_07",
+      "victory_flag": "ch040.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "旧日裁决者",
+              "text": "回廊要求玩家挑选一方为英雄并删除另一方的证词。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "旧日裁决者",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "封城者为防扩散救了很多人，也把孤城居民永远留在里面。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "伊泽",
+          "text": "主角拒绝删去任何一方，让受害与善意同时留在历史里。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch041",
+      "chapter_id": "ch041",
+      "name": "地脉缠根王",
+      "location": "旧洲·地脉树海",
+      "suggested_level": 52,
+      "battle_theme": "boss_act_07",
+      "victory_flag": "ch041.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "地脉缠根王",
+              "text": "根忆守卫声称如果解除限制，寂潮将立即卷土重来。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "地脉缠根王",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "古代灯阵不只保存记忆，还限制未来可能出现的路线。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "队伍找到可逆的分布式灯网图纸，留下重建的可能。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch042",
+      "chapter_id": "ch042",
+      "name": "根忆哀歌",
+      "location": "根忆母灯坛",
+      "suggested_level": 53,
+      "battle_theme": "boss_act_07",
+      "victory_flag": "ch042.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "队伍需保护不同群体的见证石板不被抹除",
+          "dialogue": [
+            {
+              "speaker": "根忆哀歌",
+              "text": "矛盾者将被遗忘，历史方可稳定。"
+            },
+            {
+              "speaker": "伊泽",
+              "text": "有矛盾也要留下，不然只是一张伪造的谱。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血启动姓名消失机制，完整见证可阻止技能",
+          "dialogue": [
+            {
+              "speaker": "根忆哀歌",
+              "text": "不同姓名，禁止同页。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "那我妈妈的名字呢？她也该有地方被记住。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "旧族代表",
+          "text": "名字终于回来了，我们也终于能继续争论。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "根忆母灯的防御残响，试图以删除不一致历史换取统一过去。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch043",
+      "chapter_id": "ch043",
+      "name": "高压星阵",
+      "location": "三誓王都·星务署",
+      "suggested_level": 54,
+      "battle_theme": "boss_act_08",
+      "victory_flag": "ch043.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "高压星阵",
+              "text": "星务署拒绝停机检查，声称此刻停止会导致城市断电。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "高压星阵",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "星灯修复时的溢出能量被秘密汇入天轨圣域。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "缇珐",
+          "text": "玩家取得完整输能图，才发现过去的努力正被人利用。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch044",
+      "chapter_id": "ch044",
+      "name": "赫西安幻身",
+      "location": "群灯广场",
+      "suggested_level": 55,
+      "battle_theme": "boss_act_08",
+      "victory_flag": "ch044.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "赫西安幻身",
+              "text": "群众对主角提出尖锐质问：自由是否值得以亲人死亡为代价。"
+            },
+            {
+              "speaker": "赫西安",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "赫西安幻身",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "赫西安出示大量确实得救的居民，公开自己的永昼计划。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "赫西安",
+          "text": "主角无法简单说服所有人，宣布每个人都有权知道计划代价。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch045",
+      "chapter_id": "ch045",
+      "name": "暴走民兵",
+      "location": "赤炉城区·避难街",
+      "suggested_level": 57,
+      "battle_theme": "boss_act_08",
+      "victory_flag": "ch045.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "暴走民兵",
+              "text": "自由派民兵计划驱逐所有赞成者，引发内战。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "暴走民兵",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "支持赫西安者多数有无法治疗的伤痛，非单纯被蛊惑。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "雷索",
+          "text": "队伍公开约束盟友的暴力，帮助双方撤离火线。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch046",
+      "chapter_id": "ch046",
+      "name": "赤烬战舰",
+      "location": "天顶观测站",
+      "suggested_level": 58,
+      "battle_theme": "boss_act_08",
+      "victory_flag": "ch046.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "赤烬战舰",
+              "text": "主角若关闭塔顶装置，地面护盾就会立即崩溃。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "赤烬战舰",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "天衡灯已在无人知晓时启动，正在冻结世界各地的未来。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "维莎",
+          "text": "众人只能维持部分护盾，目睹黑星覆盖王都。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch047",
+      "chapter_id": "ch047",
+      "name": "赤烬将军库洛萨",
+      "location": "三誓王都·撤离城门",
+      "suggested_level": 59,
+      "battle_theme": "boss_act_08",
+      "victory_flag": "ch047.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "赤烬将军库洛萨",
+              "text": "守护儿童、老人、伤者的路线同时崩溃，队伍必须分开。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "赤烬将军库洛萨",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "城门机关被恶意改成只允许贵族通过。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "雷索",
+          "text": "主角安排多个撤离小队，队友各自承担危险任务。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch048",
+      "chapter_id": "ch048",
+      "name": "黑星化身",
+      "location": "潮歌灯塔·黑星之夜",
+      "suggested_level": 60,
+      "battle_theme": "boss_act_08",
+      "victory_flag": "ch048.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "该战不是常规击杀，胜利条件为坚持足够回合使最后一船离开",
+          "dialogue": [
+            {
+              "speaker": "黑星化身",
+              "text": "未来将闭合，伤痛不再发生。"
+            },
+            {
+              "speaker": "主角",
+              "text": "先送最后一艘船走！"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "第二阶段黑星会吞没航标，保护灯塔信号至船只出海",
+          "dialogue": [
+            {
+              "speaker": "黑星化身",
+              "text": "所有路线将被封存。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "我们不是在争胜负，我们是在争撤离的时间！"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "伊泽",
+          "text": "今天没能救下所有人，但船上的姓名一个也不能丢。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "黑星化身是被压缩的未来和六灯被劫持能源的集合体，目标是保障最后撤离。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch049",
+      "chapter_id": "ch049",
+      "name": "荒原窃光兽",
+      "location": "十二年后·荒原邮站",
+      "suggested_level": 61,
+      "battle_theme": "boss_act_09",
+      "victory_flag": "ch049.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "荒原窃光兽",
+              "text": "新生代冒险者认为老英雄不值得寻找。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "荒原窃光兽",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "旅人保留着十二年前主角帮助自己的旧物。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "诺依",
+          "text": "诺依带着旧日名单出发，决定亲自判断那位主角是谁。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch050",
+      "chapter_id": "ch050",
+      "name": "门卫机关",
+      "location": "十二年后·三誓王都",
+      "suggested_level": 63,
+      "battle_theme": "boss_act_09",
+      "victory_flag": "ch050.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "门卫机关",
+              "text": "诺依的救援许可证只允许进入一侧，另一侧有人急需援助。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "门卫机关",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "王都被分成自愿沉睡区与自由生活区，双方互相隔绝。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "诺依",
+          "text": "诺依冲破检查站送药，得到雷索旧部的帮助。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch051",
+      "chapter_id": "ch051",
+      "name": "岭间魔狼",
+      "location": "雾岭·偏远农庄",
+      "suggested_level": 64,
+      "battle_theme": "boss_act_09",
+      "victory_flag": "ch051.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "岭间魔狼",
+              "text": "主角认定再次举起旗帜只会让人追随一个注定失败的希望。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "岭间魔狼",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "主角这些年一直在匿名修复村庄，从未真正停止帮助别人。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "诺依",
+          "text": "诺依留下一盏不起眼的手灯，等待主角自己作出决定。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch052",
+      "chapter_id": "ch052",
+      "name": "落灯盗团",
+      "location": "暮林古道",
+      "suggested_level": 65,
+      "battle_theme": "boss_act_09",
+      "victory_flag": "ch052.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "落灯盗团",
+              "text": "多年隔阂让队员不再相信集体计划能成功。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "落灯盗团",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "昔日伙伴各自守护着不同地区，仍保存着旧队伍的徽章。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "主角坦白失败后的恐惧，队伍重新签下同行约定。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch053",
+      "chapter_id": "ch053",
+      "name": "旧潮遗骸",
+      "location": "晨露村·旧灯塔",
+      "suggested_level": 66,
+      "battle_theme": "boss_act_09",
+      "victory_flag": "ch053.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "多阶段护卫与生存压力",
+          "dialogue": [
+            {
+              "speaker": "旧潮遗骸",
+              "text": "一位失去家人的村民拒绝原谅主角，众人不得强迫其和解。"
+            },
+            {
+              "speaker": "主角",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "旧潮遗骸",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "旧灯塔账簿记录着由主角救出的孩子和不曾回来的人。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "主角",
+          "text": "主角接受这份愤怒，亲手修复一座无人祭扫的墓碑。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch054",
+      "chapter_id": "ch054",
+      "name": "群星考验者",
+      "location": "旧洲·新生营地",
+      "suggested_level": 67,
+      "battle_theme": "boss_act_09",
+      "victory_flag": "ch054.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "战斗要求由不同角色依次完成救援行动",
+          "dialogue": [
+            {
+              "speaker": "群星考验者",
+              "text": "只允许唯一英雄负担救援。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "今天由我们自己分工，不需要一个人承担全部。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血强制只留单人指挥，诺依可恢复多人任务分工",
+          "dialogue": [
+            {
+              "speaker": "群星考验者",
+              "text": "多人命令将导致混乱。"
+            },
+            {
+              "speaker": "主角",
+              "text": "混乱可以讨论，不能因此把选择收走。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "诺依",
+          "text": "传承不是把一把剑交给下一个孤独的人。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "群星考验者代表旧式单英雄救世理念，由新旧队伍协同突破。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch055",
+      "chapter_id": "ch055",
+      "name": "废铁搬运偶",
+      "location": "群灯之城·西区",
+      "suggested_level": 69,
+      "battle_theme": "boss_act_10",
+      "victory_flag": "ch055.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "废铁搬运偶",
+              "text": "部分幸存者主张直接占用房屋，不必询问原主人。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "废铁搬运偶",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "废墟旧地契属于一家已经迁往敌对阵营的住户。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "缇珐",
+          "text": "主角建立临时住用协议，既安置难民也保护原有权利。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch056",
+      "chapter_id": "ch056",
+      "name": "佣兵试探队",
+      "location": "群灯之城·旧会馆",
+      "suggested_level": 70,
+      "battle_theme": "boss_act_10",
+      "victory_flag": "ch056.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "佣兵试探队",
+              "text": "旧佣兵团提出武力保护条件，索要对城市的永久管辖权。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "佣兵试探队",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "公会早年曾负责配送救命物资，被战争切断记录。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "众人拒绝私兵独占，建立透明委托制度。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch058",
+      "chapter_id": "ch058",
+      "name": "议会追猎者",
+      "location": "城郊·封存档案车",
+      "suggested_level": 72,
+      "battle_theme": "boss_act_10",
+      "victory_flag": "ch058.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "议会追猎者",
+              "text": "她过去参与过封印计划，幸存者要求当场处置。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "议会追猎者",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "维莎携带赫西安控制六灯的全部运算图谱。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "维莎",
+          "text": "主角保护审判公正，维莎公开罪证并承担修复责任。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch059",
+      "chapter_id": "ch059",
+      "name": "强硬派机兵",
+      "location": "群灯城·自由议事厅",
+      "suggested_level": 73,
+      "battle_theme": "boss_act_10",
+      "victory_flag": "ch059.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "强硬派机兵",
+              "text": "强硬派要求强制征兵，威胁断绝粮路。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "强硬派机兵",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "赞同中立的村落愿提供粮食、医疗和情报。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "雷索",
+          "text": "主角通过自愿互助体系获得支持，建立自由城市盟约。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch060",
+      "chapter_id": "ch060",
+      "name": "赤烬主力机",
+      "location": "群灯城·星灯中枢",
+      "suggested_level": 75,
+      "battle_theme": "boss_act_10",
+      "victory_flag": "ch060.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "地面分布节点可提供护盾，先保住居民再反击",
+          "dialogue": [
+            {
+              "speaker": "赤烬主力机",
+              "text": "未经授权的社区灯网将被清除。"
+            },
+            {
+              "speaker": "缇珐",
+              "text": "每个人都有权决定自己的灯怎么亮。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血军团试图破坏全部节点，分组防守可避免级联损坏",
+          "dialogue": [
+            {
+              "speaker": "赤烬主力机",
+              "text": "独立节点判定为错误。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "错误是可以公开改正的，不是被你集中消灭的。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "诺依",
+          "text": "一盏灯坏了，另外的人仍可以继续守着。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "赤烬军团的主力机试图摧毁分散灯网，使民众重回中央控制。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch061",
+      "chapter_id": "ch061",
+      "name": "天轨巡游兽",
+      "location": "天轨外海·浮空船坞",
+      "suggested_level": 76,
+      "battle_theme": "boss_act_11",
+      "victory_flag": "ch061.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "天轨巡游兽",
+              "text": "浮空通道只能容纳有限重量，部分船员必须留下。"
+            },
+            {
+              "speaker": "朔弦",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "天轨巡游兽",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "澄舟当年亲手改造过星帆，为主角预留登陆密钥。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "朔弦",
+          "text": "众人建立往返补给站，星帆船驶入云海。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch062",
+      "chapter_id": "ch062",
+      "name": "原初算偶",
+      "location": "天轨圣域·原初实验室",
+      "suggested_level": 77,
+      "battle_theme": "boss_act_11",
+      "victory_flag": "ch062.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "原初算偶",
+              "text": "旧实验室仍主张扩大实验直到成功，拒绝承认方法存在根本问题。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "原初算偶",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "寂潮源于古人试图固定所有人幸福未来时造成的概率塌陷。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "维莎",
+          "text": "主角销毁自动执行命令，保留公开的原始报告。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch063",
+      "chapter_id": "ch063",
+      "name": "记忆监察者",
+      "location": "天轨圣域·澄舟密室",
+      "suggested_level": 78,
+      "battle_theme": "boss_act_11",
+      "victory_flag": "ch063.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "记忆监察者",
+              "text": "若恢复记录，赫西安可重新推算主角所有行动。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "记忆监察者",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "澄舟将主角未来抹出命运档案，并留下跨越映世的童年影像。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "主角保留自由的空白未来，终于理解养父失踪的选择。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch064",
+      "chapter_id": "ch064",
+      "name": "天衡审判者",
+      "location": "天衡母灯坛",
+      "suggested_level": 79,
+      "battle_theme": "boss_act_11",
+      "victory_flag": "ch064.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "天衡审判者",
+              "text": "启动灯坛会释放长期封存的失败可能性。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "天衡审判者",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "天衡灯并非最强武器，而是控制所有可能未来的分配中心。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "众人决定承担风险，让时间重新自由流动。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch065",
+      "chapter_id": "ch065",
+      "name": "七灯议会合议体",
+      "location": "天轨圣域·环形议会",
+      "suggested_level": 81,
+      "battle_theme": "boss_act_11",
+      "victory_flag": "ch065.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "七灯议会合议体",
+              "text": "旧议会要求玩家选择删除一组历史证据以换取通行。"
+            },
+            {
+              "speaker": "雷索",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "七灯议会合议体",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "七守卫保留着早期议会对自由、秩序、记忆的争辩。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "雷索",
+          "text": "主角保留全部记忆与争议，通过第七道门。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch066",
+      "chapter_id": "ch066",
+      "name": "定时星蛇",
+      "location": "天轨圣域·终末天桥",
+      "suggested_level": 82,
+      "battle_theme": "boss_act_11",
+      "victory_flag": "ch066.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "第一次阶段每三回合重排行动顺序，显示星轨提示",
+          "dialogue": [
+            {
+              "speaker": "定时星蛇",
+              "text": "不被批准的将来，禁止抵达。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "还没发生的事，凭什么被你禁止？"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "半血循环整队位置，可利用主角命运空白中断重置",
+          "dialogue": [
+            {
+              "speaker": "定时星蛇",
+              "text": "时间已锁定。返回原点。"
+            },
+            {
+              "speaker": "主角",
+              "text": "我没有被写入它的记录，我们还有路可走。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "维莎",
+          "text": "时间不再被只写一个答案的人拿在手里。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "定时星蛇是天桥时间封锁机关的具象，能重置回合与已执行行动。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。"
+    },
+    {
+      "id": "boss.ch067",
+      "chapter_id": "ch067",
+      "name": "永昼园丁",
+      "location": "永昼界·迎宾花园",
+      "suggested_level": 83,
+      "battle_theme": "boss_act_12",
+      "victory_flag": "ch067.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "永昼园丁",
+              "text": "居民以为主角是来夺走幸福的破坏者。"
+            },
+            {
+              "speaker": "玄璃",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "永昼园丁",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "花园中的孩子不会长大，母亲也不会再失去他们。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "玄璃",
+          "text": "主角承诺先倾听所有人的心声，再决定七灯命运。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch068",
+      "chapter_id": "ch068",
+      "name": "愿望之影",
+      "location": "永昼界·归人长廊",
+      "suggested_level": 84,
+      "battle_theme": "boss_act_12",
+      "victory_flag": "ch068.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "愿望之影",
+              "text": "赫西安让玩家选择带走一人，但代价是其未来永远停止。"
+            },
+            {
+              "speaker": "岚音",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "愿望之影",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "每个伙伴都能见到最想见的亲人或旧日自己。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "岚音",
+          "text": "队友们含泪告别幻象，决定带着回忆继续生活。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch069",
+      "chapter_id": "ch069",
+      "name": "静日守门人",
+      "location": "永昼界·静时城市",
+      "suggested_level": 85,
+      "battle_theme": "boss_act_12",
+      "victory_flag": "ch069.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "静日守门人",
+              "text": "维持永昼将使所有未出生生命失去诞生的机会。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "静日守门人",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "居民可以重演美好时光，却无法作出从未出现过的新选择。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "诺依",
+          "text": "主角将真相告诉居民，允许他们加入最终表决。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch070",
+      "chapter_id": "ch070",
+      "name": "七灯意志",
+      "location": "永昼界·七灯评议庭",
+      "suggested_level": 87,
+      "battle_theme": "boss_act_12",
+      "victory_flag": "ch070.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "群体协作与行动顺序",
+          "dialogue": [
+            {
+              "speaker": "七灯意志",
+              "text": "理想化的第三条道路需要所有失落航页的见证和自愿网络。"
+            },
+            {
+              "speaker": "维莎",
+              "text": "先保护附近的人！别让它把我们逼到绝路。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "弱点变化或场地机关启动；无强制一击即死",
+          "dialogue": [
+            {
+              "speaker": "七灯意志",
+              "text": "为什么还要反抗……未来本应被写好。"
+            },
+            {
+              "speaker": "主角",
+              "text": "七灯既可维持改良秩序、彻底熄灭，也能分散交给居民。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "维莎",
+          "text": "代表们听取主角论证，结局选择条件正式解锁。"
+        }
+      ],
+      "implementation_status": "battle_design_text_only"
+    },
+    {
+      "id": "boss.ch071",
+      "chapter_id": "ch071",
+      "name": "终幕司录者赫西安",
+      "location": "永昼界·终幕殿",
+      "suggested_level": 88,
+      "battle_theme": "boss_act_12",
+      "victory_flag": "ch071.battle_won",
+      "hp_design": "按玩家平均装备与四人队伍DPS调优，尚无正式数值",
+      "phase_design": [
+        {
+          "at": "battle_start",
+          "name": "逼近",
+          "mechanic": "第一阶段投射伙伴最想见的人，使用羁绊行动可避免被困在完美回忆",
+          "dialogue": [
+            {
+              "speaker": "赫西安",
+              "text": "你能保证明天没人哭吗？"
+            },
+            {
+              "speaker": "主角",
+              "text": "不能。但我不会替所有人取消明天。"
+            }
+          ]
+        },
+        {
+          "at": "hp_below_50_percent",
+          "name": "真相显露",
+          "mechanic": "第二阶段以黑星之夜的失败作为精神压制，伙伴共同见证可打破",
+          "dialogue": [
+            {
+              "speaker": "赫西安",
+              "text": "失去与后悔都是生命的错误。"
+            },
+            {
+              "speaker": "诺依",
+              "text": "不是。它们也是我们为什么还愿意回来救人的理由。"
+            }
+          ]
+        }
+      ],
+      "after_battle": [
+        {
+          "speaker": "赫西安",
+          "text": "我一直想让人永远不必说再见。也许我从来没听过他们想说什么。"
+        }
+      ],
+      "implementation_status": "narrative_climax_v2_text_only",
+      "background": "赫西安是终幕司录者，以亲人的记忆与战争失败质问玩家是否仍选择自由。",
+      "production_note": "剧情文本与机制创意，未修改战斗数据与AI。",
+      "narrative_lanes": [
+        {
+          "id": "hesian.ethic.no_suffering",
+          "name": "没有苦难",
+          "trigger": "ch071.crisis dialogue → battle_start",
+          "realization": "第一阶段完美回忆诱惑；伙伴以不同意见破除强制承诺"
+        },
+        {
+          "id": "hesian.ethic.no_loss",
+          "name": "没有失去",
+          "trigger": "battle_start → hp_below_50_percent",
+          "realization": "从回忆困境转为黑星夜失去的记忆压制；共同见证作为转换契机"
+        },
+        {
+          "id": "hesian.ethic.no_uncertainty",
+          "name": "没有不确定",
+          "trigger": "hp_below_50_percent → after_battle",
+          "realization": "第二战斗阶段的终极立场，在胜利后通过允许未来可被修正的对白落地"
+        }
+      ],
+      "stage_contract": "三层理念≠三段血量阶段。本版仍为两段战斗文字设计；第三理念贯穿第二阶段末尾与战后回应，禁止误报有第三血量阶段。"
+    }
+  ]
+}

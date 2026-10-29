@@ -1,0 +1,285 @@
+{
+  "schema_version": 3,
+  "map_id": "map_isles_04",
+  "title": "深潮神庙",
+  "biome": "archipelago",
+  "category": "dungeon",
+  "design_intent": "群岛水路与石桥",
+  "size": [
+    102,
+    60
+  ],
+  "roads": [
+    {
+      "id": "spine-潮沟分支",
+      "width": 1,
+      "points": [
+        [
+          6,
+          18
+        ],
+        [
+          27,
+          21
+        ],
+        [
+          39,
+          22
+        ],
+        [
+          55,
+          27
+        ],
+        [
+          95,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "branch-isles",
+      "width": 1,
+      "points": [
+        [
+          21,
+          5
+        ],
+        [
+          43,
+          18
+        ],
+        [
+          24,
+          29
+        ],
+        [
+          49,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          9,
+          36
+        ],
+        [
+          36,
+          42
+        ],
+        [
+          63,
+          29
+        ],
+        [
+          14,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          57,
+          33
+        ],
+        [
+          76,
+          19
+        ],
+        [
+          96,
+          33
+        ],
+        [
+          93,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          18,
+          13
+        ],
+        [
+          42,
+          9
+        ],
+        [
+          61,
+          28
+        ],
+        [
+          90,
+          52
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_isles_04",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          97,
+          14
+        ],
+        [
+          98,
+          47
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-south-crest-map_isles_04",
+      "width": 1,
+      "points": [
+        [
+          23,
+          54
+        ],
+        [
+          95,
+          55
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_isles_04",
+      "width": 1,
+      "points": [
+        [
+          97,
+          6
+        ],
+        [
+          94,
+          20
+        ],
+        [
+          97,
+          47
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_isles_04",
+      "center": [
+        24,
+        22
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_isles_04",
+      "center": [
+        59,
+        31
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_isles_04",
+      "center": [
+        92,
+        51
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_isles_04",
+      "cell": [
+        58,
+        19
+      ],
+      "kind": "star_lantern"
+    },
+    {
+      "id": "secondary-lookout-map_isles_04",
+      "cell": [
+        15,
+        35
+      ],
+      "kind": "flowerpot"
+    },
+    {
+      "id": "peripheral-crest-map_isles_04",
+      "cell": [
+        93,
+        50
+      ],
+      "kind": "crate"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        98,
+        56
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        98,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        93,
+        31
+      ],
+      "kind": "beacon",
+      "name": "潮桥灯位·深潮神庙"
+    },
+    {
+      "cell": [
+        91,
+        50
+      ],
+      "kind": "sign",
+      "name": "珊瑚浅径·深潮神庙"
+    },
+    {
+      "cell": [
+        65,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "归航星标·深潮神庙"
+    }
+  ],
+  "layout_identity": "isles.04.潮沟分支",
+  "layout_principle": "潮沟分支：依据「深潮神庙」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

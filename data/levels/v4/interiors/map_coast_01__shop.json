@@ -1,0 +1,345 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 2,
+  "map_id": "map_coast_01",
+  "building_id": "shop",
+  "name": "晨露村·行商杂货铺",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        30,
+        27,
+        42,
+        36
+      ]
+    },
+    {
+      "rect": [
+        23,
+        15,
+        48,
+        29
+      ]
+    },
+    {
+      "rect": [
+        17,
+        18,
+        27,
+        28
+      ]
+    },
+    {
+      "rect": [
+        43,
+        14,
+        55,
+        25
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        37,
+        17,
+        37,
+        23
+      ]
+    },
+    {
+      "rect": [
+        30,
+        22,
+        33,
+        22
+      ]
+    },
+    {
+      "rect": [
+        46,
+        26,
+        46,
+        29
+      ]
+    }
+  ],
+  "door_regions": [],
+  "points": {
+    "spawn": [
+      35,
+      32
+    ],
+    "exit": [
+      35,
+      35
+    ],
+    "service": [
+      24,
+      21
+    ],
+    "storage": [
+      50,
+      20
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        21
+      ],
+      "name": "晨露村·行商杂货铺·服务台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        50,
+        20
+      ],
+      "name": "晨露村·行商杂货铺·储物处"
+    }
+  ],
+  "art_profile": "coast_district_shop_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/dew_shop_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        24,
+        21
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        50,
+        20
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_0_provisions_shelves",
+      "asset": "provisions_shelves",
+      "cell": [
+        29,
+        17
+      ],
+      "offset": [
+        0,
+        -72
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_provisions_shelves",
+      "asset": "provisions_shelves",
+      "cell": [
+        46,
+        23
+      ],
+      "offset": [
+        0,
+        -72
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_2_merchant_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_3_bread_basket",
+      "asset": "bread_basket",
+      "cell": [
+        25,
+        23
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_saltgrass_planter",
+      "asset": "saltgrass_planter",
+      "cell": [
+        49,
+        18
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_5_window",
+      "asset": "window",
+      "cell": [
+        30,
+        27
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        40,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      29,
+      17
+    ],
+    [
+      46,
+      23
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "dew_shop_light_0",
+      "cell": [
+        24,
+        21
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "dew_shop_light_1",
+      "cell": [
+        30,
+        27
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    }
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_provisions_shelves",
+      "source_visual_id": "stage_0_provisions_shelves",
+      "kind": "provisions_shelves",
+      "name": "盐露草货架",
+      "cell": [
+        29,
+        16
+      ],
+      "first_text": "每个药草包都绑着不同颜色的线，最粗那捆是为雨天走不动的人备的。",
+      "repeat_text": "货架今天整理得很齐。",
+      "after_text": "包裹旁新增了供药记录，外来旅客也能核对价目。",
+      "owner_absent_text": "店主还没回来，请别动柜上的药草。",
+      "owner_present_text": "屋主同意你仔细查看「盐露草货架」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_provisions_shelves",
+      "source_visual_id": "stage_1_provisions_shelves",
+      "kind": "provisions_shelves",
+      "name": "防潮备用粮",
+      "cell": [
+        46,
+        22
+      ],
+      "first_text": "两块木牌写着不同的进货港口，价格差异比预想的明显。",
+      "repeat_text": "门边的干粮还能闻到麦香。",
+      "after_text": "新标价注明了潮汛延期原因，街坊不必担心商人暗中加价。",
+      "owner_absent_text": "这架东西正在盘点，先看看标签。",
+      "owner_present_text": "屋主同意你仔细查看「防潮备用粮」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_merchant_counter",
+      "source_visual_id": "stage_2_merchant_counter",
+      "kind": "merchant_counter",
+      "name": "手工刻度秤",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "老秤杆上刻了两道小划痕，是行商纠正第一次错秤时留下的。",
+      "repeat_text": "秤砣被仔细擦过。",
+      "after_text": "账簿旁夹着居民的感谢条，写着灯祭临时免费运粮。",
+      "owner_absent_text": "称量工具需当着店主的面使用。",
+      "owner_present_text": "屋主同意你仔细查看「手工刻度秤」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_3_bread_basket",
+      "source_visual_id": "stage_3_bread_basket",
+      "kind": "bread_basket",
+      "name": "早市豆糕",
+      "cell": [
+        25,
+        23
+      ],
+      "first_text": "篮底还垫着早晨的热布，包裹上的小纸片写着‘先给老人’。",
+      "repeat_text": "豆糕香气已经淡了。",
+      "after_text": "新篮子上添了晚归渔民的预订名单。",
+      "owner_absent_text": "店主不在，不要碰尚未结账的食物。",
+      "owner_present_text": "屋主同意你仔细查看「早市豆糕」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch001.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "npc_coast_04",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
+}

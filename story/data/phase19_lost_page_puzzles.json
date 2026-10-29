@@ -1,0 +1,412 @@
+{
+  "schema": "starlit.story.phase19.lost_page_evidence_puzzles.v1",
+  "status": "playable_optional_three_station_deduction",
+  "quest_count": 12,
+  "rules": {
+    "station_0": "observe original testimony",
+    "station_1": "cross_reference the original evidence",
+    "station_2": "review case and choose the conclusion",
+    "unlocks_original_quest": false,
+    "repeat_original_rewards": false,
+    "wrong_attempts": "unlimited and not rewarded",
+    "save_container": "rpg.quest_puzzles"
+  },
+  "quests": [
+    {
+      "quest_id": "sq_page_01",
+      "mechanic": "邮戳年代比对",
+      "theme": "ink_blue",
+      "prompt": "从邮戳与收件栏判断：哪种处理不会让尚无地址的信被销毁？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "按年份不同全部判作伪件"
+        },
+        {
+          "id": "option_1",
+          "label": "暂存原件并由家属自愿登记收件线索"
+        },
+        {
+          "id": "option_2",
+          "label": "必须写出现任港务官地址"
+        }
+      ],
+      "correct_option_id": "option_1",
+      "success": "保留十二封信与当事人可决定的收件线索。",
+      "retry": "信件年份异常不能直接证明伪造，强填地址也会伤害当事人。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_01.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_02",
+      "mechanic": "王徽粮仓双账核验",
+      "theme": "grain_ochre",
+      "prompt": "王徽背面的编号对应开仓记录，公开时还应怎样处理？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "只陈列开仓善行"
+        },
+        {
+          "id": "option_1",
+          "label": "将开仓与战时征粮记录并列呈现"
+        },
+        {
+          "id": "option_2",
+          "label": "为避免争议再次埋藏"
+        }
+      ],
+      "correct_option_id": "option_1",
+      "success": "双账并列；既确认救助，也不抹去战争损害。",
+      "retry": "一份历史证据不能替代对其他历史责任的调查。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_02.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_03",
+      "mechanic": "歌谱工时破译",
+      "theme": "forge_ember",
+      "prompt": "童谣里连续的数字应先与哪种记录交叉核验？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "工资单、饭票与工号"
+        },
+        {
+          "id": "option_1",
+          "label": "仅凭孩子唱得是否准确"
+        },
+        {
+          "id": "option_2",
+          "label": "厂方单方面的口头声明"
+        }
+      ],
+      "correct_option_id": "option_0",
+      "success": "工号和工时通过独立凭证得到核对，孩子不必出庭。",
+      "retry": "单一口述无法独立确认连续数字的真实来源。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_03.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_04",
+      "mechanic": "双面军令复原",
+      "theme": "ash_violet",
+      "prompt": "烧焦的军令正面与背面记录，应采用哪种保存方式？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "仅保存撤离申请"
+        },
+        {
+          "id": "option_1",
+          "label": "正反并录并保留受害者证词"
+        },
+        {
+          "id": "option_2",
+          "label": "只保存清剿命令"
+        }
+      ],
+      "correct_option_id": "option_1",
+      "success": "两面的命令与行动同时入档，责任没有被英雄故事替代。",
+      "retry": "只留下任何一面都会使其他受影响者在史料中失声。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_04.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_05",
+      "mechanic": "潮差与星位校准",
+      "theme": "tide_teal",
+      "prompt": "要将钟背面的旧坐标转换为安全航路，必须合并什么？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "只依钟面时针方向"
+        },
+        {
+          "id": "option_1",
+          "label": "星位与潮差的联合观测"
+        },
+        {
+          "id": "option_2",
+          "label": "只采用收费航标资料"
+        }
+      ],
+      "correct_option_id": "option_1",
+      "success": "星位与潮差共同校准失落航道，航路信息对船员公开。",
+      "retry": "单一时刻与收费航标不能替代共同实测的潮差。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_05.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_06",
+      "mechanic": "沉城出生簿校勘",
+      "theme": "deep_blue",
+      "prompt": "海沟王国大厅的出生记录怎样带出才不破坏原件？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "带走经授权核对的副本"
+        },
+        {
+          "id": "option_1",
+          "label": "拆走钟楼里的原始页"
+        },
+        {
+          "id": "option_2",
+          "label": "只留下王室姓名"
+        }
+      ],
+      "correct_option_id": "option_0",
+      "success": "原件留在沉城，授权副本可向家属提供。",
+      "retry": "移走原件或筛掉平民名字会重新造成史料缺失。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_06.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_07",
+      "mechanic": "镜庭记忆授权",
+      "theme": "mirror_silver",
+      "prompt": "老人害怕听见失踪者的结局，第一步应怎样安排？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "直接播放所有名单"
+        },
+        {
+          "id": "option_1",
+          "label": "替老人决定永久封存"
+        },
+        {
+          "id": "option_2",
+          "label": "说明风险并由老人自选先读哪条记录"
+        }
+      ],
+      "correct_option_id": "option_2",
+      "success": "老人先自愿查阅一人的名字，其余记录仍可随后查看。",
+      "retry": "知情权应与风险说明、撤回和继续选择同时存在。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_07.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_08",
+      "mechanic": "户籍墨层分辨",
+      "theme": "ledger_green",
+      "prompt": "旧姓从墨层复原之后，应怎样处理居民正在使用的名字？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "由官署统一改回旧姓"
+        },
+        {
+          "id": "option_1",
+          "label": "旧名可供查询，现用名由当事人决定"
+        },
+        {
+          "id": "option_2",
+          "label": "只留下最早的墨迹"
+        }
+      ],
+      "correct_option_id": "option_1",
+      "success": "旧名与现用名可并存，当事人拥有修改决定权。",
+      "retry": "辨出历史姓氏不等于有权重写一个人的身份。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_08.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_09",
+      "mechanic": "礼服双信对照",
+      "theme": "chapel_rose",
+      "prompt": "封城那天礼服中发现两封未寄的信，纪念展应如何陈列？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "把两封信及中断事实并列说明"
+        },
+        {
+          "id": "option_1",
+          "label": "宣称婚礼已完成"
+        },
+        {
+          "id": "option_2",
+          "label": "删除其中一人的等待"
+        }
+      ],
+      "correct_option_id": "option_0",
+      "success": "两封未寄出的信得到共同见证，仪式无需被伪造成圆满。",
+      "retry": "没有举行完的婚礼，不代表可以删去其中一方的存在。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_09.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_10",
+      "mechanic": "食谱贡献溯源",
+      "theme": "hearth_amber",
+      "prompt": "灾后公用厨房的共同食谱，应由谁享有再次制作的权利？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "仅授予市议会特许餐馆"
+        },
+        {
+          "id": "option_1",
+          "label": "开放给公众并继续核对贡献者"
+        },
+        {
+          "id": "option_2",
+          "label": "将无名贡献全部算作官方资产"
+        }
+      ],
+      "correct_option_id": "option_1",
+      "success": "共同食谱作为公共记忆继续流传，无名贡献仍待核查。",
+      "retry": "救灾劳动不能因缺席署名就被官方或商家独占。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_10.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_11",
+      "mechanic": "废墟道路拼图",
+      "theme": "ruin_copper",
+      "prompt": "来自北门和西门的迁徙路线彼此不合，应如何保存在同一幅图上？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "只留下战胜者路线"
+        },
+        {
+          "id": "option_1",
+          "label": "将所有路统一涂成一条"
+        },
+        {
+          "id": "option_2",
+          "label": "保留各路线、见证来源及不确定时间"
+        }
+      ],
+      "correct_option_id": "option_2",
+      "success": "不同经历获得平等的地图位置，也明确标记尚待核实之处。",
+      "retry": "把争议擦掉并不会让那些曾在路上逃难的人消失。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_11.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    },
+    {
+      "quest_id": "sq_page_12",
+      "mechanic": "空白未来指令审查",
+      "theme": "starlit_white",
+      "prompt": "系统提出自动写入最安全未来，应如何保存第十二张航页？",
+      "options": [
+        {
+          "id": "option_0",
+          "label": "保留空白，并记录见证与自主填写权限"
+        },
+        {
+          "id": "option_1",
+          "label": "立即以预测填满全部空白"
+        },
+        {
+          "id": "option_2",
+          "label": "由议会预先写出所有人的未来"
+        }
+      ],
+      "correct_option_id": "option_0",
+      "success": "航页继续留白，未来只能由真正生活其中的人决定。",
+      "retry": "减少风险的算法不能因此拥有代替所有人选择未来的权力。",
+      "required_observations": [
+        "0",
+        "1"
+      ],
+      "outcome_flag": "rpg.quest_puzzles.sq_page_12.solved",
+      "rewards": {
+        "xp": 0,
+        "gold": 0,
+        "bond": 0
+      }
+    }
+  ]
+}

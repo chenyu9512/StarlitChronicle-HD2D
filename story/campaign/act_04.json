@@ -1,0 +1,2782 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 4,
+  "title": "群像回声",
+  "theme": "以多视角经历理解伙伴的过去，取得七灯建造记录。",
+  "progression_unlock": "council_archive",
+  "chapters": [
+    {
+      "id": "ch019",
+      "number": 19,
+      "act": 4,
+      "chapter_number": 1,
+      "title": "骑士最后的命令",
+      "location": "十年前·肃清边村",
+      "required_flags": [
+        "story.ch018.done"
+      ],
+      "chapter_start_flag": "ch019.started",
+      "chapter_complete_flag": "story.ch019.done",
+      "lead_character": "雷索",
+      "summary": "在十年前·肃清边村，操作年轻雷索保护村民撤离。直属长官命令雷索烧毁所有民宅以掩盖误报。最终，雷索放走居民，接受被夺爵位的代价。",
+      "production_status": "scripted_blocking_v3_phase11_memory_archive",
+      "recommended_level": [
+        22,
+        26
+      ],
+      "boss": "肃清队长",
+      "scenes": [
+        {
+          "id": "ch019.opening",
+          "title": "到达：十年前·肃清边村",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "十年前·肃清边村"
+          },
+          "dialogue": [
+            {
+              "id": "ch019.opening.l01",
+              "speaker": "旁白",
+              "text": "十年前的灰石边村。麦田还没收完，村口已来了几十名全副武装的士兵。"
+            },
+            {
+              "id": "ch019.opening.l02",
+              "speaker": "年轻雷索",
+              "text": "先让部队驻扎在村外，别踩坏他们的田。"
+            },
+            {
+              "id": "ch019.opening.l03",
+              "speaker": "军士",
+              "text": "少尉，指挥官要求日落前完成清剿。"
+            },
+            {
+              "id": "ch019.opening.l04",
+              "speaker": "年轻雷索",
+              "text": "清剿什么？我看不到敌军旗号。"
+            },
+            {
+              "id": "ch019.opening.l05",
+              "speaker": "军士",
+              "text": "说是村里藏着联络点，还放过烟。"
+            },
+            {
+              "id": "ch019.opening.p11.l01",
+              "speaker": "村妇",
+              "text": "炊烟是为了让井里的孩子知道外面有人，不是给敌军通风报信。"
+            },
+            {
+              "id": "ch019.opening.p11.l02",
+              "speaker": "年轻雷索",
+              "text": "派两人带绳索去井口，其余人留在村外，未经许可不能点火。"
+            },
+            {
+              "id": "ch019.opening.p11.l03",
+              "speaker": "军士",
+              "text": "上头只给半日。我怕回去以后军籍也保不住。"
+            },
+            {
+              "id": "ch019.opening.p11.l04",
+              "speaker": "年轻雷索",
+              "text": "你可以记下我说的每个字，但别让村民替我们承担赶时间的代价。"
+            },
+            {
+              "id": "ch019.opening.p11.l05",
+              "speaker": "旁白",
+              "text": "兵士卸下几副笨重的护甲，先走向传出孩子哭声的旧井。"
+            },
+            {
+              "id": "ch019.opening.l06",
+              "speaker": "村妇",
+              "text": "那是求救烟。我们家的孩子掉进井里了。"
+            },
+            {
+              "id": "ch019.opening.l07",
+              "speaker": "年轻雷索",
+              "text": "把命令给我看原件，不能只听传令。"
+            },
+            {
+              "id": "ch019.opening.l08",
+              "speaker": "旁白",
+              "text": "封蜡完好。命令只有一句：清除全部可能的联络点。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "十年前·肃清边村"
+            },
+            {
+              "type": "interact",
+              "target": "ch019.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch019.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "烟火和求救烟的形状保持一致",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "十年前，玩家操控年轻雷索，不能出现现世队伍的共同动作。"
+          }
+        },
+        {
+          "id": "ch019.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch019.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch019.investigate.l01",
+              "speaker": "旁白",
+              "text": "雷索走过灶间，锅里还煮着未熟的麦粥。最小的孩子正在替受伤的母亲洗布。"
+            },
+            {
+              "id": "ch019.investigate.l02",
+              "speaker": "年轻雷索",
+              "text": "有谁见过拿武器的外乡人？"
+            },
+            {
+              "id": "ch019.investigate.l03",
+              "speaker": "村长",
+              "text": "昨夜有人路过，买了两块面包，又走了。"
+            },
+            {
+              "id": "ch019.investigate.l04",
+              "speaker": "军士",
+              "text": "上头把这里列为潜在据点，买面包也能算接应。"
+            },
+            {
+              "id": "ch019.investigate.l05",
+              "speaker": "年轻雷索",
+              "text": "照这样，所有道路上的人都能成为敌军。"
+            },
+            {
+              "id": "ch019.investigate.p11.l01",
+              "speaker": "村长",
+              "text": "这村只有一条取水沟，夜里点求救烟，北坡的人才可能看见。"
+            },
+            {
+              "id": "ch019.investigate.p11.l02",
+              "speaker": "年轻雷索",
+              "text": "请带我看烟堆和用过的湿木。我们不能只凭一种颜色断定敌情。"
+            },
+            {
+              "id": "ch019.investigate.p11.l03",
+              "speaker": "军士",
+              "text": "昨晚那份“发现敌军”报告，署名的人根本没有进村。"
+            },
+            {
+              "id": "ch019.investigate.p11.l04",
+              "speaker": "村妇",
+              "text": "我愿讲自己看见的事，但孩子的藏身处不能给他们。"
+            },
+            {
+              "id": "ch019.investigate.p11.l05",
+              "speaker": "年轻雷索",
+              "text": "将证人住处封存，只对调查官交烟堆实物，不让传令兵拿去做清剿名单。"
+            },
+            {
+              "id": "ch019.investigate.l06",
+              "speaker": "村长",
+              "text": "我们可以交出粮仓钥匙，只求别伤孩子。"
+            },
+            {
+              "id": "ch019.investigate.l07",
+              "speaker": "年轻雷索",
+              "text": "先把老人和孩子送到北面的沟渠，我来拖住军队。"
+            },
+            {
+              "id": "ch019.investigate.l08",
+              "speaker": "军士",
+              "text": "你这是违抗军令。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch019.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch019.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch019.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "未熟麦粥与清剿军令在同一镜头",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "十年前，玩家操控年轻雷索，不能出现现世队伍的共同动作。"
+          }
+        },
+        {
+          "id": "ch019.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch019.crisis",
+            "requires_flags": [
+              "ch019.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch019.crisis.l01",
+              "speaker": "旁白",
+              "text": "黄昏时，军队的火把已经点燃。主官骑马立在麦田边。"
+            },
+            {
+              "id": "ch019.crisis.l02",
+              "speaker": "主官",
+              "text": "少尉，我只问一次。村子烧了吗？"
+            },
+            {
+              "id": "ch019.crisis.l03",
+              "speaker": "年轻雷索",
+              "text": "没有敌军，只有住户。请撤销命令。"
+            },
+            {
+              "id": "ch019.crisis.l04",
+              "speaker": "主官",
+              "text": "战场上没有时间替每个农妇分辨是非！"
+            },
+            {
+              "id": "ch019.crisis.l05",
+              "speaker": "年轻雷索",
+              "text": "那至少应该知道我们要杀的是谁。"
+            },
+            {
+              "id": "ch019.crisis.p11.l01",
+              "speaker": "主官",
+              "text": "你还在问证据？把最后一栋屋点了，明早谁也说不清这里原来住谁。"
+            },
+            {
+              "id": "ch019.crisis.p11.l02",
+              "speaker": "年轻雷索",
+              "text": "我拒绝的是烧毁民宅的命令，不是军队必须保护村民的职责。"
+            },
+            {
+              "id": "ch019.crisis.p11.l03",
+              "speaker": "军士",
+              "text": "北沟的撤离队已经走过了石桥，我亲眼看见有人撑着伤员。"
+            },
+            {
+              "id": "ch019.crisis.p11.l04",
+              "speaker": "村妇",
+              "text": "我不能答应把所有人的名字交给你，但可以指认我家的灶台。"
+            },
+            {
+              "id": "ch019.crisis.p11.l05",
+              "speaker": "年轻雷索",
+              "text": "把未执行的命令和现场证言分开留下，日后谁要追查，都有东西可查。"
+            },
+            {
+              "id": "ch019.crisis.l06",
+              "speaker": "主官",
+              "text": "你连自己的爵位都不想要了？"
+            },
+            {
+              "id": "ch019.crisis.l07",
+              "speaker": "年轻雷索",
+              "text": "如果保住它要靠放火，我宁可不要。"
+            },
+            {
+              "id": "ch019.crisis.l08",
+              "speaker": "军士",
+              "text": "少尉，沟渠那边的人已经走远。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch019.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch019.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch019.choice",
+            "prompt": "过去的雷索如何留下当日事件的证据？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "将未执行的军令交由村民保存",
+                "sets": {
+                  "ch019.approach": "villagers",
+                  "world.ch019.approach": "villagers"
+                }
+              },
+              {
+                "id": "act",
+                "label": "由军士共同见证自己的抗命声明",
+                "sets": {
+                  "ch019.approach": "witness_soldier",
+                  "world.ch019.approach": "witness_soldier"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch019",
+            "display_name": "肃清队长",
+            "win_flag": "ch019.battle_won",
+            "recommended_level": 25
+          },
+          "direction": {
+            "shot": "火把近景在雷索面前停止",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "十年前，玩家操控年轻雷索，不能出现现世队伍的共同动作。"
+          }
+        },
+        {
+          "id": "ch019.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch019.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch019.resolve.l01",
+              "speaker": "旁白",
+              "text": "村口的火把熄了，兵士却收走了雷索的徽章。"
+            },
+            {
+              "id": "ch019.resolve.l02",
+              "speaker": "主官",
+              "text": "自今日起，你不再属于骑士团。"
+            },
+            {
+              "id": "ch019.resolve.l03",
+              "speaker": "年轻雷索",
+              "text": "那就请在军令里写清：撤走居民是我一人的决定。"
+            },
+            {
+              "id": "ch019.resolve.l04",
+              "speaker": "村妇",
+              "text": "那件披风……孩子刚才怕冷，拿走了。"
+            },
+            {
+              "id": "ch019.resolve.l05",
+              "speaker": "年轻雷索",
+              "text": "不用还，让他穿到安全的地方。"
+            },
+            {
+              "id": "ch019.resolve.p11.l01",
+              "speaker": "村妇",
+              "text": "那件披风孩子弄脏了，我本来想替你洗干净。"
+            },
+            {
+              "id": "ch019.resolve.p11.l02",
+              "speaker": "年轻雷索",
+              "text": "先给他穿着。冬天快到了，徽章不比一件暖衣服有用。"
+            },
+            {
+              "id": "ch019.resolve.p11.l03",
+              "speaker": "旁白",
+              "text": "被撤走的村民仍不知道下一座城会不会接纳他们，雷索的军籍却已当场失效。"
+            },
+            {
+              "id": "ch019.resolve.p11.l04",
+              "speaker": "现在的雷索",
+              "text": "我一直记着那条沟渠，也记着有些人后来没能回到故乡。"
+            },
+            {
+              "id": "ch019.resolve.p11.l05",
+              "speaker": "主角",
+              "text": "我们现在至少能让他们的证词不再只藏在一位军人的记忆里。"
+            },
+            {
+              "id": "ch019.resolve.l06",
+              "speaker": "旁白",
+              "text": "雷索赤手走出村庄，没有回头。远处有人高喊那位孩子的名字。"
+            },
+            {
+              "id": "ch019.resolve.l07",
+              "speaker": "现在的雷索",
+              "text": "那年我以为只要做对一次，就能了结这一切。"
+            },
+            {
+              "id": "ch019.resolve.l08",
+              "speaker": "主角",
+              "text": "后来呢？"
+            },
+            {
+              "id": "ch019.resolve.l09",
+              "speaker": "雷索",
+              "text": "后来发现，救下一个村庄只是开始。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch019"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch019.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 860,
+              "gold": 306
+            }
+          ],
+          "direction": {
+            "shot": "旧披风盖在孩子肩上，年轻骑士独自离开",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "十年前，玩家操控年轻雷索，不能出现现世队伍的共同动作。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch019.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch019.done",
+          "speaker": "路人",
+          "text": "听说你们在十年前·肃清边村帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "playable_character": "雷索",
+      "pov_mode": "flashback_character",
+      "point_of_view": "年轻雷索",
+      "timeframe": "十年前",
+      "script_revision": "act_04_character_pov_v2",
+      "phase11_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "time_layers_evidence_and_family_agency"
+      }
+    },
+    {
+      "id": "ch020",
+      "number": 20,
+      "act": 4,
+      "chapter_number": 2,
+      "title": "没有目的地的船",
+      "location": "七年前·无名海",
+      "required_flags": [
+        "story.ch019.done"
+      ],
+      "chapter_start_flag": "ch020.started",
+      "chapter_complete_flag": "story.ch020.done",
+      "lead_character": "朔弦",
+      "summary": "在七年前·无名海，操作年轻朔弦探查被擦除的航线。船长决定将仍寻找故乡的朔弦卖给灰帷会。最终，朔弦逃脱并藏起船长的航海日记。",
+      "production_status": "scripted_blocking_v3_phase11_memory_archive",
+      "recommended_level": [
+        24,
+        28
+      ],
+      "boss": "灰帷猎手",
+      "scenes": [
+        {
+          "id": "ch020.opening",
+          "title": "到达：七年前·无名海",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "七年前·无名海"
+          },
+          "dialogue": [
+            {
+              "id": "ch020.opening.l01",
+              "speaker": "旁白",
+              "text": "七年前，少年朔弦在陌生港口醒来，枕边放着一张边缘被刮花的海图。"
+            },
+            {
+              "id": "ch020.opening.l02",
+              "speaker": "年轻朔弦",
+              "text": "昨晚我们经过的那座岛呢？码头上还有棵歪树。"
+            },
+            {
+              "id": "ch020.opening.l03",
+              "speaker": "老船长",
+              "text": "别胡说，我们从没经过那个地方。"
+            },
+            {
+              "id": "ch020.opening.l04",
+              "speaker": "年轻朔弦",
+              "text": "我在那里长大，连修船的铁匠叫什么都知道！"
+            },
+            {
+              "id": "ch020.opening.l05",
+              "speaker": "水手",
+              "text": "地图上连海岸线都没有。你想让我们去哪儿找？"
+            },
+            {
+              "id": "ch020.opening.p11.l01",
+              "speaker": "小水手",
+              "text": "那棵歪树我没见过，可你每次说到它都知道枝条朝哪边弯。"
+            },
+            {
+              "id": "ch020.opening.p11.l02",
+              "speaker": "年轻朔弦",
+              "text": "北风吹来时，树影会落在修船棚的蓝门上。小时候我在那里偷睡过午觉。"
+            },
+            {
+              "id": "ch020.opening.p11.l03",
+              "speaker": "老船长",
+              "text": "海上没有靠回忆开船的规矩，拿出看得见的航标才算数。"
+            },
+            {
+              "id": "ch020.opening.p11.l04",
+              "speaker": "年轻朔弦",
+              "text": "那我就去找看得见的。至少先让我把那片空海量一遍。"
+            },
+            {
+              "id": "ch020.opening.p11.l05",
+              "speaker": "旁白",
+              "text": "少年把木尺贴在发白的海图边缘，发现那里还剩一道被刮去的浅墨。"
+            },
+            {
+              "id": "ch020.opening.l06",
+              "speaker": "年轻朔弦",
+              "text": "那我自己去。我总能找到回家的路。"
+            },
+            {
+              "id": "ch020.opening.l07",
+              "speaker": "老船长",
+              "text": "先把船工的活干完，再说你的梦。"
+            },
+            {
+              "id": "ch020.opening.l08",
+              "speaker": "旁白",
+              "text": "船头的风向标忽然指向没有任何标记的空海。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "七年前·无名海"
+            },
+            {
+              "type": "interact",
+              "target": "ch020.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch020.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "少年身后的空海逐渐失去岸线",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "七年前，玩家操控年轻朔弦，不能提前拥有现世同伴。"
+          }
+        },
+        {
+          "id": "ch020.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch020.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch020.investigate.l01",
+              "speaker": "旁白",
+              "text": "夜班时，朔弦摸进船长室，发现海图的经纬线被刀片刮断。"
+            },
+            {
+              "id": "ch020.investigate.l02",
+              "speaker": "年轻朔弦",
+              "text": "不是没人画，是有人故意擦掉了。"
+            },
+            {
+              "id": "ch020.investigate.l03",
+              "speaker": "小水手",
+              "text": "别看那张图。船长为它和灰帷会的人吵过架。"
+            },
+            {
+              "id": "ch020.investigate.l04",
+              "speaker": "年轻朔弦",
+              "text": "灰帷会？他们为什么要管一座小岛？"
+            },
+            {
+              "id": "ch020.investigate.l05",
+              "speaker": "小水手",
+              "text": "听说有些东西不是藏起来就行，得让所有人忘记。"
+            },
+            {
+              "id": "ch020.investigate.p11.l01",
+              "speaker": "小水手",
+              "text": "船长把值夜记录收走那晚，罗盘曾自己转向无名海。"
+            },
+            {
+              "id": "ch020.investigate.p11.l02",
+              "speaker": "年轻朔弦",
+              "text": "你记得浪是从哪边打来的？"
+            },
+            {
+              "id": "ch020.investigate.p11.l03",
+              "speaker": "小水手",
+              "text": "左舷，连着三下。我不会看星图，但这点没有忘。"
+            },
+            {
+              "id": "ch020.investigate.p11.l04",
+              "speaker": "年轻朔弦",
+              "text": "太好了。一条会被擦掉的航线，也许能用风和海流重新量出来。"
+            },
+            {
+              "id": "ch020.investigate.p11.l05",
+              "speaker": "旁白",
+              "text": "他在日志边缘留下三个不起眼的凹点，用来标记水手能独立作证的潮向。"
+            },
+            {
+              "id": "ch020.investigate.l06",
+              "speaker": "年轻朔弦",
+              "text": "你相信那种话？"
+            },
+            {
+              "id": "ch020.investigate.l07",
+              "speaker": "小水手",
+              "text": "我从没见过那座岛，但我信你不会凭空记得家里煮鱼的味道。"
+            },
+            {
+              "id": "ch020.investigate.l08",
+              "speaker": "旁白",
+              "text": "船长日志里，最后一页记录着“无名岛，航路封存”。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch020.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch020.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch020.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "刀痕在经纬线间留下突兀白线",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "七年前，玩家操控年轻朔弦，不能提前拥有现世同伴。"
+          }
+        },
+        {
+          "id": "ch020.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch020.crisis",
+            "requires_flags": [
+              "ch020.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch020.crisis.l01",
+              "speaker": "旁白",
+              "text": "朔弦把日志藏进靴子时，船长已经堵在门口。"
+            },
+            {
+              "id": "ch020.crisis.l02",
+              "speaker": "老船长",
+              "text": "把东西还来。那些人给的钱够我们全船过冬。"
+            },
+            {
+              "id": "ch020.crisis.l03",
+              "speaker": "年轻朔弦",
+              "text": "你拿我的家换过冬钱？"
+            },
+            {
+              "id": "ch020.crisis.l04",
+              "speaker": "老船长",
+              "text": "你怎么知道它还是你的家？地图上没有，谁也不认。"
+            },
+            {
+              "id": "ch020.crisis.l05",
+              "speaker": "年轻朔弦",
+              "text": "我认得。"
+            },
+            {
+              "id": "ch020.crisis.p11.l01",
+              "speaker": "老船长",
+              "text": "你要是乖乖上他们的快艇，还能拿一笔钱。何苦把整船人拖下水？"
+            },
+            {
+              "id": "ch020.crisis.p11.l02",
+              "speaker": "年轻朔弦",
+              "text": "是你收了钱，不是全船同意拿我换过冬粮。"
+            },
+            {
+              "id": "ch020.crisis.p11.l03",
+              "speaker": "小水手",
+              "text": "船尾救生艇还在，我把塞子藏在水桶里了。"
+            },
+            {
+              "id": "ch020.crisis.p11.l04",
+              "speaker": "年轻朔弦",
+              "text": "我会自己划走。你要留船就留，不用替我和他们交涉。"
+            },
+            {
+              "id": "ch020.crisis.p11.l05",
+              "speaker": "旁白",
+              "text": "快艇探照灯扫过船尾，少年握紧日志，第一次没有朝船长求一个解释。"
+            },
+            {
+              "id": "ch020.crisis.l06",
+              "speaker": "小水手",
+              "text": "船长，灰帷会的快艇已经靠过来了！"
+            },
+            {
+              "id": "ch020.crisis.l07",
+              "speaker": "老船长",
+              "text": "把这小子交出去，剩下的都不会有事。"
+            },
+            {
+              "id": "ch020.crisis.l08",
+              "speaker": "年轻朔弦",
+              "text": "那我今天就从这条船下去。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch020.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch020.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch020.choice",
+            "prompt": "朔弦如何保存被抹去的航路证据？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "带走船长完整日志，承担被追捕风险",
+                "sets": {
+                  "ch020.approach": "keep_log",
+                  "world.ch020.approach": "keep_log"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先记下航路星位，保住逃生时间",
+                "sets": {
+                  "ch020.approach": "stars_first",
+                  "world.ch020.approach": "stars_first"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch020",
+            "display_name": "灰帷猎手",
+            "win_flag": "ch020.battle_won",
+            "recommended_level": 27
+          },
+          "direction": {
+            "shot": "舱门被船长的身影完全堵住",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "七年前，玩家操控年轻朔弦，不能提前拥有现世同伴。"
+          }
+        },
+        {
+          "id": "ch020.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch020.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch020.resolve.l01",
+              "speaker": "旁白",
+              "text": "朔弦划着小艇驶进夜海，身后传来船员争吵的声音。"
+            },
+            {
+              "id": "ch020.resolve.l02",
+              "speaker": "年轻朔弦",
+              "text": "喂，你叫我别做梦，可我的船总该由我掌舵。"
+            },
+            {
+              "id": "ch020.resolve.l03",
+              "speaker": "小水手",
+              "text": "我把一袋干面包丢你船上了！别回头！"
+            },
+            {
+              "id": "ch020.resolve.l04",
+              "speaker": "旁白",
+              "text": "他打开靴子，日志上的岛名已经开始褪去。"
+            },
+            {
+              "id": "ch020.resolve.l05",
+              "speaker": "年轻朔弦",
+              "text": "忘了名字也没关系。歪树、木桥、潮水退去的味道……我都记得。"
+            },
+            {
+              "id": "ch020.resolve.p11.l01",
+              "speaker": "年轻朔弦",
+              "text": "我连海图都没保住完整，怎么会觉得自己一定找得到回家的路？"
+            },
+            {
+              "id": "ch020.resolve.p11.l02",
+              "speaker": "小水手",
+              "text": "先活到下一个港口吧。我还欠你半张修船的工钱。"
+            },
+            {
+              "id": "ch020.resolve.p11.l03",
+              "speaker": "旁白",
+              "text": "一夜之后，少年用绳结记录风向，反复确认不会随字迹一起消失的证词。"
+            },
+            {
+              "id": "ch020.resolve.p11.l04",
+              "speaker": "现在的朔弦",
+              "text": "后来我为了买别人的航路走了歪路，这本旧日志也不能替我辩解。"
+            },
+            {
+              "id": "ch020.resolve.p11.l05",
+              "speaker": "主角",
+              "text": "但它可以告诉我们下一次调查该从哪里开始。"
+            },
+            {
+              "id": "ch020.resolve.l06",
+              "speaker": "现在的朔弦",
+              "text": "后来我为了找那座岛做过不体面的事。"
+            },
+            {
+              "id": "ch020.resolve.l07",
+              "speaker": "岚音",
+              "text": "你这次可以把账算清楚，再继续找。"
+            },
+            {
+              "id": "ch020.resolve.l08",
+              "speaker": "朔弦",
+              "text": "……嗯。别让我一个人记得就好。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch020"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch020.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 900,
+              "gold": 320
+            }
+          ],
+          "direction": {
+            "shot": "海上小艇与身后船只的光越来越远",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "七年前，玩家操控年轻朔弦，不能提前拥有现世同伴。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch020.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch020.done",
+          "speaker": "路人",
+          "text": "听说你们在七年前·无名海帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "playable_character": "朔弦",
+      "pov_mode": "flashback_character",
+      "point_of_view": "年轻朔弦",
+      "timeframe": "七年前",
+      "script_revision": "act_04_character_pov_v2",
+      "phase11_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "time_layers_evidence_and_family_agency"
+      }
+    },
+    {
+      "id": "ch021",
+      "number": 21,
+      "act": 4,
+      "chapter_number": 3,
+      "title": "药师的谎言",
+      "location": "十年前·晨露药房",
+      "required_flags": [
+        "story.ch020.done"
+      ],
+      "chapter_start_flag": "ch021.started",
+      "chapter_complete_flag": "story.ch021.done",
+      "lead_character": "岚音",
+      "summary": "在十年前·晨露药房，操作少年岚音整理熄灯之夜病例。岚音母亲要求销毁记录，否则主角会被议会找到。最终，岚音藏下病历，决心终有一天亲口解释。",
+      "production_status": "scripted_blocking_v3_phase11_memory_archive",
+      "recommended_level": [
+        25,
+        29
+      ],
+      "boss": null,
+      "scenes": [
+        {
+          "id": "ch021.opening",
+          "title": "到达：十年前·晨露药房",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "十年前·晨露药房"
+          },
+          "dialogue": [
+            {
+              "id": "ch021.opening.l01",
+              "speaker": "旁白",
+              "text": "十年前熄灯之夜后的清晨，晨露药房里连药瓶标签都被人擦去姓名。"
+            },
+            {
+              "id": "ch021.opening.l02",
+              "speaker": "少年岚音",
+              "text": "昨晚那位帮忙修灯的叔叔呢？他不是叫澄舟吗？"
+            },
+            {
+              "id": "ch021.opening.l03",
+              "speaker": "岚音母亲",
+              "text": "先别提那个人。把门关好。"
+            },
+            {
+              "id": "ch021.opening.l04",
+              "speaker": "少年岚音",
+              "text": "为什么？主角一直在找他。"
+            },
+            {
+              "id": "ch021.opening.l05",
+              "speaker": "岚音母亲",
+              "text": "我只记得自己很害怕，一想他的脸就头疼。"
+            },
+            {
+              "id": "ch021.opening.p11.l01",
+              "speaker": "少年岚音",
+              "text": "母亲，药房门口有只鞋。昨天跟着澄舟叔叔来的孩子只穿了一只。"
+            },
+            {
+              "id": "ch021.opening.p11.l02",
+              "speaker": "岚音母亲",
+              "text": "先收进屋里。外面有人在问那个孩子的名字。"
+            },
+            {
+              "id": "ch021.opening.p11.l03",
+              "speaker": "少年岚音",
+              "text": "我记得名字，可不想让他们听见。我能先去找他吗？"
+            },
+            {
+              "id": "ch021.opening.p11.l04",
+              "speaker": "岚音母亲",
+              "text": "别一个人去。我们不知道来问的人是谁。"
+            },
+            {
+              "id": "ch021.opening.p11.l05",
+              "speaker": "旁白",
+              "text": "药瓶原本写着病人的名字，如今只剩剂量和日期，连母亲也记不起是谁擦掉的。"
+            },
+            {
+              "id": "ch021.opening.l06",
+              "speaker": "少年岚音",
+              "text": "可他留下了一张病历，说有人会忘事。"
+            },
+            {
+              "id": "ch021.opening.l07",
+              "speaker": "旁白",
+              "text": "病历封面写着“第七灯观察记录”，墨迹像未干透。"
+            },
+            {
+              "id": "ch021.opening.l08",
+              "speaker": "岚音母亲",
+              "text": "别让任何人找到那张纸。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "十年前·晨露药房"
+            },
+            {
+              "type": "interact",
+              "target": "ch021.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch021.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "药瓶上的名字被人擦去",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "少年岚音与幼年主角仅出现于回忆；本章resolve回现世营火。"
+          }
+        },
+        {
+          "id": "ch021.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch021.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch021.investigate.l01",
+              "speaker": "旁白",
+              "text": "药房后屋里，少年岚音打开澄舟托付的小箱。"
+            },
+            {
+              "id": "ch021.investigate.l02",
+              "speaker": "影像·澄舟",
+              "text": "若那孩子问起我，别急着带他去灯塔。"
+            },
+            {
+              "id": "ch021.investigate.l03",
+              "speaker": "少年岚音",
+              "text": "为什么？你明明答应带他看海。"
+            },
+            {
+              "id": "ch021.investigate.l04",
+              "speaker": "影像·澄舟",
+              "text": "有人在查找不受命运档案记录的人。他越接近第七灯，就越容易被找到。"
+            },
+            {
+              "id": "ch021.investigate.l05",
+              "speaker": "少年岚音",
+              "text": "可是他一定会想知道。"
+            },
+            {
+              "id": "ch021.investigate.p11.l01",
+              "speaker": "少年岚音",
+              "text": "这份病历写的是未来，不是病人今天的脉搏。"
+            },
+            {
+              "id": "ch021.investigate.p11.l02",
+              "speaker": "影像·澄舟",
+              "text": "它是一个可能出现的结果，不能拿来替孩子决定要不要出发。"
+            },
+            {
+              "id": "ch021.investigate.p11.l03",
+              "speaker": "少年岚音",
+              "text": "那我该怎么知道什么时候能给他？"
+            },
+            {
+              "id": "ch021.investigate.p11.l04",
+              "speaker": "影像·澄舟",
+              "text": "等他知道风险，也能拒绝你的建议时，把纸完整交给他。"
+            },
+            {
+              "id": "ch021.investigate.p11.l05",
+              "speaker": "旁白",
+              "text": "少年把原件封进药箱，另写了一张只有当日事实的照护记录。"
+            },
+            {
+              "id": "ch021.investigate.l06",
+              "speaker": "影像·澄舟",
+              "text": "等他能够决定是否冒险时，再把这份记录交给他。"
+            },
+            {
+              "id": "ch021.investigate.l07",
+              "speaker": "旁白",
+              "text": "箱子里的纸竟写着主角从没经历过的一段未来。"
+            },
+            {
+              "id": "ch021.investigate.l08",
+              "speaker": "少年岚音",
+              "text": "这……这不是现在发生的事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch021.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch021.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch021.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "童年病历内夹着尚未发生的日期",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "少年岚音与幼年主角仅出现于回忆；本章resolve回现世营火。"
+          }
+        },
+        {
+          "id": "ch021.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch021.crisis",
+            "requires_flags": [
+              "ch021.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch021.crisis.l01",
+              "speaker": "旁白",
+              "text": "午后，主角敲开药房的门，眼睛因一夜未睡而泛红。"
+            },
+            {
+              "id": "ch021.crisis.l02",
+              "speaker": "幼年主角",
+              "text": "你也记得澄舟，对不对？"
+            },
+            {
+              "id": "ch021.crisis.l03",
+              "speaker": "少年岚音",
+              "text": "记得。"
+            },
+            {
+              "id": "ch021.crisis.l04",
+              "speaker": "幼年主角",
+              "text": "那你为什么不跟我一起去灯塔？"
+            },
+            {
+              "id": "ch021.crisis.l05",
+              "speaker": "少年岚音",
+              "text": "那里还有雾。你现在进去会出事。"
+            },
+            {
+              "id": "ch021.crisis.l06",
+              "speaker": "幼年主角",
+              "text": "你是不是知道什么？"
+            },
+            {
+              "id": "ch021.crisis.l07",
+              "speaker": "少年岚音",
+              "text": "我只知道他想让你好好活着。"
+            },
+            {
+              "id": "ch021.crisis.l08",
+              "speaker": "旁白",
+              "text": "她握紧衣袋里的病历，第一次没有把真相全部说出来。"
+            },
+            {
+              "id": "ch021.crisis.p11.l01",
+              "speaker": "幼年主角",
+              "text": "我看到别人都不肯说澄舟去了哪里。你也要把门关上吗？"
+            },
+            {
+              "id": "ch021.crisis.p11.l02",
+              "speaker": "少年岚音",
+              "text": "我不关门。你可以在这里歇一会儿。"
+            },
+            {
+              "id": "ch021.crisis.p11.l03",
+              "speaker": "幼年主角",
+              "text": "那你会跟我一起去找吗？"
+            },
+            {
+              "id": "ch021.crisis.p11.l04",
+              "speaker": "少年岚音",
+              "text": "今天先别进灯塔。我可以陪你去村口问有人看过他没有。"
+            },
+            {
+              "id": "ch021.crisis.p11.l05",
+              "speaker": "旁白",
+              "text": "回忆停在那扇没有关上的药房门前。镜头回到十年后的营火旁，成年岚音终于把病历交给主角，等他决定怎样回应。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch021.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch021.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch021.choice",
+            "prompt": "面对岚音长久隐瞒的病历，主角如何回应？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "坦言受伤，需要时间消化",
+                "sets": {
+                  "ch021.approach": "need_time",
+                  "world.ch021.approach": "need_time"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先核对病历内容，再一起决定行动",
+                "sets": {
+                  "ch021.approach": "read_together",
+                  "world.ch021.approach": "read_together"
+                }
+              }
+            ]
+          },
+          "encounter": null,
+          "direction": {
+            "shot": "衣袋里的纸角划伤岚音手指",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "少年岚音与幼年主角仅出现于回忆；本章resolve回现世营火。",
+            "phase11_player_time_transition": "主线第21章crisis结束时已从十年前少年岚音可操作的回忆回到现世。此时才出现ch021.choice（现世主角如何回应隐瞒）；避免把成年主角choice误放在幼年主角面前。第21章resolve继续于现世营火。"
+          }
+        },
+        {
+          "id": "ch021.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch021.decision_made"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch021.resolve.l01",
+              "speaker": "旁白",
+              "text": "十年后的营火旁，岚音终于把发黄病历摊在众人面前。"
+            },
+            {
+              "id": "ch021.resolve.l02",
+              "speaker": "岚音",
+              "text": "我每次看到你翻旧箱子，就觉得自己又瞒了你一次。"
+            },
+            {
+              "id": "ch021.resolve.l03",
+              "speaker": "主角",
+              "text": "你本可以早点告诉我。"
+            },
+            {
+              "id": "ch021.resolve.l04",
+              "speaker": "岚音",
+              "text": "是。我怕你立刻去第七灯，也怕你知道后不再信我。"
+            },
+            {
+              "id": "ch021.resolve.l05",
+              "speaker": "雷索",
+              "text": "害怕不会自动让隐瞒变成正确。"
+            },
+            {
+              "id": "ch021.resolve.p11.l01",
+              "speaker": "岚音",
+              "text": "这页记录并不是说你必然会遇上危险。是我曾经把“可能”听成了“不许”。"
+            },
+            {
+              "id": "ch021.resolve.p11.l02",
+              "speaker": "主角",
+              "text": "所以那几年我每次问你，你都决定替我继续瞒着。"
+            },
+            {
+              "id": "ch021.resolve.p11.l03",
+              "speaker": "岚音",
+              "text": "是。我不能用年纪小和害怕，把后来每一次沉默也说成正确。"
+            },
+            {
+              "id": "ch021.resolve.p11.l04",
+              "speaker": "雷索",
+              "text": "你交出证据之后，也要允许他决定什么时候愿意继续同行。"
+            },
+            {
+              "id": "ch021.resolve.p11.l05",
+              "speaker": "主角",
+              "text": "今晚我先自己看。明天再谈还要不要一起查。"
+            },
+            {
+              "id": "ch021.resolve.l06",
+              "speaker": "岚音",
+              "text": "我知道。所以这次我把完整原件交给你。你决定接下来怎么做。"
+            },
+            {
+              "id": "ch021.resolve.l07",
+              "speaker": "主角",
+              "text": "我需要一点时间看完。"
+            },
+            {
+              "id": "ch021.resolve.l08",
+              "speaker": "旁白",
+              "text": "没有人要求主角立刻原谅，营火只是安静地燃烧。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch021"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch021.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 940,
+              "gold": 334
+            }
+          ],
+          "direction": {
+            "shot": "营火两侧人物保持距离，不强制拥抱和解",
+            "storytelling": "过去与现时之间用实物、颜色、声音做连续性",
+            "phase11_history_contract": "少年岚音与幼年主角仅出现于回忆；本章resolve回现世营火。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch021.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch021.done",
+          "speaker": "路人",
+          "text": "听说你们在十年前·晨露药房帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "playable_character": "岚音",
+      "pov_mode": "flashback_character",
+      "point_of_view": "少年岚音",
+      "timeframe": "十年前",
+      "script_revision": "act_04_character_pov_v2",
+      "phase11_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "time_layers_evidence_and_family_agency"
+      }
+    },
+    {
+      "id": "ch022",
+      "number": 22,
+      "act": 4,
+      "chapter_number": 4,
+      "title": "白夜祭",
+      "location": "三誓王都·灯会",
+      "required_flags": [
+        "story.ch021.done"
+      ],
+      "chapter_start_flag": "ch022.started",
+      "chapter_complete_flag": "story.ch022.done",
+      "lead_character": "朔弦",
+      "summary": "在三誓王都·灯会，伪装成艺人潜入贵族秘宴。灰帷会企图拍卖一位匿名宫廷乐师保存的战争旧曲与受害者的记忆证词。最终，队伍揭露拍卖账簿，从王宫暗室取出旧议会档案。",
+      "production_status": "scripted_blocking_v3_phase11_memory_archive",
+      "recommended_level": [
+        26,
+        30
+      ],
+      "boss": "白夜傀儡",
+      "scenes": [
+        {
+          "id": "ch022.opening",
+          "title": "到达：三誓王都·灯会",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·灯会"
+          },
+          "dialogue": [
+            {
+              "id": "ch022.opening.l01",
+              "speaker": "旁白",
+              "text": "三誓王都迎来白夜祭。街上到处悬着灯笼，没人知道王宫今晚有一场见不得光的拍卖会。"
+            },
+            {
+              "id": "ch022.opening.l02",
+              "speaker": "朔弦",
+              "text": "我订好了酒馆艺人的通行牌。你会弹琴吗？"
+            },
+            {
+              "id": "ch022.opening.l03",
+              "speaker": "雷索",
+              "text": "不会。"
+            },
+            {
+              "id": "ch022.opening.l04",
+              "speaker": "朔弦",
+              "text": "那你就负责搬琴。要知道，搬琴的人总没人多看。"
+            },
+            {
+              "id": "ch022.opening.l05",
+              "speaker": "岚音",
+              "text": "你准备怎么混进楼上的密室？"
+            },
+            {
+              "id": "ch022.opening.p11.l01",
+              "speaker": "街头卖灯妇",
+              "text": "今夜王宫订走了最亮的灯，广场这几盏却总不够照小孩子回家。"
+            },
+            {
+              "id": "ch022.opening.p11.l02",
+              "speaker": "朔弦",
+              "text": "我想混进去查账簿，但不想抢走你们剩下的灯。"
+            },
+            {
+              "id": "ch022.opening.p11.l03",
+              "speaker": "宫廷乐师",
+              "text": "幕后通道有运送乐器的推车，第三声钟响前人最少。"
+            },
+            {
+              "id": "ch022.opening.p11.l04",
+              "speaker": "雷索",
+              "text": "我搬琴。别给我一件一看就是假贵族的衣服。"
+            },
+            {
+              "id": "ch022.opening.p11.l05",
+              "speaker": "主角",
+              "text": "先让外头的人照常过节。密室里的事不该让广场平民替我们担风险。"
+            },
+            {
+              "id": "ch022.opening.l06",
+              "speaker": "主角",
+              "text": "先去看看普通宾客通道。我们不想让广场上的居民受到牵连。"
+            },
+            {
+              "id": "ch022.opening.l07",
+              "speaker": "宫廷乐师",
+              "text": "如果你们的目的是找真相，千万别在第三声钟响后走东边楼梯。"
+            },
+            {
+              "id": "ch022.opening.l08",
+              "speaker": "朔弦",
+              "text": "这句话可真能让人想走东边楼梯。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·灯会"
+            },
+            {
+              "type": "interact",
+              "target": "ch022.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch022.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "庆典灯笼的暖色和王宫走廊冷色对照",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch022.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch022.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch022.investigate.l01",
+              "speaker": "旁白",
+              "text": "后台堆着各地艺术家的道具，密室门外贴着临时增加的守卫名单。"
+            },
+            {
+              "id": "ch022.investigate.l02",
+              "speaker": "宫廷乐师",
+              "text": "今夜拍卖的并非宝石，而是人们不愿记得的往事。"
+            },
+            {
+              "id": "ch022.investigate.l03",
+              "speaker": "岚音",
+              "text": "谁有权出售别人的记忆？"
+            },
+            {
+              "id": "ch022.investigate.l04",
+              "speaker": "宫廷乐师",
+              "text": "台上的人说，买家会保守秘密。可他们从不问卖方为何必须卖。"
+            },
+            {
+              "id": "ch022.investigate.l05",
+              "speaker": "雷索",
+              "text": "守卫名单里有三人来自灰帷会。"
+            },
+            {
+              "id": "ch022.investigate.p11.l01",
+              "speaker": "宫廷乐师",
+              "text": "这份拍卖册把“卖方”写作代管人，有几位本人早已失去记忆。"
+            },
+            {
+              "id": "ch022.investigate.p11.l02",
+              "speaker": "岚音",
+              "text": "那不能因为他们记不起反对，就推断他们同意出售。"
+            },
+            {
+              "id": "ch022.investigate.p11.l03",
+              "speaker": "朔弦",
+              "text": "我从送货签名里认出灰帷会的旧船号，但不能说明所有船员都知情。"
+            },
+            {
+              "id": "ch022.investigate.p11.l04",
+              "speaker": "主角",
+              "text": "先找交易时间、运送车辆和可能仍在世的当事人，别把住址写进公开抄本。"
+            },
+            {
+              "id": "ch022.investigate.p11.l05",
+              "speaker": "宫廷乐师",
+              "text": "我可以告诉你们谁收藏了旧曲，但是否公开我的姓名，得让我自己选。"
+            },
+            {
+              "id": "ch022.investigate.l06",
+              "speaker": "朔弦",
+              "text": "其中一个欠我三个月的船钱。我能认出他走路的样子。"
+            },
+            {
+              "id": "ch022.investigate.l07",
+              "speaker": "主角",
+              "text": "我们先把买卖双方的身份记下来。"
+            },
+            {
+              "id": "ch022.investigate.l08",
+              "speaker": "旁白",
+              "text": "拍卖册首页写着“战争之夜的最后一段证词”，尚未标价。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch022.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch022.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch022.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "卖场图册上数额与人的名字交替特写",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch022.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch022.crisis",
+            "requires_flags": [
+              "ch022.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch022.crisis.l01",
+              "speaker": "旁白",
+              "text": "第三声钟响后，拍卖主持人掀开银色箱盖，一段哭声从记忆结晶里传出。"
+            },
+            {
+              "id": "ch022.crisis.l02",
+              "speaker": "拍卖主持",
+              "text": "这段记忆没有主人，从今天起归出价最高者保管。"
+            },
+            {
+              "id": "ch022.crisis.l03",
+              "speaker": "岚音",
+              "text": "没有主人？那哭声是谁的？"
+            },
+            {
+              "id": "ch022.crisis.l04",
+              "speaker": "宫廷乐师",
+              "text": "我认得那句话。是边境的一位母亲在喊孩子。"
+            },
+            {
+              "id": "ch022.crisis.l05",
+              "speaker": "雷索",
+              "text": "那位母亲还活着。她没有同意。"
+            },
+            {
+              "id": "ch022.crisis.p11.l01",
+              "speaker": "拍卖主持",
+              "text": "这段回忆卖给谁，由付款的人决定，哭声本身不会反对。"
+            },
+            {
+              "id": "ch022.crisis.p11.l02",
+              "speaker": "宫廷乐师",
+              "text": "我愿证明它来自边境家庭，但不能把那位母亲再拖上台。"
+            },
+            {
+              "id": "ch022.crisis.p11.l03",
+              "speaker": "雷索",
+              "text": "把装着结晶的箱子放下。你没有她的授权。"
+            },
+            {
+              "id": "ch022.crisis.p11.l04",
+              "speaker": "朔弦",
+              "text": "后门的推车已备好，我去堵运货道，不在广场引起骚乱。"
+            },
+            {
+              "id": "ch022.crisis.p11.l05",
+              "speaker": "主角",
+              "text": "先保住人和账，拍卖是否违法可以公开审查，不能在这里替受害者做第二次买卖。"
+            },
+            {
+              "id": "ch022.crisis.l06",
+              "speaker": "朔弦",
+              "text": "后门有人要把箱子运走了。"
+            },
+            {
+              "id": "ch022.crisis.l07",
+              "speaker": "主角",
+              "text": "先把证人和账册带出去，不能只抢走结晶却让买卖继续。"
+            },
+            {
+              "id": "ch022.crisis.l08",
+              "speaker": "拍卖主持",
+              "text": "扰乱交易者将被视为盗窃！"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch022.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch022.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch022.choice",
+            "prompt": "追回记忆拍卖账册时，怎样保护当事人？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "公开交易证据，匿名化受害者信息",
+                "sets": {
+                  "ch022.approach": "anonymous_release",
+                  "world.ch022.approach": "anonymous_release"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先护送证人与记录离开再交独立档案馆",
+                "sets": {
+                  "ch022.approach": "safe_archive",
+                  "world.ch022.approach": "safe_archive"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch022",
+            "display_name": "白夜傀儡",
+            "win_flag": "ch022.battle_won",
+            "recommended_level": 29
+          },
+          "direction": {
+            "shot": "银箱内响起人声时舞台灯熄去",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch022.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch022.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch022.resolve.l01",
+              "speaker": "旁白",
+              "text": "广场上的庆典仍然热闹，密室里被标价的记忆却回到原主人的家属手中。"
+            },
+            {
+              "id": "ch022.resolve.l02",
+              "speaker": "宫廷乐师",
+              "text": "我愿把拍卖册交给公开档案馆，但请保护所有被迫出售的人。"
+            },
+            {
+              "id": "ch022.resolve.l03",
+              "speaker": "雷索",
+              "text": "证词必须保留，受害者的隐私也必须被尊重。"
+            },
+            {
+              "id": "ch022.resolve.l04",
+              "speaker": "岚音",
+              "text": "那位母亲终于可以选择自己要不要再听那段声音。"
+            },
+            {
+              "id": "ch022.resolve.l05",
+              "speaker": "朔弦",
+              "text": "我本来还想顺一盘点心。现在倒没胃口了。"
+            },
+            {
+              "id": "ch022.resolve.p11.l01",
+              "speaker": "街头卖灯妇",
+              "text": "宫门外的人说拍卖被查了，孩子却只问今晚的灯会会不会提前结束。"
+            },
+            {
+              "id": "ch022.resolve.p11.l02",
+              "speaker": "朔弦",
+              "text": "不会。至少广场的灯不用拿任何人的记忆来添油。"
+            },
+            {
+              "id": "ch022.resolve.p11.l03",
+              "speaker": "宫廷乐师",
+              "text": "我想保留这首旧曲的谱，不想保留被强迫取走的哭声样本。"
+            },
+            {
+              "id": "ch022.resolve.p11.l04",
+              "speaker": "岚音",
+              "text": "这样才有可能让当事人以后自己决定要不要再听。"
+            },
+            {
+              "id": "ch022.resolve.p11.l05",
+              "speaker": "主角",
+              "text": "王城暗室的线索已经够了。今晚先让人们平安回家。"
+            },
+            {
+              "id": "ch022.resolve.l06",
+              "speaker": "主角",
+              "text": "账册提到了王城地下档案室。下一步在那里。"
+            },
+            {
+              "id": "ch022.resolve.l07",
+              "speaker": "旁白",
+              "text": "白夜祭结束前，众人把一盏灯挂在了没有人注意的后门。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch022"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch022.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 980,
+              "gold": 348
+            }
+          ],
+          "direction": {
+            "shot": "后门小灯的光与广场灯海隔一堵墙",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch022.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch022.done",
+          "speaker": "路人",
+          "text": "听说你们在三誓王都·灯会帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "point_of_view": "主角",
+      "timeframe": "主线现时",
+      "script_revision": "act_04_character_pov_v2",
+      "phase11_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "time_layers_evidence_and_family_agency"
+      }
+    },
+    {
+      "id": "ch023",
+      "number": 23,
+      "act": 4,
+      "chapter_number": 5,
+      "title": "被修改的记录",
+      "location": "王城地下档案室",
+      "required_flags": [
+        "story.ch022.done"
+      ],
+      "chapter_start_flag": "ch023.started",
+      "chapter_complete_flag": "story.ch023.done",
+      "lead_character": "岚音",
+      "summary": "在王城地下档案室，还原烧毁的七灯建造记录。守卫将删除调查者的名字，试图让他们从记录里消失。最终，主角保住原件，发现第七位守灯者的名字被抹去。",
+      "production_status": "scripted_blocking_v3_phase11_memory_archive",
+      "recommended_level": [
+        27,
+        31
+      ],
+      "boss": "记录监守者",
+      "scenes": [
+        {
+          "id": "ch023.opening",
+          "title": "到达：王城地下档案室",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "王城地下档案室"
+          },
+          "dialogue": [
+            {
+              "id": "ch023.opening.l01",
+              "speaker": "旁白",
+              "text": "地下档案室没有窗，书架却随一架古钟的每次转动重新排列。"
+            },
+            {
+              "id": "ch023.opening.l02",
+              "speaker": "雷索",
+              "text": "这里比王宫军械库还严密。"
+            },
+            {
+              "id": "ch023.opening.l03",
+              "speaker": "岚音",
+              "text": "因为军械只能毁掉眼前的城，档案可以让后代相信从没有那座城。"
+            },
+            {
+              "id": "ch023.opening.l04",
+              "speaker": "朔弦",
+              "text": "好消息是我能开门。坏消息是门又长出来一扇。"
+            },
+            {
+              "id": "ch023.opening.l05",
+              "speaker": "主角",
+              "text": "照着拍卖册编号走。先找“第七位守灯人”的原件。"
+            },
+            {
+              "id": "ch023.opening.p11.l01",
+              "speaker": "档案管理员残影",
+              "text": "钟每转一次，未经授权的卷宗就会重新排架。"
+            },
+            {
+              "id": "ch023.opening.p11.l02",
+              "speaker": "朔弦",
+              "text": "那我们给每个书架贴个临时编号，别让它们把人绕晕。"
+            },
+            {
+              "id": "ch023.opening.p11.l03",
+              "speaker": "岚音",
+              "text": "地下没有自然光，注意不要离队太远，迷路的人会先耗尽灯油。"
+            },
+            {
+              "id": "ch023.opening.p11.l04",
+              "speaker": "雷索",
+              "text": "我守住出口，也记下走过的转角。"
+            },
+            {
+              "id": "ch023.opening.p11.l05",
+              "speaker": "主角",
+              "text": "先找到与拍卖册编号一致的总目录，再碰原始记录。"
+            },
+            {
+              "id": "ch023.opening.l06",
+              "speaker": "档案残响",
+              "text": "不应阅读的记录，请离开。"
+            },
+            {
+              "id": "ch023.opening.l07",
+              "speaker": "旁白",
+              "text": "黑色书页上出现一行又被抹去的文字。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "王城地下档案室"
+            },
+            {
+              "type": "interact",
+              "target": "ch023.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch023.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "书架如迷宫缓慢错位",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch023.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch023.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch023.investigate.l01",
+              "speaker": "旁白",
+              "text": "拼合烧毁的页码后，众人找到七灯最初的建造预算：灯芯材料一栏记载着大量未署名的记忆捐献。"
+            },
+            {
+              "id": "ch023.investigate.l02",
+              "speaker": "岚音",
+              "text": "这里写着“自愿”，却没有任何人的签名。"
+            },
+            {
+              "id": "ch023.investigate.l03",
+              "speaker": "雷索",
+              "text": "捐献名单里有整座村庄的出生年份。"
+            },
+            {
+              "id": "ch023.investigate.l04",
+              "speaker": "主角",
+              "text": "有人把无法反对的人也算成了自愿。"
+            },
+            {
+              "id": "ch023.investigate.l05",
+              "speaker": "朔弦",
+              "text": "还好拍卖册留下了对应编号，否则连证据都对不上。"
+            },
+            {
+              "id": "ch023.investigate.p11.l01",
+              "speaker": "岚音",
+              "text": "匿名并不总是自愿。有的人可能根本没有能力在那时签字。"
+            },
+            {
+              "id": "ch023.investigate.p11.l02",
+              "speaker": "雷索",
+              "text": "七灯预算里的这个“同意总数”，为什么高于有署名的人数？"
+            },
+            {
+              "id": "ch023.investigate.p11.l03",
+              "speaker": "档案残响",
+              "text": "未署名群体依行政推定并入。"
+            },
+            {
+              "id": "ch023.investigate.p11.l04",
+              "speaker": "主角",
+              "text": "这句“行政推定”是谁写的？必须保留原版本和更改日期。"
+            },
+            {
+              "id": "ch023.investigate.p11.l05",
+              "speaker": "旁白",
+              "text": "封底上“维莎”二字没有职务后的签章，无法仅凭姓名判断她赞成过哪项决定。"
+            },
+            {
+              "id": "ch023.investigate.l06",
+              "speaker": "档案残响",
+              "text": "修订历史可避免社会恐慌。重复：不应阅读。"
+            },
+            {
+              "id": "ch023.investigate.l07",
+              "speaker": "岚音",
+              "text": "怕人知道自己做错了，不是修改病历的理由。"
+            },
+            {
+              "id": "ch023.investigate.l08",
+              "speaker": "旁白",
+              "text": "最后一页封底上留下一个年轻女记灯师的名字：维莎。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch023.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch023.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch023.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "无名捐献列表叠加人物出生年份",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch023.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch023.crisis",
+            "requires_flags": [
+              "ch023.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch023.crisis.l01",
+              "speaker": "旁白",
+              "text": "档案守卫开始用墨色覆盖来访者的姓名，书架上浮现陌生的照片。"
+            },
+            {
+              "id": "ch023.crisis.l02",
+              "speaker": "档案守卫",
+              "text": "访问者不存在。其证词自动作废。"
+            },
+            {
+              "id": "ch023.crisis.l03",
+              "speaker": "朔弦",
+              "text": "我的名字怎么少了一笔？我连自己也快念错了。"
+            },
+            {
+              "id": "ch023.crisis.l04",
+              "speaker": "雷索",
+              "text": "把手伸过来，互相念出姓名！"
+            },
+            {
+              "id": "ch023.crisis.l05",
+              "speaker": "岚音",
+              "text": "主角、雷索、朔弦……我们都在这里！"
+            },
+            {
+              "id": "ch023.crisis.p11.l01",
+              "speaker": "朔弦",
+              "text": "书页开始吞掉刚才写下的名字！把原件和拓本都搬到钟摆照不到的地方。"
+            },
+            {
+              "id": "ch023.crisis.p11.l02",
+              "speaker": "雷索",
+              "text": "我先喊出自己能确认的人。遇见陌生人的姓名，也照纸上读，不做假证明。"
+            },
+            {
+              "id": "ch023.crisis.p11.l03",
+              "speaker": "岚音",
+              "text": "如果同伴忘了我，请继续问我现在愿意叫什么，而不是只找档案里的旧称。"
+            },
+            {
+              "id": "ch023.crisis.p11.l04",
+              "speaker": "主角",
+              "text": "这座机关在测试谁有资格留下证词，我们不能让它替活着的人做判决。"
+            },
+            {
+              "id": "ch023.crisis.p11.l05",
+              "speaker": "旁白",
+              "text": "墨色退去一部分，新写的姓名仍需由本人或见证人再次核实。"
+            },
+            {
+              "id": "ch023.crisis.l06",
+              "speaker": "主角",
+              "text": "不要只背你认识的人。把记录里失踪的人也念出来！"
+            },
+            {
+              "id": "ch023.crisis.l07",
+              "speaker": "档案守卫",
+              "text": "身份核验冲突……检索失败……"
+            },
+            {
+              "id": "ch023.crisis.l08",
+              "speaker": "旁白",
+              "text": "书页的墨色退去，真正的原档浮现出来。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch023.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch023.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch023.choice",
+            "prompt": "档案守卫正在抹除姓名，你想先保全什么？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "保护访客与证人的身份记录",
+                "sets": {
+                  "ch023.approach": "protect_names",
+                  "world.ch023.approach": "protect_names"
+                }
+              },
+              {
+                "id": "act",
+                "label": "优先保存没有签名的建灯原始页",
+                "sets": {
+                  "ch023.approach": "save_original",
+                  "world.ch023.approach": "save_original"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch023",
+            "display_name": "记录监守者",
+            "win_flag": "ch023.battle_won",
+            "recommended_level": 30
+          },
+          "direction": {
+            "shot": "主角和伙伴的名字在墙上逐个变淡",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch023.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch023.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch023.resolve.l01",
+              "speaker": "旁白",
+              "text": "原档未被摧毁，而是被贴在另一份假档之后。"
+            },
+            {
+              "id": "ch023.resolve.l02",
+              "speaker": "主角",
+              "text": "第七位守灯人的名字也被抹去了。"
+            },
+            {
+              "id": "ch023.resolve.l03",
+              "speaker": "雷索",
+              "text": "这份记录有太多人参与修改，不能说只有一名坏人。"
+            },
+            {
+              "id": "ch023.resolve.l04",
+              "speaker": "岚音",
+              "text": "但是这份原件必须先被保存。"
+            },
+            {
+              "id": "ch023.resolve.l05",
+              "speaker": "朔弦",
+              "text": "拍卖册和航路日志都能证明同一件事：有人在买卖“被遗忘”。"
+            },
+            {
+              "id": "ch023.resolve.p11.l01",
+              "speaker": "雷索",
+              "text": "这份原档证明有人修改过同意程序，但不保证每个古代决策者都怀同一种目的。"
+            },
+            {
+              "id": "ch023.resolve.p11.l02",
+              "speaker": "岚音",
+              "text": "如果我们只留下最坏的一页，后来的人也会以为事情从来没有别的选择。"
+            },
+            {
+              "id": "ch023.resolve.p11.l03",
+              "speaker": "主角",
+              "text": "把公开证据、私人记忆和仍待核验的部分分开封存。"
+            },
+            {
+              "id": "ch023.resolve.p11.l04",
+              "speaker": "朔弦",
+              "text": "卷宗里还有一处海港编号，像是故意给旧船留的去向。"
+            },
+            {
+              "id": "ch023.resolve.p11.l05",
+              "speaker": "旁白",
+              "text": "古钟终于停稳，地下档案室保留了第一次由外来者签收的查阅记录。"
+            },
+            {
+              "id": "ch023.resolve.l06",
+              "speaker": "档案残响",
+              "text": "私人访问权限失效。将转入公开见证程序。"
+            },
+            {
+              "id": "ch023.resolve.l07",
+              "speaker": "主角",
+              "text": "下一站断层议会遗迹。我们要知道建灯的那一天究竟发生了什么。"
+            },
+            {
+              "id": "ch023.resolve.l08",
+              "speaker": "旁白",
+              "text": "众人离开时，书架没有再移动，古钟第一次停了下来。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch023"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch023.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1020,
+              "gold": 362
+            }
+          ],
+          "direction": {
+            "shot": "档案纸上的旧胶层被揭起，原件露出",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch023.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch023.done",
+          "speaker": "路人",
+          "text": "听说你们在王城地下档案室帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。 第23章维莎不在正式队伍，相关旧记录以档案形式出现。",
+      "point_of_view": "主角",
+      "timeframe": "主线现时",
+      "script_revision": "act_04_character_pov_v2",
+      "phase11_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "time_layers_evidence_and_family_agency"
+      }
+    },
+    {
+      "id": "ch024",
+      "number": 24,
+      "act": 4,
+      "chapter_number": 6,
+      "title": "守灯者的罪",
+      "location": "断层议会遗迹",
+      "required_flags": [
+        "story.ch023.done"
+      ],
+      "chapter_start_flag": "ch024.started",
+      "chapter_complete_flag": "story.ch024.done",
+      "lead_character": "雷索",
+      "summary": "在断层议会遗迹，见证建灯仪式并裁决档案如何公开。三国使者担心公开真相会摧毁新建立的信任。最终，主角公开档案并承担民众的愤怒，下一条航路随之出现。",
+      "production_status": "scripted_blocking_v3_phase11_memory_archive",
+      "recommended_level": [
+        28,
+        32
+      ],
+      "boss": "古议会之影",
+      "scenes": [
+        {
+          "id": "ch024.opening",
+          "title": "到达：断层议会遗迹",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "断层议会遗迹"
+          },
+          "dialogue": [
+            {
+              "id": "ch024.opening.l01",
+              "speaker": "旁白",
+              "text": "断层议会遗迹的长桌已经裂为两半，七个席位空着，只剩投影在重复千年前的会议。"
+            },
+            {
+              "id": "ch024.opening.l02",
+              "speaker": "议会投影甲",
+              "text": "若不立刻建立母灯，寂潮将吞噬所有城市。"
+            },
+            {
+              "id": "ch024.opening.l03",
+              "speaker": "议会投影乙",
+              "text": "那样我们又要拿谁的记忆维持封印？"
+            },
+            {
+              "id": "ch024.opening.l04",
+              "speaker": "雷索",
+              "text": "他们当时并非不知道代价。"
+            },
+            {
+              "id": "ch024.opening.l05",
+              "speaker": "岚音",
+              "text": "知道代价，不等于没有努力找过别的方法。"
+            },
+            {
+              "id": "ch024.opening.p11.l01",
+              "speaker": "使者",
+              "text": "这座遗迹开门以后，王都已有不少人在质问我们为何没有早些告诉他们。"
+            },
+            {
+              "id": "ch024.opening.p11.l02",
+              "speaker": "雷索",
+              "text": "先让代表们把问题写下来，不必在大厅互相高喊。"
+            },
+            {
+              "id": "ch024.opening.p11.l03",
+              "speaker": "岚音",
+              "text": "记录里每一个被迫提供记忆的人，也都应该有被照护的可能。"
+            },
+            {
+              "id": "ch024.opening.p11.l04",
+              "speaker": "朔弦",
+              "text": "这张旧议桌够大，却连普通人的坐席都没留。"
+            },
+            {
+              "id": "ch024.opening.p11.l05",
+              "speaker": "主角",
+              "text": "今日先用它听证。过去的会议不是为了给我们一场不会被质疑的表演。"
+            },
+            {
+              "id": "ch024.opening.l06",
+              "speaker": "主角",
+              "text": "我们先听完整段记录，不替任何人提前下判决。"
+            },
+            {
+              "id": "ch024.opening.l07",
+              "speaker": "朔弦",
+              "text": "我希望这里的椅子别再自己移动了。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "断层议会遗迹"
+            },
+            {
+              "type": "interact",
+              "target": "ch024.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch024.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "七个空席位投影过去的人物",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch024.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch024.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch024.investigate.l01",
+              "speaker": "旁白",
+              "text": "第一份记录显示古人使用自愿共鸣，随后在灾难扩大时改成强制抽取。"
+            },
+            {
+              "id": "ch024.investigate.l02",
+              "speaker": "投影·年轻议员",
+              "text": "临时措施只维持一个月，之后必须重新征求居民意见。"
+            },
+            {
+              "id": "ch024.investigate.l03",
+              "speaker": "投影·执政者",
+              "text": "等寂潮停了再说。现在需要效率。"
+            },
+            {
+              "id": "ch024.investigate.l04",
+              "speaker": "雷索",
+              "text": "“临时”二字后来从没有划掉。"
+            },
+            {
+              "id": "ch024.investigate.l05",
+              "speaker": "岚音",
+              "text": "医疗也会紧急处置，但不能把紧急当作永久剥夺同意。"
+            },
+            {
+              "id": "ch024.investigate.p11.l01",
+              "speaker": "投影·年轻议员",
+              "text": "我们原约定一个月后再征求居民同意，为什么后续会议没有居民签到？"
+            },
+            {
+              "id": "ch024.investigate.p11.l02",
+              "speaker": "投影·执政者",
+              "text": "寂潮仍在逼近，新的名单以后再补。"
+            },
+            {
+              "id": "ch024.investigate.p11.l03",
+              "speaker": "岚音",
+              "text": "“以后”不能没有到期日。病人同意也不能让另一代人无限继承。"
+            },
+            {
+              "id": "ch024.investigate.p11.l04",
+              "speaker": "雷索",
+              "text": "当时有救灾的动机，后来也确实有人借机维持特权，两件事都要记录。"
+            },
+            {
+              "id": "ch024.investigate.p11.l05",
+              "speaker": "主角",
+              "text": "看清哪些是当时的紧急决定，哪些是灾后仍拒绝修正。"
+            },
+            {
+              "id": "ch024.investigate.l06",
+              "speaker": "主角",
+              "text": "这份会议纪要没有任何居民代表的签名。"
+            },
+            {
+              "id": "ch024.investigate.l07",
+              "speaker": "朔弦",
+              "text": "而且那些被抽走记忆的人，恐怕已经无法来这里反对了。"
+            },
+            {
+              "id": "ch024.investigate.l08",
+              "speaker": "旁白",
+              "text": "长桌尽头留下一封未拆开的公开致歉书，日期却是灾后九百年。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch024.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch024.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch024.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "“临时措施”字样在时间线中不断重复",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch024.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch024.crisis",
+            "requires_flags": [
+              "ch024.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch024.crisis.l01",
+              "speaker": "旁白",
+              "text": "三国使者带着队伍一路追来，担心档案公之于众将引发新的战争。"
+            },
+            {
+              "id": "ch024.crisis.l02",
+              "speaker": "使者",
+              "text": "王国刚恢复和平。若百姓知道灯的建立曾经害过人，会不会再次互相指责？"
+            },
+            {
+              "id": "ch024.crisis.l03",
+              "speaker": "雷索",
+              "text": "若为了和平而撒谎，它下次崩塌时只会更惨。"
+            },
+            {
+              "id": "ch024.crisis.l04",
+              "speaker": "岚音",
+              "text": "公开也不是把所有伤痛一夜倒到人们头上。得有解释、求助和见证。"
+            },
+            {
+              "id": "ch024.crisis.l05",
+              "speaker": "使者",
+              "text": "你们能保证群众不会愤怒？"
+            },
+            {
+              "id": "ch024.crisis.p11.l01",
+              "speaker": "使者",
+              "text": "人们会问新一代王廷是不是也在靠被隐瞒的旧事维持统治。"
+            },
+            {
+              "id": "ch024.crisis.p11.l02",
+              "speaker": "主角",
+              "text": "你们无法保证没人愤怒，但能承诺不再销毁证据。"
+            },
+            {
+              "id": "ch024.crisis.p11.l03",
+              "speaker": "岚音",
+              "text": "公开前要准备求助处和私密申诉渠道，不能把伤痛变成街头的争吵表演。"
+            },
+            {
+              "id": "ch024.crisis.p11.l04",
+              "speaker": "雷索",
+              "text": "保留原件供查验，给不同立场留书面意见，别让历史再由单一胜利者解释。"
+            },
+            {
+              "id": "ch024.crisis.p11.l05",
+              "speaker": "朔弦",
+              "text": "每座城的抄本都得核对同一份来源。错字会让一个人再次消失。"
+            },
+            {
+              "id": "ch024.crisis.l06",
+              "speaker": "主角",
+              "text": "不能。他们有权愤怒。我们只能保证证据真实、说法清楚。"
+            },
+            {
+              "id": "ch024.crisis.l07",
+              "speaker": "朔弦",
+              "text": "让每座城都有一份完整原件，别再让少数人替全世界保管。"
+            },
+            {
+              "id": "ch024.crisis.l08",
+              "speaker": "议会残响",
+              "text": "公开审议将使“完美稳定”概率降低。"
+            },
+            {
+              "id": "ch024.crisis.l09",
+              "speaker": "雷索",
+              "text": "那么“完美稳定”从一开始就是一个错误的目标。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch024.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch024.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch024.choice",
+            "prompt": "七灯档案涉及大量不被知晓的受害者。你怎样公布？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "公开完整证据并设置平民听证会",
+                "sets": {
+                  "ch024.approach": "public_hearing",
+                  "world.ch024.approach": "public_hearing"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先通知受害者家属，再公开给所有城市",
+                "sets": {
+                  "ch024.approach": "families_first",
+                  "world.ch024.approach": "families_first"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch024",
+            "display_name": "古议会之影",
+            "win_flag": "ch024.battle_won",
+            "recommended_level": 31
+          },
+          "direction": {
+            "shot": "镜头在使者与普通幸存者间切换",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        },
+        {
+          "id": "ch024.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch024.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch024.resolve.l01",
+              "speaker": "旁白",
+              "text": "档案被带往各地，某些居民怒斥古代守灯者，也有人为曾经被迫牺牲的人献花。"
+            },
+            {
+              "id": "ch024.resolve.l02",
+              "speaker": "使者",
+              "text": "我以为他们会先烧掉档案馆，结果却有人留下守夜。"
+            },
+            {
+              "id": "ch024.resolve.l03",
+              "speaker": "岚音",
+              "text": "愤怒不必永远指向毁灭。有人只是第一次知道自己为何失去了亲人。"
+            },
+            {
+              "id": "ch024.resolve.l04",
+              "speaker": "雷索",
+              "text": "这份罪不能洗白，也不能成为否认当年所有努力的借口。"
+            },
+            {
+              "id": "ch024.resolve.l05",
+              "speaker": "主角",
+              "text": "我们要继续找灯。但从今天起，每点亮一盏都要问它向谁索取。"
+            },
+            {
+              "id": "ch024.resolve.p11.l01",
+              "speaker": "使者",
+              "text": "下一次议会，我会留一席给提出异议的居民，不再只请各廷的书吏。"
+            },
+            {
+              "id": "ch024.resolve.p11.l02",
+              "speaker": "岚音",
+              "text": "公布真相不会让失去的人回来，照护和补偿仍要有人负责。"
+            },
+            {
+              "id": "ch024.resolve.p11.l03",
+              "speaker": "雷索",
+              "text": "今后的命令也应该被查问。不要把今天的正确说成永远不会出错。"
+            },
+            {
+              "id": "ch024.resolve.p11.l04",
+              "speaker": "朔弦",
+              "text": "海歌港的老船还在那里等，我们可不能把海风也变成一份公文。"
+            },
+            {
+              "id": "ch024.resolve.p11.l05",
+              "speaker": "主角",
+              "text": "带上确证过的卷宗。下一条航路不应再由一个人独自保管。"
+            },
+            {
+              "id": "ch024.resolve.l06",
+              "speaker": "朔弦",
+              "text": "海歌港来信了。那儿有一艘旧船，据说船底刻着澄舟的名字。"
+            },
+            {
+              "id": "ch024.resolve.l07",
+              "speaker": "旁白",
+              "text": "众人收起原档的副本，离开断层遗迹。远处传来海风的声音。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch024"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch024.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 1060,
+              "gold": 376
+            }
+          ],
+          "direction": {
+            "shot": "档案馆被守夜灯围住而不是被火吞没",
+            "storytelling": "不靠长旁白，靠人的选择推进转场",
+            "phase11_history_contract": "现世行动：不得提前加入伊泽或维莎。"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch024.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch024.done",
+          "speaker": "路人",
+          "text": "听说你们在断层议会遗迹帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "point_of_view": "主角",
+      "timeframe": "主线现时",
+      "script_revision": "act_04_character_pov_v2",
+      "phase11_revision": {
+        "date": "2026-10-25",
+        "new_lines": 20,
+        "scope": "time_layers_evidence_and_family_agency"
+      }
+    }
+  ],
+  "dialogue_revision": "act_04_character_pov_v2",
+  "phase11_revision": {
+    "date": "2026-10-25",
+    "scope": "ch019_ch024",
+    "new_lines": 120,
+    "original_lines": 190,
+    "policy": "preserve_original_dialogue_IDs_and_effects_and_choice",
+    "status": "narrative_pass_only_not_runtime_bound"
+  }
+}

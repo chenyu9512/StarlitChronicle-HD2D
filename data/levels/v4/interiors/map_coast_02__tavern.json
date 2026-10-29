@@ -1,0 +1,709 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 6,
+  "map_id": "map_coast_02",
+  "building_id": "tavern",
+  "name": "白砂港·黑帆酒馆",
+  "status": "main2_black_sail_authored_art_v3_pending_full_visual_qa",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        18,
+        16,
+        54,
+        35
+      ]
+    },
+    {
+      "rect": [
+        20,
+        11,
+        34,
+        23
+      ]
+    },
+    {
+      "rect": [
+        39,
+        11,
+        53,
+        25
+      ]
+    },
+    {
+      "rect": [
+        32,
+        14,
+        43,
+        24
+      ]
+    },
+    {
+      "rect": [
+        33,
+        34,
+        37,
+        38
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        20,
+        12,
+        31,
+        12
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        41,
+        12,
+        52,
+        12
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        35,
+        13,
+        35,
+        16
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        41,
+        13,
+        41,
+        16
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        53,
+        18,
+        53,
+        24
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        19,
+        30,
+        19,
+        35
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        52,
+        30,
+        52,
+        35
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        29,
+        36,
+        38
+      ]
+    }
+  ],
+  "points": {
+    "spawn": [
+      35,
+      33
+    ],
+    "exit": [
+      35,
+      36
+    ],
+    "service": [
+      24,
+      21
+    ],
+    "storage": [
+      48,
+      21
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        21
+      ],
+      "name": "黑帆酒馆·老板柜台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        48,
+        21
+      ],
+      "name": "黑帆酒馆·盐渍酒桶"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        27,
+        17
+      ],
+      "name": "黑帆酒馆·货单木箱"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        45,
+        18
+      ],
+      "name": "黑帆酒馆·船员告示"
+    },
+    {
+      "kind": "fish_stall",
+      "cell": [
+        28,
+        26
+      ],
+      "name": "黑帆酒馆·晚餐长桌"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        49,
+        29
+      ],
+      "name": "黑帆酒馆·旧账簿"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        23
+      ],
+      "name": "黑帆酒馆·壁灯"
+    }
+  ],
+  "art_profile": "coast_act01_tavern_v1",
+  "art_tileset": "res://assets/art/runtime/act01_tavern_v2/tavern_wood_atlas.svg",
+  "visuals": [
+    {
+      "id": "innkeeper_counter",
+      "asset": "tavern_counter",
+      "cell": [
+        23,
+        24
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        192,
+        78
+      ]
+    },
+    {
+      "id": "salted_wine_cask",
+      "asset": "tavern_cask",
+      "cell": [
+        48,
+        21
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        56,
+        72
+      ]
+    },
+    {
+      "id": "shipment_ledger_box",
+      "asset": "tavern_crate",
+      "cell": [
+        27,
+        17
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        62,
+        60
+      ],
+      "icon": "paper"
+    },
+    {
+      "id": "crew_noticeboard",
+      "asset": "tavern_noticeboard",
+      "cell": [
+        45,
+        18
+      ],
+      "layer": "wall",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        76,
+        90
+      ],
+      "icon": "paper"
+    },
+    {
+      "id": "old_sailors_table",
+      "asset": "tavern_table",
+      "cell": [
+        28,
+        26
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        116,
+        74
+      ]
+    },
+    {
+      "id": "lost_wages_book",
+      "asset": "tavern_ledger",
+      "cell": [
+        49,
+        29
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        76,
+        74
+      ],
+      "icon": "book"
+    },
+    {
+      "id": "tavern_hanging_light",
+      "asset": "tavern_lantern",
+      "cell": [
+        36,
+        23
+      ],
+      "layer": "wall",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        44,
+        68
+      ]
+    },
+    {
+      "id": "reserve_wine_barrel",
+      "asset": "tavern_cask",
+      "cell": [
+        22,
+        29
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        56,
+        72
+      ]
+    },
+    {
+      "id": "harbor_travel_chest",
+      "asset": "tavern_chest",
+      "cell": [
+        43,
+        23
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        80,
+        66
+      ],
+      "icon": "book"
+    },
+    {
+      "id": "salted_cask_stack",
+      "asset": "tavern_stack",
+      "cell": [
+        50,
+        25
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        98,
+        80
+      ]
+    },
+    {
+      "id": "workers_supper_table",
+      "asset": "tavern_table",
+      "cell": [
+        40,
+        26
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        116,
+        74
+      ]
+    },
+    {
+      "id": "bar_back_shelves",
+      "asset": "tavern_shelf",
+      "cell": [
+        23,
+        17
+      ],
+      "layer": "wall",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        138,
+        94
+      ]
+    },
+    {
+      "id": "sailmaker_bench",
+      "asset": "tavern_bench",
+      "cell": [
+        32,
+        21
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        112,
+        58
+      ]
+    },
+    {
+      "id": "captain_black_sail",
+      "asset": "tavern_banner",
+      "cell": [
+        39,
+        15
+      ],
+      "layer": "wall",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        118,
+        104
+      ]
+    },
+    {
+      "id": "south_ale_bench",
+      "asset": "tavern_bench",
+      "cell": [
+        46,
+        32
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        112,
+        58
+      ]
+    },
+    {
+      "id": "black_sail_aisle_rug",
+      "asset": "tavern_rug",
+      "cell": [
+        35,
+        32
+      ],
+      "layer": "floor",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        128,
+        220
+      ]
+    },
+    {
+      "id": "old_sailors_west_stool",
+      "asset": "tavern_stool",
+      "cell": [
+        25,
+        28
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        46,
+        44
+      ]
+    },
+    {
+      "id": "old_sailors_east_stool",
+      "asset": "tavern_stool",
+      "cell": [
+        31,
+        28
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        46,
+        44
+      ]
+    },
+    {
+      "id": "workers_supper_stool",
+      "asset": "tavern_stool",
+      "cell": [
+        38,
+        30
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        46,
+        44
+      ]
+    },
+    {
+      "id": "workers_starboard_stool",
+      "asset": "tavern_stool",
+      "cell": [
+        44,
+        29
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -2
+      ],
+      "footprint": [
+        46,
+        44
+      ]
+    }
+  ],
+  "art_collision_cells": [
+    [
+      23,
+      24
+    ],
+    [
+      24,
+      24
+    ],
+    [
+      25,
+      24
+    ],
+    [
+      40,
+      26
+    ],
+    [
+      40,
+      27
+    ],
+    [
+      43,
+      23
+    ],
+    [
+      49,
+      25
+    ],
+    [
+      50,
+      25
+    ],
+    [
+      22,
+      29
+    ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_act01_tavern_1",
+      "kind": "crate",
+      "name": "夹层货箱",
+      "cell": [
+        27,
+        17
+      ],
+      "first_text": "货箱标着十二包海盐，可箱板比盐袋重。底下压着一页没有署名的夜间运货单。",
+      "repeat_text": "箱板夹层里残存海盐颗粒。",
+      "after_text": "酒馆老板把原始货单交给港务员核验，留下一份抄本供工人查阅。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_tavern_2",
+      "kind": "sign",
+      "name": "无日期船员告示",
+      "cell": [
+        45,
+        18
+      ],
+      "first_text": "招募的船名还在，日期却被剪掉一角；有人希望这份工作像从未存在过。",
+      "repeat_text": "旧纸的边角已被仔细抚平。",
+      "after_text": "告示旁补上船工签收工钱的实际日期。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_tavern_3",
+      "kind": "fish_stall",
+      "name": "靠窗的旧餐桌",
+      "cell": [
+        28,
+        26
+      ],
+      "first_text": "几名水手在桌面刻下航路，最后一条被黑墨覆盖。这里是询问失踪航段的合适地点。",
+      "repeat_text": "桌上的划痕沿着海岸一直延伸。",
+      "after_text": "桌边有新的航路注记，水手们不再只靠传闻辨方向。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_act01_tavern_4",
+      "kind": "barrel",
+      "name": "酒桶下的旧账簿",
+      "cell": [
+        49,
+        29
+      ],
+      "first_text": "账簿记着应付给搬运工的工钱，最后一页用盐渍封住。账目缺口恰好与夜船出港相同。",
+      "repeat_text": "旧账页按月份重新夹好。",
+      "after_text": "老板留下签收页，欠薪的记录没有被删掉。",
+      "owner_absent_text": "这里保存着别人的记录，只能阅读公开部分，不可擅自取走。",
+      "owner_present_text": "管理员允许你查阅公开记录，请保留原件。",
+      "after_flag": "story.ch004.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    }
+  ],
+  "interior_owner_id": "npc_coast_04",
+  "interaction_revision": 1,
+  "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
+  "notes": "Black Sail V2: unique connected harbor tavern with a back-bar, notice wall, sailors' seating, ledger and cask store; authored wood interior atlas and 12 named SVG furniture identities (15 placed pieces). All four chapter-4 investigation cells, service/storage markers, spawn/exit, plot flags, stable ids and return transition are preserved. Furniture footprint collision added outside interaction markers; Godot image and input acceptance pending. Based on actual Godot screenshot, a nautical floor runner and four stools enrich the empty middle. Taverns look toward their north-bar without moving the player spawn or stable plot interactors.",
+  "room_day_tint": "f3e8d6",
+  "room_night_tint": "d4bba1",
+  "light_sources": [
+    {
+      "id": "black_sail_bar_amber",
+      "cell": [
+        24,
+        21
+      ],
+      "scale": 1.28,
+      "energy": 0.92
+    },
+    {
+      "id": "black_sail_sailors_table",
+      "cell": [
+        29,
+        25
+      ],
+      "scale": 1.25,
+      "energy": 0.78
+    },
+    {
+      "id": "black_sail_notice_glow",
+      "cell": [
+        45,
+        18
+      ],
+      "scale": 1.16,
+      "energy": 0.68
+    },
+    {
+      "id": "black_sail_storeroom_light",
+      "cell": [
+        49,
+        27
+      ],
+      "scale": 1.14,
+      "energy": 0.78
+    }
+  ]
+}

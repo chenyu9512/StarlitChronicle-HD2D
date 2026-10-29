@@ -1,0 +1,2005 @@
+{
+  "schema": "starlit.world_discoveries.v1",
+  "maps": {
+    "map_city_01": {
+      "name": "群灯旧会馆",
+      "size": [
+        86,
+        52
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "复工灯位·群灯旧会馆 · 传闻",
+          "cell": [
+            77,
+            22
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "旧会馆背街灯位密度高过正门广场。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "居民庭院·群灯旧会馆 · 旧路",
+          "cell": [
+            75,
+            42
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "顺旧砖磨痕找到尚存的服务侧廊。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "联络岗亭·群灯旧会馆 · 储备",
+          "cell": [
+            62,
+            43
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "清扫员旧柜里留着急救药物。",
+          "reward": {
+            "gold": 150,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_02": {
+      "name": "自由议事厅",
+      "size": [
+        88,
+        54
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "复工灯位·自由议事厅 · 传闻",
+          "cell": [
+            79,
+            17
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "议事厅窗台最外侧座位的磨损最深。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "居民庭院·自由议事厅 · 旧路",
+          "cell": [
+            77,
+            44
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "比对街区公告路线开启公共资料柜。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "联络岗亭·自由议事厅 · 储备",
+          "cell": [
+            65,
+            45
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "补给格里存着远途代表用的药剂。",
+          "reward": {
+            "gold": 155,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_03": {
+      "name": "群灯居民街",
+      "size": [
+        90,
+        56
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "复工灯位·群灯居民街 · 传闻",
+          "cell": [
+            81,
+            29
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "居民街门牌号码在新墙前跳过一户。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "居民庭院·群灯居民街 · 旧路",
+          "cell": [
+            79,
+            46
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "循邻里灯号找到旧社区联络站侧门。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "联络岗亭·群灯居民街 · 储备",
+          "cell": [
+            68,
+            47
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "值班抽屉里留有紧急巡查用品。",
+          "reward": {
+            "gold": 160,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_04": {
+      "name": "星灯中枢",
+      "size": [
+        92,
+        56
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "复工灯位·星灯中枢 · 铭刻",
+          "cell": [
+            83,
+            24
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "中枢地板留下两种反向旋紧的螺纹。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "居民庭院·星灯中枢 · 机关",
+          "cell": [
+            81,
+            46
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "依检修灯间隔复位旧转接盘机关。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "联络岗亭·星灯中枢 · 宝库",
+          "cell": [
+            62,
+            47
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "维护安全槽中留下密封补给包。",
+          "reward": {
+            "gold": 228,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_city_05": {
+      "name": "西区修复工地",
+      "size": [
+        90,
+        54
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "复工灯位·西区修复工地 · 痕迹",
+          "cell": [
+            81,
+            19
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "工地吊钩停在新墙与旧路交界处。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "居民庭院·西区修复工地 · 路径",
+          "cell": [
+            79,
+            44
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "借施工标识辨认可通行的临时栈道。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "联络岗亭·西区修复工地 · 补给",
+          "cell": [
+            65,
+            45
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "工程队遗漏的医药箱仍然完好。",
+          "reward": {
+            "gold": 196,
+            "item_id": "item_ether_08",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_coast_01": {
+      "name": "晨露村（正式版规划）",
+      "size": [
+        96,
+        56
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "盐风观潮·晨露村（正式版规划） · 传闻",
+          "cell": [
+            87,
+            30
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "退潮沙丘上留着背向海风的旧灯祭脚印。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "滩涂哨台·晨露村（正式版规划） · 旧路",
+          "cell": [
+            85,
+            46
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "沿盐蚀岩纹辨认隐蔽的归村小径。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "海湾灯台·晨露村（正式版规划） · 储备",
+          "cell": [
+            69,
+            47
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "旧海防油布箱仍藏着防潮补给。",
+          "reward": {
+            "gold": 59,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_coast_02": {
+      "name": "白砂港",
+      "size": [
+        92,
+        52
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "盐风观潮·白砂港 · 痕迹",
+          "cell": [
+            83,
+            25
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "港口缆桩上有一道异常的新潮汐刻线。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "滩涂哨台·白砂港 · 路径",
+          "cell": [
+            81,
+            42
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "核对礁石水位与航钟，辨出旧航道。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "海湾灯台·白砂港 · 补给",
+          "cell": [
+            63,
+            43
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "船匠夹层里放着未取走的备用物资。",
+          "reward": {
+            "gold": 90,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_coast_03": {
+      "name": "盐风古道",
+      "size": [
+        94,
+        54
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "鲸骨浅滩 · 潮汐划痕",
+          "cell": [
+            83,
+            19
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "沿盐风古道的旧哨台向东走，鲸骨状白石上留下两道退潮刻痕。第二道刻痕旁有新近的拖网绳印，却没有拖走伤鲸的痕迹。先记录潮水方向，再靠近浅滩。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "鲸骨浅滩 · 解缆旧桩",
+          "cell": [
+            80,
+            42
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "白石背风处还立着救援船使用的旧木桩。沿退潮的潮线松开缠住石桩的渔绳，避开幼鲸可能游经的水道；这里需要耐心而非砍断一切。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "鲸骨浅滩 · 守潮人的救援包",
+          "cell": [
+            64,
+            45
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "浅滩石壁中的密封救援包保留着干燥药草和岸上求救的旗布。救援记录强调先引导搁浅生灵安全回水，再向海岸哨台报告，不留下新的伤害。",
+          "reward": {
+            "gold": 95,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_coast_04": {
+      "name": "潮声洞窟",
+      "size": [
+        100,
+        60
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "断桅海蚀洞 · 退潮石刻",
+          "cell": [
+            88,
+            17
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "洞壁刻着三道退潮纹，中央水痕比两旁更浅。旧守灯人把开闸次序留下：先中阀，再左阀，最后右阀；潮声会在正确的石阀回应。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "断桅海蚀洞 · 排水阀遗迹",
+          "cell": [
+            86,
+            48
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "沿石刻继续深入，找到连接退潮主阀、回声潮闸、排水侧轮的水路。先看清洞顶的裂缝与水流方向，才能稳妥地触动三处机关。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "断桅海蚀洞 · 守灯储备龛",
+          "cell": [
+            73,
+            53
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "潮水退后露出守灯队封存的补给龛。里面是为返程准备的紧急药物；洞窟深处的敌影与旧航线秘密仍需要亲自面对。",
+          "reward": {
+            "gold": 137,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_coast_05": {
+      "name": "潮歌灯塔",
+      "size": [
+        98,
+        52
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "潮歌灯塔 · 失明航灯",
+          "cell": [
+            86,
+            27
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "潮歌灯塔的灯座与海湾星点对齐，但反射镜上沾着厚盐，远岸看不清归航信号。先记录旧灯位，确认夜航船应当看见哪一道光。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "潮歌灯塔 · 反光镜架",
+          "cell": [
+            84,
+            41
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "工匠留下的镜架仍可转动。沿磨痕校对朝海的反射方向，避免让光束直射村庄；守灯人的旧维修注记夹在铜框内。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "潮歌灯塔 · 守灯工匠工具箱",
+          "cell": [
+            61,
+            43
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "维修箱里整齐放着药草、备用灯芯与上一任守灯人的工作记事。灯光尚待真正修复，不能仅打开工具箱就假装灯塔已点亮。",
+          "reward": {
+            "gold": 105,
+            "item_id": "item_herb_01",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_forge_01": {
+      "name": "熔炉港",
+      "size": [
+        86,
+        58
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "熔脉观测·熔炉港 · 传闻",
+          "cell": [
+            77,
+            21
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "熔炉港铁轨接缝记录重车绕行线路。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "旧轨道口·熔炉港 · 旧路",
+          "cell": [
+            75,
+            48
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "沿冷却渠安全牌避开四散的高温炉渣。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "高炉冷却·熔炉港 · 储备",
+          "cell": [
+            67,
+            49
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "弃用装卸柜中留下防烫药膏。",
+          "reward": {
+            "gold": 85,
+            "item_id": "item_herb_03",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_forge_02": {
+      "name": "烟塔工坊",
+      "size": [
+        82,
+        60
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "熔脉观测·烟塔工坊 · 痕迹",
+          "cell": [
+            73,
+            16
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "烟塔里有灰屑逆着排风方向坠下。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "旧轨道口·烟塔工坊 · 路径",
+          "cell": [
+            71,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "调整通风闸配重打开旧维护廊道。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "高炉冷却·烟塔工坊 · 补给",
+          "cell": [
+            70,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "工匠的隔热工具盒仍留有药品。",
+          "reward": {
+            "gold": 116,
+            "item_id": "item_herb_03",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_forge_03": {
+      "name": "赤砂矿坑",
+      "size": [
+        84,
+        56
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "熔脉观测·赤砂矿坑 · 痕迹",
+          "cell": [
+            75,
+            28
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "矿车轮痕终点仍有拖行矿袋的浅沟。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "旧轨道口·赤砂矿坑 · 路径",
+          "cell": [
+            73,
+            46
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "听矿脉回声辨出废弃矿坑的支巷。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "高炉冷却·赤砂矿坑 · 补给",
+          "cell": [
+            64,
+            47
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "矿工防尘袋保存着远行补给。",
+          "reward": {
+            "gold": 121,
+            "item_id": "item_herb_03",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_forge_04": {
+      "name": "灰烬铁路",
+      "size": [
+        90,
+        62
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "熔脉观测·灰烬铁路 · 铭刻",
+          "cell": [
+            81,
+            23
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "废站信号盘仍指向已拆除的支线。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "旧轨道口·灰烬铁路 · 机关",
+          "cell": [
+            79,
+            52
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "复位轨旁旧转辙器以开启检修侧洞。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "高炉冷却·灰烬铁路 · 宝库",
+          "cell": [
+            67,
+            53
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "老站长保险柜留有备用药剂。",
+          "reward": {
+            "gold": 163,
+            "item_id": "item_herb_03",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_forge_05": {
+      "name": "炉心禁区",
+      "size": [
+        88,
+        60
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "熔脉观测·炉心禁区 · 痕迹",
+          "cell": [
+            79,
+            18
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "炉心外隔热砖出现侧向的冷却痕。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "旧轨道口·炉心禁区 · 路径",
+          "cell": [
+            77,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "启用旁路风道解除检修门的第二道锁。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "高炉冷却·炉心禁区 · 补给",
+          "cell": [
+            70,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "防火储藏匣里有未拆的急救包。",
+          "reward": {
+            "gold": 131,
+            "item_id": "item_herb_03",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_isles_01": {
+      "name": "珊歌港",
+      "size": [
+        98,
+        56
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "潮桥灯位·珊歌港 · 传闻",
+          "cell": [
+            89,
+            29
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "泊位旗色与脚下珊瑚砂颜色不符。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "珊瑚浅径·珊歌港 · 旧路",
+          "cell": [
+            87,
+            46
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "依浅礁潮色找出可以步行的岛桥。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "归航星标·珊歌港 · 储备",
+          "cell": [
+            65,
+            47
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "渔船腹板里封着风浪天的补给。",
+          "reward": {
+            "gold": 98,
+            "item_id": "item_ether_04",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_isles_02": {
+      "name": "五色环礁",
+      "size": [
+        92,
+        58
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "潮桥灯位·五色环礁 · 痕迹",
+          "cell": [
+            83,
+            24
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "五色环礁一池海水午时泛出暗紫色。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "珊瑚浅径·五色环礁 · 路径",
+          "cell": [
+            81,
+            48
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "顺着干燥珊瑚石避开上涨的潮水。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "归航星标·五色环礁 · 补给",
+          "cell": [
+            68,
+            49
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "石洞里夹着一包防水航海物资。",
+          "reward": {
+            "gold": 129,
+            "item_id": "item_ether_04",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_isles_03": {
+      "name": "风暴航道",
+      "size": [
+        94,
+        60
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "潮桥灯位·风暴航道 · 痕迹",
+          "cell": [
+            85,
+            19
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "风暴航道的浮标逆风指向废弃锚点。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "珊瑚浅径·风暴航道 · 路径",
+          "cell": [
+            83,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "重装可移动航标，让安全浅脊现形。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "归航星标·风暴航道 · 补给",
+          "cell": [
+            62,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "避风礁后还存有密封的药箱。",
+          "reward": {
+            "gold": 134,
+            "item_id": "item_ether_04",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_isles_04": {
+      "name": "深潮神庙",
+      "size": [
+        102,
+        60
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "潮桥灯位·深潮神庙 · 铭刻",
+          "cell": [
+            93,
+            31
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "神庙贝纹只有祭坛西侧保持完整。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "珊瑚浅径·深潮神庙 · 机关",
+          "cell": [
+            91,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "跟随盐迹旋转石座打开深处供龛。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "归航星标·深潮神庙 · 宝库",
+          "cell": [
+            65,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "蓝色陶瓶里密封着海潮恢复药露。",
+          "reward": {
+            "gold": 176,
+            "item_id": "item_ether_04",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_isles_05": {
+      "name": "沉没王座",
+      "size": [
+        98,
+        58
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "潮桥灯位·沉没王座 · 痕迹",
+          "cell": [
+            89,
+            26
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "珊瑚枝穿过王座石阶却未损坏刻度。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "珊瑚浅径·沉没王座 · 路径",
+          "cell": [
+            87,
+            48
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "按古水位线穿过会滑落的水下石阶。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "归航星标·沉没王座 · 补给",
+          "cell": [
+            68,
+            49
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "古王座侧面遗留一只密封小箱。",
+          "reward": {
+            "gold": 144,
+            "item_id": "item_ether_04",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_mirror_01": {
+      "name": "镜湖都",
+      "size": [
+        86,
+        64
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "倒影碑庭·镜湖都 · 传闻",
+          "cell": [
+            77,
+            20
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "渡桥倒影方向竟与真实湖岸相反。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "折光泉眼·镜湖都 · 旧路",
+          "cell": [
+            75,
+            54
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "调正湖畔偏斜的镜片辨出石桥入口。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "镜林路牌·镜湖都 · 储备",
+          "cell": [
+            63,
+            55
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "小镜匣里藏着清醒药草与旧券。",
+          "reward": {
+            "gold": 111,
+            "item_id": "item_herb_05",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_mirror_02": {
+      "name": "夜镜森林",
+      "size": [
+        84,
+        60
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "倒影碑庭·夜镜森林 · 痕迹",
+          "cell": [
+            75,
+            15
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "夜镜森林某些树叶背面映着月光。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "折光泉眼·夜镜森林 · 路径",
+          "cell": [
+            73,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "循树皮旧月纹识破折射制造的假路。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "镜林路牌·夜镜森林 · 补给",
+          "cell": [
+            66,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "覆苔旅囊里还有几瓶完好的药剂。",
+          "reward": {
+            "gold": 142,
+            "item_id": "item_herb_05",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_mirror_03": {
+      "name": "忘梦庭院",
+      "size": [
+        84,
+        62
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "倒影碑庭·忘梦庭院 · 痕迹",
+          "cell": [
+            75,
+            27
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "庭院石椅划痕与空中倒影错开半尺。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "折光泉眼·忘梦庭院 · 路径",
+          "cell": [
+            73,
+            52
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "调整三片碎镜让残纹重新连成路。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "镜林路牌·忘梦庭院 · 补给",
+          "cell": [
+            69,
+            53
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "老花坛砖匣里藏有防迷雾的草药。",
+          "reward": {
+            "gold": 147,
+            "item_id": "item_herb_05",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_mirror_04": {
+      "name": "银玻璃塔",
+      "size": [
+        90,
+        68
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "倒影碑庭·银玻璃塔 · 铭刻",
+          "cell": [
+            81,
+            22
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "银玻璃塔镜像楼梯比实体多出一级。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "折光泉眼·银玻璃塔 · 机关",
+          "cell": [
+            79,
+            58
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "听脚步声寻找不会反射的真实转梯。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "镜林路牌·银玻璃塔 · 宝库",
+          "cell": [
+            63,
+            59
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "玻璃密柜存有保持清醒的药剂。",
+          "reward": {
+            "gold": 189,
+            "item_id": "item_herb_05",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_mirror_05": {
+      "name": "映世回廊",
+      "size": [
+        90,
+        60
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "倒影碑庭·映世回廊 · 痕迹",
+          "cell": [
+            81,
+            17
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "回廊铃声总在影子出现以后传来。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "折光泉眼·映世回廊 · 路径",
+          "cell": [
+            79,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "用回声与影子的错时调整石路标。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "镜林路牌·映世回廊 · 补给",
+          "cell": [
+            66,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "石凳后有一包被遗忘的旅行用品。",
+          "reward": {
+            "gold": 157,
+            "item_id": "item_herb_05",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oaths_01": {
+      "name": "三誓门城",
+      "size": [
+        96,
+        62
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "崖壁守望·三誓门城 · 传闻",
+          "cell": [
+            87,
+            28
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "旧哨牌记着三条路却只有两条新脚印。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "誓碑庭院·三誓门城 · 旧路",
+          "cell": [
+            85,
+            52
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "借警铃与门楼阴影找回废弃巡逻道。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "三门瞭望·三誓门城 · 储备",
+          "cell": [
+            70,
+            53
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "值守石座下封存士兵的补给袋。",
+          "reward": {
+            "gold": 72,
+            "item_id": "item_ether_02",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oaths_02": {
+      "name": "断誓山径",
+      "size": [
+        92,
+        64
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "崖壁守望·断誓山径 · 痕迹",
+          "cell": [
+            83,
+            23
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "山口布条方向与峡谷强风并不一致。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "誓碑庭院·断誓山径 · 路径",
+          "cell": [
+            81,
+            54
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "循断裂栈道的箭刻寻找安全登山路。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "三门瞭望·断誓山径 · 补给",
+          "cell": [
+            64,
+            55
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "避难石室里留着前辈登山者的伤药。",
+          "reward": {
+            "gold": 103,
+            "item_id": "item_ether_02",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oaths_03": {
+      "name": "银鹫要塞",
+      "size": [
+        96,
+        60
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "崖壁守望·银鹫要塞 · 痕迹",
+          "cell": [
+            87,
+            18
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "要塞射孔上的风化刻痕指向背山哨台。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "誓碑庭院·银鹫要塞 · 路径",
+          "cell": [
+            85,
+            50
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "依三道警戒石纹转动旧机械木楔。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "三门瞭望·银鹫要塞 · 补给",
+          "cell": [
+            67,
+            51
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "封闭岗亭的军用急救包完好无损。",
+          "reward": {
+            "gold": 108,
+            "item_id": "item_ether_02",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oaths_04": {
+      "name": "誓石神殿",
+      "size": [
+        100,
+        66
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "崖壁守望·誓石神殿 · 铭刻",
+          "cell": [
+            91,
+            30
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "神殿左右石灯只有一侧不积灰尘。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "誓碑庭院·誓石神殿 · 机关",
+          "cell": [
+            89,
+            56
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "按誓纹镜面对称关系重新调正石灯。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "三门瞭望·誓石神殿 · 宝库",
+          "cell": [
+            70,
+            57
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "未开启的守誓供龛留有旅途药物。",
+          "reward": {
+            "gold": 150,
+            "item_id": "item_ether_02",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oaths_05": {
+      "name": "旧王谒见厅",
+      "size": [
+        98,
+        64
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "崖壁守望·旧王谒见厅 · 痕迹",
+          "cell": [
+            89,
+            25
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "谒见厅高窗与地面白线汇聚为一点。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "誓碑庭院·旧王谒见厅 · 路径",
+          "cell": [
+            87,
+            54
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "复位偏斜的礼仪碑座，辨出原刻铭文。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "三门瞭望·旧王谒见厅 · 补给",
+          "cell": [
+            64,
+            55
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "侍从储物龛仍存封好的旅粮袋。",
+          "reward": {
+            "gold": 118,
+            "item_id": "item_ether_02",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oldland_01": {
+      "name": "遗民营地",
+      "size": [
+        88,
+        64
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "断代遗碑·遗民营地 · 传闻",
+          "cell": [
+            79,
+            19
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "营地旧井周围脚印朝废塔聚集。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "遗失钟楼·遗民营地 · 旧路",
+          "cell": [
+            77,
+            54
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "核对迁徙牌与断石道找回补给岔路。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "考古营地·遗民营地 · 储备",
+          "cell": [
+            68,
+            55
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "旧地窖里有干草包护着的药材。",
+          "reward": {
+            "gold": 124,
+            "item_id": "item_ether_06",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oldland_02": {
+      "name": "荒星平原",
+      "size": [
+        82,
+        66
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "断代遗碑·荒星平原 · 痕迹",
+          "cell": [
+            73,
+            31
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "荒星平原斜石柱投出笔直夕阳影子。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "遗失钟楼·荒星平原 · 路径",
+          "cell": [
+            71,
+            56
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "循投影跨越松动下陷的灰白土层。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "考古营地·荒星平原 · 补给",
+          "cell": [
+            62,
+            57
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "风沙中的行李箱还锁着应急物资。",
+          "reward": {
+            "gold": 155,
+            "item_id": "item_ether_06",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oldland_03": {
+      "name": "时裂峡谷",
+      "size": [
+        84,
+        68
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "断代遗碑·时裂峡谷 · 痕迹",
+          "cell": [
+            75,
+            26
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "峡谷古钟纹有两种不同风化深浅。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "遗失钟楼·时裂峡谷 · 路径",
+          "cell": [
+            73,
+            58
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "辨认旧绳桥石钉顺序跨过断层。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "考古营地·时裂峡谷 · 补给",
+          "cell": [
+            65,
+            59
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "勘探队药筒卡在峡壁裂隙里。",
+          "reward": {
+            "gold": 160,
+            "item_id": "item_ether_06",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oldland_04": {
+      "name": "星墓秘殿",
+      "size": [
+        92,
+        68
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "断代遗碑·星墓秘殿 · 铭刻",
+          "cell": [
+            83,
+            21
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "星墓祭壁星图缺角与地上残片吻合。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "遗失钟楼·星墓秘殿 · 机关",
+          "cell": [
+            81,
+            58
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "拼合石碑碎片重新打开墓殿侧门。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "考古营地·星墓秘殿 · 宝库",
+          "cell": [
+            68,
+            59
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "尘封墓室里有古旧疗伤药箱。",
+          "reward": {
+            "gold": 202,
+            "item_id": "item_ether_06",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_oldland_05": {
+      "name": "旧日灯枢",
+      "size": [
+        88,
+        66
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "断代遗碑·旧日灯枢 · 痕迹",
+          "cell": [
+            79,
+            16
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "旧灯枢的锈齿间有新近擦拭的痕迹。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "遗失钟楼·旧日灯枢 · 路径",
+          "cell": [
+            77,
+            56
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "调平铜制配重进入灯枢检修平台。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "考古营地·旧日灯枢 · 补给",
+          "cell": [
+            62,
+            57
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "值守木箱里留着药物和铜币。",
+          "reward": {
+            "gold": 170,
+            "item_id": "item_ether_06",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_sanctum_01": {
+      "name": "天轨前庭",
+      "size": [
+        96,
+        68
+      ],
+      "category": "town",
+      "events": [
+        {
+          "id": "trace",
+          "name": "天轨节点·天轨前庭 · 传闻",
+          "cell": [
+            87,
+            27
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "前庭星位石砖缺少一条常规星序。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "观星圣坛·天轨前庭 · 旧路",
+          "cell": [
+            85,
+            58
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "按亮灯星序穿过外侧守望廊。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "浮空石庭·天轨前庭 · 储备",
+          "cell": [
+            66,
+            59
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "星纹匣还留着远行者的恢复药露。",
+          "reward": {
+            "gold": 137,
+            "item_id": "item_herb_07",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_sanctum_02": {
+      "name": "七灯环庭",
+      "size": [
+        94,
+        64
+      ],
+      "category": "field",
+      "events": [
+        {
+          "id": "trace",
+          "name": "天轨节点·七灯环庭 · 痕迹",
+          "cell": [
+            85,
+            22
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "七灯环庭空灯槽里没有碎石落灰。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "观星圣坛·七灯环庭 · 路径",
+          "cell": [
+            83,
+            54
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "调整灯影距离找出光幕里的小径。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "浮空石庭·七灯环庭 · 补给",
+          "cell": [
+            69,
+            55
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "外围供奉盒留存未取用的恢复药。",
+          "reward": {
+            "gold": 168,
+            "item_id": "item_herb_07",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_sanctum_03": {
+      "name": "反转星穹",
+      "size": [
+        94,
+        66
+      ],
+      "category": "route",
+      "events": [
+        {
+          "id": "trace",
+          "name": "天轨节点·反转星穹 · 痕迹",
+          "cell": [
+            85,
+            17
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "星穹栏杆出现朝下延伸的奇异光痕。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "观星圣坛·反转星穹 · 路径",
+          "cell": [
+            83,
+            56
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "按反向星痕排列石盘认出真路。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "浮空石庭·反转星穹 · 补给",
+          "cell": [
+            63,
+            57
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "折射光后藏着干燥的保管箱。",
+          "reward": {
+            "gold": 173,
+            "item_id": "item_herb_07",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_sanctum_04": {
+      "name": "岁影尽头",
+      "size": [
+        100,
+        72
+      ],
+      "category": "dungeon",
+      "events": [
+        {
+          "id": "trace",
+          "name": "天轨节点·岁影尽头 · 铭刻",
+          "cell": [
+            91,
+            29
+          ],
+          "icon": "sea_crystal",
+          "require": "",
+          "text": "廊柱同时映出晨昏两道不交汇的影子。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "观星圣坛·岁影尽头 · 机关",
+          "cell": [
+            89,
+            62
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "校对双重时影刻度开启隐秘祭室。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "浮空石庭·岁影尽头 · 宝库",
+          "cell": [
+            66,
+            63
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "祭室留有轮值守卫的药剂补给。",
+          "reward": {
+            "gold": 215,
+            "item_id": "item_herb_07",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    "map_sanctum_05": {
+      "name": "永昼祭坛",
+      "size": [
+        100,
+        64
+      ],
+      "category": "landmark",
+      "events": [
+        {
+          "id": "trace",
+          "name": "天轨节点·永昼祭坛 · 痕迹",
+          "cell": [
+            91,
+            24
+          ],
+          "icon": "sign",
+          "require": "",
+          "text": "祭坛外沿只有一块白石不再发光。",
+          "reward": null
+        },
+        {
+          "id": "mechanism",
+          "name": "观星圣坛·永昼祭坛 · 路径",
+          "cell": [
+            89,
+            54
+          ],
+          "icon": "beacon",
+          "require": "trace",
+          "text": "依石面亮度次序找到不碰祭台的侧门。",
+          "reward": null
+        },
+        {
+          "id": "cache",
+          "name": "浮空石庭·永昼祭坛 · 补给",
+          "cell": [
+            69,
+            55
+          ],
+          "icon": "crate",
+          "require": "mechanism",
+          "text": "备用灯匣里封着旅途药品。",
+          "reward": {
+            "gold": 183,
+            "item_id": "item_herb_07",
+            "amount": 1
+          }
+        }
+      ]
+    }
+  }
+}

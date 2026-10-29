@@ -1,0 +1,1227 @@
+{
+  "schema": "starlit.c.act01_production_art.v10",
+  "dated": "2026-10-27",
+  "chapters_count": 6,
+  "physical_maps_count": 5,
+  "priority": "first_act_six_chapter_art_and_reusable_presets",
+  "meaning": "Sources in map bundles are real files or the included new lighthouse image. They are not proof of Godot gameplay and do not rewrite the D-line story-to-map routing.",
+  "reuse_contract": {
+    "base_world": "WorldGeography and existing TileMapLayer",
+    "atlas_cache": "WorldTilesetPool.shared",
+    "visual_resolver": "CArtOverrides.texture",
+    "global_dlc": "c_shared_terrain_v8 and c_art_packs",
+    "stage_separation": [
+      "production_orig",
+      "candidate",
+      "runtime_canonical"
+    ],
+    "no_map_fog": true
+  },
+  "sprites": {
+    "tide_pool": "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+    "dune_grass": "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+    "fish_net_stand": "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+    "harbor_crane": "res://assets/art/exteriors/coast_final_pass/harbor_crane.svg",
+    "tide_cliff": "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+    "cave_stalactite": "res://assets/art/exteriors/coast_final_pass/cave_stalactite.svg",
+    "cave_crystal": "res://assets/art/exteriors/coast_final_pass/cave_crystal.svg",
+    "cave_altar": "res://assets/art/exteriors/coast_final_pass/cave_altar.svg",
+    "sea_bridge": "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+    "quest_glow": "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+    "saltwind_oak": "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+    "sea_wind_pine": "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+    "dune_shrub": "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+    "cave_foreground_column": "res://assets/art/exteriors/coast_final_pass/cave_foreground_column.svg",
+    "cave_hanging_ledge": "res://assets/art/exteriors/coast_final_pass/cave_hanging_ledge.svg",
+    "tide_lighthouse_landmark": "res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg"
+  },
+  "maps": {
+    "map_coast_01": {
+      "map_id": "map_coast_01",
+      "label": "晨露村·旧屋与晨灯广场",
+      "terrain": {
+        "ground": "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "water": "res://assets/art/tilesets/regions/region_coast_water.png",
+        "detail": "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg"
+      },
+      "scenery_manifest": "res://data/levels/v4/coastal_scenery.json",
+      "scenery_count": 9,
+      "scenery_sources": [
+        "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg"
+      ],
+      "facades": [
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_guild.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_house.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_inn.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_shop.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_shrine.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_smith.svg"
+      ],
+      "interior_tilesets": [
+        "res://assets/art/interiors/coastal_district/dew_guild_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_house_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_shop_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_shrine_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_smith_tileset.svg",
+        "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg"
+      ],
+      "props": [
+        "res://assets/art/props/coast/anchor.png",
+        "res://assets/art/props/coast/barrel.png",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/cottage.png",
+        "res://assets/art/props/coast/crate.png",
+        "res://assets/art/props/coast/dock_boat.png",
+        "res://assets/art/props/coast/fish_stall.png",
+        "res://assets/art/props/coast/fishing_net.png",
+        "res://assets/art/props/coast/flowerpot.png",
+        "res://assets/art/props/coast/grass.png",
+        "res://assets/art/props/coast/medicine_basket.png",
+        "res://assets/art/props/coast/palm_tree.png",
+        "res://assets/art/props/coast/pier_post.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/rope_coil.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/shell.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/props/coast/star_lantern.png",
+        "res://assets/art/props/coast/well.png"
+      ],
+      "character_slots": [
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png"
+      ],
+      "coastal_monster_assets": [
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "footprint_policy": "visual_only; world_geography blocked/water/quest gates immutable",
+      "asset_binding": "CArtOverrides.texture"
+    },
+    "map_coast_02": {
+      "map_id": "map_coast_02",
+      "label": "白砂港·渔市及收容所外部",
+      "terrain": {
+        "ground": "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "water": "res://assets/art/tilesets/regions/region_coast_water.png",
+        "detail": "res://assets/art/exteriors/coast_final_pass/harbor_detail_atlas.svg"
+      },
+      "scenery_manifest": "res://data/levels/v4/coastal_scenery.json",
+      "scenery_count": 9,
+      "scenery_sources": [
+        "res://assets/art/exteriors/coast_final_pass/harbor_crane.svg",
+        "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg"
+      ],
+      "facades": [
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_guild.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_house.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_inn.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_shop.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_shrine.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_smith.svg"
+      ],
+      "interior_tilesets": [
+        "res://assets/art/interiors/coastal_district/harbor_guild_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_house_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_inn_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_shop_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_shrine_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_smith_tileset.svg"
+      ],
+      "props": [
+        "res://assets/art/props/coast/anchor.png",
+        "res://assets/art/props/coast/barrel.png",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/cottage.png",
+        "res://assets/art/props/coast/crate.png",
+        "res://assets/art/props/coast/dock_boat.png",
+        "res://assets/art/props/coast/fish_stall.png",
+        "res://assets/art/props/coast/fishing_net.png",
+        "res://assets/art/props/coast/flowerpot.png",
+        "res://assets/art/props/coast/grass.png",
+        "res://assets/art/props/coast/medicine_basket.png",
+        "res://assets/art/props/coast/palm_tree.png",
+        "res://assets/art/props/coast/pier_post.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/rope_coil.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/shell.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/props/coast/star_lantern.png",
+        "res://assets/art/props/coast/well.png"
+      ],
+      "character_slots": [
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png"
+      ],
+      "coastal_monster_assets": [
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "footprint_policy": "visual_only; world_geography blocked/water/quest gates immutable",
+      "asset_binding": "CArtOverrides.texture"
+    },
+    "map_coast_03": {
+      "map_id": "map_coast_03",
+      "label": "盐风古道·鲸骨浅滩路线",
+      "terrain": {
+        "ground": "res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg",
+        "water": "res://assets/art/tilesets/regions/region_coast_water.png",
+        "detail": "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg"
+      },
+      "scenery_manifest": "res://data/levels/v4/coastal_scenery.json",
+      "scenery_count": 9,
+      "scenery_sources": [
+        "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg"
+      ],
+      "facades": [],
+      "interior_tilesets": [],
+      "props": [
+        "res://assets/art/props/coast/anchor.png",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/rope_coil.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/shell.png",
+        "res://assets/art/props/coast/sign.png"
+      ],
+      "character_slots": [
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png"
+      ],
+      "coastal_monster_assets": [
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "footprint_policy": "visual_only; world_geography blocked/water/quest gates immutable",
+      "asset_binding": "CArtOverrides.texture"
+    },
+    "map_coast_04": {
+      "map_id": "map_coast_04",
+      "label": "断桅海蚀洞·三潮机关",
+      "terrain": {
+        "ground": "res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg",
+        "water": "res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg",
+        "detail": "res://assets/art/exteriors/coast_final_pass/cavern_detail_atlas.svg"
+      },
+      "scenery_manifest": "res://data/levels/v4/coastal_scenery.json",
+      "scenery_count": 9,
+      "scenery_sources": [
+        "res://assets/art/exteriors/coast_final_pass/cave_stalactite.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_crystal.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_altar.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_foreground_column.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_hanging_ledge.svg"
+      ],
+      "facades": [],
+      "interior_tilesets": [],
+      "props": [
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/crate.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/sign.png"
+      ],
+      "character_slots": [
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png"
+      ],
+      "coastal_monster_assets": [
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "footprint_policy": "visual_only; world_geography blocked/water/quest gates immutable",
+      "asset_binding": "CArtOverrides.texture"
+    },
+    "map_coast_05": {
+      "map_id": "map_coast_05",
+      "label": "潮歌灯塔·归航重燃",
+      "terrain": {
+        "ground": "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "water": "res://assets/art/tilesets/regions/region_coast_water.png",
+        "detail": "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg"
+      },
+      "scenery_manifest": "res://data/levels/v4/coastal_scenery.json",
+      "scenery_count": 10,
+      "scenery_sources": [
+        "res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+        "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg"
+      ],
+      "facades": [],
+      "interior_tilesets": [],
+      "props": [
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/props/coast/star_lantern.png"
+      ],
+      "character_slots": [
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png"
+      ],
+      "coastal_monster_assets": [
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "footprint_policy": "visual_only; world_geography blocked/water/quest gates immutable",
+      "asset_binding": "CArtOverrides.texture"
+    }
+  },
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "第1章·不曾寄出的信",
+      "story_location": "晨露村·澄舟旧屋",
+      "current_quest_map_id": "map_coast_01",
+      "canonical_scene_map_id": "map_coast_01",
+      "geographic_route_map_ids": [
+        "map_coast_01"
+      ],
+      "required_scene_kind": "house_interior",
+      "required_building_id": "house",
+      "terrain_and_scenery_bundle": "map_coast_01",
+      "art_coverage": "runtime_map_art_bound_not_visual_accepted",
+      "chapter_route_blocker": "none",
+      "special_scene_blocker": "none",
+      "contract_source": "res://data/levels/act01_scene_locations_v1.json",
+      "boss_phase_overlay": null,
+      "boss_phase_test": "untested_in_godot"
+    },
+    {
+      "chapter": 2,
+      "title": "第2章·失去名字的归人",
+      "story_location": "白砂港·收容所",
+      "current_quest_map_id": "map_coast_02",
+      "canonical_scene_map_id": "map_coast_02",
+      "geographic_route_map_ids": [
+        "map_coast_01",
+        "map_coast_02"
+      ],
+      "required_scene_kind": "shelter_interior",
+      "required_building_id": "shelter",
+      "terrain_and_scenery_bundle": "map_coast_02",
+      "art_coverage": "runtime_map_art_bound_not_visual_accepted",
+      "chapter_route_blocker": "none",
+      "special_scene_blocker": "missing_unique_shelter_interior",
+      "contract_source": "res://data/levels/act01_scene_locations_v1.json",
+      "boss_phase_overlay": "res://assets/art/b03/boss_motion/ch002_phase_6f.svg",
+      "boss_phase_test": "untested_in_godot"
+    },
+    {
+      "chapter": 3,
+      "title": "第3章·海雾中的遗迹",
+      "story_location": "断桅海蚀洞",
+      "current_quest_map_id": "map_coast_03",
+      "canonical_scene_map_id": "map_coast_04",
+      "geographic_route_map_ids": [
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04"
+      ],
+      "required_scene_kind": "dungeon",
+      "required_building_id": "",
+      "terrain_and_scenery_bundle": "map_coast_04",
+      "art_coverage": "runtime_map_art_bound_not_visual_accepted",
+      "chapter_route_blocker": "D_line_story_anchor_mismatch",
+      "special_scene_blocker": "none",
+      "contract_source": "res://data/levels/act01_scene_locations_v1.json",
+      "boss_phase_overlay": "res://assets/art/b03/boss_motion/ch003_phase_6f.svg",
+      "boss_phase_test": "untested_in_godot"
+    },
+    {
+      "chapter": 4,
+      "title": "第4章·第三位同行者",
+      "story_location": "白砂港·黑帆酒馆",
+      "current_quest_map_id": "map_coast_04",
+      "canonical_scene_map_id": "map_coast_02",
+      "geographic_route_map_ids": [
+        "map_coast_04",
+        "map_coast_03",
+        "map_coast_02"
+      ],
+      "required_scene_kind": "tavern_interior",
+      "required_building_id": "tavern",
+      "terrain_and_scenery_bundle": "map_coast_02",
+      "art_coverage": "runtime_map_art_bound_not_visual_accepted",
+      "chapter_route_blocker": "D_line_story_anchor_mismatch",
+      "special_scene_blocker": "missing_unique_tavern_interior",
+      "contract_source": "res://data/levels/act01_scene_locations_v1.json",
+      "boss_phase_overlay": "res://assets/art/b03/boss_motion/ch004_phase_6f.svg",
+      "boss_phase_test": "untested_in_godot"
+    },
+    {
+      "chapter": 5,
+      "title": "第5章·潮底巨影",
+      "story_location": "鲸骨浅滩",
+      "current_quest_map_id": "map_coast_05",
+      "canonical_scene_map_id": "map_coast_03",
+      "geographic_route_map_ids": [
+        "map_coast_05",
+        "map_coast_04",
+        "map_coast_03"
+      ],
+      "required_scene_kind": "shore_subzone",
+      "required_building_id": "",
+      "terrain_and_scenery_bundle": "map_coast_03",
+      "art_coverage": "runtime_map_art_bound_not_visual_accepted",
+      "chapter_route_blocker": "D_line_story_anchor_mismatch",
+      "special_scene_blocker": "missing_authored_shoal_subzone",
+      "contract_source": "res://data/levels/act01_scene_locations_v1.json",
+      "boss_phase_overlay": "res://assets/art/b03/boss_motion/ch005_phase_6f.svg",
+      "boss_phase_test": "untested_in_godot"
+    },
+    {
+      "chapter": 6,
+      "title": "第6章·归航灯重燃",
+      "story_location": "潮歌灯塔",
+      "current_quest_map_id": "map_coast_01",
+      "canonical_scene_map_id": "map_coast_05",
+      "geographic_route_map_ids": [
+        "map_coast_01",
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04",
+        "map_coast_05"
+      ],
+      "required_scene_kind": "lighthouse",
+      "required_building_id": "",
+      "terrain_and_scenery_bundle": "map_coast_05",
+      "art_coverage": "runtime_map_art_bound_not_visual_accepted",
+      "chapter_route_blocker": "D_line_story_anchor_mismatch",
+      "special_scene_blocker": "none",
+      "contract_source": "res://data/levels/act01_scene_locations_v1.json",
+      "boss_phase_overlay": "res://assets/art/b03/boss_motion/ch006_phase_6f.svg",
+      "boss_phase_test": "untested_in_godot"
+    }
+  ],
+  "atlas_inventory": [
+    {
+      "path": "res://assets/art/exteriors/coast_final_pass/cavern_detail_atlas.svg",
+      "sha": "ef3b42cc813c3c152cd89b1a4b2c78a05809eaf2",
+      "bytes": 27519,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg",
+      "sha": "827f5e6d69332ef996a529283b24011962254193",
+      "bytes": 36345,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg",
+      "sha": "1dd62a1e7cadff3cab9bff3be12e9ea69bc414f0",
+      "bytes": 27519,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/exteriors/coast_final_pass/harbor_detail_atlas.svg",
+      "sha": "34c2d64e23f66c7ec7601ab80303c4be2787f067",
+      "bytes": 27519,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg",
+      "sha": "0b10c47afbddcbbe94d102c1159e6ef69e242d75",
+      "bytes": 57247,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg",
+      "sha": "75dd29f808cc518475fa779e5012849a6a6ad322",
+      "bytes": 56291,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/animated_tiles/desert/campfire/tile_foozle_desert_campfire.png",
+      "sha": "94585dd6c3f026722f18cd38f8f48938318df9f7",
+      "bytes": 694,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/animated_tiles/desert/campfire/tile_foozle_desert_campfire_with_sword.png",
+      "sha": "206a5465d6207c5963ef7f209503166c799eeb79",
+      "bytes": 904,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/animated_tiles/desert/flags/tile_foozle_desert_hanging_flag.png",
+      "sha": "892d2197e81b4c085b63e8435b88d8b45e35c717",
+      "bytes": 1621,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/animated_tiles/desert/flags/tile_foozle_desert_standing_flag.png",
+      "sha": "aa33a1dbce37eb922ed67736147b2f0888ee5e2e",
+      "bytes": 1974,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/animated_tiles/desert/flags/tile_foozle_desert_standing_flag_torn.png",
+      "sha": "d79acdb233a44fa7cef9ebdcc5146533a1376769",
+      "bytes": 2113,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "sha": "2b56ecb2e6e9010773007d6ffd6da655caf739d4",
+      "bytes": 62745,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_dungeon/base/tile_foozle_dungeon_dungeon_tileset.png",
+      "sha": "bf0bc32346a5db8313674632c2b26ae78726f92d",
+      "bytes": 16354,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_exterior/base/tile_foozle_exterior_outer_tileset.png",
+      "sha": "c41f76c32d795b3337fd92f805dc87795bd8cf49",
+      "bytes": 65538,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/deco/tile_foozle_lava_lava_lamp.png",
+      "sha": "09286ca76e6757d841a85d1e2f8875d1e26ecf4b",
+      "bytes": 515,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/deco/tile_foozle_lava_torch.png",
+      "sha": "db6535805bbaab70b6d3c9511872fedc21045256",
+      "bytes": 548,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/narrow_door_brown/tile_foozle_lava_narrow_door_brown_closing.png",
+      "sha": "ea1768f8b81123abe6ea7b45eb39deba33144372",
+      "bytes": 1461,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/narrow_door_brown/tile_foozle_lava_narrow_door_brown_opening.png",
+      "sha": "27d4a4d9f5575b5dd2488b271cc9d7dbbfd7226d",
+      "bytes": 1470,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/narrow_door_red/tile_foozle_lava_narrow_door_red_closing.png",
+      "sha": "66848c6de8f04c39c72d083f8e6add377df43147",
+      "bytes": 1497,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/narrow_door_red/tile_foozle_lava_narrow_door_red_opening.png",
+      "sha": "821e76f7cf5d829091275a17da2a25273515b08a",
+      "bytes": 1503,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/wide_door_brown/tile_foozle_lava_wide_door_brown_closing.png",
+      "sha": "346069902b573cf25250e21da03825d8519c887a",
+      "bytes": 2405,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/wide_door_brown/tile_foozle_lava_wide_door_brown_opening.png",
+      "sha": "8735172ad1ad3d2ea1e7e1cfd9f20b0fd3dce5ae",
+      "bytes": 2386,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/wide_door_red/tile_foozle_lava_wide_door_red_closing.png",
+      "sha": "36184e62408aaaf589e3d2256d9979ce2b0498c8",
+      "bytes": 2434,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/doors/wide_door_red/tile_foozle_lava_wide_door_red_opening.png",
+      "sha": "44d5ddf25f91dddf1b91c80478c8994ced9c2416",
+      "bytes": 2411,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/flags/tile_foozle_lava_hanging_flag.png",
+      "sha": "479e601cb4809942a26e7368930c27caed878258",
+      "bytes": 1538,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/flags/tile_foozle_lava_standing_flag.png",
+      "sha": "1276a8e4d58cd4808026bd658489fb38bd2b5623",
+      "bytes": 1845,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/flags/tile_foozle_lava_standing_flag_damaged.png",
+      "sha": "db0818fe1cdb3e557616bfd0ff0bc2e02cdb69a5",
+      "bytes": 2107,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/animated_tiles/lava_dungeon/lava/tile_foozle_lava_lava.png",
+      "sha": "21951d26e028b19280f678a97126a9757b87d9b3",
+      "bytes": 1763,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/foozle_lava/base/tile_foozle_lava_lava_dungeon_tileset.png",
+      "sha": "89213723bab2b4405382701eaebbd2cb6e9cf98e",
+      "bytes": 25363,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/kenney_roguelike/spritesheet/tile_kenney_roguelike_roguelike_sheet_magenta.png",
+      "sha": "4ae430b689838a6a43706ef9fe767215837e7fcb",
+      "bytes": 101117,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/external/cc0_named_v1/tilesets/kenney_roguelike/spritesheet/tile_kenney_roguelike_roguelike_sheet_transparent.png",
+      "sha": "79b13326ceb8557a98b2b78aa5e8e7b9269f6693",
+      "bytes": 94579,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/dew_guild_tileset.svg",
+      "sha": "43530966224488f280ca23e40e16ac601a210c91",
+      "bytes": 22208,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/dew_house_tileset.svg",
+      "sha": "78d5759bfaa10b77adfd62a09590b8f829c5ea7d",
+      "bytes": 22030,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/dew_shop_tileset.svg",
+      "sha": "b38289dcc5c6b0d1af8a969aedda65f9a724c7c3",
+      "bytes": 22030,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/dew_shrine_tileset.svg",
+      "sha": "50531a897890f35a25ca948d3b53b1ddacb23d69",
+      "bytes": 22818,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/dew_smith_tileset.svg",
+      "sha": "dec777804cb1e6ba87dd44d544fd446b665721d4",
+      "bytes": 22967,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/harbor_guild_tileset.svg",
+      "sha": "bd94436378a89611d61fa69bb39592c4af049275",
+      "bytes": 22208,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/harbor_house_tileset.svg",
+      "sha": "694309864dd492765bce892b074f7f25d8c6bd70",
+      "bytes": 22030,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/harbor_inn_tileset.svg",
+      "sha": "694309864dd492765bce892b074f7f25d8c6bd70",
+      "bytes": 22030,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/harbor_shop_tileset.svg",
+      "sha": "694309864dd492765bce892b074f7f25d8c6bd70",
+      "bytes": 22030,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/harbor_shrine_tileset.svg",
+      "sha": "965dba7f8e9907aac4109025c9aeb161056359d4",
+      "bytes": 22818,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/coastal_district/harbor_smith_tileset.svg",
+      "sha": "73932cff89977e699f92416dc0a1a0de0fa24ab6",
+      "bytes": 22967,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg",
+      "sha": "8412c64b8068fd9521e5cfbce934310cc5303b56",
+      "bytes": 25235,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_architecture.png",
+      "sha": "b9008ac7d5ed0d8f30a6836da09804cac2128d7e",
+      "bytes": 27340,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_architecture.svg",
+      "sha": "6f7fc744c0d43a85ff20719e79d268eff5d42a05",
+      "bytes": 90050,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_ground.png",
+      "sha": "08b7e0df15cf0ea58c5018579071a587c2adff67",
+      "bytes": 66045,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_ground.svg",
+      "sha": "4091f58d0c3293663481198a0a5efc4bfa09fddd",
+      "bytes": 183230,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_interior.png",
+      "sha": "ca258ef754185cdb4ec96c584b17bccbba51586f",
+      "bytes": 31662,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_interior.svg",
+      "sha": "6148e4a3ec8aac1ee11d296b85bf4325d5c27795",
+      "bytes": 94565,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_water.png",
+      "sha": "b3417e1228a500ae4baa883d76a1367925d0bf08",
+      "bytes": 35737,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/coast_water.svg",
+      "sha": "87abdd901222b1f5248ea38276a33437e7005dff",
+      "bytes": 117568,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_city_ground.png",
+      "sha": "5f4a72c330050a0615e2bbb3d1775ad8e2f8a85f",
+      "bytes": 132448,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_city_water.png",
+      "sha": "a66a38882bcaba5ce204a6d4c52583ba5742e7df",
+      "bytes": 129723,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_coast_ground.png",
+      "sha": "ad81e7bb239720bc803a19eface22d97b6f04b59",
+      "bytes": 135483,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_coast_water.png",
+      "sha": "a2c3cf72995a23f5aa2b4a88849034082add8381",
+      "bytes": 121690,
+      "first_act_role": "first_act_runtime_compatible",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_forge_ground.png",
+      "sha": "483a49315a921202da4f339fcdc8955bfd446cf8",
+      "bytes": 123665,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_forge_water.png",
+      "sha": "8329adbaee3034d2859cecc67e12dbc6bc10bfa3",
+      "bytes": 110954,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_isles_ground.png",
+      "sha": "e65f5c8003e925688f3fb5f9a32d0157c233385f",
+      "bytes": 135795,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_isles_water.png",
+      "sha": "2a565ac44264ba50305614231fd70093faec4670",
+      "bytes": 122867,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_mirror_ground.png",
+      "sha": "c913cf8b59acc238fa23633a4ff89e6ed91d29e9",
+      "bytes": 134415,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_mirror_water.png",
+      "sha": "0a9dd8a38214bfba4983b9df1391aaa4fdea368a",
+      "bytes": 124277,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_oaths_ground.png",
+      "sha": "186780460840f97066b9062171d8d4f33f2f5da5",
+      "bytes": 131382,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_oaths_water.png",
+      "sha": "969c68ce28e45eb52b446ed5b5d1e0c0aa5ce5c6",
+      "bytes": 121735,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_oldland_ground.png",
+      "sha": "429ab0298a0e87a8844812e85c2260bfb70f32be",
+      "bytes": 128180,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_oldland_water.png",
+      "sha": "67fae41c0477c0564b593e197c4dd1c02410938b",
+      "bytes": 104844,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_sanctum_ground.png",
+      "sha": "23dbac94eefaca79df4d1e77c0c26e25da3a14e0",
+      "bytes": 139846,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/regions/region_sanctum_water.png",
+      "sha": "a705bd9780e4a7c4f40791a8b5cd055e2843569b",
+      "bytes": 133987,
+      "first_act_role": "future_region_reserve",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_city_decals.svg",
+      "sha": "aaaf5995ba83e2364da2bec0851a28714004c867",
+      "bytes": 30121,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_coast_decals.svg",
+      "sha": "00e316eb74a51633ec40a88e252b8472333e5755",
+      "bytes": 30122,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_forge_decals.svg",
+      "sha": "e93cdbd46e8e61d67e924f3e25d0e7ee37bded8b",
+      "bytes": 30122,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_isles_decals.svg",
+      "sha": "c9885f6650531bf9ee3f3307f72181be1b8143ec",
+      "bytes": 30122,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_mirror_decals.svg",
+      "sha": "f5e2ff899c59b2102ba4552a72d75cac98ae0c54",
+      "bytes": 30123,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_oaths_decals.svg",
+      "sha": "93fad55e0401890597c274bfa4ec873f17eac208",
+      "bytes": 30122,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_oldland_decals.svg",
+      "sha": "6b4f070efe2749572ab3b3f03c24b0a1ad71eba7",
+      "bytes": 30124,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    },
+    {
+      "path": "res://assets/art/tilesets/story_v1/region_sanctum_decals.svg",
+      "sha": "edd82ccfcba532b3e73d50ee4fe2ebc8a98649ca",
+      "bytes": 30124,
+      "first_act_role": "candidate_or_future_region",
+      "status": "catalogued_preserve"
+    }
+  ],
+  "acceptance": {
+    "source_integrity": "static_candidate",
+    "map_paint_visual": "untested",
+    "chapter_script_location_migration": "blocked_D_line",
+    "commercial_finished": "not_yet"
+  }
+}

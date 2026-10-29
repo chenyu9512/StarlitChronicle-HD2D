@@ -4,7 +4,7 @@
   "map_id": "map_city_02",
   "building_id": "smith",
   "name": "自由议事厅·装备工房",
-  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "status": "b_council_visuals_authored_pending_godot",
   "size": [
     72,
     48
@@ -235,11 +235,264 @@
       "interaction_status": "authored_no_reward"
     }
   ],
-  "art_profile": "",
-  "visuals": [],
-  "light_sources": [],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_smith_0",
+      "asset": "smith_toolwall",
+      "cell": [
+        25,
+        22
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_1",
+      "asset": "provisions_shelves",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_2",
+      "asset": "smith_forge",
+      "cell": [
+        46,
+        17
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_4",
+      "asset": "smith_anvil",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_5",
+      "asset": "barrels",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_6",
+      "asset": "smith_toolwall",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_smith_7",
+      "asset": "bookshelf",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        70
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "council_ceremonial_seal",
+      "asset": "guild_emblem",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        87,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "council_window",
+      "asset": "window",
+      "cell": [
+        38,
+        13
+      ],
+      "layer": "wall",
+      "footprint": [
+        60,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "public_record_0",
+      "asset": "guild_noticeboard",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        53,
+        57
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "public_record_1",
+      "asset": "tideway_chart",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        53,
+        57
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "public_mission_board",
+      "asset": "guild_noticeboard",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        64
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "assembly",
+      "cell": [
+        35,
+        29
+      ],
+      "scale": 1.35,
+      "energy": 0.7
+    },
+    {
+      "id": "clerk",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1,
+      "energy": 0.66
+    },
+    {
+      "id": "archive",
+      "cell": [
+        45,
+        21
+      ],
+      "scale": 1,
+      "energy": 0.59
+    }
+  ],
   "region_design": "自由议事厅 · metropolis",
   "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
   "interior_owner_id": "",
-  "interaction_status": "no_reward_interactive_room"
+  "interaction_status": "no_reward_interactive_room",
+  "visual_revision": 3,
+  "room_day_tint": "e3ddd0",
+  "room_night_tint": "aaa9b4"
 }

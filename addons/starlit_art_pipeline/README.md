@@ -130,3 +130,23 @@ py tools/global_art_ai_provider_v3.py --project . --render --scope bosses --limi
 \`\`\`
 
 存在参考 PNG 时走 Image Edit 参考精修，要求保持角色面部、服装、装备、配色和怪物关键纹样；没有参考图的登记条目仍走从零生成。参考图超过尺寸限制或无法解码时，该条目记录失败而不是擅自换成另一身份。PNG SHA256 纳入缓存指纹，参考图一旦变更，生成器会重新绘制。**角色身份一致和动画真实连续性仍须人工检查**。
+
+## V4 离线程序资产生成器（合并版）
+
+原 `tools/global_art_factory_v3.py` 入口路径保持不变，内部升级为 **V4.0**，调用新 `tools/art_style_v6.py`。保留 V3 全游戏注册表与精确尺寸规格，并合入旧 HD-2D 生成器的 Sobel 法线贴图与 8 职业、4 物证 SVG。
+
+- 32×32 地形图集采用边缘一致的草、砂、石、木、水材质变体；不触碰地图碰撞数据。
+- 96×192 人物图集保持四方向三帧；512×128 Boss/怪物图集保留四帧，按资产 ID 区分形态。
+- 建筑、树木、背景提高材质和光照细节；仍属 **程序绘制候选**，不是模型级商业原画。
+- 自动创建 `normal_maps/{group}/{asset_id}_n.png`，透明度与原候选 PNG 一致；地图背景与 UI 不烘焙。
+- 选择 UI 时生成 `ui_svg/job_icons/` 8 个职业纹章与 `ui_svg/evidence_svg/` 4 个物证 SVG。
+- manifest 记录法线图路径及 SHA；升级后自动重绘旧 V3.1 缓存，不继续使用旧版图形。
+
+```bash
+python tools/global_art_factory_v3.py --scope all --limit 8 --force
+python tools/global_art_factory_v3.py --scope bosses --limit 8 --force
+python tools/global_art_factory_v3.py --scope terrain --no-normal-maps --limit 2
+python tools/test_global_art_factory_v3.py
+```
+
+默认输出仍在 `build/starlit_global_art_factory_v3/`。全部结果需审核确认后再接入正式运行资产；自动生成本身不等于游戏内已经生效，也不等于商业美术验收通过。高画质模型生成是独立链路，需单独生成和验证。

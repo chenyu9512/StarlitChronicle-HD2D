@@ -20,6 +20,10 @@
 
 有 2 个历史标签：`archive-v0.1.1-before-core` 与 `archive-v0.2-before-first-act`。它们是恢复锚点，现阶段不删。GitHub Release 数为 0。审计脚本会读取本地已获取的分支和标签；对于未完整 fetch 的 clone，应以 GitHub 在线 API 结果为准。
 
+## 公共算法整合
+
+`tools/art_common.py` 统一历史绘图与工作室的 SHA-256 稳定种子和文件摘要。`_seed`、`seed`、`seeded`、`sha256`、`digest` 保持原签名并转发公共实现；V9 缓存输入指纹同步包含此文件。`tools/test_art_common.py` 固定跨版本确定性契约，绘图细节与 V3/V4 运行路径保持原状。
+
 ## 当前工作流职责归并
 
 - `main2-art-generator-check.yml` 为所有美术生成层的**唯一自动回归检查入口**，统一运行绘图 V7/V8、候选工厂 V3、工作室 V9 及最终运行素材只读验证。

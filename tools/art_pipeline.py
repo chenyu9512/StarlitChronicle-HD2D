@@ -15,6 +15,7 @@ import shutil
 import subprocess
 import sys
 import uuid
+from art_common import sha256_file
 
 F=Path("assets/art/runtime/global_factory_v3")
 R=Path("data/assets/c_art_runtime_registry_v1.json")
@@ -28,7 +29,7 @@ def write(p,o):
     t=p.with_name(p.name+".v10tmp")
     t.write_text(json.dumps(o,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     t.replace(p)
-def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def digest(p): return sha256_file(p)
 def blob(p):
     b=p.read_bytes()
     return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()

@@ -15,6 +15,7 @@ import re
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
+from art_common import stable_seed
 from art_style_v8 import (terrain_cell, character_sheet, draw_prop,
                           enemy_sheet, landscape, normal_map, write_auxiliary_svgs)
 
@@ -38,7 +39,7 @@ def safe(value):
     return value
 
 def seeded(*values):
-    return int.from_bytes(hashlib.sha256("|".join(map(str,values)).encode()).digest()[:8],"big")
+    return stable_seed(*values)
 
 def blend(a,b,t):
     return tuple(round(x*(1-t)+y*t) for x,y in zip(a,b))

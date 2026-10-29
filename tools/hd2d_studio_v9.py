@@ -26,6 +26,7 @@ import time
 import uuid
 from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
+from art_common import sha256_file
 from hd2d_studio_v7 import rgb, mix, height_normal
 from hd2d_studio_v8 import (
     CAST_ROLES, character_sheet, creature_sheet, optimize_creature,
@@ -54,7 +55,8 @@ def input_fingerprint(root):
     """Invalidate cached builds when *any* canonical IDs or room data change."""
     root=Path(root);h=hashlib.sha256()
     paths=[root/'data/assets/av_registry.json',root/'data/content/maps.json',
-           Path(__file__),root/'tools/hd2d_studio_v8.py',root/'tools/hd2d_studio_v7.py']
+           Path(__file__),root/'tools/hd2d_studio_v8.py',root/'tools/hd2d_studio_v7.py',
+           root/'tools/art_common.py']
     paths += sorted((root/'data/levels/v4/interiors').glob('*.json'))
     for path in paths:
         if not path.is_file():
@@ -69,10 +71,7 @@ def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8-sig'))
 
 def digest(path):
-    h=hashlib.sha256()
-    with Path(path).open('rb') as f:
-        for b in iter(lambda:f.read(1<<20),b''):h.update(b)
-    return h.hexdigest()
+    return sha256_file(path)
 
 def safe(s):
     if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,100}',str(s)):

@@ -4,6 +4,8 @@ on:
     branches: ["Main2美术优化版"]
     paths:
       - "tools/art_pipeline.py"
+      - "tools/art_common.py"
+      - "tools/test_art_common.py"
       - "tools/hd2d_studio_v7.py"
       - "tools/hd2d_studio_v8.py"
       - "tools/hd2d_studio_v9.py"
@@ -49,6 +51,8 @@ jobs:
         run: python tools/generate_art.py --project . --verify-only
       - name: Inspect cleanup without deleting any live art
         run: python tools/generate_art.py --project . --cleanup-only --cleanup-dry-run
+      - name: Verify unchanged deterministic art seeds and digests
+        run: python tools/test_art_common.py
       - name: Verify layered art algorithms and candidate factory contracts
         run: |
           python tools/test_art_style_v7.py

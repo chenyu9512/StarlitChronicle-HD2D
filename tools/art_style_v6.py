@@ -10,10 +10,11 @@ import hashlib
 import math
 import random
 from PIL import Image, ImageDraw, ImageFilter
+from art_common import stable_seed
 
 
 def _seed(*parts):
-    return int.from_bytes(hashlib.sha256("|".join(map(str, parts)).encode()).digest()[:8], "big")
+    return stable_seed(*parts)
 
 
 def _mix(a, b, t):

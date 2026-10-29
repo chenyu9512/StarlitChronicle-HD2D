@@ -15,6 +15,7 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List, Tuple
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
+from art_common import sha256_file
 
 VERSION = '7.0.0'
 DIRS = ('front','left','back','right')
@@ -87,11 +88,7 @@ def save_png(img: Image.Image, path: Path):
     tmp.replace(path)
 
 def sha256(path: Path):
-    h=hashlib.sha256();
-    with path.open('rb') as f:
-        for b in iter(lambda:f.read(1<<20), b''):
-            h.update(b)
-    return h.hexdigest()
+    return sha256_file(path)
 
 def gradient(size, top, bottom):
     im = Image.new('RGBA', size)

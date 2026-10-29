@@ -44,6 +44,21 @@ class ArtFactoryTests(unittest.TestCase):
             "characters":12,"npcs":35,"monsters":63,"bosses":66})
         self.assertFalse(self.out.exists())
 
+    def test_153_interior_growth_updates_all_factory_jobs(self):
+        # Keep fixture independent of the current project's room count.
+        # The factory must discover new V4 interiors without hardcoded totals.
+        for i in range(99, 153):
+            room = {"map_id": "map_" + str(i % 42),
+                    "building_id": "room_" + str(i)}
+            path = self.root / f"data/levels/v4/interiors/map_{i%42}__room_{i}.json"
+            path.write_text(json.dumps(room), encoding="utf-8")
+        report = produce(self.root, self.out, set(SCOPES), dry_run=True)
+        self.assertEqual(report["counts"]["interiors"], 153)
+        self.assertEqual(sum(report["counts"].values()), 451)
+        jobs = build_jobs(self.root, set(SCOPES))
+        self.assertEqual(len(jobs), 451)
+        self.assertEqual(len({(job["group"], job["id"]) for job in jobs}), 451)
+
     def test_batch_renders_with_manifest_and_hashes(self):
         report=produce(self.root,self.out,set(SCOPES),limit=25)
         self.assertFalse(report["errors"], report["errors"])

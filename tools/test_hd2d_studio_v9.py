@@ -66,6 +66,12 @@ class V9Tests(unittest.TestCase):
         make_pack(self.root,self.output)
         (self.output/'characters/char_wayfarer.png').write_bytes(b'not-image')
         with self.assertRaises(ValueError):verify_pack(self.output,self.root)
+    def test_unregistered_leftover_image_is_rejected(self):
+        make_pack(self.root,self.output)
+        (self.output/'props/obsolete.png').write_bytes(b'leftover')
+        with self.assertRaisesRegex(ValueError,'Unexpected leftover PNG'):
+            verify_pack(self.output,self.root)
+
     def test_refined_requires_real_approval(self):
         folder=self.root/'candidate';(folder/'characters').mkdir(parents=True)
         p=folder/'characters/char_wayfarer.png'

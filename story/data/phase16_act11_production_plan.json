@@ -1,0 +1,635 @@
+{
+  "schema": "starlit.story.phase16.act11.production_plan.v1",
+  "date": "2026-10-25",
+  "status": "production_design_only_not_runtime_bound",
+  "scope": "ch061_ch066",
+  "notes": "12 skippable optional scenes, 12 choice reactions, six interactive setpieces (seven reports and seven chairs conceptual). No new game runtime registrations, coordinates, or save flags.",
+  "event_plan": [
+    {
+      "id": "ch061.p16.town",
+      "chapter_id": "ch061",
+      "optional_scene_id": "ch061.p16.town",
+      "location_hint": "天轨外海·浮空船坞",
+      "physical_target": "浮空码头的留守名单",
+      "player_actions": [
+        "核对升空和留守两组人员的自愿排班",
+        "为后援船留下已测试的返航坐标",
+        "检查备用医护、饮水与实际载重"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch061.opening",
+        "required_flags": [
+          "ch061.started"
+        ],
+        "without_flags": [
+          "ch061.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch061.p16.evidence",
+      "chapter_id": "ch061",
+      "optional_scene_id": "ch061.p16.evidence",
+      "location_hint": "天轨外海·浮空船坞",
+      "physical_target": "澄舟留给返航船的接口",
+      "player_actions": [
+        "检测星帆接口裂缝及不同权限密钥",
+        "试飞标尺并比对气流返回路径",
+        "标记避开浮空兽巢的无攻击航路"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch061.investigate",
+        "required_flags": [
+          "ch061.evidence"
+        ],
+        "without_flags": [
+          "ch061.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch062.p16.town",
+      "chapter_id": "ch062",
+      "optional_scene_id": "ch062.p16.town",
+      "location_hint": "天轨圣域·原初实验室",
+      "physical_target": "实验室照护台的旧名单",
+      "player_actions": [
+        "阅读被救病人与被排除者两种原始记录",
+        "区分公开疗效与私人病历",
+        "保留早期救助成果并查明后来强迫"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch062.opening",
+        "required_flags": [
+          "ch062.started"
+        ],
+        "without_flags": [
+          "ch062.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch062.p16.evidence",
+      "chapter_id": "ch062",
+      "optional_scene_id": "ch062.p16.evidence",
+      "location_hint": "天轨圣域·原初实验室",
+      "physical_target": "第六份报告的遮盖页",
+      "player_actions": [
+        "顺序核对七份报告和被覆盖参数",
+        "以灯光显出被遮盖的停止请求",
+        "封存日志并标出不应公开的个人资料"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch062.investigate",
+        "required_flags": [
+          "ch062.evidence"
+        ],
+        "without_flags": [
+          "ch062.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch063.p16.town",
+      "chapter_id": "ch063",
+      "optional_scene_id": "ch063.p16.town",
+      "location_hint": "天轨圣域·澄舟密室",
+      "physical_target": "儿童量身尺旁的木屑",
+      "player_actions": [
+        "检查量身尺上的年月与旧木工工具",
+        "以生活细节验证澄舟是养父而非制造者",
+        "让主角决定是否对外公开家庭物件"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch063.opening",
+        "required_flags": [
+          "ch063.started"
+        ],
+        "without_flags": [
+          "ch063.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch063.p16.evidence",
+      "chapter_id": "ch063",
+      "optional_scene_id": "ch063.p16.evidence",
+      "location_hint": "天轨圣域·澄舟密室",
+      "physical_target": "影像留言的剪接缺口",
+      "player_actions": [
+        "辨认澄舟旧影像是留声记录而非实时回话",
+        "核对删掉的命运预测索引与不曾消失的历史",
+        "记录无法恢复的留言缺口并尊重主角是否继续查看"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch063.investigate",
+        "required_flags": [
+          "ch063.evidence"
+        ],
+        "without_flags": [
+          "ch063.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch064.p16.town",
+      "chapter_id": "ch064",
+      "optional_scene_id": "ch064.p16.town",
+      "location_hint": "天衡母灯坛",
+      "physical_target": "静止的天衡沙漏",
+      "player_actions": [
+        "观察静止沙漏及同一方向的影子",
+        "测量医疗回路是否独立于时间强制锁",
+        "制定分区切换及醒转后照护步骤"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch064.opening",
+        "required_flags": [
+          "ch064.started"
+        ],
+        "without_flags": [
+          "ch064.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch064.p16.evidence",
+      "chapter_id": "ch064",
+      "optional_scene_id": "ch064.p16.evidence",
+      "location_hint": "天衡母灯坛",
+      "physical_target": "七光路里的旧退出协议",
+      "player_actions": [
+        "比对七天复核旧协议与永久命令改动",
+        "测量七条光路的独立退出开关",
+        "不改变第66章的七灯正式结算旗标"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch064.investigate",
+        "required_flags": [
+          "ch064.evidence"
+        ],
+        "without_flags": [
+          "ch064.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch065.p16.town",
+      "chapter_id": "ch065",
+      "optional_scene_id": "ch065.p16.town",
+      "location_hint": "天轨圣域·环形议会",
+      "physical_target": "七席旁的居民旧申诉箱",
+      "player_actions": [
+        "查找七席议会旧申诉箱",
+        "分开公共反对意见和私人家属信息",
+        "为未来质询准备开放且可更正的登记"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch065.opening",
+        "required_flags": [
+          "ch065.started"
+        ],
+        "without_flags": [
+          "ch065.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch065.p16.evidence",
+      "chapter_id": "ch065",
+      "optional_scene_id": "ch065.p16.evidence",
+      "location_hint": "天轨圣域·环形议会",
+      "physical_target": "七席供能争议的双份记录",
+      "player_actions": [
+        "依次阅读七席历史证词及无法互相覆盖的来源",
+        "记录真实救济、历史伤害和经手责任",
+        "用并排比对替代删去冲突记录"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch065.investigate",
+        "required_flags": [
+          "ch065.evidence"
+        ],
+        "without_flags": [
+          "ch065.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch066.p16.town",
+      "chapter_id": "ch066",
+      "optional_scene_id": "ch066.p16.town",
+      "location_hint": "天轨圣域·终末天桥",
+      "physical_target": "终末天桥的撤离钟",
+      "player_actions": [
+        "设置能回到星帆船的救援钟与返回锚点",
+        "由诺依确认地面支援和紧急撤离程序",
+        "在循环地图上记录不会被重置的安全标记"
+      ],
+      "entry_window": "after_opening_before_investigate",
+      "trigger_contract": {
+        "after_scene_id": "ch066.opening",
+        "required_flags": [
+          "ch066.started"
+        ],
+        "without_flags": [
+          "ch066.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch066.p16.evidence",
+      "chapter_id": "ch066",
+      "optional_scene_id": "ch066.p16.evidence",
+      "location_hint": "天轨圣域·终末天桥",
+      "physical_target": "七地回复的并排收信架",
+      "player_actions": [
+        "逐封核对七地来信和不同接入意愿",
+        "分开社群支持、反对、尚未回复的状态",
+        "确认永昼居民进入最终抉择前有表达与离开的途径"
+      ],
+      "entry_window": "after_investigate_before_crisis",
+      "trigger_contract": {
+        "after_scene_id": "ch066.investigate",
+        "required_flags": [
+          "ch066.evidence"
+        ],
+        "without_flags": [
+          "ch066.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "original chapter remains completable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch061.p16.choice.hear",
+      "chapter_id": "ch061",
+      "choice_id": "ch061.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch061.approach": "return_station",
+        "world.ch061.approach": "return_station"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch061.p16.choice.protect",
+      "chapter_id": "ch061",
+      "choice_id": "ch061.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch061.approach": "medical_ship",
+        "world.ch061.approach": "medical_ship"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch062.p16.choice.hear",
+      "chapter_id": "ch062",
+      "choice_id": "ch062.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch062.approach": "publish_report",
+        "world.ch062.approach": "publish_report"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch062.p16.choice.protect",
+      "chapter_id": "ch062",
+      "choice_id": "ch062.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch062.approach": "protect_records",
+        "world.ch062.approach": "protect_records"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch063.p16.choice.hear",
+      "chapter_id": "ch063",
+      "choice_id": "ch063.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch063.approach": "keep_blank",
+        "world.ch063.approach": "keep_blank"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch063.p16.choice.protect",
+      "chapter_id": "ch063",
+      "choice_id": "ch063.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch063.approach": "preserve_history",
+        "world.ch063.approach": "preserve_history"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch064.p16.choice.hear",
+      "chapter_id": "ch064",
+      "choice_id": "ch064.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch064.approach": "staged",
+        "world.ch064.approach": "staged"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch064.p16.choice.protect",
+      "chapter_id": "ch064",
+      "choice_id": "ch064.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch064.approach": "distributed",
+        "world.ch064.approach": "distributed"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch065.p16.choice.hear",
+      "chapter_id": "ch065",
+      "choice_id": "ch065.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch065.approach": "keep_all",
+        "world.ch065.approach": "keep_all"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch065.p16.choice.protect",
+      "chapter_id": "ch065",
+      "choice_id": "ch065.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch065.approach": "annotate",
+        "world.ch065.approach": "annotate"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch066.p16.choice.hear",
+      "chapter_id": "ch066",
+      "choice_id": "ch066.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch066.approach": "witness",
+        "world.ch066.approach": "witness"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch066.p16.choice.protect",
+      "chapter_id": "ch066",
+      "choice_id": "ch066.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch066.approach": "safe_entry",
+        "world.ch066.approach": "safe_entry"
+      },
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    }
+  ],
+  "setpiece_design": {
+    "skyship_return_route": {
+      "chapter": "ch061",
+      "status": "design_only",
+      "beats": [
+        "air-pressure sail load test",
+        "volunteer ground crew rotations",
+        "leave repeatable navigation and medical return stations"
+      ],
+      "guard": "Do not make forced abandonment or killing the nonhostile floating beasts mandatory"
+    },
+    "seven_original_reports": {
+      "chapter": "ch062",
+      "status": "design_only",
+      "reports": [
+        {
+          "id": "ch062.report.1",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch062.report.2",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch062.report.3",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch062.report.4",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch062.report.5",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch062.report.6",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        },
+        {
+          "id": "ch062.report.7",
+          "check": "source, consent, injury, report date, later revision",
+          "runtime_registered": false
+        }
+      ],
+      "beats": [
+        "recognize original benefits",
+        "expose removal of patient refusal",
+        "preserve records while stopping automatic experiment"
+      ],
+      "guard": "Evidence does not permit publicizing private patient history"
+    },
+    "chengzhou_workroom": {
+      "chapter": "ch063",
+      "status": "design_only",
+      "beats": [
+        "inspect growth chart and carpentry tools",
+        "separate stored voice from a live conversation",
+        "review erased forecast without restoring unique future script"
+      ],
+      "guard": "Chengzhou is adoptive father, cannot be resurrected, hero not created by machine"
+    },
+    "seventh_lantern_timing": {
+      "chapter": "ch064",
+      "status": "design_only",
+      "beats": [
+        "read seven-day review protocol",
+        "restore independent opt-out circuits",
+        "maintain clinical power during staged timing release"
+      ],
+      "guard": "Do not set world.seven_lanterns until ch066.resolve"
+    },
+    "seven_guardian_debate": {
+      "chapter": "ch065",
+      "status": "design_only",
+      "chairs": [
+        "freedom",
+        "order",
+        "memory",
+        "creation",
+        "return",
+        "dream",
+        "time"
+      ],
+      "beats": [
+        "hear all perspectives including their actual help",
+        "refuse erasure while preserving accountability",
+        "allow future public interrogation"
+      ],
+      "guard": "No additional automatic ending prerequisites"
+    },
+    "end_bridge_entry": {
+      "chapter": "ch066",
+      "status": "design_only",
+      "beats": [
+        "mark time-loop-safe retreat anchors",
+        "collect seven-region testimony without false unanimous consent",
+        "let Yongzhou residents speak and evacuate before finale"
+      ],
+      "guard": "Only ch066.resolve sets world.seven_lanterns; endings A/B/C remain Chapter 72"
+    }
+  }
+}

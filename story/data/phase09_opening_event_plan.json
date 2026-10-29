@@ -1,0 +1,1136 @@
+{
+  "schema": "starlit.story.phase09.opening_event_plan.v1",
+  "status": "production_design_only_not_runtime_bound",
+  "scope": "chapters_001_to_012",
+  "date": "2026-10-25",
+  "notes": "操作设计来自已写可选剧情，未添加可触发地图物件、坐标或正式任务阶段。运行器当前自动进入下一场景，接入前需增加有条件可跳过的调查窗口；不允许在开始战斗后弹出选择回响。",
+  "event_plan": [
+    {
+      "id": "ch001.p8.town",
+      "chapter_id": "ch001",
+      "optional_scene_id": "ch001.p8.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "晨露村旧屋檐下",
+      "physical_target": "第三根梁的维修楔木",
+      "player_actions": [
+        "观察旧屋的墙角修补刻线",
+        "与修屋匠对照维修日期",
+        "把尚不能确认的回忆单独记录"
+      ],
+      "expected_story_feedback": "确认有人留下过修屋痕迹，但不直接判定澄舟生死",
+      "trigger_contract": {
+        "after_scene_id": "ch001.opening",
+        "required_flags": [
+          "ch001.started"
+        ],
+        "without_flags": [
+          "ch001.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch002.p8.town",
+      "chapter_id": "ch002",
+      "optional_scene_id": "ch002.p8.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "海港鱼摊旁的空椅",
+      "physical_target": "缺口贝壳",
+      "player_actions": [
+        "询问卖鱼妇和孩子是否愿意交谈",
+        "把贝壳放在椅上而不代替失忆者决定",
+        "记录当事人希望由自己回应的请求"
+      ],
+      "expected_story_feedback": "保留照护与自主权，不改变病人结局",
+      "trigger_contract": {
+        "after_scene_id": "ch002.opening",
+        "required_flags": [
+          "ch002.started"
+        ],
+        "without_flags": [
+          "ch002.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch003.p8.town",
+      "chapter_id": "ch003",
+      "optional_scene_id": "ch003.p8.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "退潮岩礁标记",
+      "physical_target": "第三块黑石与歪木桩",
+      "player_actions": [
+        "听采贝少女描述危险位置",
+        "标记黑石与可能的撤退线",
+        "比对歪木桩与船只旧系泊痕迹"
+      ],
+      "expected_story_feedback": "提供安全线索而非自动获得通关证明",
+      "trigger_contract": {
+        "after_scene_id": "ch003.opening",
+        "required_flags": [
+          "ch003.started"
+        ],
+        "without_flags": [
+          "ch003.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch004.p8.town",
+      "chapter_id": "ch004",
+      "optional_scene_id": "ch004.p8.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "海港酒馆柜台",
+      "physical_target": "无人认领的信封",
+      "player_actions": [
+        "征求酒馆老板许可查看未拆封信",
+        "核对送信日期而不擅自拆封",
+        "记录家属可自行选择是否接触寄件者"
+      ],
+      "expected_story_feedback": "留下信息伦理问题与家庭自主权",
+      "trigger_contract": {
+        "after_scene_id": "ch004.opening",
+        "required_flags": [
+          "ch004.started"
+        ],
+        "without_flags": [
+          "ch004.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch005.p8.town",
+      "chapter_id": "ch005",
+      "optional_scene_id": "ch005.p8.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "停航渔棚煮粥处",
+      "physical_target": "空锅和粮食登记木板",
+      "player_actions": [
+        "询问民居缺粮与停航天数",
+        "协助登记老人和孩子的优先口粮",
+        "请闲置小船为医馆运药"
+      ],
+      "expected_story_feedback": "展示停航造成的普通生活代价",
+      "trigger_contract": {
+        "after_scene_id": "ch005.opening",
+        "required_flags": [
+          "ch005.started"
+        ],
+        "without_flags": [
+          "ch005.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch006.p8.town",
+      "chapter_id": "ch006",
+      "optional_scene_id": "ch006.p8.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "潮歌灯塔归航室",
+      "physical_target": "十年空白归航册",
+      "player_actions": [
+        "询问看守为何保留空页",
+        "补记不涉及个人隐私的礁位",
+        "尊重不愿登记姓名者的选择"
+      ],
+      "expected_story_feedback": "说明记录为帮助归航而非强制统一",
+      "trigger_contract": {
+        "after_scene_id": "ch006.opening",
+        "required_flags": [
+          "ch006.started"
+        ],
+        "without_flags": [
+          "ch006.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch001.p8.evidence",
+      "chapter_id": "ch001",
+      "optional_scene_id": "ch001.p8.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "村口药房柜台",
+      "physical_target": "沾有银砂的旧信封与试纸",
+      "player_actions": [
+        "向药房学徒说明信封来源",
+        "对照瓶号与试剂反应",
+        "将不确定的产地记录为待核实"
+      ],
+      "expected_story_feedback": "确认存在另一位调查者，不授予失落航页",
+      "trigger_contract": {
+        "after_scene_id": "ch001.investigate",
+        "required_flags": [
+          "ch001.evidence"
+        ],
+        "without_flags": [
+          "ch001.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch002.p8.evidence",
+      "chapter_id": "ch002",
+      "optional_scene_id": "ch002.p8.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "医馆药柜第三层",
+      "physical_target": "缺药清单",
+      "player_actions": [
+        "清点药柜空位",
+        "核对临时赊药收据",
+        "协助护士公示不包含患者隐私的值班信息"
+      ],
+      "expected_story_feedback": "可看见药物短缺与病房管理改善",
+      "trigger_contract": {
+        "after_scene_id": "ch002.investigate",
+        "required_flags": [
+          "ch002.evidence"
+        ],
+        "without_flags": [
+          "ch002.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch003.p8.evidence",
+      "chapter_id": "ch003",
+      "optional_scene_id": "ch003.p8.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "遗迹石桥立柱",
+      "physical_target": "水位撤离刻痕",
+      "player_actions": [
+        "观察潮位与双排刻痕",
+        "找到可供队伍固定绳索的位置",
+        "抄录归来者不是罪人的残字"
+      ],
+      "expected_story_feedback": "为后续机关行动提供观察记录",
+      "trigger_contract": {
+        "after_scene_id": "ch003.investigate",
+        "required_flags": [
+          "ch003.evidence"
+        ],
+        "without_flags": [
+          "ch003.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch004.p8.evidence",
+      "chapter_id": "ch004",
+      "optional_scene_id": "ch004.p8.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "酒窖烫黑的桶底",
+      "physical_target": "被遮住的船名",
+      "player_actions": [
+        "观察烙印遮盖位置",
+        "向跑堂确认更换桶的日期",
+        "请朔弦主动写出三处旧港名"
+      ],
+      "expected_story_feedback": "提供证词与责任记录，不自动结算任何惩罚",
+      "trigger_contract": {
+        "after_scene_id": "ch004.investigate",
+        "required_flags": [
+          "ch004.evidence"
+        ],
+        "without_flags": [
+          "ch004.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch005.p8.evidence",
+      "chapter_id": "ch005",
+      "optional_scene_id": "ch005.p8.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "浅水区观察筏",
+      "physical_target": "巨兽背部星纹锁",
+      "player_actions": [
+        "辨识尾鳍拍击的可能意义",
+        "使用不装星矿的木筏远观",
+        "观察锁扣而不对巨兽发动额外攻击"
+      ],
+      "expected_story_feedback": "帮助理解巨兽受困，但不跳过原Boss行动",
+      "trigger_contract": {
+        "after_scene_id": "ch005.investigate",
+        "required_flags": [
+          "ch005.evidence"
+        ],
+        "without_flags": [
+          "ch005.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch006.p8.evidence",
+      "chapter_id": "ch006",
+      "optional_scene_id": "ch006.p8.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "灯塔旧灯芯壁画",
+      "physical_target": "大船与小船不同的航线",
+      "player_actions": [
+        "旋转光片对齐两类航路",
+        "比对深水道与浅水湾",
+        "记录多航向见证方案"
+      ],
+      "expected_story_feedback": "强化共同见证主题，不提前强制重置母灯",
+      "trigger_contract": {
+        "after_scene_id": "ch006.investigate",
+        "required_flags": [
+          "ch006.evidence"
+        ],
+        "without_flags": [
+          "ch006.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch007.p9.town",
+      "chapter_id": "ch007",
+      "optional_scene_id": "ch007.p9.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "三誓王都外廷药棚",
+      "physical_target": "三张急诊申请单",
+      "player_actions": [
+        "辨认三廷不同的登记要求",
+        "帮助医师完成缺失的转诊日期",
+        "确认公开副本不会暴露病人姓名"
+      ],
+      "expected_story_feedback": "提供官僚阻碍的生活实例",
+      "trigger_contract": {
+        "after_scene_id": "ch007.opening",
+        "required_flags": [
+          "ch007.started"
+        ],
+        "without_flags": [
+          "ch007.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch007.p9.evidence",
+      "chapter_id": "ch007",
+      "optional_scene_id": "ch007.p9.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "外廷退件窗口",
+      "physical_target": "顾问府印模借用收据",
+      "player_actions": [
+        "比对印章缺角与原始退件",
+        "确认借用和归还日期",
+        "把确定证据与个人猜测分开记录"
+      ],
+      "expected_story_feedback": "证明公文来源异常，不指认未有证据的具体写信者",
+      "trigger_contract": {
+        "after_scene_id": "ch007.investigate",
+        "required_flags": [
+          "ch007.evidence"
+        ],
+        "without_flags": [
+          "ch007.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch008.p9.town",
+      "chapter_id": "ch008",
+      "optional_scene_id": "ch008.p9.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "灰鹰商道旧客栈",
+      "physical_target": "破窗与借炉子煮的粥",
+      "player_actions": [
+        "询问两岸客人的实际需要",
+        "借用客栈炉子保温粮食",
+        "让朔弦协助钉好窗板"
+      ],
+      "expected_story_feedback": "展示两岸仍有怨恨但可以共享有限资源",
+      "trigger_contract": {
+        "after_scene_id": "ch008.opening",
+        "required_flags": [
+          "ch008.started"
+        ],
+        "without_flags": [
+          "ch008.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch008.p9.evidence",
+      "chapter_id": "ch008",
+      "optional_scene_id": "ch008.p9.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "商道湿泥与车辙",
+      "physical_target": "两种脚印和木箱拖痕",
+      "player_actions": [
+        "测量脚印与车轮间距",
+        "拍照/拓印足迹（具体交互由关卡组确定）",
+        "按发现时间封存箭头药粉样本"
+      ],
+      "expected_story_feedback": "证据指向可能的运输工具，不直接判凶",
+      "trigger_contract": {
+        "after_scene_id": "ch008.investigate",
+        "required_flags": [
+          "ch008.evidence"
+        ],
+        "without_flags": [
+          "ch008.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch009.p9.town",
+      "chapter_id": "ch009",
+      "optional_scene_id": "ch009.p9.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "审判厅外裁缝摊",
+      "physical_target": "旧骑士披风",
+      "player_actions": [
+        "问雷索是否愿意谈旧披风",
+        "听证人说明她的选择",
+        "请裁缝修补而非抹去原痕"
+      ],
+      "expected_story_feedback": "区分被洗刷指控和不抹去曾经责任",
+      "trigger_contract": {
+        "after_scene_id": "ch009.opening",
+        "required_flags": [
+          "ch009.started"
+        ],
+        "without_flags": [
+          "ch009.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch009.p9.evidence",
+      "chapter_id": "ch009",
+      "optional_scene_id": "ch009.p9.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "审判厅档案桌",
+      "physical_target": "新旧军令骑缝章",
+      "player_actions": [
+        "核查同批军械记录",
+        "让两位第三方逐份拓印骑缝章",
+        "去除证词笔录不必要的家属住址"
+      ],
+      "expected_story_feedback": "为当庭辩护提供可展示的证据，不能提前令家属安全",
+      "trigger_contract": {
+        "after_scene_id": "ch009.investigate",
+        "required_flags": [
+          "ch009.evidence"
+        ],
+        "without_flags": [
+          "ch009.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch010.p9.town",
+      "chapter_id": "ch010",
+      "optional_scene_id": "ch010.p9.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "三国边境议事站饭棚",
+      "physical_target": "三方拼凑的锅具食材",
+      "player_actions": [
+        "与矿工、农夫和书记确认缺少资源",
+        "协助准备饭食和用药",
+        "观察三方第一次共享饭棚"
+      ],
+      "expected_story_feedback": "把合作落在实际行动而非旗帜誓言",
+      "trigger_contract": {
+        "after_scene_id": "ch010.opening",
+        "required_flags": [
+          "ch010.started"
+        ],
+        "without_flags": [
+          "ch010.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch010.p9.evidence",
+      "chapter_id": "ch010",
+      "optional_scene_id": "ch010.p9.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "边境粮仓收货窗口",
+      "physical_target": "被改过的运粮时间",
+      "player_actions": [
+        "核对运货存根和坏钟记录",
+        "寻找门楼值夜人解释",
+        "把不能确认的时间标注待查"
+      ],
+      "expected_story_feedback": "避免误判运粮商人或放火罪名",
+      "trigger_contract": {
+        "after_scene_id": "ch010.investigate",
+        "required_flags": [
+          "ch010.evidence"
+        ],
+        "without_flags": [
+          "ch010.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch011.p9.town",
+      "chapter_id": "ch011",
+      "optional_scene_id": "ch011.p9.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "旧盟约桥鞋匠摊",
+      "physical_target": "为失去鞋子的孩子准备的鞋",
+      "player_actions": [
+        "询问鞋匠为什么提前备鞋",
+        "核对东西两岸医疗集合点",
+        "帮助摆出不分国籍的救援告示"
+      ],
+      "expected_story_feedback": "使停战前普通人的准备可以被玩家看到",
+      "trigger_contract": {
+        "after_scene_id": "ch011.opening",
+        "required_flags": [
+          "ch011.started"
+        ],
+        "without_flags": [
+          "ch011.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch011.p9.evidence",
+      "chapter_id": "ch011",
+      "optional_scene_id": "ch011.p9.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "旧盟约桥下维修槽",
+      "physical_target": "维修绳与伪装引线",
+      "player_actions": [
+        "向本地工匠确认绳结差异",
+        "固定绞盘周围的危险警戒",
+        "绘出引线位置后撤出未清除区域"
+      ],
+      "expected_story_feedback": "不能以调查事件替代原剧情的排雷与Boss冲突",
+      "trigger_contract": {
+        "after_scene_id": "ch011.investigate",
+        "required_flags": [
+          "ch011.evidence"
+        ],
+        "without_flags": [
+          "ch011.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch012.p9.town",
+      "chapter_id": "ch012",
+      "optional_scene_id": "ch012.p9.town",
+      "entry_stage": "between_opening_and_investigate",
+      "suggested_map_slot": "律序灯坛侧厅",
+      "physical_target": "新添的平民席椅子",
+      "player_actions": [
+        "请中庭书记用通俗语言读盟约",
+        "收集居民不同的疑问",
+        "把保留反对意见列入公开笔录"
+      ],
+      "expected_story_feedback": "表现旧誓约与新民众参与的差异",
+      "trigger_contract": {
+        "after_scene_id": "ch012.opening",
+        "required_flags": [
+          "ch012.started"
+        ],
+        "without_flags": [
+          "ch012.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch012.p9.evidence",
+      "chapter_id": "ch012",
+      "optional_scene_id": "ch012.p9.evidence",
+      "entry_stage": "between_investigate_and_crisis",
+      "suggested_map_slot": "律序石环侧壁",
+      "physical_target": "三版誓约拓本",
+      "player_actions": [
+        "分别阅读原本和两份修订本",
+        "发现公众质询条款被删除",
+        "将条款修改理由并排公示"
+      ],
+      "expected_story_feedback": "提供母灯回应人的承诺而非王冠的证据",
+      "trigger_contract": {
+        "after_scene_id": "ch012.investigate",
+        "required_flags": [
+          "ch012.evidence"
+        ],
+        "without_flags": [
+          "ch012.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "No permanent flag or reward is required to finish the chapter",
+      "production": {
+        "map_target_id": "unassigned",
+        "map_coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch001.p8.choice.listen",
+      "chapter_id": "ch001",
+      "after_choice_id": "ch001.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "world.ch001.method": "reason"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch001.p8.choice.act",
+      "chapter_id": "ch001",
+      "after_choice_id": "ch001.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "world.ch001.method": "comfort"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch002.p8.choice.listen",
+      "chapter_id": "ch002",
+      "after_choice_id": "ch002.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "world.ch002.method": "public_anon"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch002.p8.choice.act",
+      "chapter_id": "ch002",
+      "after_choice_id": "ch002.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "world.ch002.method": "private_inquiry"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch003.p8.choice.listen",
+      "chapter_id": "ch003",
+      "after_choice_id": "ch003.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "world.ch003.method": "disable"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch003.p8.choice.act",
+      "chapter_id": "ch003",
+      "after_choice_id": "ch003.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "world.ch003.method": "verify"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch004.p8.choice.listen",
+      "chapter_id": "ch004",
+      "after_choice_id": "ch004.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "world.ch004.method": "confess"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch004.p8.choice.act",
+      "chapter_id": "ch004",
+      "after_choice_id": "ch004.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "world.ch004.method": "evacuate"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch005.p8.choice.listen",
+      "chapter_id": "ch005",
+      "after_choice_id": "ch005.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "world.ch005.method": "unlock"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch005.p8.choice.act",
+      "chapter_id": "ch005",
+      "after_choice_id": "ch005.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "world.ch005.method": "evacuate"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch006.p8.choice.listen",
+      "chapter_id": "ch006",
+      "after_choice_id": "ch006.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "world.ch006.method": "testimony"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch006.p8.choice.act",
+      "chapter_id": "ch006",
+      "after_choice_id": "ch006.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "world.ch006.method": "sailors"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch007.p9.choice.listen",
+      "chapter_id": "ch007",
+      "after_choice_id": "ch007.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch007.approach": "open_registry",
+        "world.ch007.approach": "open_registry"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch007.p9.choice.act",
+      "chapter_id": "ch007",
+      "after_choice_id": "ch007.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch007.approach": "protect_privacy",
+        "world.ch007.approach": "protect_privacy"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch008.p9.choice.listen",
+      "chapter_id": "ch008",
+      "after_choice_id": "ch008.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch008.approach": "evidence_first",
+        "world.ch008.approach": "evidence_first"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch008.p9.choice.act",
+      "chapter_id": "ch008",
+      "after_choice_id": "ch008.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch008.approach": "rescue_first",
+        "world.ch008.approach": "rescue_first"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch009.p9.choice.listen",
+      "chapter_id": "ch009",
+      "after_choice_id": "ch009.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch009.approach": "safe_home",
+        "world.ch009.approach": "safe_home"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch009.p9.choice.act",
+      "chapter_id": "ch009",
+      "after_choice_id": "ch009.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch009.approach": "public_witness",
+        "world.ch009.approach": "public_witness"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch010.p9.choice.listen",
+      "chapter_id": "ch010",
+      "after_choice_id": "ch010.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch010.approach": "joint_audit",
+        "world.ch010.approach": "joint_audit"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch010.p9.choice.act",
+      "chapter_id": "ch010",
+      "after_choice_id": "ch010.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch010.approach": "medical_priority",
+        "world.ch010.approach": "medical_priority"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch011.p9.choice.listen",
+      "chapter_id": "ch011",
+      "after_choice_id": "ch011.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch011.approach": "orders_first",
+        "world.ch011.approach": "orders_first"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch011.p9.choice.act",
+      "chapter_id": "ch011",
+      "after_choice_id": "ch011.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch011.approach": "bridge_first",
+        "world.ch011.approach": "bridge_first"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch012.p9.choice.listen",
+      "chapter_id": "ch012",
+      "after_choice_id": "ch012.choice",
+      "option_id": "listen",
+      "required_choice_flags": {
+        "ch012.approach": "shared_oath",
+        "world.ch012.approach": "shared_oath"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch012.p9.choice.act",
+      "chapter_id": "ch012",
+      "after_choice_id": "ch012.choice",
+      "option_id": "act",
+      "required_choice_flags": {
+        "ch012.approach": "public_review",
+        "world.ch012.approach": "public_review"
+      },
+      "delivery": "immediately_after_choice_before_battle_or_next_objective",
+      "once_only": true,
+      "skippable": true,
+      "never_override_rewards": true,
+      "runtime_registered": false
+    }
+  ],
+  "acceptance": [
+    "opening与investigate之间的town事件可以跳过",
+    "investigate与crisis之间的证据事件可以跳过",
+    "原4场主线与奖励在跳过全部可选内容时仍可达",
+    "回响在选择完成后且下一场Boss触发前出现，每存档仅播一次",
+    "角色展示和入队时点不冲突",
+    "运行器载入旧存档时不存在不存在的旗标依赖",
+    "地图目标坐标和美术资源未创建时不得称其为可玩"
+  ]
+}

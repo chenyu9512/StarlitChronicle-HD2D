@@ -1,0 +1,519 @@
+{
+  "schema": "starlit.story.companion_deepening.v1",
+  "status": "authored_text_not_runtime_bound",
+  "notes": "8条伙伴首任务各2场可选增补，共16场64句原创对白，不替换原四阶段流程、选择结果或奖励；剧情导演可在对应阶段手工插入。",
+  "quests": [
+    {
+      "quest_id": "cq_lanyin_01",
+      "lead": "岚音",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_lanyin_01.choice",
+      "insert_after_stage": "cq_lanyin_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_lanyin_01.deepening.evidence",
+          "title": "病签核验前",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_01.deepening.evidence.l01",
+              "speaker": "护士",
+              "text": "两张病签的入院时刻相差三天，可脉搏记录却连在同一页。"
+            },
+            {
+              "id": "cq_lanyin_01.deepening.evidence.l02",
+              "speaker": "岚音",
+              "text": "病历能记录症状，不能擅自替人决定名字。"
+            },
+            {
+              "id": "cq_lanyin_01.deepening.evidence.l03",
+              "speaker": "小汐",
+              "text": "如果我改回旧名，你们会不会觉得现在的我不算数？"
+            },
+            {
+              "id": "cq_lanyin_01.deepening.evidence.l04",
+              "speaker": "岚音",
+              "text": "两个名字都应保留核验记录；怎么称呼你，先由你选。"
+            }
+          ]
+        },
+        {
+          "id": "cq_lanyin_01.deepening.aftermath",
+          "title": "复诊后的灯下",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_lanyin_01.deepening.aftermath.l01",
+              "speaker": "小汐",
+              "text": "船主只问我能不能值夜班，没人问过我夜里为什么害怕。"
+            },
+            {
+              "id": "cq_lanyin_01.deepening.aftermath.l02",
+              "speaker": "岚音",
+              "text": "我可以写明风险和建议，但我不会把你说过的梦卖给任何人。"
+            },
+            {
+              "id": "cq_lanyin_01.deepening.aftermath.l03",
+              "speaker": "主角",
+              "text": "船票可以改期，治疗不能靠一张假证明跳过。"
+            },
+            {
+              "id": "cq_lanyin_01.deepening.aftermath.l04",
+              "speaker": "小汐",
+              "text": "等我准备好，再自己告诉船主需要怎样的安排。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_leiso_01",
+      "lead": "雷索",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_leiso_01.choice",
+      "insert_after_stage": "cq_leiso_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_leiso_01.deepening.evidence",
+          "title": "夜巡起点",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_leiso_01.deepening.evidence.l01",
+              "speaker": "守门少年",
+              "text": "巡逻册第一栏写着盘查嫌疑人，后面十页却没有求助者。"
+            },
+            {
+              "id": "cq_leiso_01.deepening.evidence.l02",
+              "speaker": "雷索",
+              "text": "拿灯先照脚下的坑，不是先照别人的脸。"
+            },
+            {
+              "id": "cq_leiso_01.deepening.evidence.l03",
+              "speaker": "老妇",
+              "text": "从这里到医务站，扶着墙走也要歇三回。"
+            },
+            {
+              "id": "cq_leiso_01.deepening.evidence.l04",
+              "speaker": "守门少年",
+              "text": "如果我扶她过去，算不算擅离巡逻岗位？"
+            }
+          ]
+        },
+        {
+          "id": "cq_leiso_01.deepening.aftermath",
+          "title": "更换巡逻牌后",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_leiso_01.deepening.aftermath.l01",
+              "speaker": "守门少年",
+              "text": "我把求助路线画在警戒路线旁，队长说这样看起来不像军图。"
+            },
+            {
+              "id": "cq_leiso_01.deepening.aftermath.l02",
+              "speaker": "雷索",
+              "text": "巡逻图是给活人用的，不是挂起来证明谁威风。"
+            },
+            {
+              "id": "cq_leiso_01.deepening.aftermath.l03",
+              "speaker": "老妇",
+              "text": "你们标出的椅子，我昨夜真的坐上了。"
+            },
+            {
+              "id": "cq_leiso_01.deepening.aftermath.l04",
+              "speaker": "守门少年",
+              "text": "明晚我先去看看那条路有没有积水。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_shouxian_01",
+      "lead": "朔弦",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_shouxian_01.choice",
+      "insert_after_stage": "cq_shouxian_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_shouxian_01.deepening.evidence",
+          "title": "账本背页",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_01.deepening.evidence.l01",
+              "speaker": "朔弦",
+              "text": "这一栏写的不是货价，是每到一港少报了几个人。"
+            },
+            {
+              "id": "cq_shouxian_01.deepening.evidence.l02",
+              "speaker": "受害者家属",
+              "text": "你知道他们被带去了哪里，却只寄钱给我们？"
+            },
+            {
+              "id": "cq_shouxian_01.deepening.evidence.l03",
+              "speaker": "朔弦",
+              "text": "我怕你们知道是谁，连钱也不收。"
+            },
+            {
+              "id": "cq_shouxian_01.deepening.evidence.l04",
+              "speaker": "主角",
+              "text": "选择要不要收钱是他们的权利，交出航线是你的责任。"
+            }
+          ]
+        },
+        {
+          "id": "cq_shouxian_01.deepening.aftermath",
+          "title": "交还航海图时",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_shouxian_01.deepening.aftermath.l01",
+              "speaker": "受害者家属",
+              "text": "我留下了地图，钱会拿来找剩下的人。"
+            },
+            {
+              "id": "cq_shouxian_01.deepening.aftermath.l02",
+              "speaker": "朔弦",
+              "text": "这张图有三个我故意不敢标的暗港，我现在补上。"
+            },
+            {
+              "id": "cq_shouxian_01.deepening.aftermath.l03",
+              "speaker": "受害者家属",
+              "text": "你今晚可以离开，但调查问到的时候还得回来。"
+            },
+            {
+              "id": "cq_shouxian_01.deepening.aftermath.l04",
+              "speaker": "朔弦",
+              "text": "会的。我的船名和名字都写在证词末尾。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_tifa_01",
+      "lead": "缇珐",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_tifa_01.choice",
+      "insert_after_stage": "cq_tifa_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_tifa_01.deepening.evidence",
+          "title": "拆解军用接口",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_tifa_01.deepening.evidence.l01",
+              "speaker": "工匠学徒",
+              "text": "拔掉记忆接口后灯亮了，可一断电就要重新调光。"
+            },
+            {
+              "id": "cq_tifa_01.deepening.evidence.l02",
+              "speaker": "缇珐",
+              "text": "那就补一只普通机械旋钮，不要为省两枚零件偷读病人的记忆。"
+            },
+            {
+              "id": "cq_tifa_01.deepening.evidence.l03",
+              "speaker": "医师",
+              "text": "最怕半夜突然刺眼，病人醒来会以为又要接受检查。"
+            },
+            {
+              "id": "cq_tifa_01.deepening.evidence.l04",
+              "speaker": "工匠学徒",
+              "text": "我原来只看输出功率，没问过灯光落在谁眼睛里。"
+            }
+          ]
+        },
+        {
+          "id": "cq_tifa_01.deepening.aftermath",
+          "title": "第一晚试用",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_tifa_01.deepening.aftermath.l01",
+              "speaker": "病人",
+              "text": "今天我能自己转暗一点，终于不必叫护士起床。"
+            },
+            {
+              "id": "cq_tifa_01.deepening.aftermath.l02",
+              "speaker": "工匠学徒",
+              "text": "军工评审没有给我一分，但她把灯留在床边。"
+            },
+            {
+              "id": "cq_tifa_01.deepening.aftermath.l03",
+              "speaker": "缇珐",
+              "text": "把旋钮画进图纸最醒目的位置，旁边标上病人能自己使用。"
+            },
+            {
+              "id": "cq_tifa_01.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "这份改过的图应该公开给每间需要它的病房。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_ize_01",
+      "lead": "伊泽",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_ize_01.choice",
+      "insert_after_stage": "cq_ize_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_ize_01.deepening.evidence",
+          "title": "封存旧谱前",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_ize_01.deepening.evidence.l01",
+              "speaker": "民间歌者",
+              "text": "最后一个音不是高音，是要让所有人安静下来听见名字。"
+            },
+            {
+              "id": "cq_ize_01.deepening.evidence.l02",
+              "speaker": "伊泽",
+              "text": "如果名字属于活着的人，我们先去问他们要不要被唱。"
+            },
+            {
+              "id": "cq_ize_01.deepening.evidence.l03",
+              "speaker": "村民",
+              "text": "我不想孩子第一次听见外婆的事，是在别人喝彩的时候。"
+            },
+            {
+              "id": "cq_ize_01.deepening.evidence.l04",
+              "speaker": "伊泽",
+              "text": "那就让歌停在这里，等有权开口的人自己开口。"
+            }
+          ]
+        },
+        {
+          "id": "cq_ize_01.deepening.aftermath",
+          "title": "夜间小范围试唱",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_ize_01.deepening.aftermath.l01",
+              "speaker": "民间歌者",
+              "text": "今晚没有观众席，唱错也不用重来。"
+            },
+            {
+              "id": "cq_ize_01.deepening.aftermath.l02",
+              "speaker": "村民",
+              "text": "这一节不用写我们家姓氏，只写有人在等归来的船。"
+            },
+            {
+              "id": "cq_ize_01.deepening.aftermath.l03",
+              "speaker": "伊泽",
+              "text": "我会把原词和今晚的版本分开保存，谁也不替谁删掉记忆。"
+            },
+            {
+              "id": "cq_ize_01.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "有些歌被完整保存，也可以暂时不演出。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_xuanli_01",
+      "lead": "玄璃",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_xuanli_01.choice",
+      "insert_after_stage": "cq_xuanli_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_xuanli_01.deepening.evidence",
+          "title": "填写第三栏",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_01.deepening.evidence.l01",
+              "speaker": "户籍员",
+              "text": "登记系统没有空白项，只有现世居民和镜宫资产。"
+            },
+            {
+              "id": "cq_xuanli_01.deepening.evidence.l02",
+              "speaker": "玄璃",
+              "text": "我不是从表格里出生的，也不打算在表格里被买卖。"
+            },
+            {
+              "id": "cq_xuanli_01.deepening.evidence.l03",
+              "speaker": "主角",
+              "text": "先收下她亲笔写的地址，给她一张正式受理凭证。"
+            },
+            {
+              "id": "cq_xuanli_01.deepening.evidence.l04",
+              "speaker": "户籍员",
+              "text": "没有条款能保证上级不把这张申请退回来。"
+            }
+          ]
+        },
+        {
+          "id": "cq_xuanli_01.deepening.aftermath",
+          "title": "收到回执后",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_xuanli_01.deepening.aftermath.l01",
+              "speaker": "玄璃",
+              "text": "地址栏没有写镜宫，我却比以前更记得那里。"
+            },
+            {
+              "id": "cq_xuanli_01.deepening.aftermath.l02",
+              "speaker": "户籍员",
+              "text": "我把退件理由公开附上了，下一位申请人不必从头解释自己不是物品。"
+            },
+            {
+              "id": "cq_xuanli_01.deepening.aftermath.l03",
+              "speaker": "玄璃",
+              "text": "我愿意帮他们填写，但不能替他们选择住在哪里。"
+            },
+            {
+              "id": "cq_xuanli_01.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "一张表格的修改，不该只给你一个人的例外。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_nuoyi_01",
+      "lead": "诺依",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_nuoyi_01.choice",
+      "insert_after_stage": "cq_nuoyi_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_nuoyi_01.deepening.evidence",
+          "title": "救援名单背面",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_01.deepening.evidence.l01",
+              "speaker": "驿站老板",
+              "text": "他们把正面誊抄了七遍，背面的墨迹却一次也没补。"
+            },
+            {
+              "id": "cq_nuoyi_01.deepening.evidence.l02",
+              "speaker": "诺依",
+              "text": "我一直以为找到他就能把故事讲完，原来名单还有背面。"
+            },
+            {
+              "id": "cq_nuoyi_01.deepening.evidence.l03",
+              "speaker": "遗属",
+              "text": "别把我弟弟写成英雄故事里必须牺牲的那个人。"
+            },
+            {
+              "id": "cq_nuoyi_01.deepening.evidence.l04",
+              "speaker": "诺依",
+              "text": "我先记他的名字，再记你愿意让别人知道的事。"
+            }
+          ]
+        },
+        {
+          "id": "cq_nuoyi_01.deepening.aftermath",
+          "title": "重新挂牌当日",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_nuoyi_01.deepening.aftermath.l01",
+              "speaker": "驿站老板",
+              "text": "新木牌两面都能翻过来，来的人会自己读。"
+            },
+            {
+              "id": "cq_nuoyi_01.deepening.aftermath.l02",
+              "speaker": "遗属",
+              "text": "你们没有写他是为了谁而死，我很感谢。"
+            },
+            {
+              "id": "cq_nuoyi_01.deepening.aftermath.l03",
+              "speaker": "诺依",
+              "text": "我仍想找到那个人，但不会用你们的沉默替他证明伟大。"
+            },
+            {
+              "id": "cq_nuoyi_01.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "英雄能做过好事，也可能留下没有补上的空位。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quest_id": "cq_weisha_01",
+      "lead": "维莎",
+      "mode": "additive_optional_scenes",
+      "required_for_completion": false,
+      "insert_before_stage": "cq_weisha_01.choice",
+      "insert_after_stage": "cq_weisha_01.resolution",
+      "scenes": [
+        {
+          "id": "cq_weisha_01.deepening.evidence",
+          "title": "审批档案展开时",
+          "placement": "before_choice",
+          "dialogue": [
+            {
+              "id": "cq_weisha_01.deepening.evidence.l01",
+              "speaker": "受害者家属",
+              "text": "我父亲的名字被涂黑，你的签名却盖在每页最亮的地方。"
+            },
+            {
+              "id": "cq_weisha_01.deepening.evidence.l02",
+              "speaker": "维莎",
+              "text": "从前我以为遮掉姓名就是保护他；现在我知道我也遮掉了质疑。"
+            },
+            {
+              "id": "cq_weisha_01.deepening.evidence.l03",
+              "speaker": "主角",
+              "text": "先将隐私副本交给家属，责任链另行公开。"
+            },
+            {
+              "id": "cq_weisha_01.deepening.evidence.l04",
+              "speaker": "受害者家属",
+              "text": "我需要原件的保管编号，不是你的道歉。"
+            }
+          ]
+        },
+        {
+          "id": "cq_weisha_01.deepening.aftermath",
+          "title": "听证结束后",
+          "placement": "after_resolution",
+          "dialogue": [
+            {
+              "id": "cq_weisha_01.deepening.aftermath.l01",
+              "speaker": "维莎",
+              "text": "旧审批规则由我起草，废止它也不能抹去我批准过什么。"
+            },
+            {
+              "id": "cq_weisha_01.deepening.aftermath.l02",
+              "speaker": "受害者家属",
+              "text": "我会继续追问，你不必每次都回答自己已经悔改。"
+            },
+            {
+              "id": "cq_weisha_01.deepening.aftermath.l03",
+              "speaker": "维莎",
+              "text": "你问档案在哪儿，我就回答在哪儿；你问谁签的，我就给出名字。"
+            },
+            {
+              "id": "cq_weisha_01.deepening.aftermath.l04",
+              "speaker": "主角",
+              "text": "责任要能查证，不能只留在一次动人的证词里。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

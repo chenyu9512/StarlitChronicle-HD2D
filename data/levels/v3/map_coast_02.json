@@ -1,0 +1,390 @@
+{
+  "schema_version": 3,
+  "map_id": "map_coast_02",
+  "title": "白砂港",
+  "biome": "coastal",
+  "category": "field",
+  "design_intent": "沿岸港务街与三条指向海面的栈桥；船市、黑帆酒馆、收容所与仓库区具有不同建筑密度。",
+  "size": [
+    92,
+    52
+  ],
+  "roads": [
+    {
+      "id": "harbor-quay-main-street",
+      "width": 2,
+      "points": [
+        [
+          6,
+          22
+        ],
+        [
+          17,
+          21
+        ],
+        [
+          30,
+          22
+        ],
+        [
+          47,
+          23
+        ],
+        [
+          61,
+          23
+        ],
+        [
+          78,
+          21
+        ],
+        [
+          85,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "harbor-north-merchant-terrace",
+      "width": 1,
+      "points": [
+        [
+          17,
+          21
+        ],
+        [
+          20,
+          13
+        ],
+        [
+          36,
+          11
+        ],
+        [
+          48,
+          13
+        ],
+        [
+          62,
+          15
+        ],
+        [
+          74,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "harbor-lower-fish-market",
+      "width": 1,
+      "points": [
+        [
+          30,
+          22
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          44,
+          33
+        ],
+        [
+          57,
+          32
+        ],
+        [
+          70,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "harbor-west-boarding-pier",
+      "width": 1,
+      "points": [
+        [
+          43,
+          33
+        ],
+        [
+          43,
+          39
+        ],
+        [
+          49,
+          43
+        ],
+        [
+          53,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "harbor-east-shipyard-pier",
+      "width": 1,
+      "points": [
+        [
+          70,
+          31
+        ],
+        [
+          73,
+          38
+        ],
+        [
+          77,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "harbor-inn-shelter-tavern",
+      "width": 1,
+      "points": [
+        [
+          20,
+          13
+        ],
+        [
+          32,
+          18
+        ],
+        [
+          43,
+          17
+        ],
+        [
+          52,
+          26
+        ],
+        [
+          68,
+          23
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "harbor-eastern-breakwater",
+      "width": 1,
+      "points": [
+        [
+          82,
+          7
+        ],
+        [
+          84,
+          15
+        ],
+        [
+          85,
+          28
+        ]
+      ],
+      "tile_row": 2
+    },
+    {
+      "id": "harbor-west-storage-wall",
+      "width": 1,
+      "points": [
+        [
+          6,
+          40
+        ],
+        [
+          15,
+          43
+        ],
+        [
+          25,
+          46
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [
+    {
+      "id": "harbor-marina-west",
+      "width": 2,
+      "points": [
+        [
+          55,
+          39
+        ],
+        [
+          59,
+          43
+        ],
+        [
+          61,
+          48
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "harbor-open-berths",
+      "width": 2,
+      "points": [
+        [
+          72,
+          34
+        ],
+        [
+          80,
+          40
+        ],
+        [
+          85,
+          46
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "harbor-fish-exchange",
+      "center": [
+        43,
+        27
+      ],
+      "radius": 4
+    },
+    {
+      "id": "harbor-maritime-entrance",
+      "center": [
+        12,
+        22
+      ],
+      "radius": 3
+    },
+    {
+      "id": "harbor-shelter-plaza",
+      "center": [
+        52,
+        26
+      ],
+      "radius": 3
+    },
+    {
+      "id": "harbor-tavern-front",
+      "center": [
+        69,
+        24
+      ],
+      "radius": 3
+    },
+    {
+      "id": "harbor-dock-stairs",
+      "center": [
+        70,
+        31
+      ],
+      "radius": 3
+    },
+    {
+      "id": "story-rest-map_coast_02",
+      "center": [
+        27,
+        25
+      ],
+      "radius": 2
+    },
+    {
+      "id": "expansion-court-map_coast_02",
+      "center": [
+        82,
+        43
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "harbor-fish-stalls",
+      "cell": [
+        40,
+        26
+      ],
+      "kind": "barrel"
+    },
+    {
+      "id": "harbor-pier-lantern",
+      "cell": [
+        69,
+        32
+      ],
+      "kind": "star_lantern"
+    },
+    {
+      "id": "harbor-shipyard-crates",
+      "cell": [
+        74,
+        35
+      ],
+      "kind": "crate"
+    },
+    {
+      "id": "harbor-customs-tower",
+      "cell": [
+        76,
+        14
+      ],
+      "kind": "beacon"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        88,
+        48
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        88,
+        36
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 7,
+  "expansion_nodes": [
+    {
+      "cell": [
+        83,
+        25
+      ],
+      "kind": "beacon",
+      "name": "盐风观潮·白砂港"
+    },
+    {
+      "cell": [
+        81,
+        42
+      ],
+      "kind": "sign",
+      "name": "滩涂哨台·白砂港"
+    },
+    {
+      "cell": [
+        63,
+        43
+      ],
+      "kind": "star_lantern",
+      "name": "海湾灯台·白砂港"
+    }
+  ],
+  "layout_identity": "act01.v6.white_sand_harbor.pier_quays",
+  "layout_principle": "城门通过横向堤岸主街通往渔市、酒馆和收容所；港务台阶和三个方向不同的栈桥对应真实路面与海水障碍，不做圆形中心广场复制。"
+}

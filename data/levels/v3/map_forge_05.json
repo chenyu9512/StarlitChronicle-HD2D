@@ -1,0 +1,288 @@
+{
+  "schema_version": 3,
+  "map_id": "map_forge_05",
+  "title": "炉心禁区",
+  "biome": "volcanic",
+  "category": "landmark",
+  "design_intent": "火山灰台地与古代矿道",
+  "size": [
+    88,
+    60
+  ],
+  "roads": [
+    {
+      "id": "spine-炉城高架",
+      "width": 1,
+      "points": [
+        [
+          6,
+          20
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          37,
+          30
+        ],
+        [
+          52,
+          38
+        ],
+        [
+          81,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "branch-forge",
+      "width": 1,
+      "points": [
+        [
+          24,
+          5
+        ],
+        [
+          30,
+          16
+        ],
+        [
+          36,
+          28
+        ],
+        [
+          59,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          14,
+          33
+        ],
+        [
+          40,
+          38
+        ],
+        [
+          50,
+          36
+        ],
+        [
+          18,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          44,
+          20
+        ],
+        [
+          75,
+          20
+        ],
+        [
+          82,
+          49
+        ],
+        [
+          79,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          18,
+          11
+        ],
+        [
+          45,
+          20
+        ],
+        [
+          59,
+          29
+        ],
+        [
+          76,
+          52
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          6
+        ],
+        [
+          33,
+          4
+        ],
+        [
+          64,
+          6
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          40
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          64,
+          40
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_forge_05",
+      "width": 1,
+      "points": [
+        [
+          75,
+          10
+        ],
+        [
+          83,
+          19
+        ],
+        [
+          84,
+          47
+        ]
+      ],
+      "tile_row": 4
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_forge_05",
+      "center": [
+        22,
+        20
+      ],
+      "radius": 4
+    },
+    {
+      "id": "fork-outlook-map_forge_05",
+      "center": [
+        46,
+        38
+      ],
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_forge_05",
+      "center": [
+        78,
+        51
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_forge_05",
+      "cell": [
+        59,
+        18
+      ],
+      "kind": "barrel"
+    },
+    {
+      "id": "secondary-lookout-map_forge_05",
+      "cell": [
+        17,
+        34
+      ],
+      "kind": "rock"
+    },
+    {
+      "id": "peripheral-crest-map_forge_05",
+      "cell": [
+        79,
+        50
+      ],
+      "kind": "sea_crystal"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        84,
+        56
+      ],
+      "row": 4,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        84,
+        44
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        79,
+        18
+      ],
+      "kind": "beacon",
+      "name": "熔脉观测·炉心禁区"
+    },
+    {
+      "cell": [
+        77,
+        50
+      ],
+      "kind": "sign",
+      "name": "旧轨道口·炉心禁区"
+    },
+    {
+      "cell": [
+        70,
+        51
+      ],
+      "kind": "star_lantern",
+      "name": "高炉冷却·炉心禁区"
+    }
+  ],
+  "layout_identity": "forge.05.炉城高架",
+  "layout_principle": "炉城高架：依据「炉心禁区」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

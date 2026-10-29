@@ -1,0 +1,161 @@
+name: "Main2 → GameCore No-Art | Auto Mirror"
+
+# Event-driven, no polling or repeated heavy Godot imports.
+# Only Main2 pushes can trigger writes to the existing art-free core branch.
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths-ignore:
+      - "assets/art/source_packs/**"
+      - "assets/art/external/**"
+      - "**/*.png"
+      - "**/*.svg"
+      - "**/*.jpg"
+      - "**/*.jpeg"
+      - "**/*.webp"
+      - "**/*.gif"
+      - "**/*.bmp"
+      - "**/*.tga"
+      - "**/*.psd"
+      - "**/*.aseprite"
+      - "**/*.zip"
+      - "**/*.rar"
+      - "**/*.7z"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: starlit-main2-code-only-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-core:
+    name: "Mirror latest source tree minus all visual artwork"
+    if: ${{ github.repository == 'chenyu9512/StarlitChronicle-HD2D' && github.ref == 'refs/heads/Main2美术优化版' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Update Main2-GameCore-NoArt (Git trees; never download art)
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const sourceName = 'Main2美术优化版';
+            const targetName = 'Main2-GameCore-NoArt';
+            // This workflow uses Git tree SHAs rather than checking out the
+            // multi-gigabyte image source packs into Actions.
+            const image = /\.(png|svg|jpe?g|webp|gif|bmp|tga|tiff?|dds|ktx2?|ico|icns|psd|aseprite|ase|xcf|kra|exr|hdr|qoi|avif|apng|blend|fbx|obj|glb|gltf|vox)$/i;
+            const archive = /\.(zip|rar|7z|tar|gz|bz2|xz|unitypackage)$/i;
+            const preserved = new Set([
+              'README_GAME_CORE_NO_ART.md',
+              'tools/verify_game_core_no_art.py',
+            ]);
+            const belongsToTarget = p => p.startsWith('.github/') || preserved.has(p);
+            function coreFile(p) {
+              if (belongsToTarget(p) || image.test(p) || archive.test(p))
+                return false;
+              if (p.startsWith('assets/art/source_packs/') ||
+                  p.startsWith('assets/art/external/'))
+                return false;
+              // Art metadata preserves IDs and semantic slots, not images.
+              if (p.startsWith('assets/art/'))
+                return /\.(json|csv|md|txt|gdignore)$/i.test(p);
+              return true;
+            }
+            for (const [p, ok] of [
+              ['scripts/world_geography.gd', true],
+              ['data/levels/v3/map_coast_01.json', true],
+              ['assets/art/runtime/manifest.json', true],
+              ['assets/art/runtime/terrain.png', false],
+              ['assets/art/source_packs/packs.json', false],
+              ['assets/art/external/visual.webp', false],
+              ['docs/screenshot.png', false],
+              ['docs/archive.zip', false],
+              ['.github/workflows/main2-ci.yml', false],
+            ]) {
+              if (coreFile(p) !== ok)
+                throw new Error('Internal core-only filter regression: ' + p);
+            }
+
+            const {data: source} = await github.rest.repos.getBranch({
+              owner, repo, branch: sourceName
+            });
+            const {data: target} = await github.rest.repos.getBranch({
+              owner, repo, branch: targetName
+            });
+            const sourceSha = source.commit.sha;
+            const targetSha = target.commit.sha;
+            const [{data: sourceCommit},{data: targetCommit}] = await Promise.all([
+              github.rest.git.getCommit({owner,repo,commit_sha:sourceSha}),
+              github.rest.git.getCommit({owner,repo,commit_sha:targetSha}),
+            ]);
+            const [{data: st},{data: dt}] = await Promise.all([
+              github.rest.git.getTree({owner,repo,tree_sha:sourceCommit.tree.sha,recursive:'1'}),
+              github.rest.git.getTree({owner,repo,tree_sha:targetCommit.tree.sha,recursive:'1'}),
+            ]);
+            if (st.truncated || dt.truncated)
+              throw new Error('Refusing incomplete recursive Git tree; no branch changes');
+            const blobs = xs => new Map(xs.filter(x => x.type === 'blob')
+                                          .map(x => [x.path, x]));
+            const src = blobs(st.tree);
+            const dst = blobs(dt.tree);
+            for (const needed of [
+              'project.godot', 'scenes/first_act.tscn',
+              'scripts/first_act.gd', 'scripts/first_act_world.gd',
+              'data/assets/art_theme_v2.json',
+            ]) {
+              if (!src.has(needed))
+                throw new Error('Main2 core missing: ' + needed);
+            }
+            const wanted = new Map();
+            for (const [path,item] of src)
+              if (coreFile(path)) wanted.set(path,item);
+            // Keep branch-local documentation and QA verification tool,
+            // plus its original workflow files. Never merge a Git history.
+            for (const [path,item] of dst)
+              if (belongsToTarget(path)) wanted.set(path,item);
+            const invalid = [...wanted.keys()].filter(p =>
+              image.test(p) || archive.test(p) ||
+              p.startsWith('assets/art/source_packs/') ||
+              p.startsWith('assets/art/external/'));
+            if (invalid.length)
+              throw new Error('Artwork leak prevented: ' + invalid.slice(0,10).join(', '));
+            const changes = [];
+            for (const [path,entry] of wanted) {
+              const previous = dst.get(path);
+              if (!previous || previous.sha !== entry.sha || previous.mode !== entry.mode)
+                changes.push({path,mode:entry.mode,type:'blob',sha:entry.sha});
+            }
+            for (const [path] of dst)
+              if (!wanted.has(path))
+                changes.push({path,mode:'100644',type:'blob',sha:null});
+            if (!changes.length) {
+              core.info('No game-core changes to sync. Artwork-only updates ignored.');
+              return;
+            }
+            if (changes.length > 5000)
+              throw new Error('Too many source changes; refusing unreviewed mass update');
+            const {data: newTree} = await github.rest.git.createTree({
+              owner,repo,base_tree:targetCommit.tree.sha,tree:changes
+            });
+            const {data: newCommit} = await github.rest.git.createCommit({
+              owner,repo,
+              message:'sync(core): mirror Main2 non-art game files at '+sourceSha,
+              tree:newTree.sha, parents:[targetSha]
+            });
+            // Strict fast-forward, never force; a concurrent manual edit
+            // blocks publication rather than losing user changes.
+            await github.rest.git.updateRef({
+              owner,repo,ref:'heads/'+targetName,sha:newCommit.sha,force:false
+            });
+            core.info('SOURCE '+sourceSha+' TARGET '+newCommit.sha+
+                      ' FILE_CHANGES '+changes.length+' ART_IMAGES 0');
+            await core.summary.addHeading('GameCore-NoArt synchronization')
+              .addRaw('Source Main2: `'+sourceSha+'`\n\nTarget: `'+newCommit.sha+
+                      '`\n\nFile changes: '+changes.length+
+                      '\n\nVisual artwork copied: **0**')
+              .write();

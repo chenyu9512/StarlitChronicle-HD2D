@@ -1,0 +1,727 @@
+{
+  "schema": "starlit.story.legacy_followups.v1",
+  "status": "text_only_not_bound",
+  "purpose": "跨十二年与跨地区的世界状态回响；不擅自改变结局旗标。",
+  "scenes": [
+    {
+      "id": "legacy_01",
+      "title": "熄灯后的夜路",
+      "region": "晨露村·黄昏街",
+      "available_after": "ch053",
+      "required_flags": [
+        "story.ch053.done"
+      ],
+      "depending_on_flag": "side.sq_life_01.done",
+      "when_completed": [
+        {
+          "id": "legacy_01.yes.l01",
+          "speaker": "老灯匠",
+          "text": "十二年前你们修过的灯，我每年都会教新徒弟保养。"
+        },
+        {
+          "id": "legacy_01.yes.l02",
+          "speaker": "诺依",
+          "text": "它竟然还在亮。"
+        },
+        {
+          "id": "legacy_01.yes.l03",
+          "speaker": "主角",
+          "text": "一盏灯能一直亮，是因为有人一直在照看。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_01.no.l01",
+          "speaker": "老灯匠",
+          "text": "这里的三盏灯坏了很久，孩子还要摸黑回家。"
+        },
+        {
+          "id": "legacy_01.no.l02",
+          "speaker": "诺依",
+          "text": "这次让新公会安排维护，不只修好今晚。"
+        },
+        {
+          "id": "legacy_01.no.l03",
+          "speaker": "主角",
+          "text": "把灯匠也请来一起教徒弟。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_02",
+      "title": "多出的那张床",
+      "region": "晨露药房",
+      "available_after": "ch053",
+      "required_flags": [
+        "story.ch053.done"
+      ],
+      "depending_on_flag": "side.sq_life_02.done",
+      "when_completed": [
+        {
+          "id": "legacy_02.yes.l01",
+          "speaker": "旧病人",
+          "text": "当年的第二张病床，如今给了我孙女住。"
+        },
+        {
+          "id": "legacy_02.yes.l02",
+          "speaker": "岚音",
+          "text": "床不是我们谁的功劳，是村里一起搬木头建起来的。"
+        },
+        {
+          "id": "legacy_02.yes.l03",
+          "speaker": "诺依",
+          "text": "那再建第三张之前，先问问护士需要什么。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_02.no.l01",
+          "speaker": "护士",
+          "text": "旧药房只有一张床，一到冬天病人总在门外等。"
+        },
+        {
+          "id": "legacy_02.no.l02",
+          "speaker": "岚音",
+          "text": "我们先补上所需的床位与轮班。"
+        },
+        {
+          "id": "legacy_02.no.l03",
+          "speaker": "诺依",
+          "text": "我把木材需求交给公会。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_03",
+      "title": "欠饭钱的船长",
+      "region": "白砂港厨房",
+      "available_after": "ch052",
+      "required_flags": [
+        "story.ch052.done"
+      ],
+      "depending_on_flag": "side.sq_life_03.done",
+      "when_completed": [
+        {
+          "id": "legacy_03.yes.l01",
+          "speaker": "老厨娘",
+          "text": "朔弦这回出海前，居然把欠的钱全结清了。"
+        },
+        {
+          "id": "legacy_03.yes.l02",
+          "speaker": "朔弦",
+          "text": "不止如此，我还洗了两桶盘子。"
+        },
+        {
+          "id": "legacy_03.yes.l03",
+          "speaker": "诺依",
+          "text": "原来传奇船长也做过这种事。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_03.no.l01",
+          "speaker": "老厨娘",
+          "text": "那位跑船的还有饭钱没结呢。"
+        },
+        {
+          "id": "legacy_03.no.l02",
+          "speaker": "朔弦",
+          "text": "哎呀，你怎么还记得。"
+        },
+        {
+          "id": "legacy_03.no.l03",
+          "speaker": "主角",
+          "text": "别岔开话题，今天就还。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_04",
+      "title": "披风走过的路",
+      "region": "北境救护站",
+      "available_after": "ch052",
+      "required_flags": [
+        "story.ch052.done"
+      ],
+      "depending_on_flag": "side.sq_life_10.done",
+      "when_completed": [
+        {
+          "id": "legacy_04.yes.l01",
+          "speaker": "获救青年",
+          "text": "那件披风后来救过四个人挡雪。"
+        },
+        {
+          "id": "legacy_04.yes.l02",
+          "speaker": "雷索",
+          "text": "它比我更适合留在救护站。"
+        },
+        {
+          "id": "legacy_04.yes.l03",
+          "speaker": "诺依",
+          "text": "让这个故事继续属于穿过它的人。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_04.no.l01",
+          "speaker": "救护员",
+          "text": "雷索旧披风的故事大家只听过传言。"
+        },
+        {
+          "id": "legacy_04.no.l02",
+          "speaker": "雷索",
+          "text": "讲得太漂亮就不是真的了。"
+        },
+        {
+          "id": "legacy_04.no.l03",
+          "speaker": "诺依",
+          "text": "先去找当年保管它的村民。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_05",
+      "title": "红围巾的下一次相遇",
+      "region": "白夜祭旧市集",
+      "available_after": "ch053",
+      "required_flags": [
+        "story.ch053.done"
+      ],
+      "depending_on_flag": "side.sq_life_11.done",
+      "when_completed": [
+        {
+          "id": "legacy_05.yes.l01",
+          "speaker": "成年少女",
+          "text": "母亲把那条红围巾收好，前几日又替我的孩子围上。"
+        },
+        {
+          "id": "legacy_05.yes.l02",
+          "speaker": "岚音",
+          "text": "我记得你当年哭着到处找它。"
+        },
+        {
+          "id": "legacy_05.yes.l03",
+          "speaker": "主角",
+          "text": "原来旧节日还在继续。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_05.no.l01",
+          "speaker": "市集老妇",
+          "text": "有个孩子在旧节日走失过，后来大家忘了是谁。"
+        },
+        {
+          "id": "legacy_05.no.l02",
+          "speaker": "岚音",
+          "text": "我们去核对旧寻人登记。"
+        },
+        {
+          "id": "legacy_05.no.l03",
+          "speaker": "主角",
+          "text": "别把孩子的隐私当作节日故事卖。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_06",
+      "title": "会走的钟",
+      "region": "镜眠钟表铺",
+      "available_after": "ch060",
+      "required_flags": [
+        "story.ch060.done"
+      ],
+      "depending_on_flag": "side.sq_life_16.done",
+      "when_completed": [
+        {
+          "id": "legacy_06.yes.l01",
+          "speaker": "钟匠",
+          "text": "现在我每天准时回家，钟偶尔慢五分钟也没关系。"
+        },
+        {
+          "id": "legacy_06.yes.l02",
+          "speaker": "玄璃",
+          "text": "你终于可以让它不完美。"
+        },
+        {
+          "id": "legacy_06.yes.l03",
+          "speaker": "岚音",
+          "text": "家里等你的人想见的是你，不是最准的钟。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_06.no.l01",
+          "speaker": "钟匠女儿",
+          "text": "爸爸仍把自己锁在钟表铺，以为赶工就能补回过去。"
+        },
+        {
+          "id": "legacy_06.no.l02",
+          "speaker": "玄璃",
+          "text": "梦里的那一分钟不会再来。"
+        },
+        {
+          "id": "legacy_06.no.l03",
+          "speaker": "岚音",
+          "text": "但今晚的晚饭还在等他。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_07",
+      "title": "一城的两个姓名",
+      "region": "旧洲户籍馆",
+      "available_after": "ch060",
+      "required_flags": [
+        "story.ch060.done"
+      ],
+      "depending_on_flag": "side.sq_life_19.done",
+      "when_completed": [
+        {
+          "id": "legacy_07.yes.l01",
+          "speaker": "书记员",
+          "text": "当年你们留的双名制度，如今每个人都能自己选择被怎样称呼。"
+        },
+        {
+          "id": "legacy_07.yes.l02",
+          "speaker": "玄璃",
+          "text": "还有人在犹豫吗？"
+        },
+        {
+          "id": "legacy_07.yes.l03",
+          "speaker": "书记员",
+          "text": "有，所以我们仍留着更改的余地。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_07.no.l01",
+          "speaker": "书记员",
+          "text": "我们又把别人的旧名抄成了唯一正确的名字。"
+        },
+        {
+          "id": "legacy_07.no.l02",
+          "speaker": "玄璃",
+          "text": "让他们自己决定怎么写。"
+        },
+        {
+          "id": "legacy_07.no.l03",
+          "speaker": "主角",
+          "text": "先停下强制更名公告。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_08",
+      "title": "写给母亲的第二封信",
+      "region": "旧洲难民营纪念信箱",
+      "available_after": "ch049",
+      "required_flags": [
+        "story.ch049.done"
+      ],
+      "depending_on_flag": "side.sq_life_20.done",
+      "when_completed": [
+        {
+          "id": "legacy_08.yes.l01",
+          "speaker": "诺依",
+          "text": "我小时候投过一封没有地址的信。现在想再投一封，告诉妈妈我去了很多地方。"
+        },
+        {
+          "id": "legacy_08.yes.l02",
+          "speaker": "主角",
+          "text": "第一封你不需要取回来。"
+        },
+        {
+          "id": "legacy_08.yes.l03",
+          "speaker": "诺依",
+          "text": "我知道。我只是想让新的话也有地方去。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_08.no.l01",
+          "speaker": "诺依",
+          "text": "这只信箱还在，可我小时候没敢投那封信。"
+        },
+        {
+          "id": "legacy_08.no.l02",
+          "speaker": "主角",
+          "text": "如今也可以写，或者不写。"
+        },
+        {
+          "id": "legacy_08.no.l03",
+          "speaker": "诺依",
+          "text": "这次我想自己决定怎么说。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_09",
+      "title": "新旧名字的墙",
+      "region": "旧洲记忆馆",
+      "available_after": "ch060",
+      "required_flags": [
+        "story.ch060.done"
+      ],
+      "depending_on_flag": "side.sq_page_08.done",
+      "when_completed": [
+        {
+          "id": "legacy_09.yes.l01",
+          "speaker": "馆长",
+          "text": "那一页航图让我们愿意把新旧名字都留在墙上。"
+        },
+        {
+          "id": "legacy_09.yes.l02",
+          "speaker": "伊泽",
+          "text": "这面墙还会继续有人添字。"
+        },
+        {
+          "id": "legacy_09.yes.l03",
+          "speaker": "诺依",
+          "text": "愿每个人都能认出自己的名字。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_09.no.l01",
+          "speaker": "馆长",
+          "text": "我们仍在找那张能证明这些姓氏本来存在的航页。"
+        },
+        {
+          "id": "legacy_09.no.l02",
+          "speaker": "伊泽",
+          "text": "先保存现在愿意说出姓名的人。"
+        },
+        {
+          "id": "legacy_09.no.l03",
+          "speaker": "诺依",
+          "text": "找寻证据不应成为拒绝他们生活的理由。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_10",
+      "title": "原件与最后的道歉",
+      "region": "七灯评议庭档案席",
+      "available_after": "ch070",
+      "required_flags": [
+        "story.ch070.done"
+      ],
+      "depending_on_flag": "side.cq_weisha_01.done",
+      "when_completed": [
+        {
+          "id": "legacy_10.yes.l01",
+          "speaker": "受害者家属",
+          "text": "那次听证之后，我依旧不原谅维莎，但我能查到全部记录。"
+        },
+        {
+          "id": "legacy_10.yes.l02",
+          "speaker": "维莎",
+          "text": "你有权这样决定。"
+        },
+        {
+          "id": "legacy_10.yes.l03",
+          "speaker": "诺依",
+          "text": "今后的制度也会保留提出质询的门。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_10.no.l01",
+          "speaker": "受害者家属",
+          "text": "最后的方案又写成了匿名数字，我还没看到真正的责任人。"
+        },
+        {
+          "id": "legacy_10.no.l02",
+          "speaker": "维莎",
+          "text": "那我必须重新把审批原件交给你们核对。"
+        },
+        {
+          "id": "legacy_10.no.l03",
+          "speaker": "诺依",
+          "text": "任何终局都不该让当年的证据消失。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_11",
+      "title": "旧船长的承诺",
+      "region": "朔弦故乡旧码头",
+      "available_after": "ch037",
+      "required_flags": [
+        "story.ch037.done"
+      ],
+      "depending_on_flag": "side.cq_shouxian_02.done",
+      "when_completed": [
+        {
+          "id": "legacy_11.yes.l01",
+          "speaker": "故乡老人",
+          "text": "那个帮你逃出海的老水手，上个月也来过，他终于看见歪树了。"
+        },
+        {
+          "id": "legacy_11.yes.l02",
+          "speaker": "朔弦",
+          "text": "好，我欠他的那句“我找到了”总算能当面说。"
+        },
+        {
+          "id": "legacy_11.yes.l03",
+          "speaker": "主角",
+          "text": "海路有了往返的方向。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_11.no.l01",
+          "speaker": "朔弦",
+          "text": "我找到了家，却还没找到当年给我干面包的水手。"
+        },
+        {
+          "id": "legacy_11.no.l02",
+          "speaker": "主角",
+          "text": "先把新的回港航路公开，也许他会看见。"
+        },
+        {
+          "id": "legacy_11.no.l03",
+          "speaker": "故乡老人",
+          "text": "我替你留一把椅子。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_12",
+      "title": "不再上锁的抽屉",
+      "region": "晨露药房后屋",
+      "available_after": "ch053",
+      "required_flags": [
+        "story.ch053.done"
+      ],
+      "depending_on_flag": "side.cq_lanyin_03.done",
+      "when_completed": [
+        {
+          "id": "legacy_12.yes.l01",
+          "speaker": "岚音",
+          "text": "病历如今由我们共同保管，我终于不再因为别人提起澄舟就想逃走。"
+        },
+        {
+          "id": "legacy_12.yes.l02",
+          "speaker": "主角",
+          "text": "有些话还会刺痛，但我们可以继续讲。"
+        },
+        {
+          "id": "legacy_12.yes.l03",
+          "speaker": "诺依",
+          "text": "我也想听那个会修船的老爷爷的故事。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_12.no.l01",
+          "speaker": "岚音",
+          "text": "那个抽屉里还留着没读完的纸。"
+        },
+        {
+          "id": "legacy_12.no.l02",
+          "speaker": "主角",
+          "text": "我愿意听，但不是今晚。"
+        },
+        {
+          "id": "legacy_12.no.l03",
+          "speaker": "诺依",
+          "text": "我会把门关好，不让别人替你们催促。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_13",
+      "title": "破拆锤的第二次生命",
+      "region": "群灯城工匠仓库",
+      "available_after": "ch055",
+      "required_flags": [
+        "story.ch055.done"
+      ],
+      "depending_on_flag": "side.cq_tifa_03.done",
+      "when_completed": [
+        {
+          "id": "legacy_13.yes.l01",
+          "speaker": "救援工",
+          "text": "那把改造过的锤救出了被困的三个人，现在还在公共仓库。"
+        },
+        {
+          "id": "legacy_13.yes.l02",
+          "speaker": "缇珐",
+          "text": "千万别把它当万能工具，说明书要跟着走。"
+        },
+        {
+          "id": "legacy_13.yes.l03",
+          "speaker": "诺依",
+          "text": "我们会教新人什么时候应该先找支撑点。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_13.no.l01",
+          "speaker": "救援工",
+          "text": "仓库里还只有旧式军用锤，用它砸废墟太危险。"
+        },
+        {
+          "id": "legacy_13.no.l02",
+          "speaker": "缇珐",
+          "text": "先找救援队评估，我不想再随意改一件可能伤人的东西。"
+        },
+        {
+          "id": "legacy_13.no.l03",
+          "speaker": "诺依",
+          "text": "新城开工前先把安全工具准备好。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_14",
+      "title": "一个可自己写的地址",
+      "region": "七灯评议庭身份席",
+      "available_after": "ch070",
+      "required_flags": [
+        "story.ch070.done"
+      ],
+      "depending_on_flag": "side.cq_xuanli_01.done",
+      "when_completed": [
+        {
+          "id": "legacy_14.yes.l01",
+          "speaker": "玄璃",
+          "text": "我的住址如今是我自己选择的。映世代表也有自己的登记栏。"
+        },
+        {
+          "id": "legacy_14.yes.l02",
+          "speaker": "现世议员",
+          "text": "我仍在学怎么称呼这些新邻居。"
+        },
+        {
+          "id": "legacy_14.yes.l03",
+          "speaker": "主角",
+          "text": "愿意学，比宣布他们不存在好得多。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_14.no.l01",
+          "speaker": "玄璃",
+          "text": "他们仍要求我填写原属资产编号。"
+        },
+        {
+          "id": "legacy_14.no.l02",
+          "speaker": "主角",
+          "text": "这不该成为评议庭默认的身份条件。"
+        },
+        {
+          "id": "legacy_14.no.l03",
+          "speaker": "现世议员",
+          "text": "我们得先修改那张表。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_15",
+      "title": "迟到的最后一节歌",
+      "region": "暮林驿站小舞台",
+      "available_after": "ch052",
+      "required_flags": [
+        "story.ch052.done"
+      ],
+      "depending_on_flag": "side.cq_ize_01.done",
+      "when_completed": [
+        {
+          "id": "legacy_15.yes.l01",
+          "speaker": "老歌者",
+          "text": "那段曾经不敢唱的歌，如今由家属自己选择什么时候唱。"
+        },
+        {
+          "id": "legacy_15.yes.l02",
+          "speaker": "伊泽",
+          "text": "十二年过去，终于不是只有我保管它。"
+        },
+        {
+          "id": "legacy_15.yes.l03",
+          "speaker": "诺依",
+          "text": "这样它也不会只变成旧英雄的配乐。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_15.no.l01",
+          "speaker": "老歌者",
+          "text": "那首歌最后一段还没有人愿意唱。"
+        },
+        {
+          "id": "legacy_15.no.l02",
+          "speaker": "伊泽",
+          "text": "不愿意也可以。我们先把原谱安全保存。"
+        },
+        {
+          "id": "legacy_15.no.l03",
+          "speaker": "诺依",
+          "text": "有天他们改变心意，我们仍有机会听见。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    },
+    {
+      "id": "legacy_16",
+      "title": "名单上的名字",
+      "region": "终幕殿外救援帐篷",
+      "available_after": "ch071",
+      "required_flags": [
+        "story.ch071.done"
+      ],
+      "depending_on_flag": "side.cq_nuoyi_01.done",
+      "when_completed": [
+        {
+          "id": "legacy_16.yes.l01",
+          "speaker": "年轻旅人",
+          "text": "你当年带回的完整名单，如今帮我们确认了十二位失联家属。"
+        },
+        {
+          "id": "legacy_16.yes.l02",
+          "speaker": "诺依",
+          "text": "我当年只是把纸上的背面也读完。"
+        },
+        {
+          "id": "legacy_16.yes.l03",
+          "speaker": "主角",
+          "text": "这就是为何任何人都不能只挑好看的记录留下。"
+        }
+      ],
+      "when_not_completed": [
+        {
+          "id": "legacy_16.no.l01",
+          "speaker": "年轻旅人",
+          "text": "我们手里仍只有英雄得救的故事，其他家庭无从寻找。"
+        },
+        {
+          "id": "legacy_16.no.l02",
+          "speaker": "诺依",
+          "text": "那就去把所有未归者名单一起找出来。"
+        },
+        {
+          "id": "legacy_16.no.l03",
+          "speaker": "主角",
+          "text": "让最晚回来的人，也有被等到的机会。"
+        }
+      ],
+      "status": "authored_conditional_dialogue_not_bound"
+    }
+  ]
+}

@@ -1,0 +1,379 @@
+{
+  "schema": "starlit.story.phase15.act10.choice_reactions.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "每章现有hear/protect选项的即时反应。非长期A/B分支，不新增正式世界旗标。",
+  "followups": [
+    {
+      "id": "ch055.p15.choice.hear",
+      "chapter_id": "ch055",
+      "after_choice_id": "ch055.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch055.approach": "urgent",
+        "world.ch055.approach": "urgent"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch055.p15.choice.hear.l01",
+          "speaker": "避难母亲",
+          "text": "我们先住下，也愿遵守临时住用约定。"
+        },
+        {
+          "id": "ch055.p15.choice.hear.l02",
+          "speaker": "地契保管员",
+          "text": "原房主回来仍能提出复查，不会被一句急用挡掉。"
+        },
+        {
+          "id": "ch055.p15.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "第一批安置名单今晚公示，危险房间继续封闭。"
+        }
+      ]
+    },
+    {
+      "id": "ch055.p15.choice.protect",
+      "chapter_id": "ch055",
+      "after_choice_id": "ch055.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch055.approach": "public_review",
+        "world.ch055.approach": "public_review"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch055.p15.choice.protect.l01",
+          "speaker": "地契保管员",
+          "text": "公开评议有日期，不能让避雨的人在门外空等。"
+        },
+        {
+          "id": "ch055.p15.choice.protect.l02",
+          "speaker": "缇珐",
+          "text": "我先安排安全的临时隔间，同时给材料做记录。"
+        },
+        {
+          "id": "ch055.p15.choice.protect.l03",
+          "speaker": "主角",
+          "text": "住用权与所有权分别登记，别迫使任何一方消失。"
+        }
+      ]
+    },
+    {
+      "id": "ch056.p15.choice.hear",
+      "chapter_id": "ch056",
+      "after_choice_id": "ch056.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch056.approach": "transparent",
+        "world.ch056.approach": "transparent"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch056.p15.choice.hear.l01",
+          "speaker": "新人冒险者",
+          "text": "我接修桥委托前，终于看到了风险和撤退条件。"
+        },
+        {
+          "id": "ch056.p15.choice.hear.l02",
+          "speaker": "会馆管理员",
+          "text": "未送达的药仍留红色未完成标记。"
+        },
+        {
+          "id": "ch056.p15.choice.hear.l03",
+          "speaker": "朔弦",
+          "text": "公开账能让人挑错，别把挑错当成破坏公会。"
+        }
+      ]
+    },
+    {
+      "id": "ch056.p15.choice.protect",
+      "chapter_id": "ch056",
+      "after_choice_id": "ch056.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch056.approach": "civil_oversight",
+        "world.ch056.approach": "civil_oversight"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch056.p15.choice.protect.l01",
+          "speaker": "居民代表",
+          "text": "我愿当第一季监督员，不收佣兵团的私人工钱。"
+        },
+        {
+          "id": "ch056.p15.choice.protect.l02",
+          "speaker": "雷索",
+          "text": "护卫行动可以被复核，公会不得垄断治安。"
+        },
+        {
+          "id": "ch056.p15.choice.protect.l03",
+          "speaker": "诺依",
+          "text": "居民申诉不是等有人打赢了才有资格提。"
+        }
+      ]
+    },
+    {
+      "id": "ch057.p15.choice.hear",
+      "chapter_id": "ch057",
+      "after_choice_id": "ch057.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch057.approach": "rotating",
+        "world.ch057.approach": "rotating"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch057.p15.choice.hear.l01",
+          "speaker": "外乡老人",
+          "text": "轮到冬祭那天，我愿教别家的孩子做灯。"
+        },
+        {
+          "id": "ch057.p15.choice.hear.l02",
+          "speaker": "小摊主",
+          "text": "春灯会要先预约清洁班，别把工作全留给下一族。"
+        },
+        {
+          "id": "ch057.p15.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "新搬来的人也能申请时段，日历不是刻在石头上的。"
+        }
+      ]
+    },
+    {
+      "id": "ch057.p15.choice.protect",
+      "chapter_id": "ch057",
+      "after_choice_id": "ch057.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch057.approach": "inclusive",
+        "world.ch057.approach": "inclusive"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch057.p15.choice.protect.l01",
+          "speaker": "值夜护士",
+          "text": "安静通道保住了，病人不必绕完整条庆典街。"
+        },
+        {
+          "id": "ch057.p15.choice.protect.l02",
+          "speaker": "伊泽",
+          "text": "愿意听歌的人来广场，不愿意的人也能在家休息。"
+        },
+        {
+          "id": "ch057.p15.choice.protect.l03",
+          "speaker": "主角",
+          "text": "公共节日热闹，不该把参加变成义务。"
+        }
+      ]
+    },
+    {
+      "id": "ch058.p15.choice.hear",
+      "chapter_id": "ch058",
+      "after_choice_id": "ch058.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch058.approach": "public_hearing",
+        "world.ch058.approach": "public_hearing"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch058.p15.choice.hear.l01",
+          "speaker": "维莎",
+          "text": "原档先保存，听证结束后我仍接受进一步调查。"
+        },
+        {
+          "id": "ch058.p15.choice.hear.l02",
+          "speaker": "受害者家属",
+          "text": "我同意公开我的质询，不同意公开病人的全部经历。"
+        },
+        {
+          "id": "ch058.p15.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "出庭证人需要保护，受害者也不需要被催着原谅。"
+        }
+      ]
+    },
+    {
+      "id": "ch058.p15.choice.protect",
+      "chapter_id": "ch058",
+      "after_choice_id": "ch058.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch058.approach": "victim_panel",
+        "world.ch058.approach": "victim_panel"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch058.p15.choice.protect.l01",
+          "speaker": "受害者代表",
+          "text": "我们要参与决定怎样保管证物，不只做旁听者。"
+        },
+        {
+          "id": "ch058.p15.choice.protect.l02",
+          "speaker": "雷索",
+          "text": "审查组和保护人员分开，避免同一人决定全部程序。"
+        },
+        {
+          "id": "ch058.p15.choice.protect.l03",
+          "speaker": "维莎",
+          "text": "我会逐项答复签过的文件，不以协助修灯要求宽恕。"
+        }
+      ]
+    },
+    {
+      "id": "ch059.p15.choice.hear",
+      "chapter_id": "ch059",
+      "after_choice_id": "ch059.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch059.approach": "right_refuse",
+        "world.ch059.approach": "right_refuse"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch059.p15.choice.hear.l01",
+          "speaker": "年轻民兵",
+          "text": "我愿参加志愿护卫，也愿意让父亲继续做木匠。"
+        },
+        {
+          "id": "ch059.p15.choice.hear.l02",
+          "speaker": "雷索",
+          "text": "值守表规定轮休，没人永久被征召。"
+        },
+        {
+          "id": "ch059.p15.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "拒绝参军的人仍享有求救和公共保障。"
+        }
+      ]
+    },
+    {
+      "id": "ch059.p15.choice.protect",
+      "chapter_id": "ch059",
+      "after_choice_id": "ch059.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch059.approach": "civil_support",
+        "world.ch059.approach": "civil_support"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch059.p15.choice.protect.l01",
+          "speaker": "岚音",
+          "text": "护理、修桥和运输有人报名，但我们还要排好替班。"
+        },
+        {
+          "id": "ch059.p15.choice.protect.l02",
+          "speaker": "维莎",
+          "text": "预算不能只算刀剑与弹药，我会把非战斗贡献公示。"
+        },
+        {
+          "id": "ch059.p15.choice.protect.l03",
+          "speaker": "工坊主人",
+          "text": "我会把桥修好，今后也有权改变承担范围。"
+        }
+      ]
+    },
+    {
+      "id": "ch060.p15.choice.hear",
+      "chapter_id": "ch060",
+      "after_choice_id": "ch060.choice",
+      "choice_option_id": "hear",
+      "condition": {
+        "ch060.approach": "community",
+        "world.ch060.approach": "community"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch060.p15.choice.hear.l01",
+          "speaker": "社区电工",
+          "text": "南区先开两组自愿节点，其他家庭仍用独立水泵。"
+        },
+        {
+          "id": "ch060.p15.choice.hear.l02",
+          "speaker": "缇珐",
+          "text": "启动后逐区测温，出了问题由本地人先停机。"
+        },
+        {
+          "id": "ch060.p15.choice.hear.l03",
+          "speaker": "诺依",
+          "text": "还没接入的居民同样能使用医院和避难所。"
+        }
+      ]
+    },
+    {
+      "id": "ch060.p15.choice.protect",
+      "chapter_id": "ch060",
+      "after_choice_id": "ch060.choice",
+      "choice_option_id": "protect",
+      "condition": {
+        "ch060.approach": "emergency_nodes",
+        "world.ch060.approach": "emergency_nodes"
+      },
+      "insertion": "after_choice_state_write_before_encounter_or_resolution",
+      "optional": true,
+      "independent_route": false,
+      "once_only": true,
+      "dialogue": [
+        {
+          "id": "ch060.p15.choice.protect.l01",
+          "speaker": "值班医师",
+          "text": "医院备电切换正常，疏散所的手灯也能独立运作。"
+        },
+        {
+          "id": "ch060.p15.choice.protect.l02",
+          "speaker": "维莎",
+          "text": "备用回路先上线，但其他社区仍需自行确认接入。"
+        },
+        {
+          "id": "ch060.p15.choice.protect.l03",
+          "speaker": "主角",
+          "text": "先保住最低救命功能，不代表以后可以跳过同意。"
+        }
+      ]
+    }
+  ]
+}

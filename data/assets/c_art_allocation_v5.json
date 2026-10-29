@@ -1,0 +1,185 @@
+{
+  "schema": "starlit.c.asset_allocation.v5",
+  "date": "2026-10-27",
+  "policy": "Canonical runtime IDs remain unchanged. Candidate sources are references until mapped by DLC or explicit C scene bindings.",
+  "stages": {
+    "source": "assets/art/source_packs/ (production originals, 853 files; .gdignore excludes from Godot imports/exports)",
+    "candidate": "assets/art/candidates/manifest.json (749 source PNG references, editor/runtime ignored)",
+    "runtime": "assets/art/runtime/manifest.json (101 prioritized paths; canonical IDs remain under existing asset folders)",
+    "dlc": "data/assets/c_art_packs.json (28 explicit mappings) and user://c_art_packs/installed.json (user DLC)"
+  },
+  "allocation": [
+    {
+      "role": "principal_characters",
+      "canonical": "assets/art/b02/characters/main",
+      "primary": "B02 high-resolution original identity art",
+      "candidate": "Cute Adventurers: 383 meaningful character PNG references/frames after removing 7 macOS sidecar pseudo-images",
+      "binding": "use B02 as identity; animation requires per-role frames and perspective check"
+    },
+    {
+      "role": "residents",
+      "canonical": "assets/art/b02/characters/npc",
+      "primary": "35 NPC B02 reference bodies, with regional needs",
+      "candidate": "Adventure Hollow 35 PNG",
+      "binding": "visual reference; no automatic NPC identity mutation"
+    },
+    {
+      "role": "boss",
+      "canonical": "assets/art/b03/boss_final_render",
+      "primary": "5 original static boss images",
+      "candidate": "Aekashics 42 frontview sheets + 47 MV sideview sheets",
+      "binding": "optional DLC combat sprite states after animation slicing; never remap boss_id"
+    },
+    {
+      "role": "towns_and_houses",
+      "canonical": "assets/art/exteriors/coast_final_pass",
+      "primary": "authored structures with live entrance alignment",
+      "candidate": "Kenney Sketch Town Expansion 238 PNG",
+      "binding": "preview and prop references only until drawing angle + collision match"
+    },
+    {
+      "role": "map_terrain",
+      "canonical": "assets/art/tilesets/regions",
+      "primary": "region tiles and C coastal ink",
+      "candidate": "Kenney modular shapes; isometric village 4 PNG for layout references",
+      "binding": "never replace fixed tile collision geometry with unreviewed layout image"
+    },
+    {
+      "role": "monster_animations",
+      "canonical": "assets/art/monsters",
+      "primary": "current coastal monsters plus canonical IDs",
+      "candidate": "Aekashics front/MV/DragonBones",
+      "binding": "convert selected clips into Godot 2D SpriteFrames preserving original monster ID"
+    },
+    {
+      "role": "ui_icons",
+      "canonical": "assets/art/external/cc0_named_v1/ui",
+      "primary": "existing C-designed RPG HUD and icons",
+      "candidate": "CC0 UI/icons",
+      "binding": "replace after layout-safe asset dimensions only"
+    },
+    {
+      "role": "world_decor",
+      "canonical": "assets/art/props/coast",
+      "primary": "original weather/time and footpoint-matched scenery",
+      "candidate": "Kenney props and original coast scene art",
+      "binding": "decor Sprite2D based on walkable footpoints, not whole image collision"
+    }
+  ],
+  "per_region": [
+    {
+      "region_id": "region_coast",
+      "maps": [
+        "map_coast_01",
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04",
+        "map_coast_05"
+      ],
+      "priority": "original exterior + coastline SVG/TileMap; Kenney only as layout references"
+    },
+    {
+      "region_id": "region_oaths",
+      "priority": "original highland stone and wind; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_forge",
+      "priority": "original lava/smithwork/stone; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_isles",
+      "priority": "original archipelago/water; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_mirror",
+      "priority": "original reflection/crystal forest; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_oldland",
+      "priority": "original ruins/sand; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_sanctum",
+      "priority": "original altar/starlight; needs a unique HD scene kit"
+    },
+    {
+      "region_id": "region_city",
+      "priority": "original city blocks/canals; needs a unique HD scene kit"
+    }
+  ],
+  "statuses": "Asset path and role audited in GitHub; live art QA remains untested.",
+  "direct_use_decisions": [
+    {
+      "area": "first_act_party_walk",
+      "resource": "res://assets/art/characters/<character_id>/walk_4dir_3frames.png",
+      "decision": "runtime_first",
+      "reason": "existing 4-direction/3-frame sheets use stable actor IDs; keep atlas/cell dimensions unchanged"
+    },
+    {
+      "area": "first_act_dialogue",
+      "resource": "res://assets/art/b02/characters/main/<character_id>/dialogue_192x240.png",
+      "decision": "runtime_first",
+      "reason": "static dialogue art works for portraits; do not pass into walk/sprite-frame animation slots"
+    },
+    {
+      "area": "npc_residents",
+      "resource": "res://assets/art/b02/characters/npc/<npc_id>/fullbody_rgba.png",
+      "decision": "runtime_first",
+      "reason": "retain identities for dialogue and full-body overlays; chibi candidate references require character-by-character pairing"
+    },
+    {
+      "area": "coastal_ground_and_water",
+      "resource": "res://assets/art/tilesets/coast_ground.png",
+      "decision": "runtime_first",
+      "reason": "existing 32px TileSet atlas and its SVG alternate can be mapped without modifying collision or TileMap cells"
+    },
+    {
+      "area": "coastal_houses",
+      "resource": "res://assets/art/exteriors/coast_final_pass/",
+      "decision": "runtime_first",
+      "reason": "authored door/footpoint proportions keep B-line entrance trigger alignment; Kenney alternatives remain candidate for matching"
+    },
+    {
+      "area": "coastal_monsters",
+      "resource": "res://assets/art/monsters/coast/<monster_id>/battle.png",
+      "decision": "runtime_first",
+      "reason": "current monster ID is wired; use Aekashics only after compatible combat poses/sheets have been authored"
+    },
+    {
+      "area": "ch002_ch006_boss",
+      "resource": "res://assets/art/b03/boss_final_render/ch00x_*_battle_768.png",
+      "decision": "runtime_first",
+      "reason": "five static boss images are suitable for battle portraits but not final animated combat states"
+    },
+    {
+      "area": "rpg_ui",
+      "resource": "res://assets/art/external/cc0_named_v1/ui/",
+      "decision": "runtime_first",
+      "reason": "use existing atlas-safe UI/icons; static theme assets can be mapped through existing catalog slots"
+    },
+    {
+      "area": "source_and_candidate",
+      "resource": "res://assets/art/source_packs/ and res://assets/art/candidates/",
+      "decision": "editor_only",
+      "reason": "Godot .gdignore; requires conscious promotion into a runtime ID or external DLC before being loadable in game"
+    }
+  ],
+  "curation_snapshot": {
+    "production_source_files": 853,
+    "candidate_images": 749,
+    "prioritized_runtime_paths": 101,
+    "global_catalog_slots": 1240,
+    "builtin_dlc_mapping_count": 28,
+    "disposition": "all unadapted candidates remain archived; no user save or map collision changed"
+  },
+  "latest_allocation": "res://data/assets/c_art_allocation_v6.json",
+  "content_icon_registry": "res://data/assets/c_art_content_icons_v6.json",
+  "content_icon_resolver": "res://scripts/c_art_item_icons.gd",
+  "supplemental_allocation_counts": {
+    "new_source": 749,
+    "external_cc0": 667,
+    "core_reserve": 472,
+    "menu_icon_content_ids": 288
+  },
+  "latest_live_dressing": "res://data/assets/c_art_live_coast_v7.json"
+}

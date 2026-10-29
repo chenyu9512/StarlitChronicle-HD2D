@@ -1,0 +1,443 @@
+extends CanvasLayer
+## Three-tier fog-free map. Local terrain / regional sectors / world routes.
+## The diagram uses the actual collision cells and the existing 42-node travel registry.
+signal opened()
+signal closed()
+signal travel_requested(map_id: String)
+
+const View = preload("res://scripts/map_view.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
+const INK: Color = Color("0b1c32")
+const GOLD: Color = Color("e6c47d")
+var world
+var router
+var root: Control
+var small_frame: PanelContainer
+var large_frame: PanelContainer
+var small_view
+var small_header: Button
+var overlay: Control
+var full_view
+var full_heading: Label
+var map_info: Label
+var route_info: Label
+var route_button: Button
+var local_button: Button
+var region_button: Button
+var world_button: Button
+var selected_map: String = ""
+var shown_mode: String = "local"
+var update_clock: float = 0.0
+var in_world: bool = false
+var primary_target: String = ""
+var secondary_target: String = ""
+var quest_destination: String = ""
+var quest_summary: String = ""
+var zoom_out_button: Button
+var zoom_in_button: Button
+var recenter_button: Button
+var zoom_status: Label
+var displayed_context: String = ""
+var style_chapter: int = -999
+var sidebar: VBoxContainer
+var footer: Label
+
+func _ready() -> void:
+    layer = 14
+    root = Control.new()
+    root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    add_child(root)
+    _build_small()
+    _build_full()
+    small_frame.hide()
+    overlay.hide()
+    set_process(true)
+    get_viewport().size_changed.connect(_reflow_map)
+    call_deferred("_reflow_map")
+
+func _frame_style() -> StyleBoxFlat:
+    return CVisual.surface(false)
+
+func _button(title: String) -> Button:
+    var btn := Button.new()
+    btn.text = title
+    btn.custom_minimum_size.y = 43
+    btn.add_theme_font_size_override("font_size", 17)
+    btn.add_theme_color_override("font_color", Color("f8e9c6"))
+    btn.add_theme_stylebox_override("normal", _frame_style())
+    CVisual.style_button(btn)
+    return btn
+
+func _build_small() -> void:
+    small_frame = PanelContainer.new()
+    small_frame.name = "ExploreMinimap"
+    small_frame.anchor_left = 1.0
+    small_frame.anchor_right = 1.0
+    small_frame.anchor_top = 0.0
+    small_frame.anchor_bottom = 0.0
+    small_frame.offset_left = -220
+    small_frame.offset_right = -14
+    small_frame.offset_top = 14
+    small_frame.offset_bottom = 188
+    small_frame.add_theme_stylebox_override("panel", _frame_style())
+    small_frame.mouse_filter = Control.MOUSE_FILTER_STOP
+    root.add_child(small_frame)
+    var vertical := VBoxContainer.new()
+    vertical.add_theme_constant_override("separation", 4)
+    small_frame.add_child(vertical)
+    small_header = _button("◇ 地图 / TAB")
+    small_header.custom_minimum_size.y = 34
+    small_header.add_theme_font_size_override("font_size", 15)
+    small_header.pressed.connect(open_map)
+    vertical.add_child(small_header)
+    small_view = View.new()
+    small_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    small_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    small_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    vertical.add_child(small_view)
+
+func _build_full() -> void:
+    overlay = Control.new()
+    overlay.name = "AtlasOverlay"
+    overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+    root.add_child(overlay)
+    var tint := ColorRect.new()
+    tint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    tint.color = Color(0.015,0.035,0.065,0.96)
+    tint.mouse_filter = Control.MOUSE_FILTER_STOP
+    overlay.add_child(tint)
+    large_frame = PanelContainer.new()
+    var panel: PanelContainer = large_frame
+    panel.anchor_left = 0.075
+    panel.anchor_right = 0.925
+    panel.anchor_top = 0.06
+    panel.anchor_bottom = 0.945
+    panel.add_theme_stylebox_override("panel",CVisual.surface(true))
+    overlay.add_child(panel)
+    var column := VBoxContainer.new()
+    column.add_theme_constant_override("separation",10)
+    panel.add_child(column)
+    var heading := HBoxContainer.new()
+    heading.add_theme_constant_override("separation",12)
+    column.add_child(heading)
+    full_heading = Label.new()
+    full_heading.text = "✦ 航路地图 / 区域"
+    full_heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    full_heading.add_theme_font_size_override("font_size",25)
+    full_heading.add_theme_color_override("font_color",GOLD)
+    heading.add_child(full_heading)
+    local_button = _button("当前地图")
+    local_button.pressed.connect(func() -> void: _set_mode("local"))
+    heading.add_child(local_button)
+    region_button = _button("地区分块")
+    region_button.pressed.connect(func() -> void: _set_mode("region"))
+    heading.add_child(region_button)
+    world_button = _button("世界航路")
+    world_button.pressed.connect(func() -> void: _set_mode("world"))
+    heading.add_child(world_button)
+    var exit_button := _button("返回探索  ×")
+    exit_button.pressed.connect(close_map)
+    heading.add_child(exit_button)
+    # Separate toolbar so local controls remain usable on landscape phones.
+    var tools := HBoxContainer.new()
+    tools.add_theme_constant_override("separation",9)
+    column.add_child(tools)
+    zoom_out_button = _button("－ 缩小")
+    zoom_out_button.pressed.connect(func() -> void: _zoom_local(0.8))
+    tools.add_child(zoom_out_button)
+    zoom_in_button = _button("＋ 放大")
+    zoom_in_button.pressed.connect(func() -> void: _zoom_local(1.25))
+    tools.add_child(zoom_in_button)
+    recenter_button = _button("◎ 定位角色")
+    recenter_button.pressed.connect(func() -> void: _recenter_local())
+    tools.add_child(recenter_button)
+    zoom_status = Label.new()
+    zoom_status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    zoom_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    zoom_status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    zoom_status.add_theme_font_size_override("font_size",14)
+    zoom_status.add_theme_color_override("font_color",Color("cfdeec"))
+    tools.add_child(zoom_status)
+    var columns := HBoxContainer.new()
+    columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    columns.add_theme_constant_override("separation",15)
+    column.add_child(columns)
+    full_view = View.new()
+    full_view.custom_minimum_size = Vector2(450,340)
+    full_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    full_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    full_view.location_selected.connect(_on_location_selected)
+    columns.add_child(full_view)
+    sidebar = VBoxContainer.new()
+    sidebar.custom_minimum_size.x = 204
+    sidebar.add_theme_constant_override("separation",13)
+    columns.add_child(sidebar)
+    var detail_title := Label.new()
+    detail_title.text = "探索情报"
+    detail_title.add_theme_color_override("font_color",GOLD)
+    detail_title.add_theme_font_size_override("font_size",20)
+    sidebar.add_child(detail_title)
+    map_info = Label.new()
+    map_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    map_info.add_theme_font_size_override("font_size",16)
+    sidebar.add_child(map_info)
+    route_info = Label.new()
+    route_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    route_info.add_theme_font_size_override("font_size",15)
+    sidebar.add_child(route_info)
+    var spacer := Control.new()
+    spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    sidebar.add_child(spacer)
+    route_button = _button("旅行到选中地点")
+    route_button.pressed.connect(_try_travel)
+    sidebar.add_child(route_button)
+    footer = Label.new()
+    footer.text = "◆ 角色朝向  ✦ 主线  ◇ 支线  ■ 建筑  ◆ 地牢  · 触摸拖动/滚轮缩放 · 全部地图无迷雾 · 沿已解锁航路旅行"
+    footer.add_theme_color_override("font_color",Color("b6c8d5"))
+    footer.add_theme_font_size_override("font_size",14)
+    column.add_child(footer)
+
+
+func _reflow_map() -> void:
+    if small_frame == null or large_frame == null:
+        return
+    var v: Vector2 = get_viewport().get_visible_rect().size
+    var compact: bool = v.x < 1040.0 or v.y < 610.0
+    # Physical pixel bounds keep the atlas legible at 1152, 1920 and on
+    # horizontal phones. Percentage-sized minimaps became oversized on 1080p.
+    var map_width: float = clampf(v.x * 0.185, 142.0, 206.0)
+    var map_height: float = clampf(v.y * 0.27, 116.0, 180.0)
+    small_frame.anchor_left = 1.0
+    small_frame.anchor_right = 1.0
+    small_frame.anchor_top = 0.0
+    small_frame.anchor_bottom = 0.0
+    small_frame.offset_left = -map_width - 14.0
+    small_frame.offset_right = -14.0
+    small_frame.offset_top = 14.0
+    small_frame.offset_bottom = 14.0 + map_height
+    small_header.custom_minimum_size.y = 29.0 if compact else 32.0
+    small_header.add_theme_font_size_override("font_size",12 if compact else 14)
+    large_frame.anchor_left = 0.018 if compact else 0.055
+    large_frame.anchor_right = 0.982 if compact else 0.945
+    large_frame.anchor_top = 0.018 if compact else 0.045
+    large_frame.anchor_bottom = 0.982 if compact else 0.955
+    full_heading.visible = not compact
+    full_heading.add_theme_font_size_override("font_size",20 if compact else 24)
+    sidebar.visible = not compact or v.x >= 1100.0
+    footer.visible = not compact
+    full_view.custom_minimum_size = Vector2(240,145) if compact else Vector2(450,280)
+    for button in [local_button,region_button,world_button]:
+        button.custom_minimum_size.y = 35 if compact else 43
+        button.add_theme_font_size_override("font_size",13 if compact else 16)
+    for button in [zoom_in_button,zoom_out_button,recenter_button]:
+        button.custom_minimum_size.y = 32 if compact else 43
+        button.add_theme_font_size_override("font_size",12 if compact else 16)
+    zoom_status.visible = not compact
+
+
+func bind_world(world_ref, router_ref) -> void:
+    world = world_ref
+    router = router_ref
+    small_view.setup(world,router,true)
+    full_view.setup(world,router,false)
+    displayed_context = ""
+    _refresh_info()
+
+func set_targets(main_id: String, side_id: String = "") -> void:
+    primary_target = main_id
+    secondary_target = side_id
+    small_view.targets(primary_target,secondary_target)
+    full_view.targets(primary_target,secondary_target)
+
+func set_story_route(map_id: String,description: String = "") -> void:
+    quest_destination = map_id
+    quest_summary = description
+    if small_view != null:
+        small_view.quest_destination = map_id
+        small_view.queue_redraw()
+    if full_view != null:
+        full_view.quest_destination = map_id
+        full_view.queue_redraw()
+
+func show_exploration(value: bool) -> void:
+    in_world = value
+    small_frame.visible = in_world and not overlay.visible
+
+func is_open() -> bool:
+    return overlay.visible
+
+func open_map() -> void:
+    if not in_world or world == null or not is_instance_valid(world.hero):
+        return
+    shown_mode = "local"
+    selected_map = ""
+    full_view.selected_location = ""
+    full_view.reset_local_view()
+    _set_mode("local")
+    overlay.show()
+    small_frame.hide()
+    opened.emit()
+
+func show_world_map() -> void:
+    open_map()
+    if overlay.visible:
+        _set_mode("world")
+
+func close_map() -> void:
+    if not overlay.visible:
+        return
+    overlay.hide()
+    small_frame.visible = in_world
+    closed.emit()
+
+func _set_mode(next_mode: String) -> void:
+    shown_mode = next_mode
+    full_view.display_mode(shown_mode)
+    _refresh_zoom_toolbar()
+    var name: String = "世界" if shown_mode=="world" else ("分区" if shown_mode=="region" else "当前区域")
+    full_heading.text = "✦ 星灯图志 / " + name
+    _refresh_info()
+
+func _zoom_local(factor: float) -> void:
+    if shown_mode != "local":
+        return
+    full_view.zoom_local(factor)
+    _refresh_zoom_toolbar()
+
+func _recenter_local() -> void:
+    if shown_mode != "local":
+        return
+    full_view.recenter_local()
+    _refresh_zoom_toolbar()
+
+func _refresh_zoom_toolbar() -> void:
+    if zoom_in_button == null:
+        return
+    var local: bool = shown_mode == "local"
+    zoom_in_button.visible = local
+    zoom_out_button.visible = local
+    recenter_button.visible = local
+    zoom_in_button.disabled = full_view.local_zoom >= View.MAX_LOCAL_ZOOM
+    zoom_out_button.disabled = full_view.local_zoom <= View.MIN_LOCAL_ZOOM
+    zoom_status.text = ("缩放 %d%% · 拖动查看地图" % roundi(full_view.local_zoom * 100.0)) if local else "轻触地点查看路线"
+
+func _on_location_selected(map_id: String) -> void:
+    selected_map = map_id
+    _refresh_info()
+
+func _try_travel() -> void:
+    if router == null:
+        return
+    var steps: Array[String] = router.shortest_route(selected_map)
+    if steps.size() <= 1 or not router.can_travel(steps[1]):
+        _refresh_info()
+        return
+    # Perform exactly one permitted adjacent leg, never bypassing story locks.
+    var target: String = steps[1]
+    close_map()
+    travel_requested.emit(target)
+
+func _refresh_info() -> void:
+    if map_info == null:
+        return
+    if world == null or router == null or router.state == null:
+        map_info.text = "尚未进入游戏。"
+        route_button.disabled = true
+        return
+    var world_name: String = str(world.region_name())
+    # The minimap refreshes frequently; only rebuild StyleBoxes on chapter
+    # changes, not once every 100ms while the player is walking.
+    if style_chapter != int(world.chapter):
+        style_chapter = int(world.chapter)
+        var accent: Color = CVisual.act_accent(style_chapter)
+        full_heading.add_theme_color_override("font_color",accent)
+        small_frame.add_theme_stylebox_override("panel",CVisual.surface(false,style_chapter))
+        large_frame.add_theme_stylebox_override("panel",CVisual.surface(true,style_chapter))
+    if small_header != null:
+        small_header.text = "◇ " + str(world.map_profile.get("name","地图")).left(6) + " / TAB"
+        small_header.tooltip_text = world_name + " · 点击查看区域、世界航路"
+    var hero_pos: Vector2i = Vector2i(-1,-1)
+    if is_instance_valid(world.hero):
+        hero_pos = Vector2i(world.hero.position / 32.0)
+    var area_class: String = "建筑内部" if not world.interior_building.is_empty() else str(world.map_profile.get("kind","field"))
+    var current_clock: Dictionary = router.state.rpg.get("game_clock",{})
+    var minutes: int = int(current_clock.get("minutes",480))
+    var time_label: String = "%02d:%02d" % [int(minutes/60),minutes%60]
+    var weather_id: String = str(world.ambience.weather) if world.ambience!=null and is_instance_valid(world.ambience) else "clear"
+    var weather_name: String = {"clear":"晴朗","rain":"阵雨","mist":"薄雾","ash":"浮灰"}.get(weather_id,"晴朗")
+    var discovery_line: String = ""
+    if world.interior_building.is_empty() and world.discoveries!=null:
+        var entries: Array = world.discoveries.entries(router.current_map())
+        if not entries.is_empty():
+            var finished: int = 0
+            for record in entries:
+                if bool(router.state.flags.get(world.discoveries.flag(router.current_map(),str(record.get("id",""))),false)):
+                    finished += 1
+            discovery_line = "\n地图调查：%d / %d" % [finished,entries.size()]
+    if world.interior_building.is_empty() and world.dungeon_puzzles!=null:
+        var current_dungeon: Dictionary = world.dungeon_puzzles.config(router.current_map())
+        if not current_dungeon.is_empty():
+            var unlocked: bool = bool(world.dungeon_puzzles.snapshot(router.state,router.current_map()).get("claimed",false))
+            discovery_line += "\n专属机关：" + ("已解开" if unlocked else "尚未解开")
+    if world.interior_building.is_empty() and world.town_ecology!=null:
+        var neighborhood: Dictionary = world.town_ecology.config(router.current_map())
+        if not neighborhood.is_empty():
+            var completed: int = world.town_ecology.completion_count(router.state,router.current_map())
+            discovery_line += "\n本地生活：%d / 3" % completed
+    if world.interior_building.is_empty() and world.field_ecology!=null:
+        var field_spec: Dictionary=world.field_ecology.config(router.current_map())
+        if not field_spec.is_empty():
+            var steps_done: int=world.field_ecology.completed(router.state,router.current_map())
+            var weather_slow: float=world.field_ecology.movement_multiplier(router.current_map(),weather_id)
+            discovery_line+="\n野外生态：%d / 4 · %s" % [steps_done,str(field_spec.get("identity","地貌探查"))]
+            if weather_slow<1.0:
+                discovery_line+="\n气象风险：行进速度 %d%%" % roundi(weather_slow*100.0)
+    map_info.text = "%s\n\n坐标：%d，%d  ·  %d × %d格\n类型：%s%s\n第%d天  %s  ·  %s" % [world_name,hero_pos.x,hero_pos.y,world.WIDTH,world.HEIGHT,area_class,discovery_line,int(current_clock.get("day",1)),time_label,weather_name]
+    if shown_mode in ["world","region"]:
+        var info: Dictionary = router.map_info(selected_map)
+        if info.is_empty():
+            route_info.text = "轻触城镇、洞窟或野外地点查看。\n浅蓝：到访\n灰白：发现\n暗色：未探索\n\n已到访 %d / 40" % router.visited_count()
+        else:
+            var name: String = str(info.get("name",selected_map))
+            var steps: Array[String] = router.shortest_route(selected_map)
+            var available: bool = steps.size() > 1 and router.can_travel(steps[1])
+            var selected_spec: Dictionary = router.geography.zone(selected_map)
+            var biome: String = str(selected_spec.get("biome",""))
+            var setting: String = str(selected_spec.get("layout",""))
+            var directions: PackedStringArray = []
+            for stop in steps:
+                directions.append(str(router.map_info(stop).get("name",stop)).left(8))
+            var instructions: String = " → ".join(directions) if available else "尚未探索出可到达该地点的连续航路"
+            route_info.text = "目的地：%s\n地貌：%s\n布局：%s\n\n路线：%s" % [name,biome,setting,instructions]
+        route_button.visible = true
+        var possible_route: Array[String] = router.shortest_route(selected_map)
+        route_button.disabled = possible_route.size() <= 1 or not router.can_travel(possible_route[1])
+        route_button.text = "前往下一站（不越级）"
+    else:
+        route_info.text = "金色：主线目标\n浅蓝：委托NPC、证物、回访\n青绿：地区线索和隐藏补给\n浅金：街区生活与夜间活动\n绿色：客栈/建筑/营地\n紫色：符文机关\n白金：自己\n\n" + (quest_summary if not quest_destination.is_empty() else "探索世界并选择下一条支线。")
+        route_button.visible = false
+        route_button.disabled = true
+
+func _process(delta: float) -> void:
+    if not small_frame.visible and not overlay.visible:
+        return
+    # Reset map framing on outdoor/interior changes; do not store fog state.
+    if world != null and is_instance_valid(world.layer):
+        var context: String = str(world.map_profile.get("id",""))+"#"+str(world.interior_building)
+        if displayed_context != context:
+            displayed_context = context
+            small_view.reset_local_view()
+            full_view.reset_local_view()
+            _refresh_zoom_toolbar()
+            _refresh_info()
+    update_clock += delta
+    if update_clock < (0.10 if small_frame.visible else 0.16):
+        return
+    update_clock = 0.0
+    if small_frame.visible:
+        small_view.queue_redraw()
+    if overlay.visible:
+        full_view.queue_redraw()
+        _refresh_info()

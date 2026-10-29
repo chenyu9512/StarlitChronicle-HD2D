@@ -1,0 +1,47 @@
+name: Main2 Pixel Fantasy Local Theme Runtime
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "scripts/world_terrain_atlas_registry.gd"
+      - "scripts/c_art_overrides.gd"
+      - "scripts/c_act01_hd2d_dressing.gd"
+      - "tools/smoke_pixel_fantasy_local_runtime.gd"
+      - ".github/workflows/godot-pixel-fantasy-local.yml"
+permissions:
+  contents: read
+jobs:
+  pixel-fantasy-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate synthetic local-only 8-region test atlases
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,struct,zlib,pathlib
+          root=pathlib.Path('assets/art/local_themes/pixel_fantasy_v1')
+          (root/'regions').mkdir(parents=True,exist_ok=True)
+          (root/'props').mkdir(parents=True,exist_ok=True)
+          def png(path,w,h,r,g,b):
+              raw=b''.join(b'\x00'+bytes((r,g,b,255))*w for _ in range(h))
+              def chunk(typ,data):return struct.pack('>I',len(data))+typ+data+struct.pack('>I',zlib.crc32(typ+data)&0xffffffff)
+              path.write_bytes(b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',w,h,8,6,0,0,0))+chunk(b'IDAT',zlib.compress(raw))+chunk(b'IEND',b''))
+          for region in ('coast','oaths','forge','isles','mirror','oldland','sanctum','city'):
+              for kind in ('ground','water'):
+                  png(root/'regions'/f'region_{region}_{kind}.png',256,256,48 if kind=='ground' else 30,130,90 if kind=='ground' else 180)
+          for i,name in enumerate(('cottage','well','fish_stall','lighthouse','harbor_crane','market_stall')):
+              png(root/'props'/f'{name}.png',64,96,180,120+i*8,75)
+          (root/'active.json').write_text(json.dumps({'schema':'starlit.pixel_fantasy.local.v1','enabled':True}),encoding='utf-8')
+          PY
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import local images and parse scripts
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Run Pixel Fantasy runtime resolver integration test
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script tools/smoke_pixel_fantasy_local_runtime.gd

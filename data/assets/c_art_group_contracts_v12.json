@@ -1,0 +1,933 @@
+{
+  "schema": "starlit.c.art_group_contracts.v12",
+  "date": "2026-10-27",
+  "branch": "Main2美术优化版",
+  "source_image_manifest": "res://data/assets/c_art_usage_source_v12.json",
+  "external_image_manifest": "res://data/assets/c_art_usage_external_v12.json",
+  "source_sidecars_manifest": "res://data/assets/c_art_nonimage_groups_v12.json",
+  "counts": {
+    "png": 1413,
+    "archive": 85,
+    "other": 19,
+    "groups": 27
+  },
+  "promotion_rule": "Never promote source-only, reserve, legacy redirect or semantic candidate as verified runtime without matching identity/shape and passing Godot visual QA.",
+  "act1_chapter_coverage": [
+    {
+      "chapter": 1,
+      "scene": "晨露村·澄舟旧屋",
+      "map_id": "map_coast_01",
+      "required_scene_kind": "house_interior",
+      "gap": "none",
+      "gate": "not_tested"
+    },
+    {
+      "chapter": 2,
+      "scene": "白砂港·收容所",
+      "map_id": "map_coast_02",
+      "required_scene_kind": "shelter_interior",
+      "gap": "missing_unique_shelter_interior",
+      "gate": "not_tested"
+    },
+    {
+      "chapter": 3,
+      "scene": "断桅海蚀洞",
+      "map_id": "map_coast_04",
+      "required_scene_kind": "dungeon",
+      "gap": "none",
+      "gate": "not_tested"
+    },
+    {
+      "chapter": 4,
+      "scene": "白砂港·黑帆酒馆",
+      "map_id": "map_coast_02",
+      "required_scene_kind": "tavern_interior",
+      "gap": "missing_unique_tavern_interior",
+      "gate": "not_tested"
+    },
+    {
+      "chapter": 5,
+      "scene": "鲸骨浅滩",
+      "map_id": "map_coast_03",
+      "required_scene_kind": "shore_subzone",
+      "gap": "missing_authored_shoal_subzone",
+      "gate": "not_tested"
+    },
+    {
+      "chapter": 6,
+      "scene": "潮歌灯塔",
+      "map_id": "map_coast_05",
+      "required_scene_kind": "lighthouse",
+      "gap": "none",
+      "gate": "not_tested"
+    }
+  ],
+  "groups": [
+    {
+      "id": "external/bosses/foozle_goblin_beast",
+      "source_images": 0,
+      "external_images": 36,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "optional_boss_archetype": 36
+      },
+      "regions": {
+        "region_oaths": 36
+      },
+      "scenes": {
+        "map_oaths_03": 36
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 4,
+        "none": 32
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Encounter boss archetype later region, not named act I fog boss.",
+      "contract": "boss_animation"
+    },
+    {
+      "id": "external/bosses/foozle_skeleton_ancient",
+      "source_images": 0,
+      "external_images": 36,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "optional_boss_archetype": 36
+      },
+      "regions": {
+        "region_oldland": 36
+      },
+      "scenes": {
+        "map_oldland_04": 36
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 4,
+        "none": 32
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Distinct late ancient-boss animation set, not copied across 66 bosses.",
+      "contract": "boss_animation"
+    },
+    {
+      "id": "external/bosses/foozle_skeleton_king",
+      "source_images": 0,
+      "external_images": 36,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "optional_boss_archetype": 36
+      },
+      "regions": {
+        "region_oldland": 36
+      },
+      "scenes": {
+        "map_oldland_04": 36
+      },
+      "runtime_evidence": {
+        "none": 34,
+        "legacy_slot_redirect_unreviewed": 2
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Distinct late skeleton-king boss set, not generic boss stand-in.",
+      "contract": "boss_animation"
+    },
+    {
+      "id": "external/characters/foozle_necromancer",
+      "source_images": 0,
+      "external_images": 41,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "npc_or_combat_archetype": 41
+      },
+      "regions": {
+        "region_mirror": 41
+      },
+      "scenes": {
+        "map_mirror_01": 41
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 2,
+        "none": 39
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Directional necromancer later region archetype, not protagonist Chengzhou.",
+      "contract": "character_animation"
+    },
+    {
+      "id": "external/characters/foozle_sorceress",
+      "source_images": 0,
+      "external_images": 40,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "npc_or_combat_archetype": 40
+      },
+      "regions": {
+        "region_mirror": 40
+      },
+      "scenes": {
+        "map_mirror_01": 40
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 2,
+        "none": 38
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Directional sorceress later region archetype, not unique NPC identities.",
+      "contract": "character_animation"
+    },
+    {
+      "id": "external/characters/foozle_warrior",
+      "source_images": 0,
+      "external_images": 40,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "npc_or_combat_archetype": 40
+      },
+      "regions": {
+        "region_oaths": 40
+      },
+      "scenes": {
+        "map_oaths_01": 40
+      },
+      "runtime_evidence": {
+        "none": 38,
+        "legacy_slot_redirect_unreviewed": 2
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Directional warrior guards, do not use as four different protagonists.",
+      "contract": "character_animation"
+    },
+    {
+      "id": "external/effects/foozle_effects",
+      "source_images": 0,
+      "external_images": 19,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "vfx_sequence": 19
+      },
+      "regions": {
+        "region_coast": 13,
+        "global_or_pending": 6
+      },
+      "scenes": {
+        "map_coast_01": 5,
+        "global_or_pending": 6,
+        "map_coast_03": 8
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 1,
+        "none": 18
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Pickup/rarity/wave vfx sequences, infer animation sequence frame count from actual dimensions.",
+      "contract": "effects"
+    },
+    {
+      "id": "external/icons/owlish_icons",
+      "source_images": 0,
+      "external_images": 108,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_existing_art_gate",
+      "roles": {
+        "ui_icon": 108
+      },
+      "regions": {
+        "global_or_pending": 108
+      },
+      "scenes": {
+        "global_or_pending": 108
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 5,
+        "288_content_record_index": 28,
+        "none": 75
+      },
+      "review_gate": [
+        "icon_semantic_or_ninepatch",
+        "visual_consistency",
+        "resolution_and_keyboard_gamepad",
+        "godot_render_qa"
+      ],
+      "deliverable": "Inventory icons: 28 wired; remaining 80 are targeted to status effects, controls, quest/map and service surfaces.",
+      "contract": "global_ui"
+    },
+    {
+      "id": "external/monsters/foozle_cultist",
+      "source_images": 0,
+      "external_images": 28,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "regional_monster_archetype": 28
+      },
+      "regions": {
+        "region_oldland": 28
+      },
+      "scenes": {
+        "map_oldland_04": 28
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 4,
+        "none": 24
+      },
+      "review_gate": [
+        "frame_sequence_and_four_direction",
+        "identity_match",
+        "godot_render_qa"
+      ],
+      "deliverable": "Four-facing cultist elite for oldland/secret areas; validate hit and direction frames.",
+      "contract": "monster_animation"
+    },
+    {
+      "id": "external/props/pixelkensei_nature",
+      "source_images": 0,
+      "external_images": 10,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_existing_art_gate",
+      "roles": {
+        "east_asian_town_prop_candidate": 2,
+        "shore_terrain_or_decor": 5,
+        "ambient_prop_candidate": 1,
+        "full_prop_sheet": 2
+      },
+      "regions": {
+        "region_oaths": 2,
+        "region_coast": 5,
+        "region_city": 3
+      },
+      "scenes": {
+        "map_oaths_01": 2,
+        "map_coast_03": 5,
+        "map_city_01": 3
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 7,
+        "24_scene_dressing_placement_manifest": 3
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Nature and shore dressing, only true-size collision-safe cells; avoid cherry tree as coastal pine.",
+      "contract": "scenery_props"
+    },
+    {
+      "id": "external/props/pixelkensei_props",
+      "source_images": 0,
+      "external_images": 10,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_existing_art_gate",
+      "roles": {
+        "east_asian_town_prop_candidate": 4,
+        "ambient_prop_candidate": 1,
+        "village_or_tavern_decor": 2,
+        "harbor_navigation_prop": 1,
+        "full_prop_sheet": 2
+      },
+      "regions": {
+        "region_oaths": 4,
+        "region_city": 3,
+        "region_coast": 3
+      },
+      "scenes": {
+        "map_oaths_01": 4,
+        "map_city_01": 3,
+        "map_coast_01": 2,
+        "map_coast_02": 1
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 3,
+        "24_scene_dressing_placement_manifest": 4,
+        "none": 3
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Sake barrel/lantern candidates for village/tavern, Japanese themed prop roles reserved to oath region.",
+      "contract": "scenery_props"
+    },
+    {
+      "id": "external/props/pixelkensei_structures",
+      "source_images": 0,
+      "external_images": 10,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "east_asian_town_prop_candidate": 2,
+        "ambient_prop_candidate": 1,
+        "village_or_tavern_decor": 1,
+        "harbor_navigation_prop": 4,
+        "full_prop_sheet": 2
+      },
+      "regions": {
+        "region_oaths": 2,
+        "region_city": 3,
+        "region_coast": 5
+      },
+      "scenes": {
+        "map_oaths_01": 2,
+        "map_city_01": 3,
+        "map_coast_01": 1,
+        "map_coast_02": 4
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 10
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Well, bridge, shrine wall segments; never a full home/tower facade.",
+      "contract": "scenery_props"
+    },
+    {
+      "id": "external/tilesets/foozle_desert",
+      "source_images": 0,
+      "external_images": 6,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "dry_shore_or_dune_candidate": 6
+      },
+      "regions": {
+        "region_coast": 6
+      },
+      "scenes": {
+        "map_coast_03": 6
+      },
+      "runtime_evidence": {
+        "none": 5,
+        "legacy_slot_redirect_unreviewed": 1
+      },
+      "review_gate": [
+        "source_art_style",
+        "uv_32px_and_collision",
+        "world_navigation",
+        "godot_render_qa"
+      ],
+      "deliverable": "Dune/shore candidates only after tile semantic and water separation validation.",
+      "contract": "terrain_atlas"
+    },
+    {
+      "id": "external/tilesets/foozle_dungeon",
+      "source_images": 0,
+      "external_images": 1,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "cavern_interior_candidate": 1
+      },
+      "regions": {
+        "region_coast": 1
+      },
+      "scenes": {
+        "map_coast_04": 1
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 1
+      },
+      "review_gate": [
+        "source_art_style",
+        "uv_32px_and_collision",
+        "world_navigation",
+        "godot_render_qa"
+      ],
+      "deliverable": "Cave interior candidate, not outdoor water.",
+      "contract": "terrain_atlas"
+    },
+    {
+      "id": "external/tilesets/foozle_exterior",
+      "source_images": 0,
+      "external_images": 1,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "topdown_exterior_terrain_candidate": 1
+      },
+      "regions": {
+        "region_city": 1
+      },
+      "scenes": {
+        "map_city_01": 1
+      },
+      "runtime_evidence": {
+        "legacy_slot_redirect_unreviewed": 1
+      },
+      "review_gate": [
+        "source_art_style",
+        "uv_32px_and_collision",
+        "world_navigation",
+        "godot_render_qa"
+      ],
+      "deliverable": "Top-down town exterior baseline after atlas mapping.",
+      "contract": "terrain_atlas"
+    },
+    {
+      "id": "external/tilesets/foozle_lava",
+      "source_images": 0,
+      "external_images": 15,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "forge_dungeon_and_fire_vfx_atlas": 15
+      },
+      "regions": {
+        "region_forge": 15
+      },
+      "scenes": {
+        "map_forge_04": 15
+      },
+      "runtime_evidence": {
+        "none": 14,
+        "legacy_slot_redirect_unreviewed": 1
+      },
+      "review_gate": [
+        "source_art_style",
+        "uv_32px_and_collision",
+        "world_navigation",
+        "godot_render_qa"
+      ],
+      "deliverable": "Forge/volcanic maps only, not first-act coast.",
+      "contract": "terrain_atlas"
+    },
+    {
+      "id": "external/tilesets/kenney_roguelike",
+      "source_images": 0,
+      "external_images": 2,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "roguelike_town_dungeon_texture_reference": 2
+      },
+      "regions": {
+        "region_oldland": 2
+      },
+      "scenes": {
+        "map_oldland_01": 2
+      },
+      "runtime_evidence": {
+        "none": 2
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Assess tile dimensions and visual style; separate optional oldland dungeon atlas.",
+      "contract": "terrain_reference"
+    },
+    {
+      "id": "external/ui/kenney_fantasy_ui",
+      "source_images": 0,
+      "external_images": 140,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "ui_skin_component": 140
+      },
+      "regions": {
+        "global_or_pending": 140
+      },
+      "scenes": {
+        "global_or_pending": 140
+      },
+      "runtime_evidence": {
+        "none": 140
+      },
+      "review_gate": [
+        "icon_semantic_or_ninepatch",
+        "visual_consistency",
+        "resolution_and_keyboard_gamepad",
+        "godot_render_qa"
+      ],
+      "deliverable": "NinePatchRect panels and button focus/disabled states; theme variant pool for title/dialogue/menu.",
+      "contract": "global_ui"
+    },
+    {
+      "id": "external/ui/kenney_rpg_ui",
+      "source_images": 0,
+      "external_images": 88,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "ui_skin_component": 88
+      },
+      "regions": {
+        "global_or_pending": 88
+      },
+      "scenes": {
+        "global_or_pending": 88
+      },
+      "runtime_evidence": {
+        "none": 88
+      },
+      "review_gate": [
+        "icon_semantic_or_ninepatch",
+        "visual_consistency",
+        "resolution_and_keyboard_gamepad",
+        "godot_render_qa"
+      ],
+      "deliverable": "Alternate complete RPG UI skin; avoid mixing two themes in same screen without style review.",
+      "contract": "global_ui"
+    },
+    {
+      "id": "source/2D Characters - Cute Adventurers_4_3",
+      "source_images": 383,
+      "external_images": 0,
+      "archives": 0,
+      "other_sources": 3,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "shore_wildlife": 42,
+        "guard_candidate": 42,
+        "island_wildlife": 42,
+        "field_wildlife": 42,
+        "ambient_mechanic": 42,
+        "dungeon_enemy": 42,
+        "field_enemy": 42,
+        "ambient_actor_candidate": 89,
+        "metadata_or_instruction": 2,
+        "sprite_rig_source": 1
+      },
+      "regions": {
+        "region_coast": 173,
+        "region_oaths": 84,
+        "region_isles": 42,
+        "region_forge": 42,
+        "region_oldland": 42,
+        "global_or_pending": 3
+      },
+      "scenes": {
+        "map_coast_01": 131,
+        "map_oaths_01": 42,
+        "map_isles_02": 42,
+        "map_coast_03": 42,
+        "map_forge_01": 42,
+        "map_oldland_04": 42,
+        "map_oaths_03": 42,
+        "global_or_pending": 3
+      },
+      "runtime_evidence": {
+        "not_connected": 386
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "AnimatedSprite2D sprite frames for ambient wildlife and non-canonical NPCs; never replace four protagonists by occupation.",
+      "contract": "character_motion"
+    },
+    {
+      "id": "source/2D Isometric Village Asset Pack",
+      "source_images": 4,
+      "external_images": 0,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "isometric_reference": 4
+      },
+      "regions": {
+        "global_or_pending": 4
+      },
+      "scenes": {
+        "global_or_pending": 4
+      },
+      "runtime_evidence": {
+        "not_connected": 4
+      },
+      "review_gate": [
+        "references_are_not_game_assets"
+      ],
+      "deliverable": "Perspective/color/layout study; no direct 2D orthogonal map binding.",
+      "contract": "reference_only"
+    },
+    {
+      "id": "source/Aekashics Librarium - 3 Frame Frontview $Big_Monster Sprites",
+      "source_images": 42,
+      "external_images": 0,
+      "archives": 0,
+      "other_sources": 0,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "ancient_dark_monster_candidate": 6,
+        "divine_or_dragon_encounter_candidate": 2,
+        "industrial_or_earth_monster_candidate": 1,
+        "military_or_knight_enemy_candidate": 8,
+        "coastal_monster_candidate": 3,
+        "flora_or_wildlife_enemy_candidate": 2,
+        "unidentified_bestiary_reserve": 20
+      },
+      "regions": {
+        "region_oldland": 6,
+        "region_isles": 2,
+        "region_forge": 1,
+        "region_oaths": 8,
+        "region_coast": 5,
+        "global_or_pending": 20
+      },
+      "scenes": {
+        "map_oldland_04": 6,
+        "map_isles_04": 2,
+        "map_forge_04": 1,
+        "map_oaths_04": 8,
+        "map_coast_04": 3,
+        "map_coast_03": 2,
+        "global_or_pending": 20
+      },
+      "runtime_evidence": {
+        "not_connected": 42
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "3-frame enemy atlases with correct content identity and battle-scale conversion.",
+      "contract": "battle_enemy"
+    },
+    {
+      "id": "source/Aekashics Librarium - Dragonbones Animated Battlers",
+      "source_images": 0,
+      "external_images": 0,
+      "archives": 72,
+      "other_sources": 1,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "sealed_source_archive": 72,
+        "bestiary_identity_pending": 1
+      },
+      "regions": {
+        "region_forge": 15,
+        "global_or_pending": 25,
+        "region_coast": 6,
+        "region_oaths": 13,
+        "region_oldland": 7,
+        "region_isles": 7
+      },
+      "scenes": {
+        "map_forge_04": 15,
+        "global_or_pending": 25,
+        "map_coast_04": 6,
+        "map_oaths_04": 13,
+        "map_oldland_04": 7,
+        "map_isles_04": 7
+      },
+      "runtime_evidence": {
+        "not_connected": 73
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Extract and catalog source archives; convert skeleton/DragonBones with verified exporter, first before runtime.",
+      "contract": "battle_rigs"
+    },
+    {
+      "id": "source/Aekashics Librarium MV Format Animated Battlers",
+      "source_images": 47,
+      "external_images": 0,
+      "archives": 13,
+      "other_sources": 1,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "ancient_dark_monster_candidate": 1,
+        "coastal_monster_candidate": 11,
+        "flora_or_wildlife_enemy_candidate": 11,
+        "industrial_or_earth_monster_candidate": 4,
+        "unidentified_bestiary_reserve": 5,
+        "spirit_or_illusion_enemy_candidate": 5,
+        "divine_or_dragon_encounter_candidate": 8,
+        "military_or_knight_enemy_candidate": 2,
+        "sealed_source_archive": 13,
+        "bestiary_identity_pending": 1
+      },
+      "regions": {
+        "region_oldland": 2,
+        "region_coast": 23,
+        "region_forge": 4,
+        "global_or_pending": 14,
+        "region_mirror": 5,
+        "region_isles": 10,
+        "region_oaths": 3
+      },
+      "scenes": {
+        "map_oldland_04": 2,
+        "map_coast_04": 12,
+        "map_coast_03": 11,
+        "map_forge_04": 4,
+        "global_or_pending": 14,
+        "map_mirror_04": 5,
+        "map_isles_04": 10,
+        "map_oaths_04": 3
+      },
+      "runtime_evidence": {
+        "not_connected": 61
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "MV side-view animation sheet slicing; confirm layout and boss phase identity.",
+      "contract": "battle_enemy"
+    },
+    {
+      "id": "source/Chibi-Ragnarok-Inspired_FREE_Pack",
+      "source_images": 35,
+      "external_images": 0,
+      "archives": 0,
+      "other_sources": 1,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "costume_style_reference": 35,
+        "metadata_or_instruction": 1
+      },
+      "regions": {
+        "global_or_pending": 36
+      },
+      "scenes": {
+        "global_or_pending": 36
+      },
+      "runtime_evidence": {
+        "not_connected": 36
+      },
+      "review_gate": [
+        "references_are_not_game_assets"
+      ],
+      "deliverable": "Outfit reference and proportions; canonical characters require separate signed-off identity.",
+      "contract": "reference_only"
+    },
+    {
+      "id": "source/import_metadata",
+      "source_images": 0,
+      "external_images": 0,
+      "archives": 0,
+      "other_sources": 10,
+      "priority": "world_reuse_or_global_ui",
+      "roles": {
+        "metadata_or_instruction": 10
+      },
+      "regions": {
+        "global_or_pending": 10
+      },
+      "scenes": {
+        "global_or_pending": 10
+      },
+      "runtime_evidence": {
+        "not_connected": 10
+      },
+      "review_gate": [
+        "dimensions",
+        "content_identity",
+        "visual_alignment",
+        "godot_render_qa"
+      ],
+      "deliverable": "Preserve acquisition and source license notes, never included as gameplay resource.",
+      "contract": "metadata"
+    },
+    {
+      "id": "source/kenney_sketch-town-expansion",
+      "source_images": 235,
+      "external_images": 0,
+      "archives": 0,
+      "other_sources": 3,
+      "priority": "act01_if_semantically_valid",
+      "roles": {
+        "reference_only": 2,
+        "topdown_terrain_or_dressing_candidate": 13,
+        "town_architecture_candidate": 220,
+        "map_editor_source": 2,
+        "metadata_or_instruction": 1
+      },
+      "regions": {
+        "global_or_pending": 5,
+        "region_coast": 13,
+        "region_city": 220
+      },
+      "scenes": {
+        "global_or_pending": 5,
+        "map_coast_01": 13,
+        "map_city_01": 220
+      },
+      "runtime_evidence": {
+        "not_connected": 238
+      },
+      "review_gate": [
+        "source_art_style",
+        "uv_32px_and_collision",
+        "world_navigation",
+        "godot_render_qa"
+      ],
+      "deliverable": "Group directional roof/ground/walls and doors; export validated top-down atlas with collision masks.",
+      "contract": "tile_group"
+    }
+  ]
+}

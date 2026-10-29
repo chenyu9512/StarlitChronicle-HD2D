@@ -1,0 +1,69 @@
+{
+  "schema": "starlit.act01.shoal_runtime.v1",
+  "map_id": "map_coast_03",
+  "chapter": 5,
+  "zone": "whale_shoal_crescent",
+  "note": "One dedicated walkable chapter-five rescue pocket within existing 94x54 Saltwind Road sector. Keep authored exit, V3 roads, whale-bone art and map ID unchanged. Every observation is physical, no rewards.",
+  "story_points": {
+    "key_npc": [
+      61,
+      40
+    ],
+    "clue": [
+      65,
+      41
+    ],
+    "witness": [
+      70,
+      41
+    ],
+    "crisis": [
+      72,
+      46
+    ],
+    "resolve": [
+      65,
+      47
+    ]
+  },
+  "investigations": [
+    {
+      "id": "red_flag",
+      "cell": [
+        62,
+        43
+      ],
+      "kind": "flag",
+      "title": "渔民红旗 · 危险水位",
+      "first_text": "渔民在退潮线旁立起红旗：星纹发亮时水流会突然回冲，所有人必须避开发亮区。",
+      "repeat_text": "红旗仍朝向危险潮沟；亮起的星纹不是可以拆除的位置。"
+    },
+    {
+      "id": "star_chain",
+      "cell": [
+        68,
+        45
+      ],
+      "kind": "chain",
+      "title": "古兽脊背 · 三重星锁",
+      "first_text": "从鲸骨残骸一侧辨认出古兽脊背上的三重星纹锁，应该借助朔弦的两声短哨引导转身，再逐一拆下未发亮的锁扣。",
+      "repeat_text": "三重星锁位置已记录；直接攻击古兽本体无法完成救援。"
+    },
+    {
+      "id": "retreat_line",
+      "cell": [
+        73,
+        43
+      ],
+      "kind": "safe_path",
+      "title": "半月湾 · 安全退潮线",
+      "first_text": "沿半月湾的白沙缓坡划出撤离路线，确认渔船与普通人可以撤回高地，不必靠牺牲古兽来保住航道。",
+      "repeat_text": "安全退潮线路已核对，可以返回主线冲突点决定是否与古兽交锋。"
+    }
+  ],
+  "order": [
+    "red_flag",
+    "star_chain",
+    "retreat_line"
+  ]
+}

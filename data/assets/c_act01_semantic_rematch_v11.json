@@ -1,0 +1,1985 @@
+{
+  "schema": "starlit.c.act01.semantic_rematch.v11",
+  "date": "2026-10-27",
+  "branch": "Main2美术优化版",
+  "sources": [
+    "data/assets/c_act01_art_production_v10.json",
+    "data/assets/c_third_party_only_migration_v1.json",
+    "GitHub tree Main2"
+  ],
+  "policy": {
+    "main_locked": true,
+    "third_party_only": true,
+    "source_packs_originals_are_not_runtime": true,
+    "validate_physical_presence_separately_from_semantic_fit": true,
+    "all_images_require_godot_and_visual_review_for_commercial_signoff": true
+  },
+  "summary": {
+    "total_unique_map_slots": 125,
+    "direct_present": 0,
+    "indirect_third_party": 125,
+    "broken": 0,
+    "role_named_only": 6,
+    "analogue_provisional": 2,
+    "semantic_untested": 117
+  },
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "第1章·不曾寄出的信",
+      "story_location": "晨露村·澄舟旧屋",
+      "map_id": "map_coast_01",
+      "required_scene_kind": "house_interior",
+      "required_building_id": "house",
+      "special_scene_blocker": "none",
+      "atlas_and_semantic_visual_acceptance": "not_tested",
+      "commercial_art_gate": "blocked",
+      "slot_count": 101
+    },
+    {
+      "chapter": 2,
+      "title": "第2章·失去名字的归人",
+      "story_location": "白砂港·收容所",
+      "map_id": "map_coast_02",
+      "required_scene_kind": "shelter_interior",
+      "required_building_id": "shelter",
+      "special_scene_blocker": "missing_unique_shelter_interior",
+      "atlas_and_semantic_visual_acceptance": "not_tested",
+      "commercial_art_gate": "blocked",
+      "slot_count": 101
+    },
+    {
+      "chapter": 3,
+      "title": "第3章·海雾中的遗迹",
+      "story_location": "断桅海蚀洞",
+      "map_id": "map_coast_04",
+      "required_scene_kind": "dungeon",
+      "required_building_id": "",
+      "special_scene_blocker": "none",
+      "atlas_and_semantic_visual_acceptance": "not_tested",
+      "commercial_art_gate": "blocked",
+      "slot_count": 72
+    },
+    {
+      "chapter": 4,
+      "title": "第4章·第三位同行者",
+      "story_location": "白砂港·黑帆酒馆",
+      "map_id": "map_coast_02",
+      "required_scene_kind": "tavern_interior",
+      "required_building_id": "tavern",
+      "special_scene_blocker": "missing_unique_tavern_interior",
+      "atlas_and_semantic_visual_acceptance": "not_tested",
+      "commercial_art_gate": "blocked",
+      "slot_count": 101
+    },
+    {
+      "chapter": 5,
+      "title": "第5章·潮底巨影",
+      "story_location": "鲸骨浅滩",
+      "map_id": "map_coast_03",
+      "required_scene_kind": "shore_subzone",
+      "required_building_id": "",
+      "special_scene_blocker": "missing_authored_shoal_subzone",
+      "atlas_and_semantic_visual_acceptance": "not_tested",
+      "commercial_art_gate": "blocked",
+      "slot_count": 75
+    },
+    {
+      "chapter": 6,
+      "title": "第6章·归航灯重燃",
+      "story_location": "潮歌灯塔",
+      "map_id": "map_coast_05",
+      "required_scene_kind": "lighthouse",
+      "required_building_id": "",
+      "special_scene_blocker": "none",
+      "atlas_and_semantic_visual_acceptance": "not_tested",
+      "commercial_art_gate": "blocked",
+      "slot_count": 74
+    }
+  ],
+  "maps": {
+    "map_coast_01": {
+      "map_id": "map_coast_01",
+      "scene_kind": "outside_world_or_shared_interiors",
+      "slots": [
+        "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "res://assets/art/tilesets/regions/region_coast_water.png",
+        "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg",
+        "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_guild.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_house.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_inn.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_shop.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_shrine.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_01_smith.svg",
+        "res://assets/art/interiors/coastal_district/dew_guild_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_house_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_shop_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_shrine_tileset.svg",
+        "res://assets/art/interiors/coastal_district/dew_smith_tileset.svg",
+        "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg",
+        "res://assets/art/props/coast/anchor.png",
+        "res://assets/art/props/coast/barrel.png",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/cottage.png",
+        "res://assets/art/props/coast/crate.png",
+        "res://assets/art/props/coast/dock_boat.png",
+        "res://assets/art/props/coast/fish_stall.png",
+        "res://assets/art/props/coast/fishing_net.png",
+        "res://assets/art/props/coast/flowerpot.png",
+        "res://assets/art/props/coast/grass.png",
+        "res://assets/art/props/coast/medicine_basket.png",
+        "res://assets/art/props/coast/palm_tree.png",
+        "res://assets/art/props/coast/pier_post.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/rope_coil.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/shell.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/props/coast/star_lantern.png",
+        "res://assets/art/props/coast/well.png",
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "notes": []
+    },
+    "map_coast_02": {
+      "map_id": "map_coast_02",
+      "scene_kind": "outside_world_or_shared_interiors",
+      "slots": [
+        "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "res://assets/art/tilesets/regions/region_coast_water.png",
+        "res://assets/art/exteriors/coast_final_pass/harbor_detail_atlas.svg",
+        "res://assets/art/exteriors/coast_final_pass/harbor_crane.svg",
+        "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_guild.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_house.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_inn.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_shop.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_shrine.svg",
+        "res://assets/art/exteriors/coast_final_pass/map_coast_02_smith.svg",
+        "res://assets/art/interiors/coastal_district/harbor_guild_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_house_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_inn_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_shop_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_shrine_tileset.svg",
+        "res://assets/art/interiors/coastal_district/harbor_smith_tileset.svg",
+        "res://assets/art/props/coast/anchor.png",
+        "res://assets/art/props/coast/barrel.png",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/cottage.png",
+        "res://assets/art/props/coast/crate.png",
+        "res://assets/art/props/coast/dock_boat.png",
+        "res://assets/art/props/coast/fish_stall.png",
+        "res://assets/art/props/coast/fishing_net.png",
+        "res://assets/art/props/coast/flowerpot.png",
+        "res://assets/art/props/coast/grass.png",
+        "res://assets/art/props/coast/medicine_basket.png",
+        "res://assets/art/props/coast/palm_tree.png",
+        "res://assets/art/props/coast/pier_post.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/rope_coil.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/shell.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/props/coast/star_lantern.png",
+        "res://assets/art/props/coast/well.png",
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "notes": []
+    },
+    "map_coast_03": {
+      "map_id": "map_coast_03",
+      "scene_kind": "outside_world_or_shared_interiors",
+      "slots": [
+        "res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg",
+        "res://assets/art/tilesets/regions/region_coast_water.png",
+        "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+        "res://assets/art/props/coast/anchor.png",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/rope_coil.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/shell.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "notes": []
+    },
+    "map_coast_04": {
+      "map_id": "map_coast_04",
+      "scene_kind": "outside_world_or_shared_interiors",
+      "slots": [
+        "res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg",
+        "res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg",
+        "res://assets/art/exteriors/coast_final_pass/cavern_detail_atlas.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_stalactite.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_crystal.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_altar.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_foreground_column.svg",
+        "res://assets/art/exteriors/coast_final_pass/cave_hanging_ledge.svg",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/crate.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "notes": []
+    },
+    "map_coast_05": {
+      "map_id": "map_coast_05",
+      "scene_kind": "outside_world_or_shared_interiors",
+      "slots": [
+        "res://assets/art/tilesets/regions/region_coast_ground.png",
+        "res://assets/art/tilesets/regions/region_coast_water.png",
+        "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+        "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+        "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+        "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+        "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+        "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+        "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+        "res://assets/art/props/coast/beacon.png",
+        "res://assets/art/props/coast/rock.png",
+        "res://assets/art/props/coast/sea_crystal.png",
+        "res://assets/art/props/coast/sign.png",
+        "res://assets/art/props/coast/star_lantern.png",
+        "res://assets/art/characters/chengzhou/battle.png",
+        "res://assets/art/characters/chengzhou/dialogue.png",
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+        "res://assets/art/characters/lanyin/battle.png",
+        "res://assets/art/characters/lanyin/dialogue.png",
+        "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+        "res://assets/art/characters/leon/battle.png",
+        "res://assets/art/characters/leon/dialogue.png",
+        "res://assets/art/characters/leon/walk_4dir_3frames.png",
+        "res://assets/art/characters/shuoxian/battle.png",
+        "res://assets/art/characters/shuoxian/dialogue.png",
+        "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+        "res://assets/art/monsters/coast/fog_crab/battle.png",
+        "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/battle.png",
+        "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/battle.png",
+        "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/battle.png",
+        "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/battle.png",
+        "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/battle.png",
+        "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/battle.png",
+        "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/battle.png",
+        "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/battle.png",
+        "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+        "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg"
+      ],
+      "notes": []
+    }
+  },
+  "slots": [
+    {
+      "slot": "res://assets/art/tilesets/regions/region_coast_ground.png",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:terrain",
+        "map_coast_02:terrain",
+        "map_coast_05:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/tilesets/regions/region_coast_water.png",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:terrain",
+        "map_coast_02:terrain",
+        "map_coast_03:terrain",
+        "map_coast_05:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/coastal_detail_atlas.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:terrain",
+        "map_coast_03:terrain",
+        "map_coast_05:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/fish_net_stand.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_02_stone_lantern_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/tide_pool.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_02_koi_pond_tile_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "provisional_role_analogue_requires_art_review",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/dune_grass.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/quest_glow.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/spritesheet/prop_pixelkensei_structures_feudal_japan_structures_spritesheet.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_04:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/sea_bridge.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_04_wooden_bridge_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "role_named_candidate_not_visual_tested",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/tide_cliff.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_04:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/saltwind_oak.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/sea_wind_pine.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/dune_shrub.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:scenery_sources",
+        "map_coast_02:scenery_sources",
+        "map_coast_03:scenery_sources",
+        "map_coast_05:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_01_guild.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_01_house.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_01_inn.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_01_shop.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_01_shrine.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_07_temple_pillar_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_01_smith.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_01:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/dew_guild_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/dew_house_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/dew_shop_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/dew_shrine_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/dew_smith_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/morning_dew_inn/inn_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_dungeon/base/tile_foozle_dungeon_dungeon_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_01:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/anchor.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_02_koi_pond_tile_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/barrel.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_04_sake_barrel_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "role_named_candidate_not_visual_tested",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/beacon.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_06_paper_lantern_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props",
+        "map_coast_04:props",
+        "map_coast_05:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/cottage.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_08_fallen_log_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/crate.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/spritesheet/prop_pixelkensei_nature_feudal_japan_nature_spritesheet_4_x.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_04:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/dock_boat.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_04_wooden_bridge_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/fish_stall.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_06_market_stall_roof_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "role_named_candidate_not_visual_tested",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/fishing_net.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_06_paper_lantern_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/flowerpot.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/grass.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/medicine_basket.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_02_wooden_gate_mon_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/palm_tree.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/pier_post.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_04_wooden_bridge_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/rock.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_03_rock_cluster_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "role_named_candidate_not_visual_tested",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props",
+        "map_coast_04:props",
+        "map_coast_05:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/rope_coil.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/spritesheet/prop_pixelkensei_structures_feudal_japan_structures_spritesheet_4_x.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/sea_crystal.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_02_koi_pond_tile_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props",
+        "map_coast_04:props",
+        "map_coast_05:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/shell.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_04_bamboo_grove_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/sign.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_06_lotus_lily_pad_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "semantic_fit_not_verified",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_03:props",
+        "map_coast_04:props",
+        "map_coast_05:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/star_lantern.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_06_paper_lantern_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "role_named_candidate_not_visual_tested",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props",
+        "map_coast_05:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/props/coast/well.png",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_03_stone_well_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "role_named_candidate_not_visual_tested",
+      "used_in": [
+        "map_coast_01:props",
+        "map_coast_02:props"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/chengzhou/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_necromancer/down/char_foozle_necromancer_necromancer_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/chengzhou/dialogue.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_necromancer/down/char_foozle_necromancer_necromancer_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/chengzhou/walk_4dir_3frames.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_necromancer/down/char_foozle_necromancer_necromancer_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/lanyin/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_sorceress/down/char_foozle_sorceress_sorceress_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/lanyin/dialogue.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_sorceress/down/char_foozle_sorceress_sorceress_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/lanyin/walk_4dir_3frames.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_sorceress/down/char_foozle_sorceress_sorceress_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/leon/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_warrior/down/char_foozle_warrior_warrior_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/leon/dialogue.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_warrior/down/char_foozle_warrior_warrior_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/leon/walk_4dir_3frames.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_warrior/down/char_foozle_warrior_warrior_down_walk.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/shuoxian/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_warrior/down/char_foozle_warrior_warrior_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/shuoxian/dialogue.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_warrior/down/char_foozle_warrior_warrior_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/characters/shuoxian/walk_4dir_3frames.png",
+      "source": "res://assets/art/external/cc0_named_v1/characters/foozle_warrior/down/char_foozle_warrior_warrior_down_walk.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "identity_and_animation_not_verified",
+      "used_in": [
+        "map_coast_01:character_slots",
+        "map_coast_02:character_slots",
+        "map_coast_03:character_slots",
+        "map_coast_04:character_slots",
+        "map_coast_05:character_slots"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/fog_crab/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/fog_crab/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/fog_crab/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/fog_crab/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/fog_crab/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_slime/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_slime/c21_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_slime/c21_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_slime/c21_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_slime/c21_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_wolf/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_wolf/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_wolf/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_wolf/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/salt_wolf/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/monsters/foozle_cultist/down/monster_foozle_cultist_cultist_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/sand_lizard/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/sand_lizard/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/sand_lizard/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/sand_lizard/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/sand_lizard/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/shell_hermit/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/shell_hermit/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/shell_hermit/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/shell_hermit/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/shell_hermit/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/star_ray/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/star_ray/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/star_ray/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/star_ray/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/star_ray/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_ghost/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_ghost/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_ghost/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_ghost/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_ghost/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_guardian/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_skeleton_ancient/down/boss_foozle_skeleton_ancient_ancient_skeleton_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_guardian/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_skeleton_ancient/down/boss_foozle_skeleton_ancient_ancient_skeleton_down_attack_01.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_guardian/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_skeleton_ancient/down/boss_foozle_skeleton_ancient_ancient_skeleton_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_guardian/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_skeleton_ancient/down/boss_foozle_skeleton_ancient_ancient_skeleton_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/tide_guardian/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_skeleton_ancient/down/boss_foozle_skeleton_ancient_ancient_skeleton_down_idle.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/white_seabird/battle.png",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/white_seabird/c22_attack_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/white_seabird/c22_defeat_6f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_death.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/white_seabird/c22_hit_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/monsters/coast/white_seabird/c22_idle_4f.svg",
+      "source": "res://assets/art/external/cc0_named_v1/bosses/foozle_goblin_beast/down/boss_foozle_goblin_beast_goblin_beast_down_hurt.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "monster_identity_and_motion_not_verified",
+      "used_in": [
+        "map_coast_01:coastal_monster_assets",
+        "map_coast_02:coastal_monster_assets",
+        "map_coast_03:coastal_monster_assets",
+        "map_coast_04:coastal_monster_assets",
+        "map_coast_05:coastal_monster_assets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/harbor_detail_atlas.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/harbor_crane.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_03_bamboo_cluster_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_02_guild.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_02_house.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_02_inn.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_02_shop.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_02_shrine.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_07_temple_pillar_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/map_coast_02_smith.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/base/prop_pixelkensei_structures_01_shrine_wall_segment_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_02:facades"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/harbor_guild_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/harbor_house_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/harbor_inn_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/harbor_shop_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/harbor_shrine_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/interiors/coastal_district/harbor_smith_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_02:interior_tilesets"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/saltwind_route_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_03:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/tide_cavern_tileset.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_04:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cavern_water_atlas.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_04:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cavern_detail_atlas.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "atlas_contract_not_verified",
+      "used_in": [
+        "map_coast_04:terrain"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cave_stalactite.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_02_koi_pond_tile_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_04:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cave_crystal.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_structures/spritesheet/prop_pixelkensei_structures_feudal_japan_structures_spritesheet.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_04:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cave_altar.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_08_offering_box_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "provisional_role_analogue_requires_art_review",
+      "used_in": [
+        "map_coast_04:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cave_foreground_column.svg",
+      "source": "res://assets/art/external/cc0_named_v1/tilesets/foozle_desert/base/tile_foozle_desert_desert_tileset.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_04:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/cave_hanging_ledge.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_nature/base/prop_pixelkensei_nature_01_cherry_blossom_tree_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_04:scenery_sources"
+      ]
+    },
+    {
+      "slot": "res://assets/art/exteriors/coast_final_pass/tide_lighthouse_landmark.svg",
+      "source": "res://assets/art/external/cc0_named_v1/props/pixelkensei_props/base/prop_pixelkensei_props_06_paper_lantern_32_x_32.png",
+      "source_status": "source_exists_migrated",
+      "semantic_status": "building_scene_role_not_verified",
+      "used_in": [
+        "map_coast_05:scenery_sources"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+name: "Main2 · Real Art Runtime Acceptance"
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "assets/art/runtime/act01_shelter_v3/**"
+      - "data/levels/v4/interiors/map_coast_02__shelter.json"
+      - "scripts/world_interior_art.gd"
+      - "data/levels/world_atlas_v2.json"
+      - "data/levels/v3/map_coast_01.json"
+      - "data/assets/c_act01_hd2d_v18.json"
+      - "scripts/world_geography.gd"
+      - "scripts/first_act_world.gd"
+      - "tools/smoke_c_act01_hd2d_v18.gd"
+      - "scripts/town_director.gd"
+      - "scripts/world_act01_region_accents.gd"
+      - "data/levels/v4/coastal_scenery.json"
+      - ".github/workflows/c-main2-art-runtime-acceptance.yml"
+      - "addons/starlit_art_pipeline/**"
+      - "scripts/c_art_theme_v2.gd"
+      - "tools/check_starlit_art_pipeline.gd"
+permissions:
+  contents: read
+concurrency:
+  group: main2-art-runtime-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  import-and-world-art:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Record V2 semantic theme coverage and unresolved slots
+        run: |
+          mkdir -p build/main2-art-qa
+          python3 tools/audit_art_theme_coverage_v2.py --out build/main2-art-qa/theme-coverage-v2.json > build/main2-art-qa/theme-coverage-v2.log
+      - name: V3 unified source and scene contract audit
+        run: python3 tools/audit_art_pipeline_v3.py --strict --out build/main2-art-qa/art-pipeline-v3.json
+      - name: Validate V2 full-theme semantics
+        run: python3 tools/validate_art_theme_v2.py --json
+      - name: Audit first-act third-party path migration (static, not commercial approval)
+        run: python3 tools/audit_act01_third_party_art.py
+      - name: Verify complete first-act source/alias manifest (V14)
+        run: python3 tools/validate_c_act01_global_art_v14.py
+      - name: Verify real rowboat PNG and scene routing (V16)
+        run: python3 tools/validate_c_act01_matched_props_v16.py
+      - name: Audit exact Act I art selection across all coastal scenery roles
+        run: python3 tools/validate_c_act01_semantic_v17.py
+      - name: Confirm V18 art SHA256 matches source and assigned scene roles
+        run: python3 tools/validate_c_act01_hd2d_v18.py
+      - name: Install official Godot 4.7.2
+        shell: bash
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Clean headless project import and GDScript parse
+        shell: bash
+        run: |
+          mkdir -p build/main2-art-qa
+          timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit > build/main2-art-qa/import.log 2>&1 || { cat build/main2-art-qa/import.log; exit 1; }
+      - name: Verify Godot one-click art replacement, 109-slot safety and rollback invariants
+        shell: bash
+        run: timeout 140s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/check_starlit_art_pipeline.gd
+      - name: Load first-act art, render actual map nodes and check actor strips
+        shell: bash
+        run: |
+          failed=0
+          for script in smoke_c_act01_global_art_v14 smoke_c_act01_semantic_v17 smoke_c_character_motion smoke_battle_actors smoke_c_uploaded_later_pack smoke_c_act01_art_production_v10 smoke_world_tileset_pool smoke_c_main2_art_runtime smoke_main2_act01_harbor_rooms_visual smoke_main2_act01_live_boss_motion smoke_main2_act01_coast_monster_identity smoke_c_promoted_runtime_v13 smoke_c_material_atlas_repair smoke_c_act01_hd2d_v18; do
+            echo "Running $script"
+            set +e
+            timeout 170s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$script.gd" > "build/main2-art-qa/$script.log" 2>&1
+            rc=$?
+            set -e
+            echo "$script exit_code=$rc" | tee -a build/main2-art-qa/exits.txt
+            tail -n 45 "build/main2-art-qa/$script.log"
+            if [ "$rc" -ne 0 ]; then failed=1; fi
+          done
+          exit "$failed"
+      - name: Install CJK fonts for readable first-act visual evidence
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk xvfb xauth libgl1-mesa-dri
+          fc-cache -f
+      - name: Capture six chapter maps and three real interiors for human visual review
+        run: |
+          mkdir -p build/main2-art-qa/visual
+          timeout 160s xvfb-run -a ./Godot_v4.7.2-stable_linux.x86_64 --path . --script res://tools/capture_act01_visual_evidence.gd
+      - name: Verify all 26 Godot screenshot files and bind them to this commit
+        if: always()
+        run: python3 tools/verify_act01_visual_evidence_v3.py --directory build/main2-art-qa/visual --sha "$GITHUB_SHA"
+      - name: Upload truthful CI run logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-art-runtime-evidence
+          path: build/main2-art-qa/
+          retention-days: 7
+          if-no-files-found: warn

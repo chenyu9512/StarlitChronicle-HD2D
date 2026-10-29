@@ -1,0 +1,44 @@
+name: "Main2 · Playable Regional Art V13"
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: regional-art-v13-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  real-scene-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.7.2
+        shell: bash
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Clean import, compile and validate real map/menu runtime
+        shell: bash
+        run: |
+          mkdir -p build/c-art-v13
+          timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit > build/c-art-v13/import.log 2>&1 || { cat build/c-art-v13/import.log; exit 1; }
+          failed=0
+          for script in smoke_c_promoted_runtime_v13 smoke_c_navigation_icons_v13 smoke_c_librarium_two_bosses smoke_c_character_motion smoke_battle_actors; do
+            set +e
+            timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script "res://tools/$script.gd" > "build/c-art-v13/$script.log" 2>&1
+            rc=$?
+            set -e
+            echo "$script rc=$rc"
+            tail -n 40 "build/c-art-v13/$script.log"
+            if [ "$rc" != "0" ]; then failed=1; fi
+          done
+          exit "$failed"
+      - name: Store exact run and error evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-regional-art-v13-logs
+          path: build/c-art-v13/
+          retention-days: 14
+          if-no-files-found: warn

@@ -1,0 +1,1328 @@
+{
+  "schema": "starlit.story.chapter_inspection.v1",
+  "status": "text_only_not_runtime_bound",
+  "note": "每章两处独立调查文本，沿用主线原有章节解锁。新增旗标为可选探索标志，不影响原主线结算。",
+  "chapters": [
+    {
+      "chapter_id": "ch001",
+      "chapter_title": "不曾寄出的信",
+      "region": "晨露村·澄舟旧屋",
+      "objects": [
+        {
+          "id": "ch001.inspect.1",
+          "name": "断线风铃",
+          "interaction_label": "调查：断线风铃",
+          "location": "晨露村·澄舟旧屋",
+          "description": "断掉的铜铃线被重新打了结，结扣却比屋里任何一件修船工具都新。",
+          "chapter": "ch001",
+          "requires_flags": [
+            "ch001.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch001.inspect.1.line",
+              "speaker": "主角",
+              "text": "信封没有写地址……收件人是“第七位守灯人”。",
+              "source_dialogue_id": "ch001.investigate.l02"
+            }
+          ],
+          "codex_title": "不曾寄出的信：断线风铃",
+          "investigation_flag": "explore.ch001.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch001.inspect.2",
+          "name": "未寄出信封",
+          "interaction_label": "调查：未寄出信封",
+          "location": "晨露村·澄舟旧屋",
+          "description": "封蜡夹着银砂，收件人没有地址；字迹像是在落笔前几次擦去过。",
+          "chapter": "ch001",
+          "requires_flags": [
+            "ch001.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch001.inspect.2.line",
+              "speaker": "岚音",
+              "text": "背面这层盐，不像普通海盐。药房的试剂会把它染成蓝色。",
+              "source_dialogue_id": "ch001.investigate.l03"
+            }
+          ],
+          "codex_title": "不曾寄出的信：未寄出信封",
+          "investigation_flag": "explore.ch001.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch002",
+      "chapter_title": "失去名字的归人",
+      "region": "白砂港·收容所",
+      "objects": [
+        {
+          "id": "ch002.inspect.1",
+          "name": "围绳客船",
+          "interaction_label": "调查：围绳客船",
+          "location": "白砂港·收容所",
+          "description": "缆绳将船留在岸边，船员名牌反扣着，港务员不愿解释缘由。",
+          "chapter": "ch002",
+          "requires_flags": [
+            "ch002.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch002.inspect.1.line",
+              "speaker": "水手",
+              "text": "我记得我有个女儿。她会把贝壳塞进我的鞋里。可她叫什么？",
+              "source_dialogue_id": "ch002.investigate.l02"
+            }
+          ],
+          "codex_title": "失去名字的归人：围绳客船",
+          "investigation_flag": "explore.ch002.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch002.inspect.2",
+          "name": "水手手背",
+          "interaction_label": "调查：水手手背",
+          "location": "白砂港·收容所",
+          "description": "墨字下又压着一层擦痕，仿佛有人害怕自己醒来后忘掉警告。",
+          "chapter": "ch002",
+          "requires_flags": [
+            "ch002.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch002.inspect.2.line",
+              "speaker": "岚音",
+              "text": "不着急。你记得船上有什么异常吗？",
+              "source_dialogue_id": "ch002.investigate.l03"
+            }
+          ],
+          "codex_title": "失去名字的归人：水手手背",
+          "investigation_flag": "explore.ch002.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch003",
+      "chapter_title": "海雾中的遗迹",
+      "region": "断桅海蚀洞",
+      "objects": [
+        {
+          "id": "ch003.inspect.1",
+          "name": "礁石直线",
+          "interaction_label": "调查：礁石直线",
+          "location": "断桅海蚀洞",
+          "description": "海浪冲刷不到的石面留有刀刻痕，刻线正朝向洞口深处。",
+          "chapter": "ch003",
+          "requires_flags": [
+            "ch003.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch003.inspect.1.line",
+              "speaker": "朔弦",
+              "text": "第三条路不是路，它画的是潮水倒流时才能露出的台阶。",
+              "source_dialogue_id": "ch003.investigate.l02"
+            }
+          ],
+          "codex_title": "海雾中的遗迹：礁石直线",
+          "investigation_flag": "explore.ch003.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch003.inspect.2",
+          "name": "倒潮石阶",
+          "interaction_label": "调查：倒潮石阶",
+          "location": "断桅海蚀洞",
+          "description": "潮湿台阶只有退潮时才露出一层，边缘磨损得像有人反复走过。",
+          "chapter": "ch003",
+          "requires_flags": [
+            "ch003.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch003.inspect.2.line",
+              "speaker": "主角",
+              "text": "这上面有澄舟用过的工具印。",
+              "source_dialogue_id": "ch003.investigate.l03"
+            }
+          ],
+          "codex_title": "海雾中的遗迹：倒潮石阶",
+          "investigation_flag": "explore.ch003.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch004",
+      "chapter_title": "第三位同行者",
+      "region": "白砂港·黑帆酒馆",
+      "objects": [
+        {
+          "id": "ch004.inspect.1",
+          "name": "无日期告示",
+          "interaction_label": "调查：无日期告示",
+          "location": "白砂港·黑帆酒馆",
+          "description": "黑帆酒馆的船员招聘公告没有月份，有的纸张却已泛黄。",
+          "chapter": "ch004",
+          "requires_flags": [
+            "ch004.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch004.inspect.1.line",
+              "speaker": "岚音",
+              "text": "这十二包加起来，够给整座城腌鱼了。",
+              "source_dialogue_id": "ch004.investigate.l02"
+            }
+          ],
+          "codex_title": "第三位同行者：无日期告示",
+          "investigation_flag": "explore.ch004.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch004.inspect.2",
+          "name": "藏在桶底的货单",
+          "interaction_label": "调查：藏在桶底的货单",
+          "location": "白砂港·黑帆酒馆",
+          "description": "写着精盐的袋子重得不合常理，账单最下面的签名被酒渍盖住。",
+          "chapter": "ch004",
+          "requires_flags": [
+            "ch004.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch004.inspect.2.line",
+              "speaker": "朔弦",
+              "text": "……我知道那是记忆结晶。我运过。",
+              "source_dialogue_id": "ch004.investigate.l03"
+            }
+          ],
+          "codex_title": "第三位同行者：藏在桶底的货单",
+          "investigation_flag": "explore.ch004.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch005",
+      "chapter_title": "潮底巨影",
+      "region": "鲸骨浅滩",
+      "objects": [
+        {
+          "id": "ch005.inspect.1",
+          "name": "断裂渔网",
+          "interaction_label": "调查：断裂渔网",
+          "location": "鲸骨浅滩",
+          "description": "结绳不是被利齿咬断，而是从内部被某种沉重东西向外拉开。",
+          "chapter": "ch005",
+          "requires_flags": [
+            "ch005.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch005.inspect.1.line",
+              "speaker": "渔夫",
+              "text": "它撞过来时，我看见它背上有一条铁链，一直往肉里钻。",
+              "source_dialogue_id": "ch005.investigate.l01"
+            }
+          ],
+          "codex_title": "潮底巨影：断裂渔网",
+          "investigation_flag": "explore.ch005.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch005.inspect.2",
+          "name": "星纹铁锁",
+          "interaction_label": "调查：星纹铁锁",
+          "location": "鲸骨浅滩",
+          "description": "铁链上有规律的凹槽，咬进海兽皮肤的地方仍闪烁微弱的控制光。",
+          "chapter": "ch005",
+          "requires_flags": [
+            "ch005.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch005.inspect.2.line",
+              "speaker": "朔弦",
+              "text": "海兽不懂我们说什么，但它听得懂船底震动。",
+              "source_dialogue_id": "ch005.investigate.l03"
+            }
+          ],
+          "codex_title": "潮底巨影：星纹铁锁",
+          "investigation_flag": "explore.ch005.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch006",
+      "chapter_title": "归航灯重燃",
+      "region": "潮歌灯塔",
+      "objects": [
+        {
+          "id": "ch006.inspect.1",
+          "name": "暗银灯芯",
+          "interaction_label": "调查：暗银灯芯",
+          "location": "潮歌灯塔",
+          "description": "灯芯没有灰烬，像是被硬生生夺去燃烧的能力。",
+          "chapter": "ch006",
+          "requires_flags": [
+            "ch006.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch006.inspect.1.line",
+              "speaker": "归航者的声音",
+              "text": "我回来了。今天的海太冷，给我留一碗热汤。",
+              "source_dialogue_id": "ch006.investigate.l02"
+            }
+          ],
+          "codex_title": "归航灯重燃：暗银灯芯",
+          "investigation_flag": "explore.ch006.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch006.inspect.2",
+          "name": "归航留言墙",
+          "interaction_label": "调查：归航留言墙",
+          "location": "潮歌灯塔",
+          "description": "砖缝中传出旧日航海者的声音，许多人说的不是誓言，而是家常小事。",
+          "chapter": "ch006",
+          "requires_flags": [
+            "ch006.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch006.inspect.2.line",
+              "speaker": "另一人的声音",
+              "text": "告诉她，风暴过去了，我没有食言。",
+              "source_dialogue_id": "ch006.investigate.l03"
+            }
+          ],
+          "codex_title": "归航灯重燃：归航留言墙",
+          "investigation_flag": "explore.ch006.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch007",
+      "chapter_title": "被拒绝的使者",
+      "region": "三誓王都·外廷",
+      "objects": [
+        {
+          "id": "ch007.inspect.1",
+          "name": "三封退回函",
+          "interaction_label": "调查：三封退回函",
+          "location": "三誓王都·外廷",
+          "description": "三枚不同颜色的印章有同一处缺口，像来自一枚被反复洗净的章。",
+          "chapter": "ch007",
+          "requires_flags": [
+            "ch007.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch007.inspect.1.line",
+              "speaker": "雷索",
+              "text": "三国公文不会共用一枚印章。",
+              "source_dialogue_id": "ch007.investigate.l02"
+            }
+          ],
+          "codex_title": "被拒绝的使者：三封退回函",
+          "investigation_flag": "explore.ch007.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch007.inspect.2",
+          "name": "外廷排队木牌",
+          "interaction_label": "调查：外廷排队木牌",
+          "location": "三誓王都·外廷",
+          "description": "一名患者的申请被分成三张，分别挂在三个无人认领的窗口。",
+          "chapter": "ch007",
+          "requires_flags": [
+            "ch007.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch007.inspect.2.line",
+              "speaker": "岚音",
+              "text": "这不是磨损巧合。缺了一道相同的细口。",
+              "source_dialogue_id": "ch007.investigate.l03"
+            }
+          ],
+          "codex_title": "被拒绝的使者：外廷排队木牌",
+          "investigation_flag": "explore.ch007.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch008",
+      "chapter_title": "断绝的商路",
+      "region": "灰鹰商道",
+      "objects": [
+        {
+          "id": "ch008.inspect.1",
+          "name": "带编号的断箭",
+          "interaction_label": "调查：带编号的断箭",
+          "location": "灰鹰商道",
+          "description": "箭尾被染成敌国颜色，箭杆的军械编号却藏不住来源。",
+          "chapter": "ch008",
+          "requires_flags": [
+            "ch008.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch008.inspect.1.line",
+              "speaker": "雷索",
+              "text": "是王都军械库编号。那种箭不会卖给平民。",
+              "source_dialogue_id": "ch008.investigate.l02"
+            }
+          ],
+          "codex_title": "断绝的商路：带编号的断箭",
+          "investigation_flag": "explore.ch008.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch008.inspect.2",
+          "name": "荒废客栈账本",
+          "interaction_label": "调查：荒废客栈账本",
+          "location": "灰鹰商道",
+          "description": "半月前客栈突然停止记账，最后一页仍登记着未取走的粮食。",
+          "chapter": "ch008",
+          "requires_flags": [
+            "ch008.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch008.inspect.2.line",
+              "speaker": "主角",
+              "text": "能查到谁领走了这批箭吗？",
+              "source_dialogue_id": "ch008.investigate.l03"
+            }
+          ],
+          "codex_title": "断绝的商路：荒废客栈账本",
+          "investigation_flag": "explore.ch008.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch009",
+      "chapter_title": "无罪者的审判",
+      "region": "三誓王都·审判厅",
+      "objects": [
+        {
+          "id": "ch009.inspect.1",
+          "name": "被刮去的骑士徽",
+          "interaction_label": "调查：被刮去的骑士徽",
+          "location": "三誓王都·审判厅",
+          "description": "椅背上的凿痕很深，却无法抹平两旁常年磨损的手印。",
+          "chapter": "ch009",
+          "requires_flags": [
+            "ch009.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch009.inspect.1.line",
+              "speaker": "岚音",
+              "text": "这里连敌人是谁都没有写。",
+              "source_dialogue_id": "ch009.investigate.l02"
+            }
+          ],
+          "codex_title": "无罪者的审判：被刮去的骑士徽",
+          "investigation_flag": "explore.ch009.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch009.inspect.2",
+          "name": "无敌军坐标的军令",
+          "interaction_label": "调查：无敌军坐标的军令",
+          "location": "三誓王都·审判厅",
+          "description": "文书要求清除所有联络点，却没有指出任何需要防卫的目标。",
+          "chapter": "ch009",
+          "requires_flags": [
+            "ch009.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch009.inspect.2.line",
+              "speaker": "雷索",
+              "text": "长官说执行的人没有资格发问。",
+              "source_dialogue_id": "ch009.investigate.l03"
+            }
+          ],
+          "codex_title": "无罪者的审判：无敌军坐标的军令",
+          "investigation_flag": "explore.ch009.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch010",
+      "chapter_title": "三面旗帜",
+      "region": "三国边境议事站",
+      "objects": [
+        {
+          "id": "ch010.inspect.1",
+          "name": "长桌第三色块",
+          "interaction_label": "调查：长桌第三色块",
+          "location": "三国边境议事站",
+          "description": "桌中间一直空着，杯印只落在代表自己国家的木板上。",
+          "chapter": "ch010",
+          "requires_flags": [
+            "ch010.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch010.inspect.1.line",
+              "speaker": "岚音",
+              "text": "普通木灰不会这样。火似乎从粮袋里面开始。",
+              "source_dialogue_id": "ch010.investigate.l02"
+            }
+          ],
+          "codex_title": "三面旗帜：长桌第三色块",
+          "investigation_flag": "explore.ch010.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch010.inspect.2",
+          "name": "不漂浮的灰",
+          "interaction_label": "调查：不漂浮的灰",
+          "location": "三国边境议事站",
+          "description": "灰烬遇雨没有散开，暗红颗粒更像被人混进粮袋的粉末。",
+          "chapter": "ch010",
+          "requires_flags": [
+            "ch010.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch010.inspect.2.line",
+              "speaker": "雷索",
+              "text": "灰帷会的隐燃粉。我曾在军营见过。",
+              "source_dialogue_id": "ch010.investigate.l03"
+            }
+          ],
+          "codex_title": "三面旗帜：不漂浮的灰",
+          "investigation_flag": "explore.ch010.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch011",
+      "chapter_title": "最后的盟约",
+      "region": "旧盟约桥",
+      "objects": [
+        {
+          "id": "ch011.inspect.1",
+          "name": "黑白盟约石",
+          "interaction_label": "调查：黑白盟约石",
+          "location": "旧盟约桥",
+          "description": "不同年份的刀痕横穿两色石块，原先的缔约字句几乎看不见。",
+          "chapter": "ch011",
+          "requires_flags": [
+            "ch011.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch011.inspect.1.line",
+              "speaker": "朔弦",
+              "text": "设计这东西的人，想让每个国家都以为是对方先动手。",
+              "source_dialogue_id": "ch011.investigate.l02"
+            }
+          ],
+          "codex_title": "最后的盟约：黑白盟约石",
+          "investigation_flag": "explore.ch011.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch011.inspect.2",
+          "name": "三路起爆引线",
+          "interaction_label": "调查：三路起爆引线",
+          "location": "旧盟约桥",
+          "description": "每根引线都通向一国阵地，计时器却来自同一家军械厂。",
+          "chapter": "ch011",
+          "requires_flags": [
+            "ch011.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch011.inspect.2.line",
+              "speaker": "雷索",
+              "text": "王室顾问直属卫队的徽记。",
+              "source_dialogue_id": "ch011.investigate.l03"
+            }
+          ],
+          "codex_title": "最后的盟约：三路起爆引线",
+          "investigation_flag": "explore.ch011.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch012",
+      "chapter_title": "王冠不等于信任",
+      "region": "律序母灯坛",
+      "objects": [
+        {
+          "id": "ch012.inspect.1",
+          "name": "刻有旧约的石环",
+          "interaction_label": "调查：刻有旧约的石环",
+          "location": "律序母灯坛",
+          "description": "王室印记刻在环外，内圈反而留下普通居民维护邻里契约的名字。",
+          "chapter": "ch012",
+          "requires_flags": [
+            "ch012.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch012.inspect.1.line",
+              "speaker": "平民代表",
+              "text": "邻居死了，我还是每年替他剪枝。",
+              "source_dialogue_id": "ch012.investigate.l02"
+            }
+          ],
+          "codex_title": "王冠不等于信任：刻有旧约的石环",
+          "investigation_flag": "explore.ch012.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch012.inspect.2",
+          "name": "农妇的果树剪刀",
+          "interaction_label": "调查：农妇的果树剪刀",
+          "location": "律序母灯坛",
+          "description": "刀柄磨得光滑，主人已经离世，仍有人按季节带它去修枝。",
+          "chapter": "ch012",
+          "requires_flags": [
+            "ch012.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch012.inspect.2.line",
+              "speaker": "雷索",
+              "text": "母灯在回应她，而不是王印。",
+              "source_dialogue_id": "ch012.investigate.l03"
+            }
+          ],
+          "codex_title": "王冠不等于信任：农妇的果树剪刀",
+          "investigation_flag": "explore.ch012.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch013",
+      "chapter_title": "矿坑里的第二个太阳",
+      "region": "赤炉联邦·七号矿坑",
+      "objects": [
+        {
+          "id": "ch013.inspect.1",
+          "name": "井口缺名工牌",
+          "interaction_label": "调查：井口缺名工牌",
+          "location": "赤炉联邦·七号矿坑",
+          "description": "两排工牌有几处空钉孔，像是有人从来不曾上过这班。",
+          "chapter": "ch013",
+          "requires_flags": [
+            "ch013.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch013.inspect.1.line",
+              "speaker": "缇珐",
+              "text": "设备明明停止了，齿轮却还在照常转。",
+              "source_dialogue_id": "ch013.investigate.l02"
+            }
+          ],
+          "codex_title": "矿坑里的第二个太阳：井口缺名工牌",
+          "investigation_flag": "explore.ch013.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch013.inspect.2",
+          "name": "不停运转的传送带",
+          "interaction_label": "调查：不停运转的传送带",
+          "location": "赤炉联邦·七号矿坑",
+          "description": "矿袋上的粉末还新，传送带却由已经切断的动力线路推动。",
+          "chapter": "ch013",
+          "requires_flags": [
+            "ch013.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch013.inspect.2.line",
+              "speaker": "主角",
+              "text": "有人半夜偷挖？",
+              "source_dialogue_id": "ch013.investigate.l03"
+            }
+          ],
+          "codex_title": "矿坑里的第二个太阳：不停运转的传送带",
+          "investigation_flag": "explore.ch013.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch014",
+      "chapter_title": "不说谎的机器",
+      "region": "赤炉工坊·试验台",
+      "objects": [
+        {
+          "id": "ch014.inspect.1",
+          "name": "蓝围巾录音片",
+          "interaction_label": "调查：蓝围巾录音片",
+          "location": "赤炉工坊·试验台",
+          "description": "唱片上的停顿不是坏掉的静音，能听出一名父亲想不起下一句话。",
+          "chapter": "ch014",
+          "requires_flags": [
+            "ch014.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch014.inspect.1.line",
+              "speaker": "矿工录音",
+              "text": "等发了工资，给小石头买一件蓝围巾。",
+              "source_dialogue_id": "ch014.investigate.l02"
+            }
+          ],
+          "codex_title": "不说谎的机器：蓝围巾录音片",
+          "investigation_flag": "explore.ch014.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch014.inspect.2",
+          "name": "试验台回路",
+          "interaction_label": "调查：试验台回路",
+          "location": "赤炉工坊·试验台",
+          "description": "工匠的安全标记被后加的军工编号盖住，线缆通向陌生的输入端。",
+          "chapter": "ch014",
+          "requires_flags": [
+            "ch014.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch014.inspect.2.line",
+              "speaker": "孩子录音",
+              "text": "我不要新的，只要你这次陪我去海边。",
+              "source_dialogue_id": "ch014.investigate.l03"
+            }
+          ],
+          "codex_title": "不说谎的机器：试验台回路",
+          "investigation_flag": "explore.ch014.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch015",
+      "chapter_title": "百工试炼",
+      "region": "赤炉联邦·百工塔",
+      "objects": [
+        {
+          "id": "ch015.inspect.1",
+          "name": "百工塔禁学牌",
+          "interaction_label": "调查：百工塔禁学牌",
+          "location": "赤炉联邦·百工塔",
+          "description": "“未经许可不得教授”的牌子钉得很新，旧墙上另有一排剥落的字。",
+          "chapter": "ch015",
+          "requires_flags": [
+            "ch015.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch015.inspect.1.line",
+              "speaker": "缇珐",
+              "text": "这才是初代塔主留下的真话。",
+              "source_dialogue_id": "ch015.investigate.l02"
+            }
+          ],
+          "codex_title": "百工试炼：百工塔禁学牌",
+          "investigation_flag": "explore.ch015.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch015.inspect.2",
+          "name": "八门共同刻文",
+          "interaction_label": "调查：八门共同刻文",
+          "location": "赤炉联邦·百工塔",
+          "description": "每扇试炼门都写着把技艺教给后来者，与塔外的禁令相反。",
+          "chapter": "ch015",
+          "requires_flags": [
+            "ch015.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch015.inspect.2.line",
+              "speaker": "雷索",
+              "text": "盾牌试炼不是硬扛，而是判断什么时候该让队友撤退。",
+              "source_dialogue_id": "ch015.investigate.l03"
+            }
+          ],
+          "codex_title": "百工试炼：八门共同刻文",
+          "investigation_flag": "explore.ch015.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch016",
+      "chapter_title": "被遗忘的矿工",
+      "region": "灰砂安置区",
+      "objects": [
+        {
+          "id": "ch016.inspect.1",
+          "name": "安置区两份名册",
+          "interaction_label": "调查：安置区两份名册",
+          "location": "灰砂安置区",
+          "description": "居民手写的名字比官方列表多出二十七个，差异无法用笔误解释。",
+          "chapter": "ch016",
+          "requires_flags": [
+            "ch016.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch016.inspect.1.line",
+              "speaker": "岚音",
+              "text": "两份比起来，少了二十七个人。",
+              "source_dialogue_id": "ch016.investigate.l02"
+            }
+          ],
+          "codex_title": "被遗忘的矿工：安置区两份名册",
+          "investigation_flag": "explore.ch016.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch016.inspect.2",
+          "name": "空药盒底部",
+          "interaction_label": "调查：空药盒底部",
+          "location": "灰砂安置区",
+          "description": "药盒上没有患者姓名，盒底却被人用小刀刻下两个熟悉的字。",
+          "chapter": "ch016",
+          "requires_flags": [
+            "ch016.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch016.inspect.2.line",
+              "speaker": "档案员",
+              "text": "我并没有故意漏掉。我每次写完第二天，就忘记自己写过。",
+              "source_dialogue_id": "ch016.investigate.l03"
+            }
+          ],
+          "codex_title": "被遗忘的矿工：空药盒底部",
+          "investigation_flag": "explore.ch016.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch017",
+      "chapter_title": "熔炉暴走",
+      "region": "赤炉主炉",
+      "objects": [
+        {
+          "id": "ch017.inspect.1",
+          "name": "主炉四组阀门",
+          "interaction_label": "调查：主炉四组阀门",
+          "location": "赤炉主炉",
+          "description": "医院和居民区线路与炮口连成同一套开关，难以分别断电。",
+          "chapter": "ch017",
+          "requires_flags": [
+            "ch017.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch017.inspect.1.line",
+              "speaker": "缇珐",
+              "text": "军方把医疗供电也并进了武器回路，真敢做。",
+              "source_dialogue_id": "ch017.investigate.l02"
+            }
+          ],
+          "codex_title": "熔炉暴走：主炉四组阀门",
+          "investigation_flag": "explore.ch017.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch017.inspect.2",
+          "name": "磨损的紧急操作柄",
+          "interaction_label": "调查：磨损的紧急操作柄",
+          "location": "赤炉主炉",
+          "description": "把手上残留的布纤维表明已有工人尝试过手动停机。",
+          "chapter": "ch017",
+          "requires_flags": [
+            "ch017.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch017.inspect.2.line",
+              "speaker": "主角",
+              "text": "能单独切断炮口吗？",
+              "source_dialogue_id": "ch017.investigate.l03"
+            }
+          ],
+          "codex_title": "熔炉暴走：磨损的紧急操作柄",
+          "investigation_flag": "explore.ch017.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch018",
+      "chapter_title": "真正的炉火",
+      "region": "炉心母灯室",
+      "objects": [
+        {
+          "id": "ch018.inspect.1",
+          "name": "匿名能源编号",
+          "interaction_label": "调查：匿名能源编号",
+          "location": "炉心母灯室",
+          "description": "护罩上的编号规整到可怕，却没有说明每一份能源来自哪个人。",
+          "chapter": "ch018",
+          "requires_flags": [
+            "ch018.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch018.inspect.1.line",
+              "speaker": "缇珐",
+              "text": "原来它根本不需要夺走记忆。那只是后来有人为求效率加上的捷径。",
+              "source_dialogue_id": "ch018.investigate.l02"
+            }
+          ],
+          "codex_title": "真正的炉火：匿名能源编号",
+          "investigation_flag": "explore.ch018.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch018.inspect.2",
+          "name": "共享回路初稿",
+          "interaction_label": "调查：共享回路初稿",
+          "location": "炉心母灯室",
+          "description": "旧图纸画着低功率多点供能，没有任何抽取个人记忆的接口。",
+          "chapter": "ch018",
+          "requires_flags": [
+            "ch018.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch018.inspect.2.line",
+              "speaker": "主角",
+              "text": "谁改的？",
+              "source_dialogue_id": "ch018.investigate.l03"
+            }
+          ],
+          "codex_title": "真正的炉火：共享回路初稿",
+          "investigation_flag": "explore.ch018.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch019",
+      "chapter_title": "骑士最后的命令",
+      "region": "十年前·肃清边村",
+      "objects": [
+        {
+          "id": "ch019.inspect.1",
+          "name": "未熟的麦粥",
+          "interaction_label": "调查：未熟的麦粥",
+          "location": "十年前·肃清边村",
+          "description": "灶火刚熄，碗还摆在桌上；这里不像准备迎战的据点。",
+          "chapter": "ch019",
+          "requires_flags": [
+            "ch019.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch019.inspect.1.line",
+              "speaker": "年轻雷索",
+              "text": "有谁见过拿武器的外乡人？",
+              "source_dialogue_id": "ch019.investigate.l02"
+            }
+          ],
+          "codex_title": "骑士最后的命令：未熟的麦粥",
+          "investigation_flag": "explore.ch019.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch019.inspect.2",
+          "name": "正反两面的军令",
+          "interaction_label": "调查：正反两面的军令",
+          "location": "十年前·肃清边村",
+          "description": "正面要求清剿，背面却留下军士向上级申请撤离平民的墨迹。",
+          "chapter": "ch019",
+          "requires_flags": [
+            "ch019.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch019.inspect.2.line",
+              "speaker": "村长",
+              "text": "昨夜有人路过，买了两块面包，又走了。",
+              "source_dialogue_id": "ch019.investigate.l03"
+            }
+          ],
+          "codex_title": "骑士最后的命令：正反两面的军令",
+          "investigation_flag": "explore.ch019.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch020",
+      "chapter_title": "没有目的地的船",
+      "region": "七年前·无名海",
+      "objects": [
+        {
+          "id": "ch020.inspect.1",
+          "name": "刮断的海图线",
+          "interaction_label": "调查：刮断的海图线",
+          "location": "七年前·无名海",
+          "description": "坐标中间有刀片划过的白痕，缺失处不像船长自己算错。",
+          "chapter": "ch020",
+          "requires_flags": [
+            "ch020.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch020.inspect.1.line",
+              "speaker": "年轻朔弦",
+              "text": "不是没人画，是有人故意擦掉了。",
+              "source_dialogue_id": "ch020.investigate.l02"
+            }
+          ],
+          "codex_title": "没有目的地的船：刮断的海图线",
+          "investigation_flag": "explore.ch020.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch020.inspect.2",
+          "name": "少年朔弦的行囊",
+          "interaction_label": "调查：少年朔弦的行囊",
+          "location": "七年前·无名海",
+          "description": "袋底剩半块干面包和旧绳扣，证明那夜有人暗中帮助他逃离。",
+          "chapter": "ch020",
+          "requires_flags": [
+            "ch020.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch020.inspect.2.line",
+              "speaker": "小水手",
+              "text": "别看那张图。船长为它和灰帷会的人吵过架。",
+              "source_dialogue_id": "ch020.investigate.l03"
+            }
+          ],
+          "codex_title": "没有目的地的船：少年朔弦的行囊",
+          "investigation_flag": "explore.ch020.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch021",
+      "chapter_title": "药师的谎言",
+      "region": "十年前·晨露药房",
+      "objects": [
+        {
+          "id": "ch021.inspect.1",
+          "name": "被擦去的药瓶名",
+          "interaction_label": "调查：被擦去的药瓶名",
+          "location": "十年前·晨露药房",
+          "description": "整排药瓶的药名仍在，患者一栏却被统一擦成空白。",
+          "chapter": "ch021",
+          "requires_flags": [
+            "ch021.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch021.inspect.1.line",
+              "speaker": "影像·澄舟",
+              "text": "若那孩子问起我，别急着带他去灯塔。",
+              "source_dialogue_id": "ch021.investigate.l02"
+            }
+          ],
+          "codex_title": "药师的谎言：被擦去的药瓶名",
+          "investigation_flag": "explore.ch021.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch021.inspect.2",
+          "name": "澄舟托付的小箱",
+          "interaction_label": "调查：澄舟托付的小箱",
+          "location": "十年前·晨露药房",
+          "description": "箱扣内侧有药师专用封签，说明这份资料曾被正式交托。",
+          "chapter": "ch021",
+          "requires_flags": [
+            "ch021.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch021.inspect.2.line",
+              "speaker": "少年岚音",
+              "text": "为什么？你明明答应带他看海。",
+              "source_dialogue_id": "ch021.investigate.l03"
+            }
+          ],
+          "codex_title": "药师的谎言：澄舟托付的小箱",
+          "investigation_flag": "explore.ch021.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch022",
+      "chapter_title": "白夜祭",
+      "region": "三誓王都·灯会",
+      "objects": [
+        {
+          "id": "ch022.inspect.1",
+          "name": "灯会后台名单",
+          "interaction_label": "调查：灯会后台名单",
+          "location": "三誓王都·灯会",
+          "description": "新增守卫的笔迹与原排班不同，密室门口的岗哨甚至没有编号。",
+          "chapter": "ch022",
+          "requires_flags": [
+            "ch022.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch022.inspect.1.line",
+              "speaker": "宫廷乐师",
+              "text": "今夜拍卖的并非宝石，而是人们不愿记得的往事。",
+              "source_dialogue_id": "ch022.investigate.l02"
+            }
+          ],
+          "codex_title": "白夜祭：灯会后台名单",
+          "investigation_flag": "explore.ch022.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch022.inspect.2",
+          "name": "拍卖会物品表",
+          "interaction_label": "调查：拍卖会物品表",
+          "location": "三誓王都·灯会",
+          "description": "所谓珍贵艺术品实际写着个人记忆及其来源城市。",
+          "chapter": "ch022",
+          "requires_flags": [
+            "ch022.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch022.inspect.2.line",
+              "speaker": "岚音",
+              "text": "谁有权出售别人的记忆？",
+              "source_dialogue_id": "ch022.investigate.l03"
+            }
+          ],
+          "codex_title": "白夜祭：拍卖会物品表",
+          "investigation_flag": "explore.ch022.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch023",
+      "chapter_title": "被修改的记录",
+      "region": "王城地下档案室",
+      "objects": [
+        {
+          "id": "ch023.inspect.1",
+          "name": "古钟转动的书架",
+          "interaction_label": "调查：古钟转动的书架",
+          "location": "王城地下档案室",
+          "description": "每次钟摆一响，书架的空隙便换到另一个方向，像故意阻止人对页码。",
+          "chapter": "ch023",
+          "requires_flags": [
+            "ch023.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch023.inspect.1.line",
+              "speaker": "岚音",
+              "text": "这里写着“自愿”，却没有任何人的签名。",
+              "source_dialogue_id": "ch023.investigate.l02"
+            }
+          ],
+          "codex_title": "被修改的记录：古钟转动的书架",
+          "investigation_flag": "explore.ch023.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch023.inspect.2",
+          "name": "匿名记忆预算页",
+          "interaction_label": "调查：匿名记忆预算页",
+          "location": "王城地下档案室",
+          "description": "每笔建灯投入都有数值，却没有一个提供者留下自愿签名。",
+          "chapter": "ch023",
+          "requires_flags": [
+            "ch023.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch023.inspect.2.line",
+              "speaker": "雷索",
+              "text": "捐献名单里有整座村庄的出生年份。",
+              "source_dialogue_id": "ch023.investigate.l03"
+            }
+          ],
+          "codex_title": "被修改的记录：匿名记忆预算页",
+          "investigation_flag": "explore.ch023.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch024",
+      "chapter_title": "守灯者的罪",
+      "region": "断层议会遗迹",
+      "objects": [
+        {
+          "id": "ch024.inspect.1",
+          "name": "裂为两半的议事桌",
+          "interaction_label": "调查：裂为两半的议事桌",
+          "location": "断层议会遗迹",
+          "description": "古人开会的位置如今隔着裂缝，投影仍假装大家坐在一起。",
+          "chapter": "ch024",
+          "requires_flags": [
+            "ch024.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch024.inspect.1.line",
+              "speaker": "投影·年轻议员",
+              "text": "临时措施只维持一个月，之后必须重新征求居民意见。",
+              "source_dialogue_id": "ch024.investigate.l02"
+            }
+          ],
+          "codex_title": "守灯者的罪：裂为两半的议事桌",
+          "investigation_flag": "explore.ch024.object_1",
+          "status": "text_only_not_runtime_bound"
+        },
+        {
+          "id": "ch024.inspect.2",
+          "name": "过期的紧急条款",
+          "interaction_label": "调查：过期的紧急条款",
+          "location": "断层议会遗迹",
+          "description": "条文写明一个月后必须再征求同意，延期栏却连续空了许多年。",
+          "chapter": "ch024",
+          "requires_flags": [
+            "ch024.started"
+          ],
+          "available_during": "chapter_investigate",
+          "optional": true,
+          "after_inspect": [
+            {
+              "id": "ch024.inspect.2.line",
+              "speaker": "投影·执政者",
+              "text": "等寂潮停了再说。现在需要效率。",
+              "source_dialogue_id": "ch024.investigate.l03"
+            }
+          ],
+          "codex_title": "守灯者的罪：过期的紧急条款",
+          "investigation_flag": "explore.ch024.object_2",
+          "status": "text_only_not_runtime_bound"
+        }
+      ]
+    }
+  ],
+  "editorial_revision": "avoid_duplicate_object_detail_in_response"
+}

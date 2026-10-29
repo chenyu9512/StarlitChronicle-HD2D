@@ -1,0 +1,72 @@
+name: B World Batch B0-B3 Validation
+# Manual batch-only. Does not consume CI on every main commit.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: b-world-manual-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit all maps, entrances, NPCs, quests and boss source links
+        run: |
+          python3 tools/audit_b_world_source_matrix.py --output /tmp/starlit-b-world-source-matrix.json
+          python3 tools/validate_b_npc_home.py
+          python3 tools/validate_b_line_delivery.py
+      - name: Validate two playable harbor story buildings and eight physical clue paths
+        run: python3 tools/validate_b_act01_harbor_rooms.py
+      - name: Verify three coastal chapters, lighthouse grounds and disjoint cave mechanisms
+        run: python3 tools/validate_b_act01_coastal_landmarks.py
+      - name: Check six honest physical Act-I route contracts and chapter-3 lock
+        run: python3 tools/validate_b_act01_journey.py
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Headless import and GDScript compile gate
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Check 68 entrances and building walk paths
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_town_entrances.gd
+      - name: Check roof-safe pathfinding and no ghost doors
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_roof_pathfinding.gd
+      - name: Check 40 NPC dialogues and 12 interior furniture setups
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_home_v1.gd
+      - name: Verify harbor shelter and Black Sail Tavern real doors, clues and roundtrip
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_harbor_story_rooms.gd
+      - name: Verify all 99 V4 rooms match live furniture interactions
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_home_runtime_geometry.gd
+      - name: Verify 40 read-only NPC dialogue previews
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_dialogue_preview.gd
+      - name: Verify eight guild states, no UI read side effects and no duplicate claims
+        run: timeout 60s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_town_guild_readonly.gd
+      - name: Verify 11-town/33-stage read-only activity preview and unique event IDs
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_town_activity_preview.gd
+      - name: Verify distant NPC route and stalled-occupancy recovery
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_npc_navigation_safety.gd
+      - name: Verify 21 wilderness regions and 84 no-mutation field previews
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_field_interaction_preview.gd
+      - name: Verify all 21 wilderness sites and authoritative gameplay anchors
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_field_ecology_v7.gd
+      - name: Verify chapter 1-3 coastal route unlocks and saved return path
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_coast_three_chapter_routes.gd
+      - name: Act I source and narrative-location gap audit
+        run: python3 tools/validate_b_act01_commercial.py --output /tmp/starlit-act01-commercial-gaps.json
+      - name: Act I harbor living residents and 40 stable NPCs
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_coastal_residents.gd
+      - name: Six-chapter in-game wayfinding remains read-only and respects physical exits
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_journey.gd
+      - name: Act I six chapter player-reachable plot and quest markers
+        run: timeout 180s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_physical_reachability.gd
+      - name: Real player-grid reachability of cave valves, whale shoal and lighthouse
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_b_act01_coastal_landmarks.gd
+      - name: Validate 40 physical maps, eight dungeon geometries and indoor travel
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_world_production.gd

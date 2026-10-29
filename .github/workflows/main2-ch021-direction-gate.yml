@@ -1,0 +1,53 @@
+name: "Main2 · Chapter 21 Direction V3 Gate (Isolated)"
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/main2-ch021-direction-gate.yml"
+      - "scripts/systems/DirectionCutscenePlayer.gd"
+      - "scripts/systems/MechanicsRegistry.gd"
+      - "scripts/first_act.gd"
+      - "story/runtime/mechanics_registry.json"
+      - "tools/d_control/smoke_ch021_direction_gate.gd"
+permissions:
+  contents: read
+jobs:
+  ch021-transaction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Godot 4.7.2
+        uses: actions/cache@v4
+        with:
+          path: .ci-cache/godot/4.7.2/
+          key: godot-4.7.2-linux-x86_64
+      - name: Install official Godot on cache miss
+        shell: bash
+        run: |
+          set -euo pipefail
+          dest=".ci-cache/godot/4.7.2"
+          mkdir -p "$dest"
+          if [ ! -x "$dest/Godot_v4.7.2-stable_linux.x86_64" ]; then
+            curl -fL --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+              https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+            unzip -oq "$RUNNER_TEMP/godot.zip" -d "$dest"
+            chmod +x "$dest/Godot_v4.7.2-stable_linux.x86_64"
+          fi
+      - name: Godot isolated Ch21 V3 contract smoke (no full art reimport)
+        shell: bash
+        run: |
+          set -euo pipefail
+          .ci-cache/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 \
+            --headless --path . --script res://tools/d_control/smoke_ch021_direction_gate.gd \
+            2>&1 | tee ch021-direction-gate.log
+          grep -q "PASS: ch021 registry/sequence/V3 transition gate" ch021-direction-gate.log
+      - name: Upload engine evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-ch021-direction-gate
+          path: ch021-direction-gate.log
+          retention-days: 7
+          if-no-files-found: warn

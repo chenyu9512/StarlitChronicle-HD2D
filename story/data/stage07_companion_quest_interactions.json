@@ -1,0 +1,4279 @@
+{
+  "schema": "starlit.story.quest_exploration.v1",
+  "status": "text_only_not_runtime_bound",
+  "notes": "每条任务两处命名证物，NPC口径依据原任务对白/选项编排状态。物件名为新文案；展示文字与NPC话术重用已有台词，不应重复计为全新对白。条件需要未来接入时正式解析。",
+  "quests": [
+    {
+      "quest_id": "cq_lanyin_01",
+      "title": "未完成的病历",
+      "region": "白砂港临时医务室",
+      "available_after": "ch003",
+      "objects": [
+        {
+          "id": "cq_lanyin_01.inspect.1",
+          "name": "双名病签",
+          "location": "白砂港临时医务室",
+          "available_after": "ch003",
+          "linked_stage": "cq_lanyin_01.investigate",
+          "description_source": {
+            "speaker": "护士",
+            "text": "他怕写明失忆就再不能上船。",
+            "source_dialogue_id": "cq_lanyin_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_lanyin_01.inspect.2",
+          "name": "工作资格单",
+          "location": "白砂港临时医务室",
+          "available_after": "ch003",
+          "linked_stage": "cq_lanyin_01.choice",
+          "description_source": {
+            "speaker": "岚音",
+            "text": "医疗记录和船员资格应当分开。",
+            "source_dialogue_id": "cq_lanyin_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "主角",
+          "text": "你希望我们怎样称呼你？",
+          "source_dialogue_id": "cq_lanyin_01.0.l03",
+          "condition": {
+            "after_chapter": "ch003",
+            "not_flag": "side.cq_lanyin_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "护士",
+          "text": "他怕写明失忆就再不能上船。",
+          "source_dialogue_id": "cq_lanyin_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_lanyin_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "小汐",
+          "text": "详细病史先交给岚音保管，船主只会收到我同意的健康评估。",
+          "source_dialogue_id": "cq_lanyin_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_01.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "护士",
+          "text": "先启用匿名病历，暂时安排岸上的工作。",
+          "source_dialogue_id": "cq_lanyin_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_01.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "护士",
+          "text": "新病历注明治疗需求，但不向船主公开无关的私人记忆。",
+          "source_dialogue_id": "cq_lanyin_01.3.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_lanyin_02",
+      "title": "蓝围巾之外",
+      "region": "赤炉工坊医务所",
+      "available_after": "ch014",
+      "objects": [
+        {
+          "id": "cq_lanyin_02.inspect.1",
+          "name": "旧蓝围巾",
+          "location": "赤炉工坊医务所",
+          "available_after": "ch014",
+          "linked_stage": "cq_lanyin_02.investigate",
+          "description_source": {
+            "speaker": "缇珐",
+            "text": "装置可以重复声音，却不能还回原来的日子。",
+            "source_dialogue_id": "cq_lanyin_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_lanyin_02.inspect.2",
+          "name": "断续生日录音",
+          "location": "赤炉工坊医务所",
+          "available_after": "ch014",
+          "linked_stage": "cq_lanyin_02.choice",
+          "description_source": {
+            "speaker": "主角",
+            "text": "让家属知道治疗方法和风险。",
+            "source_dialogue_id": "cq_lanyin_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "孩子",
+          "text": "大家都让我放录音给爸爸听。",
+          "source_dialogue_id": "cq_lanyin_02.0.l01",
+          "condition": {
+            "after_chapter": "ch014",
+            "not_flag": "side.cq_lanyin_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "缇珐",
+          "text": "装置可以重复声音，却不能还回原来的日子。",
+          "source_dialogue_id": "cq_lanyin_02.1.l01",
+          "condition": {
+            "quest_stage": "cq_lanyin_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "孩子",
+          "text": "今晚我和爸爸一起切菜，不放录音也没关系。",
+          "source_dialogue_id": "cq_lanyin_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_02.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "岚音",
+          "text": "医师会先确认录音会不会令他过度疲惫。",
+          "source_dialogue_id": "cq_lanyin_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_02.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "矿工",
+          "text": "我记不得蓝围巾是哪天买的，却记得今天的汤很烫。",
+          "source_dialogue_id": "cq_lanyin_02.3.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_lanyin_03",
+      "title": "第二份嘱托",
+      "region": "晨露村药房后屋",
+      "available_after": "ch021",
+      "objects": [
+        {
+          "id": "cq_lanyin_03.inspect.1",
+          "name": "病历密封袋",
+          "location": "晨露村药房后屋",
+          "available_after": "ch021",
+          "linked_stage": "cq_lanyin_03.investigate",
+          "description_source": {
+            "speaker": "主角",
+            "text": "澄舟写着“保护不等于替他选择”。",
+            "source_dialogue_id": "cq_lanyin_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_lanyin_03.inspect.2",
+          "name": "澄舟完整嘱托",
+          "location": "晨露村药房后屋",
+          "available_after": "ch021",
+          "linked_stage": "cq_lanyin_03.choice",
+          "description_source": {
+            "speaker": "岚音",
+            "text": "我不要求你现在说没关系。",
+            "source_dialogue_id": "cq_lanyin_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "岚音母亲",
+          "text": "那年我也劝她不要说。",
+          "source_dialogue_id": "cq_lanyin_03.0.l01",
+          "condition": {
+            "after_chapter": "ch021",
+            "not_flag": "side.cq_lanyin_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "岚音母亲",
+          "text": "害怕也不能让我们免于解释。",
+          "source_dialogue_id": "cq_lanyin_03.1.l03",
+          "condition": {
+            "quest_stage": "cq_lanyin_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "主角",
+          "text": "先让我独自读完那行字，我需要自己的时间。",
+          "source_dialogue_id": "cq_lanyin_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_03.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "岚音母亲",
+          "text": "我们把当年的判断和证据分别说清。",
+          "source_dialogue_id": "cq_lanyin_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_03.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "主角",
+          "text": "我会自己保管原件。",
+          "source_dialogue_id": "cq_lanyin_03.3.l02",
+          "condition": {
+            "flag": "side.cq_lanyin_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_lanyin_04",
+      "title": "醒来后的半杯茶",
+      "region": "镜眠王都疗养院",
+      "available_after": "ch035",
+      "objects": [
+        {
+          "id": "cq_lanyin_04.inspect.1",
+          "name": "空置茶杯",
+          "location": "镜眠王都疗养院",
+          "available_after": "ch035",
+          "linked_stage": "cq_lanyin_04.investigate",
+          "description_source": {
+            "speaker": "岚音",
+            "text": "老人知道伴侣已经去世。",
+            "source_dialogue_id": "cq_lanyin_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_lanyin_04.inspect.2",
+          "name": "疗养院计划",
+          "location": "镜眠王都疗养院",
+          "available_after": "ch035",
+          "linked_stage": "cq_lanyin_04.choice",
+          "description_source": {
+            "speaker": "照护员",
+            "text": "医生说他必须尽快戒掉这个习惯。",
+            "source_dialogue_id": "cq_lanyin_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "照护员",
+          "text": "他总把另一只杯子放到空椅旁。",
+          "source_dialogue_id": "cq_lanyin_04.0.l01",
+          "condition": {
+            "after_chapter": "ch035",
+            "not_flag": "side.cq_lanyin_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "岚音",
+          "text": "老人知道伴侣已经去世。",
+          "source_dialogue_id": "cq_lanyin_04.1.l01",
+          "condition": {
+            "quest_stage": "cq_lanyin_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老人",
+          "text": "那只空茶杯暂时放着，我还想每天跟她说一句话。",
+          "source_dialogue_id": "cq_lanyin_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_04.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "照护员",
+          "text": "今晚减少梦境时长，明天由老人自己决定是否继续。",
+          "source_dialogue_id": "cq_lanyin_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_04.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "老人",
+          "text": "今天喝完了两杯茶，还想明天再散步。",
+          "source_dialogue_id": "cq_lanyin_04.3.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_lanyin_05",
+      "title": "没有英雄的碑文",
+      "region": "晨露村旧码头",
+      "available_after": "ch053",
+      "objects": [
+        {
+          "id": "cq_lanyin_05.inspect.1",
+          "name": "未刻碑石",
+          "location": "晨露村旧码头",
+          "available_after": "ch053",
+          "linked_stage": "cq_lanyin_05.investigate",
+          "description_source": {
+            "speaker": "老家属",
+            "text": "我儿子只是爱吃汤面，别把他刻成士兵。",
+            "source_dialogue_id": "cq_lanyin_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_lanyin_05.inspect.2",
+          "name": "家属附文",
+          "location": "晨露村旧码头",
+          "available_after": "ch053",
+          "linked_stage": "cq_lanyin_05.choice",
+          "description_source": {
+            "speaker": "村长",
+            "text": "用统一悼词才不会争吵。",
+            "source_dialogue_id": "cq_lanyin_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "石匠",
+          "text": "有人写谢谢，有人写为什么他没回来。",
+          "source_dialogue_id": "cq_lanyin_05.0.l01",
+          "condition": {
+            "after_chapter": "ch053",
+            "not_flag": "side.cq_lanyin_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老家属",
+          "text": "我儿子只是爱吃汤面，别把他刻成士兵。",
+          "source_dialogue_id": "cq_lanyin_05.1.l01",
+          "condition": {
+            "quest_stage": "cq_lanyin_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老家属",
+          "text": "碑旁写着他爱吃热面，我不想让他只留下死去的日期。",
+          "source_dialogue_id": "cq_lanyin_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_05.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "石匠",
+          "text": "口述档案预留新页，失踪者名字以后还能增补。",
+          "source_dialogue_id": "cq_lanyin_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_05.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "石碑刻上姓名，也为未确认者保留空白。",
+          "source_dialogue_id": "cq_lanyin_05.3.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_lanyin_06",
+      "title": "医师也有休息日",
+      "region": "群灯城联合医馆",
+      "available_after": "ch060",
+      "objects": [
+        {
+          "id": "cq_lanyin_06.inspect.1",
+          "name": "医师值班表",
+          "location": "群灯城联合医馆",
+          "available_after": "ch060",
+          "linked_stage": "cq_lanyin_06.investigate",
+          "description_source": {
+            "speaker": "岚音",
+            "text": "把个人奉献当成永久制度，迟早害了病人。",
+            "source_dialogue_id": "cq_lanyin_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_lanyin_06.inspect.2",
+          "name": "紧急分诊牌",
+          "location": "群灯城联合医馆",
+          "available_after": "ch060",
+          "linked_stage": "cq_lanyin_06.choice",
+          "description_source": {
+            "speaker": "院长",
+            "text": "增加轮班，会有诊室调整开放时间。",
+            "source_dialogue_id": "cq_lanyin_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_lanyin_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "年轻医师",
+          "text": "我一休息，候诊名单又长了。",
+          "source_dialogue_id": "cq_lanyin_06.0.l01",
+          "condition": {
+            "after_chapter": "ch060",
+            "not_flag": "side.cq_lanyin_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "年轻医师",
+          "text": "你当年不也一直这么做？",
+          "source_dialogue_id": "cq_lanyin_06.1.l02",
+          "condition": {
+            "quest_stage": "cq_lanyin_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "年轻医师",
+          "text": "我第一次知道休息不等于拒绝救人。",
+          "source_dialogue_id": "cq_lanyin_06.choice.a.l02",
+          "condition": {
+            "flag": "side.cq_lanyin_06.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "诺依",
+          "text": "公会派来两名志愿者负责分发餐食和搬运。",
+          "source_dialogue_id": "cq_lanyin_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_lanyin_06.done",
+            "state_equals": {
+              "key": "side.cq_lanyin_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "年轻医师",
+          "text": "昨夜我睡了整晚，醒来第一次没有急着认错。",
+          "source_dialogue_id": "cq_lanyin_06.3.l02",
+          "condition": {
+            "flag": "side.cq_lanyin_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_leiso_01",
+      "title": "没有徽章的巡逻",
+      "region": "三誓王都旧巡逻线",
+      "available_after": "ch009",
+      "objects": [
+        {
+          "id": "cq_leiso_01.inspect.1",
+          "name": "褪色巡逻图",
+          "location": "三誓王都旧巡逻线",
+          "available_after": "ch009",
+          "linked_stage": "cq_leiso_01.investigate",
+          "description_source": {
+            "speaker": "老妇",
+            "text": "旧路太长，我走不到医务站。",
+            "source_dialogue_id": "cq_leiso_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_leiso_01.inspect.2",
+          "name": "夜路求助点",
+          "location": "三誓王都旧巡逻线",
+          "available_after": "ch009",
+          "linked_stage": "cq_leiso_01.choice",
+          "description_source": {
+            "speaker": "旧教官",
+            "text": "巡逻要统一口令，不是慈善活动。",
+            "source_dialogue_id": "cq_leiso_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "守门少年",
+          "text": "你既然无罪，为何不再穿骑士服？",
+          "source_dialogue_id": "cq_leiso_01.0.l01",
+          "condition": {
+            "after_chapter": "ch009",
+            "not_flag": "side.cq_leiso_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老妇",
+          "text": "旧路太长，我走不到医务站。",
+          "source_dialogue_id": "cq_leiso_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_leiso_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "守门少年",
+          "text": "居民把需要休息的路段画给我看了。",
+          "source_dialogue_id": "cq_leiso_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_leiso_01.done",
+            "state_equals": {
+              "key": "side.cq_leiso_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "老妇",
+          "text": "今晚那张新长椅让我走到了医务站。",
+          "source_dialogue_id": "cq_leiso_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_leiso_01.done",
+            "state_equals": {
+              "key": "side.cq_leiso_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "少年",
+          "text": "我把救助路线加进巡逻图了。",
+          "source_dialogue_id": "cq_leiso_01.3.l01",
+          "condition": {
+            "flag": "side.cq_leiso_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_leiso_02",
+      "title": "三面小旗",
+      "region": "三国边境小学",
+      "available_after": "ch012",
+      "objects": [
+        {
+          "id": "cq_leiso_02.inspect.1",
+          "name": "被撕地图",
+          "location": "三国边境小学",
+          "available_after": "ch012",
+          "linked_stage": "cq_leiso_02.investigate",
+          "description_source": {
+            "speaker": "孩子乙",
+            "text": "我每周过桥给外婆送药。",
+            "source_dialogue_id": "cq_leiso_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_leiso_02.inspect.2",
+          "name": "边境小旗",
+          "location": "三国边境小学",
+          "available_after": "ch012",
+          "linked_stage": "cq_leiso_02.choice",
+          "description_source": {
+            "speaker": "孩子甲",
+            "text": "我要画他的桥，就算帮敌人吗？",
+            "source_dialogue_id": "cq_leiso_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "教师",
+          "text": "他们把地图撕了，说画敌人的家等于背叛。",
+          "source_dialogue_id": "cq_leiso_02.0.l01",
+          "condition": {
+            "after_chapter": "ch012",
+            "not_flag": "side.cq_leiso_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "让孩子们各画自己走过的地方。",
+          "source_dialogue_id": "cq_leiso_02.1.l03",
+          "condition": {
+            "quest_stage": "cq_leiso_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "孩子甲",
+          "text": "我画学校，他画桥，我们发现原来每天都走同一条河边。",
+          "source_dialogue_id": "cq_leiso_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_leiso_02.done",
+            "state_equals": {
+              "key": "side.cq_leiso_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "教师",
+          "text": "孩子们一起把撕碎的图拼回来了。",
+          "source_dialogue_id": "cq_leiso_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_leiso_02.done",
+            "state_equals": {
+              "key": "side.cq_leiso_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "三色小旗还在，旗帜之间添上了学校、桥和河流。",
+          "source_dialogue_id": "cq_leiso_02.3.l01",
+          "condition": {
+            "flag": "side.cq_leiso_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_leiso_03",
+      "title": "签过字的老人",
+      "region": "断层遗迹军政档案室",
+      "available_after": "ch024",
+      "objects": [
+        {
+          "id": "cq_leiso_03.inspect.1",
+          "name": "老人签字军令",
+          "location": "断层遗迹军政档案室",
+          "available_after": "ch024",
+          "linked_stage": "cq_leiso_03.investigate",
+          "description_source": {
+            "speaker": "老军士",
+            "text": "我后来偷偷放走过村民。",
+            "source_dialogue_id": "cq_leiso_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_leiso_03.inspect.2",
+          "name": "当年救援证词",
+          "location": "断层遗迹军政档案室",
+          "available_after": "ch024",
+          "linked_stage": "cq_leiso_03.choice",
+          "description_source": {
+            "speaker": "老军士",
+            "text": "我能不能只告诉孙子我救人的事？",
+            "source_dialogue_id": "cq_leiso_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "老军士",
+          "text": "我孙子若知道当年我签过什么，还会叫我爷爷吗？",
+          "source_dialogue_id": "cq_leiso_03.0.l01",
+          "condition": {
+            "after_chapter": "ch024",
+            "not_flag": "side.cq_leiso_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老军士",
+          "text": "我后来偷偷放走过村民。",
+          "source_dialogue_id": "cq_leiso_03.1.l01",
+          "condition": {
+            "quest_stage": "cq_leiso_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老军士",
+          "text": "档案室保留军令原件，也附上我当年的逃避。",
+          "source_dialogue_id": "cq_leiso_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_leiso_03.done",
+            "state_equals": {
+              "key": "side.cq_leiso_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "老军士",
+          "text": "我先把卷宗交给孙子，不要求他听完就夸我。",
+          "source_dialogue_id": "cq_leiso_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_leiso_03.done",
+            "state_equals": {
+              "key": "side.cq_leiso_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "老军士",
+          "text": "孙子问我为什么现在才说，我还没答好。",
+          "source_dialogue_id": "cq_leiso_03.3.l02",
+          "condition": {
+            "flag": "side.cq_leiso_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_leiso_04",
+      "title": "最后一道城门",
+      "region": "三誓王都东门",
+      "available_after": "ch047",
+      "objects": [
+        {
+          "id": "cq_leiso_04.inspect.1",
+          "name": "撤离名册",
+          "location": "三誓王都东门",
+          "available_after": "ch047",
+          "linked_stage": "cq_leiso_04.investigate",
+          "description_source": {
+            "speaker": "雷索",
+            "text": "旧式通行牌没有写医疗需要。",
+            "source_dialogue_id": "cq_leiso_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_leiso_04.inspect.2",
+          "name": "城门车次单",
+          "location": "三誓王都东门",
+          "available_after": "ch047",
+          "linked_stage": "cq_leiso_04.choice",
+          "description_source": {
+            "speaker": "撤离官",
+            "text": "只剩下一刻钟。",
+            "source_dialogue_id": "cq_leiso_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "撤离官",
+          "text": "上级名单要求贵族家属先走。",
+          "source_dialogue_id": "cq_leiso_04.0.l01",
+          "condition": {
+            "after_chapter": "ch047",
+            "not_flag": "side.cq_leiso_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "撤离官",
+          "text": "改名单会有人追责。",
+          "source_dialogue_id": "cq_leiso_04.1.l02",
+          "condition": {
+            "quest_stage": "cq_leiso_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "岚音",
+          "text": "伤者和儿童按危险程度先行，名单随车公示。",
+          "source_dialogue_id": "cq_leiso_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_leiso_04.done",
+            "state_equals": {
+              "key": "side.cq_leiso_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "撤离官",
+          "text": "愿留下的护卫签了名，每个人都知道自己的风险。",
+          "source_dialogue_id": "cq_leiso_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_leiso_04.done",
+            "state_equals": {
+              "key": "side.cq_leiso_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "主角",
+          "text": "把未归者名字也写在册子里，之后还要继续找。",
+          "source_dialogue_id": "cq_leiso_04.3.l03",
+          "condition": {
+            "flag": "side.cq_leiso_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_leiso_05",
+      "title": "旧披风的归处",
+      "region": "北境救护站",
+      "available_after": "ch052",
+      "objects": [
+        {
+          "id": "cq_leiso_05.inspect.1",
+          "name": "旧披风",
+          "location": "北境救护站",
+          "available_after": "ch052",
+          "linked_stage": "cq_leiso_05.investigate",
+          "description_source": {
+            "speaker": "青年",
+            "text": "我总觉得一害怕就是辜负你。",
+            "source_dialogue_id": "cq_leiso_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_leiso_05.inspect.2",
+          "name": "救护物资账",
+          "location": "北境救护站",
+          "available_after": "ch052",
+          "linked_stage": "cq_leiso_05.choice",
+          "description_source": {
+            "speaker": "青年",
+            "text": "若不穿它上战场，披风还有用吗？",
+            "source_dialogue_id": "cq_leiso_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "获救青年",
+          "text": "这件披风该还你，我没能变成你那样的人。",
+          "source_dialogue_id": "cq_leiso_05.0.l01",
+          "condition": {
+            "after_chapter": "ch052",
+            "not_flag": "side.cq_leiso_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "披风不必留在谁的私人纪念箱里。",
+          "source_dialogue_id": "cq_leiso_05.1.l03",
+          "condition": {
+            "quest_stage": "cq_leiso_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "获救青年",
+          "text": "披风今天借给了一个怕冷的孩子。",
+          "source_dialogue_id": "cq_leiso_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_leiso_05.done",
+            "state_equals": {
+              "key": "side.cq_leiso_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "青年",
+          "text": "我决定把披风的故事说完后，再将它放进救护站。",
+          "source_dialogue_id": "cq_leiso_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_leiso_05.done",
+            "state_equals": {
+              "key": "side.cq_leiso_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "披风挂在公共物资柜里。",
+          "source_dialogue_id": "cq_leiso_05.3.l01",
+          "condition": {
+            "flag": "side.cq_leiso_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_leiso_06",
+      "title": "不用握剑的守夜",
+      "region": "群灯城志愿议事厅",
+      "available_after": "ch059",
+      "objects": [
+        {
+          "id": "cq_leiso_06.inspect.1",
+          "name": "木匠工具包",
+          "location": "群灯城志愿议事厅",
+          "available_after": "ch059",
+          "linked_stage": "cq_leiso_06.investigate",
+          "description_source": {
+            "speaker": "木匠",
+            "text": "我儿子死于军械试验。",
+            "source_dialogue_id": "cq_leiso_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_leiso_06.inspect.2",
+          "name": "避难所草图",
+          "location": "群灯城志愿议事厅",
+          "available_after": "ch059",
+          "linked_stage": "cq_leiso_06.choice",
+          "description_source": {
+            "speaker": "强硬派",
+            "text": "所有人都拒绝怎么办？",
+            "source_dialogue_id": "cq_leiso_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_leiso_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "木匠",
+          "text": "我会修桥，但不想再造炮。",
+          "source_dialogue_id": "cq_leiso_06.0.l01",
+          "condition": {
+            "after_chapter": "ch059",
+            "not_flag": "side.cq_leiso_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "木匠",
+          "text": "我儿子死于军械试验。",
+          "source_dialogue_id": "cq_leiso_06.1.l01",
+          "condition": {
+            "quest_stage": "cq_leiso_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "木匠",
+          "text": "志愿公约写明我可以修桥，也可以拒绝握剑。",
+          "source_dialogue_id": "cq_leiso_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_leiso_06.done",
+            "state_equals": {
+              "key": "side.cq_leiso_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "诺依",
+          "text": "避难所先建好了，城里的孩子今晚有屋顶。",
+          "source_dialogue_id": "cq_leiso_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_leiso_06.done",
+            "state_equals": {
+              "key": "side.cq_leiso_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "木匠",
+          "text": "我没有打仗，但今晚有人睡得安全。",
+          "source_dialogue_id": "cq_leiso_06.3.l02",
+          "condition": {
+            "flag": "side.cq_leiso_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_shouxian_01",
+      "title": "还债的航海图",
+      "region": "白砂港旧酒馆",
+      "available_after": "ch005",
+      "objects": [
+        {
+          "id": "cq_shouxian_01.inspect.1",
+          "name": "匿名补偿账",
+          "location": "白砂港旧酒馆",
+          "available_after": "ch005",
+          "linked_stage": "cq_shouxian_01.investigate",
+          "description_source": {
+            "speaker": "受害家属",
+            "text": "钱是来了，但我们一直不知道是谁寄的。",
+            "source_dialogue_id": "cq_shouxian_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_shouxian_01.inspect.2",
+          "name": "记忆货运单",
+          "location": "白砂港旧酒馆",
+          "available_after": "ch005",
+          "linked_stage": "cq_shouxian_01.choice",
+          "description_source": {
+            "speaker": "受害家属",
+            "text": "把钱收下，难道就等于替你洗清了吗？",
+            "source_dialogue_id": "cq_shouxian_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "酒馆老板",
+          "text": "你每次寄钱都不写名字。",
+          "source_dialogue_id": "cq_shouxian_01.0.l01",
+          "condition": {
+            "after_chapter": "ch005",
+            "not_flag": "side.cq_shouxian_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "受害家属",
+          "text": "钱是来了，但我们一直不知道是谁寄的。",
+          "source_dialogue_id": "cq_shouxian_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_shouxian_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "受害家属",
+          "text": "我听完你当年运货的经过，还需要时间才能决定。",
+          "source_dialogue_id": "cq_shouxian_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_01.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "酒馆老板",
+          "text": "原始货单已交给家属，寄款记录也可以查。",
+          "source_dialogue_id": "cq_shouxian_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_01.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "酒馆老板",
+          "text": "货单已经送到公开档案馆。",
+          "source_dialogue_id": "cq_shouxian_01.3.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_shouxian_02",
+      "title": "船长没有画完的星位",
+      "region": "海歌港旧船坞",
+      "available_after": "ch020",
+      "objects": [
+        {
+          "id": "cq_shouxian_02.inspect.1",
+          "name": "残缺星位图",
+          "location": "海歌港旧船坞",
+          "available_after": "ch020",
+          "linked_stage": "cq_shouxian_02.investigate",
+          "description_source": {
+            "speaker": "老水手",
+            "text": "我偷偷保存过一张无名岛星位图。",
+            "source_dialogue_id": "cq_shouxian_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_shouxian_02.inspect.2",
+          "name": "船员留存副本",
+          "location": "海歌港旧船坞",
+          "available_after": "ch020",
+          "linked_stage": "cq_shouxian_02.choice",
+          "description_source": {
+            "speaker": "朔弦",
+            "text": "你当年为什么没跟我一起逃？",
+            "source_dialogue_id": "cq_shouxian_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "老水手",
+          "text": "你的船越来越大，脾气还是那么硬。",
+          "source_dialogue_id": "cq_shouxian_02.0.l01",
+          "condition": {
+            "after_chapter": "ch020",
+            "not_flag": "side.cq_shouxian_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老水手",
+          "text": "我偷偷保存过一张无名岛星位图。",
+          "source_dialogue_id": "cq_shouxian_02.1.l01",
+          "condition": {
+            "quest_stage": "cq_shouxian_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老水手",
+          "text": "两张星位图终于放在一张桌上了。",
+          "source_dialogue_id": "cq_shouxian_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_02.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "老水手",
+          "text": "我把当年的船长证词留在档案里。",
+          "source_dialogue_id": "cq_shouxian_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_02.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "老水手",
+          "text": "到了那座岛，替我看看那棵歪树。",
+          "source_dialogue_id": "cq_shouxian_02.3.l02",
+          "condition": {
+            "flag": "side.cq_shouxian_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_shouxian_03",
+      "title": "邮差的退回船票",
+      "region": "晴汐小岛码头",
+      "available_after": "ch026",
+      "objects": [
+        {
+          "id": "cq_shouxian_03.inspect.1",
+          "name": "退回船票",
+          "location": "晴汐小岛码头",
+          "available_after": "ch026",
+          "linked_stage": "cq_shouxian_03.investigate",
+          "description_source": {
+            "speaker": "船务官",
+            "text": "免费送信会赔本。",
+            "source_dialogue_id": "cq_shouxian_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_shouxian_03.inspect.2",
+          "name": "邮路交接簿",
+          "location": "晴汐小岛码头",
+          "available_after": "ch026",
+          "linked_stage": "cq_shouxian_03.choice",
+          "description_source": {
+            "speaker": "船务官",
+            "text": "没人保证他们不把信扔进海里。",
+            "source_dialogue_id": "cq_shouxian_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "老邮差",
+          "text": "我不是圣人，腿脚不好以后也送不动了。",
+          "source_dialogue_id": "cq_shouxian_03.0.l01",
+          "condition": {
+            "after_chapter": "ch026",
+            "not_flag": "side.cq_shouxian_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老邮差",
+          "text": "有的信比货还要紧。",
+          "source_dialogue_id": "cq_shouxian_03.1.l02",
+          "condition": {
+            "quest_stage": "cq_shouxian_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老邮差",
+          "text": "第一袋信跟着三艘商船接力，终于靠岸。",
+          "source_dialogue_id": "cq_shouxian_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_03.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "老邮差",
+          "text": "下次信晚到了，我们至少知道它还在哪条船上。",
+          "source_dialogue_id": "cq_shouxian_03.choice.b.l02",
+          "condition": {
+            "flag": "side.cq_shouxian_03.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "老邮差",
+          "text": "我总算能在雨天歇会儿。",
+          "source_dialogue_id": "cq_shouxian_03.3.l02",
+          "condition": {
+            "flag": "side.cq_shouxian_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_shouxian_04",
+      "title": "歪树下的两张椅",
+      "region": "无名岛旧码头",
+      "available_after": "ch037",
+      "objects": [
+        {
+          "id": "cq_shouxian_04.inspect.1",
+          "name": "歪树下椅子",
+          "location": "无名岛旧码头",
+          "available_after": "ch037",
+          "linked_stage": "cq_shouxian_04.investigate",
+          "description_source": {
+            "speaker": "童年友人",
+            "text": "当年我一直留在这里，你却在外面讲我们的故事。",
+            "source_dialogue_id": "cq_shouxian_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_shouxian_04.inspect.2",
+          "name": "岛民议事记录",
+          "location": "无名岛旧码头",
+          "available_after": "ch037",
+          "linked_stage": "cq_shouxian_04.choice",
+          "description_source": {
+            "speaker": "朔弦",
+            "text": "我从前把故乡当成自己的失物。",
+            "source_dialogue_id": "cq_shouxian_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "故乡老人",
+          "text": "你一回来，岛就要让外面的人知道了。",
+          "source_dialogue_id": "cq_shouxian_04.0.l01",
+          "condition": {
+            "after_chapter": "ch037",
+            "not_flag": "side.cq_shouxian_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "童年友人",
+          "text": "当年我一直留在这里，你却在外面讲我们的故事。",
+          "source_dialogue_id": "cq_shouxian_04.1.l01",
+          "condition": {
+            "quest_stage": "cq_shouxian_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "故乡老人",
+          "text": "岛民终于自己坐到一张桌上，决定接待旅人。",
+          "source_dialogue_id": "cq_shouxian_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_04.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "童年友人",
+          "text": "公共救援航路会公开，私宅仍留在岛民自己手里。",
+          "source_dialogue_id": "cq_shouxian_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_04.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "歪树下摆上两张椅子，岛民和归来者终于坐下说话。",
+          "source_dialogue_id": "cq_shouxian_04.3.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_shouxian_05",
+      "title": "不收船票的乘客",
+      "region": "灾后海歌港",
+      "available_after": "ch052",
+      "objects": [
+        {
+          "id": "cq_shouxian_05.inspect.1",
+          "name": "十二年前旧船票",
+          "location": "灾后海歌港",
+          "available_after": "ch052",
+          "linked_stage": "cq_shouxian_05.investigate",
+          "description_source": {
+            "speaker": "年轻船长",
+            "text": "我没能救下我的父亲，可我如今每天都帮人靠岸。",
+            "source_dialogue_id": "cq_shouxian_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_shouxian_05.inspect.2",
+          "name": "二代海图",
+          "location": "灾后海歌港",
+          "available_after": "ch052",
+          "linked_stage": "cq_shouxian_05.choice",
+          "description_source": {
+            "speaker": "年轻船长",
+            "text": "你能教我认那片会把地图擦白的海吗？",
+            "source_dialogue_id": "cq_shouxian_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "年轻船长",
+          "text": "你不记得我，但我坐过逐星号最后一趟撤离船。",
+          "source_dialogue_id": "cq_shouxian_05.0.l01",
+          "condition": {
+            "after_chapter": "ch052",
+            "not_flag": "side.cq_shouxian_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "他不是来让你重新道歉的。",
+          "source_dialogue_id": "cq_shouxian_05.1.l03",
+          "condition": {
+            "quest_stage": "cq_shouxian_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "年轻船长",
+          "text": "海图上的新暗礁由我亲自测过，别再说只是旧英雄的记忆。",
+          "source_dialogue_id": "cq_shouxian_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_05.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "老船长",
+          "text": "我们把口述和实测摆在一起，差得最大的那段重新出航。",
+          "source_dialogue_id": "cq_shouxian_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_05.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "年轻船长",
+          "text": "这是我们这一代的第一张共同海图。",
+          "source_dialogue_id": "cq_shouxian_05.3.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_shouxian_06",
+      "title": "每艘船的归港灯",
+      "region": "群灯之城新港",
+      "available_after": "ch060",
+      "objects": [
+        {
+          "id": "cq_shouxian_06.inspect.1",
+          "name": "灯塔缴费牌",
+          "location": "群灯之城新港",
+          "available_after": "ch060",
+          "linked_stage": "cq_shouxian_06.investigate",
+          "description_source": {
+            "speaker": "老船长",
+            "text": "不收求救费，总要有人付灯油。",
+            "source_dialogue_id": "cq_shouxian_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_shouxian_06.inspect.2",
+          "name": "免费求救公约",
+          "location": "群灯之城新港",
+          "available_after": "ch060",
+          "linked_stage": "cq_shouxian_06.choice",
+          "description_source": {
+            "speaker": "灯塔管理员",
+            "text": "如果本月没有足够经费呢？",
+            "source_dialogue_id": "cq_shouxian_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_shouxian_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "灯塔管理员",
+          "text": "我一个人守不了所有夜班。",
+          "source_dialogue_id": "cq_shouxian_06.0.l01",
+          "condition": {
+            "after_chapter": "ch060",
+            "not_flag": "side.cq_shouxian_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "紧急救援不能因为有人没钱缴费而拒绝。",
+          "source_dialogue_id": "cq_shouxian_06.1.l03",
+          "condition": {
+            "quest_stage": "cq_shouxian_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "灯塔管理员",
+          "text": "航运基金每月公开，不交费的遇险船也照样求救。",
+          "source_dialogue_id": "cq_shouxian_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_shouxian_06.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "灯塔管理员",
+          "text": "今晚我可以休息，因为守灯已是许多人的事。",
+          "source_dialogue_id": "cq_shouxian_06.choice.b.l02",
+          "condition": {
+            "flag": "side.cq_shouxian_06.done",
+            "state_equals": {
+              "key": "side.cq_shouxian_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "灯塔管理员",
+          "text": "今晚轮到我休息了。",
+          "source_dialogue_id": "cq_shouxian_06.3.l02",
+          "condition": {
+            "flag": "side.cq_shouxian_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_tifa_01",
+      "title": "被退回的设计图",
+      "region": "赤炉工坊学徒舍",
+      "available_after": "ch014",
+      "objects": [
+        {
+          "id": "cq_tifa_01.inspect.1",
+          "name": "被拒设计图",
+          "location": "赤炉工坊学徒舍",
+          "available_after": "ch014",
+          "linked_stage": "cq_tifa_01.investigate",
+          "description_source": {
+            "speaker": "学徒",
+            "text": "我借用旧矿灯电路，里面却有秘密记忆接口。",
+            "source_dialogue_id": "cq_tifa_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_tifa_01.inspect.2",
+          "name": "旧矿灯接口",
+          "location": "赤炉工坊学徒舍",
+          "available_after": "ch014",
+          "linked_stage": "cq_tifa_01.choice",
+          "description_source": {
+            "speaker": "工坊考官",
+            "text": "去掉接口，效率就比军用版低。",
+            "source_dialogue_id": "cq_tifa_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "主角",
+          "text": "先看图纸能否安全供电。",
+          "source_dialogue_id": "cq_tifa_01.0.l03",
+          "condition": {
+            "after_chapter": "ch014",
+            "not_flag": "side.cq_tifa_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "学徒",
+          "text": "我借用旧矿灯电路，里面却有秘密记忆接口。",
+          "source_dialogue_id": "cq_tifa_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_tifa_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "学徒",
+          "text": "新的床头灯先公开了安全评价，军方不再有理由偷改设计。",
+          "source_dialogue_id": "cq_tifa_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_tifa_01.done",
+            "state_equals": {
+              "key": "side.cq_tifa_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "病房医师",
+          "text": "先让愿意试用的人确认亮度和安全。",
+          "source_dialogue_id": "cq_tifa_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_tifa_01.done",
+            "state_equals": {
+              "key": "side.cq_tifa_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "不读取记忆的床头灯终于完成。",
+          "source_dialogue_id": "cq_tifa_01.3.l01",
+          "condition": {
+            "flag": "side.cq_tifa_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_tifa_02",
+      "title": "四号阀门的名字",
+      "region": "赤炉主炉维修层",
+      "available_after": "ch017",
+      "objects": [
+        {
+          "id": "cq_tifa_02.inspect.1",
+          "name": "四号阀门",
+          "location": "赤炉主炉维修层",
+          "available_after": "ch017",
+          "linked_stage": "cq_tifa_02.investigate",
+          "description_source": {
+            "speaker": "老工匠",
+            "text": "那时有人要求我签保密单，否则全厂停工。",
+            "source_dialogue_id": "cq_tifa_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_tifa_02.inspect.2",
+          "name": "服务区域总表",
+          "location": "赤炉主炉维修层",
+          "available_after": "ch017",
+          "linked_stage": "cq_tifa_02.choice",
+          "description_source": {
+            "speaker": "维修主管",
+            "text": "标上住区名字，万一有人故意针对它们呢？",
+            "source_dialogue_id": "cq_tifa_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "老工匠",
+          "text": "我把工坊、医院、居住区都改成了数字。",
+          "source_dialogue_id": "cq_tifa_02.0.l01",
+          "condition": {
+            "after_chapter": "ch017",
+            "not_flag": "side.cq_tifa_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老工匠",
+          "text": "那时有人要求我签保密单，否则全厂停工。",
+          "source_dialogue_id": "cq_tifa_02.1.l01",
+          "condition": {
+            "quest_stage": "cq_tifa_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老工匠",
+          "text": "四号阀门重新刻回居民区的名称，还要两人复核。",
+          "source_dialogue_id": "cq_tifa_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_tifa_02.done",
+            "state_equals": {
+              "key": "side.cq_tifa_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "维修主管",
+          "text": "新的安全手册先送医院和工厂共同审读。",
+          "source_dialogue_id": "cq_tifa_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_tifa_02.done",
+            "state_equals": {
+              "key": "side.cq_tifa_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "老工匠",
+          "text": "以后操作前，我会先读一次名字。",
+          "source_dialogue_id": "cq_tifa_02.3.l02",
+          "condition": {
+            "flag": "side.cq_tifa_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_tifa_03",
+      "title": "不再用于战争的锤",
+      "region": "赤炉百工塔",
+      "available_after": "ch018",
+      "objects": [
+        {
+          "id": "cq_tifa_03.inspect.1",
+          "name": "旧战争锤",
+          "location": "赤炉百工塔",
+          "available_after": "ch018",
+          "linked_stage": "cq_tifa_03.investigate",
+          "description_source": {
+            "speaker": "救援工",
+            "text": "锤头太尖，砸墙时会伤到后面的伤员。",
+            "source_dialogue_id": "cq_tifa_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_tifa_03.inspect.2",
+          "name": "改造破拆头",
+          "location": "赤炉百工塔",
+          "available_after": "ch018",
+          "linked_stage": "cq_tifa_03.choice",
+          "description_source": {
+            "speaker": "锻造导师",
+            "text": "你想靠换个锤头就抹去它以前伤过的人？",
+            "source_dialogue_id": "cq_tifa_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "锻造导师",
+          "text": "这把锤最初是为攻城而造。",
+          "source_dialogue_id": "cq_tifa_03.0.l01",
+          "condition": {
+            "after_chapter": "ch018",
+            "not_flag": "side.cq_tifa_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "救援工",
+          "text": "锤头太尖，砸墙时会伤到后面的伤员。",
+          "source_dialogue_id": "cq_tifa_03.1.l01",
+          "condition": {
+            "quest_stage": "cq_tifa_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "救援工",
+          "text": "每种破拆方式都通过了模拟废墟测试。",
+          "source_dialogue_id": "cq_tifa_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_tifa_03.done",
+            "state_equals": {
+              "key": "side.cq_tifa_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "锻造导师",
+          "text": "旧锤曾用于攻城的记录同样进入档案。",
+          "source_dialogue_id": "cq_tifa_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_tifa_03.done",
+            "state_equals": {
+              "key": "side.cq_tifa_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "新破拆锤进入公共救援仓库。",
+          "source_dialogue_id": "cq_tifa_03.3.l01",
+          "condition": {
+            "flag": "side.cq_tifa_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_tifa_04",
+      "title": "根系之间的备用线路",
+      "region": "旧洲地脉林场",
+      "available_after": "ch041",
+      "objects": [
+        {
+          "id": "cq_tifa_04.inspect.1",
+          "name": "试验支线",
+          "location": "旧洲地脉林场",
+          "available_after": "ch041",
+          "linked_stage": "cq_tifa_04.investigate",
+          "description_source": {
+            "speaker": "护林工",
+            "text": "过去的守灯者保证过不会伤树，最后连树名都忘了。",
+            "source_dialogue_id": "cq_tifa_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_tifa_04.inspect.2",
+          "name": "树根风险图",
+          "location": "旧洲地脉林场",
+          "available_after": "ch041",
+          "linked_stage": "cq_tifa_04.choice",
+          "description_source": {
+            "speaker": "护林工",
+            "text": "如果试验失败，你们会留下来处理后果吗？",
+            "source_dialogue_id": "cq_tifa_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "护林工",
+          "text": "这棵树救过我们的村子，不是可以随便拆换的零件。",
+          "source_dialogue_id": "cq_tifa_04.0.l01",
+          "condition": {
+            "after_chapter": "ch041",
+            "not_flag": "side.cq_tifa_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "护林工",
+          "text": "过去的守灯者保证过不会伤树，最后连树名都忘了。",
+          "source_dialogue_id": "cq_tifa_04.1.l01",
+          "condition": {
+            "quest_stage": "cq_tifa_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "护林工",
+          "text": "试验支路能安全拆除，树根被保护着。",
+          "source_dialogue_id": "cq_tifa_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_tifa_04.done",
+            "state_equals": {
+              "key": "side.cq_tifa_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "护林少女",
+          "text": "每次检查都有护林者签字，没人能偷偷扩大工程。",
+          "source_dialogue_id": "cq_tifa_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_tifa_04.done",
+            "state_equals": {
+              "key": "side.cq_tifa_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "护林工",
+          "text": "我不同意你们所有的方案，但这次有人听完。",
+          "source_dialogue_id": "cq_tifa_04.3.l02",
+          "condition": {
+            "flag": "side.cq_tifa_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_tifa_05",
+      "title": "第一间修理铺",
+      "region": "群灯城西区",
+      "available_after": "ch055",
+      "objects": [
+        {
+          "id": "cq_tifa_05.inspect.1",
+          "name": "损坏车轮",
+          "location": "群灯城西区",
+          "available_after": "ch055",
+          "linked_stage": "cq_tifa_05.investigate",
+          "description_source": {
+            "speaker": "缇珐",
+            "text": "这些旧物有些能修，有些不能再安全使用。",
+            "source_dialogue_id": "cq_tifa_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_tifa_05.inspect.2",
+          "name": "公开维修价目",
+          "location": "群灯城西区",
+          "available_after": "ch055",
+          "linked_stage": "cq_tifa_05.choice",
+          "description_source": {
+            "speaker": "商会代表",
+            "text": "免费修理会让商店没生意。",
+            "source_dialogue_id": "cq_tifa_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "年轻修理匠",
+          "text": "大家的锅、灯、车轮都坏了，可没人有钱买新的。",
+          "source_dialogue_id": "cq_tifa_05.0.l01",
+          "condition": {
+            "after_chapter": "ch055",
+            "not_flag": "side.cq_tifa_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "年轻修理匠",
+          "text": "那我们该怎么向居民解释不能修？",
+          "source_dialogue_id": "cq_tifa_05.1.l02",
+          "condition": {
+            "quest_stage": "cq_tifa_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "年轻修理匠",
+          "text": "费用和补贴张贴出来，孩子的轮椅先修好了。",
+          "source_dialogue_id": "cq_tifa_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_tifa_05.done",
+            "state_equals": {
+              "key": "side.cq_tifa_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "年轻修理匠",
+          "text": "这周学徒修好了五件旧物，还主动贴出不能修的原因。",
+          "source_dialogue_id": "cq_tifa_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_tifa_05.done",
+            "state_equals": {
+              "key": "side.cq_tifa_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "年轻修理匠",
+          "text": "今天修好了八盏灯和一辆儿童车。",
+          "source_dialogue_id": "cq_tifa_05.3.l02",
+          "condition": {
+            "flag": "side.cq_tifa_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_tifa_06",
+      "title": "不能只靠一个人的图纸",
+      "region": "群灯城能源议事厅",
+      "available_after": "ch060",
+      "objects": [
+        {
+          "id": "cq_tifa_06.inspect.1",
+          "name": "单人署名图纸",
+          "location": "群灯城能源议事厅",
+          "available_after": "ch060",
+          "linked_stage": "cq_tifa_06.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "中央控制又会从最可信任的人开始。",
+            "source_dialogue_id": "cq_tifa_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_tifa_06.inspect.2",
+          "name": "公共技术手册",
+          "location": "群灯城能源议事厅",
+          "available_after": "ch060",
+          "linked_stage": "cq_tifa_06.choice",
+          "description_source": {
+            "speaker": "市民技师",
+            "text": "若有人学会后用它造武器呢？",
+            "source_dialogue_id": "cq_tifa_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_tifa_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "市民技师",
+          "text": "如果你离开，大家该找谁修？",
+          "source_dialogue_id": "cq_tifa_06.0.l01",
+          "condition": {
+            "after_chapter": "ch060",
+            "not_flag": "side.cq_tifa_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "维莎",
+          "text": "中央控制又会从最可信任的人开始。",
+          "source_dialogue_id": "cq_tifa_06.1.l01",
+          "condition": {
+            "quest_stage": "cq_tifa_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "市民技师",
+          "text": "公共手册收录必要的维修方法，危险接口由多人审核。",
+          "source_dialogue_id": "cq_tifa_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_tifa_06.done",
+            "state_equals": {
+              "key": "side.cq_tifa_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "跨区学徒",
+          "text": "今天有人教我看电路，明天由我教别人。",
+          "source_dialogue_id": "cq_tifa_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_tifa_06.done",
+            "state_equals": {
+              "key": "side.cq_tifa_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "技术手册被改成多作者署名版。",
+          "source_dialogue_id": "cq_tifa_06.3.l01",
+          "condition": {
+            "flag": "side.cq_tifa_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_ize_01",
+      "title": "无人唱出的最后一节",
+      "region": "断歌礁旧乐棚",
+      "available_after": "ch028",
+      "objects": [
+        {
+          "id": "cq_ize_01.inspect.1",
+          "name": "歌的末节残谱",
+          "location": "断歌礁旧乐棚",
+          "available_after": "ch028",
+          "linked_stage": "cq_ize_01.investigate",
+          "description_source": {
+            "speaker": "老歌者",
+            "text": "歌里并没有怪物，只是被驱离家乡的孩子。",
+            "source_dialogue_id": "cq_ize_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_ize_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_ize_01.inspect.2",
+          "name": "家属授权表",
+          "location": "断歌礁旧乐棚",
+          "available_after": "ch028",
+          "linked_stage": "cq_ize_01.choice",
+          "description_source": {
+            "speaker": "村民",
+            "text": "为什么我们的苦事得成为节庆节目？",
+            "source_dialogue_id": "cq_ize_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_ize_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "主角",
+          "text": "先问那些故事里的人愿不愿被公开。",
+          "source_dialogue_id": "cq_ize_01.0.l03",
+          "condition": {
+            "after_chapter": "ch028",
+            "not_flag": "side.cq_ize_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "老歌者",
+          "text": "歌里并没有怪物，只是被驱离家乡的孩子。",
+          "source_dialogue_id": "cq_ize_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_ize_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老歌者",
+          "text": "这一夜由家属自己决定何时唱。",
+          "source_dialogue_id": "cq_ize_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_ize_01.done",
+            "state_equals": {
+              "key": "side.cq_ize_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "伊泽",
+          "text": "先封存残谱与匿名证词。",
+          "source_dialogue_id": "cq_ize_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_ize_01.done",
+            "state_equals": {
+              "key": "side.cq_ize_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "老歌者",
+          "text": "这回是大家一起决定什么时候唱。",
+          "source_dialogue_id": "cq_ize_01.3.l01",
+          "condition": {
+            "flag": "side.cq_ize_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_ize_02",
+      "title": "谁来记住船名",
+      "region": "风航灯旧锚台",
+      "available_after": "ch030",
+      "objects": [
+        {
+          "id": "cq_ize_02.inspect.1",
+          "name": "只刻船长的碑",
+          "location": "风航灯旧锚台",
+          "available_after": "ch030",
+          "linked_stage": "cq_ize_02.investigate",
+          "description_source": {
+            "speaker": "朔弦",
+            "text": "没有做饭的人，一条船撑不了多久。",
+            "source_dialogue_id": "cq_ize_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_ize_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_ize_02.inspect.2",
+          "name": "船员工资册",
+          "location": "风航灯旧锚台",
+          "available_after": "ch030",
+          "linked_stage": "cq_ize_02.choice",
+          "description_source": {
+            "speaker": "船主",
+            "text": "纪念碑位置有限，不可能刻每个人。",
+            "source_dialogue_id": "cq_ize_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_ize_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "年轻船员",
+          "text": "父亲在那艘船上，但名单里没有他。",
+          "source_dialogue_id": "cq_ize_02.0.l01",
+          "condition": {
+            "after_chapter": "ch030",
+            "not_flag": "side.cq_ize_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "不用先把人变成英雄，才能把名字留下。",
+          "source_dialogue_id": "cq_ize_02.1.l03",
+          "condition": {
+            "quest_stage": "cq_ize_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "年轻船员",
+          "text": "公开名册给厨师和修船工都留了位置。",
+          "source_dialogue_id": "cq_ize_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_ize_02.done",
+            "state_equals": {
+              "key": "side.cq_ize_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "船员家属",
+          "text": "由我们商量纪念的形式。",
+          "source_dialogue_id": "cq_ize_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_ize_02.done",
+            "state_equals": {
+              "key": "side.cq_ize_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "年轻船员",
+          "text": "父亲名字旁终于写了他最擅长做的鱼汤。",
+          "source_dialogue_id": "cq_ize_02.3.l02",
+          "condition": {
+            "flag": "side.cq_ize_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_ize_03",
+      "title": "两种结局的同一首歌",
+      "region": "岁影回廊旧剧院",
+      "available_after": "ch040",
+      "objects": [
+        {
+          "id": "cq_ize_03.inspect.1",
+          "name": "城门双视角剧本",
+          "location": "岁影回廊旧剧院",
+          "available_after": "ch040",
+          "linked_stage": "cq_ize_03.investigate",
+          "description_source": {
+            "speaker": "演员甲",
+            "text": "外城居民得救了。",
+            "source_dialogue_id": "cq_ize_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_ize_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_ize_03.inspect.2",
+          "name": "演员证词",
+          "location": "岁影回廊旧剧院",
+          "available_after": "ch040",
+          "linked_stage": "cq_ize_03.choice",
+          "description_source": {
+            "speaker": "剧团团长",
+            "text": "太复杂的戏没人买票。",
+            "source_dialogue_id": "cq_ize_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_ize_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "演员",
+          "text": "我们要演一出让孩子能看懂的戏。",
+          "source_dialogue_id": "cq_ize_03.0.l01",
+          "condition": {
+            "after_chapter": "ch040",
+            "not_flag": "side.cq_ize_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "演员甲",
+          "text": "外城居民得救了。",
+          "source_dialogue_id": "cq_ize_03.1.l01",
+          "condition": {
+            "quest_stage": "cq_ize_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "演员",
+          "text": "第一幕演外城得救，第二幕演城内被困。",
+          "source_dialogue_id": "cq_ize_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_ize_03.done",
+            "state_equals": {
+              "key": "side.cq_ize_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "团长",
+          "text": "散场后的提问比掌声还多。",
+          "source_dialogue_id": "cq_ize_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_ize_03.done",
+            "state_equals": {
+              "key": "side.cq_ize_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "演出结束，观众没有立刻鼓掌，先有孩子举手提问。",
+          "source_dialogue_id": "cq_ize_03.3.l01",
+          "condition": {
+            "flag": "side.cq_ize_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_ize_04",
+      "title": "十二张纸的歌",
+      "region": "旧洲根忆灯坛",
+      "available_after": "ch042",
+      "objects": [
+        {
+          "id": "cq_ize_04.inspect.1",
+          "name": "冲突的史书页",
+          "location": "旧洲根忆灯坛",
+          "available_after": "ch042",
+          "linked_stage": "cq_ize_04.investigate",
+          "description_source": {
+            "speaker": "档案员",
+            "text": "有些故事互相矛盾，怎么判断谁的说法真实？",
+            "source_dialogue_id": "cq_ize_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_ize_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_ize_04.inspect.2",
+          "name": "航页索引册",
+          "location": "旧洲根忆灯坛",
+          "available_after": "ch042",
+          "linked_stage": "cq_ize_04.choice",
+          "description_source": {
+            "speaker": "旧贵族",
+            "text": "我们的祖先功绩不能和流亡者的怨言并列。",
+            "source_dialogue_id": "cq_ize_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_ize_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "档案员",
+          "text": "普通人的小事放进去，史书会厚得搬不动。",
+          "source_dialogue_id": "cq_ize_04.0.l01",
+          "condition": {
+            "after_chapter": "ch042",
+            "not_flag": "side.cq_ize_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "档案员",
+          "text": "有些故事互相矛盾，怎么判断谁的说法真实？",
+          "source_dialogue_id": "cq_ize_04.1.l01",
+          "condition": {
+            "quest_stage": "cq_ize_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "档案员",
+          "text": "史书有了许多署名与证词索引。",
+          "source_dialogue_id": "cq_ize_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_ize_04.done",
+            "state_equals": {
+              "key": "side.cq_ize_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "伊泽",
+          "text": "互相矛盾的材料同时保留。",
+          "source_dialogue_id": "cq_ize_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_ize_04.done",
+            "state_equals": {
+              "key": "side.cq_ize_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "档案员",
+          "text": "史书的封面终于写不下全部作者名。",
+          "source_dialogue_id": "cq_ize_04.3.l01",
+          "condition": {
+            "flag": "side.cq_ize_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_ize_05",
+      "title": "旧照片没有歌",
+      "region": "暮林驿站后台",
+      "available_after": "ch052",
+      "objects": [
+        {
+          "id": "cq_ize_05.inspect.1",
+          "name": "旧英雄歌曲",
+          "location": "暮林驿站后台",
+          "available_after": "ch052",
+          "linked_stage": "cq_ize_05.investigate",
+          "description_source": {
+            "speaker": "主角",
+            "text": "有些夜晚连我们自己都不愿想起。",
+            "source_dialogue_id": "cq_ize_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_ize_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_ize_05.inspect.2",
+          "name": "家属改词信",
+          "location": "暮林驿站后台",
+          "available_after": "ch052",
+          "linked_stage": "cq_ize_05.choice",
+          "description_source": {
+            "speaker": "旅店老板",
+            "text": "不唱胜利，观众会不会离开？",
+            "source_dialogue_id": "cq_ize_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_ize_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "旅店老板",
+          "text": "客人都爱听从不失败的英雄故事。",
+          "source_dialogue_id": "cq_ize_05.0.l01",
+          "condition": {
+            "after_chapter": "ch052",
+            "not_flag": "side.cq_ize_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "有些夜晚连我们自己都不愿想起。",
+          "source_dialogue_id": "cq_ize_05.1.l01",
+          "condition": {
+            "quest_stage": "cq_ize_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "老板",
+          "text": "家属自己挑选了演出的段落。",
+          "source_dialogue_id": "cq_ize_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_ize_05.done",
+            "state_equals": {
+              "key": "side.cq_ize_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "伊泽",
+          "text": "歌本先公开给家属审读。",
+          "source_dialogue_id": "cq_ize_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_ize_05.done",
+            "state_equals": {
+              "key": "side.cq_ize_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旅店老板",
+          "text": "有人哭了，也有人陪他们坐着。",
+          "source_dialogue_id": "cq_ize_05.3.l02",
+          "condition": {
+            "flag": "side.cq_ize_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_ize_06",
+      "title": "没有第二节的童谣",
+      "region": "永昼花园",
+      "available_after": "ch067",
+      "objects": [
+        {
+          "id": "cq_ize_06.inspect.1",
+          "name": "被删的童谣第二节",
+          "location": "永昼花园",
+          "available_after": "ch067",
+          "linked_stage": "cq_ize_06.investigate",
+          "description_source": {
+            "speaker": "孩子",
+            "text": "今天有一朵花掉了花瓣。",
+            "source_dialogue_id": "cq_ize_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_ize_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_ize_06.inspect.2",
+          "name": "孩子新歌词",
+          "location": "永昼花园",
+          "available_after": "ch067",
+          "linked_stage": "cq_ize_06.choice",
+          "description_source": {
+            "speaker": "园丁系统",
+            "text": "新的歌词可能导致情绪波动。",
+            "source_dialogue_id": "cq_ize_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_ize_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "花园孩子",
+          "text": "我唱到第二句就会忘记自己想写什么。",
+          "source_dialogue_id": "cq_ize_06.0.l01",
+          "condition": {
+            "after_chapter": "ch067",
+            "not_flag": "side.cq_ize_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "孩子",
+          "text": "今天有一朵花掉了花瓣。",
+          "source_dialogue_id": "cq_ize_06.1.l01",
+          "condition": {
+            "quest_stage": "cq_ize_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "教师",
+          "text": "新的创作课由家长和孩子自愿报名。",
+          "source_dialogue_id": "cq_ize_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_ize_06.done",
+            "state_equals": {
+              "key": "side.cq_ize_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "孩子",
+          "text": "原稿保存好了，明天我还能接着写。",
+          "source_dialogue_id": "cq_ize_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_ize_06.done",
+            "state_equals": {
+              "key": "side.cq_ize_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "新的歌只有两句，孩子却第一次记住自己写的第二句。",
+          "source_dialogue_id": "cq_ize_06.3.l01",
+          "condition": {
+            "flag": "side.cq_ize_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_xuanli_01",
+      "title": "不属于任何人的户籍",
+      "region": "镜眠王都档案局",
+      "available_after": "ch034",
+      "objects": [
+        {
+          "id": "cq_xuanli_01.inspect.1",
+          "name": "镜宫户籍表",
+          "location": "镜眠王都档案局",
+          "available_after": "ch034",
+          "linked_stage": "cq_xuanli_01.investigate",
+          "description_source": {
+            "speaker": "玄璃",
+            "text": "我在现世看见过雨、树和会吵架的人。",
+            "source_dialogue_id": "cq_xuanli_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_xuanli_01.inspect.2",
+          "name": "自选地址栏",
+          "location": "镜眠王都档案局",
+          "available_after": "ch034",
+          "linked_stage": "cq_xuanli_01.choice",
+          "description_source": {
+            "speaker": "档案长",
+            "text": "若接受一个例外，后来还会有许多人申请。",
+            "source_dialogue_id": "cq_xuanli_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "户籍员",
+          "text": "你的原籍是镜宫，住址也是镜宫。",
+          "source_dialogue_id": "cq_xuanli_01.0.l01",
+          "condition": {
+            "after_chapter": "ch034",
+            "not_flag": "side.cq_xuanli_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "户籍员",
+          "text": "规定里只有“现世出生”和“映世资产”。",
+          "source_dialogue_id": "cq_xuanli_01.1.l02",
+          "condition": {
+            "quest_stage": "cq_xuanli_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "户籍员",
+          "text": "自选住址栏正式开放，玄璃亲手登记。",
+          "source_dialogue_id": "cq_xuanli_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_01.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "映世代表",
+          "text": "多名居民提交了自己的意见。",
+          "source_dialogue_id": "cq_xuanli_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_01.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "户籍员",
+          "text": "我还要学着填这一栏，也想听你们的建议。",
+          "source_dialogue_id": "cq_xuanli_01.3.l03",
+          "condition": {
+            "flag": "side.cq_xuanli_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_xuanli_02",
+      "title": "真正的雨与假雨",
+      "region": "镜眠王都城外花园",
+      "available_after": "ch036",
+      "objects": [
+        {
+          "id": "cq_xuanli_02.inspect.1",
+          "name": "幻雨玻璃瓶",
+          "location": "镜眠王都城外花园",
+          "available_after": "ch036",
+          "linked_stage": "cq_xuanli_02.investigate",
+          "description_source": {
+            "speaker": "玄璃",
+            "text": "映世的雨只会在别人需要时出现。",
+            "source_dialogue_id": "cq_xuanli_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_xuanli_02.inspect.2",
+          "name": "真实雨滴日记",
+          "location": "镜眠王都城外花园",
+          "available_after": "ch036",
+          "linked_stage": "cq_xuanli_02.choice",
+          "description_source": {
+            "speaker": "玄璃",
+            "text": "如果我说自己其实更喜欢幻雨，会不会不像真正的人？",
+            "source_dialogue_id": "cq_xuanli_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "园丁",
+          "text": "今天有雨，你为什么还站在外面？",
+          "source_dialogue_id": "cq_xuanli_02.0.l01",
+          "condition": {
+            "after_chapter": "ch036",
+            "not_flag": "side.cq_xuanli_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "园丁",
+          "text": "现世的雨可不管今天是不是好日子。",
+          "source_dialogue_id": "cq_xuanli_02.1.l02",
+          "condition": {
+            "quest_stage": "cq_xuanli_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "玄璃",
+          "text": "我把泥土味和屋檐声写进日记了。",
+          "source_dialogue_id": "cq_xuanli_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_02.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "园丁",
+          "text": "几位映世居民自愿来淋雨，又笑着回屋。",
+          "source_dialogue_id": "cq_xuanli_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_02.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "主角",
+          "text": "想回熟悉的地方，不妨碍你继续出发。",
+          "source_dialogue_id": "cq_xuanli_02.3.l03",
+          "condition": {
+            "flag": "side.cq_xuanli_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_xuanli_03",
+      "title": "第三扇空门",
+      "region": "旧洲根系树海",
+      "available_after": "ch041",
+      "objects": [
+        {
+          "id": "cq_xuanli_03.inspect.1",
+          "name": "第三扇空门",
+          "location": "旧洲根系树海",
+          "available_after": "ch041",
+          "linked_stage": "cq_xuanli_03.investigate",
+          "description_source": {
+            "speaker": "缇珐",
+            "text": "这里预留了一个可扩展接口。",
+            "source_dialogue_id": "cq_xuanli_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_xuanli_03.inspect.2",
+          "name": "地脉改建图",
+          "location": "旧洲根系树海",
+          "available_after": "ch041",
+          "linked_stage": "cq_xuanli_03.choice",
+          "description_source": {
+            "speaker": "地方官",
+            "text": "空白会让人不安，也便于坏人乱写。",
+            "source_dialogue_id": "cq_xuanli_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "护林少女",
+          "text": "这门什么都没有，官员说必须写点东西。",
+          "source_dialogue_id": "cq_xuanli_03.0.l01",
+          "condition": {
+            "after_chapter": "ch041",
+            "not_flag": "side.cq_xuanli_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "护林少女",
+          "text": "祖辈说没写字是因为以后的人可以自己留下。",
+          "source_dialogue_id": "cq_xuanli_03.1.l02",
+          "condition": {
+            "quest_stage": "cq_xuanli_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "护林少女",
+          "text": "空门旁加了来历说明，却没替未来填词。",
+          "source_dialogue_id": "cq_xuanli_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_03.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "代表",
+          "text": "之后可由居民共同修订记录规则。",
+          "source_dialogue_id": "cq_xuanli_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_03.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "护林少女",
+          "text": "我喜欢它不是秘密，而是邀请。",
+          "source_dialogue_id": "cq_xuanli_03.3.l02",
+          "condition": {
+            "flag": "side.cq_xuanli_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_xuanli_04",
+      "title": "我也会判断错误",
+      "region": "旧洲新生救援营",
+      "available_after": "ch054",
+      "objects": [
+        {
+          "id": "cq_xuanli_04.inspect.1",
+          "name": "未来路线草案",
+          "location": "旧洲新生救援营",
+          "available_after": "ch054",
+          "linked_stage": "cq_xuanli_04.investigate",
+          "description_source": {
+            "speaker": "玄璃",
+            "text": "上次我预测山路可通，结果雨把桥冲断了。",
+            "source_dialogue_id": "cq_xuanli_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_xuanli_04.inspect.2",
+          "name": "实测险路图",
+          "location": "旧洲新生救援营",
+          "available_after": "ch054",
+          "linked_stage": "cq_xuanli_04.choice",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "把预测和勘测放在两栏，不能把一种替代另一种。",
+            "source_dialogue_id": "cq_xuanli_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "年轻救援者",
+          "text": "你看过另一种未来，快告诉我们最佳路线！",
+          "source_dialogue_id": "cq_xuanli_04.0.l01",
+          "condition": {
+            "after_chapter": "ch054",
+            "not_flag": "side.cq_xuanli_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "她不欠任何人“完美”这个承诺。",
+          "source_dialogue_id": "cq_xuanli_04.1.l03",
+          "condition": {
+            "quest_stage": "cq_xuanli_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "救援者",
+          "text": "预测与实测被分列，错误可以更正。",
+          "source_dialogue_id": "cq_xuanli_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_04.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "诺依",
+          "text": "每队自己勘测道路，不再让玄璃一人决定。",
+          "source_dialogue_id": "cq_xuanli_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_04.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "新的救援地图把预测、实测和修订日期分开。",
+          "source_dialogue_id": "cq_xuanli_04.3.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_xuanli_05",
+      "title": "被划掉的可能",
+      "region": "天轨原初实验室",
+      "available_after": "ch062",
+      "objects": [
+        {
+          "id": "cq_xuanli_05.inspect.1",
+          "name": "被删除的愿望",
+          "location": "天轨原初实验室",
+          "available_after": "ch062",
+          "linked_stage": "cq_xuanli_05.investigate",
+          "description_source": {
+            "speaker": "主角",
+            "text": "那个孩子后来怎样了？",
+            "source_dialogue_id": "cq_xuanli_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_xuanli_05.inspect.2",
+          "name": "受害者申诉章",
+          "location": "天轨原初实验室",
+          "available_after": "ch062",
+          "linked_stage": "cq_xuanli_05.choice",
+          "description_source": {
+            "speaker": "档案残响",
+            "text": "全部恢复将产生无法计算的风险。",
+            "source_dialogue_id": "cq_xuanli_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "档案残响",
+          "text": "该梦想社会收益不足，予以删除。",
+          "source_dialogue_id": "cq_xuanli_05.0.l01",
+          "condition": {
+            "after_chapter": "ch062",
+            "not_flag": "side.cq_xuanli_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "那个孩子后来怎样了？",
+          "source_dialogue_id": "cq_xuanli_05.1.l01",
+          "condition": {
+            "quest_stage": "cq_xuanli_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "维莎",
+          "text": "被删的愿望原样保存，不再按有用与否排序。",
+          "source_dialogue_id": "cq_xuanli_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_05.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "档案员",
+          "text": "筛选规则公开后有人提出申诉。",
+          "source_dialogue_id": "cq_xuanli_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_05.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "主角",
+          "text": "这正是你自己作出的决定。",
+          "source_dialogue_id": "cq_xuanli_05.3.l03",
+          "condition": {
+            "flag": "side.cq_xuanli_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_xuanli_06",
+      "title": "谁有权留下映世",
+      "region": "七灯评议庭侧厅",
+      "available_after": "ch070",
+      "objects": [
+        {
+          "id": "cq_xuanli_06.inspect.1",
+          "name": "缺席的映世席位",
+          "location": "七灯评议庭侧厅",
+          "available_after": "ch070",
+          "linked_stage": "cq_xuanli_06.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "有人担心映世居民的寿命和现实身份难以登记。",
+            "source_dialogue_id": "cq_xuanli_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_xuanli_06.inspect.2",
+          "name": "公民登记议案",
+          "location": "七灯评议庭侧厅",
+          "available_after": "ch070",
+          "linked_stage": "cq_xuanli_06.choice",
+          "description_source": {
+            "speaker": "现世议员",
+            "text": "如果投票人数一直变化怎么办？",
+            "source_dialogue_id": "cq_xuanli_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_xuanli_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "映世代表",
+          "text": "他们愿意给我们一座家，却不愿让我们决定门朝哪边开。",
+          "source_dialogue_id": "cq_xuanli_06.0.l01",
+          "condition": {
+            "after_chapter": "ch070",
+            "not_flag": "side.cq_xuanli_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "可建立公开的转换程序和申诉途径。",
+          "source_dialogue_id": "cq_xuanli_06.1.l03",
+          "condition": {
+            "quest_stage": "cq_xuanli_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "映世代表",
+          "text": "我们在评议庭有了席位与质询权。",
+          "source_dialogue_id": "cq_xuanli_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_06.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "现世议员",
+          "text": "居住登记可公开申请并申诉。",
+          "source_dialogue_id": "cq_xuanli_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_06.done",
+            "state_equals": {
+              "key": "side.cq_xuanli_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "评议庭记录下映世居民的公民资格与参与规则。",
+          "source_dialogue_id": "cq_xuanli_06.3.l01",
+          "condition": {
+            "flag": "side.cq_xuanli_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_nuoyi_01",
+      "title": "救援名单的空位",
+      "region": "荒原邮站",
+      "available_after": "ch049",
+      "objects": [
+        {
+          "id": "cq_nuoyi_01.inspect.1",
+          "name": "救援名单背面",
+          "location": "荒原邮站",
+          "available_after": "ch049",
+          "linked_stage": "cq_nuoyi_01.investigate",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "这张名单只有获救者，背面还有未归者。",
+            "source_dialogue_id": "cq_nuoyi_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_nuoyi_01.inspect.2",
+          "name": "邮站证人口述",
+          "location": "荒原邮站",
+          "available_after": "ch049",
+          "linked_stage": "cq_nuoyi_01.choice",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "我不找永远正确的人。",
+            "source_dialogue_id": "cq_nuoyi_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "老板",
+          "text": "你找的是拯救大家的英雄？",
+          "source_dialogue_id": "cq_nuoyi_01.0.l01",
+          "condition": {
+            "after_chapter": "ch049",
+            "not_flag": "side.cq_nuoyi_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "诺依",
+          "text": "这张名单只有获救者，背面还有未归者。",
+          "source_dialogue_id": "cq_nuoyi_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_nuoyi_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "驿站老板",
+          "text": "现在名单正反两面一起挂出，没归来的人也有名字。",
+          "source_dialogue_id": "cq_nuoyi_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_01.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "遗属代表",
+          "text": "每家先核对愿意公开的姓名。",
+          "source_dialogue_id": "cq_nuoyi_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_01.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "邮站重新悬挂完整救援名单。",
+          "source_dialogue_id": "cq_nuoyi_01.3.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_nuoyi_02",
+      "title": "墙另一面的那本书",
+      "region": "灾后王都东墙",
+      "available_after": "ch050",
+      "objects": [
+        {
+          "id": "cq_nuoyi_02.inspect.1",
+          "name": "借来的书",
+          "location": "灾后王都东墙",
+          "available_after": "ch050",
+          "linked_stage": "cq_nuoyi_02.investigate",
+          "description_source": {
+            "speaker": "守卫",
+            "text": "新旧两区互不信任，所以不准通行。",
+            "source_dialogue_id": "cq_nuoyi_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_nuoyi_02.inspect.2",
+          "name": "两区通行图",
+          "location": "灾后王都东墙",
+          "available_after": "ch050",
+          "linked_stage": "cq_nuoyi_02.choice",
+          "description_source": {
+            "speaker": "守卫",
+            "text": "谁来核对通过的人？",
+            "source_dialogue_id": "cq_nuoyi_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "孩子",
+          "text": "这本书我已经借了三年，还不到朋友家。",
+          "source_dialogue_id": "cq_nuoyi_02.0.l01",
+          "condition": {
+            "after_chapter": "ch050",
+            "not_flag": "side.cq_nuoyi_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "守卫",
+          "text": "新旧两区互不信任，所以不准通行。",
+          "source_dialogue_id": "cq_nuoyi_02.1.l01",
+          "condition": {
+            "quest_stage": "cq_nuoyi_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "流民孩子",
+          "text": "我终于过墙把书还给朋友，医师也有了通道。",
+          "source_dialogue_id": "cq_nuoyi_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_02.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "城墙守卫",
+          "text": "居民亲手修订通行地图。",
+          "source_dialogue_id": "cq_nuoyi_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_02.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "城墙旁开启第一条受监督的通道。",
+          "source_dialogue_id": "cq_nuoyi_02.3.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_nuoyi_03",
+      "title": "不催促的邀请",
+      "region": "雾岭农庄",
+      "available_after": "ch051",
+      "objects": [
+        {
+          "id": "cq_nuoyi_03.inspect.1",
+          "name": "诺依的邀请地图",
+          "location": "雾岭农庄",
+          "available_after": "ch051",
+          "linked_stage": "cq_nuoyi_03.investigate",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "这是我做的地图，里头还有许多空白。",
+            "source_dialogue_id": "cq_nuoyi_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_nuoyi_03.inspect.2",
+          "name": "修桥工作日志",
+          "location": "雾岭农庄",
+          "available_after": "ch051",
+          "linked_stage": "cq_nuoyi_03.choice",
+          "description_source": {
+            "speaker": "主角",
+            "text": "如果我不同意呢？",
+            "source_dialogue_id": "cq_nuoyi_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "主角",
+          "text": "我怕再次让人相信我能做所有事。",
+          "source_dialogue_id": "cq_nuoyi_03.0.l03",
+          "condition": {
+            "after_chapter": "ch051",
+            "not_flag": "side.cq_nuoyi_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "你想让我填上它们？",
+          "source_dialogue_id": "cq_nuoyi_03.1.l02",
+          "condition": {
+            "quest_stage": "cq_nuoyi_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "诺依",
+          "text": "我把救援计划说明了，主角可以自己决定。",
+          "source_dialogue_id": "cq_nuoyi_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_03.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "村妇",
+          "text": "地图留下了，没人逼他今天就答应。",
+          "source_dialogue_id": "cq_nuoyi_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_03.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "主角",
+          "text": "把图留下，我想再看一遍。",
+          "source_dialogue_id": "cq_nuoyi_03.3.l02",
+          "condition": {
+            "flag": "side.cq_nuoyi_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_nuoyi_04",
+      "title": "继承不是模仿",
+      "region": "新生救援营",
+      "available_after": "ch054",
+      "objects": [
+        {
+          "id": "cq_nuoyi_04.inspect.1",
+          "name": "轮值队长牌",
+          "location": "新生救援营",
+          "available_after": "ch054",
+          "linked_stage": "cq_nuoyi_04.investigate",
+          "description_source": {
+            "speaker": "雷索",
+            "text": "共同的安全规则比某个人的命令长久。",
+            "source_dialogue_id": "cq_nuoyi_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_nuoyi_04.inspect.2",
+          "name": "救援复盘簿",
+          "location": "新生救援营",
+          "available_after": "ch054",
+          "linked_stage": "cq_nuoyi_04.choice",
+          "description_source": {
+            "speaker": "队员",
+            "text": "经验不足的人可以带队吗？",
+            "source_dialogue_id": "cq_nuoyi_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "主角",
+          "text": "我当年就是忘了这点。",
+          "source_dialogue_id": "cq_nuoyi_04.0.l03",
+          "condition": {
+            "after_chapter": "ch054",
+            "not_flag": "side.cq_nuoyi_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "年轻队员",
+          "text": "新队长也许不如诺依熟悉。",
+          "source_dialogue_id": "cq_nuoyi_04.1.l02",
+          "condition": {
+            "quest_stage": "cq_nuoyi_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "年轻队长",
+          "text": "我按轮值带完第一队，诺依帮我复盘。",
+          "source_dialogue_id": "cq_nuoyi_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_04.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "救援队员",
+          "text": "先从副队长开始学习危险判断。",
+          "source_dialogue_id": "cq_nuoyi_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_04.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "诺依退到后排，认真记录年轻队长的第一次指挥。",
+          "source_dialogue_id": "cq_nuoyi_04.3.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_nuoyi_05",
+      "title": "不握剑的课本",
+      "region": "群灯城儿童学堂",
+      "available_after": "ch059",
+      "objects": [
+        {
+          "id": "cq_nuoyi_05.inspect.1",
+          "name": "旧剑术课本",
+          "location": "群灯城儿童学堂",
+          "available_after": "ch059",
+          "linked_stage": "cq_nuoyi_05.investigate",
+          "description_source": {
+            "speaker": "孩子",
+            "text": "若遇到怪物，不拿剑怎么办？",
+            "source_dialogue_id": "cq_nuoyi_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_nuoyi_05.inspect.2",
+          "name": "儿童急救图",
+          "location": "群灯城儿童学堂",
+          "available_after": "ch059",
+          "linked_stage": "cq_nuoyi_05.choice",
+          "description_source": {
+            "speaker": "老师",
+            "text": "要不要举办一场模拟战斗？",
+            "source_dialogue_id": "cq_nuoyi_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "老师",
+          "text": "孩子们说修桥不是英雄该做的事。",
+          "source_dialogue_id": "cq_nuoyi_05.0.l01",
+          "condition": {
+            "after_chapter": "ch059",
+            "not_flag": "side.cq_nuoyi_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "孩子",
+          "text": "若遇到怪物，不拿剑怎么办？",
+          "source_dialogue_id": "cq_nuoyi_05.1.l01",
+          "condition": {
+            "quest_stage": "cq_nuoyi_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "教师",
+          "text": "孩子们先学逃生路线和求救。",
+          "source_dialogue_id": "cq_nuoyi_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_05.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "孩子",
+          "text": "我修好了一张桌子，比模拟挥剑还开心。",
+          "source_dialogue_id": "cq_nuoyi_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_05.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "学堂增加急救、绘图和简单维修课程。",
+          "source_dialogue_id": "cq_nuoyi_05.3.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_nuoyi_06",
+      "title": "手灯的下一位主人",
+      "region": "终幕殿前救援营",
+      "available_after": "ch071",
+      "objects": [
+        {
+          "id": "cq_nuoyi_06.inspect.1",
+          "name": "手灯旧握柄",
+          "location": "终幕殿前救援营",
+          "available_after": "ch071",
+          "linked_stage": "cq_nuoyi_06.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "救援手册不能只写谁曾经下令。",
+            "source_dialogue_id": "cq_nuoyi_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_nuoyi_06.inspect.2",
+          "name": "公共物资登记",
+          "location": "终幕殿前救援营",
+          "available_after": "ch071",
+          "linked_stage": "cq_nuoyi_06.choice",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "谁需要去救人，谁就可以取灯。",
+            "source_dialogue_id": "cq_nuoyi_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_nuoyi_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "年轻救援者",
+          "text": "如果你回不来，我就是新的诺依。",
+          "source_dialogue_id": "cq_nuoyi_06.0.l01",
+          "condition": {
+            "after_chapter": "ch071",
+            "not_flag": "side.cq_nuoyi_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "年轻救援者",
+          "text": "那我还能用这盏灯吗？",
+          "source_dialogue_id": "cq_nuoyi_06.1.l03",
+          "condition": {
+            "quest_stage": "cq_nuoyi_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "救援者",
+          "text": "手灯进了公共柜，谁出发谁登记。",
+          "source_dialogue_id": "cq_nuoyi_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_06.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "维莎",
+          "text": "救援手册允许后人补充或修订。",
+          "source_dialogue_id": "cq_nuoyi_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_nuoyi_06.done",
+            "state_equals": {
+              "key": "side.cq_nuoyi_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "年轻救援者",
+          "text": "以后可能有人不认识你。",
+          "source_dialogue_id": "cq_nuoyi_06.3.l02",
+          "condition": {
+            "flag": "side.cq_nuoyi_06.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_weisha_01",
+      "title": "签名背后的姓名",
+      "region": "群灯城听证厅",
+      "available_after": "ch058",
+      "objects": [
+        {
+          "id": "cq_weisha_01.inspect.1",
+          "name": "维莎签署原件",
+          "location": "群灯城听证厅",
+          "available_after": "ch058",
+          "linked_stage": "cq_weisha_01.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "过去我只写“可接受的代价”。",
+            "source_dialogue_id": "cq_weisha_01.1.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_01.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_weisha_01.inspect.2",
+          "name": "受害者隐私声明",
+          "location": "群灯城听证厅",
+          "available_after": "ch058",
+          "linked_stage": "cq_weisha_01.choice",
+          "description_source": {
+            "speaker": "档案员",
+            "text": "可否隐藏所有签名保护调查？",
+            "source_dialogue_id": "cq_weisha_01.2.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_01.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "家属",
+          "text": "这页是谁允许拿走我父亲的记忆？",
+          "source_dialogue_id": "cq_weisha_01.0.l01",
+          "condition": {
+            "after_chapter": "ch058",
+            "not_flag": "side.cq_weisha_01.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "维莎",
+          "text": "过去我只写“可接受的代价”。",
+          "source_dialogue_id": "cq_weisha_01.1.l01",
+          "condition": {
+            "quest_stage": "cq_weisha_01.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "维莎",
+          "text": "审批签名留在可查的原件上，受害者病历交本人决定是否公开。",
+          "source_dialogue_id": "cq_weisha_01.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_weisha_01.done",
+            "state_equals": {
+              "key": "side.cq_weisha_01.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "家属代表",
+          "text": "我们先审读原始记录，再决定公开范围。",
+          "source_dialogue_id": "cq_weisha_01.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_weisha_01.done",
+            "state_equals": {
+              "key": "side.cq_weisha_01.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "原件得以保存，责任和个人隐私各自清楚。",
+          "source_dialogue_id": "cq_weisha_01.3.l01",
+          "condition": {
+            "flag": "side.cq_weisha_01.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_weisha_02",
+      "title": "计时器没有记下的照护",
+      "region": "群灯城救助仓库",
+      "available_after": "ch059",
+      "objects": [
+        {
+          "id": "cq_weisha_02.inspect.1",
+          "name": "不计照护的工时表",
+          "location": "群灯城救助仓库",
+          "available_after": "ch059",
+          "linked_stage": "cq_weisha_02.investigate",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "先按每户实际需求配送补给。",
+            "source_dialogue_id": "cq_weisha_02.1.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_02.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_weisha_02.inspect.2",
+          "name": "食堂补给表",
+          "location": "群灯城救助仓库",
+          "available_after": "ch059",
+          "linked_stage": "cq_weisha_02.choice",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "不能把陪伴当作零，也不能强迫所有家人报工时。",
+            "source_dialogue_id": "cq_weisha_02.2.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_02.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "后勤主管",
+          "text": "这些人天天陪在病床前，表格却写着没有工作。",
+          "source_dialogue_id": "cq_weisha_02.0.l01",
+          "condition": {
+            "after_chapter": "ch059",
+            "not_flag": "side.cq_weisha_02.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "补给不是奖品，别先比谁值得。",
+          "source_dialogue_id": "cq_weisha_02.1.l03",
+          "condition": {
+            "quest_stage": "cq_weisha_02.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "后勤主管",
+          "text": "现在按实际照护需求先送物资。",
+          "source_dialogue_id": "cq_weisha_02.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_weisha_02.done",
+            "state_equals": {
+              "key": "side.cq_weisha_02.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "岚音",
+          "text": "陪伴可自愿记录，不强迫家属报工时。",
+          "source_dialogue_id": "cq_weisha_02.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_weisha_02.done",
+            "state_equals": {
+              "key": "side.cq_weisha_02.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "后勤主管",
+          "text": "今天第一批轮班的人终于能回家吃饭。",
+          "source_dialogue_id": "cq_weisha_02.3.l03",
+          "condition": {
+            "flag": "side.cq_weisha_02.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_weisha_03",
+      "title": "退出条款",
+      "region": "群灯城灯网议事厅",
+      "available_after": "ch060",
+      "objects": [
+        {
+          "id": "cq_weisha_03.inspect.1",
+          "name": "缺退出栏的协议",
+          "location": "群灯城灯网议事厅",
+          "available_after": "ch060",
+          "linked_stage": "cq_weisha_03.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "节点退出会令整体供能重新调整。",
+            "source_dialogue_id": "cq_weisha_03.1.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_03.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_weisha_03.inspect.2",
+          "name": "安全断网图",
+          "location": "群灯城灯网议事厅",
+          "available_after": "ch060",
+          "linked_stage": "cq_weisha_03.choice",
+          "description_source": {
+            "speaker": "社区代表",
+            "text": "我们想先参加一年，不敢保证一辈子。",
+            "source_dialogue_id": "cq_weisha_03.2.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_03.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "社区代表",
+          "text": "说是自愿，那退出入口在哪？",
+          "source_dialogue_id": "cq_weisha_03.0.l01",
+          "condition": {
+            "after_chapter": "ch060",
+            "not_flag": "side.cq_weisha_03.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "还要保障退出者得到紧急医疗。",
+          "source_dialogue_id": "cq_weisha_03.1.l03",
+          "condition": {
+            "quest_stage": "cq_weisha_03.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "社区代表",
+          "text": "共享协议按期重新确认，可以自愿退出。",
+          "source_dialogue_id": "cq_weisha_03.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_weisha_03.done",
+            "state_equals": {
+              "key": "side.cq_weisha_03.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "缇珐",
+          "text": "接口能安全断开，退出后仍有紧急供电。",
+          "source_dialogue_id": "cq_weisha_03.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_weisha_03.done",
+            "state_equals": {
+              "key": "side.cq_weisha_03.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "社区代表",
+          "text": "现在我们才敢签自己的名字。",
+          "source_dialogue_id": "cq_weisha_03.3.l03",
+          "condition": {
+            "flag": "side.cq_weisha_03.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_weisha_04",
+      "title": "没有价值的画",
+      "region": "天轨原初实验室",
+      "available_after": "ch062",
+      "objects": [
+        {
+          "id": "cq_weisha_04.inspect.1",
+          "name": "孩子学画愿望",
+          "location": "天轨原初实验室",
+          "available_after": "ch062",
+          "linked_stage": "cq_weisha_04.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "系统只保留可统计的社会收益。",
+            "source_dialogue_id": "cq_weisha_04.1.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_04.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_weisha_04.inspect.2",
+          "name": "旧审批记录",
+          "location": "天轨原初实验室",
+          "available_after": "ch062",
+          "linked_stage": "cq_weisha_04.choice",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "我能否恢复那条已删的未来？",
+            "source_dialogue_id": "cq_weisha_04.2.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_04.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "档案残响",
+          "text": "该愿望对防灾贡献有限，予以删除。",
+          "source_dialogue_id": "cq_weisha_04.0.l01",
+          "condition": {
+            "after_chapter": "ch062",
+            "not_flag": "side.cq_weisha_04.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "这不是人应当怎样生活的答案。",
+          "source_dialogue_id": "cq_weisha_04.1.l02",
+          "condition": {
+            "quest_stage": "cq_weisha_04.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "维莎",
+          "text": "删除规则与审批历史完整公开。",
+          "source_dialogue_id": "cq_weisha_04.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_weisha_04.done",
+            "state_equals": {
+              "key": "side.cq_weisha_04.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "档案残响",
+          "text": "被删者可提出申诉并重新获得选择途径。",
+          "source_dialogue_id": "cq_weisha_04.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_weisha_04.done",
+            "state_equals": {
+              "key": "side.cq_weisha_04.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "档案恢复，但没有写明孩子最后选择做什么。",
+          "source_dialogue_id": "cq_weisha_04.3.l01",
+          "condition": {
+            "flag": "side.cq_weisha_04.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_weisha_05",
+      "title": "不坐的那把椅子",
+      "region": "天轨议会档案厅",
+      "available_after": "ch065",
+      "objects": [
+        {
+          "id": "cq_weisha_05.inspect.1",
+          "name": "永久记录椅",
+          "location": "天轨议会档案厅",
+          "available_after": "ch065",
+          "linked_stage": "cq_weisha_05.investigate",
+          "description_source": {
+            "speaker": "诺依",
+            "text": "由谁监督永久的记录者？",
+            "source_dialogue_id": "cq_weisha_05.1.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_05.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_weisha_05.inspect.2",
+          "name": "轮值监督席",
+          "location": "天轨议会档案厅",
+          "available_after": "ch065",
+          "linked_stage": "cq_weisha_05.choice",
+          "description_source": {
+            "speaker": "议会残响",
+            "text": "多人共管将降低效率。",
+            "source_dialogue_id": "cq_weisha_05.2.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_05.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "议会残响",
+          "text": "建议任命一位终身记录者，以消除分歧。",
+          "source_dialogue_id": "cq_weisha_05.0.l01",
+          "condition": {
+            "after_chapter": "ch065",
+            "not_flag": "side.cq_weisha_05.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "诺依",
+          "text": "由谁监督永久的记录者？",
+          "source_dialogue_id": "cq_weisha_05.1.l01",
+          "condition": {
+            "quest_stage": "cq_weisha_05.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "议会残响",
+          "text": "永久记录席位取消，改为公开轮值。",
+          "source_dialogue_id": "cq_weisha_05.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_weisha_05.done",
+            "state_equals": {
+              "key": "side.cq_weisha_05.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "诺依",
+          "text": "多地审核员共同复核，意见不同也照样记下。",
+          "source_dialogue_id": "cq_weisha_05.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_weisha_05.done",
+            "state_equals": {
+              "key": "side.cq_weisha_05.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "旁白",
+          "text": "永久记录席位被保留为空，旁边增加共同讨论长桌。",
+          "source_dialogue_id": "cq_weisha_05.3.l01",
+          "condition": {
+            "flag": "side.cq_weisha_05.done"
+          }
+        }
+      }
+    },
+    {
+      "quest_id": "cq_weisha_06",
+      "title": "最后一行损失",
+      "region": "七灯评议庭",
+      "available_after": "ch070",
+      "objects": [
+        {
+          "id": "cq_weisha_06.inspect.1",
+          "name": "可接受损失表",
+          "location": "七灯评议庭",
+          "available_after": "ch070",
+          "linked_stage": "cq_weisha_06.investigate",
+          "description_source": {
+            "speaker": "维莎",
+            "text": "统计仍然必要，但不能以数字取消个体的求助权。",
+            "source_dialogue_id": "cq_weisha_06.1.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_06.object_1",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        },
+        {
+          "id": "cq_weisha_06.inspect.2",
+          "name": "救助与申诉条款",
+          "location": "七灯评议庭",
+          "available_after": "ch070",
+          "linked_stage": "cq_weisha_06.choice",
+          "description_source": {
+            "speaker": "议员",
+            "text": "如果写得太多，没人愿读报告。",
+            "source_dialogue_id": "cq_weisha_06.2.l01"
+          },
+          "inspection_flag": "explore.cq_weisha_06.object_2",
+          "required_for_completion": false,
+          "authoring_note": "现场物件名为第七阶段新增；互动文字沿用原任务相应证词，不修改任务逻辑。"
+        }
+      ],
+      "npc_states": {
+        "before_accept": {
+          "speaker": "失忆者代表",
+          "text": "你们说损失可接受，是谁接受的？",
+          "source_dialogue_id": "cq_weisha_06.0.l01",
+          "condition": {
+            "after_chapter": "ch070",
+            "not_flag": "side.cq_weisha_06.done"
+          }
+        },
+        "in_progress": {
+          "speaker": "主角",
+          "text": "三种方案都有风险，不许装作全无代价。",
+          "source_dialogue_id": "cq_weisha_06.1.l03",
+          "condition": {
+            "quest_stage": "cq_weisha_06.investigate"
+          }
+        },
+        "completed_a": {
+          "speaker": "失忆者代表",
+          "text": "风险报告写明负责人、救助和申诉。",
+          "source_dialogue_id": "cq_weisha_06.choice.a.l01",
+          "condition": {
+            "flag": "side.cq_weisha_06.done",
+            "state_equals": {
+              "key": "side.cq_weisha_06.approach",
+              "value": "a"
+            }
+          }
+        },
+        "completed_b": {
+          "speaker": "受害者代表",
+          "text": "我们发现三处漏项，报告已经补正。",
+          "source_dialogue_id": "cq_weisha_06.choice.b.l01",
+          "condition": {
+            "flag": "side.cq_weisha_06.done",
+            "state_equals": {
+              "key": "side.cq_weisha_06.approach",
+              "value": "b"
+            }
+          }
+        },
+        "completed_fallback": {
+          "speaker": "失忆者代表",
+          "text": "我仍不认同其中一些选择。",
+          "source_dialogue_id": "cq_weisha_06.3.l02",
+          "condition": {
+            "flag": "side.cq_weisha_06.done"
+          }
+        }
+      }
+    }
+  ]
+}

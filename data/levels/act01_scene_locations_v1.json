@@ -1,0 +1,126 @@
+{
+  "schema": "starlit.b.act01.scene_location_contract.v1",
+  "purpose": "B-line read-only player route intent and commercial acceptance for Act I; maps and old save anchors unchanged until D migration.",
+  "scope": "prologue_and_chapters_1_to_6",
+  "chapters": [
+    {
+      "chapter": 1,
+      "story_location": "晨露村·澄舟旧屋",
+      "required_map_id": "map_coast_01",
+      "required_scene_kind": "house_interior",
+      "required_building_id": "house",
+      "required_interaction": "actual_house_entry_and_interior_clue",
+      "player_path_gate": "walk_to_house_and_return",
+      "route_map_ids": [
+        "map_coast_01"
+      ],
+      "route_policy": "Existing neighbor exits only; read-only until D enables story-safe chapter migration. An unavailable leg must be reported as locked, never auto-unlocked.",
+      "arrived_guidance": "旧屋就在晨露村的居民区。先找养父留下的旧箱，读完线索后再去询问村民。",
+      "route_guidance": "先回晨露村，沿村里的道路找到澄舟旧屋，屋内可能留着养父的线索。",
+      "locked_guidance": "回村的道路目前无法通行，先完成眼前的剧情目标。"
+    },
+    {
+      "chapter": 2,
+      "story_location": "白砂港·收容所",
+      "required_map_id": "map_coast_02",
+      "required_scene_kind": "shelter_interior",
+      "required_building_id": "shelter",
+      "required_interaction": "shelter_registry_and_patient_evidence",
+      "player_path_gate": "walk_to_shelter_then_leave",
+      "route_map_ids": [
+        "map_coast_01",
+        "map_coast_02"
+      ],
+      "route_policy": "Existing neighbor exits only; read-only until D enables story-safe chapter migration. An unavailable leg must be reported as locked, never auto-unlocked.",
+      "arrived_guidance": "港口收容所就在白砂港内。先找负责登记的人员，再调查水手留下的行囊和名册。",
+      "route_guidance": "从晨露村沿正式道路前往白砂港；到港口后寻找临潮收容所。",
+      "locked_guidance": "通往白砂港的道路尚未开放。先完成晨露村的主线调查。"
+    },
+    {
+      "chapter": 3,
+      "story_location": "断桅海蚀洞",
+      "required_map_id": "map_coast_04",
+      "required_scene_kind": "dungeon",
+      "required_building_id": "",
+      "required_interaction": "three_tide_mechanisms_then_story_boss",
+      "player_path_gate": "walk_from_harbor_through_saltwind_road_to_cave",
+      "route_map_ids": [
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04"
+      ],
+      "route_policy": "Existing neighbor exits only; read-only until D enables story-safe chapter migration. An unavailable leg must be reported as locked, never auto-unlocked.",
+      "arrived_guidance": "海蚀洞内的潮水机关还未解开。先观察洞壁线索，再依次检查石阀，注意留出返程道路。",
+      "route_guidance": "从白砂港出发，经盐风古道进入海蚀洞；不要从地图菜单直接跳过道路。",
+      "locked_guidance": "海蚀洞的入口仍受当前章节门槛限制，暂时不能继续。请保留调查进度，待正式剧情开放。"
+    },
+    {
+      "chapter": 4,
+      "story_location": "白砂港·黑帆酒馆",
+      "required_map_id": "map_coast_02",
+      "required_scene_kind": "tavern_interior",
+      "required_building_id": "tavern",
+      "required_interaction": "interrogate_tavern_patron_and_read_goods_ledger",
+      "player_path_gate": "walk_back_from_cave_to_harbor_pub",
+      "route_map_ids": [
+        "map_coast_04",
+        "map_coast_03",
+        "map_coast_02"
+      ],
+      "route_policy": "Existing neighbor exits only; read-only until D enables story-safe chapter migration. An unavailable leg must be reported as locked, never auto-unlocked.",
+      "arrived_guidance": "黑帆酒馆位于白砂港。沿着港内街巷前往酒馆，核对船员告示和旧货单。",
+      "route_guidance": "从海蚀洞退回盐风古道，再沿道路返回白砂港的黑帆酒馆。",
+      "locked_guidance": "回港道路尚不可通行，请先检查当前区域可以使用的出口。"
+    },
+    {
+      "chapter": 5,
+      "story_location": "鲸骨浅滩",
+      "required_map_id": "map_coast_03",
+      "required_scene_kind": "shore_subzone",
+      "required_building_id": "",
+      "required_interaction": "inspect_star_chain_and_choose_nonlethal_resolution",
+      "player_path_gate": "walk_to_seaside_shoal_from_saltwind_route",
+      "route_map_ids": [
+        "map_coast_02",
+        "map_coast_03"
+      ],
+      "legacy_route_map_ids": [
+        "map_coast_05",
+        "map_coast_04",
+        "map_coast_03"
+      ],
+      "route_policy": "Existing neighbor exits only; read-only until D enables story-safe chapter migration. An unavailable leg must be reported as locked, never auto-unlocked.",
+      "arrived_guidance": "鲸骨浅滩在盐风古道沿岸。沿退潮线观察白石与缆绳，不要惊扰搁浅的生灵。",
+      "route_guidance": "从白砂港出发，沿正式道路进入盐风古道，前往沿岸的鲸骨浅滩。",
+      "locked_guidance": "前往浅滩的路仍未解锁；先完成现有道路上的剧情。"
+    },
+    {
+      "chapter": 6,
+      "story_location": "潮歌灯塔",
+      "required_map_id": "map_coast_05",
+      "required_scene_kind": "lighthouse",
+      "required_building_id": "",
+      "required_interaction": "relight_lighthouse_after_keeper_boss",
+      "player_path_gate": "reach_lighthouse_from_cave_and_complete_act",
+      "route_map_ids": [
+        "map_coast_01",
+        "map_coast_02",
+        "map_coast_03",
+        "map_coast_04",
+        "map_coast_05"
+      ],
+      "route_policy": "Existing neighbor exits only; read-only until D enables story-safe chapter migration. An unavailable leg must be reported as locked, never auto-unlocked.",
+      "arrived_guidance": "已到潮歌灯塔。先检查失明航灯和反光镜架，待剧情条件满足后才能完成灯塔修复。",
+      "route_guidance": "顺着白砂港、盐风古道和海蚀洞的相邻出口前行，最终抵达潮歌灯塔。",
+      "locked_guidance": "下一处地区尚未开放。先完成当前地区的剧情，再沿实际出口继续。"
+    }
+  ],
+  "acceptance_levels": [
+    "source_match",
+    "physical_route",
+    "interactions_live",
+    "save_restore",
+    "visual_accepted"
+  ],
+  "note": "Critical narrative geography acceptance gates for B+D; existing map/chapter ids and active saves must not be silently rewritten. Ch2/Ch4 need genuinely authored unique interiors; Ch5 requires a dedicated shoal subzone in existing coast map without creating a 41st map."
+}

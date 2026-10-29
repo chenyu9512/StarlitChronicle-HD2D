@@ -1,0 +1,265 @@
+{
+  "schema_version": 3,
+  "map_id": "map_city_01",
+  "title": "群灯旧会馆",
+  "biome": "metropolis",
+  "category": "town",
+  "design_intent": "王都高墙与轨道运输",
+  "size": [
+    86,
+    52
+  ],
+  "roads": [
+    {
+      "id": "spine-河港三环",
+      "width": 2,
+      "points": [
+        [
+          6,
+          27
+        ],
+        [
+          26,
+          30
+        ],
+        [
+          38,
+          16
+        ],
+        [
+          54,
+          36
+        ],
+        [
+          79,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "branch-city",
+      "width": 1,
+      "points": [
+        [
+          22,
+          5
+        ],
+        [
+          28,
+          17
+        ],
+        [
+          38,
+          26
+        ],
+        [
+          53,
+          45
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          15,
+          35
+        ],
+        [
+          27,
+          39
+        ],
+        [
+          57,
+          28
+        ],
+        [
+          22,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          51,
+          34
+        ],
+        [
+          73,
+          20
+        ],
+        [
+          80,
+          38
+        ],
+        [
+          77,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          24,
+          12
+        ],
+        [
+          43,
+          18
+        ],
+        [
+          60,
+          29
+        ],
+        [
+          74,
+          44
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_city_01",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          81,
+          11
+        ],
+        [
+          82,
+          39
+        ]
+      ],
+      "tile_row": 2
+    },
+    {
+      "id": "individual-south-crest-map_city_01",
+      "width": 1,
+      "points": [
+        [
+          32,
+          46
+        ],
+        [
+          79,
+          47
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_city_01",
+      "center": [
+        23,
+        21
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_city_01",
+      "center": [
+        50,
+        30
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_city_01",
+      "center": [
+        76,
+        43
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_city_01",
+      "cell": [
+        59,
+        16
+      ],
+      "kind": "beacon"
+    },
+    {
+      "id": "secondary-lookout-map_city_01",
+      "cell": [
+        24,
+        32
+      ],
+      "kind": "sea_crystal"
+    },
+    {
+      "id": "peripheral-crest-map_city_01",
+      "cell": [
+        77,
+        42
+      ],
+      "kind": "flowerpot"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        82,
+        48
+      ],
+      "row": 5,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        82,
+        36
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        77,
+        22
+      ],
+      "kind": "beacon",
+      "name": "复工灯位·群灯旧会馆"
+    },
+    {
+      "cell": [
+        75,
+        42
+      ],
+      "kind": "sign",
+      "name": "居民庭院·群灯旧会馆"
+    },
+    {
+      "cell": [
+        62,
+        43
+      ],
+      "kind": "star_lantern",
+      "name": "联络岗亭·群灯旧会馆"
+    }
+  ],
+  "layout_identity": "city.01.河港三环",
+  "layout_principle": "河港三环：依据「群灯旧会馆」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

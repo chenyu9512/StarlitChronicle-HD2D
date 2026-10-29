@@ -1,0 +1,270 @@
+{
+  "schema_version": 3,
+  "map_id": "map_mirror_04",
+  "title": "银玻璃塔",
+  "biome": "mistforest",
+  "category": "dungeon",
+  "design_intent": "镜湖湿地与迷雾森林",
+  "size": [
+    90,
+    68
+  ],
+  "roads": [
+    {
+      "id": "spine-回廊螺旋",
+      "width": 1,
+      "points": [
+        [
+          6,
+          28
+        ],
+        [
+          22,
+          26
+        ],
+        [
+          31,
+          26
+        ],
+        [
+          60,
+          28
+        ],
+        [
+          83,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "branch-mirror",
+      "width": 1,
+      "points": [
+        [
+          30,
+          5
+        ],
+        [
+          44,
+          21
+        ],
+        [
+          24,
+          30
+        ],
+        [
+          51,
+          61
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          16,
+          31
+        ],
+        [
+          27,
+          40
+        ],
+        [
+          46,
+          34
+        ],
+        [
+          22,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          52,
+          26
+        ],
+        [
+          73,
+          16
+        ],
+        [
+          84,
+          26
+        ],
+        [
+          81,
+          60
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          17,
+          16
+        ],
+        [
+          51,
+          10
+        ],
+        [
+          64,
+          39
+        ],
+        [
+          78,
+          60
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "individual-outer-ridge-map_mirror_04",
+      "width": 2,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          85,
+          12
+        ],
+        [
+          86,
+          55
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_mirror_04",
+      "width": 2,
+      "points": [
+        [
+          85,
+          6
+        ],
+        [
+          82,
+          23
+        ],
+        [
+          85,
+          55
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_mirror_04",
+      "center": [
+        27,
+        25
+      ],
+      "radius": 4
+    },
+    {
+      "id": "fork-outlook-map_mirror_04",
+      "center": [
+        50,
+        36
+      ],
+      "radius": 3
+    },
+    {
+      "id": "expansion-court-map_mirror_04",
+      "center": [
+        80,
+        59
+      ],
+      "radius": 4
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_mirror_04",
+      "cell": [
+        55,
+        20
+      ],
+      "kind": "crate"
+    },
+    {
+      "id": "secondary-lookout-map_mirror_04",
+      "cell": [
+        25,
+        36
+      ],
+      "kind": "star_lantern"
+    },
+    {
+      "id": "peripheral-crest-map_mirror_04",
+      "cell": [
+        81,
+        58
+      ],
+      "kind": "sign"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        86,
+        64
+      ],
+      "row": 6,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        86,
+        52
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        81,
+        22
+      ],
+      "kind": "beacon",
+      "name": "倒影碑庭·银玻璃塔"
+    },
+    {
+      "cell": [
+        79,
+        58
+      ],
+      "kind": "sign",
+      "name": "折光泉眼·银玻璃塔"
+    },
+    {
+      "cell": [
+        63,
+        59
+      ],
+      "kind": "star_lantern",
+      "name": "镜林路牌·银玻璃塔"
+    }
+  ],
+  "layout_identity": "mirror.04.回廊螺旋",
+  "layout_principle": "回廊螺旋：依据「银玻璃塔」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

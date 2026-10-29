@@ -1,0 +1,62 @@
+name: Battle Animation and Audio Validation
+# Development batch policy: heavy jobs are manual-only, never per push.
+on:
+  workflow_dispatch:
+concurrency:
+  group: starlit-battle-validation-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  validate-battle-presentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import resources and compile GDScript
+        run: timeout 150s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Verify four-frame monster idle and VFX cleanup
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_fx.gd
+      - name: Verify party motions, nine elements and battle audio
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_actors.gd
+      - name: Verify V3 multi-foe telegraphs, choreography and camera
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_v3.gd
+      - name: Verify A15 visual depth, casting and NPC gestures
+        run: timeout 80s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_a15_visual.gd
+      - name: Verify A16 real boss flipbook, elite skill frames and reduced-motion access
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_a16_keyframes.gd
+      - name: Verify 63 skill signatures, five bosses and cinematic results
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_battle_commercial.gd
+      - name: Verify real-command story Boss mechanics across all twelve acts
+        run: timeout 120s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_live_boss_matrix.gd
+      - name: Verify combat timing and status regressions
+        run: timeout 70s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_combat_turns.gd
+      - name: Verify six-chapter playable flow and instant reward settlement
+        run: timeout 90s ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_first_act_flow.gd
+      - name: Install offscreen GL display for first-act combat visual evidence
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xauth libgl1-mesa-dri >/dev/null
+      - name: Capture three live battle frames for artist review
+        shell: bash
+        run: |
+          mkdir -p build/art-qa
+          timeout 120s xvfb-run -a -s "-screen 0 1280x720x24" ./Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_a15_battle.gd
+          test -s build/art-qa/a15_boss_idle.png
+          test -s build/art-qa/a15_skill_cast.png
+          test -s build/art-qa/a15_enemy_impact.png
+          test -s build/art-qa/a16_boss_phase.png
+          test -s build/art-qa/a15_battle_manifest.json
+      - name: Upload A15 actual boss and skill visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Starlit-A15-Battle-Visual-Evidence
+          path: build/art-qa/
+          retention-days: 14

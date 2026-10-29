@@ -1,0 +1,16 @@
+name: Validate Starlit Content
+# Development batch policy: heavy jobs are manual-only, never per push.
+on:
+  workflow_dispatch:
+jobs:
+  validate-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline release gate (no external dependencies)
+        run: python3 tools/validate_release_gate.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate links, chapters, identifiers and asset fallback paths
+        run: python tools/validate_content.py

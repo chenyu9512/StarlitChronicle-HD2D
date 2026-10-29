@@ -1,0 +1,168 @@
+extends SceneTree
+## Prologue and all six chapters on normal stats, real player commands and durable rewards.\n## No invincibility, boosted stats, cheat completion or forged battle callbacks.
+## Marker positioning bypasses walking; this is NOT human navigation/visual acceptance.
+const Game = preload("res://scripts/first_act.gd")
+const State = preload("res://scripts/first_act_state.gd")
+var game
+var failures: Array[String] = []
+
+func _initialize() -> void:
+    call_deferred("_run")
+
+func _touch(target: String) -> void:
+    if not game.world.nodes.has(target):
+        failures.append("Missing map target: " + target)
+        return
+    game.world.hero.position = game.world.nodes[target].position + Vector2(0, 18)
+    game.world.interact()
+
+func _enter_canonical_chapter(chapter: int) -> void:
+    if chapter>6 or chapter<1:
+        return
+    var required: String=game.world_router.act01_target_map(chapter)
+    for hop in range(5):
+        if game.world_router.current_map()==required:
+            return
+        var route: Array[String]=game.world_router.route_towards(required)
+        if route.size()<2:
+            failures.append("Chapter %d has no unlocked, physically adjacent route to %s" % [chapter,required])
+            return
+        var exit_node: String="exit:"+route[1]
+        if not game.world.nodes.has(exit_node):
+            failures.append("Missing physical border gate "+exit_node)
+            return
+        var previous: String=game.world_router.current_map()
+        _touch(exit_node)
+        if game.world_router.current_map()==previous:
+            failures.append("Physical gate did not advance from "+previous+" to "+route[1])
+            return
+    failures.append("Chapter route exceeded five physical exits")
+
+func _dialog() -> void:
+    for i in range(30):
+        if not game.ui.dialog_layer.visible or game.ui.choosing:
+            break
+        game.ui._next()
+    if game.ui.dialog_layer.visible and not game.ui.choosing:
+        failures.append("Dialogue did not finish in 30 steps")
+
+func _run() -> void:
+    game = Game.new()
+    root.add_child(game)
+    var folder: String = "user://act01_six_normal_%d" % OS.get_process_id()
+    DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))
+    game.progress.save_path = folder + "/save.json"
+    game.progress.backup_path = folder + "/backup.json"
+    game.ui.title_overlay.hide()
+    game._start(false)
+    if game.invincible or game.five_xp or game.no_encounters:
+        failures.append("New game enabled cheats or disabled random encounters")
+    var initial_stats: Array[Dictionary]=game.progress.actors.duplicate(true)
+    if int(initial_stats[0].get("level",0))!=1 or int(initial_stats[1].get("level",0))!=1:
+        failures.append("Normal run did not start at canonical level-one stats")
+    for idx in range(9):
+        if game.progress.chapter != 0 or game.progress.scene_index != idx:
+            failures.append("Prologue sequence interrupted at %d" % idx)
+            break
+        _touch("prologue_%d" % idx)
+        _dialog()
+    if game.progress.chapter != 1:
+        failures.append("Prologue did not unlock chapter one")
+    for chapter in range(1, 7):
+        if game.progress.chapter != chapter:
+            failures.append("Chapter progression stopped before %d" % chapter)
+            break
+        _enter_canonical_chapter(chapter)
+        # Three distinct side-quest objects must actually be visited.
+        _touch("side_start")
+        _dialog()
+        _touch("side_item")
+        _dialog()
+        _touch("side_return")
+        _dialog()
+        if game._side_step() != -1:
+            failures.append("Chapter %d side quest did not complete" % chapter)
+        _touch("key_npc")
+        _dialog()
+        _touch("clue")
+        _dialog()
+        _touch("witness")
+        _touch("crisis")
+        _dialog()
+        if not game.ui.choosing:
+            failures.append("Chapter %d failed to display actual branching choice" % chapter)
+        else:
+            var buttons: Array[Node] = game.ui.choice_area.get_children()
+            if buttons.is_empty():
+                failures.append("No choice available at %d" % chapter)
+            else:
+                var button: Button = buttons[0] as Button
+                button.pressed.emit()
+                if game.pending == "choice_reaction":
+                    _dialog()
+        if chapter > 1:
+            if chapter in [2,3] and game.battle == null and game.progress.task_index == 1:
+                if not game._save_progress() or not game.progress.load_saved():
+                    failures.append("Pre-boss save/load failed")
+                game._enter_location()
+                _touch("crisis")
+                if game.battle != null:
+                    game.battle.dice.seed = 731 + chapter
+            # Capture the actual A-line nonce BEFORE real battle commands finish.
+            var actual_battle_id: String = str(game.battle.reward_transaction_id) if game.battle != null else ""
+            var count := 0
+            while game.battle != null and count < 100:
+                var b = game.battle
+                var member: Dictionary = game.progress.actors[b.hero_turn]
+                if int(member["hp"]) < int(member["max_hp"]) / 2 and game.progress.potions > 0:
+                    b._act("potion")
+                elif float(b.round_boss_intent.get("multiplier",1.0)) > 1.5:
+                    b._act("guard")
+                else:
+                    b._act("special")
+                count += 1
+            if game.battle != null:
+                failures.append("Boss fight in chapter %d cannot finish" % chapter)
+            if not bool(game.progress.flags.get("ch%03d.battle_won" % chapter, false)):
+                failures.append("Chapter %d victory flag missing" % chapter)
+            if actual_battle_id.is_empty():
+                failures.append("Chapter %d had no A-line battle nonce" % chapter)
+            else:
+                var a_receipts: Dictionary = game.progress.rpg.get("battle_reward_transactions",{})
+                var d_journal: Dictionary = game.progress.rpg.get("d_reward_receipts_v1",{})
+                var d_receipts: Dictionary = d_journal.get("consumed",{})
+                if not a_receipts.has(actual_battle_id) or not d_receipts.has(actual_battle_id):
+                    failures.append("Chapter %d real-command victory did not persist both receipts" % chapter)
+        _touch("resolve")
+        _dialog()
+        if not bool(game.progress.flags.get("story.ch%03d.done" % chapter, false)):
+            failures.append("Chapter %d completion flag missing" % chapter)
+    if game.progress.chapter != 7 or not bool(game.progress.flags.get("story.ch006.done",false)):
+        failures.append("Six-chapter normal run did not unlock chapter seven")
+    if game.progress.actors.size()!=3:
+        failures.append("Chapter-4 sailor recruit did not persist into chapter seven")
+    for boss_chapter in range(2,7):
+        if not bool(game.progress.flags.get("ch%03d.battle_won" % boss_chapter,false)):
+            failures.append("Normal run did not retain boss victory %d" % boss_chapter)
+    if game.invincible or game.five_xp or game.no_encounters:
+        failures.append("Controller enabled a cheat during six-chapter progression")
+    var disk=State.new()
+    disk.save_path=game.progress.save_path
+    disk.backup_path=game.progress.backup_path
+    if not disk.load_saved():
+        failures.append("Final six-chapter V3 checkpoint cannot reload")
+    elif disk.chapter!=7 or not bool(disk.flags.get("story.ch006.done",false)):
+        failures.append("Reloaded V3 save lost sixth-chapter completion")
+    # Tests are not allowed to create or overwrite the player's default save.
+    for path in [game.progress.save_path,game.progress.backup_path,
+        game.progress.save_path+".tmp",game.progress.backup_path+".tmp"]:
+        if FileAccess.file_exists(path):
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(folder))
+    if failures.is_empty():
+        print("PASS Act I: all six chapters, ordinary stats, real commands, side quests, boss receipts and reload; walking/visual QA remains separate")
+        quit(0)
+    else:
+        for error in failures:
+            push_error(error)
+        quit(1)

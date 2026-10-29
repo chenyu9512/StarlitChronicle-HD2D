@@ -1,0 +1,303 @@
+{
+  "schema_version": 3,
+  "map_id": "map_sanctum_02",
+  "title": "七灯环庭",
+  "biome": "celestial",
+  "category": "field",
+  "design_intent": "浮空星轨和断桥",
+  "size": [
+    94,
+    64
+  ],
+  "roads": [
+    {
+      "id": "spine-浮岛支径",
+      "width": 1,
+      "points": [
+        [
+          6,
+          19
+        ],
+        [
+          23,
+          17
+        ],
+        [
+          38,
+          35
+        ],
+        [
+          61,
+          31
+        ],
+        [
+          87,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "branch-sanctum",
+      "width": 1,
+      "points": [
+        [
+          17,
+          5
+        ],
+        [
+          47,
+          17
+        ],
+        [
+          25,
+          33
+        ],
+        [
+          56,
+          57
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          13,
+          32
+        ],
+        [
+          27,
+          37
+        ],
+        [
+          55,
+          35
+        ],
+        [
+          22,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          58,
+          29
+        ],
+        [
+          76,
+          25
+        ],
+        [
+          88,
+          27
+        ],
+        [
+          85,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          16,
+          12
+        ],
+        [
+          54,
+          13
+        ],
+        [
+          60,
+          34
+        ],
+        [
+          82,
+          56
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 2,
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          33,
+          6
+        ],
+        [
+          64,
+          8
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          40
+        ],
+        [
+          35,
+          39
+        ],
+        [
+          64,
+          41
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_sanctum_02",
+      "width": 1,
+      "points": [
+        [
+          75,
+          12
+        ],
+        [
+          89,
+          18
+        ],
+        [
+          90,
+          51
+        ]
+      ],
+      "tile_row": 2
+    },
+    {
+      "id": "individual-south-crest-map_sanctum_02",
+      "width": 1,
+      "points": [
+        [
+          24,
+          58
+        ],
+        [
+          87,
+          59
+        ]
+      ],
+      "tile_row": 2
+    }
+  ],
+  "waterways": [],
+  "clearings": [
+    {
+      "id": "story-rest-map_sanctum_02",
+      "center": [
+        23,
+        21
+      ],
+      "radius": 2
+    },
+    {
+      "id": "fork-outlook-map_sanctum_02",
+      "center": [
+        50,
+        37
+      ],
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_sanctum_02",
+      "center": [
+        84,
+        55
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_sanctum_02",
+      "cell": [
+        50,
+        11
+      ],
+      "kind": "sign"
+    },
+    {
+      "id": "secondary-lookout-map_sanctum_02",
+      "cell": [
+        16,
+        39
+      ],
+      "kind": "crate"
+    },
+    {
+      "id": "peripheral-crest-map_sanctum_02",
+      "cell": [
+        85,
+        54
+      ],
+      "kind": "rock"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        90,
+        60
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        90,
+        48
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        85,
+        22
+      ],
+      "kind": "beacon",
+      "name": "天轨节点·七灯环庭"
+    },
+    {
+      "cell": [
+        83,
+        54
+      ],
+      "kind": "sign",
+      "name": "观星圣坛·七灯环庭"
+    },
+    {
+      "cell": [
+        69,
+        55
+      ],
+      "kind": "star_lantern",
+      "name": "浮空石庭·七灯环庭"
+    }
+  ],
+  "layout_identity": "sanctum.02.浮岛支径",
+  "layout_principle": "浮岛支径：依据「七灯环庭」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

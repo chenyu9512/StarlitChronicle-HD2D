@@ -1,0 +1,85 @@
+name: "Main2 · Art Manager Real UI Screenshots"
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "scripts/c_art_manager_ui.gd"
+      - "tools/smoke_art_theme_browser_v3.gd"
+      - "tools/capture_art_manager_layout_v4.gd"
+      - ".github/workflows/main2-art-manager-visual.yml"
+permissions:
+  contents: read
+concurrency:
+  group: main2-art-ui-visual-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  actual-godot-ui:
+    name: "True Godot UI regression + four screenshots"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: .ci-cache/godot/4.7.2/
+          key: godot-4.7.2-linux-x86_64
+      - name: Set up Godot 4.7.2 and Chinese fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xauth fonts-noto-cjk libgl1-mesa-dri >/dev/null
+          fc-cache -f
+          dest=".ci-cache/godot/4.7.2"
+          mkdir -p "$dest"
+          if [ ! -x "$dest/Godot_v4.7.2-stable_linux.x86_64" ]; then
+            curl --fail --location --silent --show-error -o "$RUNNER_TEMP/godot-4.7.2.zip" \
+              https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+            unzip -q "$RUNNER_TEMP/godot-4.7.2.zip" -d "$dest"
+            chmod +x "$dest/Godot_v4.7.2-stable_linux.x86_64"
+          fi
+          "$dest/Godot_v4.7.2-stable_linux.x86_64" --headless --path . --editor --import --quit
+      - name: Test responsive art browser in actual window
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 100s xvfb-run -a -s "-screen 0 1680x1050x24" \
+            .ci-cache/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 \
+            --path . --rendering-method gl_compatibility \
+            --script res://tools/smoke_art_theme_browser_v3.gd
+      - name: Capture four actual Godot framebuffers
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 150s xvfb-run -a -s "-screen 0 1680x1050x24" \
+            .ci-cache/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 \
+            --path . --rendering-method gl_compatibility \
+            --script res://tools/capture_art_manager_layout_v4.gd
+          python -m pip install -q Pillow
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          data = json.loads(Path("build/art-manager-ui-v4/manifest.json").read_text(encoding="utf-8"))
+          assert data["source_sha"] == os.environ["GITHUB_SHA"]
+          assert len(data["images"]) == 4
+          for row in data["images"]:
+              p = Path("build/art-manager-ui-v4") / row["name"]
+              with Image.open(p) as img:
+                  assert img.size == tuple(row["size"]), (p, img.size, row["size"])
+                  assert max(ImageStat.Stat(img.convert("RGB")).stddev) > 6, f"Blank capture {p}"
+              print("ACTUAL_GODOT_UI", p)
+          PY
+      - name: Upload visual evidence (keep for 2 days)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main2-art-manager-layout-evidence
+          path: build/art-manager-ui-v4/
+          retention-days: 2
+          if-no-files-found: warn

@@ -1,0 +1,616 @@
+{
+  "schema": "starlit.story.phase14.act07.production_plan.v1",
+  "date": "2026-10-25",
+  "status": "production_design_only_not_runtime_bound",
+  "scope": "ch037_ch042",
+  "event_plan": [
+    {
+      "id": "ch037.p14.town",
+      "chapter_id": "ch037",
+      "optional_scene_id": "ch037.p14.town",
+      "location_hint": "旧洲外海·无名岛",
+      "physical_target": "生活场景·在场的人",
+      "player_actions": [
+        "确认歪树所在村庄是否同意对外开通求救航路",
+        "与老住户核对旧屋当前使用情况",
+        "留下新船员能认得的补给地点"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch037.opening",
+        "required_flags": [
+          "ch037.started"
+        ],
+        "without_flags": [
+          "ch037.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch037.p14.evidence",
+      "chapter_id": "ch037",
+      "optional_scene_id": "ch037.p14.evidence",
+      "location_hint": "旧洲外海·无名岛",
+      "physical_target": "调查场景·留下的证据",
+      "player_actions": [
+        "释放漂流标观测实际海流",
+        "核对残页航线、礁石位置与磁针偏差",
+        "将民宅住址从公共救援图中排除"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch037.investigate",
+        "required_flags": [
+          "ch037.evidence"
+        ],
+        "without_flags": [
+          "ch037.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch038.p14.town",
+      "chapter_id": "ch038",
+      "optional_scene_id": "ch038.p14.town",
+      "location_hint": "旧洲·默契城",
+      "physical_target": "生活场景·在场的人",
+      "player_actions": [
+        "核对生日糕点、门牌和学校记录的年份",
+        "请祖母选择愿公开的个人事实",
+        "交由本地档案馆登记待调查事项"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch038.opening",
+        "required_flags": [
+          "ch038.started"
+        ],
+        "without_flags": [
+          "ch038.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch038.p14.evidence",
+      "chapter_id": "ch038",
+      "optional_scene_id": "ch038.p14.evidence",
+      "location_hint": "旧洲·默契城",
+      "physical_target": "调查场景·留下的证据",
+      "player_actions": [
+        "检查旧页针孔与新墨迹",
+        "征得居民同意查询个人家谱",
+        "保留两个原版本以及不能确定的备注"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch038.investigate",
+        "required_flags": [
+          "ch038.evidence"
+        ],
+        "without_flags": [
+          "ch038.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch039.p14.town",
+      "chapter_id": "ch039",
+      "optional_scene_id": "ch039.p14.town",
+      "location_hint": "旧洲·裂谷村",
+      "physical_target": "生活场景·在场的人",
+      "player_actions": [
+        "协助营地分配饮水与热粥",
+        "确认诺依由谁陪护及夜间住处",
+        "记录并联系负责后续搜救的人"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch039.opening",
+        "required_flags": [
+          "ch039.started"
+        ],
+        "without_flags": [
+          "ch039.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch039.p14.evidence",
+      "chapter_id": "ch039",
+      "optional_scene_id": "ch039.p14.evidence",
+      "location_hint": "旧洲·裂谷村",
+      "physical_target": "调查场景·留下的证据",
+      "player_actions": [
+        "在保留车票原件的前提下制作井位拓图",
+        "沿排水管确认敲击声传播路线",
+        "核对围裙补线但不据此认定搜救结论"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch039.investigate",
+        "required_flags": [
+          "ch039.evidence"
+        ],
+        "without_flags": [
+          "ch039.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch040.p14.town",
+      "chapter_id": "ch040",
+      "optional_scene_id": "ch040.p14.town",
+      "location_hint": "岁影回廊·灰烬年代",
+      "physical_target": "生活场景·在场的人",
+      "player_actions": [
+        "按照两个时段观看同一城门的不同记忆",
+        "让诺依在安全位置听见两种叙述",
+        "标记尚不确定的历史事件"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch040.opening",
+        "required_flags": [
+          "ch040.started"
+        ],
+        "without_flags": [
+          "ch040.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch040.p14.evidence",
+      "chapter_id": "ch040",
+      "optional_scene_id": "ch040.p14.evidence",
+      "location_hint": "岁影回廊·灰烬年代",
+      "physical_target": "调查场景·留下的证据",
+      "player_actions": [
+        "分别记录两份证词的时间、地点与目击范围",
+        "保留原始音像与不同的解释",
+        "允许将来追加证词但不能删除旧记录"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch040.investigate",
+        "required_flags": [
+          "ch040.evidence"
+        ],
+        "without_flags": [
+          "ch040.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch041.p14.town",
+      "chapter_id": "ch041",
+      "optional_scene_id": "ch041.p14.town",
+      "location_hint": "旧洲·地脉树海",
+      "physical_target": "生活场景·在场的人",
+      "player_actions": [
+        "走访守护者并标记林地水井位置",
+        "检查药房、水渠与树根地下结构",
+        "让村落决定哪处可以小范围试验"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch041.opening",
+        "required_flags": [
+          "ch041.started"
+        ],
+        "without_flags": [
+          "ch041.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch041.p14.evidence",
+      "chapter_id": "ch041",
+      "optional_scene_id": "ch041.p14.evidence",
+      "location_hint": "旧洲·地脉树海",
+      "physical_target": "调查场景·留下的证据",
+      "player_actions": [
+        "依次检查三扇记忆门，第三扇保留空白",
+        "阅读可逆灯网设计的节点停止规则",
+        "制作工匠可理解的图纸副本"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch041.investigate",
+        "required_flags": [
+          "ch041.evidence"
+        ],
+        "without_flags": [
+          "ch041.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch042.p14.town",
+      "chapter_id": "ch042",
+      "optional_scene_id": "ch042.p14.town",
+      "location_hint": "根忆母灯坛",
+      "physical_target": "生活场景·在场的人",
+      "player_actions": [
+        "取得受访人对公开姓名与个人经历的许可",
+        "给不愿公开的见证准备密封交付方式",
+        "将重建道路问题留给各地居民商议"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch042.opening",
+        "required_flags": [
+          "ch042.started"
+        ],
+        "without_flags": [
+          "ch042.evidence"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    },
+    {
+      "id": "ch042.p14.evidence",
+      "chapter_id": "ch042",
+      "optional_scene_id": "ch042.p14.evidence",
+      "location_hint": "根忆母灯坛",
+      "physical_target": "调查场景·留下的证据",
+      "player_actions": [
+        "核对原族谱、地契和独立见证的不同用途",
+        "建立允许更正的公开索引与私密封存记录",
+        "把领土争议与个人存在见证分案处理"
+      ],
+      "trigger_contract": {
+        "after_scene_id": "ch042.investigate",
+        "required_flags": [
+          "ch042.evidence"
+        ],
+        "without_flags": [
+          "ch042.decision_made"
+        ],
+        "once_only": true,
+        "skippable": true
+      },
+      "on_skip": "main chapter objectives and rewards remain reachable",
+      "production": {
+        "map_target_id": "unassigned",
+        "coordinates": null,
+        "art_assets": "not_created",
+        "runtime_registered": false
+      }
+    }
+  ],
+  "choice_reaction_plan": [
+    {
+      "id": "ch037.p14.choice.hear",
+      "chapter_id": "ch037",
+      "after_choice_id": "ch037.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch037.approach": "consent_first",
+        "world.ch037.approach": "consent_first"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch037.p14.choice.protect",
+      "chapter_id": "ch037",
+      "after_choice_id": "ch037.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch037.approach": "safe_route",
+        "world.ch037.approach": "safe_route"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch038.p14.choice.hear",
+      "chapter_id": "ch038",
+      "after_choice_id": "ch038.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch038.approach": "open_access",
+        "world.ch038.approach": "open_access"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch038.p14.choice.protect",
+      "chapter_id": "ch038",
+      "after_choice_id": "ch038.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch038.approach": "guided",
+        "world.ch038.approach": "guided"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch039.p14.choice.hear",
+      "chapter_id": "ch039",
+      "after_choice_id": "ch039.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch039.approach": "truth_with_care",
+        "world.ch039.approach": "truth_with_care"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch039.p14.choice.protect",
+      "chapter_id": "ch039",
+      "after_choice_id": "ch039.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch039.approach": "seaside",
+        "world.ch039.approach": "seaside"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch040.p14.choice.hear",
+      "chapter_id": "ch040",
+      "after_choice_id": "ch040.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch040.approach": "parallel",
+        "world.ch040.approach": "parallel"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch040.p14.choice.protect",
+      "chapter_id": "ch040",
+      "after_choice_id": "ch040.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch040.approach": "annotated",
+        "world.ch040.approach": "annotated"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch041.p14.choice.hear",
+      "chapter_id": "ch041",
+      "after_choice_id": "ch041.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch041.approach": "open_design",
+        "world.ch041.approach": "open_design"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch041.p14.choice.protect",
+      "chapter_id": "ch041",
+      "after_choice_id": "ch041.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch041.approach": "safety_first",
+        "world.ch041.approach": "safety_first"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch042.p14.choice.hear",
+      "chapter_id": "ch042",
+      "after_choice_id": "ch042.choice",
+      "option_id": "hear",
+      "condition": {
+        "ch042.approach": "public_names",
+        "world.ch042.approach": "public_names"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    },
+    {
+      "id": "ch042.p14.choice.protect",
+      "chapter_id": "ch042",
+      "after_choice_id": "ch042.choice",
+      "option_id": "protect",
+      "condition": {
+        "ch042.approach": "private_testimony",
+        "world.ch042.approach": "private_testimony"
+      },
+      "delivery": "after_choice_saved_before_encounter",
+      "once_only": true,
+      "skippable": true,
+      "runtime_registered": false
+    }
+  ],
+  "major_setpiece_design": {
+    "homecoming_and_navigation": {
+      "chapters": [
+        "ch037"
+      ],
+      "status": "design_only",
+      "goals": [
+        "可公开的公共救援航道",
+        "岛民对私人住址的保护",
+        "朔弦归乡后与新住户协商"
+      ],
+      "guard": "使用当下持有的航路证据，不自动获得任何一张未完成的失落航页"
+    },
+    "civic_memory_registry": {
+      "chapters": [
+        "ch038",
+        "ch042"
+      ],
+      "status": "design_only",
+      "goals": [
+        "分开民间证词、产权争议和事实核对",
+        "本人选择公开、缓查或保密",
+        "未来允许更正与增补"
+      ],
+      "guard": "历史争论无需只剩一种官方正确版本"
+    },
+    "nois_rescue_and_ticket": {
+      "chapters": [
+        "ch039"
+      ],
+      "status": "design_only",
+      "goals": [
+        "救援绳、支撑架、排水管路线",
+        "母亲姓名旧车票与围裙补线",
+        "儿童夜间照护与后续搜救交接"
+      ],
+      "guard": "诺依是儿童非战斗成员，救出部分幸存者不代表母亲已经找到；车票贯穿到第54章"
+    },
+    "twin_accounts": {
+      "chapters": [
+        "ch040"
+      ],
+      "status": "design_only",
+      "goals": [
+        "两份城门内外亲历证词同屏",
+        "不可重写的历史与多种解释",
+        "允许后代修订注释"
+      ],
+      "guard": "岁影回廊只可见证过去不能无成本改变过去"
+    },
+    "root_three_doors": {
+      "chapters": [
+        "ch041"
+      ],
+      "status": "design_only",
+      "doors": [
+        {
+          "id": "past_protected",
+          "note": "被保护的村庄"
+        },
+        {
+          "id": "past_erased",
+          "note": "被忘记的村庄"
+        },
+        {
+          "id": "future_blank",
+          "note": "不填写唯一未来"
+        }
+      ],
+      "goals": [
+        "检视三门与根网备用电路",
+        "将图纸交由本地工匠审查",
+        "支持可逆试点及居民叫停机制"
+      ],
+      "guard": "只有第60章可建立完整分散灯网并设立world.distributed_network"
+    }
+  },
+  "notes": "未来地图/引擎动作制作规格；12场事件可跳过，12组选项反应仅在原选项写入后播放一次。不得称为已可玩。"
+}

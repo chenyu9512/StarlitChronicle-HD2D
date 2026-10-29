@@ -1,0 +1,438 @@
+{
+  "batch": "M0.1-final-same-sha-integrated-world-2026-10-27",
+  "base_main": "dbf4a8b5fa208963654d42a0d07765f874e1304c",
+  "engine": "Godot 4.7.2",
+  "strict_release_checks": [
+    "Godot Core Validation",
+    "Batch0 Seven Independent QA Gates",
+    "Starlit Full Godot Smoke Suite"
+  ],
+  "policy": "All workflows run on the exact same trigger SHA; any failed or in-progress gate means no global signoff and M1 HOLD.",
+  "main2_act01_regression": {
+    "branch": "Main2美术优化版",
+    "request": "first-act-world-room-save-and-third-party-art",
+    "status": "requested-not-verified",
+    "scope": [
+      "chapter-3-cave-gate",
+      "chapter-2-6-physical-travel",
+      "8-harbor-room-clues",
+      "V3-failed-write-rollback",
+      "third-party-art-import"
+    ],
+    "source": "docs/MAIN2_P0_FIX_LOG_2026_10_27.md"
+  },
+  "main2_recheck_after_migration_validator": {
+    "status": "requested-not-verified",
+    "branch": "Main2美术优化版",
+    "reason": "Resolve deleted legacy PNG paths by safe third-party migration map; verify full Core pipeline"
+  },
+  "main2_art_and_route_validation": {
+    "batch": "main2-runner-map-cinematics-real-chapter-route-20261027",
+    "target_branch": "Main2美术优化版",
+    "state": "requested-not-verified",
+    "paths": [
+      "scripts/cinematic_director.gd",
+      "scripts/world_story_dressing.gd",
+      "scripts/third_party_terrain_adapter.gd",
+      "scripts/world_registry.gd",
+      "tools/validate_cinematics.py",
+      "tools/smoke_first_act_flow.gd",
+      "tools/smoke_first_three_playable.gd",
+      "tools/smoke_campaign_72.gd"
+    ],
+    "goal": "Core validation must exercise migrated image paths and main game GDScript; no completion claim before logs"
+  },
+  "main2_resolved_art_validation": {
+    "batch": "main2-mapped-story-interiors-cinematics-real-route-20261027",
+    "status": "requested-not-verified",
+    "purpose": "validate physical third-party art through old logical IDs; run actual Godot Core and first-act route regression",
+    "new_methods": [
+      "tools/art_source_contract.py",
+      "tools/validate_phase19_lost_page_rooms.py",
+      "tools/validate_phase19_life_rooms.py",
+      "tools/validate_phase19_companion_regional_rooms.py",
+      "tools/validate_first_act.py"
+    ]
+  },
+  "main2_content_recheck": {
+    "status": "requested-not-verified",
+    "batch": "main2-b02b03-sources-and-real-chapter-route-20261027",
+    "code": "tools/smoke_art_assets.gd",
+    "notes": "Core imported Godot 4.7.2 and passed static validators on preceding SHA; this run checks actual migrated B02 B03 textures and subsequent world tests"
+  },
+  "main2_core_boss_repeat": {
+    "batch": "main2-core-after-sprite-idle-and-v13-boss-fix-20261027",
+    "request": "Godot 4.7.2 Core end-to-end",
+    "status": "requested-not-verified",
+    "why": "Prior core SHA ended at BattleFX coast monster idle; latest branch has updated battle smoke and a V13-verified Boss timing repair. Needs exact new runner evidence."
+  },
+  "main2_core_visual_split": {
+    "batch": "main2-core-source-integrity-post-72chapter-20261027",
+    "target_branch": "Main2美术优化版",
+    "status": "requested-not-verified",
+    "previous_core_run_id": 40464640443,
+    "previous_core_conclusion": "failure-only-at-legacy-55-image-export-assertion",
+    "required": [
+      "Complete Godot 4.7.2 actual Core",
+      "Headless game entry",
+      "89 logical texture physical resolutions"
+    ],
+    "commercial_hold": "55 coast-v2 visual identity, independent rooms, motion and real screen acceptance not yet certified; qa_hd2d_refinement.py remains strict and separate"
+  },
+  "act01_commercial_fix_20261027": {
+    "batch": "main2-commercial-act01-fix-20261027",
+    "parent_sha": "6343af9f7dd7268b5d5ce44fdd47fa8ea21322ab",
+    "status": "requested-not-verified",
+    "focus": [
+      "collision-safe-interior-return",
+      "distinct-neighbor-exit",
+      "semantic-signs-and-clues",
+      "chapter-5-humane-beast",
+      "chapter-6-lighthouse-testimony",
+      "atomic-v3-save"
+    ]
+  },
+  "act01_rerun_20261027": {
+    "batch": "main2-act01-p0-fix-regression-v2",
+    "requested_parent_sha": "ad1bb59f71d7837885d4327fe45993ac8cb1d099",
+    "stage": "requested-not-verified",
+    "fixes": [
+      "physical gate overlap",
+      "collision safe return",
+      "specific indoor clues",
+      "ch5 nonlethal rescue",
+      "ch6 testimony",
+      "non-cheat 72-chapter boss commands",
+      "five unique imported boss portraits"
+    ]
+  },
+  "act01_lighthouse_regression_20261027": {
+    "requested_parent_sha": "57c1ec9cf6e8f221b74352b3bb0e26548f69d9e1",
+    "version": "main2-six-chapter-commercial-final-p0-batch-v3",
+    "stage": "requested-not-verified",
+    "tests": [
+      "smoke_main2_lighthouse_story_state.gd",
+      "smoke_main2_act01_boss_portrait_recovery.gd",
+      "smoke_campaign_72.gd",
+      "smoke_first_act_flow.gd"
+    ]
+  },
+  "act01_harbor_art_real_runtime_20261027": {
+    "requested_parent_sha": "e6a589642b3b932620bfaaf5c33c704194d46669",
+    "status": "requested-not-verified",
+    "batch": "main2-ch2-ch4-rooms-live-art-godot-v2",
+    "checks": [
+      "11 visible PNG furniture props per room",
+      "4 medical-or-manifest icons per room",
+      "6 collision wall partitions per room",
+      "all live exit-service-clue anchor reachability",
+      "day-to-night color grade",
+      "live 1-to-6 chapter flow",
+      "no false story victory"
+    ],
+    "policy": "Godot Core on exact SHA; 2 rooms production wired but final art acceptance pending"
+  },
+  "act01_monster_and_boss_live_motion_20261027": {
+    "version": "main2-boss-and-monster-commercial-fixes-qa-v2",
+    "source_parent_sha": "66a8ab74a484d7604c013cf30eae4562c821208e",
+    "status": "requested-not-verified",
+    "required": [
+      "smoke_main2_act01_live_boss_motion.gd",
+      "smoke_main2_act01_coast_monster_identity.gd",
+      "smoke_first_act_flow.gd",
+      "smoke_campaign_72.gd",
+      "Godot project import"
+    ],
+    "scope": "exact-SHA Core includes five distinct boss shaders and nine semantic coastal creature attack/hit/defeat and live reduced-motion"
+  },
+  "act01_canonical_quest_routes_20261027": {
+    "source_parent_sha": "e6ab8b0e0a402357df49ed570312b9be988e4b60",
+    "batch": "act01-six-chapters-phase19-real-shoal-netmaker-and-legacy-world-gates-v6",
+    "state": "requested-not-verified",
+    "checks": [
+      "120 actual side quests map/door compatibility",
+      "rq_002 shore instead of lighthouse",
+      "chapter6 lighthouse entry gate",
+      "old chapter5 lighthouse retreat",
+      "daily field camp after traveling from harbor",
+      "all six normal story chapters",
+      "no cheat/teleport regression"
+    ]
+  },
+  "act01_m2_transaction_repair_20261027": {
+    "branch": "Main2美术优化版",
+    "source_before_trigger": "e6bf290bb43a9e6585753cef99da3f7476f5d534",
+    "engine": "Godot 4.7.2",
+    "verification": "requested-not-verified",
+    "new_tests": [
+      "tools/d_control/smoke_act01_evidence_save_transactions.gd",
+      "tools/d_control/smoke_act01_choice_save_transaction.gd"
+    ],
+    "regression_tests": [
+      "tools/smoke_first_act_flow.gd",
+      "tools/smoke_phase19_lost_page_puzzles.gd",
+      "tools/smoke_save_integrity.gd"
+    ],
+    "changes": [
+      "Evidence gallery observation, deduction and branch tracking commit or roll back together",
+      "A/B chapter option and optional dialogue receipt persist atomically",
+      "Never assert completion without exact SHA headless logs and player-save restore"
+    ]
+  },
+  "workflow_recovery_20261027": {
+    "scope": "first-act canonical, regional quest and save regressions after rq_002 anchor and dressing corrections",
+    "source_branch": "Main2美术优化版",
+    "audit": "Core must pass all real validations on this exact commit; do not downgrade failed gates",
+    "requested": true
+  },
+  "workflow_recovery_round2_20261027": {
+    "reason": "all rq_002 story quest anchor, scene dressing and outdoor site fixed consistently",
+    "checks": [
+      "phase19_world_anchors",
+      "phase19_scene_dressing",
+      "phase19_companion_regional_rooms",
+      "Godot 4.7.2 Core"
+    ],
+    "branch": "Main2美术优化版",
+    "verification": "requested-not-verified"
+  },
+  "act01_cinematic_and_normal_playthrough_20261027": {
+    "source_before_trigger": "e8923e9c5c95531e7e521786df14b36943a62b9b",
+    "target_branch": "Main2美术优化版",
+    "engine": "Godot 4.7.2",
+    "status": "requested-not-verified",
+    "acceptance": [
+      "Cinematic start and finish write failures retain durable checkpoint and lock control",
+      "Continue resumes interrupted cue once storage becomes writable",
+      "Prologue and first six chapters succeed with default party stats and live Boss commands",
+      "Each boss reward has durable A-line and D-line receipt",
+      "Story progress and sixth-chapter completion survive V3 save/load"
+    ],
+    "added_tests": [
+      "tools/d_control/smoke_act01_cinematic_checkpoint_rollback.gd",
+      "tools/smoke_act01_six_chapters_normal.gd"
+    ],
+    "note": "Controls jump to markers for deterministic QA; no manual walking, visuals, or player-experience signoff."
+  },
+  "workflow_recovery_round3_20261027": {
+    "reason": "regress prologue-to-chapter-one-to-harbor checkpoint before wilderness daily rest",
+    "branch": "Main2美术优化版",
+    "core": "run exact Godot 4.7.2 full validation without skipping failures"
+  },
+  "act01_next_stage_exact_sha_20261027": {
+    "requested_parent_sha": "12fb4462b713f48e8fabe3d6bf51cb4d826f3e74",
+    "target_branch": "Main2美术优化版",
+    "engine": "Godot 4.7.2",
+    "result": "requested-not-verified",
+    "tests": [
+      "tools/d_control/smoke_act01_cinematic_checkpoint_rollback.gd",
+      "tools/smoke_act01_six_chapters_normal.gd",
+      "tools/smoke_world_checkpoints.gd",
+      "tools/smoke_first_act_flow.gd"
+    ],
+    "strict_acceptance": "Do not mark as passing until jobs are completed with logs; all failures retained",
+    "scope": "Narrative interrupt rollback, six-chapter default-stat combat, sandboxed saves"
+  },
+  "workflow_recovery_round4_20261027": {
+    "reason": "verify final prologue-through-cave fixture and checkpoint fixes",
+    "branch": "Main2美术优化版",
+    "expected": "actual Core Godot 4.7.2 all steps; no skipped failures"
+  },
+  "rq002_and_act01_visual_recheck_20261027": {
+    "branch": "Main2美术优化版",
+    "scope": [
+      "rq_002_chapter_gate",
+      "act01_six_chapter_frame_evidence"
+    ],
+    "status": "requested-not-verified",
+    "acceptance": "Core must pass at same SHA and visual screenshot artifacts must be human-reviewed"
+  },
+  "rq002_dual_branch_regression_20261027": {
+    "status": "requested-not-verified",
+    "branch": "Main2美术优化版",
+    "checks": [
+      "rq_002 A/B chapter 5 followup",
+      "rq_002 post-chapter-18 revisit",
+      "A/B exclusive route",
+      "no duplicate followup"
+    ],
+    "script": "tools/smoke_rq002_time_gate.gd",
+    "evidence": "Require completed Godot 4.7.2 Core run on this commit; do not infer success from request"
+  },
+  "act01_same_sha_qa_20261027": {
+    "status": "requested-not-verified",
+    "branch": "Main2美术优化版",
+    "reason": "Run Core and Art acceptance on exactly the same commit after screenshot, CJK and rq_002 A/B test changes",
+    "tests": [
+      "Godot 4.7.2 Core Validation",
+      "Main2 Real Art Runtime Acceptance"
+    ],
+    "human_visual_signoff": "pending"
+  },
+  "act01_scene_semantics_and_landmark_frames_20261027": {
+    "branch": "Main2美术优化版",
+    "scope": [
+      "remove_cave_shoal_lighthouse_generic_market_scatter",
+      "hide_inn_shop_outside_settlements",
+      "capture_cave_relic_shoal_pool_lighthouse_landmark"
+    ],
+    "state": "requested-not-verified",
+    "same_sha_required": [
+      "Godot Core Validation",
+      "Main2 Real Art Runtime Acceptance"
+    ],
+    "manual_visual_signoff": "pending",
+    "note": "Final recheck includes map-specific regression: mangroves remain valid on shoal/lighthouse but market props are forbidden in cave"
+  },
+  "act01_live_animation_repair_20261027": {
+    "source_sha": "d77cded9bd0f8122eaff8ef0f480eb7d6e7b3b45",
+    "status": "requested_not_verified",
+    "intent": "Exact-engine regression: actual boss aura + shader, nine imported monster motion, real tier-seven effects, live boss-motion timeout tests",
+    "tests": [
+      "tools/smoke_a16_keyframes.gd",
+      "tools/smoke_c_b03_phase_overlays.gd",
+      "tools/smoke_c_coast_monster_matrix.gd",
+      "tools/smoke_c_coast_monster_motion.gd",
+      "tools/smoke_c23_b03_body_motion.gd",
+      "tools/smoke_c23_b03_other_bosses.gd",
+      "tools/smoke_c23_b03_5boss_bundle.gd"
+    ],
+    "policy": "Do not release latest Main2 on test failures; preserve failures on missing physical art assets; main branch is read-only."
+  },
+  "act01_live_visual_and_inn_fix_20261027": {
+    "source_sha": "e7fa7e3761ddd884b2edfa270155191ff6964f17",
+    "branch": "Main2美术优化版",
+    "engine": "Godot 4.7.2",
+    "status": "requested-not-verified",
+    "must_pass": [
+      "Core GDScript parse and first six chapters",
+      "smoke_a16_keyframes.gd",
+      "smoke_c_b03_phase_overlays.gd",
+      "smoke_c23_b03_5boss_bundle.gd",
+      "smoke_c23_b03_body_motion.gd",
+      "smoke_c23_b03_other_bosses.gd",
+      "smoke_c_coast_monster_matrix.gd",
+      "smoke_c_coast_monster_motion.gd",
+      "smoke_inn_art.gd",
+      "smoke_c_main2_art_runtime.gd"
+    ],
+    "policy": "Do not treat failed or running tests as green; leave main untouched and do not sync an unverified runtime"
+  },
+  "act01_combat_species_and_lighthouse_20261027": {
+    "branch": "Main2美术优化版",
+    "source_sha": "8550a7c0facaf1f54d7fbe0f468b7b36c43957a9",
+    "engine": "Godot 4.7.2",
+    "status": "requested-not-verified",
+    "fixed": [
+      "ArtAssets maps nine coastal legacy art IDs to correct mon_coast_01..09 physical runtime png",
+      "Non-town authored landmark features never rewrite sign as flowerpot"
+    ],
+    "must_run": [
+      "tools/smoke_c_coast_monster_matrix.gd",
+      "tools/smoke_c_coast_monster_motion.gd",
+      "tools/smoke_c_main2_art_runtime.gd",
+      "tools/smoke_first_act_flow.gd"
+    ],
+    "signoff": "Pending exact-source Godot validation, do not mark missing standalone room paintings complete."
+  },
+  "act01_authoritative_lighthouse_site_20261027": {
+    "source_sha": "fd99875d0462a51922751d54982b2229b04361f3",
+    "status": "requested-not-verified",
+    "branch": "Main2美术优化版",
+    "scope": [
+      "authoritative V7 tidal anemone no longer draws a flowerpot",
+      "map_coast_05 retains original gather interaction and location",
+      "nine actual imported monster portraits resolve via canonical art IDs"
+    ],
+    "tests": [
+      "tools/smoke_c_main2_art_runtime.gd",
+      "tools/smoke_c_coast_monster_matrix.gd",
+      "tools/smoke_c_coast_monster_motion.gd"
+    ],
+    "commercial_art_pending": [
+      "twelve unique indoor paintings",
+      "coastal facade assets",
+      "cave authored foreground art"
+    ]
+  },
+  "act01_migrated_enemy_final_art_alias_20261027": {
+    "source_parent_sha": "f1be0e11e0f6aa503a540c0f030d9523f487b4b6",
+    "scope": [
+      "nine coastal species art alias",
+      "repaired regression expectation after 616 original art deletions",
+      "chapter-six lighthouse site rock instead of market flowerpot"
+    ],
+    "status": "requested-not-verified",
+    "policy": "Core, full smoke, same SHA commercial art, and Runtime must all pass; unfilled room/façade/cave artwork must stay marked incomplete"
+  },
+  "act01_current_real_art_final_20261027": {
+    "source_parent_sha": "5f2cf551421903338a55e993de39e9a5ed48988d",
+    "engine": "Godot 4.7.2",
+    "status": "requested-not-verified",
+    "validated_scope": [
+      "new canonical monster PNG alias",
+      "lighthouse field gather icon uses a coastal reef rock not a town flowerpot",
+      "Boss rig live shader and staged aura",
+      "Tier-7 live magic visual",
+      "Inn hearth live lighting",
+      "Directly override 12 room-signature and coastal-scenery logical slots via approved DLC without resurrecting wrong migration tiles"
+    ],
+    "remaining_explicit_gaps": [
+      "unique physical interior art for 12 rooms",
+      "verified architectural facades for coast village/harbor",
+      "specialized cave height/foreground/water texture"
+    ],
+    "quality_gate": "Do not declare Act-I commercially ready until missing art imports are actually rendered and all Godot Core + four full smoke shards pass on equivalent source."
+  },
+  "act01_final_v4_water_cliff_authority_20261027": {
+    "source_sha": "4c016a1827d6a6c1a1d9868cf1b034440f5e9b19",
+    "branch": "Main2美术优化版",
+    "status": "requested-not-verified",
+    "test": [
+      "tools/smoke_world_v3.gd",
+      "tools/smoke_world_checkpoints.gd",
+      "tools/smoke_c_main2_art_runtime.gd"
+    ],
+    "change": "Reapply authored water and cliff geologies after automatic town/dungeon routes, then approved editor crossing overrides to match collisions and visible water masks",
+    "release_requirement": "Do not publish Runtime until source-matching Core and all four full smoke shards succeed"
+  },
+  "act01_hd2d_v18": {
+    "status": "requested-not-verified",
+    "tested_commit_parent": "83ce9127690c2a71b485cef5401ebe15e0814969",
+    "scope": "Golden Horizon runtime art, 5 maps and 6 chapters, 27 curated source-matched images, no geometry or save mutation",
+    "check": "tools/smoke_c_act01_hd2d_v18.gd",
+    "manual_visual_acceptance": "pending"
+  },
+  "act01_batch01_20261028": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "b93250a40288545d2a24cdc21d0086da6ca4d62e",
+    "request": "execute_12_direction_batch_01",
+    "status": "requested-not-verified",
+    "scope": [
+      "01.01 latest Godot full regression",
+      "02.05 map and landmark reachability",
+      "03.01 room entry and return",
+      "06.01 malformed save rejection",
+      "07.01 actual landmark screenshot"
+    ]
+  },
+  "act01_batch01_20261028_district_repair": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "82ecc734463e44461e83a835b7f6bf66443b7577",
+    "status": "requested-not-verified",
+    "request": "retest real village/harbor district migration and NPC daily routine after repairing 6 events and 25 schedule entries",
+    "scope": [
+      "01 engineering cold import",
+      "02 real reachable districts",
+      "03 room and exit",
+      "06 transaction and state rollback",
+      "12 all shard QA"
+    ]
+  },
+  "act01_batch01_20261028_cave_valves": {
+    "branch": "Main2美术优化版",
+    "parent_sha": "a1493e1b164cb80dc48b7ce1824a7a40692dcd7a",
+    "request": "verify physical cave tide valve placements on actual chapter-three map plus all quality gates",
+    "status": "requested-not-verified"
+  }
+}

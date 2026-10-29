@@ -1,0 +1,27 @@
+name: Main2 Town Ground Rendering Regression
+on:
+  workflow_dispatch:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "scripts/world_tileset_pool.gd"
+      - "scripts/first_act_world.gd"
+      - "tools/smoke_world_ground_render_recovery.gd"
+      - ".github/workflows/godot-town-ground-render-check.yml"
+permissions:
+  contents: read
+jobs:
+  town-ground:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official Godot 4.7.2
+        run: |
+          curl -fL --retry 3 -o godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.7.2-stable_linux.x86_64
+      - name: Import assets and parse scene sources
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit
+      - name: Test rendered 32px atlases and live town ground
+        run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script tools/smoke_world_ground_render_recovery.gd

@@ -1,0 +1,2327 @@
+{
+  "schema": "starlit.phase19.scene_dressing.v1",
+  "status": "runtime_field_probes_120_quests_no_dedicated_submaps",
+  "notes": "Each clue/notice uses the existing canonical original investigation/resolution dialogue as descriptive grounding. Exact independent interiors not implied.",
+  "counts": {
+    "quests": 120,
+    "hand_named_probes": 7
+  },
+  "quests": [
+    {
+      "quest_id": "sq_page_01",
+      "title": "断港的十二封信",
+      "map_id": "map_coast_02",
+      "location": "白砂港·旧邮仓",
+      "witness_name": "老邮差",
+      "evidence_label": "迟到信件邮戳",
+      "record_label": "收件范围登记簿",
+      "evidence_prop": "crate",
+      "observation": "第一封信写给一个尚未出生的孩子。",
+      "later_record": "老邮仓新设迟到信件登记册，第一个空白收件栏由家属自愿填写。",
+      "original_stage_ids": [
+        "sq_page_01.start",
+        "sq_page_01.investigate",
+        "sq_page_01.witness",
+        "sq_page_01.decision",
+        "sq_page_01.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_02",
+      "title": "泥土里的王徽",
+      "map_id": "map_oaths_02",
+      "location": "三誓边村·麦田",
+      "witness_name": "农妇",
+      "evidence_label": "王徽背面粮仓编号",
+      "record_label": "开仓与征粮对照档",
+      "evidence_prop": "sea_crystal",
+      "observation": "王徽背面有磨损的粮仓编号。",
+      "later_record": "旧王开仓的记录与战时征粮的记录被并列展示。",
+      "original_stage_ids": [
+        "sq_page_02.start",
+        "sq_page_02.investigate",
+        "sq_page_02.witness",
+        "sq_page_02.decision",
+        "sq_page_02.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_03",
+      "title": "矿工孩子的歌",
+      "map_id": "map_forge_03",
+      "location": "赤炉矿区·小学校",
+      "witness_name": "教师",
+      "evidence_label": "矿工孩子的曲谱",
+      "record_label": "学校见证记录",
+      "evidence_prop": "crate",
+      "observation": "歌谱边上写着连续的工时和工号。",
+      "later_record": "工时名单被独立核验并归还矿工家属，学校保留原曲。",
+      "original_stage_ids": [
+        "sq_page_03.start",
+        "sq_page_03.investigate",
+        "sq_page_03.witness",
+        "sq_page_03.decision",
+        "sq_page_03.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_04",
+      "title": "没有署名的军令",
+      "map_id": "map_oaths_03",
+      "location": "肃清边村·废哨所",
+      "witness_name": "老兵",
+      "evidence_label": "没有署名的军令的现场证据",
+      "record_label": "没有署名的军令的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "背面签名没有官阶，只有一行求准撤离妇孺的申请。",
+      "later_record": "第四张航页将军令正反两面并录，申请救援的人与受害者都没有被删去。",
+      "original_stage_ids": [
+        "sq_page_04.start",
+        "sq_page_04.investigate",
+        "sq_page_04.witness",
+        "sq_page_04.decision",
+        "sq_page_04.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_05",
+      "title": "最后的潮汐表",
+      "map_id": "map_isles_02",
+      "location": "晴汐小岛·观潮台",
+      "witness_name": "渔女",
+      "evidence_label": "最后的潮汐表的现场证据",
+      "record_label": "最后的潮汐表的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "背面的刻痕不是装饰，而是一组旧岛屿坐标。",
+      "later_record": "公用航标重新标注失落群岛，潮汐表留在岛上供所有船长查阅。",
+      "original_stage_ids": [
+        "sq_page_05.start",
+        "sq_page_05.investigate",
+        "sq_page_05.witness",
+        "sq_page_05.decision",
+        "sq_page_05.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_06",
+      "title": "沉城的生日",
+      "map_id": "map_isles_02",
+      "location": "青蓝海沟·王国大厅",
+      "witness_name": "潜水工",
+      "evidence_label": "沉城的生日的现场证据",
+      "record_label": "沉城的生日的后续记录",
+      "evidence_prop": "crate",
+      "observation": "钟楼内封着最后一批出生记录。",
+      "later_record": "出生簿的副本归还家属，原件依旧安全保存在沉城。",
+      "original_stage_ids": [
+        "sq_page_06.start",
+        "sq_page_06.investigate",
+        "sq_page_06.witness",
+        "sq_page_06.decision",
+        "sq_page_06.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_07",
+      "title": "梦里开门的人",
+      "map_id": "map_mirror_03",
+      "location": "镜眠王都·镜庭",
+      "witness_name": "护理师",
+      "evidence_label": "梦里开门的人的现场证据",
+      "record_label": "梦里开门的人的后续记录",
+      "evidence_prop": "crate",
+      "observation": "门后的记录竟是当年失踪救援队的名字。",
+      "later_record": "老人自主决定先读一名救援者的记录，其他名字留待以后。",
+      "original_stage_ids": [
+        "sq_page_07.start",
+        "sq_page_07.investigate",
+        "sq_page_07.witness",
+        "sq_page_07.decision",
+        "sq_page_07.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_08",
+      "title": "只剩一张户籍",
+      "map_id": "map_oldland_01",
+      "location": "默契城·户籍馆",
+      "witness_name": "记录员",
+      "evidence_label": "只剩一张户籍的现场证据",
+      "record_label": "只剩一张户籍的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "不同墨层能看出原来的姓氏。",
+      "later_record": "默契城旧名与现用名并存，只有当事人能提出变更。",
+      "original_stage_ids": [
+        "sq_page_08.start",
+        "sq_page_08.investigate",
+        "sq_page_08.witness",
+        "sq_page_08.decision",
+        "sq_page_08.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_09",
+      "title": "未曾结束的婚礼",
+      "map_id": "map_oldland_03",
+      "location": "旧洲·废礼堂",
+      "witness_name": "老裁缝",
+      "evidence_label": "未曾结束的婚礼的现场证据",
+      "record_label": "未曾结束的婚礼的后续记录",
+      "evidence_prop": "crate",
+      "observation": "礼服内衬各有一封未寄出的信。",
+      "later_record": "废礼堂开放小型纪念展，两份信由后人共同见证。",
+      "original_stage_ids": [
+        "sq_page_09.start",
+        "sq_page_09.investigate",
+        "sq_page_09.witness",
+        "sq_page_09.decision",
+        "sq_page_09.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_10",
+      "title": "黑星下的食谱",
+      "map_id": "map_oldland_01",
+      "location": "灾后王都·公用厨房",
+      "witness_name": "厨师",
+      "evidence_label": "黑星下的食谱的现场证据",
+      "record_label": "黑星下的食谱的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "食谱边上写着十二年前救援队的姓名。",
+      "later_record": "食谱作为公共记忆开放使用，姓名录上还有许多待核查的空位。",
+      "original_stage_ids": [
+        "sq_page_10.start",
+        "sq_page_10.investigate",
+        "sq_page_10.witness",
+        "sq_page_10.decision",
+        "sq_page_10.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_11",
+      "title": "废墟里的地图",
+      "map_id": "map_city_03",
+      "location": "群灯之城·居民广场",
+      "witness_name": "石匠",
+      "evidence_label": "废墟里的地图的现场证据",
+      "record_label": "废墟里的地图的后续记录",
+      "evidence_prop": "crate",
+      "observation": "我们把逃难时走的路拼到一起。",
+      "later_record": "公共广场保留不同阵营、不同年份的迁徙路线，标注见证来源。",
+      "original_stage_ids": [
+        "sq_page_11.start",
+        "sq_page_11.investigate",
+        "sq_page_11.witness",
+        "sq_page_11.decision",
+        "sq_page_11.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_page_12",
+      "title": "明日的空白页",
+      "map_id": "map_sanctum_01",
+      "location": "天轨圣域·旧阅览室",
+      "witness_name": "维莎",
+      "evidence_label": "明日的空白页的现场证据",
+      "record_label": "明日的空白页的后续记录",
+      "evidence_prop": "crate",
+      "observation": "档案印着预留给尚未出生者。",
+      "later_record": "第十二张航页仍保持空白，但边缘记录所有见证者与保存方式。",
+      "original_stage_ids": [
+        "sq_page_12.start",
+        "sq_page_12.investigate",
+        "sq_page_12.witness",
+        "sq_page_12.decision",
+        "sq_page_12.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_01",
+      "title": "路灯修理师",
+      "map_id": "map_coast_01",
+      "location": "晨露村·黄昏街",
+      "witness_name": "灯匠",
+      "evidence_label": "路灯耐盐接线盒",
+      "record_label": "社区巡灯维修簿",
+      "evidence_prop": "star_lantern",
+      "observation": "第一盏灯柱有蟹钳划痕。",
+      "later_record": "黄昏时三盏灯同时亮起。",
+      "original_stage_ids": [
+        "sq_life_01.start",
+        "sq_life_01.investigate",
+        "sq_life_01.witness",
+        "sq_life_01.decision",
+        "sq_life_01.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_02",
+      "title": "药房的第二张床",
+      "map_id": "map_coast_01",
+      "location": "晨露药房",
+      "witness_name": "岚音",
+      "evidence_label": "药房的第二张床的现场证据",
+      "record_label": "药房的第二张床的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "床要能让病人安全翻身，不能只求做得快。",
+      "later_record": "药房添了第二张病床。",
+      "original_stage_ids": [
+        "sq_life_02.start",
+        "sq_life_02.investigate",
+        "sq_life_02.witness",
+        "sq_life_02.decision",
+        "sq_life_02.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_03",
+      "title": "海盐与糖",
+      "map_id": "map_coast_02",
+      "location": "白砂港·厨房",
+      "witness_name": "厨娘",
+      "evidence_label": "海盐与糖的现场证据",
+      "record_label": "海盐与糖的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "旧货架被潮气泡坏。",
+      "later_record": "鱼汤终于有了熟悉的味道。",
+      "original_stage_ids": [
+        "sq_life_03.start",
+        "sq_life_03.investigate",
+        "sq_life_03.witness",
+        "sq_life_03.decision",
+        "sq_life_03.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_04",
+      "title": "被误读的旗语",
+      "map_id": "map_oaths_01",
+      "location": "三誓关卡",
+      "witness_name": "旗手",
+      "evidence_label": "被误读的旗语的现场证据",
+      "record_label": "被误读的旗语的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "旧教材第六页和第九页互换过。",
+      "later_record": "两岸学员一起测试新版旗语。",
+      "original_stage_ids": [
+        "sq_life_04.start",
+        "sq_life_04.investigate",
+        "sq_life_04.witness",
+        "sq_life_04.decision",
+        "sq_life_04.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_05",
+      "title": "国王的旧鞋",
+      "map_id": "map_oaths_01",
+      "location": "三誓王都·旧裁缝铺",
+      "witness_name": "鞋匠",
+      "evidence_label": "国王的旧鞋的现场证据",
+      "record_label": "国王的旧鞋的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "鞋里绣了搬运工家人的名字。",
+      "later_record": "展柜改写为普通搬运工的送粮故事。",
+      "original_stage_ids": [
+        "sq_life_05.start",
+        "sq_life_05.investigate",
+        "sq_life_05.witness",
+        "sq_life_05.decision",
+        "sq_life_05.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_06",
+      "title": "边境合唱团",
+      "map_id": "map_oaths_01",
+      "location": "三国边界·教堂",
+      "witness_name": "教堂唱诗教师",
+      "evidence_label": "边境合唱团的现场证据",
+      "record_label": "边境合唱团的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "三位老人各自写过不同一段。",
+      "later_record": "三国孩子唱完了全部曲谱。",
+      "original_stage_ids": [
+        "sq_life_06.start",
+        "sq_life_06.investigate",
+        "sq_life_06.witness",
+        "sq_life_06.decision",
+        "sq_life_06.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_07",
+      "title": "炉房里的猫",
+      "map_id": "map_forge_01",
+      "location": "赤炉工厂·休息间",
+      "witness_name": "学徒",
+      "evidence_label": "炉房里的猫的现场证据",
+      "record_label": "炉房里的猫的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我丈夫每天给它一块面包。",
+      "later_record": "猫在矿工家门口团成一团。",
+      "original_stage_ids": [
+        "sq_life_07.start",
+        "sq_life_07.investigate",
+        "sq_life_07.witness",
+        "sq_life_07.decision",
+        "sq_life_07.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_08",
+      "title": "一把不会伤人的锤",
+      "map_id": "map_forge_02",
+      "location": "赤炉试炼塔",
+      "witness_name": "缇珐",
+      "evidence_label": "一把不会伤人的锤的现场证据",
+      "record_label": "一把不会伤人的锤的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "旧锤头尖，会伤瓦砾下的人。",
+      "later_record": "救援破拆锤通过安全演练。",
+      "original_stage_ids": [
+        "sq_life_08.start",
+        "sq_life_08.investigate",
+        "sq_life_08.witness",
+        "sq_life_08.decision",
+        "sq_life_08.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_09",
+      "title": "故障的留声机",
+      "map_id": "map_forge_01",
+      "location": "赤炉旧街",
+      "witness_name": "老人",
+      "evidence_label": "故障的留声机的现场证据",
+      "record_label": "故障的留声机的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "停工那年，有人把后半张藏在抽屉防止损坏。",
+      "later_record": "留声机终于唱完那段生日祝福。",
+      "original_stage_ids": [
+        "sq_life_09.start",
+        "sq_life_09.investigate",
+        "sq_life_09.witness",
+        "sq_life_09.decision",
+        "sq_life_09.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_10",
+      "title": "雷索的旧披风",
+      "map_id": "map_oaths_02",
+      "location": "三誓边村",
+      "witness_name": "雷索",
+      "evidence_label": "雷索的旧披风的现场证据",
+      "record_label": "雷索的旧披风的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "是那年从沟渠撤出的居民。",
+      "later_record": "披风留在边村公共旧屋。",
+      "original_stage_ids": [
+        "sq_life_10.start",
+        "sq_life_10.investigate",
+        "sq_life_10.witness",
+        "sq_life_10.decision",
+        "sq_life_10.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_11",
+      "title": "走失的红围巾",
+      "map_id": "map_oaths_01",
+      "location": "白夜祭·市集",
+      "witness_name": "女童",
+      "evidence_label": "走失的红围巾的现场证据",
+      "record_label": "走失的红围巾的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "风把围巾吹到流动货车旁。",
+      "later_record": "母亲终于找到女儿，红围巾重新系在脖子上。",
+      "original_stage_ids": [
+        "sq_life_11.start",
+        "sq_life_11.investigate",
+        "sq_life_11.witness",
+        "sq_life_11.decision",
+        "sq_life_11.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_12",
+      "title": "最短的演出",
+      "map_id": "map_oaths_01",
+      "location": "白夜祭·后台",
+      "witness_name": "宫廷乐师",
+      "evidence_label": "最短的演出的现场证据",
+      "record_label": "最短的演出的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我愿交出证据，不想把一生唱给陌生人听。",
+      "later_record": "证人只公开自己同意的证据，私人记忆没有被拍卖。",
+      "original_stage_ids": [
+        "sq_life_12.start",
+        "sq_life_12.investigate",
+        "sq_life_12.witness",
+        "sq_life_12.decision",
+        "sq_life_12.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_13",
+      "title": "船舱里的盆栽",
+      "map_id": "map_isles_01",
+      "location": "逐星号·船员室",
+      "witness_name": "水手",
+      "evidence_label": "船舱里的盆栽的现场证据",
+      "record_label": "船舱里的盆栽的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "它需要潮湿但不能泡盐水。",
+      "later_record": "逐星号船舱角落出现小小的绿叶区。",
+      "original_stage_ids": [
+        "sq_life_13.start",
+        "sq_life_13.investigate",
+        "sq_life_13.witness",
+        "sq_life_13.decision",
+        "sq_life_13.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_14",
+      "title": "不收费的灯塔",
+      "map_id": "map_isles_01",
+      "location": "海歌群岛·偏港",
+      "witness_name": "守塔妇人",
+      "evidence_label": "不收费的灯塔的现场证据",
+      "record_label": "不收费的灯塔的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "原始公约写明遇险船免费使用求救灯。",
+      "later_record": "偏港灯塔恢复向所有船只开放的求救光。",
+      "original_stage_ids": [
+        "sq_life_14.start",
+        "sq_life_14.investigate",
+        "sq_life_14.witness",
+        "sq_life_14.decision",
+        "sq_life_14.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_15",
+      "title": "给海兽的名字",
+      "map_id": "map_isles_02",
+      "location": "鲸背水道",
+      "witness_name": "少年",
+      "evidence_label": "给海兽的名字的现场证据",
+      "record_label": "给海兽的名字的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "海兽对声音敏感，不认识旗帜。",
+      "later_record": "海兽在远处短暂浮出水面，孩子轻轻喊出自己选择的名字。",
+      "original_stage_ids": [
+        "sq_life_15.start",
+        "sq_life_15.investigate",
+        "sq_life_15.witness",
+        "sq_life_15.decision",
+        "sq_life_15.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_16",
+      "title": "睡不醒的钟匠",
+      "map_id": "map_mirror_01",
+      "location": "镜眠王国·钟表铺",
+      "witness_name": "钟匠家属",
+      "evidence_label": "睡不醒的钟匠的现场证据",
+      "record_label": "睡不醒的钟匠的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "若钟修好了，那晚我就能按时赶回去。",
+      "later_record": "钟匠在医护陪伴下第一次离开梦室，与家人吃完一顿饭。",
+      "original_stage_ids": [
+        "sq_life_16.start",
+        "sq_life_16.investigate",
+        "sq_life_16.witness",
+        "sq_life_16.decision",
+        "sq_life_16.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_17",
+      "title": "玄璃的身份证明",
+      "map_id": "map_mirror_01",
+      "location": "镜眠王都·档案局",
+      "witness_name": "玄璃",
+      "evidence_label": "玄璃的身份证明的现场证据",
+      "record_label": "玄璃的身份证明的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "他们把我的出生地写成财产所属地。",
+      "later_record": "玄璃亲自签下姓名，其他映世居民也得到申请身份的渠道。",
+      "original_stage_ids": [
+        "sq_life_17.start",
+        "sq_life_17.investigate",
+        "sq_life_17.witness",
+        "sq_life_17.decision",
+        "sq_life_17.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_18",
+      "title": "真正的雨",
+      "map_id": "map_mirror_03",
+      "location": "映世·花庭",
+      "witness_name": "玄璃",
+      "evidence_label": "真正的雨的现场证据",
+      "record_label": "真正的雨的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "花庭幻雨只在有人希望时落下。",
+      "later_record": "玄璃在笔记上写下湿鞋、泥味和檐角声。",
+      "original_stage_ids": [
+        "sq_life_18.start",
+        "sq_life_18.investigate",
+        "sq_life_18.witness",
+        "sq_life_18.decision",
+        "sq_life_18.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_19",
+      "title": "写错的名字",
+      "map_id": "map_oldland_01",
+      "location": "旧洲·默契城",
+      "witness_name": "书记员",
+      "evidence_label": "写错的名字的现场证据",
+      "record_label": "写错的名字的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "母亲喊我时是这段声音，写法我不确定。",
+      "later_record": "户籍册同时保留历史名字与现在的称呼。",
+      "original_stage_ids": [
+        "sq_life_19.start",
+        "sq_life_19.investigate",
+        "sq_life_19.witness",
+        "sq_life_19.decision",
+        "sq_life_19.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_20",
+      "title": "诺依的第一封信",
+      "map_id": "map_oldland_01",
+      "location": "旧洲·难民营",
+      "witness_name": "诺依",
+      "evidence_label": "诺依的第一封信的现场证据",
+      "record_label": "诺依的第一封信的后续记录",
+      "evidence_prop": "crate",
+      "observation": "纪念信会单独保存，家属可以选择带走或留在这里。",
+      "later_record": "诺依在信纸上画了一片海，自己把信投进箱里。",
+      "original_stage_ids": [
+        "sq_life_20.start",
+        "sq_life_20.investigate",
+        "sq_life_20.witness",
+        "sq_life_20.decision",
+        "sq_life_20.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_21",
+      "title": "一杯没喝完的茶",
+      "map_id": "map_coast_01",
+      "location": "晨露村·旧屋",
+      "witness_name": "老邻居",
+      "evidence_label": "一杯没喝完的茶的现场证据",
+      "record_label": "一杯没喝完的茶的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "茶杯底下刻着简单的三角修补记号。",
+      "later_record": "主角在旧屋喝下一杯放得微凉的茶。",
+      "original_stage_ids": [
+        "sq_life_21.start",
+        "sq_life_21.investigate",
+        "sq_life_21.witness",
+        "sq_life_21.decision",
+        "sq_life_21.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_22",
+      "title": "旧队伍的照片",
+      "map_id": "map_oldland_03",
+      "location": "暮林古道·驿站",
+      "witness_name": "旅店老板",
+      "evidence_label": "旧队伍的照片的现场证据",
+      "record_label": "旧队伍的照片的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "背面写着未完成的旅行计划。",
+      "later_record": "新照片放在旧照片旁，所有人并肩站着。",
+      "original_stage_ids": [
+        "sq_life_22.start",
+        "sq_life_22.investigate",
+        "sq_life_22.witness",
+        "sq_life_22.decision",
+        "sq_life_22.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_23",
+      "title": "晚归的人",
+      "map_id": "map_city_03",
+      "location": "群灯城·建造区",
+      "witness_name": "工匠",
+      "evidence_label": "晚归的人的现场证据",
+      "record_label": "晚归的人的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "孩子只想爸爸陪着吃一顿热饭。",
+      "later_record": "工程有了轮班表和每周公开进度。",
+      "original_stage_ids": [
+        "sq_life_23.start",
+        "sq_life_23.investigate",
+        "sq_life_23.witness",
+        "sq_life_23.decision",
+        "sq_life_23.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "sq_life_24",
+      "title": "自由广场的小食摊",
+      "map_id": "map_city_01",
+      "location": "群灯之城·广场",
+      "witness_name": "摊主",
+      "evidence_label": "自由广场的小食摊的现场证据",
+      "record_label": "自由广场的小食摊的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我们的调料能在冬天保存。",
+      "later_record": "自由广场开办三国食谱小节，顾客自由选择不同口味。",
+      "original_stage_ids": [
+        "sq_life_24.start",
+        "sq_life_24.investigate",
+        "sq_life_24.witness",
+        "sq_life_24.decision",
+        "sq_life_24.finish"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_lanyin_01",
+      "title": "未完成的病历",
+      "map_id": "map_coast_02",
+      "location": "白砂港临时医务室",
+      "witness_name": "水手小汐",
+      "evidence_label": "病历披露记录",
+      "record_label": "医务所自愿回访册",
+      "evidence_prop": "medicine_basket",
+      "observation": "他怕写明失忆就再不能上船。",
+      "later_record": "新病历注明治疗需求，但不向船主公开无关的私人记忆。",
+      "original_stage_ids": [
+        "cq_lanyin_01.meet",
+        "cq_lanyin_01.investigate",
+        "cq_lanyin_01.choice",
+        "cq_lanyin_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_lanyin_02",
+      "title": "蓝围巾之外",
+      "map_id": "map_forge_01",
+      "location": "赤炉工坊医务所",
+      "witness_name": "矿工孩子",
+      "evidence_label": "蓝围巾之外的现场证据",
+      "record_label": "蓝围巾之外的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "装置可以重复声音，却不能还回原来的日子。",
+      "later_record": "我记不得蓝围巾是哪天买的，却记得今天的汤很烫。",
+      "original_stage_ids": [
+        "cq_lanyin_02.meet",
+        "cq_lanyin_02.investigate",
+        "cq_lanyin_02.choice",
+        "cq_lanyin_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_lanyin_03",
+      "title": "第二份嘱托",
+      "map_id": "map_coast_01",
+      "location": "晨露村药房后屋",
+      "witness_name": "岚音母亲",
+      "evidence_label": "第二份嘱托的现场证据",
+      "record_label": "第二份嘱托的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "澄舟写着保护不等于替他选择。",
+      "later_record": "旧抽屉里终于不再藏着唯一的副本。",
+      "original_stage_ids": [
+        "cq_lanyin_03.meet",
+        "cq_lanyin_03.investigate",
+        "cq_lanyin_03.choice",
+        "cq_lanyin_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_lanyin_04",
+      "title": "醒来后的半杯茶",
+      "map_id": "map_mirror_01",
+      "location": "镜眠王都疗养院",
+      "witness_name": "照护员",
+      "evidence_label": "醒来后的半杯茶的现场证据",
+      "record_label": "醒来后的半杯茶的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "老人知道伴侣已经去世。",
+      "later_record": "今天喝完了两杯茶，还想明天再散步。",
+      "original_stage_ids": [
+        "cq_lanyin_04.meet",
+        "cq_lanyin_04.investigate",
+        "cq_lanyin_04.choice",
+        "cq_lanyin_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_lanyin_05",
+      "title": "没有英雄的碑文",
+      "map_id": "map_coast_01",
+      "location": "晨露村旧码头",
+      "witness_name": "石匠",
+      "evidence_label": "没有英雄的碑文的现场证据",
+      "record_label": "没有英雄的碑文的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我儿子只是爱吃汤面，别把他刻成士兵。",
+      "later_record": "石碑刻上姓名，也为未确认者保留空白。",
+      "original_stage_ids": [
+        "cq_lanyin_05.meet",
+        "cq_lanyin_05.investigate",
+        "cq_lanyin_05.choice",
+        "cq_lanyin_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_lanyin_06",
+      "title": "医师也有休息日",
+      "map_id": "map_city_03",
+      "location": "群灯城联合医馆",
+      "witness_name": "年轻医师",
+      "evidence_label": "医师也有休息日的现场证据",
+      "record_label": "医师也有休息日的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "把个人奉献当成永久制度，迟早害了病人。",
+      "later_record": "医馆实行轮班与紧急分诊。",
+      "original_stage_ids": [
+        "cq_lanyin_06.meet",
+        "cq_lanyin_06.investigate",
+        "cq_lanyin_06.choice",
+        "cq_lanyin_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_leiso_01",
+      "title": "没有徽章的巡逻",
+      "map_id": "map_oaths_01",
+      "location": "三誓王都旧巡逻线",
+      "witness_name": "守门少年",
+      "evidence_label": "没有徽章的巡逻的现场证据",
+      "record_label": "没有徽章的巡逻的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "旧路太长，我走不到医务站。",
+      "later_record": "我把救助路线加进巡逻图了。",
+      "original_stage_ids": [
+        "cq_leiso_01.meet",
+        "cq_leiso_01.investigate",
+        "cq_leiso_01.choice",
+        "cq_leiso_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_leiso_02",
+      "title": "三面小旗",
+      "map_id": "map_oaths_01",
+      "location": "三国边境小学",
+      "witness_name": "乡村教师",
+      "evidence_label": "三面小旗的现场证据",
+      "record_label": "三面小旗的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "我每周过桥给外婆送药。",
+      "later_record": "三色小旗还在，旗帜之间添上了学校、桥和河流。",
+      "original_stage_ids": [
+        "cq_leiso_02.meet",
+        "cq_leiso_02.investigate",
+        "cq_leiso_02.choice",
+        "cq_leiso_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_leiso_03",
+      "title": "签过字的老人",
+      "map_id": "map_oaths_05",
+      "location": "断层遗迹军政档案室",
+      "witness_name": "老军士",
+      "evidence_label": "签过字的老人的现场证据",
+      "record_label": "签过字的老人的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我后来偷偷放走过村民。",
+      "later_record": "老军士带着完整卷宗回家。",
+      "original_stage_ids": [
+        "cq_leiso_03.meet",
+        "cq_leiso_03.investigate",
+        "cq_leiso_03.choice",
+        "cq_leiso_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_leiso_04",
+      "title": "最后一道城门",
+      "map_id": "map_oaths_01",
+      "location": "三誓王都东门",
+      "witness_name": "撤离官",
+      "evidence_label": "最后一道城门的现场证据",
+      "record_label": "最后一道城门的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "旧式通行牌没有写医疗需要。",
+      "later_record": "东门在最后一批撤离后塌下。",
+      "original_stage_ids": [
+        "cq_leiso_04.meet",
+        "cq_leiso_04.investigate",
+        "cq_leiso_04.choice",
+        "cq_leiso_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_leiso_05",
+      "title": "旧披风的归处",
+      "map_id": "map_oldland_01",
+      "location": "北境救护站",
+      "witness_name": "获救青年",
+      "evidence_label": "旧披风的归处的现场证据",
+      "record_label": "旧披风的归处的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我总觉得一害怕就是辜负你。",
+      "later_record": "披风挂在公共物资柜里。",
+      "original_stage_ids": [
+        "cq_leiso_05.meet",
+        "cq_leiso_05.investigate",
+        "cq_leiso_05.choice",
+        "cq_leiso_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_leiso_06",
+      "title": "不用握剑的守夜",
+      "map_id": "map_city_02",
+      "location": "群灯城志愿议事厅",
+      "witness_name": "木匠",
+      "evidence_label": "不用握剑的守夜的现场证据",
+      "record_label": "不用握剑的守夜的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "我儿子死于军械试验。",
+      "later_record": "避难所的新门装好了，旁边刻着紧急疏散图。",
+      "original_stage_ids": [
+        "cq_leiso_06.meet",
+        "cq_leiso_06.investigate",
+        "cq_leiso_06.choice",
+        "cq_leiso_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_shouxian_01",
+      "title": "还债的航海图",
+      "map_id": "map_coast_02",
+      "location": "白砂港旧酒馆",
+      "witness_name": "酒馆老板",
+      "evidence_label": "还债的航海图的现场证据",
+      "record_label": "还债的航海图的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "钱是来了，但我们一直不知道是谁寄的。",
+      "later_record": "货单已经送到公开档案馆。",
+      "original_stage_ids": [
+        "cq_shouxian_01.meet",
+        "cq_shouxian_01.investigate",
+        "cq_shouxian_01.choice",
+        "cq_shouxian_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_shouxian_02",
+      "title": "船长没有画完的星位",
+      "map_id": "map_coast_02",
+      "location": "海歌港旧船坞",
+      "witness_name": "老水手",
+      "evidence_label": "船长没有画完的星位的现场证据",
+      "record_label": "船长没有画完的星位的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "我偷偷保存过一张无名岛星位图。",
+      "later_record": "两张星位图在灯下拼成一条断续的路。",
+      "original_stage_ids": [
+        "cq_shouxian_02.meet",
+        "cq_shouxian_02.investigate",
+        "cq_shouxian_02.choice",
+        "cq_shouxian_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_shouxian_03",
+      "title": "邮差的退回船票",
+      "map_id": "map_isles_02",
+      "location": "晴汐小岛码头",
+      "witness_name": "老邮差",
+      "evidence_label": "邮差的退回船票的现场证据",
+      "record_label": "邮差的退回船票的后续记录",
+      "evidence_prop": "crate",
+      "observation": "免费送信会赔本。",
+      "later_record": "第一条由多船分担的邮路开始运作。",
+      "original_stage_ids": [
+        "cq_shouxian_03.meet",
+        "cq_shouxian_03.investigate",
+        "cq_shouxian_03.choice",
+        "cq_shouxian_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_shouxian_04",
+      "title": "歪树下的两张椅",
+      "map_id": "map_isles_01",
+      "location": "无名岛旧码头",
+      "witness_name": "故乡老人",
+      "evidence_label": "歪树下的两张椅的现场证据",
+      "record_label": "歪树下的两张椅的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "当年我一直留在这里，你却在外面讲我们的故事。",
+      "later_record": "歪树下摆上两张椅子，岛民和归来者终于坐下说话。",
+      "original_stage_ids": [
+        "cq_shouxian_04.meet",
+        "cq_shouxian_04.investigate",
+        "cq_shouxian_04.choice",
+        "cq_shouxian_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_shouxian_05",
+      "title": "不收船票的乘客",
+      "map_id": "map_oldland_01",
+      "location": "灾后海歌港",
+      "witness_name": "无名乘客",
+      "evidence_label": "不收船票的乘客的现场证据",
+      "record_label": "不收船票的乘客的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "我没能救下我的父亲，可我如今每天都帮人靠岸。",
+      "later_record": "这是我们这一代的第一张共同海图。",
+      "original_stage_ids": [
+        "cq_shouxian_05.meet",
+        "cq_shouxian_05.investigate",
+        "cq_shouxian_05.choice",
+        "cq_shouxian_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_shouxian_06",
+      "title": "每艘船的归港灯",
+      "map_id": "map_city_01",
+      "location": "群灯之城新港",
+      "witness_name": "灯塔管理员",
+      "evidence_label": "每艘船的归港灯的现场证据",
+      "record_label": "每艘船的归港灯的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "不收求救费，总要有人付灯油。",
+      "later_record": "码头的归港灯逐盏亮起。",
+      "original_stage_ids": [
+        "cq_shouxian_06.meet",
+        "cq_shouxian_06.investigate",
+        "cq_shouxian_06.choice",
+        "cq_shouxian_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_tifa_01",
+      "title": "被退回的设计图",
+      "map_id": "map_forge_02",
+      "location": "赤炉工坊学徒舍",
+      "witness_name": "工匠学徒",
+      "evidence_label": "被退回的设计图的现场证据",
+      "record_label": "被退回的设计图的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "我借用旧矿灯电路，里面却有秘密记忆接口。",
+      "later_record": "不读取记忆的床头灯终于完成。",
+      "original_stage_ids": [
+        "cq_tifa_01.meet",
+        "cq_tifa_01.investigate",
+        "cq_tifa_01.choice",
+        "cq_tifa_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_tifa_02",
+      "title": "四号阀门的名字",
+      "map_id": "map_forge_05",
+      "location": "赤炉主炉维修层",
+      "witness_name": "老工匠",
+      "evidence_label": "四号阀门的名字的现场证据",
+      "record_label": "四号阀门的名字的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "那时有人要求我签保密单，否则全厂停工。",
+      "later_record": "四组阀门的真实用途被重新刻在控制台上。",
+      "original_stage_ids": [
+        "cq_tifa_02.meet",
+        "cq_tifa_02.investigate",
+        "cq_tifa_02.choice",
+        "cq_tifa_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_tifa_03",
+      "title": "不再用于战争的锤",
+      "map_id": "map_forge_02",
+      "location": "赤炉百工塔",
+      "witness_name": "锻造导师",
+      "evidence_label": "不再用于战争的锤的现场证据",
+      "record_label": "不再用于战争的锤的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "锤头太尖，砸墙时会伤到后面的伤员。",
+      "later_record": "新破拆锤进入公共救援仓库。",
+      "original_stage_ids": [
+        "cq_tifa_03.meet",
+        "cq_tifa_03.investigate",
+        "cq_tifa_03.choice",
+        "cq_tifa_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_tifa_04",
+      "title": "根系之间的备用线路",
+      "map_id": "map_oldland_02",
+      "location": "旧洲地脉林场",
+      "witness_name": "护林工",
+      "evidence_label": "根系之间的备用线路的现场证据",
+      "record_label": "根系之间的备用线路的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "过去的守灯者保证过不会伤树，最后连树名都忘了。",
+      "later_record": "备用线路未伤树根，森林居民得以继续自主维护。",
+      "original_stage_ids": [
+        "cq_tifa_04.meet",
+        "cq_tifa_04.investigate",
+        "cq_tifa_04.choice",
+        "cq_tifa_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_tifa_05",
+      "title": "第一间修理铺",
+      "map_id": "map_city_01",
+      "location": "群灯城西区",
+      "witness_name": "年轻修理匠",
+      "evidence_label": "第一间修理铺的现场证据",
+      "record_label": "第一间修理铺的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "这些旧物有些能修，有些不能再安全使用。",
+      "later_record": "第一间修理铺开门，门口没有炫目的大型机械。",
+      "original_stage_ids": [
+        "cq_tifa_05.meet",
+        "cq_tifa_05.investigate",
+        "cq_tifa_05.choice",
+        "cq_tifa_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_tifa_06",
+      "title": "不能只靠一个人的图纸",
+      "map_id": "map_city_02",
+      "location": "群灯城能源议事厅",
+      "witness_name": "市民技师",
+      "evidence_label": "不能只靠一个人的图纸的现场证据",
+      "record_label": "不能只靠一个人的图纸的后续记录",
+      "evidence_prop": "crate",
+      "observation": "中央控制又会从最可信任的人开始。",
+      "later_record": "技术手册被改成多作者署名版。",
+      "original_stage_ids": [
+        "cq_tifa_06.meet",
+        "cq_tifa_06.investigate",
+        "cq_tifa_06.choice",
+        "cq_tifa_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_ize_01",
+      "title": "无人唱出的最后一节",
+      "map_id": "map_isles_03",
+      "location": "断歌礁旧乐棚",
+      "witness_name": "民间歌者",
+      "evidence_label": "无人唱出的最后一节的现场证据",
+      "record_label": "无人唱出的最后一节的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "歌里并没有怪物，只是被驱离家乡的孩子。",
+      "later_record": "这回是大家一起决定什么时候唱。",
+      "original_stage_ids": [
+        "cq_ize_01.meet",
+        "cq_ize_01.investigate",
+        "cq_ize_01.choice",
+        "cq_ize_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_ize_02",
+      "title": "谁来记住船名",
+      "map_id": "map_isles_01",
+      "location": "风航灯旧锚台",
+      "witness_name": "年轻船员",
+      "evidence_label": "谁来记住船名的现场证据",
+      "record_label": "谁来记住船名的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "没有做饭的人，一条船撑不了多久。",
+      "later_record": "航海者名册收录了修船工、厨师和甲板水手。",
+      "original_stage_ids": [
+        "cq_ize_02.meet",
+        "cq_ize_02.investigate",
+        "cq_ize_02.choice",
+        "cq_ize_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_ize_03",
+      "title": "两种结局的同一首歌",
+      "map_id": "map_oldland_04",
+      "location": "岁影回廊旧剧院",
+      "witness_name": "流亡演员",
+      "evidence_label": "两种结局的同一首歌的现场证据",
+      "record_label": "两种结局的同一首歌的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "外城居民得救了。",
+      "later_record": "演出结束，观众没有立刻鼓掌，先有孩子举手提问。",
+      "original_stage_ids": [
+        "cq_ize_03.meet",
+        "cq_ize_03.investigate",
+        "cq_ize_03.choice",
+        "cq_ize_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_ize_04",
+      "title": "十二张纸的歌",
+      "map_id": "map_oldland_05",
+      "location": "旧洲根忆灯坛",
+      "witness_name": "老档案员",
+      "evidence_label": "十二张纸的歌的现场证据",
+      "record_label": "十二张纸的歌的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "有些故事互相矛盾，怎么判断谁的说法真实？",
+      "later_record": "史书的封面终于写不下全部作者名。",
+      "original_stage_ids": [
+        "cq_ize_04.meet",
+        "cq_ize_04.investigate",
+        "cq_ize_04.choice",
+        "cq_ize_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_ize_05",
+      "title": "旧照片没有歌",
+      "map_id": "map_oldland_03",
+      "location": "暮林驿站后台",
+      "witness_name": "旅店老板",
+      "evidence_label": "旧照片没有歌的现场证据",
+      "record_label": "旧照片没有歌的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "有些夜晚连我们自己都不愿想起。",
+      "later_record": "新歌第一次演出时，没有高举旧英雄的画像。",
+      "original_stage_ids": [
+        "cq_ize_05.meet",
+        "cq_ize_05.investigate",
+        "cq_ize_05.choice",
+        "cq_ize_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_ize_06",
+      "title": "没有第二节的童谣",
+      "map_id": "map_sanctum_05",
+      "location": "永昼花园",
+      "witness_name": "花园孩子",
+      "evidence_label": "没有第二节的童谣的现场证据",
+      "record_label": "没有第二节的童谣的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "今天有一朵花掉了花瓣。",
+      "later_record": "新的歌只有两句，孩子却第一次记住自己写的第二句。",
+      "original_stage_ids": [
+        "cq_ize_06.meet",
+        "cq_ize_06.investigate",
+        "cq_ize_06.choice",
+        "cq_ize_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_xuanli_01",
+      "title": "不属于任何人的户籍",
+      "map_id": "map_mirror_01",
+      "location": "镜眠王都档案局",
+      "witness_name": "户籍员",
+      "evidence_label": "不属于任何人的户籍的现场证据",
+      "record_label": "不属于任何人的户籍的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "我在现世看见过雨、树和会吵架的人。",
+      "later_record": "新登记表出现自选常住地一栏。",
+      "original_stage_ids": [
+        "cq_xuanli_01.meet",
+        "cq_xuanli_01.investigate",
+        "cq_xuanli_01.choice",
+        "cq_xuanli_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_xuanli_02",
+      "title": "真正的雨与假雨",
+      "map_id": "map_mirror_03",
+      "location": "镜眠王都城外花园",
+      "witness_name": "园丁",
+      "evidence_label": "真正的雨与假雨的现场证据",
+      "record_label": "真正的雨与假雨的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "映世的雨只会在别人需要时出现。",
+      "later_record": "玄璃在笔记中记下湿鞋、泥味和屋檐声。",
+      "original_stage_ids": [
+        "cq_xuanli_02.meet",
+        "cq_xuanli_02.investigate",
+        "cq_xuanli_02.choice",
+        "cq_xuanli_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_xuanli_03",
+      "title": "第三扇空门",
+      "map_id": "map_oldland_02",
+      "location": "旧洲根系树海",
+      "witness_name": "护林少女",
+      "evidence_label": "第三扇空门的现场证据",
+      "record_label": "第三扇空门的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "这里预留了一个可扩展接口。",
+      "later_record": "空门仍空着，门边增加了说明与共同维护人名。",
+      "original_stage_ids": [
+        "cq_xuanli_03.meet",
+        "cq_xuanli_03.investigate",
+        "cq_xuanli_03.choice",
+        "cq_xuanli_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_xuanli_04",
+      "title": "我也会判断错误",
+      "map_id": "map_oldland_01",
+      "location": "旧洲新生救援营",
+      "witness_name": "年轻救援者",
+      "evidence_label": "我也会判断错误的现场证据",
+      "record_label": "我也会判断错误的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "上次我预测山路可通，结果雨把桥冲断了。",
+      "later_record": "新的救援地图把预测、实测和修订日期分开。",
+      "original_stage_ids": [
+        "cq_xuanli_04.meet",
+        "cq_xuanli_04.investigate",
+        "cq_xuanli_04.choice",
+        "cq_xuanli_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_xuanli_05",
+      "title": "被划掉的可能",
+      "map_id": "map_sanctum_01",
+      "location": "天轨原初实验室",
+      "witness_name": "档案残响",
+      "evidence_label": "被划掉的可能的现场证据",
+      "record_label": "被划掉的可能的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "那个孩子后来怎样了？",
+      "later_record": "愿望档案改为保留选择权的公开记录。",
+      "original_stage_ids": [
+        "cq_xuanli_05.meet",
+        "cq_xuanli_05.investigate",
+        "cq_xuanli_05.choice",
+        "cq_xuanli_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_xuanli_06",
+      "title": "谁有权留下映世",
+      "map_id": "map_sanctum_01",
+      "location": "七灯评议庭侧厅",
+      "witness_name": "映世居民代表",
+      "evidence_label": "谁有权留下映世的现场证据",
+      "record_label": "谁有权留下映世的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "有人担心映世居民的寿命和现实身份难以登记。",
+      "later_record": "评议庭记录下映世居民的公民资格与参与规则。",
+      "original_stage_ids": [
+        "cq_xuanli_06.meet",
+        "cq_xuanli_06.investigate",
+        "cq_xuanli_06.choice",
+        "cq_xuanli_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_nuoyi_01",
+      "title": "救援名单的空位",
+      "map_id": "map_oldland_01",
+      "location": "荒原邮站",
+      "witness_name": "驿站老板",
+      "evidence_label": "救援名单的空位的现场证据",
+      "record_label": "救援名单的空位的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "这张名单只有获救者，背面还有未归者。",
+      "later_record": "邮站重新悬挂完整救援名单。",
+      "original_stage_ids": [
+        "cq_nuoyi_01.meet",
+        "cq_nuoyi_01.investigate",
+        "cq_nuoyi_01.choice",
+        "cq_nuoyi_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_nuoyi_02",
+      "title": "墙另一面的那本书",
+      "map_id": "map_oldland_01",
+      "location": "灾后王都东墙",
+      "witness_name": "流民孩子",
+      "evidence_label": "墙另一面的那本书的现场证据",
+      "record_label": "墙另一面的那本书的后续记录",
+      "evidence_prop": "crate",
+      "observation": "新旧两区互不信任，所以不准通行。",
+      "later_record": "城墙旁开启第一条受监督的通道。",
+      "original_stage_ids": [
+        "cq_nuoyi_02.meet",
+        "cq_nuoyi_02.investigate",
+        "cq_nuoyi_02.choice",
+        "cq_nuoyi_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_nuoyi_03",
+      "title": "不催促的邀请",
+      "map_id": "map_oldland_02",
+      "location": "雾岭农庄",
+      "witness_name": "修桥村妇",
+      "evidence_label": "不催促的邀请的现场证据",
+      "record_label": "不催促的邀请的后续记录",
+      "evidence_prop": "crate",
+      "observation": "这是我做的地图，里头还有许多空白。",
+      "later_record": "主角没有立刻答应，但帮诺依改完了水路标记。",
+      "original_stage_ids": [
+        "cq_nuoyi_03.meet",
+        "cq_nuoyi_03.investigate",
+        "cq_nuoyi_03.choice",
+        "cq_nuoyi_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_nuoyi_04",
+      "title": "继承不是模仿",
+      "map_id": "map_oldland_01",
+      "location": "新生救援营",
+      "witness_name": "年轻队员",
+      "evidence_label": "继承不是模仿的现场证据",
+      "record_label": "继承不是模仿的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "共同的安全规则比某个人的命令长久。",
+      "later_record": "诺依退到后排，认真记录年轻队长的第一次指挥。",
+      "original_stage_ids": [
+        "cq_nuoyi_04.meet",
+        "cq_nuoyi_04.investigate",
+        "cq_nuoyi_04.choice",
+        "cq_nuoyi_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_nuoyi_05",
+      "title": "不握剑的课本",
+      "map_id": "map_city_03",
+      "location": "群灯城儿童学堂",
+      "witness_name": "学堂老师",
+      "evidence_label": "不握剑的课本的现场证据",
+      "record_label": "不握剑的课本的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "若遇到怪物，不拿剑怎么办？",
+      "later_record": "学堂增加急救、绘图和简单维修课程。",
+      "original_stage_ids": [
+        "cq_nuoyi_05.meet",
+        "cq_nuoyi_05.investigate",
+        "cq_nuoyi_05.choice",
+        "cq_nuoyi_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_nuoyi_06",
+      "title": "手灯的下一位主人",
+      "map_id": "map_sanctum_01",
+      "location": "终幕殿前救援营",
+      "witness_name": "年轻救援者",
+      "evidence_label": "手灯的下一位主人的现场证据",
+      "record_label": "手灯的下一位主人的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "救援手册不能只写谁曾经下令。",
+      "later_record": "手灯进入公共救援箱，旁边留下使用记录本。",
+      "original_stage_ids": [
+        "cq_nuoyi_06.meet",
+        "cq_nuoyi_06.investigate",
+        "cq_nuoyi_06.choice",
+        "cq_nuoyi_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_weisha_01",
+      "title": "签名背后的姓名",
+      "map_id": "map_city_02",
+      "location": "群灯城听证厅",
+      "witness_name": "受害者家属",
+      "evidence_label": "签名背后的姓名的现场证据",
+      "record_label": "签名背后的姓名的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "过去我只写可接受的代价。",
+      "later_record": "原件得以保存，责任和个人隐私各自清楚。",
+      "original_stage_ids": [
+        "cq_weisha_01.meet",
+        "cq_weisha_01.investigate",
+        "cq_weisha_01.choice",
+        "cq_weisha_01.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_weisha_02",
+      "title": "计时器没有记下的照护",
+      "map_id": "map_city_03",
+      "location": "群灯城救助仓库",
+      "witness_name": "后勤主管",
+      "evidence_label": "计时器没有记下的照护的现场证据",
+      "record_label": "计时器没有记下的照护的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "先按每户实际需求配送补给。",
+      "later_record": "配给名单增加实际照护需求和休息安排。",
+      "original_stage_ids": [
+        "cq_weisha_02.meet",
+        "cq_weisha_02.investigate",
+        "cq_weisha_02.choice",
+        "cq_weisha_02.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_weisha_03",
+      "title": "退出条款",
+      "map_id": "map_city_02",
+      "location": "群灯城灯网议事厅",
+      "witness_name": "社区代表",
+      "evidence_label": "退出条款的现场证据",
+      "record_label": "退出条款的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "节点退出会令整体供能重新调整。",
+      "later_record": "社区代表亲手在协议上勾选加入期限。",
+      "original_stage_ids": [
+        "cq_weisha_03.meet",
+        "cq_weisha_03.investigate",
+        "cq_weisha_03.choice",
+        "cq_weisha_03.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_weisha_04",
+      "title": "没有价值的画",
+      "map_id": "map_sanctum_01",
+      "location": "天轨原初实验室",
+      "witness_name": "档案残响",
+      "evidence_label": "没有价值的画的现场证据",
+      "record_label": "没有价值的画的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "系统只保留可统计的社会收益。",
+      "later_record": "档案恢复，但没有写明孩子最后选择做什么。",
+      "original_stage_ids": [
+        "cq_weisha_04.meet",
+        "cq_weisha_04.investigate",
+        "cq_weisha_04.choice",
+        "cq_weisha_04.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_weisha_05",
+      "title": "不坐的那把椅子",
+      "map_id": "map_sanctum_01",
+      "location": "天轨议会档案厅",
+      "witness_name": "旧议会残响",
+      "evidence_label": "不坐的那把椅子的现场证据",
+      "record_label": "不坐的那把椅子的后续记录",
+      "evidence_prop": "crate",
+      "observation": "由谁监督永久的记录者？",
+      "later_record": "永久记录席位被保留为空，旁边增加共同讨论长桌。",
+      "original_stage_ids": [
+        "cq_weisha_05.meet",
+        "cq_weisha_05.investigate",
+        "cq_weisha_05.choice",
+        "cq_weisha_05.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "cq_weisha_06",
+      "title": "最后一行损失",
+      "map_id": "map_sanctum_01",
+      "location": "七灯评议庭",
+      "witness_name": "失忆者代表",
+      "evidence_label": "最后一行损失的现场证据",
+      "record_label": "最后一行损失的后续记录",
+      "evidence_prop": "sea_crystal",
+      "observation": "统计仍然必要，但不能以数字取消个体的求助权。",
+      "later_record": "三个方案分别列明风险、救助、复审与个人退出权。",
+      "original_stage_ids": [
+        "cq_weisha_06.meet",
+        "cq_weisha_06.investigate",
+        "cq_weisha_06.choice",
+        "cq_weisha_06.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_001",
+      "title": "遗失的贝壳罐",
+      "map_id": "map_coast_02",
+      "location": "白砂港渔村",
+      "witness_name": "渔家女儿",
+      "evidence_label": "七枚贝壳的旧罐",
+      "record_label": "渔家自愿记忆册",
+      "evidence_prop": "barrel",
+      "observation": "我记得海浪的声音，却记不得罐子放哪儿。",
+      "later_record": "小罐里有七枚贝壳，新的第八枚由父女一起捡起。",
+      "original_stage_ids": [
+        "rq_001.meet",
+        "rq_001.investigate",
+        "rq_001.choice",
+        "rq_001.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_002",
+      "title": "没有海兽的网",
+      "map_id": "map_coast_03",
+      "location": "鲸骨浅滩",
+      "witness_name": "渔网师傅",
+      "evidence_label": "无钩渔网与浮标",
+      "record_label": "浅滩安全公告",
+      "evidence_prop": "barrel",
+      "observation": "不用钩子，如何防止大鱼撞进来？",
+      "later_record": "新浮标让渔船远离海兽浅滩，渔网仍能正常捕鱼。",
+      "original_stage_ids": [
+        "rq_002.meet",
+        "rq_002.investigate",
+        "rq_002.choice",
+        "rq_002.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_003",
+      "title": "没人敲响的第二声钟",
+      "map_id": "map_coast_05",
+      "location": "潮歌灯塔",
+      "witness_name": "灯塔值夜人",
+      "evidence_label": "没人敲响的第二声钟的现场证据",
+      "record_label": "没人敲响的第二声钟的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "第一次报归港，第二次报险情。",
+      "later_record": "港口挂出钟声说明，老人们自愿参加夜间轮值。",
+      "original_stage_ids": [
+        "rq_003.meet",
+        "rq_003.investigate",
+        "rq_003.choice",
+        "rq_003.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_004",
+      "title": "三份重复的入境章",
+      "map_id": "map_oaths_01",
+      "location": "三誓王都外廷",
+      "witness_name": "难民父亲",
+      "evidence_label": "三份重复的入境章的现场证据",
+      "record_label": "三份重复的入境章的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "这些章来自同一枚模具，所以都无效。",
+      "later_record": "三廷增设紧急医疗绿色通行登记。",
+      "original_stage_ids": [
+        "rq_004.meet",
+        "rq_004.investigate",
+        "rq_004.choice",
+        "rq_004.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_005",
+      "title": "粮袋底下的字",
+      "map_id": "map_oaths_02",
+      "location": "三国边境议事站",
+      "witness_name": "搬粮工",
+      "evidence_label": "粮袋底下的字的现场证据",
+      "record_label": "粮袋底下的字的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "这些粮由三地居民共同捐献。",
+      "later_record": "粮袋归还与赔偿登记同时开放。",
+      "original_stage_ids": [
+        "rq_005.meet",
+        "rq_005.investigate",
+        "rq_005.choice",
+        "rq_005.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_006",
+      "title": "桥边再开张的汤摊",
+      "map_id": "map_oaths_01",
+      "location": "旧盟约桥",
+      "witness_name": "汤摊老板",
+      "evidence_label": "桥边再开张的汤摊的现场证据",
+      "record_label": "桥边再开张的汤摊的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "我的锅里有三种不同的香料。",
+      "later_record": "汤摊划出安静的长桌，旅人可以坐一起，也可以各自吃饭。",
+      "original_stage_ids": [
+        "rq_006.meet",
+        "rq_006.investigate",
+        "rq_006.choice",
+        "rq_006.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_007",
+      "title": "不见了的工时",
+      "map_id": "map_forge_01",
+      "location": "赤炉七号矿井",
+      "witness_name": "矿工会计",
+      "evidence_label": "不见了的工时的现场证据",
+      "record_label": "不见了的工时的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "我记得一整周在下井，却没有工资。",
+      "later_record": "补发工时按多方证据逐项核实。",
+      "original_stage_ids": [
+        "rq_007.meet",
+        "rq_007.investigate",
+        "rq_007.choice",
+        "rq_007.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_008",
+      "title": "谁替矿工送饭",
+      "map_id": "map_forge_01",
+      "location": "灰砂安置区",
+      "witness_name": "食堂女工",
+      "evidence_label": "谁替矿工送饭的现场证据",
+      "record_label": "谁替矿工送饭的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "我已经忘了自己吃没吃过。",
+      "later_record": "食堂建立匿名救助券和公开补贴账。",
+      "original_stage_ids": [
+        "rq_008.meet",
+        "rq_008.investigate",
+        "rq_008.choice",
+        "rq_008.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_009",
+      "title": "炉城最后一趟夜车",
+      "map_id": "map_forge_04",
+      "location": "赤炉工人街",
+      "witness_name": "电车司机",
+      "evidence_label": "炉城最后一趟夜车的现场证据",
+      "record_label": "炉城最后一趟夜车的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "医院也有夜班护士。",
+      "later_record": "末班车缩短了路线，却保住了医院与工人夜间通勤。",
+      "original_stage_ids": [
+        "rq_009.meet",
+        "rq_009.investigate",
+        "rq_009.choice",
+        "rq_009.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_010",
+      "title": "烟不是军旗",
+      "map_id": "map_oaths_02",
+      "location": "灰石边村旧麦田",
+      "witness_name": "村长后裔",
+      "evidence_label": "烟不是军旗的现场证据",
+      "record_label": "烟不是军旗的后续记录",
+      "evidence_prop": "crate",
+      "observation": "战地地图把求救烟都标成了敌人。",
+      "later_record": "纪念路标改成求救烟的真实含义。",
+      "original_stage_ids": [
+        "rq_010.meet",
+        "rq_010.investigate",
+        "rq_010.choice",
+        "rq_010.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_011",
+      "title": "卖不出去的灯笼",
+      "map_id": "map_oaths_01",
+      "location": "王都白夜祭",
+      "witness_name": "灯笼手艺人",
+      "evidence_label": "卖不出去的灯笼的现场证据",
+      "record_label": "卖不出去的灯笼的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "我儿子失踪那年，最后学会做的就是这种小灯。",
+      "later_record": "城门后巷划出自愿纪念灯区。",
+      "original_stage_ids": [
+        "rq_011.meet",
+        "rq_011.investigate",
+        "rq_011.choice",
+        "rq_011.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_012",
+      "title": "九百年后的邮戳",
+      "map_id": "map_oaths_05",
+      "location": "断层议会遗迹",
+      "witness_name": "档案信使",
+      "evidence_label": "九百年后的邮戳的现场证据",
+      "record_label": "九百年后的邮戳的后续记录",
+      "evidence_prop": "crate",
+      "observation": "受害者散落各地，原住址已不存在。",
+      "later_record": "致歉书副本进入各地公开档案馆，原件得以保存。",
+      "original_stage_ids": [
+        "rq_012.meet",
+        "rq_012.investigate",
+        "rq_012.choice",
+        "rq_012.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_013",
+      "title": "船工旧尺上的刻度",
+      "map_id": "map_isles_01",
+      "location": "海歌港旧船坞",
+      "witness_name": "老木匠",
+      "evidence_label": "船工旧尺上的刻度的现场证据",
+      "record_label": "船工旧尺上的刻度的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "澄舟也曾替一个孩子标过一道线。",
+      "later_record": "旧船板不再承担航海负荷，却留在港口的公开小屋里。",
+      "original_stage_ids": [
+        "rq_013.meet",
+        "rq_013.investigate",
+        "rq_013.choice",
+        "rq_013.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_014",
+      "title": "沉城的生日名单",
+      "map_id": "map_isles_02",
+      "location": "青蓝海沟沉城",
+      "witness_name": "潜水工",
+      "evidence_label": "沉城的生日名单的现场证据",
+      "record_label": "沉城的生日名单的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "有几户后裔至今不知道亲人在这里出生。",
+      "later_record": "出生册被复制送上岸，钟楼原件留在海底。",
+      "original_stage_ids": [
+        "rq_014.meet",
+        "rq_014.investigate",
+        "rq_014.choice",
+        "rq_014.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_015",
+      "title": "灯塔不向求救收费",
+      "map_id": "map_isles_01",
+      "location": "风航群岛偏港",
+      "witness_name": "守塔妇人",
+      "evidence_label": "灯塔不向求救收费的现场证据",
+      "record_label": "灯塔不向求救收费的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "全体免费，最后修塔的钱还是落在我身上。",
+      "later_record": "灯塔设立公开维护基金，求救信号始终对所有船只有效。",
+      "original_stage_ids": [
+        "rq_015.meet",
+        "rq_015.investigate",
+        "rq_015.choice",
+        "rq_015.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_016",
+      "title": "明天再开的面包店",
+      "map_id": "map_mirror_01",
+      "location": "镜眠王都日轮街",
+      "witness_name": "面包师",
+      "evidence_label": "明天再开的面包店的现场证据",
+      "record_label": "明天再开的面包店的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "我记得有人昨天没钱买饭。",
+      "later_record": "面包店第一次写出明日营业而不是今天永远优惠。",
+      "original_stage_ids": [
+        "rq_016.meet",
+        "rq_016.investigate",
+        "rq_016.choice",
+        "rq_016.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_017",
+      "title": "注销栏上的空白",
+      "map_id": "map_mirror_01",
+      "location": "镜眠王都档案局",
+      "witness_name": "档案员",
+      "evidence_label": "注销栏上的空白的现场证据",
+      "record_label": "注销栏上的空白的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "我曾被要求在消失前交回住所钥匙。",
+      "later_record": "档案局停止使用注销表，保留它作为旧制度证物。",
+      "original_stage_ids": [
+        "rq_017.meet",
+        "rq_017.investigate",
+        "rq_017.choice",
+        "rq_017.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_018",
+      "title": "梦里结不出的果子",
+      "map_id": "map_mirror_02",
+      "location": "镜眠王国郊外果园",
+      "witness_name": "果农",
+      "evidence_label": "梦里结不出的果子的现场证据",
+      "record_label": "梦里结不出的果子的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "我害怕一醒来就看见果园荒了。",
+      "later_record": "第一棵真实的果树结出酸涩的果子。",
+      "original_stage_ids": [
+        "rq_018.meet",
+        "rq_018.investigate",
+        "rq_018.choice",
+        "rq_018.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_019",
+      "title": "寄给不存在海岛的邮票",
+      "map_id": "map_isles_01",
+      "location": "无名岛码头",
+      "witness_name": "归岛老妇",
+      "evidence_label": "寄给不存在海岛的邮票的现场证据",
+      "record_label": "寄给不存在海岛的邮票的后续记录",
+      "evidence_prop": "crate",
+      "observation": "地图没有这座岛，系统拒绝登记。",
+      "later_record": "旧邮票获得历史认可，新邮路正式开通。",
+      "original_stage_ids": [
+        "rq_019.meet",
+        "rq_019.investigate",
+        "rq_019.choice",
+        "rq_019.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_020",
+      "title": "车票上的第二站",
+      "map_id": "map_oldland_03",
+      "location": "旧洲裂谷村",
+      "witness_name": "车站管理员",
+      "evidence_label": "车票上的第二站的现场证据",
+      "record_label": "车票上的第二站的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "她曾在这里做过一段时间的护理工作。",
+      "later_record": "车票的第二站被保留在诺依的小纪念册里。",
+      "original_stage_ids": [
+        "rq_020.meet",
+        "rq_020.investigate",
+        "rq_020.choice",
+        "rq_020.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_021",
+      "title": "同一种草药的两个名字",
+      "map_id": "map_oldland_02",
+      "location": "旧洲边境药田",
+      "witness_name": "流亡药师",
+      "evidence_label": "同一种草药的两个名字的现场证据",
+      "record_label": "同一种草药的两个名字的后续记录",
+      "evidence_prop": "medicine_basket",
+      "observation": "南族用来退热，北族用来止痒。",
+      "later_record": "药草档案同时收录两种名称和安全使用说明。",
+      "original_stage_ids": [
+        "rq_021.meet",
+        "rq_021.investigate",
+        "rq_021.choice",
+        "rq_021.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_022",
+      "title": "比黑星早到的警报",
+      "map_id": "map_oldland_05",
+      "location": "天轨观测站外城",
+      "witness_name": "夜班观测员",
+      "evidence_label": "比黑星早到的警报的现场证据",
+      "record_label": "比黑星早到的警报的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "我保存了一份手抄底稿。",
+      "later_record": "警报恢复真实时间，城市增加了一日准备期。",
+      "original_stage_ids": [
+        "rq_022.meet",
+        "rq_022.investigate",
+        "rq_022.choice",
+        "rq_022.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_023",
+      "title": "避难棚的两块牌",
+      "map_id": "map_oaths_01",
+      "location": "灾后王都避难街",
+      "witness_name": "救济妇人",
+      "evidence_label": "避难棚的两块牌的现场证据",
+      "record_label": "避难棚的两块牌的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "他们支持永昼！",
+      "later_record": "水井旁张贴统一供水时段，巡查由两边居民共同轮值。",
+      "original_stage_ids": [
+        "rq_023.meet",
+        "rq_023.investigate",
+        "rq_023.choice",
+        "rq_023.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_024",
+      "title": "没有名字的最后一班车",
+      "map_id": "map_oaths_01",
+      "location": "三誓王都撤离站",
+      "witness_name": "老车夫",
+      "evidence_label": "没有名字的最后一班车的现场证据",
+      "record_label": "没有名字的最后一班车的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "那夜老车夫来回跑了四趟。",
+      "later_record": "最后一班车的司机、乘客与失联者记录被同时保存。",
+      "original_stage_ids": [
+        "rq_024.meet",
+        "rq_024.investigate",
+        "rq_024.choice",
+        "rq_024.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_025",
+      "title": "被认错的旧英雄",
+      "map_id": "map_oldland_01",
+      "location": "荒原旧驿站",
+      "witness_name": "年轻旅人",
+      "evidence_label": "被认错的旧英雄的现场证据",
+      "record_label": "被认错的旧英雄的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "每次有人让我救整座村子，我连修桥的活都做不好。",
+      "later_record": "桥由村民和修桥匠共同修复，没有人在桥头竖英雄雕像。",
+      "original_stage_ids": [
+        "rq_025.meet",
+        "rq_025.investigate",
+        "rq_025.choice",
+        "rq_025.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_026",
+      "title": "十二年都没修好的桥",
+      "map_id": "map_oldland_03",
+      "location": "暮林旧道",
+      "witness_name": "驿路石匠",
+      "evidence_label": "十二年都没修好的桥的现场证据",
+      "record_label": "十二年都没修好的桥的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "旧桥墩裂了，不能直接铺木板。",
+      "later_record": "旧桥完成第一段安全通行，后续工程列入公开工期。",
+      "original_stage_ids": [
+        "rq_026.meet",
+        "rq_026.investigate",
+        "rq_026.choice",
+        "rq_026.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_027",
+      "title": "孩子自己写的名字",
+      "map_id": "map_oldland_01",
+      "location": "新生救援营",
+      "witness_name": "儿童照护员",
+      "evidence_label": "孩子自己写的名字的现场证据",
+      "record_label": "孩子自己写的名字的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "我不记得以前的姓，可我想叫星禾。",
+      "later_record": "新名登记旁保留安全的寻亲信息索引。",
+      "original_stage_ids": [
+        "rq_027.meet",
+        "rq_027.investigate",
+        "rq_027.choice",
+        "rq_027.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_028",
+      "title": "没有钥匙的房间",
+      "map_id": "map_city_01",
+      "location": "群灯城重建西区",
+      "witness_name": "独居老妇",
+      "evidence_label": "没有钥匙的房间的现场证据",
+      "record_label": "没有钥匙的房间的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "屋顶可以修，但旧锁已经无法使用。",
+      "later_record": "老妇拿到新钥匙，临时住户住进另一处修好的公共房。",
+      "original_stage_ids": [
+        "rq_028.meet",
+        "rq_028.investigate",
+        "rq_028.choice",
+        "rq_028.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_029",
+      "title": "夜市里的旧味道",
+      "map_id": "map_city_01",
+      "location": "群灯城自由广场",
+      "witness_name": "流亡厨师",
+      "evidence_label": "夜市里的旧味道的现场证据",
+      "record_label": "夜市里的旧味道的后续记录",
+      "evidence_prop": "flowerpot",
+      "observation": "战前这三种调料会一起卖，后来边境封了才各自改配方。",
+      "later_record": "摊位挂出不同地区的食谱故事，顾客排队试尝。",
+      "original_stage_ids": [
+        "rq_029.meet",
+        "rq_029.investigate",
+        "rq_029.choice",
+        "rq_029.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_030",
+      "title": "灯光不是租金",
+      "map_id": "map_city_03",
+      "location": "群灯城居民街",
+      "witness_name": "年轻租客",
+      "evidence_label": "灯光不是租金的现场证据",
+      "record_label": "灯光不是租金的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "灯网让房子更安全，提高租金有什么不对？",
+      "later_record": "新的住房协议区分实际维修费与虚构费用。",
+      "original_stage_ids": [
+        "rq_030.meet",
+        "rq_030.investigate",
+        "rq_030.choice",
+        "rq_030.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_031",
+      "title": "朝云海转动的罗盘",
+      "map_id": "map_sanctum_01",
+      "location": "星帆补给船",
+      "witness_name": "老舵手",
+      "evidence_label": "朝云海转动的罗盘的现场证据",
+      "record_label": "朝云海转动的罗盘的后续记录",
+      "evidence_prop": "star_lantern",
+      "observation": "磁针记录过旧星帆试验，现在误差很大。",
+      "later_record": "罗盘进入航海展柜，新返航坐标由船员共同校验。",
+      "original_stage_ids": [
+        "rq_031.meet",
+        "rq_031.investigate",
+        "rq_031.choice",
+        "rq_031.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_032",
+      "title": "澄舟留下的木工课",
+      "map_id": "map_sanctum_02",
+      "location": "天轨旧工作室",
+      "witness_name": "学徒影像",
+      "evidence_label": "澄舟留下的木工课的现场证据",
+      "record_label": "澄舟留下的木工课的后续记录",
+      "evidence_prop": "crate",
+      "observation": "这些教学记录没有伟大发明，却每节都注明哪里容易夹伤手。",
+      "later_record": "普通木灯制作教程被复制到群灯城学堂。",
+      "original_stage_ids": [
+        "rq_032.meet",
+        "rq_032.investigate",
+        "rq_032.choice",
+        "rq_032.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_033",
+      "title": "给尚未出生的旅人",
+      "map_id": "map_sanctum_03",
+      "location": "天轨外缘星帆站",
+      "witness_name": "邮务学徒",
+      "evidence_label": "给尚未出生的旅人的现场证据",
+      "record_label": "给尚未出生的旅人的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "原设计在每次未来预测后自动填写寄件人与收件人。",
+      "later_record": "无名信封成为供后来旅人留言的第一张空白纸。",
+      "original_stage_ids": [
+        "rq_033.meet",
+        "rq_033.investigate",
+        "rq_033.choice",
+        "rq_033.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_034",
+      "title": "终于能长大的学童",
+      "map_id": "map_sanctum_05",
+      "location": "永昼花园学堂",
+      "witness_name": "花园教师",
+      "evidence_label": "终于能长大的学童的现场证据",
+      "record_label": "终于能长大的学童的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "映世可以继续存在，但孩子要能自己表达愿望。",
+      "later_record": "学校第一次开设面向不同年龄的课程。",
+      "original_stage_ids": [
+        "rq_034.meet",
+        "rq_034.investigate",
+        "rq_034.choice",
+        "rq_034.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_035",
+      "title": "十二年没有到过的海边",
+      "map_id": "map_sanctum_05",
+      "location": "永昼国度西门",
+      "witness_name": "居住老人",
+      "evidence_label": "十二年没有到过的海边的现场证据",
+      "record_label": "十二年没有到过的海边的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "我的妻子早已不在。",
+      "later_record": "老人第一次坐在真正的海边，没说话，只把鞋脱了。",
+      "original_stage_ids": [
+        "rq_035.meet",
+        "rq_035.investigate",
+        "rq_035.choice",
+        "rq_035.resolution"
+      ],
+      "detailed_scene_available": false
+    },
+    {
+      "quest_id": "rq_036",
+      "title": "不需要掌声的反对意见",
+      "map_id": "map_sanctum_01",
+      "location": "终幕殿外公开议台",
+      "witness_name": "普通代表",
+      "evidence_label": "不需要掌声的反对意见的现场证据",
+      "record_label": "不需要掌声的反对意见的后续记录",
+      "evidence_prop": "barrel",
+      "observation": "不管选哪条，我家都可能受影响。",
+      "later_record": "反对意见与三种方案一同进入公开档案。",
+      "original_stage_ids": [
+        "rq_036.meet",
+        "rq_036.investigate",
+        "rq_036.choice",
+        "rq_036.resolution"
+      ],
+      "detailed_scene_available": false
+    }
+  ]
+}

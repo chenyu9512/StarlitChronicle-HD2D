@@ -1,0 +1,337 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 2,
+  "map_id": "map_coast_02",
+  "building_id": "shop",
+  "name": "白砂港·码头集市",
+  "status": "coastal_art_runtime_vertical_slice_not_final_painted",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        31,
+        26,
+        42,
+        36
+      ]
+    },
+    {
+      "rect": [
+        22,
+        13,
+        51,
+        29
+      ]
+    },
+    {
+      "rect": [
+        18,
+        12,
+        29,
+        23
+      ]
+    },
+    {
+      "rect": [
+        45,
+        19,
+        56,
+        28
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        36,
+        16,
+        36,
+        21
+      ]
+    },
+    {
+      "rect": [
+        31,
+        23,
+        34,
+        23
+      ]
+    }
+  ],
+  "door_regions": [],
+  "points": {
+    "spawn": [
+      36,
+      32
+    ],
+    "exit": [
+      36,
+      35
+    ],
+    "service": [
+      25,
+      17
+    ],
+    "storage": [
+      52,
+      23
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        25,
+        17
+      ],
+      "name": "白砂港·码头集市·服务台"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        52,
+        23
+      ],
+      "name": "白砂港·码头集市·储物处"
+    }
+  ],
+  "art_profile": "coast_district_shop_v1",
+  "art_tileset": "res://assets/art/interiors/coastal_district/harbor_shop_tileset.svg",
+  "visuals": [
+    {
+      "id": "service_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        25,
+        17
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "storage_containers",
+      "asset": "barrels",
+      "cell": [
+        52,
+        23
+      ],
+      "offset": [
+        0,
+        -34
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_0_provisions_shelves",
+      "asset": "provisions_shelves",
+      "cell": [
+        30,
+        13
+      ],
+      "offset": [
+        0,
+        -72
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_1_provisions_shelves",
+      "asset": "provisions_shelves",
+      "cell": [
+        48,
+        26
+      ],
+      "offset": [
+        0,
+        -72
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_2_merchant_counter",
+      "asset": "merchant_counter",
+      "cell": [
+        36,
+        25
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_3_bread_basket",
+      "asset": "bread_basket",
+      "cell": [
+        26,
+        19
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_4_saltgrass_planter",
+      "asset": "saltgrass_planter",
+      "cell": [
+        51,
+        21
+      ],
+      "offset": [
+        0,
+        -35
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "stage_5_window",
+      "asset": "window",
+      "cell": [
+        31,
+        27
+      ],
+      "offset": [
+        0,
+        -60
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "stage_6_rug",
+      "asset": "rug",
+      "cell": [
+        41,
+        26
+      ],
+      "offset": [
+        0,
+        -14
+      ],
+      "layer": "floor"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      30,
+      13
+    ],
+    [
+      48,
+      26
+    ],
+    [
+      36,
+      25
+    ]
+  ],
+  "light_sources": [
+    {
+      "id": "harbor_shop_light_0",
+      "cell": [
+        25,
+        17
+      ],
+      "scale": 1.6,
+      "energy": 0.9
+    },
+    {
+      "id": "harbor_shop_light_1",
+      "cell": [
+        31,
+        25
+      ],
+      "scale": 1.6,
+      "energy": 0.55
+    }
+  ],
+  "investigations": [
+    {
+      "id": "inspect_stage_0_provisions_shelves",
+      "source_visual_id": "stage_0_provisions_shelves",
+      "kind": "provisions_shelves",
+      "name": "出海缆绳架",
+      "cell": [
+        29,
+        13
+      ],
+      "first_text": "一束绳头标着‘逆潮’二字，给经验不足的小船做警示。",
+      "repeat_text": "绳子仍然干燥结实。",
+      "after_text": "安全结绳法已经写在木牌上，不再只口口相传。",
+      "owner_absent_text": "铺主不在，别拆封新绳。",
+      "owner_present_text": "屋主同意你仔细查看「出海缆绳架」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_1_provisions_shelves",
+      "source_visual_id": "stage_1_provisions_shelves",
+      "kind": "provisions_shelves",
+      "name": "港务补给架",
+      "cell": [
+        48,
+        25
+      ],
+      "first_text": "箱子按船只吃水深浅分类，轻船不能把最重的物资放在船头。",
+      "repeat_text": "补给清单按日期排列。",
+      "after_text": "货架标签新增了海流警报颜色，搬运工也能看懂。",
+      "owner_absent_text": "货物已登记，取用须经许可。",
+      "owner_present_text": "屋主同意你仔细查看「港务补给架」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_2_merchant_counter",
+      "source_visual_id": "stage_2_merchant_counter",
+      "kind": "merchant_counter",
+      "name": "磨旧铜算盘",
+      "cell": [
+        36,
+        24
+      ],
+      "first_text": "一根算盘珠子是贝壳雕的，代表当年被救回的最后一名渔民。",
+      "repeat_text": "账台干净，找零盒已经关好。",
+      "after_text": "水手凑钱把旧算盘修好，贝壳珠子没有被换掉。",
+      "owner_absent_text": "摊主回来前先别动钱箱。",
+      "owner_present_text": "屋主同意你仔细查看「磨旧铜算盘」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    },
+    {
+      "id": "inspect_stage_5_window",
+      "source_visual_id": "stage_5_window",
+      "kind": "window",
+      "name": "港口消息窗",
+      "cell": [
+        31,
+        27
+      ],
+      "first_text": "窗上挂着一只风铃，风铃没响的时候水雾却有时会变重。",
+      "repeat_text": "窗外船桅在海风中摇晃。",
+      "after_text": "外侧贴了新的潮汐公告，消息先于风铃传遍码头。",
+      "owner_absent_text": "窗扣松动，请别用力推开。",
+      "owner_present_text": "屋主同意你仔细查看「港口消息窗」，但提醒不要把家用物品带走。",
+      "after_flag": "story.ch002.done",
+      "privacy": "observe_only",
+      "reward": null,
+      "art_status": "existing_visual_only_d_input_pending"
+    }
+  ],
+  "interior_owner_id": "",
+  "interaction_revision": 1,
+  "interaction_status": "authored_interaction_data_pending_D_spawn_and_input"
+}

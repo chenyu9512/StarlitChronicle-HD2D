@@ -1,0 +1,308 @@
+{
+  "schema_version": 3,
+  "map_id": "map_oldland_05",
+  "title": "旧日灯枢",
+  "biome": "badlands",
+  "category": "landmark",
+  "design_intent": "旧洲风蚀峡谷",
+  "size": [
+    88,
+    66
+  ],
+  "roads": [
+    {
+      "id": "spine-遗迹环城",
+      "width": 1,
+      "points": [
+        [
+          6,
+          30
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          38,
+          25
+        ],
+        [
+          52,
+          18
+        ],
+        [
+          81,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "branch-oldland",
+      "width": 1,
+      "points": [
+        [
+          28,
+          5
+        ],
+        [
+          34,
+          17
+        ],
+        [
+          36,
+          32
+        ],
+        [
+          44,
+          59
+        ]
+      ]
+    },
+    {
+      "id": "old-quarter",
+      "width": 1,
+      "points": [
+        [
+          15,
+          33
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          45,
+          36
+        ],
+        [
+          16,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "expedition-wing",
+      "width": 1,
+      "points": [
+        [
+          54,
+          24
+        ],
+        [
+          75,
+          22
+        ],
+        [
+          82,
+          26
+        ],
+        [
+          79,
+          58
+        ]
+      ]
+    },
+    {
+      "id": "hidden-loop",
+      "width": 0,
+      "points": [
+        [
+          14,
+          12
+        ],
+        [
+          49,
+          12
+        ],
+        [
+          60,
+          31
+        ],
+        [
+          76,
+          58
+        ]
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "north-ridge",
+      "width": 3,
+      "points": [
+        [
+          4,
+          6
+        ],
+        [
+          33,
+          7
+        ],
+        [
+          64,
+          6
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "southern-cliff",
+      "width": 2,
+      "points": [
+        [
+          8,
+          40
+        ],
+        [
+          35,
+          41
+        ],
+        [
+          64,
+          40
+        ]
+      ],
+      "tile_row": 6
+    },
+    {
+      "id": "individual-outer-ridge-map_oldland_05",
+      "width": 1,
+      "points": [
+        [
+          75,
+          11
+        ],
+        [
+          83,
+          11
+        ],
+        [
+          84,
+          53
+        ]
+      ],
+      "tile_row": 3
+    }
+  ],
+  "waterways": [
+    {
+      "id": "regional-stream-map_oldland_05",
+      "width": 1,
+      "points": [
+        [
+          83,
+          6
+        ],
+        [
+          80,
+          19
+        ],
+        [
+          83,
+          53
+        ]
+      ],
+      "tile_row": 6
+    }
+  ],
+  "clearings": [
+    {
+      "id": "story-rest-map_oldland_05",
+      "center": [
+        23,
+        21
+      ],
+      "radius": 3
+    },
+    {
+      "id": "fork-outlook-map_oldland_05",
+      "center": [
+        61,
+        38
+      ],
+      "radius": 4
+    },
+    {
+      "id": "expansion-court-map_oldland_05",
+      "center": [
+        78,
+        57
+      ],
+      "radius": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "local-witness-map_oldland_05",
+      "cell": [
+        47,
+        22
+      ],
+      "kind": "star_lantern"
+    },
+    {
+      "id": "secondary-lookout-map_oldland_05",
+      "cell": [
+        27,
+        38
+      ],
+      "kind": "flowerpot"
+    },
+    {
+      "id": "peripheral-crest-map_oldland_05",
+      "cell": [
+        79,
+        56
+      ],
+      "kind": "crate"
+    }
+  ],
+  "paint_overrides": [
+    {
+      "cell": [
+        84,
+        62
+      ],
+      "row": 2,
+      "blocked": true
+    }
+  ],
+  "collision_overrides": [
+    {
+      "cell": [
+        84,
+        50
+      ],
+      "blocked": true
+    }
+  ],
+  "revision": 5,
+  "expansion_nodes": [
+    {
+      "cell": [
+        79,
+        16
+      ],
+      "kind": "beacon",
+      "name": "断代遗碑·旧日灯枢"
+    },
+    {
+      "cell": [
+        77,
+        56
+      ],
+      "kind": "sign",
+      "name": "遗失钟楼·旧日灯枢"
+    },
+    {
+      "cell": [
+        62,
+        57
+      ],
+      "kind": "star_lantern",
+      "name": "考古营地·旧日灯枢"
+    }
+  ],
+  "layout_identity": "oldland.05.遗迹环城",
+  "layout_principle": "遗迹环城：依据「旧日灯枢」的地域形态设计独立地标、主干道、次级探险支路和外环边界"
+}

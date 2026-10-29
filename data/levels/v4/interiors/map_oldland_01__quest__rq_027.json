@@ -1,0 +1,329 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_oldland_01",
+  "building_id": "quest__rq_027",
+  "name": "新生救援营 · 调查现场",
+  "status": "phase19_7_authored_walkable_scene_existing_svg_not_final_painting",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        30,
+        10,
+        43,
+        41
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        14,
+        14,
+        35,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        39,
+        11,
+        57,
+        36
+      ],
+      "tile_row": 5
+    },
+    {
+      "rect": [
+        22,
+        23,
+        51,
+        28
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        23,
+        30,
+        50,
+        39
+      ],
+      "tile_row": 4
+    },
+    {
+      "rect": [
+        20,
+        18,
+        52,
+        24
+      ],
+      "tile_row": 5
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        28,
+        13,
+        28,
+        15
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        48,
+        29,
+        48,
+        31
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        18,
+        25,
+        18,
+        27
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        49,
+        13,
+        49,
+        15
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        37,
+        38,
+        41
+      ],
+      "tile_row": 3
+    }
+  ],
+  "points": {
+    "spawn": [
+      36,
+      37
+    ],
+    "exit": [
+      36,
+      40
+    ],
+    "service": [
+      24,
+      18
+    ],
+    "storage": [
+      49,
+      19
+    ]
+  },
+  "quest_points": [
+    [
+      23,
+      19
+    ],
+    [
+      49,
+      22
+    ],
+    [
+      25,
+      34
+    ]
+  ],
+  "story_stage_points": [
+    [
+      33,
+      17
+    ],
+    [
+      39,
+      17
+    ],
+    [
+      36,
+      23
+    ],
+    [
+      33,
+      30
+    ],
+    [
+      41,
+      31
+    ]
+  ],
+  "branch_stage_points": [
+    [
+      40,
+      14
+    ],
+    [
+      41,
+      26
+    ],
+    [
+      40,
+      34
+    ]
+  ],
+  "features": [
+    {
+      "kind": "crate",
+      "cell": [
+        22,
+        18
+      ],
+      "name": "当事人：儿童照护员"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        50,
+        21
+      ],
+      "name": "孩子自己写的名字的现场证据"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        24,
+        33
+      ],
+      "name": "孩子自己写的名字的后续记录"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        36,
+        12
+      ],
+      "name": "新生救援营 · 调查现场 · 照明"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        41,
+        32
+      ],
+      "name": "地区生活痕迹"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        47,
+        34
+      ],
+      "name": "保管架"
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "main",
+      "cell": [
+        36,
+        13
+      ],
+      "scale": 1.35,
+      "energy": 0.78
+    },
+    {
+      "id": "record",
+      "cell": [
+        36,
+        30
+      ],
+      "scale": 1.17,
+      "energy": 0.57
+    }
+  ],
+  "art_profile": "quest_research_v1",
+  "room_day_tint": "d3d6dd",
+  "room_night_tint": "888296",
+  "art_collision_cells": [
+    [
+      26,
+      16
+    ],
+    [
+      45,
+      25
+    ]
+  ],
+  "visuals": [
+    {
+      "id": "quest_rq_027_0",
+      "asset": "counter",
+      "cell": [
+        26,
+        16
+      ],
+      "offset": [
+        0,
+        -45
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "quest_rq_027_1",
+      "asset": "bed",
+      "cell": [
+        45,
+        25
+      ],
+      "offset": [
+        0,
+        -48
+      ],
+      "layer": "furniture"
+    },
+    {
+      "id": "quest_rq_027_2",
+      "asset": "shrine_altar",
+      "cell": [
+        36,
+        10
+      ],
+      "offset": [
+        0,
+        -51
+      ],
+      "layer": "wall"
+    },
+    {
+      "id": "rug_rq_027",
+      "asset": "rug",
+      "cell": [
+        36,
+        34
+      ],
+      "offset": [
+        0,
+        -10
+      ],
+      "layer": "floor"
+    }
+  ],
+  "script_quest_id": "rq_027",
+  "scene_kind": "regional_indoor",
+  "art_direction": {
+    "site": "新生救援营",
+    "canon": "孩子自己写的名字",
+    "final_painted_scene": false
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "batch": "M0.1-regional-services",
+  "scope": "D authoritative V3 commerce, inn, shrine and guild transaction rollback",
+  "engine": "Godot 4.7.2",
+  "tests": [
+    "tools/d_control/smoke_m01_transaction_wiring.gd",
+    "tools/d_control/smoke_m01_service_transactions.gd",
+    "tools/d_control/smoke_world_object_transactions.gd",
+    "tools/smoke_b_town_guild_readonly.gd",
+    "tools/smoke_rpg_core.gd"
+  ],
+  "note": "One isolated integration batch; no assert suppression or branch/PR.",
+  "act01_batch01_20261028": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "b93250a40288545d2a24cdc21d0086da6ca4d62e",
+    "request": "execute_12_direction_batch_01",
+    "status": "requested-not-verified",
+    "scope": [
+      "01.01 latest Godot full regression",
+      "02.05 map and landmark reachability",
+      "03.01 room entry and return",
+      "06.01 malformed save rejection",
+      "07.01 actual landmark screenshot"
+    ]
+  },
+  "act01_batch01_20261028_district_repair": {
+    "development_branch": "Main2美术优化版",
+    "code_parent_sha": "82ecc734463e44461e83a835b7f6bf66443b7577",
+    "status": "requested-not-verified",
+    "request": "retest real village/harbor district migration and NPC daily routine after repairing 6 events and 25 schedule entries",
+    "scope": [
+      "01 engineering cold import",
+      "02 real reachable districts",
+      "03 room and exit",
+      "06 transaction and state rollback",
+      "12 all shard QA"
+    ]
+  },
+  "act01_batch01_20261028_cave_valves": {
+    "branch": "Main2美术优化版",
+    "parent_sha": "a1493e1b164cb80dc48b7ce1824a7a40692dcd7a",
+    "request": "verify physical cave tide valve placements on actual chapter-three map plus all quality gates",
+    "status": "requested-not-verified"
+  }
+}

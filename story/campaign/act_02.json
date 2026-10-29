@@ -1,0 +1,2780 @@
+{
+  "schema": "starlit.story.act.v1",
+  "act": 2,
+  "title": "三誓诸国",
+  "theme": "阻止人为挑起的三国战争，修复律序灯。",
+  "progression_unlock": "oath_lantern",
+  "chapters": [
+    {
+      "id": "ch007",
+      "number": 7,
+      "act": 2,
+      "chapter_number": 1,
+      "title": "被拒绝的使者",
+      "location": "三誓王都·外廷",
+      "required_flags": [
+        "story.ch006.done"
+      ],
+      "chapter_start_flag": "ch007.started",
+      "chapter_complete_flag": "story.ch007.done",
+      "lead_character": "雷索",
+      "summary": "在三誓王都·外廷，向三国递交海难情报并获得调查许可。大臣要求玩家隐瞒边境难民，才肯开放王城档案。最终，主角拒绝伪造证词，循商道秘密进入边境。",
+      "production_status": "scripted_blocking_v3_phase9_act02_adventure",
+      "recommended_level": [
+        8,
+        12
+      ],
+      "boss": null,
+      "scenes": [
+        {
+          "id": "ch007.opening",
+          "title": "到达：三誓王都·外廷",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·外廷"
+          },
+          "dialogue": [
+            {
+              "id": "ch007.opening.l01",
+              "speaker": "旁白",
+              "text": "外廷上方挂着三面王旗。旅人得排三次队，才能递交同一份海难报告。"
+            },
+            {
+              "id": "ch007.opening.l02",
+              "speaker": "岚音",
+              "text": "这些都是需要治疗的人，为什么连病例也得先分国籍？"
+            },
+            {
+              "id": "ch007.opening.l03",
+              "speaker": "书记官",
+              "text": "北廷要南廷的许可，南廷则说必须由中央先签字。"
+            },
+            {
+              "id": "ch007.opening.l04",
+              "speaker": "主角",
+              "text": "等信绕完一圈，病人又该怎么办？"
+            },
+            {
+              "id": "ch007.opening.l05",
+              "speaker": "陌生骑士",
+              "text": "如果你要找能办事的人，最好先别找坐在那三扇门里的人。"
+            },
+            {
+              "id": "ch007.opening.p9.l01",
+              "speaker": "救济棚老妇",
+              "text": "三面旗子倒挂得整齐，偏偏最下面的药车在雨里淋了半天。"
+            },
+            {
+              "id": "ch007.opening.p9.l02",
+              "speaker": "岚音",
+              "text": "把药箱搬到屋檐下，我先检查纸封有没有浸水。"
+            },
+            {
+              "id": "ch007.opening.p9.l03",
+              "speaker": "书记官",
+              "text": "没有登记号，外廷不能替你们负责损失。"
+            },
+            {
+              "id": "ch007.opening.p9.l04",
+              "speaker": "主角",
+              "text": "那就把现在的损失写上去，连同是哪扇门没有开一起记。"
+            },
+            {
+              "id": "ch007.opening.p9.l05",
+              "speaker": "雷索",
+              "text": "我认识这条街的药铺。先让人进去避雨，我再带你们找登记原件。"
+            },
+            {
+              "id": "ch007.opening.l06",
+              "speaker": "守卫",
+              "text": "雷索，你已被除名。不许再给外廷添乱。"
+            },
+            {
+              "id": "ch007.opening.l07",
+              "speaker": "雷索",
+              "text": "我只替旅人指路，没有要求恢复军籍。"
+            },
+            {
+              "id": "ch007.opening.l08",
+              "speaker": "朔弦",
+              "text": "我看王都的暗礁不在海里，都长在门口了。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·外廷"
+            },
+            {
+              "type": "interact",
+              "target": "ch007.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch007.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "三面旗在风中轮流翻折",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "生活细节承担环境叙事；让普通人先表达具体需求"
+          }
+        },
+        {
+          "id": "ch007.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch007.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch007.investigate.l01",
+              "speaker": "旁白",
+              "text": "三封退回函上的印章颜色不同，边角的裂痕却一模一样。"
+            },
+            {
+              "id": "ch007.investigate.l02",
+              "speaker": "雷索",
+              "text": "三国公文不会共用一枚印章。"
+            },
+            {
+              "id": "ch007.investigate.l03",
+              "speaker": "岚音",
+              "text": "这不是磨损巧合。缺了一道相同的细口。"
+            },
+            {
+              "id": "ch007.investigate.l04",
+              "speaker": "书记官",
+              "text": "紧急事务由王室顾问代办，这没什么稀奇。"
+            },
+            {
+              "id": "ch007.investigate.l05",
+              "speaker": "朔弦",
+              "text": "奇怪的是连拒绝的理由也一字不差。"
+            },
+            {
+              "id": "ch007.investigate.p9.l01",
+              "speaker": "旁白",
+              "text": "不同印色的退回函被排在窗口下，主角用纸拓出三处完全相同的缺口。"
+            },
+            {
+              "id": "ch007.investigate.p9.l02",
+              "speaker": "外廷学徒",
+              "text": "顾问府取走公用印模那天，收据上没有归还日期。"
+            },
+            {
+              "id": "ch007.investigate.p9.l03",
+              "speaker": "雷索",
+              "text": "只有顾问府能跨三廷调遣公文，却不能替三廷伪造拒绝的理由。"
+            },
+            {
+              "id": "ch007.investigate.p9.l04",
+              "speaker": "主角",
+              "text": "收据和三封退回函分别抄给三方，让他们各自核对。"
+            },
+            {
+              "id": "ch007.investigate.p9.l05",
+              "speaker": "救济官",
+              "text": "我还保存了第一天的医药登记，人数与现在的公告不同。"
+            },
+            {
+              "id": "ch007.investigate.l06",
+              "speaker": "主角",
+              "text": "把复印件留下。我们去找难民登记册。"
+            },
+            {
+              "id": "ch007.investigate.l07",
+              "speaker": "雷索",
+              "text": "后巷有个救济官，仍会记得自己替谁开过门。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch007.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch007.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch007.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "三枚裂角印章近景",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "证据逐项判断可证与不可证，玩家动作能核实一处实物"
+          }
+        },
+        {
+          "id": "ch007.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch007.crisis",
+            "requires_flags": [
+              "ch007.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch007.crisis.l01",
+              "speaker": "旁白",
+              "text": "施粥棚外排满人，守卫却举起告示，要把“边境难民”改称“短期旅客”。"
+            },
+            {
+              "id": "ch007.crisis.l02",
+              "speaker": "救济官",
+              "text": "我若不签，明天施粥棚就要关！"
+            },
+            {
+              "id": "ch007.crisis.l03",
+              "speaker": "岚音",
+              "text": "改了身份，那些孩子连病人的药都领不到。"
+            },
+            {
+              "id": "ch007.crisis.l04",
+              "speaker": "主角",
+              "text": "不能为了让表格好看，假装没有人挨饿。"
+            },
+            {
+              "id": "ch007.crisis.l05",
+              "speaker": "雷索",
+              "text": "把必须负责的人叫来。别叫一个救济官独自扛着。"
+            },
+            {
+              "id": "ch007.crisis.p9.l01",
+              "speaker": "救济官",
+              "text": "如果公开所有姓名，躲避追兵的家属也可能暴露。"
+            },
+            {
+              "id": "ch007.crisis.p9.l02",
+              "speaker": "岚音",
+              "text": "可以公布人数、药品需求和拒绝签署的机关，不公布儿童住址。"
+            },
+            {
+              "id": "ch007.crisis.p9.l03",
+              "speaker": "书记官",
+              "text": "我能记录自己亲眼见到的缺口，但不能替任何王廷保证结果。"
+            },
+            {
+              "id": "ch007.crisis.p9.l04",
+              "speaker": "主角",
+              "text": "那就写明你能证明什么、不能证明什么。别让所有责任落在一张名单上。"
+            },
+            {
+              "id": "ch007.crisis.p9.l05",
+              "speaker": "雷索",
+              "text": "无论采用哪种办法，医疗队先把药送进棚里。"
+            },
+            {
+              "id": "ch007.crisis.l06",
+              "speaker": "守卫队长",
+              "text": "谁再聚集，一律拘留！"
+            },
+            {
+              "id": "ch007.crisis.l07",
+              "speaker": "朔弦",
+              "text": "我先带孩子们进屋，你们说话快一点。"
+            },
+            {
+              "id": "ch007.crisis.l08",
+              "speaker": "救济官",
+              "text": "请保住名单。至少让我们知道人在哪里。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch007.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch007.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch007.choice",
+            "prompt": "你要怎样保护难民的登记记录？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "公布名单，由三国共同署名",
+                "sets": {
+                  "ch007.approach": "open_registry",
+                  "world.ch007.approach": "open_registry"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先保存副本，让医师秘密救助",
+                "sets": {
+                  "ch007.approach": "protect_privacy",
+                  "world.ch007.approach": "protect_privacy"
+                }
+              }
+            ]
+          },
+          "encounter": null,
+          "direction": {
+            "shot": "施粥棚的钟声压过人群",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "行动风险在选择前说清，保留受影响者表达不同意见"
+          }
+        },
+        {
+          "id": "ch007.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch007.decision_made"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch007.resolve.l01",
+              "speaker": "旁白",
+              "text": "登记册被抄成两份，一份送医师，一份交给居民保存。"
+            },
+            {
+              "id": "ch007.resolve.l02",
+              "speaker": "救济官",
+              "text": "外廷未必会承认，但他们再不能说这份名单不存在。"
+            },
+            {
+              "id": "ch007.resolve.l03",
+              "speaker": "雷索",
+              "text": "灰鹰商道明早有运粮车。跟着走能到边境。"
+            },
+            {
+              "id": "ch007.resolve.l04",
+              "speaker": "主角",
+              "text": "你又为什么跟我们说这些？"
+            },
+            {
+              "id": "ch007.resolve.l05",
+              "speaker": "雷索",
+              "text": "我欠那条路上的人一个回答。"
+            },
+            {
+              "id": "ch007.resolve.p9.l01",
+              "speaker": "旁白",
+              "text": "夜班医师收到登记副本时，名单上的人还不知道明天能否拿到足够的药。"
+            },
+            {
+              "id": "ch007.resolve.p9.l02",
+              "speaker": "救济官",
+              "text": "我会每天在窗口贴上领药数，居民不用再猜粮棚究竟有没有开。"
+            },
+            {
+              "id": "ch007.resolve.p9.l03",
+              "speaker": "书记官",
+              "text": "我也留下复查日期。三国的答复若互相矛盾，至少有地方能查。"
+            },
+            {
+              "id": "ch007.resolve.p9.l04",
+              "speaker": "雷索",
+              "text": "商道尽头还有一批人等粮。若你们愿意，我可以带路到桥口。"
+            },
+            {
+              "id": "ch007.resolve.p9.l05",
+              "speaker": "主角",
+              "text": "这次你以向导身份来，不必替过去所有命令作答。"
+            },
+            {
+              "id": "ch007.resolve.l06",
+              "speaker": "岚音",
+              "text": "先把病人的药送到。其他的事，路上慢慢问。"
+            },
+            {
+              "id": "ch007.resolve.l07",
+              "speaker": "朔弦",
+              "text": "原来传闻里的无名骑士，是个连谢礼都不肯收的人。"
+            },
+            {
+              "id": "ch007.resolve.l08",
+              "speaker": "旁白",
+              "text": "夜里，后巷第一次亮起了新灯。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch007"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch007.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 380,
+              "gold": 138
+            }
+          ],
+          "direction": {
+            "shot": "小路灯由暗变亮",
+            "sound": "降低环境音，以人物反应收尾",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "在地图留下可回访的可观察变化，不用胜利宣告代替持续责任"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch007.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch007.done",
+          "speaker": "路人",
+          "text": "听说你们在三誓王都·外廷帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_02_rewrite_v2",
+      "production_notes": "情节、选择、发言人及人物语气精修；关卡条件、触发ID与奖励保持兼容。",
+      "phase9_revision": {
+        "date": "2026-10-25",
+        "added_lines": 20,
+        "scope": "act02_six_chapter_adventure_actions"
+      }
+    },
+    {
+      "id": "ch008",
+      "number": 8,
+      "act": 2,
+      "chapter_number": 2,
+      "title": "断绝的商路",
+      "location": "灰鹰商道",
+      "required_flags": [
+        "story.ch007.done"
+      ],
+      "chapter_start_flag": "ch008.started",
+      "chapter_complete_flag": "story.ch008.done",
+      "lead_character": "雷索",
+      "summary": "在灰鹰商道，护送粮车通过战区，记录袭击者特征。商队首领想用暴力报复对岸村庄，几乎引发冲突。最终，众人护住双方平民，带回可交叉验证的武器编号。",
+      "production_status": "scripted_blocking_v3_phase9_act02_adventure",
+      "recommended_level": [
+        9,
+        13
+      ],
+      "boss": "伪装边防队",
+      "scenes": [
+        {
+          "id": "ch008.opening",
+          "title": "到达：灰鹰商道",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "灰鹰商道"
+          },
+          "dialogue": [
+            {
+              "id": "ch008.opening.l01",
+              "speaker": "旁白",
+              "text": "灰鹰商道的路边客栈已经关了半个月，粮车在尘土里一辆挨一辆。"
+            },
+            {
+              "id": "ch008.opening.l02",
+              "speaker": "车队长",
+              "text": "今晚要是到不了村里，粮食再多也没有用。"
+            },
+            {
+              "id": "ch008.opening.l03",
+              "speaker": "雷索",
+              "text": "把旗都收起来。远处的人看见颜色就会先举弓。"
+            },
+            {
+              "id": "ch008.opening.l04",
+              "speaker": "朔弦",
+              "text": "听起来你在这里吃过不少亏。"
+            },
+            {
+              "id": "ch008.opening.l05",
+              "speaker": "岚音",
+              "text": "这车底下怎么还放着药？"
+            },
+            {
+              "id": "ch008.opening.p9.l01",
+              "speaker": "车队学徒",
+              "text": "面粉袋湿了，我想把它们搬到车顶晒，可队长说会被弓手看见。"
+            },
+            {
+              "id": "ch008.opening.p9.l02",
+              "speaker": "朔弦",
+              "text": "用旧帆布罩起来，别让水在底板积着。谁懂绳结来帮忙。"
+            },
+            {
+              "id": "ch008.opening.p9.l03",
+              "speaker": "雷索",
+              "text": "护送队分两侧，不用军旗。路过两岸村庄都要说明运的是粮和药。"
+            },
+            {
+              "id": "ch008.opening.p9.l04",
+              "speaker": "岚音",
+              "text": "车尾留一处给走不动的人歇脚，但不能挡着药箱。"
+            },
+            {
+              "id": "ch008.opening.p9.l05",
+              "speaker": "主角",
+              "text": "先问司机哪些路能走，别因为地图画着桥就把人送到塌桥上。"
+            },
+            {
+              "id": "ch008.opening.l06",
+              "speaker": "车队长",
+              "text": "两国都不肯卖给对方，只能藏在面粉袋里。"
+            },
+            {
+              "id": "ch008.opening.l07",
+              "speaker": "主角",
+              "text": "先护住后面跟车的孩子。粮车可以换路，人不能。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "灰鹰商道"
+            },
+            {
+              "type": "interact",
+              "target": "ch008.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch008.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "扬尘中拉出停运商路",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "生活细节承担环境叙事；让普通人先表达具体需求"
+          }
+        },
+        {
+          "id": "ch008.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch008.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch008.investigate.l01",
+              "speaker": "旁白",
+              "text": "袭击者扔下的断箭上刻着三个细点，尾羽却染了敌国的颜色。"
+            },
+            {
+              "id": "ch008.investigate.l02",
+              "speaker": "雷索",
+              "text": "是王都军械库编号。那种箭不会卖给平民。"
+            },
+            {
+              "id": "ch008.investigate.l03",
+              "speaker": "主角",
+              "text": "能查到谁领走了这批箭吗？"
+            },
+            {
+              "id": "ch008.investigate.l04",
+              "speaker": "雷索",
+              "text": "账簿在王都，但有人恐怕早已动过它。"
+            },
+            {
+              "id": "ch008.investigate.l05",
+              "speaker": "岚音",
+              "text": "箭旁有药粉。那家救济站也用同一种药。"
+            },
+            {
+              "id": "ch008.investigate.p9.l01",
+              "speaker": "旁白",
+              "text": "断箭尾部与旧军械账页上的锻造印对上了，药粉却只说明它经过医馆附近。"
+            },
+            {
+              "id": "ch008.investigate.p9.l02",
+              "speaker": "岚音",
+              "text": "同一种药可能在许多救济站用过，不能凭这点指责救过人的居民。"
+            },
+            {
+              "id": "ch008.investigate.p9.l03",
+              "speaker": "车队长",
+              "text": "我差点把昨天领药的人全当作内应。"
+            },
+            {
+              "id": "ch008.investigate.p9.l04",
+              "speaker": "雷索",
+              "text": "箭头有王都库房号，得带回去查发放链。现在只能确认武器来源。"
+            },
+            {
+              "id": "ch008.investigate.p9.l05",
+              "speaker": "主角",
+              "text": "在纸上把“确定”和“推测”分两栏，让两岸代表都看得到。"
+            },
+            {
+              "id": "ch008.investigate.l06",
+              "speaker": "朔弦",
+              "text": "冒充敌国的人，可能刚刚从我们手里领过药。"
+            },
+            {
+              "id": "ch008.investigate.l07",
+              "speaker": "车队长",
+              "text": "你是说我们帮了袭击者？"
+            },
+            {
+              "id": "ch008.investigate.l08",
+              "speaker": "主角",
+              "text": "我说的是，现在还不知道他们是谁。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch008.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch008.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch008.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "断箭上的三点刻痕",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "证据逐项判断可证与不可证，玩家动作能核实一处实物"
+          }
+        },
+        {
+          "id": "ch008.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch008.crisis",
+            "requires_flags": [
+              "ch008.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch008.crisis.l01",
+              "speaker": "旁白",
+              "text": "车队长拔出刀，指着对岸村庄的粮仓。"
+            },
+            {
+              "id": "ch008.crisis.l02",
+              "speaker": "车队长",
+              "text": "就是他们！今晚烧了那地方，谁也别想再抢我们！"
+            },
+            {
+              "id": "ch008.crisis.l03",
+              "speaker": "岚音",
+              "text": "你连他们的脸都没认出来。"
+            },
+            {
+              "id": "ch008.crisis.l04",
+              "speaker": "车队长",
+              "text": "我的孩子已经两天没吃饱！"
+            },
+            {
+              "id": "ch008.crisis.l05",
+              "speaker": "主角",
+              "text": "正因为如此，你应该知道烧掉粮仓意味着什么。"
+            },
+            {
+              "id": "ch008.crisis.p9.l01",
+              "speaker": "对岸农妇",
+              "text": "粮仓里有孩子！如果你们点火，先烧到的就是我们。"
+            },
+            {
+              "id": "ch008.crisis.p9.l02",
+              "speaker": "车队长",
+              "text": "我也有孩子。他已经饿到没力气走路。"
+            },
+            {
+              "id": "ch008.crisis.p9.l03",
+              "speaker": "主角",
+              "text": "两家的孩子都不能拿来作报复的理由。"
+            },
+            {
+              "id": "ch008.crisis.p9.l04",
+              "speaker": "雷索",
+              "text": "我要在桥上公开军械编号，另一队准备转移无辜的人；选先做哪件事由你定。"
+            },
+            {
+              "id": "ch008.crisis.p9.l05",
+              "speaker": "朔弦",
+              "text": "我能带一艘小船绕到河湾，让需要撤的人不必从持刀的人面前挤过去。"
+            },
+            {
+              "id": "ch008.crisis.l06",
+              "speaker": "雷索",
+              "text": "我守桥。你们拿上证物，让两边村长来认。"
+            },
+            {
+              "id": "ch008.crisis.l07",
+              "speaker": "朔弦",
+              "text": "我去问问两岸，最近有没有人见过异常的军械箱。"
+            },
+            {
+              "id": "ch008.crisis.l08",
+              "speaker": "旁白",
+              "text": "木桥另一端出现了举着白布的村民。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch008.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch008.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch008.choice",
+            "prompt": "商队长准备报复对岸村庄，你先做什么？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "出示军械编号，公开阻止报复",
+                "sets": {
+                  "ch008.approach": "evidence_first",
+                  "world.ch008.approach": "evidence_first"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先转移村民，再召集双方见证",
+                "sets": {
+                  "ch008.approach": "rescue_first",
+                  "world.ch008.approach": "rescue_first"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch008",
+            "display_name": "伪装边防队",
+            "win_flag": "ch008.battle_won",
+            "recommended_level": 12
+          },
+          "direction": {
+            "shot": "桥两岸对峙，刀在半空停住",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "行动风险在选择前说清，保留受影响者表达不同意见"
+          }
+        },
+        {
+          "id": "ch008.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch008.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch008.resolve.l01",
+              "speaker": "旁白",
+              "text": "两个村的代表围着断箭坐下，彼此的脸都因疲惫而僵硬。"
+            },
+            {
+              "id": "ch008.resolve.l02",
+              "speaker": "对岸村长",
+              "text": "我们也丢了粮。我以为是你们烧的。"
+            },
+            {
+              "id": "ch008.resolve.l03",
+              "speaker": "车队长",
+              "text": "我差点真的去烧了。"
+            },
+            {
+              "id": "ch008.resolve.l04",
+              "speaker": "雷索",
+              "text": "把军械编号记在同一页，两边各自留底。"
+            },
+            {
+              "id": "ch008.resolve.l05",
+              "speaker": "岚音",
+              "text": "先让孩子们吃饭。道歉可以等一晚，饭不行。"
+            },
+            {
+              "id": "ch008.resolve.p9.l01",
+              "speaker": "对岸村长",
+              "text": "我愿让村医检查箭上的药粉，也请你们来查我们失窃的粮仓。"
+            },
+            {
+              "id": "ch008.resolve.p9.l02",
+              "speaker": "车队长",
+              "text": "我今晚留在桥头登记，不会再带人去点火。"
+            },
+            {
+              "id": "ch008.resolve.p9.l03",
+              "speaker": "雷索",
+              "text": "让两边都签收到的粮数。明天如果少了，再查的是路不是国旗。"
+            },
+            {
+              "id": "ch008.resolve.p9.l04",
+              "speaker": "岚音",
+              "text": "粮吃完还会饿，能让车队继续过桥比今夜的道歉更重要。"
+            },
+            {
+              "id": "ch008.resolve.p9.l05",
+              "speaker": "旁白",
+              "text": "旧客栈开出第一扇窗，店主在门上写下两岸都看得懂的价格。"
+            },
+            {
+              "id": "ch008.resolve.l06",
+              "speaker": "朔弦",
+              "text": "这桥终于走过第一支没带刀的队伍。"
+            },
+            {
+              "id": "ch008.resolve.l07",
+              "speaker": "主角",
+              "text": "明天把证物带回王都，让假命令无处藏身。"
+            },
+            {
+              "id": "ch008.resolve.l08",
+              "speaker": "旁白",
+              "text": "晨光中，两岸厨房升起了相似的炊烟。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch008"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch008.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 420,
+              "gold": 152
+            }
+          ],
+          "direction": {
+            "shot": "两岸同起炊烟",
+            "sound": "降低环境音，以人物反应收尾",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "在地图留下可回访的可观察变化，不用胜利宣告代替持续责任"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch008.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch008.done",
+          "speaker": "路人",
+          "text": "听说你们在灰鹰商道帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_02_rewrite_v2",
+      "production_notes": "情节、选择、发言人及人物语气精修；关卡条件、触发ID与奖励保持兼容。",
+      "phase9_revision": {
+        "date": "2026-10-25",
+        "added_lines": 20,
+        "scope": "act02_six_chapter_adventure_actions"
+      }
+    },
+    {
+      "id": "ch009",
+      "number": 9,
+      "act": 2,
+      "chapter_number": 3,
+      "title": "无罪者的审判",
+      "location": "三誓王都·审判厅",
+      "required_flags": [
+        "story.ch008.done"
+      ],
+      "chapter_start_flag": "ch009.started",
+      "chapter_complete_flag": "story.ch009.done",
+      "lead_character": "雷索",
+      "summary": "在三誓王都·审判厅，寻找幸存证人并为雷索公开辩护。证人愿说出真相，却担心家人被王室报复。最终，法庭公开军令副本，雷索恢复名誉但拒绝复职。",
+      "production_status": "scripted_blocking_v3_phase9_act02_adventure",
+      "recommended_level": [
+        10,
+        14
+      ],
+      "boss": "王城禁卫",
+      "scenes": [
+        {
+          "id": "ch009.opening",
+          "title": "到达：三誓王都·审判厅",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三誓王都·审判厅"
+          },
+          "dialogue": [
+            {
+              "id": "ch009.opening.l01",
+              "speaker": "旁白",
+              "text": "审判厅最前方空着一把骑士椅，靠背上的徽记已被刮去。"
+            },
+            {
+              "id": "ch009.opening.l02",
+              "speaker": "雷索",
+              "text": "我确实违抗过命令。今天我来说明为什么。"
+            },
+            {
+              "id": "ch009.opening.l03",
+              "speaker": "岚音",
+              "text": "幸存证人还在赶路，法庭却说天亮就要开庭。"
+            },
+            {
+              "id": "ch009.opening.l04",
+              "speaker": "书记官",
+              "text": "迟到的证词不予受理。"
+            },
+            {
+              "id": "ch009.opening.l05",
+              "speaker": "主角",
+              "text": "那就找出是谁故意拖延了护送。"
+            },
+            {
+              "id": "ch009.opening.p9.l01",
+              "speaker": "幸存老妇",
+              "text": "我昨夜到王都了，孙女还被留在领地。我的脚快走不动，不想再逃一回。"
+            },
+            {
+              "id": "ch009.opening.p9.l02",
+              "speaker": "岚音",
+              "text": "先坐下喝点温水。法庭可以问你，但不能强迫你独自面对威胁。"
+            },
+            {
+              "id": "ch009.opening.p9.l03",
+              "speaker": "雷索",
+              "text": "我只求他们公开那道军令，不求把我的名字重新刻回椅背。"
+            },
+            {
+              "id": "ch009.opening.p9.l04",
+              "speaker": "旁白",
+              "text": "法庭书记把空白证词纸递给老妇，却先要求她写出孙女住处。"
+            },
+            {
+              "id": "ch009.opening.p9.l05",
+              "speaker": "主角",
+              "text": "与案件无关的住址不必交给审判厅的旁听席。"
+            },
+            {
+              "id": "ch009.opening.l06",
+              "speaker": "朔弦",
+              "text": "这种地方最会让守规矩的人输。"
+            },
+            {
+              "id": "ch009.opening.l07",
+              "speaker": "雷索",
+              "text": "别为我求情。我要的不是别人相信我高尚，而是事实能被听见。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三誓王都·审判厅"
+            },
+            {
+              "type": "interact",
+              "target": "ch009.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch009.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "空椅上的刮痕",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "生活细节承担环境叙事；让普通人先表达具体需求"
+          }
+        },
+        {
+          "id": "ch009.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch009.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch009.investigate.l01",
+              "speaker": "旁白",
+              "text": "军令只写着“清除一切联络点”，没有敌军坐标。"
+            },
+            {
+              "id": "ch009.investigate.l02",
+              "speaker": "岚音",
+              "text": "这里连敌人是谁都没有写。"
+            },
+            {
+              "id": "ch009.investigate.l03",
+              "speaker": "雷索",
+              "text": "长官说执行的人没有资格发问。"
+            },
+            {
+              "id": "ch009.investigate.l04",
+              "speaker": "幸存老妇",
+              "text": "他带我们从沟里逃走，还把披风留给孩子。"
+            },
+            {
+              "id": "ch009.investigate.l05",
+              "speaker": "主角",
+              "text": "你愿意当庭作证吗？"
+            },
+            {
+              "id": "ch009.investigate.p9.l01",
+              "speaker": "朔弦",
+              "text": "车队送来的军械号码与原始军令属于同一批次，但不能替老妇说明她看见过什么。"
+            },
+            {
+              "id": "ch009.investigate.p9.l02",
+              "speaker": "幸存老妇",
+              "text": "我看见雷索打开闸门。后面出去的是抱着孩子的人。"
+            },
+            {
+              "id": "ch009.investigate.p9.l03",
+              "speaker": "雷索",
+              "text": "我有责任说明为什么抗命。你没有责任为了证明我无罪而冒险。"
+            },
+            {
+              "id": "ch009.investigate.p9.l04",
+              "speaker": "岚音",
+              "text": "证人若想暂停，请让她随时叫停。我们还要核实家属的安全去向。"
+            },
+            {
+              "id": "ch009.investigate.p9.l05",
+              "speaker": "主角",
+              "text": "把两份军令的墨迹和骑缝章分开核验，不要先把新纸说成旧纸。"
+            },
+            {
+              "id": "ch009.investigate.l06",
+              "speaker": "幸存老妇",
+              "text": "愿意。可孙女还住在那位长官的领地。"
+            },
+            {
+              "id": "ch009.investigate.l07",
+              "speaker": "朔弦",
+              "text": "先把孩子接出来。我们不拿她的未来换一份证词。"
+            },
+            {
+              "id": "ch009.investigate.l08",
+              "speaker": "雷索",
+              "text": "这才是该先做的事。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch009.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch009.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch009.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "军令与破披风并置",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "证据逐项判断可证与不可证，玩家动作能核实一处实物"
+          }
+        },
+        {
+          "id": "ch009.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch009.crisis",
+            "requires_flags": [
+              "ch009.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch009.crisis.l01",
+              "speaker": "旁白",
+              "text": "旧指挥官出示另一份军令，纸上的日期像刚改过。"
+            },
+            {
+              "id": "ch009.crisis.l02",
+              "speaker": "旧指挥官",
+              "text": "雷索放走敌军，这是无可辩驳的事实。"
+            },
+            {
+              "id": "ch009.crisis.l03",
+              "speaker": "雷索",
+              "text": "我放走的是村民，没有一名敌军。"
+            },
+            {
+              "id": "ch009.crisis.l04",
+              "speaker": "旧指挥官",
+              "text": "你拿什么证明？"
+            },
+            {
+              "id": "ch009.crisis.l05",
+              "speaker": "幸存老妇",
+              "text": "我能证明。还有当时活下来的孩子。"
+            },
+            {
+              "id": "ch009.crisis.p9.l01",
+              "speaker": "旧指挥官",
+              "text": "她敢在这里说一句话，我就能知道是谁教她来的。"
+            },
+            {
+              "id": "ch009.crisis.p9.l02",
+              "speaker": "幸存老妇",
+              "text": "我自己知道那夜谁打开过闸门，不需要你替我教。"
+            },
+            {
+              "id": "ch009.crisis.p9.l03",
+              "speaker": "雷索",
+              "text": "你威胁她，不等于能证明我违抗的是合理命令。"
+            },
+            {
+              "id": "ch009.crisis.p9.l04",
+              "speaker": "主角",
+              "text": "请把旧军令和新军令的副本同时拿出来核对，不能让威胁打断查证。"
+            },
+            {
+              "id": "ch009.crisis.p9.l05",
+              "speaker": "书记官",
+              "text": "我可以在庭审笔录上写出这段威胁，并交给公开保存处。"
+            },
+            {
+              "id": "ch009.crisis.l06",
+              "speaker": "旧指挥官",
+              "text": "不要忘记她们的家还在谁的土地上。"
+            },
+            {
+              "id": "ch009.crisis.l07",
+              "speaker": "主角",
+              "text": "证人家属的安全还没有得到保障。请法庭先暂停询问，等保护方式明确再继续。"
+            },
+            {
+              "id": "ch009.crisis.l08",
+              "speaker": "岚音",
+              "text": "请法庭先保护他们的安全，再问下一句。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch009.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch009.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch009.choice",
+            "prompt": "如何处理证人家属面临的威胁？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先护送家属脱离危险再开庭",
+                "sets": {
+                  "ch009.approach": "safe_home",
+                  "world.ch009.approach": "safe_home"
+                }
+              },
+              {
+                "id": "act",
+                "label": "要求法庭当众承诺证人保护措施",
+                "sets": {
+                  "ch009.approach": "public_witness",
+                  "world.ch009.approach": "public_witness"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch009",
+            "display_name": "王城禁卫",
+            "win_flag": "ch009.battle_won",
+            "recommended_level": 13
+          },
+          "direction": {
+            "shot": "证人的影子从门外走进大厅",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "行动风险在选择前说清，保留受影响者表达不同意见"
+          }
+        },
+        {
+          "id": "ch009.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch009.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch009.resolve.l01",
+              "speaker": "旁白",
+              "text": "法官宣读裁决，雷索的叛国指控被撤销。"
+            },
+            {
+              "id": "ch009.resolve.l02",
+              "speaker": "法官",
+              "text": "王国愿意恢复你的军籍与爵位。"
+            },
+            {
+              "id": "ch009.resolve.l03",
+              "speaker": "雷索",
+              "text": "我接受无罪裁决，但不回到那道命令下面。"
+            },
+            {
+              "id": "ch009.resolve.l04",
+              "speaker": "朔弦",
+              "text": "巧了，我们正缺个懂站前排的人。"
+            },
+            {
+              "id": "ch009.resolve.l05",
+              "speaker": "岚音",
+              "text": "证人和家人都平安回来了。"
+            },
+            {
+              "id": "ch009.resolve.p9.l01",
+              "speaker": "幸存老妇",
+              "text": "我今天不是为了替骑士讨一张漂亮证书，是为了让我孙女知道逃走不等于犯罪。"
+            },
+            {
+              "id": "ch009.resolve.p9.l02",
+              "speaker": "雷索",
+              "text": "如果再有人说我不应救人，我会拿着自己的选择站出来，不叫别人独自冒险。"
+            },
+            {
+              "id": "ch009.resolve.p9.l03",
+              "speaker": "朔弦",
+              "text": "我们队伍缺的正是这种在危险时候不会转身的人。"
+            },
+            {
+              "id": "ch009.resolve.p9.l04",
+              "speaker": "岚音",
+              "text": "不过加入以后也要吃饭睡觉，不许把受伤当成赎罪。"
+            },
+            {
+              "id": "ch009.resolve.p9.l05",
+              "speaker": "主角",
+              "text": "欢迎同行。先去桥口，把关于军械的第二份证据交还给当事人。"
+            },
+            {
+              "id": "ch009.resolve.l06",
+              "speaker": "主角",
+              "text": "下一站边境议事站，一起去吗？"
+            },
+            {
+              "id": "ch009.resolve.l07",
+              "speaker": "雷索",
+              "text": "如果你们不介意多一个爱管闲事的人。"
+            },
+            {
+              "id": "ch009.resolve.l08",
+              "speaker": "旁白",
+              "text": "雷索收起旧披风，正式成为同行者。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch009"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch009.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 460,
+              "gold": 166
+            }
+          ],
+          "direction": {
+            "shot": "雷索绕过王国授予的新椅子",
+            "sound": "降低环境音，以人物反应收尾",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "在地图留下可回访的可观察变化，不用胜利宣告代替持续责任"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch009.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch009.done",
+          "speaker": "路人",
+          "text": "听说你们在三誓王都·审判厅帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_02_rewrite_v2",
+      "production_notes": "情节、选择、发言人及人物语气精修；关卡条件、触发ID与奖励保持兼容。",
+      "phase9_revision": {
+        "date": "2026-10-25",
+        "added_lines": 20,
+        "scope": "act02_six_chapter_adventure_actions"
+      }
+    },
+    {
+      "id": "ch010",
+      "number": 10,
+      "act": 2,
+      "chapter_number": 4,
+      "title": "三面旗帜",
+      "location": "三国边境议事站",
+      "required_flags": [
+        "story.ch009.done"
+      ],
+      "chapter_start_flag": "ch010.started",
+      "chapter_complete_flag": "story.ch010.done",
+      "lead_character": "岚音",
+      "summary": "在三国边境议事站，分别帮助三国居民并调查粮仓失火。三国使者把共同调查当成丢面子的让步。最终，主角安排三国共同运粮，第一次建立实际合作。",
+      "production_status": "scripted_blocking_v3_phase9_act02_adventure",
+      "recommended_level": [
+        12,
+        16
+      ],
+      "boss": "灰帷纵火者",
+      "scenes": [
+        {
+          "id": "ch010.opening",
+          "title": "到达：三国边境议事站",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "三国边境议事站"
+          },
+          "dialogue": [
+            {
+              "id": "ch010.opening.l01",
+              "speaker": "旁白",
+              "text": "议事长桌被分成三个色块，中间的木板连一只茶杯也没人敢放。"
+            },
+            {
+              "id": "ch010.opening.l02",
+              "speaker": "岚音",
+              "text": "他们都说自己受了伤，却没有谁愿意听见对方也在痛。"
+            },
+            {
+              "id": "ch010.opening.l03",
+              "speaker": "使者甲",
+              "text": "我们的粮仓被烧，证据呢？"
+            },
+            {
+              "id": "ch010.opening.l04",
+              "speaker": "使者乙",
+              "text": "你们的军队越境，先解释！"
+            },
+            {
+              "id": "ch010.opening.l05",
+              "speaker": "雷索",
+              "text": "没有人肯数受伤的人，却人人数得清对方的旗。"
+            },
+            {
+              "id": "ch010.opening.p9.l01",
+              "speaker": "南廷农夫",
+              "text": "我们田里粮有余，能运出去的却不够。路上每经过一道门都得缴一份证明。"
+            },
+            {
+              "id": "ch010.opening.p9.l02",
+              "speaker": "北廷商贩",
+              "text": "我们的矿工怕冬天断粮，只能高价囤面粉。"
+            },
+            {
+              "id": "ch010.opening.p9.l03",
+              "speaker": "中庭书记",
+              "text": "我被命令把这两张需求表分别收起来。"
+            },
+            {
+              "id": "ch010.opening.p9.l04",
+              "speaker": "岚音",
+              "text": "摆在一张桌上。饥饿不是互相遮掩就会消失的事。"
+            },
+            {
+              "id": "ch010.opening.p9.l05",
+              "speaker": "雷索",
+              "text": "这次没人需要把对方先当作敌军。先让医师核各国实际人数。"
+            },
+            {
+              "id": "ch010.opening.l06",
+              "speaker": "主角",
+              "text": "先检查三个粮仓。每处的样本交给另一国的医师检验。"
+            },
+            {
+              "id": "ch010.opening.l07",
+              "speaker": "朔弦",
+              "text": "这样至少造假得多花点工夫。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "三国边境议事站"
+            },
+            {
+              "type": "interact",
+              "target": "ch010.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch010.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "三色长桌中间的空白地带",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "生活细节承担环境叙事；让普通人先表达具体需求"
+          }
+        },
+        {
+          "id": "ch010.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch010.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch010.investigate.l01",
+              "speaker": "旁白",
+              "text": "三处起火现场都留下了不漂浮的灰。它们被雨淋过，颜色却没变。"
+            },
+            {
+              "id": "ch010.investigate.l02",
+              "speaker": "岚音",
+              "text": "普通木灰不会这样。火似乎从粮袋里面开始。"
+            },
+            {
+              "id": "ch010.investigate.l03",
+              "speaker": "雷索",
+              "text": "灰帷会的隐燃粉。我曾在军营见过。"
+            },
+            {
+              "id": "ch010.investigate.l04",
+              "speaker": "使者丙",
+              "text": "你是说三国都被同一伙人骗了？"
+            },
+            {
+              "id": "ch010.investigate.l05",
+              "speaker": "主角",
+              "text": "目前只能确认起火方式相同。还需要谁送来的、谁保管过。"
+            },
+            {
+              "id": "ch010.investigate.p9.l01",
+              "speaker": "旁白",
+              "text": "三处灰烬各装进标记不同的陶罐，封口由原仓库保管员各自确认。"
+            },
+            {
+              "id": "ch010.investigate.p9.l02",
+              "speaker": "旧工坊手册",
+              "text": "隐燃粉离开潮湿环境后会延迟反应，按装袋时间能推断放火时序。"
+            },
+            {
+              "id": "ch010.investigate.p9.l03",
+              "speaker": "岚音",
+              "text": "样本可能受雨水影响，别把推断写成事实。"
+            },
+            {
+              "id": "ch010.investigate.p9.l04",
+              "speaker": "朔弦",
+              "text": "同批车运过三处仓库，送货人的路线比三种国旗更值得追。"
+            },
+            {
+              "id": "ch010.investigate.p9.l05",
+              "speaker": "主角",
+              "text": "需要原始装袋单、三国收货签字和守门人的时刻记录，缺一项就先标成待查。"
+            },
+            {
+              "id": "ch010.investigate.l06",
+              "speaker": "朔弦",
+              "text": "有个人把火起的时间差设得很巧，正好够你们互相怪罪。"
+            },
+            {
+              "id": "ch010.investigate.l07",
+              "speaker": "使者甲",
+              "text": "那我们的军队为什么还在集结？"
+            },
+            {
+              "id": "ch010.investigate.l08",
+              "speaker": "雷索",
+              "text": "因为有人下了命令，收回来就得承认犯错。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch010.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch010.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch010.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "不同粮仓采样瓶逐一并排",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "证据逐项判断可证与不可证，玩家动作能核实一处实物"
+          }
+        },
+        {
+          "id": "ch010.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch010.crisis",
+            "requires_flags": [
+              "ch010.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch010.crisis.l01",
+              "speaker": "旁白",
+              "text": "粮车抵达时，三国卫兵从三个方向围住车轮。"
+            },
+            {
+              "id": "ch010.crisis.l02",
+              "speaker": "使者乙",
+              "text": "我们的人更饿，粮应该先给我们。"
+            },
+            {
+              "id": "ch010.crisis.l03",
+              "speaker": "使者甲",
+              "text": "就是你们烧了我们的仓库！"
+            },
+            {
+              "id": "ch010.crisis.l04",
+              "speaker": "岚音",
+              "text": "按伤员和人口配给，医师每车都随行。"
+            },
+            {
+              "id": "ch010.crisis.l05",
+              "speaker": "使者丙",
+              "text": "这岂不是承认我们必须合作？"
+            },
+            {
+              "id": "ch010.crisis.p9.l01",
+              "speaker": "平民代表",
+              "text": "如果按人口发，偏远村庄的重病人可能等不到第二车。"
+            },
+            {
+              "id": "ch010.crisis.p9.l02",
+              "speaker": "使者甲",
+              "text": "如果只按病情发，又会有人怀疑你们偏袒自己的伤员。"
+            },
+            {
+              "id": "ch010.crisis.p9.l03",
+              "speaker": "岚音",
+              "text": "我们有两份能核对的标准。现在选其一，今晚先运第一批。"
+            },
+            {
+              "id": "ch010.crisis.p9.l04",
+              "speaker": "雷索",
+              "text": "运粮不等于把军队交给对方，护送可以由三方轮流监督。"
+            },
+            {
+              "id": "ch010.crisis.p9.l05",
+              "speaker": "主角",
+              "text": "先说清哪类人会等得更久，别让选择的风险藏在一句漂亮话里。"
+            },
+            {
+              "id": "ch010.crisis.l06",
+              "speaker": "朔弦",
+              "text": "嗯。承认这个会掉一块肉吗？"
+            },
+            {
+              "id": "ch010.crisis.l07",
+              "speaker": "主角",
+              "text": "可以吵谁先点头，但别让等粮的孩子付账。"
+            },
+            {
+              "id": "ch010.crisis.l08",
+              "speaker": "雷索",
+              "text": "今天这辆粮车必须穿过边界。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch010.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch010.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch010.choice",
+            "prompt": "第一批跨境粮食怎么分配？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "三国代表公开点验并按人口配给",
+                "sets": {
+                  "ch010.approach": "joint_audit",
+                  "world.ch010.approach": "joint_audit"
+                }
+              },
+              {
+                "id": "act",
+                "label": "由医疗队先送最需要帮助的人",
+                "sets": {
+                  "ch010.approach": "medical_priority",
+                  "world.ch010.approach": "medical_priority"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch010",
+            "display_name": "灰帷纵火者",
+            "win_flag": "ch010.battle_won",
+            "recommended_level": 15
+          },
+          "direction": {
+            "shot": "三国士兵围住同一辆粮车",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "行动风险在选择前说清，保留受影响者表达不同意见"
+          }
+        },
+        {
+          "id": "ch010.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch010.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch010.resolve.l01",
+              "speaker": "旁白",
+              "text": "车轮陷进泥里。三国士兵第一次同时弯腰抬车。"
+            },
+            {
+              "id": "ch010.resolve.l02",
+              "speaker": "使者甲",
+              "text": "我原以为他们会偷走粮袋。"
+            },
+            {
+              "id": "ch010.resolve.l03",
+              "speaker": "使者乙",
+              "text": "我原以为袋里装的是石头。"
+            },
+            {
+              "id": "ch010.resolve.l04",
+              "speaker": "岚音",
+              "text": "你们想查就当面打开。现在先分给孩子。"
+            },
+            {
+              "id": "ch010.resolve.l05",
+              "speaker": "朔弦",
+              "text": "三国外交还需要一辆陷进泥里的车，倒是好记。"
+            },
+            {
+              "id": "ch010.resolve.p9.l01",
+              "speaker": "中庭书记",
+              "text": "我把三国签名各抄一份，明天公开复查。"
+            },
+            {
+              "id": "ch010.resolve.p9.l02",
+              "speaker": "南廷农夫",
+              "text": "过去有人说北廷只会收税，今天他们抬车时鞋都陷进泥里。"
+            },
+            {
+              "id": "ch010.resolve.p9.l03",
+              "speaker": "北廷商贩",
+              "text": "南廷送来的粮袋上写了收成日期，下次我也愿意公开矿车的到站时刻。"
+            },
+            {
+              "id": "ch010.resolve.p9.l04",
+              "speaker": "岚音",
+              "text": "合作不是一次感动就够，药和粮每次都要交得清楚。"
+            },
+            {
+              "id": "ch010.resolve.p9.l05",
+              "speaker": "旁白",
+              "text": "长桌中间第一次放下一只茶壶，三方都先看着它，随后各自倒了一杯。"
+            },
+            {
+              "id": "ch010.resolve.l06",
+              "speaker": "雷索",
+              "text": "至少搬车的时候，他们手里不能同时拿刀。"
+            },
+            {
+              "id": "ch010.resolve.l07",
+              "speaker": "主角",
+              "text": "合作只是第一步。假命令的源头还在王宫。"
+            },
+            {
+              "id": "ch010.resolve.l08",
+              "speaker": "旁白",
+              "text": "当夜，第一份三国共同调查书被贴上议事站外墙。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch010"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch010.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 500,
+              "gold": 180
+            }
+          ],
+          "direction": {
+            "shot": "陷泥车轮由三色手套共同托起",
+            "sound": "降低环境音，以人物反应收尾",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "在地图留下可回访的可观察变化，不用胜利宣告代替持续责任"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch010.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch010.done",
+          "speaker": "路人",
+          "text": "听说你们在三国边境议事站帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_02_rewrite_v2",
+      "production_notes": "情节、选择、发言人及人物语气精修；关卡条件、触发ID与奖励保持兼容。",
+      "phase9_revision": {
+        "date": "2026-10-25",
+        "added_lines": 20,
+        "scope": "act02_six_chapter_adventure_actions"
+      }
+    },
+    {
+      "id": "ch011",
+      "number": 11,
+      "act": 2,
+      "chapter_number": 5,
+      "title": "最后的盟约",
+      "location": "旧盟约桥",
+      "required_flags": [
+        "story.ch010.done"
+      ],
+      "chapter_start_flag": "ch011.started",
+      "chapter_complete_flag": "story.ch011.done",
+      "lead_character": "雷索",
+      "summary": "在旧盟约桥，保护签约使团并阻止边境决战。顾问当众撕毁协议，想让王族背负对方先开战的罪。最终，玩家公布原始军令，三国士兵共同拒绝作战。",
+      "production_status": "scripted_blocking_v3_phase9_act02_adventure",
+      "recommended_level": [
+        13,
+        17
+      ],
+      "boss": "伪誓顾问",
+      "scenes": [
+        {
+          "id": "ch011.opening",
+          "title": "到达：旧盟约桥",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "旧盟约桥"
+          },
+          "dialogue": [
+            {
+              "id": "ch011.opening.l01",
+              "speaker": "旁白",
+              "text": "旧盟约桥以黑白两种石头铺成，桥心仍保留着上次战争的刻痕。"
+            },
+            {
+              "id": "ch011.opening.l02",
+              "speaker": "雷索",
+              "text": "当年我站在这里，拿的是剑，不是协议。"
+            },
+            {
+              "id": "ch011.opening.l03",
+              "speaker": "使节",
+              "text": "今日三国同时签字，我们需要护卫。"
+            },
+            {
+              "id": "ch011.opening.l04",
+              "speaker": "朔弦",
+              "text": "这桥至少有三处地方很适合藏炸药。"
+            },
+            {
+              "id": "ch011.opening.l05",
+              "speaker": "岚音",
+              "text": "请伤员先去遮棚。我怕桥上等会儿拥挤。"
+            },
+            {
+              "id": "ch011.opening.p9.l01",
+              "speaker": "桥头工匠",
+              "text": "我父亲补过这桥三次，每次开战都得先把它拆掉。"
+            },
+            {
+              "id": "ch011.opening.p9.l02",
+              "speaker": "朔弦",
+              "text": "这回先检查桥墩，再讨论签完字拿什么庆祝。"
+            },
+            {
+              "id": "ch011.opening.p9.l03",
+              "speaker": "雷索",
+              "text": "签名不能替桥上的守卫指路。撤离口要留给普通人。"
+            },
+            {
+              "id": "ch011.opening.p9.l04",
+              "speaker": "岚音",
+              "text": "我在东岸放好救护箱，西岸也得有人懂止血。"
+            },
+            {
+              "id": "ch011.opening.p9.l05",
+              "speaker": "主角",
+              "text": "桥上百姓先过，不让协议的见证仪式挡住他们回家。"
+            },
+            {
+              "id": "ch011.opening.l06",
+              "speaker": "主角",
+              "text": "你守桥心。我与朔弦先查桥墩。"
+            },
+            {
+              "id": "ch011.opening.l07",
+              "speaker": "旁白",
+              "text": "桥底一只被油布裹着的箱子正漏出火药的气味。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "旧盟约桥"
+            },
+            {
+              "type": "interact",
+              "target": "ch011.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch011.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "黑白交界处的旧刀痕",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "生活细节承担环境叙事；让普通人先表达具体需求"
+          }
+        },
+        {
+          "id": "ch011.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch011.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch011.investigate.l01",
+              "speaker": "旁白",
+              "text": "引线接向三个方向，定时器却全是王都军械厂的零件。"
+            },
+            {
+              "id": "ch011.investigate.l02",
+              "speaker": "朔弦",
+              "text": "设计这东西的人，想让每个国家都以为是对方先动手。"
+            },
+            {
+              "id": "ch011.investigate.l03",
+              "speaker": "雷索",
+              "text": "王室顾问直属卫队的徽记。"
+            },
+            {
+              "id": "ch011.investigate.l04",
+              "speaker": "使节",
+              "text": "他昨晚给我们各送了一封密信，说敌国准备偷袭。"
+            },
+            {
+              "id": "ch011.investigate.l05",
+              "speaker": "主角",
+              "text": "把三封信摆在一起。同样的错字，同样的停顿。"
+            },
+            {
+              "id": "ch011.investigate.p9.l01",
+              "speaker": "旁白",
+              "text": "三封密信写着相同的军令词句，却把“敌军出发方向”填成了三处不同道路。"
+            },
+            {
+              "id": "ch011.investigate.p9.l02",
+              "speaker": "使节",
+              "text": "这不可能同时为真。"
+            },
+            {
+              "id": "ch011.investigate.p9.l03",
+              "speaker": "雷索",
+              "text": "有人希望各营在同一分钟各自误以为防御是必要的。"
+            },
+            {
+              "id": "ch011.investigate.p9.l04",
+              "speaker": "朔弦",
+              "text": "引线接着桥下旧维修槽，得关掉维修绞盘才能安全剪。"
+            },
+            {
+              "id": "ch011.investigate.p9.l05",
+              "speaker": "主角",
+              "text": "先带普通人离开引线附近，再让各营指挥员当面核自己的原始命令。"
+            },
+            {
+              "id": "ch011.investigate.l06",
+              "speaker": "岚音",
+              "text": "一场误会或许无意发生，可有人正把它当成工程来做。"
+            },
+            {
+              "id": "ch011.investigate.l07",
+              "speaker": "雷索",
+              "text": "进攻时刻也是同一个刻度。来不及了。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch011.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch011.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch011.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "三条引线收束到一枚计时器",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "证据逐项判断可证与不可证，玩家动作能核实一处实物"
+          }
+        },
+        {
+          "id": "ch011.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch011.crisis",
+            "requires_flags": [
+              "ch011.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch011.crisis.l01",
+              "speaker": "旁白",
+              "text": "桥心，顾问撕裂盟约，催促两岸发兵。"
+            },
+            {
+              "id": "ch011.crisis.l02",
+              "speaker": "王室顾问",
+              "text": "对岸已拔刀！谁先迟疑，谁就会亡国！"
+            },
+            {
+              "id": "ch011.crisis.l03",
+              "speaker": "雷索",
+              "text": "各营把原始军令交出来！不要听传话！"
+            },
+            {
+              "id": "ch011.crisis.l04",
+              "speaker": "主角",
+              "text": "它们全由同一个人签发，所谓敌人根本还没有行动。"
+            },
+            {
+              "id": "ch011.crisis.l05",
+              "speaker": "岚音",
+              "text": "桥上还有平民，请先撤离！"
+            },
+            {
+              "id": "ch011.crisis.p9.l01",
+              "speaker": "桥头工匠",
+              "text": "如果剪断第一根引线，另外两根可能会拉紧。"
+            },
+            {
+              "id": "ch011.crisis.p9.l02",
+              "speaker": "朔弦",
+              "text": "我知道。你在桥上看绞盘，我下去处理，别跟着跳。"
+            },
+            {
+              "id": "ch011.crisis.p9.l03",
+              "speaker": "雷索",
+              "text": "公布军令能阻止军队，未必能阻止炸药。拆炸药能救桥，也未必马上停战。"
+            },
+            {
+              "id": "ch011.crisis.p9.l04",
+              "speaker": "岚音",
+              "text": "两边医院都备好伤员位置。无论先做什么都要留一条人能撤的路。"
+            },
+            {
+              "id": "ch011.crisis.p9.l05",
+              "speaker": "主角",
+              "text": "说清楚风险再决定，不能用一声“相信我”替大家担下后果。"
+            },
+            {
+              "id": "ch011.crisis.l06",
+              "speaker": "朔弦",
+              "text": "引线我能剪断，但你们得给我一点时间。"
+            },
+            {
+              "id": "ch011.crisis.l07",
+              "speaker": "王室顾问",
+              "text": "你们以为几张纸能挡住军队？"
+            },
+            {
+              "id": "ch011.crisis.l08",
+              "speaker": "雷索",
+              "text": "纸挡不住，人的判断可以。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch011.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch011.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch011.choice",
+            "prompt": "桥上的军令和爆炸引线同时威胁人群。",
+            "options": [
+              {
+                "id": "listen",
+                "label": "先公开原始军令，阻止两岸交战",
+                "sets": {
+                  "ch011.approach": "orders_first",
+                  "world.ch011.approach": "orders_first"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先排除桥下炸药，疏散人群",
+                "sets": {
+                  "ch011.approach": "bridge_first",
+                  "world.ch011.approach": "bridge_first"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch011",
+            "display_name": "伪誓顾问",
+            "win_flag": "ch011.battle_won",
+            "recommended_level": 16
+          },
+          "direction": {
+            "shot": "撕破的盟约与远处军旗同时入画",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "行动风险在选择前说清，保留受影响者表达不同意见"
+          }
+        },
+        {
+          "id": "ch011.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch011.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch011.resolve.l01",
+              "speaker": "旁白",
+              "text": "第一名士兵放下矛，随后是第二名、第三名。"
+            },
+            {
+              "id": "ch011.resolve.l02",
+              "speaker": "使节",
+              "text": "原来我们都收到过同样的命令。"
+            },
+            {
+              "id": "ch011.resolve.l03",
+              "speaker": "王室顾问",
+              "text": "没有敌人，君王还能靠什么叫人服从？"
+            },
+            {
+              "id": "ch011.resolve.l04",
+              "speaker": "主角",
+              "text": "靠他自己是否值得被信任。"
+            },
+            {
+              "id": "ch011.resolve.l05",
+              "speaker": "雷索",
+              "text": "今天没有人靠杀人得到荣誉。"
+            },
+            {
+              "id": "ch011.resolve.p9.l01",
+              "speaker": "桥头工匠",
+              "text": "这回桥还在。我希望下次维修不必等一纸停战命令。"
+            },
+            {
+              "id": "ch011.resolve.p9.l02",
+              "speaker": "使节",
+              "text": "军令以后会送到各国独立存档，不只留在顾问桌上。"
+            },
+            {
+              "id": "ch011.resolve.p9.l03",
+              "speaker": "雷索",
+              "text": "士兵应该能核实命令来源，也能对明显伤害平民的命令提出异议。"
+            },
+            {
+              "id": "ch011.resolve.p9.l04",
+              "speaker": "朔弦",
+              "text": "我把维修槽的图纸交给桥上的人，别下次又让几个外乡人来猜。"
+            },
+            {
+              "id": "ch011.resolve.p9.l05",
+              "speaker": "旁白",
+              "text": "桥心并没有竖英雄雕像，只重新画好了行人先行的白线。"
+            },
+            {
+              "id": "ch011.resolve.l06",
+              "speaker": "岚音",
+              "text": "桥上的伤员先送回营，其他事之后再谈。"
+            },
+            {
+              "id": "ch011.resolve.l07",
+              "speaker": "朔弦",
+              "text": "桥保住了。我们可以在对岸吃晚饭了吧？"
+            },
+            {
+              "id": "ch011.resolve.l08",
+              "speaker": "旁白",
+              "text": "三国决定公开重签盟约，不再由密室顾问代笔。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch011"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch011.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 540,
+              "gold": 194
+            }
+          ],
+          "direction": {
+            "shot": "武器连锁落地声代替胜利号角",
+            "sound": "降低环境音，以人物反应收尾",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "在地图留下可回访的可观察变化，不用胜利宣告代替持续责任"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch011.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch011.done",
+          "speaker": "路人",
+          "text": "听说你们在旧盟约桥帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_02_rewrite_v2",
+      "production_notes": "情节、选择、发言人及人物语气精修；关卡条件、触发ID与奖励保持兼容。",
+      "phase9_revision": {
+        "date": "2026-10-25",
+        "added_lines": 20,
+        "scope": "act02_six_chapter_adventure_actions"
+      }
+    },
+    {
+      "id": "ch012",
+      "number": 12,
+      "act": 2,
+      "chapter_number": 6,
+      "title": "王冠不等于信任",
+      "location": "律序母灯坛",
+      "required_flags": [
+        "story.ch011.done"
+      ],
+      "chapter_start_flag": "ch012.started",
+      "chapter_complete_flag": "story.ch012.done",
+      "lead_character": "雷索",
+      "summary": "在律序母灯坛，让三国代表主动承诺公开粮仓与军令。旧仪式要求三位君主相互交出王位作为担保。最终，平民代表与国王共同立誓，律序灯在没有献祭的情况下重燃。",
+      "production_status": "scripted_blocking_v3_phase9_act02_adventure",
+      "recommended_level": [
+        14,
+        18
+      ],
+      "boss": "律序执剑者",
+      "scenes": [
+        {
+          "id": "ch012.opening",
+          "title": "到达：律序母灯坛",
+          "trigger": {
+            "type": "chapter_enter",
+            "region": "律序母灯坛"
+          },
+          "dialogue": [
+            {
+              "id": "ch012.opening.l01",
+              "speaker": "旁白",
+              "text": "律序灯坛有三圈石环，刻着的契约比三个王国都古老。"
+            },
+            {
+              "id": "ch012.opening.l02",
+              "speaker": "雷索",
+              "text": "我曾以为这里只准国王站。"
+            },
+            {
+              "id": "ch012.opening.l03",
+              "speaker": "平民代表",
+              "text": "我们这些被战争饿过的人，名字刻在哪里？"
+            },
+            {
+              "id": "ch012.opening.l04",
+              "speaker": "岚音",
+              "text": "三国医疗与粮食登记在这里，每页都有当事人签名。"
+            },
+            {
+              "id": "ch012.opening.l05",
+              "speaker": "朔弦",
+              "text": "哪位贵族想看，我可以一页一页念。念到明天也行。"
+            },
+            {
+              "id": "ch012.opening.p9.l01",
+              "speaker": "南廷代表",
+              "text": "我们村来的人不懂古王文，只知道今年冬天粮车能不能过桥。"
+            },
+            {
+              "id": "ch012.opening.p9.l02",
+              "speaker": "北廷代表",
+              "text": "我来这里是为了让矿工不再被拉去打仗。"
+            },
+            {
+              "id": "ch012.opening.p9.l03",
+              "speaker": "中庭书记",
+              "text": "我负责把各国的决定翻成百姓能读懂的话。"
+            },
+            {
+              "id": "ch012.opening.p9.l04",
+              "speaker": "雷索",
+              "text": "新的誓约若只让我们几个人听懂，也会变成别人不许反驳的命令。"
+            },
+            {
+              "id": "ch012.opening.p9.l05",
+              "speaker": "主角",
+              "text": "先把对普通人有影响的条款读完，再请他们决定是否签名。"
+            },
+            {
+              "id": "ch012.opening.l06",
+              "speaker": "主角",
+              "text": "这次让受诺言影响的人，一起见证它。"
+            },
+            {
+              "id": "ch012.opening.l07",
+              "speaker": "旁白",
+              "text": "古代石环却提出另一套仪式：三位君主必须交换王权作为担保。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "reach",
+              "target": "律序母灯坛"
+            },
+            {
+              "type": "interact",
+              "target": "ch012.key_npc"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch012.started",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "三环石碑不高于普通人的眼睛",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "生活细节承担环境叙事；让普通人先表达具体需求"
+          }
+        },
+        {
+          "id": "ch012.investigate",
+          "title": "调查线索",
+          "trigger": {
+            "type": "interact",
+            "target": "ch012.clue"
+          },
+          "dialogue": [
+            {
+              "id": "ch012.investigate.l01",
+              "speaker": "旁白",
+              "text": "一名农妇说起她替邻居照料的果树，石环突然亮了一道细光。"
+            },
+            {
+              "id": "ch012.investigate.l02",
+              "speaker": "平民代表",
+              "text": "邻居死了，我还是每年替他剪枝。"
+            },
+            {
+              "id": "ch012.investigate.l03",
+              "speaker": "雷索",
+              "text": "母灯在回应她，而不是王印。"
+            },
+            {
+              "id": "ch012.investigate.l04",
+              "speaker": "岚音",
+              "text": "承诺要靠人兑现，不是盖金印就算结束。"
+            },
+            {
+              "id": "ch012.investigate.l05",
+              "speaker": "主角",
+              "text": "那旧仪式是谁加的？"
+            },
+            {
+              "id": "ch012.investigate.p9.l01",
+              "speaker": "旁白",
+              "text": "三圈石环边缘有小字，写的是每一次旧盟约被更改的时间。"
+            },
+            {
+              "id": "ch012.investigate.p9.l02",
+              "speaker": "平民代表",
+              "text": "原来“永不违约”那一行，是后来的人加上去的。"
+            },
+            {
+              "id": "ch012.investigate.p9.l03",
+              "speaker": "岚音",
+              "text": "以前记过改变的人，为什么现在反倒不允许它继续修改？"
+            },
+            {
+              "id": "ch012.investigate.p9.l04",
+              "speaker": "雷索",
+              "text": "如果誓言无法被修改，受它伤害的人就无处申诉。"
+            },
+            {
+              "id": "ch012.investigate.p9.l05",
+              "speaker": "主角",
+              "text": "把旧文和现行提案并排公开，不要只给我们看修改后的那一页。"
+            },
+            {
+              "id": "ch012.investigate.l06",
+              "speaker": "议会残响",
+              "text": "为保证永不违约，须由三王互相控制。"
+            },
+            {
+              "id": "ch012.investigate.l07",
+              "speaker": "朔弦",
+              "text": "说穿了就是把三把锁挂到彼此脖子上。"
+            },
+            {
+              "id": "ch012.investigate.l08",
+              "speaker": "雷索",
+              "text": "让人发誓，不意味着可以让人失去自由。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "inspect",
+              "target": "ch012.clue"
+            },
+            {
+              "type": "speak",
+              "target": "ch012.witness"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch012.evidence",
+              "value": true
+            }
+          ],
+          "direction": {
+            "shot": "农妇的果树标牌与石环文字转场",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "证据逐项判断可证与不可证，玩家动作能核实一处实物"
+          }
+        },
+        {
+          "id": "ch012.crisis",
+          "title": "真相与冲突",
+          "trigger": {
+            "type": "interact",
+            "target": "ch012.crisis",
+            "requires_flags": [
+              "ch012.evidence"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch012.crisis.l01",
+              "speaker": "旁白",
+              "text": "三把空心王剑从石环升起，指向宣誓者的胸口。"
+            },
+            {
+              "id": "ch012.crisis.l02",
+              "speaker": "律序执剑者",
+              "text": "交出王权。交出违约的可能。"
+            },
+            {
+              "id": "ch012.crisis.l03",
+              "speaker": "王族使者",
+              "text": "那我们的百姓又归谁管理？"
+            },
+            {
+              "id": "ch012.crisis.l04",
+              "speaker": "平民代表",
+              "text": "我们要的是监督，不是被另一国抵押。"
+            },
+            {
+              "id": "ch012.crisis.l05",
+              "speaker": "主角",
+              "text": "让所有公开承诺都能接受质询，每年重新核对。"
+            },
+            {
+              "id": "ch012.crisis.p9.l01",
+              "speaker": "议会残响",
+              "text": "一旦保留反对权，契约违背概率上升。"
+            },
+            {
+              "id": "ch012.crisis.p9.l02",
+              "speaker": "平民代表",
+              "text": "没有反对权，不代表没人受伤。"
+            },
+            {
+              "id": "ch012.crisis.p9.l03",
+              "speaker": "王族使者",
+              "text": "我们愿接受定期审查，但不能把实际缺粮归咎于签约当天每一个人。"
+            },
+            {
+              "id": "ch012.crisis.p9.l04",
+              "speaker": "岚音",
+              "text": "把责任分清楚：谁记录、谁送药、谁公开，谁又能提出修订。"
+            },
+            {
+              "id": "ch012.crisis.p9.l05",
+              "speaker": "主角",
+              "text": "今天要保护的不是完美无缺的王权，而是大家不必再靠秘密命令活下去。"
+            },
+            {
+              "id": "ch012.crisis.l06",
+              "speaker": "雷索",
+              "text": "我先写下当年没有及时阻止暴行的责任。"
+            },
+            {
+              "id": "ch012.crisis.l07",
+              "speaker": "岚音",
+              "text": "我愿把每个得到治疗的名字登记，也允许他们来指出我的错误。"
+            },
+            {
+              "id": "ch012.crisis.l08",
+              "speaker": "朔弦",
+              "text": "我拿航路账本作担保。哪一条路收费，大家都看得到。"
+            },
+            {
+              "id": "ch012.crisis.l09",
+              "speaker": "旁白",
+              "text": "三把王剑不再指着人，只静静悬在众人头顶。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "decide",
+              "target": "ch012.choice"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "ch012.decision_made",
+              "value": true
+            }
+          ],
+          "choice": {
+            "id": "ch012.choice",
+            "prompt": "新盟约该如何得到真正的见证？",
+            "options": [
+              {
+                "id": "listen",
+                "label": "由王族与民众在灯前共同宣誓",
+                "sets": {
+                  "ch012.approach": "shared_oath",
+                  "world.ch012.approach": "shared_oath"
+                }
+              },
+              {
+                "id": "act",
+                "label": "先制定定期公开质询的制度，再宣誓",
+                "sets": {
+                  "ch012.approach": "public_review",
+                  "world.ch012.approach": "public_review"
+                }
+              }
+            ]
+          },
+          "encounter": {
+            "enemy_id": "boss.ch012",
+            "display_name": "律序执剑者",
+            "win_flag": "ch012.battle_won",
+            "recommended_level": 17
+          },
+          "direction": {
+            "shot": "三把空心王剑映出人群倒影",
+            "sound": "使用场景自然声配合对白停顿",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "行动风险在选择前说清，保留受影响者表达不同意见"
+          }
+        },
+        {
+          "id": "ch012.resolve",
+          "title": "事件落幕",
+          "trigger": {
+            "type": "scene_after",
+            "requires_flags": [
+              "ch012.battle_won"
+            ]
+          },
+          "dialogue": [
+            {
+              "id": "ch012.resolve.l01",
+              "speaker": "旁白",
+              "text": "石环依次明亮，母灯没有要求任何君主交出王冠。"
+            },
+            {
+              "id": "ch012.resolve.l02",
+              "speaker": "平民代表",
+              "text": "若你们违约，我们会把它写出来。"
+            },
+            {
+              "id": "ch012.resolve.l03",
+              "speaker": "王族使者",
+              "text": "粮仓和军令的记录，从今以后对民众开放。"
+            },
+            {
+              "id": "ch012.resolve.l04",
+              "speaker": "雷索",
+              "text": "请一定质询我们。没有疑问的誓言太容易变成命令。"
+            },
+            {
+              "id": "ch012.resolve.l05",
+              "speaker": "岚音",
+              "text": "这盏灯照的是人与人之间的路。"
+            },
+            {
+              "id": "ch012.resolve.p9.l01",
+              "speaker": "雷索",
+              "text": "母灯亮了，我还是不打算穿回那件军服。"
+            },
+            {
+              "id": "ch012.resolve.p9.l02",
+              "speaker": "平民代表",
+              "text": "可以。下次粮车出了问题，我会先拿记录找负责的人。"
+            },
+            {
+              "id": "ch012.resolve.p9.l03",
+              "speaker": "中庭书记",
+              "text": "会议里被反对过的条款也会留下，不只存最后的漂亮签名。"
+            },
+            {
+              "id": "ch012.resolve.p9.l04",
+              "speaker": "朔弦",
+              "text": "路上第一家面馆若开门，我愿意先去验收一下饭的质量。"
+            },
+            {
+              "id": "ch012.resolve.p9.l05",
+              "speaker": "旁白",
+              "text": "三国新的运粮单随车启程，律序灯坛留下的不是一把没人能质疑的王冠。"
+            },
+            {
+              "id": "ch012.resolve.l06",
+              "speaker": "朔弦",
+              "text": "总算可以把王都那三扇门留在身后了。"
+            },
+            {
+              "id": "ch012.resolve.l07",
+              "speaker": "主角",
+              "text": "下一座星灯还在等着我们。"
+            },
+            {
+              "id": "ch012.resolve.l08",
+              "speaker": "旁白",
+              "text": "律序母灯重燃。三国的旗第一次照进同一片金色光芒。"
+            }
+          ],
+          "objectives": [
+            {
+              "type": "finish_chapter",
+              "target": "ch012"
+            }
+          ],
+          "effects": [
+            {
+              "type": "set_flag",
+              "key": "story.ch012.done",
+              "value": true
+            },
+            {
+              "type": "grant",
+              "xp": 580,
+              "gold": 208
+            }
+          ],
+          "direction": {
+            "shot": "三国人群走出石环，各自带着一份公开盟约",
+            "sound": "降低环境音，以人物反应收尾",
+            "note": "文本演出说明，不代表镜头已经制作",
+            "phase9_director_focus": "在地图留下可回访的可观察变化，不用胜利宣告代替持续责任"
+          }
+        }
+      ],
+      "npc_reactions": [
+        {
+          "condition": "ch012.started",
+          "speaker": "路人",
+          "text": "最近发生的事，你们也听说了吗？"
+        },
+        {
+          "condition": "story.ch012.done",
+          "speaker": "路人",
+          "text": "听说你们在律序母灯坛帮了大忙。至少我们今天能安心一些。"
+        }
+      ],
+      "notes": "场景可通过脚本读取。地图、语音和演出资产尚待制作。该章节为完整任务节点与首轮对白，不代表最终对白总量。",
+      "script_revision": "act_02_rewrite_v2",
+      "production_notes": "情节、选择、发言人及人物语气精修；关卡条件、触发ID与奖励保持兼容。",
+      "phase9_revision": {
+        "date": "2026-10-25",
+        "added_lines": 20,
+        "scope": "act02_six_chapter_adventure_actions"
+      }
+    }
+  ],
+  "dialogue_revision": "act_02_rewrite_v2",
+  "phase9_revision": {
+    "date": "2026-10-25",
+    "chapters": [
+      "ch007",
+      "ch008",
+      "ch009",
+      "ch010",
+      "ch011",
+      "ch012"
+    ],
+    "added_lines": 120,
+    "original_lines": 186,
+    "one_original_correction": "ch009.crisis.l07 branch-order fix",
+    "status": "written_narrative_only_not_godot_playtested"
+  }
+}

@@ -287,6 +287,81 @@ def synchronize(root: Path) -> dict:
                  "visual_status": "未测试"}
         for source, record in sorted(detail_routes.items())
     }
+    # Generated-only art branch: the 109 historic theme slots were retired
+    # with the third-party image purge. Rebind only exact, verified canonical
+    # semantic equivalents; leave unmatched optional slots explicitly empty.
+    semantic_manifest_path = root / "assets/art/runtime/semantic_generated_v1/manifest.json"
+    semantic_routes = {}
+    if semantic_manifest_path.is_file():
+        semantic_data = read(semantic_manifest_path)
+        if semantic_data.get("schema") != "starlit.semantic_generated.v1":
+            raise ValueError("Invalid semantic generated image manifest")
+        semantic_routes = semantic_data.get("routes", {})
+        if len(semantic_routes) != semantic_data.get("count"):
+            raise ValueError("Semantic image count mismatch")
+        for name, row in semantic_routes.items():
+            if row.get("source", "") not in physical:
+                raise ValueError("Semantic generated image was not staged: " + name)
+            if hashlib.sha256((root / row["source"].removeprefix("res://")).read_bytes()).hexdigest() != row.get("sha256"):
+                raise ValueError("Semantic generated image hash mismatch: " + name)
+    def semantic_source(name):
+        record = semantic_routes.get(name, {})
+        return str(record.get("source", ""))
+    required_bindings = {
+        "scene.coast.sea_crystal": semantic_source("scene.coast.sea_crystal"),
+        "scene.coast.harbor_crane": semantic_source("scene.coast.harbor_crane"),
+        "scene.coast.tide_pool": semantic_source("scene.coast.tide_pool"),
+        "prop.coast.cottage": generated["props.region_coast_cottage"]["source"],
+        "prop.coast.sign": semantic_source("prop.coast.sign"),
+        "prop.coast.well": generated["props.region_coast_well"]["source"],
+        "landmark.coast.tide_lighthouse_landmark": semantic_source("landmark.coast.tide_lighthouse_landmark"),
+        "terrain.coast.map_1_ground": generated["terrain.region_coast_ground"]["source"],
+        "terrain.coast.map_1_water": generated["terrain.region_coast_water"]["source"],
+        "interior.tavern.tavern_wood_atlas": generated["interiors.map_coast_02__tavern"]["source"],
+        "interior.tavern.tavern_bench": semantic_source("interior.tavern.tavern_bench"),
+        "interior.tavern.tavern_counter": semantic_source("interior.tavern.tavern_counter"),
+        "interior.tavern.tavern_ledger": semantic_source("interior.tavern.tavern_ledger"),
+        "interior.tavern.tavern_table": semantic_source("interior.tavern.tavern_table"),
+    }
+    slots = current.get("canonical_slots", {})
+    for slot, record in slots.items():
+        if slot in required_bindings:
+            source = required_bindings[slot]
+        elif slot == "prop.coast.crate":
+            source = generated["props.region_coast_crate"]["source"]
+        elif slot == "prop.coast.star_lantern":
+            source = generated["props.region_coast_lantern"]["source"]
+        elif slot.startswith("background.coast.map_"):
+            ordinal = slot.rsplit("_",1)[1]
+            source = str(generated.get("maps.map_coast_0"+ordinal, {}).get("source",""))
+        elif slot.startswith("monster.coast.mon_coast_"):
+            asset_id=slot.split(".")[-1]
+            source = str(generated.get("monsters."+asset_id, {}).get("source",""))
+        elif slot.startswith("monster.region."):
+            asset_id=slot.split(".")[-1]
+            source = str(generated.get("monsters."+asset_id, {}).get("source",""))
+        else:
+            source = ""
+        if source and source not in physical:
+            raise ValueError("Slot generation produced non-existent image: "+slot)
+        record["source"] = source
+        record["stage"] = "generated_source_visual_review_pending" if source else "retired_source_unmapped"
+    current["canonical_slots"] = slots
+    for region, record in current.get("regions",{}).items():
+        record["material_preview"] = {
+            "ground": generated["terrain."+region+"_ground"]["source"],
+            "water": generated["terrain."+region+"_water"]["source"],
+        }
+        record["scene_props"] = {key:source for key,source in record.get("scene_props",{}).items() if source}
+        record["unique_monster_candidates"] = [
+            item["source"] for key,item in sorted(generated.items())
+            if key.startswith("monsters.") and
+            item.get("region_id", "") == region
+        ][:6]
+
+    current["generated_semantic_scene_assets"] = {
+        key: row["source"] for key,row in sorted(semantic_routes.items())
+    }
     current["generated_assets"] = generated
     current["generated_manifest"] = {
         "source": FACTORY + "active.json",

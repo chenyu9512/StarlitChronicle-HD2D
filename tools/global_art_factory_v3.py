@@ -55,10 +55,26 @@ def colors(region):
 def tile(d, x, y, c, kind, seed):
     return terrain_cell(d, x, y, c, kind, seed)
 
+# Material colors are biome roles, not the three-color regional mood board.
+# The sea-blue Coast mood swatch must never become grass.
+TERRAIN_ROLE_COLORS = {
+    "region_coast": ("#789674","#baa47e","#737e80","#947859","#928a77","#d9c59d","#386a82","#655d5d"),
+    "region_oaths": ("#8c986c","#b09b78","#686d79","#866a55","#a7a093","#cdb68a","#486a83","#656678"),
+    "region_forge": ("#877962","#ad7759","#615963","#796459","#8e7970","#d6b48c","#546779","#514950"),
+    "region_isles": ("#5d9a72","#e0ca95","#788b85","#aa8660","#9a988a","#e9d9aa","#427d97","#5f7074"),
+    "region_mirror": ("#86968a","#c1b1bf","#8a899a","#8e8196","#afa6b4","#d6c9cf","#567d9b","#757585"),
+    "region_oldland": ("#748c66","#9b866a","#62675e","#8e755c","#837e6e","#baa583","#526f74","#535850"),
+    "region_sanctum": ("#a0ae85","#d9c7a1","#aab0b3","#b49a7f","#c9bcaa","#e8d8bc","#7598b0","#aaa99f"),
+    "region_city": ("#87927c","#b9a187","#7d858a","#946e58","#a29b90","#d0bba1","#607f98","#6e6c72"),
+}
+def _hexrgb(value):
+    return tuple(int(value[i:i+2],16) for i in (1,3,5))
+
 def atlas(region,room_id=""):
     a,b,c=colors(region)
     kinds=("grass","road","stone","wood","cobbles","sand","water","wall")
-    bases=(a,b,shade(c,.15),blend(b,c,.35),shade(b,-.14),shade(b,.25),c,shade(c,-.2))
+    semantic=TERRAIN_ROLE_COLORS.get(region["id"])
+    bases=tuple(map(_hexrgb,semantic)) if semantic else (a,b,shade(c,.15),blend(b,c,.35),shade(b,-.14),shade(b,.25),c,shade(c,-.2))
     if room_id:
         kinds=("wood","wood","cobbles","grass","stone","road","wall","sand")
         bases=(shade(b,.18),b,a,shade(a,.25),c,shade(b,.38),shade(c,-.2),shade(b,.46))

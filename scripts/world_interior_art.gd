@@ -306,6 +306,12 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                 var authored_footprint: Array = record.get("footprint",[])
                 if authored_footprint.size()==2:
                     footprint=Vector2(float(authored_footprint[0]),float(authored_footprint[1]))
+            if regional_room:
+                # Regional V4 art_collision_cells currently mark the actual
+                # contact tile, not a huge 3x3 furniture footprint. Limit
+                # visual overlap so a 64px texture cannot conceal the entire
+                # aisle while physics correctly blocks only its foot tile.
+                footprint=Vector2(minf(footprint.x,58.0),minf(footprint.y,66.0))
             var texsize: Vector2=Vector2(prop.texture.get_size())
             var ratio: float=minf(1.0,minf(footprint.x/maxf(1.0,texsize.x),
                 footprint.y/maxf(1.0,texsize.y)))

@@ -8,6 +8,7 @@ const State = preload("res://scripts/first_act_state.gd")
 const Registry = preload("res://scripts/world_registry.gd")
 const World = preload("res://scripts/first_act_world.gd")
 const Icons = preload("res://scripts/c_art_item_icons.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 var errors: Array[String] = []
 
 func _initialize() -> void:
@@ -24,6 +25,18 @@ func _run() -> void:
         "map_coast_02", "map_coast_03", "map_coast_05"
     ]
     verify(Icons.allocated_count() == 288, "288 allocated content IDs no longer bound to RPG icons")
+    # Verify canonical identities, not just a non-null generic character sheet.
+    verify(str(Generated.LEGACY_CAST.get("chengzhou","")) == "char_chengzhou",
+        "Chengzhou art incorrectly mapped to another protagonist")
+    var chengzhou_art: Texture2D = Generated.legacy_texture(
+        "res://assets/art/characters/chengzhou/walk_4dir_3frames.png")
+    var leiso_art: Texture2D = Generated.legacy_texture(
+        "res://assets/art/characters/leiso/walk_4dir_3frames.png")
+    verify(chengzhou_art != null and chengzhou_art.get_size() == Vector2(96,192),
+        "Missing canonical 3x4 Chengzhou movement atlas")
+    verify(leiso_art != null and chengzhou_art != leiso_art,
+        "Chengzhou and Leiso resolve to the same actor sprite")
+
     for map_key in maps:
         var live_map: String = Production.runtime_source("maps",map_key)
         verify(not live_map.is_empty(),

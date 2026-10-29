@@ -5,6 +5,9 @@ on:
     paths:
       - "tools/global_art_factory_v3.py"
       - "tools/global_art_ai_provider_v3.py"
+      - "data/content/maps.json"
+      - "data/assets/av_registry.json"
+      - "data/levels/v4/interiors/**"
       - "tools/test_global_art_factory_v3.py"
       - "tools/generate_art.py"
       - "addons/starlit_art_pipeline/plugin.gd"
@@ -32,7 +35,7 @@ jobs:
         run: python tools/test_global_art_factory_v3.py
       - name: Produce all canonical art candidates
         run: python tools/generate_art.py --project . --force
-      - name: Prepare high-detail 397-art model briefs without API calls
+      - name: Prepare high-detail full-roster model briefs without API calls
         run: python tools/global_art_ai_provider_v3.py --project . --jobs-only
       - name: Validate model art brief coverage
         run: |
@@ -41,8 +44,12 @@ jobs:
           from pathlib import Path
           path=Path('build/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl')
           jobs=[json.loads(line) for line in path.read_text().splitlines() if line]
-          assert len(jobs)==397, len(jobs)
-          assert len({(j['group'],j['id']) for j in jobs})==397
+          canonical=json.loads(Path('data/assets/av_registry.json').read_text())
+          maps=json.loads(Path('data/content/maps.json').read_text())['entries']
+          rooms=list(Path('data/levels/v4/interiors').glob('*.json'))
+          expected=10*len(canonical['regions'])+len(maps)+len(rooms)+sum(len(canonical[k]) for k in ('characters','npcs','monsters','bosses'))
+          assert len(jobs)==expected, (len(jobs),expected)
+          assert len({(j['group'],j['id']) for j in jobs})==expected
           print('MODEL ART PROMPTS:', len(jobs))
           PY
       - name: Validate full canonical registry coverage
@@ -54,12 +61,15 @@ jobs:
           data=json.loads((root/'candidate_manifest.json').read_text())
           counts=data['counts']
           assert not data['errors'], data['errors'][:10]
-          assert counts['maps']==42, counts
-          assert counts['interiors']==99, counts
-          assert counts['bosses']==66, counts
-          assert counts['characters']==12, counts
-          assert counts['npcs']==35, counts
-          assert counts['monsters']==63, counts
+          av=json.loads(Path('data/assets/av_registry.json').read_text())
+          maps=json.loads(Path('data/content/maps.json').read_text())['entries']
+          rooms=list(Path('data/levels/v4/interiors').glob('*.json'))
+          expected={'terrain':len(av['regions']), 'ui':len(av['regions']),
+                    'props':8*len(av['regions']), 'maps':len(maps),
+                    'interiors':len(rooms), 'bosses':len(av['bosses']),
+                    'characters':len(av['characters']), 'npcs':len(av['npcs']),
+                    'monsters':len(av['monsters'])}
+          assert counts==expected, (counts,expected)
           assert sum(counts.values())==len(data['assets'])
           assert not data['game_runtime_modified']
           for item in data['assets']:

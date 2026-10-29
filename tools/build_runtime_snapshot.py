@@ -121,6 +121,42 @@ def create_snapshot(source, output, with_smoke=False):
     if set(registry.get("canonical_slots", {})) != set(themes[0]["slots"]):
         raise RuntimeError("Theme/runtime slot identities diverged")
 
+    # Player equipment/item/skill icons are now looked up by stable content ID
+    # in the generated registry. The obsolete V6 icon field is deliberately
+    # blank and must not cause a third-party image to be resurrected.
+    generated_icons = read("assets/art/runtime/content_icons_v1/manifest.json",
+                           "starlit.content_icons.runtime.v1")
+    icon_entries = generated_icons.get("assets", {})
+    id_paths = registry.get("content_icons", {})
+    if len(icon_entries) != 288 or len(id_paths) != 288:
+        raise RuntimeError("All 288 generated equipment/content icons required")
+    for identity, record in icon_entries.items():
+        if record.get("source") != id_paths.get(identity):
+            raise RuntimeError("Content icon source/id mismatch: " + identity)
+        actual_image(record["source"], "content_icon:" + identity)
+
+    # Visual layers whose paths are dynamically assembled (shore animations,
+    # regional decoration, scene details) must ship with their real textures.
+    for group in ("generated_allocated_scene_props", "scene_detail_sources",
+                  "shore_wave_sources", "generated_semantic_scene_assets", "ui"):
+        for identity, path in registry.get(group, {}).items():
+            actual_image(path, group + ":" + identity)
+    for manifest_path, schema, group in (
+        ("assets/art/runtime/scene_details_v1/manifest.json",
+         "starlit.scene_details.runtime.v1", "scene_detail_sources"),
+        ("assets/art/runtime/shore_waves_v1/manifest.json",
+         "starlit.shore_waves.runtime.v1", "shore_wave_sources"),
+        ("assets/art/runtime/semantic_generated_v1/manifest.json",
+         "starlit.semantic_generated.v1", "generated_semantic_scene_assets"),
+    ):
+        manifest = read(manifest_path, schema)
+        entries = manifest.get("routes", {}) if "routes" in manifest else manifest.get("assets", {})
+        if not isinstance(entries, dict):
+            raise RuntimeError("Invalid supplemental live source manifest: " + manifest_path)
+        for identity, row in entries.items():
+            source = row.get("source") if isinstance(row, dict) else row
+            actual_image(source, manifest_path + ":" + identity)
+
     # 451 unique named original HD2D images + every real normal map used by
     # the live renderer; missing images make the release fail, not disappear.
     factory = read("assets/art/runtime/global_factory_v3/active.json",
@@ -189,11 +225,16 @@ def create_snapshot(source, output, with_smoke=False):
                     raise RuntimeError("Missing exact room furniture identity: " + slot)
                 actual_image(registry["canonical_slots"][slot]["source"], slot)
 
-    for name, key in (
-        ("data/assets/c_art_content_icons_v6.json", "records"),
-        ("data/assets/c_art_allocated_decor_runtime_v1.json", "placements")):
-        for number, row in enumerate(read(name).get(key, [])):
-            actual_image(row.get("icon", row.get("source", "")), name + str(number))
+    content_records = read("data/assets/c_art_content_icons_v6.json").get("records", [])
+    if len(content_records) != 288 or {row.get("id") for row in content_records} != set(id_paths):
+        raise RuntimeError("Content icon IDs diverged from actual 288-item generated registry")
+    for row in content_records:
+        canonical_path = id_paths[str(row["id"])]
+        if row.get("icon") and row["icon"] != canonical_path:
+            raise RuntimeError("Noncanonical V6 source: " + str(row["id"]))
+        actual_image(canonical_path, "content_record:" + str(row["id"]))
+    for number, row in enumerate(read("data/assets/c_art_allocated_decor_runtime_v1.json").get("placements", [])):
+        actual_image(row.get("source"), "active_decoration:" + str(number))
     packs = read("data/assets/c_art_packs.json", "starlit.c.art_packs.v1")
     if packs.get("packs", []) != []:
         raise RuntimeError("Third-party uploaded art packs must remain removed")

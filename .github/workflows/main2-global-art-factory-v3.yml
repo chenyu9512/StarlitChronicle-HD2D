@@ -4,6 +4,7 @@ on:
     branches: ["Main2美术优化版"]
     paths:
       - "tools/global_art_factory_v3.py"
+      - "tools/global_art_ai_provider_v3.py"
       - "tools/test_global_art_factory_v3.py"
       - "tools/generate_art.py"
       - "addons/starlit_art_pipeline/plugin.gd"
@@ -31,6 +32,19 @@ jobs:
         run: python tools/test_global_art_factory_v3.py
       - name: Produce all canonical art candidates
         run: python tools/generate_art.py --project . --force
+      - name: Prepare high-detail 397-art model briefs without API calls
+        run: python tools/global_art_ai_provider_v3.py --project . --jobs-only
+      - name: Validate model art brief coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('build/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl')
+          jobs=[json.loads(line) for line in path.read_text().splitlines() if line]
+          assert len(jobs)==397, len(jobs)
+          assert len({(j['group'],j['id']) for j in jobs})==397
+          print('MODEL ART PROMPTS:', len(jobs))
+          PY
       - name: Validate full canonical registry coverage
         run: |
           python - <<'PY'
@@ -60,4 +74,5 @@ jobs:
           path: |
             build/starlit_global_art_factory_v3/candidate_manifest.json
             build/starlit_global_art_factory_v3/candidate_index.json
+            build/starlit_global_art_factory_v3/model_sources/render_jobs.jsonl
           if-no-files-found: warn

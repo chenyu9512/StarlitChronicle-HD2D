@@ -4,7 +4,7 @@ extends RefCounted
 ## No guessed character or boss identity is selected automatically.
 const INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
 const Art = preload("res://scripts/c_art_overrides.gd")
-const Theme = preload("res://scripts/c_art_theme_v2.gd")
+const RuntimeArtTheme = preload("res://scripts/c_art_theme_v2.gd")
 const Terrain = preload("res://scripts/world_terrain_atlas_registry.gd")
 static var _index: Dictionary = {}
 static var _loaded: bool = false
@@ -29,7 +29,7 @@ static func slot_source(slot_id: String) -> String:
 static func texture_slot(slot_id: String) -> Texture2D:
     if slot_source(slot_id).is_empty():
         return null
-    return Theme.texture(slot_id)
+    return RuntimeArtTheme.texture(slot_id)
 
 static func region_profile(region_id: String) -> Dictionary:
     return (_data().get("regions", {}) as Dictionary).get(region_id, {}).duplicate(true)

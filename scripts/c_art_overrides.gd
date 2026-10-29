@@ -36,6 +36,7 @@ const RUNTIME_INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const Refined = preload("res://scripts/c_art_refined_overrides_v1.gd")
 const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
 const PACK_ROOT: String = "user://c_art_packs"
 const MAX_INPUT_BYTES: int = 24 * 1024 * 1024
@@ -259,6 +260,11 @@ static func texture(path: String) -> Texture2D:
         var selected: Texture2D = ThemeV2.texture_for_path(path)
         if selected != null:
             return selected
+    # Regenerated V4.2 PNG for this exact source path. Source remains on disk
+    # for provenance and fallback; untouched dimensions preserve frame grids.
+    var refined: Texture2D = Refined.texture(path)
+    if refined != null:
+        return refined
     if _entries.has(path):
         var saved: String = _safe_override_file(path)
         if not saved.is_empty():

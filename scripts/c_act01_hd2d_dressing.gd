@@ -1,7 +1,7 @@
 extends Node2D
 ## Imported Golden Horizon sprites on real first-act maps. Presentation ONLY.
 const MANIFEST: String="res://data/assets/c_act01_hd2d_v18.json"
-const ROOT: String="res://assets/art/runtime/act01_hd2d_v18/props/"
+const ROOT: String="res://assets/art/runtime/generated_gaps_v10/"
 const ArtTheme = preload("res://scripts/c_art_theme_v2.gd")
 const Overrides = preload("res://scripts/c_art_overrides.gd")
 const TILE: int=32
@@ -110,7 +110,10 @@ func configure(map_key: String,layout: Dictionary,depth_host: Node2D) -> void:
         var source: String=str(row.get("source",""))
         var id: String=str(row.get("id",""))
         var cell_array: Array=row.get("cell",[])
-        if id.is_empty() or placed.has(id) or cell_array.size()!=2 or source!=ROOT+kind+".png":
+        # V10 generated imagery has an exact per-kind semantic file name.
+        # Do not take an unrelated prop merely because it can be decoded.
+        var expected_source: String=ROOT+"prop__hd2d__"+kind.replace("-","_")+".png"
+        if id.is_empty() or placed.has(id) or cell_array.size()!=2 or source!=expected_source:
             omitted.append(id)
             continue
         if not ResourceLoader.exists(source):

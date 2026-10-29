@@ -15,10 +15,10 @@ import re
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
-from art_style_v6 import (terrain_cell, character_sheet, draw_prop,
+from art_style_v7 import (terrain_cell, character_sheet, draw_prop,
                           enemy_sheet, landscape, normal_map, write_auxiliary_svgs)
 
-VERSION = "4.0.0"
+VERSION = "4.1.0"
 NORMAL_GROUPS = frozenset(("terrain", "interiors", "props", "characters", "npcs", "monsters", "bosses"))
 SCOPES = ("terrain", "maps", "interiors", "props", "characters", "npcs", "monsters", "bosses", "ui")
 SIZES = {"terrain": (256,256), "maps": (1152,648), "interiors": (256,256),
@@ -213,6 +213,11 @@ def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=N
     except (OSError,ValueError,TypeError):
         previous={}
     cache_version=previous.get("version")==VERSION
+    # Never discard reviewed artist/AI imports merely because the procedural
+    # renderer version changed. Only procedural candidates are regenerated.
+    curated_previous={(a.get("group"),a.get("id")):a for a in previous.get("assets",[])
+                      if isinstance(a,dict) and a.get("provenance") in
+                      ("imported_exact_size_candidate","existing_curated_candidate")}
     for group,asset_id,meta,render in queue:
         path=output/group/(asset_id+".png")
         origin=source_root/group/(asset_id+".png") if source_root else None
@@ -226,11 +231,13 @@ def produce(root,output,selected,dry_run=False,force=False,limit=0,source_root=N
                         raise ValueError("Curated art dimensions do not match "+asset_id)
                     image=source.convert("RGBA")
                 provenance="imported_exact_size_candidate"
-            elif not force and cache_version and path.is_file():
+            elif not force and path.is_file() and (cache_version or (group,asset_id) in curated_previous):
                 proof=verify(path,group)
                 entry={"id":asset_id,"group":group,
                        "path":path.relative_to(output).as_posix(),
-                       "provenance":"existing_candidate",**meta,**proof}
+                       "provenance":("existing_candidate" if cache_version and
+                         (group,asset_id) not in curated_previous else "existing_curated_candidate"),
+                       **meta,**proof}
                 if normal_maps and group in NORMAL_GROUPS:
                     target=output/"normal_maps"/group/(asset_id+"_n.png")
                     if target.is_file() and not force:

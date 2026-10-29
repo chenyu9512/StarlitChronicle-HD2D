@@ -127,67 +127,162 @@ def build_jobs(root: Path, selected: set[str], limit: int = 0) -> list[dict]:
             "qa": "candidate_identity_and_animation_review_required"})
     return output
 
-def fit(image_bytes: bytes, desired: tuple[int,int], transparency: bool) -> Image.Image:
+def fit(image_bytes: bytes, desired: tuple[int, int],
+        transparency: bool, group: str = "") -> Image.Image:
+    """Rasterize a high-res master, preserving proportions and real alpha."""
     with Image.open(io.BytesIO(image_bytes)) as source:
         source.load()
-        im=source.convert("RGBA")
-    # Preserve aspect ratio; never squeeze art or invent missing animation frames.
-    im.thumbnail(desired,Image.Resampling.LANCZOS)
-    bg=Image.new("RGBA",desired,(0,0,0,0) if transparency else (22,27,43,255))
-    bg.alpha_composite(im,((desired[0]-im.width)//2,(desired[1]-im.height)//2))
-    return bg
+        im = source.convert("RGBA")
+    if group in ("monsters", "bosses"):
+        # Source 3:1 -> central 4:1 strip; no stretching/distorted creatures.
+        crop_h = round(im.width * desired[1] / desired[0])
+        if crop_h <= im.height:
+            y0 = (im.height - crop_h) // 2
+            im = im.crop((0, y0, im.width, y0 + crop_h))
+    if not transparency:
+        # Full-bleed instead of letterboxing on an arbitrary dark background.
+        ratio = max(desired[0] / im.width, desired[1] / im.height)
+        w, h = max(1, round(im.width * ratio)), max(1, round(im.height * ratio))
+        im = im.resize((w, h), Image.Resampling.LANCZOS)
+        x, y = (w - desired[0]) // 2, (h - desired[1]) // 2
+        return im.crop((x, y, x + desired[0], y + desired[1]))
+    if group == "props":
+        # Never crop/reflow structured sprite sheets; only isolate single props.
+        box = im.getchannel("A").getbbox()
+        if box:
+            im = im.crop(box)
+        bounds = (round(desired[0] * .90), round(desired[1] * .92))
+    else:
+        bounds = desired
+    im.thumbnail(bounds, Image.Resampling.LANCZOS)
+    canvas = Image.new("RGBA", desired, (0, 0, 0, 0))
+    x = (desired[0] - im.width) // 2
+    y = desired[1] - im.height if group == "props" else (desired[1] - im.height) // 2
+    canvas.alpha_composite(im, (x, y))
+    return canvas
+
+
+def quality_metrics(image: Image.Image, group: str) -> dict:
+    """Basic machine QA only; visual identity/animation still requires review."""
+    if image.size != SIZES[group]:
+        raise ValueError("WRONG_CANVAS_DIMENSIONS")
+    rgba = image.convert("RGBA")
+    histogram = rgba.getchannel("A").histogram()
+    pixels = image.width * image.height
+    transparent_ratio = sum(histogram[:16]) / pixels
+    visible_ratio = sum(histogram[16:]) / pixels
+    if group in TRANSPARENT:
+        if transparent_ratio < 0.035:
+            raise ValueError("MISSING_TRUE_TRANSPARENT_BACKGROUND")
+        if visible_ratio < 0.018:
+            raise ValueError("ALMOST_EMPTY_ART")
+    elif visible_ratio < .98:
+        raise ValueError("OPAQUE_BACKGROUND_HAS_HOLES")
+    sampled = rgba.resize((64, 64), Image.Resampling.BILINEAR).convert("RGB")
+    color_buckets = len(sampled.quantize(colors=32).getcolors(maxcolors=4096) or [])
+    if color_buckets < 8:
+        raise ValueError("LOW_DETAIL_OR_BLANK_IMAGE")
+    coverage = []
+    if group in FRAMES:
+        rows, cols = FRAMES[group]
+        mask = rgba.getchannel("A")
+        for row in range(rows):
+            for col in range(cols):
+                tile = mask.crop(((col * image.width) // cols,
+                                  (row * image.height) // rows,
+                                  ((col + 1) * image.width) // cols,
+                                  ((row + 1) * image.height) // rows))
+                cell_visible = sum(tile.histogram()[16:]) / (tile.width * tile.height)
+                coverage.append(round(cell_visible, 4))
+                if cell_visible < .025:
+                    raise ValueError("EMPTY_SHEET_CELL_%d_%d" % (row, col))
+    return {
+        "transparent_ratio": round(transparent_ratio, 4),
+        "color_buckets": color_buckets, "frame_coverage": coverage,
+        "machine_minimum_pass": True, "human_visual_review": "required"}
+
+
+def fingerprint(job: dict, model: str, quality: str) -> str:
+    packed = json.dumps({
+        "revision": PIPELINE_REV, "prompt": job["prompt"],
+        "source_size": job["source_size"], "target_size": job["target_size"],
+        "model": model, "quality": quality}, sort_keys=True)
+    return hashlib.sha256(packed.encode("utf-8")).hexdigest()
 
 def execute(root: Path, out: Path, selected: set[str], limit=0,
-            render=False, model=MODEL, force=False):
-    jobs=build_jobs(root,selected,limit)
-    out.mkdir(parents=True,exist_ok=True)
-    (out/"render_jobs.jsonl").write_text(
-        "".join(json.dumps(job,ensure_ascii=False)+"\n" for job in jobs),encoding="utf-8")
-    report={"schema":"starlit.global_art_ai_candidates.v3","model":model,"jobs":len(jobs),
-            "render_requested":render,"complete":0,"cached":0,"failures":[],
-            "output":"exact_size_source_candidates_not_game_runtime",
-            "assets":[]}
+            render=False, model=MODEL, force=False, quality=QUALITY):
+    jobs = build_jobs(root, selected, limit)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "render_jobs.jsonl").write_text(
+        "".join(json.dumps(job, ensure_ascii=False) + "\n" for job in jobs),
+        encoding="utf-8")
+    report = {
+        "schema": "starlit.global_art_ai_candidates.v4",
+        "revision": PIPELINE_REV, "model": model, "quality": quality,
+        "jobs": len(jobs), "render_requested": render, "complete": 0,
+        "cached": 0, "failures": [], "assets": [],
+        "output": "quality_checked_candidates_not_game_runtime"}
     if not render:
-        (out/"render_report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2))
+        (out / "render_report.json").write_text(
+            json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         return report
+    if quality not in ("low", "medium", "high", "xhigh", "max", "auto"):
+        raise ValueError("UNSUPPORTED_QUALITY: " + quality)
     if not os.environ.get("OPENAI_API_KEY"):
-        raise ValueError("OPENAI_API_KEY is required for --render. --jobs-only needs no key.")
+        raise ValueError("OPENAI_API_KEY is required for --render; --jobs-only is free")
     try:
         from openai import OpenAI
     except ImportError as exc:
-        raise ValueError("Install image renderer: python -m pip install openai") from exc
-    client=OpenAI()
+        raise ValueError("Install renderer: python -m pip install openai") from exc
+    client = OpenAI()
     for job in jobs:
-        dest=out/job["group"]/(safe(job["id"])+".png")
+        dest = out / job["group"] / (safe(job["id"]) + ".png")
+        receipt = dest.with_suffix(".quality.json")
+        key = fingerprint(job, model, quality)
         try:
-            dest.parent.mkdir(parents=True,exist_ok=True)
-            if dest.is_file() and not force:
-                report["cached"]+=1
-                continue
-            is_transparent = job["group"] in ("props","characters","npcs","monsters","bosses")
-            response=client.images.generate(
-                model=model,prompt=job["prompt"],n=1,
-                size="1536x1024" if job["group"]=="maps" else "1024x1024",
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            if dest.is_file() and receipt.is_file() and not force:
+                meta = json.loads(receipt.read_text(encoding="utf-8"))
+                if meta.get("fingerprint") == key:
+                    with Image.open(dest) as cached:
+                        cached.load()
+                        checks = quality_metrics(cached, job["group"])
+                    report["cached"] += 1
+                    report["assets"].append({
+                        "id": job["id"], "group": job["group"],
+                        "path": dest.relative_to(out).as_posix(),
+                        "status": "cached_candidate", "qa": checks})
+                    continue
+            is_transparent = job["group"] in TRANSPARENT
+            response = client.images.generate(
+                model=model, prompt=job["prompt"], n=1,
+                size=job["source_size"], quality=quality,
                 background="transparent" if is_transparent else "opaque",
                 output_format="png")
             if not response.data or not response.data[0].b64_json:
-                raise RuntimeError("Image generation API returned no image bytes")
-            blob=base64.b64decode(response.data[0].b64_json)
-            result=fit(blob,tuple(job["target_size"]),is_transparent)
-            temp=dest.with_suffix(".partial.png")
-            result.save(temp,format="PNG",optimize=True)
-            with Image.open(temp) as check:
+                raise RuntimeError("IMAGE_API_RETURNED_NO_IMAGE")
+            blob = base64.b64decode(response.data[0].b64_json, validate=True)
+            result = fit(blob, tuple(job["target_size"]), is_transparent, job["group"])
+            checks = quality_metrics(result, job["group"])
+            tmp = dest.with_suffix(".partial.png")
+            result.save(tmp, format="PNG", optimize=True)
+            with Image.open(tmp) as check:
                 check.verify()
-            temp.replace(dest)
-            report["complete"]+=1
-            report["assets"].append({"id":job["id"],"group":job["group"],
-                                     "path":dest.relative_to(out).as_posix(),
-                                     "status":"model_generated_candidate_not_game_ready"})
+            tmp.replace(dest)
+            receipt.write_text(json.dumps({"fingerprint": key, "qa": checks},
+                                          ensure_ascii=False, indent=2) + "\n",
+                               encoding="utf-8")
+            report["complete"] += 1
+            report["assets"].append({
+                "id": job["id"], "group": job["group"],
+                "path": dest.relative_to(out).as_posix(),
+                "status": "machine_checked_candidate_needs_human_review",
+                "qa": checks})
         except Exception as exc:
-            report["failures"].append({"id":job["id"],"group":job["group"],
-                                       "error":str(exc)[:500]})
-    (out/"render_report.json").write_text(
-        json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            report["failures"].append({"id": job["id"], "group": job["group"],
+                                       "error": str(exc)[:500]})
+    (out / "render_report.json").write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return report
 
 def main(argv=None):
@@ -197,6 +292,7 @@ def main(argv=None):
     p.add_argument("--scope",choices=("all",)+SCOPES,default="all")
     p.add_argument("--limit",type=int,default=0)
     p.add_argument("--model",default=MODEL)
+    p.add_argument("--quality",choices=("low","medium","high","xhigh","max","auto"),default=QUALITY)
     p.add_argument("--jobs-only",action="store_true",help="Only write canonical art brief JSONL, no API calls")
     p.add_argument("--render",action="store_true",help="Generate PNGs using configured model/API credentials")
     p.add_argument("--force",action="store_true")
@@ -209,7 +305,7 @@ def main(argv=None):
         p.error("Refusing to write image candidates to the live runtime")
     try:
         report=execute(root,out,set(SCOPES) if a.scope=="all" else {a.scope},
-                       max(0,a.limit),a.render,a.model,a.force)
+                       max(0,a.limit),a.render,a.model,a.force,a.quality)
     except (ValueError,OSError,KeyError,TypeError) as exc:
         print("MODEL ART ERROR:",exc,file=sys.stderr)
         return 2

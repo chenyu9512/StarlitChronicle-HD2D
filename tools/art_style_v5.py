@@ -119,9 +119,8 @@ def character_sheet(asset_id, region):
             d.polygon([(ox+11,oy+21),(ox+21,oy+21),(ox+24,oy+33),
                        (ox+9,oy+33)],fill=tunic)
             d.line((ox+12,oy+23,ox+11,oy+31),fill=_shade(tunic,.25),width=2)
-            _dot(d,ox+10,oy+31,14,3,_shade(tunic,-.20)) if False else None
-            d.rectangle((ox+11,oy+31,ox+21,oy+33),fill=_shade(tunic,-.24))
-            _dot(d,ox+15,oy+31,3,3,accent)
+                        d.rectangle((ox+11,oy+31,ox+21,oy+33),fill=_shade(tunic,-.24))
+            _dot(d,ox+15,oy+31,accent,3,3)
             for sx,offset in ((8,arm_shift),(23,-arm_shift)):
                 d.line((ox+sx,oy+24,ox+sx+offset,oy+33),fill=_shade(tunic,-.12),width=4)
                 d.line((ox+sx+offset,oy+32,ox+sx+offset,oy+36),fill=skin,width=3)
@@ -132,17 +131,17 @@ def character_sheet(asset_id, region):
             if direction==2: # walking north, back of head/collar
                 d.polygon([(ox+9,oy+12),(ox+11,oy+6),(ox+21,oy+6),
                            (ox+24,oy+18),(ox+21,oy+22),(ox+11,oy+21)],fill=hair)
-                _dot(d,ox+12,oy+20,8,3,_shade(cloak,.14))
+                _dot(d,ox+12,oy+20,_shade(cloak,.14),8,3)
             else:
                 d.polygon([(ox+10,oy+14),(ox+9,oy+9),(ox+13,oy+5),
                            (ox+21,oy+7),(ox+23,oy+14),(ox+18,oy+11)],fill=hair)
                 if direction==0: # frontal
-                    for xx in (13,20): _dot(d,ox+xx,oy+17,1,2,_shade(c,-.65))
-                    _dot(d,ox+16,oy+21,2,1,_shade(skin,-.33))
-                elif direction==1: _dot(d,ox+11,oy+17,2,2,_shade(c,-.65))
-                elif direction==3: _dot(d,ox+21,oy+17,2,2,_shade(c,-.65))
+                    for xx in (13,20): _dot(d,ox+xx,oy+17,_shade(c,-.65),1,2)
+                    _dot(d,ox+16,oy+21,_shade(skin,-.33),2,1)
+                elif direction==1: _dot(d,ox+11,oy+17,_shade(c,-.65),2,2)
+                elif direction==3: _dot(d,ox+21,oy+17,_shade(c,-.65),2,2)
             # Matching region costume detail, independent for each identity.
-            _dot(d,ox+15,oy+25,2,3,trim)
+            _dot(d,ox+15,oy+25,trim,2,3)
             if _seed(asset_id)%3==0:
                 d.line((ox+21,oy+24,ox+23,oy+30),fill=accent,width=2)
     return out

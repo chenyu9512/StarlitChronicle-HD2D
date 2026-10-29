@@ -6,7 +6,7 @@
 - 现行高清2D程序化绘制依赖：`art_style_v8.py → art_style_v7.py → art_style_v6.py`。V5 已退役；V7/V6 仍是**实际依赖**，禁止按文件名误删。
 - `tools/global_art_ai_provider_v3.py` 生成模型任务/候选美术，不会自动替代正式资产；`tools/hd2d_production_gate_v6.py` 管理模型画质检查与候选入库。
 - 一键正式安装：`python tools/install_global_factory_v3.py --project . --no-prune`（不清理历史候选）或移除 `--no-prune` 使用带引用判断的旧资源清理。正式切换须核对校验、贴图与场景绑定。
-- 其他独立输出：`generate_content_icons_v1.py`（图标）、`generate_boss_motion_v1.py`（Boss动作图集）、`generate_shore_waves_v1.py`（海浪）、`animate_coast_monsters.py`（旧海岸怪物动画）、`export_hd2d_svg.py`（SVG栅格化）、`compile_art_atlas_v2.gd`（辅助图集）、`bake_hd2d_normal_maps.gd`（受光法线）。这些职责与主生成器不同，不是可互换的重复脚本。
+- 其他独立输出：`generate_content_icons_v1.py`（图标）、`generate_boss_motion_v1.py`（Boss动作图集）、`generate_shore_waves_v1.py`（海浪）、`compile_art_atlas_v2.gd`（辅助图集）、`bake_hd2d_normal_maps.gd`（受光法线）。这些职责与主生成器不同，不是可互换的重复脚本。废弃的 SVG 导出/海岸动画脚本、第三方素材清仓程序、旧源迁移 QA 和历史 V2 重复统计已退役；全面资产清点统一由 `tools/audit_generated_only_art_v1.py` 负责。
 
 ## 现有产出数量和规格
 

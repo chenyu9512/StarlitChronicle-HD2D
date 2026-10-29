@@ -1,6 +1,13 @@
 name: Main2 HD2D V9 Full Identity Factory / Atomic Switch
 on:
-  # Manual candidate generation only. Automatic regressions are in main2-art-generator-check.yml.
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "tools/hd2d_studio_v9.py"
+      - "tools/hd2d_studio_v8.py"
+      - "tools/hd2d_studio_v7.py"
+      - "tools/test_hd2d_studio_v9.py"
+      - ".github/workflows/main2-hd2d-studio-v9.yml"
   workflow_dispatch:
 permissions:
   contents: write

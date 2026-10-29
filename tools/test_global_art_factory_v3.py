@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from PIL import Image
-from global_art_factory_v3 import SCOPES, produce, plans, verify
+from global_art_factory_v3 import SCOPES, produce, tasks as plans, verify
 
 class ArtFactoryTests(unittest.TestCase):
     def setUp(self):

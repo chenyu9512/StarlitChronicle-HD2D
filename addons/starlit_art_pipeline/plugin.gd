@@ -17,6 +17,7 @@ var _theme_picker: OptionButton
 var _ai_scope: OptionButton
 var _ai_limit: SpinBox
 var _ai_quality: OptionButton
+var _ai_reference: LineEdit
 var _ai_pid: int = -1
 
 func _enter_tree() -> void:
@@ -107,6 +108,12 @@ func _enter_tree() -> void:
     _ai_quality.select(0)
     settings_row.add_child(_ai_quality)
     _controls.add_child(settings_row)
+    var reference_label := Label.new()
+    reference_label.text = "身份参考原画目录（可留空；分类/资产ID.png）"
+    _controls.add_child(reference_label)
+    _ai_reference = LineEdit.new()
+    _ai_reference.placeholder_text = "如 res://assets/art/reference_masters"
+    _controls.add_child(_ai_reference)
     _add_button("⑥ 按所选范围生成高画质PNG（需要API密钥）", _render_model_art)
     _add_button("刷新高画质生成结果", _check_model_art)
     _add_button("运行游戏检查替换效果", _play_game)
@@ -352,6 +359,11 @@ func _render_model_art() -> void:
     var args := PackedStringArray([script_path, "--project", project_path,
         "--render", "--scope", scope, "--limit", str(int(_ai_limit.value)),
         "--quality", quality])
+    var reference_path: String = _ai_reference.text.strip_edges()
+    if not reference_path.is_empty():
+        if reference_path.begins_with("res://"):
+            reference_path = ProjectSettings.globalize_path(reference_path)
+        args.append_array(PackedStringArray(["--reference-root", reference_path]))
     _ai_pid = OS.create_process("python", args)
     if _ai_pid <= 0:
         _ai_pid = OS.create_process("py", PackedStringArray(["-3"] + Array(args)))

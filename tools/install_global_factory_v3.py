@@ -60,6 +60,18 @@ def install(root: Path, *, prune: bool = True) -> dict:
         ensure_within(root, target)
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
+        normal_rel = item.get("normal_map_path")
+        if normal_rel:
+            normal_source = temporary / normal_rel
+            normal_dest = out / normal_rel
+            ensure_within(root, normal_dest)
+            normal_dest.parent.mkdir(parents=True, exist_ok=True)
+            if not normal_source.is_file():
+                raise RuntimeError("Missing generated normal map: " + normal_rel)
+            shutil.copy2(normal_source, normal_dest)
+            digest = hashlib.sha256(normal_dest.read_bytes()).hexdigest()
+            if digest != item["normal_map_sha256"]:
+                raise RuntimeError("Normal map SHA mismatch: " + normal_rel)
 
     # World tiles are NOT ordered like raw candidate sheets: preserve gameplay
     # 0/1 TileSet source IDs and rows 0..7 with correct visual semantics.
@@ -90,10 +102,14 @@ def install(root: Path, *, prune: bool = True) -> dict:
         "visual_acceptance": "not_tested",
         "asset_count": len(expected),
         "counts": report["counts"],
+        "renderer": "4.2.0",
+        "normal_map_count": sum(bool(a.get("normal_map_path")) for a in expected),
         "assets": {item["group"] + "." + item["id"]: {
             "path": "res://" + (RUNTIME_REL / item["path"]).as_posix(),
             "sha256": item["sha256"],
-            "provenance": item["provenance"]}
+            "provenance": item["provenance"],
+            "normal_map_path": ("res://" + (RUNTIME_REL / item["normal_map_path"]).as_posix()
+                                if item.get("normal_map_path") else None)}
             for item in expected},
     }
     (out / "active.json").write_text(
@@ -149,6 +165,7 @@ def install(root: Path, *, prune: bool = True) -> dict:
         "schema": "starlit.global_factory.install.v3",
         "status": "runtime_assets_installed",
         "generated_assets": len(expected),
+        "generated_normal_maps": sum(bool(a.get("normal_map_path")) for a in expected),
         "new_content_icons": content_icons_report["icons"],
         "new_boss_action_sheets": boss_motion_report["bosses"],
         "new_shore_wave_sheets": shore_wave_report["sheets"],

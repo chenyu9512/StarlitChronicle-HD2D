@@ -1,0 +1,245 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_city_03",
+  "building_id": "house",
+  "name": "群灯居民街·居民住宅",
+  "status": "b_independent_room_physical_layout_awaiting_visual_signoff",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        20,
+        16,
+        52,
+        37
+      ]
+    },
+    {
+      "rect": [
+        20,
+        11,
+        34,
+        26
+      ]
+    },
+    {
+      "rect": [
+        38,
+        13,
+        53,
+        29
+      ]
+    },
+    {
+      "rect": [
+        29,
+        27,
+        41,
+        39
+      ]
+    },
+    {
+      "rect": [
+        18,
+        25,
+        24,
+        30
+      ]
+    },
+    {
+      "rect": [
+        46,
+        12,
+        53,
+        20
+      ]
+    },
+    {
+      "rect": [
+        30,
+        11,
+        42,
+        14
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        32,
+        12,
+        32,
+        17
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        42,
+        13,
+        42,
+        17
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        30,
+        36,
+        39
+      ]
+    }
+  ],
+  "points": {
+    "spawn": [
+      35,
+      33
+    ],
+    "exit": [
+      35,
+      37
+    ],
+    "service": [
+      25,
+      22
+    ],
+    "storage": [
+      47,
+      22
+    ]
+  },
+  "features": [
+    {
+      "kind": "fish_stall",
+      "cell": [
+        25,
+        22
+      ],
+      "name": "群灯居民街·家常餐桌"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        25,
+        16
+      ],
+      "name": "群灯居民街·家中衣箱"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        46,
+        17
+      ],
+      "name": "群灯居民街·灶边储物"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "name": "群灯居民街·家庭灯"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        27,
+        29
+      ],
+      "name": "群灯居民街·留言纸笺"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        46,
+        29
+      ],
+      "name": "群灯居民街·生活箱"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        30,
+        25
+      ],
+      "name": "群灯居民街·家书"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        43,
+        27
+      ],
+      "name": "群灯居民街·窗边花束"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      25,
+      16
+    ],
+    [
+      46,
+      17
+    ],
+    [
+      27,
+      29
+    ],
+    [
+      46,
+      29
+    ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_b_map_city_03_house_1",
+      "cell": [
+        29,
+        23
+      ],
+      "kind": "crate",
+      "name": "群灯居民街·日常线索",
+      "first_text": "群灯居民街的居民住宅里保留着当地居民的生活记录。",
+      "repeat_text": "记录仍存放在原处。",
+      "after_text": "这里的文字与陈设得到妥善保管。",
+      "owner_absent_text": "仅阅读公开内容，不移动私人财物。",
+      "owner_present_text": "征得允许后阅读公开记录。",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_b_map_city_03_house_2",
+      "cell": [
+        43,
+        25
+      ],
+      "kind": "sign",
+      "name": "群灯居民街·公开记事",
+      "first_text": "群灯居民街的居民住宅里保留着当地居民的生活记录。",
+      "repeat_text": "记录仍存放在原处。",
+      "after_text": "这里的文字与陈设得到妥善保管。",
+      "owner_absent_text": "仅阅读公开内容，不移动私人财物。",
+      "owner_present_text": "征得允许后阅读公开记录。",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    }
+  ],
+  "art_profile": "",
+  "visuals": [],
+  "light_sources": [],
+  "region_design": "群灯居民街 · metropolis",
+  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。",
+  "interior_owner_id": "",
+  "interaction_status": "no_reward_interactive_room"
+}

@@ -75,6 +75,7 @@ def main() -> int:
     active_file = ROOT / "assets/art/runtime/global_factory_v3/active.json"
     generated_actual = {p for p in actual if p.startswith(generated_root)}
     generated_declared: set[str] = set()
+    normal_declared: set[str] = set()
     live: dict = {}
     if not active_file.is_file():
         errors.append("Live factory active.json is absent")
@@ -82,11 +83,33 @@ def main() -> int:
         live = json.loads(active_file.read_text(encoding="utf-8"))
         if live.get("schema") != "starlit.global_factory.live.v3" or not live.get("enabled", False):
             errors.append("Global Factory V3 is not active")
-        for asset in live.get("assets", {}).values():
+        for slot, asset in live.get("assets", {}).items():
             path = asset.get("path", "")
             generated_declared.add(path)
             if path not in actual:
                 errors.append("Generated manifest image missing: " + path)
+            normal = asset.get("normal_map_path")
+            if normal:
+                group, dot, asset_id = slot.partition(".")
+                expected = generated_root + "normal_maps/" + group + "/" + asset_id + "_n.png"
+                if not dot or normal != expected:
+                    errors.append("Wrong generated normal map binding: " + slot)
+                normal_declared.add(normal)
+                if normal not in actual:
+                    errors.append("Generated normal map not tracked: " + normal)
+                local = file_path(normal)
+                diffuse = file_path(path)
+                if local is None or diffuse is None or not local.is_file() or not diffuse.is_file():
+                    errors.append("Generated normal map or diffuse image absent: " + slot)
+                else:
+                    checksum = hashlib.sha256(local.read_bytes()).hexdigest()
+                    if checksum != asset.get("normal_map_sha256"):
+                        errors.append("Generated normal map SHA mismatch: " + slot)
+                    nh = local.read_bytes()[:24]
+                    dh = diffuse.read_bytes()[:24]
+                    if not (nh.startswith(b"\\x89PNG\\r\\n\\x1a\\n") and
+                            dh.startswith(b"\\x89PNG\\r\\n\\x1a\\n") and nh[16:24] == dh[16:24]):
+                        errors.append("Generated normal map dimensions differ: " + slot)
         if live.get("asset_count") != len(generated_declared):
             errors.append("Generated manifest count does not match its assets")
     expected_terrain = {
@@ -95,7 +118,7 @@ def main() -> int:
     }
     for path in sorted(expected_terrain - actual):
         errors.append("Generated regional atlas missing: " + path)
-    unexpected_generated = generated_actual - generated_declared - expected_terrain
+    unexpected_generated = generated_actual - generated_declared - expected_terrain - normal_declared
     for path in sorted(unexpected_generated):
         errors.append("Generated image not covered by factory contract: " + path)
 
@@ -216,6 +239,7 @@ def main() -> int:
         "source_candidate_pool_count":len(index.get("source_candidate_pool",{})),
         "factory_images": len(generated_actual),
         "factory_manifest_images": len(generated_declared),
+        "factory_normal_maps": len(normal_declared),
         "factory_terrain_images": len(expected_terrain & actual),
         "indexed_generated_images": len(declared_index),
         "registry_images": len(entries),

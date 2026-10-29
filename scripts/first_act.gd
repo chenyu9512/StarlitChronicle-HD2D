@@ -250,6 +250,18 @@ func _process(delta: float) -> void:
         world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
 
 func _unhandled_input(event: InputEvent) -> void:
+    # Mouse selection is constrained by the SAME real player-range resolver as
+    # keyboard interaction; clicking distant markers never teleports or triggers.
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not busy:
+        var target_id: String = world.nearest_interaction()
+        if target_id != "none" and world.nodes.has(target_id):
+            var target_node: Node2D = world.nodes[target_id]
+            if is_instance_valid(target_node) and target_node.visible:
+                var screen_position: Vector2 = target_node.get_global_transform_with_canvas() * Vector2.ZERO
+                if event.position.distance_to(screen_position) <= 42.0:
+                    world.interact()
+                    get_viewport().set_input_as_handled()
+                    return
     if event is InputEventKey and event.pressed and not event.echo:
         if event.keycode in [KEY_TAB, KEY_P] or (event.keycode == KEY_ESCAPE and atlas.is_open()):
             if atlas.is_open():

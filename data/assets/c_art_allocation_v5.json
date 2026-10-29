@@ -3,7 +3,7 @@
   "date": "2026-10-27",
   "policy": "Canonical runtime IDs remain unchanged. Candidate sources are references until mapped by DLC or explicit C scene bindings.",
   "stages": {
-    "source": "assets/art/source_packs/ (production originals, 853 files; .gdignore excludes from Godot imports/exports)",
+    "source": "",
     "candidate": "assets/art/candidates/manifest.json (749 source PNG references, editor/runtime ignored)",
     "runtime": "assets/art/runtime/manifest.json (101 prioritized paths; canonical IDs remain under existing asset folders)",
     "dlc": "data/assets/c_art_packs.json (28 explicit mappings) and user://c_art_packs/installed.json (user DLC)"
@@ -53,7 +53,7 @@
     },
     {
       "role": "ui_icons",
-      "canonical": "assets/art/external/cc0_named_v1/ui",
+      "canonical": "",
       "primary": "existing C-designed RPG HUD and icons",
       "candidate": "CC0 UI/icons",
       "binding": "replace after layout-safe asset dimensions only"
@@ -153,13 +153,13 @@
     },
     {
       "area": "rpg_ui",
-      "resource": "res://assets/art/external/cc0_named_v1/ui/",
+      "resource": "",
       "decision": "runtime_first",
       "reason": "use existing atlas-safe UI/icons; static theme assets can be mapped through existing catalog slots"
     },
     {
       "area": "source_and_candidate",
-      "resource": "res://assets/art/source_packs/ and res://assets/art/candidates/",
+      "resource": "",
       "decision": "editor_only",
       "reason": "Godot .gdignore; requires conscious promotion into a runtime ID or external DLC before being loadable in game"
     }

@@ -15,10 +15,10 @@ import re
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
-from art_style_v7 import (terrain_cell, character_sheet, draw_prop,
+from art_style_v8 import (terrain_cell, character_sheet, draw_prop,
                           enemy_sheet, landscape, normal_map, write_auxiliary_svgs)
 
-VERSION = "4.1.0"
+VERSION = "4.2.0"
 NORMAL_GROUPS = frozenset(("terrain", "interiors", "props", "characters", "npcs", "monsters", "bosses"))
 SCOPES = ("terrain", "maps", "interiors", "props", "characters", "npcs", "monsters", "bosses", "ui")
 SIZES = {"terrain": (256,256), "maps": (1152,648), "interiors": (256,256),

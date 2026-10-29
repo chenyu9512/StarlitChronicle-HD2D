@@ -3,7 +3,8 @@ const Geography=preload("res://scripts/world_geography.gd")
 const Dressing=preload("res://scripts/c_act01_hd2d_dressing.gd")
 const World=preload("res://scripts/first_act_world.gd")
 const Coastal=preload("res://scripts/world_coastal_scene.gd")
-const ROOT: String="res://assets/art/runtime/act01_hd2d_v18/materials/"
+const MATERIALS: String="res://data/assets/c_act01_hd2d_v18.json"
+const GENERATED_ROOT: String="res://assets/art/runtime/generated_gaps_v10/"
 var issues: Array[String]=[]
 
 func verify(ok: bool,message: String) -> void:
@@ -114,8 +115,17 @@ func _run() -> void:
             "Cherry tree was reintroduced in canonical oak plaza")
     verify(oak_found,"Dew Village great oak not actually placed in game")
     village.free()
+    # Authoritative V18 material bindings now point at hashed V10 atlases.
+    # Check exact role and real 256x256 Godot imports, not purged V18 paths.
+    var manifest: Variant=JSON.parse_string(FileAccess.get_file_as_string(MATERIALS))
+    verify(manifest is Dictionary,"V18 material manifest unavailable")
+    var materials: Dictionary=manifest.get("materials",{}) if manifest is Dictionary else {}
     for mat in ["beach-sand","town-grass","cliff-rock","cobbles","planks","marsh","harbor-ground","water-sea","water-shallow","water-foam","water-brine"]:
-        verify(ResourceLoader.exists(ROOT+mat+".png"),"missing runtime material "+mat)
+        var expected: String=GENERATED_ROOT+"material__coast__"+mat.replace("-","_")+".png"
+        var source: String=str(materials.get(mat,""))
+        var tex: Texture2D=load(source) as Texture2D if source==expected and ResourceLoader.exists(source) else null
+        verify(source==expected and tex!=null and tex.get_size()==Vector2(256,256),
+            "missing, wrong-role, or unusable live V10 material "+mat)
     var stage=Coastal.new()
     root.add_child(stage)
     stage.configure("map_coast_01",geo.layout("map_coast_01",1))

@@ -85,7 +85,7 @@ func _enter_tree() -> void:
     model_tip.text = "程序绘制仅供占位。高画质需要显式选择模型生成；\n不会自动覆盖正式游戏资源。"
     model_tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     _controls.add_child(model_tip)
-    _add_button("④ 程序占位素材（离线，低保真）", _generate_global_art_v3)
+    _add_button("④ V4程序候选+法线贴图+SVG（离线）", _generate_global_art_v3)
     _add_button("⑤ 全游戏高画质生成任务清单（不调用API）", _export_model_briefs)
     var settings_row := HBoxContainer.new()
     _ai_scope = OptionButton.new()

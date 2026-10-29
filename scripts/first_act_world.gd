@@ -993,10 +993,20 @@ func _build_sites() -> void:
         _label_interior_exit(nodes["interior_exit"])
         nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
         nodes["interior_storage"] = _add_sprite("barrel",markers.get("storage",Vector2i(45,19)),false,true)
-        if not str(terrain_layout.get("art_profile","")).is_empty():
-            # Keep node visible for input and minimap; custom counter/art
-            # replaces its old beacon/barrel pictogram at the same anchor.
+        # An authored furniture prop at a service/storage tile already
+        # depicts the counter or cabinet. Keep the event node (and minimap
+        # marker) but never draw an extra beacon/barrel on top of the prop.
+        var authored_service: bool = false
+        var authored_storage: bool = false
+        for physical_prop in terrain_layout.get("features",[]):
+            if physical_prop.get("cell",Vector2i(-1,-1)) == markers.get("service",Vector2i(-2,-2)):
+                authored_service = true
+            if physical_prop.get("cell",Vector2i(-1,-1)) == markers.get("storage",Vector2i(-2,-2)):
+                authored_storage = true
+        var artist_furnished: bool = not str(terrain_layout.get("art_profile","")).is_empty()
+        if artist_furnished or authored_service:
             nodes["interior_service"].modulate.a = 0.0
+        if artist_furnished or authored_storage:
             nodes["interior_storage"].modulate.a = 0.0
         # V4 authored investigations become physical, selectable room objects.
         # Preserve original V4 IDs and never invent an interaction over a wall.

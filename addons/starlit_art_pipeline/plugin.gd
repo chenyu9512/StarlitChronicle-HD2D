@@ -73,6 +73,7 @@ func _enter_tree() -> void:
     _add_button("切换到所选主题", _activate_selected)
     _add_button("撤销上次切换", _undo)
     _add_button("退出完整主题，恢复原有美术", _restore_original)
+    _add_button("④ 批量生成全游戏美术候选资产 V3", _generate_global_art_v3)
     _add_button("运行游戏检查替换效果", _play_game)
 
     var warning := Label.new()
@@ -271,6 +272,21 @@ func _undo() -> void:
 func _restore_original() -> void:
     if _switch_to("original"):
         _status.text = "已退出V2完整主题，恢复之前的个人覆盖及兼容美术规则。\n不会删除DLC、源图或存档；请重新运行游戏检查。"
+
+func _generate_global_art_v3() -> void:
+    # Editor-only production stage; never replaces any live textures.
+    var script_path: String = ProjectSettings.globalize_path("res://tools/global_art_factory_v3.py")
+    var project_path: String = ProjectSettings.globalize_path("res://")
+    var arguments := PackedStringArray([script_path, "--project", project_path])
+    var output: Array = []
+    var status: int = OS.execute("python", arguments, output, true)
+    if status != 0:
+        output.clear()
+        status = OS.execute("py", PackedStringArray(["-3", script_path, "--project", project_path]), output, true)
+    if status == 0:
+        _status.text = "全局候选美术生成完成：res://build/starlit_global_art_factory_v3/candidate_manifest.json\n" + "\n".join(output)
+    else:
+        _status.text = "美术生成器执行失败（退出码 %d）。请确认已安装Python与Pillow。\n" % status + "\n".join(output)
 
 func _play_game() -> void:
     _status.text = "启动当前项目主场景以检查已激活主题。\n仅实际运行和截图能证明画面已替换。"

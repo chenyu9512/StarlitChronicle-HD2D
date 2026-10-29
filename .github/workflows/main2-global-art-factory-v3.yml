@@ -1,0 +1,63 @@
+name: Main2 Global Art Factory V3
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "tools/global_art_factory_v3.py"
+      - "tools/test_global_art_factory_v3.py"
+      - "tools/generate_art.py"
+      - "addons/starlit_art_pipeline/plugin.gd"
+      - ".github/workflows/main2-global-art-factory-v3.yml"
+  workflow_dispatch:
+jobs:
+  full-game-art-factory:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools
+            data/content
+            data/assets
+            data/levels/v4/interiors
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Unit regression coverage
+        run: python tools/test_global_art_factory_v3.py
+      - name: Produce all canonical art candidates
+        run: python tools/generate_art.py --project . --force
+      - name: Validate full canonical registry coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('build/starlit_global_art_factory_v3')
+          data=json.loads((root/'candidate_manifest.json').read_text())
+          counts=data['counts']
+          assert not data['errors'], data['errors'][:10]
+          assert counts['maps']==42, counts
+          assert counts['interiors']==99, counts
+          assert counts['bosses']==66, counts
+          assert counts['characters']==12, counts
+          assert counts['npcs']==35, counts
+          assert counts['monsters']==63, counts
+          assert sum(counts.values())==len(data['assets'])
+          assert not data['game_runtime_modified']
+          for item in data['assets']:
+              assert (root/item['path']).is_file(), item['path']
+          print('FULL GAME CANDIDATE COVERAGE:', counts, 'TOTAL', len(data['assets']))
+          PY
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: starlit-global-art-factory-v3-manifests
+          path: |
+            build/starlit_global_art_factory_v3/candidate_manifest.json
+            build/starlit_global_art_factory_v3/candidate_index.json
+          if-no-files-found: warn

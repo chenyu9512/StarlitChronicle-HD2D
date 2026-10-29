@@ -181,8 +181,6 @@ jobs:
       - name: Headless main scene smoke test
         run: ./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 20
 
-      - name: Main2 migrated art physical-source integrity (not commercial visual acceptance)
-        run: python tools/qa_main2_migrated_art_integrity.py
-        # Release-level visual QA stays separately BLOCKED by
-        # tools/qa_hd2d_refinement.py until all 55 original visual contracts
-        # are fulfilled by semantically matched third-party originals.
+      - name: Generated-only image checksum and runtime registry acceptance
+        run: python tools/audit_generated_only_art_v1.py --project .
+        # Human art sign-off remains separate from binary integrity checks.

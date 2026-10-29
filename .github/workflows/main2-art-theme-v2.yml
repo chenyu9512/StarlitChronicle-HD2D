@@ -14,17 +14,13 @@ jobs:
           python-version: "3.12"
       - name: Verify semantically named runtime sources and exact file headers
         run: python3 tools/validate_art_theme_v2.py --json
-      - name: Inventory latest tracked files
-        run: python3 tools/build_art_inventory_v2.py
-      - name: Report coverage without claiming visual QA
-        run: python3 tools/report_art_coverage_v2.py
+      - name: Audit generated image count, hashes, and orphaned image paths
+        run: python3 tools/audit_generated_only_art_v1.py --project . --report build/art-theme-v2/inventory.json
       - name: Reject random atlas reassembly
         run: python3 tools/validate_nonrandom_atlas_v2.py
-      - name: Verify legacy gallery tests using actual Main2 migration references
+      - name: Verify current runtime image registry and theme
         run: |
-          python3 tools/validate_c_art_curation.py
-          python3 tools/validate_c_art_management.py
-          python3 tools/validate_c_art_pipeline_v5.py
+          python3 tools/check_c_art_runtime_registry.py
           python3 tools/qa_hd2d_refinement.py
       - name: Install Godot 4.7.2
         shell: bash

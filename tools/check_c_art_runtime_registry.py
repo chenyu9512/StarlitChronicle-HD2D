@@ -150,6 +150,24 @@ def main() -> int:
         if source not in actual:
             errors.append(label + " references missing image: " + str(source))
 
+    motion_map = index.get("boss_motion_sources", {})
+    if len(motion_map) != 66:
+        errors.append("66 canonical boss motion routes are missing")
+    for name, source in motion_map.items():
+        must_exist("boss animation " + str(name), source)
+        local = file_path(source)
+        if local is not None and local.is_file():
+            header = local.read_bytes()[:24]
+            if not header.startswith(b"\x89PNG\r\n\x1a\n") or struct.unpack(">II",header[16:24]) != (512,768):
+                errors.append("Wrong 4x6 boss action sprite sheet: " + str(name))
+    source_only = index.get("source_candidate_pool", {})
+    unresolved = {path for path,row in entries.items() if not row.get("registered",False)}
+    if set(source_only) != unresolved:
+        errors.append("Unregistered real source files not exhaustively catalogued")
+    for path, item in source_only.items():
+        must_exist("source-only art " + path, path)
+        if item.get("in_game_binding") != "not_approved":
+            errors.append("Unapproved source masquerades as live art: " + path)
     for name, source in index.get("scene_detail_sources", {}).items():
         must_exist("scene detail " + str(name), source)
     for slot, entry in index.get("canonical_slots", {}).items():
@@ -189,6 +207,8 @@ def main() -> int:
     report = {
         "schema": "starlit.a_line.static_audit.v1",
         "tracked_images": len(actual),
+        "boss_motion_sheet_count": len(index.get("boss_motion_sources",{})),
+        "source_candidate_pool_count":len(index.get("source_candidate_pool",{})),
         "factory_images": len(generated_actual),
         "factory_manifest_images": len(generated_declared),
         "factory_terrain_images": len(expected_terrain & actual),

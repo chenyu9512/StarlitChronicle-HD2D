@@ -2,6 +2,7 @@ extends Control
 ## Independent visual actors for multi-enemy formations. No changes to combat data.
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CMonsterMotion = preload("res://scripts/c_coast_monster_motion.gd")
+const BossMotion = preload("res://scripts/c_boss_action_atlas_v1.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const FRAME_SIZE: int = 128
 const FRAME_COUNT: int = 4
@@ -46,6 +47,17 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
             sprite.texture = ArtOverrides.texture(art_path)
         var atlas: AtlasTexture
         var action_sheets: Dictionary = {}
+        var boss_motion: bool = false
+        if boss:
+            var canonical_id: String = str(enemy.get("boss_id","boss.ch%03d" % chapter))
+            var boss_atlas: Texture2D = BossMotion.texture(canonical_id)
+            if boss_atlas != null:
+                atlas = AtlasTexture.new()
+                atlas.atlas = boss_atlas
+                atlas.region = BossMotion.region("idle",0)
+                sprite.texture = atlas
+                boss_motion = true
+                sprite.set_meta("boss_motion_id",BossMotion.sheet_id(canonical_id))
         var art: String = str(enemy.get("art",""))
         if not boss and not art.is_empty():
             action_sheets = CMonsterMotion.sheets(art)
@@ -66,7 +78,8 @@ func configure(units: Array, chapter: int, boss: bool = false) -> void:
         add_child(sprite)
         slots[index] = {"node":sprite,"footing":footing,"atlas":atlas,"base":Vector2.ZERO,
             "hit":0.0,"attack":0.0,"dying":0.0,"dead":false,"frame":0,"phase":0.17*float(index),"action_sheets":action_sheets,
-            "motion_species":"" if boss else art}
+            "motion_species":"" if boss else art,"boss_motion":boss_motion,
+            "status_duration":0.0,"phase_duration":0.0}
     _layout()
 
 func _layout() -> void:
@@ -114,6 +127,19 @@ func attack(index: int) -> void:
     entry["attack"] = 0.27
     slots[index] = entry
 
+## Presentation-only cues; combat logic and Boss HP/phase authority stay external.
+func status_visual(index: int) -> void:
+    if slots.has(index) and bool(slots[index].get("boss_motion",false)):
+        var entry: Dictionary = slots[index]
+        entry["status_duration"] = 0.34
+        slots[index] = entry
+
+func phase_shift(index: int) -> void:
+    if slots.has(index) and bool(slots[index].get("boss_motion",false)):
+        var entry: Dictionary = slots[index]
+        entry["phase_duration"] = 0.64
+        slots[index] = entry
+
 func hit(index: int, defeated: bool = false) -> void:
     if not slots.has(index):
         return
@@ -144,13 +170,49 @@ func _process(delta: float) -> void:
             continue
         entry["hit"] = maxf(0.0,float(entry["hit"])-dt)
         entry["attack"] = maxf(0.0,float(entry["attack"])-dt)
+        entry["status_duration"] = maxf(0.0,float(entry.get("status_duration",0.0))-dt)
+        entry["phase_duration"] = maxf(0.0,float(entry.get("phase_duration",0.0))-dt)
         if float(entry["dying"]) > 0.0:
             entry["dying"] = maxf(0.0,float(entry["dying"])-dt)
             if float(entry["dying"]) <= 0.0:
                 entry["dead"] = true
         var atlas: AtlasTexture = entry["atlas"]
         var action_sheets: Dictionary = entry.get("action_sheets", {})
-        if atlas != null and not action_sheets.is_empty():
+        if atlas != null and bool(entry.get("boss_motion",false)):
+            var boss_pose: String = "idle"
+            var timer: float = 0.0
+            var total: float = 0.0
+            if bool(entry["dead"]) or float(entry["dying"]) > 0.0:
+                boss_pose = "down"
+                timer = float(entry["dying"])
+                total = 0.48
+            elif float(entry["hit"]) > 0.0:
+                boss_pose = "hit"
+                timer = float(entry["hit"])
+                total = 0.23
+            elif float(entry["attack"]) > 0.0:
+                boss_pose = "attack"
+                timer = float(entry["attack"])
+                total = 0.27
+            elif float(entry["phase_duration"]) > 0.0:
+                boss_pose = "phase_change"
+                timer = float(entry["phase_duration"])
+                total = 0.64
+            elif float(entry["status_duration"]) > 0.0:
+                boss_pose = "status"
+                timer = float(entry["status_duration"])
+                total = 0.34
+            var boss_frame: int = 0
+            if bool(entry["dead"]):
+                boss_frame = 3
+            elif boss_pose == "idle":
+                boss_frame = 0 if reduced_motion else int((elapsed+float(entry["phase"]))/FRAME_INTERVAL)%4
+            elif not reduced_motion and total>0.0:
+                boss_frame = clampi(floori((1.0-timer/total)*4.0),0,3)
+            atlas.region = BossMotion.region(boss_pose,boss_frame)
+            entry["frame"] = boss_frame
+            entry["boss_visual_pose"] = boss_pose
+        elif atlas != null and not action_sheets.is_empty():
             var pose: String = "idle"
             var duration: float = 0.0
             var remaining: float = 0.0

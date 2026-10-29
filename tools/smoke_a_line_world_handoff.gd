@@ -29,9 +29,20 @@ class MockWorld:
     var ambience: Node
     var walls: Dictionary = {}
     var reveals: int = 0
+    var restrict_connected_floor: bool = false
+    var connected_cells: Dictionary = {}
 
     func _blocked(position: Vector2) -> bool:
         return walls.has(Vector2i(floori(position.x/32.0),floori(position.y/32.0)))
+
+    func _walkable_tiles() -> Dictionary:
+        var floor_tiles: Dictionary = {}
+        for yy in range(1,HEIGHT-1):
+            for xx in range(1,WIDTH-1):
+                var tile := Vector2i(xx,yy)
+                if not walls.has(tile) and (not restrict_connected_floor or connected_cells.has(tile)):
+                    floor_tiles[tile] = true
+        return floor_tiles
 
     func _reveal_nearby() -> void:
         reveals+=1
@@ -111,6 +122,25 @@ func _run() -> void:
     check(world.encounter_meter<=-Handoff.WIN_GRACE_PIXELS,"victory grace distance missing")
     check(world.locked,"handoff incorrectly unlocked controller input")
     check(not bool(transaction.restore(world).get("ok",true)),"duplicate restore accepted")
+    # Visible ground is not automatically connected ground. A battle must
+    # never resume onto an isolated cosmetic tile while the live world has
+    # a valid path-connected safe tile nearby.
+    var island := mock()
+    island.restrict_connected_floor = true
+    island.connected_cells[Vector2i(13,23)] = true
+    island.terrain_layout["spawn"] = Vector2i(10,23)
+    var island_handoff := Handoff.new()
+    check(bool(island_handoff.begin(island,"boss",context(island)).get("ok",false)),
+        "connected-floor handoff begin failed")
+    check(bool(island_handoff.mark_result(false).get("ok",false)),
+        "connected-floor defeat result missing")
+    var island_result: Dictionary = island_handoff.restore(island)
+    check(bool(island_result.get("ok",false)),
+        "connected-floor recovery was blocked despite a nearby real path")
+    check(Vector2i(floori(island.hero.position.x/32.0),floori(island.hero.position.y/32.0))==Vector2i(13,23),
+        "recovery chose a collision-free but disconnected floor")
+    check(island.companion.position.distance_to(island.hero.position)<60.0,
+        "connected-floor relocation stranded a follower")
     var no_room := Handoff.new()
     var bad_world := mock()
     bad_world.map_profile["settlement"]=true

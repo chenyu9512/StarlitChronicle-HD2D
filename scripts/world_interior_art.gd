@@ -159,18 +159,23 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
     var active_act01_room: bool = profile_id in ["coast_act01_shelter_v1","coast_act01_tavern_v1"]
     var black_sail_room: bool = profile_id == "coast_act01_tavern_v1"
     var shelter_room: bool = profile_id == "coast_act01_shelter_v1"
-    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1" and not active_act01_room:
+    var regional_room: bool = profile_id == "regional_functional_v1"
+    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1" and not active_act01_room and not regional_room:
         return
     if active_act01_room:
         # Stage-specific color temperature accompanies *real* imported
         # furniture/tiles, without altering floor occupancy or save IDs.
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
-    if profile_id=="quest_research_v1":
+    if profile_id=="quest_research_v1" or regional_room:
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
     var chosen_atlas: String=str(layout.get("art_tileset",""))
-    if not chosen_atlas.is_empty() and ArtOverrides.exists(chosen_atlas):
+    if regional_room:
+        # Do not borrow the coastal inn wall material for distant regions.
+        # The existing A-line regional TilePool chooses the actual floor atlas.
+        theme_atlas = ""
+    elif not chosen_atlas.is_empty() and ArtOverrides.exists(chosen_atlas):
         theme_atlas=chosen_atlas
     name = "InteriorArt"
     if not is_instance_valid(soundscape):
@@ -226,6 +231,15 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
             actual_prop = GlobalArt.texture_for_prop(art_id)
             if actual_prop == null:
                 actual_prop = SemanticArt.texture_for_prop(art_id)
+        elif regional_room:
+            # A line owns the replacement system. A user-selected semantic
+            # furniture slot wins; otherwise use the existing identifiable
+            # generated 2D source, never a role-mismatched migrated SVG.
+            actual_prop = ThemeV2.texture("interior.regional."+art_id)
+            if actual_prop == null and ArtOverrides.has_override(path):
+                actual_prop = ArtOverrides.texture(path)
+            if actual_prop == null:
+                actual_prop = GeneratedFurniture.texture(art_id)
         if place.size()!=2:
             continue
         if active_act01_room:
@@ -236,8 +250,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
             continue
         var prop := Sprite2D.new()
         prop.name = str(record.get("id",art_id))
-        prop.texture = actual_prop if active_act01_room else RuntimeArt.texture_path(path)
-        if prop.texture == null and not active_act01_room:
+        prop.texture = actual_prop if active_act01_room or regional_room else RuntimeArt.texture_path(path)
+        if prop.texture == null and not active_act01_room and not regional_room:
             # V4 rooms previously depended on removed coastal-district SVGs.
             # Use identifiable generated 2D furniture rather than silently
             # omitting the service desk, bed, shelves or decorative objects.
@@ -272,7 +286,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         # Runtime V14 room PNGs are high-resolution standalone objects.
         # Without proportional downscaling they span 10-20 floor cells and
         # completely conceal doors, beds and the playable protagonist.
-        if active_act01_room:
+        if active_act01_room or regional_room:
             var footprint: Vector2=Vector2(60.0,68.0)
             match art_id:
                 "fish_stall":
@@ -287,7 +301,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                     footprint=Vector2(46.0,58.0)
                 "star_lantern":
                     footprint=Vector2(38.0,57.0)
-            if active_act01_room:
+            if active_act01_room or regional_room:
                 var authored_footprint: Array = record.get("footprint",[])
                 if authored_footprint.size()==2:
                     footprint=Vector2(float(authored_footprint[0]),float(authored_footprint[1]))
@@ -303,7 +317,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                 if child is Sprite2D:
                     child.scale/=maxf(0.001,ratio)
                     child.position/=maxf(0.001,ratio)
-        prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if black_sail_room else (CanvasItem.TEXTURE_FILTER_LINEAR if active_act01_room else CanvasItem.TEXTURE_FILTER_NEAREST)
+        prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if black_sail_room or regional_room else (CanvasItem.TEXTURE_FILTER_LINEAR if active_act01_room else CanvasItem.TEXTURE_FILTER_NEAREST)
         # Y-sort uses the *floor contact point*, not the image offset. The
         # player and furniture must share z=3 so tables can hide/cover legs.
         prop.position = Vector2(float(place[0])*TILE+16.0,float(place[1])*TILE+16.0)
@@ -316,6 +330,13 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                 prop.offset=Vector2(float(visual_offset[0])/ratio,
                     -float(prop.texture.get_height())*0.5+10.0/ratio+
                     float(visual_offset[1])/ratio)
+            elif regional_room:
+                # Align each approved/generated furnishing by its footpoint
+                # (the lower quarter of its own image) at the 32px map cell.
+                # Unlike the old giant-sheet fallback, scaling cannot move
+                # a table into an adjacent hallway or conceal the exit.
+                prop.offset=Vector2(float(visual_offset[0]),
+                    -float(prop.texture.get_height())*0.36+float(visual_offset[1]))
             else:
                 prop.offset=Vector2(float(visual_offset[0]),float(visual_offset[1]))
         var artwork_layer: String = str(record.get("layer",""))

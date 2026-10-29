@@ -109,3 +109,16 @@
 - [原美术成功run 40886321749](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40886321749)：16项Godot美术专项通过仅对`e9a377b3`有效，不能将成功挪用到随后的Boss动画或地图改造提交。
 
 未签收：第一幕真实无作弊六章全通、全部Boss战斗和奖励账本、玩家逐地图/室内人工验收、发行包在目标机实际操作与全游戏商业美术质量。下一批持续按**最新同SHA失败日志 → 正式运行代码 → 同SHA Godot验证 → 玩家画面**修复。
+
+
+## Batch 0｜第五、六章真实现场检查续修
+
+**对照结果**：[旧统一CI run 40888258183](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40888258183) 在`4b7a76ba1284`提交记录 **54 / 56**，只剩`smoke_first_act_flow.gd`和`smoke_act01_six_chapters_normal.gd`；两者已完成第1–4章，停在第5章鲸骨浅滩，不能开启合法分支与Boss。
+
+本批线上整改：
+
+- `tools/smoke_first_act_flow.gd`（`4c8a3661768`）和`tools/smoke_act01_six_chapters_normal.gd`（`a177eecd126`）在第5章按实际`shoal:red_flag`→`shoal:star_chain`→`shoal:retreat_line`的顺序通过`world.interact()`提交现场调查，并在每次交互后核对`Act01ShoalRuntime.snapshot(progress)`；只有`fully_observed(progress)`真实成立才继续主线。
+- 同两份脚本在第6章通过`wick:breakwater_wick`→`wick:keeper_wick`→`wick:summit_wick`实景节点，逐一核对`Act01LighthouseRuntime.snapshot(progress)`。四份见证与重燃必须由后续真实Boss战斗指令完成，**不预写任何胜利/任务旗标**。
+- `.github/workflows/main2-ci.yml`（`6187d9f296df`）纳入两份第一幕冒烟脚本和两份海岸材质/布局冒烟脚本的push触发路径，修复此前仅改脚本却不自动重跑正式统一门禁的遗漏。
+
+[新统一CI run 40890222792](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/40890222792) 已在`6187d9f296df`提交触发；**记录此条时仍在执行，不能标记成功**。即使日后全部静态/自动化用例通过，脚本通过靠地图标记位置驱动`world.interact()`，并非真实人类从出生点步行操作；全地图无作弊手柄导航、画面审美、性能及发行仍需要独立签收。

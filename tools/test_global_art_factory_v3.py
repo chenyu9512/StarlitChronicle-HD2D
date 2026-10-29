@@ -6,7 +6,8 @@ import unittest
 from pathlib import Path
 from PIL import Image
 from global_art_factory_v3 import SCOPES, produce, tasks as plans, verify
-from global_art_ai_provider_v3 import build_jobs, fit
+from global_art_ai_provider_v3 import (build_jobs, fit, quality_metrics, fingerprint,
+                                      SOURCE_SIZES, PIPELINE_REV)
 
 class ArtFactoryTests(unittest.TestCase):
     def setUp(self):
@@ -109,6 +110,64 @@ class ArtFactoryTests(unittest.TestCase):
         self.assertEqual(output.size,(96,192))
         self.assertEqual(output.getpixel((0,0))[3],0)
         self.assertEqual(output.getpixel((40,80))[3],255)
+
+    def test_model_render_specs_follow_asset_layout(self):
+        jobs=build_jobs(self.root,set(SCOPES))
+        self.assertTrue(PIPELINE_REV.startswith("quality-v4"))
+        self.assertEqual(len(jobs),397)
+        for job in jobs:
+            self.assertEqual(job["source_size"],SOURCE_SIZES[job["group"]])
+            self.assertIn("high-quality art",job["prompt"])
+        self.assertEqual(next(j for j in jobs if j["group"]=="characters")["source_size"],
+                         "1024x2048")
+        self.assertEqual(next(j for j in jobs if j["group"]=="bosses")["frame_grid"],[1,4])
+
+    def test_render_cache_fingerprint_tracks_prompt_model_quality(self):
+        job=build_jobs(self.root,{"bosses"},limit=1)[0]
+        old=fingerprint(job,"gpt-image-2.5-sunburst","xhigh")
+        self.assertNotEqual(old,fingerprint(job,"gpt-image-2.5-sunburst","max"))
+        self.assertNotEqual(old,fingerprint(job,"gpt-image-2.5-flare","xhigh"))
+        modified={**job,"prompt":job["prompt"]+" unique markings"}
+        self.assertNotEqual(old,fingerprint(modified,"gpt-image-2.5-sunburst","xhigh"))
+
+    def test_quality_gate_rejects_opaque_sprites_and_flat_images(self):
+        opaque=Image.new("RGBA",(96,192),(45,120,190,255))
+        with self.assertRaisesRegex(ValueError,"MISSING_TRUE_TRANSPARENT"):
+            quality_metrics(opaque,"characters")
+        blank=Image.new("RGBA",(1152,648),(15,16,17,255))
+        with self.assertRaisesRegex(ValueError,"LOW_DETAIL"):
+            quality_metrics(blank,"maps")
+
+    def test_quality_gate_rejects_empty_animation_cell(self):
+        from PIL import ImageDraw
+        sprite=Image.new("RGBA",(96,192),(0,0,0,0))
+        d=ImageDraw.Draw(sprite)
+        for row in range(4):
+            for col in range(3):
+                if (row,col)==(3,2):
+                    continue
+                x,y=col*32,row*48
+                d.rectangle((x+6,y+9,x+25,y+40),
+                            fill=(25+row*40,60+col*65,180-row*20,255))
+        with self.assertRaisesRegex(ValueError,"EMPTY_SHEET_CELL_3_2"):
+            quality_metrics(sprite,"characters")
+
+    def test_model_sheet_cropping_preserves_cells_and_alpha(self):
+        import io
+        from PIL import ImageDraw
+        master=Image.new("RGBA",(1536,512),(0,0,0,0))
+        d=ImageDraw.Draw(master)
+        palette=[(240,50,50,255),(50,220,50,255),(50,50,240,255),(230,200,50,255)]
+        for i,color in enumerate(palette):
+            d.rectangle((i*384+20,90,(i+1)*384-21,421),fill=color)
+        raw=io.BytesIO()
+        master.save(raw,format="PNG")
+        fitted=fit(raw.getvalue(),(512,128),True,"bosses")
+        self.assertEqual(fitted.size,(512,128))
+        self.assertEqual(fitted.getpixel((0,0))[3],0)
+        for i,color in enumerate(palette):
+            found=fitted.getpixel((i*128+64,64))
+            self.assertEqual(found,color)
 
     def test_invalid_canonical_id_is_rejected(self):
         src=self.root/"data/content/maps.json"

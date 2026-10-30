@@ -1,0 +1,123 @@
+name: "Main2 · Shelter HD2D Round-2 Real Frame Comparison"
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - ".github/workflows/shelter-hd2d-round2.yml"
+      - "data/levels/v4/interiors/map_coast_02__shelter.json"
+      - "scripts/world_interior_art.gd"
+      - "scripts/world_interior_v4.gd"
+      - "assets/art/interiors/shelter_hd2d/**"
+      - "tools/capture_shelter_visual_round2.gd"
+      - "tools/validate_act01_shelter_care_zones.py"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare-live-shelter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    env:
+      BASELINE_SHA: "0a28b2ca6ec0137a6e6ce59ed47ef3f597235c03"
+    steps:
+      - name: Check out the actual candidate game
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Godot 4.7.2 and real software graphics display
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xauth libgl1-mesa-dri python3-pil >/dev/null
+          curl -fL --retry 3 -o /tmp/shelter-godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q /tmp/shelter-godot.zip -d /tmp
+          chmod +x /tmp/Godot_v4.7.2-stable_linux.x86_64
+      - name: Validate unaltered collisions, room identities and real materials
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/validate_act01_shelter_care_zones.py
+          mkdir -p build/shelter-r2/before build/shelter-r2/after build/shelter-r2/comparison
+      - name: Create pinned BEFORE scene from the original Main2 art HEAD
+        shell: bash
+        run: |
+          set -euo pipefail
+          git cat-file -e "$BASELINE_SHA^{commit}"
+          git worktree add --detach /tmp/starlit-shelter-before "$BASELINE_SHA"
+          # Only the reproducible camera fixture is copied across revisions:
+          # no new renderer, scene, art or physics file enters the baseline.
+          cp tools/capture_shelter_visual_round2.gd /tmp/starlit-shelter-before/tools/
+      - name: Render genuine BEFORE (Godot viewport, unchanged source revision)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/starlit-shelter-before
+          timeout 210s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit > "$GITHUB_WORKSPACE/build/shelter-r2/before_import.log" 2>&1
+          SHELTER_CAPTURE_OUT="$GITHUB_WORKSPACE/build/shelter-r2/before" timeout 140s xvfb-run -a -s "-screen 0 1280x720x24" /tmp/Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_shelter_visual_round2.gd > "$GITHUB_WORKSPACE/build/shelter-r2/before_capture.log" 2>&1
+          tail -n 25 "$GITHUB_WORKSPACE/build/shelter-r2/before_capture.log"
+      - name: Import and smoke-test the AFTER room actually used in-game
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 210s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --quit > build/shelter-r2/after_import.log 2>&1
+          if grep -E 'SCRIPT ERROR:|ERROR: Failed to load script' build/shelter-r2/after_import.log; then exit 1; fi
+          timeout 110s /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/smoke_main2_act01_harbor_rooms_visual.gd > build/shelter-r2/after_smoke.log 2>&1
+          tail -n 25 build/shelter-r2/after_smoke.log
+      - name: Render genuine AFTER with identical camera and clock
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHELTER_CAPTURE_OUT="$GITHUB_WORKSPACE/build/shelter-r2/after" timeout 140s xvfb-run -a -s "-screen 0 1280x720x24" /tmp/Godot_v4.7.2-stable_linux.x86_64 --path . --rendering-method gl_compatibility --script res://tools/capture_shelter_visual_round2.gd > build/shelter-r2/after_capture.log 2>&1
+          tail -n 25 build/shelter-r2/after_capture.log
+      - name: Produce same-angle real screenshot comparison and measurable differences
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageChops,ImageStat,ImageDraw,ImageEnhance
+          base=Path('build/shelter-r2')
+          old,new,output=base/'before',base/'after',base/'comparison'
+          labels=['day_overview','day_west_ward','day_triage','day_east_recovery','night_triage']
+          report={'baseline_sha':os.environ['BASELINE_SHA'],'candidate_sha':os.environ['GITHUB_SHA'],
+                  'render_type':'Godot 4.7.2 software GL, actual world and camera',
+                  'camera_fixture':'tools/capture_shelter_visual_round2.gd',
+                  'manual_art_approved':False,'frames':[]}
+          for label in labels:
+              p,q=old/(label+'.png'),new/(label+'.png')
+              assert p.is_file() and q.is_file(),(p,q)
+              with Image.open(p) as bef,Image.open(q) as aft:
+                  a,b=bef.convert('RGB'),aft.convert('RGB')
+                  assert a.size==b.size==(1280,720),(label,a.size,b.size)
+                  difference=ImageChops.difference(a,b)
+                  mean=ImageStat.Stat(difference).mean
+                  change=sum(mean)/3.0
+                  assert max(ImageStat.Stat(a).stddev)>4
+                  assert max(ImageStat.Stat(b).stddev)>4
+                  half_a=a.resize((640,360))
+                  half_b=b.resize((640,360))
+                  sheet=Image.new('RGB',(1280,390),(28,32,39))
+                  sheet.paste(half_a,(0,30));sheet.paste(half_b,(640,30))
+                  ImageDraw.Draw(sheet).text((12,8),'BEFORE | original branch scene',fill='white')
+                  ImageDraw.Draw(sheet).text((652,8),'AFTER | floor zones and bed privacy',fill='white')
+                  sheet.save(output/(label+'_before_after.png'))
+                  ImageEnhance.Contrast(difference).enhance(3.2).save(output/(label+'_pixel_diff.png'))
+                  report['frames'].append({'name':label,'mean_abs_rgb_diff_0_255':round(change,3),
+                      'before_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+                      'after_sha256':hashlib.sha256(q.read_bytes()).hexdigest(),
+                      'pixels_modified':change>0.1})
+          assert all(row['pixels_modified'] for row in report['frames']), 'No visible changes in some actual screenshots'
+          (output/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'baseline':report['baseline_sha'],'candidate':report['candidate_sha'],
+                            'diffs':[(r['name'],r['mean_abs_rgb_diff_0_255']) for r in report['frames']]},indent=2))
+          PY
+      - name: Upload BEFORE, AFTER, side-by-side, difference images and full smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shelter-hd2d-round2-godot-comparison
+          path: build/shelter-r2/
+          retention-days: 14
+          if-no-files-found: warn

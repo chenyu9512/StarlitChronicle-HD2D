@@ -64,6 +64,10 @@ var slot_service
 var housing
 var book_panel: PanelContainer
 var navigation_buttons: Dictionary = {}
+var section_buttons: Dictionary = {}
+var group_scroller: ScrollContainer
+var tab_scroller: ScrollContainer
+var content_scroller: ScrollContainer
 
 func _ready() -> void:
     layer = 46
@@ -96,7 +100,8 @@ func _ready() -> void:
     title.add_theme_color_override("font_color",CVisual.GOLD)
     headline.add_child(title)
     _button(headline,"退出",func() -> void: close_menu())
-    var group_strip := ScrollContainer.new()
+    group_scroller = ScrollContainer.new()
+    var group_strip: ScrollContainer = group_scroller
     group_strip.custom_minimum_size.y = 49
     group_strip.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
     group_strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -108,7 +113,8 @@ func _ready() -> void:
         var group_id: String = str(key)
         navigation_buttons[group_id] = _button(groups,"◆ " + group_id,
             func() -> void: _select_group(group_id),14)
-    var tab_scroll := ScrollContainer.new()
+    tab_scroller = ScrollContainer.new()
+    var tab_scroll: ScrollContainer = tab_scroller
     tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
     tab_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
     tab_scroll.custom_minimum_size.y = 52
@@ -117,7 +123,8 @@ func _ready() -> void:
     section_tabs.add_theme_constant_override("separation",7)
     tab_scroll.add_child(section_tabs)
     _select_group(active_group)
-    var scroller := ScrollContainer.new()
+    content_scroller = ScrollContainer.new()
+    var scroller: ScrollContainer = content_scroller
     scroller.size_flags_vertical = Control.SIZE_EXPAND_FILL
     body.add_child(scroller)
     content = VBoxContainer.new()
@@ -138,7 +145,7 @@ func _button(where: Node, caption: String, callback: Callable, size: int = 17) -
     b.text = caption
     b.icon = CArtNavigationIcons.icon_for(caption)
     b.expand_icon = false
-    b.custom_minimum_size.y = 43
+    b.custom_minimum_size.y = 48 if OS.has_feature("mobile") or DisplayServer.is_touchscreen_available() else 43
     b.add_theme_font_size_override("font_size",size)
     CVisual.style_button(b)
     b.focus_mode = Control.FOCUS_ALL
@@ -149,7 +156,7 @@ func _button(where: Node, caption: String, callback: Callable, size: int = 17) -
 func _icon_button(where: Node, caption: String, id: String, callback: Callable, size: int = 17) -> void:
     var button := Button.new()
     button.text = caption
-    button.custom_minimum_size.y = 43
+    button.custom_minimum_size.y = 48 if OS.has_feature("mobile") or DisplayServer.is_touchscreen_available() else 43
     button.add_theme_font_size_override("font_size", size)
     button.icon = CArtItemIcons.texture_for(id)
     button.expand_icon = false
@@ -171,9 +178,10 @@ func _select_group(group_id: String) -> void:
     for existing in section_tabs.get_children():
         section_tabs.remove_child(existing)
         existing.queue_free()
+    section_buttons.clear()
     for entry in NAV_GROUPS[group_id]:
         var section: String = str(entry)
-        _button(section_tabs,section,func() -> void: render(section),15)
+        section_buttons[section] = _button(section_tabs,section,func() -> void: render(section),15)
     if manager != null and save_state != null:
         render(str(NAV_GROUPS[group_id][0]))
 
@@ -192,12 +200,21 @@ func _reflow_menu() -> void:
         return
     var dims: Vector2 = get_viewport().get_visible_rect().size
     var compact: bool = dims.x < 1024.0 or dims.y < 610.0
-    book_panel.anchor_left = 0.02 if compact else 0.055
-    book_panel.anchor_right = 0.98 if compact else 0.945
-    book_panel.anchor_top = 0.015 if compact else 0.035
-    book_panel.anchor_bottom = 0.985 if compact else 0.965
-    title.add_theme_font_size_override("font_size",21 if compact else 26)
-    footer.add_theme_font_size_override("font_size",14 if compact else 16)
+    var touch: bool = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
+    book_panel.anchor_left = (0.045 if touch else 0.02) if compact else 0.055
+    book_panel.anchor_right = (0.955 if touch else 0.98) if compact else 0.945
+    book_panel.anchor_top = 0.025 if compact else 0.035
+    book_panel.anchor_bottom = 0.975 if compact else 0.965
+    title.add_theme_font_size_override("font_size",18 if compact else 24)
+    footer.add_theme_font_size_override("font_size",12 if compact else 15)
+    group_scroller.custom_minimum_size.y = 43.0 if compact else 49.0
+    tab_scroller.custom_minimum_size.y = 44.0 if compact else 52.0
+    for action in navigation_buttons.values():
+        if action is Button:
+            action.custom_minimum_size.y = 43.0 if compact else 48.0
+    for action in section_buttons.values():
+        if action is Button:
+            action.custom_minimum_size.y = 43.0 if compact else 48.0
 
 func show_menu(core, state) -> void:
     manager = core
@@ -306,6 +323,14 @@ func render(section: String) -> void:
         return
     current = section
     title.text = "✦ 星灯纪行 · " + active_group + " / " + section
+    # A visible tab selection and consistent scroll reset make 20 sections
+    # navigable without losing the user's place in the category selector.
+    for name in section_buttons:
+        var tab: Button = section_buttons[name]
+        tab.add_theme_stylebox_override("normal",CVisual.surface(name == current))
+        tab.add_theme_color_override("font_color",CVisual.PAPER if name == current else CVisual.MUTED)
+    if content_scroller != null:
+        content_scroller.scroll_vertical = 0
     for child in content.get_children():
         content.remove_child(child)
         child.queue_free()

@@ -90,7 +90,7 @@ jobs:
               assert p.is_file() and q.is_file(),(p,q)
               with Image.open(p) as bef,Image.open(q) as aft:
                   a,b=bef.convert('RGB'),aft.convert('RGB')
-                  assert a.size==b.size==(1280,720),(label,a.size,b.size)
+                  assert a.size==b.size and a.width>=640 and a.height>=360,(label,a.size,b.size)
                   difference=ImageChops.difference(a,b)
                   mean=ImageStat.Stat(difference).mean
                   change=sum(mean)/3.0

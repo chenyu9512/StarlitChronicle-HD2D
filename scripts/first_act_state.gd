@@ -39,10 +39,29 @@ func new_game() -> void:
     ]
 
 func recruit_sailor() -> void:
+    # Never re-level a recruited character, especially when restoring a
+    # pre-balance V3 save in which the sailor originally joined at Lv.8.
     for member in actors:
         if str(member.get("id", "")) == "char_seeker":
             return
-    actors.append({"id": "char_seeker", "name": "朔弦", "level": 8, "xp": 0, "hp": 136, "max_hp": 136, "mp": 35, "max_mp": 35, "attack": 30, "defense": 15, "speed": 16, "skill": "破雾击"})
+    # An incoming ally should not overtake the whole party simply because
+    # the old first-act data used a hard-coded level of eight.
+    var level_sum: int = 0
+    var core_members: int = 0
+    for member in actors:
+        if str(member.get("id", "")) in ["char_wayfarer", "char_tidecaller"]:
+            level_sum += maxi(1, int(member.get("level", 1)))
+            core_members += 1
+    var join_level: int = clampi(roundi(float(level_sum) / float(maxi(1, core_members))), 1, level_cap)
+    # Level-five authored baseline; use the same per-level stat increments
+    # as give_rewards(), so both lower-level and high-level parties work.
+    var offset: int = join_level - 5
+    var hp: int = maxi(1, 136 + offset * 15)
+    var mp: int = maxi(1, 35 + offset * 6)
+    actors.append({"id": "char_seeker", "name": "朔弦", "level": join_level, "xp": 0,
+        "hp": hp, "max_hp": hp, "mp": mp, "max_mp": mp,
+        "attack": maxi(1, 30 + offset * 4), "defense": maxi(0, 15 + offset * 2),
+        "speed": 16, "skill": "破雾击"})
 
 func heal_all() -> void:
     for i in range(actors.size()):

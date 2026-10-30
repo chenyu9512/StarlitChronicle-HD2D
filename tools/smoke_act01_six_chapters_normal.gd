@@ -188,6 +188,16 @@ func _run() -> void:
                 button.pressed.emit()
                 if game.pending == "choice_reaction":
                     _dialog()
+        if chapter >= 5:
+            var sailor_level: int = -1
+            var starter_levels: Array[int] = []
+            for ally in game.progress.actors:
+                if str(ally.get("id","")) == "char_seeker":
+                    sailor_level = int(ally.get("level",0))
+                elif str(ally.get("id","")) in ["char_wayfarer","char_tidecaller"]:
+                    starter_levels.append(int(ally.get("level",0)))
+            if sailor_level < 1 or starter_levels.size()!=2 or absi(sailor_level-starter_levels[0]) > 2 or absi(sailor_level-starter_levels[1]) > 2:
+                failures.append("Chapter %d sailor level %d is unbalanced against the starting party: %s" % [chapter,sailor_level,str(starter_levels)])
         if chapter > 1:
             if chapter in [2,3] and game.battle == null and game.progress.task_index == 1:
                 if not game._save_progress() or not game.progress.load_saved():

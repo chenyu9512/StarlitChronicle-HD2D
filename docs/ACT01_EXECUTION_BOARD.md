@@ -199,3 +199,9 @@
 
 - [首次真实视觉 CI run 41043768677](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41043768677) 完成 Godot 导入和全部海岸图集实景 smoke 后，在截图脚本解析处失败：Godot 4.7.2 的 `PackedByteArray` 不支持 `sha256_buffer()`。
 - 本次仅把字体字节哈希改为 Godot 正式支持的 `HashingContext.HASH_SHA256` 及 `start/update/finish`；仍严格对比实际 FontFile 与原始 Noto OTF 哈希、字形/真实控件，不能使用系统字体代替。重跑截图 CI 后再对新证据做判断。
+
+### 2026-10-30 Batch 03 / 六章字体一致性截图与实际画面复审完成
+
+- 提交 `a077735001ebcf35794d70a8fc4e6c6569be558d` 的 [实际美术 QA Run 41044081702](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41044081702) **成功**；在正式 `FontSetup` 与 Noto CJK Source SHA256 核验下取得 26/26 张真实 Godot 截图，工件 `main2-art-runtime-evidence`。无系统 CJK 字体掩盖真实 UI，19字形及3 Control 绑定通过；当前不代表 iPhone 真机验收。
+- 真实查看最新 `chapter_01_house`、`chapter_02_shelter`、`chapter_04_tavern` 和六章外景截图后，更新 `docs/ACT01_VISUAL_ART_REVIEW_2026_10_28.md`：优先修第二章收容所的诊疗/登记/病床空间分区、第四章酒馆的吧台用餐调查区域，其次第一章旧屋生活家具/地图边缘，最后外景过渡及独特地标。此为有图证据的待办而非美术已修复。
+- 本次仅记录截图人工可见缺口和严格证据位置，不新增美术资产、图像或地图对象。以后实际改图须同批完成资产ID/manifest/正式场景接入/真实截图/Runtime，且人工签收单独进行。

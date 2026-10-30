@@ -237,6 +237,12 @@ func _run() -> void:
                 if int(member["hp"]) < int(member["max_hp"]) / 2 and game.progress.potions > 0:
                     herbs += 1
                     b._act("potion")
+                elif b.boss and b.chapter in [5,6] and b.story_progress_round == b.current_round:
+                    # The earned scene phase is on cooldown; guard through
+                    # the real enemy turn rather than pretending another
+                    # witness/lock can be completed by a second ally.
+                    guards += 1
+                    b._act("guard")
                 elif float(b.round_boss_intent.get("multiplier",1.0)) > 1.5:
                     guards += 1
                     b._act("guard")
@@ -258,6 +264,10 @@ func _run() -> void:
                 failures.append("Chapter %d Boss exceeded normal pacing envelope (%d rounds, %d commands)" % [chapter,last_round,count])
             if count == 0 or specials == 0:
                 failures.append("Chapter %d Boss ended without an earned player special action" % chapter)
+            if chapter in [5,6]:
+                var minimum_rounds: int = 6 if chapter == 5 else 4
+                if last_round < minimum_rounds or strikes < 2 or guards < 2:
+                    failures.append("Chapter %d bespoke Boss skipped meaningful phase pressure: %d rounds / %d enemy strikes / %d guards" % [chapter,last_round,strikes,guards])
             if int(game.progress.inventory.get("item_herb_01",0)) > opening_herbs:
                 failures.append("Chapter %d Boss unexpectedly created healing herbs" % chapter)
             var hp_after: int = 0

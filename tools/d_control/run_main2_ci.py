@@ -129,7 +129,7 @@ def run(cfg, godot, folder):
             if name not in seen:
                 seen.add(name)
                 rows.append(test(name, [sys.executable, name] + (["--strict"] if name == "tools/audit_art_pipeline_v3.py" else []), folder, 180))
-    imported = test("godot-import", [godot, "--headless", "--path", ".", "--editor", "--quit"], folder, 240)
+    imported = test("godot-import", [godot, "--headless", "--path", ".", "--editor", "--import", "--quit"], folder, 240)
     rows.append(imported)
     if imported["status"] == "PASS":
         for group in cfg["groups"]:

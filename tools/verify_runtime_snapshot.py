@@ -14,6 +14,7 @@ FORBIDDEN = (
 REQUIRED = (
     "project.godot", "scenes/first_act.tscn",
     "assets/fonts/chinese_system_font.tres", "scripts/font_setup.gd",
+    "assets/fonts/NotoSansCJKsc-Regular.otf", "assets/fonts/OFL-NotoSansCJK.txt",
     "shaders/hd2d_three_realms.gdshader",
     "data/assets/c_act01_global_distribution_v14.json",
     "data/assets/c_art_content_icons_v6.json",
@@ -83,6 +84,23 @@ def verify(root: Path) -> dict:
             errors.append("Conflicting image checksums: " + path)
         elif sha:
             sha256s[path] = sha
+
+    # The release snapshot is intentionally offline; a system-only .tres is
+    # not a substitute for an actual imported font in the player PCK.
+    bundled_font = files["assets/fonts/NotoSansCJKsc-Regular.otf"]
+    if bundled_font.stat().st_size < 10_000_000 or bundled_font.open("rb").read(4) != b"OTTO":
+        errors.append("Bundled OpenType CJK font is missing or corrupt")
+    if hashlib.sha256(bundled_font.read_bytes()).hexdigest() != "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b":
+        errors.append("Bundled OpenType CJK font checksum mismatch")
+    font_license = files["assets/fonts/OFL-NotoSansCJK.txt"].read_text(encoding="utf-8")
+    if "SIL OPEN FONT LICENSE" not in font_license:
+        errors.append("Redistributable CJK font license is missing")
+    project_config = files["project.godot"].read_text(encoding="utf-8")
+    if 'theme/custom_font="res://assets/fonts/NotoSansCJKsc-Regular.otf"' not in project_config:
+        errors.append("Default GUI font must use bundled NotoSansCJKsc-Regular.otf")
+    font_setup = files["scripts/font_setup.gd"].read_text(encoding="utf-8")
+    if 'preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")' not in font_setup:
+        errors.append("Canvas fallback font must use bundled NotoSansCJKsc-Regular.otf")
 
     if "[editor_plugins]" in files["project.godot"].read_text(encoding="utf-8"):
         errors.append("Development editor plugin enabled in player build")

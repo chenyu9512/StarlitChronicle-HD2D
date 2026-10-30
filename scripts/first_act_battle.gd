@@ -55,6 +55,10 @@ var party_order: Array[int] = []
 var turn_queue: Array[Dictionary] = []
 var turn_cursor: int = 0
 var last_enemy_action: String = ""
+# Battle-local telemetry: cannot award XP, alter V3 saves or affect AI.
+var enemy_strike_count: int = 0
+var enemy_damage_dealt: int = 0
+var enemy_guarded_strikes: int = 0
 var current_round: int = 1
 var phase_two: bool = false
 var chain_hp: int = 0
@@ -201,6 +205,9 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     win_locked = false
     last_warning_round = 0
     last_warning_text = ""
+    enemy_strike_count = 0
+    enemy_damage_dealt = 0
+    enemy_guarded_strikes = 0
     last_boss_settlement = ""
     last_world_handoff_result.clear()
     reward_transaction_id = ""
@@ -1306,6 +1313,10 @@ func _enemy_strike(attacker_index: int = -1) -> void:
         damage = combat_rules.vocation_mitigation(damage,defender_role,float(member.get("hp",0))/float(maxi(1,int(member.get("max_hp",1)))))
     if invincible:
         damage = 0
+    enemy_strike_count += 1
+    enemy_damage_dealt += damage
+    if defense.has(target):
+        enemy_guarded_strikes += 1
     member["hp"] = maxi(0, int(member["hp"]) - damage)
     game_state.actors[target] = member
     if is_instance_valid(actor_stage):

@@ -25,7 +25,8 @@ window/stretch/aspect="expand"
 window/handheld/orientation=4
 
 [gui]
-theme/custom_font="res://assets/fonts/chinese_system_font.tres"
+; Use the bundled OFL font; iOS system font lookup can produce blank text.
+theme/custom_font="res://assets/fonts/NotoSansCJKsc-Regular.otf"
 
 [rendering]
 ; Apple iOS export requires ETC2/ASTC imported. Without this, Godot 4.7

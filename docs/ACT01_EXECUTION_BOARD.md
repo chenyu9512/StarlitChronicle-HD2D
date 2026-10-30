@@ -92,3 +92,12 @@
 - **回滚与回归**：扩展真实 Godot V3 故障注入脚本，覆盖 0/7/15/30G、重复提交、失败存档回滚、使用同一回执重试及同 Boss 下一次独立战败；将已有 `tools/d_control/smoke_live_battle_v3_transaction.gd` 明确纳入统一 CI 的 systems 分组，验证全局战斗交易而不仅是表面六章剧情。
 - **画面素材**：本任务仅修改已有战斗结果文字及交易逻辑，不引入新的角色、场景、贴图或特效；现有 HUD 字体与战斗素材引用保持不变。以后新增战斗特效时仍需同步生成、登记、接入和截图验收。
 - **质量边界**：提交后仅同 SHA Godot+Runtime CI 通过才可标记本任务成功；人工五场 Boss 手感和真实 iPhone 验收仍另行执行。
+
+## 2026-10-30 Batch 02 / 第五、六章 Boss 目标提示与正式战斗 HUD（待同 SHA QA）
+
+- **当前问题**：`boss.ch005` 与 `boss.ch006` 的资料仍用“破防后取胜 / 拆卸技能直接攻击”等旧提示，而实际战斗规则要求第5章朔弦先吹双哨，分三次解除星锁；第6章凭三枚灯芯碎片，接续四位不同归航者的见证。
+- **数据**：更新 `data/gameplay/boss_mechanics.json` 内两位 Boss 的目标、开场提示、阶段描述和专属行动指导。不修改 `goal=legacy` 和 `settlement=legacy_story`：这是专属章节运行器所需的内部兼容标识，不能错误改为通用机制结算。
+- **游戏内实际接入**：在正式 `scripts/first_act_battle.gd` 的开场文本和战斗 HUD 显示这两场专属 Boss 的已登记目标与行动提示；不激活通用 `BattleBossMechanics` 第二胜利途径。保留原双哨、星锁、灯芯、见证的真实动作及存档回执。
+- **验证**：新增 `tools/smoke_act01_boss_objectives.gd`，使用真实 `EncounterRegistry`、`Battle`、`FirstActState` 和现有 HUD，检查第5/6章开场提示、实时 HUD 目标、专属行动按钮与星锁/共鸣进度，并断言通用胜利通路保持关闭。纳入统一 CI systems 分组。
+- **美术**：本批新增的是游戏内文本说明，复用现有 HUD、中文字体、角色和 Boss 动画贴图；**没有新增图片或视觉实体**，不生成重复素材。任何后续新图仍必须在同提交完成生成、资产注册、场景接线与真实截图验收。
+- **验收**：必须以本次新 SHA 的 Godot+Runtime CI 实际成功为准；人工五 Boss 战斗难度和 iPhone 实机画面仍需单独签收。

@@ -26,6 +26,8 @@ const SHELTER_PROPS: Dictionary = {
     "shelter_linen_cart": true, "shelter_treatment_tray": true,
     "medical_registration_counter": true, "treatment_bench": true,
 }
+const SHELTER_FLOOR_PATH: String = "res://assets/art/interiors/shelter_hd2d/shelter_care_floor_v2.svg"
+const SHELTER_SCREEN_PATH: String = "res://assets/art/interiors/shelter_hd2d/bedside_linen_screen_v2.svg"
 const SEMANTIC_ROOM_ICONS: Dictionary = {
     "medicine":"res://assets/art/runtime/generated_gaps_v10/ui__extra__medicine.png",
     "paper":"res://assets/art/runtime/generated_gaps_v10/ui__extra__paper.png",
@@ -53,6 +55,8 @@ func set_visual_quality(level: int) -> void:
         var lamp: PointLight2D = active_lights[index]
         lamp.visible = index < lamp_cap
         lamp.shadow_enabled = visual_quality == 2 and index < 2
+    if is_instance_valid(shelter_triage_glow):
+        shelter_triage_glow.visible = visual_quality >= 1
     set_process(visual_quality > 0)
 
 
@@ -96,6 +100,14 @@ var signature_nodes: Dictionary = {}
 var detail_layer: TileMapLayer
 var generated_floor_layer: TileMapLayer
 var generated_floor_count: int = 0
+# Purely visual V2 treatment zoning; never rewrites terrain, collisions or paths.
+var care_zone_floor_layer: TileMapLayer
+var care_zone_floor_count: int = 0
+var care_zone_floor_cells: Dictionary = {}
+var shelter_bed_screens: Dictionary = {}
+var shelter_bed_shadows: Dictionary = {}
+var shelter_triage_glow: PointLight2D
+var _shelter_shadow_cache: Texture2D
 var active_lights: Array[PointLight2D] = []
 var light_energy: Array[float] = []
 var color_grade: CanvasModulate
@@ -156,6 +168,9 @@ func set_clock(minutes: int) -> void:
         color_grade.color = room_night_tint if night else room_day_tint
     for lamp in active_lights:
         lamp.color = Color("fff0cd") if night else Color("ffe2b0")
+    if is_instance_valid(shelter_triage_glow):
+        shelter_triage_glow.color = Color("ffdb9e") if night else Color("fff0c9")
+        shelter_triage_glow.energy = 0.30 if night else 0.20
 
 func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
     var profile_id: String=str(layout.get("art_profile",""))
@@ -210,6 +225,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         add_child(presentation_fx)
     _build_wall_edging(layout, map_key, room_key)
     _install_v4_floor_details(layout, map_key, room_key)
+    if shelter_room:
+        _install_shelter_care_floor(layout)
     _install_dew_signature(stage, layout, map_key, room_key)
     for value in layout.get("visuals",[]):
         if not value is Dictionary:
@@ -370,6 +387,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         if art_id=="window_sunshafts":
             sun_shafts=prop
         prop_nodes[prop.name]=prop
+    if shelter_room:
+        _install_shelter_bed_dressing(stage, layout)
     if generated_v4 and prop_nodes.is_empty():
         _install_v4_role_fallback(stage,layout,room_key)
     _install_fire_animation(stage,layout)
@@ -393,6 +412,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         add_child(lamp)
         active_lights.append(lamp)
         light_energy.append(lamp.energy)
+    if shelter_room:
+        _install_shelter_triage_glow()
     set_clock(minutes)
     set_visual_quality(visual_quality)
 
@@ -573,6 +594,135 @@ func _install_v4_role_fallback(stage: Node2D, layout: Dictionary, room_id: Strin
 
 ## Every V4 room receives its OWN generated 8x8 material atlas in the
 ## actual map, not a standalone fullscreen mockup. Decoration has no collision.
+## Repeatable, hand-authored translucent 32px materials layered OVER the
+## existing real V3 room atlas. All samples are constrained to actual floor
+## tiles, not walls. Painting has no interaction or physics side effects.
+func _install_shelter_care_floor(layout: Dictionary) -> void:
+    if not ResourceLoader.exists(SHELTER_FLOOR_PATH):
+        push_warning("Shelter care-zone art missing: " + SHELTER_FLOOR_PATH)
+        return
+    var texture: Texture2D = load(SHELTER_FLOOR_PATH) as Texture2D
+    if texture == null or texture.get_size() != Vector2i(128,32):
+        push_warning("Shelter care-zone floor must be four 32px atlas swatches")
+        return
+    var atlas := TileSetAtlasSource.new()
+    atlas.texture = texture
+    atlas.texture_region_size = Vector2i(32,32)
+    for x in range(4):
+        atlas.create_tile(Vector2i(x,0))
+    var tileset := TileSet.new()
+    tileset.tile_size = Vector2i(TILE,TILE)
+    tileset.add_source(atlas,0)
+    care_zone_floor_layer = TileMapLayer.new()
+    care_zone_floor_layer.name = "ShelterCareZoneMaterials"
+    care_zone_floor_layer.tile_set = tileset
+    care_zone_floor_layer.z_index = -5
+    care_zone_floor_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    care_zone_floor_layer.set_meta("shelter_source_atlas", SHELTER_FLOOR_PATH)
+    add_child(care_zone_floor_layer)
+    var cells: Dictionary = layout.get("tiles", {})
+    var blocked: Dictionary = layout.get("blocked", {})
+    # Later authored zones override overlaps. This never fills the
+    # collision tiles or erases the original floor layout.
+    for raw in layout.get("floor_visual_zones", []):
+        if not raw is Dictionary:
+            continue
+        var rect: Array = raw.get("rect", [])
+        var col: int = int(raw.get("atlas_column",-1))
+        if rect.size() != 4 or col < 0 or col > 3:
+            continue
+        var name_id: String = str(raw.get("id", ""))
+        for y in range(int(rect[1]),int(rect[3])+1):
+            for x in range(int(rect[0]),int(rect[2])+1):
+                var cell := Vector2i(x,y)
+                if blocked.has(cell) or not cells.has(cell):
+                    continue
+                var base: Vector2i = cells[cell]
+                if base.y != 5:
+                    continue
+                care_zone_floor_layer.set_cell(cell,0,Vector2i(col,0))
+                care_zone_floor_cells[cell] = name_id
+    care_zone_floor_count = care_zone_floor_cells.size()
+
+
+## Recessed contact shadows stop beds appearing pasted onto the floor.
+## Linen privacy screens are positioned BEHIND the physical beds and player
+## so their tall upper halves never conceal interactive medical objects.
+func _shelter_contact_shadow() -> Texture2D:
+    if _shelter_shadow_cache != null:
+        return _shelter_shadow_cache
+    var image := Image.create(64,32,false,Image.FORMAT_RGBA8)
+    for y in range(32):
+        for x in range(64):
+            var dx: float = (float(x)-31.5)/31.5
+            var dy: float = (float(y)-15.5)/15.5
+            var distance: float = sqrt(dx*dx+dy*dy)
+            var alpha: float = 0.22*pow(clampf(1.0-distance,0.0,1.0),1.6)
+            image.set_pixel(x,y,Color(0.09,0.12,0.13,alpha))
+    _shelter_shadow_cache=ImageTexture.create_from_image(image)
+    return _shelter_shadow_cache
+
+
+func _install_shelter_bed_dressing(stage: Node2D, layout: Dictionary) -> void:
+    if not ResourceLoader.exists(SHELTER_SCREEN_PATH):
+        push_warning("Shelter bedside screen art missing: " + SHELTER_SCREEN_PATH)
+        return
+    var screen_texture: Texture2D = load(SHELTER_SCREEN_PATH) as Texture2D
+    if screen_texture == null or screen_texture.get_size() != Vector2i(96,80):
+        push_warning("Shelter bedside screen must be exactly 96x80")
+        return
+    var authored: Dictionary = layout.get("shelter_bed_dressing", {})
+    var bed_ids: Array = authored.get("bed_ids", [])
+    for item in layout.get("visuals", []):
+        if not item is Dictionary:
+            continue
+        var id: String = str(item.get("id", ""))
+        if id not in bed_ids or not prop_nodes.has(id):
+            continue
+        var pos: Array = item.get("cell", [])
+        if pos.size() != 2:
+            continue
+        var contact := Vector2(float(pos[0])*TILE+16.0,float(pos[1])*TILE+16.0)
+        var shadow := Sprite2D.new()
+        shadow.name = "BedContactShadow_" + id
+        shadow.texture = _shelter_contact_shadow()
+        shadow.position = contact + Vector2(0.0,7.0)
+        shadow.scale = Vector2(2.05,0.95)
+        shadow.z_index = 2
+        shadow.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+        shadow.set_meta("shelter_visual_only", true)
+        stage.add_child(shadow)
+        shelter_bed_shadows[id] = shadow
+        # Screens frame the outer wall side instead of obstructing the
+        # center aisle or creating a fake blocked walkable tile.
+        var side: float = 1.0 if id == "recovery_bed_east" else -1.0
+        var screen := Sprite2D.new()
+        screen.name = "RearLinenScreen_" + id
+        screen.texture = screen_texture
+        screen.position = contact + Vector2(78.0*side,-42.0)
+        screen.scale = Vector2(0.68,0.68)
+        screen.modulate.a = clampf(float(authored.get("screen_alpha",0.70)),0.25,0.80)
+        screen.z_index = 2
+        screen.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+        screen.set_meta("shelter_visual_only", true)
+        screen.set_meta("shelter_bed_id", id)
+        stage.add_child(screen)
+        shelter_bed_screens[id] = screen
+
+
+func _install_shelter_triage_glow() -> void:
+    # Subtle warm patient-care bounce against cooler slate triage flooring.
+    # Not appended to active_lights: the four authored physical lamps remain
+    # unchanged and the additional fill casts no gameplay/physics shadows.
+    shelter_triage_glow = PointLight2D.new()
+    shelter_triage_glow.name = "ShelterTriageSoftBounce"
+    shelter_triage_glow.texture = _soft_lamp_texture()
+    shelter_triage_glow.position = Vector2(39*TILE+16,26*TILE+16)
+    shelter_triage_glow.texture_scale = 1.75
+    shelter_triage_glow.shadow_enabled = false
+    add_child(shelter_triage_glow)
+
+
 func _install_v4_floor_details(layout: Dictionary, map_id: String, building_id: String) -> void:
     var source: String = Generated.interior_path(map_id,building_id)
     if source.is_empty():

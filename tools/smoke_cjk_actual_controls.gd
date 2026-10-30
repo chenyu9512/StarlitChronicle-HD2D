@@ -54,6 +54,9 @@ func _run() -> void:
         issues.append("Official title UI missing")
     else:
         foyer._reveal_menu()
+        var build_stamp: Label = foyer.get_node_or_null("BuildFontStatus") as Label
+        if build_stamp == null or build_stamp.text != "v0.6.1 (7)  |  CJK: OK":
+            issues.append("Incorrect iOS build/font status; expected v0.6.1 build 7 with CJK OK")
         _verify_actual_controls(foyer)
         # Test the actual richly formatted story and controls pages, too.
         foyer._set_page("controls")

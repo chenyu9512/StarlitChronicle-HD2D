@@ -1,0 +1,34 @@
+name: Floating Touch Stick - Godot 4.7.2 Smoke Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/first_act_ui.gd"
+      - "tools/tests/floating_stick_fixture.gd"
+      - "tools/smoke_floating_stick.gd"
+      - ".github/workflows/floating-stick-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  floating-stick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+      - name: Verify Godot version
+        run: godot --version
+      - name: Import project
+        run: godot --headless --path . --editor --import --quit
+      - name: Run floating stick regression tests
+        run: godot --headless --path . --script res://tools/smoke_floating_stick.gd

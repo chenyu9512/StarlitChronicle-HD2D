@@ -72,7 +72,7 @@ jobs:
           settings = root / "export_presets.cfg"
           preset = settings.read_text()
           assert 'export_filter="all_resources"' in preset
-          assert 'include_filter="*.json,*.csv,*.txt,*.otf"' in preset.split("[preset.0.options]")[0]
+          assert 'include_filter="*.json,*.csv,*.txt,*.otf,*.fontbytes"' in preset.split("[preset.0.options]")[0]
           fields = {
               "IOS_TEAM_ID": ("application/app_store_team_id", r"[A-Za-z0-9]{10}"),
               "IOS_BUNDLE_ID": ("application/bundle_identifier", r"[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+"),
@@ -95,6 +95,9 @@ jobs:
               env.write("SIGNED_READY="+str(signing_ready).lower()+"\n")
           print("Apple signing mode: " + ("provided provisioning" if signing_ready else "unsigned, requires external signing"))
           PY
+          # Generate the nonimported binary BEFORE Godot starts importing fonts.
+          # *.otf is importable: FileAccess(OTF) may work only in the editor.
+          python3 tools/prepare_export_font.py --project .
           python3 tools/ios_export_preflight.py --project .
 
       - name: Select Xcode 26 SDK required by Godot 4.7.2 iOS template
@@ -159,6 +162,11 @@ jobs:
           test -s build/ios/StarlitChronicle.xcodeproj/project.pbxproj
           find build/ios -type f -name '*.pck' -size +1M -print | tee build/ios/pck-files.txt
           test -s build/ios/pck-files.txt || { echo "Missing packaged Godot data.pck; cannot release incomplete game"; exit 1; }
+          # P0: prove the iOS PCK contains the exact font bytes, not merely
+          # a desktop editor resource or a script with a valid-looking path.
+          while IFS= read -r pck; do
+            python3 tools/verify_ipa_font_payload.py --pck "$pck"
+          done < build/ios/pck-files.txt
 
       - name: Compile full-content native iPhone app for arm64
         shell: bash
@@ -190,6 +198,7 @@ jobs:
           (cd build/unsigned && zip -qry ../../dist/StarlitChronicle-FullGame-unsigned.ipa Payload)
           unzip -t dist/StarlitChronicle-FullGame-unsigned.ipa >/dev/null
           test -s dist/StarlitChronicle-FullGame-unsigned.ipa
+          python3 tools/verify_ipa_font_payload.py --ipa dist/StarlitChronicle-FullGame-unsigned.ipa
           shasum -a 256 dist/StarlitChronicle-FullGame-unsigned.ipa > dist/SHA256SUMS.txt
 
       - name: Sign full-game IPA with supplied Apple developer certificate and profile
@@ -247,6 +256,7 @@ jobs:
           codesign --verify --deep --strict "$TARGET_APP"
           (cd build/signing && zip -qry ../../dist/StarlitChronicle-FullGame-signed.ipa Payload)
           unzip -t dist/StarlitChronicle-FullGame-signed.ipa >/dev/null
+          python3 tools/verify_ipa_font_payload.py --ipa dist/StarlitChronicle-FullGame-signed.ipa
           shasum -a 256 dist/StarlitChronicle-FullGame-signed.ipa >> dist/SHA256SUMS.txt
 
       - name: Upload actual IPA artifacts and build inventory

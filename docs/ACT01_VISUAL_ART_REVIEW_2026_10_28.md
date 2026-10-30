@@ -47,3 +47,11 @@
 | ART-VIS-05 | 本批全部26张与 `cjk-font-evidence-v1.json` | 真实截图已成功、核心字形可见；但 HUD 的字体存在与 iOS 设备一致性之外的布局/空间审美问题，尚未完成视觉评审 | 保留截图 hash、字体源证明和最新版截图链接；将真正游戏内字体/CJK 验证与 iPhone PCK、设备端字形分开签收 | `font_source_proved_art_unapproved` |
 
 **验收边界**：静态资源/字体证据通过不表示角色与道具的比例、空间可读性、风格、独立地图差异得到商业批准。本项只是将最新真实截图中的问题具体化；没有新增任何图形资产或修改场景摆放，未冒充修复。下一项优先完成收容所治疗/登记分区的**正式场景**调整并在新 SHA 截图中核验。
+
+
+## 2026-10-30 · 第二章收容所医疗功能区第一批实装（待新 SHA 视觉复审）
+
+- 整改前证据 `a077735001ebcf35794d70a8fc4e6c6569be558d` [真实 Godot 26 帧](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41044081702)：诊疗登记位置可见，但病床等专属医疗设施分散，重复地面占据过大画面。
+- **正式场景改动**：`data/levels/v4/interiors/map_coast_02__shelter.json` 增加三个有唯一场景 ID 的医疗病床（西侧护理、西侧恢复、东侧恢复）与右侧诊疗药盘，使已导入医疗实体由11增至15；四个新实例使用 V10 Manifest 中已授权登记的 `shelter_cot`/`shelter_treatment_tray` 真实 PNG，非假图。新增复用现有灯光生成器的恢复区灯光（3→4）。
+- **真实碰撞**：三张新增病床脚下物理接触点设置碰撞，保持中心入口/主线通行带、NPC与已有4项调查和5处主线位置不变。场景的 care_zone 标签在 `world_interior_art.gd` 正式 Sprite2D 上实例化，不是独立美术列表。
+- **验证**：新增 `validate_act01_shelter_care_zones.py` 静态校验素材源、布局和真实 V4 连通性；扩展 Godot 实景 harbor smoke 验证实际 PNG、像素位置、房间光源、病床碰撞、NPC/剧情到达。新 SHA 还必须重跑 26 张真实 Godot 截图并进行改前/改后人工视觉比对，现暂不可标记商业美术通过。

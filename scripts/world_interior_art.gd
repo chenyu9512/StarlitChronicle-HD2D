@@ -268,6 +268,10 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
             continue
         if active_act01_room:
             prop.set_meta("act01_imported_furniture",true)
+            if shelter_room and record.has("care_zone"):
+                # Attached to the actual rendered medical Sprite2D, not a
+                # parallel/mock furniture registry.
+                prop.set_meta("shelter_care_zone",str(record["care_zone"]))
             if black_sail_room:
                 prop.set_meta("black_sail_v2_asset",RuntimeArt.slot_source("interior.tavern."+art_id))
             elif shelter_room and SHELTER_PROPS.has(art_id):

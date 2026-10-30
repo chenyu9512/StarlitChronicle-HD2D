@@ -64,9 +64,9 @@ func _run() -> void:
         var room_art = world.root.get_node_or_null("InteriorArt")
         _verify(room_art != null,room+" did not instantiate layered interior rendering")
         if room_art != null:
-            _verify(room_art.prop_nodes.size() == (11 if room == "shelter" else 20),
+            _verify(room_art.prop_nodes.size() == (15 if room == "shelter" else 20),
                 room+" missing physically rendered room furnishings")
-            _verify(room_art.active_lights.size() == (3 if room == "shelter" else 4),
+            _verify(room_art.active_lights.size() == 4,
                 room+" lost authored lighting")
             for light in room_art.active_lights:
                 _verify(light.texture != null and light.texture.get_width() == 64,
@@ -148,6 +148,10 @@ func _run() -> void:
                     "bedside_medicine": "shelter_treatment_tray",
                     "linen_supply": "shelter_linen_cart",
                     "empty_bed_kit": "shelter_cot",
+                    "triage_bed_west": "shelter_cot",
+                    "recovery_bed_west": "shelter_cot",
+                    "recovery_bed_east": "shelter_cot",
+                    "triage_medicine_east": "shelter_treatment_tray",
                 }
                 for placement in expected_clinic.keys():
                     var expected_asset: String = str(expected_clinic[placement])
@@ -166,7 +170,37 @@ func _run() -> void:
                 _verify(semantic_assets.get("admission_counter", "") == "medical_registration_counter" and
                     semantic_assets.get("treatment_prep", "") == "treatment_bench",
                     "Shelter reception or treatment identity changed")
-            _verify(unique_ids.size() == (11 if room == "shelter" else 20),room+" furniture IDs overlap")
+                var authored_bays: Dictionary = {
+                    "triage_bed_west": {"cell":Vector2i(27,23),"zone":"west_ward"},
+                    "recovery_bed_west": {"cell":Vector2i(27,30),"zone":"west_ward"},
+                    "recovery_bed_east": {"cell":Vector2i(46,26),"zone":"east_ward"},
+                    "triage_medicine_east": {"cell":Vector2i(43,27),"zone":"triage"}
+                }
+                for bay_id in authored_bays.keys():
+                    var target: Dictionary = authored_bays[bay_id]
+                    var contact: Vector2i = target["cell"]
+                    _verify(room_art.prop_nodes.has(bay_id),
+                        "Shelter V4 medical fixture missing from actual scene: "+bay_id)
+                    if room_art.prop_nodes.has(bay_id):
+                        var placed: Sprite2D = room_art.prop_nodes[bay_id]
+                        _verify(placed.position == Vector2(contact * 32) + Vector2(16,16),
+                            "Shelter real furniture not at expected tile: "+bay_id)
+                        _verify(str(placed.get_meta("shelter_care_zone","")) == str(target["zone"]),
+                            "Shelter visible medical zone metadata mismatch: "+bay_id)
+                for cot_cell in [Vector2i(27,23),Vector2i(27,30),Vector2i(46,26)]:
+                    _verify(world.blocked.has(cot_cell),
+                        "Physical collision missing on shelter bed: "+str(cot_cell))
+                for corridor in [Vector2i(35,33),Vector2i(35,31),
+                                 Vector2i(35,29),Vector2i(35,26)]:
+                    _verify(not world.blocked.has(corridor),
+                        "Shelter entrance/story corridor obstructed: "+str(corridor))
+                var story_destinations: Array[Vector2i] = []
+                for point in (layout.get("act01_main_story_points",{}) as Dictionary).values():
+                    story_destinations.append(point)
+                _verify(world.geography.reachable(layout,starts,story_destinations),
+                    "Shelter new beds blocked a main-story objective")
+
+            _verify(unique_ids.size() == (15 if room == "shelter" else 20),room+" furniture IDs overlap")
             _verify(material_icons == 4,room+" is missing identifiable medical/ledger image labels")
             # Previous room test leaves the world clock at night.
             # Establish the daylight baseline explicitly for *each* room.
@@ -207,7 +241,7 @@ func _run() -> void:
     _verify(GlobalArt.texture_for_prop("fish_stall") != null,"Real harbor service counter asset unimportable")
     world.queue_free()
     if errors.is_empty():
-        print("PASS Main2: shelter plus unique Black Sail tavern; 31 live furnishings, 7 lamps, 8 story clues and safe return exits")
+        print("PASS Main2: shelter medical bays and tavern; 35 imported furnishings, 8 lamps, 8 clues, real bed collisions and safe story/exit paths")
         quit(0)
         return
     for err in errors:

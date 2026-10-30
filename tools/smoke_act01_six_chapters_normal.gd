@@ -6,6 +6,9 @@ const State = preload("res://scripts/first_act_state.gd")
 const Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
 var game
 var failures: Array[String] = []
+var boss_pacing: Array[Dictionary] = []
+const MAX_BOSS_ROUNDS: int = 24
+const MAX_BOSS_COMMANDS: int = 64
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -191,21 +194,63 @@ func _run() -> void:
                 _touch("crisis")
                 if game.battle != null:
                     game.battle.dice.seed = 731 + chapter
-            # Capture the actual A-line nonce BEFORE real battle commands finish.
+            # Exercise actual scene commands with normal, unboosted party state.
+            # Record objective evidence and combat pacing before the Battle node
+            # can be freed by the authoritative settlement callback.
             var actual_battle_id: String = str(game.battle.reward_transaction_id) if game.battle != null else ""
-            var count := 0
+            var opening_levels: Array[int] = []
+            for actor in game.progress.actors:
+                opening_levels.append(int(actor.get("level",0)))
+            var opening_herbs: int = int(game.progress.inventory.get("item_herb_01",0))
+            var count: int = 0
+            var last_round: int = 0
+            var guards: int = 0
+            var herbs: int = 0
+            var specials: int = 0
+            var hp_before: int = 0
+            for actor in game.progress.actors:
+                hp_before += int(actor.get("hp",0))
+            if game.battle != null and not game.battle.foe_info.text.contains("第1回合"):
+                failures.append("Chapter %d Boss HUD has no opening round counter" % chapter)
             while game.battle != null and count < 100:
                 var b = game.battle
+                last_round = maxi(last_round,b.current_round)
+                if b.hero_turn < 0 or b.hero_turn >= game.progress.actors.size():
+                    failures.append("Chapter %d invalid actor turn index" % chapter)
+                    break
                 var member: Dictionary = game.progress.actors[b.hero_turn]
                 if int(member["hp"]) < int(member["max_hp"]) / 2 and game.progress.potions > 0:
+                    herbs += 1
                     b._act("potion")
                 elif float(b.round_boss_intent.get("multiplier",1.0)) > 1.5:
+                    guards += 1
                     b._act("guard")
                 else:
+                    specials += 1
                     b._act("special")
                 count += 1
             if game.battle != null:
                 failures.append("Boss fight in chapter %d cannot finish" % chapter)
+            # An envelope rather than an arbitrary HP nerf: preserve authored
+            # mechanics while rejecting softlocks and excessively long fights.
+            if last_round > MAX_BOSS_ROUNDS or count > MAX_BOSS_COMMANDS:
+                failures.append("Chapter %d Boss exceeded normal pacing envelope (%d rounds, %d commands)" % [chapter,last_round,count])
+            if count == 0 or specials == 0:
+                failures.append("Chapter %d Boss ended without an earned player special action" % chapter)
+            if int(game.progress.inventory.get("item_herb_01",0)) > opening_herbs:
+                failures.append("Chapter %d Boss unexpectedly created healing herbs" % chapter)
+            var hp_after: int = 0
+            for actor in game.progress.actors:
+                hp_after += int(actor.get("hp",0))
+            var metric: Dictionary = {"chapter":chapter,"levels":opening_levels,
+                "rounds":last_round,"commands":count,"guard_commands":guards,
+                "herb_commands":herbs,"special_commands":specials,
+                "herbs_before":opening_herbs,
+                "herbs_after":int(game.progress.inventory.get("item_herb_01",0)),
+                "party_hp_before":hp_before,"party_hp_after":hp_after,
+                "battle_won":bool(game.progress.flags.get("ch%03d.battle_won" % chapter,false))}
+            boss_pacing.append(metric)
+            print("ACT01_BOSS_PACING " + JSON.stringify(metric))
             if not bool(game.progress.flags.get("ch%03d.battle_won" % chapter, false)):
                 failures.append("Chapter %d victory flag missing" % chapter)
             if actual_battle_id.is_empty():
@@ -230,6 +275,8 @@ func _run() -> void:
         _dialog()
         if not bool(game.progress.flags.get("story.ch%03d.done" % chapter, false)):
             failures.append("Chapter %d completion flag missing" % chapter)
+    if boss_pacing.size() != 5:
+        failures.append("First-act pacing report did not record all five real Boss battles")
     if game.progress.chapter != 7 or not bool(game.progress.flags.get("story.ch006.done",false)):
         failures.append("Six-chapter normal run did not unlock chapter seven")
     if game.progress.actors.size()!=3:

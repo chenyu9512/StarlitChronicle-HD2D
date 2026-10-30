@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
         queue_redraw()
 
 func _font() -> Font:
-    return ThemeDB.fallback_font
+    return get_theme_default_font()
 
 func _bar(rect: Rect2, fraction: float, value: float, total: int, accent: Color) -> void:
     draw_rect(Rect2(rect.position-Vector2(2,2),rect.size+Vector2(4,4)), CVisual.RIM)

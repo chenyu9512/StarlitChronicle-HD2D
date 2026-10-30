@@ -4,6 +4,9 @@ extends SceneTree
 const GameUI = preload("res://scripts/first_act_ui.gd")
 const RPGMenu = preload("res://scripts/rpg_menu.gd")
 const MapHud = preload("res://scripts/map_hud.gd")
+const Battle = preload("res://scripts/first_act_battle.gd")
+const Progress = preload("res://scripts/first_act_state.gd")
+const Core = preload("res://scripts/rpg_core.gd")
 var issues: Array[String] = []
 var checks: int = 0
 
@@ -91,6 +94,27 @@ func _run() -> void:
     verify(atlas.large_frame.anchor_left > 0.0 and atlas.large_frame.anchor_right < 1.0,"Full map respects safe horizontal margins")
     verify(atlas.local_button != null and atlas.region_button != null and atlas.world_button != null,"Map travel tab controls preserved")
     atlas.queue_free()
+
+    var progress = Progress.new()
+    var core = Core.new()
+    core.bind(progress)
+    var fight = Battle.new()
+    root.add_child(fight)
+    fight.game_core = core
+    fight.start(progress,2,false)
+    fight._reflow_battle_controls()
+    verify(fight.command_panel != null and fight.command_panel.anchor_left > 0.0,
+        "Combat command panel uses inset safe margins")
+    verify(fight.commands != null and fight.commands.columns == 4,
+        "Landscape combat maintains two-row seven-action layout")
+    verify(fight.commands.get_child_count() == 7,
+        "Responsive battle did not lose any official action")
+    verify(fight.special_button != null and fight.special_button.is_inside_tree(),
+        "Boss/weakness special action remains accessible")
+    for action in fight.commands.get_children():
+        verify(action is Button and action.custom_minimum_size.y >= 40.0,
+            "Real combat command retains usable tap size")
+    fight.queue_free()
 
     if issues.is_empty():
         print("UI EXPERIENCE SMOKE: ALL PASS checks=", checks)

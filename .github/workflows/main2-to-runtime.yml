@@ -45,6 +45,8 @@ jobs:
         run: python3 tools/validate_c_act01_semantic_v17.py
       - name: Confirm V18 source identity and real scene roles
         run: python3 tools/validate_c_act01_hd2d_v18.py
+      - name: Test Runtime source-root stability and bundled Chinese font
+        run: python3 -m unittest discover -s tools -p 'test_build_runtime_snapshot_contract.py' -v
       - name: Build independent game snapshot
         shell: bash
         run: |

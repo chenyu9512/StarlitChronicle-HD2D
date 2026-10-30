@@ -59,6 +59,9 @@ def is_game_file(name):
         if Path(name).suffix not in (".json", ".csv", ".tscn", ".tres"):
             return False
         return not (name.startswith("data/assets/") and Path(name).name.startswith(EXCLUDE_DATA))
+    if name.startswith("assets/fonts/"):
+        # Font resources referenced by project.godot must reach the slim IPA.
+        return Path(name).suffix.lower() in {".ttf", ".otf", ".woff", ".woff2", ".tres"}
     if name.startswith(("assets/audio/", "assets/shaders/", "assets/fx/", "assets/enemies/")):
         return Path(name).suffix.lower() in IMAGES | {".ogg", ".wav", ".mp3", ".gdshader", ".tres"}
     if name.startswith(ART):
@@ -155,8 +158,10 @@ def create_snapshot(source, output, with_smoke=False):
         if not isinstance(entries, dict):
             raise RuntimeError("Invalid supplemental live source manifest: " + manifest_path)
         for identity, row in entries.items():
-            source = row.get("source") if isinstance(row, dict) else row
-            actual_image(source, manifest_path + ":" + identity)
+            # Do not shadow the Path-valued source project root: doing so
+            # broke all Runtime builds when the first image was processed.
+            image_ref = row.get("source") if isinstance(row, dict) else row
+            actual_image(image_ref, manifest_path + ":" + identity)
 
     # 451 unique named original HD2D images + every real normal map used by
     # the live renderer; missing images make the release fail, not disappear.

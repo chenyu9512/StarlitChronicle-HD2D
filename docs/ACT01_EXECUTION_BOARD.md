@@ -50,3 +50,20 @@
 - Runtime cave art fix: `data/assets/c_shared_terrain_v8.json` selects the approved V14 coast-04 water asset; `scripts/c_coherent_terrain_materials.gd` and `scripts/world_tileset_pool.gd` compile it into a real 256px 8x8 tile atlas using V18 water materials instead of stretching the original standalone image.
 - Four obsolete graphical acceptance contracts now check live V18 imported sprites, physically rendered/native fallback buildings, actual 12 V4 room stage layouts and genuinely loaded textures. Deleted original signature SVG files are **not** falsely claimed to have been restored.
 - Full test success proves scripted acceptance at this SHA, **not** manual six-chapter art/UX signoff; legacy asset-catalog QA is a separate unresolved migration gate. Later game-code changes require a fresh SHA-aligned full run.
+
+## 2026-10-30 Batch 01 / 工程可靠性与素材同步（实施中）
+
+- 定位到独立 Runtime 构建器 `tools/build_runtime_snapshot.py` 的真实阻塞：在遍历补充图片 manifest 时将项目根目录 `source: Path` 覆盖为图片资源字符串，后续 `source / name` 抛出 TypeError。修复为独立的 `image_ref`，保留项目根路径。
+- 修复 Runtime 打包筛选遗漏 `assets/fonts/` 的问题：随精简游戏包收集自定义中文字体资源，确保之前提交的 `assets/fonts/chinese_system_font.tres` 不会在打包时丢失。
+- `tools/verify_runtime_snapshot.py` 将中文字体资源和 `font_setup.gd` 作为独立运行包必需件，缺失则阻断发布。
+- 新增针对路径变量覆盖和字体资源选择的 Python 回归测试，并接入 `main2-to-runtime.yml` 的独立打包步骤之前。
+
+### 同步素材交付约定（适用于此后每个批次）
+
+1. **新增画面/素材同一批交付**：场景设计的实体角色、物件、建筑、地形或UI新增时，必须在同一批次生成/导入其合法授权资源，记录稳定素材ID、用途、来源、尺寸及哈希；候选资源不能冒充正式资源。
+2. **同一提交完成分配与接线**：同时更新有效的 `data/assets/art_theme_v2.json`、`data/assets/c_art_runtime_registry_v1.json` 或对应章节/地图/室内的正式美术清单及真实场景引用。严禁只有 PNG、没有运行时入口的“伪接入”。使用现有V3生成器与V2美术审核/替换管线，不再创建平行图片账本。
+3. **同步验证而非仅计数**：对新增资源执行身份与路径检查、尺寸/透明度和来源哈希、Godot资源导入、真实场景加载和截图；独立 Runtime 必须确实包含素材。遇到加载失败或错人物/错位置，保留红灯，不以其他图片假充。
+4. **交付记录**：每批记录素材ID → 生成/导入路径 → 分配ID → 使用的游戏实体/场景 → Godot截图/QA运行链接 → 最终签收。未通过的素材标注 `candidate` / `blocked`。
+5. **本批范围**：本次仅工程修复，**没有新增游戏画面或图片**；因此没有需新生成的角色/场景素材。后续六章场景扩充时，此条为强制验收门槛。
+
+**证据边界**：2026-10-30 的 Runtime 旧失败记录为 [41007555189](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41007555189)。代码提交不等于独立 Runtime 发布通过；应对修复提交运行新测试后更新本条。

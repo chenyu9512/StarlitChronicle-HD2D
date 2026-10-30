@@ -13,6 +13,7 @@ FORBIDDEN = (
 )
 REQUIRED = (
     "project.godot", "scenes/first_act.tscn",
+    "assets/fonts/chinese_system_font.tres", "scripts/font_setup.gd",
     "data/assets/c_act01_global_distribution_v14.json",
     "data/assets/c_art_content_icons_v6.json",
     "data/assets/c_art_allocated_decor_runtime_v1.json",

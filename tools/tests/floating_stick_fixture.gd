@@ -20,9 +20,9 @@ func _ready() -> void:
     act_button = _test_button(Vector2(900, 480))
     menu_button = _test_button(Vector2(900, 400))
     shortcut_button = _test_button(Vector2(760, 400))
-    hud = Control.new()
+    hud = PanelContainer.new()
     root.add_child(hud)
-    status_frame = Control.new()
+    status_frame = PanelContainer.new()
     root.add_child(status_frame)
 
 func _test_button(at: Vector2) -> Button:

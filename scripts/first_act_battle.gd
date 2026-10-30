@@ -66,6 +66,9 @@ var resonance: int = 0
 var lighthouse_witnesses_heard: Array[String] = []
 var lighthouse_testimony_rows: Array = []
 var lighthouse_wicks_verified: bool = false
+# One earned rescue/testimony phase per combat round, not per ally turn.
+# This is ephemeral battle state and never affects V3 reward receipts.
+var story_progress_round: int = 0
 var countdown: int = 8
 var defense: Dictionary = {}
 var win_locked: bool = false
@@ -179,6 +182,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     lighthouse_witnesses_heard.clear()
     lighthouse_testimony_rows.clear()
     lighthouse_wicks_verified = false
+    story_progress_round = 0
     if boss and chapter == 6:
         var verified: Dictionary = encounter_data.get("lighthouse_fragments",{})
         lighthouse_wicks_verified = (
@@ -845,6 +849,12 @@ func _act(action: String) -> void:
     if action == "cancel_skill":
         _hide_skills()
         return
+    # After the first real rescue/voice step this round, require another
+    # teammate's defensive/healing/attack decision before the next phase.
+    # Never consume a turn for a disabled story action or fabricate progress.
+    if action == "special" and boss and chapter in [5,6] and story_progress_round == current_round:
+        _redraw("本轮已完成关键阶段；请先防御、治疗或攻击，下一回合再推进救援或见证。")
+        return
     var explicit_enemy_selected: bool = false
     if "#" in action:
         var enemy_select: PackedStringArray = action.split("#",false,1)
@@ -1056,12 +1066,15 @@ func _act(action: String) -> void:
                     message = "朔弦当前失去意识，必须先救治，才能吹响安全引导双哨。"
                 elif not act01_mechanics.beast_back_vulnerable or act01_mechanics.star_vein_glowing_hazard:
                     message = act01_mechanics.trigger_shuoxian_double_whistle()
+                    if act01_mechanics.beast_back_vulnerable and not act01_mechanics.star_vein_glowing_hazard:
+                        story_progress_round = current_round
                     if is_instance_valid(vfx):
                         vfx.play_charge(_vfx_ally_point())
                 else:
                     var dismantle: Dictionary = act01_mechanics.attempt_dismantle_star_lock(false)
                     message = str(dismantle.get("msg","当前锁扣无法解除。"))
                     if bool(dismantle.get("success",false)):
+                        story_progress_round = current_round
                         chain_hp = act01_mechanics.beast_star_locks_remaining * 42
                         if is_instance_valid(vfx):
                             vfx.play_special(_vfx_foe_point())
@@ -1083,6 +1096,7 @@ func _act(action: String) -> void:
                         message = "重复的归航回声不能作为新的见证。"
                     else:
                         lighthouse_witnesses_heard.append(witness_id)
+                        story_progress_round = current_round
                         resonance = lighthouse_witnesses_heard.size()
                         countdown = mini(8,countdown + 2)
                         message = "%s 接续「%s」：%s（%d/4）。" % [
@@ -1446,7 +1460,11 @@ func _redraw(message: String) -> void:
                 special_button.text = "✦ 朔弦双哨 · 暂避发亮区"
         elif chapter == 3:
             special_button.text = "✦ 守卫胸灯停顿 · 旧船徽/救援" if act01_mechanics.boss_ch003_chest_lamp_blinking else "✦ 等待胸灯停顿"
-    if boss and chapter == 6 and is_instance_valid(special_button):
+    if boss and chapter in [5,6] and is_instance_valid(special_button):
+        special_button.disabled = story_progress_round == current_round
+        if special_button.disabled:
+            special_button.text = "✦ 本轮阶段已完成 · 先防御/治疗"
+    if boss and chapter == 6 and is_instance_valid(special_button) and not special_button.disabled:
         if not lighthouse_wicks_verified or lighthouse_testimony_rows.size()!=4:
             special_button.text = "✦ 见证资料缺失 · 暂不可用"
         elif lighthouse_witnesses_heard.size() < 4:
@@ -1475,6 +1493,8 @@ func _redraw(message: String) -> void:
     header += " · 意图：" + str(round_boss_intent.get("label","攻击") if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors).get("label","攻击"))
     if _show_boss_objective():
         header += " · 目标：" + boss_mechanics.objective_label()
+        if chapter in [5,6] and story_progress_round == current_round:
+            header += " · 本回合关键阶段已完成"
         if boss_mechanics.enabled():
             var state: Dictionary = boss_mechanics.report()
             if int(state.get("required",0)) > 0:

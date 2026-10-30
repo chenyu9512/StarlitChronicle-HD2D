@@ -1,6 +1,6 @@
 {
   "schema": "starlit.interior.v4",
-  "revision": 9,
+  "revision": 10,
   "map_id": "map_coast_02",
   "building_id": "shelter",
   "name": "白砂港·临潮收容所",
@@ -554,7 +554,7 @@
   ],
   "interaction_revision": 2,
   "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
-  "notes": "Main2 Act-I shelter: 15 real imported medical furnishings assigned to intake, west ward, east recovery, triage and pharmacy. Three new bed contact tiles are solid and the central entrance/story corridor stays traversable. Four original investigations, five main story points, service, storage and return exit remain unchanged. New light uses existing radial generator. Human visual signoff pending.",
+  "notes": "Main2 shelter HD-2D V2: 15 approved-role furniture placements and the existing three bed collision cells are unchanged. Six visual-only floor-material zones, rear-positioned linen privacy panels, shallow bedding shadows and a low-energy triage fill light now strengthen readable care/triage/pharmacy separation. Four original lights, all existing clues, quest stages, service/storage, exit and central aisle remain untouched. Second-pass real framebuffer and human art review pending.",
   "room_day_tint": "d9e1db",
   "room_night_tint": "a2b0b2",
   "light_sources": [
@@ -594,5 +594,91 @@
       "scale": 1.05,
       "energy": 0.68
     }
-  ]
+  ],
+  "floor_visual_zones": [
+    {
+      "id": "intake",
+      "rect": [
+        21,
+        16,
+        31,
+        22
+      ],
+      "atlas_column": 0,
+      "material": "washed_oak",
+      "purpose": "reception and patient register"
+    },
+    {
+      "id": "west_ward",
+      "rect": [
+        23,
+        23,
+        31,
+        34
+      ],
+      "atlas_column": 1,
+      "material": "linen_worn_planks",
+      "purpose": "bed care and recovery"
+    },
+    {
+      "id": "pharmacy",
+      "rect": [
+        48,
+        16,
+        54,
+        26
+      ],
+      "atlas_column": 3,
+      "material": "dry_sage_clay",
+      "purpose": "clean medicine storage"
+    },
+    {
+      "id": "east_ward",
+      "rect": [
+        43,
+        24,
+        50,
+        33
+      ],
+      "atlas_column": 1,
+      "material": "linen_worn_planks",
+      "purpose": "eastern recovery beds"
+    },
+    {
+      "id": "triage",
+      "rect": [
+        33,
+        21,
+        43,
+        29
+      ],
+      "atlas_column": 2,
+      "material": "cool_slate",
+      "purpose": "treatment and triage"
+    },
+    {
+      "id": "central_aisle",
+      "rect": [
+        32,
+        30,
+        41,
+        37
+      ],
+      "atlas_column": 0,
+      "material": "washed_oak",
+      "purpose": "legible nonblocking access corridor"
+    }
+  ],
+  "shelter_bed_dressing": {
+    "assets": {
+      "screen": "res://assets/art/interiors/shelter_hd2d/bedside_linen_screen_v2.svg",
+      "floor_atlas": "res://assets/art/interiors/shelter_hd2d/shelter_care_floor_v2.svg"
+    },
+    "bed_ids": [
+      "triage_bed_west",
+      "recovery_bed_west",
+      "recovery_bed_east"
+    ],
+    "screen_alpha": 0.7
+  }
 }

@@ -95,10 +95,13 @@ var librarium_boss_idle
 var last_warning_text: String = ""
 var last_warning_round: int = 0
 var special_button: Button
+var command_panel: PanelContainer
+var battle_flow: VBoxContainer
 
 func _ready() -> void:
     layer = 40
     dice.randomize()
+    get_viewport().size_changed.connect(_reflow_battle_controls)
 
 ## Optional D-line integration: call before start() while the world is still visible.
 func prepare_world_handoff(world_node: Node, context: Dictionary, is_boss: bool) -> Dictionary:
@@ -311,6 +314,31 @@ func _style(bg: Color, outline: Color) -> StyleBoxFlat:
     s.shadow_size = 4
     return s
 
+func _reflow_battle_controls() -> void:
+    # One layout for the original command IDs, whether the device is a
+    # landscape phone, compact tablet, or desktop. Never change turn logic.
+    if command_panel == null or not is_instance_valid(command_panel) or commands == null:
+        return
+    var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+    var compact: bool = viewport_size.y < 610.0 or viewport_size.x < 1024.0
+    var touch: bool = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
+    var narrow: bool = viewport_size.x < 760.0
+    command_panel.anchor_left = 0.045 if touch else (0.035 if compact else 0.05)
+    command_panel.anchor_right = 0.955 if touch else (0.965 if compact else 0.95)
+    command_panel.anchor_top = 0.46 if narrow else (0.54 if compact else 0.60)
+    command_panel.anchor_bottom = 0.97
+    commands.columns = 3 if narrow else 4
+    commands.add_theme_constant_override("h_separation",6 if compact else 8)
+    commands.add_theme_constant_override("v_separation",5 if compact else 7)
+    battle_flow.add_theme_constant_override("separation",3 if compact else 5)
+    report.add_theme_font_size_override("font_size",16 if compact else 19)
+    party_info.custom_minimum_size.y = 31 if compact else 43
+    party_info.add_theme_font_size_override("normal_font_size",14 if compact else 17)
+    for control in commands.get_children():
+        if control is Button:
+            control.custom_minimum_size.y = 46 if touch else (40 if compact else 44)
+            control.add_theme_font_size_override("font_size",15 if compact else 17)
+
 func _button(parent: Node, text_label: String, action: String) -> Button:
     var b := Button.new()
     b.text = text_label
@@ -453,6 +481,7 @@ func _build() -> void:
     actor_stage.reduced_motion = bool(battle_settings.get("reduced_motion",false))
     actor_stage.configure(game_state.actors,actor_ids)
     var lower := PanelContainer.new()
+    command_panel = lower
     lower.anchor_left = 0.05
     lower.anchor_right = 0.95
     lower.anchor_top = 0.61
@@ -460,6 +489,7 @@ func _build() -> void:
     lower.add_theme_stylebox_override("panel", CVisual.surface(true,chapter))
     root.add_child(lower)
     var flow := VBoxContainer.new()
+    battle_flow = flow
     flow.add_theme_constant_override("separation", 5)
     lower.add_child(flow)
     report = Label.new()
@@ -488,6 +518,7 @@ func _build() -> void:
     _button(commands, "✚ 药草", "potion")
     var special_name: String = "✦ 双哨 / 拆锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else ("✦ 破解机制" if boss and boss_mechanics != null and boss_mechanics.enabled() else "✦ 识破弱点"))
     special_button = _button(commands, special_name, "special")
+    call_deferred("_reflow_battle_controls")
     vfx = BattleFX.new()
     vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     vfx.mouse_filter = Control.MOUSE_FILTER_IGNORE

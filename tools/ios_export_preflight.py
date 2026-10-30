@@ -87,9 +87,14 @@ def verify(root: Path, template_dir: Path | None = None) -> list[str]:
     font_setup = root / "scripts/font_setup.gd"
     if not font_setup.is_file() or not all(
         marker in font_setup.read_text(encoding="utf-8")
-        for marker in ("FileAccess.get_file_as_bytes(FONT_PATH)", "FontFile.new()", "ThemeDB.fallback_font = embedded")
+        for marker in (
+            "FileAccess.get_file_as_bytes(FONT_PATH)", "FontFile.new()",
+            "ThemeDB.fallback_font = cjk_font", "node_added.connect(_apply_cjk_font)",
+            'control.add_theme_font_override("font", cjk_font)',
+            'control.add_theme_font_override(kind, cjk_font)',
+        )
     ):
-        issues.append("P0: GUI/canvas must initialize bundled CJK bytes via FontFile")
+        issues.append("P0: GUI/canvas must override actual Control and RichTextLabel fonts with bundled CJK FontFile")
 
     includes = value(presets, "preset.0", "include_filter").split(",")
     if "*.otf" not in [item.strip() for item in includes]:

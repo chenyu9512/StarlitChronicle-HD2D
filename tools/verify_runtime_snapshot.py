@@ -103,8 +103,11 @@ def verify(root: Path) -> dict:
     font_setup = files["scripts/font_setup.gd"].read_text(encoding="utf-8")
     if not all(text in font_setup for text in (
         'FileAccess.get_file_as_bytes(FONT_PATH)', 'FontFile.new()',
-        'ThemeDB.fallback_font = embedded')):
-        errors.append("Canvas and GUI fallback must load bundled font bytes")
+        'ThemeDB.fallback_font = cjk_font',
+        'node_added.connect(_apply_cjk_font)',
+        'control.add_theme_font_override("font", cjk_font)',
+        'control.add_theme_font_override(kind, cjk_font)')):
+        errors.append("Canvas/GUI must apply bundled font bytes to live controls")
 
     if "[editor_plugins]" in files["project.godot"].read_text(encoding="utf-8"):
         errors.append("Development editor plugin enabled in player build")

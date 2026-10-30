@@ -64,7 +64,7 @@ def is_game_file(name):
         return Path(name).suffix.lower() in {".gdshader", ".gdshaderinc"}
     if name.startswith("assets/fonts/"):
         # Font resources referenced by project.godot must reach the slim IPA.
-        return Path(name).suffix.lower() in {".ttf", ".otf", ".woff", ".woff2", ".tres"}
+        return Path(name).suffix.lower() in {".ttf", ".otf", ".woff", ".woff2", ".tres"} or name == "assets/fonts/OFL-NotoSansCJK.txt"
     if name.startswith(("assets/audio/", "assets/shaders/", "assets/fx/", "assets/enemies/")):
         return Path(name).suffix.lower() in IMAGES | {".ogg", ".wav", ".mp3", ".gdshader", ".tres"}
     if name.startswith(ART):

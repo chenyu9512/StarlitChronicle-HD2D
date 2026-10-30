@@ -5,8 +5,13 @@ on:
     branches: ["Main2美术优化版"]
     paths:
       - "scripts/first_act_ui.gd"
+      - "scripts/d_title_screen.gd"
+      - "scripts/rpg_menu.gd"
+      - "scripts/map_hud.gd"
+      - "scripts/first_act_battle.gd"
       - "tools/tests/floating_stick_fixture.gd"
       - "tools/smoke_floating_stick.gd"
+      - "tools/smoke_ui_experience.gd"
       - ".github/workflows/floating-stick-tests.yml"
   workflow_dispatch:
 
@@ -32,3 +37,5 @@ jobs:
         run: godot --headless --path . --editor --import --quit
       - name: Run floating stick regression tests
         run: timeout 120s godot --headless --path . --script res://tools/smoke_floating_stick.gd
+      - name: Run real responsive UI and touchscreen navigation regression
+        run: timeout 150s godot --headless --path . --script res://tools/smoke_ui_experience.gd

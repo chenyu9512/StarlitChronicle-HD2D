@@ -135,6 +135,39 @@ func _run() -> void:
                 _verify(float(prop.get_meta("room_art_scale",1.0))>0.0,
                     room+" zero-sized furniture: "+str(prop_id))
             if room == "shelter":
+                # Verify this is the actual V4 room renderer, not an offline
+                # moodboard: imported floor zones and nonblocking bed screens.
+                _verify(room_art.care_zone_floor_layer != null and
+                    room_art.care_zone_floor_count > 150,
+                    "Shelter six authored floor material regions not rendered")
+                if room_art.care_zone_floor_layer != null:
+                    var expected_floor_samples: Dictionary = {
+                        Vector2i(24,20): 0, # intake
+                        Vector2i(26,28): 1, # west ward
+                        Vector2i(51,21): 3, # pharmacy
+                        Vector2i(47,28): 1, # eastern recovery
+                        Vector2i(38,26): 2, # triage
+                        Vector2i(39,34): 0, # safe central aisle
+                    }
+                    for target_cell in expected_floor_samples.keys():
+                        var atlas_col: int = int(expected_floor_samples[target_cell])
+                        _verify(room_art.care_zone_floor_layer.get_cell_atlas_coords(
+                            target_cell) == Vector2i(atlas_col,0),
+                            "Shelter care material incorrectly mapped at " + str(target_cell))
+                    _verify(room_art.care_zone_floor_layer.get_cell_source_id(
+                        Vector2i(27,23)) == -1,
+                        "Ward floor overlays physical bed collision tile")
+                _verify(room_art.shelter_bed_screens.size() == 3 and
+                    room_art.shelter_bed_shadows.size() == 3,
+                    "Shelter privacy silhouettes/shadows missing from actual scene")
+                for screen_id in room_art.shelter_bed_screens.keys():
+                    var fabric: Sprite2D = room_art.shelter_bed_screens[screen_id]
+                    _verify(fabric.texture != null and fabric.z_index < 3 and
+                        bool(fabric.get_meta("shelter_visual_only",false)),
+                        "Bed curtain conceals gameplay or has gameplay collision: "+str(screen_id))
+                _verify(room_art.shelter_triage_glow != null and
+                    not room_art.shelter_triage_glow.shadow_enabled,
+                    "Shelter subtle triage bounce light not installed")
                 # Every clinic fixture uses its own physical shelter image.
                 var semantic_assets: Dictionary = {}
                 for entry in layout.get("visuals", []):

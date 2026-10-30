@@ -9,7 +9,7 @@ def read(name):
 room=read("data/levels/v4/interiors/map_coast_02__shelter.json")
 assets=read("assets/art/runtime/generated_gaps_v10/manifest.json")["assets"]
 registry=read("data/assets/c_art_runtime_registry_v1.json")["canonical_slots"]
-assert room["schema"]=="starlit.interior.v4" and room["revision"]==9
+assert room["schema"]=="starlit.interior.v4" and room["revision"]==10
 assert (room["map_id"],room["building_id"])==("map_coast_02","shelter")
 props={p["id"]:p for p in room["visuals"]}
 assert len(props)==len(room["visuals"])==15
@@ -36,6 +36,24 @@ for ident,(art,cell,zone) in expected.items():
     assert [width,height]==assets[key]["dimensions"],("PNG dimensions mismatch",key)
     assert hashlib.sha256(data).hexdigest()==assets[key]["sha256"],("PNG SHA256 mismatch",key)
 assert {tuple(x) for x in room["art_collision_cells"]}=={(27,23),(27,30),(46,26)}
+# Independently validate render-only zoning and bedside scene assets.
+# All contact/quest cells remain authored by the unchanged V4 geometry.
+from xml.etree import ElementTree as ET
+assert len(room["floor_visual_zones"]) == 6
+zones={v["id"]:v for v in room["floor_visual_zones"]}
+assert {k:v["atlas_column"] for k,v in zones.items()} == {
+    "intake":0,"west_ward":1,"pharmacy":3,
+    "east_ward":1,"triage":2,"central_aisle":0}
+for zone in zones.values():
+    x0,y0,x1,y1=zone["rect"]
+    assert x0<=x1 and y0<=y1 and 2<=x0<=x1<70 and 2<=y0<=y1<46
+dressing=room["shelter_bed_dressing"]
+assert dressing["bed_ids"] == [
+    "triage_bed_west","recovery_bed_west","recovery_bed_east"]
+for asset in dressing["assets"].values():
+    f=ROOT/asset.removeprefix("res://")
+    svg=ET.parse(f).getroot()
+    assert svg.tag.endswith("svg") and f.stat().st_size>500, f
 assert len(room["light_sources"])==4
 assert {x["id"] for x in room["light_sources"]}=={
     "shelter_nurse_lamp","shelter_care_lamp","shelter_duty_lamp","shelter_recovery_lamp"}
@@ -64,4 +82,4 @@ assert all((35,y) in reached for y in range(29,37)),"central approach blocked"
 assert len(room["investigations"])==4
 assert room["act01_main_story_evidence"]==[
     "inspect_act01_shelter_2","inspect_act01_shelter_3"]
-print("PASS: 15 exact shelter PNG placements, 3 bed collision tiles, 4 lights, all original story and inspection paths")
+print("PASS: 15 authentic shelter assets, 3 unchanged bed contacts, 6 floor material zones, 3 linen screens, 4 original lamps, all story routes")

@@ -31,6 +31,7 @@ func _drag(finger: int, pos: Vector2) -> InputEventScreenDrag:
     return event
 
 func _run() -> void:
+    print("FLOATING STICK SMOKE: starting")
     var ui = TouchFixture.new()
     root.add_child(ui)
     await process_frame
@@ -78,7 +79,7 @@ func _run() -> void:
 
     for button in [ui.act_button, ui.menu_button, ui.shortcut_button, dpad_button]:
         ui._unhandled_input(_touch(11, true, button.get_global_rect().get_center()))
-        _assert(ui.stick_touch_id == -1, "Tapping an existing button does not start stick: " + button.get_path().get_file())
+        _assert(ui.stick_touch_id == -1, "Tapping an existing button does not start stick: " + str(button.get_path()).get_file())
 
     var modal := Control.new()
     modal.visible = true

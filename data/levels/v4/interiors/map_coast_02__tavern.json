@@ -1,10 +1,10 @@
 {
   "schema": "starlit.interior.v4",
-  "revision": 6,
+  "revision": 7,
   "map_id": "map_coast_02",
   "building_id": "tavern",
   "name": "白砂港·黑帆酒馆",
-  "status": "main2_black_sail_authored_art_v3_pending_full_visual_qa",
+  "status": "main2_black_sail_v4_main_story_interactions_wired_visual_qa_pending",
   "size": [
     72,
     48
@@ -203,7 +203,7 @@
     }
   ],
   "art_profile": "coast_act01_tavern_v1",
-  "art_tileset": "res://assets/art/runtime/act01_tavern_v2/tavern_wood_atlas.svg",
+  "art_tileset": "res://assets/art/runtime/generated_gaps_v10/interior__tavern__tavern_wood_atlas.png",
   "visuals": [
     {
       "id": "innkeeper_counter",
@@ -665,7 +665,7 @@
   "interior_owner_id": "npc_coast_04",
   "interaction_revision": 1,
   "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
-  "notes": "Black Sail V2: unique connected harbor tavern with a back-bar, notice wall, sailors' seating, ledger and cask store; authored wood interior atlas and 12 named SVG furniture identities (15 placed pieces). All four chapter-4 investigation cells, service/storage markers, spawn/exit, plot flags, stable ids and return transition are preserved. Furniture footprint collision added outside interaction markers; Godot image and input acceptance pending. Based on actual Godot screenshot, a nautical floor runner and four stools enrich the empty middle. Taverns look toward their north-bar without moving the player spawn or stable plot interactors.",
+  "notes": "Black Sail harbor tavern: keep existing visual asset identities, V4 inspections, furniture and original door/return cells. New distinct walkable indoor anchors require the bartender opening, shipment ledger/crew notice examinations, sailor witness, interior confrontation and indoor resolve. No rewards from observing furniture; the existing V3 story/boss ledger remains authoritative. Static layout authored, Godot route and visual acceptance NOT RUN.",
   "room_day_tint": "f3e8d6",
   "room_night_tint": "d4bba1",
   "light_sources": [
@@ -705,5 +705,31 @@
       "scale": 1.14,
       "energy": 0.78
     }
+  ],
+  "act01_main_story_points": {
+    "key_npc": [
+      27,
+      22
+    ],
+    "clue": [
+      28,
+      19
+    ],
+    "witness": [
+      30,
+      27
+    ],
+    "crisis": [
+      39,
+      30
+    ],
+    "resolve": [
+      35,
+      29
+    ]
+  },
+  "act01_main_story_evidence": [
+    "inspect_act01_tavern_1",
+    "inspect_act01_tavern_2"
   ]
 }

@@ -1,0 +1,92 @@
+{
+  "schema": "starlit.hd2d.v10.ceiling.v1",
+  "version": "10.0",
+  "purpose": "Final architecture ceiling, not a claim of completed commercial art",
+  "project_branch": "Main2美术优化版",
+  "status": "TARGET_NOT_YET_ACCEPTED",
+  "core_groups": {
+    "terrain": 8,
+    "maps": 42,
+    "interiors": 153,
+    "props": 64,
+    "characters": 12,
+    "npcs": 35,
+    "monsters": 63,
+    "bosses": 66,
+    "ui": 8
+  },
+  "runtime_dimensions": {
+    "terrain": [
+      256,
+      256
+    ],
+    "maps": [
+      1152,
+      648
+    ],
+    "interiors": [
+      256,
+      256
+    ],
+    "props": [
+      96,
+      128
+    ],
+    "characters": [
+      96,
+      192
+    ],
+    "npcs": [
+      96,
+      192
+    ],
+    "monsters": [
+      512,
+      128
+    ],
+    "bosses": [
+      512,
+      128
+    ],
+    "ui": [
+      512,
+      128
+    ]
+  },
+  "supplementary_contracts": {
+    "terrain_ground_water_atlases": 16,
+    "historical_canonical_slots": 109,
+    "additional_ui_icons": 7,
+    "content_icons": 288,
+    "boss_action_sheets": 66,
+    "shore_wave_sheets": 8
+  },
+  "hard_limits": {
+    "max_master_edge_px": 4096,
+    "max_png_bytes": 33554432,
+    "max_variants_per_asset": 4,
+    "max_automatic_refinement_rounds": 3,
+    "max_paid_render_jobs_per_batch": 16,
+    "paid_rendering_default_enabled": false,
+    "paid_rendering_requires_explicit_budget": true
+  },
+  "promotion_gates": {
+    "all_core_assets_exist": true,
+    "all_hashes_verified": true,
+    "all_supplementary_contracts_preserved": true,
+    "all_canonical_identity_bindings_valid": true,
+    "all_visual_and_identity_approvals_required": true,
+    "godot_4_7_2_import_and_script_smokes_required": true,
+    "real_scene_screenshots_and_player_route_required": true,
+    "rollback_test_required": true,
+    "zero_p0_blockers": true
+  },
+  "cleanup_rules": {
+    "require_reference_scan_beyond_registry": true,
+    "never_delete_dynamic_references_without_proof": true,
+    "never_delete_history_or_unapproved_fallbacks": true,
+    "require_dry_run_and_backup": true,
+    "delete_only_explicitly_verified_dead_assets": true
+  },
+  "acceptance": "V10 is finished only after every gate passes. A generator can produce structural candidates without satisfying aesthetic approval."
+}

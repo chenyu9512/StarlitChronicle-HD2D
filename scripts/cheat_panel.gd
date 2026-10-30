@@ -42,14 +42,9 @@ func _ready() -> void:
     shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     shade.mouse_filter = Control.MOUSE_FILTER_STOP
     root.add_child(shade)
-    # Export templates have no editor feature: retain an inert shade for the
-    # controller's menu-focus contract, but expose no launcher or PIN panel.
+    # Player-owned optional secret panel is available in desktop exports too.
+    # It is a convenience PIN, not a security or anti-tamper mechanism.
     shade.hide()
-    if not OS.has_feature("editor"):
-        star.hide()
-        star.disabled = true
-        set_process_unhandled_input(false)
-        return
     var dim := ColorRect.new()
     dim.color = Color(0.015, 0.027, 0.054, 0.94)
     dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -112,6 +107,12 @@ func _ready() -> void:
     _button(flow, "关闭", Callable(self, "close"))
     shade.hide()
     _set_unlocked(false)
+    # Debug credentials and chapter skips must never enter player exports.
+    if not OS.has_feature("editor"):
+        star.hide()
+        star.disabled = true
+        set_process_unhandled_input(false)
+        return
 
 func _style() -> StyleBoxFlat:
     var style := StyleBoxFlat.new()

@@ -30,6 +30,63 @@ func _fill(ground: Dictionary,walls: Dictionary,record: Variant,base_row: int,so
             else:
                 walls.erase(p)
 
+## Every regional building is now authored in a dedicated V4 JSON file.
+## Reject missing visual assets rather than silently rebuilding one generic
+## room at runtime; the player stays outside when this contract fails.
+func _regional_art_valid(data: Dictionary) -> bool:
+    if str(data.get("art_profile","")) != "regional_functional_v1":
+        return false
+    var visuals: Array = data.get("visuals",[])
+    var lighting: Array = data.get("light_sources",[])
+    if visuals.size()<12 or lighting.size()<3:
+        return false
+    var visual_ids: Dictionary = {}
+    var visible_cells: Dictionary = {}
+    for raw in visuals:
+        if not raw is Dictionary:
+            return false
+        var id: String = str(raw.get("id",""))
+        var asset: String = str(raw.get("asset",""))
+        var position: Vector2i = _point(raw.get("cell",[]))
+        if id.is_empty() or visual_ids.has(id) or asset.is_empty():
+            return false
+        if position.x<2 or position.y<2 or position.x>=WIDTH-2 or position.y>=HEIGHT-2:
+            return false
+        if str(raw.get("layer","")) not in ["wall","floor","furniture"]:
+            return false
+        visual_ids[id]=true
+        visible_cells[position]=true
+    for light in lighting:
+        if not light is Dictionary:
+            return false
+        var position: Vector2i = _point(light.get("cell",[]))
+        if position.x<2 or position.y<2 or position.x>=WIDTH-2 or position.y>=HEIGHT-2:
+            return false
+    for group in ["features","investigations"]:
+        for entry in data.get(group,[]):
+            if not entry is Dictionary or not visible_cells.has(_point(entry.get("cell",[]))):
+                return false
+    # The visible counter/cabinet must be a REAL physical blocker in the
+    # adjacent tile. The interaction tile itself remains walkable. This
+    # prevents overlapping the player with a desk or hiding the storage point.
+    var occupied_contact: Dictionary = {}
+    for raw_cell in data.get("art_collision_cells",[]):
+        occupied_contact[_point(raw_cell)] = true
+    var interact: Dictionary = data.get("points",{})
+    for purpose in ["service","storage"]:
+        var stand: Vector2i = _point(interact.get(purpose,[]))
+        if occupied_contact.has(stand):
+            return false
+        var nearby_counter: bool = false
+        for direction in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+            var contact: Vector2i = stand + direction
+            if occupied_contact.has(contact) and visible_cells.has(contact):
+                nearby_counter = true
+                break
+        if not nearby_counter:
+            return false
+    return true
+
 func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
     if map_id.is_empty() or building_id.is_empty():
         return {}
@@ -41,6 +98,9 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         return {}
     var data: Dictionary = record
     if str(data.get("schema",""))!="starlit.interior.v4" or str(data.get("map_id",""))!=map_id or str(data.get("building_id",""))!=building_id:
+        return {}
+    if not str(data.get("region_design","")).is_empty() and not _regional_art_valid(data):
+        push_error("Regional V4 room has missing, duplicate or unanchored art: "+map_id+"#"+building_id)
         return {}
     var tiles: Dictionary = {}
     var walls: Dictionary = {}
@@ -57,10 +117,12 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         _fill(tiles,walls,doorway,3,false)
     # Authored furniture collision is merged before marker validation; other
     # interiors have no art_collision_cells and retain their exact behavior.
+    var furniture_footprints: Dictionary = {}
     for raw_cell in data.get("art_collision_cells",[]):
         var occupied: Vector2i = _point(raw_cell)
         if occupied.x>=2 and occupied.x<WIDTH-2 and occupied.y>=2 and occupied.y<HEIGHT-2:
             walls[occupied] = true
+            furniture_footprints[occupied] = true
     var authored_points: Dictionary=data.get("points",{})
     var points: Dictionary={}
     for key in ["spawn","exit","service","storage"]:
@@ -96,12 +158,47 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
             return {}
         if not branch_stage_points.is_empty() and branch_stage_points.size()!=3:
             return {}
+    # Chapter 2 shelter and Chapter 4 tavern own physically reachable
+    # main-story stations. No other V4 room may silently acquire story points.
+    # This preserves existing house/service and standalone quest-room IDs.
+    var main_story_points: Dictionary = {}
+    var raw_story_points: Variant = data.get("act01_main_story_points",{})
+    if raw_story_points is Dictionary and not (raw_story_points as Dictionary).is_empty():
+        if map_id != "map_coast_02" or building_id not in ["shelter","tavern"]:
+            return {}
+        var occupied_story_cells: Dictionary = {}
+        for objective_id in ["key_npc","clue","witness","crisis","resolve"]:
+            var story_cell: Vector2i = _point(raw_story_points.get(objective_id,[]))
+            if story_cell.x < 2 or story_cell.x >= WIDTH-2 or story_cell.y < 2 or story_cell.y >= HEIGHT-2 or walls.has(story_cell) or occupied_story_cells.has(story_cell):
+                return {}
+            occupied_story_cells[story_cell] = true
+            main_story_points[objective_id] = story_cell
+        var connected: Dictionary = {}
+        var spawn_cell: Vector2i = points["spawn"]
+        connected[spawn_cell] = true
+        var frontier: Array[Vector2i] = [spawn_cell]
+        var index: int = 0
+        while index < frontier.size():
+            var walk: Vector2i = frontier[index]
+            index += 1
+            for direction in [Vector2i.RIGHT,Vector2i.LEFT,Vector2i.DOWN,Vector2i.UP]:
+                var neighbor: Vector2i = walk + direction
+                if neighbor.x < 2 or neighbor.y < 2 or neighbor.x >= WIDTH-2 or neighbor.y >= HEIGHT-2 or walls.has(neighbor) or connected.has(neighbor):
+                    continue
+                connected[neighbor] = true
+                frontier.append(neighbor)
+        for story_cell in main_story_points.values():
+            if not connected.has(story_cell):
+                return {}
     var features: Array[Dictionary]=[]
     for prop in data.get("features",[]):
         if not prop is Dictionary:
             continue
         var cell: Vector2i=_point(prop.get("cell",[]))
-        if cell.x>=2 and cell.x<WIDTH-2 and cell.y>=2 and cell.y<HEIGHT-2 and not walls.has(cell):
+        # A solid furniture footpoint still needs its real visible sprite.
+        # Structural wall cells remain prohibited, while an art_collision
+        # footprint can be drawn AND physically block the same game tile.
+        if cell.x>=2 and cell.x<WIDTH-2 and cell.y>=2 and cell.y<HEIGHT-2 and (not walls.has(cell) or furniture_footprints.has(cell)):
             features.append({"kind":str(prop.get("kind","barrel")),"cell":cell,"name":str(prop.get("name","室内陈设"))})
     var inspections: Array[Dictionary] = []
     var used_inspections: Dictionary = {}
@@ -117,11 +214,76 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         var item: Dictionary = authored.duplicate(true)
         item["cell"]=cell
         inspections.append(item)
+    var required_story_evidence: Array = data.get("act01_main_story_evidence",[])
+    if not main_story_points.is_empty():
+        if required_story_evidence.size()!=2:
+            return {}
+        var evidence_seen: Dictionary = {}
+        for evidence_id in required_story_evidence:
+            var entry_id: String = str(evidence_id)
+            if evidence_seen.has(entry_id) or not used_inspections.has(entry_id):
+                return {}
+            evidence_seen[entry_id] = true
+        # The story cannot demand that the player examine evidence lying in
+        # an isolated room behind walls. Validate the exact same 4-neighbor
+        # component used for the five main-story stations.
+        var visited: Dictionary = {points["spawn"]:true}
+        var frontier: Array[Vector2i] = [points["spawn"]]
+        var head: int = 0
+        while head < frontier.size():
+            var here: Vector2i = frontier[head]
+            head += 1
+            for direction in [Vector2i.RIGHT,Vector2i.LEFT,Vector2i.DOWN,Vector2i.UP]:
+                var next: Vector2i = here + direction
+                if next.x < 2 or next.y < 2 or next.x >= WIDTH-2 or next.y >= HEIGHT-2 or walls.has(next) or visited.has(next):
+                    continue
+                visited[next] = true
+                frontier.append(next)
+        for item in inspections:
+            if str(item.get("id","")) in evidence_seen and not visited.has(item.get("cell",Vector2i(-1,-1))):
+                return {}
+    # B-line physical acceptance shared by all authored V4 interiors.
+    # Validate every interactive station against the SAME final walls that
+    # the player collides with, including furniture art_collision_cells.
+    # This is real four-direction walking, not a teleport or cheat path.
+    var accessible: Dictionary = {}
+    var queue: Array[Vector2i] = [points["spawn"]]
+    accessible[points["spawn"]] = true
+    var walk_cursor: int = 0
+    while walk_cursor < queue.size():
+        var at: Vector2i = queue[walk_cursor]
+        walk_cursor += 1
+        for direction in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+            var next: Vector2i = at + direction
+            if next.x<2 or next.y<2 or next.x>=WIDTH-2 or next.y>=HEIGHT-2:
+                continue
+            if walls.has(next) or accessible.has(next):
+                continue
+            accessible[next] = true
+            queue.append(next)
+    var critical: Array[Vector2i] = [
+        points["exit"],points["service"],points["storage"]]
+    critical.append_array(quest_points)
+    critical.append_array(story_stage_points)
+    critical.append_array(branch_stage_points)
+    for value in main_story_points.values():
+        critical.append(value)
+    for inspection in inspections:
+        critical.append(inspection.get("cell",Vector2i(-1,-1)))
+    for destination in critical:
+        if not accessible.has(destination):
+            push_error("V4 interior has no physical walking path: "+map_id+
+                "#"+building_id+" -> "+str(destination))
+            return {}
+    # Visual furniture cannot rewrite walls here; the exported contract
+    # is now guaranteed to have connected exits and interactive stations.
     return {"tiles":tiles,"blocked":walls,"features":features,
         "gates":[],"spawn":points["spawn"],"size":Vector2i(WIDTH,HEIGHT),
         "interior":kind,"interact_cells":points,"authored_source":"v4",
         "layout_id":map_id+"#"+building_id,
         "investigations":inspections,
+        "act01_main_story_points":main_story_points,
+        "act01_main_story_evidence":required_story_evidence.duplicate(),
         "interior_owner_id":str(data.get("interior_owner_id","")),
         "interior_interactions_runtime":"pending_D_binding",
         "quest_points":quest_points,
@@ -129,6 +291,12 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "branch_stage_points":branch_stage_points,
         "art_profile":str(data.get("art_profile","")),
         "art_tileset":str(data.get("art_tileset","")),
+        "room_day_tint":str(data.get("room_day_tint","dbcebd")),
+        "room_night_tint":str(data.get("room_night_tint","b4ada7")),
+        "map_id":map_id,
+        "building_id":building_id,
+        "room_function":str(data.get("room_function","")),
+        "region_design":str(data.get("region_design","")),
         "visuals":data.get("visuals",[]),
         "light_sources":data.get("light_sources",[]),
         "solid_regions":data.get("solid_regions",[])}

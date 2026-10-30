@@ -170,7 +170,8 @@ func _valid_payload(value: Variant) -> bool:
     # A syntactically valid JSON file can still contain fractional, infinite,
     # or otherwise impossible numeric state. Reject it before mutating progress.
     for key in ["version","chapter","scene","task","gold","potions"]:
-        if is_nan(float(obj[key])) or is_inf(float(obj[key])):
+        var numeric_value: float = float(obj[key])
+        if is_nan(numeric_value) or is_inf(numeric_value) or numeric_value != floorf(numeric_value):
             return false
     if int(obj["gold"]) < 0 or int(obj["potions"]) < 0:
         return false
@@ -188,7 +189,7 @@ func _valid_payload(value: Variant) -> bool:
     var inventory_data: Dictionary = obj["inventory"]
     for item_id in inventory_data:
         var amount: Variant = inventory_data[item_id]
-        if typeof(amount) not in [TYPE_INT,TYPE_FLOAT] or is_nan(float(amount)) or is_inf(float(amount)) or float(amount) < 0.0:
+        if typeof(amount) not in [TYPE_INT,TYPE_FLOAT] or is_nan(float(amount)) or is_inf(float(amount)) or float(amount) < 0.0 or float(amount) != floorf(float(amount)):
             return false
     if obj["actors"].size() < 2 or obj["actors"].size() > 12:
         return false
@@ -203,7 +204,7 @@ func _valid_payload(value: Variant) -> bool:
         for key in ["hp","max_hp","mp","max_mp","attack","defense","level","xp"]:
             if typeof(entry[key]) not in [TYPE_INT,TYPE_FLOAT]:
                 return false
-            if is_nan(float(entry[key])) or is_inf(float(entry[key])):
+            if is_nan(float(entry[key])) or is_inf(float(entry[key])) or float(entry[key]) != floorf(float(entry[key])):
                 return false
         if int(entry["level"]) < 1 or int(entry["max_hp"]) <= 0 or int(entry["max_mp"]) < 0:
             return false

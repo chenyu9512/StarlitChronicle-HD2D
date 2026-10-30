@@ -42,6 +42,9 @@ func sync(units: Array, party: Array, selected: int, second_phase: bool, telegra
         if member is Dictionary:
             party_members.append((member as Dictionary).duplicate(true))
     active_target = selected
+    if boss and second_phase and not phase_two and is_instance_valid(enemy_stage):
+        if enemy_stage.has_method("phase_shift"):
+            enemy_stage.phase_shift(selected)
     phase_two = second_phase
     warning = telegraph
     for index in range(enemy_units.size()):
@@ -83,7 +86,7 @@ func _process(delta: float) -> void:
         queue_redraw()
 
 func _font() -> Font:
-    return ThemeDB.fallback_font
+    return get_theme_default_font()
 
 func _bar(rect: Rect2, fraction: float, value: float, total: int, accent: Color) -> void:
     draw_rect(Rect2(rect.position-Vector2(2,2),rect.size+Vector2(4,4)), CVisual.RIM)

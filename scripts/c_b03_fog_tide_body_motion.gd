@@ -4,6 +4,11 @@ extends Node2D
 const SHADER_PATH: String = "res://assets/shaders/c23_fog_tide_body_warp.gdshader"
 const FRAME_SIZE: int = 256
 const DIRECTORY: String = "res://assets/art/b03/boss_motion/c23_ch002/"
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const GENERATED_MOTION_MANIFEST: String = "res://assets/art/runtime/boss_motion_v1/manifest.json"
+const GENERATED_MOTION_ROOT: String = "res://assets/art/runtime/boss_motion_v1/"
+const GENERATED_CELL: int = 128
+const GENERATED_STATES: Array[String] = ["idle", "attack", "hit", "status", "down", "phase_change"]
 const STATES: Dictionary = {"idle":4, "charge":6, "attack":6, "hit":4, "defeat":6}
 const DURATIONS: Dictionary = {"charge":0.72, "attack":0.38, "hit":0.34, "defeat":0.75, "phase":1.08}
 var portrait: TextureRect
@@ -12,6 +17,9 @@ var original_material: Material
 var effect: Sprite2D
 var sheets: Dictionary = {}
 var atlas: AtlasTexture
+var generated_atlas: AtlasTexture
+var generated_texture: Texture2D
+var previous_portrait_texture: Texture2D
 var state: String = "idle"
 var state_elapsed: float = 0.0
 var clock: float = 0.0
@@ -28,12 +36,38 @@ var art_directory: String = DIRECTORY
 var shader_path: String = SHADER_PATH
 var effect_label: String = "C23AuthoredFogAppendages"
 
+## Return only a correctly registered per-boss six-state atlas. We do not
+## assume that a generated file exists just because a chapter ID is known.
+func _live_generated_sheet(chapter: int) -> Texture2D:
+    if chapter < 2 or chapter > 6 or not FileAccess.file_exists(GENERATED_MOTION_MANIFEST):
+        return null
+    var payload: Variant = JSON.parse_string(
+        FileAccess.get_file_as_string(GENERATED_MOTION_MANIFEST))
+    if not (payload is Dictionary) or str(payload.get("schema", "")) != "starlit.boss_motion.runtime.v1":
+        return null
+    var key: String = "boss_ch%03d" % chapter
+    var record: Dictionary = (payload.get("assets", {}) as Dictionary).get(key, {})
+    var image_path: String = GENERATED_MOTION_ROOT + key + ".png"
+    if str(record.get("source", "")) != image_path:
+        return null
+    if str(record.get("source_identity", "")) != Generated.boss_path("boss.ch%03d" % chapter):
+        return null
+    if not ResourceLoader.exists(image_path):
+        return null
+    var loaded: Texture2D = ResourceLoader.load(image_path) as Texture2D
+    if loaded == null or loaded.get_size() != Vector2(GENERATED_CELL * 4, GENERATED_CELL * GENERATED_STATES.size()):
+        return null
+    return loaded
+
 func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) -> bool:
     enabled = false
     motion_source = "unavailable"
     sheets.clear()
     effect = null
     atlas = null
+    generated_atlas = null
+    generated_texture = null
+    previous_portrait_texture = null
     if chapter != permitted_chapter or not is_instance_valid(target) or target.texture == null:
         return false
     if not ResourceLoader.exists(shader_path):
@@ -64,12 +98,22 @@ func configure(target: TextureRect, chapter: int, motion_reduced: bool = false) 
     shader_material = ShaderMaterial.new()
     shader_material.shader = shader
     portrait.material = shader_material
-    # The imported Main2 candidate portrait is a real player-visible PNG.
-    # Render charge/strike/hit/phase/release through its chapter-specific
-    # shader even when retired B03 authored overlay atlases are unavailable.
-    # Do not fabricate or claim the absent 26 source art frames.
-    motion_source = "authored_sheets" if not sheets.is_empty() else "live_portrait_shader"
-    if not sheets.is_empty():
+    previous_portrait_texture = portrait.texture
+    generated_texture = _live_generated_sheet(chapter)
+    if generated_texture != null:
+        # A real 4-column x 6-row sheet is the live boss portrait, not
+        # just a resource registered in an art catalog. The existing shader
+        # adds subtle movement to the actual handoff/attack/hit frames.
+        generated_atlas = AtlasTexture.new()
+        generated_atlas.atlas = generated_texture
+        generated_atlas.region = Rect2(0, 0, GENERATED_CELL, GENERATED_CELL)
+        portrait.texture = generated_atlas
+        motion_source = "generated_six_state_atlas"
+    else:
+        # Damaged or absent generated atlas: keep the current visible
+        # portrait and the old shader/optional authored-sheet behavior.
+        motion_source = "authored_sheets" if not sheets.is_empty() else "live_portrait_shader"
+    if generated_atlas == null and not sheets.is_empty():
         effect = Sprite2D.new()
         effect.name = effect_label
         effect.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -148,6 +192,21 @@ func _advance(delta: float) -> void:
     shader_material.set_shader_parameter("defeat_weight",progress if state == "defeat" else 0.0)
     shader_material.set_shader_parameter("phase_weight",pulse if state == "phase" else 0.0)
     shader_material.set_shader_parameter("reduced_motion",1.0 if reduced_motion else 0.0)
+    if generated_atlas != null:
+        var generated_pose: String = state
+        match state:
+            "charge": generated_pose = "status"
+            "phase": generated_pose = "phase_change"
+            "defeat": generated_pose = "down"
+        var row: int = GENERATED_STATES.find(generated_pose)
+        if row >= 0:
+            var generated_frame: int = 0
+            if not reduced_motion:
+                generated_frame = int(clock / 0.18) % 4 if state == "idle" else mini(int(progress * 4.0), 3)
+            frame_index = generated_frame
+            generated_atlas.region = Rect2(
+                GENERATED_CELL * generated_frame, GENERATED_CELL * row,
+                GENERATED_CELL, GENERATED_CELL)
     if not is_instance_valid(effect):
         return
     var visible_pose: String = "charge" if state == "phase" else state
@@ -170,5 +229,8 @@ func _advance(delta: float) -> void:
     effect.modulate.a = 0.0 if state == "defeat" and progress >= 1.0 else (0.30 if reduced_motion else 0.52 + pulse*0.22)
 
 func _exit_tree() -> void:
-    if is_instance_valid(portrait) and is_instance_valid(shader_material) and portrait.material == shader_material:
-        portrait.material = original_material
+    if is_instance_valid(portrait):
+        if generated_atlas != null and portrait.texture == generated_atlas:
+            portrait.texture = previous_portrait_texture
+        if is_instance_valid(shader_material) and portrait.material == shader_material:
+            portrait.material = original_material

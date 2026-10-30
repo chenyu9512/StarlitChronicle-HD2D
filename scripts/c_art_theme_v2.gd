@@ -30,6 +30,21 @@ static func _ensure() -> void:
                 continue
             _themes[id] = item
     _baseline = _themes.get("starlit_hd2d_act01", {})
+    # The unified runtime index owns official source paths. The historical V2
+    # theme manifest still supplies DLC contracts and per-slot metadata.
+    var canonical_raw: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/assets/c_art_runtime_registry_v1.json"))
+    if canonical_raw is Dictionary and str(canonical_raw.get("schema", "")) == "starlit.c.art_runtime_registry.v1":
+        var official: Dictionary = canonical_raw.get("canonical_slots", {})
+        var original_slots: Dictionary = _baseline.get("slots", {})
+        for slot_id in official.keys():
+            if not original_slots.has(slot_id):
+                continue
+            var saved: Dictionary = original_slots[slot_id]
+            var record: Dictionary = official[slot_id]
+            saved["source"] = str(record.get("source", ""))
+            original_slots[slot_id] = saved
+        _baseline["slots"] = original_slots
+        _themes["starlit_hd2d_act01"] = _baseline
     # Installed bundles contain images only. Their IDs are completely separate
     # from built-in theme IDs and never execute scripts or rewrite res:// files.
     if FileAccess.file_exists(USER_INDEX):
@@ -127,9 +142,11 @@ static func revision() -> int:
 
 static func slot_entry(slot_id: String) -> Dictionary:
     _ensure()
-    if not _themes.has(_active):
+    # The official baseline semantic slots must remain addressable even when
+    # the user selected the original (non-DLC) presentation.
+    var theme: Dictionary = _baseline if _active == "original" else _themes.get(_active, {})
+    if theme.is_empty():
         return {}
-    var theme: Dictionary = _themes[_active]
     var aliases: Dictionary = theme.get("aliases", {})
     var target: String = str(aliases.get(slot_id, slot_id))
     return (theme.get("slots", {}) as Dictionary).get(target, {})
@@ -153,6 +170,9 @@ static func _valid_texture(path: String) -> Texture2D:
 
 static func texture(slot_id: String) -> Texture2D:
     _ensure()
+    var baseline: Dictionary = (_baseline.get("slots", {}) as Dictionary).get(slot_id, {})
+    if str(baseline.get("stage", "")) == "candidate_not_approved_boss_identity" and not _active.begins_with("user_"):
+        return null
     var path: String = source_for(slot_id)
     if path.is_empty():
         return null

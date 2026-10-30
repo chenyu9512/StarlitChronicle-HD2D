@@ -1,5 +1,6 @@
 extends RefCounted
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const CAct01GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 const CRegionalMonsters = preload("res://scripts/c_art_regional_monsters_v15.gd")
 ## B02 static illustrations / B03 static boss art. Never treat portraits as animation sheets.
@@ -72,6 +73,9 @@ static func party_head(character_id: String) -> String:
     return str(heads.get(character_id, ""))
 
 static func boss_image(boss_id: String) -> String:
+    var generated: String = Generated.boss_path(boss_id)
+    if not generated.is_empty():
+        return generated
     _load_registry()
     var legacy: String = str(bosses.get(boss_id, ""))
     # Preserve an original B03 portrait if its real authored image still
@@ -102,6 +106,10 @@ static func battle_image(enemy: Dictionary, is_boss: bool, chapter: int) -> Stri
     # both must resolve to exactly the same reviewed imported species.
     # Keep this order equal to EncounterRegistry.COAST_ART, not the old
     # MONSTER_ART battle-placement array (which has a different ordering).
+    if not is_boss and not str(enemy.get("monster_id","")).is_empty():
+        var generated_enemy: String = Generated.path("monsters", str(enemy.get("monster_id","")))
+        if not generated_enemy.is_empty():
+            return generated_enemy
     if chapter >= 1 and chapter <= 6 and not is_boss:
         var canonical_id: String = str(enemy.get("monster_id", ""))
         if canonical_id.is_empty():
@@ -114,6 +122,9 @@ static func battle_image(enemy: Dictionary, is_boss: bool, chapter: int) -> Stri
             var index: int = COAST_SPECIES.find(species)
             if index >= 0:
                 canonical_id = "mon_coast_%02d" % (index + 1)
+        var generated_coast: String = Generated.path("monsters", canonical_id)
+        if not generated_coast.is_empty():
+            return generated_coast
         var imported: String = CAct01GlobalArt.battle_path(canonical_id)
         if not imported.is_empty():
             return imported

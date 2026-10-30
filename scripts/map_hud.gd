@@ -13,6 +13,7 @@ var world
 var router
 var root: Control
 var small_frame: PanelContainer
+var large_frame: PanelContainer
 var small_view
 var small_header: Button
 var overlay: Control
@@ -37,6 +38,9 @@ var zoom_in_button: Button
 var recenter_button: Button
 var zoom_status: Label
 var displayed_context: String = ""
+var style_chapter: int = -999
+var sidebar: VBoxContainer
+var footer: Label
 
 func _ready() -> void:
     layer = 14
@@ -49,9 +53,11 @@ func _ready() -> void:
     small_frame.hide()
     overlay.hide()
     set_process(true)
+    get_viewport().size_changed.connect(_reflow_map)
+    call_deferred("_reflow_map")
 
 func _frame_style() -> StyleBoxFlat:
-    return CVisual.frame(CVisual.NAVY, CVisual.RIM, 10, 9)
+    return CVisual.surface(false)
 
 func _button(title: String) -> Button:
     var btn := Button.new()
@@ -66,10 +72,14 @@ func _button(title: String) -> Button:
 func _build_small() -> void:
     small_frame = PanelContainer.new()
     small_frame.name = "ExploreMinimap"
-    small_frame.anchor_left = 0.795
-    small_frame.anchor_right = 0.985
-    small_frame.anchor_top = 0.025
-    small_frame.anchor_bottom = 0.327
+    small_frame.anchor_left = 1.0
+    small_frame.anchor_right = 1.0
+    small_frame.anchor_top = 0.0
+    small_frame.anchor_bottom = 0.0
+    small_frame.offset_left = -220
+    small_frame.offset_right = -14
+    small_frame.offset_top = 14
+    small_frame.offset_bottom = 188
     small_frame.add_theme_stylebox_override("panel", _frame_style())
     small_frame.mouse_filter = Control.MOUSE_FILTER_STOP
     root.add_child(small_frame)
@@ -98,12 +108,13 @@ func _build_full() -> void:
     tint.color = Color(0.015,0.035,0.065,0.96)
     tint.mouse_filter = Control.MOUSE_FILTER_STOP
     overlay.add_child(tint)
-    var panel := PanelContainer.new()
+    large_frame = PanelContainer.new()
+    var panel: PanelContainer = large_frame
     panel.anchor_left = 0.075
     panel.anchor_right = 0.925
     panel.anchor_top = 0.06
     panel.anchor_bottom = 0.945
-    panel.add_theme_stylebox_override("panel",_frame_style())
+    panel.add_theme_stylebox_override("panel",CVisual.surface(true))
     overlay.add_child(panel)
     var column := VBoxContainer.new()
     column.add_theme_constant_override("separation",10)
@@ -159,7 +170,7 @@ func _build_full() -> void:
     full_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
     full_view.location_selected.connect(_on_location_selected)
     columns.add_child(full_view)
-    var sidebar := VBoxContainer.new()
+    sidebar = VBoxContainer.new()
     sidebar.custom_minimum_size.x = 204
     sidebar.add_theme_constant_override("separation",13)
     columns.add_child(sidebar)
@@ -182,11 +193,49 @@ func _build_full() -> void:
     route_button = _button("旅行到选中地点")
     route_button.pressed.connect(_try_travel)
     sidebar.add_child(route_button)
-    var footer := Label.new()
+    footer = Label.new()
     footer.text = "◆ 角色朝向  ✦ 主线  ◇ 支线  ■ 建筑  ◆ 地牢  · 触摸拖动/滚轮缩放 · 全部地图无迷雾 · 沿已解锁航路旅行"
     footer.add_theme_color_override("font_color",Color("b6c8d5"))
     footer.add_theme_font_size_override("font_size",14)
     column.add_child(footer)
+
+
+func _reflow_map() -> void:
+    if small_frame == null or large_frame == null:
+        return
+    var v: Vector2 = get_viewport().get_visible_rect().size
+    var compact: bool = v.x < 1040.0 or v.y < 610.0
+    # Physical pixel bounds keep the atlas legible at 1152, 1920 and on
+    # horizontal phones. Percentage-sized minimaps became oversized on 1080p.
+    var map_width: float = clampf(v.x * 0.185, 142.0, 206.0)
+    var map_height: float = clampf(v.y * 0.27, 116.0, 180.0)
+    small_frame.anchor_left = 1.0
+    small_frame.anchor_right = 1.0
+    small_frame.anchor_top = 0.0
+    small_frame.anchor_bottom = 0.0
+    small_frame.offset_left = -map_width - 14.0
+    small_frame.offset_right = -14.0
+    small_frame.offset_top = 14.0
+    small_frame.offset_bottom = 14.0 + map_height
+    small_header.custom_minimum_size.y = 29.0 if compact else 32.0
+    small_header.add_theme_font_size_override("font_size",12 if compact else 14)
+    large_frame.anchor_left = 0.018 if compact else 0.055
+    large_frame.anchor_right = 0.982 if compact else 0.945
+    large_frame.anchor_top = 0.018 if compact else 0.045
+    large_frame.anchor_bottom = 0.982 if compact else 0.955
+    full_heading.visible = not compact
+    full_heading.add_theme_font_size_override("font_size",20 if compact else 24)
+    sidebar.visible = not compact or v.x >= 1100.0
+    footer.visible = not compact
+    full_view.custom_minimum_size = Vector2(240,145) if compact else Vector2(450,280)
+    for button in [local_button,region_button,world_button]:
+        button.custom_minimum_size.y = 35 if compact else 43
+        button.add_theme_font_size_override("font_size",13 if compact else 16)
+    for button in [zoom_in_button,zoom_out_button,recenter_button]:
+        button.custom_minimum_size.y = 32 if compact else 43
+        button.add_theme_font_size_override("font_size",12 if compact else 16)
+    zoom_status.visible = not compact
+
 
 func bind_world(world_ref, router_ref) -> void:
     world = world_ref
@@ -298,6 +347,14 @@ func _refresh_info() -> void:
         route_button.disabled = true
         return
     var world_name: String = str(world.region_name())
+    # The minimap refreshes frequently; only rebuild StyleBoxes on chapter
+    # changes, not once every 100ms while the player is walking.
+    if style_chapter != int(world.chapter):
+        style_chapter = int(world.chapter)
+        var accent: Color = CVisual.act_accent(style_chapter)
+        full_heading.add_theme_color_override("font_color",accent)
+        small_frame.add_theme_stylebox_override("panel",CVisual.surface(false,style_chapter))
+        large_frame.add_theme_stylebox_override("panel",CVisual.surface(true,style_chapter))
     if small_header != null:
         small_header.text = "◇ " + str(world.map_profile.get("name","地图")).left(6) + " / TAB"
         small_header.tooltip_text = world_name + " · 点击查看区域、世界航路"

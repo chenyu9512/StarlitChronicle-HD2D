@@ -33,6 +33,18 @@ const StoryWorldBindings = preload("res://scripts/story_world_bindings.gd")
 const RegionalServiceMenu = preload("res://scripts/world_service_menu.gd")
 const CinematicDirector = preload("res://scripts/cinematic_director.gd")
 const CinematicCamera = preload("res://scripts/cinematic_camera.gd")
+const MechanicsRegistryScript = preload("res://scripts/systems/MechanicsRegistry.gd")
+const EndgameBridgeScript = preload("res://scripts/systems/EndgameExpansionBridge.gd")
+const EvacuationHudScript = preload("res://scripts/systems/EvacuationSquadHud.gd")
+const RescueWorldDirectorScript = preload("res://scripts/systems/Act08RescueWorldDirector.gd")
+const NoeWorldDirectorScript = preload("res://scripts/systems/NoeEraWorldDirector.gd")
+const EvacuationRoster = preload("res://scripts/systems/EvacuationBattleRoster.gd")
+const RescueProfiles = preload("res://scripts/systems/RescueEncounterProfiles.gd")
+const StarlightJournalScript = preload("res://scripts/systems/StarlightJournal.gd")
+const DeductionGraph = preload("res://scripts/systems/DeductiveReasoningGraph.gd")
+const NativeSaveManager = preload("res://scripts/core/SaveLoadManager.gd")
+const ThreeRealmsOptics = preload("res://scripts/systems/ThreeRealmsOptics.gd")
+const CH021_DIRECTION_CUE: String = "direction.ch021.crisis"
 var progress
 var catalog
 var world
@@ -47,6 +59,8 @@ var chapter_ambient
 var world_router
 var game_events
 var save_slots
+var native_save_manager = NativeSaveManager.new()
+var realm_optics
 var housing
 var housing_room
 var optional_director
@@ -58,6 +72,18 @@ var story_world_bindings
 var service_menu
 var cinematic
 var cinematic_camera
+var mechanics_registry
+var evidence_journal
+var active_evidence_id: String = ""
+var direction_cutscene
+var endgame_bridge
+var evacuation_hud
+var rescue_world_director
+var noe_world_director
+var active_evacuation_choice: String = ""
+var active_evacuation_battle_squad: String = ""
+var chapter_mechanic_controller
+var chapter_mechanic_id: String = ""
 var cinematic_resume: String = ""
 var cinematic_force_play: bool = false
 var cinematic_prologue: Dictionary = {}
@@ -65,6 +91,7 @@ var cinematic_chapters: Dictionary = {}
 var cinematic_scene_blocking: Dictionary = {}
 var pending_optional: Dictionary = {}
 var clock_tick: float = 0.0
+var ui_hint_clock: float = 0.0
 var active_optional_flag: String = ""
 var ending_replay_id: String = ""
 var ending_replay_scene: int = 0
@@ -85,6 +112,8 @@ func _ready() -> void:
     game_core = RPGCore.new()
     ending_director = EndingDirector.new()
     chapter_ambient = ChapterAmbient.new()
+    evidence_journal = StarlightJournalScript.new()
+    evidence_journal.object_closeup_requested.connect(_on_canon_evidence_closeup_requested)
     world_router = WorldRegistry.new()
     game_events = GameEvents.new()
     save_slots = SaveSlots.new()
@@ -105,6 +134,8 @@ func _ready() -> void:
     var loaded: bool = catalog.load_all()
     world = WorldScript.new()
     add_child(world)
+    realm_optics = ThreeRealmsOptics.new()
+    add_child(realm_optics)
     world.interacted.connect(_interact)
     world.encounter_requested.connect(_random_encounter)
     ui = UIScript.new()
@@ -159,6 +190,30 @@ func _ready() -> void:
     cinematic = CinematicDirector.new()
     add_child(cinematic)
     cinematic.finished.connect(_cinematic_finished)
+    mechanics_registry = MechanicsRegistryScript.new()
+    if not mechanics_registry.load_all():
+        push_error("章节机制注册表无效：" + "；".join(mechanics_registry.errors))
+    direction_cutscene = mechanics_registry.create_controller("ch021")
+    if direction_cutscene != null:
+        add_child(direction_cutscene)
+    else:
+        push_error("第21章正式导演控制器未装载；该章选择将被锁定。")
+    endgame_bridge = EndgameBridgeScript.new()
+    add_child(endgame_bridge)
+    if not endgame_bridge.load_registry():
+        push_error("终局第三批资源无法载入：" + "；".join(endgame_bridge.errors))
+    endgame_bridge.evacuation_expired.connect(_endgame_evacuation_expired)
+    evacuation_hud = EvacuationHudScript.new()
+    add_child(evacuation_hud)
+    evacuation_hud.squad_requested.connect(_request_endgame_squad)
+    rescue_world_director = RescueWorldDirectorScript.new()
+    add_child(rescue_world_director)
+    evacuation_hud.world_director = rescue_world_director
+    noe_world_director = NoeWorldDirectorScript.new()
+    add_child(noe_world_director)
+    adventure_menu.lore_loader = endgame_bridge.quests
+    adventure_menu.lore_read_requested.connect(_read_canonical_lore)
+    adventure_menu.deduction_requested.connect(_record_epistemic_deduction)
     cinematic_camera = CinematicCamera.new()
     add_child(cinematic_camera)
     cheat = CheatScript.new()
@@ -172,10 +227,20 @@ func _ready() -> void:
         push_error("剧情资源载入失败：" + catalog.get_errors_text())
 
 func _process(delta: float) -> void:
+    if progress != null and progress.chapter == 47 and endgame_bridge != null and endgame_bridge.registry_loaded:
+        endgame_bridge.evacuation.set_time_suspended(
+            busy or paused_for_dialogue or is_instance_valid(battle))
+    if evacuation_hud != null and progress != null and endgame_bridge != null:
+        evacuation_hud.update_from_bridge(endgame_bridge,progress.chapter)
     if progress == null or game_events == null:
         return
     if busy:
         return
+    # Context action follows the world interaction solver; no fake HUD targets.
+    ui_hint_clock += delta
+    if ui_hint_clock >= 0.12:
+        ui_hint_clock = 0.0
+        ui.set_interaction_hint(world.interaction_hint())
     progress.play_seconds += delta
     clock_tick += delta
     if clock_tick >= 8.0:
@@ -185,6 +250,18 @@ func _process(delta: float) -> void:
         world.sync_world_clock(int(progress.rpg.get("game_clock",{}).get("day",1)),int(progress.rpg.get("game_clock",{}).get("minutes",480)))
 
 func _unhandled_input(event: InputEvent) -> void:
+    # Mouse selection is constrained by the SAME real player-range resolver as
+    # keyboard interaction; clicking distant markers never teleports or triggers.
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not busy:
+        var target_id: String = world.nearest_interaction()
+        if target_id != "none" and world.nodes.has(target_id):
+            var target_node: Node2D = world.nodes[target_id]
+            if is_instance_valid(target_node) and target_node.visible:
+                var screen_position: Vector2 = target_node.get_global_transform_with_canvas() * Vector2.ZERO
+                if event.position.distance_to(screen_position) <= 42.0:
+                    world.interact()
+                    get_viewport().set_input_as_handled()
+                    return
     if event is InputEventKey and event.pressed and not event.echo:
         if event.keycode in [KEY_TAB, KEY_P] or (event.keycode == KEY_ESCAPE and atlas.is_open()):
             if atlas.is_open():
@@ -218,6 +295,10 @@ func _start(continue_game: bool) -> void:
     housing.bind(progress)
     optional_director.bind(progress)
     branch_runtime.bind(progress)
+    if not endgame_bridge.bind_progress(progress):
+        ui.show_title(false,"终局扩展存档校验失败，原文件保留：" + "；".join(endgame_bridge.errors))
+        return
+    _restore_canon_evidence_journal()
     world.set_visual_quality(int(progress.rpg.get("settings",{}).get("visual_quality",1)))
     if progress.chapter == 72 and bool(progress.flags.get("story.complete",false)) and str(progress.rpg.get("ending_id","")).is_empty():
         # Legacy V3 ending flag has no authored ending ID. Migrate only after
@@ -232,12 +313,29 @@ func _start(continue_game: bool) -> void:
             ui.show_title(false,"旧结局存档迁移失败，原文件已保留。请检查设备存储空间。")
             return
     _enter_location()
+    _restore_cheat_settings()
     var interrupted_cue: String = str(progress.rpg.get("cinematic_checkpoint",""))
+    if not fresh_game and interrupted_cue == CH021_DIRECTION_CUE:
+        if not _begin_ch021_direction(true):
+            _block_ch021_direction("第21章演出检查点不能恢复，请保留存档并检查剧情资源。")
+        return
     if not fresh_game and not interrupted_cue.is_empty():
         var desired_resume: String = "explore" if interrupted_cue=="cold_open" else "dialogue"
         if _play_story_cinematic(interrupted_cue,desired_resume):
             return
         progress.rpg.erase("cinematic_checkpoint")
+    if not fresh_game and progress.chapter == 21 and progress.scene_index == 2:
+        # A choice committed before a crash is authoritative. Do not ask again.
+        if bool(progress.flags.get("ch021.choice.chosen", false)) or bool(progress.flags.get("ch021.decision_made", false)):
+            _crisis_choice_complete()
+            return
+        if _ch021_choice_ready():
+            pending = "choice"
+            busy = true
+            paused_for_dialogue = true
+            world.locked = true
+            ui.show_choices(_current_scene().get("choice", {}))
+            return
     var resumed_branch: Dictionary = branch_runtime.resume()
     if not resumed_branch.is_empty() and str(progress.rpg.get("branch_story",{}).get("active",{}).get("source","menu")) == "menu":
         _display_branch_event(resumed_branch)
@@ -281,6 +379,9 @@ func _play_story_cinematic(cue_id: String,resume: String) -> bool:
     return true
 
 func _cinematic_finished(cue_id: String,_skipped: bool) -> void:
+    if cue_id == CH021_DIRECTION_CUE:
+        _finish_ch021_direction()
+        return
     # Completed and skipped scenes have identical canonical state effects.
     # This is presentation-only: narrative effects remain in _dialogue_ended.
     if cue_id.is_empty():
@@ -356,13 +457,36 @@ func _chapter_card(chapter_no: int) -> void:
     var label_text: String=("第%d章 · %s" % [chapter_no,str(chosen.get("title",""))]) if is_act_start else str(chosen.get("location","洛维恩"))
     cinematic.banner_card(heading,label_text,"mystery" if is_act_start else "hope")
 
+func _runtime_world_party_ids() -> Array:
+    var base: Array = game_core.active_party_ids()
+    if progress == null or progress.chapter != 47 or endgame_bridge == null             or not endgame_bridge.registry_loaded or not endgame_bridge.evacuation.running:
+        return base
+    var squad_id: String = str(endgame_bridge.evacuation.active_controlled_squad)
+    var lane: Dictionary = EvacuationRoster.resolve(squad_id,47,progress.actors,progress.flags)
+    if bool(lane.get("ok",false)):
+        return (lane.get("ids",[]) as Array).duplicate()
+    # Never invent a missing actor or silently add a protected child.
+    return base
+
 func _enter_location() -> void:
     game_core.register_chapter(progress.chapter)
     world_router.sync_chapter(progress.chapter)
     world.map_profile = world_router.profile()
+    var production: Dictionary = catalog.production_contract("ch%03d" % progress.chapter,progress.flags)
+    world.world_epoch = str(production.get("epoch","present"))
     world.custom_region = str(world.map_profile.get("name",game_core.location_name(progress.chapter)))
-    world.party_ids = progress.rpg.get("party", []).duplicate()
+    # Bind the chapter's live rescue state BEFORE calculating its on-screen
+    # squad, otherwise world.build incorrectly uses the permanent party.
+    if endgame_bridge != null and endgame_bridge.current_chapter != progress.chapter:
+        if not endgame_bridge.bind_progress(progress):
+            push_error("终局状态无法重绑：" + "；".join(endgame_bridge.errors))
+    world.party_ids = _runtime_world_party_ids()
+    world.world_legacy_flags = progress.flags.duplicate(true)
     world.build(progress.chapter, world.party_ids.size())
+    _update_realm_optics()
+    world.apply_canon_pov(progress.flags)
+    if progress.chapter == 47 and endgame_bridge != null and endgame_bridge.registry_loaded:
+        world.apply_rescue_squad_pov(str(endgame_bridge.evacuation.active_controlled_squad))
     # Only durable completion, not combat victory alone, relights the tower.
     # Historical V3 saves with the lantern completion bit remain compatible.
     var lantern_saved: bool = bool(progress.flags.get("world.seven_lanterns.first",false)) or (
@@ -387,6 +511,13 @@ func _enter_location() -> void:
     world.locked = false
     busy = false
     pending = ""
+    # Travel/rebuilding the same chapter must never replenish the live countdown.
+    # Slot loads rebind explicitly in _load_slot.
+    if endgame_bridge != null and endgame_bridge.current_chapter != progress.chapter and not endgame_bridge.bind_progress(progress):
+        push_error("终局状态重绑失败：" + "；".join(endgame_bridge.errors))
+    _install_endgame_markers()
+    rescue_world_director.bind_world(world,endgame_bridge)
+    noe_world_director.bind_world(world,endgame_bridge)
     ui.set_play_visible(true)
     atlas.show_exploration(true)
     _focus()
@@ -432,7 +563,77 @@ func _objective() -> String:
             return "【本章目的地】%s\n当前路线尚未开放，请先完成必要条件。" % target_name
     if progress.chapter == 0:
         return "前往 ✦ 光点：" + prefix
+    if progress.chapter == 2 and progress.scene_index >= 1:
+        if world.interior_building != "shelter":
+            return "【白砂港收容所】沿港口街道进入正式收容所；病患调查、医师抉择和冲突不可在室外完成。"
+        if progress.scene_index == 1:
+            if progress.task_index == 0 and not bool(progress.flags.get("ch002.evidence",false)):
+                var pending_items: Array[String] = []
+                for evidence_id in world.terrain_layout.get("act01_main_story_evidence",[]):
+                    var state: Dictionary = room_investigations.snapshot(
+                        progress,world_router.current_map(),"shelter",str(evidence_id))
+                    if not bool(state.get("seen_before",false)):
+                        pending_items.append("搁浅水手行囊" if str(evidence_id).ends_with("_2") else "临时名册")
+                if not pending_items.is_empty():
+                    return "【收容所调查】先亲自查看：" + "、".join(pending_items) + "，成功保存后再向水手核对。"
+            return ("【病历核对】前往病例核对台，询问失忆病患。" if progress.task_index == 0
+                else "【水手证言】前往床旁水手位置询问两次钟声与失落航海日志。")
+        if progress.scene_index == 2:
+            return "【主任抉择】在诊疗区与主任面对面确认病历隐私，并进行正式守卫战。"
+        if progress.scene_index == 3:
+            return "【匿名求援】在收容所内完成病历交接后返回白砂港街道。"
+    if progress.chapter == 4:
+        if world.interior_building != "tavern":
+            return "【黑帆酒馆】请从白砂港街巷寻找真正的酒馆正门，进入室内继续调查。"
+        match progress.scene_index:
+            0: return "【酒馆接待】走到吧台，向酒馆老板了解近期夜船的去向。"
+            1:
+                if progress.task_index == 0 and not bool(progress.flags.get("ch004.evidence",false)):
+                    var missing_clues: Array[String] = []
+                    for evidence_id in world.terrain_layout.get("act01_main_story_evidence",[]):
+                        var record: Dictionary = room_investigations.snapshot(
+                            progress,world_router.current_map(),"tavern",str(evidence_id))
+                        if not bool(record.get("seen_before",false)):
+                            missing_clues.append("夹层货单" if str(evidence_id).ends_with("_1") else "无日期船员告示")
+                    if not missing_clues.is_empty():
+                        return "【室内调查】先亲自查看：" + "、".join(missing_clues) + "；再去主线线索点核对假货单。"
+                return "【船员口供】与靠近长桌的目击水手核对账目和夜船航线。" if progress.task_index == 1 else "【酒馆调查】前往货单核对点整理证据。"
+            2: return "【酒馆危机】接近灰帷会冲突点，保护普通酒客后由原有战斗系统解决威胁。"
+            3: return "【朔弦坦白】在酒馆出口内侧与朔弦对话，完成第四章后再离开。"
+    if progress.chapter == 5 and world_router.current_map() == "map_coast_03" and progress.scene_index >= 1 and progress.scene_index <= 2:
+        if not world.shoal_plan.ready():
+            return "【鲸骨浅滩】正式救援场景数据缺失，禁止以通用标记替代。"
+        var next_record: String = world.shoal_plan.next_required(progress)
+        if not next_record.is_empty():
+            var pending_record: Dictionary = world.shoal_plan.entry(next_record)
+            return "【鲸骨浅滩】沿盐风古道支路走到半月湾，先调查「%s」。红旗→星锁→撤离线须实地确认后方可营救古兽。" % str(pending_record.get("title","救援线索"))
+        if progress.scene_index == 2:
+            return "【古兽救援】已核对红旗、三重星锁及撤离线。与冲突现场交互，在战斗中先双哨引导、再逐一拆除三锁。"
+    if progress.chapter == 6 and world_router.current_map() == "map_coast_05":
+        if not world.lighthouse_plan.ready():
+            return "【潮歌灯塔】正式供能室记录缺失，主线不能继续。"
+        if progress.scene_index == 0:
+            return "【灯塔工匠】沿真实悬崖折返步道，到工匠维护站与守灯工匠交谈。"
+        var missing_wick: String = world.lighthouse_plan.next_required(progress)
+        if progress.scene_index in [1,2] and not missing_wick.is_empty():
+            var record: Dictionary = world.lighthouse_plan.fragment(missing_wick)
+            return "【三枚灯芯】请亲自前往「%s」调查、保存；海堤→塔底→塔顶三处独立供能室不可跳过。" % str(record.get("title","灯芯"))
+        if progress.scene_index == 1:
+            return "【三芯合灯】三枚灯芯均已记录。前往反光镜架核对台，再向归航者回声处询问。"
+        if progress.scene_index == 2:
+            return "【共同见证】到塔前守门人处拒绝记忆献祭，以四段不同归航见证代替旧供能规则。"
+        if progress.scene_index == 3:
+            return "【归航母灯】返回塔顶灯坛，与守灯工匠确认第一幕归航灯重燃。"
     if progress.chapter <= 3:
+        if progress.chapter == 3 and progress.scene_index == 2:
+            # V7 cave devices b -> a -> c are real map-coast-04 interactions.
+            # Solving the sequence enables badge recognition; HP victory remains legal.
+            var cave_records: Dictionary = progress.rpg.get("dungeon_puzzles_v7",{})
+            var cave_progress: Dictionary = cave_records.get("map_coast_04",{})
+            var valves: int = clampi(int(cave_progress.get("index",0)),0,3)
+            if valves < 3:
+                return "【断桅海蚀洞】可调查三座实体石阀（中→左→右，%d/3）。完成后在胸灯停顿时出示歪树船徽，或按正常战斗挑战守卫。" % valves
+            return "【潮痕守卫】三道石阀已响应。确认半枚船徽上的歪树刻痕，待胸灯停顿时选择战术行动。"
         var steps: Array[String] = ["与%s交谈" % WorldScript.NPC_NAMES[progress.chapter], "调查线索" if progress.task_index == 0 else "向目击者核实线索", "再次调查冲突点，开始战斗" if progress.task_index == 1 else "调查冲突点", "返回归航点，完成本章"]
         if progress.scene_index >= 0 and progress.scene_index < steps.size():
             var instruction: String = steps[progress.scene_index]
@@ -445,7 +646,10 @@ func _objective() -> String:
     match progress.scene_index:
         0: return prefix + " · 找到" + (WorldScript.NPC_NAMES[progress.chapter] if progress.chapter < WorldScript.NPC_NAMES.size() else "关键人物")
         1: return prefix + (" · 调查线索" if progress.task_index == 0 else " · 询问目击者")
-        2: return prefix + (" · 迎战敌人" if progress.task_index == 1 else " · 前往冲突现场")
+        2:
+            if progress.chapter == 5:
+                return prefix + " · 缚潮古兽不能靠伤害击杀。战斗中先由朔弦吹双哨引导，再对未发亮的锁扣逐一拆除，共需安全拆解3处。"
+            return prefix + (" · 迎战敌人" if progress.task_index == 1 else " · 前往冲突现场")
         3: return prefix + " · 返回归航点，完成本章"
     if progress.chapter == 72 and progress.scene_index == 4:
         return "最后的抉择 · 前往归航灯坛，见证世界的未来"
@@ -459,16 +663,36 @@ func _focus() -> void:
         story_world_bindings,game_core,branch_runtime,tracked)
     world.refresh_room_evidence(progress.rpg)
     world.refresh_room_npcs(progress.flags)
+    world.refresh_shoal_evidence(progress)
+    world.refresh_lighthouse_fragments(progress)
+    world.refresh_world_legacy(progress.flags)
     world.sync_prologue_markers(progress.scene_index,progress.chapter)
     var required_act01_map: String = world_router.act01_target_map(progress.chapter)
     var story_here: bool = required_act01_map.is_empty() or world_router.current_map()==required_act01_map
+    # City Act X uses its own exact chapter destination, not generic markers.
+    if progress.chapter>=55 and progress.chapter<=60:
+        story_here = world_router.current_map() == world_router.chapter_map(progress.chapter)
     if not story_here:
         # Otherwise old procedural chapter props would let the player finish
         # cave/tavern/shoal/lighthouse scenes on an unrelated sector.
         for main_marker in ["key_npc","clue","witness","crisis","resolve"]:
             if world.nodes.has(main_marker):
                 world.nodes[main_marker].visible = false
-    world.set_focus(_target() if story_here and not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else "")
+    var current_focus: String = _target() if story_here and not (progress.chapter == 72 and bool(progress.flags.get("story.complete", false))) else ""
+    if progress.chapter == 2:
+        if progress.scene_index == 0 and not world.interior_building.is_empty():
+            current_focus = "interior_exit"
+        elif progress.scene_index >= 1:
+            if world.interior_building == "shelter":
+                current_focus = _target() if story_here else ""
+            else:
+                current_focus = "building:shelter" if story_here and world.nodes.has("building:shelter") else ""
+    if progress.chapter == 4:
+        if world.interior_building == "tavern":
+            current_focus = _target() if story_here else ""
+        else:
+            current_focus = "building:tavern" if story_here and world.nodes.has("building:tavern") else ""
+    world.set_focus(current_focus)
     var side_step: int = _side_step()
     var extra: String = ""
     var side_target: String = ""
@@ -518,6 +742,19 @@ func _focus() -> void:
             extra = "【专属场景后续调查】" + world.quest_submaps.room_name(tracking_quest)
         else:
             extra = "【剧情路线】" + story_world_bindings.route_summary(tracking_quest,world_router)
+    if endgame_bridge != null and progress.chapter == 47 and not endgame_bridge.evacuation.finished:
+        side_target = endgame_bridge.evacuation.current_objective_marker(endgame_bridge.evacuation.active_controlled_squad)
+        if side_target.is_empty():
+            side_target = "evac:command"
+    if endgame_bridge != null and endgame_bridge.registry_loaded:
+        for stage_marker in endgame_bridge.eligible_interactions():
+            if not str(stage_marker).begins_with("evac:") or stage_marker == "evac:command" or not world.nodes.has(stage_marker):
+                continue
+            var active_stage: bool = false
+            for team in endgame_bridge.evacuation.OBJECTIVE_MARKERS:
+                if endgame_bridge.evacuation.current_objective_marker(str(team)) == stage_marker:
+                    active_stage = true
+            world.nodes[stage_marker].visible = active_stage
     world.set_side_focus(side_target)
     if extra.is_empty() and progress.chapter > 0:
         var open_inspections: Array[String] = []
@@ -536,7 +773,8 @@ func _focus() -> void:
     # The opening tracker prioritizes the main route. Optional markers remain
     # on the atlas; stacking their prose here clips the fixed-height mobile HUD.
     var show_extra: bool = progress.chapter > 3 and not extra.is_empty()
-    ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if show_extra else ""), progress.actors, progress.gold, progress.potions)
+    var endgame_hint: String = endgame_bridge.summary() if endgame_bridge != null else ""
+    ui.set_hud(progress.chapter, world.region_name(), _objective() + ("\n" + extra if show_extra else "") + ("\n" + endgame_hint if not endgame_hint.is_empty() else ""), progress.actors, progress.gold, progress.potions)
     atlas.set_targets(world.focus_name,side_target)
     var nav_event: Dictionary = branch_runtime.get_event(tracked)
     if not nav_event.is_empty() and not branch_runtime.is_seen(tracked):
@@ -545,9 +783,226 @@ func _focus() -> void:
             story_world_bindings.route_summary(quest_id,world_router))
     else:
         atlas.set_story_route("","")
+    if evacuation_hud != null:
+        evacuation_hud.update_from_bridge(endgame_bridge,progress.chapter)
+    if endgame_bridge != null and endgame_bridge.registry_loaded and progress.chapter == 47:
+        world.apply_rescue_squad_pov(endgame_bridge.evacuation.active_controlled_squad)
+    if rescue_world_director != null:
+        rescue_world_director.refresh()
+    if noe_world_director != null:
+        noe_world_director.refresh()
+
+func _reserve_rescue_reward_id(squad_id: String) -> String:
+    if progress.chapter != 47 or not endgame_bridge.evacuation.running:
+        return ""
+    var records_value: Variant = progress.rpg.get("evacuation_battle_pending_v1",{})
+    if not (records_value is Dictionary):
+        return ""
+    var records: Dictionary = records_value
+    var recorded_id: String = str(records.get(squad_id,""))
+    if not recorded_id.is_empty():
+        return recorded_id if BattleRewardTransaction.valid_id(recorded_id)             and recorded_id.begins_with("random:") else ""
+    var receipt_id: String = BattleRewardTransaction.make_id(false,47)
+    if not BattleRewardTransaction.valid_id(receipt_id):
+        return ""
+    _capture_world_position()
+    var transaction: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        var pending_records: Dictionary = progress.rpg.get("evacuation_battle_pending_v1",{}).duplicate(true)
+        if pending_records.has(squad_id):
+            return {"ok":false,"reason":"rescue_nonce_collision"}
+        pending_records[squad_id] = receipt_id
+        progress.rpg["evacuation_battle_pending_v1"] = pending_records
+        return {"ok":true}
+    )
+    return receipt_id if bool(transaction.get("ok",false)) else ""
+
+func _resume_saved_rescue_victory(squad_id: String, transaction_id: String) -> Dictionary:
+    # Recovery is ONLY authorized by an actually persisted A-line victory
+    # receipt for this chapter, never by a claim, choice or boss flag.
+    var ledger_value: Variant = progress.rpg.get("battle_reward_transactions",{})
+    if not (ledger_value is Dictionary):
+        return {"ok":false,"reason":"missing_battle_v3_ledger"}
+    var ledger: Dictionary = ledger_value
+    var record_value: Variant = ledger.get(transaction_id,{})
+    if not (record_value is Dictionary):
+        return {"ok":false,"reason":"no_paid_real_battle"}
+    var record: Dictionary = record_value
+    if not BattleRewardTransaction.valid_id(transaction_id)             or not transaction_id.begins_with("random:")             or int(record.get("chapter",0)) != 47 or bool(record.get("boss",true)):
+        return {"ok":false,"reason":"invalid_or_unrelated_combat_receipt"}
+    if endgame_bridge == null or not endgame_bridge.registry_loaded             or not endgame_bridge.evacuation.running             or endgame_bridge.evacuation.failed             or endgame_bridge.evacuation.active_controlled_squad != squad_id:
+        return {"ok":false,"reason":"rescue_context_expired"}
+    var pending_value: Variant = progress.rpg.get("evacuation_battle_pending_v1",{})
+    if not (pending_value is Dictionary) or             str(pending_value.get(squad_id,"")) != transaction_id:
+        return {"ok":false,"reason":"pending_receipt_does_not_match"}
+    var confirmed: Dictionary = endgame_bridge.confirm_real_encounter(squad_id,47,transaction_id)
+    if not bool(confirmed.get("success",false)):
+        return {"ok":false,"reason":str(confirmed.get("reason","rescue_objective_invalid"))}
+    _capture_world_position()
+    var saved: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        var pending_ids: Dictionary = progress.rpg.get("evacuation_battle_pending_v1",{}).duplicate(true)
+        if str(pending_ids.get(squad_id,"")) != transaction_id:
+            return {"ok":false,"reason":"pending_receipt_changed"}
+        pending_ids.erase(squad_id)
+        progress.rpg["evacuation_battle_pending_v1"] = pending_ids
+        progress.rpg["endgame_expansion"] = endgame_bridge.export_state()
+        return {"ok":true}
+    )
+    if not bool(saved.get("ok",false)):
+        if not endgame_bridge.bind_progress(progress):
+            push_error("撤离战斗历史回执恢复后，桥接状态回滚失败。")
+        return {"ok":false,"reason":"rescue_checkpoint_save_failed"}
+    return {"ok":true,"message":"已从实际战斗胜利V3账本恢复本队救援进度；未重新发放经验或金币。"}
+
+func _handle_endgame_interaction(target: String, action_id: String = "") -> void:
+    if endgame_bridge == null or not endgame_bridge.registry_loaded:
+        ui.show_message("终局场景尚未装载，行动未记录。")
+        return
+    # Only a physically reachable marker supplies target here; menu callbacks
+    # may continue exactly the same pending target but cannot make a fake win.
+    if progress.chapter == 47 and target in ["evac:east:escort","evac:south:route"]:
+        if rescue_world_director == null or not rescue_world_director.escort_arrived(target):
+            pending = ""
+            active_evacuation_choice = ""
+            paused_for_dialogue = false
+            _return_to_world()
+            ui.show_message("护送队尚未到达！请带队沿可通行路线抵达城门，再确认行动。")
+            return
+    var before_endgame: Dictionary = progress._pack().duplicate(true)
+    var result: Dictionary = endgame_bridge.interact(target,progress.flags,action_id)
+    if bool(result.get("needs_choice",false)):
+        active_evacuation_choice = target
+        pending = "endgame_evac_choice"
+        busy = true
+        paused_for_dialogue = true
+        world.locked = true
+        ui.show_choices(result.get("choice_data",{}))
+        return
+    active_evacuation_choice = ""
+    pending = ""
+    paused_for_dialogue = false
+    if bool(result.get("start_encounter",false)):
+        var squad_id: String = str(result.get("squad_id",""))
+        if squad_id.is_empty() or is_instance_valid(battle):
+            _return_to_world()
+            ui.show_message("守军战斗无法启动；救援阶段没有推进。")
+            return
+        var reserved_receipt: String = _reserve_rescue_reward_id(squad_id)
+        if reserved_receipt.is_empty():
+            _return_to_world()
+            ui.show_message("无法写入独立救援战斗回执；尚未启动战斗。")
+            return
+        if BattleRewardTransaction.already_applied(progress.rpg,reserved_receipt):
+            # A previous session already saved the real combat payout but
+            # crashed before the squad rescue checkpoint. Never demand a
+            # second battle or create a second nonce for that same win.
+            var recovered: Dictionary = _resume_saved_rescue_victory(squad_id,reserved_receipt)
+            _return_to_world()
+            ui.show_message(str(recovered.get("message",
+                "战斗胜利已入账，但救援回执恢复失败：" + str(recovered.get("reason","unknown")))))
+            return
+        active_evacuation_battle_squad = squad_id
+        _start_battle(false)
+        if not is_instance_valid(battle):
+            active_evacuation_battle_squad = ""
+            _return_to_world()
+            ui.show_message("守军战斗未能建立，原救援进度保留。")
+        return
+    if bool(result.get("changed",false)):
+        _capture_world_position()
+        if bool(result.get("restarted",false)):
+            progress.rpg.erase("evacuation_battle_pending_v1")
+        progress.rpg["endgame_expansion"] = endgame_bridge.export_state()
+        if not progress.save():
+            progress.restore_snapshot(before_endgame)
+            if not endgame_bridge.bind_progress(progress):
+                push_error("终局事务失败后桥接恢复失败：" + "；".join(endgame_bridge.errors))
+            _return_to_world()
+            ui.show_message("撤离或交接进度未能保存，操作已回滚。")
+            return
+    _return_to_world()
+    if bool(result.get("changed",false)) and target.begins_with("evac:") and rescue_world_director != null:
+        for team_id in endgame_bridge.evacuation.OBJECTIVE_MARKERS:
+            if target in endgame_bridge.evacuation.OBJECTIVE_MARKERS[team_id]:
+                rescue_world_director.play_checkpoint(str(team_id))
+                break
+    ui.show_message(str(result.get("message","当前目标未完成。")))
 
 func _interact(target: String) -> void:
     if busy:
+        return
+    if target == "deduction:ch008_requisition_ledger":
+        if progress.chapter != 8 or not world.interior_building.is_empty()                 or not world.nodes.has(target) or not is_instance_valid(world.hero):
+            return
+        var marker: Node2D = world.nodes[target]
+        if world.hero.position.distance_to(marker.position)>55.0:
+            return
+        pending = "deductive_ledger_review"
+        busy = true
+        paused_for_dialogue = true
+        world.locked = true
+        ui.show_choices({"prompt":"第8章 · 现场强征账册：同款止血药粉并不能证明流民实施劫掠，应该怎样核对其真实流向？",
+            "options":[
+                {"id":"compare_armory_requisition","label":"核对卫戍队三天前的征用记录，再与现场断箭批号交叉调查"},
+                {"id":"blame_refugees_without_trace","label":"仅凭止血药粉便直接给救济站流民定罪"}
+            ]})
+        return
+    if target.begins_with("evac:") or target in ["endgame:handover","endgame:memorial"]:
+        _handle_endgame_interaction(target)
+        return
+    if target.begins_with("lore:"):
+        _open_adventure_book()
+        _read_canonical_lore(target.trim_prefix("lore:"))
+        return
+    if target.begins_with("wick:"):
+        if progress.chapter != 6 or world_router.current_map() != "map_coast_05" or not world.interior_building.is_empty():
+            return
+        if not world.lighthouse_plan.ready() or not world.nodes.has(target) or not is_instance_valid(world.hero):
+            ui.show_message("潮歌灯塔碎片位置未能加载，章节进度已保留。")
+            return
+        var artifact: Node2D = world.nodes[target]
+        if not is_instance_valid(artifact) or not artifact.visible or world.hero.position.distance_to(artifact.position) > 42.0:
+            return
+        var wick_id: String = target.trim_prefix("wick:")
+        if world.lighthouse_plan.fragment(wick_id).is_empty():
+            return
+        _capture_world_position()
+        var wick_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+            return world.lighthouse_plan.inspect(progress,wick_id)
+        )
+        if not bool(wick_tx.get("ok",false)):
+            ui.show_message("灯芯实地调查存档失败，状态已回滚，请在此处重新查看。")
+            return
+        var proof: Dictionary = wick_tx.get("mutation",{})
+        if bool(proof.get("changed",false)):
+            game_events.record("lighthouse_wick_found",{"chapter":6,"site":wick_id,"map":"map_coast_05"})
+        _focus()
+        ui.show_message(str(proof.get("message","灯芯已调查。")))
+        return
+    if target.begins_with("shoal:"):
+        # The player must be physically at the stage's reachable marker.
+        if progress.chapter != 5 or world_router.current_map() != "map_coast_03" or not world.interior_building.is_empty():
+            return
+        if not world.shoal_plan.ready() or not world.nodes.has(target) or not is_instance_valid(world.hero):
+            ui.show_message("当前浅滩调查点尚不可达。")
+            return
+        var shoal_marker: Node2D = world.nodes[target]
+        if not is_instance_valid(shoal_marker) or not shoal_marker.visible or world.hero.position.distance_to(shoal_marker.position) > 42.0:
+            return
+        var shoal_id: String = target.trim_prefix("shoal:")
+        if world.shoal_plan.entry(shoal_id).is_empty():
+            return
+        _capture_world_position()
+        var shoal_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+            return world.shoal_plan.inspect(progress,shoal_id)
+        )
+        if not bool(shoal_tx.get("ok",false)):
+            ui.show_message("浅滩救援调查未能保存，本次线索状态已回滚。请重新调查。")
+            return
+        var observed: Dictionary = shoal_tx.get("mutation",{})
+        if bool(observed.get("changed",false)):
+            game_events.record("shoal_rescue_evidence",{"chapter":5,"id":shoal_id,"map_id":"map_coast_03"})
+        _focus()
+        ui.show_message(str(observed.get("message","此处已调查。")))
         return
     if target.begins_with("field:"):
         if not world.interior_building.is_empty():
@@ -757,6 +1212,11 @@ func _interact(target: String) -> void:
             game_events.record("building_entered",{"building":building_id,"map":world_router.current_map()})
             _focus()
             ui.show_message("进入 " + world.region_name() + "。室内进度已自动保存。")
+        elif (building_id == "tavern" and progress.chapter == 4) or (building_id == "shelter" and progress.chapter == 2):
+            # Failed V4 geometry must never silently become a generic room.
+            _focus()
+            ui.show_message(("黑帆酒馆" if building_id=="tavern" else "白砂港收容所") +
+                "正式室内布局未能加载，原位置已保留；本章主线不会被跳过。")
         return
     if target == "interior_exit":
         _capture_world_position()
@@ -797,6 +1257,21 @@ func _interact(target: String) -> void:
             ui.show_message("室内调查记录保存失败，调查状态已回滚，请重试。")
             return
         var inspection_report: Dictionary = (inspection_tx.get("outcome",{}) as Dictionary).get("result",{})
+        if inspected_map == "map_coast_02" and inspected_building in ["tavern","shelter"] and is_instance_valid(world.interior_art):
+            # Furniture feedback only follows the already committed V3
+            # investigation. This never grants or repeats a quest reward.
+            var room_props: Dictionary = {
+                "inspect_act01_tavern_1":"shipment_ledger_box",
+                "inspect_act01_tavern_2":"crew_noticeboard",
+                "inspect_act01_tavern_3":"old_sailors_table",
+                "inspect_act01_tavern_4":"lost_wages_book",
+                "inspect_act01_shelter_1":"bedside_medicine",
+                "inspect_act01_shelter_2":"washed_luggage",
+                "inspect_act01_shelter_3":"public_patient_roster",
+                "inspect_act01_shelter_4":"saltgrass_treatment"
+            }
+            if room_props.has(inspected_id):
+                world.interior_art.play_prop_action(str(room_props[inspected_id]),"inspect")
         _focus()
         ui.show_message(str(inspection_report.get("message","这里没有新的线索。")))
         return
@@ -913,6 +1388,69 @@ func _interact(target: String) -> void:
             world_router.current_map()!=world_router.act01_target_map(progress.chapter)):
         ui.show_message("当前目标：" + _objective())
         return
+    # The chapter 2 harbor opening happens outside; after that the clinic
+    # diagnosis, witness statement, crisis and resolution are physical V4
+    # shelter interactions, never the harbor's generic outdoor markers.
+    if progress.chapter == 2:
+        if progress.scene_index == 0 and not world.interior_building.is_empty():
+            ui.show_message("先回港口街道与港务员交谈，再进入收容所寻找失忆水手。")
+            return
+        if progress.scene_index >= 1:
+            if world.interior_building != "shelter":
+                ui.show_message("请沿白砂港街道从正门进入收容所，不能在室外代替病患完成调查。")
+                return
+            if progress.scene_index == 1 and progress.task_index == 0 and not bool(progress.flags.get("ch002.evidence",false)):
+                var required_clues: Array = world.terrain_layout.get("act01_main_story_evidence",[])
+                if required_clues.size()!=2:
+                    ui.show_message("收容所正式病例调查点缺失，本章不能跳过调查。")
+                    return
+                for evidence_id in required_clues:
+                    var seen_record: Dictionary = room_investigations.snapshot(
+                        progress,world_router.current_map(),"shelter",str(evidence_id))
+                    if not bool(seen_record.get("seen_before",false)):
+                        ui.show_message("先在真实室内查看搁浅行囊及临时名册，并确认两个调查记录都已保存。")
+                        return
+    # Chapter four is exclusively playable on the physical tavern floor.
+    # Old outdoor generic markers are never a substitute for this room.
+    if progress.chapter == 4:
+        if world.interior_building != "tavern":
+            ui.show_message("先走到黑帆酒馆正门，进入室内与酒馆老板、船员交谈。")
+            return
+        if progress.scene_index == 1 and progress.task_index == 0 and not bool(progress.flags.get("ch004.evidence",false)):
+            for evidence_id in world.terrain_layout.get("act01_main_story_evidence",[]):
+                var inspected: Dictionary = room_investigations.snapshot(
+                    progress,world_router.current_map(),"tavern",str(evidence_id))
+                if not bool(inspected.get("seen_before",false)):
+                    ui.show_message("仍需实地调查夹层货单与无日期船员告示，且成功保存调查记录。")
+                    return
+    # A real, persisted red-flag / star-lock / evacuation trace is mandatory
+    # before chapter five's investigation or crisis dialogue can complete.
+    if progress.chapter == 5 and progress.scene_index in [1,2]:
+        if not world.shoal_plan.ready() or not world.shoal_plan.fully_observed(progress):
+            ui.show_message("先走到鲸骨半月湾，依次实地核对渔民红旗、三重星锁及安全退潮线。当前章节不会跳过调查。")
+            return
+    # The lamp's three real, saved fragments must precede its investigation
+    # and crisis; a generic old world marker cannot conjure the missing pieces.
+    if progress.chapter == 6 and progress.scene_index in [1,2]:
+        if not world.lighthouse_plan.ready() or not world.lighthouse_plan.all_fragments_found(progress):
+            ui.show_message("请走上潮歌灯塔正式悬崖路，先后调查海堤、塔底和塔顶的三枚灯芯碎片，并保存成功。")
+            return
+    # Physical close-up choices are only offered at the reachable main clue marker.
+    # Existing V3 saves past the investigation step are never forced back through them.
+    if target == "clue" and _begin_canon_evidence_inspection():
+        return
+    # Crash/quit during a chapter mechanism: the canonical crisis choice was
+    # already durably recorded. Resume at the next saved action instead of
+    # replaying the scene and offering the same A/B choice a second time.
+    if progress.scene_index == 2 and progress.task_index == 0 and _chapter_mechanic_required():
+        var saved_choice: Dictionary = _current_scene().get("choice",{})
+        var saved_choice_id: String = str(saved_choice.get("id",""))
+        if not saved_choice_id.is_empty() and bool(progress.flags.get(saved_choice_id+".chosen",false)):
+            if _begin_chapter_mechanic():
+                return
+            if _chapter_mechanic_done():
+                _crisis_choice_complete()
+                return
     if progress.chapter == 0:
         _present("prologue")
         return
@@ -928,11 +1466,117 @@ func _interact(target: String) -> void:
                     ui.show_message("场景进度未保存，请重新调查线索。")
         2:
             if progress.task_index == 1:
+                if _begin_chapter_mechanic():
+                    return
                 _start_battle(true)
             else:
                 _present("crisis")
-        3: _present("resolve")
+        3:
+            if progress.chapter == 47 and not endgame_bridge.chapter_gate_message().is_empty():
+                ui.show_message(endgame_bridge.chapter_gate_message())
+                return
+            _present("resolve")
         4: _present("ending_intro")
+
+# V2.1 inspected evidence is persisted alongside existing V3 RPG metadata.
+# No quest rewards, chapter flags or dialogue stages are directly advanced here.
+func _canon_evidence_for_chapter() -> String:
+    match progress.chapter:
+        1: return "ev_ch001_envelope"
+        3: return "ev_ch003_half_badge"
+        7: return "ev_ch007_rejected_letters"
+        8: return "ev_ch008_caravan_site"
+    return ""
+
+func _begin_canon_evidence_inspection() -> bool:
+    if progress.scene_index != 1 or progress.task_index != 0:
+        return false
+    var evidence_id: String = _canon_evidence_for_chapter()
+    if evidence_id.is_empty() or not StarlightJournalScript.INTERACTIVE_EVIDENCE_DB.has(evidence_id):
+        return false
+    active_evidence_id = evidence_id
+    evidence_journal.inspect_physical_object(evidence_id)
+    return true
+
+func _on_canon_evidence_closeup_requested(evidence_id: String, hotspots: Array) -> void:
+    if evidence_id != active_evidence_id or progress == null:
+        return
+    var gallery: Dictionary = progress.rpg.get("canon_evidence", {})
+    var visited: Dictionary = gallery.get(evidence_id, {})
+    var options: Array = []
+    for hotspot in hotspots:
+        if not (hotspot is Dictionary):
+            continue
+        var hotspot_id: String = str(hotspot.get("id",""))
+        if hotspot_id.is_empty() or bool(visited.get(hotspot_id,false)):
+            continue
+        options.append({"id":hotspot_id,"label":"查看 · "+str(hotspot.get("label","物证细节"))})
+    if options.is_empty():
+        active_evidence_id = ""
+        pending = ""
+        paused_for_dialogue = false
+        _present("clue")
+        return
+    pending = "canon_evidence"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_evidence_choices(evidence_id,
+        {"prompt":"仔细观察实物证据（已记录的痕迹无需重复调查）","options":options})
+
+func _record_canon_evidence_hotspot(item: Dictionary) -> void:
+    var evidence_id: String = active_evidence_id
+    var data: Dictionary = StarlightJournalScript.INTERACTIVE_EVIDENCE_DB.get(evidence_id, {})
+    var hotspot_id: String = str(item.get("id",""))
+    var selected: Dictionary = {}
+    for hotspot in data.get("hotspots",[]):
+        if hotspot is Dictionary and str(hotspot.get("id","")) == hotspot_id:
+            selected = hotspot
+            break
+    if selected.is_empty() or evidence_id != _canon_evidence_for_chapter() or progress.scene_index != 1 or progress.task_index != 0:
+        pending = ""
+        paused_for_dialogue = false
+        active_evidence_id = ""
+        _return_to_world()
+        ui.show_message("线索交互已失效，请回到调查点重新查看。")
+        return
+    _capture_world_position()
+    var tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        var gallery: Dictionary = progress.rpg.get("canon_evidence", {}).duplicate(true)
+        var visited: Dictionary = gallery.get(evidence_id, {}).duplicate(true)
+        visited[hotspot_id] = true
+        gallery[evidence_id] = visited
+        progress.rpg["canon_evidence"] = gallery
+        return {"ok":true}
+    )
+    if not bool(tx.get("ok",false)):
+        pending = ""
+        paused_for_dialogue = false
+        active_evidence_id = ""
+        _return_to_world()
+        ui.show_message("物证调查未能保存，原有存档已恢复；请重新操作。")
+        return
+    evidence_journal.register_clue(str(selected.get("grants_clue","")),str(selected.get("label","物证")),
+        str(data.get("title","")),StarlightJournalScript.ClueCategory.VERIFIED_FACT)
+    evidence_journal.inspect_physical_object(evidence_id)
+
+func _restore_canon_evidence_journal() -> void:
+    if evidence_journal == null:
+        return
+    evidence_journal.verified_facts.clear()
+    evidence_journal.pending_inferences.clear()
+    active_evidence_id = ""
+    var gallery: Dictionary = progress.rpg.get("canon_evidence", {})
+    for evidence_id in gallery.keys():
+        var data: Dictionary = StarlightJournalScript.INTERACTIVE_EVIDENCE_DB.get(evidence_id,{})
+        if data.is_empty():
+            continue
+        var visited: Dictionary = gallery.get(evidence_id,{})
+        for hotspot in data.get("hotspots",[]):
+            if hotspot is Dictionary and bool(visited.get(str(hotspot.get("id","")),false)):
+                evidence_journal.register_clue(str(hotspot.get("grants_clue","")),
+                    str(hotspot.get("label","物证")),str(data.get("title","")),
+                    StarlightJournalScript.ClueCategory.VERIFIED_FACT)
 
 func _start_branch_event(event_id: String) -> void:
     if branch_runtime == null or not branch_runtime.begin(event_id):
@@ -1093,6 +1737,9 @@ func _finish_story_side(selected: Dictionary = {}) -> void:
         return
     if result.begins_with("委托完成"):
         game_events.record("side_quest_completed",{"id":str(active_story_side.get("id",""))})
+        var bonds: Dictionary = endgame_bridge.after_scene_committed(progress)
+        if bool(bonds.get("changed",false)) and not _save_progress():
+            push_warning("伙伴羁绊附加缓存未能保存，可从正典支线旗标恢复。")
     var branch_dialogue: Array = selected.get("branch_dialogue", [])
     _focus() # Re-position the next original stage at this quest's authored site.
     if not branch_dialogue.is_empty():
@@ -1144,6 +1791,193 @@ func _side_interact(target: String) -> void:
     paused_for_dialogue = true
     world.locked = true
     ui.show_dialogue(quest.get(phase, []))
+
+# Global chapter mechanics: canonical pre-crisis player interactions only.
+# The RPGCore job system and BattleV3Settlement remain sole reward authorities.
+func _chapter_mechanic_key() -> String:
+    return "ch%03d" % progress.chapter
+
+func _chapter_mechanic_state() -> Dictionary:
+    var entries: Dictionary = progress.rpg.get("chapter_mechanics_v2", {})
+    return (entries.get(_chapter_mechanic_key(), {}) as Dictionary).duplicate(true)
+
+func _chapter_mechanic_required() -> bool:
+    # Newly mounted mechanics must not invalidate old saves containing a
+    # genuine Boss victory or an already committed chapter resolution.
+    if progress.chapter in [58,59,60,64,66,71,72]:
+        if bool(progress.flags.get("story.ch%03d.done" % progress.chapter,false)):
+            return false
+        if progress.chapter != 72 and bool(progress.flags.get("ch%03d.battle_won" % progress.chapter,false)):
+            return false
+    return progress.chapter in [15,17,23,27,29,36,40,55,56,57,58,59,60,61,62,64,65,66,70,71,72]
+
+func _chapter_mechanic_done() -> bool:
+    var state: Dictionary = _chapter_mechanic_state()
+    if not bool(state.get("done",false)):
+        return false
+    var controller: Node = _load_chapter_mechanic()
+    if controller == null:
+        return false
+    if controller.has_method("verified_complete"):
+        return bool(controller.call("verified_complete",state))
+    return true
+
+func _chapter_mechanic_block(message: String) -> void:
+    # Fail closed: an invalid controller cannot grant the canonical boss entry.
+    pending = ""
+    paused_for_dialogue = false
+    _return_to_world()
+    ui.show_message(message)
+
+func _load_chapter_mechanic() -> Node:
+    var key: String = _chapter_mechanic_key()
+    if is_instance_valid(chapter_mechanic_controller) and chapter_mechanic_id == key:
+        return chapter_mechanic_controller
+    if is_instance_valid(chapter_mechanic_controller):
+        chapter_mechanic_controller.queue_free()
+    chapter_mechanic_controller = null
+    chapter_mechanic_id = ""
+    if mechanics_registry == null or str(mechanics_registry.binding_for(key).get("status","")) != "active":
+        return null
+    var created: Node = mechanics_registry.create_controller(key)
+    if created == null or not created.has_method("get_prompt") or not created.has_method("apply_action"):
+        if is_instance_valid(created):
+            created.queue_free()
+        return null
+    if created.has_method("configure") and not bool(created.call("configure",key)):
+        created.free()
+        return null
+    add_child(created)
+    chapter_mechanic_controller = created
+    chapter_mechanic_id = key
+    return created
+
+func _begin_chapter_mechanic() -> bool:
+    if not _chapter_mechanic_required() or _chapter_mechanic_done():
+        return false
+    var controller: Node = _load_chapter_mechanic()
+    if controller == null:
+        _chapter_mechanic_block("本章机关数据无法读取，Boss战已安全锁定；请检查正式剧情资源。")
+        return true
+    var screen: Dictionary = controller.call("get_prompt", _chapter_mechanic_state())
+    if screen.is_empty() or bool(screen.get("done",false)) or (screen.get("options",[]) as Array).is_empty():
+        _chapter_mechanic_block("本章机关记录异常，禁止跳过至战斗。")
+        return true
+    pending = "chapter_mechanic"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_choices(screen)
+    return true
+
+func _chapter_mechanic_picked(item: Dictionary) -> void:
+    var controller: Node = _load_chapter_mechanic()
+    if controller == null:
+        _chapter_mechanic_block("本章控制器已丢失，操作未计入进度。")
+        return
+    var next_state: Dictionary = _chapter_mechanic_state()
+    var action: Dictionary = controller.call("apply_action",next_state,str(item.get("id","")))
+    if not bool(action.get("ok",false)):
+        ui.show_message(str(action.get("message","操作无效，请重试。")))
+        _begin_chapter_mechanic()
+        return
+    _capture_world_position()
+    var chapter_id: String = _chapter_mechanic_key()
+    var transaction: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        var recorded: Dictionary = progress.rpg.get("chapter_mechanics_v2",{}).duplicate(true)
+        recorded[chapter_id] = next_state.duplicate(true)
+        progress.rpg["chapter_mechanics_v2"] = recorded
+        if bool(next_state.get("done",false)):
+            progress.flags["mechanic."+chapter_id+".ready"] = true
+        return {"ok":true}
+    )
+    if not bool(transaction.get("ok",false)):
+        ui.show_message("机关存档失败，当前操作已回滚；请重新选择。")
+        _begin_chapter_mechanic()
+        return
+    ui.show_message(str(action.get("message","机关操作已保存。")))
+    if not _chapter_mechanic_done():
+        _begin_chapter_mechanic()
+        return
+    # A/B choice was already committed BEFORE the player-operated sequence.
+    # Never reopen it and double-record choice/reaction flags.
+    pending = ""
+    paused_for_dialogue = false
+    _crisis_choice_complete()
+
+func _ch021_choice_ready() -> bool:
+    return direction_cutscene != null and bool(direction_cutscene.choice_is_unlocked(progress))
+
+func _block_ch021_direction(message: String) -> void:
+    # Failure cannot silently fall through into the choice while in the past.
+    busy = true
+    paused_for_dialogue = false
+    world.locked = true
+    pending = ""
+    ui.set_play_visible(false)
+    atlas.show_exploration(false)
+    ui.show_title(true, message)
+
+func _begin_ch021_direction(resume: bool = false) -> bool:
+    if progress.chapter != 21 or str(_current_scene().get("id", "")) != "ch021.crisis":
+        return false
+    if direction_cutscene == null:
+        _block_ch021_direction("第21章导演控制器不存在，选择已锁定。")
+        return true
+    var cue: Dictionary = direction_cutscene.build_cue(_current_scene())
+    if cue.is_empty():
+        _block_ch021_direction("第21章正典导演提示或选择数据无效，选择已锁定。")
+        return true
+    if not resume:
+        _capture_world_position()
+        var tx: Dictionary = V3ProgressTransition.commit(progress, func() -> Dictionary:
+            progress.rpg["cinematic_checkpoint"] = CH021_DIRECTION_CUE
+            return {"ok":true}
+        )
+        if not bool(tx.get("ok", false)):
+            _cinematic_save_failed()
+            return true
+    pending = "ch021_direction"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.set_play_visible(false)
+    atlas.show_exploration(false)
+    if DisplayServer.get_name() == "headless" and not cinematic_force_play:
+        # Transaction tests only; this is not evidence of on-screen presentation.
+        _finish_ch021_direction()
+        return true
+    if not cinematic.start(CH021_DIRECTION_CUE, cue):
+        _block_ch021_direction("第21章演出未能启动；V3 检查点已保留，请读取存档重试。")
+        return true
+    _mix_world_for_cinematic(true)
+    return true
+
+func _finish_ch021_direction() -> void:
+    # Never make the adult choice visible before the era flag and checkpoint
+    # removal have been persisted in the same V3 save.
+    var tx: Dictionary = V3ProgressTransition.commit(progress, func() -> Dictionary:
+        progress.flags["ch021.campfire_returned"] = true
+        progress.rpg["direction_ch021_era"] = "present_campfire"
+        progress.rpg.erase("cinematic_checkpoint")
+        return {"ok":true}
+    )
+    _mix_world_for_cinematic(false)
+    if not bool(tx.get("ok", false)):
+        _cinematic_save_failed()
+        return
+    # The saved era was restored: refresh visual treatment before the adult choice.
+    world.world_epoch = "present"
+    if is_instance_valid(world.ambience):
+        world.ambience.set_world_epoch("present")
+    if not _ch021_choice_ready():
+        _block_ch021_direction("第21章现世场景状态校验失败，已禁止弹出抉择。")
+        return
+    pending = "choice"
+    busy = true
+    paused_for_dialogue = true
+    world.locked = true
+    ui.show_choices(_current_scene().get("choice", {}))
 
 func _present(on_complete: String) -> void:
     var scene: Dictionary = _current_scene()
@@ -1218,7 +2052,16 @@ func _dialogue_ended() -> void:
                 _scene_effect_save_failed()
                 return
         "crisis":
+            if _begin_chapter_mechanic():
+                return
             var choice: Dictionary = _current_scene().get("choice", {})
+            if progress.chapter == 21 and str(_current_scene().get("id", "")) == "ch021.crisis":
+                if bool(progress.flags.get("ch021.choice.chosen", false)) or bool(progress.flags.get("ch021.decision_made", false)):
+                    _crisis_choice_complete()
+                    return
+                if not _ch021_choice_ready():
+                    _begin_ch021_direction()
+                    return
             if not choice.is_empty():
                 pending = "choice"
                 ui.show_choices(choice)
@@ -1310,6 +2153,18 @@ func _dialogue_ended() -> void:
             _return_to_world()
             return
         "resolve":
+            # Chapter 54 memorial/handover is a real field interaction, not
+            # an automatic flag added by completing the resolution dialogue.
+            # Keep the player in the chapter with the world unlocked until
+            # the verified original ticket has actually been archived.
+            if progress.chapter == 54 and endgame_bridge != null:
+                var memorial_gate: String = endgame_bridge.chapter_gate_message()
+                if not memorial_gate.is_empty():
+                    pending = ""
+                    paused_for_dialogue = false
+                    _return_to_world()
+                    ui.show_message(memorial_gate)
+                    return
             if not _apply_effects(_current_scene()):
                 _scene_effect_save_failed()
                 return
@@ -1327,6 +2182,43 @@ func _dialogue_ended() -> void:
     _return_to_world()
 
 func _choice_picked(item: Dictionary) -> void:
+    if pending == "deductive_ledger_review":
+        pending = ""
+        paused_for_dialogue = false
+        if progress.chapter != 8 or str(item.get("id","")) != "compare_armory_requisition":
+            _return_to_world()
+            ui.show_message("仅凭同款药粉不能认定罪责，必须核对实物和强征账册。")
+            return
+        _capture_world_position()
+        var ledger_tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+            var sources: Dictionary = progress.rpg.get("deductive_physical_sources_v1",{}).duplicate(true)
+            sources["ch008_requisition_ledger"] = {
+                "source":"world_field_inspection","requisition_batch_read":true,
+                "chapter":"ch008","evidence_kind":"PHYSICAL_TRACE",
+                "procedure":"cross_reference_requisition_to_armory_batches"
+            }
+            progress.rpg["deductive_physical_sources_v1"] = sources
+            return {"ok":true}
+        )
+        _return_to_world()
+        ui.show_message("已记录卫戍队强征药粉的原始调拨账册。可与断箭批号交叉检定。" if bool(ledger_tx.get("ok",false)) else
+            "账册证据尚未保存，现场进度保持不变。")
+        return
+    if pending == "endgame_evac_choice":
+        var action_target: String = active_evacuation_choice
+        if action_target.is_empty():
+            pending = ""
+            paused_for_dialogue = false
+            _return_to_world()
+            return
+        _handle_endgame_interaction(action_target,str(item.get("id","")))
+        return
+    if pending == "chapter_mechanic":
+        _chapter_mechanic_picked(item)
+        return
+    if pending == "canon_evidence":
+        _record_canon_evidence_hotspot(item)
+        return
     if pending == "quest_puzzle_choice":
         var case_id: String = active_puzzle_quest
         active_puzzle_quest = ""
@@ -1399,6 +2291,8 @@ func _choice_picked(item: Dictionary) -> void:
     _crisis_choice_complete()
 
 func _crisis_choice_complete() -> void:
+    if _begin_chapter_mechanic():
+        return
     if not _apply_effects(_current_scene()):
         _scene_effect_save_failed()
         return
@@ -1432,10 +2326,43 @@ func _crisis_choice_complete() -> void:
     _start_battle(true)
 
 func _start_battle(is_boss: bool) -> void:
+    if is_boss and progress.chapter == 2:
+        if world_router.current_map() != "map_coast_02" or world.interior_building != "shelter":
+            ui.show_message("雾潮寄生体必须从收容所的真实病历冲突触发，不能在港口街道代替病患完成战斗。")
+            return
+        var shelter_evidence: Array = world.terrain_layout.get("act01_main_story_evidence",[])
+        if shelter_evidence.size()!=2:
+            ui.show_message("收容所病历与水手行囊的现场记录缺失，Boss入口保持关闭。")
+            return
+        for evidence_id in shelter_evidence:
+            if not bool(room_investigations.snapshot(
+                    progress,world_router.current_map(),"shelter",str(evidence_id)).get("seen_before",false)):
+                ui.show_message("须先查阅并保存搁浅行囊及临时名册两份现场证据。")
+                return
+    if is_boss and progress.chapter == 4 and world.interior_building != "tavern":
+        ui.show_message("第四章灰帷会冲突必须在黑帆酒馆内部触发，不能从室外跳过现场调查。")
+        return
+    if is_boss and progress.chapter == 5:
+        if world_router.current_map() != "map_coast_03" or not world.interior_building.is_empty() or not world.shoal_plan.fully_observed(progress):
+            ui.show_message("古兽救援现场未准备妥当。须从正式盐风古道进入鲸骨浅滩，并核对全部三项实地证据。")
+            return
+    if is_boss and progress.chapter == 6:
+        if world_router.current_map() != "map_coast_05" or not world.interior_building.is_empty() or not world.lighthouse_plan.all_fragments_found(progress):
+            ui.show_message("灯塔守门人尚未开放战斗：必须真实取得三枚灯芯碎片并回到塔前。")
+            return
+    if is_boss and _begin_chapter_mechanic():
+        return
     if is_instance_valid(battle):
         return
     if progress.chapter < 1:
         return
+    # A missing or malformed three-gate profile must not silently turn the
+    # rescue into a generic random fight that still awards a rescue receipt.
+    if not is_boss and progress.chapter == 47 and not active_evacuation_battle_squad.is_empty():
+        if not RescueProfiles.configured(active_evacuation_battle_squad):
+            active_evacuation_battle_squad = ""
+            ui.show_message("本队守军编队数据无效，战斗入口暂时关闭；救援进度保持不变。")
+            return
     # Older V3 saves may already have a Boss victory flag without a nonce.
     if is_boss and bool(progress.flags.get("ch%03d.battle_won" % progress.chapter,false)):
         ui.show_message("本章强敌已经解决，无需重复挑战。")
@@ -1456,8 +2383,47 @@ func _start_battle(is_boss: bool) -> void:
     battle.completed.connect(_battle_finished)
     battle.invincible = invincible
     battle.game_core = game_core
+    if not is_boss and progress.chapter == 47 and not active_evacuation_battle_squad.is_empty():
+        var selected: Dictionary = EvacuationRoster.resolve(
+            active_evacuation_battle_squad,progress.chapter,progress.actors,progress.flags)
+        if not bool(selected.get("ok",false)):
+            var reason: String = str(selected.get("reason","unknown"))
+            active_evacuation_battle_squad = ""
+            battle.queue_free()
+            battle = null
+            battle_defeat_id = ""
+            busy = false
+            world.locked = false
+            ui.set_play_visible(true)
+            atlas.show_exploration(true)
+            ui.show_message("撤离战斗小队不符合正典或全员失去行动能力：" + reason +
+                "。请先确认伙伴招募与治疗，不能自动替换其他人。")
+            return
+        for actor_id in selected.get("ids",[]):
+            battle.forced_party_ids.append(str(actor_id))
     var battle_event: Variant = _current_scene().get("encounter", {}) if is_boss else {}
-    battle.encounter_data = battle_event if battle_event is Dictionary else {}
+    battle.encounter_data = battle_event.duplicate(true) if battle_event is Dictionary else {}
+    if not is_boss and progress.chapter == 47 and not active_evacuation_battle_squad.is_empty():
+        var pending_map: Dictionary = progress.rpg.get("evacuation_battle_pending_v1",{})
+        var assigned_id: String = str(pending_map.get(active_evacuation_battle_squad,""))
+        if not BattleRewardTransaction.valid_id(assigned_id) or not assigned_id.begins_with("random:"):
+            active_evacuation_battle_squad = ""
+            battle.queue_free()
+            battle = null
+            battle_defeat_id = ""
+            _return_to_world()
+            ui.show_message("无法核对已预存的战斗回执，禁止发起可能重复结算的战斗。")
+            return
+        battle.encounter_data["rescue_squad_id"] = active_evacuation_battle_squad
+        battle.encounter_data["rescue_reward_transaction_id"] = assigned_id
+    if is_boss and progress.chapter == 3:
+        # Read the actual V7 cave puzzle snapshot; never fabricate a badge.
+        battle.encounter_data["cave_snapshot"] = (progress.rpg.get("dungeon_puzzles_v7",{}) as Dictionary).get("map_coast_04",{}).duplicate(true)
+    if is_boss and progress.chapter == 5:
+        battle.encounter_data["shoal_snapshot"] = world.shoal_plan.snapshot(progress)
+    if is_boss and progress.chapter == 6:
+        battle.encounter_data["lighthouse_fragments"] = world.lighthouse_plan.snapshot(progress)
+        battle.encounter_data["lighthouse_testimonies"] = world.lighthouse_plan.testimony_rows()
     battle.start(progress, progress.chapter, is_boss)
     # A single discovery hook covers all 63 regional monsters and 66 story
     # bosses, regardless of which of the 72 chapters spawned the fight.
@@ -1471,6 +2437,11 @@ func _start_battle(is_boss: bool) -> void:
                 game_core.record_enemy_seen("story_bosses",boss_id)
 
 func _random_encounter() -> void:
+    if progress.chapter == 47 and endgame_bridge != null and             endgame_bridge.registry_loaded and not endgame_bridge.evacuation.finished:
+        # During the three concurrent rescue routes all guard waves must
+        # originate from their real, reachable squad encounter markers.
+        world.locked = false
+        return
     if no_encounters:
         world.locked = false
         return
@@ -1525,11 +2496,15 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
     # must actually remove the beast's star chains; chapter 6 requires four
     # shared testimony actions. Normal defeats and old save recovery are intact.
     if won and is_boss and chapter_at_fight == 5 and (
-            battle.chain_hp > 0 or str(battle.last_boss_settlement) != "nonlethal"):
+            battle.act01_mechanics == null
+            or not battle.act01_mechanics.boss_ch005_is_complete
+            or int(battle.act01_mechanics.beast_star_locks_remaining) != 0
+            or battle.chain_hp > 0 or str(battle.last_boss_settlement) != "nonlethal"):
         _hold_battle_settlement(won,xp,money,"星锁尚未解除，禁止以普通击杀结算第五章。")
         return
     if won and is_boss and chapter_at_fight == 6 and (
-            battle.resonance < 4 or str(battle.last_boss_settlement) != "testimony"):
+            battle.resonance < 4 or battle.lighthouse_witnesses_heard.size() != 4
+            or str(battle.last_boss_settlement) != "testimony"):
         _hold_battle_settlement(won,xp,money,"仍需四份归航见证，禁止跳过灯塔剧情结算。")
         return
     _capture_world_position()
@@ -1546,6 +2521,44 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
         _hold_battle_settlement(won,xp,money,
             "结算保存失败（%s），奖励及进度已回滚，可重试。" % str(settlement.get("reason","unknown")))
         return
+
+    # A squad victory is confirmed only after the ordinary combat transaction
+    # has actually been written to V3. Different squads need different fights.
+    if not active_evacuation_battle_squad.is_empty():
+        if won and not is_boss and endgame_bridge.evacuation.failed:
+            # The battle rewards are real, but the west-gate deadline was
+            # missed. Do not trap the completed battle in a retry loop or
+            # claim that the rescue objective was achieved.
+            ui.show_message("守军已击退，但西门撤离超时；本次救援不计完成。请重新部署。")
+        elif won and not is_boss:
+            var squad_result: Dictionary = endgame_bridge.confirm_real_encounter(
+                active_evacuation_battle_squad,chapter_at_fight,transaction_id)
+            if not bool(squad_result.get("success",false)):
+                _hold_battle_settlement(won,xp,money,
+                    "实际战斗已经保存，但对应撤离小队无法确认：" +
+                    str(squad_result.get("reason","unknown")))
+                return
+            var before_squad_save: Dictionary = progress._pack().duplicate(true)
+            var pending_ids: Dictionary = progress.rpg.get("evacuation_battle_pending_v1",{}).duplicate(true)
+            if str(pending_ids.get(active_evacuation_battle_squad,"")) != transaction_id:
+                progress.restore_snapshot(before_squad_save)
+                if not endgame_bridge.bind_progress(progress):
+                    push_error("救援回执来源冲突，终局状态无法恢复")
+                _hold_battle_settlement(won,xp,money,
+                    "战斗回执与V3预存ID不一致，禁止确认救援。")
+                return
+            pending_ids.erase(active_evacuation_battle_squad)
+            progress.rpg["evacuation_battle_pending_v1"] = pending_ids
+            progress.rpg["endgame_expansion"] = endgame_bridge.export_state()
+            if not progress.save():
+                progress.restore_snapshot(before_squad_save)
+                if not endgame_bridge.bind_progress(progress):
+                    push_error("撤离战斗回执写入失败后状态恢复失败")
+                _hold_battle_settlement(won,xp,money,
+                    "战斗胜利已经结算，但撤离回执保存失败；请重试确认。")
+                return
+            ui.show_message(str(squad_result.get("message","小队守军已清除。")))
+        active_evacuation_battle_squad = ""
 
     if bool(settlement.get("repeated",false)):
         ui.show_message("该战斗已结算，不会重复领取奖励或推进章节。")
@@ -1618,6 +2631,12 @@ func _apply_effects(scene: Dictionary) -> bool:
     if not bool(tx.get("ok",false)):
         push_warning("剧情效果存档失败：" + str(tx.get("reason","unknown")))
         return false
+    if endgame_bridge != null:
+        var update: Dictionary = endgame_bridge.after_scene_committed(progress)
+        if bool(update.get("changed",false)) and not _save_progress():
+            push_warning("正典剧情已写入V3，但终局扩展快照保存失败，可根据正典旗标恢复。")
+    # Repaint only after authoritative scene effects are durable.
+    world.refresh_world_legacy(progress.flags)
     return true
 
 func _scene_effect_save_failed() -> void:
@@ -1637,6 +2656,11 @@ func _advance_scene() -> bool:
     return bool(result.get("ok",false))
 
 func _complete_chapter() -> bool:
+    if progress.chapter in [47,54] and endgame_bridge != null:
+        var chapter_gate: String = endgame_bridge.chapter_gate_message()
+        if not chapter_gate.is_empty():
+            push_warning(chapter_gate)
+            return false
     var last: int = progress.chapter
     var quest_key: String = "quest_main_%03d" % last
     _capture_world_position()
@@ -1648,20 +2672,66 @@ func _complete_chapter() -> bool:
             progress.rpg["quests"] = quests
         if last == 4:
             progress.recruit_sailor()
+            game_core.register_actor("char_seeker")
+        if last in [2,4] and world.interior_building == ("shelter" if last==2 else "tavern"):
+            # Chapter 3 and 5 start outdoors. Clear the prior canonical room
+            # and capture its REAL exterior doorstep in the SAME V3 chapter
+            # settlement; failed storage does not strand the new chapter indoors.
+            var safe_outside: Dictionary = progress.rpg.get("world",{}).duplicate(true)
+            safe_outside.erase("indoor_building")
+            safe_outside.erase("outdoor_return")
+            safe_outside["player_checkpoint"] = {
+                "map_id":world_router.current_map(),"chapter":last+1,
+                "indoor_building":"",
+                "xy":[world.exterior_position.x,world.exterior_position.y]
+            }
+            progress.rpg["world"] = safe_outside
         if last == 6:
+            # Re-lighting is a single post-boss chapter receipt, not a lamp
+            # that can activate merely by clicking its mesh or collecting
+            # invisible 'items'.
+            if not bool(progress.flags.get("ch006.battle_won",false)):
+                return {"ok":false,"reason":"lighthouse_keeper_unresolved"}
             progress.flags["world.seven_lanterns.first"] = true
+            progress.flags["ch006.lighthouse_testimony"] = true
+        if last == 39:
+            # Canonical item provenance is recorded only after this actual
+            # investigation and chapter resolution. No inventory item is forged.
+            if not bool(progress.flags.get("ch039.evidence",false)):
+                return {"ok":false,"reason":"ch039_ticket_investigation_missing"}
+            var ledger: Dictionary = progress.rpg.get("canonical_item_provenance_v1",{}).duplicate(true)
+            var ticket_key: String = "ch039.noe_mothers_ticket"
+            var provenance: Dictionary = {
+                "id":ticket_key,"acquired":true,"mother_name_inscribed":true,
+                "source_scene":"ch039.investigate","source_chapter":"ch039",
+                "custodian":"cast_nuo_yi"
+            }
+            if ledger.has(ticket_key) and ledger[ticket_key] != provenance:
+                return {"ok":false,"reason":"ch039_ticket_provenance_collision"}
+            ledger[ticket_key] = provenance
+            progress.rpg["canonical_item_provenance_v1"] = ledger
         if last == 72:
             return {"ok":true,"newcomer":""}
+        var unlocked_last: String = game_core.recruit_from_story(last)
         progress.chapter += 1
         progress.scene_index = 0
         progress.task_index = 0
         progress.dialogue_seen = false
         var newcomer: String = game_core.recruit_from_story(progress.chapter)
+        if not unlocked_last.is_empty():
+            newcomer = unlocked_last if newcomer.is_empty() else unlocked_last + "\n" + newcomer
         progress.heal_all()
         return {"ok":true,"newcomer":newcomer}
     )
     if not bool(result.get("ok",false)):
         return false
+    if last in [2,4] and world.interior_building == ("shelter" if last==2 else "tavern"):
+        # The durable V3 transaction already contains the next chapter's
+        # exterior position; release the prior interior before later saves.
+        world.leave_building()
+    var after_chapter: Dictionary = endgame_bridge.after_scene_committed(progress)
+    if bool(after_chapter.get("changed",false)) and not _save_progress():
+        push_warning("章节已保存，但终局扩展记录尚未写入；可依据正典完成旗标恢复。")
     # Never send UI events or rebuild the world until the new chapter
     # checkpoint (including party recruit / healing) is durable.
     if last == 72:
@@ -1798,6 +2868,9 @@ func _replay_ending(id: String) -> void:
 func _travel_to(map_id: String) -> void:
     if progress.chapter < 1 or is_instance_valid(battle):
         return
+    if progress.chapter == 47 and rescue_world_director != null and rescue_world_director.escort_in_progress():
+        ui.show_message("护送正在进行！先把伤员或儿童带到当前城门，再前往其他地区。")
+        return
     if not world.interior_building.is_empty():
         ui.show_message("请先从建筑出口返回街道，再前往其他区域。")
         return
@@ -1888,9 +2961,12 @@ func _housing_changed(message: String) -> void:
 func _save_slot(slot: int) -> void:
     var before: Dictionary = progress._pack().duplicate(true)
     _capture_world_position()
-    var success: bool = save_slots.save_slot(progress,slot)
+    if endgame_bridge != null and endgame_bridge.registry_loaded:
+        progress.rpg["endgame_expansion"] = endgame_bridge.export_state()
+    var success: bool = bool(native_save_manager.save_to_slot(slot,progress,save_slots).get("ok",false))
     if not success:
         progress.restore_snapshot(before)
+        endgame_bridge.bind_progress(progress)
     adventure_menu.render("存档管理")
     adventure_menu.footer.text = "槽位 %d %s" % [slot,"已保存" if success else "保存失败"]
 
@@ -1898,11 +2974,17 @@ func _load_slot(slot: int) -> void:
     # A manual-slot load changes the running party AND becomes the new
     # autosave. Do not destroy the running session if that V3 write fails.
     var before: Dictionary = progress._pack().duplicate(true)
-    if not save_slots.load_slot(progress,slot):
+    if not bool(native_save_manager.load_from_slot(slot,progress,save_slots).get("ok",false)):
         adventure_menu.footer.text = "槽位文件损坏或读取失败。"
+        return
+    if not endgame_bridge.bind_progress(progress):
+        progress.restore_snapshot(before)
+        endgame_bridge.bind_progress(progress)
+        adventure_menu.footer.text = "终局扩展状态不完整，槽位未覆盖现有进度。"
         return
     if not progress.save():
         progress.restore_snapshot(before)
+        endgame_bridge.bind_progress(progress)
         adventure_menu.footer.text = "槽位可读取，但主进度保存失败；已恢复载入前状态。"
         return
     game_core.bind(progress)
@@ -1911,12 +2993,14 @@ func _load_slot(slot: int) -> void:
     housing.bind(progress)
     optional_director.bind(progress)
     branch_runtime.bind(progress)
+    _restore_canon_evidence_journal()
     world.set_visual_quality(int(progress.rpg.get("settings",{}).get("visual_quality",1)))
     adventure_menu.close_menu()
     cinematic.cancel_all()
     cinematic_camera.restore()
     cinematic_resume=""
     _enter_location()
+    _restore_cheat_settings()
     if progress.chapter == 72 and progress.scene_index == 4 and not bool(progress.flags.get("story.complete",false)):
         if str(progress.rpg.get("ending_id","")).is_empty():
             _begin_ending_choice()
@@ -1971,6 +3055,8 @@ func _restore_world_position() -> void:
 
 func _save_progress() -> bool:
     _capture_world_position()
+    if endgame_bridge != null and endgame_bridge.registry_loaded:
+        progress.rpg["endgame_expansion"] = endgame_bridge.export_state()
     var success: bool = progress.save()
     if not success:
         push_warning("游戏主体存档写入失败")
@@ -1979,6 +3065,59 @@ func _save_progress() -> bool:
 func _save() -> void:
     var success: bool = _save_progress()
     ui.show_message("旅途进度已保存。" if success else "保存失败，请检查设备剩余空间及存储权限。")
+
+func _record_epistemic_deduction(rule_id: String) -> void:
+    if progress == null:
+        return
+    var evaluated: Dictionary = DeductionGraph.evaluate(rule_id,progress.rpg,progress.flags)
+    if not bool(evaluated.get("ok",false)):
+        adventure_menu.footer.text = "不能直接生成结论：缺少实地记录 " +             "、".join(evaluated.get("missing",[]))
+        return
+    _capture_world_position()
+    var tx: Dictionary = V3ProgressTransition.commit(progress,func() -> Dictionary:
+        var archive: Dictionary = progress.rpg.get("deductive_reasoning_v1",{}).duplicate(true)
+        if archive.has(rule_id):
+            return {"ok":true,"changed":false}
+        archive[rule_id] = {
+            "outcome":str(evaluated["outcome"]),
+            "inputs":(evaluated["inputs"] as Array).duplicate(),
+            "chapter_recorded":progress.chapter,
+            "archive_mode":str(evaluated.get("archive_mode","cross_verified"))
+        }
+        progress.rpg["deductive_reasoning_v1"] = archive
+        return {"ok":true,"changed":true}
+    )
+    if not bool(tx.get("ok",false)):
+        adventure_menu.footer.text = "推理记录保存失败，卷宗状态未改变。"
+        return
+    adventure_menu.render("认知推理")
+    adventure_menu.footer.text = "证据交叉检定已按V3卷宗保存，不产生奖励或跳过剧情。"
+
+func _read_canonical_lore(doc_id: String) -> void:
+    if endgame_bridge == null or not endgame_bridge.registry_loaded or progress == null:
+        adventure_menu.footer.text = "文献服务尚未准备好。"
+        return
+    var reader = endgame_bridge.quests
+    var record: Dictionary = reader.get_lore(doc_id)
+    if record.is_empty():
+        adventure_menu.footer.text = "文献不存在；没有改动存档。"
+        return
+    if bool(reader.unlocked_lore_documents.get(doc_id,false)):
+        adventure_menu.show_lore_document(doc_id)
+        return
+    var before: Dictionary = progress._pack().duplicate(true)
+    if not reader.unlock_lore(doc_id,progress.flags):
+        adventure_menu.footer.text = "尚未满足文献阅读条件，请先完成对应剧情调查。"
+        return
+    _capture_world_position()
+    progress.rpg["endgame_expansion"] = endgame_bridge.export_state()
+    if not progress.save():
+        progress.restore_snapshot(before)
+        if not endgame_bridge.bind_progress(progress):
+            push_error("文献入档失败后终局桥接状态无法恢复")
+        adventure_menu.footer.text = "文献阅读记录未能保存，已回滚；请重新打开。"
+        return
+    adventure_menu.show_lore_document(doc_id)
 
 func _open_adventure_book() -> void:
     if is_instance_valid(battle):
@@ -2015,8 +3154,18 @@ func _open_local_map_from_book() -> void:
     atlas.show_exploration(true)
     atlas.open_map()
 
+func _update_realm_optics() -> void:
+    if realm_optics == null or progress == null or world == null:
+        return
+    var settings: Dictionary = progress.rpg.get("settings",{})
+    var clock: Dictionary = progress.rpg.get("game_clock",{})
+    var weather: String = str(world.ambience.weather) if world.ambience != null else "clear"
+    realm_optics.update_realm(world.world_epoch,progress.flags,progress.rpg,
+        int(settings.get("visual_quality",1)),weather,int(clock.get("minutes",480)))
+
 func _change_visual_quality(level: int) -> void:
     world.set_visual_quality(level)
+    _update_realm_optics()
 
 func _open_map_from_quick_menu() -> void:
     if is_instance_valid(battle):
@@ -2026,7 +3175,10 @@ func _open_map_from_quick_menu() -> void:
 
 func _return_to_world() -> void:
     busy = paused_for_dialogue or (cinematic != null and cinematic.is_playing()) or is_instance_valid(battle) or ui.menu_layer.visible or adventure_menu.root.visible or housing_room.root.visible or service_menu.is_open() or cheat.shade.visible or atlas.is_open()
-    if not busy and world.party_ids != progress.rpg.get("party",[]):
+    # World presentation uses the canonically filtered active roster. The
+    # saved rpg.party may include reserve members, protected child Noe, or
+    # historical adults; comparing to it rebuilds the map on every return.
+    if not busy and world.party_ids != _runtime_world_party_ids():
         _enter_location()
         return
     world.locked = busy
@@ -2091,6 +3243,27 @@ func _on_cheat_opened() -> void:
     busy = true
     world.locked = true
 
+func _restore_cheat_settings() -> void:
+    # Saves produced by an editor session must not leak invulnerability or
+    # accelerated progression into a distributable player build.
+    if not OS.has_feature("editor"):
+        invincible = false
+        no_encounters = false
+        five_xp = false
+        if world != null:
+            world.walk_speed = 141.0
+        return
+    if progress == null:
+        return
+    var stored: Variant = progress.rpg.get("cheat_settings_v1",{})
+    if not (stored is Dictionary):
+        return
+    invincible = bool(stored.get("invincible",false))
+    no_encounters = bool(stored.get("no_encounters",false))
+    five_xp = bool(stored.get("five_xp",false))
+    if world != null:
+        world.walk_speed = 240.0 if bool(stored.get("speed_boost",false)) else 141.0
+
 func _run_cheat(command: String) -> void:
     if not OS.has_feature("editor"):
         return
@@ -2148,6 +3321,141 @@ func _run_cheat(command: String) -> void:
             message = "正式剧情下不可越过任务条件随意传送。"
         _:
             message = "未知指令。"
+    # The original star-panel commands remain owner-controlled and may
+    # persist across autosave/manual-slot reload. No SHA gate can reject
+    # these legitimate player-side mutations.
+    progress.rpg["cheat_settings_v1"] = {
+        "invincible":invincible,"no_encounters":no_encounters,
+        "five_xp":five_xp,"speed_boost":world.walk_speed>141.0
+    }
     _save_progress()
     _focus()
     cheat.report(message)
+
+func _endgame_evacuation_expired(_reason: String) -> void:
+    # A missed rescue never produces a victory flag or a reward receipt.
+    if endgame_bridge == null or progress == null or progress.chapter != 47:
+        return
+    _save_progress()
+    _focus()
+    ui.show_message("西门机械臂未及时修复，防线告急。请返回指挥台重新部署，不会获得胜利奖励。")
+
+func _install_endgame_markers() -> void:
+    if endgame_bridge == null or not endgame_bridge.registry_loaded or not world.interior_building.is_empty():
+        return
+    var positions := {
+        "evac:command":Vector2i(25,25),
+        "evac:east:triage":Vector2i(12,12),"evac:east:escort":Vector2i(16,15),
+        "evac:east:secure":Vector2i(21,12),
+        "evac:south:children":Vector2i(27,34),"evac:south:route":Vector2i(33,34),
+        "evac:south:secure":Vector2i(39,34),
+        "evac:west:repair":Vector2i(42,12),"evac:west:manual":Vector2i(46,15),
+        "evac:west:secure":Vector2i(51,12),
+        "endgame:handover":Vector2i(25,26),
+        "endgame:memorial":Vector2i(34,26),
+        "deduction:ch008_requisition_ledger":Vector2i(33,22)
+    }
+    var labels := {
+        "evac:command":"撤离指挥台",
+        "evac:east:triage":"东门 · 分诊","evac:east:escort":"东门 · 护送",
+        "evac:east:secure":"东门 · 守卫战",
+        "evac:south:children":"南门 · 清点儿童","evac:south:route":"南门 · 通路",
+        "evac:south:secure":"南门 · 守卫战",
+        "evac:west:repair":"西门 · 抢修","evac:west:manual":"西门 · 手动停机柄",
+        "evac:west:secure":"西门 · 守卫战",
+        "endgame:handover":"诺依 · 交接会议",
+        "endgame:memorial":"诺依 · 原始车票纪念册",
+        "deduction:ch008_requisition_ledger":"第8章 · 强征调拨账册"
+    }
+    var walkable: Dictionary = world._walkable_tiles()
+    var reserved: Array[Vector2] = []
+    var interactive_ids: Array[String] = []
+    for available_id in endgame_bridge.eligible_interactions():
+        interactive_ids.append(str(available_id))
+    if progress.chapter == 8:
+        interactive_ids.append("deduction:ch008_requisition_ledger")
+    for id in interactive_ids:
+        var wanted: Vector2i = positions.get(id,Vector2i(20,20))
+        var found: bool = false
+        var chosen: Vector2i = wanted
+        for radius in range(0,22):
+            if found:
+                break
+            for dx in range(-radius,radius+1):
+                if found:
+                    break
+                for dy in range(-radius,radius+1):
+                    if absi(dx)+absi(dy)!=radius:
+                        continue
+                    var cell: Vector2i = wanted+Vector2i(dx,dy)
+                    if not walkable.has(cell):
+                        continue
+                    var spot: Vector2 = Vector2(cell*WorldScript.TILE)+Vector2(16,16)
+                    if world._blocked(spot):
+                        continue
+                    var conflict: bool = false
+                    for placed in reserved:
+                        if placed.distance_to(spot)<100.0:
+                            conflict = true
+                            break
+                    for important in ["key_npc","clue","witness","crisis","resolve","inn","shop"]:
+                        if world.nodes.has(important) and is_instance_valid(world.nodes[important]) and world.nodes[important].position.distance_to(spot)<84.0:
+                            conflict = true
+                            break
+                    if not conflict:
+                        chosen = cell
+                        found = true
+                        break
+        if not found:
+            push_warning("终局交互点无安全可达坐标：" + str(id))
+            continue
+        var marker := Sprite2D.new()
+        marker.name = str(id).replace(":","_")
+        marker.texture = world.focus_light.texture if is_instance_valid(world.focus_light) else null
+        marker.modulate = Color(0.40,0.86,0.95,0.92)
+        marker.scale = Vector2(0.85,0.85)
+        marker.z_index = 8
+        marker.position = Vector2(chosen*WorldScript.TILE)+Vector2(16,16)
+        world.scenery.add_child(marker)
+        world.nodes[id] = marker
+        reserved.append(marker.position)
+        var sign := Label.new()
+        var marker_label: String = str(labels.get(id,id))
+        if str(id).begins_with("lore:"):
+            var document: Dictionary = endgame_bridge.quests.get_lore(str(id).trim_prefix("lore:"))
+            marker_label = "文献 · " + str(document.get("title","地区文献"))
+            marker.modulate = Color(0.92,0.74,0.45,0.9)
+        sign.text = marker_label
+        sign.add_theme_font_size_override("font_size",14)
+        sign.add_theme_color_override("font_color",Color(1.0,0.94,0.73))
+        sign.position = Vector2(-55,-65)
+        sign.z_index = 3
+        marker.add_child(sign)
+func _request_endgame_squad(squad_id: String) -> void:
+    if busy or progress == null or progress.chapter != 47 or endgame_bridge == null:
+        return
+    if not bool(progress.flags.get("ch047.decision_made",false)):
+        ui.show_message("请先完成第47章现场撤离抉择。")
+        return
+    if not endgame_bridge.evacuation.running:
+        return
+    var before: Dictionary = progress._pack().duplicate(true)
+    var previous: String = endgame_bridge.evacuation.active_controlled_squad
+    if previous == squad_id:
+        return
+    var info: String = endgame_bridge.evacuation.switch_controlled_squad(squad_id)
+    if endgame_bridge.evacuation.active_controlled_squad != squad_id:
+        ui.show_message(info)
+        return
+    if not _save_progress():
+        progress.restore_snapshot(before)
+        endgame_bridge.bind_progress(progress)
+        _focus()
+        ui.show_message("切换小队的存档失败，已回滚。")
+        return
+    # Rebuild world presentation with this squad's actual visible fighters;
+    # collision, player position and remaining time stay in the V3 snapshot.
+    if world.party_ids != _runtime_world_party_ids():
+        _enter_location()
+    _focus()
+    ui.show_message(info)

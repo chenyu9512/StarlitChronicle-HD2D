@@ -1,12 +1,15 @@
 extends Sprite2D
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
 const CharacterMotion = preload("res://scripts/c_character_motion.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const RegionalNPC = preload("res://scripts/c_art_regional_npc.gd")
 ## Small original top-down citizen silhouette; role palette conveys information.
 var motion = CharacterMotion.new()
 var reduced_motion: bool = false
 var life_action: String = "observe"
+var legacy_activity: String = ""
 var life_timer: float = 0.0
 var gaze_tick: float = 0.0
 var talking: bool = false
@@ -68,14 +71,17 @@ func _process(delta: float) -> void:
     if life_timer >= 4.2 and not talking:
         life_timer = fmod(life_timer, 4.2)
         var cycle: int = posmod(int(idle_elapsed / 4.2) + citizen_name.hash(), 4)
-        match role:
-            "shop": life_action = ["sort_goods", "wave", "observe", "rest"][cycle]
-            "craft": life_action = ["work", "rest", "observe", "work"][cycle]
-            "quest": life_action = ["observe", "wave", "rest", "observe"][cycle]
-            _: life_action = ["observe", "rest", "look_around", "observe"][cycle]
+        if not legacy_activity.is_empty() and role != "quest":
+            life_action = legacy_activity if cycle < 3 else "rest"
+        else:
+            match role:
+                "shop": life_action = ["sort_goods", "wave", "observe", "rest"][cycle]
+                "craft": life_action = ["work", "rest", "observe", "work"][cycle]
+                "quest": life_action = ["observe", "wave", "rest", "observe"][cycle]
+                _: life_action = ["observe", "rest", "look_around", "observe"][cycle]
     blink_phase=fposmod(idle_elapsed+float(posmod(role.hash(),7))*0.37,3.9)
     if is_instance_valid(artwork):
-        if not costume_clips.is_empty():
+        if costume_atlas != null and not costume_clips.is_empty():
             _update_costume()
         # Still portrait identities stay intact: only subtle vertical breathing.
         artwork.position.y = base_art_offset if reduced_motion else base_art_offset + 0.8 * sin(idle_elapsed * 1.6 + float(posmod(role.hash(), 8)))
@@ -108,6 +114,17 @@ func face_player(world_point: Vector2) -> void:
 func end_conversation() -> void:
     talking = false
     life_action = "observe"
+    queue_redraw()
+
+func set_world_legacy_activity(action: String) -> void:
+    # Reconstructed from canonical flags; not a new NPC schedule or quest state.
+    var normalized: String = action if action in ["sort_goods","wave","observe","work","sweep","rest","look_around"] else ""
+    if legacy_activity == normalized:
+        return
+    legacy_activity = normalized
+    if not talking:
+        life_action = legacy_activity if not legacy_activity.is_empty() else "observe"
+    life_timer = 0.0
     queue_redraw()
 
 func perform_life_action(action: String) -> void:
@@ -162,6 +179,17 @@ func setup(info: Dictionary) -> void:
     label.text=citizen_name
     # Only the 35 approved B02 NPC fullbody sheets are used as still overworld figures.
     # Coast residents without authored B02 art keep their silhouette fallback.
+    var new_npc: Texture2D = Generated.texture("npcs", str(info.get("id", "")))
+    if new_npc != null:
+        artwork = Sprite2D.new()
+        artwork.texture = new_npc
+        artwork.hframes = 3
+        artwork.vframes = 4
+        artwork.frame_coords = Vector2i(1, 0)
+        artwork.position = Vector2(0, -21)
+        artwork.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        artwork.set_meta("generated_v3_npc", str(info.get("id", "")))
+        add_child(artwork)
     costume_clips = RegionalNPC.costume(str(info.get("id", "")))
     if not costume_clips.is_empty():
         # The real 48x48 character strips replace only matching named roles.
@@ -170,6 +198,9 @@ func setup(info: Dictionary) -> void:
         var down: Dictionary = (costume_clips.get("down", {}) as Dictionary).get("idle", {})
         costume_atlas.atlas = down.get("texture") as Texture2D
         costume_atlas.region = Rect2(0, 0, 48, 48)
+        if is_instance_valid(artwork):
+            remove_child(artwork)
+            artwork.queue_free()
         artwork = Sprite2D.new()
         artwork.texture = costume_atlas
         artwork.scale = Vector2.ONE * (38.0 / 48.0)
@@ -180,7 +211,7 @@ func setup(info: Dictionary) -> void:
     var art_path: String = ArtAssets.npc_fullbody(str(info.get("id", "")))
     if artwork == null and not art_path.is_empty() and ArtOverrides.exists(art_path):
         artwork = Sprite2D.new()
-        artwork.texture = ArtOverrides.texture(art_path)
+        artwork.texture = RuntimeArt.texture_path(art_path)
         var dimensions: Vector2 = artwork.texture.get_size()
         var factor: float = minf(56.0 / maxf(dimensions.y, 1.0), 38.0 / maxf(dimensions.x, 1.0))
         artwork.scale = Vector2(factor, factor)

@@ -2,6 +2,7 @@ extends RefCounted
 ## Phase 19-1: authored branch event state machine, save-compatible with first_act_v3.
 ## Does not grant quest rewards, fabricate missing A/B, or install map markers.
 const ROOT: String = "res://story/"
+const PartyCanonGuard = preload("res://scripts/systems/PartyCanonGuard.gd")
 const MANIFESTS: Array[String] = [
     "data/phase17_lost_pages_manifest.json",
     "data/phase17_life_manifest.json",
@@ -11,7 +12,10 @@ const MANIFESTS: Array[String] = [
 const CODAS: String = "data/phase18_companion_ending_codas.json"
 const KINDS: Array[String] = ["followup", "community", "revisit"]
 const LEAD_ACTOR: Dictionary = {
-    "lanyin":"char_tidecaller", "shouxian":"char_seeker"
+    "lanyin":"char_tidecaller", "leiso":"cast_lei_suo",
+    "shouxian":"char_seeker", "tifa":"cast_ti_fa",
+    "ize":"cast_yi_ze", "xuanli":"cast_xuan_li",
+    "nuoyi":"cast_nuo_yi", "weisha":"cast_wei_sha"
 }
 var events: Dictionary = {}
 var quest_events: Dictionary = {}
@@ -164,12 +168,16 @@ func is_seen(event_id: String) -> bool:
 func _party_has(lead_id: String) -> bool:
     if lead_id.is_empty():
         return true
+    var actor_id: String = str(LEAD_ACTOR.get(lead_id,""))
+    if actor_id.is_empty() or not PartyCanonGuard.can_join(actor_id,state.chapter,state.flags):
+        return false
     var overrides: Dictionary = state.rpg.get("story_companions_present",{})
     if bool(overrides.get(lead_id,false)):
         return true
     var party: Array = state.rpg.get("party",[])
-    if lead_id in party or str(LEAD_ACTOR.get(lead_id,"")) in party:
-        return true
+    for member in party:
+        if PartyCanonGuard.canonical_id(str(member)) == PartyCanonGuard.canonical_id(actor_id):
+            return true
     return false
 
 func eligible(event_id: String) -> bool:

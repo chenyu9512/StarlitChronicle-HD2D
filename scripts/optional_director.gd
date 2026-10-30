@@ -5,14 +5,14 @@ var reactions: Dictionary = {}
 var state
 
 func _init() -> void:
-    for file in ["phase08_act01_town_scenes","phase08_act01_evidence_scenes","phase09_act02_optional_scenes","phase10_act03_optional_scenes"]:
+    for file in ["phase08_act01_town_scenes","phase08_act01_evidence_scenes","phase09_act02_optional_scenes","phase10_act03_optional_scenes","phase11_act04_optional_scenes","phase12_act05_optional_scenes","phase13_act06_optional_scenes","phase14_act07_optional_scenes"]:
         for scene in _load(file).get("scenes",[]):
             if scene is Dictionary:
                 var chapter_id: String = str(scene.get("chapter_id",""))
                 if not by_chapter.has(chapter_id):
                     by_chapter[chapter_id] = []
                 (by_chapter[chapter_id] as Array).append(scene)
-    for file in ["phase08_act01_choice_reactions","phase09_act02_choice_reactions","phase10_act03_choice_reactions"]:
+    for file in ["phase08_act01_choice_reactions","phase09_act02_choice_reactions","phase10_act03_choice_reactions","phase11_act04_choice_reactions","phase12_act05_choice_reactions","phase13_act06_choice_reactions","phase14_act07_choice_reactions"]:
         for scene in _load(file).get("followups",[]):
             if scene is Dictionary:
                 var chapter_id: String = str(scene.get("chapter_id",""))

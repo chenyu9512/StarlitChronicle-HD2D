@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 const ContentDB = preload("res://scripts/content_db.gd")
+const ItemIcons = preload("res://scripts/c_art_item_icons.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 ## Native responsive game HUD / D-pad / dialogue / local-save menu.
 ## All controls are regular Godot GUI nodes, so multi-touch works on iPhone.
 
@@ -31,9 +33,12 @@ var catalog_text: RichTextLabel
 var catalog_picker: OptionButton
 const CATALOG_LABELS = ["世界地域", "正式人物", "NPC 居民", "地图", "道具与材料", "武器", "防具", "魔法与技能", "普通怪物", "首领 BOSS", "任务（含72章主线）"]
 var held: Dictionary = {}
+var _touch_mode: bool = false
+var _exploring: bool = true
 
 func _ready() -> void:
     layer = 10
+    _touch_mode = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
     root = Control.new()
     root.name = "GameUIRoot"
     root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -45,15 +50,11 @@ func _ready() -> void:
     _build_menu()
     _build_catalog()
     refresh_hud()
+    get_viewport().size_changed.connect(_reflow_game_ui)
+    call_deferred("_reflow_game_ui")
 
 func _panel_style() -> StyleBoxFlat:
-    var box := StyleBoxFlat.new()
-    box.bg_color = Color(0.055, 0.083, 0.15, 0.91)
-    box.border_color = Color(0.65, 0.78, 0.94, 0.85)
-    box.set_border_width_all(2)
-    box.set_corner_radius_all(13)
-    box.set_content_margin_all(16)
-    return box
+    return CVisual.surface(false)
 
 func _make_button(label_text: String, font_size: int = 23) -> Button:
     var button := Button.new()
@@ -64,13 +65,14 @@ func _make_button(label_text: String, font_size: int = 23) -> Button:
     button.add_theme_stylebox_override("normal", _panel_style())
     button.add_theme_stylebox_override("hover", _panel_style())
     button.add_theme_stylebox_override("pressed", _panel_style())
+    CVisual.style_button(button)
     button.focus_mode = Control.FOCUS_NONE
     return button
 
 func _build_hud() -> void:
     hud = PanelContainer.new()
     hud.position = Vector2(18, 14)
-    hud.custom_minimum_size = Vector2(440, 94)
+    hud.custom_minimum_size = Vector2(345, 72)
     hud.add_theme_stylebox_override("panel", _panel_style())
     hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
     hud_label = Label.new()
@@ -105,12 +107,25 @@ func _build_touchpad() -> void:
 
     menu_button = _make_button("☰ 菜单", 18)
     menu_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-    menu_button.offset_left = -151
-    menu_button.offset_top = -180
-    menu_button.offset_right = -21
-    menu_button.offset_bottom = -123
+    menu_button.offset_left = -118
+    menu_button.offset_top = -84
+    menu_button.offset_right = -18
+    menu_button.offset_bottom = -25
     root.add_child(menu_button)
     menu_button.pressed.connect(func() -> void: menu_requested.emit())
+
+func _reflow_game_ui() -> void:
+    if hud == null:
+        return
+    var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+    var small: bool = viewport_size.x < 1000.0 or viewport_size.y < 580.0
+    hud.position = Vector2(12,10) if small else Vector2(18,14)
+    hud.custom_minimum_size = Vector2(270,66) if small else Vector2(345,72)
+    hud_label.add_theme_font_size_override("font_size",15 if small else 17)
+    dpad.visible = _exploring and _touch_mode
+    action_button.visible = _exploring and _touch_mode
+    menu_button.visible = _exploring
+    dialog_label.add_theme_font_size_override("font_size",20 if small else 25)
 
 func _dir_button(title: String, dir: Vector2, where: Vector2) -> void:
     var button := _make_button(title, 28)
@@ -265,23 +280,43 @@ func _render_catalog(index: int) -> void:
         if detail.is_empty() and entry.has("region_id"):
             detail = "区域：" + str(entry["region_id"])
         lines.append("◆ " + str(entry["name"]) + "   [" + str(entry["id"]) + "]\n" + detail)
-    catalog_text.text = "收录 %d 条设计记录（部分尚无可用美术或战斗实现）\n\n" % records.size() + "\n\n".join(lines)
+    # Render the actual registered icon in the game's in-play codex for the
+    # 288 real content IDs, not just a path list or QA gallery.
+    if category in ["items","weapons","armor","skills"]:
+        catalog_text.clear()
+        catalog_text.add_text("收录 %d 条设计记录（部分尚无独立战斗动作）\n\n" % records.size())
+        for entry in records:
+            var content_id: String = str(entry.get("id",""))
+            var art: Texture2D = ItemIcons.texture_for(content_id)
+            if art != null:
+                catalog_text.add_image(art,32,32)
+                catalog_text.add_text("  ")
+            var detail: String = str(entry.get("lore",entry.get("objective","")))
+            if detail.is_empty() and entry.has("element"):
+                detail="属性："+str(entry["element"])
+            if detail.is_empty() and entry.has("tier"):
+                detail="品阶："+str(entry["tier"])
+            catalog_text.add_text("◆ "+str(entry.get("name",content_id))+"  ["+content_id+"]\n"+detail+"\n\n")
+    else:
+        catalog_text.text = "收录 %d 条设计记录（部分尚无可用美术或战斗实现）\n\n" % records.size() + "\n\n".join(lines)
     catalog_text.scroll_to_line(0)
 
 func refresh_hud() -> void:
     if not is_instance_valid(hud_label):
         return
-    var stats := ""
-    for person in State.party:
-        stats += "%s Lv.%s   HP %s/%s   MP %s/%s\n" % [person["name"], person["level"], person["hp"], person["max_hp"], person["mp"], person["max_mp"]]
-    hud_label.text = stats + "✦ " + State.quest_title()
+    var stats: String = ""
+    if not State.party.is_empty():
+        var person: Dictionary = State.party[0]
+        stats = "%s  HP %s/%s  MP %s/%s\n" % [person["name"],person["hp"],person["max_hp"],person["mp"],person["max_mp"]]
+    hud_label.text = stats + "◆ " + str(State.quest_title()).left(28)
     if is_instance_valid(menu_label):
         menu_label.text = "✦ 队伍 / 背包\n金币：%d     药草：%d" % [State.gold, State.potions]
 
 func set_exploration_visible(visible_now: bool) -> void:
+    _exploring = visible_now
     hud.visible = visible_now
-    dpad.visible = visible_now
-    action_button.visible = visible_now
+    dpad.visible = visible_now and _touch_mode
+    action_button.visible = visible_now and _touch_mode
     menu_button.visible = visible_now
     if not visible_now:
         held.clear()

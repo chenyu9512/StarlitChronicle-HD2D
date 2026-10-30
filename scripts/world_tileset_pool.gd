@@ -4,12 +4,13 @@ extends RefCounted
 ## cells and collision state; sharing the atlas does not share map geometry.
 ## An LRU cap prevents all regions/interiors staying resident indefinitely.
 const Art = preload("res://scripts/c_art_overrides.gd")
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 const TerrainAdapter = preload("res://scripts/third_party_terrain_adapter.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const Coherent = preload("res://scripts/c_coherent_terrain_materials.gd")
 const TILE: int = 32
 const MAX_ENTRIES: int = 12
-const MATERIAL_ROOT: String = "res://assets/art/runtime/act01_hd2d_v18/materials/"
+const MATERIAL_ROOT: String = "res://assets/art/runtime/generated_gaps_v10/"
 
 ## The pre-migration logical atlas URLs may have no local imported texture.
 ## Keep authored cell semantics by rebuilding an opaque atlas from V18 materials.
@@ -23,8 +24,18 @@ static func _verified_material_for(path: String) -> Texture2D:
     var is_indoor: bool = path.contains("/interiors/") and file.ends_with("_tileset.svg")
     if not (is_ground or is_water or is_indoor):
         return null
-    var material_name: String = "water-sea" if is_water else ("planks" if is_indoor else "town-grass")
-    var candidate: String = MATERIAL_ROOT + material_name + ".png"
+    var material_name: String = "town-grass"
+    if is_water:
+        material_name = "water-sea"
+    elif is_indoor:
+        material_name = "planks"
+    elif path.contains("forge") or path.contains("mirror") or path.contains("oldland") or path.contains("cavern"):
+        material_name = "cliff-rock"
+    elif path.contains("city") or path.contains("sanctum"):
+        material_name = "cobbles"
+    elif path.contains("isles"):
+        material_name = "beach-sand"
+    var candidate: String = MATERIAL_ROOT + "material__coast__" + material_name.replace("-","_") + ".png"
     if not ResourceLoader.exists(candidate):
         return null
     return ResourceLoader.load(candidate) as Texture2D
@@ -89,7 +100,7 @@ static func shared(paths: Array[String], columns: int = 8,
     var textures: Array[Texture2D] = []
     var texture_ids: Array[String] = []
     for path in paths:
-        var texture: Texture2D = Art.texture(path)
+        var texture: Texture2D = RuntimeArt.texture_path(path)
         var from_verified_material: bool = false
         if texture == null:
             texture = _verified_material_for(path)
@@ -108,7 +119,16 @@ static func shared(paths: Array[String], columns: int = 8,
         # source using imported V18 water materials while retaining actual
         # selected semantic water, and preserve full user DLC atlas priority.
         var high_res_live_water: bool = path.contains("/runtime/act01_global_v14/surfaces/") and path.ends_with("_water.png")
-        if not ready_user_atlas and Coherent.supports(path) and (Art.third_party_source(path) != path or high_res_live_water or from_verified_material) and texture != null:
+        # Existing coastal SVG sheets are physical files, but their original
+        # rows do not encode the gameplay's modern sand/road/rock semantics.
+        # Importing them as-is repeats the same rock tile in distinct roles.
+        # Rebuild ONLY these two authored route/cave sheets. Approved user
+        # theme atlases above continue to take precedence, untouched.
+        var legacy_exterior_roles: bool = path.contains("/exteriors/coast_final_pass/") and path.get_file() in ["tide_cavern_tileset.svg", "saltwind_route_tileset.svg"]
+        # The new V10 terrain 8x8 sheets must be sorted back into meaningful
+        # authored map rows before painting. Every map keeps its own palette.
+        var generated_map_rows: bool = path.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__")
+        if not ready_user_atlas and Coherent.supports(path) and (Art.third_party_source(path) != path or high_res_live_water or from_verified_material or legacy_exterior_roles or generated_map_rows) and texture != null:
             # Cache per semantic path. A dune/road/water atlas cannot share the
             # same assembled texture merely because its source PNG is shared.
             # ResourceLoader can return a different wrapper instance for the

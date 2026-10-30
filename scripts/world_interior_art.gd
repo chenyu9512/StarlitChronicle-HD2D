@@ -1,9 +1,13 @@
 extends Node2D
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const GeneratedFurniture = preload("res://scripts/c_generated_room_furniture_v4.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
 const GlobalArt = preload("res://scripts/c_act01_global_art_v14.gd")
 const SemanticArt = preload("res://scripts/c_act01_semantic_art_v17.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
+const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const InteractionFX = preload("res://scripts/c_interaction_fx.gd")
 const TownSoundscape = preload("res://scripts/c_town_soundscape.gd")
 ## First commercial-art vertical slice: live art is driven by the V4 room,
@@ -13,8 +17,8 @@ const PROFILE: String = "coast_inn_v1"
 const DISTRICT_ART: String = "res://assets/art/interiors/coastal_district/"
 const SIGNATURE_DIR: String = "res://assets/art/interiors/morning_dew_signature/"
 const SIGNATURE_MANIFEST: String = "res://data/assets/c_morning_dew_signature.json"
-const BLACK_SAIL_ART: String = "res://assets/art/runtime/act01_tavern_v2/"
-const SHELTER_ART: String = "res://assets/art/runtime/act01_shelter_v3/"
+# Retired source directories are not used. Named scene furniture resolves
+# only through the canonical slot registry and generated-only image sources.
 ## Dedicated clinic furniture is registered in the same all-or-nothing V2
 ## theme as the rest of Act I. No tavern furniture identity is borrowed.
 const SHELTER_PROPS: Dictionary = {
@@ -23,9 +27,9 @@ const SHELTER_PROPS: Dictionary = {
     "medical_registration_counter": true, "treatment_bench": true,
 }
 const SEMANTIC_ROOM_ICONS: Dictionary = {
-    "medicine":"res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_medicine.png",
-    "paper":"res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_paper.png",
-    "book":"res://assets/art/external/cc0_named_v1/icons/owlish_icons/base/icon_owlish_icons_book.png"
+    "medicine":"res://assets/art/runtime/generated_gaps_v10/ui__extra__medicine.png",
+    "paper":"res://assets/art/runtime/generated_gaps_v10/ui__extra__paper.png",
+    "book":"res://assets/art/runtime/generated_gaps_v10/ui__extra__book.png"
 }
 var theme_atlas: String = ART_DIR+"inn_tileset.svg"
 var soundscape
@@ -90,6 +94,8 @@ const ALLOWED: Array[String] = [
 var prop_nodes: Dictionary = {}
 var signature_nodes: Dictionary = {}
 var detail_layer: TileMapLayer
+var generated_floor_layer: TileMapLayer
+var generated_floor_count: int = 0
 var active_lights: Array[PointLight2D] = []
 var light_energy: Array[float] = []
 var color_grade: CanvasModulate
@@ -156,18 +162,26 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
     var active_act01_room: bool = profile_id in ["coast_act01_shelter_v1","coast_act01_tavern_v1"]
     var black_sail_room: bool = profile_id == "coast_act01_tavern_v1"
     var shelter_room: bool = profile_id == "coast_act01_shelter_v1"
-    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1" and not active_act01_room:
+    var regional_room: bool = profile_id == "regional_functional_v1"
+    var v4_map: String = str(layout.get("map_id",""))
+    var v4_building: String = str(layout.get("building_id",""))
+    var generated_v4: bool = not Generated.interior_path(v4_map,v4_building).is_empty()
+    if profile_id!=PROFILE and not profile_id.begins_with("coast_district_") and profile_id!="quest_research_v1" and not active_act01_room and not regional_room and not generated_v4:
         return
     if active_act01_room:
         # Stage-specific color temperature accompanies *real* imported
         # furniture/tiles, without altering floor occupancy or save IDs.
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
-    if profile_id=="quest_research_v1":
+    if profile_id=="quest_research_v1" or regional_room or generated_v4:
         room_day_tint=Color(str(layout.get("room_day_tint","dbcebd")))
         room_night_tint=Color(str(layout.get("room_night_tint","b4ada7")))
     var chosen_atlas: String=str(layout.get("art_tileset",""))
-    if not chosen_atlas.is_empty() and ArtOverrides.exists(chosen_atlas):
+    if regional_room or (generated_v4 and not v4_map.begins_with("map_coast_")):
+        # Do not borrow the coastal inn wall material for distant regions.
+        # The existing A-line regional TilePool chooses the actual floor atlas.
+        theme_atlas = ""
+    elif not chosen_atlas.is_empty() and ArtOverrides.exists(chosen_atlas):
         theme_atlas=chosen_atlas
     name = "InteriorArt"
     if not is_instance_valid(soundscape):
@@ -194,7 +208,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         presentation_fx.name = "InteriorInteractionFX"
         presentation_fx.z_index = 5
         add_child(presentation_fx)
-    _build_wall_edging(layout)
+    _build_wall_edging(layout, map_key, room_key)
+    _install_v4_floor_details(layout, map_key, room_key)
     _install_dew_signature(stage, layout, map_key, room_key)
     for value in layout.get("visuals",[]):
         if not value is Dictionary:
@@ -214,34 +229,50 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         if black_sail_room:
             actual_prop = ThemeV2.texture("interior.tavern."+art_id)
             if actual_prop == null:
-                actual_prop = ArtOverrides.original_texture(BLACK_SAIL_ART+art_id+".svg")
+                actual_prop = RuntimeArt.texture_slot("interior.tavern."+art_id)
         elif shelter_room and SHELTER_PROPS.has(art_id):
             actual_prop = ThemeV2.texture("interior.shelter." + art_id)
             if actual_prop == null:
-                actual_prop = ArtOverrides.original_texture(SHELTER_ART + art_id + ".svg")
+                actual_prop = RuntimeArt.texture_slot("interior.shelter." + art_id)
         elif active_act01_room:
             actual_prop = GlobalArt.texture_for_prop(art_id)
             if actual_prop == null:
                 actual_prop = SemanticArt.texture_for_prop(art_id)
+        elif regional_room:
+            # A line owns the replacement system. A user-selected semantic
+            # furniture slot wins; otherwise use the existing identifiable
+            # generated 2D source, never a role-mismatched migrated SVG.
+            actual_prop = ThemeV2.texture("interior.regional."+art_id)
+            if actual_prop == null and ArtOverrides.has_override(path):
+                actual_prop = ArtOverrides.texture(path)
+            if actual_prop == null:
+                actual_prop = GeneratedFurniture.texture(art_id)
         if place.size()!=2:
             continue
         if active_act01_room:
             if actual_prop == null:
                 push_warning("Act-I room furniture missing approved matching image: "+art_id)
                 continue
-        elif art_id not in ALLOWED or not ArtOverrides.exists(path):
+        elif art_id not in ALLOWED:
             continue
         var prop := Sprite2D.new()
         prop.name = str(record.get("id",art_id))
-        prop.texture = actual_prop if active_act01_room else ArtOverrides.texture(path)
+        prop.texture = actual_prop if active_act01_room or regional_room else RuntimeArt.texture_path(path)
+        if prop.texture == null and not active_act01_room and not regional_room:
+            # V4 rooms previously depended on removed coastal-district SVGs.
+            # Use identifiable generated 2D furniture rather than silently
+            # omitting the service desk, bed, shelves or decorative objects.
+            prop.texture = GeneratedFurniture.texture(art_id)
         if prop.texture == null:
+            push_warning("No matching V4 room prop: " + art_id)
             continue
         if active_act01_room:
             prop.set_meta("act01_imported_furniture",true)
             if black_sail_room:
-                prop.set_meta("black_sail_v2_asset",BLACK_SAIL_ART+art_id+".svg")
+                prop.set_meta("black_sail_v2_asset",RuntimeArt.slot_source("interior.tavern."+art_id))
             elif shelter_room and SHELTER_PROPS.has(art_id):
-                prop.set_meta("shelter_medical_furniture_source", SHELTER_ART + art_id + ".svg")
+                prop.set_meta("shelter_medical_furniture_source",
+                    RuntimeArt.slot_source("interior.shelter." + art_id))
             # A medical basket and an unsigned sailor's log must not both
             # appear as identical crates. These are existing third-party PNG
             # labels composited over actually imported, interactive furniture.
@@ -263,7 +294,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         # Runtime V14 room PNGs are high-resolution standalone objects.
         # Without proportional downscaling they span 10-20 floor cells and
         # completely conceal doors, beds and the playable protagonist.
-        if active_act01_room:
+        if active_act01_room or regional_room:
             var footprint: Vector2=Vector2(60.0,68.0)
             match art_id:
                 "fish_stall":
@@ -278,10 +309,16 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                     footprint=Vector2(46.0,58.0)
                 "star_lantern":
                     footprint=Vector2(38.0,57.0)
-            if active_act01_room:
+            if active_act01_room or regional_room:
                 var authored_footprint: Array = record.get("footprint",[])
                 if authored_footprint.size()==2:
                     footprint=Vector2(float(authored_footprint[0]),float(authored_footprint[1]))
+            if regional_room:
+                # Regional V4 art_collision_cells currently mark the actual
+                # contact tile, not a huge 3x3 furniture footprint. Limit
+                # visual overlap so a 64px texture cannot conceal the entire
+                # aisle while physics correctly blocks only its foot tile.
+                footprint=Vector2(minf(footprint.x,58.0),minf(footprint.y,66.0))
             var texsize: Vector2=Vector2(prop.texture.get_size())
             var ratio: float=minf(1.0,minf(footprint.x/maxf(1.0,texsize.x),
                 footprint.y/maxf(1.0,texsize.y)))
@@ -294,7 +331,7 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                 if child is Sprite2D:
                     child.scale/=maxf(0.001,ratio)
                     child.position/=maxf(0.001,ratio)
-        prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if black_sail_room else (CanvasItem.TEXTURE_FILTER_LINEAR if active_act01_room else CanvasItem.TEXTURE_FILTER_NEAREST)
+        prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if black_sail_room or regional_room else (CanvasItem.TEXTURE_FILTER_LINEAR if active_act01_room else CanvasItem.TEXTURE_FILTER_NEAREST)
         # Y-sort uses the *floor contact point*, not the image offset. The
         # player and furniture must share z=3 so tables can hide/cover legs.
         prop.position = Vector2(float(place[0])*TILE+16.0,float(place[1])*TILE+16.0)
@@ -307,6 +344,13 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
                 prop.offset=Vector2(float(visual_offset[0])/ratio,
                     -float(prop.texture.get_height())*0.5+10.0/ratio+
                     float(visual_offset[1])/ratio)
+            elif regional_room:
+                # Align each approved/generated furnishing by its footpoint
+                # (the lower quarter of its own image) at the 32px map cell.
+                # Unlike the old giant-sheet fallback, scaling cannot move
+                # a table into an adjacent hallway or conceal the exit.
+                prop.offset=Vector2(float(visual_offset[0]),
+                    -float(prop.texture.get_height())*0.36+float(visual_offset[1]))
             else:
                 prop.offset=Vector2(float(visual_offset[0]),float(visual_offset[1]))
         var artwork_layer: String = str(record.get("layer",""))
@@ -322,6 +366,8 @@ func install(stage: Node2D, layout: Dictionary, minutes: int) -> void:
         if art_id=="window_sunshafts":
             sun_shafts=prop
         prop_nodes[prop.name]=prop
+    if generated_v4 and prop_nodes.is_empty():
+        _install_v4_role_fallback(stage,layout,room_key)
     _install_fire_animation(stage,layout)
     color_grade = CanvasModulate.new()
     color_grade.name = "InteriorColorGrade"
@@ -392,7 +438,7 @@ func _install_dew_signature(stage: Node2D, layout: Dictionary, map_key: String, 
         var original_or_approved: bool=ResourceLoader.exists(path) or ArtOverrides.has_override(path)
         if not original_or_approved:
             continue
-        var texture: Texture2D = ArtOverrides.texture(path)
+        var texture: Texture2D = RuntimeArt.texture_path(path)
         if texture == null:
             continue
         var art := Sprite2D.new()
@@ -422,7 +468,7 @@ func _install_fire_animation(stage: Node2D,layout: Dictionary) -> void:
         return
     var center:=Vector2(float(foot[0])*TILE+16.0,float(foot[1])*TILE+16.0)
     var sheet_path: String=ART_DIR+"hearth_flames_6f.svg"
-    var sheet: Texture2D=ArtOverrides.texture(sheet_path)
+    var sheet: Texture2D=RuntimeArt.texture_path(sheet_path)
     if sheet==null or sheet.get_size()!=Vector2(384,64):
         # Main2 intentionally deleted the original drawn six-frame SVG.
         # Give the already imported furniture a warm *lighting* response,
@@ -482,22 +528,115 @@ func _build_occluders(layout: Dictionary) -> void:
         add_child(occluder)
         occluder_count+=1
 
-func _build_wall_edging(layout: Dictionary) -> void:
-    if not ArtOverrides.exists(theme_atlas):
+## Only when every authored prop is missing: place a role-correct
+## non-interactive 2D furnishing without changing room walls or routes.
+func _install_v4_role_fallback(stage: Node2D, layout: Dictionary, room_id: String) -> void:
+    var role: String = "guild_noticeboard"
+    match room_id:
+        "inn":
+            role = "harbor_guest_bed"
+        "shop":
+            role = "merchant_counter"
+        "guild":
+            role = "guild_noticeboard"
+        "smith":
+            role = "smith_anvil"
+        "shrine":
+            role = "shrine_altar"
+        "house":
+            role = "home_hutch"
+    var source: Texture2D = GeneratedFurniture.texture(role)
+    if source == null:
         return
-    var atlas_paths: Array[String]=[theme_atlas]
-    var tiles: TileSet=TilePool.shared(atlas_paths,8,7,1)
-    if tiles==null:
+    var blocked: Dictionary = layout.get("blocked",{})
+    var service: Vector2i = layout.get("interact_cells",{}).get("service",Vector2i(35,23))
+    var foot: Vector2i = service + Vector2i(0,-2)
+    if blocked.has(foot):
+        foot = service
+    if blocked.has(foot):
         return
-    detail_layer=TileMapLayer.new()
-    detail_layer.name="WallEdgeTiles"
-    detail_layer.tile_set=tiles
-    detail_layer.z_index=-4
-    detail_layer.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+    var prop := Sprite2D.new()
+    prop.name = "V4Visible_"+room_id.replace("_","-")+"_furniture"
+    prop.texture = source
+    prop.position = Vector2(foot*32)+Vector2(16,16)
+    prop.offset = Vector2(0,-20)
+    prop.z_index = 3
+    prop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    prop.set_meta("visual_only",true)
+    prop.set_meta("source_role",role)
+    stage.add_child(prop)
+    prop_nodes[prop.name]=prop
+
+## Every V4 room receives its OWN generated 8x8 material atlas in the
+## actual map, not a standalone fullscreen mockup. Decoration has no collision.
+func _install_v4_floor_details(layout: Dictionary, map_id: String, building_id: String) -> void:
+    var source: String = Generated.interior_path(map_id,building_id)
+    if source.is_empty():
+        return
+    var chosen: Array[String] = [source]
+    var tileset: TileSet = TilePool.shared(chosen)
+    if tileset == null:
+        push_warning("Generated V4 room material is not usable: " + map_id + "#" + building_id)
+        return
+    generated_floor_layer = TileMapLayer.new()
+    generated_floor_layer.name = "AuthoredV4RoomMaterial"
+    generated_floor_layer.tile_set = tileset
+    generated_floor_layer.z_index = -5
+    generated_floor_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    generated_floor_layer.set_meta("room_material_path",source)
+    add_child(generated_floor_layer)
+    var walls: Dictionary = layout.get("blocked",{})
+    var ground: Dictionary = layout.get("tiles",{})
+    var reserved: Dictionary = {}
+    reserved[layout.get("spawn",Vector2i(-1,-1))] = true
+    for p in (layout.get("interact_cells",{}) as Dictionary).values():
+        if p is Vector2i:
+            reserved[p] = true
+    var salt: int = (map_id+"#"+building_id).hash()
+    for raw in ground.keys():
+        var pos: Vector2i = raw
+        if walls.has(pos) or reserved.has(pos):
+            continue
+        var floor_cell: Vector2i = ground[pos]
+        if floor_cell.y != 5:
+            continue
+        var variation: int = posmod(pos.x*47+pos.y*71+salt,100)
+        if variation >= 8:
+            continue
+        generated_floor_layer.set_cell(pos,0,Vector2i(posmod(pos.x*11+pos.y*13+salt,8),5))
+        generated_floor_count += 1
+
+func _build_wall_edging(layout: Dictionary, map_id: String, building_id: String) -> void:
+    var edge_path: String = theme_atlas
+    var edge_row: int = 7
+    if not ArtOverrides.exists(edge_path):
+        # Generated V3 room atlases have their authored WALL tiles in row 6.
+        edge_path = Generated.interior_path(map_id, building_id)
+        edge_row = 6
+    if (edge_path.is_empty() or not ArtOverrides.exists(edge_path)) and str(layout.get("art_profile",""))=="regional_functional_v1":
+        # For the newly authored 54 V4 rooms, use the same A-line regional
+        # terrain family as the real indoor ground, never the coastal inn.
+        var region_name: String = "region_" + str(map_id.split("_")[1])
+        var candidates: Array[String] = TerrainAtlas.atlas_sources(region_name,map_id,"",false)
+        if not candidates.is_empty():
+            edge_path = candidates[0]
+            edge_row = 6
+    if edge_path.is_empty() or not ArtOverrides.exists(edge_path):
+        push_warning("No drawable wall edging for " + map_id + "#" + building_id)
+        return
+    var atlas_paths: Array[String] = [edge_path]
+    var tiles: TileSet = TilePool.shared(atlas_paths, 8, edge_row, 1)
+    if tiles == null:
+        return
+    detail_layer = TileMapLayer.new()
+    detail_layer.name = "WallEdgeTiles"
+    detail_layer.tile_set = tiles
+    detail_layer.z_index = -4
+    detail_layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     add_child(detail_layer)
-    var walls: Dictionary=layout.get("blocked",{})
-    var cells: Dictionary=layout.get("tiles",{})
+    var walls: Dictionary = layout.get("blocked", {})
+    var cells: Dictionary = layout.get("tiles", {})
     for item in cells.keys():
-        var cell: Vector2i=item
-        if not walls.has(cell) and walls.has(cell+Vector2i.UP):
-            detail_layer.set_cell(cell+Vector2i.UP,0,Vector2i(posmod(cell.x,8),7))
+        var cell: Vector2i = item
+        if not walls.has(cell) and walls.has(cell + Vector2i.UP):
+            detail_layer.set_cell(cell + Vector2i.UP, 0, Vector2i(posmod(cell.x, 8), edge_row))

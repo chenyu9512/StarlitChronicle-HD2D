@@ -1,12 +1,16 @@
 extends CanvasLayer
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const EncounterRegistry = preload("res://scripts/encounter_registry.gd")
 const CombatRules = preload("res://scripts/combat_rules.gd")
+const Act01Mechanics = preload("res://scripts/mechanics/Act01Mechanics.gd")
 const BattleBossMechanics = preload("res://scripts/battle_boss_mechanics.gd")
 const BattleFormation = preload("res://scripts/battle_formation.gd")
 const BattleWorldHandoff = preload("res://scripts/battle_world_handoff.gd")
 const BattleRewardTransaction = preload("res://scripts/battle_reward_transaction.gd")
+const RescueEncounterProfiles = preload("res://scripts/systems/RescueEncounterProfiles.gd")
+const TacticalEngineScript = preload("res://scripts/combat/TacticalCombatEngine.gd")
 const BattleFX = preload("res://scripts/battle_fx.gd")
 const BattleActors = preload("res://scripts/battle_actors.gd")
 const BattleSFX = preload("res://scripts/battle_sfx.gd")
@@ -17,6 +21,7 @@ const BattleHud = preload("res://scripts/battle_hud.gd")
 const BossAwakening = preload("res://scripts/battle_boss_awakening.gd")
 const C23FogTideBodyMotion = preload("res://scripts/c_b03_fog_tide_body_motion.gd")
 const C23OtherBossMotion = preload("res://scripts/c_b03_other_boss_motion.gd")
+const GeneratedBossMotion = preload("res://scripts/battle_generated_boss_motion.gd")
 const LibrariumBossIdle = preload("res://scripts/c_art_librarium_boss_idle.gd")
 ## 第一幕正式战斗循环：队伍指令、怪物数值、Boss二阶段与特殊胜利条件。
 signal completed(victory: bool, xp: int, gold: int)
@@ -27,6 +32,7 @@ var game_state
 var game_core
 var encounter_registry
 var combat_rules
+var act01_mechanics
 var boss_mechanics
 var last_boss_settlement: String = ""
 var world_handoff
@@ -37,6 +43,9 @@ var formation
 var active_target: int = 0
 var skill_picker: PanelContainer
 var encounter_data: Dictionary = {}
+var forced_party_ids: Array[String] = []  # Rescue-only, never persisted in rpg.party.
+var rescue_encounter_hint: String = ""
+var tactical_engine
 var chapter: int = 1
 var boss: bool = false
 var round_boss_intent: Dictionary = {}
@@ -50,6 +59,9 @@ var current_round: int = 1
 var phase_two: bool = false
 var chain_hp: int = 0
 var resonance: int = 0
+var lighthouse_witnesses_heard: Array[String] = []
+var lighthouse_testimony_rows: Array = []
+var lighthouse_wicks_verified: bool = false
 var countdown: int = 8
 var defense: Dictionary = {}
 var win_locked: bool = false
@@ -59,7 +71,7 @@ var root: Control
 var party_info: RichTextLabel
 var foe_info: Label
 var report: Label
-var commands: HBoxContainer
+var commands: GridContainer
 var portrait: TextureRect
 var enemy_grounding: TextureRect
 var actor_stage
@@ -71,6 +83,7 @@ var camera_motion
 var battle_hud
 var boss_animation
 var c23_boss_body_motion
+var generated_boss_motion
 var librarium_boss_idle
 var last_warning_text: String = ""
 var last_warning_round: int = 0
@@ -141,6 +154,11 @@ func _auto_prepare_world_handoff() -> void:
     if not bool(prepared.get("ok", false)):
         push_warning("A-line battle/world snapshot unavailable: " + str(prepared.get("reason", "unknown")))
 
+func _actor_eligible(actor_id: String) -> bool:
+    if not forced_party_ids.is_empty():
+        return actor_id in forced_party_ids
+    return game_core != null and game_core.is_active(actor_id)
+
 func start(save_state, chapter_no: int, is_boss: bool) -> void:
     game_state = save_state
     if combat_rules == null:
@@ -154,6 +172,30 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     current_round = 1
     phase_two = false
     resonance = 0
+    lighthouse_witnesses_heard.clear()
+    lighthouse_testimony_rows.clear()
+    lighthouse_wicks_verified = false
+    if boss and chapter == 6:
+        var verified: Dictionary = encounter_data.get("lighthouse_fragments",{})
+        lighthouse_wicks_verified = (
+            bool(verified.get("breakwater_wick",false)) and
+            bool(verified.get("keeper_wick",false)) and
+            bool(verified.get("summit_wick",false)))
+        var witness_rows: Variant = encounter_data.get("lighthouse_testimonies",[])
+        if witness_rows is Array and witness_rows.size() == 4:
+            var distinct: Dictionary = {}
+            var valid: bool = true
+            for testimony in witness_rows:
+                if not (testimony is Dictionary):
+                    valid = false
+                    break
+                var name_id: String = str(testimony.get("id",""))
+                if name_id.is_empty() or distinct.has(name_id) or str(testimony.get("line","")).is_empty():
+                    valid = false
+                    break
+                distinct[name_id] = true
+            if valid and distinct.size() == 4:
+                lighthouse_testimony_rows = witness_rows.duplicate(true)
     countdown = 8
     defense.clear()
     win_locked = false
@@ -162,7 +204,17 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
     last_boss_settlement = ""
     last_world_handoff_result.clear()
     reward_transaction_id = ""
+    rescue_encounter_hint = ""
     _auto_prepare_world_handoff()
+    act01_mechanics = null
+    if boss and chapter in [3,5]:
+        act01_mechanics = Act01Mechanics.new()
+        add_child(act01_mechanics)
+        if chapter == 3:
+            var cave_state: Dictionary = encounter_data.get("cave_snapshot",{})
+            act01_mechanics.restore_from_cave_snapshot(cave_state)
+        elif chapter == 5:
+            act01_mechanics.trigger_fisherman_red_flag_warning()
     boss_mechanics = null
     if boss:
         var hp: int = 145 + chapter * 55
@@ -183,6 +235,18 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
         enemy = encounter_registry.roll_monster(chapter)
     formation = BattleFormation.new()
     formation.start(encounter_registry,chapter,boss,enemy)
+    # Adapt the real encounter's ordinary enemies (HP, speed, number and
+    # defense differ by gate). Names are diegetic, but monster IDs, drops,
+    # art and real turn resolution remain authoritative.
+    if not boss and chapter == 47 and not forced_party_ids.is_empty():
+        var squad_id: String = str(encounter_data.get("rescue_squad_id",""))
+        var rescue_profile: Dictionary = RescueEncounterProfiles.apply(formation,squad_id)
+        if bool(rescue_profile.get("ok",false)):
+            enemy = formation.units[0]
+            rescue_encounter_hint = str(rescue_profile.get("hint",""))
+        else:
+            push_error("Three-gate rescue encounter profile unavailable: " +
+                str(rescue_profile.get("reason","unknown")))
     var stable_boss_id: String = ""
     if boss:
         stable_boss_id = str(encounter_data.get("enemy_id",""))
@@ -190,13 +254,36 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
             stable_boss_id = str(formation.units[0].get("boss_id",stable_boss_id))
         if stable_boss_id.is_empty():
             stable_boss_id = "boss.ch%03d/crisis" % chapter
-    reward_transaction_id = BattleRewardTransaction.make_id(boss,chapter,stable_boss_id)
+    # A chapter-47 rescue reserves a real V3 nonce BEFORE combat. Reloading
+    # after the combat receipt but before squad checkpoint must reuse it;
+    # generating a new random nonce there would pay the same victory twice.
+    var reserved_id: String = str(encounter_data.get("rescue_reward_transaction_id",""))
+    var valid_rescue: bool = not boss and chapter == 47         and not forced_party_ids.is_empty()         and str(encounter_data.get("rescue_squad_id","")) in [
+            "EAST_GATE_LEISO","SOUTH_GATE_SHUOXIAN","WEST_GATE_TIFA"]         and BattleRewardTransaction.valid_id(reserved_id) and reserved_id.begins_with("random:")
+    reward_transaction_id = reserved_id if valid_rescue else BattleRewardTransaction.make_id(
+        boss,chapter,stable_boss_id)
+    if is_instance_valid(tactical_engine):
+        tactical_engine.queue_free()
+    tactical_engine = TacticalEngineScript.new()
+    add_child(tactical_engine)
+    tactical_engine.setup_encounter(chapter,boss,formation.units)
     active_target = 0
     enemy = formation.units[0]
     _begin_round()
     _build()
     _start_actor()
     var introduction: String = "%s 出现在你们面前！" % str(enemy["name"])
+    if boss and chapter == 5:
+        # Authored in-world red flag and safe retreat observations are read
+        # from the world handoff. These are hints only, not an extra reward
+        # or an alternative to the three earned lock-removal turns.
+        var shoal_proof: Dictionary = encounter_data.get("shoal_snapshot",{})
+        if bool(shoal_proof.get("red_flag",false)) and bool(shoal_proof.get("star_chain",false)) and bool(shoal_proof.get("retreat_line",false)):
+            introduction += " · 红旗警示：避开发亮的过载星纹！朔弦先吹双哨，每次仅能安全拆下一处锁扣，合计三处。"
+        else:
+            introduction += " · 浅滩三项救援调查未获确认。"
+    if not rescue_encounter_hint.is_empty():
+        introduction += " · " + rescue_encounter_hint
     if boss_mechanics != null and boss_mechanics.enabled():
         introduction += " · 目标：" + boss_mechanics.objective_label() + " · 提示：" + boss_mechanics.hint()
     _redraw(introduction)
@@ -205,19 +292,22 @@ func _style(bg: Color, outline: Color) -> StyleBoxFlat:
     var s := StyleBoxFlat.new()
     s.bg_color = bg
     s.border_color = outline
-    s.set_border_width_all(2)
-    s.set_corner_radius_all(12)
-    s.set_content_margin_all(13)
+    s.set_border_width_all(1)
+    s.border_width_top = 2
+    s.set_corner_radius_all(9)
+    s.set_content_margin_all(12)
+    s.shadow_color = Color(0.01,0.02,0.04,0.36)
+    s.shadow_size = 4
     return s
 
 func _button(parent: Node, text_label: String, action: String) -> Button:
     var b := Button.new()
     b.text = text_label
-    b.custom_minimum_size = Vector2(146, 49)
+    b.custom_minimum_size = Vector2(120, 44)
     b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    b.add_theme_font_size_override("font_size", 19)
-    b.add_theme_stylebox_override("normal", _style(Color("102539"), Color("5c87a0")))
-    b.add_theme_stylebox_override("hover", _style(Color("205075"), Color("f2ca76")))
+    b.add_theme_font_size_override("font_size", 17)
+    CVisual.style_button(b)
+    b.focus_mode = Control.FOCUS_ALL
     b.pressed.connect(func() -> void: _act(action))
     parent.add_child(b)
     return b
@@ -227,11 +317,33 @@ func _build() -> void:
     root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     root.mouse_filter = Control.MOUSE_FILTER_STOP
     add_child(root)
+    # A 12-act gradient establishes a coherent realm mood when a curated
+    # story backdrop is unavailable. Never reuse a coastal painting as a
+    # misleading universal scene or replace official combat art with sprites.
+    var accent: Color = CVisual.act_accent(chapter)
+    var gradient := Gradient.new()
+    gradient.set_color(0,CVisual.INK.lerp(accent,0.09))
+    gradient.set_color(1,CVisual.NAVY.lerp(accent,0.22))
+    var gradient_tex := GradientTexture2D.new()
+    gradient_tex.gradient = gradient
+    gradient_tex.width = 512
+    gradient_tex.height = 512
+    var painted_base := TextureRect.new()
+    painted_base.texture = gradient_tex
+    painted_base.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    painted_base.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    painted_base.stretch_mode = TextureRect.STRETCH_SCALE
+    painted_base.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(painted_base)
     var backdrop := TextureRect.new()
-    backdrop.texture = CArtOverrides.texture("res://assets/art/backdrops/coast/tide_lighthouse.png" if chapter >= 5 else "res://assets/art/backdrops/coast/white_sand_port.png")
+    if chapter <= 6:
+        var original_path: String = "res://assets/art/backdrops/coast/tide_lighthouse.png" if chapter >= 5 else "res://assets/art/backdrops/coast/white_sand_port.png"
+        backdrop.texture = CArtOverrides.texture(original_path)
+    backdrop.visible = backdrop.texture != null
     backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    backdrop.stretch_mode = TextureRect.STRETCH_SCALE
+    backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+    backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
     root.add_child(backdrop)
     var dim := ColorRect.new()
     dim.color = Color(0.015, 0.032, 0.060, 0.54)
@@ -255,11 +367,12 @@ func _build() -> void:
     title_plate.anchor_right = 0.75
     title_plate.anchor_top = 0.03
     title_plate.anchor_bottom = 0.13
-    title_plate.add_theme_stylebox_override("panel", _style(Color("0c2035"), Color("d7b46e")))
+    title_plate.add_theme_stylebox_override("panel", CVisual.surface(true,chapter))
     root.add_child(title_plate)
     foe_info = Label.new()
     foe_info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     foe_info.add_theme_font_size_override("font_size", 20)
+    foe_info.add_theme_color_override("font_color",CVisual.PAPER)
     title_plate.add_child(foe_info)
     portrait = TextureRect.new()
     portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
@@ -286,6 +399,18 @@ func _build() -> void:
         c23_boss_body_motion.name = "C23BossBodyMotion_%d" % chapter
         root.add_child(c23_boss_body_motion)
         c23_boss_body_motion.configure(portrait,chapter,bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
+    generated_boss_motion = null
+    if boss and chapter >= 7:
+        # Later chapters now use the same physically generated six-state
+        # identity sheets as Act I, without replacing any battle mechanics.
+        var later_motion = GeneratedBossMotion.new()
+        later_motion.name = "CanonicalChapterBossMotion_%d" % chapter
+        root.add_child(later_motion)
+        if later_motion.configure(portrait, chapter,
+                bool(game_state.rpg.get("settings", {}).get("reduced_motion", false))):
+            generated_boss_motion = later_motion
+        else:
+            later_motion.queue_free()
     if boss:
         boss_animation=BossAwakening.new()
         boss_animation.name="BossSixFrameAwakening"
@@ -311,7 +436,7 @@ func _build() -> void:
     var actor_ids: Array = []
     if game_core != null:
         for member in game_state.actors:
-            if game_core.is_active(str(member.get("id",""))):
+            if _actor_eligible(str(member.get("id",""))):
                 actor_ids.append(str(member.get("id","")))
     var battle_settings: Dictionary = game_state.rpg.get("settings",{})
     actor_stage.reduced_motion = bool(battle_settings.get("reduced_motion",false))
@@ -321,7 +446,7 @@ func _build() -> void:
     lower.anchor_right = 0.95
     lower.anchor_top = 0.61
     lower.anchor_bottom = 0.985
-    lower.add_theme_stylebox_override("panel", _style(Color("0b1b2f"), Color("b49661")))
+    lower.add_theme_stylebox_override("panel", CVisual.surface(true,chapter))
     root.add_child(lower)
     var flow := VBoxContainer.new()
     flow.add_theme_constant_override("separation", 5)
@@ -329,22 +454,28 @@ func _build() -> void:
     report = Label.new()
     report.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     report.add_theme_font_size_override("font_size", 19)
-    report.add_theme_color_override("font_color", Color("f4d894"))
+    report.add_theme_color_override("font_color", CVisual.act_accent(chapter))
     flow.add_child(report)
     party_info = RichTextLabel.new()
     party_info.bbcode_enabled = true
     party_info.custom_minimum_size = Vector2(0, 43)
     party_info.add_theme_font_size_override("normal_font_size", 17)
     flow.add_child(party_info)
-    commands = HBoxContainer.new()
-    commands.add_theme_constant_override("separation", 9)
+    # Two balanced rows prevent seven commands overflowing landscape phones.
+    # The original command IDs and their battle callbacks are unchanged.
+    commands = GridContainer.new()
+    commands.columns = 4
+    commands.add_theme_constant_override("h_separation", 8)
+    commands.add_theme_constant_override("v_separation", 7)
+    commands.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     flow.add_child(commands)
     _button(commands, "⚔ 攻击", "attack")
     _button(commands, "✧ 技能", "skill")
+    _button(commands, "✥ 战术", "tactical")
     _button(commands, "◇ 防御", "guard")
     _button(commands, "✦ 聚星", "charge")
     _button(commands, "✚ 药草", "potion")
-    var special_name: String = "✦ 拆除星锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else ("✦ 破解机制" if boss and boss_mechanics != null and boss_mechanics.enabled() else "✦ 识破弱点"))
+    var special_name: String = "✦ 双哨 / 拆锁" if chapter == 5 and boss else ("✦ 共同见证" if chapter == 6 and boss else ("✦ 破解机制" if boss and boss_mechanics != null and boss_mechanics.enabled() else "✦ 识破弱点"))
     special_button = _button(commands, special_name, "special")
     vfx = BattleFX.new()
     vfx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -415,7 +546,10 @@ func _select_enemy(index: int) -> void:
     if is_instance_valid(enemy_stage):
         enemy_stage.focus(index)
     if is_instance_valid(portrait) and portrait.visible:
-        portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
+        # The atlas already represents the active chapter boss. Reassigning
+        # a static portrait during focus would silently stop its animation.
+        if not is_instance_valid(generated_boss_motion) or not generated_boss_motion.enabled:
+            portrait.texture = CArtOverrides.texture(ArtAssets.battle_image(enemy, boss, chapter))
         if is_instance_valid(librarium_boss_idle):
             librarium_boss_idle.configure(portrait, enemy, bool(game_state.rpg.get("settings",{}).get("reduced_motion",false)))
         if is_instance_valid(vfx):
@@ -468,7 +602,7 @@ func _choose_target(skill_id: String) -> void:
         var member: Dictionary = game_state.actors[i]
         if int(member.get("hp",0)) <= 0:
             continue
-        if game_core != null and not game_core.is_active(str(member.get("id",""))):
+        if game_core != null and not _actor_eligible(str(member.get("id",""))):
             continue
         _button(body,"%s  HP %d/%d" % [str(member.get("name","")),int(member.get("hp",0)),int(member.get("max_hp",0))],"skill:%s@%d" % [skill_id,index])
     _button(body,"返回技能列表","skill")
@@ -493,12 +627,17 @@ func _begin_round() -> void:
             enemy["base_speed"] = int(enemy.get("speed",8))-int(environment.get("speed_bonus",0))
         formation.units[0] = enemy
     round_boss_intent = (boss_mechanics.intent(current_round) if boss_mechanics != null and boss_mechanics.enabled() else combat_rules.enemy_strategy(enemy,current_round,phase_two,true,game_state.actors)).duplicate(true) if boss else {}
+    if boss and chapter == 3 and act01_mechanics != null:
+        act01_mechanics.on_boss_ch003_pre_attack_telegraph()
+    if boss and chapter == 5 and act01_mechanics != null and current_round > 1 and current_round % 3 == 0:
+        # The red flag visibly reopens the hazard; another whistle clears it.
+        act01_mechanics.trigger_fisherman_red_flag_warning()
     last_warning_text = ""
     var eligible: Array = []
     if game_core != null:
         for member in game_state.actors:
             var actor_id: String = str(member.get("id",""))
-            if game_core.is_active(actor_id):
+            if _actor_eligible(actor_id):
                 eligible.append(actor_id)
     # Apply shared vocation and weapon speed to the turn timeline without
     # changing permanently saved actor base stats.
@@ -543,7 +682,7 @@ func _start_actor() -> void:
         hero_turn = index
         var member: Dictionary = game_state.actors[hero_turn]
         var actor_id: String = str(member.get("id",""))
-        if int(member.get("hp",0)) <= 0 or (game_core != null and not game_core.is_active(actor_id)):
+        if int(member.get("hp",0)) <= 0 or (game_core != null and not _actor_eligible(actor_id)):
             turn_cursor += 1
             continue
         var effect: Dictionary = combat_rules.resolve_actor_turn(actor_id,int(member.get("max_hp",1)))
@@ -562,8 +701,126 @@ func _start_actor() -> void:
         push_warning("Mixed combat timeline exceeded the 128-action safety cap")
         _finish(false)
 
+func _choose_tactical_action() -> void:
+    if tactical_engine == null or (boss and chapter in [3,5,6]):
+        _redraw("本场正典Boss需要通过原有专属救援和见证机制结算。")
+        return
+    _hide_skills()
+    var actor_id: String = str(game_state.actors[hero_turn].get("id",""))
+    var options: Array[Dictionary] = tactical_engine.available_for(actor_id,chapter,game_state.flags)
+    if options.is_empty():
+        _redraw("当前角色尚未具备相应的安全战术职业权限。")
+        return
+    skill_picker = PanelContainer.new()
+    skill_picker.anchor_left = 0.18
+    skill_picker.anchor_right = 0.82
+    skill_picker.anchor_top = 0.20
+    skill_picker.anchor_bottom = 0.83
+    skill_picker.add_theme_stylebox_override("panel",_style(Color("091b31"),Color("e6c47d")))
+    root.add_child(skill_picker)
+    var list := VBoxContainer.new()
+    skill_picker.add_child(list)
+    var title := Label.new()
+    title.text = "安全战术 · 狂躁/星纹锁 · 当前星灯%d%%" % tactical_engine.lantern_resonance_charge
+    list.add_child(title)
+    for option in options:
+        var id: String = str(option.get("id",""))
+        var btn: Button = _button(list,"%s · 共鸣%d" % [
+            str(option.get("name",id)),int(option.get("cost",0))],"tactic:"+id)
+        btn.disabled = not bool(option.get("enabled",false))
+    _button(list,"返回战斗","cancel_skill")
+
+func _tactical_ally_picker(skill_id: String) -> void:
+    _hide_skills()
+    skill_picker = PanelContainer.new()
+    skill_picker.anchor_left = 0.23
+    skill_picker.anchor_right = 0.77
+    skill_picker.anchor_top = 0.24
+    skill_picker.anchor_bottom = 0.76
+    root.add_child(skill_picker)
+    var list := VBoxContainer.new()
+    skill_picker.add_child(list)
+    var label := Label.new()
+    label.text = "按真实伤情选择救护对象"
+    list.add_child(label)
+    for i in range(game_state.actors.size()):
+        var ally: Dictionary = game_state.actors[i]
+        if not _actor_eligible(str(ally.get("id",""))) or int(ally.get("hp",0)) <= 0:
+            continue
+        _button(list,"%s · HP %d/%d" % [str(ally.get("name","同伴")),
+            int(ally.get("hp",0)),int(ally.get("max_hp",0))],
+            "tactic:"+skill_id+"@"+str(i))
+    _button(list,"返回战术","tactical")
+
+func _tactical_act(token: String) -> void:
+    if tactical_engine == null or not formation.valid_target(active_target):
+        _redraw("战术状态或目标已失效。")
+        return
+    var parts: PackedStringArray = token.split("@",false,1)
+    var skill_id: String = str(parts[0])
+    var ally_index: int = hero_turn
+    if skill_id == "HEALER_TRIAGE_RESCUE" and parts.size() == 1:
+        _tactical_ally_picker(skill_id)
+        return
+    if parts.size() == 2:
+        if not str(parts[1]).is_valid_int():
+            return
+        ally_index = int(parts[1])
+        if ally_index < 0 or ally_index >= game_state.actors.size() or                 not _actor_eligible(str(game_state.actors[ally_index].get("id",""))):
+            _redraw("该成员不在本场真实战斗编成。")
+            return
+    var actor: Dictionary = game_state.actors[hero_turn]
+    var ephemeral: Dictionary = game_state.flags.duplicate()
+    if ally_index >= 0 and ally_index < game_state.actors.size():
+        ephemeral["battle.airway_critical"] = int(
+            game_state.actors[ally_index].get("triage_state",0)) ==             TacticalEngineScript.TriagePriority.AIRWAY_CRITICAL
+    var result: Dictionary = tactical_engine.use_skill(str(actor.get("id","")),
+        skill_id,active_target,ephemeral)
+    if not bool(result.get("ok",false)):
+        _redraw("战术操作未生效：" + str(result.get("reason","invalid")))
+        return
+    _hide_skills()
+    var backlash: int = int(result.get("backlash",0))
+    if backlash > 0:
+        actor["hp"] = maxi(1,int(actor.get("hp",1))-backlash)
+        game_state.actors[hero_turn] = actor
+    var heal: int = int(result.get("heal_one",0))
+    if heal > 0 and ally_index < game_state.actors.size():
+        var rescued: Dictionary = game_state.actors[ally_index]
+        rescued["hp"] = mini(int(rescued.get("max_hp",1)),int(rescued.get("hp",0))+heal)
+        game_state.actors[ally_index] = rescued
+    var hit: int = int(result.get("enemy_damage",0))
+    if hit > 0:
+        if boss and boss_mechanics != null and boss_mechanics.protect_from_lethal():
+            hit = mini(hit,maxi(0,int(enemy.get("hp",1))-1))
+        formation.apply_damage(active_target,hit)
+    var chosen_enemy: Dictionary = formation.units[active_target]
+    chosen_enemy["unrest"] = int(result.get("unrest",0))
+    chosen_enemy["star_locks"] = int(result.get("star_locks",0))
+    chosen_enemy["pacified"] = bool(result.get("pacified",false))
+    formation.units[active_target] = chosen_enemy
+    enemy = chosen_enemy
+    var outcome: String = str(result.get("message","战术操作已执行。"))
+    # Only a real nonboss battle with every enemy pacified can conclude here.
+    # Bespoke story Bosses retain their original safety/identity/witness gates.
+    if not boss and tactical_engine.all_pacified():
+        last_boss_settlement = "nonlethal"
+        _redraw(outcome+" · 全体敌人非暴力平息。")
+        _finish(true)
+        return
+    turn_cursor += 1
+    _start_actor()
+    if not win_locked:
+        _redraw(outcome)
+
 func _act(action: String) -> void:
     if win_locked or hero_turn >= game_state.actors.size():
+        return
+    if action == "tactical":
+        _choose_tactical_action()
+        return
+    if action.begins_with("tactic:"):
+        _tactical_act(action.trim_prefix("tactic:"))
         return
     if action in ["attack","special"] and not boss and formation.alive_indices().size() > 1:
         _choose_enemy_target(action)
@@ -608,7 +865,7 @@ func _act(action: String) -> void:
                 _redraw("队友目标已经失效，请重新选择。")
                 return
             var chosen_ally: Dictionary = game_state.actors[target_index]
-            if int(chosen_ally.get("hp",0)) <= 0 or (game_core != null and not game_core.is_active(str(chosen_ally.get("id","")))):
+            if int(chosen_ally.get("hp",0)) <= 0 or (game_core != null and not _actor_eligible(str(chosen_ally.get("id","")))):
                 _redraw("当前队友无法成为该技能的目标。")
                 return
         else:
@@ -662,7 +919,7 @@ func _act(action: String) -> void:
                     if target_type == "all_allies":
                         for i in range(game_state.actors.size()):
                             var person: Dictionary = game_state.actors[i]
-                            if int(person.get("hp",0)) > 0 and (game_core == null or game_core.is_active(str(person.get("id","")))):
+                            if int(person.get("hp",0)) > 0 and (game_core == null or _actor_eligible(str(person.get("id","")))):
                                 game_state.heal_member(i,maxi(10,power + magic_bonus))
                         message = "%s 施展%s，全队恢复体力。" % [name,label]
                     else:
@@ -682,7 +939,7 @@ func _act(action: String) -> void:
                     var targets: Array[int] = []
                     if target_type == "all_allies":
                         for i in range(game_state.actors.size()):
-                            if game_core == null or game_core.is_active(str(game_state.actors[i].get("id",""))):
+                            if game_core == null or _actor_eligible(str(game_state.actors[i].get("id",""))):
                                 targets.append(i)
                     else:
                         targets.append(target_index)
@@ -696,7 +953,7 @@ func _act(action: String) -> void:
                     var targets: Array[int] = []
                     if target_type == "all_allies":
                         for i in range(game_state.actors.size()):
-                            if game_core == null or game_core.is_active(str(game_state.actors[i].get("id",""))):
+                            if game_core == null or _actor_eligible(str(game_state.actors[i].get("id",""))):
                                 targets.append(i)
                     else:
                         targets.append(target_index)
@@ -756,29 +1013,86 @@ func _act(action: String) -> void:
             if is_instance_valid(vfx):
                 vfx.play_heal(_vfx_ally_point(),"药草")
         "special":
-            if boss and chapter == 5:
-                chain_hp = maxi(0, chain_hp - maxi(20, combat_attack + dice.randi_range(8, 20)))
-                message = "%s 拆除星纹锁，剩余耐久 %d！" % [name, chain_hp]
-                if is_instance_valid(vfx):
-                    vfx.play_special(_vfx_foe_point())
-                if chain_hp == 0:
-                    _redraw(message + "古兽摆脱了控制！")
+            if boss and chapter == 3 and act01_mechanics != null:
+                # Three physically operated V7 cave valves, not a synthetic inventory item.
+                # Old saves without the close-up gallery retain their archived clue flag.
+                var records: Dictionary = game_state.rpg.get("canon_evidence",{})
+                var badge_record: Dictionary = records.get("ev_ch003_half_badge",{})
+                var saw_badge: bool = bool(badge_record.get("crooked_tree",false))
+                var legacy_badge: bool = not records.has("ev_ch003_half_badge") and bool(game_state.flags.get("ch003.evidence",false))
+                var has_badge: bool = act01_mechanics.valve_3_guardian_shutoff and (saw_badge or legacy_badge)
+                var action_id: String = "SHOW_CROOKED_TREE_BADGE" if has_badge else "PULL_BACK_ALLY"
+                var result: Dictionary = act01_mechanics.execute_boss_ch003_tactical_action(action_id,has_badge)
+                message = str(result.get("msg","守卫未响应。"))
+                if bool(result.get("success",false)) and not act01_mechanics.boss_ch003_is_pacified:
+                    # Rescuing an ally must matter in the real combat loop.
+                    combat_rules.shield(str(member.get("id","")),2)
+                    message += " · 队伍重新站稳，获得短暂防护。"
+                    if is_instance_valid(vfx):
+                        vfx.play_guard(_vfx_ally_point())
+                if bool(result.get("success",false)) and act01_mechanics.boss_ch003_is_pacified:
+                    last_boss_settlement = "nonlethal"
+                    _redraw(message)
                     _finish(true)
                     return
+            elif boss and chapter == 5 and act01_mechanics != null:
+                # A whole player turn is spent exposing the unlit lock, then a
+                # separate turn removes EXACTLY ONE of the three restraints.
+                # Pure attack damage cannot substitute for a rescue action.
+                var sailor_ready: bool = false
+                for ally in game_state.actors:
+                    if str(ally.get("id","")) == "char_seeker" and int(ally.get("hp",0)) > 0:
+                        # A living reserve companion may whistle as scene support.
+                        sailor_ready = true
+                        break
+                if not sailor_ready:
+                    message = "朔弦当前失去意识，必须先救治，才能吹响安全引导双哨。"
+                elif not act01_mechanics.beast_back_vulnerable or act01_mechanics.star_vein_glowing_hazard:
+                    message = act01_mechanics.trigger_shuoxian_double_whistle()
+                    if is_instance_valid(vfx):
+                        vfx.play_charge(_vfx_ally_point())
+                else:
+                    var dismantle: Dictionary = act01_mechanics.attempt_dismantle_star_lock(false)
+                    message = str(dismantle.get("msg","当前锁扣无法解除。"))
+                    if bool(dismantle.get("success",false)):
+                        chain_hp = act01_mechanics.beast_star_locks_remaining * 42
+                        if is_instance_valid(vfx):
+                            vfx.play_special(_vfx_foe_point())
+                    if bool(dismantle.get("battle_complete",false)) and act01_mechanics.boss_ch005_is_complete:
+                        last_boss_settlement = "nonlethal"
+                        _redraw(message)
+                        _finish(true)
+                        return
             elif boss and chapter == 6:
-                resonance += 1
-                countdown = mini(8, countdown + 1)
-                message = "%s 汇入一段归航见证（%d/4）。" % [name, resonance]
-                if is_instance_valid(vfx):
-                    vfx.play_charge(_vfx_ally_point())
-                if resonance >= 4:
-                    _redraw(message + "共同见证替代献祭，灯塔重新点亮！")
-                    _finish(true)
-                    return
+                if not lighthouse_wicks_verified or lighthouse_testimony_rows.size()!=4:
+                    message = "三枚灯芯的实地凭证或四份归航见证正典数据缺失，禁止以重复指令伪造重燃。"
+                elif lighthouse_witnesses_heard.size() < lighthouse_testimony_rows.size():
+                    # Four separate canonical voices, one earned player action
+                    # each. A timeout can interrupt the most recent voice,
+                    # but cannot convert identical actions into extra witnesses.
+                    var witness: Dictionary = lighthouse_testimony_rows[lighthouse_witnesses_heard.size()]
+                    var witness_id: String = str(witness.get("id",""))
+                    if witness_id in lighthouse_witnesses_heard:
+                        message = "重复的归航回声不能作为新的见证。"
+                    else:
+                        lighthouse_witnesses_heard.append(witness_id)
+                        resonance = lighthouse_witnesses_heard.size()
+                        countdown = mini(8,countdown + 2)
+                        message = "%s 接续「%s」：%s（%d/4）。" % [
+                            name,str(witness.get("name","归航者")),str(witness.get("line","")),resonance]
+                        if is_instance_valid(vfx):
+                            vfx.play_charge(_vfx_ally_point())
+                        if resonance == 4:
+                            last_boss_settlement = "testimony"
+                            _redraw(message + "四份不同的共同见证已达成；无人献出私人记忆。")
+                            _finish(true)
+                            return
             else:
                 damage = maxi(8, combat_attack + dice.randi_range(5, 12) - maxi(0, int(enemy["def"]) - 6))
                 message = "%s 找到敌人的破绽，造成 %d 伤害。" % [name, damage]
-    if boss and boss_mechanics != null and boss_mechanics.enabled():
+    if boss and boss_mechanics != null and boss_mechanics.enabled() and not ((chapter == 5 and act01_mechanics != null) or chapter == 6):
+        # The chapter-5 rescue owns its victory flag; generic boss objectives
+        # must not create a second, easier settlement.
         var selected_profile: Dictionary = _get_skill(chosen_skill) if action == "skill" else {}
         var boss_action: Dictionary = boss_mechanics.record_action(action,selected_profile,str(member.get("id","")),current_round,passive)
         var boss_notice: String = str(boss_action.get("notice",""))
@@ -828,7 +1142,7 @@ func _act(action: String) -> void:
                 message += " · 武器特性：" + weapon_trait_id
         var living_party: int = 0
         for ally in game_state.actors:
-            if int(ally.get("hp",0)) > 0 and (game_core == null or game_core.is_active(str(ally.get("id","")))):
+            if int(ally.get("hp",0)) > 0 and (game_core == null or _actor_eligible(str(ally.get("id","")))):
                 living_party += 1
         damage = combat_rules.vocation_damage(damage,passive,action,enemy,living_party)
         damage = combat_rules.release_charge(str(member.get("id","")),damage)
@@ -865,12 +1179,9 @@ func _act(action: String) -> void:
                             if combat_rules.apply_enemy_negative(foe_index,foe_profile,status_kind,2):
                                 message += " · " + str(foe_profile.get("name","目标")) + "陷入" + str(CombatRules.NEGATIVE_STATUS_LABELS.get(status_kind,status_kind))
         if boss and chapter == 5:
-            # 古兽的剧情结局是卸下星锁，而不是杀死生命体。
-            chain_hp = maxi(0, chain_hp - maxi(4, int(float(damage) * 0.45)))
-            if chain_hp <= 0:
-                _redraw(message + "星纹锁断裂！")
-                _finish(true)
-                return
+            # Normal combat pressure only creates room for the rescue:
+            # the beast itself takes no lethal damage, and no chains disappear.
+            message += " · 古兽甲壳仍在抵抗；需要双哨引导后逐个拆除星纹锁。"
         elif hit_all_enemies:
             for index in formation.alive_indices():
                 formation.apply_damage(index,damage)
@@ -886,6 +1197,8 @@ func _act(action: String) -> void:
                 enemy_stage.hit(active_target,int(enemy.get("hp",0)) <= 0)
     if is_instance_valid(c23_boss_body_motion) and not enemy_stage.visible:
         c23_boss_body_motion.play_hit(int(enemy.get("hp",0)) <= 0)
+    if is_instance_valid(generated_boss_motion) and not enemy_stage.visible:
+        generated_boss_motion.play_hit(int(enemy.get("hp",0)) <= 0)
     if not phase_two and boss and int(enemy["hp"]) <= int(enemy["max_hp"]) / 2:
         phase_two = true
         if boss_mechanics != null and boss_mechanics.enabled():
@@ -901,6 +1214,8 @@ func _act(action: String) -> void:
             boss_animation.awaken()
         if is_instance_valid(c23_boss_body_motion):
             c23_boss_body_motion.play_phase()
+        if is_instance_valid(generated_boss_motion):
+            generated_boss_motion.play_phase()
         if is_instance_valid(camera_motion):
             camera_motion.impulse(7.0)
         if is_instance_valid(sfx):
@@ -927,6 +1242,9 @@ func _enemy_turn() -> void:
 
 func _enemy_action(index: int) -> void:
     if win_locked or not formation.valid_target(index):
+        return
+    if tactical_engine != null and bool(
+            tactical_engine.enemy_states.get(index,{}).get("pacified",false)):
         return
     var original_target: int = active_target
     enemy = formation.units[index]
@@ -957,7 +1275,7 @@ func _enemy_action(index: int) -> void:
 func _enemy_strike(attacker_index: int = -1) -> void:
     var living: Array[int] = []
     for i in range(game_state.actors.size()):
-        if int(game_state.actors[i]["hp"]) > 0 and (game_core == null or game_core.is_active(str(game_state.actors[i].get("id","")))):
+        if int(game_state.actors[i]["hp"]) > 0 and (game_core == null or _actor_eligible(str(game_state.actors[i].get("id","")))):
             living.append(i)
     if living.is_empty():
         _finish(false)
@@ -966,6 +1284,8 @@ func _enemy_strike(attacker_index: int = -1) -> void:
     last_enemy_action = str(enemy.get("name","敌人")) + " · " + str(intent.get("label","攻击"))
     if is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_attack()
+    if is_instance_valid(generated_boss_motion):
+        generated_boss_motion.play_attack()
     var target: int = living[dice.randi_range(0, living.size() - 1)]
     var targeting: String = str(intent.get("target",""))
     if targeting in ["lowest_hp","highest_hp","lowest_mp"]:
@@ -1015,9 +1335,12 @@ func _enemy_strike(attacker_index: int = -1) -> void:
     if boss and chapter == 6:
         countdown -= 1
         if countdown <= 0:
-            # 倒计时归零只会迫使队伍重新凝聚见证，不产生不可逆的死档。
+            # A lapsed last voice must genuinely be repeated, not retained
+            # as an invisible counting receipt. Existing turn rhythm stays.
             countdown = 3
-            resonance = maxi(0, resonance - 1)
+            if not lighthouse_witnesses_heard.is_empty():
+                lighthouse_witnesses_heard.pop_back()
+            resonance = lighthouse_witnesses_heard.size()
     if _all_fallen():
         _finish(false)
 
@@ -1062,6 +1385,8 @@ func _telegraph_next_boss_action() -> void:
     last_warning_text = name
     if is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_charge()
+    if is_instance_valid(generated_boss_motion):
+        generated_boss_motion.play_charge()
     vfx.play_warning(_vfx_foe_point(),name)
     if is_instance_valid(battle_hud):
         battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,last_warning_text)
@@ -1070,11 +1395,27 @@ func _telegraph_next_boss_action() -> void:
 
 func _all_fallen() -> bool:
     for member in game_state.actors:
-        if int(member["hp"]) > 0 and (game_core == null or game_core.is_active(str(member.get("id","")))):
+        if int(member["hp"]) > 0 and (game_core == null or _actor_eligible(str(member.get("id","")))):
             return false
     return true
 
 func _redraw(message: String) -> void:
+    # The single existing command slot reflects the real interaction phase.
+    # It never introduces a second victory or reward route.
+    if boss and is_instance_valid(special_button) and act01_mechanics != null:
+        if chapter == 5:
+            if act01_mechanics.beast_back_vulnerable and not act01_mechanics.star_vein_glowing_hazard:
+                special_button.text = "✦ 安全拆锁（剩余%d处）" % act01_mechanics.beast_star_locks_remaining
+            else:
+                special_button.text = "✦ 朔弦双哨 · 暂避发亮区"
+        elif chapter == 3:
+            special_button.text = "✦ 守卫胸灯停顿 · 旧船徽/救援" if act01_mechanics.boss_ch003_chest_lamp_blinking else "✦ 等待胸灯停顿"
+    if boss and chapter == 6 and is_instance_valid(special_button):
+        if not lighthouse_wicks_verified or lighthouse_testimony_rows.size()!=4:
+            special_button.text = "✦ 见证资料缺失 · 暂不可用"
+        elif lighthouse_witnesses_heard.size() < 4:
+            var next_voice: Dictionary = lighthouse_testimony_rows[lighthouse_witnesses_heard.size()]
+            special_button.text = "✦ 接续见证：" + str(next_voice.get("name","归航者"))
     if is_instance_valid(battle_hud):
         battle_hud.sync(formation.units,game_state.actors,active_target,phase_two,
             last_warning_text if last_warning_round == current_round else "")
@@ -1085,9 +1426,14 @@ func _redraw(message: String) -> void:
     report.text = message
     var header: String = "%s   HP %d/%d" % [str(enemy["name"]), int(enemy["hp"]), int(enemy["max_hp"])]
     if chapter == 5 and boss:
-        header = "%s   星纹锁 %d/%d" % [str(enemy["name"]), chain_hp, 125]
+        var locks_remaining: int = act01_mechanics.beast_star_locks_remaining if act01_mechanics != null else 3
+        header = "%s   已拆星锁 %d/3  · 余链 %d" % [str(enemy["name"]), 3 - locks_remaining, chain_hp]
+        if act01_mechanics != null and act01_mechanics.star_vein_glowing_hazard:
+            header += " · 红旗警戒"
     elif chapter == 6 and boss:
         header += "   共鸣 %d/4" % resonance
+    if tactical_engine != null:
+        header += tactical_engine.overview(active_target)
     if phase_two:
         header += "  · 二阶段"
     header += " · 意图：" + str(round_boss_intent.get("label","攻击") if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors).get("label","攻击"))
@@ -1111,7 +1457,7 @@ func _redraw(message: String) -> void:
     var lines: PackedStringArray = []
     for i in range(game_state.actors.size()):
         var member: Dictionary = game_state.actors[i]
-        if game_core != null and not game_core.is_active(str(member.get("id",""))):
+        if game_core != null and not _actor_eligible(str(member.get("id",""))):
             continue
         var current: String = "[color=#f9d58b]▶ " if i == hero_turn else "[color=#c9e4eb]"
         var status: Dictionary = combat_rules.actor_effects.get(str(member.get("id","")),{})
@@ -1128,6 +1474,8 @@ func _finish(victory: bool) -> void:
     win_locked = true
     if victory and boss and is_instance_valid(c23_boss_body_motion):
         c23_boss_body_motion.play_defeat()
+    if victory and boss and is_instance_valid(generated_boss_motion):
+        generated_boss_motion.play_defeat()
     for item in commands.get_children():
         if item is Button:
             item.disabled = true
@@ -1135,9 +1483,9 @@ func _finish(victory: bool) -> void:
         # Chapter 5 rescues the chained beast; chapter 6 replaces the
         # sacrifice with four player-earned memories. Their outcomes are
         # explicit and must not degrade to the generic "legacy_story" receipt.
-        if boss and chapter == 5 and chain_hp <= 0:
+        if boss and chapter == 5 and act01_mechanics != null and act01_mechanics.boss_ch005_is_complete and act01_mechanics.beast_star_locks_remaining == 0:
             last_boss_settlement = "nonlethal"
-        elif boss and chapter == 6 and resonance >= 4:
+        elif boss and chapter == 6 and lighthouse_wicks_verified and lighthouse_testimony_rows.size()==4 and lighthouse_witnesses_heard.size()==4 and resonance==4:
             last_boss_settlement = "testimony"
         elif boss and boss_mechanics != null and boss_mechanics.enabled() and last_boss_settlement.is_empty():
             last_boss_settlement = str(boss_mechanics.spec.get("settlement","defeated"))

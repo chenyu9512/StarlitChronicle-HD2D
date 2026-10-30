@@ -1,4 +1,5 @@
 extends Node2D
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 const ArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const TownAudio = preload("res://scripts/c_town_soundscape.gd")
 ## Native drawn roof/building painter. No third-party franchise assets.
@@ -128,12 +129,14 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
     var accepted_override: bool = ArtOverrides.has_override(file)
     var facade_tex: Texture2D = null
     if (original_facade or accepted_override) and ArtOverrides.exists(file):
-        facade_tex = ArtOverrides.texture(file)
+        facade_tex = RuntimeArt.texture_path(file)
     if facade_tex != null and facade_tex.get_width() >= 192 and facade_tex.get_height() >= 128:
         facade=Sprite2D.new()
         facade.name="AuthoredFacade"
         facade.texture=facade_tex
-        facade.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+        # Original City X SVG facades are authored at building scale; smooth
+        # their vectors while retaining the pixel treatment of legacy sprites.
+        facade.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR if map_key.begins_with("map_city_") else CanvasItem.TEXTURE_FILTER_NEAREST
         facade.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
         facade.z_index=0
         add_child(facade)
@@ -141,7 +144,7 @@ func setup(kind: String,building_name: String,dimensions: Vector2i,area: String,
         if ArtOverrides.exists(shadow_file):
             ground_shadow=Sprite2D.new()
             ground_shadow.name="FootprintContactShadow"
-            ground_shadow.texture=ArtOverrides.texture(shadow_file)
+            ground_shadow.texture=RuntimeArt.texture_path(shadow_file)
             ground_shadow.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
             ground_shadow.scale=Vector2(float(cells.x)*TILE/256.0,float(cells.y)*TILE/192.0)
             ground_shadow.position=Vector2(0,float(cells.y)*TILE*0.5-22.0)

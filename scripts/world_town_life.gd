@@ -2,6 +2,7 @@ extends RefCounted
 ## Regional residents, shop inventories and daily guild requests.
 ## All interactions are offline and stored in the existing game state; no API calls.
 const NPCS_PATH: String = "res://data/content/npcs.json"
+const WORLD_LEGACY: String = "res://story/runtime/world_legacy_projection.json"
 const REGIONS: Array[String] = [
     "region_coast","region_oaths","region_forge","region_isles",
     "region_mirror","region_oldland","region_sanctum","region_city"
@@ -26,6 +27,7 @@ const DIALOGUE: Dictionary = {
 }
 var citizens: Dictionary = {}
 var by_id: Dictionary = {}
+var legacy_by_map: Dictionary = {}
 const ChoiceEchoes = preload("res://scripts/story_choice_echoes.gd")
 var echoes = ChoiceEchoes.new()
 
@@ -39,6 +41,27 @@ func _init() -> void:
                     citizens[region] = []
                 (citizens[region] as Array).append(record)
                 by_id[str(record.get("id",""))] = record
+
+    # Contextual dialogue depends on authoritative world flags and is read-only.
+    if FileAccess.file_exists(WORLD_LEGACY):
+        var saved_legacy: Variant = JSON.parse_string(FileAccess.get_file_as_string(WORLD_LEGACY))
+        if saved_legacy is Dictionary:
+            for source_row in saved_legacy.get("entries",[]):
+                if not (source_row is Dictionary):
+                    continue
+                var map_id: String = str(source_row.get("map_id",""))
+                if not legacy_by_map.has(map_id):
+                    legacy_by_map[map_id] = []
+                (legacy_by_map[map_id] as Array).append(source_row.duplicate(true))
+
+func world_legacy_state(map_id: String, flags: Dictionary) -> Dictionary:
+    # Last declared story change wins if several historical chapters alter a map.
+    var rows: Array = legacy_by_map.get(map_id,[])
+    for idx in range(rows.size()-1,-1,-1):
+        var entry: Dictionary = rows[idx]
+        if bool(flags.get(str(entry.get("required_flag","")),false)):
+            return entry.duplicate(true)
+    return {}
 
 func residents(region_id: String) -> Array:
     return citizens.get(region_id,[]).duplicate()
@@ -88,6 +111,10 @@ func preview_talk(npc_id: String, region_id: String, clock: Dictionary, state) -
         # The NPC-specific response interprets existing completed decisions;
         # it does not invent a new quest flag or give extra items.
         text_line += "\n" + str(dialogues.get("choice_reflection",""))
+    var legacy: Dictionary = world_legacy_state(str(person.get("map_id","")),state.flags)
+    if not legacy.is_empty():
+        # A saved chapter result changes local conversation, not rewards or trust.
+        text_line += "\n【街区近况】" + str(legacy.get("npc_response",""))
     var activity: String = str(person.get("occupation",""))
     return {"name":str(person.get("name",npc_id)),"text":text_line,
         "first":first,"npc_id":npc_id,"dialogue_phase":context,

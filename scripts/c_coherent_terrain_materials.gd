@@ -13,6 +13,11 @@ static func supports(path: String) -> bool:
     if not path.begins_with("res://assets/art/"):
         return false
     var name: String = path.get_file()
+    # Canonical V10 per-map source sheets have correct 8x8 dimensions but
+    # are procedural color candidates, not yet organized by gameplay's
+    # semantic sand/road/cliff rows. Re-atlas them without changing V3 tiles.
+    if path.begins_with("res://assets/art/runtime/generated_gaps_v10/terrain__coast__"):
+        return name.ends_with("_ground.png") or name.ends_with("_water.png")
     if path.contains("/tilesets/story_v1/") and name.ends_with("_decals.svg"):
         return true
     if path.contains("/tilesets/") and (name.ends_with("_ground.png") or name.ends_with("_water.png")):
@@ -35,23 +40,28 @@ static func _overlay(path: String) -> bool:
 static func _water(path: String) -> bool:
     return path.get_file().contains("water")
 
-const HD2D_MATERIAL_ROOT: String="res://assets/art/runtime/act01_hd2d_v18/materials/"
+const HD2D_MATERIAL_ROOT: String="res://assets/art/runtime/generated_gaps_v10/"
 static var _hd2d_cache: Dictionary={}
 
 static func _real_material(path: String,row: int) -> Image:
     if _theme_revision != ArtTheme.revision():
         _hd2d_cache.clear()
         _theme_revision = ArtTheme.revision()
-    if not (path.contains("coast") or path.contains("cavern") or path.contains("saltwind")):
-        return null
     var types: Array[String]=["beach-sand","town-grass","cliff-rock","cobbles",
         "harbor-ground","planks","cliff-rock","marsh"]
     if _water(path):
         types=["water-sea","water-shallow","water-sea","water-foam",
             "water-brine","water-shallow","water-sea","water-foam"]
+    if not _water(path):
+        if path.contains("forge") or path.contains("oldland") or path.contains("mirror") or path.contains("cavern"):
+            types=["cliff-rock","cliff-rock","cobbles","cobbles","cliff-rock","planks","cliff-rock","marsh"]
+        elif path.contains("city") or path.contains("sanctum"):
+            types=["cobbles","cobbles","cliff-rock","cobbles","harbor-ground","planks","cliff-rock","marsh"]
+        elif path.contains("isles"):
+            types=["beach-sand","beach-sand","cliff-rock","cobbles","beach-sand","planks","cliff-rock","marsh"]
     var name: String=types[clampi(row,0,7)]
     if not _hd2d_cache.has(name):
-        var file: String=HD2D_MATERIAL_ROOT+name+".png"
+        var file: String=HD2D_MATERIAL_ROOT+"material__coast__"+name.replace("-","_")+".png"
         if not ResourceLoader.exists(file):
             return null
         var texture: Texture2D=ArtTheme.texture("material.coast."+name)
@@ -185,7 +195,27 @@ static func assemble(path: String, texture: Texture2D) -> Texture2D:
                         var my: int=32+posmod(row*67+y*3+col*19,material.get_height()-64)
                         var sample: Color=material.get_pixel(mx,my)
                         if sample.a>0.94:
-                            c=c.lerp(sample,0.70)
+                            c=c.lerp(sample,0.70 if path.contains("coast") or path.contains("cavern") or path.contains("saltwind") else 0.24)
+                    # V18 cliff/cobbles photo textures have overlapping
+                    # luminance. A cave corridor must remain visibly distinct
+                    # from blocking rock even when both source photos are grey.
+                    # Distinguish authored tile roles, never their collision.
+                    if path.get_file() == "tide_cavern_tileset.svg" or path.contains("terrain__coast__map_4_"):
+                        if row == 3: # Safe carved route, warm navigational tone.
+                            c=c.lerp(Color("c8b593"),0.56)
+                        elif row == 6: # Rough solid escarpment / blocked rim.
+                            c=c.lerp(Color("46535f"),0.60)
+                    elif path.contains("terrain__coast__map_") and path.ends_with("_ground.png"):
+                        # V10 image gradients alone blended road, sand and
+                        # cliff into visually identical cells on four maps.
+                        # Reinstate the authored row meanings with subtle
+                        # distinct physical tones; not a collision workaround.
+                        if row == 0: # Beach sand and washed soil
+                            c=c.lerp(Color("dfc89f"),0.55)
+                        elif row == 3: # Deliberately readable walking road
+                            c=c.lerp(Color("796d62"),0.58)
+                        elif row == 6: # Solid cliffs and impassable rock
+                            c=c.lerp(Color("4d5660"),0.64)
                     c.a=1.0
                     atlas.set_pixel(col * TILE + x, row * TILE + y, c)
     return ImageTexture.create_from_image(atlas)

@@ -1,0 +1,538 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_sanctum_01",
+  "building_id": "shrine",
+  "name": "天轨前庭·祈灯祠",
+  "status": "b_regional_functional_visuals_authored_pending_godot",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        27,
+        10,
+        45,
+        39
+      ]
+    },
+    {
+      "rect": [
+        19,
+        17,
+        53,
+        29
+      ]
+    },
+    {
+      "rect": [
+        23,
+        12,
+        49,
+        24
+      ]
+    },
+    {
+      "rect": [
+        22,
+        25,
+        51,
+        35
+      ]
+    },
+    {
+      "rect": [
+        18,
+        25,
+        24,
+        31
+      ]
+    },
+    {
+      "rect": [
+        46,
+        13,
+        53,
+        21
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        27,
+        12,
+        27,
+        15
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        45,
+        12,
+        45,
+        15
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        30,
+        36,
+        39
+      ]
+    }
+  ],
+  "points": {
+    "spawn": [
+      35,
+      33
+    ],
+    "exit": [
+      35,
+      37
+    ],
+    "service": [
+      25,
+      22
+    ],
+    "storage": [
+      47,
+      22
+    ]
+  },
+  "features": [
+    {
+      "kind": "sign",
+      "cell": [
+        25,
+        21
+      ],
+      "name": "天轨前庭·祈灯咨询"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        25,
+        16
+      ],
+      "name": "天轨前庭·祭器箱"
+    },
+    {
+      "kind": "beacon",
+      "cell": [
+        47,
+        21
+      ],
+      "name": "天轨前庭·祭坛供物"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "name": "天轨前庭·长明灯"
+    },
+    {
+      "kind": "sea_crystal",
+      "cell": [
+        27,
+        29
+      ],
+      "name": "天轨前庭·誓文铭刻"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        46,
+        29
+      ],
+      "name": "天轨前庭·奉纳器皿"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        30,
+        25
+      ],
+      "name": "天轨前庭·祈愿告示"
+    },
+    {
+      "kind": "flowerpot",
+      "cell": [
+        43,
+        27
+      ],
+      "name": "天轨前庭·供灯花"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      25,
+      16
+    ],
+    [
+      27,
+      29
+    ],
+    [
+      46,
+      29
+    ],
+    [
+      25,
+      21
+    ],
+    [
+      47,
+      21
+    ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_b_map_sanctum_01_shrine_1",
+      "cell": [
+        29,
+        23
+      ],
+      "kind": "crate",
+      "name": "天轨前庭·日常线索",
+      "first_text": "天轨前庭的祈灯祠里保留着当地居民的生活记录。",
+      "repeat_text": "记录仍存放在原处。",
+      "after_text": "这里的文字与陈设得到妥善保管。",
+      "owner_absent_text": "仅阅读公开内容，不移动私人财物。",
+      "owner_present_text": "征得允许后阅读公开记录。",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_b_map_sanctum_01_shrine_2",
+      "cell": [
+        43,
+        25
+      ],
+      "kind": "sign",
+      "name": "天轨前庭·公开记事",
+      "first_text": "天轨前庭的祈灯祠里保留着当地居民的生活记录。",
+      "repeat_text": "记录仍存放在原处。",
+      "after_text": "这里的文字与陈设得到妥善保管。",
+      "owner_absent_text": "仅阅读公开内容，不移动私人财物。",
+      "owner_present_text": "征得允许后阅读公开记录。",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    }
+  ],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_shrine_0",
+      "asset": "shrine_starseal",
+      "cell": [
+        25,
+        21
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_1",
+      "asset": "bookshelf",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_2",
+      "asset": "shrine_altar",
+      "cell": [
+        47,
+        21
+      ],
+      "layer": "furniture",
+      "footprint": [
+        106,
+        82
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_4",
+      "asset": "shrine_incense",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_5",
+      "asset": "barrels",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_6",
+      "asset": "guild_noticeboard",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_shrine_7",
+      "asset": "saltgrass_planter",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "celestial_entry_pattern",
+      "asset": "shrine_starseal",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        90,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "high_window",
+      "asset": "window",
+      "cell": [
+        37,
+        13
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "star_script_0",
+      "asset": "guild_emblem",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "star_script_1",
+      "asset": "tideway_chart",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        56,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "liturgy_seal",
+      "asset": "shrine_starseal",
+      "cell": [
+        34,
+        19
+      ],
+      "layer": "floor",
+      "footprint": [
+        52,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "north_stained_glass",
+      "asset": "window",
+      "cell": [
+        40,
+        16
+      ],
+      "layer": "wall",
+      "footprint": [
+        52,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "processional_lamp",
+      "asset": "lantern",
+      "cell": [
+        42,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        52,
+        58
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "threshold_star",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.25,
+      "energy": 0.72
+    },
+    {
+      "id": "prayer_lamp",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.2,
+      "energy": 0.66
+    },
+    {
+      "id": "arch_lamp",
+      "cell": [
+        46,
+        21
+      ],
+      "scale": 1.12,
+      "energy": 0.61
+    },
+    {
+      "id": "ceiling_halo",
+      "cell": [
+        35,
+        17
+      ],
+      "scale": 1.32,
+      "energy": 0.48
+    }
+  ],
+  "region_design": "天轨前庭 · celestial",
+  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。 B-line Sanctum: ceremonial axes and stained-glass furniture accents, without physical obstruction changes. B-line hard-footprint furniture at (25,21)/(47,21), approached from service/storage cells (25,22)/(47,22).",
+  "interior_owner_id": "",
+  "interaction_status": "no_reward_interactive_room",
+  "visual_revision": 3,
+  "room_day_tint": "ded9e6",
+  "room_night_tint": "aaa3c2",
+  "collision_revision": 2
+}

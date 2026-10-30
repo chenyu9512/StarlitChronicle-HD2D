@@ -216,6 +216,21 @@ func _draw_local() -> void:
             color=Color("a9b6ff")
         elif id.begins_with("citizen:"):
             color=Color("aedce4")
+        elif id.begins_with("wick:"):
+            # Lamp fragments belong to three physical chambers. Green means
+            # committed V3 evidence, gold indicates a still-live investigation.
+            color = Color("87d5aa") if bool(node.get_meta("lighthouse_wick_observed",false)) else Color("f5ce80")
+        elif id.begins_with("shoal:"):
+            # Chapter-five rescuers need the same positional information on
+            # minimap and full map as in the live scene. Green means the
+            # corresponding V3 observation was durably recorded.
+            var cue_id: String = id.trim_prefix("shoal:")
+            var shoal_colors: Dictionary = {
+                "red_flag":Color("ee7770"),
+                "star_chain":Color("eac783"),
+                "retreat_line":Color("9cd9d8")
+            }
+            color = Color("89d8ad") if bool(node.get_meta("shoal_observed",false)) else shoal_colors.get(cue_id,Color("eac783"))
         elif id.begins_with("field:"):
             var action: String=id.trim_prefix("field:")
             color={"trial":Color("dc9579"),"gather":Color("8bd89a"),"passage":Color("8acbea"),"cache":Color("f1d082")}.get(action,Color("b2c7de"))

@@ -251,59 +251,58 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
             _carve(terrain,walls,door,seed,2)
             features.append({"kind":str(building.get("kind","cottage")),"cell":body,"name":str(building.get("name","建筑")),"building":str(building["id"]),"door":door})
     else:
-        var path_nodes: Array[Vector2i] = [start,Vector2i(24,14),hub,Vector2i(53,16),Vector2i(60,35),Vector2i(40,39),Vector2i(16,35)]
-        for i in range(path_nodes.size()-1):
-            _road(terrain,walls,path_nodes[i],path_nodes[i+1],seed+i,2 if map_kind=="field" else 1)
-        _road(terrain,walls,path_nodes[-1],hub,seed+27,1)
-        for i in range(32):
-            var xx: int = 5 + _hash(i,12,seed)%(map_width-10)
-            var yy: int = 5 + _hash(42,i,seed)%(map_height-10)
-            var p: Vector2i = Vector2i(xx,yy)
-            if not walls.has(p) and p.distance_to(hub)>10:
-                features.append({"kind":ICONS[_hash(i,24,seed)%ICONS.size()],"cell":p,"name":"探索景物"})
+        # Forty authored V3 regions own their actual route topology.
+        # Generic star roads and 32 random props were painted BEFORE these
+        # routes, visually flattening every district into the same template.
+        # Keep a conservative fallback only for legacy unauthored regions.
+        if authored_level.is_empty():
+            var path_nodes: Array[Vector2i] = [start,Vector2i(24,14),hub,Vector2i(53,16),Vector2i(60,35),Vector2i(40,39),Vector2i(16,35)]
+            for i in range(path_nodes.size()-1):
+                _road(terrain,walls,path_nodes[i],path_nodes[i+1],seed+i,2 if map_kind=="field" else 1)
+            _road(terrain,walls,path_nodes[-1],hub,seed+27,1)
+            for i in range(32):
+                var xx: int = 5 + _hash(i,12,seed)%(map_width-10)
+                var yy: int = 5 + _hash(42,i,seed)%(map_height-10)
+                var p: Vector2i = Vector2i(xx,yy)
+                if not walls.has(p) and p.distance_to(hub)>10:
+                    features.append({"kind":ICONS[_hash(i,24,seed)%ICONS.size()],"cell":p,"name":"探索景物"})
     # V3 wilderness is an editable per-zone layout, not the former global
     # star-shaped spawn-to-every-quest carve. All quest markers still remain
     # accessible by short connections to their nearest authored road waypoint.
     if not dungeon and not village and not authored_level.is_empty():
         var route_nodes: Array[Vector2i] = authored.apply(authored_level,terrain,walls,features)
         var authored_roads: Array = authored_level.get("roads",[])
-        if map_id in ["map_coast_03","map_coast_05"] and not authored_roads.is_empty():
-            # The saltwind switchbacks and lighthouse ascent have their own
-            # through-route. Branches attach to its nearest waypoint instead
-            # of copying the same central starburst found in generic zones.
-            var main_nodes: Array[Vector2i] = []
+        # Connect the spawn to the nearest point of the individual main
+        # authored road and attach each branch to that spine. Never build
+        # an artificial 36,24 hub / repeated star of straight routes.
+        var main_nodes: Array[Vector2i] = []
+        if not authored_roads.is_empty():
             for raw in (authored_roads[0] as Dictionary).get("points",[]):
                 if raw is Array and raw.size()==2:
                     main_nodes.append(Vector2i(int(raw[0]),int(raw[1])))
-            if not main_nodes.is_empty():
-                _road(terrain,walls,start,main_nodes[0],seed+79,1)
-                for road_index in range(1,authored_roads.size()):
-                    var stations: Array = authored_roads[road_index].get("points",[])
-                    if stations.is_empty():
-                        continue
-                    var first_station: Array = stations[0]
-                    var terminus: Vector2i = Vector2i(int(first_station[0]),int(first_station[1]))
-                    var junction: Vector2i = authored.nearest_road(terminus,main_nodes)
-                    _road(terrain,walls,junction,terminus,seed+road_index+81,0)
-        else:
-            # Legacy layout topology for all other world sectors is retained.
-            var junction: Vector2i = Vector2i(36,24)
-            _road(terrain,walls,start,junction,seed+79,1)
-            var road_index: int = 0
-            for authored_road in authored_roads:
-                var stations: Array = authored_road.get("points",[])
-                if not stations.is_empty():
-                    var first_station: Array = stations[0]
-                    var terminus: Vector2i = Vector2i(int(first_station[0]),int(first_station[1]))
-                    _road(terrain,walls,junction,terminus,seed+road_index+81,0)
-                road_index += 1
+        if not main_nodes.is_empty():
+            _road(terrain,walls,start,authored.nearest_road(start,main_nodes),seed+79,0)
+            for road_index in range(1,authored_roads.size()):
+                var stations: Array = authored_roads[road_index].get("points",[])
+                if stations.is_empty():
+                    continue
+                var first_station: Array = stations[0]
+                var terminus: Vector2i = Vector2i(int(first_station[0]),int(first_station[1]))
+                var junction: Vector2i = authored.nearest_road(terminus,main_nodes)
+                _road(terrain,walls,junction,terminus,seed+road_index+81,0)
+        elif not route_nodes.is_empty():
+            _road(terrain,walls,start,authored.nearest_road(start,route_nodes),seed+79,0)
         for index in range(_anchors().size()):
             var anchor: Vector2i = _anchors()[index]
             var origin: Vector2i = authored.nearest_road(anchor,route_nodes)
             _road(terrain,walls,origin,anchor,seed+index,0)
     else:
-        for index in range(_anchors().size()):
-            _road(terrain,walls,start,_anchors()[index],seed+index,1)
+        # Do not draw thirty arbitrary spoke roads over the authored
+        # village square. Its outdoor floor is already connected, and
+        # the final interaction-route pass repairs real disconnections.
+        if authored_level.is_empty() or dungeon:
+            for index in range(_anchors().size()):
+                _road(terrain,walls,start,_anchors()[index],seed+index,1)
         if not authored_level.is_empty():
             if village and map_id in ["map_coast_01","map_coast_02"]:
                 # V3 village/harbor roads are *live geometry*, not a cosmetic
@@ -357,17 +356,22 @@ func layout(map_id: String, chapter: int, target: String = "") -> Dictionary:
         occupied_gate_cells[gate] = true
         # Build into the canonical live route. Final roof collision/seal and
         # the route regression still have authority over wall integrity.
-        _road(terrain,walls,start,gate,seed+i,1)
+        var gate_origin: Vector2i = Vector2i(int(endpoint[0]),int(endpoint[1])) if not spine.is_empty() else start
+        _road(terrain,walls,gate_origin,gate,seed+i,1)
         gates.append({"id":destination,"cell":gate})
     # A route may not be allowed across locked chapters; physical gate is still visible.
     # Deliberate urban composition respects original pathing and buildings.
     var district_plan: Dictionary = {}
     if village:
-        district_plan = town_design.apply_town(map_id,terrain,walls,features)
+        district_plan = town_design.apply_town(map_id,terrain,walls,features,Vector2i(map_width,map_height))
     # Distinct authored wings expand the map without moving historic quest anchors.
     # Join wings from the northern passage, not across authored water/cliffs at 66,32–36.
-    var wing_origin: Vector2i = Vector2i(71,16)
-    _road(terrain,walls,Vector2i(53,16),wing_origin,seed+101,1)
+    # Expansion wings originate from the authored travel spine, not
+    # from the same (53,16)->(71,16) highway on all forty maps.
+    var wing_origin: Vector2i = start
+    if not spine.is_empty():
+        var wing_end: Array = spine[-1]
+        wing_origin = Vector2i(int(wing_end[0]),int(wing_end[1]))
     for extension in authored_level.get("expansion_nodes",[]):
         if not extension is Dictionary:
             continue

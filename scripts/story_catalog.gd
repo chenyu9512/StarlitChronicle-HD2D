@@ -3,6 +3,7 @@ extends RefCounted
 ## Content manifest paths are fixed and safe for offline mobile builds.
 
 const ACT_COUNT: int = 12
+const ProductionIndexScript = preload("res://scripts/systems/CampaignProductionIndex.gd")
 const STORY_ROOT: String = "res://story/"
 var chapters: Dictionary = {}
 var act_meta: Array[Dictionary] = []
@@ -13,6 +14,7 @@ var interface_copy: Dictionary = {}
 var npc_barks: Dictionary = {}
 var endings: Dictionary = {}
 var errors: Array[String] = []
+var production_index
 
 func load_all() -> bool:
     chapters.clear()
@@ -74,6 +76,10 @@ func load_all() -> bool:
                 chosen["branch_dialogue"] = response.duplicate(true)
     if chapters.size() != 72:
         errors.append("Expected 72 chapters, got %d" % chapters.size())
+    production_index = ProductionIndexScript.new()
+    if not production_index.load_all():
+        for issue in production_index.errors:
+            errors.append("Production contract: " + str(issue))
     return errors.is_empty()
 
 func _read_json(path: String) -> Dictionary:
@@ -86,6 +92,21 @@ func _read_json(path: String) -> Dictionary:
         errors.append("Invalid JSON object: " + path)
         return {}
     return parsed
+
+func production_contract(chapter_id: String, flags: Dictionary = {}) -> Dictionary:
+    if production_index == null:
+        return {}
+    return production_index.chapter_contract(chapter_id, flags)
+
+func production_quest(quest_id: String) -> Dictionary:
+    if production_index == null:
+        return {}
+    return production_index.quest_contract(quest_id)
+
+func production_summary() -> Dictionary:
+    if production_index == null:
+        return {}
+    return production_index.summary()
 
 func get_chapter(chapter_id: String) -> Dictionary:
     var result: Variant = chapters.get(chapter_id, {})

@@ -1,0 +1,90 @@
+{
+  "schema": "starlit.endgame.evacuation.field_actions.v1",
+  "note": "Player selections at reachable chapter 46-47 markers. Combat objectives are never completed here: they require an actual non-boss battle victory callback and V3 receipt.",
+  "objectives": {
+    "east_triage_complete": {
+      "prompt": "东门临时救护点：岚音确认有气道阻塞、出血和轻伤三名伤员。雷索应如何安排？",
+      "correct": "secure_airway_then_bleeding",
+      "options": [
+        {
+          "id": "secure_airway_then_bleeding",
+          "label": "先保证气道，再止血，随后处理轻伤"
+        },
+        {
+          "id": "treat_light_first",
+          "label": "先处理轻伤，把危重者留在后面"
+        }
+      ]
+    },
+    "east_convoy_escorted": {
+      "prompt": "东门救护队准备护送伤员撤出火线。",
+      "correct": "shielded_medical_route",
+      "options": [
+        {
+          "id": "shielded_medical_route",
+          "label": "雷索开路、岚音看护，沿已确认的避险通道撤离"
+        },
+        {
+          "id": "split_medics",
+          "label": "放弃护送，让伤员自行穿过敌阵"
+        }
+      ]
+    },
+    "south_children_assembled": {
+      "prompt": "南门孩子们因警报分散，朔弦需要先做什么？",
+      "correct": "count_and_reunite",
+      "options": [
+        {
+          "id": "count_and_reunite",
+          "label": "逐一清点、核对监护人并组织同行"
+        },
+        {
+          "id": "rush_without_count",
+          "label": "不开名单直接疏散，遗漏者以后再找"
+        }
+      ]
+    },
+    "south_safe_route_open": {
+      "prompt": "南门的旧路标指向封锁区，诺依还只是受保护的孩子。",
+      "correct": "scout_safe_corridor",
+      "options": [
+        {
+          "id": "scout_safe_corridor",
+          "label": "朔弦侦查安全通道，由成年人带队护送诺依与儿童"
+        },
+        {
+          "id": "send_noe_alone",
+          "label": "让诺依独自进入危险区域开路"
+        }
+      ]
+    },
+    "west_support_repaired": {
+      "prompt": "西门支撑臂受损，缇珐发现压力异常。",
+      "correct": "isolate_and_repair",
+      "options": [
+        {
+          "id": "isolate_and_repair",
+          "label": "先隔离过载回路，再修复承重点"
+        },
+        {
+          "id": "force_motor",
+          "label": "强行提升电机功率顶住城门"
+        }
+      ]
+    },
+    "west_dual_manual_unlock": {
+      "prompt": "西门机械臂有双重手动锁。需要如何释放锁止？",
+      "correct": "two_person_manual",
+      "options": [
+        {
+          "id": "two_person_manual",
+          "label": "两名现场人员依次核对并同步解锁"
+        },
+        {
+          "id": "bridge_lock",
+          "label": "短接联锁，跳过第二人确认"
+        }
+      ]
+    }
+  }
+}

@@ -176,7 +176,7 @@
     }
   ],
   "art_profile": "coast_act01_shelter_v1",
-  "art_tileset": "res://assets/art/runtime/act01_tavern_v2/tavern_wood_atlas.svg",
+  "art_tileset": "res://assets/art/runtime/global_factory_v3/interiors/map_coast_02__shelter.png",
   "visuals": [
     {
       "id": "admission_counter",
@@ -430,7 +430,18 @@
     }
   ],
   "interior_owner_id": "npc_coast_05",
-  "interaction_revision": 1,
+  "act01_main_story_points": {
+    "key_npc": [24, 22],
+    "clue": [35, 26],
+    "witness": [42, 30],
+    "crisis": [38, 24],
+    "resolve": [35, 31]
+  },
+  "act01_main_story_evidence": [
+    "inspect_act01_shelter_2",
+    "inspect_act01_shelter_3"
+  ],
+  "interaction_revision": 2,
   "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
   "notes": "Main2 C-line: uses physically imported Act-I v14 PNG props and harbor terrain with live V4 entry, clues, service, lighting and occlusion. Original feature/inspection coordinates, player collision, quest flags and save behavior remain unchanged. Visual-semantic prototype; commercial final art/unique animation acceptance pending. Distinct four architectural partition rows are physically blocked, and all service, exit and four investigation positions pass 4-neighbor connectivity from spawn.",
   "room_day_tint": "d9e1db",

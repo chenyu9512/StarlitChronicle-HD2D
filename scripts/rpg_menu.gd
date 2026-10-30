@@ -11,23 +11,27 @@ signal load_slot_requested(slot: int)
 signal housing_purchase_requested()
 signal housing_open_requested()
 signal visual_quality_changed(level: int)
+signal lore_read_requested(doc_id: String)
+signal deduction_requested(rule_id: String)
 const Core = preload("res://scripts/rpg_core.gd")
 const ArtAssets = preload("res://scripts/art_assets.gd")
+const DeductionGraph = preload("res://scripts/systems/DeductiveReasoningGraph.gd")
 const CArtOverrides = preload("res://scripts/c_art_overrides.gd")
 const CArtItemIcons = preload("res://scripts/c_art_item_icons.gd")
 const CArtNavigationIcons = preload("res://scripts/c_art_navigation_icons.gd")
 const CArtUIFrame = preload("res://scripts/c_art_ui_frame.gd")
+const CVisual = preload("res://scripts/c_visual_design.gd")
 const Ambient = preload("res://scripts/chapter_ambient.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
 const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
 const WorldFieldEcology = preload("res://scripts/world_field_ecology.gd")
-const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","任务","剧情后续","地区探索","图鉴","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
+const SECTIONS: Array[String] = ["队伍","背包","武器","防具","技能","职业","伙伴羁绊","任务","剧情后续","地区探索","图鉴","认知推理","正典文献","商店","锻造","结局档案","冒险履历","存档管理","家园","设置"]
 const NAV_GROUPS: Dictionary = {
     "冒险": ["任务","剧情后续","地区探索","冒险履历"],
-    "伙伴": ["队伍","职业","技能"],
+    "伙伴": ["队伍","职业","技能","伙伴羁绊"],
     "装备": ["背包","武器","防具","商店","锻造"],
-    "收藏": ["图鉴","结局档案"],
+    "收藏": ["图鉴","认知推理","正典文献","结局档案"],
     "生活": ["家园"],
     "系统": ["存档管理","设置"]
 }
@@ -46,6 +50,9 @@ var branch_page: int = 0
 var active_group: String = "伙伴"
 var section_tabs: HBoxContainer
 var branch_runtime
+var lore_loader
+var lore_page: int = 0
+var selected_lore_id: String = ""
 var chapter_details
 var discovery_catalog = WorldDiscoveries.new()
 var dungeon_puzzle_catalog = WorldDungeonPuzzles.new()
@@ -55,6 +62,8 @@ var world_router
 var game_events
 var slot_service
 var housing
+var book_panel: PanelContainer
+var navigation_buttons: Dictionary = {}
 
 func _ready() -> void:
     layer = 46
@@ -67,12 +76,13 @@ func _ready() -> void:
     shadow.color = Color(0.015,0.032,0.055,0.97)
     shadow.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     root.add_child(shadow)
-    var panel := PanelContainer.new()
-    panel.anchor_left = 0.03
-    panel.anchor_right = 0.97
+    book_panel = PanelContainer.new()
+    var panel: PanelContainer = book_panel
+    panel.anchor_left = 0.035
+    panel.anchor_right = 0.965
     panel.anchor_top = 0.03
     panel.anchor_bottom = 0.97
-    panel.add_theme_stylebox_override("panel", CArtUIFrame.panel_frame())
+    panel.add_theme_stylebox_override("panel", CVisual.surface(true))
     root.add_child(panel)
     var body := VBoxContainer.new()
     body.add_theme_constant_override("separation",7)
@@ -83,15 +93,21 @@ func _ready() -> void:
     title.text = "✦ 星灯纪行  ·  功能手册"
     title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     title.add_theme_font_size_override("font_size",24)
-    title.add_theme_color_override("font_color",Color("e6c47d"))
+    title.add_theme_color_override("font_color",CVisual.GOLD)
     headline.add_child(title)
     _button(headline,"退出",func() -> void: close_menu())
+    var group_strip := ScrollContainer.new()
+    group_strip.custom_minimum_size.y = 49
+    group_strip.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+    group_strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    body.add_child(group_strip)
     var groups := HBoxContainer.new()
     groups.add_theme_constant_override("separation",7)
-    body.add_child(groups)
+    group_strip.add_child(groups)
     for key in NAV_GROUPS.keys():
         var group_id: String = str(key)
-        _button(groups,"◆ " + group_id,func() -> void: _select_group(group_id),14)
+        navigation_buttons[group_id] = _button(groups,"◆ " + group_id,
+            func() -> void: _select_group(group_id),14)
     var tab_scroll := ScrollContainer.new()
     tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
     tab_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -110,20 +126,25 @@ func _ready() -> void:
     scroller.add_child(content)
     footer = Label.new()
     footer.custom_minimum_size.y = 26
-    footer.add_theme_color_override("font_color",Color("e6c47d"))
+    footer.add_theme_color_override("font_color",CVisual.GOLD)
     footer.add_theme_font_size_override("font_size",16)
     body.add_child(footer)
     root.hide()
+    get_viewport().size_changed.connect(_reflow_menu)
+    call_deferred("_reflow_menu")
 
-func _button(where: Node, caption: String, callback: Callable, size: int = 17) -> void:
+func _button(where: Node, caption: String, callback: Callable, size: int = 17) -> Button:
     var b := Button.new()
     b.text = caption
     b.icon = CArtNavigationIcons.icon_for(caption)
     b.expand_icon = false
     b.custom_minimum_size.y = 43
     b.add_theme_font_size_override("font_size",size)
+    CVisual.style_button(b)
+    b.focus_mode = Control.FOCUS_ALL
     where.add_child(b)
     b.pressed.connect(callback)
+    return b
 
 func _icon_button(where: Node, caption: String, id: String, callback: Callable, size: int = 17) -> void:
     var button := Button.new()
@@ -132,6 +153,8 @@ func _icon_button(where: Node, caption: String, id: String, callback: Callable, 
     button.add_theme_font_size_override("font_size", size)
     button.icon = CArtItemIcons.texture_for(id)
     button.expand_icon = false
+    CVisual.style_button(button)
+    button.focus_mode = Control.FOCUS_ALL
     where.add_child(button)
     button.pressed.connect(callback)
 
@@ -139,6 +162,12 @@ func _select_group(group_id: String) -> void:
     if not NAV_GROUPS.has(group_id):
         return
     active_group = group_id
+    for group_name in navigation_buttons:
+        var group_button: Button = navigation_buttons[group_name]
+        group_button.add_theme_stylebox_override("normal",
+            CVisual.surface(group_name == active_group))
+        group_button.add_theme_color_override("font_color",
+            CVisual.PAPER if group_name == active_group else CVisual.MUTED)
     for existing in section_tabs.get_children():
         section_tabs.remove_child(existing)
         existing.queue_free()
@@ -156,6 +185,19 @@ func _label(text_value: String, bigger: bool = false) -> void:
     if bigger:
         l.add_theme_color_override("font_color",Color("e6c47d"))
     content.add_child(l)
+
+
+func _reflow_menu() -> void:
+    if book_panel == null:
+        return
+    var dims: Vector2 = get_viewport().get_visible_rect().size
+    var compact: bool = dims.x < 1024.0 or dims.y < 610.0
+    book_panel.anchor_left = 0.02 if compact else 0.055
+    book_panel.anchor_right = 0.98 if compact else 0.945
+    book_panel.anchor_top = 0.015 if compact else 0.035
+    book_panel.anchor_bottom = 0.985 if compact else 0.965
+    title.add_theme_font_size_override("font_size",21 if compact else 26)
+    footer.add_theme_font_size_override("font_size",14 if compact else 16)
 
 func show_menu(core, state) -> void:
     manager = core
@@ -245,6 +287,19 @@ func _filter_quest(value: String) -> void:
 func _page_quest(delta: int) -> void:
     quest_page = maxi(0, quest_page + delta)
     render("任务")
+
+func _page_lore(delta: int) -> void:
+    lore_page = maxi(0,lore_page+delta)
+    selected_lore_id = ""
+    render("正典文献")
+
+func show_lore_document(doc_id: String) -> void:
+    selected_lore_id = doc_id
+    render("正典文献")
+
+func _close_lore_document() -> void:
+    selected_lore_id = ""
+    render("正典文献")
 
 func render(section: String) -> void:
     if manager == null or save_state == null:
@@ -494,6 +549,84 @@ func render(section: String) -> void:
                 var npc: Dictionary = chapter_details.npc_state(save_state.chapter,2,save_state.flags)
                 if not npc.is_empty():
                     _label("在地居民：" + str(npc.get("speaker","")) + " · " + str(npc.get("text","")))
+        "伙伴羁绊":
+            _label("伙伴关系 · 相识 → 信任 → 并肩 → 家人",true)
+            _label("仅由实际完成的伙伴个人任务推动。没有恋爱要求或战斗数值加成，诺依没有恋爱线。")
+            if lore_loader == null or not lore_loader.loaded:
+                _label("伙伴羁绊资料尚未加载。")
+            else:
+                var companion_names := {
+                    "lanyin":"岚音","leiso":"雷索","shouxian":"朔弦","tifa":"缇珐",
+                    "ize":"伊泽","xuanli":"玄璃","nuoyi":"诺依","weisha":"维莎"
+                }
+                for companion_id in lore_loader.COMPANION_IDS:
+                    var relationship: Dictionary = lore_loader.companion_bonds.get(companion_id,{"rank":0,"title":"相识"})
+                    _label("◆ %s · %s（%d/3）" % [
+                        str(companion_names.get(companion_id,companion_id)),
+                        str(relationship.get("title","相识")),int(relationship.get("rank",0))])
+        "正典文献":
+            _label("洛维恩文献馆 · 27份正典资料",true)
+            _label("只有在主线亲自抵达相关事件后，才能阅读并留存文献；这里不会发放任务奖励。")
+            if lore_loader == null or not lore_loader.loaded:
+                _label("文献目录暂不可用，现有存档不会被重写。")
+            else:
+                var entries: Array = lore_loader.lore_documents.values()
+                entries.sort_custom(func(a: Dictionary,b: Dictionary) -> bool:
+                    return str(a.get("id","")) < str(b.get("id",""))
+                )
+                var discovered: int = 0
+                for doc in entries:
+                    if bool(lore_loader.unlocked_lore_documents.get(str(doc.get("id","")),false)):
+                        discovered += 1
+                _label("已阅读并存档：%d / %d" % [discovered,entries.size()])
+                if not selected_lore_id.is_empty():
+                    var selected: Dictionary = lore_loader.get_lore(selected_lore_id)
+                    if not selected.is_empty() and bool(lore_loader.unlocked_lore_documents.get(selected_lore_id,false)):
+                        _label(str(selected.get("title","")),true)
+                        _label("出处：" + str(selected.get("location","未注明")) + " · " + str(selected.get("category","文献")))
+                        _label(str(selected.get("full_text",selected.get("excerpt",""))))
+                        _button(content,"◀ 返回文献目录",func() -> void: _close_lore_document(),15)
+                    else:
+                        selected_lore_id = ""
+                else:
+                    var start_lore: int = lore_page*9
+                    var end_lore: int = mini(start_lore+9,entries.size())
+                    for idx in range(start_lore,end_lore):
+                        var doc: Dictionary = entries[idx]
+                        var doc_id: String = str(doc.get("id",""))
+                        var unlocked: bool = bool(lore_loader.unlocked_lore_documents.get(doc_id,false))
+                        var available: bool = lore_loader.lore_readable(doc_id,save_state.flags)
+                        if unlocked:
+                            _button(content,"✓ 已收藏 · "+str(doc.get("title",doc_id)),
+                                func() -> void: show_lore_document(doc_id),15)
+                        elif available:
+                            _button(content,"◇ 阅读并存档 · "+str(doc.get("title",doc_id)),
+                                func() -> void: lore_read_requested.emit(doc_id),15)
+                        else:
+                            _label("🔒 %s · 尚未到达对应剧情现场" % doc_id)
+                    var controls := HBoxContainer.new()
+                    content.add_child(controls)
+                    if lore_page>0:
+                        _button(controls,"上一页",func() -> void: _page_lore(-1),14)
+                    if end_lore<entries.size():
+                        _button(controls,"下一页",func() -> void: _page_lore(1),14)
+        "认知推理":
+            _label("认知推理图谱 · 真实证据交叉检定",true)
+            _label("官方日志、现场物证与当事人证词分别保存；没有实地调查来源不允许直接生成推理结论。")
+            var archive: Dictionary = save_state.rpg.get("deductive_reasoning_v1",{})
+            for rule_id in DeductionGraph.available_rules(save_state.chapter):
+                var rule: Dictionary = DeductionGraph.RULES[rule_id]
+                var result: Dictionary = DeductionGraph.evaluate(rule_id,save_state.rpg,save_state.flags)
+                var previous: Dictionary = archive.get(rule_id,{})
+                if not previous.is_empty():
+                    _label("✓ 已存档 · "+str(rule.get("title",rule_id))+" · "+str(previous.get("outcome","")))
+                elif bool(result.get("ok",false)):
+                    var chosen_rule: String = rule_id
+                    _button(content,"◇ 交叉核实 · "+str(rule.get("title",rule_id)),
+                        func() -> void: deduction_requested.emit(chosen_rule),15)
+                else:
+                    _label("🔒 "+str(rule.get("title",rule_id))+" · 缺少现场记录："+
+                        "、".join(result.get("missing",[])))
         "图鉴":
             _label("图鉴 · "+encyclopedia,true)
             var bar := HBoxContainer.new()

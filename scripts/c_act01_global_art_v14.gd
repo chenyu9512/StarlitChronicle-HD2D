@@ -1,4 +1,5 @@
 extends RefCounted
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 ## Main2 first-act curated third-party images. Gameplay geometry/state is untouched.
 const REGISTRY: String = "res://data/assets/c_act01_global_distribution_v14.json"
 const Overrides = preload("res://scripts/c_art_overrides.gd")
@@ -41,7 +42,10 @@ static func surface_candidate(map_id: String, kind: String) -> Texture2D:
     return _texture(str(spec.get(kind,"")))
 
 static func _texture(path: String) -> Texture2D:
-    if path.is_empty() or not path.begins_with("res://assets/art/runtime/act01_global_v14/"):
+    # The V14 distribution registry now points to identity-preserving V10
+    # generated PNGs; the old imported V14 directory was intentionally removed.
+    # Only exact canonical generated-runtime paths may be displayed.
+    if path.is_empty() or not path.begins_with("res://assets/art/runtime/generated_gaps_v10/"):
         return null
     var themed: Texture2D = ThemeV2.texture_for_path(path)
-    return themed if themed != null else Overrides.texture(path)
+    return themed if themed != null else RuntimeArt.texture_path(path)

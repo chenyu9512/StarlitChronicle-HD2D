@@ -1,11 +1,12 @@
 extends RefCounted
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 ## One consistent Kenney Fantasy 9-slice border on RPG menus, rather than
 ## displaying 228 arbitrary border variants simultaneously.
 const Art = preload("res://scripts/c_art_overrides.gd")
 const BORDER: String = "res://assets/art/external/cc0_named_v1/ui/kenney_fantasy_ui/default/border/ui_kenney_fantasy_ui_panel_border_008.png"
 
 static func panel_frame() -> StyleBox:
-    var texture: Texture2D = Art.texture(BORDER)
+    var texture: Texture2D = RuntimeArt.ui_texture("panel_border")
     if texture == null or Vector2i(texture.get_size()) != Vector2i(48, 48):
         var fallback := StyleBoxFlat.new()
         fallback.bg_color = Color("0b1c32")

@@ -6,6 +6,7 @@ const RETAINED_MASTERY_RANK: int = 8
 const RETAINED_SKILL_MAX_TIER: int = 3
 const VOCATION_PROFILES_PATH: String = "res://data/gameplay/vocation_profiles.json"
 const QuestV3Settlement = preload("res://scripts/d_world_interaction/quest_v3_settlement.gd")
+const PartyCanonGuard = preload("res://scripts/systems/PartyCanonGuard.gd")
 var state
 var tables: Dictionary = {}
 var indices: Dictionary = {}
@@ -55,6 +56,11 @@ func bind(progress) -> void:
         state.rpg["party"] = []
     for actor in state.actors:
         register_actor(str(actor.get("id","")))
+    # Fail closed on old/tampered saves: do not trust stored party IDs.
+    for member_id in (state.rpg["party"] as Array).duplicate():
+        if not PartyCanonGuard.can_join(str(member_id),state.chapter,state.flags):
+            (state.rpg["party"] as Array).erase(member_id)
+    _ensure_noe_party()
     state.rpg["regions"][location_name(state.chapter)] = true
     state.inventory["item_herb_01"] = maxi(state.potions, int(state.inventory.get("item_herb_01",0)))
 
@@ -84,8 +90,19 @@ func register_actor(id: String) -> void:
     if not (mastery[id] as Dictionary).get(current_job) is Dictionary:
         mastery[id][current_job] = {"rank":1,"xp":0}
     var party: Array = state.rpg["party"]
-    if id not in party and party.size() < 4:
+    if PartyCanonGuard.can_join(id,state.chapter,state.flags) and id not in party and party.size() < 4:
         party.append(id)
+
+func _ensure_noe_party() -> void:
+    var pid: String = "cast_nuo_yi"
+    if state.chapter < 49 or not PartyCanonGuard.can_join(pid,state.chapter,state.flags) or actor_index(pid) < 0:
+        return
+    var party: Array = state.rpg.get("party",[])
+    if pid in party:
+        return
+    if party.size() >= 4:
+        party.pop_back() # Original actor remains recruited and can be restored later.
+    party.push_front(pid)
 
 func actor_index(id: String) -> int:
     for i in range(state.actors.size()):
@@ -279,13 +296,17 @@ func job_rank(id: String, job: String) -> int:
 func job_unlock_reason(id: String, job: String) -> String:
     if not jobs.has(job):
         return "未知职业"
+    # The eight basic job lessons unlock free party vocation changes only
+    # after ch015 resolves; earlier chapter numbers alone are not authority.
+    if not bool(state.flags.get("story.ch015.done",false)):
+        return "完成第15章百工塔安全试炼后开放自由转职"
     var tier: String = str(jobs[job].get("tier","basic"))
     if tier == "basic":
         return ""
     var record: Dictionary = state.rpg["mastery"].get(id,{})
     if tier == "advanced":
         if state.chapter < 13:
-            return "第13章后开放"
+            return "第15章百工塔后开放"
         var mastered: int = 0
         for current in record:
             if str(jobs.get(current,{}).get("tier","")) == "basic" and int(record[current].get("rank",1)) >= 3:
@@ -418,7 +439,11 @@ func record_enemy_resolution(category: String, id: String) -> void:
 func toggle_party(id: String) -> String:
     if actor_index(id) < 0:
         return "此伙伴尚未加入。"
+    if not PartyCanonGuard.can_fight(id,state.chapter,state.flags):
+        return "正典时间线尚不允许该角色进入当前战斗队伍。"
     var party: Array = state.rpg["party"]
+    if PartyCanonGuard.canonical_id(id) == "cast_nuo_yi"             and state.chapter >= 52 and state.chapter <= 54             and PartyCanonGuard.can_lead(id,state.chapter,state.flags)             and id in party:
+        return "成年诺依目前承担主视角领队，不能在代际交接期间离队。"
     if id in party:
         if party.size() < 2:
             return "至少要有一人出战。"
@@ -429,8 +454,50 @@ func toggle_party(id: String) -> String:
         party.append(id)
     return "阵容已经更新。"
 
+func active_party_ids() -> Array:
+    if state.chapter >= 49 and state.chapter <= 51:
+        for actor in state.actors:
+            var actor_id: String = str(actor.get("id",""))
+            if PartyCanonGuard.canonical_id(actor_id) == "cast_nuo_yi" and PartyCanonGuard.can_join(actor_id,state.chapter,state.flags):
+                return [actor_id]
+        return []
+    var history: String = PartyCanonGuard.historical_actor(state.chapter,state.flags)
+    if not history.is_empty():
+        for actor in state.actors:
+            var id: String = str(actor.get("id",""))
+            if PartyCanonGuard.canonical_id(id) == history and PartyCanonGuard.can_fight(id,state.chapter,state.flags):
+                return [id]
+        return []
+    var result: Array = []
+    for id in state.rpg.get("party",[]):
+        if PartyCanonGuard.can_fight(str(id),state.chapter,state.flags):
+            result.append(id)
+    # Chapter 52-54 permits a larger fighting party while keeping the adult
+    # Noe POV in the first controllable world slot. The permanent party
+    # selection is NOT overwritten during the narrative handover.
+    if state.chapter >= 52 and state.chapter <= 54:
+        for actor in state.actors:
+            var actor_id: String = str(actor.get("id",""))
+            if PartyCanonGuard.canonical_id(actor_id) != "cast_nuo_yi":
+                continue
+            if not PartyCanonGuard.can_lead(actor_id,state.chapter,state.flags):
+                break
+            result.erase(actor_id)
+            result.push_front(actor_id)
+            if result.size()>4:
+                result.resize(4)
+            break
+    return result
+
 func is_active(id: String) -> bool:
-    return id in state.rpg["party"]
+    if state.chapter >= 52 and state.chapter <= 54:
+        return id in active_party_ids()
+    if state.chapter >= 49 and state.chapter <= 51:
+        return actor_index(id) >= 0 and PartyCanonGuard.canonical_id(id) == "cast_nuo_yi" and PartyCanonGuard.can_join(id,state.chapter,state.flags)
+    var history: String = PartyCanonGuard.historical_actor(state.chapter,state.flags)
+    if not history.is_empty():
+        return actor_index(id) >= 0 and PartyCanonGuard.can_fight(id,state.chapter,state.flags)
+    return id in state.rpg.get("party",[]) and PartyCanonGuard.can_fight(id,state.chapter,state.flags)
 
 func forge(id: String) -> String:
     var current: Dictionary = entry("weapons",id)
@@ -487,19 +554,25 @@ func record_quest(id: String) -> String:
 func recruit_from_story(chapter: int) -> String:
     var story: Dictionary = _read("res://story/data/characters.json")
     for person in story.get("cast",[]):
-        if str(person.get("join_chapter","")) != "ch%03d" % chapter:
+        var join_chapter: String = str(person.get("join_chapter",""))
+        if not join_chapter.begins_with("ch") or not join_chapter.trim_prefix("ch").is_valid_int():
+            continue
+        if int(join_chapter.trim_prefix("ch")) > chapter:
             continue
         var n: String = str(person.get("name",""))
         var id: String = str(person.get("id",""))
         if n in ["主角","岚音","朔弦"]:
             continue
         var pid: String = "cast_" + id
+        if not PartyCanonGuard.can_join(pid,chapter,state.flags):
+            continue
         if actor_index(pid) >= 0:
             continue
         var level: int = maxi(1, chapter + 2)
         var actor: Dictionary = {"id":pid,"name":n,"level":level,"xp":0,"hp":110+level*11,"max_hp":110+level*11,"mp":42+level*5,"max_mp":42+level*5,"attack":14+level*4,"defense":7+level*2,"speed":12,"skill":"星辉击"}
         state.actors.append(actor)
         register_actor(pid)
+        _ensure_noe_party()
         return n + "加入了队伍。"
     return ""
 

@@ -10,12 +10,18 @@ const CAct01MatchedProps = preload("res://scripts/c_act01_matched_props_v16.gd")
 const CAct01Semantic = preload("res://scripts/c_act01_semantic_art_v17.gd")
 const TilePool = preload("res://scripts/world_tileset_pool.gd")
 const StoryDressing = preload("res://scripts/world_story_dressing.gd")
+const GroundTransitions = preload("res://scripts/world_ground_transitions_v6.gd")
+const TownVerge = preload("res://scripts/world_town_verge_v7.gd")
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
 const Geography = preload("res://scripts/world_geography.gd")
 const WorldStructure = preload("res://scripts/world_structure.gd")
 const TownLife = preload("res://scripts/world_town_life.gd")
 const WorldDiscoveries = preload("res://scripts/world_discoveries.gd")
 const WorldDungeonPuzzles = preload("res://scripts/world_dungeon_puzzles.gd")
+const ShoalRuntime = preload("res://scripts/act01_shoal_runtime.gd")
+const LighthouseRuntime = preload("res://scripts/act01_lighthouse_runtime.gd")
+const ShoalVisual = preload("res://scripts/world_shoal_evidence_visual.gd")
 const WorldTownEcology = preload("res://scripts/world_town_ecology.gd")
 const WorldFieldEcology = preload("res://scripts/world_field_ecology.gd")
 const NPCVisual = preload("res://scripts/world_npc_visual.gd")
@@ -23,6 +29,9 @@ const SceneDirector = preload("res://scripts/story_scene_director.gd")
 const QuestSubmaps = preload("res://scripts/story_quest_submaps.gd")
 const EvidencePuzzles = preload("res://scripts/story_evidence_puzzles.gd")
 const Ambience = preload("res://scripts/world_ambience.gd")
+const WorldLegacyProjection = preload("res://scripts/systems/WorldLegacyProjection.gd")
+const CityFloorIdentity = preload("res://scripts/world_city_floor_identity.gd")
+const CityAct10Stations = preload("res://scripts/world_act10_city_stations.gd")
 const InteriorArt = preload("res://scripts/world_interior_art.gd")
 const CoastalScene = preload("res://scripts/world_coastal_scene.gd")
 const AllocatedDecor = preload("res://scripts/c_allocated_decor_runtime.gd")
@@ -62,6 +71,8 @@ var geography = Geography.new()
 var town_life = TownLife.new()
 var discoveries = WorldDiscoveries.new()
 var dungeon_puzzles = WorldDungeonPuzzles.new()
+var shoal_plan = ShoalRuntime.new()
+var lighthouse_plan = LighthouseRuntime.new()
 var town_ecology = WorldTownEcology.new()
 var field_ecology = WorldFieldEcology.new()
 var ambience
@@ -90,6 +101,8 @@ var coastal_audio
 var prologue_stage
 var prologue_cast: Dictionary = {}
 var layer: TileMapLayer
+var ground_transitions: Node2D
+var town_verge: Node2D
 var blocked: Dictionary = {}
 var reachable_tiles: Dictionary = {}
 var nodes: Dictionary = {}
@@ -97,6 +110,7 @@ var hero
 var companion
 var third
 var fourth
+var noe_fallback_actor
 var party_ids: Array = []
 var camera: Camera2D
 var focus_name: String = ""
@@ -108,6 +122,10 @@ var movement: Vector2 = Vector2.ZERO
 var locked: bool = false
 var walk_speed: float = 141.0
 var visual_quality: int = 1
+var world_epoch: String = "present"
+var world_legacy_flags: Dictionary = {}
+var world_legacy_projection
+var city_floor_identity
 var interior_art
 var encounter_meter: float = 0.0
 var next_encounter: float = 420.0
@@ -115,6 +133,7 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
     rng.randomize()
+    get_viewport().size_changed.connect(_reflow_camera)
     var path: String = "res://data/levels/act01_layouts.json"
     if FileAccess.file_exists(path):
         var json: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -134,6 +153,7 @@ func build(new_chapter: int, party_size: int) -> void:
     blocked.clear()
     reachable_tiles.clear()
     nodes.clear()
+    noe_fallback_actor = null
     prologue_cast.clear()
     story_marker_ids.clear()
     story_marker_positions.clear()
@@ -142,9 +162,19 @@ func build(new_chapter: int, party_size: int) -> void:
     root.name = "FirstActLocation"
     add_child(root)
     _make_tiles()
+    city_floor_identity = null
+    if interior_building.is_empty() and CityFloorIdentity.MATERIALS.has(str(map_profile.get("id",""))):
+        city_floor_identity = CityFloorIdentity.new()
+        city_floor_identity.name = "AuthoredCityFloorIdentity"
+        root.add_child(city_floor_identity)
+        city_floor_identity.configure(str(map_profile.get("id","")),terrain_layout,_walkable_tiles(),SITES,world_legacy_flags)
     scenery = Node2D.new()
     scenery.y_sort_enabled = true
     root.add_child(scenery)
+    world_legacy_projection = WorldLegacyProjection.new()
+    world_legacy_projection.name = "WorldLegacyProjection"
+    world_legacy_projection.z_index = 2 # Story dressing stays below the walkable party, with no new collision
+    scenery.add_child(world_legacy_projection)
     _decorate()
     _install_coastal_scenery()
     _install_allocated_decor()
@@ -152,6 +182,9 @@ func build(new_chapter: int, party_size: int) -> void:
     _build_sites()
     _reconcile_interaction_markers()
     _spawn_residents()
+    if interior_building.is_empty() and chapter>=55 and chapter<=60:
+        var act10_stations = CityAct10Stations.new()
+        act10_stations.arrange(chapter,str(map_profile.get("id","")),terrain_layout,_walkable_tiles(),nodes)
     hero = Actor.new()
     hero.setup(_party_sprite(0, "leon"))
     var spawn: Vector2i = terrain_layout.get("spawn",Vector2i(10,23))
@@ -162,6 +195,7 @@ func build(new_chapter: int, party_size: int) -> void:
     companion.setup(_party_sprite(1, "lanyin"))
     companion.position = hero.position + Vector2(-29, 22)
     scenery.add_child(companion)
+    companion.visible = party_size >= 2
     third = null
     if party_size >= 3:
         third = Actor.new()
@@ -185,18 +219,20 @@ func build(new_chapter: int, party_size: int) -> void:
         camera.zoom=Vector2(1.08,1.08)
         camera.position=Vector2(0.0,-180.0 if interior_building == "tavern" else -136.0)
     camera.position_smoothing_enabled = true
-    camera.position_smoothing_speed = 5.5
+    camera.position_smoothing_speed = 6.5
     camera.limit_left = 0
     camera.limit_top = 0
     camera.limit_right = WIDTH * TILE
     camera.limit_bottom = HEIGHT * TILE
     hero.add_child(camera)
+    _reflow_camera()
     camera.make_current()
     ambience = Ambience.new()
     ambience.z_index = 12
     ambience.hero = hero
     ambience.configure(str(map_profile.get("id","map_coast_01")),str(terrain_layout.get("zone",{}).get("biome","coastal")),Vector2i(WIDTH,HEIGHT))
     ambience.set_visual_quality(visual_quality)
+    ambience.set_world_epoch(world_epoch)
     root.add_child(ambience)
     coastal_audio=CoastalAudio.new()
     coastal_audio.name="CoastalAudio"
@@ -211,10 +247,29 @@ func build(new_chapter: int, party_size: int) -> void:
     ambience.visible = interior_building.is_empty()
     ambience.set_clock(calendar_day,clock_minutes)
     _make_focus_marker()
+    refresh_world_legacy(world_legacy_flags)
     focus_name = ""
     movement = Vector2.ZERO
     encounter_meter = 0.0
     next_encounter = rng.randf_range(350.0, 500.0)
+
+## Camera follows the real hero; resize changes composition, never world tiles
+## or collision. Interior art keeps its authored north-facing framing.
+func _reflow_camera() -> void:
+    if not is_instance_valid(camera):
+        return
+    var view: Vector2 = get_viewport().get_visible_rect().size
+    var aspect: float = view.x / maxf(1.0, view.y)
+    var narrow_factor: float = clampf(aspect / (16.0 / 9.0), 0.86, 1.0)
+    var base_zoom: float = 1.08 if not interior_building.is_empty() else 1.30
+    if not interior_building.is_empty() and interior_building not in ["shelter","tavern"]:
+        base_zoom = 1.17
+    var amount: float = base_zoom * narrow_factor
+    camera.zoom = Vector2(amount,amount)
+    camera.limit_left = 0
+    camera.limit_top = 0
+    camera.limit_right = WIDTH * TILE
+    camera.limit_bottom = HEIGHT * TILE
 
 ## Presentation-only settings. Call when creating a game, loading a save or
 ## changing options; map coordinates, weather identity and game state do not change.
@@ -222,17 +277,107 @@ func set_visual_quality(level: int) -> void:
     visual_quality = clampi(level,0,2)
     if is_instance_valid(ambience):
         ambience.set_visual_quality(visual_quality)
+    if is_instance_valid(ground_transitions):
+        ground_transitions.set_visual_quality(visual_quality)
+    if is_instance_valid(town_verge):
+        town_verge.set_visual_quality(visual_quality)
     if is_instance_valid(coastal_scene):
         coastal_scene.set_visual_quality(visual_quality)
     if is_instance_valid(interior_art):
         interior_art.set_visual_quality(visual_quality)
 
 func _party_sprite(position: int, fallback: String) -> String:
-    var characters: Dictionary = {"char_wayfarer":"leon","char_tidecaller":"lanyin","char_seeker":"shuoxian","char_chengzhou":"chengzhou"}
+    # Canonical cast IDs map to explicit optional HD-2D art slots. No asset is
+    # inferred to exist merely from a name; missing adult-Noe art is labeled.
+    var characters: Dictionary = {
+        "char_wayfarer":"leon","cast_player":"leon",
+        "char_tidecaller":"lanyin","cast_lan_yin":"lanyin",
+        "char_seeker":"shuoxian","cast_shuo_xian":"shuoxian",
+        "char_chengzhou":"chengzhou","cast_lei_suo":"leiso",
+        "char_vanguard":"leiso","cast_ti_fa":"tifa",
+        "char_smith":"tifa","cast_yi_ze":"ize",
+        "cast_xuan_li":"xuanli","cast_nuo_yi":"nuoyi_adult",
+        "char_alchemist":"nuoyi_adult","cast_wei_sha":"weisha"
+    }
     var id: String = str(party_ids[position]) if position < party_ids.size() else ""
+    # Real canonical class/character IDs must use their own generated walking
+    # atlas instead of a missing legacy path falling back to the protagonist.
+    # Only a genuine 3x4 atlas is eligible; never slice a static portrait.
+    if id.begins_with("char_"):
+        var exact_atlas: Texture2D = Generated.texture("characters", id)
+        if exact_atlas != null and exact_atlas.get_size() == Vector2(96, 192):
+            return Generated.path("characters", id)
     var suffix: String = str(characters.get(id,fallback))
     var name: String = "res://assets/art/characters/%s/walk_4dir_3frames.png" % suffix
-    return name if CArtOverrides.exists(name) else "res://assets/art/characters/leon/walk_4dir_3frames.png"
+    if CArtOverrides.exists(name):
+        return name
+    # Preserve the original save ID, but choose a physically present base
+    # walk atlas when its historical file was retired.
+    var baseline: String = Generated.path("characters", "char_wayfarer")
+    if not baseline.is_empty():
+        return baseline
+    return "res://assets/art/characters/leon/walk_4dir_3frames.png"
+
+func apply_rescue_squad_pov(squad_id: String) -> void:
+    if chapter != 47 or not is_instance_valid(hero):
+        return
+    # Only the map's visual command standpoint changes; RPGCore still owns
+    # active fighters and Noe remains a protected child during evacuation.
+    var label: Label = hero.get_node_or_null("RescueSquadRoleTag") as Label
+    if label == null:
+        label = Label.new()
+        label.name = "RescueSquadRoleTag"
+        label.position = Vector2(-47,-86)
+        label.z_index = 8
+        label.add_theme_font_size_override("font_size",13)
+        hero.add_child(label)
+    var labels := {
+        "EAST_GATE_LEISO":["东门 · 雷索/岚音","a7d4e7"],
+        "SOUTH_GATE_SHUOXIAN":["南门 · 朔弦","d8bd80"],
+        "WEST_GATE_TIFA":["西门 · 缇珐","cbb0e7"]
+    }
+    var info: Array = labels.get(squad_id,["撤离指挥","b0d7e2"])
+    label.text = str(info[0])
+    label.add_theme_color_override("font_color",Color(str(info[1])))
+    if is_instance_valid(hero.sprite):
+        hero.sprite.self_modulate = Color(str(info[1]))
+
+func apply_canon_pov(flags: Dictionary) -> void:
+    if not is_instance_valid(hero):
+        return
+    var solo_noe: bool = chapter >= 49 and chapter <= 51 and party_ids.size()==1 and str(party_ids[0]) in ["cast_nuo_yi","char_alchemist"]
+    # Noe becomes the adult POV during the chapter-49 time shift. The
+    # three handover conferences at 52-54 do not postpone her visibility.
+    var adult_lead: bool = chapter >= 52 and bool(flags.get("story.ch048.done",false)) and bool(flags.get("ch049.started",false)) and not party_ids.is_empty() and str(party_ids[0]) in ["cast_nuo_yi","char_alchemist"]
+    var tag: Label = hero.get_node_or_null("CanonWorldLeadTag") as Label
+    if tag == null:
+        tag = Label.new()
+        tag.name = "CanonWorldLeadTag"
+        tag.position = Vector2(-48,-73)
+        tag.z_index = 7
+        tag.add_theme_font_size_override("font_size",14)
+        tag.add_theme_color_override("font_color",Color("b9dcee"))
+        hero.add_child(tag)
+    tag.visible = solo_noe or adult_lead
+    tag.text = "成年诺依 · 独行" if solo_noe else ("诺依 · 新任指挥" if adult_lead else "")
+    if is_instance_valid(hero.sprite):
+        var adult_art: String = "res://assets/art/characters/nuoyi_adult/walk_4dir_3frames.png"
+        var missing_noe_art: bool = (solo_noe or adult_lead) and not CArtOverrides.exists(adult_art)
+        hero.sprite.visible = not missing_noe_art
+        hero.sprite.self_modulate = Color.WHITE
+        if missing_noe_art:
+            if not is_instance_valid(noe_fallback_actor):
+                noe_fallback_actor = NPCVisual.new()
+                noe_fallback_actor.setup({"id":"cast_nuo_yi","name":"诺依","role":"quest"})
+                noe_fallback_actor.position = Vector2.ZERO
+                hero.add_child(noe_fallback_actor)
+                if noe_fallback_actor.label != null:
+                    noe_fallback_actor.label.visible = false
+        elif is_instance_valid(noe_fallback_actor):
+            noe_fallback_actor.queue_free()
+            noe_fallback_actor = null
+    if is_instance_valid(companion):
+        companion.visible = party_ids.size() >= 2
 
 ## Presentation-only base materials. V3 geography keeps its original atlas
 ## rows/blocked cells; this prevents the photographed 1-tile grass/sand
@@ -276,6 +421,10 @@ func _make_tiles() -> void:
         chosen_atlas = INN_ATLAS
     var outside: bool = interior_building.is_empty()
     var map_id: String = str(map_profile.get("id",""))
+    if not outside:
+        var new_interior: String = Generated.interior_path(map_id, interior_building)
+        if not new_interior.is_empty():
+            chosen_atlas = new_interior
     var atlas_sources: Array[String] = TerrainAtlas.atlas_sources(region,map_id,chosen_atlas,outside)
     var authored_art: bool = (outside and TerrainAtlas.is_authored(map_id)) or (not outside and not chosen_atlas.is_empty() and CArtOverrides.exists(chosen_atlas))
     var regional_art: bool = TerrainAtlas.is_regional(region)
@@ -313,6 +462,14 @@ func _make_tiles() -> void:
         if outside and source_id==0:
             atlas=first_act_visual_ground(map_id,atlas)
         layer.set_cell(tile,source_id,atlas)
+    if outside:
+        # Seam shading samples the actual active TileSet, works with every
+        # region and art pack, and never modifies gameplay tile dictionaries.
+        ground_transitions = GroundTransitions.new()
+        ground_transitions.name = "GroundMaterialTransitions"
+        ground_transitions.z_index = -4
+        root.add_child(ground_transitions)
+        ground_transitions.configure(layer, visual_quality)
     # Renderable 32px cinematic ground details from 40 individual story plans.
     # No tile/collision replacement. C DLC overrides still resolve via TilePool.
     if outside:
@@ -320,6 +477,14 @@ func _make_tiles() -> void:
         narrative_layer.name = "StoryMapDressing"
         root.add_child(narrative_layer)
         narrative_layer.configure(map_id, terrain_layout, visual_quality)
+        # Zoning-aware frontage planting sits behind architecture and actors.
+        # Placement respects original building/door/road/collision geometry.
+        if not (terrain_layout.get("zone",{}).get("buildings",[]) as Array).is_empty():
+            town_verge = TownVerge.new()
+            town_verge.name = "TownFrontageGardens"
+            town_verge.z_index = -3
+            root.add_child(town_verge)
+            town_verge.configure(map_id, terrain_layout, visual_quality)
 
 func _decorate() -> void:
     if not interior_building.is_empty():
@@ -399,6 +564,11 @@ func _decorate() -> void:
     # area as a settlement. Keep only real authored scenery/quest geometry.
     var coastal_landmark: bool=str(map_profile.get("id","")) in ["map_coast_03","map_coast_04","map_coast_05"]
     if bool(map_profile.get("settlement",false)) and not coastal_landmark:
+        # The current V3/V4 town director already places verified live props.
+        # Legacy 44x28 chapter decoration uses a fixed coordinate conversion
+        # and otherwise scatters duplicate wells/props over a 96x56 village.
+        if not (terrain_layout.get("town_plan",{}) as Dictionary).is_empty():
+            return
         for entry in current_layout.get("objects",[]):
 
             if entry is Array and entry.size()>=3:
@@ -655,7 +825,9 @@ func _town_prop_clear(kind: String,site: Vector2i) -> bool:
     if kind=="cottage" or site.x<3 or site.y<3 or site.x>=WIDTH-3 or site.y>=HEIGHT-3 or blocked.has(site):
         return false
     var floor: Vector2i=terrain_layout.get("tiles",{}).get(site,Vector2i.ZERO)
-    if floor.y==3:
+    # The authored civic well sits ON its paved central courtyard.
+    # Reject incidental town props on roads but keep the actual well visible.
+    if floor.y==3 and kind!="well":
         return false
     var start: Vector2i=terrain_layout.get("spawn",Vector2i(10,23))
     if site.distance_squared_to(start)<16:
@@ -751,6 +923,27 @@ func _refresh_town_event_lighting() -> void:
         if is_instance_valid(sprite):
             sprite.modulate = Color.WHITE if town_ecology.is_open(event,clock_hour) else Color(0.44,0.52,0.61,0.70)
 
+func refresh_world_legacy(flags: Dictionary) -> void:
+    # Keep only flags as the source of truth; rebuilds and indoor transitions
+    # reproject them without spawning extra map interactions or obstacles.
+    world_legacy_flags = flags.duplicate(true)
+    if is_instance_valid(city_floor_identity):
+        city_floor_identity.refresh(world_legacy_flags)
+    if is_instance_valid(world_legacy_projection):
+        world_legacy_projection.refresh(str(map_profile.get("id","")),world_legacy_flags,nodes,not interior_building.is_empty())
+    if not interior_building.is_empty():
+        return
+    var milestone: Dictionary = town_life.world_legacy_state(str(map_profile.get("id","")),world_legacy_flags)
+    var action: String = str(milestone.get("npc_activity",""))
+    # Existing reachable citizens alone react; this never moves an NPC onto an
+    # unreachable tile or invents a new quest giver/interaction anchor.
+    for resident_key in nodes:
+        if not str(resident_key).begins_with("citizen:"):
+            continue
+        var citizen: Variant = nodes[resident_key]
+        if citizen is NPCVisual and is_instance_valid(citizen):
+            (citizen as NPCVisual).set_world_legacy_activity(action)
+
 func refresh_field_ecology(state) -> void:
     if field_ecology==null or not interior_building.is_empty() or state==null:
         return
@@ -841,10 +1034,20 @@ func _build_sites() -> void:
         _label_interior_exit(nodes["interior_exit"])
         nodes["interior_service"] = _add_sprite("beacon",markers.get("service",Vector2i(29,17)),false,true)
         nodes["interior_storage"] = _add_sprite("barrel",markers.get("storage",Vector2i(45,19)),false,true)
-        if not str(terrain_layout.get("art_profile","")).is_empty():
-            # Keep node visible for input and minimap; custom counter/art
-            # replaces its old beacon/barrel pictogram at the same anchor.
+        # An authored furniture prop at a service/storage tile already
+        # depicts the counter or cabinet. Keep the event node (and minimap
+        # marker) but never draw an extra beacon/barrel on top of the prop.
+        var authored_service: bool = false
+        var authored_storage: bool = false
+        for physical_prop in terrain_layout.get("features",[]):
+            if physical_prop.get("cell",Vector2i(-1,-1)) == markers.get("service",Vector2i(-2,-2)):
+                authored_service = true
+            if physical_prop.get("cell",Vector2i(-1,-1)) == markers.get("storage",Vector2i(-2,-2)):
+                authored_storage = true
+        var artist_furnished: bool = not str(terrain_layout.get("art_profile","")).is_empty()
+        if artist_furnished or authored_service:
             nodes["interior_service"].modulate.a = 0.0
+        if artist_furnished or authored_storage:
             nodes["interior_storage"].modulate.a = 0.0
         # V4 authored investigations become physical, selectable room objects.
         # Preserve original V4 IDs and never invent an interaction over a wall.
@@ -865,11 +1068,48 @@ func _build_sites() -> void:
             # Harbor room-specific stage art already draws the exact clue
             # furniture at this cell. Keep the *interactive* node and name,
             # but do not display a second overlapping legacy prop sprite.
-            if str(terrain_layout.get("art_profile","")) in ["coast_act01_shelter_v1","coast_act01_tavern_v1"]:
+            if str(terrain_layout.get("art_profile","")) in ["coast_act01_shelter_v1","coast_act01_tavern_v1","regional_functional_v1"]:
                 inspection_marker.self_modulate.a = 0.0
             inspection_marker.set_meta("site_name",str(authored_inspection.get("name","室内线索")))
             inspection_marker.set_meta("inspection_kind",furniture_kind)
             nodes["homeinspect:"+inspection_id] = inspection_marker
+        # Chapter 2 shelter and Chapter 4 tavern use real V4 interior
+        # objectives, never outdoor generic harbor NPC/treasure markers.
+        var main_story: Dictionary = terrain_layout.get("act01_main_story_points",{})
+        var room_id: String = str(interior_building)
+        var chapter_room: bool = str(map_profile.get("id",""))=="map_coast_02" and (
+            (chapter==2 and room_id=="shelter") or (chapter==4 and room_id=="tavern"))
+        if chapter_room:
+            var target_names: Dictionary = {
+                "key_npc":"酒馆老板","clue":"旧货单与告示","witness":"熟悉夜船的水手",
+                "crisis":"灰帷会逼近","resolve":"朔弦的坦白"
+            }
+            if chapter==2:
+                target_names = {
+                    "key_npc":"收容所登记员","clue":"病历线索核对台",
+                    "witness":"归港水手","crisis":"主任与病历处置",
+                    "resolve":"匿名求援交接"
+                }
+            for objective_id in ["key_npc","clue","witness","crisis","resolve"]:
+                if not main_story.has(objective_id):
+                    push_error("第一幕V4室内主线锚点缺失："+room_id+"/"+objective_id)
+                    continue
+                var point: Vector2i = main_story[objective_id]
+                var stage_marker: Sprite2D
+                if objective_id in ["key_npc","witness"] or (chapter==2 and objective_id=="crisis"):
+                    var character := NPCVisual.new()
+                    character.setup({"id":"npc_"+room_id+"_"+objective_id,
+                        "role":"quest","name":str(target_names[objective_id])})
+                    character.position = Vector2(point*TILE)+Vector2(16,16)
+                    scenery.add_child(character)
+                    stage_marker = character
+                else:
+                    stage_marker = _add_sprite("beacon",point,false,true)
+                    # Correct imported furniture supplies the appearance;
+                    # this invisible node preserves direct world interaction.
+                    stage_marker.self_modulate.a = 0.0
+                stage_marker.set_meta("site_name",str(target_names[objective_id]))
+                nodes[objective_id] = stage_marker
         return
     var archetype: String = str(terrain_layout.get("zone",{}).get("archetype",""))
     if archetype == "dungeon":
@@ -957,6 +1197,10 @@ func _build_sites() -> void:
         if k in ["inn", "shop"] and not bool(map_profile.get("settlement", false)):
             sprite.visible = false
         nodes[k] = sprite
+    if chapter == 5 and str(map_profile.get("id","")) == "map_coast_03":
+        _install_whale_shoal_story()
+    if chapter == 6 and str(map_profile.get("id","")) == "map_coast_05":
+        _install_tidesong_story()
     # V7 neighborhood identity: three real, named district stations in each of
     # the eleven town plans. Placed only on connected walkable cells.
     if interior_building.is_empty() and bool(map_profile.get("settlement",false)):
@@ -1045,6 +1289,179 @@ func _build_sites() -> void:
         var prop: Sprite2D = _add_sprite("sign" if i == 0 else ("crate" if i % 2 else "sea_crystal"), site, false)
         nodes["story_stage_%d" % i] = prop
         prop.visible = chapter > 0
+
+# Chapter five is an authored pocket INSIDE the real Saltwind Road map,
+# not a new map, a quest-only teleport, or reused global chapter coordinates.
+# Reject missing/unreachable physical anchors rather than drawing fake UI
+# targets at the original generic site.
+func _install_whale_shoal_story() -> void:
+    if not shoal_plan.ready():
+        push_error("Chapter 5 shoal data invalid: "+"; ".join(shoal_plan.errors))
+        for id in ["key_npc","clue","witness","crisis","resolve"]:
+            if nodes.has(id):
+                nodes[id].visible = false
+        return
+    var reserved: Dictionary = {}
+    for existing in nodes.values():
+        if is_instance_valid(existing):
+            reserved[Vector2i(existing.position/TILE)] = true
+    var labels: Dictionary = {
+        "key_npc":"获救渔民","clue":"星纹锁与鲸骨","witness":"朔弦的安全引导",
+        "crisis":"受困古兽","resolve":"半月湾获救见证"
+    }
+    for objective_id in ["key_npc","clue","witness","crisis","resolve"]:
+        var anchor: Vector2i = shoal_plan.story_cell(objective_id)
+        var point: Vector2i = _town_event_cell(anchor,reserved)
+        if point.x < 0:
+            push_error("Whale shoal main marker unreachable: "+objective_id)
+            nodes[objective_id].visible = false
+            continue
+        reserved[point] = true
+        var old_marker: Node2D = nodes[objective_id]
+        if is_instance_valid(old_marker):
+            old_marker.queue_free()
+        var new_marker: Sprite2D
+        if objective_id in ["key_npc","witness"]:
+            var fisher := NPCVisual.new()
+            fisher.setup({"id":"npc_shoal_"+objective_id,"role":"quest",
+                "name":str(labels[objective_id])})
+            fisher.position = Vector2(point*TILE)+Vector2(16,16)
+            scenery.add_child(fisher)
+            new_marker = fisher
+        else:
+            new_marker = _add_sprite(
+                "sea_crystal" if objective_id=="clue" else (
+                "star_lantern" if objective_id=="resolve" else "beacon"),point,false,true)
+            # Existing scenic whale bones provide the large focal artwork.
+            # Keep the site marker/quest focus without a giant duplicate altar.
+            new_marker.set_meta("shoal_story_role",objective_id)
+        new_marker.set_meta("site_name",str(labels[objective_id]))
+        nodes[objective_id] = new_marker
+    var props: Dictionary = {"red_flag":"sign","star_chain":"sea_crystal",
+        "retreat_line":"beacon"}
+    for item in shoal_plan.investigations():
+        if not (item is Dictionary):
+            continue
+        var point_data: Array = item.get("cell",[])
+        if point_data.size()!=2:
+            continue
+        var id: String = str(item.get("id",""))
+        var cell: Vector2i = Vector2i(int(point_data[0]),int(point_data[1]))
+        var located: Vector2i = _town_event_cell(cell,reserved)
+        if located.x<0:
+            push_error("Whale shoal evidence unreachable: "+id)
+            continue
+        reserved[located] = true
+        var prop: Sprite2D = _add_sprite(str(props.get(id,"sign")),located,false,true)
+        prop.self_modulate.a = 0.0
+        var cue := ShoalVisual.new()
+        prop.add_child(cue)
+        cue.configure(id)
+        var caption := Label.new()
+        caption.name = "ShoalName"
+        caption.text = str(item.get("title","浅滩调查")).left(12)
+        caption.position = Vector2(-66,-72)
+        caption.custom_minimum_size.x = 132
+        caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        caption.add_theme_font_size_override("font_size",12)
+        caption.add_theme_color_override("font_color",Color("f8e9c4"))
+        cue.add_child(caption)
+        prop.set_meta("site_name",str(item.get("title","浅滩调查")))
+        prop.set_meta("shoal_evidence_id",id)
+        nodes["shoal:"+id] = prop
+
+func refresh_shoal_evidence(state) -> void:
+    if state == null or chapter != 5 or not interior_building.is_empty() or str(map_profile.get("id","")) != "map_coast_03":
+        return
+    var observations: Dictionary = shoal_plan.snapshot(state)
+    for action_id in ["red_flag","star_chain","retreat_line"]:
+        var marker_name: String = "shoal:"+action_id
+        if not nodes.has(marker_name):
+            continue
+        var prop: Node2D = nodes[marker_name]
+        if not is_instance_valid(prop):
+            continue
+        var already_recorded: bool = bool(observations.get(action_id,false))
+        prop.set_meta("shoal_observed",already_recorded)
+        var cue: Node = prop.get_node_or_null("WhaleShoalFieldCue_"+action_id)
+        if is_instance_valid(cue):
+            cue.set_observed(already_recorded)
+            cue.set_reduced_motion(bool(state.rpg.get("settings",{}).get("reduced_motion",false)))
+
+func _install_tidesong_story() -> void:
+    if not lighthouse_plan.ready():
+        push_error("Missing canonical Tidesong scene: "+"; ".join(lighthouse_plan.errors))
+        for id in ["key_npc","clue","witness","crisis","resolve"]:
+            if nodes.has(id):
+                nodes[id].visible = false
+        return
+    var reserved: Dictionary = {}
+    for existing in nodes.values():
+        if is_instance_valid(existing):
+            reserved[Vector2i(existing.position/TILE)] = true
+    var titles: Dictionary = {"key_npc":"守灯工匠","clue":"三芯合灯核对台",
+        "witness":"归航者回声","crisis":"潮歌守门人","resolve":"归航母灯"}
+    for objective_id in ["key_npc","clue","witness","crisis","resolve"]:
+        var point: Vector2i = _town_event_cell(lighthouse_plan.story_cell(objective_id),reserved)
+        if point.x < 0:
+            push_error("Unreachable Tidesong main objective: "+objective_id)
+            nodes[objective_id].visible = false
+            continue
+        reserved[point] = true
+        var original: Node2D = nodes[objective_id]
+        if is_instance_valid(original):
+            original.queue_free()
+        var marker: Sprite2D
+        if objective_id in ["key_npc","witness"]:
+            var keeper := NPCVisual.new()
+            keeper.setup({"id":"npc_tidesong_"+objective_id,"role":"quest",
+                "name":str(titles[objective_id])})
+            keeper.position = Vector2(point*TILE)+Vector2(16,16)
+            scenery.add_child(keeper)
+            marker = keeper
+        else:
+            marker = _add_sprite("star_lantern" if objective_id=="resolve" else "beacon",point,false,true)
+            marker.self_modulate.a = 0.0
+        marker.set_meta("site_name",str(titles[objective_id]))
+        nodes[objective_id] = marker
+    for entry in lighthouse_plan.fragments():
+        if not (entry is Dictionary):
+            continue
+        var id: String = str(entry.get("id",""))
+        var at: Array = entry.get("cell",[])
+        if at.size()!=2:
+            continue
+        var loc: Vector2i = _town_event_cell(Vector2i(int(at[0]),int(at[1])),reserved)
+        if loc.x < 0:
+            push_error("Unreachable Tidesong wick fragment: "+id)
+            continue
+        reserved[loc] = true
+        var artifact: Sprite2D = _add_sprite("star_lantern",loc,false,true)
+        artifact.set_meta("site_name",str(entry.get("title","灯芯")))
+        var sign := Label.new()
+        sign.text = str(entry.get("title","灯芯")).left(15)
+        sign.position = Vector2(-76,-70)
+        sign.custom_minimum_size.x = 152
+        sign.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        sign.add_theme_font_size_override("font_size",12)
+        sign.add_theme_color_override("font_color",Color("ffe6b8"))
+        artifact.add_child(sign)
+        nodes["wick:"+id] = artifact
+
+func refresh_lighthouse_fragments(state) -> void:
+    if state == null or chapter != 6 or not interior_building.is_empty() or str(map_profile.get("id","")) != "map_coast_05":
+        return
+    var recorded: Dictionary = lighthouse_plan.snapshot(state)
+    for id in ["breakwater_wick","keeper_wick","summit_wick"]:
+        var key: String = "wick:"+id
+        if not nodes.has(key):
+            continue
+        var marker: Node2D = nodes[key]
+        if not is_instance_valid(marker):
+            continue
+        var examined: bool = bool(recorded.get(id,false))
+        marker.set_meta("lighthouse_wick_observed",examined)
+        marker.modulate = Color("96d2b0") if examined else Color("f0d18f")
 
 func _clear_story_world_markers() -> void:
     for id in story_marker_ids:
@@ -1448,6 +1865,38 @@ func set_side_focus(name: String) -> void:
         var target: Sprite2D = nodes[name]
         side_light.position = target.position + Vector2(0, -40)
 
+## B -> C/D map contract: the exact active scene coordinates, with the
+## same 32px grid and collision cells used by real movement and interaction.
+## Consumer layers must not maintain separate hardcoded marker positions.
+## Returns copies so a map/minimap cannot accidentally alter live collision.
+func export_map_spatial_contract() -> Dictionary:
+    var markers: Dictionary = {}
+    for raw_key in nodes.keys():
+        var object: Variant = nodes[raw_key]
+        if not is_instance_valid(object) or not object is Node2D:
+            continue
+        var marker: Node2D = object as Node2D
+        var tile: Vector2i = Vector2i(floori(marker.position.x / float(TILE)),
+            floori(marker.position.y / float(TILE)))
+        markers[str(raw_key)] = {
+            "cell":tile,
+            "world_position":marker.position,
+            "visible":marker.visible,
+            "title":str(marker.get_meta("site_name",""))
+        }
+    var bounds: Vector2i = terrain_layout.get("size",Vector2i(WIDTH,HEIGHT))
+    return {
+        "schema":"starlit.world_spatial_runtime.v1",
+        "map_id":str(map_profile.get("id","")),
+        "interior_id":interior_building,
+        "tile_size":TILE,
+        "size":bounds,
+        "spawn":terrain_layout.get("spawn",Vector2i(10,23)),
+        "blocked":blocked.duplicate(),
+        "gates":terrain_layout.get("gates",[]).duplicate(true),
+        "markers":markers
+    }
+
 func _physics_process(delta: float) -> void:
     if not is_instance_valid(hero):
         return
@@ -1468,6 +1917,8 @@ func _physics_process(delta: float) -> void:
         hero.position.y = proposal.y
     var moved: Vector2 = hero.position - before
     hero.set_motion(delta, moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
+    if is_instance_valid(noe_fallback_actor):
+        noe_fallback_actor.set_motion(delta,moved.normalized() if moved.length_squared()>0.001 else Vector2.ZERO)
     companion.position = companion.position.lerp(hero.position + Vector2(-28, 20), minf(1.0, delta * 3.8))
     companion.set_motion(delta, moved.normalized() if moved.length_squared() > 0.001 else Vector2.ZERO)
     if is_instance_valid(third):
@@ -1494,20 +1945,49 @@ func _physics_process(delta: float) -> void:
 func _blocked(point: Vector2) -> bool:
     for offset in [Vector2(-9, -6), Vector2(9, -6), Vector2(-9, 6), Vector2(9, 6)]:
         var tile: Vector2i = Vector2i(floori((point.x + offset.x) / TILE), floori((point.y + offset.y) / TILE))
+        # Treat map edges as solid even when an editor export omits a
+        # border cell. Renderer, camera and physics all share live dimensions.
+        if tile.x < 0 or tile.y < 0 or tile.x >= WIDTH or tile.y >= HEIGHT:
+            return true
         if blocked.has(tile):
             return true
     return false
 
 func interact() -> void:
-    if locked or not is_instance_valid(hero):
+    var target: String = nearest_interaction()
+    if target.is_empty():
         return
     hero.react()
+    interacted.emit(target)
+
+## Read-only prompt uses the identical priority and distance rules as interact().
+## Context UI must not invent actions or complete objectives on its own.
+func interaction_hint() -> String:
+    var target: String = nearest_interaction()
+    if target.is_empty() or target == "none":
+        return ""
+    if target == "interior_exit":
+        return "离开室内"
+    if target.begins_with("building:") or target.begins_with("questdoor:"):
+        return "进入建筑"
+    if nodes.has(target):
+        var site: Node2D = nodes[target]
+        if is_instance_valid(site) and site.has_meta("site_name"):
+            var title: String = str(site.get_meta("site_name",""))
+            if not title.is_empty():
+                return ("对话 · " if target.begins_with("citizen:") else "调查 · ") + title.left(8)
+    if target.begins_with("citizen:") or target in ["key_npc","witness","ambient_npc"]:
+        return "与人物交谈"
+    return "调查"
+
+func nearest_interaction() -> String:
+    if locked or not is_instance_valid(hero):
+        return ""
     # Indoor exits take precedence over quest focus and nearby furnishings.
     if not interior_building.is_empty() and nodes.has("interior_exit"):
         var exit_node: Node2D=nodes["interior_exit"]
         if is_instance_valid(exit_node) and hero.position.distance_to(exit_node.position)<=54.0:
-            interacted.emit("interior_exit")
-            return
+            return "interior_exit"
     # Inspectable V4 furnishings use a real player proximity interaction.
     # Resolve them before generic service furniture; the exit still wins above.
     if not interior_building.is_empty() and not interior_building.begins_with("quest__"):
@@ -1524,22 +2004,19 @@ func interact() -> void:
                 inspection_distance=candidate_distance
                 nearest_inspection=str(key)
         if not nearest_inspection.is_empty():
-            interacted.emit(nearest_inspection)
-            return
+            return nearest_inspection
     # Authoritative main objective has priority when the player stands at its marker.
     # Without this, a nearby town door could hijack a chapter-critical interaction.
     if not focus_name.is_empty() and nodes.has(focus_name):
         var focus_node: Node2D = nodes[focus_name]
         if is_instance_valid(focus_node) and focus_node.visible and hero.position.distance_to(focus_node.position) <= 45.0:
-            interacted.emit(focus_name)
-            return
+            return focus_name
     # Tracked story-side / postscript objectives take priority over ambient
     # doorways and passing NPCs, but never override a nearby critical main NPC.
     if not side_focus_name.is_empty() and nodes.has(side_focus_name):
         var tracked_node: Node2D = nodes[side_focus_name]
         if is_instance_valid(tracked_node) and tracked_node.visible and hero.position.distance_to(tracked_node.position)<=38.0:
-            interacted.emit(side_focus_name)
-            return
+            return side_focus_name
     # All five original narrative quest stage props are explicit walkable
     # interactions. A neighbouring doorway, generic field prop or chapter
     # errand must not consume the action intended for the selected quest.
@@ -1548,16 +2025,32 @@ func interact() -> void:
         if nodes.has(stage_id):
             var stage_node: Node2D = nodes[stage_id]
             if is_instance_valid(stage_node) and stage_node.visible and hero.position.distance_to(stage_node.position) <= 34.0:
-                interacted.emit(stage_id)
-                return
+                return stage_id
     # Chapter interaction markers must never be shadowed by a newly placed
     # building doorway, gate, camp or side treasure in their immediate radius.
     for quest_id in ["key_npc","clue","witness","crisis","resolve"]:
         if nodes.has(quest_id):
             var quest_node: Node2D = nodes[quest_id]
             if is_instance_valid(quest_node) and quest_node.visible and hero.position.distance_to(quest_node.position) <= 28.0:
-                interacted.emit(quest_id)
-                return
+                return quest_id
+    # The three chapter-five physical evidence markers have their own
+    # proximity contract and can never be invoked from other chapters/maps.
+    if chapter == 5 and interior_building.is_empty() and str(map_profile.get("id","")) == "map_coast_03":
+        for action_id in ["red_flag","star_chain","retreat_line"]:
+            var key: String = "shoal:"+action_id
+            if not nodes.has(key):
+                continue
+            var site: Node2D = nodes[key]
+            if is_instance_valid(site) and site.visible and hero.position.distance_to(site.position) <= 42.0:
+                return key
+    if chapter == 6 and interior_building.is_empty() and str(map_profile.get("id","")) == "map_coast_05":
+        for piece_id in ["breakwater_wick","keeper_wick","summit_wick"]:
+            var key: String = "wick:"+piece_id
+            if not nodes.has(key):
+                continue
+            var wick_node: Node2D = nodes[key]
+            if is_instance_valid(wick_node) and wick_node.visible and hero.position.distance_to(wick_node.position) <= 42.0:
+                return key
     # A dedicated quest-room entrance must outrank the generic shop/guild
     # doorway when the two share a canonical building door or nearby paving.
     var nearest_quest_door: String = ""
@@ -1573,8 +2066,7 @@ func interact() -> void:
             nearest_door_distance = distance_to_door
             nearest_quest_door = marker_id
     if not nearest_quest_door.is_empty():
-        interacted.emit(nearest_quest_door)
-        return
+        return nearest_quest_door
     # Explicit threshold interaction wins over unrelated decor/NPC markers.
     # Only the front side is usable; roofs and side walls remain impassable.
     var nearest_building: String = ""
@@ -1591,8 +2083,7 @@ func interact() -> void:
             nearest_building_distance=d
             nearest_building=str(key)
     if not nearest_building.is_empty():
-        interacted.emit(nearest_building)
-        return
+        return nearest_building
     var chosen := ""
     var best: float = 65.0
     for key in nodes.keys():
@@ -1612,9 +2103,9 @@ func interact() -> void:
             best = distance
             chosen = str(key)
     if chosen.is_empty():
-        interacted.emit("none")
+        return "none"
     else:
-        interacted.emit(chosen)
+        return chosen
 
 func sync_prologue_markers(active_index: int, story_chapter: int) -> void:
     # Treat a playable opening as an actual unfolding event, not nine
@@ -1681,10 +2172,38 @@ func enter_building(building_id: String) -> bool:
             break
     if entry.is_empty():
         return false
+    # An authored V4 room must never silently turn into the generic old
+    # interior when a typo, blocked furniture or malformed JSON breaks it.
+    # Verify before changing the exterior state so the player remains safely
+    # at the original physical front step if the destination is unusable.
+    var building_map_id: String = str(map_profile.get("id",""))
+    var authored_room_path: String = "res://data/levels/v4/interiors/%s__%s.json" % [building_map_id,building_id]
+    if not FileAccess.file_exists(authored_room_path):
+        # A deleted V4 room must not become the old blank generic interior.
+        # Leave the player safely outdoors; normal game doors are V4-only.
+        push_error("Cannot enter missing authored V4 room: "+building_map_id+"#"+building_id)
+        return false
+    var physical_room: Dictionary = geography.interior(building_id,
+        str(entry.get("name",building_id)),building_map_id)
+    if str(physical_room.get("authored_source","")) != "v4":
+        push_error("Cannot enter damaged authored V4 room: "+building_map_id+"#"+building_id)
+        return false
     exterior_position = hero.position
     interior_building = building_id
     interior_kind = str(entry.get("name",building_id))
     build(chapter,last_party_size)
+    if str(map_profile.get("id","")) == "map_coast_02" and (
+            (chapter == 2 and building_id == "shelter") or
+            (chapter == 4 and building_id == "tavern")):
+        # Missing authored V4 geometry must not silently become a blank room.
+        var indoor_story: Dictionary = terrain_layout.get("act01_main_story_points",{})
+        if str(terrain_layout.get("authored_source","")) != "v4" or indoor_story.size()!=5:
+            push_error("Act-I chapter room missing live story geometry: "+building_id)
+            interior_building = ""
+            interior_kind = ""
+            build(chapter,last_party_size)
+            hero.position = _safe_return_outside(exterior_position)
+            return false
     return true
 
 func enter_story_submap(quest_id: String, restore: bool = false) -> bool:
@@ -1696,15 +2215,24 @@ func enter_story_submap(quest_id: String, restore: bool = false) -> bool:
     var layout_path: String = "res://data/levels/v4/interiors/%s__quest__%s.json" % [str(map_profile.get("id","")),quest_id]
     if not FileAccess.file_exists(layout_path):
         return false
+    # Validate the same authored V4 geometry used by the live scene before
+    # destroying the outdoor world. Damaged quest rooms cannot become V2 blanks.
+    var room_name: String = str(detail.get("interior_name","调查室"))
+    var authored_quest: Dictionary = geography.interior("quest__"+quest_id,
+        room_name,str(map_profile.get("id","")))
+    var objective_cells: Variant = authored_quest.get("quest_points",[])
+    if str(authored_quest.get("authored_source","")) != "v4" or not (objective_cells is Array) or objective_cells.size()!=3:
+        push_error("Cannot enter invalid authored quest room: "+str(map_profile.get("id",""))+"#quest__"+quest_id)
+        return false
     exterior_position = hero.position
     interior_building = "quest__"+quest_id
-    interior_kind = str(detail.get("interior_name","调查室"))
+    interior_kind = room_name
     build(chapter,last_party_size)
     if terrain_layout.get("quest_points",[]).size()!=3:
         interior_building = ""
         interior_kind = ""
         build(chapter,last_party_size)
-        hero.position = exterior_position
+        hero.position = _safe_return_outside(exterior_position)
         return false
     return true
 
@@ -1743,13 +2271,28 @@ func _safe_return_outside(original: Vector2) -> Vector2:
     return original
 
 func leave_building() -> bool:
-    if interior_building.is_empty():
+    if interior_building.is_empty() or not is_instance_valid(hero):
         return false
+    var previous_room: String = interior_building
+    var previous_kind: String = interior_kind
+    var indoor_position: Vector2 = hero.position
     interior_building = ""
     interior_kind = ""
     build(chapter,last_party_size)
-    hero.position = _safe_return_outside(exterior_position)
-    return true
+    var destination: Vector2 = _safe_return_outside(exterior_position)
+    var arrival_tile := Vector2i(floori(destination.x/TILE),floori(destination.y/TILE))
+    if not _blocked(destination) and _walkable_tiles().has(arrival_tile):
+        hero.position = destination
+        return true
+    # A broken outdoor layout must never trap the player inside a facade
+    # after reporting that the room exit succeeded.
+    push_error("Unable to leave interior: no spawn-connected exterior floor at " +
+        str(map_profile.get("id","")) + "#" + previous_room)
+    interior_building = previous_room
+    interior_kind = previous_kind
+    build(chapter,last_party_size)
+    hero.position = _safe_return_outside(indoor_position)
+    return false
 
 func spawn_from_exit(previous_map: String) -> void:
     var gate_id: String="exit:"+previous_map

@@ -32,9 +32,12 @@ const ACT01_SLOTS: String = "res://data/assets/c_act01_extra_art_slots_v10.json"
 const SETTINGS: String = "user://c_art_overrides.cfg"
 const ASSET_DIR: String = "user://c_art_replacements"
 const PACK_INDEX: String = "res://data/assets/c_art_packs.json"
-const THIRD_PARTY_MIGRATION: String = "res://data/assets/c_third_party_only_migration_v1.json"
+const RUNTIME_INDEX: String = "res://data/assets/c_art_runtime_registry_v1.json"
 const TerrainAtlas = preload("res://scripts/world_terrain_atlas_registry.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
+const Generated = preload("res://scripts/global_generated_art_v3.gd")
+const GeneratedCompat = preload("res://scripts/c_generated_compat_v10.gd")
+const Refined = preload("res://scripts/c_art_refined_overrides_v1.gd")
 const USER_PACK_INDEX: String = "user://c_art_packs/installed.json"
 const PACK_ROOT: String = "user://c_art_packs"
 const MAX_INPUT_BYTES: int = 24 * 1024 * 1024
@@ -80,6 +83,35 @@ static func _load() -> void:
                 _entries[path] = value
                 (_catalog["assets"] as Array).append(value)
             _catalog["count"] = (_catalog["assets"] as Array).size()
+    # Generated-only Main2 retired the 1,282-entry source catalog. Restore
+    # actual editable/switchable slots from the authoritative LIVE identity
+    # manifest, not from deleted external packs or guessed filenames.
+    if Generated.active() and FileAccess.file_exists(Generated.SWITCH):
+        var live: Variant = JSON.parse_string(FileAccess.get_file_as_string(Generated.SWITCH))
+        if live is Dictionary and str(live.get("schema", "")) == "starlit.global_factory.live.v3" and live.get("assets", {}) is Dictionary:
+            var generated_entries: Dictionary = live.get("assets", {})
+            for identity in generated_entries.keys():
+                var entry: Variant = generated_entries[identity]
+                if not (entry is Dictionary):
+                    continue
+                var name: String = str(identity)
+                var group: String = name.get_slice(".", 0)
+                var path: String = str(entry.get("path", ""))
+                if group not in ["terrain", "maps", "interiors", "props", "characters", "npcs", "monsters", "bosses", "ui"]:
+                    continue
+                if path != Generated.ROOT + group + "/" + name.trim_prefix(group + ".") + ".png" or not ResourceLoader.exists(path) or _entries.has(path):
+                    continue
+                var record: Dictionary = {
+                    "path": path, "name": name, "category": "生成/" + group,
+                    "atlas": group == "terrain",
+                    "description": "已生成的正式身份候选；仍须人工美术签收",
+                    "status": "generated_candidate_not_visual_approved"
+                }
+                _entries[path] = record
+                (_catalog["assets"] as Array).append(record)
+    # The source-only catalog count was historical; the live menu must show
+    # only physically valid registered assets, never 1,282 deleted entries.
+    _catalog["count"] = (_catalog["assets"] as Array).size()
     # Approved migration targets may come from the tiny legacy assets/props/
     # tree, which was not guaranteed to be present in the large art gallery.
     # Register ONLY the six reviewed slots; never auto-publish arbitrary paths.
@@ -88,7 +120,7 @@ static func _load() -> void:
     _read_pack_index(USER_PACK_INDEX)
     # Later uploaded user art is the default for fresh installations.
     # An explicitly chosen local theme remains untouched.
-    _active_pack_id = str(_config.get_value("packs", "active", "uploaded_later_v1"))
+    _active_pack_id = str(_config.get_value("packs", "active", "original"))
     if _active_pack_id != "original" and (not _packs.has(_active_pack_id) or bool((_packs.get(_active_pack_id, {}) as Dictionary).get("disabled", false))):
         _active_pack_id = "original"
         _config.set_value("packs", "active", "original")
@@ -181,32 +213,82 @@ static func _safe_override_file(path: String) -> String:
 static func _shared_terrain_slot(path: String) -> bool:
     return TerrainAtlas.group_slots("terrain_ground").has(path) or TerrainAtlas.group_slots("terrain_water").has(path)
 
+## Only reviewed object-for-object redirects are used at runtime.
+## Historical bulk migration rows are evidence, NOT permission to map a palm
+## to cherry blossoms or a portrait to an unrelated idle NPC frame.
 static func third_party_source(path: String) -> String:
     if not _third_party_index_loaded:
         _third_party_index_loaded = true
-        if FileAccess.file_exists(THIRD_PARTY_MIGRATION):
-            var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(THIRD_PARTY_MIGRATION))
-            if raw is Dictionary:
-                for item in raw.get("mappings", []):
-                    if not item is Dictionary:
-                        continue
-                    var old_path: String = str(item.get("old_path", ""))
-                    var source: String = str(item.get("new_source", ""))
-                    if not old_path.begins_with("assets/") or old_path.contains(".."):
-                        continue
-                    if not source.begins_with("assets/art/external/cc0_named_v1/") or source.contains(".."):
-                        continue
-                    _third_party_paths["res://" + old_path] = "res://" + source
+        if FileAccess.file_exists(RUNTIME_INDEX):
+            var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(RUNTIME_INDEX))
+            if raw is Dictionary and str(raw.get("schema", "")) == "starlit.c.art_runtime_registry.v1":
+                var approved: Dictionary = raw.get("verified_legacy_redirects", {})
+                for old_path in approved.keys():
+                    var target: String = str(approved[old_path])
+                    if str(old_path).begins_with("res://assets/") and not str(old_path).contains("..") and target.begins_with("res://assets/art/external/cc0_named_v1/") and not target.contains(".."):
+                        _third_party_paths[str(old_path)] = target
     return str(_third_party_paths.get(path, path))
 
 static func original_texture(path: String) -> Texture2D:
-    var resolved: String = third_party_source(path)
+    var original_generated: Texture2D = GeneratedCompat.texture(path)
+    if original_generated != null:
+        return original_generated
+    var replacement: Texture2D = Generated.legacy_texture(path)
+    if replacement != null:
+        return replacement
+    # Direct physically present canonical files outrank any legacy redirect.
+    var resolved: String = path if ResourceLoader.exists(path) else third_party_source(path)
     if not resolved.begins_with("res://") or not ResourceLoader.exists(resolved):
         return null
     return ResourceLoader.load(resolved) as Texture2D
 
+## Render the already-reviewed 32px source inside the existing logical
+## sprite dimensions without stretching a square into a tall rectangle.
+## This is a visual-only replacement; world collision remains authoritative.
+static func _fit_later_uploaded(source: Texture2D, destination: Vector2i) -> Texture2D:
+    var pixels: Image = source.get_image()
+    if pixels == null or pixels.is_empty() or destination.x < 1 or destination.y < 1:
+        return null
+    pixels.convert(Image.FORMAT_RGBA8)
+    var factor: float = minf(float(destination.x)/float(pixels.get_width()),
+        float(destination.y)/float(pixels.get_height()))
+    var width: int = maxi(1,mini(destination.x,roundi(float(pixels.get_width())*factor)))
+    var height: int = maxi(1,mini(destination.y,roundi(float(pixels.get_height())*factor)))
+    pixels.resize(width,height,Image.INTERPOLATE_NEAREST)
+    var output: Image = Image.create(destination.x,destination.y,false,Image.FORMAT_RGBA8)
+    output.fill(Color.TRANSPARENT)
+    output.blit_rect(pixels,Rect2i(0,0,width,height),
+        Vector2i((destination.x-width)/2,(destination.y-height)/2))
+    return ImageTexture.create_from_image(output)
+
 static func texture(path: String) -> Texture2D:
+    var exact_generated: Texture2D = GeneratedCompat.texture(path)
+    if exact_generated != null:
+        return exact_generated
     _load()
+    # Canonical generator wins over unrelated historical aliases except when
+    # the player explicitly chose the six-role later-upload pack. That pack
+    # must actually change pixels in gameplay, not merely report activation.
+    if _active_pack_id == "uploaded_later_v1" and not ThemeV2.is_active():
+        var selected: Dictionary = (_packs.get(_active_pack_id, {}) as Dictionary).get("mappings", {})
+        if selected.has(path) and _entries.has(path):
+            if _cache.has(path):
+                return _cache[path] as Texture2D
+            var candidate: String = str(selected[path])
+            if candidate.begins_with("res://assets/art/external/cc0_named_v1/") and not candidate.contains(".."):
+                var source: Texture2D = original_texture(candidate)
+                var baseline: Texture2D = original_texture(path)
+                if source != null and baseline != null and not bool((_entries[path] as Dictionary).get("atlas",false)):
+                    var picture: Texture2D = _fit_later_uploaded(source,Vector2i(baseline.get_size()))
+                    if picture != null:
+                        _cache[path] = picture
+                        return picture
+    var generated_texture: Texture2D = Generated.legacy_texture(path)
+    if generated_texture != null:
+        return generated_texture
+    # Candidate source filename is NOT an approved combat boss identity.
+    if path.begins_with("res://assets/art/runtime/act01_global_v14/boss_candidates/"):
+        return null
     var pixel_fantasy: Texture2D = pixel_fantasy_texture(path)
     if pixel_fantasy != null:
         return pixel_fantasy
@@ -214,6 +296,11 @@ static func texture(path: String) -> Texture2D:
         var selected: Texture2D = ThemeV2.texture_for_path(path)
         if selected != null:
             return selected
+    # Regenerated V4.2 PNG for this exact source path. Source remains on disk
+    # for provenance and fallback; untouched dimensions preserve frame grids.
+    var refined: Texture2D = Refined.texture(path)
+    if refined != null:
+        return refined
     if _entries.has(path):
         var saved: String = _safe_override_file(path)
         if not saved.is_empty():
@@ -237,7 +324,7 @@ static func texture(path: String) -> Texture2D:
                     return _cache[path] as Texture2D
                 var candidate: String = str(mappings[path])
                 var proposed: Texture2D = null
-                if candidate.begins_with("res://assets/art/"):
+                if candidate.begins_with("res://assets/art/") and candidate != path and candidate == third_party_source(path):
                     proposed = original_texture(candidate)
                 elif candidate.begins_with(PACK_ROOT + "/") and not candidate.contains(".."):
                     if _shared_pack_images.has(candidate):
@@ -458,7 +545,7 @@ static func pack_report(id: String) -> Dictionary:
         var atlas: bool = bool((_entries[slot] as Dictionary).get("atlas", false))
         var match_size: bool = actual == expected
         var ratio_ok: bool = absf(float(actual.x) * float(expected.y) / (float(actual.y) * float(expected.x)) - 1.0) <= 0.12
-        if (match_size if atlas else ratio_ok) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32) or (id.begins_with("user_") and _shared_terrain_slot(slot) and actual == Vector2i(256,256)):
+        if (match_size if atlas else ratio_ok) or (id == "uploaded_later_v1" and not atlas and source.begins_with("res://assets/art/external/cc0_named_v1/")) or (id == "shared_terrain" and _shared_terrain_slot(slot) and actual.x >= 32 and actual.y >= 32) or (id.begins_with("user_") and _shared_terrain_slot(slot) and actual == Vector2i(256,256)):
             usable += 1
             if has_override(slot):
                 personal += 1

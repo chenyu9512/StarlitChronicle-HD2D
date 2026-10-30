@@ -35,6 +35,7 @@ class Starfield:
             Vector2(size.x*0.61,size.y*0.60+drift),Color(0.89,0.77,0.49,0.19),1.4)
 
 var illustration: TextureRect
+var branding_label: Label
 var continue_button: Button
 var new_game_button: Button
 var status_label: Label
@@ -69,6 +70,24 @@ func _ready() -> void:
     if audio_enabled:
         soundscape.call("configure","map_coast_01","street",false,0.85)
     _set_page("story")
+    get_viewport().size_changed.connect(_reflow_title)
+    call_deferred("_reflow_title")
+
+
+func _reflow_title() -> void:
+    if branding_label == null or menu_left == null or menu_right == null:
+        return
+    var view: Vector2 = get_viewport_rect().size
+    var compact: bool = view.x < 1024.0 or view.y < 610.0
+    branding_label.add_theme_font_size_override("font_size",56 if compact else 69)
+    menu_left.anchor_left = 0.055 if compact else 0.095
+    menu_left.anchor_right = 0.513 if compact else 0.515
+    menu_right.anchor_left = 0.528 if compact else 0.535
+    menu_right.anchor_right = 0.945 if compact else 0.916
+    menu_left.anchor_top = 0.465 if compact else 0.475
+    menu_right.anchor_top = menu_left.anchor_top
+    menu_left.anchor_bottom = 0.982 if compact else 0.966
+    menu_right.anchor_bottom = menu_left.anchor_bottom
 
 func _panel(bg: Color, border: Color = Color("89764f")) -> StyleBoxFlat:
     return CVisual.frame(bg, border, 13, 16)
@@ -100,6 +119,22 @@ func _button(message: String, primary: bool = false) -> Button:
     return b
 
 func _build_background() -> void:
+    # Rich painted scenes remain first choice. The generated base only fills
+    # holes when the installed art pack lacks an old coastal backdrop.
+    var title_gradient := Gradient.new()
+    title_gradient.set_color(0,Color("09192d"))
+    title_gradient.set_color(1,Color("29546a"))
+    var base_texture := GradientTexture2D.new()
+    base_texture.gradient = title_gradient
+    base_texture.width = 512
+    base_texture.height = 512
+    var ambient_background := TextureRect.new()
+    ambient_background.texture = base_texture
+    ambient_background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    ambient_background.stretch_mode = TextureRect.STRETCH_SCALE
+    ambient_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    ambient_background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    add_child(ambient_background)
     illustration = TextureRect.new()
     illustration.name = "TitleBackdrop"
     illustration.texture = ArtOverrides.texture(BACKDROP)
@@ -134,6 +169,7 @@ func _build_heading() -> void:
     caption.anchor_bottom = 0.18
     add_child(caption)
     var logo := _label("星 灯 纪 行",69,CREAM)
+    branding_label = logo
     logo.anchor_left = 0.09
     logo.anchor_right = 0.92
     logo.anchor_top = 0.20

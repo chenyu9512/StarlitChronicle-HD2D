@@ -4,6 +4,9 @@ extends RefCounted
 const SOURCE: String = "res://data/levels/town_director_v4.json"
 const WIDTH: int = 72
 const HEIGHT: int = 48
+# Town drawing uses the active V3 map's actual bounds, not a permanent
+# 72x48 prototype viewport (Dew Village is 96x56).
+var active_extent: Vector2i = Vector2i(WIDTH,HEIGHT)
 var plans: Dictionary = {}
 var problems: Array[String] = []
 
@@ -40,7 +43,7 @@ func _cell(value: Variant) -> Vector2i:
     return Vector2i(-1,-1)
 
 func _inside(at: Vector2i) -> bool:
-    return at.x>=3 and at.y>=3 and at.x<WIDTH-3 and at.y<HEIGHT-3
+    return at.x>=3 and at.y>=3 and at.x<active_extent.x-3 and at.y<active_extent.y-3
 
 func _pave(ground: Dictionary,blocked: Dictionary,cell: Vector2i,theme: String,border: bool) -> void:
     if not _inside(cell) or blocked.has(cell):
@@ -55,7 +58,9 @@ func _pave(ground: Dictionary,blocked: Dictionary,cell: Vector2i,theme: String,b
     var variation: int = posmod(cell.x+cell.y*3,8)
     ground[cell]=Vector2i(variation,row)
 
-func apply_town(id: String,ground: Dictionary,walls: Dictionary,features: Array[Dictionary]) -> Dictionary:
+func apply_town(id: String,ground: Dictionary,walls: Dictionary,features: Array[Dictionary],
+        extent: Vector2i = Vector2i(WIDTH,HEIGHT)) -> Dictionary:
+    active_extent = extent
     var design: Dictionary = plan(id)
     if design.is_empty():
         return {}

@@ -1,0 +1,91 @@
+{
+  "schema": "starlit.act01.lighthouse_runtime.v1",
+  "map_id": "map_coast_05",
+  "chapter": 6,
+  "zone": "tidesong_cliff_spiral",
+  "notes": "Three independent wick-fragment findings on the ACTUAL authored cliff route, not inventory grants or offscreen pickup. Scene progression and reward settlement remain the canonical V3 responsibility.",
+  "story_points": {
+    "key_npc": [
+      63,
+      42
+    ],
+    "clue": [
+      74,
+      34
+    ],
+    "witness": [
+      58,
+      25
+    ],
+    "crisis": [
+      86,
+      22
+    ],
+    "resolve": [
+      88,
+      26
+    ]
+  },
+  "fragments": [
+    {
+      "id": "breakwater_wick",
+      "cell": [
+        29,
+        35
+      ],
+      "kind": "lantern",
+      "title": "海堤供能室 · 第一枚灯芯",
+      "first_text": "沿着海堤旧维修台拾起暗银色灯芯碎片。潮声中还留着渔船的归航呼唤。",
+      "repeat_text": "海堤供能台的灯芯碎片已经记录。"
+    },
+    {
+      "id": "keeper_wick",
+      "cell": [
+        63,
+        43
+      ],
+      "kind": "toolbox",
+      "title": "塔底工匠维护箱 · 第二枚灯芯",
+      "first_text": "守灯工匠的维护箱保留着第二枚碎片。工匠的工作记录写着：航灯不能以抹除记忆为代价。",
+      "repeat_text": "工匠维护记录和第二枚灯芯已经留档。"
+    },
+    {
+      "id": "summit_wick",
+      "cell": [
+        86,
+        20
+      ],
+      "kind": "beacon",
+      "title": "塔顶失明航灯 · 第三枚灯芯",
+      "first_text": "沿正式螺旋山路到达塔前平台，取下最后一枚冷却的灯芯。三枚碎片可以拼合，等待听见归航者的声音。",
+      "repeat_text": "塔顶最后一枚碎片已经记录，尚未真正重燃航灯。"
+    }
+  ],
+  "order": [
+    "breakwater_wick",
+    "keeper_wick",
+    "summit_wick"
+  ],
+  "testimonies": [
+    {
+      "id": "fishing_boat_homecoming",
+      "name": "渔船归航",
+      "line": "我回来了。今天的海太冷，给我留一碗热汤。"
+    },
+    {
+      "id": "storm_kept_promise",
+      "name": "风暴后的约定",
+      "line": "告诉她，风暴过去了，我没有食言。"
+    },
+    {
+      "id": "the_unforgotten",
+      "name": "不被夺走的记忆",
+      "line": "记忆不是谁都能随便拿走的东西。"
+    },
+    {
+      "id": "shared_homeward_lantern",
+      "name": "共同归航",
+      "line": "不以一个人的遗忘换取千人的航灯，所有见证者愿意共同照亮归路。"
+    }
+  ]
+}

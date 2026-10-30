@@ -1,4 +1,5 @@
 extends RefCounted
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 ## Actual RPG menu-navigation use of the existing Owlish single-icon PNG set.
 ## One consistent 32px pixel-art family across all 17 real navigation tabs.
 const Art = preload("res://scripts/c_art_overrides.gd")
@@ -22,7 +23,7 @@ static func icon_for(label: String) -> Texture2D:
     var filename: String = str(TAB_ICONS[key])
     if not _cache.has(filename):
         var path: String = ROOT + "icon_owlish_icons_" + filename + ".png"
-        var tex: Texture2D = Art.texture(path)
+        var tex: Texture2D = RuntimeArt.texture_path(path)
         if tex == null or tex.get_width() < 16 or tex.get_width() > 64 or tex.get_height() < 16 or tex.get_height() > 64:
             return null
         _cache[filename] = tex

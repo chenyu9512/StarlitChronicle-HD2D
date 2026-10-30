@@ -3,7 +3,6 @@
   "authoring": "story catalog + world atlas + V3 original point geometry",
   "playable_map_count": 40,
   "tile_size": 32,
-  "note": "Scenery metadata only. Preserve canonical collision, building doors, scene and quest IDs. Quest chapter 3-6 map references conflict with act01_scene_locations_v1 and are not silently migrated.",
   "chapter_map_conflicts": [
     {
       "chapter": "ch003",
@@ -41,8 +40,8 @@
         86,
         52
       ],
-      "scenic_identity": "city",
-      "reference_story_scene": "city",
+      "scenic_identity": "旧会馆公开委托与六灯中继",
+      "reference_story_scene": "群灯旧会馆",
       "narrative_chapters": [
         {
           "id": "ch055",
@@ -117,9 +116,9 @@
         ]
       ],
       "waypoint_titles": [
-        "星帆整备站",
-        "往返补给台",
-        "天轨云海桥"
+        "旧会馆公益登记亭",
+        "居民物资共用站",
+        "自愿灯网街区中继"
       ],
       "scenic_sites": [
         {
@@ -128,7 +127,7 @@
             77,
             22
           ],
-          "meaning": "星帆整备站",
+          "meaning": "旧会馆公益登记亭",
           "theme": "inhabited-hub",
           "motif_row": 0
         },
@@ -138,7 +137,7 @@
             75,
             42
           ],
-          "meaning": "往返补给台",
+          "meaning": "居民物资共用站",
           "theme": "inhabited-hub",
           "motif_row": 2
         },
@@ -148,7 +147,7 @@
             62,
             43
           ],
-          "meaning": "天轨云海桥",
+          "meaning": "自愿灯网街区中继",
           "theme": "inhabited-hub",
           "motif_row": 5
         }
@@ -160,7 +159,8 @@
         7
       ],
       "density": 0.023,
-      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation."
+      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation.",
+      "city_visual_revision": "chapter55_60_street_identity_v2"
     },
     "map_city_02": {
       "id": "map_city_02",
@@ -172,8 +172,8 @@
         88,
         54
       ],
-      "scenic_identity": "复建首间难民房屋",
-      "reference_story_scene": "复建首间难民房屋",
+      "scenic_identity": "自由议事厅的公开发言与自治监督",
+      "reference_story_scene": "自由议事厅",
       "narrative_chapters": [
         {
           "id": "ch056",
@@ -242,9 +242,9 @@
         ]
       ],
       "waypoint_titles": [
-        "旧实验七卷柜",
-        "可终止的研究台",
-        "归人长廊入口"
+        "公开议程档案墙",
+        "居民代表意见席",
+        "守灯轮值监督台"
       ],
       "scenic_sites": [
         {
@@ -253,7 +253,7 @@
             79,
             17
           ],
-          "meaning": "旧实验七卷柜",
+          "meaning": "公开议程档案墙",
           "theme": "inhabited-hub",
           "motif_row": 0
         },
@@ -263,7 +263,7 @@
             77,
             44
           ],
-          "meaning": "可终止的研究台",
+          "meaning": "居民代表意见席",
           "theme": "inhabited-hub",
           "motif_row": 2
         },
@@ -273,7 +273,7 @@
             65,
             45
           ],
-          "meaning": "归人长廊入口",
+          "meaning": "守灯轮值监督台",
           "theme": "inhabited-hub",
           "motif_row": 5
         }
@@ -285,7 +285,8 @@
         7
       ],
       "density": 0.023,
-      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation."
+      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation.",
+      "city_visual_revision": "chapter55_60_street_identity_v2"
     },
     "map_city_03": {
       "id": "map_city_03",
@@ -297,8 +298,8 @@
         90,
         56
       ],
-      "scenic_identity": "自由公会议事与任务委托",
-      "reference_story_scene": "自由公会议事与任务委托",
+      "scenic_identity": "多族群共用居民街与群灯节",
+      "reference_story_scene": "群灯居民街",
       "narrative_chapters": [
         {
           "id": "ch057",
@@ -367,9 +368,9 @@
         ]
       ],
       "waypoint_titles": [
-        "养父空白年表",
-        "不可回收的证据柜",
-        "静时城市通道"
+        "居民节日时段公示",
+        "工坊与牧场安全边界",
+        "共同广场的夜间灯列"
       ],
       "scenic_sites": [
         {
@@ -378,7 +379,7 @@
             81,
             29
           ],
-          "meaning": "养父空白年表",
+          "meaning": "居民节日时段公示",
           "theme": "inhabited-hub",
           "motif_row": 0
         },
@@ -388,7 +389,7 @@
             79,
             46
           ],
-          "meaning": "不可回收的证据柜",
+          "meaning": "工坊与牧场安全边界",
           "theme": "inhabited-hub",
           "motif_row": 2
         },
@@ -398,7 +399,7 @@
             68,
             47
           ],
-          "meaning": "静时城市通道",
+          "meaning": "共同广场的夜间灯列",
           "theme": "inhabited-hub",
           "motif_row": 5
         }
@@ -410,7 +411,8 @@
         7
       ],
       "density": 0.023,
-      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation."
+      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation.",
+      "city_visual_revision": "chapter55_60_street_identity_v2"
     },
     "map_city_04": {
       "id": "map_city_04",
@@ -422,8 +424,8 @@
         92,
         56
       ],
-      "scenic_identity": "多族节日共用居民街",
-      "reference_story_scene": "多族节日共用居民街",
+      "scenic_identity": "星灯中枢封存档案与供能保护",
+      "reference_story_scene": "星灯中枢",
       "narrative_chapters": [
         {
           "id": "ch058",
@@ -492,9 +494,9 @@
         ]
       ],
       "waypoint_titles": [
-        "时间锁枢纽",
-        "日夜复流阀",
-        "承诺责任灯坛"
+        "独立供能隔离阀",
+        "封存资料安全接收台",
+        "人工接管核验环"
       ],
       "scenic_sites": [
         {
@@ -503,7 +505,7 @@
             83,
             24
           ],
-          "meaning": "时间锁枢纽",
+          "meaning": "独立供能隔离阀",
           "theme": "rune-wall",
           "motif_row": 0
         },
@@ -513,7 +515,7 @@
             81,
             46
           ],
-          "meaning": "日夜复流阀",
+          "meaning": "封存资料安全接收台",
           "theme": "rune-wall",
           "motif_row": 2
         },
@@ -523,7 +525,7 @@
             62,
             47
           ],
-          "meaning": "承诺责任灯坛",
+          "meaning": "人工接管核验环",
           "theme": "rune-wall",
           "motif_row": 5
         }
@@ -535,7 +537,8 @@
         7
       ],
       "density": 0.014,
-      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation."
+      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation.",
+      "city_visual_revision": "chapter55_60_street_identity_v2"
     },
     "map_city_05": {
       "id": "map_city_05",
@@ -547,8 +550,8 @@
         90,
         54
       ],
-      "scenic_identity": "护送证人驶过星灯中枢",
-      "reference_story_scene": "护送证人驶过星灯中枢",
+      "scenic_identity": "西区修复工地的临时安置与自愿互助",
+      "reference_story_scene": "西区修复工地",
       "narrative_chapters": [
         {
           "id": "ch059",
@@ -617,9 +620,9 @@
         ]
       ],
       "waypoint_titles": [
-        "七守卫评议位",
-        "自主证据长廊",
-        "赫西安终幕入口"
+        "修缮材料与安全登记点",
+        "流民自愿救援补给台",
+        "不强制征兵公约告示"
       ],
       "scenic_sites": [
         {
@@ -628,7 +631,7 @@
             81,
             19
           ],
-          "meaning": "七守卫评议位",
+          "meaning": "修缮材料与安全登记点",
           "theme": "journey-corridor",
           "motif_row": 0
         },
@@ -638,7 +641,7 @@
             79,
             44
           ],
-          "meaning": "自主证据长廊",
+          "meaning": "流民自愿救援补给台",
           "theme": "journey-corridor",
           "motif_row": 2
         },
@@ -648,7 +651,7 @@
             65,
             45
           ],
-          "meaning": "赫西安终幕入口",
+          "meaning": "不强制征兵公约告示",
           "theme": "journey-corridor",
           "motif_row": 5
         }
@@ -660,7 +663,8 @@
         7
       ],
       "density": 0.028,
-      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation."
+      "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation.",
+      "city_visual_revision": "chapter55_60_street_identity_v2"
     },
     "map_coast_01": {
       "id": "map_coast_01",
@@ -5235,5 +5239,6 @@
       "density": 0.028,
       "bounds_policy": "Visual only; skip blocked/water/entrances/spawn/story nodes. No reachability, flag, reward, quest or save mutation."
     }
-  }
+  },
+  "note": "Scenery metadata only. Preserve canonical collision, building doors, scene and quest IDs. Quest chapter 3-6 map references conflict with act01_scene_locations_v1 and are not silently migrated."
 }

@@ -1,4 +1,5 @@
 extends Node
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 ## Two genuinely compatible source-original three-frame idle sheets, copied by
 ## Git blob ID from .gdignore archives into exportable PNG runtime paths.
 ## Art selection is an explicit boss-ID match; never recycle across 66 bosses.
@@ -27,7 +28,7 @@ func configure(view: TextureRect, details: Dictionary, reduce: bool = false) -> 
     var spec: Dictionary = SELECTION[id]
     var resource: String = str(spec["path"])
     var unit: Vector2i = spec["frame"]
-    var texture: Texture2D = Art.texture(resource)
+    var texture: Texture2D = RuntimeArt.texture_path(resource)
     if texture == null or Vector2i(texture.get_size()) != Vector2i(unit.x * 3, unit.y * 4):
         push_warning("Rejected incompatible three-frame boss sheet: " + resource)
         return false

@@ -12,6 +12,13 @@ var phase: float = 0.0
 var reduced_motion: bool = false
 var animation_step: float = 0.15
 var visual_quality: int = 1
+var world_epoch: String = "present"
+
+func set_world_epoch(epoch: String) -> void:
+    # HD-2D presentation only: no collisions, chapter flags or loot mutate.
+    var allowed: Array[String] = ["present","mirror","chronicle_corridor","historical","black_star","twelve_years_later"]
+    world_epoch = epoch if epoch in allowed else "present"
+    queue_redraw()
 
 func set_reduced_motion(value: bool) -> void:
     reduced_motion = value
@@ -66,7 +73,7 @@ func _process(delta: float) -> void:
             queue_redraw()
 
 func _draw() -> void:
-    var hour: float=float(minutes)/60.0
+    var hour: float=15.0 if world_epoch=="mirror" else float(minutes)/60.0
     var tint: Color=Color(CVisual.INK.r,CVisual.INK.g,CVisual.INK.b,0.0)
     if hour>=20.0 or hour<5.0:
         tint.a=0.45
@@ -78,6 +85,17 @@ func _draw() -> void:
         tint=Color(0.48,0.28,0.14,0.055+(hour-16.0)*0.045)
     if tint.a>0.0:
         draw_rect(Rect2(Vector2.ZERO,map_pixels),tint,true)
+    # Three-realm contrast and disaster/reconstruction are separate from weather.
+    # Keep subtle overlays so painted scenery and readable NPCs remain primary.
+    var epoch_tints: Dictionary = {
+        "mirror":Color(0.92,0.87,1.0,0.075),
+        "chronicle_corridor":Color(0.39,0.45,0.57,0.17),
+        "historical":Color(0.51,0.51,0.55,0.11),
+        "black_star":Color(0.13,0.17,0.27,0.20),
+        "twelve_years_later":Color(0.57,0.49,0.39,0.07)
+    }
+    if epoch_tints.has(world_epoch):
+        draw_rect(Rect2(Vector2.ZERO,map_pixels),epoch_tints[world_epoch],true)
     if weather=="mist":
         draw_rect(Rect2(Vector2.ZERO,map_pixels),Color(0.59,0.7,0.77,0.09),true)
     if hero==null or not is_instance_valid(hero):

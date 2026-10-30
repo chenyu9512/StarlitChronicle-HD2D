@@ -13,6 +13,7 @@ const RegionAccents = preload("res://scripts/world_act01_region_accents.gd")
 ## Coordinates reuse WorldGeography. Quest/exit collision remains authoritative.
 const PATH: String = "res://data/levels/v4/coastal_scenery.json"
 const ART: String = "res://assets/art/exteriors/coast_final_pass/"
+const DETAIL_ROOT: String = "res://assets/art/runtime/scene_details_v1/"
 const TILE: int = 32
 const ACCEPTED: Array[String] = [
     "tide_pool","dune_grass","fish_net_stand","harbor_crane",
@@ -255,7 +256,7 @@ func _safe_vegetation_cell(wanted: Vector2i,layout: Dictionary) -> Vector2i:
     return Vector2i(-1,-1)
 
 func _install_water_reflections(mask: Dictionary) -> void:
-    var file: String=ART+"sea_glimmer_4f.svg"
+    var file: String=DETAIL_ROOT+"sea_glimmer_4f.svg"
     if not ArtOverrides.exists(file):
         return
     var atlas_texture: Texture2D=ArtOverrides.texture(file)
@@ -298,7 +299,7 @@ func _install_surface_detail(layout: Dictionary) -> void:
         theme="harbor"
     elif map_id=="map_coast_04":
         theme="cavern"
-    var file: String=ART+theme+"_detail_atlas.svg"
+    var file: String=DETAIL_ROOT+theme+"_detail_atlas.svg"
     if not ArtOverrides.exists(file):
         return
     var atlas_paths: Array[String]=[file]
@@ -490,11 +491,18 @@ func _sprite(asset: String,cell: Vector2i) -> Sprite2D:
     var max_width: float = 280.0 if asset == "tide_lighthouse_landmark" else (184.0 if asset == "harbor_crane" else (132.0 if asset in ["sea_wind_pine","saltwind_oak"] else (70.0 if asset in ["tide_pool","cave_crystal","quest_glow"] else 92.0)))
     var max_height: float = 360.0 if asset == "tide_lighthouse_landmark" else (210.0 if asset == "harbor_crane" else (162.0 if asset in ["sea_wind_pine","saltwind_oak"] else 100.0))
     var fit: float = minf(1.0,minf(max_width/maxf(1.0,float(imported.get_width())),max_height/maxf(1.0,float(imported.get_height()))))
+    if asset == "tide_lighthouse_landmark" and imported.get_width() <= 128 and imported.get_height() <= 192:
+        # The current named V10 lighthouse sprite is 96x128. At native
+        # dimensions this story landmark looked like a tiny street lamp.
+        # Fit it into the authored large footprint; no collision changes.
+        # Upscaling alone is NOT human HD2D-quality acceptance.
+        fit = minf(max_width / maxf(1.0,float(imported.get_width())),
+                   max_height / maxf(1.0,float(imported.get_height())))
     sprite.set_meta("global_art_fit",fit)
     sprite.offset = Vector2(0.0,-float(imported.get_height())*0.5+12.0/maxf(0.01,fit))
     if asset == "quest_glow":
         sprite.modulate = Color(0.65,0.88,1.0,0.55)
-    sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR if asset == "tide_lighthouse_landmark" else CanvasItem.TEXTURE_FILTER_NEAREST
     sprite.position = Vector2(float(cell.x)*TILE+16.0,float(cell.y)*TILE+16.0)
     return sprite
 

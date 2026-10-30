@@ -4,6 +4,7 @@ extends RefCounted
 ## .gdignore production source. Unmatched kinds intentionally return null.
 const Art = preload("res://scripts/c_art_overrides.gd")
 const ThemeV2 = preload("res://scripts/c_art_theme_v2.gd")
+const RuntimeArt = preload("res://scripts/c_art_runtime.gd")
 const ROOT: String = "res://assets/art/runtime/act01_semantic_v17/"
 const PROPS: Dictionary = {
     "flowerpot": ROOT + "flowerpot.png",
@@ -31,12 +32,18 @@ const MAPS: Dictionary = {
 }
 
 static func prop_path(kind: String) -> String:
-    return str(PROPS.get(kind, ""))
+    if not PROPS.has(kind):
+        return ""
+    var identity: String = "mangrove" if kind == "palm_tree" else kind
+    return RuntimeArt.slot_source("scene.coast." + identity)
 
 static func scenery_path(kind: String, map_id: String) -> String:
     if not MAPS.has(kind) or map_id not in (MAPS[kind] as Array):
         return ""
-    return str(SCENERY.get(kind, ""))
+    # The coastal cave and shore crystal are the SAME named mineral artwork;
+    # a separate missing legacy source must not erase the actual cave sprite.
+    var identity: String = "sea_crystal" if kind == "cave_crystal" else kind
+    return RuntimeArt.slot_source("scene.coast." + identity)
 
 static func texture_for_prop(kind: String) -> Texture2D:
     var path: String = prop_path(kind)
@@ -45,5 +52,5 @@ static func texture_for_prop(kind: String) -> Texture2D:
 
 static func texture_for_scenery(kind: String, map_id: String) -> Texture2D:
     var path: String = scenery_path(kind, map_id)
-    var themed: Texture2D = ThemeV2.texture("scenery.coast."+kind)
+    var themed: Texture2D = ThemeV2.texture("scene.coast."+kind)
     return themed if themed != null else (Art.texture(path) if not path.is_empty() else null)

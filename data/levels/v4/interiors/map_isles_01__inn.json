@@ -1,0 +1,478 @@
+{
+  "schema": "starlit.interior.v4",
+  "revision": 1,
+  "map_id": "map_isles_01",
+  "building_id": "inn",
+  "name": "珊歌港·旅人客栈",
+  "status": "b_regional_functional_visuals_integrated_pending_godot_signoff",
+  "size": [
+    72,
+    48
+  ],
+  "floor_regions": [
+    {
+      "rect": [
+        19,
+        16,
+        53,
+        37
+      ]
+    },
+    {
+      "rect": [
+        21,
+        10,
+        33,
+        24
+      ]
+    },
+    {
+      "rect": [
+        39,
+        11,
+        51,
+        24
+      ]
+    },
+    {
+      "rect": [
+        32,
+        12,
+        40,
+        25
+      ]
+    },
+    {
+      "rect": [
+        18,
+        25,
+        24,
+        32
+      ]
+    },
+    {
+      "rect": [
+        46,
+        14,
+        53,
+        22
+      ]
+    }
+  ],
+  "solid_regions": [
+    {
+      "rect": [
+        33,
+        11,
+        33,
+        16
+      ],
+      "tile_row": 6
+    },
+    {
+      "rect": [
+        40,
+        11,
+        40,
+        16
+      ],
+      "tile_row": 6
+    }
+  ],
+  "door_regions": [
+    {
+      "rect": [
+        34,
+        30,
+        36,
+        39
+      ]
+    }
+  ],
+  "points": {
+    "spawn": [
+      35,
+      33
+    ],
+    "exit": [
+      35,
+      37
+    ],
+    "service": [
+      25,
+      22
+    ],
+    "storage": [
+      47,
+      22
+    ]
+  },
+  "features": [
+    {
+      "kind": "fish_stall",
+      "cell": [
+        25,
+        21
+      ],
+      "name": "珊歌港·接待台"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        25,
+        16
+      ],
+      "name": "珊歌港·客房行李"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        47,
+        21
+      ],
+      "name": "珊歌港·厨房储物"
+    },
+    {
+      "kind": "star_lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "name": "珊歌港·壁灯"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        27,
+        29
+      ],
+      "name": "珊歌港·旅人卷宗"
+    },
+    {
+      "kind": "crate",
+      "cell": [
+        46,
+        29
+      ],
+      "name": "珊歌港·客室物品"
+    },
+    {
+      "kind": "sign",
+      "cell": [
+        30,
+        25
+      ],
+      "name": "珊歌港·宿泊公告"
+    },
+    {
+      "kind": "barrel",
+      "cell": [
+        43,
+        27
+      ],
+      "name": "珊歌港·备用毛毯"
+    }
+  ],
+  "art_collision_cells": [
+    [
+      25,
+      16
+    ],
+    [
+      27,
+      29
+    ],
+    [
+      46,
+      29
+    ],
+    [
+      25,
+      21
+    ],
+    [
+      47,
+      21
+    ]
+  ],
+  "investigations": [
+    {
+      "id": "inspect_b_map_isles_01_inn_1",
+      "cell": [
+        29,
+        23
+      ],
+      "kind": "crate",
+      "name": "珊歌港·日常线索",
+      "first_text": "珊歌港的旅人客栈里保留着当地居民的生活记录。",
+      "repeat_text": "记录仍存放在原处。",
+      "after_text": "这里的文字与陈设得到妥善保管。",
+      "owner_absent_text": "仅阅读公开内容，不移动私人财物。",
+      "owner_present_text": "征得允许后阅读公开记录。",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    },
+    {
+      "id": "inspect_b_map_isles_01_inn_2",
+      "cell": [
+        43,
+        25
+      ],
+      "kind": "sign",
+      "name": "珊歌港·公开记事",
+      "first_text": "珊歌港的旅人客栈里保留着当地居民的生活记录。",
+      "repeat_text": "记录仍存放在原处。",
+      "after_text": "这里的文字与陈设得到妥善保管。",
+      "owner_absent_text": "仅阅读公开内容，不移动私人财物。",
+      "owner_present_text": "征得允许后阅读公开记录。",
+      "privacy": "observe_only",
+      "reward": null,
+      "interaction_status": "authored_no_reward"
+    }
+  ],
+  "art_profile": "regional_functional_v1",
+  "visuals": [
+    {
+      "id": "regional_inn_0",
+      "asset": "counter",
+      "cell": [
+        25,
+        21
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_1",
+      "asset": "travelers_shelf",
+      "cell": [
+        25,
+        16
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_2",
+      "asset": "provisions_shelves",
+      "cell": [
+        47,
+        21
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_3",
+      "asset": "lantern",
+      "cell": [
+        35,
+        18
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_4",
+      "asset": "tideway_chart",
+      "cell": [
+        27,
+        29
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_5",
+      "asset": "harbor_guest_bed",
+      "cell": [
+        46,
+        29
+      ],
+      "layer": "furniture",
+      "footprint": [
+        106,
+        82
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_6",
+      "asset": "guild_noticeboard",
+      "cell": [
+        30,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inn_7",
+      "asset": "barrels",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "furniture",
+      "footprint": [
+        66,
+        74
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_entry_rug",
+      "asset": "rug",
+      "cell": [
+        35,
+        29
+      ],
+      "layer": "floor",
+      "footprint": [
+        94,
+        62
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_wall_window",
+      "asset": "window",
+      "cell": [
+        36,
+        12
+      ],
+      "layer": "wall",
+      "footprint": [
+        66,
+        66
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inquiry_0",
+      "asset": "tideway_chart",
+      "cell": [
+        29,
+        23
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "regional_inquiry_1",
+      "asset": "guild_noticeboard",
+      "cell": [
+        43,
+        25
+      ],
+      "layer": "wall",
+      "footprint": [
+        54,
+        60
+      ],
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "light_sources": [
+    {
+      "id": "entry_lamp",
+      "cell": [
+        35,
+        30
+      ],
+      "scale": 1.25,
+      "energy": 0.74
+    },
+    {
+      "id": "service_lamp",
+      "cell": [
+        25,
+        20
+      ],
+      "scale": 1.15,
+      "energy": 0.68
+    },
+    {
+      "id": "room_corner_lamp",
+      "cell": [
+        46,
+        21
+      ],
+      "scale": 1.1,
+      "energy": 0.59
+    }
+  ],
+  "region_design": "珊歌港 · archipelago",
+  "notes": "B线实际可加载V4室内，独立建筑身份与功能，实体家具和墙共用32px坐标。区域专属最终美术及Godot实测未完成。 B-line physical service counter (25,21), front step (25,22); storage cabinet (47,21), front step (47,22).",
+  "interior_owner_id": "",
+  "interaction_status": "no_reward_interactive_room",
+  "room_day_tint": "d7e0db",
+  "room_night_tint": "91adb2",
+  "visual_revision": 2,
+  "collision_revision": 2
+}

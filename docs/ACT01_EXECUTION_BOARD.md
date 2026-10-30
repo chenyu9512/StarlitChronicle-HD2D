@@ -180,3 +180,9 @@
 - 修复 `f72b4e5749804bbc286800c3d1f7a1dce990f6c1`（新阶段测试立即释放节点）后，发现统一 `.github/workflows/main2-ci.yml` 的 `push.paths` 只列出旧六章测试而未包含 `tools/smoke_act01_boss_phase_pacing.gd`，导致**仅修改该专项冒烟并不会触发新的质量门禁**。
 - 本批将 `tools/smoke_act01_*.gd` 及 `tools/validate_act01_*.py` 加入触发路径。所有第一幕专项回归与经济静态校验修改都需要重新跑新的 Godot 测试，而非借用旧 SHA 的绿色结果。这次 workflow 自身变更也触发完整 CI。
 - 本轮没有新增游戏画面或素材，原分回合 Boss 玩法与美术接线均保持不变。需在新 SHA 获得 Godot 63/63 与独立 Runtime 通过才可最终签收。
+
+### 2026-10-30 Batch 02 / 分离 Boss 专项验收与 SceneTree 退出生命周期
+
+- `59e1bdf2d4089e72eb104ebf5216109768970a31` [完整 CI 结果](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41026813482)：导入、旧六章测试、无作弊完整六章均成功，只有 `smoke_act01_boss_phase_pacing.gd` 检查结果正常但退出仍有 11 ObjectDB 残留（**62/63**）。将 Battle 改为 `free()` 也未解决，表明不只是 Node 的延迟删除，还涉及脚本的 RefCounted 局部变量和终止时序。
+- 本次测试把 `progress`、`core`、`battle` 清空后让 `_run` 返回，再用 `call_deferred("_finish_test")` 单独等待三个引擎帧，最后按完整运行结果退出；避免在仍持有战斗数据的脚本栈内调用 `quit()`。所有场景与 VFX 照常构造、攻击/防御照常执行；不得通过删掉胜利演出或降低断言来获得绿灯。
+- 本次没有新增游戏画面/素材。必须待新 SHA 63/63、正式 Runtime 发布后标为通过。

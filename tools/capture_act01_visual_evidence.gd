@@ -73,6 +73,15 @@ func _save_landmark_frame(game, output: String, chapter: int, landmark_id: Strin
 # Confirm the actual FontSetup autoload selected the bundled FontFile.
 # Using a SystemFont on the runner would produce attractive screenshots but
 # give zero evidence that the iPhone's actual CJK typeface has real glyphs.
+func _sha256_bytes(bytes: PackedByteArray) -> String:
+    # PackedByteArray lacks sha256_buffer() in the project's Godot 4.7.2.
+    var hash := HashingContext.new()
+    if hash.start(HashingContext.HASH_SHA256) != OK:
+        return ""
+    if hash.update(bytes) != OK:
+        return ""
+    return hash.finish().hex_encode()
+
 func _capture_font_evidence(game, output: String) -> bool:
     var bootstrap: Node = root.get_node_or_null("FontSetup")
     if bootstrap == null:
@@ -91,8 +100,11 @@ func _capture_font_evidence(game, output: String) -> bool:
     if font_bytes.size() < MIN_FONT_SIZE or source_bytes.size() < MIN_FONT_SIZE:
         push_error("Bundled Noto CJK font data is missing or suspiciously small")
         return false
-    var actual_hash: String = font_bytes.sha256_buffer().hex_encode()
-    var source_hash: String = source_bytes.sha256_buffer().hex_encode()
+    var actual_hash: String = _sha256_bytes(font_bytes)
+    var source_hash: String = _sha256_bytes(source_bytes)
+    if actual_hash.is_empty() or source_hash.is_empty():
+        push_error("Bundled font SHA256 calculation failed")
+        return false
     if actual_hash != source_hash:
         push_error("Rendered FontFile does not match the bundled OpenType source")
         return false

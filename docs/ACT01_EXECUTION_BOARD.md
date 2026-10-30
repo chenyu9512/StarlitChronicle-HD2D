@@ -194,3 +194,8 @@
 - 真实画面仍为六章外景+旧屋/收容所/酒馆+重要地标26帧，截图目录增加 `cjk-font-evidence-v1.json`。校验器和负面用例拒绝系统字体假冒证据；GH Workflow 截图脚本变更自动触发并上传画面和报告。
 - 不伪称 iPhone 已验收：Godot Linux 可见字体证明不等于 iOS PCK payload 或 Apple 真机最终光栅效果；`ios_ipa_payload_verified`、`ios_device_verified` 固定为 false；人工图片审稿仍需单独完成。
 - 本项仅是来源取证/代码/测试工作，不添加新美术画面，因此无需注册新资产；后续需要新增视觉实体时严格执行生成 → 唯一ID → Manifest → 正式渲染引用 → Runtime 打包 → 实际截图。
+
+### 2026-10-30 Batch 03 / 截图字体 SHA256 引擎 API 修复
+
+- [首次真实视觉 CI run 41043768677](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41043768677) 完成 Godot 导入和全部海岸图集实景 smoke 后，在截图脚本解析处失败：Godot 4.7.2 的 `PackedByteArray` 不支持 `sha256_buffer()`。
+- 本次仅把字体字节哈希改为 Godot 正式支持的 `HashingContext.HASH_SHA256` 及 `start/update/finish`；仍严格对比实际 FontFile 与原始 Noto OTF 哈希、字形/真实控件，不能使用系统字体代替。重跑截图 CI 后再对新证据做判断。

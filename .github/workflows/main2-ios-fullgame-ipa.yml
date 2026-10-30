@@ -277,7 +277,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          tag="ios-fullgame-preview-v0.6.0-run-$GITHUB_RUN_NUMBER"
+          tag="ios-fullgame-preview-v0.6.1-run-$GITHUB_RUN_NUMBER"
           {
             echo "Starlit Chronicle HD2D - Main2 full-content iOS preview"
             echo
@@ -291,11 +291,12 @@ jobs:
             else
               echo "unsigned.ipa: NOT directly installable; import into an authorized iOS signing/sideloading tool. No Apple signing certificate was provided."
             fi
+            echo "CJK FIX: verified raw OFL Noto CJK 16,437,364-byte font inside the FINAL exported PCK and unsigned/signed IPA; the title shows v0.6.1 (7) | CJK: OK."
             echo "See SHA256SUMS.txt and the CI fullgame-inventory.json."
           } > dist/RELEASE_NOTES.txt
           gh release create "$tag" dist/*.ipa dist/SHA256SUMS.txt build/ios/fullgame-inventory.json \
             --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-            --title "Starlit Chronicle iOS Full Game Preview v0.6.0 ($GITHUB_RUN_NUMBER)" \
+            --title "Starlit Chronicle iOS Full Game Preview v0.6.1 CJK FIX ($GITHUB_RUN_NUMBER)" \
             --notes-file dist/RELEASE_NOTES.txt --prerelease
           echo "Release tag: $tag" >> "$GITHUB_STEP_SUMMARY"
 

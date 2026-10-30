@@ -1367,6 +1367,25 @@ func _vfx_member_point(index: int) -> Vector2:
 func _vfx_ally_point() -> Vector2:
     return _vfx_member_point(hero_turn)
 
+# Red charge warnings are reserved for genuinely dangerous frozen round
+# intents. Routine observation/weak recovery turns stay in the enemy-intent
+# HUD without pretending to be a heavy attack.
+func _boss_warning_label(intent: Dictionary) -> String:
+    if float(intent.get("multiplier",1.0)) < 1.25:
+        return ""
+    var action_name: String = str(intent.get("label",""))
+    if action_name.is_empty() or action_name == "普通攻击":
+        return ""
+    var focus: String = ""
+    match str(intent.get("target","random")):
+        "lowest_hp": focus = " · 倾向低生命队友"
+        "highest_hp": focus = " · 倾向高生命队友"
+        "lowest_mp": focus = " · 倾向低魔力队友"
+        _: focus = " · 攻击目标不定"
+    # A player can change the priority with healing; do not claim a fixed
+    # target before the boss actually selects it during its attack turn.
+    return action_name + focus + " · 防御可减伤"
+
 func _telegraph_next_boss_action() -> void:
     if not boss or last_warning_round == current_round or not is_instance_valid(vfx):
         return
@@ -1378,8 +1397,8 @@ func _telegraph_next_boss_action() -> void:
     if not has_future_enemy:
         return
     var intent: Dictionary = round_boss_intent
-    var name: String = str(intent.get("label",""))
-    if name in ["","普通攻击"]:
+    var name: String = _boss_warning_label(intent)
+    if name.is_empty():
         return
     last_warning_round = current_round
     last_warning_text = name

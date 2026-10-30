@@ -31,3 +31,19 @@
 - **证据审计**：`verify_act01_visual_evidence_v3.py` 除26张真实 Godot 截图之外还核对字体来源证明、真实字体源文件哈希/长度、字形/Control、且明确 `ios_ipa_payload_verified=false` 与 `ios_device_verified=false`。提供独立负例测试，禁止伪造 iPhone 真机通过。
 - **CI 接入**：视觉验收 workflow 在截图/审计/FontSetup 或 OTF 改动时自动运行；只安装 Xvfb、GL 依赖，**不再安装系统 Noto CJK 字体** 来掩盖包内字体缺失。统一 CI art 静态测试审计证据契约。
 - **范围**：本次没有新增角色/环境 PNG，也没有改任何摆放场景，因此不生成重复资产；先取得最新真实六章截图与来源证明，然后继续旧屋/收容所/酒馆的结构与美术修整。真实 iPhone IPA 包内字体仍要通过独立 IPA payload 校验和物理真机验收，Godot 截图不是后者的替代品。
+
+## 2026-10-30 · 最新 Godot 真实截图复审 / 尚未商业签收
+
+**证据**：提交 `a077735001ebcf35794d70a8fc4e6c6569be558d` 的 [Main2 Real Art Runtime Acceptance / run 41044081702](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41044081702)，截图附件 `main2-art-runtime-evidence`（artifact ID `12971512044`）。真实 Godot framebuffer 26/26；`visual/cjk-font-evidence-v1.json` 校验通过：`FontSetup` 导入 FontFile SHA256 `2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b`，19个中日英字符、3个真实游戏 UI 控件、源 OTF 一致。未使用系统字体替代，不代表 iPhone IPA 实机字体已验收。
+
+**实际渲染画面观察**（针对 `visual/*_world.png` 和带 HUD 原图，人工视觉问题追踪，不是质量自动通过）：
+
+| ID | 本轮真实截图文件 | 当前可见问题 | 下一批具体修复口径 | 结论 |
+|---|---|---|---|---|
+| ART-VIS-01 | `chapter_01_house.png` / `_world.png` | 居住空间主要是大片同色地面与少量沿上边散布的小家具，空间尺度和生活用途不突出；深蓝边界块在下半画面占比明显 | 重组现有已授权家具：桌/储物/睡卧围合成可辨生活区；边界遮挡与像素缩放应在正式 V4 室内运行器核验，不用假贴图填空 | `needs_visual_fix` |
+| ART-VIS-02 | `chapter_02_shelter.png` / `_world.png` | 收容所空旷的重复底纹占大面积；几张床、医护和病历/调查点散落，缺少分组明确的诊疗、临时病床、登记与药品功能区 | 优先重排真实医院相关已有素材；床位围成医疗区，证据与名册附近设置诊疗/登记阅读路径，并复验碰撞及房间门口通行；禁止把酒桶酒馆道具冒充医疗设备 | `needs_visual_fix_priority_1` |
+| ART-VIS-03 | `chapter_04_tavern.png` / `_world.png` | 桌椅、灯光及人物存在，但孤立散布，吧台/用餐/公告调查区的识别性仍不足；空地仍显过宽 | 将已有桌椅/储物/灯具按三功能区成组布置，保留主要剧情 NPC 可接近性及入口行动通道 | `needs_visual_fix_priority_2` |
+| ART-VIS-04 | `chapter_01_world.png` — `chapter_06_world.png` | 外景具备独立草地、沙地、石砖和海蚀洞灰色基调，但部分路面呈明显直角大块区隔；第2/4章复用白砂港地图的区域差异并不显眼 | 按已注册世界地标及海岸材料做过渡与区域独有视觉分组；对同地图章节允许复用，但应有清楚的剧情调查重点，不能通过伪造截图解释为不同地图 | `needs_visual_fix` |
+| ART-VIS-05 | 本批全部26张与 `cjk-font-evidence-v1.json` | 真实截图已成功、核心字形可见；但 HUD 的字体存在与 iOS 设备一致性之外的布局/空间审美问题，尚未完成视觉评审 | 保留截图 hash、字体源证明和最新版截图链接；将真正游戏内字体/CJK 验证与 iPhone PCK、设备端字形分开签收 | `font_source_proved_art_unapproved` |
+
+**验收边界**：静态资源/字体证据通过不表示角色与道具的比例、空间可读性、风格、独立地图差异得到商业批准。本项只是将最新真实截图中的问题具体化；没有新增任何图形资产或修改场景摆放，未冒充修复。下一项优先完成收容所治疗/登记分区的**正式场景**调整并在新 SHA 截图中核验。

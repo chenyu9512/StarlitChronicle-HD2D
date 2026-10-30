@@ -28,9 +28,11 @@ static func settle_victory(progress: Variant, core: Variant, transaction_id: Str
     var awarded_gold: int = maxi(0,gold)
     # The first-act humane rescue and lighthouse resolution belong to the
     # same atomic receipt as the boss reward and chapter transition.
-    if is_boss and chapter == 5 and not story_resolution.is_empty() and story_resolution != "nonlethal":
+    # Fail closed on empty resolutions too: an alternate caller must never
+    # turn a locked rescue/testimony objective into a generic boss payout.
+    if is_boss and chapter == 5 and story_resolution != "nonlethal":
         return {"ok":false,"applied":false,"reason":"invalid_beast_resolution"}
-    if is_boss and chapter == 6 and not story_resolution.is_empty() and story_resolution != "testimony":
+    if is_boss and chapter == 6 and story_resolution != "testimony":
         return {"ok":false,"applied":false,"reason":"invalid_lighthouse_resolution"}
     var intent: Dictionary = {"source":"battle_victory","chapter":chapter,
         "boss":is_boss,"xp":awarded_xp,"gold":awarded_gold,

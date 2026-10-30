@@ -1479,6 +1479,10 @@ func _redraw(message: String) -> void:
     var foe_ailments: String = combat_rules.enemy_status_report(active_target)
     if not foe_ailments.is_empty():
         header += "  ⚠" + foe_ailments
+    # Keep the round visible even if multiple enemy names replace the header.
+    # It helps players judge when to defend, heal or retry a long Boss fight.
+    if boss:
+        header += " · 第%d回合" % current_round
     foe_info.text = header
     var lines: PackedStringArray = []
     for i in range(game_state.actors.size()):

@@ -40,7 +40,7 @@ workflows:
           python3 tools/ios_export_preflight.py --project . --template-dir "$HOME/Library/Application Support/Godot/export_templates/${GODOT_VERSION}.stable"
           # Always retain actionable logs; pipefail returns the Godot failure
           # instead of the success code from tee.
-          "$GODOT_BIN" --headless --verbose --editor --path . --quit 2>&1 | tee build/ios/import.log
+          "$GODOT_BIN" --headless --verbose --editor --import --path . --quit 2>&1 | tee build/ios/import.log
           "$GODOT_BIN" --headless --verbose --path . --export-debug "iOS" "build/ios/StarlitChronicle.xcodeproj" 2>&1 | tee build/ios/export.log
           test -s build/ios/StarlitChronicle.xcodeproj/project.pbxproj || { echo "ERROR: iOS Xcode export has no project.pbxproj"; exit 1; }
       - name: Compile native iPhone app without Apple signing

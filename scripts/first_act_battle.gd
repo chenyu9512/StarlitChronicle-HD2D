@@ -284,7 +284,7 @@ func start(save_state, chapter_no: int, is_boss: bool) -> void:
             introduction += " · 浅滩三项救援调查未获确认。"
     if not rescue_encounter_hint.is_empty():
         introduction += " · " + rescue_encounter_hint
-    if boss_mechanics != null and boss_mechanics.enabled():
+    if _show_boss_objective():
         introduction += " · 目标：" + boss_mechanics.objective_label() + " · 提示：" + boss_mechanics.hint()
     _redraw(introduction)
 
@@ -1399,6 +1399,12 @@ func _all_fallen() -> bool:
             return false
     return true
 
+# Chapters five and six use authored scene mechanics instead of the generic
+# BattleBossMechanics progress counter. Their goals must still be visible
+# without activating a second, unintended battle victory pathway.
+func _show_boss_objective() -> bool:
+    return boss and boss_mechanics != null and (boss_mechanics.enabled() or chapter in [5,6])
+
 func _redraw(message: String) -> void:
     # The single existing command slot reflects the real interaction phase.
     # It never introduces a second victory or reward route.
@@ -1437,12 +1443,13 @@ func _redraw(message: String) -> void:
     if phase_two:
         header += "  · 二阶段"
     header += " · 意图：" + str(round_boss_intent.get("label","攻击") if boss else combat_rules.enemy_strategy(enemy,current_round,phase_two,false,game_state.actors).get("label","攻击"))
-    if boss_mechanics != null and boss_mechanics.enabled():
-        var state: Dictionary = boss_mechanics.report()
+    if _show_boss_objective():
         header += " · 目标：" + boss_mechanics.objective_label()
-        if int(state.get("required",0)) > 0:
-            header += " %d/%d" % [int(state.get("progress",0)),int(state.get("required",0))]
-        header += " · 防护 %d" % int(state.get("ward",0))
+        if boss_mechanics.enabled():
+            var state: Dictionary = boss_mechanics.report()
+            if int(state.get("required",0)) > 0:
+                header += " %d/%d" % [int(state.get("progress",0)),int(state.get("required",0))]
+            header += " · 防护 %d" % int(state.get("ward",0))
     if formation != null and formation.units.size() > 1:
         var roster: Array[String] = []
         for i in range(formation.units.size()):

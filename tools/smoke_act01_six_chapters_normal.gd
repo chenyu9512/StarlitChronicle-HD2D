@@ -3,6 +3,7 @@ extends SceneTree
 ## Marker positioning bypasses walking; this is NOT human navigation/visual acceptance.
 const Game = preload("res://scripts/first_act.gd")
 const State = preload("res://scripts/first_act_state.gd")
+const Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
 var game
 var failures: Array[String] = []
 
@@ -61,7 +62,26 @@ func _dialog() -> void:
     if game.ui.dialog_layer.visible and not game.ui.choosing:
         failures.append("Dialogue did not finish in 30 steps")
 
+# Guard the public V3 settlement endpoint separately from the controller.
+# A normal six-chapter playthrough below still proves valid rescues work.
+func _reject_invalid_story_outcomes() -> void:
+    for chapter_no in [5,6]:
+        var probe = State.new()
+        probe.chapter = chapter_no
+        var before: Dictionary = probe._pack().duplicate(true)
+        var expected: String = "invalid_beast_resolution" if chapter_no == 5 else "invalid_lighthouse_resolution"
+        var invalid: Array[String] = ["", "defeated", "testimony" if chapter_no == 5 else "nonlethal"]
+        for outcome in invalid:
+            var result: Dictionary = Settlement.settle_victory(
+                probe,RefCounted.new(),"boss:boss.ch%03d/crisis" % chapter_no,
+                chapter_no,true,[],"",60,50,1,outcome)
+            if bool(result.get("ok",false)) or str(result.get("reason","")) != expected:
+                failures.append("Chapter %d accepted invalid story outcome: '%s'" % [chapter_no,outcome])
+            if probe._pack() != before:
+                failures.append("Chapter %d invalid boss receipt mutated V3 progress" % chapter_no)
+
 func _run() -> void:
+    _reject_invalid_story_outcomes()
     game = Game.new()
     root.add_child(game)
     var folder: String = "user://act01_six_normal_%d" % OS.get_process_id()
@@ -196,6 +216,16 @@ func _run() -> void:
                 var d_receipts: Dictionary = d_journal.get("consumed",{})
                 if not a_receipts.has(actual_battle_id) or not d_receipts.has(actual_battle_id):
                     failures.append("Chapter %d real-command victory did not persist both receipts" % chapter)
+                if chapter in [5,6]:
+                    var expected_outcome: String = "nonlethal" if chapter == 5 else "testimony"
+                    var receipt: Dictionary = d_receipts.get(actual_battle_id,{})
+                    var intent: Dictionary = receipt.get("intent",{})
+                    if str(intent.get("story_resolution","")) != expected_outcome:
+                        failures.append("Chapter %d boss receipt lost canonical story outcome" % chapter)
+            if chapter == 5 and not bool(game.progress.flags.get("ch005.beast_released",false)):
+                failures.append("Fifth-chapter rescue was not durably recorded")
+            if chapter == 6 and not bool(game.progress.flags.get("ch006.lighthouse_testimony",false)):
+                failures.append("Sixth-chapter testimony was not durably recorded")
         _touch("resolve")
         _dialog()
         if not bool(game.progress.flags.get("story.ch%03d.done" % chapter, false)):
@@ -216,6 +246,8 @@ func _run() -> void:
         failures.append("Final six-chapter V3 checkpoint cannot reload")
     elif disk.chapter!=7 or not bool(disk.flags.get("story.ch006.done",false)):
         failures.append("Reloaded V3 save lost sixth-chapter completion")
+    elif not bool(disk.flags.get("ch005.beast_released",false)) or not bool(disk.flags.get("ch006.lighthouse_testimony",false)):
+        failures.append("Reloaded V3 save lost the humane rescue or shared testimony")
     # Tests are not allowed to create or overwrite the player's default save.
     for path in [game.progress.save_path,game.progress.backup_path,
         game.progress.save_path+".tmp",game.progress.backup_path+".tmp"]:

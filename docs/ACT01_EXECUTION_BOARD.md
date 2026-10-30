@@ -205,3 +205,9 @@
 - 提交 `a077735001ebcf35794d70a8fc4e6c6569be558d` 的 [实际美术 QA Run 41044081702](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41044081702) **成功**；在正式 `FontSetup` 与 Noto CJK Source SHA256 核验下取得 26/26 张真实 Godot 截图，工件 `main2-art-runtime-evidence`。无系统 CJK 字体掩盖真实 UI，19字形及3 Control 绑定通过；当前不代表 iPhone 真机验收。
 - 真实查看最新 `chapter_01_house`、`chapter_02_shelter`、`chapter_04_tavern` 和六章外景截图后，更新 `docs/ACT01_VISUAL_ART_REVIEW_2026_10_28.md`：优先修第二章收容所的诊疗/登记/病床空间分区、第四章酒馆的吧台用餐调查区域，其次第一章旧屋生活家具/地图边缘，最后外景过渡及独特地标。此为有图证据的待办而非美术已修复。
 - 本次仅记录截图人工可见缺口和严格证据位置，不新增美术资产、图像或地图对象。以后实际改图须同批完成资产ID/manifest/正式场景接入/真实截图/Runtime，且人工签收单独进行。
+
+### 2026-10-30 Batch 03 / Ch2 收容所真实医疗分区（待同 SHA QA）
+
+- 复用已有正确医疗图片资源，为第二章正式 V4 收容所增加三处病床和一处治疗药盘，唯一摆放 ID 登记在 `visuals` 并确实交给 `world_interior_art.gd` 实例化；15件正式医疗家具，4盏灯，无需新 PNG。
+- 新三床接触格物理碰撞，保持四条调查线索、五个主线点、登记/储存/安全出口与存档 ID 原位；通过静态 BFS 和 Godot 实际房间验证才能验收。
+- 需要取得新 SHA 的视觉截图，检查空旷程度和对照图；通过 CI 也不自动等于人工美术质量通过。

@@ -1,10 +1,10 @@
 {
   "schema": "starlit.interior.v4",
-  "revision": 8,
+  "revision": 9,
   "map_id": "map_coast_02",
   "building_id": "shelter",
   "name": "白砂港·临潮收容所",
-  "status": "main2_shelter_six_dedicated_medical_assets_v5_pending_visual_signoff",
+  "status": "main2_shelter_functional_care_zones_v6_pending_visual_signoff",
   "size": [
     72,
     48
@@ -193,7 +193,8 @@
       "footprint": [
         96,
         70
-      ]
+      ],
+      "care_zone": "intake"
     },
     {
       "id": "medicine_storage",
@@ -210,7 +211,8 @@
       "footprint": [
         76,
         102
-      ]
+      ],
+      "care_zone": "pharmacy"
     },
     {
       "id": "bedside_medicine",
@@ -228,7 +230,8 @@
       "footprint": [
         89,
         62
-      ]
+      ],
+      "care_zone": "west_ward"
     },
     {
       "id": "washed_luggage",
@@ -242,7 +245,8 @@
         0,
         -8
       ],
-      "icon": "paper"
+      "icon": "paper",
+      "care_zone": "intake"
     },
     {
       "id": "public_patient_roster",
@@ -256,7 +260,8 @@
         0,
         -8
       ],
-      "icon": "paper"
+      "icon": "paper",
+      "care_zone": "intake"
     },
     {
       "id": "saltgrass_treatment",
@@ -269,7 +274,8 @@
       "offset": [
         0,
         -8
-      ]
+      ],
+      "care_zone": "east_ward"
     },
     {
       "id": "night_duty_lamp",
@@ -282,7 +288,8 @@
       "offset": [
         0,
         -8
-      ]
+      ],
+      "care_zone": "circulation"
     },
     {
       "id": "linen_supply",
@@ -299,7 +306,8 @@
       "footprint": [
         88,
         71
-      ]
+      ],
+      "care_zone": "west_ward"
     },
     {
       "id": "medicine_reserve",
@@ -317,7 +325,8 @@
       "footprint": [
         76,
         102
-      ]
+      ],
+      "care_zone": "pharmacy"
     },
     {
       "id": "empty_bed_kit",
@@ -334,7 +343,8 @@
       "footprint": [
         123,
         80
-      ]
+      ],
+      "care_zone": "east_ward"
     },
     {
       "id": "treatment_prep",
@@ -351,10 +361,96 @@
       "footprint": [
         93,
         55
-      ]
+      ],
+      "care_zone": "triage"
+    },
+    {
+      "id": "triage_bed_west",
+      "asset": "shelter_cot",
+      "cell": [
+        27,
+        23
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        123,
+        80
+      ],
+      "care_zone": "west_ward"
+    },
+    {
+      "id": "recovery_bed_west",
+      "asset": "shelter_cot",
+      "cell": [
+        27,
+        30
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        123,
+        80
+      ],
+      "care_zone": "west_ward"
+    },
+    {
+      "id": "recovery_bed_east",
+      "asset": "shelter_cot",
+      "cell": [
+        46,
+        26
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        123,
+        80
+      ],
+      "care_zone": "east_ward"
+    },
+    {
+      "id": "triage_medicine_east",
+      "asset": "shelter_treatment_tray",
+      "cell": [
+        43,
+        27
+      ],
+      "layer": "furniture",
+      "offset": [
+        0,
+        -8
+      ],
+      "footprint": [
+        89,
+        62
+      ],
+      "care_zone": "triage"
     }
   ],
-  "art_collision_cells": [],
+  "art_collision_cells": [
+    [
+      27,
+      23
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      46,
+      26
+    ]
+  ],
   "investigations": [
     {
       "id": "inspect_act01_shelter_1",
@@ -431,11 +527,26 @@
   ],
   "interior_owner_id": "npc_coast_05",
   "act01_main_story_points": {
-    "key_npc": [24, 22],
-    "clue": [35, 26],
-    "witness": [42, 30],
-    "crisis": [38, 24],
-    "resolve": [35, 31]
+    "key_npc": [
+      24,
+      22
+    ],
+    "clue": [
+      35,
+      26
+    ],
+    "witness": [
+      42,
+      30
+    ],
+    "crisis": [
+      38,
+      24
+    ],
+    "resolve": [
+      35,
+      31
+    ]
   },
   "act01_main_story_evidence": [
     "inspect_act01_shelter_2",
@@ -443,7 +554,7 @@
   ],
   "interaction_revision": 2,
   "interaction_status": "b_authored_geometry_for_D_interaction_handoff",
-  "notes": "Main2 C-line: uses physically imported Act-I v14 PNG props and harbor terrain with live V4 entry, clues, service, lighting and occlusion. Original feature/inspection coordinates, player collision, quest flags and save behavior remain unchanged. Visual-semantic prototype; commercial final art/unique animation acceptance pending. Distinct four architectural partition rows are physically blocked, and all service, exit and four investigation positions pass 4-neighbor connectivity from spawn.",
+  "notes": "Main2 Act-I shelter: 15 real imported medical furnishings assigned to intake, west ward, east recovery, triage and pharmacy. Three new bed contact tiles are solid and the central entrance/story corridor stays traversable. Four original investigations, five main story points, service, storage and return exit remain unchanged. New light uses existing radial generator. Human visual signoff pending.",
   "room_day_tint": "d9e1db",
   "room_night_tint": "a2b0b2",
   "light_sources": [
@@ -473,6 +584,15 @@
       ],
       "scale": 1.25,
       "energy": 0.8
+    },
+    {
+      "id": "shelter_recovery_lamp",
+      "cell": [
+        45,
+        29
+      ],
+      "scale": 1.05,
+      "energy": 0.68
     }
   ]
 }

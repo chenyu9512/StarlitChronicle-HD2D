@@ -119,9 +119,14 @@ func story_boss(chapter: int, encounter: Dictionary, fallback: Dictionary) -> Di
     result["max_hp"] = hp
     result["atk"] = atk
     result["def"] = defense
-    result["xp"] = maxi(int(result.get("xp",0)),int(chapter*34+120))
+    # First-act authored XP must override the high legacy fallback. Later
+    # chapters retain their existing growth and reward floor.
+    if chapter <= 6 and progression_target.has("boss_xp"):
+        result["xp"] = maxi(0,int(progression_target["boss_xp"]))
+    else:
+        result["xp"] = maxi(maxi(int(result.get("xp",0)),int(chapter*34+120)),
+            int(progression_target.get("boss_xp",chapter*34+120)))
     result["gold"] = maxi(int(result.get("gold",0)),int(progression_target.get("boss_gold",chapter*14+55)))
-    result["xp"] = maxi(int(result.get("xp",0)),int(progression_target.get("boss_xp",chapter*34+120)))
     var mechanism: Dictionary = boss_profile(id)
     result["boss_mechanics"] = mechanism.duplicate(true)
     if not mechanism.is_empty():

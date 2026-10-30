@@ -1,0 +1,36 @@
+name: "Main2 · Bundled iOS CJK Font Smoke"
+
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths:
+      - "scripts/font_setup.gd"
+      - "project.godot"
+      - "assets/fonts/**"
+      - "tools/ios_export_preflight.py"
+      - "tools/smoke_bundled_fonts.gd"
+      - ".github/workflows/main2-ios-font-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bundled-cjk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+      - name: Check embedded font integrity and release preflight
+        run: python3 tools/ios_export_preflight.py --project .
+      - name: Import actual source OpenType font into Godot
+        run: timeout 360s godot --headless --path . --editor --import --quit
+      - name: Confirm imported Chinese Japanese and Latin glyphs are available
+        run: timeout 90s godot --headless --path . --script res://tools/smoke_bundled_fonts.gd

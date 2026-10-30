@@ -2580,7 +2580,8 @@ func _battle_finished(won: bool, xp: int, money: int) -> void:
                 (" 掉落：" + "、".join(loot_text) if not loot_text.is_empty() else "")])
     else:
         game_events.record("battle_defeat",{"chapter":chapter_at_fight,"boss":is_boss})
-        ui.show_message("队伍已在安全位置整备，遗失了至多15 G，可再次挑战。")
+        var actual_loss: int = int((settlement.get("mutation",{}) as Dictionary).get("lost_gold",0))
+        ui.show_message("队伍已在安全位置整备，遗失了 %d G，可再次挑战。" % actual_loss)
 
     # No earlier _advance_scene() save or premature battle queue_free.
     battle = null

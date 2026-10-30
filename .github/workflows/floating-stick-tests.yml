@@ -31,4 +31,4 @@ jobs:
       - name: Import project
         run: godot --headless --path . --editor --import --quit
       - name: Run floating stick regression tests
-        run: godot --headless --path . --script res://tools/smoke_floating_stick.gd
+        run: timeout 120s godot --headless --path . --script res://tools/smoke_floating_stick.gd

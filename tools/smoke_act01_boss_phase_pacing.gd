@@ -75,11 +75,10 @@ func _run() -> void:
             "rounds":battle.current_round,"actions":actions,
             "enemy_strikes":strikes,"defensive_choices":locked_checks,
             "resolution":battle.last_boss_settlement}))
-        battle.queue_free()
-    # SceneTree.quit() in this same frame skips deferred Node destruction;
-    # Godot then reports ObjectDB leaks even when every assertion passed.
-    # Flush queued battle/actor/VFX nodes before ending the test process.
-    await process_frame
+        # A standalone SceneTree smoke quits immediately after assertions.
+        # Free the entire battle subtree synchronously; queue_free() needs
+        # more idle frames and leaves ObjectDB nodes alive at process exit.
+        battle.free()
     if failures.is_empty():
         print("PASS Act-I phase pacing: humane rescue/testimony require separate rounds and defensible Boss pressure")
         quit(0)

@@ -168,3 +168,9 @@
 - **失败1（旧 route-only smoke）**：`tools/smoke_first_act_flow.gd` 仍连续调用 `_act("special")` 100次，未处理新增回合门禁，导致第5章循环卡死并串联报剧情标记未完成。更新旧路线检查：关键阶段已完成的回合先正常 `guard` 并推进真实回合，不跳过三锁/四见证。
 - **失败2（专项进程清理）**：`tools/smoke_act01_boss_phase_pacing.gd` 虽显示两场阶段/伤害的 PASS，结束时使用 `queue_free` 后立即 `quit` 导致 ObjectDB 资源仍在队列、实际脚本退出码为1。增加 `await process_frame`，先清空正式 Godot 战斗节点后再退出。
 - **美术同步**：只修测试策略/节点清理，无新增图像、音效、场景实体；沿用先前登记并接入的战斗素材。需新 SHA 的 63/63 Godot QA、独立 Runtime 发布通过，才能宣称本批完成；iPhone 真机仍另行签收。
+
+### 2026-10-30 Batch 02 / Boss 单项 Godot 资源释放二次修复
+
+- 上一个测试修复提交 `a10f8fe627ca3c6a7bf7912a64fab11ae8a9a804` 的 [统一 CI](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41026058843) 已将六章旧流程冒烟从失败修复为 PASS，整体 **62/63**；新专项 `smoke_act01_boss_phase_pacing.gd` 的玩法断言也全部通过（仍 7/4 回合），但 `queue_free(); await process_frame` 只把退出时未销毁的 Node 从 12 减少至 6，进程仍返回1。
+- 原因是独立 `SceneTree` 测试在结束帧仍有延迟删除的战斗子节点；正式运行的战斗回调不受影响。现将**仅测试脚本**中的 `battle.queue_free()` 改为 `battle.free()`，同步销毁本次专测创建的全量节点树，不需要异步帧冲洗。第5/6章玩法、动态奖励、字体和既有素材均不变。
+- 下一次 CI 必须完整验证 63/63 和 Runtime 成功；不得用“测试脚本打印 PASS”替代 Godot 进程退出码。

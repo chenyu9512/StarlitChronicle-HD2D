@@ -298,5 +298,9 @@ func load_level(map_id: String,building_id: String,kind: String) -> Dictionary:
         "room_function":str(data.get("room_function","")),
         "region_design":str(data.get("region_design","")),
         "visuals":data.get("visuals",[]),
+        # Visual-only material/dressing contracts are deliberately kept
+        # separate from the authoritative blocked/interactive cell sets.
+        "floor_visual_zones":data.get("floor_visual_zones",[]),
+        "shelter_bed_dressing":data.get("shelter_bed_dressing",{}),
         "light_sources":data.get("light_sources",[]),
         "solid_regions":data.get("solid_regions",[])}

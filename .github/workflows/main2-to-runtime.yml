@@ -67,7 +67,7 @@ jobs:
           set -euo pipefail
           G="$RUNNER_TEMP/Godot_v4.7.2-stable_linux.x86_64"
           cd "$RUNNER_TEMP/playable"
-          timeout 180s "$G" --headless --path . --editor --quit
+          timeout 180s "$G" --headless --path . --editor --import --quit
           for script in smoke_c_act01_global_art_v14 smoke_c_act01_semantic_v17 smoke_c_main2_art_runtime smoke_battle_actors smoke_first_act_flow smoke_act01_six_chapters_normal smoke_rpg_core smoke_save_integrity smoke_c_regional_monsters_v15 smoke_main2_act01_harbor_rooms_visual smoke_main2_lighthouse_story_state smoke_main2_act01_live_boss_motion smoke_main2_act01_coast_monster_identity smoke_main2_act01_canonical_chapter_routes smoke_b_act01_journey smoke_world_story_interactions smoke_world_checkpoints smoke_branch_story_phase19 smoke_c_act01_hd2d_v18; do
             echo "Runtime Godot smoke: $script"
             timeout 180s "$G" --headless --path . --script "res://tools/$script.gd" 2>&1 | tee "$RUNNER_TEMP/$script.log"

@@ -2,6 +2,7 @@
 """Regression for Codemagic ios_export_preflight MissingSectionHeaderError."""
 from __future__ import annotations
 import base64
+import shutil
 from pathlib import Path
 import sys
 import tempfile
@@ -23,6 +24,9 @@ config_version=5
 [application]
 config/name="星灯纪行"
 config/icon="res://icons/test.png"
+
+[gui]
+theme/custom_font="res://assets/fonts/NotoSansCJKsc-Regular.otf"
 
 [rendering]
 textures/vram_compression/import_etc2_astc=true
@@ -48,6 +52,16 @@ class IosPreflightRegression(unittest.TestCase):
         (self.root / "export_presets.cfg").write_text(PRESETS, encoding="utf-8")
         (self.root / "icons").mkdir()
         (self.root / "icons/test.png").write_bytes(PNG)
+        font_dir = self.root / "assets/fonts"
+        font_dir.mkdir(parents=True)
+        source = Path(__file__).resolve().parents[1] / "assets/fonts"
+        shutil.copyfile(source / "NotoSansCJKsc-Regular.otf", font_dir / "NotoSansCJKsc-Regular.otf")
+        shutil.copyfile(source / "OFL-NotoSansCJK.txt", font_dir / "OFL-NotoSansCJK.txt")
+        (self.root / "scripts").mkdir()
+        (self.root / "scripts/font_setup.gd").write_text(
+            'extends Node\\nconst CHINESE_FONT: Font = preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")\\n',
+            encoding="utf-8",
+        )
 
     def test_godot_root_config_version_not_a_missing_header(self):
         parsed = load_config(self.root / "project.godot")
@@ -79,6 +93,21 @@ class IosPreflightRegression(unittest.TestCase):
             PRESETS.replace("ABCDE12345", "invalid"), encoding="utf-8"
         )
         self.assertTrue(any("Team ID" in s for s in verify(self.root)))
+
+    def test_missing_bundled_font_fails_closed(self):
+        (self.root / "assets/fonts/NotoSansCJKsc-Regular.otf").unlink()
+        self.assertTrue(any("bundled NotoSansCJKsc" in s for s in verify(self.root)))
+
+    def test_wrong_font_hash_fails_closed(self):
+        otf = self.root / "assets/fonts/NotoSansCJKsc-Regular.otf"
+        with otf.open("r+b") as fh:
+            fh.seek(4)
+            fh.write(b"INVALID-FONT")
+        self.assertTrue(any("SHA256" in s for s in verify(self.root)))
+
+    def test_missing_font_license_fails_closed(self):
+        (self.root / "assets/fonts/OFL-NotoSansCJK.txt").unlink()
+        self.assertTrue(any("Open Font License" in s for s in verify(self.root)))
 
     def test_non_godot_headerless_ini_still_fails(self):
         (self.root / "export_presets.cfg").write_text('name="iOS"\n', encoding="utf-8")

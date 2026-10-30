@@ -26,8 +26,8 @@ const SHELTER_PROPS: Dictionary = {
     "shelter_linen_cart": true, "shelter_treatment_tray": true,
     "medical_registration_counter": true, "treatment_bench": true,
 }
-const SHELTER_FLOOR_PATH: String = "res://assets/art/interiors/shelter_hd2d/shelter_care_floor_v2.svg"
-const SHELTER_SCREEN_PATH: String = "res://assets/art/interiors/shelter_hd2d/bedside_linen_screen_v2.svg"
+const SHELTER_FLOOR_PATH: String = "res://assets/art/runtime/scene_details_v1/shelter_care_floor_v2.svg"
+const SHELTER_SCREEN_PATH: String = "res://assets/art/runtime/scene_details_v1/shelter_bedside_linen_screen_v2.svg"
 const SEMANTIC_ROOM_ICONS: Dictionary = {
     "medicine":"res://assets/art/runtime/generated_gaps_v10/ui__extra__medicine.png",
     "paper":"res://assets/art/runtime/generated_gaps_v10/ui__extra__paper.png",
@@ -602,7 +602,7 @@ func _install_shelter_care_floor(layout: Dictionary) -> void:
         push_warning("Shelter care-zone art missing: " + SHELTER_FLOOR_PATH)
         return
     var texture: Texture2D = load(SHELTER_FLOOR_PATH) as Texture2D
-    if texture == null or texture.get_size() != Vector2i(128,32):
+    if texture == null or texture.get_size() != Vector2(128,32):
         push_warning("Shelter care-zone floor must be four 32px atlas swatches")
         return
     var atlas := TileSetAtlasSource.new()
@@ -668,7 +668,7 @@ func _install_shelter_bed_dressing(stage: Node2D, layout: Dictionary) -> void:
         push_warning("Shelter bedside screen art missing: " + SHELTER_SCREEN_PATH)
         return
     var screen_texture: Texture2D = load(SHELTER_SCREEN_PATH) as Texture2D
-    if screen_texture == null or screen_texture.get_size() != Vector2i(96,80):
+    if screen_texture == null or screen_texture.get_size() != Vector2(96,80):
         push_warning("Shelter bedside screen must be exactly 96x80")
         return
     var authored: Dictionary = layout.get("shelter_bed_dressing", {})

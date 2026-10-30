@@ -37,6 +37,12 @@ func _run() -> void:
     await process_frame
     ui.move_changed.connect(func(direction: Vector2) -> void: movement = direction)
 
+    var size: Vector2 = ui.get_viewport().get_visible_rect().size
+    ui._unhandled_input(_touch(2, true, Vector2(size.x * 0.83, size.y * 0.55)))
+    _assert(ui.stick_touch_id == -1, "Right-thumb taps never create movement")
+    ui._unhandled_input(_touch(2, true, Vector2(size.x * 0.40, size.y * 0.08)))
+    _assert(ui.stick_touch_id == -1, "Top HUD taps never create movement")
+
     var start := Vector2(415, 330)
     ui._unhandled_input(_touch(3, true, start))
     _assert(ui.stick_touch_id == 3, "First touch owns the floating stick")

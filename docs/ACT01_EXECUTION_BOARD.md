@@ -67,3 +67,11 @@
 5. **本批范围**：本次仅工程修复，**没有新增游戏画面或图片**；因此没有需新生成的角色/场景素材。后续六章场景扩充时，此条为强制验收门槛。
 
 **证据边界**：2026-10-30 的 Runtime 旧失败记录为 [41007555189](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41007555189)。代码提交不等于独立 Runtime 发布通过；应对修复提交运行新测试后更新本条。
+
+### 2026-10-30 Batch 01 / 第二次 Runtime 失败闭环（实施中）
+
+- 本批上一提交 `5630676b5bcfaa62b3cbf4748272294c93aa4398` 的 [统一质量门禁](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41009991766) 显示：Godot选择性 QA 成功，运行包构建成功，但 Runtime headless 首次加载时报 `res://shaders/hd2d_three_realms.gdshader` 缺失，连锁导致 `first_act.gd` 无法加载，冒烟脚本超时。**上一提交不得标记 Runtime 成功。**
+- 根因：正式 `scripts/systems/ThreeRealmsOptics.gd` 预载 `res://shaders/hd2d_three_realms.gdshader`，但 `is_game_file` 只收录 `assets/shaders/`，漏掉工程根的 `shaders/` 资源。
+- 修复方式：保留 `ThreeRealmsOptics` 原设计、不删去屏幕特效；Runtime 扫描纳入根目录 `shaders/*.gdshader` 及 `*.gdshaderinc`；发布验证把现用 Shader 设为必需项，补同类静态回归测试。
+- **素材生成/分配/接入**：本批修复的是已经存在、已由运行脚本引用的正式 Shader 资产，没有制作新图、没有替换身份映射。保证现有 Shader 与项目运行脚本作为同一资源图打包。后续新增美术继续遵循上节同步生产与接入门禁。
+- 新提交需要等待自身 SHA 的 Runtime smoke、独立快照与其他测试通过后，才允许将此项状态从 `待验收` 改为 `通过`。

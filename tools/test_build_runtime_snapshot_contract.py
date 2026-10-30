@@ -15,6 +15,13 @@ class RuntimeSnapshotContractTests(unittest.TestCase):
         self.assertTrue(is_game_file("assets/fonts/fallback.otf"))
         self.assertFalse(is_game_file("assets/fonts/notes.txt"))
 
+    def test_preloaded_gameplay_shaders_are_shipped(self):
+        # ThreeRealmsOptics.gd preloads res://shaders/hd2d_three_realms.gdshader.
+        # Its omission made standalone Godot fail to parse first_act.gd.
+        self.assertTrue(is_game_file("shaders/hd2d_three_realms.gdshader"))
+        self.assertTrue(is_game_file("shaders/normal_helpers.gdshaderinc"))
+        self.assertFalse(is_game_file("shaders/development_notes.txt"))
+
     def test_gameplay_script_and_scene_are_shipped(self):
         self.assertTrue(is_game_file("scripts/font_setup.gd"))
         self.assertTrue(is_game_file("scenes/first_act.tscn"))

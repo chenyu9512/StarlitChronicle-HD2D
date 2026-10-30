@@ -160,3 +160,11 @@
 - **QA**：新增 `tools/smoke_act01_boss_phase_pacing.gd`，通过真实 Godot Battle 检查两场的回合锁、按钮置灰、敌方出手、最低阶段回合数、唯一剧情结局且没有通用击杀捷径；接入 systems CI。原 `smoke_act01_six_chapters_normal.gd` 改为在阶段锁定时实际防御，并要求每场至少2次敌方攻击/2次防御选择及第5/6章最短回合数；仍需验证无作弊、真实地图剧情、原子回执和存档重载。
 - **素材/画面**：仅调整原战斗按钮文字与既有剧情机制资源引用；原 Boss/VFX/HUD/字体不变，没有新增图像或 UI 实体，不需要制作或再注册 PNG。后续新增任何视觉资源仍应同批生成、分配、接入与截图验收。
 - **状态约束**：提交后必须由本 SHA Godot 质量门禁和 Runtime 实测通过，才能将本项标为完成，真人连续通关及 iPhone 真机另行验收。
+
+## 2026-10-30 Batch 02 / Boss 分回合回归失败闭环（待新 SHA QA）
+
+- 追加的 [统一 QA Run 41025217886](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41025217886) 在 Godot 导入成功后为 **61/63**，Runtime 发布被跳过（不是已成功）。失败详情已核实，不回退第5/6章分回合玩法。
+- **真实机制已有证据**：Godot 新专项测试实际得到第5章 `7` 回合、`13` 次玩家行动、`6` 次敌方出手、`6` 次防御/间隔选择、结局 `nonlethal`；第6章 `4` 回合、`7` 次玩家行动、`3` 次敌方出手、`3` 次防御/间隔选择、结局 `testimony`。原完整六章无作弊测试也通过；不能把单项冒烟的 PASS 文本当整个进程验收成功。
+- **失败1（旧 route-only smoke）**：`tools/smoke_first_act_flow.gd` 仍连续调用 `_act("special")` 100次，未处理新增回合门禁，导致第5章循环卡死并串联报剧情标记未完成。更新旧路线检查：关键阶段已完成的回合先正常 `guard` 并推进真实回合，不跳过三锁/四见证。
+- **失败2（专项进程清理）**：`tools/smoke_act01_boss_phase_pacing.gd` 虽显示两场阶段/伤害的 PASS，结束时使用 `queue_free` 后立即 `quit` 导致 ObjectDB 资源仍在队列、实际脚本退出码为1。增加 `await process_frame`，先清空正式 Godot 战斗节点后再退出。
+- **美术同步**：只修测试策略/节点清理，无新增图像、音效、场景实体；沿用先前登记并接入的战斗素材。需新 SHA 的 63/63 Godot QA、独立 Runtime 发布通过，才能宣称本批完成；iPhone 真机仍另行签收。

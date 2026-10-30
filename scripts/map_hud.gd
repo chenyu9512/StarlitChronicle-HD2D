@@ -205,6 +205,8 @@ func _reflow_map() -> void:
         return
     var v: Vector2 = get_viewport().get_visible_rect().size
     var compact: bool = v.x < 1040.0 or v.y < 610.0
+    var touch: bool = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
+    var edge: float = clampf(minf(v.x,v.y) * 0.045,22.0,34.0) if touch else 14.0
     # Physical pixel bounds keep the atlas legible at 1152, 1920 and on
     # horizontal phones. Percentage-sized minimaps became oversized on 1080p.
     var map_width: float = clampf(v.x * 0.185, 142.0, 206.0)
@@ -213,26 +215,26 @@ func _reflow_map() -> void:
     small_frame.anchor_right = 1.0
     small_frame.anchor_top = 0.0
     small_frame.anchor_bottom = 0.0
-    small_frame.offset_left = -map_width - 14.0
-    small_frame.offset_right = -14.0
-    small_frame.offset_top = 14.0
-    small_frame.offset_bottom = 14.0 + map_height
+    small_frame.offset_left = -map_width - edge
+    small_frame.offset_right = -edge
+    small_frame.offset_top = edge
+    small_frame.offset_bottom = edge + map_height
     small_header.custom_minimum_size.y = 29.0 if compact else 32.0
     small_header.add_theme_font_size_override("font_size",12 if compact else 14)
-    large_frame.anchor_left = 0.018 if compact else 0.055
-    large_frame.anchor_right = 0.982 if compact else 0.945
-    large_frame.anchor_top = 0.018 if compact else 0.045
-    large_frame.anchor_bottom = 0.982 if compact else 0.955
+    large_frame.anchor_left = (0.045 if touch else 0.018) if compact else 0.055
+    large_frame.anchor_right = (0.955 if touch else 0.982) if compact else 0.945
+    large_frame.anchor_top = 0.028 if compact else 0.045
+    large_frame.anchor_bottom = 0.972 if compact else 0.955
     full_heading.visible = not compact
     full_heading.add_theme_font_size_override("font_size",20 if compact else 24)
     sidebar.visible = not compact or v.x >= 1100.0
     footer.visible = not compact
     full_view.custom_minimum_size = Vector2(240,145) if compact else Vector2(450,280)
     for button in [local_button,region_button,world_button]:
-        button.custom_minimum_size.y = 35 if compact else 43
+        button.custom_minimum_size.y = 46 if touch else (35 if compact else 43)
         button.add_theme_font_size_override("font_size",13 if compact else 16)
     for button in [zoom_in_button,zoom_out_button,recenter_button]:
-        button.custom_minimum_size.y = 32 if compact else 43
+        button.custom_minimum_size.y = 46 if touch else (32 if compact else 43)
         button.add_theme_font_size_override("font_size",12 if compact else 16)
     zoom_status.visible = not compact
 

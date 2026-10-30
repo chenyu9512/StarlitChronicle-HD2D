@@ -38,6 +38,7 @@ var illustration: TextureRect
 var branding_label: Label
 var continue_button: Button
 var new_game_button: Button
+var art_button: Button
 var status_label: Label
 var save_label: Label
 var prompt: Control
@@ -79,14 +80,22 @@ func _reflow_title() -> void:
         return
     var view: Vector2 = get_viewport_rect().size
     var compact: bool = view.x < 1024.0 or view.y < 610.0
-    branding_label.add_theme_font_size_override("font_size",56 if compact else 69)
+    branding_label.add_theme_font_size_override("font_size",52 if compact else 69)
+    # Keep title actions comfortable to tap on compact landscape iPhones.
+    var touch: bool = OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
+    for action in [continue_button,new_game_button,art_button,motion_button,audio_button]:
+        if action != null:
+            action.custom_minimum_size.y = 47 if touch else (42 if compact else 46)
+            action.add_theme_font_size_override("font_size",15 if compact else 17)
+    detail_title.add_theme_font_size_override("font_size",17 if compact else 19)
+    detail_body.add_theme_font_size_override("normal_font_size",13 if compact else 15)
     menu_left.anchor_left = 0.055 if compact else 0.095
     menu_left.anchor_right = 0.513 if compact else 0.515
     menu_right.anchor_left = 0.528 if compact else 0.535
     menu_right.anchor_right = 0.945 if compact else 0.916
-    menu_left.anchor_top = 0.465 if compact else 0.475
+    menu_left.anchor_top = 0.46 if compact else 0.475
     menu_right.anchor_top = menu_left.anchor_top
-    menu_left.anchor_bottom = 0.982 if compact else 0.966
+    menu_left.anchor_bottom = 0.974 if compact else 0.966
     menu_right.anchor_bottom = menu_left.anchor_bottom
 
 func _panel(bg: Color, border: Color = Color("89764f")) -> StyleBoxFlat:
@@ -245,9 +254,9 @@ func _build_menu() -> void:
     new_game_button = _button("开启新篇  ·  NEW GAME")
     new_game_button.pressed.connect(func() -> void: _request_launch(false))
     left.add_child(new_game_button)
-    var art := _button("美术工坊  ·  素材浏览与替换")
-    art.pressed.connect(func() -> void: art_manager_requested.emit())
-    left.add_child(art)
+    art_button = _button("美术工坊  ·  素材浏览与替换")
+    art_button.pressed.connect(func() -> void: art_manager_requested.emit())
+    left.add_child(art_button)
     save_label = _label("本机旅程档案",13,Color("bcced6"))
     save_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     left.add_child(save_label)

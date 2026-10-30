@@ -25,7 +25,16 @@ for ident,(art,cell,zone) in expected.items():
     key="interior.shelter."+art
     assert registry[key]["source"]==assets[key]["source"],("unregistered material",key)
     path=ROOT/registry[key]["source"].removeprefix("res://")
-    assert path.is_file() and path.stat().st_size>4096,path
+    # Some valid 96x128 V10 pixel PNGs compress below 4 KiB; size is
+    # not a semantic identity check. Authenticate their actual content.
+    assert path.is_file(),path
+    import hashlib
+    import struct
+    data=path.read_bytes()
+    assert len(data)>24 and data[:8]==bytes.fromhex("89504e470d0a1a0a"),path
+    width,height=struct.unpack(">II",data[16:24])
+    assert [width,height]==assets[key]["dimensions"],("PNG dimensions mismatch",key)
+    assert hashlib.sha256(data).hexdigest()==assets[key]["sha256"],("PNG SHA256 mismatch",key)
 assert {tuple(x) for x in room["art_collision_cells"]}=={(27,23),(27,30),(46,26)}
 assert len(room["light_sources"])==4
 assert {x["id"] for x in room["light_sources"]}=={

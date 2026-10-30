@@ -59,7 +59,12 @@ class IosPreflightRegression(unittest.TestCase):
         (self.root / "scripts/font_setup.gd").write_text(
             'extends Node\\nconst FONT_PATH := "res://assets/fonts/NotoSansCJKsc-Regular.otf"\\n'
             'func _enter_tree():\\n    var raw = FileAccess.get_file_as_bytes(FONT_PATH)\\n'
-            '    var embedded = FontFile.new()\\n    ThemeDB.fallback_font = embedded\\n',
+            '    var cjk_font = FontFile.new()\\n    ThemeDB.fallback_font = cjk_font\\n'
+            '    get_tree().node_added.connect(_apply_cjk_font)\\n'
+            'func _apply_cjk_font(node):\\n    var control = node\\n'
+            '    control.add_theme_font_override("font", cjk_font)\\n'
+            '    for kind in ["normal_font", "bold_font"]:\\n'
+            '        control.add_theme_font_override(kind, cjk_font)\\n',
             encoding="utf-8",
         )
 
@@ -93,6 +98,16 @@ class IosPreflightRegression(unittest.TestCase):
             PRESETS.replace("ABCDE12345", "invalid"), encoding="utf-8"
         )
         self.assertTrue(any("Team ID" in s for s in verify(self.root)))
+
+    def test_fallback_alone_does_not_pass_without_actual_gui_overrides(self):
+        setup = self.root / "scripts/font_setup.gd"
+        setup.write_text(
+            'const FONT_PATH := "res://assets/fonts/NotoSansCJKsc-Regular.otf"\\n'
+            'func _enter_tree():\\n    var bytes = FileAccess.get_file_as_bytes(FONT_PATH)\\n'
+            '    var cjk_font = FontFile.new()\\n    ThemeDB.fallback_font = cjk_font\\n',
+            encoding="utf-8",
+        )
+        self.assertTrue(any("actual Control" in s for s in verify(self.root)))
 
     def test_otf_include_filter_is_required(self):
         preset = self.root / "export_presets.cfg"

@@ -82,11 +82,18 @@ def verify(root: Path, template_dir: Path | None = None) -> list[str]:
         issues.append("P0: bundled CJK OpenType font signature or SHA256 is invalid")
     if not license_file.is_file() or "SIL OPEN FONT LICENSE" not in license_file.read_text(encoding="utf-8"):
         issues.append("P0: redistributable CJK Open Font License is missing")
-    if value(project, "gui", "theme/custom_font") != "res://assets/fonts/NotoSansCJKsc-Regular.otf":
-        issues.append("P0: project GUI font must be the bundled CJK OTF resource")
+    if value(project, "gui", "theme/custom_font"):
+        issues.append("P0: GUI must use FontSetup fallback, not an import-dependent project font")
     font_setup = root / "scripts/font_setup.gd"
-    if not font_setup.is_file() or 'preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")' not in font_setup.read_text(encoding="utf-8"):
-        issues.append("P0: canvas fallback font must reference the bundled CJK OTF")
+    if not font_setup.is_file() or not all(
+        marker in font_setup.read_text(encoding="utf-8")
+        for marker in ("FileAccess.get_file_as_bytes(FONT_PATH)", "FontFile.new()", "ThemeDB.fallback_font = embedded")
+    ):
+        issues.append("P0: GUI/canvas must initialize bundled CJK bytes via FontFile")
+
+    includes = value(presets, "preset.0", "include_filter").split(",")
+    if "*.otf" not in [item.strip() for item in includes]:
+        issues.append("P0: iOS export must include raw .otf files in PCK for FileAccess")
 
     if template_dir is not None:
         ios_template = template_dir / "ios.zip"

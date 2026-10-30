@@ -1,5 +1,5 @@
 extends SceneTree
-## CJK glyph availability regression for the same embedded FontFile shipped to iOS.
+## Verify OpenType raw bytes and the same FontSetup path used on iOS.
 const FONT_PATH := "res://assets/fonts/NotoSansCJKsc-Regular.otf"
 
 func _initialize() -> void:
@@ -7,25 +7,26 @@ func _initialize() -> void:
 
 func _run() -> void:
     var problems: Array[String] = []
-    var resource: Resource = load(FONT_PATH)
-    if resource == null or not resource is FontFile:
-        problems.append("Noto CJK FontFile could not be imported")
+    var bytes: PackedByteArray = FileAccess.get_file_as_bytes(FONT_PATH)
+    if bytes.size() < 10000000:
+        problems.append("Bundled CJK OpenType raw bytes absent")
     else:
-        var font: FontFile = resource
+        var font := FontFile.new()
+        font.data = bytes
         for character in ["星", "灯", "纪", "行", "中", "文", "字", "体", "菜", "单", "对", "话", "A", "9", "あ", "ア"]:
             if not font.has_char(character.unicode_at(0)):
                 problems.append("No embedded glyph: " + character)
-        ThemeDB.fallback_font = font
+        var setup: Node = load("res://scripts/font_setup.gd").new()
+        root.add_child(setup)
         if not ThemeDB.fallback_font.has_char("星".unicode_at(0)):
-            problems.append("Canvas fallback has no Chinese glyph")
-    if not ProjectSettings.has_setting("gui/theme/custom_font"):
-        problems.append("Project default font setting missing")
-    # The import is proven by successfully loading the FontFile resource, not
-    # by checking just its unimported source file on the build machine.
-    if problems.is_empty():
-        print("BUNDLED CJK FONT SMOKE: ALL PASS")
-        quit(0)
-    else:
+            problems.append("Game FontSetup did not install Chinese fallback")
+        if not ThemeDB.fallback_font.has_char("A".unicode_at(0)):
+            problems.append("Game FontSetup did not install Latin fallback")
+        setup.queue_free()
+    if not problems.is_empty():
         for error in problems:
             push_error("FONT FAIL: " + error)
         quit(1)
+    else:
+        print("BUNDLED CJK FONT SMOKE: ALL PASS")
+        quit(0)

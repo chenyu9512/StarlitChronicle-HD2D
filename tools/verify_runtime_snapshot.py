@@ -96,11 +96,15 @@ def verify(root: Path) -> dict:
     if "SIL OPEN FONT LICENSE" not in font_license:
         errors.append("Redistributable CJK font license is missing")
     project_config = files["project.godot"].read_text(encoding="utf-8")
-    if 'theme/custom_font="res://assets/fonts/NotoSansCJKsc-Regular.otf"' not in project_config:
-        errors.append("Default GUI font must use bundled NotoSansCJKsc-Regular.otf")
+    if 'theme/custom_font=' in project_config:
+        errors.append("Import-dependent project GUI font is forbidden on first-run iOS")
+    if '*.otf' not in files["export_presets.cfg"].read_text(encoding="utf-8"):
+        errors.append("iOS export must package raw .otf bytes")
     font_setup = files["scripts/font_setup.gd"].read_text(encoding="utf-8")
-    if 'preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")' not in font_setup:
-        errors.append("Canvas fallback font must use bundled NotoSansCJKsc-Regular.otf")
+    if not all(text in font_setup for text in (
+        'FileAccess.get_file_as_bytes(FONT_PATH)', 'FontFile.new()',
+        'ThemeDB.fallback_font = embedded')):
+        errors.append("Canvas and GUI fallback must load bundled font bytes")
 
     if "[editor_plugins]" in files["project.godot"].read_text(encoding="utf-8"):
         errors.append("Development editor plugin enabled in player build")

@@ -4,6 +4,7 @@ extends SceneTree
 const Game = preload("res://scripts/first_act.gd")
 const State = preload("res://scripts/first_act_state.gd")
 const Settlement = preload("res://scripts/d_world_interaction/battle_v3_settlement.gd")
+const Registry = preload("res://scripts/encounter_registry.gd")
 var game
 var failures: Array[String] = []
 var boss_pacing: Array[Dictionary] = []
@@ -85,6 +86,7 @@ func _reject_invalid_story_outcomes() -> void:
 
 func _run() -> void:
     _reject_invalid_story_outcomes()
+    var boss_registry = Registry.new()
     game = Game.new()
     root.add_child(game)
     var folder: String = "user://act01_six_normal_%d" % OS.get_process_id()
@@ -207,6 +209,9 @@ func _run() -> void:
             var guards: int = 0
             var herbs: int = 0
             var specials: int = 0
+            var strikes: int = 0
+            var damage_taken: int = 0
+            var guarded_strikes: int = 0
             var hp_before: int = 0
             for actor in game.progress.actors:
                 hp_before += int(actor.get("hp",0))
@@ -229,6 +234,12 @@ func _run() -> void:
                     specials += 1
                     b._act("special")
                 count += 1
+                # The authoritative callback may detach the Battle immediately
+                # upon victory, but the local node remains valid until freed.
+                if is_instance_valid(b):
+                    strikes = b.enemy_strike_count
+                    damage_taken = b.enemy_damage_dealt
+                    guarded_strikes = b.enemy_guarded_strikes
             if game.battle != null:
                 failures.append("Boss fight in chapter %d cannot finish" % chapter)
             # An envelope rather than an arbitrary HP nerf: preserve authored
@@ -242,7 +253,14 @@ func _run() -> void:
             var hp_after: int = 0
             for actor in game.progress.actors:
                 hp_after += int(actor.get("hp",0))
+            var recommended_level: int = int(boss_registry.progression(chapter).get("recommended_level",chapter))
+            var peak_level: int = 0
+            for level in opening_levels:
+                peak_level = maxi(peak_level,level)
             var metric: Dictionary = {"chapter":chapter,"levels":opening_levels,
+                "recommended_level":recommended_level,"max_level_gap":peak_level-recommended_level,
+                "enemy_strikes":strikes,"enemy_damage":damage_taken,
+                "guarded_enemy_strikes":guarded_strikes,
                 "rounds":last_round,"commands":count,"guard_commands":guards,
                 "herb_commands":herbs,"special_commands":specials,
                 "herbs_before":opening_herbs,

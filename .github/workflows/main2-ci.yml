@@ -33,6 +33,9 @@ on:
       - "tools/validate_c_act01_semantic_v17.py"
       - "tools/smoke_first_act_flow.gd"
       - "tools/smoke_act01_six_chapters_normal.gd"
+      # Act-I regression changes must trigger the full Godot gate too.
+      - "tools/smoke_act01_*.gd"
+      - "tools/validate_act01_*.py"
       - "tools/smoke_c_material_atlas_repair.gd"
       - "tools/smoke_coastal_exterior.gd"
       - "tools/smoke_c_regional_monsters_v15.gd"

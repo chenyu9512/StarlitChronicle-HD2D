@@ -174,3 +174,9 @@
 - 上一个测试修复提交 `a10f8fe627ca3c6a7bf7912a64fab11ae8a9a804` 的 [统一 CI](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41026058843) 已将六章旧流程冒烟从失败修复为 PASS，整体 **62/63**；新专项 `smoke_act01_boss_phase_pacing.gd` 的玩法断言也全部通过（仍 7/4 回合），但 `queue_free(); await process_frame` 只把退出时未销毁的 Node 从 12 减少至 6，进程仍返回1。
 - 原因是独立 `SceneTree` 测试在结束帧仍有延迟删除的战斗子节点；正式运行的战斗回调不受影响。现将**仅测试脚本**中的 `battle.queue_free()` 改为 `battle.free()`，同步销毁本次专测创建的全量节点树，不需要异步帧冲洗。第5/6章玩法、动态奖励、字体和既有素材均不变。
 - 下一次 CI 必须完整验证 63/63 和 Runtime 成功；不得用“测试脚本打印 PASS”替代 Godot 进程退出码。
+
+### 2026-10-30 Batch 02 / 第一幕专项 QA 变更强制触发完整 CI
+
+- 修复 `f72b4e5749804bbc286800c3d1f7a1dce990f6c1`（新阶段测试立即释放节点）后，发现统一 `.github/workflows/main2-ci.yml` 的 `push.paths` 只列出旧六章测试而未包含 `tools/smoke_act01_boss_phase_pacing.gd`，导致**仅修改该专项冒烟并不会触发新的质量门禁**。
+- 本批将 `tools/smoke_act01_*.gd` 及 `tools/validate_act01_*.py` 加入触发路径。所有第一幕专项回归与经济静态校验修改都需要重新跑新的 Godot 测试，而非借用旧 SHA 的绿色结果。这次 workflow 自身变更也触发完整 CI。
+- 本轮没有新增游戏画面或素材，原分回合 Boss 玩法与美术接线均保持不变。需在新 SHA 获得 Godot 63/63 与独立 Runtime 通过才可最终签收。

@@ -10,6 +10,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.png"
 
 [autoload]
+FontSetup="*res://scripts/font_setup.gd"
 State="*res://scripts/game_state.gd"
 
 [display]
@@ -20,6 +21,9 @@ window/size/window_height_override=648
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=4
+
+[gui]
+theme/custom_font="res://assets/fonts/chinese_system_font.tres"
 
 [rendering]
 renderer/rendering_method="gl_compatibility"

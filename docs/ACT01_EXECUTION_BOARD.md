@@ -211,3 +211,8 @@
 - 复用已有正确医疗图片资源，为第二章正式 V4 收容所增加三处病床和一处治疗药盘，唯一摆放 ID 登记在 `visuals` 并确实交给 `world_interior_art.gd` 实例化；15件正式医疗家具，4盏灯，无需新 PNG。
 - 新三床接触格物理碰撞，保持四条调查线索、五个主线点、登记/储存/安全出口与存档 ID 原位；通过静态 BFS 和 Godot 实际房间验证才能验收。
 - 需要取得新 SHA 的视觉截图，检查空旷程度和对照图；通过 CI 也不自动等于人工美术质量通过。
+
+### 2026-10-30 / 收容所新图集校验门槛修复
+
+- [首轮场景改造 QA 41050619656](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41050619656) 得到 64/65：真实 Godot `smoke_main2_act01_harbor_rooms_visual.gd` **通过**，三床物理碰撞、剧情与出口通路均有效；独立 [视觉 41050619617](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41050619617) 通过并生成26帧。唯一失败为新静态 `validate_act01_shelter_care_zones.py` 把高度可压缩的现成 96×128 PNG 必须超过4KB写成硬条件。
+- 修复为校验 PNG magic、IHDR 图片尺寸匹配现有 V10 Manifest、图片原始 SHA256 与 Manifest 一致；移除伪尺寸门槛，不改变任何素材、碰撞和场景。必须以修复后新 SHA 完整 QA + Runtime 为最终验收依据。

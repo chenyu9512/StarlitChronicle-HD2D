@@ -98,11 +98,12 @@ def verify(root: Path) -> dict:
     project_config = files["project.godot"].read_text(encoding="utf-8")
     if 'theme/custom_font=' in project_config:
         errors.append("Import-dependent project GUI font is forbidden on first-run iOS")
-    if '*.otf' not in files["export_presets.cfg"].read_text(encoding="utf-8"):
-        errors.append("iOS export must package raw .otf bytes")
+    if '*.fontbytes' not in files["export_presets.cfg"].read_text(encoding="utf-8"):
+        errors.append("iOS export must package nonimported raw CJK font bytes")
     font_setup = files["scripts/font_setup.gd"].read_text(encoding="utf-8")
     if not all(text in font_setup for text in (
-        'FileAccess.get_file_as_bytes(FONT_PATH)', 'FontFile.new()',
+        'FileAccess.get_file_as_bytes(EXPORTED_FONT_PATH)', 'FontFile.new()',
+        'ResourceLoader.load(FONT_PATH, "FontFile")',
         'ThemeDB.fallback_font = cjk_font',
         'node_added.connect(_apply_cjk_font)',
         'control.add_theme_font_override("font", cjk_font)',

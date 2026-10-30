@@ -165,7 +165,14 @@ func _run() -> void:
                 _touch("crisis")
             var count := 0
             while game.battle != null and count < 100:
-                game.battle._act("special")
+                var active_battle = game.battle
+                if chapter in [5,6] and active_battle.story_progress_round == active_battle.current_round:
+                    # A completed rescue/voice stage cannot be repeated in
+                    # one round. Guard through real enemy turns to the next
+                    # earned phase, even in this invincible route-only smoke.
+                    active_battle._act("guard")
+                else:
+                    active_battle._act("special")
                 count += 1
             if game.battle != null:
                 failures.append("Boss fight in chapter %d cannot finish" % chapter)

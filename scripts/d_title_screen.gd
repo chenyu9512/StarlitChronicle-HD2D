@@ -168,6 +168,19 @@ func _build_heading() -> void:
     caption.anchor_top = 0.12
     caption.anchor_bottom = 0.18
     add_child(caption)
+    # Visible ASCII-only build marker makes it possible to distinguish the
+    # verified font-payload IPA from older identical-version unsigned packages
+    # after sideloading/re-signing. The status reflects the actual autoload.
+    var font_bootstrap: Node = get_node_or_null("/root/FontSetup")
+    var font_ok: bool = font_bootstrap != null and font_bootstrap.get("cjk_font") is FontFile
+    var build_marker := _label("v0.6.1 (7)  |  CJK: " + ("OK" if font_ok else "ERROR"),11,GOLD)
+    build_marker.name = "BuildFontStatus"
+    build_marker.anchor_left = 0.72
+    build_marker.anchor_right = 0.96
+    build_marker.anchor_top = 0.035
+    build_marker.anchor_bottom = 0.09
+    build_marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+    add_child(build_marker)
     var logo := _label("星 灯 纪 行",69,CREAM)
     branding_label = logo
     logo.anchor_left = 0.09

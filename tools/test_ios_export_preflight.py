@@ -32,7 +32,7 @@ PRESETS = """; Unsigned export is only the Xcode project.
 [preset.0]
 name="iOS"
 platform="iOS"
-include_filter="*.json,*.csv,*.txt,*.otf"
+include_filter="*.json,*.csv,*.txt,*.otf,*.fontbytes"
 
 [preset.0.options]
 application/app_store_team_id="ABCDE12345"
@@ -111,8 +111,8 @@ class IosPreflightRegression(unittest.TestCase):
 
     def test_otf_include_filter_is_required(self):
         preset = self.root / "export_presets.cfg"
-        preset.write_text(PRESETS.replace(",*.otf", ""), encoding="utf-8")
-        self.assertTrue(any("raw .otf" in s for s in verify(self.root)))
+        preset.write_text(PRESETS.replace(",*.fontbytes", ""), encoding="utf-8")
+        self.assertTrue(any("nonimported *.fontbytes" in s for s in verify(self.root)))
 
     def test_missing_bundled_font_fails_closed(self):
         (self.root / "assets/fonts/NotoSansCJKsc-Regular.otf").unlink()

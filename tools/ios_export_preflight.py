@@ -97,8 +97,18 @@ def verify(root: Path, template_dir: Path | None = None) -> list[str]:
         issues.append("P0: GUI/canvas must override actual Control and RichTextLabel fonts with bundled CJK FontFile")
 
     includes = value(presets, "preset.0", "include_filter").split(",")
-    if "*.otf" not in [item.strip() for item in includes]:
-        issues.append("P0: iOS export must include raw .otf files in PCK for FileAccess")
+    normalized = [item.strip() for item in includes]
+    if "*.fontbytes" not in normalized:
+        issues.append("P0: iOS export must include nonimported *.fontbytes source in PCK")
+    if "*.otf" not in normalized:
+        issues.append("P0: iOS export must preserve imported OTF as optional fallback")
+    preparation = root / "tools/prepare_export_font.py"
+    audit = root / "tools/verify_ipa_font_payload.py"
+    # Miniature fixtures in test_ios_export_preflight.py only construct
+    # deployment files, so this presence check applies to the actual repository.
+    if (root / ".git").exists() and (not preparation.is_file() or not audit.is_file()):
+        issues.append("P0: iOS binary font preparation / final-PCK audit tooling missing")
+
 
     if template_dir is not None:
         ios_template = template_dir / "ios.zip"
@@ -121,7 +131,7 @@ def main() -> int:
         "status": "成功" if not issues else "失败",
         "ios_export_template": "checked" if args.template_dir else "未测试",
         "unsigned_build": True,
-        "checks": ["ios preset", "ETC2/ASTC", "icon", "Team ID format", "Bundle ID", "Xcode-only export", "bundled CJK OTF integrity", "CJK OFL license", "GUI and canvas font bindings"],
+        "checks": ["ios preset", "ETC2/ASTC", "icon", "Team ID format", "Bundle ID", "Xcode-only export", "bundled CJK OTF integrity", "CJK OFL license", "GUI and canvas font bindings", "nonimported fontbytes PCK payload"],
         "issues": issues,
     }, ensure_ascii=False, indent=2))
     return 1 if issues else 0

@@ -79,9 +79,23 @@ func _run() -> void:
         # Free the entire battle subtree synchronously; queue_free() needs
         # more idle frames and leaves ObjectDB nodes alive at process exit.
         battle.free()
+        battle = null
+        core = null
+        progress = null
+    # Release every _run() local before the SceneTree shutdown path. A direct
+    # quit() here retains the script call stack (and its RefCounted resources)
+    # while the engine counts outstanding objects at process exit.
+    call_deferred("_finish_test")
+
+func _finish_test() -> void:
+    # Allow renderer/audio servers and any pending child callbacks to drain
+    # after _run has returned; do not bypass the real combat/VFX assertions.
+    for frame in range(3):
+        await process_frame
     if failures.is_empty():
         print("PASS Act-I phase pacing: humane rescue/testimony require separate rounds and defensible Boss pressure")
         quit(0)
+        return
     for issue in failures:
         push_error(issue)
     quit(1)

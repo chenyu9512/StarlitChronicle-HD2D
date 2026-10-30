@@ -182,7 +182,7 @@ func _build_heading() -> void:
     # after sideloading/re-signing. The status reflects the actual autoload.
     var font_bootstrap: Node = get_node_or_null("/root/FontSetup")
     var font_ok: bool = font_bootstrap != null and font_bootstrap.get("cjk_font") is FontFile
-    var build_marker := _label("v0.6.1 (7)  |  CJK: " + ("OK" if font_ok else "ERROR"),11,GOLD)
+    var build_marker := _label("v0.6.2 (8)  |  CJK: " + ("OK" if font_ok else "ERROR"),11,GOLD)
     build_marker.name = "BuildFontStatus"
     build_marker.anchor_left = 0.72
     build_marker.anchor_right = 0.96

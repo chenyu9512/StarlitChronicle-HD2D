@@ -186,3 +186,11 @@
 - `59e1bdf2d4089e72eb104ebf5216109768970a31` [完整 CI 结果](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41026813482)：导入、旧六章测试、无作弊完整六章均成功，只有 `smoke_act01_boss_phase_pacing.gd` 检查结果正常但退出仍有 11 ObjectDB 残留（**62/63**）。将 Battle 改为 `free()` 也未解决，表明不只是 Node 的延迟删除，还涉及脚本的 RefCounted 局部变量和终止时序。
 - 本次测试把 `progress`、`core`、`battle` 清空后让 `_run` 返回，再用 `call_deferred("_finish_test")` 单独等待三个引擎帧，最后按完整运行结果退出；避免在仍持有战斗数据的脚本栈内调用 `quit()`。所有场景与 VFX 照常构造、攻击/防御照常执行；不得通过删掉胜利演出或降低断言来获得绿灯。
 - 本次没有新增游戏画面/素材。必须待新 SHA 63/63、正式 Runtime 发布后标为通过。
+
+### 2026-10-30 Batch 03 / 六章真实视觉取证字体可信度门禁（本 SHA 待视觉 CI）
+
+- 前一阶段 `32d395b0f173b27faa9513de543427d552b55a2c` 统一 Godot QA 与 Runtime 均通过；第5章7回合、第6章4回合的实际专属战斗已完成自动化验收。
+- 将 `capture_act01_visual_evidence.gd` 的系统字体覆盖移除，截图必须使用实际运行中的 `FontSetup.cjk_font` FontFile。验证真实字体 SHA256 与 `assets/fonts/NotoSansCJKsc-Regular.otf` 一致、19个中文/日文/英文基本字形存在、三个正式 UI 控件使用同一 FontFile。
+- 真实画面仍为六章外景+旧屋/收容所/酒馆+重要地标26帧，截图目录增加 `cjk-font-evidence-v1.json`。校验器和负面用例拒绝系统字体假冒证据；GH Workflow 截图脚本变更自动触发并上传画面和报告。
+- 不伪称 iPhone 已验收：Godot Linux 可见字体证明不等于 iOS PCK payload 或 Apple 真机最终光栅效果；`ios_ipa_payload_verified`、`ios_device_verified` 固定为 false；人工图片审稿仍需单独完成。
+- 本项仅是来源取证/代码/测试工作，不添加新美术画面，因此无需注册新资产；后续需要新增视觉实体时严格执行生成 → 唯一ID → Manifest → 正式渲染引用 → Runtime 打包 → 实际截图。

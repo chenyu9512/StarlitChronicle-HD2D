@@ -1,6 +1,10 @@
 extends SceneTree
 ## Capture real, unobstructed first-act gameplay frames; manual art sign-off remains separate.
 const Game = preload("res://scripts/first_act.gd")
+const FONT_SOURCE_PATH: String = "res://assets/fonts/NotoSansCJKsc-Regular.otf"
+const FONT_PROOF_FILE: String = "cjk-font-evidence-v1.json"
+const FONT_GLYPHS: Array[String] = ["星","灯","纪","行","朔","弦","归","航","潮","歌","收","容","所","中","文","あ","ア","A","9"]
+const MIN_FONT_SIZE: int = 10000000
 const MAPS: Dictionary = {1:"map_coast_01",2:"map_coast_02",3:"map_coast_04",4:"map_coast_02",5:"map_coast_03",6:"map_coast_05"}
 const INTERIORS: Dictionary = {1:"house",2:"shelter",4:"tavern"}
 const LANDMARKS: Dictionary = {1:"great-oak",3:"cave_relic",5:"saltwind_shoal_tidal_step",6:"lighthouse_landmark"}
@@ -66,18 +70,84 @@ func _save_landmark_frame(game, output: String, chapter: int, landmark_id: Strin
         print("EVIDENCE_LANDMARK chapter=%d sprite=%s (camera-only inspection)" % [chapter, landmark_id])
     return saved
 
+# Confirm the actual FontSetup autoload selected the bundled FontFile.
+# Using a SystemFont on the runner would produce attractive screenshots but
+# give zero evidence that the iPhone's actual CJK typeface has real glyphs.
+func _capture_font_evidence(game, output: String) -> bool:
+    var bootstrap: Node = root.get_node_or_null("FontSetup")
+    if bootstrap == null:
+        push_error("Capture has no real FontSetup autoload")
+        return false
+    var loaded: Variant = bootstrap.get("cjk_font")
+    if not (loaded is FontFile):
+        push_error("Capture is missing the real packaged CJK FontFile")
+        return false
+    var font: FontFile = loaded as FontFile
+    if ThemeDB.fallback_font != font:
+        push_error("Screenshot fallback font bypasses FontSetup")
+        return false
+    var font_bytes: PackedByteArray = font.data
+    var source_bytes: PackedByteArray = FileAccess.get_file_as_bytes(FONT_SOURCE_PATH)
+    if font_bytes.size() < MIN_FONT_SIZE or source_bytes.size() < MIN_FONT_SIZE:
+        push_error("Bundled Noto CJK font data is missing or suspiciously small")
+        return false
+    var actual_hash: String = font_bytes.sha256_buffer().hex_encode()
+    var source_hash: String = source_bytes.sha256_buffer().hex_encode()
+    if actual_hash != source_hash:
+        push_error("Rendered FontFile does not match the bundled OpenType source")
+        return false
+    for glyph in FONT_GLYPHS:
+        if not font.has_char(glyph.unicode_at(0)):
+            push_error("Bundled font is missing CJK glyph: " + glyph)
+            return false
+    var checked_controls: Array[String] = []
+    var sample_controls: Array = [game.ui.root, game.ui.dialog_layer, game.atlas.root]
+    for control in sample_controls:
+        if not (control is Control):
+            push_error("Missing a real game Control for the font sample")
+            return false
+        if not control.has_theme_font_override("font") or control.get_theme_font("font") != font:
+            push_error("Real game UI Control is not bound to FontSetup's font: " + str(control.name))
+            return false
+        checked_controls.append(str(control.name))
+    var proof: Dictionary = {
+        "schema":"starlit.act01.capture_font.v1",
+        "source_path":FONT_SOURCE_PATH,
+        "autoload":"FontSetup",
+        "source_kind":str(bootstrap.get("font_source")),
+        "loaded_font_class":font.get_class(),
+        "loaded_font_bytes":font_bytes.size(),
+        "loaded_font_sha256":actual_hash,
+        "source_font_sha256":source_hash,
+        "checked_glyphs":FONT_GLYPHS,
+        "checked_controls":checked_controls,
+        "same_bundled_font":true,
+        "system_font_used":false,
+        "godot_visual_font_verified":true,
+        "ios_ipa_payload_verified":false,
+        "ios_device_verified":false
+    }
+    var file: FileAccess = FileAccess.open(output + "/" + FONT_PROOF_FILE, FileAccess.WRITE)
+    if file == null:
+        push_error("Unable to write CJK screenshot provenance")
+        return false
+    file.store_string(JSON.stringify(proof, "  ") + "\n")
+    file.close()
+    print("CAPTURE_FONT_VERIFIED source=",proof["source_kind"],
+        " sha256=",actual_hash," ui_controls=",checked_controls.size())
+    return true
+
 func _capture() -> void:
-    # CI must install Noto CJK: an unreadable/tofu UI is not visual evidence.
-    var cjk_font := SystemFont.new()
-    cjk_font.font_names = PackedStringArray(["Noto Sans CJK SC","Noto Sans CJK JP","Noto Sans"])
-    ThemeDB.fallback_font = cjk_font
-    ThemeDB.get_default_theme().default_font = cjk_font
+    # Never override the FontSetup autoload with the CI runner's SystemFont.
     var output: String = "res://build/main2-art-qa/visual"
     DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
     var game = Game.new()
     root.add_child(game)
     game.ui.title_overlay.hide()
     game._start(false)
+    if not _capture_font_evidence(game, output):
+        quit(1)
+        return
     # Starting a real graphical game can play the prologue. Stop presentation
     # only; do not advance story flags or pretend an opening dialogue is a map.
     game.cinematic.cancel_all()

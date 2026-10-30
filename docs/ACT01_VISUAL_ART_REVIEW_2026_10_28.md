@@ -21,3 +21,13 @@
 - 每个已摆放的实机对象必须验证：身份、尺度、空间方向、遮挡、贴图接缝，以及玩家到达路径。
 - 仅文件存在、Godot 可加载、CI 成功不等于商业视觉签收。
 - 不采用任意材质随机组合或风格不符的第三方贴图替代。代码与资产变更应逐项修改到正式场景，并保留可复查证据。
+
+
+## 2026-10-30 / 第一幕视觉截图字体真实性补强（提交后需最新 CI 与画面复审）
+
+- 已确认上一轮 Boss 分回合回归修复 `32d395b0f173b27faa9513de543427d552b55a2c` 的 [Godot 质量门禁与 Runtime 发布全部成功](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41027364370)。可进入第一幕美术取证，但尚不代表商业视觉验收。
+- **根因**：原 `capture_act01_visual_evidence.gd` 在截图时创建 `SystemFont` 并覆盖 ThemeDB fallback/default，导致 CI 系统上的 Noto 字体能掩盖打包程序真正使用的 `FontSetup` 字体资源。
+- **修复**：截图脚本不再指定 SystemFont；从真实 `/root/FontSetup` 加载 `FontFile`，强制核对渲染 FontFile 与仓库内 `NotoSansCJKsc-Regular.otf` 的原始数据 SHA-256、字体大小、19个中日英字形及游戏实际3个 UI Control 的字体绑定。记录 `visual/cjk-font-evidence-v1.json`，任何系统字体替代、字形遗漏、哈希不同或 UI 未绑定立即失败。
+- **证据审计**：`verify_act01_visual_evidence_v3.py` 除26张真实 Godot 截图之外还核对字体来源证明、真实字体源文件哈希/长度、字形/Control、且明确 `ios_ipa_payload_verified=false` 与 `ios_device_verified=false`。提供独立负例测试，禁止伪造 iPhone 真机通过。
+- **CI 接入**：视觉验收 workflow 在截图/审计/FontSetup 或 OTF 改动时自动运行；只安装 Xvfb、GL 依赖，**不再安装系统 Noto CJK 字体** 来掩盖包内字体缺失。统一 CI art 静态测试审计证据契约。
+- **范围**：本次没有新增角色/环境 PNG，也没有改任何摆放场景，因此不生成重复资产；先取得最新真实六章截图与来源证明，然后继续旧屋/收容所/酒馆的结构与美术修整。真实 iPhone IPA 包内字体仍要通过独立 IPA payload 校验和物理真机验收，Godot 截图不是后者的替代品。

@@ -32,6 +32,16 @@ var party_line: Label
 var status_frame: PanelContainer
 var status_rows: RichTextLabel
 var dpad: Control
+# Floating touch stick: the first free touch owns the stick until released.
+const STICK_SIZE: float = 144.0
+const STICK_KNOB_SIZE: float = 50.0
+const STICK_TRAVEL: float = 54.0
+const STICK_DEADZONE: float = 10.0
+var floating_stick: Control
+var floating_knob: Panel
+var stick_touch_id: int = -1
+var stick_origin: Vector2 = Vector2.ZERO
+var stick_vector: Vector2 = Vector2.ZERO
 var act_button: Button
 var menu_button: Button
 var shortcut_button: Button
@@ -163,6 +173,7 @@ func _build_controls() -> void:
     _direction("←", "left", Vector2(-1, 0), Vector2(0, 61))
     _direction("→", "right", Vector2(1, 0), Vector2(128, 61))
     _direction("↓", "down", Vector2(0, 1), Vector2(64, 122))
+    _build_floating_stick()
     act_button = _button("✦ 调查 / 对话", 18)
     act_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
     act_button.offset_left = -195
@@ -198,6 +209,89 @@ func _build_controls() -> void:
     toast.hide()
     root.add_child(toast)
 
+func _stick_style(background: Color, outline: Color, radius: int) -> StyleBoxFlat:
+    var style := StyleBoxFlat.new()
+    style.bg_color = background
+    style.border_color = outline
+    style.set_border_width_all(2)
+    style.set_corner_radius_all(radius)
+    style.anti_aliasing = true
+    return style
+
+func _build_floating_stick() -> void:
+    # Unlike the D-pad, this is positioned at the finger's first touch, not a fixed corner.
+    floating_stick = Control.new()
+    floating_stick.name = "FloatingTouchStick"
+    floating_stick.size = Vector2.ONE * STICK_SIZE
+    floating_stick.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    root.add_child(floating_stick)
+    var ring := Panel.new()
+    ring.size = floating_stick.size
+    ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    ring.add_theme_stylebox_override("panel", _stick_style(Color(0.06, 0.13, 0.22, 0.34), Color(0.90, 0.77, 0.49, 0.80), int(STICK_SIZE * 0.5)))
+    floating_stick.add_child(ring)
+    floating_knob = Panel.new()
+    floating_knob.size = Vector2.ONE * STICK_KNOB_SIZE
+    floating_knob.position = (floating_stick.size - floating_knob.size) * 0.5
+    floating_knob.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    floating_knob.add_theme_stylebox_override("panel", _stick_style(Color(0.92, 0.79, 0.52, 0.55), GOLD, int(STICK_KNOB_SIZE * 0.5)))
+    floating_stick.add_child(floating_knob)
+    floating_stick.hide()
+
+func _stick_can_start() -> bool:
+    if dpad == null or not dpad.visible:
+        return false
+    # Do not begin movement while a title, dialogue, or in-game modal is open.
+    for overlay in [title_overlay, dialog_layer, dialog_history_screen, menu_layer]:
+        if overlay != null and overlay.visible:
+            return false
+    return true
+
+func _touch_hits_buttons(point: Vector2) -> bool:
+    # _input precedes GUI handling. Explicitly protect action/menu/D-pad buttons
+    # so a tap on one of them can never also start a floating stick.
+    for button in [act_button, menu_button, shortcut_button]:
+        if button != null and button.visible and button.get_global_rect().has_point(point):
+            return true
+    for button in dpad.get_children():
+        if button is Control and button.visible and button.get_global_rect().has_point(point):
+            return true
+    return false
+
+func _update_floating_stick(point: Vector2) -> void:
+    var offset: Vector2 = point - stick_origin
+    var travel: Vector2 = offset.limit_length(STICK_TRAVEL)
+    floating_knob.position = (floating_stick.size - floating_knob.size) * 0.5 + travel
+    var length: float = offset.length()
+    if length <= STICK_DEADZONE:
+        stick_vector = Vector2.ZERO
+    else:
+        var strength: float = minf(1.0, (length - STICK_DEADZONE) / (STICK_TRAVEL - STICK_DEADZONE))
+        stick_vector = offset.normalized() * strength
+    _emit_movement()
+
+func _stop_floating_stick() -> void:
+    stick_touch_id = -1
+    stick_origin = Vector2.ZERO
+    stick_vector = Vector2.ZERO
+    if floating_stick != null:
+        floating_stick.hide()
+
+func _input(event: InputEvent) -> void:
+    if stick_touch_id == -1:
+        return
+    if event is InputEventScreenDrag and event.index == stick_touch_id:
+        if not _stick_can_start():
+            _stop_floating_stick()
+            _emit_movement()
+        else:
+            _update_floating_stick(event.position)
+        get_viewport().set_input_as_handled()
+    elif event is InputEventScreenTouch and event.index == stick_touch_id and not event.pressed:
+        _stop_floating_stick()
+        _emit_movement()
+        get_viewport().set_input_as_handled()
+
 func _direction(symbol: String, key: String, vector: Vector2, position: Vector2) -> void:
     var button := _button(symbol, 30)
     button.position = position
@@ -213,13 +307,15 @@ func _direction(symbol: String, key: String, vector: Vector2, position: Vector2)
     )
 
 func _emit_movement() -> void:
-    var total := Vector2.ZERO
+    var total: Vector2 = stick_vector
     for vec in active_dirs.values():
         total += vec
-    move_changed.emit(total.normalized())
+    # A D-pad press remains full-speed; the stick can also provide analog speed.
+    move_changed.emit(total.limit_length(1.0))
 
 func clear_movement() -> void:
     active_dirs.clear()
+    _stop_floating_stick()
     _emit_movement()
 
 func set_hud(chapter: int, location: String, objective: String, actors: Array[Dictionary], gold: int, potions: int) -> void:
@@ -403,6 +499,15 @@ func _process(delta: float) -> void:
             _next()
 
 func _unhandled_input(event: InputEvent) -> void:
+    if event is InputEventScreenTouch:
+        if event.pressed and stick_touch_id == -1 and _stick_can_start() and not _touch_hits_buttons(event.position):
+            stick_touch_id = event.index
+            stick_origin = event.position
+            floating_stick.position = stick_origin - floating_stick.size * 0.5
+            floating_stick.show()
+            _update_floating_stick(event.position)
+            get_viewport().set_input_as_handled()
+        return
     if not event is InputEventKey or not event.pressed or event.echo:
         return
     if dialog_history_screen != null and dialog_history_screen.visible:

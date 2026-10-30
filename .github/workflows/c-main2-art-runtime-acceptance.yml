@@ -19,6 +19,10 @@ on:
       - "scripts/world_act01_region_accents.gd"
       - "data/levels/v4/coastal_scenery.json"
       - ".github/workflows/c-main2-art-runtime-acceptance.yml"
+      - "tools/capture_act01_visual_evidence.gd"
+      - "tools/verify_act01_visual_evidence_v3.py"
+      - "scripts/font_setup.gd"
+      - "assets/fonts/NotoSansCJKsc-Regular.otf"
       - "addons/starlit_art_pipeline/**"
       - "scripts/c_art_theme_v2.gd"
       - "tools/check_starlit_art_pipeline.gd"
@@ -102,17 +106,16 @@ jobs:
             if [ "$rc" -ne 0 ]; then failed=1; fi
           done
           exit "$failed"
-      - name: Install CJK fonts for readable first-act visual evidence
+      - name: Install virtual display (screenshots must use bundled FontSetup, not system CJK fonts)
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends fonts-noto-cjk xvfb xauth libgl1-mesa-dri
-          fc-cache -f
-      - name: Capture six chapter maps and three real interiors for human visual review
+          sudo apt-get install -y --no-install-recommends xvfb xauth libgl1-mesa-dri
+      - name: Capture six chapter maps and three real interiors with bundled CJK font proof
         id: capture
         run: |
           mkdir -p build/main2-art-qa/visual
           timeout 160s xvfb-run -a ./Godot_v4.7.2-stable_linux.x86_64 --path . --script res://tools/capture_act01_visual_evidence.gd
-      - name: Verify all 26 Godot screenshot files and bind them to this commit
+      - name: Verify all 26 Godot screenshot files and actual game CJK font provenance
         if: steps.capture.outcome == 'success'
         run: python3 tools/verify_act01_visual_evidence_v3.py --directory build/main2-art-qa/visual --sha "$GITHUB_SHA"
       - name: Upload truthful CI run logs

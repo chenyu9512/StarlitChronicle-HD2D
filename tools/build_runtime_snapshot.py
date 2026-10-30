@@ -59,6 +59,9 @@ def is_game_file(name):
         if Path(name).suffix not in (".json", ".csv", ".tscn", ".tres"):
             return False
         return not (name.startswith("data/assets/") and Path(name).name.startswith(EXCLUDE_DATA))
+    if name.startswith("shaders/"):
+        # Screen-space shaders live outside assets/ and are preloaded by game scripts.
+        return Path(name).suffix.lower() in {".gdshader", ".gdshaderinc"}
     if name.startswith("assets/fonts/"):
         # Font resources referenced by project.godot must reach the slim IPA.
         return Path(name).suffix.lower() in {".ttf", ".otf", ".woff", ".woff2", ".tres"}

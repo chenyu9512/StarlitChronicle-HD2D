@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import configparser
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -72,6 +73,21 @@ def verify(root: Path, template_dir: Path | None = None) -> list[str]:
             with image.open("rb") as fh:
                 if fh.read(8) != b"\x89PNG\r\n\x1a\n":
                     issues.append("P0: application icon is not a valid PNG header: " + icon)
+    # Hard fail instead of publishing a signed/unsigned IPA with invisible text.
+    otf = root / "assets/fonts/NotoSansCJKsc-Regular.otf"
+    license_file = root / "assets/fonts/OFL-NotoSansCJK.txt"
+    if not otf.is_file() or otf.stat().st_size < 10_000_000:
+        issues.append("P0: bundled NotoSansCJKsc-Regular.otf is missing or incomplete")
+    elif otf.open("rb").read(4) != b"OTTO" or hashlib.sha256(otf.read_bytes()).hexdigest() != "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b":
+        issues.append("P0: bundled CJK OpenType font signature or SHA256 is invalid")
+    if not license_file.is_file() or "SIL OPEN FONT LICENSE" not in license_file.read_text(encoding="utf-8"):
+        issues.append("P0: redistributable CJK Open Font License is missing")
+    if value(project, "gui", "theme/custom_font") != "res://assets/fonts/NotoSansCJKsc-Regular.otf":
+        issues.append("P0: project GUI font must be the bundled CJK OTF resource")
+    font_setup = root / "scripts/font_setup.gd"
+    if not font_setup.is_file() or 'preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")' not in font_setup.read_text(encoding="utf-8"):
+        issues.append("P0: canvas fallback font must reference the bundled CJK OTF")
+
     if template_dir is not None:
         ios_template = template_dir / "ios.zip"
         if not ios_template.is_file() or not zipfile.is_zipfile(ios_template):
@@ -93,7 +109,7 @@ def main() -> int:
         "status": "成功" if not issues else "失败",
         "ios_export_template": "checked" if args.template_dir else "未测试",
         "unsigned_build": True,
-        "checks": ["ios preset", "ETC2/ASTC", "icon", "Team ID format", "Bundle ID", "Xcode-only export"],
+        "checks": ["ios preset", "ETC2/ASTC", "icon", "Team ID format", "Bundle ID", "Xcode-only export", "bundled CJK OTF integrity", "CJK OFL license", "GUI and canvas font bindings"],
         "issues": issues,
     }, ensure_ascii=False, indent=2))
     return 1 if issues else 0

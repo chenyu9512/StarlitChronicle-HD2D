@@ -141,7 +141,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "$GODOT_BIN" --headless --editor --path . --quit 2>&1 | tee build/ios/import.log
+          "$GODOT_BIN" --headless --editor --import --path . --quit 2>&1 | tee build/ios/import.log
+          "$GODOT_BIN" --headless --path . --script res://tools/smoke_bundled_fonts.gd 2>&1 | tee build/ios/font-smoke.log
+          grep -q "BUNDLED CJK FONT SMOKE: ALL PASS" build/ios/font-smoke.log || {
+            echo "CJK font import/glyph smoke failed; refusing to create unreadable iPhone package"
+            exit 1
+          }
           "$GODOT_BIN" --headless --path . --export-release "iOS" "build/ios/StarlitChronicle.xcodeproj" 2>&1 | tee build/ios/export.log
           test -s build/ios/StarlitChronicle.xcodeproj/project.pbxproj
           find build/ios -type f -name '*.pck' -size +1M -print | tee build/ios/pck-files.txt

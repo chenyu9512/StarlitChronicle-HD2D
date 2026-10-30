@@ -257,6 +257,11 @@ func _run() -> void:
             var peak_level: int = 0
             for level in opening_levels:
                 peak_level = maxi(peak_level,level)
+            # The starting heroes should remain close to the recommended
+            # chapter level; the authored sailor is recruited pre-levelled.
+            for party_index in range(mini(2,opening_levels.size())):
+                if absi(opening_levels[party_index]-recommended_level) > 2:
+                    failures.append("Chapter %d original hero level %d deviates from recommended %d" % [chapter,opening_levels[party_index],recommended_level])
             var metric: Dictionary = {"chapter":chapter,"levels":opening_levels,
                 "recommended_level":recommended_level,"max_level_gap":peak_level-recommended_level,
                 "enemy_strikes":strikes,"enemy_damage":damage_taken,

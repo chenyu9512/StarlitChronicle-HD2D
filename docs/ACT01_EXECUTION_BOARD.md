@@ -128,3 +128,12 @@
 - **真实防御验证**：新增 `tools/smoke_act01_boss_guard_pressure.gd`，使用真实 Godot `Battle`/状态/职业系统/五章 Boss 配置，对每场冻结相同强攻回合、同一随机种子，分别在无防御和全员防御下实际执行 Boss 出手；核对 HP 伤害减少、命中次数和战斗本地统计一致。纳入统一 CI systems 分组。
 - **美术与素材**：本项是内部战斗压力指标和自动化验证，不添加任何贴图、音效或画面元素；现有 Boss 动作、HUD、特效及中文字体维持正式接线。如果未来采用新的阶段特效，将同批完成授权素材、资源ID、运行时引用和截图。
 - **下一阶段决策**：取得本 SHA 的新六章 metrics 与五 Boss 真实防御结果之后，再决定是调整关卡经验成长、敌人动作节奏还是部分战斗机制；真人低配/低等级胜率另行验收。
+
+## 2026-10-30 Batch 02 / 经验成长与奖励来源归一（本 SHA 待 CI）
+
+- [上一提交统一 QA 60/60 与 Runtime 发布通过](https://github.com/chenyu9512/StarlitChronicle-HD2D/actions/runs/41020436902)。真实战斗日志第2—6章初始等级 4/8/12/15/18，推荐为 2/3/4/5/7；五场战斗实伤 16/3/1/11/1 且无需草药和防御，但五 Boss 真实伤害防御对照明确证明防御能有效减伤。
+- 通过追踪真实 `QuestV3Settlement.settle_scene_effects` 和 `settle_local`，修正第一幕三条**真正发 XP** 的渠道，而不是只改游戏任务目录：`story/campaign/act_01.json` 六章结算 XP = 35/40/45/50/55/60；`data/first_act_side_quests.json` 六条本地支线 XP = 20/24/28/32/36/40；`data/gameplay/combat_progression.json` 第一幕 Boss XP = 45/55/70/85/100/115（第1章尚无剧情 Boss）。
+- 对齐 `data/content/quests.json` 的前六章主线任务登记 XP 与剧情实际发奖数值；`EncounterRegistry.story_boss` 在前六章以已登记 `boss_xp` 为权威，修复旧默认 `150 + chapter * 65` 抬高实际经验的问题。第7—72章奖励算法不变。
+- 保留金币、药草、职业经验、伤害、Boss 特殊胜利条件和 V3 原子回执不变。旧档已经取得的经验不会回溯扣除，旧档难度仍需人工验证；朔弦的预设入队等级目前仍为8，不在此次减少其已拥有的等级。
+- 增加 `tools/validate_act01_xp_pacing.py` 静态验收实际奖励来源一致性，并在 `tools/smoke_act01_six_chapters_normal.gd` 的**真实六章通关**中检查初始双人角色的章节推荐等级差≤2，现有 Boss 实际伤害、回合数、战斗回执仍持续验收。
+- **素材**：数值配置与 QA 脚本变更，不新建任何战斗画面、人物、建筑或动画，无需新 PNG；已接入字体/Boss素材/场景不变。后续新增素材依然要求同批生成、登记、接入与实景检查。

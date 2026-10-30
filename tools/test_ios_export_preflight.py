@@ -25,9 +25,6 @@ config_version=5
 config/name="星灯纪行"
 config/icon="res://icons/test.png"
 
-[gui]
-theme/custom_font="res://assets/fonts/NotoSansCJKsc-Regular.otf"
-
 [rendering]
 textures/vram_compression/import_etc2_astc=true
 """
@@ -35,6 +32,7 @@ PRESETS = """; Unsigned export is only the Xcode project.
 [preset.0]
 name="iOS"
 platform="iOS"
+include_filter="*.json,*.csv,*.txt,*.otf"
 
 [preset.0.options]
 application/app_store_team_id="ABCDE12345"
@@ -59,7 +57,9 @@ class IosPreflightRegression(unittest.TestCase):
         shutil.copyfile(source / "OFL-NotoSansCJK.txt", font_dir / "OFL-NotoSansCJK.txt")
         (self.root / "scripts").mkdir()
         (self.root / "scripts/font_setup.gd").write_text(
-            'extends Node\\nconst CHINESE_FONT: Font = preload("res://assets/fonts/NotoSansCJKsc-Regular.otf")\\n',
+            'extends Node\\nconst FONT_PATH := "res://assets/fonts/NotoSansCJKsc-Regular.otf"\\n'
+            'func _enter_tree():\\n    var raw = FileAccess.get_file_as_bytes(FONT_PATH)\\n'
+            '    var embedded = FontFile.new()\\n    ThemeDB.fallback_font = embedded\\n',
             encoding="utf-8",
         )
 
@@ -93,6 +93,11 @@ class IosPreflightRegression(unittest.TestCase):
             PRESETS.replace("ABCDE12345", "invalid"), encoding="utf-8"
         )
         self.assertTrue(any("Team ID" in s for s in verify(self.root)))
+
+    def test_otf_include_filter_is_required(self):
+        preset = self.root / "export_presets.cfg"
+        preset.write_text(PRESETS.replace(",*.otf", ""), encoding="utf-8")
+        self.assertTrue(any("raw .otf" in s for s in verify(self.root)))
 
     def test_missing_bundled_font_fails_closed(self):
         (self.root / "assets/fonts/NotoSansCJKsc-Regular.otf").unlink()

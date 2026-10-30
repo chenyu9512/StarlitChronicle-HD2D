@@ -37,6 +37,11 @@ const STICK_SIZE: float = 144.0
 const STICK_KNOB_SIZE: float = 50.0
 const STICK_TRAVEL: float = 54.0
 const STICK_DEADZONE: float = 10.0
+# Limit new movement touches to the left side so right-thumb camera/menu
+# taps cannot unexpectedly steer the player. The D-pad still works.
+const STICK_TOUCH_ZONE: float = 0.62
+const STICK_TOP_GUARD: float = 0.18
+const TOUCH_MIN_BUTTON: float = 46.0
 var floating_stick: Control
 var floating_knob: Panel
 var stick_touch_id: int = -1
@@ -298,6 +303,15 @@ func _stick_can_start() -> bool:
     return true
 
 func _touch_hits_buttons(point: Vector2) -> bool:
+    # Starting a joystick over the HUD, map/status or right-thumb actions
+    # can swallow their intended touches, especially on iPhone landscape.
+    var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+    if point.x < 0.0 or point.y < 0.0 or point.x > viewport_size.x * STICK_TOUCH_ZONE or point.y < viewport_size.y * STICK_TOP_GUARD or point.y > viewport_size.y:
+        return true
+    if status_frame != null and status_frame.visible and status_frame.get_global_rect().has_point(point):
+        return true
+    if hud != null and hud.visible and hud.get_global_rect().has_point(point):
+        return true
     # GUI handles touch after _input, so guard all visible controls explicitly.
     for button in [act_button, menu_button, shortcut_button, status_toggle]:
         if button != null and button.visible and button.get_global_rect().has_point(point):
@@ -379,7 +393,9 @@ func _update_explore_controls() -> void:
         return
     dpad.visible = _playing and _touch_mode
     act_button.visible = _playing and _touch_mode and not _interaction_hint.is_empty()
-    shortcut_button.visible = false
+    # Restores the previously hidden adventure-book quick action on touch
+    # devices, without changing keyboard/desktop navigation.
+    shortcut_button.visible = _playing and _touch_mode
     menu_button.visible = _playing
     interaction_label.visible = _playing and not _touch_mode and not _interaction_hint.is_empty()
     if not dpad.visible and (not active_dirs.is_empty() or stick_touch_id != -1):
@@ -743,7 +759,8 @@ func _reflow_layout() -> void:
         return
     var view: Vector2 = get_viewport().get_visible_rect().size
     var compact: bool = view.x < 1040.0 or view.y < 600.0
-    var safe: float = 18.0 / maxf(view.x,1.0)
+    var margin: float = clampf(minf(view.x,view.y) * 0.045, 18.0, 34.0) if _touch_mode else 18.0
+    var safe: float = margin / maxf(view.x,1.0)
     hud.anchor_left = safe
     # Preserve the centre of the gameplay screen. Tooltips/menu keep full
     # objective and HP/MP detail; only the passive overlays are compact.
@@ -758,33 +775,45 @@ func _reflow_layout() -> void:
     status_frame.anchor_top = 0.225 if _touch_mode else (0.70 if status_expanded else 0.858)
     status_frame.anchor_bottom = (0.54 if status_expanded else 0.38) if _touch_mode else 0.961
     status_rows.add_theme_font_size_override("normal_font_size",12 if compact else 14)
-    dpad.offset_left = 14
-    dpad.offset_right = 201
-    dpad.offset_top = -215
-    dpad.offset_bottom = -16
-    act_button.offset_left = -154
-    act_button.offset_right = -14
-    act_button.offset_top = -91
-    act_button.offset_bottom = -38
-    menu_button.offset_left = -72
-    menu_button.offset_right = -14
-    menu_button.offset_top = -147
-    menu_button.offset_bottom = -94
+    dpad.offset_left = margin
+    dpad.offset_right = margin + 187.0
+    dpad.offset_top = -margin - 199.0
+    dpad.offset_bottom = -margin
+    act_button.offset_left = -margin - 140.0
+    act_button.offset_right = -margin
+    act_button.offset_top = -margin - 91.0
+    act_button.offset_bottom = -margin - 38.0
+    menu_button.offset_left = -margin - 58.0
+    menu_button.offset_right = -margin
+    menu_button.offset_top = -margin - 147.0
+    menu_button.offset_bottom = -margin - 94.0
+    shortcut_button.offset_left = -margin - 202.0
+    shortcut_button.offset_right = -margin - 72.0
+    shortcut_button.offset_top = -margin - 147.0
+    shortcut_button.offset_bottom = -margin - 94.0
+    for action in [act_button,menu_button,shortcut_button]:
+        action.custom_minimum_size.y = TOUCH_MIN_BUTTON if _touch_mode else 42.0
     dialogue_panel.anchor_left = 0.035 if compact else 0.085
     dialogue_panel.anchor_right = 0.965 if compact else 0.915
     dialogue_panel.anchor_top = (0.065 if compact else 0.31) if choosing else (0.60 if compact else 0.615)
     dialogue_panel.anchor_bottom = 0.981
-    dialog_portrait.custom_minimum_size = Vector2(94,115) if compact else Vector2(112,140)
+    dialog_portrait.custom_minimum_size = Vector2(72,92) if compact else Vector2(112,140)
     evidence_art.custom_minimum_size.y = 52.0 if compact else 74.0
     dialog_text.add_theme_font_size_override("normal_font_size",17 if compact else 19)
     dialog_speaker.add_theme_font_size_override("font_size",18 if compact else 21)
     for button in [dialog_next,dialog_auto_button,dialog_history_button,dialog_skip_button]:
-        button.custom_minimum_size.y = 36 if compact else 42
+        button.custom_minimum_size.y = 46 if _touch_mode else (38 if compact else 42)
         button.add_theme_font_size_override("font_size",12 if compact else 14)
     dialog_speaker.add_theme_color_override("font_color",_hud_accent)
-    camp_panel.anchor_left = 0.11 if compact else 0.22
-    camp_panel.anchor_right = 0.89 if compact else 0.78
+    camp_panel.anchor_left = 0.06 if compact else 0.22
+    camp_panel.anchor_right = 0.94 if compact else 0.78
+    camp_panel.anchor_top = 0.04 if compact else 0.06
+    camp_panel.anchor_bottom = 0.96 if compact else 0.94
+    menu_summary.custom_minimum_size.y = 95.0 if compact else 140.0
     camp_commands.columns = 2
+    for action in camp_commands.get_children():
+        if action is Button:
+            action.custom_minimum_size.y = 46.0 if compact else 56.0
     toast.anchor_top = 0.19 if compact else 0.175
     toast.anchor_bottom = 0.255 if compact else 0.235
     toast.add_theme_font_size_override("font_size",15 if compact else 18)

@@ -147,6 +147,14 @@ jobs:
             echo "CJK font import/glyph smoke failed; refusing to create unreadable iPhone package"
             exit 1
           }
+          # The earlier IPA passed font-byte checks yet ALL Chinese GUI text
+          # rendered as tofu squares. Inspect the fonts resolved by the actual
+          # in-game title, buttons and RichTextLabel before packaging.
+          "$GODOT_BIN" --headless --path . --script res://tools/smoke_cjk_actual_controls.gd 2>&1 | tee build/ios/actual-gui-font-smoke.log
+          grep -q "CJK REAL CONTROL SMOKE: ALL PASS" build/ios/actual-gui-font-smoke.log || {
+            echo "Real game UI still selects a font missing Chinese glyphs; IPA publishing blocked"
+            exit 1
+          }
           "$GODOT_BIN" --headless --path . --export-release "iOS" "build/ios/StarlitChronicle.xcodeproj" 2>&1 | tee build/ios/export.log
           test -s build/ios/StarlitChronicle.xcodeproj/project.pbxproj
           find build/ios -type f -name '*.pck' -size +1M -print | tee build/ios/pck-files.txt

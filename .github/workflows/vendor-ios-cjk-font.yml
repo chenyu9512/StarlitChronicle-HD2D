@@ -1,0 +1,65 @@
+name: "Main2 · Vendor OFL CJK Font for Offline iOS Rendering"
+
+# One-shot, source-controlled asset bootstrap. Later exports are offline and
+# never depend on a live download or proprietary iPhone system fonts.
+on:
+  push:
+    branches: ["Main2美术优化版"]
+    paths: [".github/workflows/vendor-ios-cjk-font.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: main2-vendor-cjk-font
+  cancel-in-progress: false
+
+jobs:
+  vendor-font:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: "Main2美术优化版"
+          persist-credentials: true
+          lfs: false
+      - name: Download original Noto Sans CJK SC under SIL OFL 1.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/fonts
+          if [ -s assets/fonts/NotoSansCJKsc-Regular.otf ]; then
+            echo "CJK font already tracked; leaving as is."
+            exit 0
+          fi
+          url="https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans"
+          curl -fL --retry 4 --connect-timeout 15 --max-time 300 \
+            "$url/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf" \
+            -o assets/fonts/NotoSansCJKsc-Regular.otf
+          curl -fL --retry 4 --connect-timeout 15 --max-time 60 \
+            "$url/LICENSE" -o assets/fonts/OFL-NotoSansCJK.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          font = Path("assets/fonts/NotoSansCJKsc-Regular.otf")
+          license_file = Path("assets/fonts/OFL-NotoSansCJK.txt")
+          assert font.stat().st_size > 10_000_000, "Original CJK OTF is incomplete"
+          assert font.read_bytes()[:4] == b"OTTO", "Invalid OpenType font"
+          assert "SIL OPEN FONT LICENSE" in license_file.read_text()
+          import hashlib
+          print("Bundled CJK original font SHA256:", hashlib.sha256(font.read_bytes()).hexdigest())
+          PY
+      - name: Commit once; never rewrite other branch history
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -s assets/fonts/NotoSansCJKsc-Regular.otf ] && ! git ls-files --error-unmatch assets/fonts/NotoSansCJKsc-Regular.otf >/dev/null 2>&1; then
+            git add assets/fonts/NotoSansCJKsc-Regular.otf assets/fonts/OFL-NotoSansCJK.txt
+            git -c user.name="github-actions[bot]" \
+                -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "fix(ios): vendor redistributable Noto Sans CJK glyphs for offline IPA"
+            git push origin HEAD:refs/heads/Main2美术优化版
+          else
+            echo "Source already contains bundled font"
+          fi

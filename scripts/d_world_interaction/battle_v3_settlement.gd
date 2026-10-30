@@ -73,10 +73,15 @@ static func settle_defeat(progress: Variant, transaction_id: String, chapter: in
         return {"ok":false,"applied":false,"reason":"invalid_battle_transaction"}
     if int(progress.get("chapter")) != chapter:
         return {"ok":false,"applied":false,"reason":"battle_context_mismatch"}
+    # Boss victory uses a stable ID; defeat must instead use the fresh
+    # per-attempt random ID, or future retries against one boss share a penalty.
+    if not transaction_id.begins_with("random:"):
+        return {"ok":false,"applied":false,"reason":"invalid_defeat_nonce"}
     var event_id: String = "defeat:" + transaction_id
     var intent: Dictionary = {"source":"battle_defeat","chapter":chapter,"boss":is_boss}
     var mutation: Callable = func() -> Dictionary:
-        progress.gold = maxi(0,int(progress.gold)-15)
+        var actual_loss: int = mini(15,maxi(0,int(progress.gold)))
+        progress.gold = int(progress.gold)-actual_loss
         progress.heal_all()
-        return {"ok":true,"lost_gold":15}
+        return {"ok":true,"lost_gold":actual_loss}
     return V3Ledger.settle(progress,event_id,intent,mutation)

@@ -119,6 +119,50 @@ func _run() -> void:
     check(bool(defeat.get("applied",false)) and fresh.gold==20 and fresh.heal_count==1,"Defeat not persisted")
     var repeat_loss: Dictionary = Settlement.settle_defeat(fresh,loss_id,3,false)
     check(bool(repeat_loss.get("repeated",false)) and fresh.gold==20,"Duplicate defeat penalty")
+
+    # Defeat rewards and penalties must match the gold actually lost (0..15).
+    # Fault injection uses isolated FakeProgress and never touches player saves.
+    for starting_gold in [0,7,15,30]:
+        var low := FakeProgress.new()
+        low.gold = starting_gold
+        var attempt_id: String = AReceipt.make_id(false,3)
+        var loss: Dictionary = Settlement.settle_defeat(low,attempt_id,3,false)
+        var expected_loss: int = mini(15,starting_gold)
+        var mutation: Dictionary = loss.get("mutation",{})
+        check(bool(loss.get("applied",false)) and low.gold == starting_gold-expected_loss and
+            int(mutation.get("lost_gold",-1)) == expected_loss and low.heal_count==1,
+            "Wrong real loss or healing for starting gold %d" % starting_gold)
+        check(low.on_disk.get("gold",-1)==low.gold,"Gold loss not saved for %d" % starting_gold)
+        var duplicate_loss: Dictionary = Settlement.settle_defeat(low,attempt_id,3,false)
+        check(bool(duplicate_loss.get("repeated",false)) and low.gold == starting_gold-expected_loss and low.heal_count==1,
+            "Duplicate loss or healing at %d" % starting_gold)
+
+    var blocked := FakeProgress.new()
+    blocked.chapter=5
+    var forged_boss_loss: Dictionary = Settlement.settle_defeat(
+        blocked,"boss:boss.ch005",5,true)
+    check(str(forged_boss_loss.get("reason",""))=="invalid_defeat_nonce" and blocked.gold==20,
+        "Stable boss nonce incorrectly accepted for a defeat")
+    var failed_defeat_id: String = AReceipt.make_id(false,5)
+    blocked.gold=9
+    var before_defeat: Dictionary = blocked._pack().duplicate(true)
+    blocked.fail_save=true
+    var failed_defeat: Dictionary = Settlement.settle_defeat(
+        blocked,failed_defeat_id,5,true)
+    check(str(failed_defeat.get("reason",""))=="save_failed" and blocked._pack()==before_defeat and blocked.on_disk.is_empty(),
+        "Failed boss defeat mutated progress or left a receipt")
+    blocked.fail_save=false
+    var first_boss_loss: Dictionary = Settlement.settle_defeat(
+        blocked,failed_defeat_id,5,true)
+    check(bool(first_boss_loss.get("applied",false)) and blocked.gold==0 and blocked.heal_count==1,
+        "Retry after failed boss save did not settle once")
+    # Same boss, new combat attempt: a separate defeat ID must remain valid.
+    blocked.gold=20
+    var next_attempt: String = AReceipt.make_id(false,5)
+    var next_boss_loss: Dictionary = Settlement.settle_defeat(
+        blocked,next_attempt,5,true)
+    check(bool(next_boss_loss.get("applied",false)) and blocked.gold==5 and blocked.heal_count==2,
+        "Fresh boss attempt did not incur its own defeat penalty")
     # Act-I Ch5/6 resolutions must share the same atomic save/receipt as
     # XP, money, boss victory and scene advance. A wrong result cannot pay.
     var beast := FakeProgress.new()

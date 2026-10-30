@@ -72,7 +72,7 @@ jobs:
           settings = root / "export_presets.cfg"
           preset = settings.read_text()
           assert 'export_filter="all_resources"' in preset
-          assert 'include_filter="*.json,*.csv,*.txt"' in preset.split("[preset.0.options]")[0]
+          assert 'include_filter="*.json,*.csv,*.txt,*.otf"' in preset.split("[preset.0.options]")[0]
           fields = {
               "IOS_TEAM_ID": ("application/app_store_team_id", r"[A-Za-z0-9]{10}"),
               "IOS_BUNDLE_ID": ("application/bundle_identifier", r"[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+"),
